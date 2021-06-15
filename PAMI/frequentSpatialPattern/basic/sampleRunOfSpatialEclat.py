@@ -1,4 +1,4 @@
-import SpatialEclat as alg
+from PAMI.frequentSpatialPattern.basic import SpatialEclat as alg
 
 SEclat = alg.SpatialEclat("input.txt", "neighbours.txt", 5)
 
