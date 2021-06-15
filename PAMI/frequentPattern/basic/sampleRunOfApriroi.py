@@ -1,5 +1,7 @@
 import Apriori as alg
 
+# from PAMI.frequentPattern.basic import Apriori as alg
+
 obj = alg.Apriori("sampleTDB.txt", "3")
 
 obj.startMine()
