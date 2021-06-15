@@ -20,3 +20,8 @@ Total available algorithms: 20
 4. Correlated spatial pattern mining: Correlated Spatial FP-growth
 5. Periodic frequent pattern mining: PFP-growth, PFP-growth++, PS-growth, PFP-ECLAT
 6. Partial periodic pattern mining: 3P-growth, 3P-ECLAT
+
+
+1. First list item
+   - First nested list item
+     - Second nested list item
