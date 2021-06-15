@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.partialPeriodicFrequentPatterns.abstract import *
+from PAMI.partialPeriodicFrequentPattern.abstract import *
 import sys
 
 periodicSupport = float()
