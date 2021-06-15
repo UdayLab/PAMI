@@ -1,5 +1,5 @@
 import sys
-from abstract import *
+from PAMI.uncertainCorrelatedPattern.abstract import *
 import pandas as pd
 class FFList:
     """

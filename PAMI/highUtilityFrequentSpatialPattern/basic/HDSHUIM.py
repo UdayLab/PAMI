@@ -1,6 +1,6 @@
 import sys
 import pandas as pd
-from abstractUtilityPatterns import *
+from PAMI.highUtilityFrequentSpatialPattern.abstractUtilityPatterns import *
 class Element:
     """
     A class represents an Element of a utility list as used by the HDSHUI algorithm.

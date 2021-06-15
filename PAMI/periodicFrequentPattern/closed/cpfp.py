@@ -1,6 +1,5 @@
-from sequential.binaryData.certainData.temporalData.periodicFrequentPatterns.basic.abstract import *
 import sys
-
+from  PAMI.periodicFrequentPattern.abstract import *
 
 class CPFPMiner(periodicFrequentPatterns):
     """ CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.

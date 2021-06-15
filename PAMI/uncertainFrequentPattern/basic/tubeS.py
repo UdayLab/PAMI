@@ -1,5 +1,6 @@
 import sys
-from sequential.binaryData.uncertainData.transactionalData.frequentPatterns.basic.abstract import *
+from  PAMI.uncertainFrequentPattern.abstract import *
+
 
 minSup = float()
 finalPatterns = {}

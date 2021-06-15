@@ -14,7 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from sequential.binaryData.uncertainData.temporalData.periodicFrequentPatterns.abstract import *
+from  PAMI.uncertainPeriodicFrequentPattern.abstract import *
+
 
 minSup = float()
 maxPer = float()

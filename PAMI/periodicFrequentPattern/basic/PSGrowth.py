@@ -15,7 +15,7 @@
 
 import sys
 from itertools import combinations
-from sequential.binaryData.certainData.temporalData.periodicFrequentPatterns.basic.abstract import *
+from  PAMI.periodicFrequentPattern.abstract import *
 
 pfList = []
 minSup = str()

@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from sequential.binaryData.certainData.temporalData.periodicFrequentPatterns.basic.abstract import *
+from  PAMI.periodicFrequentPattern.abstract import *
 
 
 class PFEclat(periodicFrequentPatterns):

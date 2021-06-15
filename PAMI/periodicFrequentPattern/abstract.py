@@ -25,19 +25,24 @@ import os.path
 import psutil
 
 
-class periodicPatterns(ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-    employ in PAMI
+class periodicFrequentPatterns(ABC):
+    """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
+        employ in PAMI
 
-        ...
-
-        Attributes
+        Attributes:
         ----------
         iFile : str
             Input file name or path of the input file
-        minSup: float
-            UserSpecified minimum support value. It has to be given in terms of count of total number of transactions
-            in the input database/file
+        minSup: int or float or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        maxPer: int or float or str
+            The user can specify maxPer either in count or proportion of database size.
+            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
         startTime:float
             To record the start time of the algorithm
         endTime:float
@@ -45,22 +50,22 @@ class periodicPatterns(ABC):
         finalPatterns: dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
-            Name of the output file to store complete set of frequent patterns
+            Name of the output file to store complete set of periodic-frequent patterns
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
+        Methods:
         -------
         startMine()
             Mining process will start from here
         getFrequentPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
+            Complete set of periodic-frequent patterns will be loaded in to a output file
         getPatternsInDataFrame()
-            Complete set of frequent patterns will be loaded in to data frame
+            Complete set of periodic-frequent patterns will be loaded in to data frame
         getMemoryUSS()
             Total amount of USS memory consumed by the program will be retrieved from this function
         getMemoryRSS()
@@ -73,14 +78,21 @@ class periodicPatterns(ABC):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param minSup: UserSpecified minimum support value. It has to be given in terms of count of total number of
-        transactions in the input database/file
-        :type minSup: float
+        :param minSup: The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        :type minSup: int or float or str
+        :param maxPer: The user can specify maxPer either in count or proportion of database size.
+            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        :type maxPer: int or float or str
         """
 
         self.iFile = iFile
         self.minSup = minSup
-        self.maxPer=maxPer
+        self.maxPer = maxPer
 
     @abstractmethod
     def iFile(self):
@@ -93,6 +105,8 @@ class periodicPatterns(ABC):
         """Variable to store the user-specified minimum support value"""
 
         pass
+
+    @abstractmethod
     def maxPer(self):
         """Variable to store the user specified maximum periodicity value"""
 
@@ -130,7 +144,7 @@ class periodicPatterns(ABC):
 
     @abstractmethod
     def oFile(self):
-        """Variable to store the name of the output file to store the complete set of frequent patterns"""
+        """Variable to store the name of the output file to store the complete set of periodic-frequent patterns"""
 
         pass
 
@@ -142,13 +156,13 @@ class periodicPatterns(ABC):
 
     @abstractmethod
     def getPeriodicFrequentPatterns(self):
-        """Complete set of frequent patterns generated will be retrieved from this function"""
+        """Complete set of periodic-frequent patterns generated will be retrieved from this function"""
 
         pass
 
     @abstractmethod
     def storePatternsInFile(self, oFile):
-        """Complete set of frequent patterns will be saved in to an output file from this function
+        """Complete set of periodic-frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
         :type oFile: file
@@ -158,7 +172,7 @@ class periodicPatterns(ABC):
 
     @abstractmethod
     def getPatternsInDataFrame(self):
-        """Complete set of frequent patterns will be loaded in to data frame from this function"""
+        """Complete set of periodic-frequent patterns will be loaded in to data frame from this function"""
 
         pass
 

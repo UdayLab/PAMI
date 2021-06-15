@@ -14,8 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from sequential.binaryData.uncertainData.transactionalData.frequentPatterns.basic.abstract import *
-
+from  PAMI.uncertainFrequentPattern.abstract import *
 minSup = float()
 finalPatterns = {}
 

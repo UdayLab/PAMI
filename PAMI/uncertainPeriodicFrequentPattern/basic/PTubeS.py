@@ -12,22 +12,9 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from sequential.binaryData.uncertainData.temporalData.periodicFrequentPatterns.abstract import *
+from  PAMI.uncertainPeriodicFrequentPattern.abstract import *
 
 minSup = float()
 maxPer = float()
@@ -39,17 +26,17 @@ periodic = {}
 
 class Item:
     """
-                A class used to represent the item with probability in transaction of dataset
+        A class used to represent the item with probability in transaction of dataset
 
-                ...
+        ...
 
-                Attributes
-                __________
-                item : int or word
-                    Represents the name of the item
-                probability : float
-                    Represent the existential probability(likelihood presence) of an item
-            """
+        Attributes
+        __________
+        item : int or word
+            Represents the name of the item
+        probability : float
+            Represent the existential probability(likelihood presence) of an item
+    """
 
     def __init__(self, item, probability):
         self.item = item
@@ -58,80 +45,109 @@ class Item:
 
 class Node(object):
     """
-            A class used to represent the node of frequentPatternTree
+        A class used to represent the node of frequentPatternTree
 
-                ...
+        Attributes
+        ----------
+        item : int
+            storing item name of a node
+        probability : int
+            To maintain the existence probability of node
+        secondProbability:
+            To maintain the second probability of a node
+        parent : node
+            To maintain the parent of every node
+        children : list
+            To maintain the children of node
+        timeStamps:
+            To maintain the timeStamps of a node
 
-                Attributes
-                ----------
-                item : int
-                    storing item of a node
-                probability : int
-                    To maintain the expected support of node
-                parent : node
-                    To maintain the parent of every node
-                children : list
-                    To maintain the children of node
+        Methods
+        -------
 
-                Methods
-                -------
-
-                addChild(itemName)
-                    storing the children to their respective parent nodes
-            """
+        addChild(itemName)
+            storing the children to their respective parent nodes
+    """
 
     def __init__(self, item, children):
         self.item = item
         self.probability = 1
         self.secondProbability = 1
-        self.p = 1
         self.children = children
         self.parent = None
-        self.TimeStamps = []
+        self.timeStamps = []
 
     def addChild(self, node):
         """
-            to add children details to parent node
-            :param node: children node
-            :return: update parent node children
+        To add the children details to the parent node
+        :param node: children node
+        :return: updated parent node children
         """
         self.children[node.item] = node
         node.parent = self
 
 
+def Second(transaction, i):
+    """
+    To find the secondProbability of a node in transaction by considering second max probability
+    of the prefix items.
+    :param transaction: transaction in a database with item and probability
+    :param i: index of the item to calculate secondProbability in a transaction
+    :return: secondProbability of a node
+    """
+    temp = []
+    for j in range(0, i):
+        temp.append(transaction[j].probability)
+    l1 = max(temp)
+    temp.remove(l1)
+    l2 = max(temp)
+    return l2
+
+
+def printTree(root):
+    """
+    To print the details of nodes in tree 
+    :param root: root node of tree
+    :return: details nodes in depth-first order
+    """
+    for x, y in root.children.items():
+        print(x, y.item, y.probability, y.parent.item, y.timeStamps, y.secondProbability)
+        printTree(y)
+
+
 class Tree(object):
     """
-                A class used to represent the frequentPatternGrowth tree structure
+        A class used to represent the frequentPatternGrowth tree structure
 
-                ...
+        ...
 
-                Attributes
-                ----------
-                root : Node
-                    Represents the root node of the tree
-                summaries : dictionary
-                    storing the nodes with same item name
-                info : dictionary
-                    stores the support of items
+        Attributes
+        ----------
+        root : Node
+            Represents the root node of the tree
+        summaries : dictionary
+            storing the nodes with same item name
+        info : dictionary
+            stores the support of items
 
 
-                Methods
-                -------
-                addTransaction(transaction)
-                    creating transaction as a branch in frequentPatternTree
-                addConditionnalTransaction(prefixPaths, supportOfItems)
-                    construct the conditional tree for prefix paths
-                conditionalPatterns(Node)
-                    generates the conditional patterns from tree for specific node
-                condtionaltrasnactions(prefixPaths,Support)
-                    takes the prefixPath of a node and support at child of the path and extract the frequent items from
-                    prefixPaths and generates prefixPaths with items which are frequent
-                remove(Node)
-                    removes the node from tree once after generating all the patterns respective to the node
-                generatePatterns(Node)
-                    starts from the root node of the tree and mines the frequent patterns
+        Methods
+        -------
+        addTransaction(transaction)
+            creating transaction as a branch in frequentPatternTree
+        addConditionalTransaction(prefixPaths, supportOfItems)
+            construct the conditional tree for prefix paths
+        getConditionalPatterns(Node)
+            generates the conditional patterns from tree for specific node
+        conditionalTransactions(prefixPaths,Support)
+            takes the prefixPath of a node and support at child of the path and extract the frequent items from
+            prefixPaths and generates prefixPaths with items which are frequent
+        removeNode(node)
+            removes the node from tree once after generating all the patterns respective to the node
+        generatePatterns(Node)
+            starts from the root node of the tree and mines the frequent patterns
 
-            """
+                """
 
     def __init__(self):
         self.root = Node(None, {})
@@ -141,11 +157,11 @@ class Tree(object):
     def addTransaction(self, transaction, tid):
         """adding transaction into tree
 
-                                :param transaction : it represents the one transactions in database
-                                :type transaction : list
-                                :param tid : the timestamp of transaction
-                                :type tid : list
-                                """
+            :param transaction : it represents the one transactions in database
+            :type transaction : list
+            :param tid : the timestamp of transaction
+            :type tid : list
+        """
         currentNode = self.root
         k = 0
         for i in range(len(transaction)):
@@ -153,7 +169,8 @@ class Tree(object):
             if transaction[i].item not in currentNode.children:
                 newNode = Node(transaction[i].item, {})
                 newNode.k = k
-                newNode.secondProbability = transaction[i].probability
+                if k >= 3:
+                    newNode.secondProbability = Second(transaction, i)
                 l1 = i - 1
                 temp = []
                 while l1 >= 0:
@@ -171,7 +188,8 @@ class Tree(object):
                 currentNode = newNode
             else:
                 currentNode = currentNode.children[transaction[i].item]
-                currentNode.secondProbability = max(transaction[i].probability, currentNode.secondProbability)
+                if k >= 3:
+                    currentNode.secondProbability = max(transaction[i].probability, currentNode.secondProbability)
                 currentNode.k = k
                 l1 = i - 1
                 temp = []
@@ -183,9 +201,9 @@ class Tree(object):
                 else:
                     nn = max(temp) * transaction[i].probability
                     currentNode.probability += round(nn, 2)
-        currentNode.TimeStamps = currentNode.TimeStamps + tid
+        currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def addConditionalPatterns(self, transaction, tid, sup):
+    def addConditionalTransaction(self, transaction, tid, sup, second):
         """constructing conditional tree from prefixPaths
 
                 :param transaction : it represents the one transactions in database
@@ -193,8 +211,10 @@ class Tree(object):
                 :param tid : timestamps of a pattern or transaction in tree
                 :param tid : list
                 :param sup : support of prefixPath taken at last child of the path
-                :type sup : int
-                                        """
+                :type sup : list
+                :param second: second probability of node stores max second probability
+                :type second float
+        """
         currentNode = self.root
         k = 0
         for i in range(len(transaction)):
@@ -202,6 +222,7 @@ class Tree(object):
             if transaction[i] not in currentNode.children:
                 newNode = Node(transaction[i], {})
                 newNode.k = k
+                newNode.secondProbability = second
                 newNode.probability = sup
                 currentNode.addChild(newNode)
                 if transaction[i] in self.summaries:
@@ -212,21 +233,24 @@ class Tree(object):
             else:
                 currentNode = currentNode.children[transaction[i]]
                 currentNode.k = k
+                currentNode.secondProbability = max(currentNode.secondProbability, second)
                 currentNode.probability += sup
-        currentNode.TimeStamps = currentNode.TimeStamps + tid
+        currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def conditionalPatterns(self, alpha):
+    def getConditionalPatterns(self, alpha):
         """generates all the conditional patterns of respective node
 
-                :param alpha : it represents the Node in tree
-                :type alpha : Node
-                                """
+                        :param alpha : it represents the Node in tree
+                        :type alpha : Node
+                                        """
         finalPatterns = []
-        finalSets = []
+        finalTimeStamps = []
         sup = []
+        second = []
         for i in self.summaries[alpha]:
-            set1 = i.TimeStamps
+            set1 = i.timeStamps
             s = i.probability
+            s1 = i.secondProbability
             set2 = []
             while i.parent.item is not None:
                 set2.append(i.parent.item)
@@ -234,100 +258,39 @@ class Tree(object):
             if len(set2) > 0:
                 set2.reverse()
                 finalPatterns.append(set2)
-                finalSets.append(set1)
+                finalTimeStamps.append(set1)
+                second.append(s1)
                 sup.append(s)
-        finalPatterns, finalSets, support, info = self.conditionalTransactions(finalPatterns, finalSets, sup)
-        return finalPatterns, finalSets, support, info
+        finalPatterns, finalTimeStamps, support, info = conditionalTransactions(finalPatterns, finalTimeStamps, sup)
+        return finalPatterns, finalTimeStamps, support, info, second
 
     def removeNode(self, nodeValue):
         """removing the node from tree
 
-                :param nodeValue : it represents the node in tree
-                :type nodeValue : node
-                               """
+                        :param nodeValue : it represents the node in tree
+                        :type nodeValue : node
+                                       """
         for i in self.summaries[nodeValue]:
-            i.parent.TimeStamps = i.parent.TimeStamps + i.TimeStamps
+            i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
             del i.parent.children[nodeValue]
 
-    def get_ts(self, alpha):
+    def getTimeStamps(self, alpha):
+        """
+        To get the timeStamps of a node in tree
+        :param alpha: node of a tree
+        :return: timeStamps of a node
+        """
         temp = []
         for i in self.summaries[alpha]:
-            temp += i.TimeStamps
+            temp += i.timeStamps
         return temp
-
-    def getPeriodAndSupport(self, support, TimeStamps):
-        """
-
-        Parameters
-        ----------
-        support
-        TimeStamps
-
-        Returns
-        -------
-        support and period
-
-        """
-        global maxPer
-        global lno
-        TimeStamps.sort()
-        cur = 0
-        per = 0
-        sup = support
-        for j in range(len(TimeStamps)):
-            per = max(per, TimeStamps[j] - cur)
-            if per > maxPer:
-                return [0, 0]
-            cur = TimeStamps[j]
-            # sup+=1
-        per = max(per, lno - cur)
-        return [sup, per]
-
-    def conditionalTransactions(self, conditionalPatterns, conditionalTimeStamps, support):
-        """ It generates the conditional patterns with frequent items
-
-            :param conditionalPatterns : conditional patterns generated from conditionalPatterns() method for respective node
-            :type conditionalPatterns : list
-            :param conditionalTimeStamps : timestamps of respective conditional timestamps
-            :type conditionalTimeStamps : list
-            :param support : the support of conditional pattern in tree
-            :type support : list
-            """
-        global minSup, maxPer, lno
-        pat = []
-        TimeStamps = []
-        sup = []
-        data1 = {}
-        count = {}
-        for i in range(len(conditionalPatterns)):
-            for j in conditionalPatterns[i]:
-                if j in data1:
-                    data1[j] = data1[j] + conditionalTimeStamps[i]
-                    count[j] += support[i]
-                else:
-                    data1[j] = conditionalTimeStamps[i]
-                    count[j] = support[i]
-        updatedDict = {}
-        for m in data1:
-            updatedDict[m] = self.getPeriodAndSupport(count[m], data1[m])
-        updatedDict = {k: v for k, v in updatedDict.items() if v[0] >= minSup and v[1] <= maxPer}
-        count = 0
-        for p in conditionalPatterns:
-            p1 = [v for v in p if v in updatedDict]
-            trans = sorted(p1, key=lambda x: (updatedDict.get(x)[0]), reverse=True)
-            if len(trans) > 0:
-                pat.append(trans)
-                TimeStamps.append(conditionalTimeStamps[count])
-                sup.append(support[count])
-            count += 1
-        return pat, TimeStamps, sup, updatedDict
 
     def generatePatterns(self, prefix):
         """generates the patterns
 
-                                :param prefix : forms the combination of items
-                                :type prefix : list
-                                """
+                                        :param prefix : forms the combination of items
+                                        :type prefix : list
+                                        """
         global periodic, minSup
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0])):
             pattern = prefix[:]
@@ -341,19 +304,80 @@ class Tree(object):
                     s += n
             periodic[tuple(pattern)] = self.info[i]
             if s >= minSup:
-                patterns, TimeStamps, support, info = self.conditionalPatterns(i)
+                patterns, timeStamps, support, info, second = self.getConditionalPatterns(i)
                 conditionalTree = Tree()
                 conditionalTree.info = info.copy()
                 for pat in range(len(patterns)):
-                    conditionalTree.addConditionalPatterns(patterns[pat], TimeStamps[pat], support[pat])
+                    conditionalTree.addConditionalTransaction(patterns[pat], timeStamps[pat], support[pat], second[pat])
                 if len(patterns) > 0:
                     conditionalTree.generatePatterns(pattern)
             self.removeNode(i)
 
 
-class PTubeP(periodicFrequentPatterns):
+def getPeriodAndSupport(s, timeStamps):
     """
-        Periodic-TubeP is  to discover periodic-frequent patterns in a temporal database.
+    To calculate the support and periodicity of timeStamps
+    :param s: support
+    :param timeStamps: timeStamps
+    :return: support and periodicity of timeStamps
+    """
+    global lno, maxPer
+    timeStamps.sort()
+    cur = 0
+    per = 0
+    sup = s
+    for j in range(len(timeStamps)):
+        per = max(per, timeStamps[j] - cur)
+        if per > maxPer:
+            return [0, 0]
+        cur = timeStamps[j]
+    per = max(per, lno - cur)
+    return [sup, per]
+
+
+def conditionalTransactions(conditionalPatterns, conditionalTimeStamps, support):
+    """ It generates the conditional patterns with frequent items
+
+        :param conditionalPatterns : conditional patterns generated from getConditionalPatterns method for respective node
+        :type conditionalPatterns : list
+        :param conditionalTimeStamps : timestamps of respective conditional timestamps
+        :type conditionalTimeStamps : list
+        :param support : the support of conditional pattern in tree
+        :type support : list
+    """
+    global minSup, maxPer
+    pat = []
+    timeStamps = []
+    sup = []
+    data1 = {}
+    count = {}
+    for i in range(len(conditionalPatterns)):
+        for j in conditionalPatterns[i]:
+            if j in data1:
+                data1[j] = data1[j] + conditionalTimeStamps[i]
+                count[j] += support[i]
+            else:
+                data1[j] = conditionalTimeStamps[i]
+                count[j] = support[i]
+    updatedDict = {}
+    for m in data1:
+        updatedDict[m] = getPeriodAndSupport(count[m], data1[m])
+    updatedDict = {k: v for k, v in updatedDict.items() if v[0] >= minSup and v[1] <= maxPer}
+    count = 0
+    for p in conditionalPatterns:
+        p1 = [v for v in p if v in updatedDict]
+        trans = sorted(p1, key=lambda x: (updatedDict.get(x)[0]), reverse=True)
+        if len(trans) > 0:
+            pat.append(trans)
+            timeStamps.append(conditionalTimeStamps[count])
+            sup.append(support[count])
+        count += 1
+    return pat, timeStamps, sup, updatedDict
+
+
+class PTubeS(periodicFrequentPatterns):
+    """
+        Periodic-TubeS is  to discover periodic-frequent patterns in a temporal database.
 
         Reference:
         --------
@@ -420,16 +444,17 @@ class PTubeP(periodicFrequentPatterns):
         -------
         Format:
         ------
-        python3 PTubeP.py <inputFile> <outputFile> <minSup> <maxPer>
+        python3 PTubeS.py <inputFile> <outputFile> <minSup> <maxPer>
         Examples:
         --------
-        python3 PTubeP.py sampleTDB.txt patterns.txt 0.3 4     (minSup and maxPer will be considered in support count or frequency)
+        python3 PTubeS.py sampleTDB.txt patterns.txt 0.3 4     (minSup and maxPer will be considered in support count or frequency)
+
         Sample run of importing the code:
         -------------------
 
-        import PTubeP as alg
+        import PTubeS as alg
 
-        obj = alg.PTubeP(iFile, minSup, maxPer)
+        obj = alg.PTubeS(iFile, minSup, maxPer)
 
         obj.startMine()
 
@@ -461,7 +486,9 @@ class PTubeP(periodicFrequentPatterns):
 
 
 
-            """
+    """
+
+    rank = {}
     startTime = float()
     endTime = float()
     minSup = float()
@@ -472,7 +499,6 @@ class PTubeP(periodicFrequentPatterns):
     memoryUSS = float()
     memoryRSS = float()
     Database = []
-    rank = {}
     lno = 0
 
     def creatingItemSets(self):
@@ -500,13 +526,13 @@ class PTubeP(periodicFrequentPatterns):
 
     def scanDatabase(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
-                            ranks to the items by decreasing support and returns the frequent items list
+            ranks to the items by decreasing support and returns the frequent items list
 
         """
         global first, last
         mapSupport = {}
         for i in self.Database:
-            n = int(i[0])
+            n = i[0]
             for j in i[1:]:
                 if j.item not in mapSupport:
                     mapSupport[j.item] = [round(j.probability, 2), abs(first - n), n]
@@ -524,13 +550,13 @@ class PTubeP(periodicFrequentPatterns):
 
     def buildTree(self, data, info):
         """it takes the transactions and support of each item and construct the main tree with setting root
-                            node as null
+                                    node as null
 
-                                :param data : it represents the one transactions in database
-                                :type data : list
-                                :param info : it represents the support of each item
-                                :type info : dictionary
-                                """
+                :param data : it represents the one transactions in database
+                :type data : list
+                :param info : it represents the support of each item
+                :type info : dictionary
+            """
         rootNode = Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
@@ -543,28 +569,28 @@ class PTubeP(periodicFrequentPatterns):
 
                 :param dict1 : frequent items with support
                 :type dict1 : dictionary
-                """
+        """
         list1 = []
         for tr in self.Database:
             list2 = [int(tr[0])]
             for i in range(1, len(tr)):
                 if tr[i].item in dict1:
                     list2.append(tr[i])
-            if len(list2) >= 2:
+            if (len(list2) >= 2):
                 basket = list2[1:]
                 basket.sort(key=lambda val: self.rank[val.item])
                 list2[1:] = basket[0:]
                 list1.append(list2)
         return list1
 
-    def Check(self, i, x):
+    def check(self, i, x):
         """To check the presence of item or pattern in transaction
 
-                                :param x: it represents the pattern
-                                :type x : list
-                                :param i : represents the uncertain transactions
-                                :type i : list
-                                """
+                    :param x: it represents the pattern
+                    :type x : list
+                    :param i : represents the uncertain transactions
+                    :type i : list
+        """
         for m in x:
             k = 0
             for n in i:
@@ -604,7 +630,7 @@ class PTubeP(periodicFrequentPatterns):
                     periods[x] = y[0]
                 else:
                     s = 1
-                    check = self.Check(i[1:], x)
+                    check = self.check(i[1:], x)
                     if check == 1:
                         for j in i[1:]:
                             if j.item in x:
@@ -619,23 +645,23 @@ class PTubeP(periodicFrequentPatterns):
 
     def startMine(self):
         """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
-                           by counting the original support of a patterns
+                                   by counting the original support of a patterns
 
 
-               """
-        global minSup, maxPer, first, last, lno
+                       """
+        global lno, first, last, minSup, maxPer
         self.startTime = time.time()
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
-        minSup, maxPer, lno = self.minSup, self.maxPer, len(self.Database)
+        minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
         mapSupport, plist = self.scanDatabase()
         updatedTrans = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
-        root = self.buildTree(updatedTrans, info)
-        root.generatePatterns([])
+        Tree = self.buildTree(updatedTrans, info)
+        Tree.generatePatterns([])
         self.removeFalsePositives()
-        print("Periodic Frequent patterns were generated successfully using Periodic-TubeP algorithm")
+        print("periodic Frequent patterns were generated successfully using Periodic-TubeS algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -706,7 +732,7 @@ class PTubeP(periodicFrequentPatterns):
 
 if __name__ == "__main__":
     if len(sys.argv) is 5:
-        ap = PTubeP(sys.argv[1], sys.argv[3], sys.argv[5])
+        ap = PTubeS(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         frequentPatterns = ap.getPeriodicFrequentPatterns()
         print("Total number of Frequent Patterns:", len(frequentPatterns))
@@ -716,6 +742,5 @@ if __name__ == "__main__":
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
