@@ -1,0 +1,19 @@
+a :5 
+d :5 
+e :2 
+b :5 
+f :2 
+g :4 
+c :2 
+a d :3 
+a b :3 
+a f :2 
+a g :2 
+d e :2 
+b d :3 
+d g :3 
+b f :2 
+b g :3 
+b c :2 
+a f b :2 
+b d g :2 
