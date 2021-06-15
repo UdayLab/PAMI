@@ -15,8 +15,7 @@
 #  Copyright (C)  2021 Rage Uday Kiran
 
 import sys
-from sequential.binaryData.certainData.transactionalData.frequentPattern.abstract import *
-
+from PAMI.frequentPattern.abstract import *
 
 class Eclatbitset(frequentPatterns):
     """     Eclat is one of the fundamental algorithm to discover frequent patterns in a transactional database.

@@ -14,7 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from sequential.binaryData.certainData.transactionalData.frequentPattern.abstract import *
+from PAMI.frequentPattern.abstract import *
+
 
 pfList = []
 patterns = {}

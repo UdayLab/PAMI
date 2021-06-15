@@ -15,7 +15,7 @@
 # from abstract import *
 
 import sys
-from sequential.binaryData.certainData.transactionalData.frequentPattern.abstract import *
+from PAMI.frequentPattern.abstract import *
 
 
 class Eclat(frequentPatterns):

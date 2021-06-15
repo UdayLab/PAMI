@@ -8,7 +8,7 @@ frequentPatterns = obj.getFrequentPatterns()
 
 print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-obj.storePatternsInFile("output")
+obj.storePatternsInFile("output.txt")
 
 Df = obj.getPatternsInDF()
 

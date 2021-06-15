@@ -1,6 +1,9 @@
 import sys
+
 import pandas as pd
-from abstract import *
+
+from PAMI.correlatedPattern.abstract import *
+
 class Node:
     """
     A class used to represent the node of frequentPatternTree

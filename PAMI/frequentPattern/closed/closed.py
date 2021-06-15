@@ -15,8 +15,7 @@
 
 
 import sys
-from sequential.binaryData.certainData.transactionalData.frequentPattern.abstract import *
-
+from PAMI.frequentPattern.abstract import *
 
 class Closed(frequentPatterns):
     """ charm is one of the fundamental algorithm to discover closed frequent patterns in a transactional database.
