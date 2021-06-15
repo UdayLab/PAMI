@@ -7,17 +7,24 @@ PAMI constitutes of several pattern mining algorithms to discovers interesting p
 # Details 
 Total available algorithms: 20
 
-Frequent pattern mining: Apriori, FP-growth, ECLAT, maxFP-growth, and closed
+1. Frequent pattern mining: 
+      -Apriori
+      -FP-growth
+      -ECLAT
+      -maxFP-growth and 
+      -closed
 
-Frequent spatial pattern mining: Spatial ECLAT, Spatial FP-growth
+2. Frequent spatial pattern mining: 
+      -Spatial ECLAT
+      -Spatial FP-growth
 
-Correlated pattern mining: CFP-growth and CFP-growth++
+3. Correlated pattern mining: CFP-growth and CFP-growth++
 
-Correlated spatial pattern mining: Correlated Spatial FP-growth
+4. Correlated spatial pattern mining: Correlated Spatial FP-growth
 
-Periodic frequent pattern mining: PFP-growth, PFP-growth++, PS-growth, PFP-ECLAT
+5. Periodic frequent pattern mining: PFP-growth, PFP-growth++, PS-growth, PFP-ECLAT
 
-Partial periodic pattern mining: 3P-growth, 3P-ECLAT
+6. Partial periodic pattern mining: 3P-growth, 3P-ECLAT
 
 
 
