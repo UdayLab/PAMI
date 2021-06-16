@@ -137,7 +137,7 @@ class SpatialEclat(frequentPatterns):
                     lineNumber += 1
                     # delimiter = self.findDelimiter([*line])
                     # li=[lineNumber]
-                    li = line.split("   ")
+                    li = line.split("\t")
                     li1 = [i.rstrip() for i in li]
                     self.Database.append([i.rstrip() for i in li1])
                     # else:
@@ -145,7 +145,7 @@ class SpatialEclat(frequentPatterns):
                     # data.append([lineNumber,li1])
                 else:
                     lineNumber += 1
-                    li = line.split("   ")
+                    li = line.split("\t")
                     # if delimiter==',':
                     li1 = [i.rstrip() for i in li]
                     self.Database.append(li1)
@@ -284,7 +284,7 @@ class SpatialEclat(frequentPatterns):
         """
         with open(name, 'r', encoding='utf-8') as f:
             for line in f:
-                li = line.split()
+                li = line.split("\t")
                 item = li[0]
                 nibs = li[1:]
                 self.NighboursMap[item] = nibs
