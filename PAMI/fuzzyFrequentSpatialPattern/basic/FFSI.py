@@ -268,6 +268,7 @@ class FFSI(frequentPatterns):
         self.startTime = time.time()
         with open(self.nFile, 'r') as file1:
             for line in file1:
+                line=line.split("\n")[0]
                 parts = line.split("	")
                 item = parts[0]
                 neigh1 = []
@@ -276,6 +277,7 @@ class FFSI(frequentPatterns):
                 self.mapItemNighbours[item] = neigh1
         with open(self.iFile, 'r') as file:
             for line in file:
+                line=line.split("\n")[0]
                 parts = line.split(":")
                 items = parts[0].split("	")
                 quanaities = parts[1].split("	")
@@ -502,7 +504,7 @@ class FFSI(frequentPatterns):
         for i in range(0, prefixLen):
             res += str(prefix[i]) + "." + str(self.mapItemRegions[prefix[i]]) + " "
         res += str(item) + "." + str(self.mapItemRegions.get(item))
-        res1 = str(sumIutil) + "\n"
+        res1 = str(sumIutil)
         self.finalPatterns[res] = res1
 
     # self.bwriter.write(res)
