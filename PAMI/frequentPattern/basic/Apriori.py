@@ -90,7 +90,7 @@ class Apriori(frequentPatterns):
 
         Sample run of the importing code:
         -----------
-        import Apriori as alg
+        import PAMI.frequentPattern.basic.Apriori as alg
 
         obj = alg.Apriori(iFile, minSup)
 
