@@ -1,0 +1,10 @@
+1	a	b	c	g
+2	b	c	d	e
+3	a	b	c	d
+4	a	c	d	f
+5	a	c	d	f
+6	c	d	e	f
+7	a	b	c	d
+8	a	e	f
+9	a	b	c	d
+10	b	c	d	e
