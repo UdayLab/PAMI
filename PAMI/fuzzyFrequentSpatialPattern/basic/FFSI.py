@@ -269,7 +269,7 @@ class FFSI(frequentPatterns):
         with open(self.nFile, 'r') as file1:
             for line in file1:
                 line=line.split("\n")[0]
-                parts = line.split("	")
+                parts = line.split("\t")
                 item = parts[0]
                 neigh1 = []
                 for i in range(1, len(parts)):
@@ -279,8 +279,8 @@ class FFSI(frequentPatterns):
             for line in file:
                 line=line.split("\n")[0]
                 parts = line.split(":")
-                items = parts[0].split("	")
-                quanaities = parts[1].split("	")
+                items = parts[0].split("\t")
+                quanaities = parts[1].split("\t")
                 self.dbLen += 1
                 for i in range(0, len(items)):
                     regions = Reagions(int(quanaities[i]), 3)
@@ -330,9 +330,10 @@ class FFSI(frequentPatterns):
         tid = 0
         with open(self.iFile, 'r') as file:
             for line in file:
+                line=line.split("\n")[0]
                 parts = line.split(":")
-                items = parts[0].split("	")
-                quanaities = parts[1].split("	")
+                items = parts[0].split("\t")
+                quanaities = parts[1].split("\t")
                 revisedTransaction = []
                 for i in range(0, len(items)):
                     pair = Pair()
