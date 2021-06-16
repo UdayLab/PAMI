@@ -87,7 +87,7 @@ class Eclatbitset(frequentPatterns):
 
         Sample run of the importing code:
         -----------
-        import eclatbitset as alg
+        import PAMI.frequentPattern.basic.eclatbitset as alg
 
         obj = alg.Eclatbitset(iFile, minSup)
 
