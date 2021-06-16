@@ -93,7 +93,7 @@ class Eclat(frequentPatterns):
 
         Sample run of the importing code:
         -----------
-        import eclat as alg
+        import PAMI.frequentPattern.basic.eclat as alg
 
         obj = alg.Eclat(iFile, minSup)
 
