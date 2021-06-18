@@ -29,3 +29,5 @@ Total available algorithms: 20
 6. Partial periodic pattern mining
    - 3P-growth
    - 3P-ECLAT
+7. High Utility Itemset Mining (HUIM)
+   - EFIM
