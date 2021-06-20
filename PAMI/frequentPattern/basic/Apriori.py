@@ -102,7 +102,7 @@ class Apriori(frequentPatterns):
 
         obj.storePatternsInFile(oFile)
 
-        Df = obj.getPatternInDf()
+        Df = obj.getPatternInDataFrame()
 
         memUSS = obj.getMemoryUSS()
 
