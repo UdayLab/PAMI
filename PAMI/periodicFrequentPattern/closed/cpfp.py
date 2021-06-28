@@ -242,7 +242,10 @@ class CPFPMiner(periodicFrequentPatterns):
             hashcode = self.calculate(tidSetX)
             if self.contains(prefix, val, hashcode) is False:
                 self.itemSetCount += 1
-                self.finalPatterns[tuple(prefix)] = val
+                sample = str()
+                for i in prefix:
+                    sample = sample + i + " "
+                self.finalPatterns[sample] = val
             if hashcode not in self.hashing:
                 self.hashing[hashcode] = {tuple(prefix): val}
             else:
@@ -394,8 +397,8 @@ class CPFPMiner(periodicFrequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a, b[0], b[1]])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity])
         return dataFrame
 
     def storePatternsInFile(self, outFile):
@@ -407,10 +410,7 @@ class CPFPMiner(periodicFrequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            s1 = str(pattern) + ":" + str(y[0]) + ":" + str(y[1])
+            s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
     def getPeriodicFrequentPatterns(self):
