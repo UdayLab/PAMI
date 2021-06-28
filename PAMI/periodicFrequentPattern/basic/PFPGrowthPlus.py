@@ -550,8 +550,8 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         dataframe = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, b])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a, b[0], b[1]])
+            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
     def storePatternsInFile(self, outFile):
