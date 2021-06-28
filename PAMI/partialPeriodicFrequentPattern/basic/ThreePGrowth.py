@@ -298,7 +298,7 @@ class ThreePGrowth(partialPeriodicPatterns):
         
         Sample run of the importing code:
         -----------
-        import ThreePGrowth as alg
+        from PAMI.periodicFrequentPattern.basic import ThreePGrowth as alg
 
         obj = alg.ThreePGrowth(iFile, periodicSupport, period)
 
