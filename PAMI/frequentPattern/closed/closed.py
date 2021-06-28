@@ -247,8 +247,11 @@ class Closed(frequentPatterns):
         if val >= self.minSup:
             hashcode = self.calculate(tidSetx)
             if self.contains(prefix, val, hashcode) is False:
+                sample = str()
+                for i in prefix:
+                    sample = sample + i + " "
                 self.itemSetCount += 1
-                self.finalPatterns[tuple(prefix)] = val
+                self.finalPatterns[sample] = val
             if hashcode not in self.hashing:
                 self.hashing[hashcode] = {tuple(prefix): val}
             else:
@@ -415,10 +418,7 @@ class Closed(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            s1 = str(pattern) + ":" + str(y)
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getFrequentPatterns(self):
