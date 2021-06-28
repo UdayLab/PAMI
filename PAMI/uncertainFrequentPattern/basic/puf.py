@@ -343,7 +343,7 @@ class Pufgrowth(frequentPatterns):
         Sample run of importing the code:
         -------------------
 
-        import puf as alg
+        from PAMI.uncertainFrequentPattern.basic import puf as alg
 
         obj = alg.Pufgrowth(iFile, minSup)
 
@@ -525,7 +525,10 @@ class Pufgrowth(frequentPatterns):
                             periods[x] = s
         for x, y in periods.items():
             if y >= self.minSup:
-                self.finalPatterns[tuple(x)] = y
+                sample = str()
+                for i in x:
+                    sample = sample + i + " "
+                self.finalPatterns[sample] = y
 
     def startMine(self):
         """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
@@ -601,7 +604,7 @@ class Pufgrowth(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            s1 = str(x) + ":" + str(y)
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getFrequentPatterns(self):
