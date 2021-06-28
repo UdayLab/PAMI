@@ -741,7 +741,10 @@ class PSGrowth(periodicFrequentPatterns):
         Tree = self.buildTree(info, OneLengthPeriodicItems)
         patterns = Tree.generatePatterns([])
         for i in patterns:
-            self.finalPatterns[tuple(i[0])] = i[1]
+            sample = str()
+            for k in i[0]:
+                sample = sample + k + " "
+            self.finalPatterns[sample] = i[1]
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -786,8 +789,8 @@ class PSGrowth(periodicFrequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a, b[0], b[1]])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def storePatternsInFile(self, outFile):
@@ -799,10 +802,7 @@ class PSGrowth(periodicFrequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            s1 = str(pattern) + ":" + str(y[0]) + ":" + str(y[1])
+            s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
     def getPeriodicFrequentPatterns(self):
