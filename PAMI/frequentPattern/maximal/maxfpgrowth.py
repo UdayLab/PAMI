@@ -604,7 +604,11 @@ class Maxfpgrowth(frequentPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedTransactions, info)
         Tree.generatePatterns([])
-        self.finalPatterns = patterns
+        for x, y in patterns.items():
+            pattern = str()
+            for i in x:
+                pattern = pattern + i + " "
+            self.finalPatterns[pattern] = y
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -662,10 +666,7 @@ class Maxfpgrowth(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            s1 = str(pattern) + ":" + str(y)
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getFrequentPatterns(self):
