@@ -444,7 +444,7 @@ class Maxfpgrowth(frequentPatterns):
 
     Sample run of the imported code:
     --------------
-    import maxfpgrowth as alg
+    from PAMI.frequentPattern.maximal import maxfpgrowth as alg
 
     obj = alg.Maxfpgrowth("../basic/sampleTDB.txt", "2")
 
