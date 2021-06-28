@@ -1,5 +1,5 @@
 
-import PSGrowth as Ap
+from PAMI.periodicFrequentPattern.basic import PSGrowth as Ap
 
 apri = Ap.PSGrowth("sampleTDB.txt", "2", "4")
 
