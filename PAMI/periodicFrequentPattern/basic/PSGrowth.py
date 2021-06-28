@@ -602,7 +602,7 @@ class PSGrowth(periodicFrequentPatterns):
         
         Sample run of the imported code:
         --------------
-        import PSGrowth as alg
+        from PAMI.periodicFrequentPattern.basic import PSGrowth as alg
 
         obj = alg.PSGrowth("../basic/sampleTDB.txt", "2", "6")
 
