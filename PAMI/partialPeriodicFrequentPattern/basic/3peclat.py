@@ -90,7 +90,7 @@ class ThreePEclat(partialPeriodicPatterns):
         Sample run of importing the code:
         -------------------
          
-        import 3peclat as alg
+        from PAMI.periodicFrequentPattern.basic import 3peclat as alg
 
         obj = alg.ThreePEclat(iFile, periodicSupport,period)
 
