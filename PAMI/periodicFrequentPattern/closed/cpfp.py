@@ -65,7 +65,7 @@ class CPFPMiner(periodicFrequentPatterns):
         
         Sample run of the imported code:
         --------------
-        import cpfp as alg
+        from PAMI.periodicFrequentPattern.basic import cpfp as alg
 
         obj = alg.CPFPMiner("../basic/sampleTDB.txt", "2", "6")
 
