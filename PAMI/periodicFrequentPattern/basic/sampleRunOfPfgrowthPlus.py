@@ -1,24 +1,24 @@
-import PFPGrowthPlus as Ap
+from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
 
-apri = Ap.Pfpgrowthplus("sampleTDB.txt", "2", "4")
-apri.startMine()
+obj = alg.Pfpgrowthplus("sampleTDB.txt", "2", "4")
+obj.startMine()
 
-frequentPatterns = apri.getPeriodicFrequentPatterns()
+frequentPatterns = obj.getPeriodicFrequentPatterns()
 
 print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-apri.storePatternsInFile("patterns")
+obj.storePatternsInFile("patterns")
 
 # Df = apri.getPatternInDf()
 
-memUSS = apri.getMemoryUSS()
+memUSS = obj.getMemoryUSS()
 
 print("Total Memory in USS:", memUSS)
 
-memRSS = apri.getMemoryRSS()
+memRSS = obj.getMemoryRSS()
 
 print("Total Memory in RSS", memRSS)
 
-run = apri.getRuntime()
+run = obj.getRuntime()
 
 print("Total ExecutionTime in seconds:", run)
