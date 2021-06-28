@@ -345,7 +345,7 @@ class PFPGrowth(periodicFrequentPatterns):
 
         Sample run of importing the code:
         -------------------
-        import PFPGrowth as alg
+        from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg
 
         obj = alg.PFPGrowth(iFile, minSup, maxPer)
 
