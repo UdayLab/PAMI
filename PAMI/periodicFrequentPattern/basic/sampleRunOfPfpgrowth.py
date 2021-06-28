@@ -1,4 +1,4 @@
-import PFPGrowth as alg
+from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg
 
 obj = alg.PFPGrowth("sampleTDB.txt", "2", "4")
 
