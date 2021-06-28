@@ -424,9 +424,9 @@ class ThreePGrowth(partialPeriodicPatterns):
         :param itemset: partial periodic pattern
         :return: pattern with original item name
         """
-        temp = []
+        temp = str()
         for i in itemset:
-            temp.append(self.rankdup[i])
+            temp = temp + self.rankdup[i] + " "
         return temp
 
     def convert(self, value):
@@ -519,8 +519,8 @@ class ThreePGrowth(partialPeriodicPatterns):
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a, b[0], b[1]])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def storePatternsInFile(self, outFile):
@@ -532,10 +532,7 @@ class ThreePGrowth(partialPeriodicPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            s1 = str(pattern) + ":" + str(y)
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPartialPeriodicPatterns(self):
