@@ -97,7 +97,7 @@ class Closed(frequentPatterns):
         Sample run of the importing code:
         --------------
 
-        import closed as alg
+        from PAMI.frequentPattern.basic import closed as alg
 
         obj = alg.Closed(iFile, minSup)
 
