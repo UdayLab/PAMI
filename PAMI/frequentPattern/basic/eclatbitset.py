@@ -206,7 +206,10 @@ class Eclatbitset(frequentPatterns):
         else:
             prefix = prefix + suffix
         count = self.countSupport(tidSetX)
-        self.finalPatterns[tuple(prefix)] = count
+        sample = str()
+        for i in prefix:
+            sample = sample + i + " "
+        self.finalPatterns[sample] = count
 
     def generationOfAll(self, prefix, itemSets, tidSets):
         """It will generate the combinations of frequent items with prefix and  list of items
@@ -329,10 +332,7 @@ class Eclatbitset(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            patternsAndSupport = str(pattern) + ":" + str(y)
+            patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
     def getFrequentPatterns(self):
