@@ -285,7 +285,7 @@ class fpGrowth(frequentPatterns):
 
         Sample run of the importing code:
         -----------
-        import fpGrowth as alg
+        from PAMI.frequentPattern.basic import fpGrowth as alg
 
         obj = alg.fpGrowth(iFile, minSup)
 
