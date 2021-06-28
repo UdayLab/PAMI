@@ -319,7 +319,7 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         
         Sample run of the imported code:
         --------------
-        import PFPGorwthPlus as alg
+        from PAMI.periodicFrequentPattern.basic import PFPGorwthPlus as alg
 
         obj = alg.PFPGrowthPlus("../basic/sampleTDB.txt", "2", "6")
 
