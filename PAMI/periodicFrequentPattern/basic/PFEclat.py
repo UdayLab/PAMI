@@ -97,7 +97,7 @@ class PFEclat(periodicFrequentPatterns):
         
         Sample run of the imported code:
         --------------
-        import PFEclat as alg
+        from PAMI.periodicFrequentPattern.basic import PFEclat as alg
 
         obj = alg.PFEclat("../basic/sampleTDB.txt", "2", "5")
 
