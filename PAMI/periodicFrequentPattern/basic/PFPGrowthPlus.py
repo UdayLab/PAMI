@@ -458,9 +458,9 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         :param itemSet: periodic-frequent pattern
         :return: original itemSet
         """
-        t1 = []
+        t1 = str()
         for i in itemSet:
-            t1.append(self.rankedUp[i])
+            t1 = t1 + self.rankedUp[i] + " "
         return t1
 
     def convert(self, value):
@@ -505,7 +505,7 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         Tree = self.buildTree(updatedTransactions, info)
         patterns = Tree.generatePatterns([])
         for i in patterns:
-            self.finalPatterns[str(i[0])] = i[1]
+            self.finalPatterns[i[0]] = i[1]
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
