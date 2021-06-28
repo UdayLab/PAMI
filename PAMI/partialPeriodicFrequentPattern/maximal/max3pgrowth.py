@@ -573,9 +573,9 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         :param itemSet: frequent pattern
         :return: frequent pattern with original item names
         """
-        t1 = []
+        t1 = str()
         for i in itemSet:
-            t1.append(self.rankedUp[i])
+            t1 = t1 + self.rankedUp[i] + " "
         return t1
 
     def convert(self, value):
@@ -621,7 +621,8 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         Tree = self.buildTree(updatedDatabases, info)
         Tree.generatePatterns([])
         for x, y in patterns.items():
-            self.finalPatterns[tuple(x)] = y
+            x = self.savePeriodic(x)
+            self.finalPatterns[x] = y
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -666,8 +667,8 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a, b[0], b[1]])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def storePatternsInFile(self, outFile):
@@ -679,11 +680,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            x = self.savePeriodic(x)
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            s1 = str(pattern) + ":" + str(y[0]) + ":" + str(y[1])
+            s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
     def getPartialPeriodicPatterns(self):
