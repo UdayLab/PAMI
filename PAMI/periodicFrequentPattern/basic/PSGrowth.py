@@ -680,7 +680,7 @@ class PSGrowth(periodicFrequentPatterns):
         with open(self.iFile, 'r') as f:
             for line in f:
                 self.lno += 1
-                tr = line.split("\t")
+                tr = [i.rstrip() for i in line.split("\t")]
                 for i in range(1, len(tr)):
                     if tr[i] not in data:
                         data[tr[i]] = [int(tr[0]), int(tr[0]), 1]
@@ -714,7 +714,7 @@ class PSGrowth(periodicFrequentPatterns):
         with open(self.iFile, 'r') as f:
             for line in f:
                 k += 1
-                tr = line.split("\t")
+                tr = [i.rstrip() for i in line.split("\t")]
                 list2 = [int(tr[0])]
                 for i in range(1, len(tr)):
                     if tr[i] in sampleDict:
