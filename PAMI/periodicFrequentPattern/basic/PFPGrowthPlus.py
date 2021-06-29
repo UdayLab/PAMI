@@ -505,7 +505,10 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         Tree = self.buildTree(updatedTransactions, info)
         patterns = Tree.generatePatterns([])
         for i in patterns:
-            self.finalPatterns[i[0]] = i[1]
+            sample = str()
+            for k in i[0]:
+                sample = sample + k + " "
+            self.finalPatterns[sample] = i[1]
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
