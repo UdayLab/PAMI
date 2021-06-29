@@ -616,7 +616,7 @@ class PTubeP(periodicFrequentPatterns):
         for x, y in periods.items():
             if y >= minSup:
                 sample = str()
-                for i in prefix:
+                for i in x:
                     sample = sample + i + " "
                 self.finalPatterns[sample] = y
 
