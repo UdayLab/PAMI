@@ -398,7 +398,7 @@ class CPFPMiner(periodicFrequentPatterns):
         data = []
         for a, b in self.finalPatterns.items():
             data.append([a, b[0], b[1]])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def storePatternsInFile(self, outFile):
