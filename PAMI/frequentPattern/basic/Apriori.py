@@ -192,7 +192,7 @@ class Apriori(frequentPatterns):
         self.startTime = time.time()
         try:
             with open(self.iFile, 'r') as f:
-                self.Database = [set([i.rstrip() for i in line.split("\t")]) for line in f]
+                self.Database = [set([i.rstrip() for i in line.split()]) for line in f]
                 f.close()
         except IOError:
             print("File Not Found")
@@ -203,7 +203,11 @@ class Apriori(frequentPatterns):
         self.minSup = self.convert(self.minSup)
         for i in range(1, itemsCount):
             frequentSet = self.candidateToFrequent(items)
-            self.finalPatterns.update(frequentSet)
+            for x,y in frequentSet.items():
+                sample = str()
+                for k in x:
+                    sample = sample + k + " "
+                self.finalPatterns[sample] = y
             items = self.frequentToCandidate(frequentSet, i + 1)
             if len(items) == 0:
                 break  # finish apriori
@@ -263,10 +267,7 @@ class Apriori(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            s1 = str(pattern) + ":" + str(y)
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getFrequentPatterns(self):
