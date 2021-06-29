@@ -505,8 +505,9 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         Tree = self.buildTree(updatedTransactions, info)
         patterns = Tree.generatePatterns([])
         for i in patterns:
+            x = self.savePeriodic(i[0])
             sample = str()
-            for k in i[0]:
+            for k in x:
                 sample = sample + k + " "
             self.finalPatterns[sample] = i[1]
         self.endTime = time.time()
