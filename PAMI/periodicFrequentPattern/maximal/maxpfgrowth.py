@@ -621,7 +621,6 @@ class Maxpfgrowth(periodicFrequentPatterns):
         Tree = self.buildTree(updatedDatabases, info)
         Tree.generatePatterns([])
         for x,y in patterns.items():
-            x = self.savePeriodic(x)
             sample = str()
             for i in x:
                 sample = sample + i + " "
