@@ -18,7 +18,7 @@ import sys
 from PAMI.frequentPattern.abstract import *
 
 class Eclatbitset(frequentPatterns):
-    """     Eclat is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+    """     EclatBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
             This program employs downward closure property to  reduce the search space effectively.
             This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
             transactional database.
@@ -76,12 +76,11 @@ class Eclatbitset(frequentPatterns):
             ----------
             Format:
             ------
-            python3 eclat.py <inputFile> <outputFile> <minSup>
+            python3 eclatbitset.py <inputFile> <outputFile> <minSup>
 
             Examples:
             --------
             python3 eclatbitset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
-
 
             python3 eclatbitset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
