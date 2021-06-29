@@ -256,12 +256,18 @@ class Eclat(frequentPatterns):
         frequentSet = self.generateFrequentPatterns(self.finalPatterns)
         for x, y in frequentSet.items():
             if x not in self.finalPatterns:
-                self.finalPatterns[x] = y
+                sample = str()
+                for k in x:
+                    sample = sample + k + " "
+                self.finalPatterns[sample] = y
         while 1:
             frequentSet = self.eclatGeneration(frequentSet)
             for x, y in frequentSet.items():
                 if x not in self.finalPatterns:
-                    self.finalPatterns[x] = y
+                    sample = str()
+                    for k in x:
+                        sample = sample + k + " "
+                    self.finalPatterns[sample] = y
             if len(frequentSet) == 0:
                 break
         # print("Frequent patterns were generated successfully using Eclat algorithm")
@@ -308,7 +314,7 @@ class Eclat(frequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, b])
+            data.append([a, len(b)])
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
@@ -321,10 +327,7 @@ class Eclat(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            patternsAndSupport = str(pattern) + ":" + str(len(y))
+            patternsAndSupport = x + ":" + str(len(y))
             writer.write("%s \n" % patternsAndSupport)
 
     def getFrequentPatterns(self):
@@ -351,6 +354,4 @@ if __name__ == "__main__":
         print("Total ExecutionTime in seconds:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-
-
+        
