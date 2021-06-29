@@ -390,7 +390,7 @@ class UPFPGrowth(periodicFrequentPatterns):
     Sample run of importing the code:
     -------------------
         
-    import UPFPGrowth as alg
+    from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowth as alg
         
     obj = alg.UPFPGrowth(iFile, minSup, maxPer)
         
@@ -596,7 +596,10 @@ class UPFPGrowth(periodicFrequentPatterns):
                             periods[x] = s
         for x, y in periods.items():
             if y >= minSup:
-                self.finalPatterns[tuple(x)] = y
+                sample = str()
+                for i in x:
+                    sample = sample + i + " " 
+                self.finalPatterns[sample] = y
 
     def startMine(self):
         """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
@@ -663,8 +666,8 @@ class UPFPGrowth(periodicFrequentPatterns):
         dataframe = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, b])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a, b[0], b[1]])
+            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
     def storePatternsInFile(self, outFile):
@@ -676,7 +679,7 @@ class UPFPGrowth(periodicFrequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            s1 = str(x) + ":" + str(y)
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPeriodicFrequentPatterns(self):
