@@ -518,8 +518,8 @@ class PFPGrowth(periodicFrequentPatterns):
         Tree = self.buildTree(updatedDatabases, info)
         patterns = Tree.generatePatterns([])
         for i in patterns:
-            pa = self.savePeriodic(i[0])
-            self.finalPatterns[tuple(pa)] = i[1]
+            sample = self.savePeriodic(i[0])
+            self.finalPatterns[sample] = i[1]
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
