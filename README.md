@@ -31,3 +31,4 @@ Total available algorithms: 20
    - 3P-ECLAT
 7. High Utility Itemset Mining (HUIM)
    - EFIM
+   - UP-Growth
