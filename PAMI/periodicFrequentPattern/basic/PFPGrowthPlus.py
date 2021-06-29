@@ -506,10 +506,7 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         patterns = Tree.generatePatterns([])
         for i in patterns:
             x = self.savePeriodic(i[0])
-            sample = str()
-            for k in x:
-                sample = sample + k + " "
-            self.finalPatterns[sample] = i[1]
+            self.finalPatterns[x] = i[1]
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
