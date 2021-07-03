@@ -147,7 +147,7 @@ class Tree(object):
         generatePatterns(Node)
             starts from the root node of the tree and mines the frequent patterns
 
-                """
+    """
 
     def __init__(self):
         self.root = Node(None, {})
@@ -481,10 +481,6 @@ class PTubeS(periodicFrequentPatterns):
         Credits:
         -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-
-        The complete verification and documentation done by Penugonda Ravikumar
-
-
 
     """
 

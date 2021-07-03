@@ -470,9 +470,6 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             Credits:
             -------
             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-            The complete verification and documentation done by Penugonda Ravikumar
-
-
 
         """
     startTime = float()

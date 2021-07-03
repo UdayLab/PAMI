@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.partialPeriodicFrequentPattern.abstract import *
+from PAMI.partialPeriodicPattern.abstract import *
 import sys
 
 periodicSupport = float()
@@ -328,7 +328,6 @@ class ThreePGrowth(partialPeriodicPatterns):
         Credits:
         -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-        The complete verification and documentation done by Penugonda Ravikumar
 
         """
     periodicSupport = float()

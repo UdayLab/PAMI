@@ -420,10 +420,6 @@ class UPFPGrowth(periodicFrequentPatterns):
     -------
     The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
         
-    The complete verification and documentation done by Penugonda Ravikumar.
-
-
-
     """
     rank = {}
     startTime = float()

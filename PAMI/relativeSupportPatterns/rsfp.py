@@ -324,7 +324,6 @@ class rsfp(frequentPatterns):
         Credits:
         -------
         The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.
-        The complete verification and documentation done by Penugonda Ravikumar
 
         """
 
