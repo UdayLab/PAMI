@@ -5,20 +5,17 @@ This software is provided under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 20
 PAMI constitutes of several pattern mining algorithms to discovers interesting patterns in transactional/temporal/spatiotemporal databases.
 
 # Details 
-Total available algorithms: 20
+Total available algorithms: 30
 
 1. Frequent pattern mining: 
      
-   | Basic | Closed | Maximal | Topk |
-   |-------|--------|---------|------|
-   |Apriori|Closed|maxFP-growth| |
-   |FP-growth|    |   |   |
-   
-   - Apriori
-   - FP-growth
-   - ECLAT
-   - Maximal FP-growth and 
-   - Closed
+   | Basic | Closed | Maximal |
+   |-------|--------|---------|
+   |Apriori|Closed|maxFP-growth|
+   |FP-growth|    |   |
+   |ECLAT| | |
+   |ECLAT-bitSet| | |
+
 2. Frequent spatial pattern mining: 
    - Spatial ECLAT
    - Spatial FP-growth
