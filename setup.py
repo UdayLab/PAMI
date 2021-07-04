@@ -9,7 +9,7 @@ setuptools.setup(
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',
     description = 'Pattern mining',
-    long_description = 'The main purposes of this software are two folds. First, promote research in the field of pattern mining. Second, facilitate industrial application of pattern mining.',
+    long_description = 'The main purposes of this software are two folds. First, promote research in the field of pattern mining. Second, facilitate industrial application of pattern mining. Currently, our package supports 37 algorithms. More information on our library can be found at https://github.com/udayRage/PAMI',
     long_description_content_type = 'text/markdown',
     url = 'https://github.com/udayRage/PAMI.git',
     packages = setuptools.find_packages(),

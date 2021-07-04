@@ -4,7 +4,7 @@ from abstract import *
 
 class PPF_DFS():
     """
-    PPF_DFS is algorithem to mine the partial periodic frequent patterns.
+    PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 
     Attributes
     ----------
@@ -13,11 +13,11 @@ class PPF_DFS():
         input file path
     output : file
         output file name
-    minsup : float
+    minSup : float
         user defined minsup
-    maxperiod : float
+    maxPer : float
         user defined maxPer
-    minpr : float
+    minPR : float
         user defined minPR
     tidlist : dict
         it store tids each item
@@ -65,9 +65,8 @@ class PPF_DFS():
     getRuntime()
         Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Format: python3 PPFDFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
-    Examples: python3 PPFDFS.py sampleDB.txt patterns.txt 10 10 0.5
-
+    Format: python3 PPF_DFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
+    Examples: python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5
     """
     def __init__(self, path, minSup, maxPer, minPR):
         self.path = path
@@ -358,7 +357,7 @@ class PPF_DFS():
                 
 if __name__ == '__main__':
     if len(sys.argv) == 6:
-        ap = PPFDFS(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        ap = PPF_DFS(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         ap.startMine()
         frequentPatterns = ap.getPartialPeriodicPatterns()
         print(f"Total number of Frequent Patterns: {len(frequentPatterns)}")
