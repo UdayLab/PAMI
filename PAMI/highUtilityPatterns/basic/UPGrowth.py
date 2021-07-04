@@ -19,7 +19,7 @@ from UPItem import UPItem
 from UPTree import UPTree
 
 
-class AlgoUPGrowth:
+class UPGrowth:
 
     """
     UP-Growth is two-phase algorithm to mine High Utility Itemsets from transactional databases.
@@ -42,11 +42,11 @@ class AlgoUPGrowth:
     -------
         Format:
         ------
-        python3 AlgoUPGrowth.py <inputFile> <outputFile> <minUtil>
+        python3 UPGrowth.py <inputFile> <outputFile> <minUtil>
         
         Examples:
         -------
-        python3 AlgoUPGrowth.py sampleDB.txt patterns.txt 100
+        python3 UPGrowth.py sampleDB.txt patterns.txt 100
     
     Credits:
     -------
@@ -222,6 +222,6 @@ if __name__ == '__main__':
     inputFile = sys.argv[1]
     outputFile = sys.argv[2]
     minUtil = int(sys.argv[3])
-    q = AlgoUPGrowth(inputFile, outputFile)
+    q = UPGrowth(inputFile, outputFile)
     q.runAlgorithm(minUtil)
     q.PrintStats()

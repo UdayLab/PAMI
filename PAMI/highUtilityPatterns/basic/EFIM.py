@@ -24,7 +24,7 @@ from Transaction import Transaction
 from Dataset import Dataset
 
 
-class AlgoEFIM:
+class EFIM:
     """
     EFIM is one of the fastest algorithm to mine High Utility Itemsets from transactional databases.
     
@@ -61,11 +61,11 @@ class AlgoEFIM:
     -------
         Format:
         ------
-        python3 AlgoEFIM.py <inputFile> <outputFile> <minUtil>
+        python3 EFIM.py <inputFile> <outputFile> <minUtil>
         
         Examples:
         -------
-        python3 AlgoEFIM.py sampleDB.txt patterns.txt 10
+        python3 EFIM.py sampleDB.txt patterns.txt 10
     
     Credits:
     -------
@@ -322,7 +322,7 @@ if __name__ == '__main__':
     inputFile = sys.argv[1]
     outputFile = sys.argv[2]
     minUtil = int(sys.argv[3])
-    q = AlgoEFIM(inputFile, outputFile)
+    q = EFIM(inputFile, outputFile)
     q.runAlgorithm(minUtil)
     process = psutil.Process(os.getpid())
     memoryUSS = (process.memory_full_info().uss) / 1024000
