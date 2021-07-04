@@ -8,6 +8,12 @@ PAMI constitutes of several pattern mining algorithms to discovers interesting p
 Total available algorithms: 20
 
 1. Frequent pattern mining: 
+     
+   | Basic | Closed | Maximal | Topk |
+   |-------|--------|---------|------|
+   |Apriori|Closed|maxFP-growth| |
+   |FP-growth|    |   |   |
+   
    - Apriori
    - FP-growth
    - ECLAT
