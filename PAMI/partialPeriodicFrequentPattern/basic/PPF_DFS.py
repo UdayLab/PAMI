@@ -2,7 +2,7 @@ import sys
 from PAMI.partialPeriodicFrequentPattern.abstract import *
 
 
-class PPF_DFS():
+class PPF_DFS(partialPeriodicPatterns):
     """
     PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 
@@ -68,20 +68,22 @@ class PPF_DFS():
     Format: python3 PPF_DFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
     Examples: python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5
     """
-    def __init__(self, path, minSup, maxPer, minPR):
-        self.path = path
-        self.minSup = float(minSup)
-        self.maxPer = float(maxPer)
-        self.minPR = float(minPR)
-        self.tidlist = {}
-        self.last = 0
-        self.lno = 0
-        self.mapSupport={}
-        self.finalPatterns = {}
-        self.runTime = float()
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-
+    path = ' '
+    iFile = ' '
+    oFile = ' '
+    minSup = float()
+    maxPer = float()
+    minPR = float()
+    tidlist = {}
+    last = 0
+    lno = 0
+    mapSupport = {}
+    finalPatterns = {}
+    runTime = float()
+    memoryUSS = float()
+    memoryRSS = float()
+    startTime = float()
+    endTime = float()
 
     def findDelimiter(self, line):
         """Identifying the delimiter of the input file
@@ -90,14 +92,14 @@ class PPF_DFS():
             :returns: Delimited string used in the input file to split each item
             :rtype: string
             """
-        l = [',', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
+        l = ['\t', ' ', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
         j = None
         for i in l:
             if i in line:
                 return i
         return j
 
-    def getPer_Sup(self,tids):
+    def getPer_Sup(self, tids):
         """
         calculate ip / (sup+1)
         :param tids: it represent tid list
@@ -126,7 +128,7 @@ class PPF_DFS():
             return 0
         return sup / (len(tids) + 1)
 
-    def getPerSup(self,tids):
+    def getPerSup(self, tids):
         """
         calculate ip of a pattern
         :param tids: tid list of the pattern
@@ -154,56 +156,57 @@ class PPF_DFS():
             return 0
         return sup
 
-    def scanDatabase(self,path):
+    def scanDatabase(self, path):
         """
         scan all lines of database and create support list
         :param path: it represents input file name
         :return: support list each item
         """
-        id1=0
-        with open(path,'r') as f:
+        id1 = 0
+        with open(path, 'r') as f:
             for line in f:
-                self.lno+=1
-                #first=min(first,lno)
-                #last=max(last,lno)
+                self.lno += 1
+                # first=min(first,lno)
+                # last=max(last,lno)
                 line = line.strip()
                 delimiter = self.findDelimiter([*line])
                 s = [i.rstrip() for i in line.split(delimiter)]
-                n=int(s[0])
+                n = int(s[0])
                 self.last = max(self.last, n)
-                for i in range(1,len(s)):
-                    si=s[i]
-                    if abs(0-n)<=self.maxPer:
+                for i in range(1, len(s)):
+                    si = s[i]
+                    if abs(0 - n) <= self.maxPer:
                         if si not in self.mapSupport:
-                            self.mapSupport[si]=[1,1,n]
-                            self.tidlist[si]=[n]
+                            self.mapSupport[si] = [1, 1, n]
+                            self.tidlist[si] = [n]
                         else:
-                            lp=abs(n-self.mapSupport[si][2])
-                            if lp<=self.maxPer:
-                                self.mapSupport[si][0]+=1
-                            self.mapSupport[si][1]+=1
-                            self.mapSupport[si][2]=n
+                            lp = abs(n - self.mapSupport[si][2])
+                            if lp <= self.maxPer:
+                                self.mapSupport[si][0] += 1
+                            self.mapSupport[si][1] += 1
+                            self.mapSupport[si][2] = n
                             self.tidlist[si].append(n)
                     else:
                         if si not in self.mapSupport:
-                            self.mapSupport[si]=[0,1,n]
-                            self.tidlist[si]=[n]
+                            self.mapSupport[si] = [0, 1, n]
+                            self.tidlist[si] = [n]
                         else:
-                            lp=abs(n-self.mapSupport[si][2])
-                            if lp<=self.maxPer:
-                                self.mapSupport[si][0]+=1
-                            self.mapSupport[si][1]+=1
-                            self.mapSupport[si][2]=n
+                            lp = abs(n - self.mapSupport[si][2])
+                            if lp <= self.maxPer:
+                                self.mapSupport[si][0] += 1
+                            self.mapSupport[si][1] += 1
+                            self.mapSupport[si][2] = n
                             self.tidlist[si].append(n)
-        for x,y in self.mapSupport.items():
-            lp=abs(self.last-self.mapSupport[x][2])
-            if lp<=self.maxPer:
-                self.mapSupport[x][0]+=1
-        self.mapSupport={k: [v[1],v[0]] for k,v in self.mapSupport.items() if v[1] >= self.minSup and v[0] / (self.minSup + 1) >= self.minPR}
-        plist=[key for key,value in sorted(self.mapSupport.items(), key=lambda x:(x[1][0],x[0]),reverse=True)]
+        for x, y in self.mapSupport.items():
+            lp = abs(self.last - self.mapSupport[x][2])
+            if lp <= self.maxPer:
+                self.mapSupport[x][0] += 1
+        self.mapSupport = {k: [v[1], v[0]] for k, v in self.mapSupport.items() if
+                           v[1] >= self.minSup and v[0] / (self.minSup + 1) >= self.minPR}
+        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
         return plist
-    
-    def save(self,prefix,suffix,tidsetx):
+
+    def save(self, prefix, suffix, tidsetx):
         """
         sava prefix patterns with support and periodic ratio
         :param prefix: prefix patterns
@@ -213,22 +216,21 @@ class PPF_DFS():
         :param tidsetx: it represents prefix tids
         :type tidsetx: list
         """
-        tidsetx=list(set(tidsetx))
-        if(prefix==None):
-            prefix=suffix
+        tidsetx = list(set(tidsetx))
+        if (prefix == None):
+            prefix = suffix
         else:
-            prefix=prefix+suffix
+            prefix = prefix + suffix
         val = self.getPerSup(tidsetx)
-        val1= self.getPer_Sup(tidsetx)
-        #print(prefix,tidsetx,val,val1)
-        if len(tidsetx)>=self.minSup and val/(len(tidsetx) + 1)>=self.minPR:
+        val1 = self.getPer_Sup(tidsetx)
+        # print(prefix,tidsetx,val,val1)
+        if len(tidsetx) >= self.minSup and val / (len(tidsetx) + 1) >= self.minPR:
             """self.itemsetCount+=1
             s1=str(prefix)+":"+str(len(tidsetx))+":"+str(val1)
             self.writer.write('%s \n'%s1)"""
-            self.finalPatterns[tuple(prefix)] = [len(tidsetx),val1]
+            self.finalPatterns[tuple(prefix)] = [len(tidsetx), val1]
 
-    
-    def Generation(self,prefix,itemsets,tidsets):
+    def Generation(self, prefix, itemsets, tidsets):
         """
         here equibalence class is followed amd checks fro the patterns generated for periodic frequent patterns.
         :param prefix: main equivalence prefix
@@ -239,66 +241,66 @@ class PPF_DFS():
         :param tidsets: time stamps of the items in the argument itemSets
         :type tidsets: list
         """
-        if(len(itemsets)==1):
-            i=itemsets[0]
-            tidi=tidsets[0]
-            self.save(prefix,[i],tidi)
+        if (len(itemsets) == 1):
+            i = itemsets[0]
+            tidi = tidsets[0]
+            self.save(prefix, [i], tidi)
             return
         for i in range(len(itemsets)):
-            itemx=itemsets[i]
-            if(itemx==None):
+            itemx = itemsets[i]
+            if (itemx == None):
                 continue
-            tidsetx=tidsets[i]
-            classItemsets=[]
-            classtidsets=[]
-            itemsetx=[itemx]
-            for j in range(i+1,len(itemsets)):
-                itemj=itemsets[j]
-                tidsetj=tidsets[j]
-                y=list(set(tidsetx) & set(tidsetj))
-                val=self.getPerSup(y)
-                #if(len(y)>=minsup and val/(len(y)+1)>=minpr):
+            tidsetx = tidsets[i]
+            classItemsets = []
+            classtidsets = []
+            itemsetx = [itemx]
+            for j in range(i + 1, len(itemsets)):
+                itemj = itemsets[j]
+                tidsetj = tidsets[j]
+                y = list(set(tidsetx) & set(tidsetj))
+                val = self.getPerSup(y)
+                # if(len(y)>=minsup and val/(len(y)+1)>=minpr):
                 if len(y) >= self.minSup and val / (self.minSup + 1) >= self.minPR:
                     classItemsets.append(itemj)
                     classtidsets.append(y)
-            newprefix=list(set(itemsetx))+prefix
-            self.Generation(newprefix, classItemsets,classtidsets)
-            self.save(prefix,list(set(itemsetx)),tidsetx)
-        
+            newprefix = list(set(itemsetx)) + prefix
+            self.Generation(newprefix, classItemsets, classtidsets)
+            self.save(prefix, list(set(itemsetx)), tidsetx)
+
     def startMine(self):
         """
         Main program start with extracting the periodic frequent items from the database and
         performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
         """
-        starttime=time.time()
-        plist=self.scanDatabase(self.path)
+        self.path = self.iFile
+        starttime = time.time()
+        plist = self.scanDatabase(self.path)
         print(len(plist))
         for i in range(len(plist)):
-            itemx=plist[i]
-            tidsetx=self.tidlist[itemx]
-            itemsetx=[itemx]
-            itemsets=[]
-            tidsets=[]
-            for j in range(i+1,len(plist)):
-                itemj=plist[j]
-                tidsetj=self.tidlist[itemj]
-                y1=list(set(tidsetx) & set(tidsetj))
-                val=self.getPerSup(y1)
-                #if(len(y1)>=minsup and val/(len(y1)+1)>=minpr):
-                if len(y1) >= self.minSup and val/(self.minSup + 1)>=self.minPR:
+            itemx = plist[i]
+            tidsetx = self.tidlist[itemx]
+            itemsetx = [itemx]
+            itemsets = []
+            tidsets = []
+            for j in range(i + 1, len(plist)):
+                itemj = plist[j]
+                tidsetj = self.tidlist[itemj]
+                y1 = list(set(tidsetx) & set(tidsetj))
+                val = self.getPerSup(y1)
+                # if(len(y1)>=minsup and val/(len(y1)+1)>=minpr):
+                if len(y1) >= self.minSup and val / (self.minSup + 1) >= self.minPR:
                     itemsets.append(itemj)
                     tidsets.append(y1)
-            self.Generation(itemsetx,itemsets,tidsets)
-            self.save(None,itemsetx,tidsetx)
-        #print("eclat Total Itemsets:",self.itemsetCount)
-        endtime=time.time()
-        self.runTime=(endtime-starttime)
+            self.Generation(itemsetx, itemsets, tidsets)
+            self.save(None, itemsetx, tidsetx)
+        # print("eclat Total Itemsets:",self.itemsetCount)
+        endtime = time.time()
+        self.runTime = (endtime - starttime)
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
-        #print("eclat Time taken:",temp)
-        #print("eclat Memory Space:",resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
-
+        # print("eclat Time taken:",temp)
+        # print("eclat Memory Space:",resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -354,7 +356,8 @@ class PPF_DFS():
         :rtype: dict
         """
         return self.finalPatterns
-                
+
+
 if __name__ == '__main__':
     if len(sys.argv) == 6:
         ap = PPF_DFS(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])

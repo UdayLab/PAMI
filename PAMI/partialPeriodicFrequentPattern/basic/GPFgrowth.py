@@ -318,7 +318,7 @@ class generatePFListver2:
         :type line: list
         :return: return separator
         """
-        separator = [',', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
+        separator = ['\t', ',', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
         for i in separator:
             if i in line:
                 return i
@@ -380,7 +380,7 @@ class generatePFTreever2:
         :type line: list
         :return: return separator
         """
-        separator = [',', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
+        separator = ['\t', ',', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
         for i in separator:
             if i in line:
                 return i
@@ -478,7 +478,7 @@ class PFgroth:
                 result = result | result1
         return result
 
-class GPFgrowth:
+class GPFgrowth(partialPeriodicPatterns):
     """
     GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
 
@@ -539,17 +539,20 @@ class GPFgrowth:
     run = obj.getRuntime()
     print("Total ExecutionTime in seconds:", run)
     """
-    def __init__(self, inputFile, minSup, maxPer, minPR):
-        self.inputFile = inputFile
-        self.minSup = float(minSup)
-        self.maxPer = float(maxPer)
-        self.minPR = float(minPR)
-        self.finalPatterns = {}
-        self.runTime = 0
-        self.memoryUSS = 0
-        self.memoryRSS = 0
+    iFile = ' '
+    oFile = ' '
+    startTime = float()
+    endTime = float()
+    minSup = float()
+    maxPer = float()
+    minPR = float()
+    finalPatterns = {}
+    runTime = 0
+    memoryUSS = float()
+    memoryRSS = float()
 
     def startMine(self):
+        self.inputFile = self.iFile
         startTime = time.time()
         """self.TDB = ri.readInputFile(self.inputFile).run()
         self.minSup = len(self.TDB) * self.minSup
