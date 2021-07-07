@@ -126,6 +126,13 @@ Total available algorithms: 37
      |PTubeS|
      |UPFP-growth|
      
-17. To be continued. 
+17. Local periodic pattern mining:
+
+     |Basic|
+     |-----|
+     |LPPMbredth|
+     |LPPMdepth|
+     |LPPGrowth|
+     
 
 
