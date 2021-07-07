@@ -12,7 +12,7 @@ PAMI constitutes of several pattern mining algorithms to discovers interesting p
     COMMAND: pip install psutil pandas
     
 # Details 
-Total available algorithms: 37
+Total available algorithms: 41
 
 1. Frequent pattern mining: 
      
