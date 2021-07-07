@@ -51,7 +51,7 @@ class partialPeriodicPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, periodicSupport, period):
+    def __init__(self, iFile, minSup, maxPer, minPR):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -61,8 +61,9 @@ class partialPeriodicPatterns(ABC):
         """
 
         self.iFile = iFile
-        self.periodicSupport = periodicSupport
-        self.period = period
+        self.minSup = float(minSup)
+        self.maxPer = float(maxPer)
+        self.minPR = float(minPR)
 
     @abstractmethod
     def iFile(self):
@@ -71,11 +72,11 @@ class partialPeriodicPatterns(ABC):
         pass
 
     @abstractmethod
-    def periodicSupport(self):
+    def minSup(self):
         """Variable to store the user-specified minimum support value"""
 
         pass
-    def period(self):
+    def maxPer(self):
         """Variable to store the user specified maximum periodicity value"""
 
         pass
