@@ -5,18 +5,18 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name = 'pami',
-    version = '0.9.2',
+    version = '0.9.6.1.4',
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',
-    description = 'Pattern mining',
-    long_description = 'PAMI is the product of The University of Aizu, Aizu-Wakamatsu, Fukushima, Japan. PAMI represents PAttern Mining. The main purposes of this software to empower researchers to discover useful information in the big data. More information on this library can be found at https://github.com/udayRage/PAMI',
+    description = 'This software is the product of the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
+    long_description = long_description,
     long_description_content_type = 'text/markdown',
-    url = 'https://github.com/udayRage/PAMI.git',
-    packages = setuptools.find_packages(),
+    url = 'https://github.com/udayRage/PAMI',
+    license='GPLv3',
     classifiers = [
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: GNUv3',
-        'License :: Other/Proprietary License',
+	'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
     ],
+    python_requires = '>=3.6',
 )
