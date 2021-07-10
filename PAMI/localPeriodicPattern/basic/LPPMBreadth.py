@@ -308,8 +308,6 @@ class LPPMBreadth(localPeriodicPatterns):
         return w1map
 
 
-
-
     def startMine(self):
         """
         Mining process start from here.

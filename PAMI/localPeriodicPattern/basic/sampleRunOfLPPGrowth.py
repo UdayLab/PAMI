@@ -1,4 +1,5 @@
 import LPPGrowth as alg
+
 obj = alg.LPPGrowth('sampleTDB.txt', 0.2, 0.3, 0.5)
 obj.startMine()
 localPeriodicPatterns = obj.getLocalPeriodicPatterns()

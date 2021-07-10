@@ -3,7 +3,6 @@ from PAMI.localPeriodicPattern.abstract import *
 
 class LPPMDepth(localPeriodicPatterns):
     """
-
         Attributes:
         -----------
         iFile : str

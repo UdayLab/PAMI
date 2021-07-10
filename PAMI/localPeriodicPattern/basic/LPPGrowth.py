@@ -432,7 +432,6 @@ class LPPGrowth(localPeriodicPatterns):
                     bitVector = bitVector << different
                     self.tsList[item] = self.tsList[item] | bitVector"""
         self.PTL = {k: v for k,v in PTL.items() if len(v) > 0}
-        # self.items = sorted(list(PTL.keys()), key=lambda x : len(self.PTL[x]), reverse=True)
         self.items = list(self.PTL.keys())
 
     def createLPPTree(self):
