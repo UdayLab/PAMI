@@ -23,6 +23,7 @@ class Node:
     getChild(itemName)
     storing the children to their respective parent nodes
     """
+    
     def __init__(self):
         self.item = -1
         self.parent = None

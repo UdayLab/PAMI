@@ -1,6 +1,5 @@
 import sys
 import time
-
 from abstract import *
 
 class LPPMBreadth(localPeriodicPatterns):
