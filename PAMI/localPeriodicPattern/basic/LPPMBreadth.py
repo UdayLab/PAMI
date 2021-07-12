@@ -1,7 +1,7 @@
 import sys
 import time
 
-from PAMI.localPeriodicPattern.abstract import *
+from abstract import *
 
 class LPPMBreadth(localPeriodicPatterns):
     """

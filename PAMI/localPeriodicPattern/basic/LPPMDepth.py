@@ -1,5 +1,5 @@
 import sys
-from PAMI.localPeriodicPattern.abstract import *
+from abstract import *
 
 class LPPMDepth(localPeriodicPatterns):
     """
