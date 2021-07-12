@@ -2,7 +2,7 @@ import sys
 
 import pandas as pd
 
-from PAMI.correlatedPattern.abstract import *
+from abstract import *
 
 class Node:
     """
@@ -258,9 +258,11 @@ class cpgrowth(frequentPatterns):
             Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
             mapSupport represents the 1-length items with their respective support
 
-         Executing the code on terminal
-        -------
+        Executing the code on terminal
+        ------------------------------
+
         Format: python3 apriori.py <inputFile> <outputFile> <minSup> <ratio>
+
         Examples: python3 cpgrowth.py inp.txt output.txt 4.0 0.3   (minSup will be considered in percentage of database transactions)
                   python3 cpgrowth.py  patterns.txt 4  0.3   (minSup will be considered in support count or frequency)
 
@@ -402,7 +404,9 @@ class cpgrowth(frequentPatterns):
             self.saveItemSet(prefix, newPrefixLength, s)
 
     def frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength, mapSupport):
-        """Mining the fp tree
+        """
+
+        Mining the fp tree
 
         :param frequentPatternTree: it represents the frequentPatternTree
         :type frequentPatternTree: class Tree
@@ -412,7 +416,9 @@ class cpgrowth(frequentPatterns):
         :type prefixLength :int
         :param mapSupport : it represents the support of item
         :type mapSupport : dictionary
+
         """
+
         singlePath = True
         position = 0
         s = 0
@@ -467,7 +473,8 @@ class cpgrowth(frequentPatterns):
     
 
     def startMine(self):
-        """main program to start the operation
+        """
+        main program to start the operation
 
         """
 
@@ -500,7 +507,8 @@ class cpgrowth(frequentPatterns):
         self.memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -509,7 +517,8 @@ class cpgrowth(frequentPatterns):
         return self.memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -518,7 +527,8 @@ class cpgrowth(frequentPatterns):
         return self.memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
 
         :return: returning total amount of runtime taken by the mining process
@@ -528,7 +538,9 @@ class cpgrowth(frequentPatterns):
         return self.endTime - self.startTime
 
     def getPatternsInDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -542,7 +554,8 @@ class cpgrowth(frequentPatterns):
         return dataframe
 
     def storePatternsInFile(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """
+        Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -557,7 +570,8 @@ class cpgrowth(frequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getFrequentPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
@@ -566,7 +580,6 @@ class cpgrowth(frequentPatterns):
 
 
 if __name__ == "__main__":
-    # ap=Fpgrowth()
     if len(sys.argv) != 5:
         print("Error! Input Argument miss-match, please enter 4 arguments only")
     else:

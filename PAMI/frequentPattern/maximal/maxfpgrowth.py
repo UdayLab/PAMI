@@ -26,7 +26,7 @@ class Node(object):
     """ A class used to represent the node of frequentPatternTree
 
 
-            Attributes:
+           Attributes
             ----------
             item : int
                 storing item of a node
@@ -37,7 +37,7 @@ class Node(object):
             children : list
                 To maintain the children of node
 
-            Methods:
+            Methods
             -------
             addChild(itemName)
                 storing the children to their respective parent nodes
@@ -71,7 +71,7 @@ class Tree(object):
             A class used to represent the frequentPatternGrowth tree structure
 
 
-            Attributes:
+           Attributes
             ----------
             root : Node
                 Represents the root node of the tree
@@ -81,7 +81,7 @@ class Tree(object):
                 stores the support of items
 
 
-            Methods:
+            Methods
             -------
             addTransaction(transaction)
                 creating transaction as a branch in frequentPatternTree
@@ -259,14 +259,14 @@ class MNode(object):
 
 
 
-            Attributes:
+           Attributes
             ----------
             item : int
                 storing item of a node
             children : list
                 To maintain the children of node
 
-            Methods:
+            Methods
             -------
             addChild(itemName)
                 storing the children to their respective parent nodes
@@ -290,7 +290,7 @@ class MPTree(object):
     """
             A class used to represent the frequentPatternGrowth tree structure
 
-            Attributes:
+           Attributes
             ----------
             root : Node
                 Represents the root node of the tree
@@ -298,7 +298,7 @@ class MPTree(object):
                 storing the nodes with same item name
 
 
-            Methods:
+            Methods
             -------
             addTransaction(transaction)
                 creating transaction as a branch in frequentPatternTree
@@ -372,7 +372,7 @@ class Maxfpgrowth(frequentPatterns):
     Grahne, G. and Zhu, J., "High Performance Mining of Maximal Frequent itemSets",
     http://users.encs.concordia.ca/~grahne/papers/hpdm03.pdf
 
-    Attributes:
+   Attributes
     ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
@@ -403,7 +403,7 @@ class Maxfpgrowth(frequentPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-    Methods:
+    Methods
     -------
         startMine()
             Mining process will start from here

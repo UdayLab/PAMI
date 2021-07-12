@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from  PAMI.periodicFrequentPattern.abstract import *
+from  abstract import *
 
 
 class PFEclat(periodicFrequentPatterns):
@@ -25,7 +25,7 @@ class PFEclat(periodicFrequentPatterns):
         P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, "Towards efficient discovery of 
         periodic-frequent patterns in columnar temporal databases", 2021 IEA/AIE.
 
-        Attributes:
+       Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of periodic-frequent patterns
@@ -60,7 +60,7 @@ class PFEclat(periodicFrequentPatterns):
         hashing : dict
             stores the patterns with their support to check for the closed property
 
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here

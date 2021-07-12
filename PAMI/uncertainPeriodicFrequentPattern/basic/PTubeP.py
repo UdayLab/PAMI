@@ -27,7 +27,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from  PAMI.uncertainPeriodicFrequentPattern.abstract import *
+from  abstract import *
 
 minSup = float()
 maxPer = float()
@@ -358,7 +358,7 @@ class PTubeP(periodicFrequentPatterns):
         Reference:
         --------
 
-        Attributes:
+       Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of periodic-frequent patterns
@@ -388,7 +388,7 @@ class PTubeP(periodicFrequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here

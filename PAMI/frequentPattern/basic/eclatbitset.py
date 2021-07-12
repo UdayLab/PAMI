@@ -15,20 +15,21 @@
 #  Copyright (C)  2021 Rage Uday Kiran
 
 import sys
-from PAMI.frequentPattern.abstract import *
+from abstract import *
 
 class Eclatbitset(frequentPatterns):
-    """     EclatBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+    """
+            EclatBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
             This program employs downward closure property to  reduce the search space effectively.
             This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
             transactional database.
 
             Reference:
-            --------
+            ----------
                 Zaki, M.J., Gouda, K.: Fast vertical mining using diffsets. Technical Report 01-1, Computer Science
                 Dept., Rensselaer Polytechnic Institute (March 2001), https://doi.org/10.1145/956750.956788
 
-            Attributes:
+            Attributes
             ----------
             self.iFile : str
                 Input file name or path of the input file
@@ -49,7 +50,8 @@ class Eclatbitset(frequentPatterns):
                 To store the total amount of RSS memory consumed by the program
             self.Database : list
                 To store the complete set of transactions available in the input database/file
-            Methods:
+
+            Methods
             -------
             startMine()
                 Mining process will start from here
@@ -73,19 +75,20 @@ class Eclatbitset(frequentPatterns):
                 the main function to mine the patterns
 
             Executing the code on terminal:
-            ----------
+            -------------------------------
+
             Format:
-            ------
+            -------
             python3 eclatbitset.py <inputFile> <outputFile> <minSup>
 
             Examples:
-            --------
+            ---------
             python3 eclatbitset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
             python3 eclatbitset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
         Sample run of the importing code:
-        -----------
+        ---------------------------------
         import PAMI.frequentPattern.basic.eclatbitset as alg
 
         obj = alg.Eclatbitset(iFile, minSup)
@@ -113,8 +116,8 @@ class Eclatbitset(frequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
         Credits:
-        -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+        --------
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """
     startTime = float()

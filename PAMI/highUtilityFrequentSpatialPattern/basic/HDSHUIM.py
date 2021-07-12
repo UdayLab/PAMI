@@ -1,6 +1,6 @@
 import sys
 import pandas as pd
-from PAMI.highUtilityFrequentSpatialPattern.abstractUtilityPatterns import *
+from abstract import *
 class Element:
     """
     A class represents an Element of a utility list as used by the HDSHUI algorithm.
@@ -307,7 +307,7 @@ class SHDSHUIs(utilityPatterns):
         """
             A method to find all high utility itemsets
 
-            Attributes:
+           Attributes
             -----------
             :parm prefix: it represent all items in prefix
             :type prefix :list
@@ -344,7 +344,7 @@ class SHDSHUIs(utilityPatterns):
         """
             A method to construct CUL's database
 
-            Attributes:
+           Attributes
             -----------
             :parm x: Compact utility list
             :type x: list
@@ -441,7 +441,7 @@ class SHDSHUIs(utilityPatterns):
     def UpdateCLosed(self,x,culs,st,excul,newT,ex,ey_tid,length):
         """
             A method to update closed values
-            Attributes:
+           Attributes
             -----------
             :parm x: Compact utility list
             :type x: list
@@ -472,7 +472,7 @@ class SHDSHUIs(utilityPatterns):
         """
             A method to updates vales for duplicates
 
-            Attributes:
+           Attributes
             -----------
             :parm z: Compact utility list
             :type z: list
@@ -508,7 +508,7 @@ class SHDSHUIs(utilityPatterns):
         """
          A method to save itemsets
 
-         Attributes:
+        Attributes
         -----------
         :parm prefix: it represent all items in prefix
         :type prefix :list

@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from  PAMI.periodicFrequentPattern.abstract import *
+from  abstract import *
 
 
 maxPer = float()
@@ -26,7 +26,7 @@ class Node(object):
     """
             A class used to represent the node of frequentPatternTree
 
-            Attributes:
+           Attributes
             ----------
             item : int or None
                 Storing item of a node
@@ -37,7 +37,7 @@ class Node(object):
             children : list
                 To maintain the children of a node
 
-            Methods:
+            Methods
             -------
 
             addChild(itemName)
@@ -72,7 +72,7 @@ class Tree(object):
     """
             A class used to represent the frequentPatternGrowth tree structure
 
-            Attributes:
+           Attributes
             ----------
             root : Node
                 Represents the root node of the tree
@@ -82,7 +82,7 @@ class Tree(object):
                 Stores the support of the items
 
 
-            Methods:
+            Methods
             -------
             addTransactions(Database)
                 Creating transaction as a branch in frequentPatternTree
@@ -270,7 +270,7 @@ class PFPGrowth(periodicFrequentPatterns):
         Syed Khairuzzaman Tanbeer, Chowdhury Farhan, Byeong-Soo Jeong, and Young-Koo Lee, "Discovering Periodic-Frequent
         Patterns in Transactional Databases", PAKDD 2009, https://doi.org/10.1007/978-3-642-01307-2_24
 
-        Attributes:
+       Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of periodic-frequent patterns
@@ -301,7 +301,7 @@ class PFPGrowth(periodicFrequentPatterns):
         finalPatterns : dict
             To store the complete patterns
 
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here

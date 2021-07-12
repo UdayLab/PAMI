@@ -27,7 +27,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.correlatedPattern.abstract import *
+from abstract import *
 import sys
 import math
 
@@ -35,7 +35,7 @@ class Node:
     """
         A class used to represent the node of frequentPatternTree
 
-        Attributes:
+       Attributes
         ----------
         itemId: int
             storing item of a node
@@ -48,7 +48,7 @@ class Node:
         nodeLink : node
             Points to the node with same itemId
 
-        Methods:
+        Methods
         -------
 
         getChild(itemName)
@@ -63,7 +63,8 @@ class Node:
         self.nodeLink = None
 
     def getChild(self, itemName):
-        """ Retrieving the child from the tree
+        """
+        Retrieving the child from the tree
 
             :param itemName: name of the child
             :type itemName: list
@@ -81,8 +82,8 @@ class Tree:
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-        Attributes:
-        ----------
+       Attributes
+       ----------
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
         mapItemNodes : dictionary
@@ -92,7 +93,7 @@ class Tree:
         root : Node
             representing the root Node in a tree
 
-        Methods:
+        Methods
         -------
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
@@ -113,7 +114,8 @@ class Tree:
         self.root = Node()
 
     def addTransaction(self, transaction):
-        """adding transaction into tree
+        """
+        Adding a transaction into a tree
 
         :param transaction: it represents the one transactions in database
         :type transaction: list
@@ -135,7 +137,8 @@ class Tree:
                 current = child
 
     def fixNodeLinks(self, item, newNode):
-        """Fixing node link for the newNode that inserted into frequentPatternTree
+        """
+        Fixing node link for the newNode that inserted into frequentPatternTree
 
         :param item: it represents the item of newNode
         :type item: int
@@ -151,7 +154,9 @@ class Tree:
             self.mapItemNodes[item] = newNode
 
     def printTree(self, root):
-        """Print the details of Node in frequentPatternTree
+        """
+
+        Print the details of Node in frequentPatternTree
 
         :param root: it represents the Node in frequentPatternTree
         :type root: Node
@@ -167,12 +172,15 @@ class Tree:
                 self.printTree(i)
 
     def createHeaderList(self, mapSupport, minSup):
-        """To create the headerList
+        """
+
+        To create the headerList
 
         :param mapSupport: it represents the items with their supports
         :type mapSupport: dictionary
         :param minSup: it represents the minSup
         :param minSup: float
+
         """
         # the frequentPatternTree always maintains the header table to start the mining from leaf nodes
         t1 = []
@@ -183,7 +191,9 @@ class Tree:
         self.headerList = [i for i in t1 if i in itemSetBuffer]
 
     def addPrefixPath(self, prefix, mapSupportBeta, minSup):
-        """To construct the conditional tree with prefix paths of a node in frequentPatternTree
+        """
+
+        To construct the conditional tree with prefix paths of a node in frequentPatternTree
 
         :param prefix: it represents the prefix items of a Node
         :type prefix: list
@@ -191,6 +201,7 @@ class Tree:
         :param mapSupportBeta: dictionary
         :param minSup: to check the item meets with minSup
         :param minSup: float
+
         """
         # this method is used to add prefix paths in conditional trees of frequentPatternTree
         pathCount = prefix[0].counter
@@ -219,8 +230,9 @@ class cpgrowthpp(frequentPatterns):
         it is based on traditional Fpgrowth Algorithm,This algorithm uses breadth-first search technique to find the 
         corelated Frequent patterns in transactional database.
 
-        Attributes:
+        Attributes
         ----------
+
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
         oFile : file
@@ -252,7 +264,7 @@ class cpgrowthpp(frequentPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here
@@ -284,6 +296,7 @@ class cpgrowthpp(frequentPatterns):
             
         Executing the code on terminal:
         -------
+
         Format:
         -------
         python3 cpgrowthpp.py <inputFile> <outputFile> <minSup> <minRatio>
@@ -295,7 +308,8 @@ class cpgrowthpp(frequentPatterns):
         python3 cpgrowthpp.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)
 
         Sample run of the importing code:
-        -----------
+        ---------------------------------
+
         import cpgrowthpp as alg
 
         obj = alg.cpgrowthpp(iFile, minSup,minRatio)
@@ -323,7 +337,7 @@ class cpgrowthpp(frequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
         Credits:
-        -------
+        --------
         The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.
 
         """
@@ -362,7 +376,8 @@ class cpgrowthpp(frequentPatterns):
             print("File Not Found")
 
     def frequentOneItem(self):
-        """Generating One frequent items sets
+        """
+        Generating One frequent items sets
 
         """
         for i in self.Database:
@@ -373,7 +388,8 @@ class cpgrowthpp(frequentPatterns):
                     self.mapSupport[j] += 1
 
     def saveItemSet(self, prefix, prefixLength, support,ratio):
-        """To save the frequent patterns mined form frequentPatternTree
+        """
+        To save the frequent patterns mined form frequentPatternTree
 
         :param prefix: the frequent pattern
         :type prefix: list
@@ -390,7 +406,8 @@ class cpgrowthpp(frequentPatterns):
         self.finalPatterns[tuple(sample)] = str(support)+" : "+str(ratio)
 
     def saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength):
-        """Generating all the combinations for items in single branch in frequentPatternTree
+        """
+        Generating all the combinations for items in single branch in frequentPatternTree
 
         :param tempBuffer: items in a list
         :type tempBuffer: list
@@ -416,7 +433,8 @@ class cpgrowthpp(frequentPatterns):
                 self.saveItemSet(prefix, newPrefixLength, s,ratio)
 
     def frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength,mapSupport,minconf):
-        """Mining the fp tree
+        """
+        Mining the fp tree
 
         :param frequentPatternTree: it represents the frequentPatternTree
         :type frequentPatternTree: class Tree
@@ -509,7 +527,8 @@ class cpgrowthpp(frequentPatterns):
         return value
 
     def startMine(self):
-        """main program to start the operation
+        """
+        main program to start the operation
 
         """
 
@@ -541,7 +560,8 @@ class cpgrowthpp(frequentPatterns):
         self.memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -550,7 +570,8 @@ class cpgrowthpp(frequentPatterns):
         return self.memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -565,7 +586,8 @@ class cpgrowthpp(frequentPatterns):
                 maxitem=prefix[i]
         return maxitem
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
 
         :return: returning total amount of runtime taken by the mining process
@@ -575,7 +597,8 @@ class cpgrowthpp(frequentPatterns):
         return self.endTime - self.startTime
 
     def getPatternsInDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -589,7 +612,8 @@ class cpgrowthpp(frequentPatterns):
         return dataframe
 
     def storePatternsInFile(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """
+        Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -604,7 +628,8 @@ class cpgrowthpp(frequentPatterns):
             writer.write("%s \n" % s1)
 
     def getFrequentPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict

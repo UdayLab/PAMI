@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.frequentPattern.abstract import *
+from abstract import *
 import sys
 
 
@@ -21,7 +21,7 @@ class Node:
     """
         A class used to represent the node of frequentPatternTree
 
-        Attributes:
+        Attributes
         ----------
         itemId: int
             storing item of a node
@@ -34,11 +34,12 @@ class Node:
         nodeLink : node
             Points to the node with same itemId
 
-        Methods:
+        Methods
         -------
 
         getChild(itemName)
             returns the node with same itemName from frequentPatternTree
+
     """
 
     def __init__(self):
@@ -49,7 +50,8 @@ class Node:
         self.nodeLink = None
 
     def getChild(self, itemName):
-        """ Retrieving the child from the tree
+        """
+            Retrieving the child from the tree
 
             :param itemName: name of the child
             :type itemName: list
@@ -67,7 +69,7 @@ class Tree:
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-        Attributes:
+        Attributes
         ----------
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
@@ -78,7 +80,7 @@ class Tree:
         root : Node
             representing the root Node in a tree
 
-        Methods:
+        Methods
         -------
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
@@ -121,7 +123,8 @@ class Tree:
                 current = child
 
     def fixNodeLinks(self, item, newNode):
-        """Fixing node link for the newNode that inserted into frequentPatternTree
+        """
+        Fixing node link for the newNode that inserted into frequentPatternTree
 
         :param item: it represents the item of newNode
         :type item: int
@@ -137,7 +140,8 @@ class Tree:
             self.mapItemNodes[item] = newNode
 
     def printTree(self, root):
-        """Print the details of Node in frequentPatternTree
+        """
+        Print the details of Node in frequentPatternTree
 
         :param root: it represents the Node in frequentPatternTree
         :type root: Node
@@ -153,7 +157,8 @@ class Tree:
                 self.printTree(i)
 
     def createHeaderList(self, mapSupport, minSup):
-        """To create the headerList
+        """
+        To create the headerList
 
         :param mapSupport: it represents the items with their supports
         :type mapSupport: dictionary
@@ -169,7 +174,8 @@ class Tree:
         self.headerList = [i for i in t1 if i in itemSetBuffer]
 
     def addPrefixPath(self, prefix, mapSupportBeta, minSup):
-        """To construct the conditional tree with prefix paths of a node in frequentPatternTree
+        """
+        To construct the conditional tree with prefix paths of a node in frequentPatternTree
 
         :param prefix: it represents the prefix items of a Node
         :type prefix: list
@@ -200,7 +206,8 @@ class Tree:
 
 
 class fpGrowth(frequentPatterns):
-    """fpGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+    """
+       fpGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
         This program employs downward closure property to  reduce the search space effectively.
 
         Reference:
@@ -208,7 +215,7 @@ class fpGrowth(frequentPatterns):
            Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
            Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
 
-        Attributes:
+        Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
@@ -241,7 +248,7 @@ class fpGrowth(frequentPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here

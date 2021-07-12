@@ -26,7 +26,7 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-from PAMI.corelatedSpatialPattern.abstract import *
+from abstract import *
 import sys
 import math
 
@@ -35,8 +35,8 @@ class Node:
     """
         A class used to represent the node of frequentPatternTree
 
-        Attributes:
-        ----------
+       Attributes
+        -----------
         itemId: int
             storing item of a node
         counter: int
@@ -48,8 +48,8 @@ class Node:
         nodeLink : node
             Points to the node with same itemId
 
-        Methods:
-        -------
+        Methods
+        --------
 
         getChild(itemName)
             returns the node with same itemName from frequentPatternTree
@@ -81,8 +81,8 @@ class Tree:
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-        Attributes:
-        ----------
+       Attributes
+        -----------
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
         mapItemNodes : dictionary
@@ -92,8 +92,8 @@ class Tree:
         root : Node
             representing the root Node in a tree
 
-        Methods:
-        -------
+        Methods
+        --------
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
         addTransaction(transaction)
@@ -217,8 +217,8 @@ class scpgrowth(frequentPatterns):
     """ 
         scpgrowth corelated algorithm is to discover the spatially corelated patterns from the database
 
-        Attributes:
-        ----------
+       Attributes
+        -----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
         oFile : file
@@ -254,8 +254,8 @@ class scpgrowth(frequentPatterns):
         minRatio: float
            user defined minimum ratio
 
-        Methods:
-        -------
+        Methods
+        --------
         startMine()
             Mining process will start from here
         getFrequentPatterns()
@@ -290,6 +290,7 @@ class scpgrowth(frequentPatterns):
 
         Executing the code on terminal:
         -------
+
         Format:
         -------
         python3 scpgrowth.py <inputFile> <outputFile> <neighboutFile> <minSup> <minRatio>
@@ -301,7 +302,7 @@ class scpgrowth(frequentPatterns):
         python3 scpgrowth.py sampleTDB.txt output.txt sampleN.txt   0.2  (minSup will be considered in support count or frequency)
 
         Sample run of the importing code:
-        -----------
+        ---------------------------------
         import scpgrowth as alg
 
         obj = alg.scpgrowth(iFile,nFile,minSup,minRatio)
@@ -329,7 +330,7 @@ class scpgrowth(frequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
         Credits:
-        -------
+        --------
         The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.
 
         """

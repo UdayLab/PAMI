@@ -1,5 +1,5 @@
 import sys
-from PAMI.partialPeriodicFrequentPattern.abstract import *
+from abstract import *
 
 
 class PPF_DFS(partialPeriodicPatterns):

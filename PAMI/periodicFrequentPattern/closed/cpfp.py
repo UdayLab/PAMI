@@ -1,5 +1,5 @@
 import sys
-from  PAMI.periodicFrequentPattern.abstract import *
+from  abstract import *
 
 class CPFPMiner(periodicFrequentPatterns):
     """ CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.

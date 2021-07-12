@@ -14,7 +14,7 @@
 #      along with this program.  If not,  see <https://www.gnu.org/licenses/>.
 
 import sys
-from  PAMI.uncertainFrequentPattern.abstract import *
+from  abstract import *
 
 
 minSup = float()
@@ -298,7 +298,7 @@ class TubeP(frequentPatterns):
         Carson Kai-Sang LeungSyed,  Khairuzzaman Tanbeer, "Fast Tree-Based Mining of Frequent Itemsets from Uncertain Data",
          International Conference on Database Systems for Advanced Applications(DASFAA 2012), https://link.springer.com/chapter/10.1007/978-3-642-29038-1_21
         
-        Attributes:
+       Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
@@ -326,7 +326,7 @@ class TubeP(frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here

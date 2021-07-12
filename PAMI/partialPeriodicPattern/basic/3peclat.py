@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from PAMI.partialPeriodicPattern.abstract import *
+from abstract import *
 
 
 class ThreePEclat(partialPeriodicPatterns):

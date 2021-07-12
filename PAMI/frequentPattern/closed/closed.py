@@ -15,7 +15,7 @@
 
 
 import sys
-from PAMI.frequentPattern.abstract import *
+from abstract import *
 
 class Closed(frequentPatterns):
     """ charm is one of the fundamental algorithm to discover closed frequent patterns in a transactional database.
@@ -29,7 +29,7 @@ class Closed(frequentPatterns):
         Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
         Proceedings of the 2002 SIAM, SDM. 2002, 457-473, https://doi.org/10.1137/1.9781611972726.27
 
-        Attributes:
+       Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
@@ -62,7 +62,7 @@ class Closed(frequentPatterns):
         hashing : dict
             stores the patterns with their support to check for the closed property
 
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here

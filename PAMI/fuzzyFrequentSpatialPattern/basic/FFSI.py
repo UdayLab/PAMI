@@ -1,7 +1,7 @@
 import sys
 import functools
 import pandas as pd
-from PAMI.fuzzyFrequentSpatialPattern.abstract import *
+from abstract import *
 
 
 class FFList:
@@ -67,7 +67,7 @@ class Reagions:
     """
             A class calculate the regions
 
-            Attributes:
+           Attributes
             ----------
             low : int
                 low region value
@@ -110,7 +110,7 @@ class Pair:
         self.quantity = 0
 
 
-class FFSI(frequentPatterns):
+class FFSP(frequentPatterns):
     """
         Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
         which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
@@ -546,7 +546,7 @@ class FFSI(frequentPatterns):
 
 if __name__ == "__main__":
     if len(sys.argv) == 5:
-        ap = FFSI(sys.argv[1], sys.argv[3], sys.argv[4])
+        ap = FFSP(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         frequentPatterns = ap.getFrequentPatterns()
         print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))

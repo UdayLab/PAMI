@@ -30,7 +30,7 @@ class UPGrowth:
         In Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining (KDD '10).
         Association for Computing Machinery, New York, NY, USA, 253–262. DOI:https://doi.org/10.1145/1835804.1835839
     
-    Methods:
+    Methods
     -------
         runAlgorithm()
             The mining process starts.

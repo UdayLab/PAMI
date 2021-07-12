@@ -33,7 +33,7 @@ class EFIM:
         Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for 
         high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
     
-    Methods:
+    Methods
     -------
         runAlgorithm()
             The mining process starts.

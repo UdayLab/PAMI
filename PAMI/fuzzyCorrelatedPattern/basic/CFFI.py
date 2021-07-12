@@ -1,6 +1,6 @@
 import sys
 import pandas as pd
-from PAMI.fuzzyCorrelatedPattern.abstract import *
+from abstract import *
 
 
 class FFList:

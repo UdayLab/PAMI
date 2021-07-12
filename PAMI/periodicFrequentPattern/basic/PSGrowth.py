@@ -15,7 +15,7 @@
 
 import sys
 from itertools import combinations
-from  PAMI.periodicFrequentPattern.abstract import *
+from  abstract import *
 
 pfList = []
 minSup = str()
@@ -39,12 +39,12 @@ class NodeSummaries(object):
     """
         To define the summaries of timeStamps of a node
         
-        Attributes:
+       Attributes
         ----------
         totalSummaries : list
             stores the summaries of timestamps
                 
-        Methods:
+        Methods
         -------
         insert(timeStamps)
             inserting and merging the timestamps into the summaries of a node
@@ -214,7 +214,7 @@ class Node(object):
 
 
 
-                Attributes:
+               Attributes
                 ----------
                 item : int
                     storing item of a node
@@ -225,7 +225,7 @@ class Node(object):
                 children : list
                     To maintain the children of node
 
-                Methods:
+                Methods
                 -------
 
                 addChild(itemName)
@@ -261,7 +261,7 @@ class Tree(object):
         A class used to represent the frequentPatternGrowth tree structure
 
 
-        Attributes:
+       Attributes
         ----------
         root : Node
             Represents the root node of the tree
@@ -271,7 +271,7 @@ class Tree(object):
             stores the support of items
 
 
-        Methods:
+        Methods
         -------
             addTransaction(Database)
                 creating Database as a branch in frequentPatternTree
@@ -532,7 +532,7 @@ class PSGrowth(periodicFrequentPatterns):
         patterns in transactional databases," 2016 IEEE Symposium Series on Computational Intelligence (SSCI),
         2016, pp. 1-8, https://doi.org/10.1109/SSCI.2016.7849926
         
-        Attributes:
+       Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of periodic-frequent patterns
@@ -563,7 +563,7 @@ class PSGrowth(periodicFrequentPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-        Methods:
+        Methods
         -------
             startMine()
                 Mining process will start from here

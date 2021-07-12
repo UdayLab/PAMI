@@ -1,8 +1,0 @@
-a	b	c	d	e:5	1	10	2	9
-a	b	c	f:8	2	3	1
-b	c	e:3	9	10
-a	b	c	e:5	3	10	3
-a	c	d:7	9	3
-b	c	d:2	6	3
-a	b	c:5	2	5
-a	c	d	5:3	10	2	2

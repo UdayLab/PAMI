@@ -15,7 +15,7 @@
 # from abstract import *
 
 import sys
-from PAMI.frequentPattern.abstract import *
+from abstract import *
 
 
 class Eclat(frequentPatterns):
@@ -25,11 +25,11 @@ class Eclat(frequentPatterns):
         transactional database.
 
         Reference:
-        ---------
+        ----------
             Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
             372-390 (2000), https://ieeexplore.ieee.org/document/846291
 
-        Attributes:
+        Attributes
         ----------
             iFile : str
                 Input file name or path of the input file
@@ -50,7 +50,7 @@ class Eclat(frequentPatterns):
                 To store the total amount of RSS memory consumed by the program
             Database : list
                 To store the complete set of transactions available in the input database/file
-        Methods:
+        Methods
         -------
             startMine()
                 Mining process will start from here
@@ -80,7 +80,8 @@ class Eclat(frequentPatterns):
                 It will generate the combinations of frequent items from a list of items
 
         Executing the code on terminal:
-        -------
+        -------------------------------
+
         Format:
         ------
         python3 eclat.py <inputFile> <outputFile> <minSup>
@@ -91,8 +92,9 @@ class Eclat(frequentPatterns):
 
         python3 eclat.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
+
         Sample run of the importing code:
-        -----------
+        ---------------------------------
         import PAMI.frequentPattern.basic.eclat as alg
 
         obj = alg.Eclat(iFile, minSup)
@@ -120,8 +122,9 @@ class Eclat(frequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
         Credits:
-        -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+        --------
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+
     """
 
     minSup = float()

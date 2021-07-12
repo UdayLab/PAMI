@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from sequential.binaryData.certainData.temporalData.partialPeriodicFrequentPatterns.basic.abstract import *
+from abstract import *
 
 periodicSupport = float()
 period = float()
@@ -368,7 +368,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             "Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases",
             IEEE 2020, https://ieeexplore.ieee.org/document/9260063
 
-            Attributes:
+           Attributes
             ----------
             iFile : file
                 Name of the Input file to mine complete set of periodic-frequent patterns
@@ -399,7 +399,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             finalPatterns : dict
                 it represents to store the patterns
 
-            Methods:
+            Methods
             -------
             startMine()
                 Mining process will start from here

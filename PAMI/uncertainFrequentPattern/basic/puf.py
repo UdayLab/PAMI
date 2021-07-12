@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from  PAMI.uncertainFrequentPattern.abstract import *
+from  abstract import *
 minSup = float()
 finalPatterns = {}
 
@@ -275,7 +275,7 @@ class Pufgrowth(frequentPatterns):
         Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
         Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
 
-        Attributes:
+       Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
@@ -303,7 +303,7 @@ class Pufgrowth(frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here

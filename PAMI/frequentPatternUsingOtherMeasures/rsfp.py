@@ -36,7 +36,7 @@ class Node:
     """
         A class used to represent the node of frequentPatternTree
 
-        Attributes:
+       Attributes
         ----------
         itemId: int
             storing item of a node
@@ -49,7 +49,7 @@ class Node:
         nodeLink : node
             Points to the node with same itemId
 
-        Methods:
+        Methods
         -------
 
         getChild(itemName)
@@ -82,7 +82,7 @@ class Tree:
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-        Attributes:
+        Attributes
         ----------
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
@@ -93,7 +93,7 @@ class Tree:
         root : Node
             representing the root Node in a tree
 
-        Methods:
+        Methods
         -------
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
@@ -218,7 +218,7 @@ class rsfp(frequentPatterns):
     """ 
         Algorthm to find all items with relative support from given dataset
 
-        Attributes:
+        Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
@@ -251,7 +251,7 @@ class rsfp(frequentPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here

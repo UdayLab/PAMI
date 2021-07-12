@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from  PAMI.periodicFrequentPattern.abstract import *
+from  abstract import *
 
 maxPer = float()
 minSup = float()
@@ -245,7 +245,7 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         R. UdayKiran, MasaruKitsuregawa, and P. KrishnaReddyd, "Efficient discovery of periodic-frequent patterns in
         very large databases," Journal of Systems and Software February 2016 https://doi.org/10.1016/j.jss.2015.10.035
 
-        Attributes:
+       Attributes
         ----------
         iFile : file
             Name of the Input file to mine complete set of periodic-frequent patterns
@@ -276,7 +276,7 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here

@@ -1,14 +1,14 @@
 import sys
 import functools
 #import pandas as pd
-from PAMI.fuzzyPeriodicFrequentPattern.abstract import *
+from abstract import *
 
 
 class FFList:
     """
         A class represent a Fuzzy List of an element
 
-        Attributes:
+       Attributes
         ----------
         item: int
             the item name
@@ -21,7 +21,7 @@ class FFList:
         maxPeriod: int
             it represent the max period of a item
 
-        Methods:
+        Methods
         -------
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
@@ -62,7 +62,7 @@ class Element:
     """
         A class represents an Element of a fuzzy list
 
-        Attributes:
+       Attributes
         ----------
         tid : int
             keep tact of transaction id
@@ -85,7 +85,7 @@ class Reagions:
     """
             A class calculate the regions
 
-            Attributes:
+           Attributes
             ----------
             low : int
                 low region value
@@ -131,7 +131,7 @@ class FPFPMiner(periodicFrequentPatterns):
         techniques to reduce the search space.
 
 
-        Attributes:
+       Attributes
         ----------
         self.iFile : file
             Name of the input file to mine complete set of fuzzy spatial frequent patterns
@@ -171,7 +171,7 @@ class FPFPMiner(periodicFrequentPatterns):
             represent the last tid of fuzzy items
         itemsToRegion: map
             represent items with respective regions
-        Methods:
+        Methods
         -------
         startMine()
             Mining process will start from here
