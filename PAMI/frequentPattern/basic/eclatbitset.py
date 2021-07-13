@@ -125,6 +125,7 @@ class Eclatbitset(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     minSup = str()
     memoryUSS = float()
     memoryRSS = float()
@@ -159,14 +160,14 @@ class Eclatbitset(frequentPatterns):
         with open(self.iFile, 'r') as f:
             for line in f:
                 self.lno += 1
-                splitter = line.split("\t")
+                splitter = [i.rstrip() for i in line.split(self.sep)]
                 for i in splitter:
                     if i not in items:
                         items.append(i)
         self.minSup = self.convert(self.minSup)
         with open(self.iFile, 'r') as f:
             for line in f:
-                li = line.split()
+                li = [i.rstrip() for i in line.split(self.sep)]
                 for j in items:
                     count = 0
                     if j in li:

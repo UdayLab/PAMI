@@ -16,6 +16,8 @@
 from abstract import *
 import sys
 
+minSup = str()
+
 
 class Node:
     """
@@ -29,40 +31,34 @@ class Node:
             To maintain the support of node
         parent: node
             To maintain the parent of every node
-        child: list
+        children: list
             To maintain the children of node
-        nodeLink : node
-            Points to the node with same itemId
 
         Methods
         -------
 
-        getChild(itemName)
-            returns the node with same itemName from frequentPatternTree
+        addChild(node)
+            Updates the nodes children list with children nodes
 
     """
 
-    def __init__(self):
-        self.itemId = -1
+    def __init__(self, item, children):
+        self.itemId = item
         self.counter = 1
         self.parent = None
-        self.child = []
-        self.nodeLink = None
+        self.children = children
 
-    def getChild(self, itemName):
+    def addChild(self, node):
         """
             Retrieving the child from the tree
 
-            :param itemName: name of the child
-            :type itemName: list
-            :return: returns the node with same itemName from frequentPatternTree
-            :rtype: list
+            :param node: Children node
+            :type node: Node
+            :return: Updates the children nodes and parent nodes
 
         """
-        for i in self.child:
-            if i.itemId == itemName:
-                return i
-        return []
+        self.children[node.itemId] = node
+        node.parent = self
 
 
 class Tree:
@@ -71,141 +67,109 @@ class Tree:
 
         Attributes
         ----------
-        headerList : list
-            storing the list of items in tree sorted in ascending of their supports
-        mapItemNodes : dictionary
-            storing the nodes with same item name
-        mapItemLastNodes : dictionary
-            representing the map that indicates the last node for each item
         root : Node
-            representing the root Node in a tree
+            The first node of the tree set to Null.
+        summaries : dictionary
+            Stores the nodes itemId which shares same itemId
+        info : dictionary
+            frequency of items in the transactions
 
         Methods
         -------
-        createHeaderList(items,minSup)
-            takes items only which are greater than minSup and sort the items in ascending order
-        addTransaction(transaction)
-            creating transaction as a branch in frequentPatternTree
-        fixNodeLinks(item,newNode)
-            To create the link for nodes with same item
-        printTree(Node)
-            gives the details of node in frequentPatternGrowth tree
-        addPrefixPath(prefix,port,minSup)
-           It takes the items in prefix pattern whose support is >=minSup and construct a subtree
+        addTransaction(transaction, freq)
+            adding items of  transactions into the tree as nodes and freq is the count of nodes
+        getFinalConditionalPatterns(node)
+            getting the conditional patterns from fp-tree for a node
+        getConditionalPatterns(patterns, frequencies)
+            sort the patterns by removing the items with lower minSup
+        generatePatterns(prefix)
+            generating the patterns from fp-tree
     """
 
     def __init__(self):
-        self.headerList = []
-        self.mapItemNodes = {}
-        self.mapItemLastNodes = {}
-        self.root = Node()
+        self.root = Node(None, {})
+        self.summaries = {}
+        self.info = {}
 
-    def addTransaction(self, transaction):
+    def addTransaction(self, transaction, count):
         """adding transaction into tree
 
         :param transaction: it represents the one transactions in database
         :type transaction: list
+        :param count: frequency of item
+        :type count: int
         """
 
         # This method taken a transaction as input and returns the tree
-        current = self.root
-        for i in transaction:
-            child = current.getChild(i)
-            if not child:
-                newNode = Node()
-                newNode.itemId = i
-                newNode.parent = current
-                current.child.append(newNode)
-                self.fixNodeLinks(i, newNode)
-                current = newNode
-            else:
-                child.counter += 1
-                current = child
-
-    def fixNodeLinks(self, item, newNode):
-        """
-        Fixing node link for the newNode that inserted into frequentPatternTree
-
-        :param item: it represents the item of newNode
-        :type item: int
-        :param newNode: it represents the newNode that inserted in frequentPatternTree
-        :type newNode: Node
-
-        """
-        if item in self.mapItemLastNodes.keys():
-            lastNode = self.mapItemLastNodes[item]
-            lastNode.nodeLink = newNode
-        self.mapItemLastNodes[item] = newNode
-        if item not in self.mapItemNodes.keys():
-            self.mapItemNodes[item] = newNode
-
-    def printTree(self, root):
-        """
-        Print the details of Node in frequentPatternTree
-
-        :param root: it represents the Node in frequentPatternTree
-        :type root: Node
-
-        """
-
-        # this method is used print the details of tree
-        if not root.child:
-            return
-        else:
-            for i in root.child:
-                print(i.itemId, i.counter, i.parent.itemId)
-                self.printTree(i)
-
-    def createHeaderList(self, mapSupport, minSup):
-        """
-        To create the headerList
-
-        :param mapSupport: it represents the items with their supports
-        :type mapSupport: dictionary
-        :param minSup: it represents the minSup
-        :param minSup: float
-        """
-        # the frequentPatternTree always maintains the header table to start the mining from leaf nodes
-        t1 = []
-        for x, y in mapSupport.items():
-            if y >= minSup:
-                t1.append(x)
-        itemSetBuffer = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        self.headerList = [i for i in t1 if i in itemSetBuffer]
-
-    def addPrefixPath(self, prefix, mapSupportBeta, minSup):
-        """
-        To construct the conditional tree with prefix paths of a node in frequentPatternTree
-
-        :param prefix: it represents the prefix items of a Node
-        :type prefix: list
-        :param mapSupportBeta: it represents the items with their supports
-        :param mapSupportBeta: dictionary
-        :param minSup: to check the item meets with minSup
-        :param minSup: float
-        """
-        # this method is used to add prefix paths in conditional trees of frequentPatternTree
-        pathCount = prefix[0].counter
-        current = self.root
-        prefix.reverse()
-        for i in range(0, len(prefix) - 1):
-            pathItem = prefix[i]
-            if mapSupportBeta.get(pathItem.itemId) >= minSup:
-                child = current.getChild(pathItem.itemId)
-                if not child:
-                    newNode = Node()
-                    newNode.itemId = pathItem.itemId
-                    newNode.parent = current
-                    newNode.counter = pathCount
-                    current.child.append(newNode)
-                    current = newNode
-                    self.fixNodeLinks(pathItem.itemId, newNode)
+        currentNode = self.root
+        for i in range(len(transaction)):
+            if transaction[i] not in currentNode.children:
+                newNode = Node(transaction[i], {})
+                newNode.freq = count
+                currentNode.addChild(newNode)
+                if transaction[i] in self.summaries:
+                    self.summaries[transaction[i]].append(newNode)
                 else:
-                    child.counter += pathCount
-                    current = child
+                    self.summaries[transaction[i]] = [newNode]
+                currentNode = newNode
+            else:
+                currentNode = currentNode.children[transaction[i]]
+                currentNode.freq += count
+
+    def getFinalConditionalPatterns(self, alpha):
+        finalPatterns = []
+        finalFreq = []
+        for i in self.summaries[alpha]:
+            set1 = i.freq
+            set2 = []
+            while i.parent.itemId is not None:
+                set2.append(i.parent.itemId)
+                i = i.parent
+            if len(set2) > 0:
+                set2.reverse()
+                finalPatterns.append(set2)
+                finalFreq.append(set1)
+        finalPatterns, finalFreq, info = self.getConditionalTransactions(finalPatterns, finalFreq)
+        return finalPatterns, finalFreq, info
+
+    def getConditionalTransactions(self, ConditionalPatterns, conditionalFreq):
+        global minSup
+        pat = []
+        freq = []
+        data1 = {}
+        for i in range(len(ConditionalPatterns)):
+            for j in ConditionalPatterns[i]:
+                if j in data1:
+                    data1[j] += conditionalFreq[i]
+                else:
+                    data1[j] = conditionalFreq[i]
+        up_dict = {k: v for k, v in data1.items() if v >= minSup}
+        count = 0
+        for p in ConditionalPatterns:
+            p1 = [v for v in p if v in up_dict]
+            trans = sorted(p1, key=lambda x: (up_dict.get(x), -x), reverse=True)
+            if len(trans) > 0:
+                pat.append(trans)
+                freq.append(conditionalFreq[count])
+            count += 1
+        return pat, freq, up_dict
+
+    def generatePatterns(self, prefix):
+        for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
+            pattern = prefix[:]
+            pattern.append(i)
+            yield pattern, self.info[i]
+            patterns, freq, info = self.getFinalConditionalPatterns(i)
+            conditionalTree = Tree()
+            conditionalTree.info = info.copy()
+            for pat in range(len(patterns)):
+                conditionalTree.addTransaction(patterns[pat], freq[pat])
+            if len(patterns) > 0:
+                for q in conditionalTree.generatePatterns(pattern):
+                    yield q
 
 
-class fpGrowth(frequentPatterns):
+class Fpgrowth(frequentPatterns):
     """
        fpGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
         This program employs downward closure property to  reduce the search space effectively.
@@ -239,14 +203,8 @@ class fpGrowth(frequentPatterns):
             it represents the total no of transactions
         tree : class
             it represents the Tree class
-        itemSetCount : int
-            it represents the total no of patterns
         finalPatterns : dict
             it represents to store the patterns
-        itemSetBuffer : list
-            it represents the store the items in mining
-        maxPatternLength : int
-           it represents the constraint for pattern length
 
         Methods
         -------
@@ -264,19 +222,10 @@ class fpGrowth(frequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        check(line)
-            To check the delimiter used in the user input file
         creatingItemSets(fileName)
             Scans the dataset or dataframes and stores in list format
         frequentOneItem()
             Extracts the one-frequent patterns from transactions
-        saveAllCombination(tempBuffer,s,position,prefix,prefixLength)
-            Forms all the combinations between prefix and tempBuffer lists with support(s)
-        saveItemSet(pattern,support)
-            Stores all the frequent patterns with their respective support
-        frequentPatternGrowthGenerate(frequentPatternTree,prefix,port)
-            Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
-            mapSupport represents the 1-length items with their respective support
             
         Executing the code on terminal:
         -------
@@ -330,16 +279,15 @@ class fpGrowth(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
     mapSupport = {}
     lno = 0
     tree = Tree()
-    itemSetBuffer = None
-    fpNodeTempBuffer = []
-    itemSetCount = 0
-    maxPatternLength = 1000
+    rank = {}
+    rankDup = {}
 
     def creatingItemSets(self):
         """
@@ -350,9 +298,8 @@ class fpGrowth(frequentPatterns):
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    line.strip()
                     self.lno += 1
-                    li1 = [i.rstrip() for i in line.split("\t")]
+                    li1 = [i.rstrip() for i in line.split(self.sep)]
                     self.Database.append(li1)
         except IOError:
             print("File Not Found")
@@ -361,116 +308,22 @@ class fpGrowth(frequentPatterns):
         """Generating One frequent items sets
 
         """
-        for i in self.Database:
-            for j in i:
-                if j not in self.mapSupport:
-                    self.mapSupport[j] = 1
+        for tr in self.Database:
+            for i in range(0, len(tr)):
+                if tr[i] not in self.mapSupport:
+                    self.mapSupport[tr[i]] = 1
                 else:
-                    self.mapSupport[j] += 1
+                    self.mapSupport[tr[i]] += 1
+        self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
+        genList = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        self.rank = dict([(index, item) for (item, index) in enumerate(genList)])
+        return genList
 
-    def saveItemSet(self, prefix, prefixLength, support):
-        """To save the frequent patterns mined form frequentPatternTree
-
-        :param prefix: the frequent pattern
-        :type prefix: list
-        :param prefixLength: the length of a frequent pattern
-        :type prefixLength: int
-        :param support: the support of a pattern
-        :type support:  int
-        """
-
-        sample = []
-        for i in range(prefixLength):
-            sample.append(prefix[i])
-        self.itemSetCount += 1
-        self.finalPatterns[tuple(sample)] = support
-
-    def saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength):
-        """Generating all the combinations for items in single branch in frequentPatternTree
-
-        :param tempBuffer: items in a list
-        :type tempBuffer: list
-        :param s: support at leaf node of a branch
-        :param position: the length of a tempBuffer
-        :type position: int
-        :param prefix: it represents the list of leaf node
-        :type prefix: list
-        :param prefixLength: the length of prefix
-        :type prefixLength: int
-        
-        """
-        max1 = 1 << position
-        for i in range(1, max1):
-            newPrefixLength = prefixLength
-            for j in range(position):
-                isSet = i & (1 << j)
-                if isSet > 0:
-                    prefix.insert(newPrefixLength, tempBuffer[j].itemId)
-                    newPrefixLength += 1
-            self.saveItemSet(prefix, newPrefixLength, s)
-
-    def frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength, mapSupport):
-        """Mining the fp tree
-
-        :param frequentPatternTree: it represents the frequentPatternTree
-        :type frequentPatternTree: class Tree
-        :param prefix: it represents a empty list and store the patterns that are mined
-        :type prefix: list
-        :param param prefixLength: the length of prefix
-        :type prefixLength: int
-        :param mapSupport : it represents the support of item
-        :type mapSupport : dictionary
-        """
-        singlePath = True
-        position = 0
-        s = 0
-        if len(frequentPatternTree.root.child) > 1:
-            singlePath = False
-        else:
-            currentNode = frequentPatternTree.root.child[0]
-            while True:
-                if len(currentNode.child) > 1:
-                    singlePath = False
-                    break
-                self.fpNodeTempBuffer.insert(position, currentNode)
-                s = currentNode.counter
-                position += 1
-                if len(currentNode.child) == 0:
-                    break
-                currentNode = currentNode.child[0]
-        if singlePath is True:
-            self.saveAllCombinations(self.fpNodeTempBuffer, s, position, prefix, prefixLength)
-        else:
-            for i in reversed(frequentPatternTree.headerList):
-                item = i
-                support = mapSupport[i]
-                betaSupport = support
-                prefix.insert(prefixLength, item)
-                self.saveItemSet(prefix, prefixLength + 1, betaSupport)
-                if prefixLength + 1 < self.maxPatternLength:
-                    prefixPaths = []
-                    path = frequentPatternTree.mapItemNodes.get(item)
-                    mapSupportBeta = {}
-                    while path is not None:
-                        if path.parent.itemId != -1:
-                            prefixPath = [path]
-                            pathCount = path.counter
-                            parent1 = path.parent
-                            while parent1.itemId != -1:
-                                prefixPath.append(parent1)
-                                if mapSupportBeta.get(parent1.itemId) is None:
-                                    mapSupportBeta[parent1.itemId] = pathCount
-                                else:
-                                    mapSupportBeta[parent1.itemId] = mapSupportBeta[parent1.itemId] + pathCount
-                                parent1 = parent1.parent
-                            prefixPaths.append(prefixPath)
-                        path = path.nodeLink
-                    treeBeta = Tree()
-                    for k in prefixPaths:
-                        treeBeta.addPrefixPath(k, mapSupportBeta, self.minSup)
-                    if len(treeBeta.root.child) > 0:
-                        treeBeta.createHeaderList(mapSupportBeta, self.minSup)
-                        self.frequentPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta)
+    def savePeriodic(self, itemSet):
+        t1 = []
+        for i in itemSet:
+            t1.append(self.rankDup[i])
+        return t1
 
     def convert(self, value):
         """
@@ -490,11 +343,30 @@ class fpGrowth(frequentPatterns):
                 value = int(value)
         return value
 
+    def updateTransactions(self, itemSet):
+        list1 = []
+        for tr in self.Database:
+            list2 = []
+            for i in range(len(tr)):
+                if tr[i] in itemSet:
+                    list2.append(self.rank[tr[i]])
+            if len(list2) >= 1:
+                list2.sort()
+                list1.append(list2)
+        return list1
+
+    def buildTree(self, transactions, info):
+        rootNode = Tree()
+        rootNode.info = info.copy()
+        for i in range(len(transactions)):
+            rootNode.addTransaction(transactions[i], 1)
+        return rootNode
+
     def startMine(self):
         """main program to start the operation
 
         """
-
+        global minSup
         self.startTime = time.time()
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -502,20 +374,17 @@ class fpGrowth(frequentPatterns):
             raise Exception("Please enter the Minimum Support")
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
-        self.frequentOneItem()
-        self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        for i in self.Database:
-            transaction = []
-            for j in i:
-                if j in itemSetBuffer:
-                    transaction.append(j)
-            transaction.sort(key=lambda val: self.mapSupport[val], reverse=True)
-            self.tree.addTransaction(transaction)
-        self.tree.createHeaderList(self.mapSupport, self.minSup)
-        if len(self.tree.headerList) > 0:
-            self.itemSetBuffer = []
-            self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport)
+        minSup = self.minSup
+        itemSet = self.frequentOneItem()
+        updatedTransactions = self.updateTransactions(itemSet)
+        for x, y in self.rank.items():
+            self.rankDup[y] = x
+        info = {self.rank[k]: v for k, v in self.mapSupport.items()}
+        Tree = self.buildTree(updatedTransactions, info)
+        patterns = Tree.generatePatterns([])
+        for k in patterns:
+            s = self.savePeriodic(k[0])
+            self.finalPatterns[str(s)] = k[1]
         print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
@@ -573,10 +442,7 @@ class fpGrowth(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            pattern = str()
-            for i in x:
-                pattern = pattern + i + " "
-            s1 = str(pattern) + ":" + str(y)
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getFrequentPatterns(self):
@@ -590,7 +456,7 @@ class fpGrowth(frequentPatterns):
 
 if __name__ == "__main__":
     if len(sys.argv) == 4:
-        ap = fpGrowth(sys.argv[1], sys.argv[3])
+        ap = Fpgrowth(sys.argv[1], sys.argv[3])
         ap.startMine()
         frequentPatterns = ap.getFrequentPatterns()
         print("Total number of Frequent Patterns:", len(frequentPatterns))

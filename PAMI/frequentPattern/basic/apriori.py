@@ -130,6 +130,7 @@ class Apriori(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -194,7 +195,7 @@ class Apriori(frequentPatterns):
         self.startTime = time.time()
         try:
             with open(self.iFile, 'r') as f:
-                self.Database = [set([i.rstrip() for i in line.split()]) for line in f]
+                self.Database = [set([i.rstrip() for i in line.split(self.sep)]) for line in f]
                 f.close()
         except IOError:
             print("File Not Found")

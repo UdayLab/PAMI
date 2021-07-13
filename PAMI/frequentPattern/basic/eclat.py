@@ -31,8 +31,6 @@ class Eclat(frequentPatterns):
 
         Attributes
         ----------
-            iFile : str
-                Input file name or path of the input file
             minSup: float
                 UserSpecified minimum support value. It has to be given in terms of count of total number of
                 transactions in the input database/file
@@ -44,12 +42,12 @@ class Eclat(frequentPatterns):
                 Storing the complete set of patterns in a dictionary variable
             oFile : str
                 Name of the output file to store complete set of frequent patterns
+            iFile : str
+                Input file name or path of the input file
             memoryUSS : float
                 To store the total amount of USS memory consumed by the program
             memoryRSS : float
                 To store the total amount of RSS memory consumed by the program
-            Database : list
-                To store the complete set of transactions available in the input database/file
         Methods
         -------
             startMine()
@@ -133,6 +131,7 @@ class Eclat(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -144,7 +143,8 @@ class Eclat(frequentPatterns):
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    splitter = [i.rstrip() for i in line.split("\t")]
+                    line.strip()
+                    splitter = [i.rstrip() for i in line.split(self.sep)]
                     self.Database.append(splitter)
         except IOError:
             print("File Not Found")
@@ -272,7 +272,6 @@ class Eclat(frequentPatterns):
                     self.finalPatterns[sample] = y
             if len(frequentSet) == 0:
                 break
-        # print("Frequent patterns were generated successfully using Eclat algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
