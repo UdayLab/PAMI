@@ -1,4 +1,5 @@
-[https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)
+[https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true](https://ci.appveyor.com/api/projects/status/c95fae1e1e0d3cacd721f98227d8bedb6a3b4a42?svg=true)
+
 
 # PAMI stands for PAttern MIning
 
