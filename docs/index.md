@@ -1,9 +1,9 @@
 <details>
-  <summary>Robots</summary>
+  <summary> Menu (click here)</summary>
   <details-menu role="menu">
-    <button type="button" role="menuitem">Hubot</button>
-    <button type="button" role="menuitem">Bender</button>
-    <button type="button" role="menuitem">BB-8</button>
+    <button type="button" role="menuitem">Installation</button>
+    <button type="button" role="menuitem">Creation of Databases</button>
+    <button type="button" role="menuitem">Utilization</button>
   </details-menu>
 </details>
 
