@@ -5,12 +5,13 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name = 'pami',
-    version = '0.9.6.1.4',
+    version = '0.9.7.2.3',
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',
     description = 'This software is the product of the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
+    packages=setuptools.find_packages(),
     url = 'https://github.com/udayRage/PAMI',
     license='GPLv3',
 
