@@ -1,5 +1,5 @@
-The user manual for using PAMI library was provided in the below links.  Key concepts in each link were briefly mentioned below each link to save your valuable time. 
-Please click on the necessary links to know more information.
+# User Manual 
+Key concepts in each link were briefly mentioned to save your valuable time. Click on the necessary links to know more.
 
 1. [About PAMI](index.html)
    
