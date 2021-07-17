@@ -1,37 +1,64 @@
-## Welcome to GitHub Pages
+# Methods to utilize PAMI library
 
-You can use the [editor on GitHub](https://github.com/udayRage/PAMI/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+The PAMI library can be utilized either as a library in any Python program or a command line based stand-alone application. We now describe both of these methods.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+**Pre-requisites:** 
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Please ensure that PAMI library was already installed on your machine. The manual for installing PAMI can be found [here](installation.html).
 
-```markdown
-Syntax highlighted code block
+## Utilizing PAMI library in a Python program
+1. If the PAMI library was installed using 'pip' command, then skip the next step and move to step 3.
+1. If the PAMI library was cloned/downloaded from the GitHub, then copy the PAMI source package into your project folder. 
+    **The sub-folder with the name of PAMI represents the source package.**
+1. The syntax to utilize an algorithm in PAMI is as follows:
 
-# Header 1
-## Header 2
-### Header 3
+```Python
 
-- Bulleted
-- List
+# import the necessary algorithm from the PAMI library
+from PAMI.<model>.<basic/closed/maximal/topK> import <algorithmName> as alg
 
-1. Numbered
-2. List
+# Call the necessary algorithm by passing necessary input parameters. The input parameters include inputFileName and the user-specified constraints.
+obj = alg.<algorithmName>(<input parameters>)
 
-**Bold** and _Italic_ and `Code` text
+# Start the mining algorithm
+obj.startMine()
 
-[Link](url) and ![Image](src)
+# Collect the patterns discovered by the algorithm in the database
+discoveredPatterns = obj.getDiscoveredPatterns()
+
+# Print the total number of patterns
+print("Total number of discovered patterns:", len(discoveredPatterns))
+
+# Store the discovered patterns in a file. 
+obj.storePatternsInFile('<outputFileName>')
+
+# Output the discovered patterns as a data frame
+Df = obj.getPatternInDataFrame()
+
+# Calculate the [USS] memory consumed by the algorithm
+print("Total Memory in USS:", obj.getMemoryUSS())
+
+# Calculate the RSS memory consumed by the algorithm. We suggest using RSS memory for the memory comparison
+print("Total Memory in RSS", obj.getMemoryRSS())
+
+# Calculate the runtime requirements by the algorithm
+print("Total ExecutionTime in seconds:", obj.getRuntime())
+
+
 ```
+### Example: Using FP-growth algorithm to find frequent patterns in a transactional database.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+```Python
 
-### Jekyll Themes
+from PAMI.frequentPattern.basic import fpGrowth as alg
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/udayRage/PAMI/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+obj = alg.fpGrowth('inputTransactionalDatabase.tsv', minSup)
+obj.startMine()
+frequentPatterns = obj.getDiscoveredPatterns()
+print("Total number of Frequent Patterns:", len(frequentPatterns))
+obj.storePatternsInFile('outputFile.tsv')
+print("Total Memory in RSS", obj.getMemoryRSS())
+print("Total ExecutionTime in seconds:", obj.getRuntime())
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+```

@@ -169,7 +169,7 @@ class Tree:
                     yield q
 
 
-class Fpgrowth(frequentPatterns):
+class fpGrowth(frequentPatterns):
     """
        fpGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
         This program employs downward closure property to  reduce the search space effectively.

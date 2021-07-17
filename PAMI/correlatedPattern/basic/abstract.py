@@ -65,6 +65,7 @@ class frequentPatterns(ABC):
         self.iFile = iFile
         self.minSup = minSup
         self.minRatio=minRatio
+
     @abstractmethod
     def iFile(self):
         """Variable to store the input file path/file name"""

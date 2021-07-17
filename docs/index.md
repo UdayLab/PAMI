@@ -29,7 +29,6 @@ students of my PhD advisor, [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/
 1. So Nakamura, The University of Aizu, Aizu-Wakamatsu, Fukushima, Japan. 
 1. C. Saideep, IIIT-Hyderabad, Telangana, India.
 1. P. Pradeep Chandra Reddy, IIIT-Hyderabad, Telangana, India.
-1. P. Ravikumar, The University of Aizu, Aizu-Wakamatsu, Fukushima, Japan. 
 
 
 ### People who supported during the development of PAMI:

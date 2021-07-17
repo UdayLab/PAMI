@@ -33,17 +33,17 @@ The PAMI library can be deleted from your machine by executing the following com
 Installing a library in some universities and industries require prior permission from the administrative departments. 
 In such cases, the following approach may found to be more convenient way to maintain the updated PAMI library. 
 
-1. Clone the PAMI repository using git command
+Clone the PAMI repository using git command
    
-        git clone https://github.com/udayRage/PAMI.git
+    git clone https://github.com/udayRage/PAMI.git
 
-1. Regularly update the PAMI repository
+Regularly update the PAMI repository
 
-        git pull PAMI
+    git pull PAMI
 
-1. Delete the PAMI repository if you no longer need it
+Delete the PAMI repository if you no longer need it
 
-      git branch -d PAMI
+    git branch -d PAMI
 
 ### Downloading the library from the GitHub
 This is the most difficult and cumbersome process to utilize and maintain PAMI library. Thus, we recommend one of the above two process for utilize PAMI library.
