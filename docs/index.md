@@ -1,35 +1,44 @@
-**[CLICK HERE](manual.html)** to access the PAMI manual.
+# User Manual 
+Key concepts in each link were briefly mentioned to save your valuable time. Click on the necessary links to know more.
 
+1. [About PAMI](aboutPAMI.html)
+   
+   PAMI is a PAttern MIning Python library to discover hidden patterns in Big Data.
 
-## About PAMI
-PAttern MIning (PAMI) is an important knowledge discovery technique in the data mining. Its objective is to discover 
-interesting patterns hidden in big data. Several theoretical models and efficient algorithms have been described in the
-literature to find different types of patterns in big data.  However, the popular adoption and the successful societal 
-application of these algorithms has been hindered due to the lack of unified open-source libraries. Few researchers have 
-attempted to address this non-trivial and challenging problem by introducing Java-based open source libraries, such as [WEKA](https://www.cs.waikato.ac.nz/ml/weka/)
-and [SPMF](https://www.philippe-fournier-viger.com/spmf/).  **Unfortunately, these Java-based libraries are inadequate to satisfy the information needs of the 
-data scientists who perform analytics on Big Data mostly using Python language.**
+1. [Installation/Update/uninstall PAMI](installation.html)
+   
+         pip install pami
+   
+1. [Organization of Algorithms in PAMI](organization.html)
+   
+   The algorithms in PAMI are organized in a hierarchical structure as follows: 
+   
+        PAMI.theoriticalModel.basic/maximal/closed/topk.algorithmName
+   
+1. [Creating Databases](createDatabases.html)
+   
+    1. [Transactional database](transactionalDatabase.html)
+       
+            format: item1<sep>item2<sep>...<sep>itemN
+       
+    1. [Temporal database](temporalDatabase.html)
 
-With this motivation, I have initiated PAMI project to empower data scientists with necessary tools to discover patterns hidden in Big Data. 
-The motivation to carryout PAMI project happened while I was working at the [Kitsuregawa lab](http://www.tkl.iis.u-tokyo.ac.jp/new/?lang=en),
-[The University of Tokyo](https://www.iis.u-tokyo.ac.jp/en/), Japan.  The work on PAMI started after I joined as an assistant professor at the [University of Aizu](https://u-aizu.ac.jp/), Japan. 
-Most of the algorithms in PAMI were developed by my students and interns. Few of the algorithms were developed by the 
-students of my PhD advisor, [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), [IIIT-Hyderabad](https://www.iiit.ac.in/), India.
-
-
-
-### People who supported during the development of PAMI:
-1. [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), IIIT-Hyderabad, India.
-1. [Prof. Masaru Kitsuregawa](http://www.tkl.iis.u-tokyo.ac.jp/Kilab/Members/memo/kitsure_e.html), The University of Tokyo, Japan.
-1. [Prof. Masashi Toyoda](https://www.iis.u-tokyo.ac.jp/en/research/staff/masashi-toyoda/), The University of Tokyo, Japan.
-1. [Dr. Koji Zettsu](https://www2.nict.go.jp/bidal/x166/en/members/zettsu/index.html), NICT, Japan.
-1. [Prof. Yukata Watanobe](https://www.u-aizu.ac.jp/~yutaka/), The University of Aizu, Japan.
-
-
-### Students who made significant contributions to PAMI:
-1. P. Likitha, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship)
-1. B. Sai chithra, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship) 
-1. So Nakamura, The University of Aizu, Aizu-Wakamatsu, Fukushima, Japan. 
-1. C. Saideep, IIIT-Hyderabad, Telangana, India.
-1. P. Pradeep Chandra Reddy, IIIT-Hyderabad, Telangana, India.
-
+            format: timestamp<sep>item1<sep>item2<sep>...<sep>itemN
+    1. [Neighborhood database](neighborhoodDatabase.html)
+            
+            format: spatialItem1<sep>spatialItem3<sep>spatialItem10<sep>...
+       
+    1. [Utility database](utilityDatabase.html)
+       
+            format: item1<sep>...<sep>itemN:totalUtility:utilityItem1<sep>...<sep>utilityItemN
+    
+    Default separator used in PAMI is tab space. However, users can override the separator with their choice.
+   
+1. [Converting Dataframes to Databases](df2db.html)
+   1. [Dense dataframe to database](denseDF2DB.html)
+   1. [Sparse dataframe to database](sparseDF2DB.html)
+   1. [Spatiotemporal dataframe to databases](stDF2DB.html)
+   
+1. [Exceuting Algorithms in PAMI](utilization.html)    
+   1. Importing PAMI algorithms into your program
+   1. Executing PAMI algorithms directly on the terminal
