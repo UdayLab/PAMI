@@ -1,11 +1,4 @@
-<details>
-  <summary> Menu (click here)</summary>
-  <details-menu role="menu">
-    <button type="button" role="menuitem">Installation</button>
-    <button type="button" role="menuitem">Creation of Databases</button>
-    <button type="button" role="menuitem">Utilization</button>
-  </details-menu>
-</details>
+**[CLICK HERE](manual.html)** to access the PAMI manual.
 
 
 ## About PAMI
