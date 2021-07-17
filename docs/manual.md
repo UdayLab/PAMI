@@ -1,6 +1,6 @@
 1. [About PAMI](index.html)
    
-   Lack of Python libraries to discover hidden patterns in databases motivated us to develop PAMI.
+   PAMI is a PAttern MIning Python library to discover hidden patterns in Big Data.
 
 1. [Installation/Update/uninstall PAMI](installation.html)
    
