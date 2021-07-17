@@ -1,7 +1,3 @@
-import '@github/details-menu-element'
-
-<script type="module" src="./node_modules/@github/details-menu-element/dist/index.js"/>
-
 <details>
   <summary>Robots</summary>
   <details-menu role="menu">
