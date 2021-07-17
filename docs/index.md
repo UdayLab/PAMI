@@ -1,37 +1,22 @@
-## Welcome to GitHub Pages
+## About PAMI
+PAttern MIning (PAMI) is an important knowledge discovery technique in the data mining. Its objective is to discover 
+interesting patterns hidden in big data. Several theoretical models and efficient algorithms have been described in the
+literature to find different types of patterns in big data.  However, the popular adoption and the successful societal 
+application of these algorithms has been hindered due to the lack of unified open-source libraries. Few researchers have 
+attempted to address this non-trivial and challenging problem by introducing Java-based open source libraries, such as [WEKA](https://www.cs.waikato.ac.nz/ml/weka/)
+and [SPMF](https://www.philippe-fournier-viger.com/spmf/).  **Unfortunately, these Java-based libraries are inadequate to satisfy the information needs of the 
+data scientists who perform analytics on Big Data mostly using Python language.**
 
-You can use the [editor on GitHub](https://github.com/udayRage/PAMI/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+With this motivation, I have initiated PAMI project to empower data scientists with necessary tools to discover patterns hidden in Big Data. 
+The motivation to carryout PAMI project happened while I was working at the [Kitsuregawa lab](http://www.tkl.iis.u-tokyo.ac.jp/new/?lang=en),
+[The University of Tokyo](https://www.iis.u-tokyo.ac.jp/en/), Japan.  The work on PAMI started after I joined as an assistant professor at the [University of Aizu](https://u-aizu.ac.jp/), Japan. 
+Most of the algorithms in PAMI were developed by my students and interns. Few of the algorithms were developed by the 
+students of my PhD advisor, [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), [IIIT-Hyderabad](https://www.iiit.ac.in/), India.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/udayRage/PAMI/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Students who made key-conntributions to PAMI:
+1. P. Likitha, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship)
+1. B. Sai chithra, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship) 
+1. So Nakamura, The University of Aizu, Aizu-Wakamatsu, Fukushima, Japan. 
+1. Sai deep, IIIT-Hyderabad, Telangana, India.
+1. P. Pradeep Chandra Reddy, IIIT-Hyderabad, Telangana, India
