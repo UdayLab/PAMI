@@ -1,3 +1,17 @@
+import '@github/details-menu-element'
+
+<script type="module" src="./node_modules/@github/details-menu-element/dist/index.js"/>
+
+<details>
+  <summary>Robots</summary>
+  <details-menu role="menu">
+    <button type="button" role="menuitem">Hubot</button>
+    <button type="button" role="menuitem">Bender</button>
+    <button type="button" role="menuitem">BB-8</button>
+  </details-menu>
+</details>
+
+
 ## About PAMI
 PAttern MIning (PAMI) is an important knowledge discovery technique in the data mining. Its objective is to discover 
 interesting patterns hidden in big data. Several theoretical models and efficient algorithms have been described in the
@@ -13,15 +27,16 @@ The motivation to carryout PAMI project happened while I was working at the [Kit
 Most of the algorithms in PAMI were developed by my students and interns. Few of the algorithms were developed by the 
 students of my PhD advisor, [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), [IIIT-Hyderabad](https://www.iiit.ac.in/), India.
 
-### Top-5 students who made key-contributions in PAMI:
+### Students with significant contributions:
 1. P. Likitha, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship)
 1. B. Sai chithra, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship) 
 1. So Nakamura, The University of Aizu, Aizu-Wakamatsu, Fukushima, Japan. 
 1. C. Saideep, IIIT-Hyderabad, Telangana, India.
 1. P. Pradeep Chandra Reddy, IIIT-Hyderabad, Telangana, India.
+1. P. Ravikumar, The University of Aizu, Aizu-Wakamatsu, Fukushima, Japan. 
 
 
-### People who supported me in various ways during the creation of PAMI:
+### People who supported during the development of PAMI:
 1. [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), IIIT-Hyderabad, India.
 1. [Prof. Masaru Kitsuregawa](http://www.tkl.iis.u-tokyo.ac.jp/Kilab/Members/memo/kitsure_e.html), The University of Tokyo, Japan.
 1. [Prof. Masashi Toyoda](https://www.iis.u-tokyo.ac.jp/en/research/staff/masashi-toyoda/), The University of Tokyo, Japan.
