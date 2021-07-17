@@ -16,12 +16,6 @@ The motivation to carryout PAMI project happened while I was working at the [Kit
 Most of the algorithms in PAMI were developed by my students and interns. Few of the algorithms were developed by the 
 students of my PhD advisor, [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), [IIIT-Hyderabad](https://www.iiit.ac.in/), India.
 
-### Students with significant contributions:
-1. P. Likitha, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship)
-1. B. Sai chithra, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship) 
-1. So Nakamura, The University of Aizu, Aizu-Wakamatsu, Fukushima, Japan. 
-1. C. Saideep, IIIT-Hyderabad, Telangana, India.
-1. P. Pradeep Chandra Reddy, IIIT-Hyderabad, Telangana, India.
 
 
 ### People who supported during the development of PAMI:
@@ -30,3 +24,12 @@ students of my PhD advisor, [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/
 1. [Prof. Masashi Toyoda](https://www.iis.u-tokyo.ac.jp/en/research/staff/masashi-toyoda/), The University of Tokyo, Japan.
 1. [Dr. Koji Zettsu](https://www2.nict.go.jp/bidal/x166/en/members/zettsu/index.html), NICT, Japan.
 1. [Prof. Yukata Watanobe](https://www.u-aizu.ac.jp/~yutaka/), The University of Aizu, Japan.
+
+
+### Students who made significant contributions to PAMI:
+1. P. Likitha, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship)
+1. B. Sai chithra, IIIT-Idupulapaya, Andhra Pradesh, India. (Internship) 
+1. So Nakamura, The University of Aizu, Aizu-Wakamatsu, Fukushima, Japan. 
+1. C. Saideep, IIIT-Hyderabad, Telangana, India.
+1. P. Pradeep Chandra Reddy, IIIT-Hyderabad, Telangana, India.
+
