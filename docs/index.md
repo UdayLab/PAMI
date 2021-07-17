@@ -1,7 +1,7 @@
 # User Manual 
 Key concepts in each link were briefly mentioned to save your valuable time. Click on the necessary links to know more.
 
-1. [About PAMI](aboutPAMI.html)
+1. [About PAMI: Motivation and people who supported](aboutPAMI.html)
    
    PAMI is a PAttern MIning Python library to discover hidden patterns in Big Data.
 
