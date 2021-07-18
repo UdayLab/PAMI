@@ -32,6 +32,11 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
        
             format: item1<sep>...<sep>itemN:totalUtility:utilityItem1<sep>...<sep>utilityItemN
     
+    1. [Uncertain database](uncertaiinDatabases.html)
+       
+            format: item1<sep>...<sep>itemN:unCertainValue1<sep>...<sep>unCertainValueN
+       
+
     Default separator used in PAMI is tab space. However, users can override the separator with their choice.
    
 1. [Converting Dataframes to Databases](df2db.html)

@@ -8,7 +8,7 @@ setuptools.setup(
     version = '0.9.7.2.3',
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',
-    description = 'This software is the product of the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
+    description = 'This software is being developed at the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
     long_description = long_description,
     long_description_content_type = 'text/markdown',
     packages=setuptools.find_packages(),
@@ -20,5 +20,5 @@ setuptools.setup(
 	'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
     ],
-    python_requires = '>=3.6',
+    python_requires = '>=3.5',
 )

@@ -1,37 +1,15 @@
-## Welcome to GitHub Pages
+# Theoretical representation
 
-You can use the [editor on GitHub](https://github.com/udayRage/PAMI/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+ A temporal database generally records binary data. Every transaction in this database
+   contains a timestamp (ts) and a set of items. The format of a transaction in this database is as follows:
+         timestamp : Items
+   
+   A sample temporal database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:
+   
+   Timestamp |  Transactions 
+     --- | -----
+     1   | a,b,c
+     2   | d,e
+     5   | a,e,f 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/udayRage/PAMI/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+# Practical representation of a temporal database in PAMI
