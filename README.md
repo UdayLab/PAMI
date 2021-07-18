@@ -1,6 +1,3 @@
-[https://ci.appveyor.com/api/projects/status/c95fae1e1e0d3cacd721f98227d8bedb6a3b4a42?svg=true](https://ci.appveyor.com/api/projects/status/c95fae1e1e0d3cacd721f98227d8bedb6a3b4a42?svg=true)
-
-
 # PAMI stands for PAttern MIning
 
 This software is provided under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. For more information on license visit: https://www.gnu.org/licenses/quick-guide-gplv3.html
@@ -15,7 +12,10 @@ PAMI constitutes of several pattern mining algorithms to discovers interesting p
                 
                 
     COMMAND: pip install psutil pandas
-    
+
+# User manual
+  The manual for working with PAMI is available at https://udayrage.github.io/PAMI/manual.html
+  
 # Details 
 Total available algorithms: 41
 
