@@ -3,10 +3,7 @@
 A utility database represents a non-binary transactional database or a non-binary temporal database.
 
 ### Utility transactional database
-The format of a utility transactional database is as follows:
-
-    tid:(itemA utilityA),(itemB utilityA), ..., (itemN utilityN)
-
+A utility transactional database constitutes of a transactional identifier (tid), items, and their corresponding utility values in a transaction.
 A sample utility transactional database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat},
 is shown in below table:
 
@@ -15,23 +12,6 @@ is shown in below table:
      1   | (Bread,1$), (Jam,2$), (Butter, 1.5$)
      2   | (Bat, 100$), (Ball, 10$)
      3   | (Pen, 2$), (Book, 5$) 
-
-### Utility temporal database
-The format of a utility temporal database is as follows:
-
-    timestamp:tid:(itemA utilityA),(itemB utilityA), ..., (itemN utilityN)
-
-A sample utility temporal database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat},
-is shown in below table:
-
-  Timestamp | tid| Transactions (items and their prices)
-     --- | -----|----
-    1| 1   | (Bread,1$), (Jam,2$), (Butter, 1.5$)
-    2| 2   | (Bat, 100$), (Ball, 10$)
-    5| 3   | (Pen, 2$), (Book, 5$) 
-
-# Representing utility databases in PAMI
-
 ### Format of utility transactional databases in PAMI
 The utility transactional database must exist in the following format:
 
@@ -54,6 +34,16 @@ An example of a utility transactional database is show below:
 
       Pen   Book:7:2   5
 
+### Utility temporal database
+An utility temporal database is constitutes of timestamp, tid, items, and their corresponding utility values. 
+A sample utility temporal database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat},
+is shown in below table:
+
+  Timestamp | tid| Transactions (items and their prices)
+     --- | -----|----
+    1| 1   | (Bread,1$), (Jam,2$), (Butter, 1.5$)
+    2| 2   | (Bat, 100$), (Ball, 10$)
+    5| 3   | (Pen, 2$), (Book, 5$) 
 
 ### Format of utility temporal databases in PAMI
 The utility temporal database must exist in the following format:

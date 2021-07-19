@@ -1,30 +1,29 @@
 # Theoretical representation
 
  A temporal database is a collection of transactions and their associated timestamps.  
- The format of a transaction in this database is as follows:
-
-         timestamp : tid : Items
-   
-   A sample temporal database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:
+ A sample temporal database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:
    
    Timestamp |  tid | Transactions 
      --- | ----- | ---
-     1  | 1  | a,b,c
-     2  | 2 | d,e
-     5  | 3 | a,e,f 
+     1  | 1  | a, b, c
+     2  | 2 | d, e
+     5  | 3 | a, e, f  
 
-__We can ignore the tid information can be ignored__
-# Practical representation of a temporal database in PAMI
-A temporal database must exist in the following  format:
-
+### Rules to create a temporal database
 1. The first column of every transaction must represent a timestamp. 
 1. The timestamp of the first transaction must always be 1. The timestamps of remaining transactions follow thereafter. 
    In other words, the tiemstamps in a temporal database must be relative to each other, rather than absolute timestamps.
 1. Irregular time gaps can exist between the transactions.
 
+### Temporal database format
 The PAMI library requires every transaction in a temporal database to exist in the following format:
 
       timestamp<sep>item1<sep>item2<sep>...<sep>itemN
+      An example:
+
+        1   a   b   c
+        2   d   e
+        5   a   e   f
 
 **Note:**
 1. The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
@@ -33,7 +32,7 @@ The PAMI library requires every transaction in a temporal database to exist in t
 1. In a temporal database, items can be represented in integers or strings.
 1. The timestamps must exist as integers.
 
-## Example: finding periodic-frequent patterns in a transactional database using PFP-growth++
+### Example: finding periodic-frequent patterns in a transactional database using PFP-growth++
 1. Execute the following command if PAMI was not installed in your machine.
    
          pip install pami

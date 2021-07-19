@@ -9,9 +9,13 @@ and a set of items. A sample transactional database generated from the set of it
      2   | d, e
      3   | a, e, f
    
+### Rules to create a transactional database
+1. Since TID of a transaction directly represents its row number in a database, we can ignore this information 
+to save storage space and processing time. 
+1. All items in every transaction must be seperated from one another with a separator.   
 
-Since TID of a transaction directly represents its row number in a database, we can ignore this information 
-to save storage space and processing time. Thus, a transactional database can be represented in the following format:
+### Transactional database format
+The format of a transactional database is as follows:
 
       item1<sep>item2<sep>...<sep>itemN
 
