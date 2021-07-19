@@ -3,16 +3,17 @@
  A temporal database is a collection of transactions and their associated timestamps.  
  The format of a transaction in this database is as follows:
 
-         timestamp : Items
+         timestamp : tid : Items
    
    A sample temporal database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:
    
-   Timestamp |  Transactions 
-     --- | -----
-     1   | a,b,c
-     2   | d,e
-     5   | a,e,f 
+   Timestamp |  tid | Transactions 
+     --- | ----- | ---
+     1  | 1  | a,b,c
+     2  | 2 | d,e
+     5  | 3 | a,e,f 
 
+__We can ignore the tid information can be ignored__
 # Practical representation of a temporal database in PAMI
 A temporal database must exist in the following  format:
 
@@ -25,7 +26,7 @@ The PAMI library requires every transaction in a temporal database to exist in t
 
       timestamp<sep>item1<sep>item2<sep>...<sep>itemN
 
-**Key points:**
+**Note:**
 1. The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
    separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
    and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.

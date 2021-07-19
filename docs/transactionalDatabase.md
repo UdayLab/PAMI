@@ -21,7 +21,7 @@ database to exist in the following format:
       item1<sep>item2<sep>...<sep>itemN
 
 
-**Key points:**
+**Note:**
 1. The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
    separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
    and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.
