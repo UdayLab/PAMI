@@ -19,13 +19,14 @@ to save storage space and processing time. Thus, a transactional database can be
         a   b   c
         d   e
         a   e   f
+
 **Note:**
 1. The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
    separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
    and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.
 1. In a transactional database, items can be represented in integers or strings.
 
-## Example: finding frequent patterns in a transactional database using FP-growth
+### Example: finding frequent patterns in a transactional database using FP-growth
 1. Execute the following command if PAMI was not installed in your machine.
    
          pip install pami
