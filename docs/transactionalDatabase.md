@@ -1,11 +1,7 @@
 # Theoretical representation of a transactional database
 
 A transactional database is a collection of transactions.  Every transaction constitutes of a transaction-identifier (TID)
-and a set of items. The format of a transaction is as follows:
-   
-         tid : items
-   
-  A sample transactional database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:
+and a set of items. A sample transactional database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:
 
   TID |  Transactions 
      --- | -----
@@ -13,14 +9,16 @@ and a set of items. The format of a transaction is as follows:
      2   | d, e
      3   | a, e, f
    
-# Practical representation of a transactional database in PAMI
+
 Since TID of a transaction directly represents its row number in a database, we can ignore this information 
-to save storage space and processing time. In this context, the PAMI library requires every transaction in a transactional 
-database to exist in the following format:
+to save storage space and processing time. Thus, a transactional database can be represented in the following format:
 
       item1<sep>item2<sep>...<sep>itemN
 
-
+      An example:
+        a   b   c
+        d   e
+        a   e   f
 **Note:**
 1. The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
    separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
