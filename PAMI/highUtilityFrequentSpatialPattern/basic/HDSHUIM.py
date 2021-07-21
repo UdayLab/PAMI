@@ -141,7 +141,9 @@ class SHDSHUIs(utilityPatterns):
         Executing the code on terminal
         -------
         Format: python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil>
-        Examples: python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (minSup will be considered in support count or frequency)
+                python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
+        Examples: python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be "\t" in both input and neighbourhood file)
+                  python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be "," in both input and neighbourhood file)
 
         Sample run of importing the code:
         -------------------------------
@@ -184,12 +186,13 @@ class SHDSHUIs(utilityPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    nFile =" "
     minUtil=0
     memoryUSS = float()
     memoryRSS = float()
     sep="\t"
-    def __init__(self,iFile1,neighb1,minUtil):
-        super().__init__(iFile1,neighb1,minUtil)
+    def __init__(self,iFile1,neighb1,minUtil,sep="\t"):
+        super().__init__(iFile1,neighb1,minUtil,sep)
         self.startTime=0
         self.endTime=0
         self.hui_cnt=0
@@ -214,7 +217,8 @@ class SHDSHUIs(utilityPatterns):
         self.startTime=time.time()
         with open(self.nFile,'r') as file1:
             for line in file1:
-                parts=line.split()
+                line=line.split("\n")[0]
+                parts=line.split(self.sep)
                 item=parts[0]
                 neigh1=set()
                 for i in range(1,len(parts)):
@@ -223,8 +227,8 @@ class SHDSHUIs(utilityPatterns):
         with open(self.iFile,'r') as file:
             for line in file:
                 parts=line.split(":")
-                items_str=(parts[0].split("\n")[0]).split("	")
-                utility_str=(parts[2].split("\n")[0]).split("	")
+                items_str=(parts[0].split("\n")[0]).split(self.sep)
+                utility_str=(parts[2].split("\n")[0]).split(self.sep)
                 transUtility=int(parts[1])
                 trans1=set()
                 for i in range(0,len(items_str)):
@@ -259,8 +263,8 @@ class SHDSHUIs(utilityPatterns):
         with open(self.iFile,'r') as file:
             for line in file:
                 parts=line.split(":")
-                items=(parts[0].split("\n")[0]).split("	")
-                utilities=(parts[2].split("\n")[0]).split("	")
+                items=(parts[0].split("\n")[0]).split(self.sep)
+                utilities=(parts[2].split("\n")[0]).split(self.sep)
                 ru=0
                 newTwu=0
                 tx_key=[]
@@ -602,8 +606,11 @@ class SHDSHUIs(utilityPatterns):
         return self.endTime-self.startTime
 
 if __name__ == "__main__":
-    if len(sys.argv)==5:
-        ap=SHDSHUIs(sys.argv[1],sys.argv[3],int(sys.argv[4]))
+    if len(sys.argv)==5 or len(sys.argv)==6:
+        if len(sys.argv)==6:# to  include a user specifed separator
+        	ap=SHDSHUIs(sys.argv[1],sys.argv[3],int(sys.argv[4]),sys.argv[5])
+        if len(sys.argv)==5: # to consider "\t" as a separator
+        	ap=SHDSHUIs(sys.argv[1],sys.argv[3],int(sys.argv[4]))
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Spatial High-Utility Patterns:", len(Patterns))

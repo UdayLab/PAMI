@@ -110,6 +110,12 @@ class utilityPatterns(ABC):
         pass
 
     @abstractmethod
+    def nFile(self):
+        """Variable to store the neighbourhood file path/file name"""
+
+        pass
+
+    @abstractmethod
     def minUtil(self):
         """Variable to store the user-specified minimum support value"""
 
