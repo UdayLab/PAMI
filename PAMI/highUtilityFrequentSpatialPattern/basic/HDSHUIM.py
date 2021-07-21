@@ -7,22 +7,22 @@ class Element:
 
         Attributes
         ----------
-        tid : int
+        ts : int
             keep tact of transaction id
-        nu : int
-            non closed itemset utility
-        nru : int
-             non closed remaining utility
+        snu : int
+            Spatial non closed itemset utility
+        snru : int
+            Spatial non closed remaining utility
         pu : int
             prefix utility
         ppos: int
             position of previous item in the list
     """
 
-    def __init__(self,tid,nu,nru,pu,ppos):
-        self.tid=tid
-        self.nu=nu
-        self.nru=nru
+    def __init__(self,ts,snu,snru,pu,ppos):
+        self.ts=ts
+        self.snu=snu
+        self.snru=snru
         self.pu=pu
         self.ppos=ppos
 class CUList:
@@ -33,9 +33,9 @@ class CUList:
         ----------
         item: int
             item 
-        sumNu: long
+        sumSnu: long
             the sum of item utilities
-        sumNru: long
+        sumSnru: long
             the sum of remaining utilities
         sumCu : long
             the sum of closed utilities
@@ -54,8 +54,8 @@ class CUList:
     """
     def __init__(self,item):
         self.item=item
-        self.sumnu = 0
-        self.sumnru = 0
+        self.sumSnu = 0
+        self.sumSnru = 0
         self.sumCu = 0
         self.sumCru = 0
         self.sumCpu = 0
@@ -66,8 +66,8 @@ class CUList:
             :param element: element to be addeed to CUList
             :type element: Element
         """
-        self.sumnu+=element.nu
-        self.sumnru+=element.nru
+        self.sumSnu+=element.snu
+        self.sumSnru+=element.snru
         self.elements.append(element)
 
 class Pair:
@@ -86,10 +86,12 @@ class SHDSHUIs(utilityPatterns):
 
         Parameters
         ----------
-        self.iFile : file
+        iFile : str
             Name of the input file to mine complete set of frequent patterns
-       self. oFile : file
+        oFile : str
             Name of the output file to store complete set of frequent patterns
+        nFile: str
+           Name of Neighbourhoof items file
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
         startTime:float
@@ -106,14 +108,18 @@ class SHDSHUIs(utilityPatterns):
             huis created
         neighbors: map
             keep track of nighboues of elements
+        mapOfPMU: map
+            a map to keep track of Probable Maximum utilty(PMU) of each item
         Methods
             -------
             startMine()
                 Mining process will start from here
-            getFrequentPatterns()
+            getPatterns()
                 Complete set of patterns will be retrieved with this function
             storePatternsInFile(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
+            construcCUL(x, culs, st, minUtil, length, exnighbors)
+                A method to construct CUL's database
             getPatternsInDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
             getMemoryUSS()
@@ -122,24 +128,33 @@ class SHDSHUIs(utilityPatterns):
                 Total amount of RSS memory consumed by the mining process will be retrieved from this function
             getRuntime()
                 Total amount of runtime taken by the mining process will be retrieved from this function
+            Explore_SearchTree(prefix, uList, ExNeighbors, minUtil)
+                A method to find all high utility itemsets
+            UpdateCLosed(x, culs, st, excul, newT, ex, ey_ts, length)
+                A method to update closed values
+            saveItemset(prefix, prefixlen, item, utility)
+               A method to save itemsets
+            updateElement(z, culs, st, excul, newT, ex, duppos, ey_ts)
+               A method to updates vales for duplicates
+
 
         Executing the code on terminal
         -------
         Format: python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil>
-        Examples: python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 
-        
+        Examples: python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (minSup will be considered in support count or frequency)
+
         Sample run of importing the code:
         -------------------------------
         
         import HDSHUIM as alg
 
-        obj=alg.SHDSHUIs("sampleTDB.txt","sampleN.txt",35)
+        obj=alg.SHDSHUIs("input.txt","nighbours.txt",35)
 
         obj.startMine()
 
-        frequentPatterns = obj.getUtilityPatterns()
+        Patterns = obj.getPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Spatial High-Utility Patterns:", len(Patterns))
 
         obj.storePatternsInFile("output")
 
@@ -158,7 +173,8 @@ class SHDSHUIs(utilityPatterns):
         Credits:
         -------
             The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
-
+            The complete verification and documentation is done by Penugonda Ravikumar.
+            
     """
     
     startTime = float()
@@ -171,6 +187,7 @@ class SHDSHUIs(utilityPatterns):
     minUtil=0
     memoryUSS = float()
     memoryRSS = float()
+    sep="\t"
     def __init__(self,iFile1,neighb1,minUtil):
         super().__init__(iFile1,neighb1,minUtil)
         self.startTime=0
@@ -194,7 +211,7 @@ class SHDSHUIs(utilityPatterns):
         """main program to start the operation
         """
         minUtil=self.minUtil
-        self.startTime=datetime.datetime.now()
+        self.startTime=time.time()
         with open(self.nFile,'r') as file1:
             for line in file1:
                 parts=line.split()
@@ -206,8 +223,8 @@ class SHDSHUIs(utilityPatterns):
         with open(self.iFile,'r') as file:
             for line in file:
                 parts=line.split(":")
-                items_str=parts[0].split()
-                utility_str=parts[2].split()
+                items_str=(parts[0].split("\n")[0]).split("	")
+                utility_str=(parts[2].split("\n")[0]).split("	")
                 transUtility=int(parts[1])
                 trans1=set()
                 for i in range(0,len(items_str)):
@@ -238,12 +255,12 @@ class SHDSHUIs(utilityPatterns):
                 mapItemsToCUList[item]=uList
                 listOfCUList.append(uList)
         listOfCUList.sort(key=functools.cmp_to_key(self.compareItems))
-        tid=1
+        ts=1
         with open(self.iFile,'r') as file:
             for line in file:
                 parts=line.split(":")
-                items=parts[0].split()
-                utilities=parts[2].split()
+                items=(parts[0].split("\n")[0]).split("	")
+                utilities=(parts[2].split("\n")[0]).split("	")
                 ru=0
                 newTwu=0
                 tx_key=[]
@@ -264,7 +281,7 @@ class SHDSHUIs(utilityPatterns):
                         for i in range(len(revisedTrans)-1,-1,-1):
                             pair=revisedTrans[i]
                             cuListoFItems=mapItemsToCUList.get(pair.item)
-                            element=Element(tid,pair.utility,ru,0,0)
+                            element=Element(ts,pair.utility,ru,0,0)
                             if(i>0):
                                 element.ppos=len(mapItemsToCUList[revisedTrans[i-1].item].elements)
                             else:
@@ -276,10 +293,10 @@ class SHDSHUIs(utilityPatterns):
                         ru=0
                         for i in range(len(revisedTrans)-1,-1,-1):
                             cuListoFItems=mapItemsToCUList[revisedTrans[i].item]
-                            cuListoFItems.elements[pos].nu+=revisedTrans[i].utility
-                            cuListoFItems.elements[pos].nru+=ru
-                            cuListoFItems.sumnu+=revisedTrans[i].utility
-                            cuListoFItems.sumnru+=ru
+                            cuListoFItems.elements[pos].snu+=revisedTrans[i].utility
+                            cuListoFItems.elements[pos].snru+=ru
+                            cuListoFItems.sumSnu+=revisedTrans[i].utility
+                            cuListoFItems.sumSnru+=ru
                             ru+=revisedTrans[i].utility
                             pos=cuListoFItems.elements[pos].ppos
                 #EUCS
@@ -296,10 +313,11 @@ class SHDSHUIs(utilityPatterns):
                             mapFMAPItem[pairAfter.item]=newTwu
                         else:
                             mapFMAPItem[pairAfter.item]=twuSUm+newTwu
-                tid+=1
+                ts+=1
         ExNeighbors=set(self.mapOfPMU.keys())
+        #print(self.nighbours)
         self.Explore_SearchTree([],listOfCUList,ExNeighbors,minUtil)
-        self.endTime=datetime.datetime.now()
+        self.endTime=time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
@@ -307,7 +325,7 @@ class SHDSHUIs(utilityPatterns):
         """
             A method to find all high utility itemsets
 
-           Attributes
+            Attributes:
             -----------
             :parm prefix: it represent all items in prefix
             :type prefix :list
@@ -326,9 +344,9 @@ class SHDSHUIs(utilityPatterns):
             soted_prefix=[0]*(len(prefix)+1)
             soted_prefix=prefix[0:len(prefix)+1]
             soted_prefix.append(x.item)
-            if (x.sumnu + x.sumCu >= minUtil) and(x.item in ExNeighbors):
-                self.saveItemset(prefix,len(prefix),x.item,x.sumnu+x.sumCu)
-            if x.sumnu+x.sumCu+x.sumnru+x.sumCru>=minUtil:#U-Prune # and (x.item in ExNeighbors)):
+            if (x.sumSnu + x.sumCu >= minUtil) and(x.item in ExNeighbors):
+                self.saveItemset(prefix,len(prefix),x.item,x.sumSnu+x.sumCu)
+            if x.sumSnu+x.sumCu+x.sumSnru+x.sumCru>=minUtil:#U-Prune # and (x.item in ExNeighbors)):
                 ULIST=[]
                 for j in range(i,len(uList)):
                     if (uList[j].item in ExNeighbors) and (self.neighbors.get(x.item) != None) and (uList[j].item in self.neighbors.get(x.item)):
@@ -344,7 +362,7 @@ class SHDSHUIs(utilityPatterns):
         """
             A method to construct CUL's database
 
-           Attributes
+            Attributes:
             -----------
             :parm x: Compact utility list
             :type x: list
@@ -364,13 +382,13 @@ class SHDSHUIs(utilityPatterns):
         excul=[]
         lau=[]
         cutil=[]
-        ey_tid=[]
+        ey_ts=[]
         for i in range(0,len(culs)):
             uList=CUList(culs[i].item)
             excul.append(uList)
             lau.append(0)
             cutil.append(0)
-            ey_tid.append(0)
+            ey_ts.append(0)
         sz=len(culs)-(st+1)
         exSZ=sz
         for j in range(st+1,len(culs)):
@@ -383,8 +401,8 @@ class SHDSHUIs(utilityPatterns):
                 else:
                     uList=CUList(culs[j].item)
                     excul[j]=uList
-                    ey_tid[j]=0
-                    lau[j]=x.sumCu+x.sumCru+x.sumnu+x.sumnru
+                    ey_ts[j]=0
+                    lau[j]=x.sumCu+x.sumCru+x.sumSnu+x.sumSnru
                     cutil[j]=x.sumCu+x.sumCru
         hashTable={}            
         for ex in x.elements:
@@ -393,17 +411,17 @@ class SHDSHUIs(utilityPatterns):
                 if excul[j]==None:
                     continue
                 eylist=culs[j].elements
-                while ey_tid[j]<len(eylist) and eylist[ey_tid[j]].tid<ex.tid:
-                    ey_tid[j]=ey_tid[j]+1
-                if ey_tid[j]<len(eylist) and eylist[ey_tid[j]].tid==ex.tid:
+                while ey_ts[j]<len(eylist) and eylist[ey_ts[j]].ts<ex.ts:
+                    ey_ts[j]=ey_ts[j]+1
+                if ey_ts[j]<len(eylist) and eylist[ey_ts[j]].ts==ex.ts:
                     newT.append(j)
                 else:
-                    lau[j]=lau[j]-ex.nu-ex.nru
+                    lau[j]=lau[j]-ex.snu-ex.snru
                     if lau[j]<minUtil:
                         excul[j]=None
                         exSZ=exSZ-1
             if len(newT)==exSZ:
-                self.UpdateCLosed(x,culs,st,excul,newT,ex,ey_tid,length)
+                self.UpdateCLosed(x,culs,st,excul,newT,ex,ey_ts,length)
             else:
                 if len(newT)==0:
                     continue
@@ -413,19 +431,19 @@ class SHDSHUIs(utilityPatterns):
                     hashTable[newT1]=len(excul[newT[len(newT)-1]].elements)
                     for i in range(len(newT)-1,-1,-1):
                         cuListoFItems=excul[newT[i]]
-                        y=culs[newT[i]].elements[ey_tid[newT[i]]]
-                        element=Element(ex.tid,ex.nu+y.nu-ex.pu,ru,ex.nu,0)
+                        y=culs[newT[i]].elements[ey_ts[newT[i]]]
+                        element=Element(ex.ts,ex.snu+y.snu-ex.pu,ru,ex.snu,0)
                         if(i>0):
                             element.ppos=len(excul[newT[i-1]].elements)
                         else:
                             element.ppos=-1
                         cuListoFItems.addElements(element)
-                        ru+=y.nu-ex.pu
+                        ru+=y.snu-ex.pu
                 else:
                     dppos=hashTable[newT1]
-                    self.updateElement(x,culs,st,excul,newT,ex,dppos,ey_tid)
+                    self.updateElement(x,culs,st,excul,newT,ex,dppos,ey_ts)
             for j in range(st+1,len(culs)):
-                cutil[j]=cutil[j]+ex.nu+ex.nru
+                cutil[j]=cutil[j]+ex.snu+ex.snru
         filter_culs=[]
         for j in range(st+1,len(culs)):
             if cutil[j]<minUtil or excul[j]==None:
@@ -438,10 +456,10 @@ class SHDSHUIs(utilityPatterns):
                 filter_culs.append(excul[j])
         return filter_culs
     
-    def UpdateCLosed(self,x,culs,st,excul,newT,ex,ey_tid,length):
+    def UpdateCLosed(self,x,culs,st,excul,newT,ex,ey_ts,length):
         """
             A method to update closed values
-           Attributes
+            Attributes:
             -----------
             :parm x: Compact utility list
             :type x: list
@@ -453,26 +471,26 @@ class SHDSHUIs(utilityPatterns):
             :type newT:list
             :parm ex: element ex
             :type ex:element
-            :parm ey_tid:list of tids
-            :type ey_tid:tid
+            :parm ey_ts:list of tss
+            :type ey_ts:ts
             :parm length: length of x
             :type length:int
 
         """
-        nru=0
+        snru=0
         for j in range(len(newT)-1,-1,-1):
             ey=culs[newT[j]]
-            eyy=ey.elements[ey_tid[newT[j]]]
-            excul[newT[j]].sumCu+=ex.nu+eyy.nu-ex.pu
-            excul[newT[j]].sumCru+=nru
-            excul[newT[j]].sumCpu+=ex.nu
-            nru=nru+eyy.nu-ex.pu
+            eyy=ey.elements[ey_ts[newT[j]]]
+            excul[newT[j]].sumCu+=ex.snu+eyy.snu-ex.pu
+            excul[newT[j]].sumCru+=snru
+            excul[newT[j]].sumCpu+=ex.snu
+            snru=snru+eyy.snu-ex.pu
 
-    def updateElement(self,z,culs,st,excul,newT,ex,duppos,ey_tid):
+    def updateElement(self,z,culs,st,excul,newT,ex,duppos,ey_ts):
         """
             A method to updates vales for duplicates
 
-           Attributes
+            Attributes:
             -----------
             :parm z: Compact utility list
             :type z: list
@@ -488,27 +506,27 @@ class SHDSHUIs(utilityPatterns):
             :type ex:element
             :parm duppos: position of z in excul
             :type duppos:int
-            :parm ey_tid:list of tids
-            :type ey_tid:tid
+            :parm ey_ts:list of tss
+            :type ey_ts:ts
         """
-        nru=0
+        snru=0
         pos=duppos
         for j in range(len(newT)-1,-1,-1):
             ey=culs[newT[j]]
-            eyy=ey.elements[ey_tid[newT[j]]]
-            excul[newT[j]].elements[pos].nu+=ex.nu+eyy.nu-ex.pu
-            excul[newT[j]].sumnu+=ex.nu+eyy.nu-ex.pu
-            excul[newT[j]].elements[pos].nru+=nru
-            excul[newT[j]].sumnru+=nru
-            excul[newT[j]].elements[pos].pu+=ex.nu
-            nru=nru+eyy.nu-ex.pu
+            eyy=ey.elements[ey_ts[newT[j]]]
+            excul[newT[j]].elements[pos].snu+=ex.snu+eyy.snu-ex.pu
+            excul[newT[j]].sumSnu+=ex.snu+eyy.snu-ex.pu
+            excul[newT[j]].elements[pos].snru+=snru
+            excul[newT[j]].sumSnru+=snru
+            excul[newT[j]].elements[pos].pu+=ex.snu
+            snru=snru+eyy.snu-ex.pu
             pos=excul[newT[j]].elements[pos].ppos
             
     def saveItemset(self,prefix,prefixlen,item,utility):
         """
          A method to save itemsets
 
-        Attributes
+         Attributes:
         -----------
         :parm prefix: it represent all items in prefix
         :type prefix :list
@@ -524,7 +542,7 @@ class SHDSHUIs(utilityPatterns):
         for i in range(0,prefixlen):
             res+=str(prefix[i])+" "
         res+=str(item)
-        res1=str(utility)+"\n"
+        res1=str(utility)
         self.finalPatterns[res]=res1
         #self.bwriter.write(res)
 
@@ -541,7 +559,7 @@ class SHDSHUIs(utilityPatterns):
             data.append([a, b])
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
-    def getUtilityPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -581,20 +599,20 @@ class SHDSHUIs(utilityPatterns):
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
        """
-        dif=self.endTime-self.startTime
-        return dif.total_seconds()*1000
+        return self.endTime-self.startTime
+
 if __name__ == "__main__":
     if len(sys.argv)==5:
         ap=SHDSHUIs(sys.argv[1],sys.argv[3],int(sys.argv[4]))
         ap.startMine()
-        frequentPatterns = ap.getUtilityPatterns()
-        print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Spatial High-Utility Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
          print("Error! The number of input parameters do not match the total number of parameters provided")
