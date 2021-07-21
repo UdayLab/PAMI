@@ -17,6 +17,7 @@
 import sys
 from abstract import *
 
+
 class Closed(frequentPatterns):
     """ charm is one of the fundamental algorithm to discover closed frequent patterns in a transactional database.
         closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset.
@@ -32,9 +33,17 @@ class Closed(frequentPatterns):
        Attributes
         ----------
         iFile : file
-            Name of the Input file to mine complete set of frequent patterns
+            Name of the Input file or the path of the input file
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         oFile : file
-            Name of the output file to store complete set of frequent patterns
+            Name of the output file or the path of the output file
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -43,8 +52,6 @@ class Closed(frequentPatterns):
             To record the start time of the mining process
         endTime: float
             To record the completion time of the mining process
-        minSup : int/float
-            The user given minSup
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -53,8 +60,6 @@ class Closed(frequentPatterns):
             it represents the total no of transactions
         tree : class
             it represents the Tree class
-        itemSetCount : int
-            it represents the total no of patterns
         finalPatterns : dict
             it represents to store the patterns
         tidList : dict
@@ -103,9 +108,9 @@ class Closed(frequentPatterns):
 
         obj.startMine()
 
-        frequentPatterns = obj.getFrequentPatterns()
+        patterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Frequent Patterns:", len(patterns))
 
         obj.storePatternsInFile(oFile)
 
@@ -135,6 +140,7 @@ class Closed(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -142,7 +148,6 @@ class Closed(frequentPatterns):
     lno = 0
     mapSupport = {}
     hashing = {}
-    itemSetCount = 0
     maxItemId = 0
     tableSize = 10000
     writer = None
@@ -170,7 +175,7 @@ class Closed(frequentPatterns):
         """
         with open(self.iFile, 'r') as f:
             for line in f:
-                i = line.split("\t")
+                i = line.split(self.sep)
                 self.lno += 1
                 n = self.lno
                 for j in i:
@@ -249,7 +254,6 @@ class Closed(frequentPatterns):
                 sample = str()
                 for i in prefix:
                     sample = sample + i + " "
-                self.itemSetCount += 1
                 self.finalPatterns[sample] = val
             if hashcode not in self.hashing:
                 self.hashing[hashcode] = {tuple(prefix): val}
@@ -420,7 +424,7 @@ class Closed(frequentPatterns):
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -434,7 +438,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 4:
         ap = Closed(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
+        frequentPatterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(frequentPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
@@ -444,4 +448,12 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        ap = Closed(r'/home/apiiit-rkv/Downloads/AprioriHashAbstract/transactional_T10I4D100K.csv', 1000, ',')
+        ap.startMine()
+        frequentPatterns = ap.getPatterns()
+        ap.storePatternsInFile("patterns.txt")
+        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        run = ap.getRuntime()
+        print(run)
+        ap.storePatternsInFile("patterns.txt")
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -31,19 +31,24 @@ class Eclat(frequentPatterns):
 
         Attributes
         ----------
-            minSup: float
-                UserSpecified minimum support value. It has to be given in terms of count of total number of
-                transactions in the input database/file
+            iFile : str
+                Input file name or path of the input file
+            minSup: float or int or str
+                The user can specify minSup either in count or proportion of database size.
+                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            sep : str
+                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+                However, the users can override their default separator.
+            oFile : str
+                Name of the output file or the path of the output file
             startTime:float
                 To record the start time of the mining process
             endTime:float
                 To record the completion time of the mining process
             finalPatterns: dict
                 Storing the complete set of patterns in a dictionary variable
-            oFile : str
-                Name of the output file to store complete set of frequent patterns
-            iFile : str
-                Input file name or path of the input file
             memoryUSS : float
                 To store the total amount of USS memory consumed by the program
             memoryRSS : float
@@ -64,10 +69,8 @@ class Eclat(frequentPatterns):
                 Total amount of RSS memory consumed by the mining process will be retrieved from this function
             getRuntime()
                 Total amount of runtime taken by the mining process will be retrieved from this function
-            findDelimiter(line)
-                Identifying the delimiter of the input file
-            creatingItemSets(iFileName)
-                Storing the complete transactions of the database/input file in a database variable
+            creatingItemSets()
+                Scans the dataset or dataframes and stores in list format
             frequentOneItem()
                 Generating one frequent patterns
             dictKeysToInt(iList)
@@ -99,7 +102,7 @@ class Eclat(frequentPatterns):
 
         obj.startMine()
 
-        frequentPatterns = obj.getFrequentPatterns()
+        frequentPatterns = obj.getPatterns()
 
         print("Total number of Frequent Patterns:", len(frequentPatterns))
 
@@ -272,6 +275,8 @@ class Eclat(frequentPatterns):
                     self.finalPatterns[sample] = y
             if len(frequentSet) == 0:
                 break
+        for x,y in self.finalPatterns.items():
+            self.finalPatterns[x] = len(y)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -328,10 +333,10 @@ class Eclat(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            patternsAndSupport = x + ":" + str(len(y))
+            patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -344,7 +349,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 4:
         ap = Eclat(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
+        frequentPatterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(frequentPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()

@@ -30,7 +30,7 @@ class Node:
         counter: int
             To maintain the support of node
         parent: node
-            To maintain the parent of every node
+            To maintain the parent of node
         children: list
             To maintain the children of node
 
@@ -38,7 +38,7 @@ class Node:
         -------
 
         addChild(node)
-            Updates the nodes children list with children nodes
+            Updates the nodes children list and parent for the given node
 
     """
 
@@ -172,7 +172,8 @@ class Tree:
 class fpGrowth(frequentPatterns):
     """
        fpGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
-        This program employs downward closure property to  reduce the search space effectively.
+       It stores the database in compressed fp-tree decreasing the memory usage and extracts the
+       patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
 
         Reference:
         ---------
@@ -182,19 +183,25 @@ class fpGrowth(frequentPatterns):
         Attributes
         ----------
         iFile : file
-            Name of the Input file to mine complete set of frequent patterns
+            Input file name or path of the input file
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         oFile : file
-            Name of the output file to store complete set of frequent patterns
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
+            Name of the output file or the path of the output file
         startTime:float
             To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
-        minSup : float
-            The user given minSup
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -210,7 +217,7 @@ class fpGrowth(frequentPatterns):
         -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -222,7 +229,7 @@ class fpGrowth(frequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets(fileName)
+        creatingItemSets()
             Scans the dataset or dataframes and stores in list format
         frequentOneItem()
             Extracts the one-frequent patterns from transactions
@@ -247,7 +254,7 @@ class fpGrowth(frequentPatterns):
 
         obj.startMine()
 
-        frequentPatterns = obj.getFrequentPatterns()
+        frequentPatterns = obj.getPatterns()
 
         print("Total number of Frequent Patterns:", len(frequentPatterns))
 
@@ -304,27 +311,6 @@ class fpGrowth(frequentPatterns):
         except IOError:
             print("File Not Found")
 
-    def frequentOneItem(self):
-        """Generating One frequent items sets
-
-        """
-        for tr in self.Database:
-            for i in range(0, len(tr)):
-                if tr[i] not in self.mapSupport:
-                    self.mapSupport[tr[i]] = 1
-                else:
-                    self.mapSupport[tr[i]] += 1
-        self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        genList = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        self.rank = dict([(index, item) for (item, index) in enumerate(genList)])
-        return genList
-
-    def savePeriodic(self, itemSet):
-        t1 = []
-        for i in itemSet:
-            t1.append(self.rankDup[i])
-        return t1
-
     def convert(self, value):
         """
         to convert the type of user specified minSup value
@@ -342,6 +328,22 @@ class fpGrowth(frequentPatterns):
             else:
                 value = int(value)
         return value
+
+
+    def frequentOneItem(self):
+        """Generating One frequent items sets
+
+        """
+        for tr in self.Database:
+            for i in range(0, len(tr)):
+                if tr[i] not in self.mapSupport:
+                    self.mapSupport[tr[i]] = 1
+                else:
+                    self.mapSupport[tr[i]] += 1
+        self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
+        genList = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        self.rank = dict([(index, item) for (item, index) in enumerate(genList)])
+        return genList
 
     def updateTransactions(self, itemSet):
         list1 = []
@@ -361,6 +363,12 @@ class fpGrowth(frequentPatterns):
         for i in range(len(transactions)):
             rootNode.addTransaction(transactions[i], 1)
         return rootNode
+
+    def savePeriodic(self, itemSet):
+        temp = str()
+        for i in itemSet:
+            temp = temp + self.rankDup[i] + " "
+        return temp
 
     def startMine(self):
         """main program to start the operation
@@ -445,7 +453,7 @@ class fpGrowth(frequentPatterns):
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -456,9 +464,9 @@ class fpGrowth(frequentPatterns):
 
 if __name__ == "__main__":
     if len(sys.argv) == 4:
-        ap = Fpgrowth(sys.argv[1], sys.argv[3])
+        ap = fpGrowth(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
+        frequentPatterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(frequentPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()

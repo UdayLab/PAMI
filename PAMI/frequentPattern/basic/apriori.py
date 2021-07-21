@@ -39,30 +39,30 @@ class Apriori(frequentPatterns):
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-         sep : str
+        sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
+        oFile : str
+            Name of the output file or the path of output file
         startTime:float
             To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
         finalPatterns: dict
             Storing the complete set of patterns in a dictionary variable
-        oFile : str
-            Name of the output file to store complete set of frequent patterns
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
         Database : list
-            To store the complete set of Databases available in the input database/file
+            To store the transactions of a database in list
 
 
         Methods
         -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -289,7 +289,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 4:
         ap = Apriori(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
+        frequentPatterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(frequentPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
