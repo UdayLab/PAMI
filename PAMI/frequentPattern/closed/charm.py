@@ -178,15 +178,15 @@ class Charm(frequentPatterns):
                         self.tidList[j].append(n)
         self.minSup = self.convert(self.minSup)
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        plist = {}
+        flist = {}
         self.tidList = {k: v for k, v in self.tidList.items() if k in self.mapSupport}
         for x, y in self.tidList.items():
             t1 = 0
             for i in y:
                 t1 += i
-            plist[x] = t1
-        plist = [key for key, value in sorted(plist.items(), key=lambda x: x[1])]
-        return plist
+            flist[x] = t1
+        flist = [key for key, value in sorted(flist.items(), key=lambda x: x[1])]
+        return flist
 
     def calculate(self, tidSet):
         """To calculate the hashcode of pattern
