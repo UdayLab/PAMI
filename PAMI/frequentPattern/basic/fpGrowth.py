@@ -461,7 +461,7 @@ if __name__ == "__main__":
             ap = fpGrowth(sys.argv[1], sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
-        print("Total number of huis:", len(Patterns))
+        print("Total number of frequent patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)

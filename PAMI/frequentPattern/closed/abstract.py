@@ -118,6 +118,12 @@ class frequentPatterns(ABC):
         pass
 
     @abstractmethod
+    def sep(self):
+        """Variable to store the input file path/file name"""
+
+        pass
+
+    @abstractmethod
     def startTime(self):
         """Variable to store the start time of the mining process"""
 
@@ -160,7 +166,7 @@ class frequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """Complete set of frequent patterns generated will be retrieved from this function"""
 
         pass

@@ -17,7 +17,8 @@
 import sys
 from abstract import *
 
-class charm(frequentPatterns):
+
+class Charm(frequentPatterns):
     """ CHARM is one of the fundamental algorithm to discover closed frequent patterns in a transactional database.
         Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset.
         This program employs downward closure property to  reduce the search space effectively.
@@ -66,7 +67,7 @@ class charm(frequentPatterns):
         -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -98,29 +99,17 @@ class charm(frequentPatterns):
         --------------
 
         from PAMI.frequentPattern.closed import closed as alg
-
         obj = alg.Closed(iFile, minSup)
-
         obj.startMine()
-
-        frequentPatterns = obj.getFrequentPatterns()
-
+        frequentPatterns = obj.getPatterns()
         print("Total number of Frequent Patterns:", len(frequentPatterns))
-
         obj.storePatternsInFile(oFile)
-
         Df = obj.getPatternsInDataFrame()
-
         memUSS = obj.getMemoryUSS()
-
         print("Total Memory in USS:", memUSS)
-
         memRSS = obj.getMemoryRSS()
-
         print("Total Memory in RSS", memRSS)
-
         run = obj.getRuntime()
-
         print("Total ExecutionTime in seconds:", run)
 
         Credits:
@@ -135,6 +124,7 @@ class charm(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -170,7 +160,7 @@ class charm(frequentPatterns):
         """
         with open(self.iFile, 'r') as f:
             for line in f:
-                i = line.split("\t")
+                i = [i.rstrip() for i in line.split(self.sep)]
                 self.lno += 1
                 n = self.lno
                 for j in i:
@@ -420,7 +410,7 @@ class charm(frequentPatterns):
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -431,17 +421,21 @@ class charm(frequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 4:
-        ap = Closed(sys.argv[1], sys.argv[3])
+    ap = str()
+    if len(sys.argv) == 4 or len(sys.argv) == 5:
+        if len(sys.argv) == 5:
+            ap = Charm(sys.argv[1], sys.argv[3], sys.argv[4])
+        if len(sys.argv) == 4:
+            ap = Charm(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of frequent patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
