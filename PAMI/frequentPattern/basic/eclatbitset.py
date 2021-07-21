@@ -30,17 +30,22 @@ class eclatbitset(frequentPatterns):
     -----------
         self.iFile : str
             Input file name or path of the input file
-        self.minSup: float
-            UserSpecified minimum support value. It has to be given in terms of count of total number of
-            transactions in the input database/file
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
+        self.oFile : str
+            Name of the output file or path of the output file
         self.startTime:float
             To record the start time of the mining process
         self.endTime:float
             To record the completion time of the mining process
         self.finalPatterns: dict
             Storing the complete set of patterns in a dictionary variable
-        self.oFile : str
-            Name of the output file to store complete set of frequent patterns
         self.memoryUSS : float
             To store the total amount of USS memory consumed by the program
         self.memoryRSS : float
@@ -88,7 +93,7 @@ class eclatbitset(frequentPatterns):
     ---------------------------------
 
     import PAMI.frequentPattern.basic.eclatbitset as alg
-    obj = alg.Eclatbitset(iFile, minSup)
+    obj = alg.eclatbitset(iFile, minSup)
     obj.startMine()
     frequentPatterns = obj.getPatterns()
     print("Total number of Frequent Patterns:", len(frequentPatterns))
