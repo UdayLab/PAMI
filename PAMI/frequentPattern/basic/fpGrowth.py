@@ -100,7 +100,7 @@ class Tree:
         :type count: int
         """
 
-        # This method taken a transaction as input and returns the tree
+        # This method takes transaction as input and returns the tree
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
@@ -246,6 +246,7 @@ class fpGrowth(frequentPatterns):
 
         python3 fpGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
+
         Sample run of the importing code:
         -----------
 
@@ -336,6 +337,17 @@ class fpGrowth(frequentPatterns):
         return genList
 
     def updateTransactions(self, itemSet):
+        """
+        Updates the items in transactions with rank of items according to their support
+
+        Parameters
+        ----------
+        itemSet: list of one-frequent items
+
+        Returns: Updated transactions with rank assigning to each item and deletes the unfequent items
+        -------
+
+        """
         list1 = []
         for tr in self.Database:
             list2 = []
@@ -348,6 +360,17 @@ class fpGrowth(frequentPatterns):
         return list1
 
     def buildTree(self, transactions, info):
+        """
+        Builds the tree with updated transactions
+        Parameters
+        ----------
+        transactions: updated transactions
+        info: support details of each item in transactions
+
+        Returns: transactions compressed in fp-tree
+        -------
+
+        """
         rootNode = Tree()
         rootNode.info = info.copy()
         for i in range(len(transactions)):
@@ -355,6 +378,16 @@ class fpGrowth(frequentPatterns):
         return rootNode
 
     def savePeriodic(self, itemSet):
+        """
+        The duplication items and their ranks
+        Parameters
+        ----------
+        itemSet: frequent itemset that generated
+
+        Returns: patterns with original item names.
+        -------
+
+        """
         temp = str()
         for i in itemSet:
             temp = temp + self.rankDup[i] + " "
