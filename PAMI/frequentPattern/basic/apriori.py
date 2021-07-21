@@ -95,30 +95,20 @@ class Apriori(frequentPatterns):
 
         Sample run of the importing code:
         ---------------------------------
+
+
         import PAMI.frequentPattern.basic.Apriori as alg
-
         obj = alg.Apriori(iFile, minSup)
-
         obj.startMine()
-
         frequentPatterns = obj.getFrequentPatterns()
-
         print("Total number of Frequent Patterns:", len(frequentPatterns))
-
         obj.storePatternsInFile(oFile)
-
         Df = obj.getPatternInDataFrame()
-
         memUSS = obj.getMemoryUSS()
-
         print("Total Memory in USS:", memUSS)
-
         memRSS = obj.getMemoryRSS()
-
         print("Total Memory in RSS", memRSS)
-
         run = obj.getRuntime()
-
         print("Total ExecutionTime in seconds:", run)
 
         Credits:
@@ -286,17 +276,21 @@ class Apriori(frequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 4:
-        ap = Apriori(sys.argv[1], sys.argv[3])
+    ap = str()
+    if len(sys.argv) == 4 or len(sys.argv) == 5:
+        if len(sys.argv) == 5:
+            ap = Apriori(sys.argv[1], sys.argv[3], sys.argv[4])
+        if len(sys.argv) == 4:
+            ap =Apriori(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of huis:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
-    else:
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+        print("Total ExecutionTime in ms:", run)
+else:
+    print("Error! The number of input parameters do not match the total number of parameters provided")

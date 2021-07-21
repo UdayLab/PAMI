@@ -52,7 +52,7 @@ class eclatbitset(frequentPatterns):
     -------
     startMine()
         Mining process will start from here
-    getFrequentPatterns()
+    getPatterns()
         Complete set of patterns will be retrieved with this function
     storePatternsInFile(oFile)
         Complete set of frequent patterns will be loaded in to a output file
@@ -90,7 +90,7 @@ class eclatbitset(frequentPatterns):
     import PAMI.frequentPattern.basic.eclatbitset as alg
     obj = alg.Eclatbitset(iFile, minSup)
     obj.startMine()
-    frequentPatterns = obj.getFrequentPatterns()
+    frequentPatterns = obj.getPatterns()
     print("Total number of Frequent Patterns:", len(frequentPatterns))
     obj.storePatternsInFile(oFile)
     Df = obj.getPatternInDataFrame()
@@ -323,7 +323,7 @@ class eclatbitset(frequentPatterns):
             patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -333,17 +333,21 @@ class eclatbitset(frequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 4:
-        ap = eclatbitset(sys.argv[1], sys.argv[3])
+    ap = str()
+    if len(sys.argv) == 4 or len(sys.argv) == 5:
+        if len(sys.argv) == 5:
+            ap = eclatbitset(sys.argv[1], sys.argv[3], sys.argv[4])
+        if len(sys.argv) == 4:
+            ap = eclatbitset(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of huis:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
