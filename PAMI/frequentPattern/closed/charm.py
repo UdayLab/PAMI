@@ -33,9 +33,17 @@ class Charm(frequentPatterns):
        Attributes
        ----------
         iFile : file
-            Name of the Input file to mine complete set of frequent patterns
+            Name of the Input file or path of the input file
         oFile : file
-            Name of the output file to store complete set of frequent patterns
+            Name of the output file or path of the output file
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -44,8 +52,6 @@ class Charm(frequentPatterns):
             To record the start time of the mining process
         endTime: float
             To record the completion time of the mining process
-        minSup : int/float
-            The user given minSup
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary

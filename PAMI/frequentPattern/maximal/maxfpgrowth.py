@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from PAMI.frequentPattern.abstract import *
+from abstract import *
 
 
 pfList = []
@@ -378,6 +378,14 @@ class Maxfpgrowth(frequentPatterns):
             Name of the Input file to mine complete set of frequent patterns
         oFile : file
             Name of the output file to store complete set of frequent patterns
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -386,10 +394,6 @@ class Maxfpgrowth(frequentPatterns):
             To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
-        minSup : int/float
-            The user given minimum support
-        maxPer : int/float
-            The user givem maximum period
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -398,8 +402,6 @@ class Maxfpgrowth(frequentPatterns):
             it represents the total no of transaction
         tree : class
             it represents the Tree class
-        itemSetCount : int
-            it represents the total no of patterns
         finalPatterns : dict
             it represents to store the patterns
 
@@ -407,7 +409,7 @@ class Maxfpgrowth(frequentPatterns):
     -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -419,9 +421,9 @@ class Maxfpgrowth(frequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets(fileName)
+        creatingItemSets()
             Scans the dataset or dataframes and stores in list format
-        FrequentOneItem()
+        frequentOneItem()
             Extracts the one-frequent patterns from Databases
         updateTransactions()
             update the Databases by removing aperiodic items and sort the Database by item decreased support
@@ -444,37 +446,21 @@ class Maxfpgrowth(frequentPatterns):
 
     Sample run of the imported code:
     --------------
+
+
     from PAMI.frequentPattern.maximal import maxfpgrowth as alg
-
     obj = alg.Maxfpgrowth("../basic/sampleTDB.txt", "2")
-
     obj.startMine()
-
-    frequentPatterns = obj.getFrequentPatterns()
-
+    frequentPatterns = obj.getPatterns()
     print("Total number of Frequent Patterns:", len(frequentPatterns))
-
     obj.storePatternsInFile("patterns")
-
     Df = obj.getPatternsInDataFrame()
-
     memUSS = obj.getMemoryUSS()
-
     print("Total Memory in USS:", memUSS)
-
     memRSS = obj.getMemoryRSS()
-
     print("Total Memory in RSS", memRSS)
-
     run = obj.getRuntime()
-
     print("Total ExecutionTime in seconds:", run)
-    
-    Credits:
-    -------
-    The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-    The complete verification and documentation done by Penugonda Ravikumar
-
 
     Credits:
     -------
@@ -490,6 +476,7 @@ class Maxfpgrowth(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -503,9 +490,8 @@ class Maxfpgrowth(frequentPatterns):
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    li = line.split("\t")
-                    li1 = [i.strip() for i in li]
-                    self.Database.append(li1)
+                    li = [i.rstrip() for i in line.split(self.sep)]
+                    self.Database.append(li)
                     self.lno += 1
         except IOError:
             print("File Not Found")
@@ -516,19 +502,19 @@ class Maxfpgrowth(frequentPatterns):
         :return: 1-length frequent items
         """
         global pfList
-        data = {}
+        mapSupport = {}
         k = 0
         for tr in self.Database:
             k += 1
             for i in range(0, len(tr)):
-                if tr[i] not in data:
-                    data[tr[i]] = 1
+                if tr[i] not in mapSupport:
+                    mapSupport[tr[i]] = 1
                 else:
-                    data[tr[i]] += 1
-        data = {k: v for k, v in data.items() if v >= self.minSup}
-        genList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
+                    mapSupport[tr[i]] += 1
+        mapSupport = {k: v for k, v in mapSupport.items() if v >= self.minSup}
+        genList = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(genList)])
-        return data, genList
+        return mapSupport, genList
 
     def updateTransactions(self, oneLength):
         """ To sort the transactions in their support descending order and allocating ranks respectively
@@ -668,7 +654,7 @@ class Maxfpgrowth(frequentPatterns):
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -678,17 +664,21 @@ class Maxfpgrowth(frequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 4:
-        ap = Maxfpgrowth(sys.argv[1], sys.argv[3])
+    ap = str()
+    if len(sys.argv) == 4 or len(sys.argv) == 5:
+        if len(sys.argv) == 5:
+            ap = Maxfpgrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+        if len(sys.argv) == 4:
+            ap = Maxfpgrowth(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Maximal Frequent Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
