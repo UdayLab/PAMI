@@ -1,7 +1,7 @@
 # Dense dataframe
 
 ### Introduction
-A dense dataframe is basically a (non-sparse) matrix in which the first column represents the row-identifier/timestamp
+A dense dataframe is basically a  matrix in which the first column represents the row-identifier/timestamp
 and the remaining columns represent the values of the items. The format of a dense dataframe is as follows:
 
       rowIdentifier/timestamp   Item1   Item2   ... ItemN
@@ -24,8 +24,8 @@ made for the remaining transactions in the above dataframe.
 MongoDB and HBASE are  the classic examples for columnar databases**
 
 ### Converting a dense dataframe into different database formats
-Currently, PAMI supports converting a dataframe into a trannsactional database, temporal database, ond a utility database.
-The users can avail this support by employing the functions available in **dataPreprocessign.dense2DB** class.  
+Currently, PAMI supports converting a dataframe into a transactional database, temporal database, ond a utility database.
+The users can avail this support by employing the functions available in **dataPreprocessing.dense2DB** class.  
 We now present these three methods.
 
 #### Converting a dense dataframe into a transactional database

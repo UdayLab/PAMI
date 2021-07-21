@@ -17,20 +17,20 @@
 import sys
 from abstract import *
 
-class Closed(frequentPatterns):
-    """ charm is one of the fundamental algorithm to discover closed frequent patterns in a transactional database.
-        closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset.
+class charm(frequentPatterns):
+    """ CHARM is one of the fundamental algorithm to discover closed frequent patterns in a transactional database.
+        Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset.
         This program employs downward closure property to  reduce the search space effectively.
         This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
         transactional database.
         
         Reference:
-        --------
+        ----------
         Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
         Proceedings of the 2002 SIAM, SDM. 2002, 457-473, https://doi.org/10.1137/1.9781611972726.27
 
        Attributes
-        ----------
+       ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
         oFile : file
@@ -86,13 +86,13 @@ class Closed(frequentPatterns):
         -------
         Format:
         ------
-        python3 closed.py <inputFile> <outputFile> <minSup>
+        python3 charm.py <inputFile> <outputFile> <minSup>
 
         Examples:
         --------
-        python3 closed.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+        python3 charm.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
-        python3 closed.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+        python3 charm.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
         Sample run of the importing code:
         --------------
