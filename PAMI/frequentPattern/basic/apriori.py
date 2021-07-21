@@ -284,7 +284,7 @@ if __name__ == "__main__":
             ap =Apriori(sys.argv[1], sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
-        print("Total number of frequent patterns:", len(Patterns))
+        print("Total number of Frequent Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
