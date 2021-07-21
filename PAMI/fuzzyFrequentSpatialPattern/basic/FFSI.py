@@ -35,11 +35,20 @@ class FFList:
         self.elements = []
 
     def addElement(self, element):
+        """
+            A Method that add a new element to FFList
+
+            :param element: an element to be add to FFList
+            :pram type: Element
+        """
         self.sumiUtil += element.iUtils
         self.sumrUtil += element.rUtils
         self.elements.append(element)
 
     def printelement(self):
+        """
+            A Method to Print elements in the FFList
+        """
         for ele in self.elements:
             print(ele.tid, ele.iUtils, ele.rUtils)
 
@@ -110,7 +119,7 @@ class Pair:
         self.quantity = 0
 
 
-class FFSP(frequentPatterns):
+class FFSI(fuzzySpatialFrequentPatterns):
     """
         Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
         which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
@@ -154,7 +163,7 @@ class FFSP(frequentPatterns):
         -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -168,13 +177,25 @@ class FFSP(frequentPatterns):
             Total amount of runtime taken by the mining process will be retrieved from this function            
         convert(value):
             To convert the given user specified value
+        FSFIMining( prefix, prefixLen, fsFim, minSup)
+            Method generate FFI from prefix
+        construct(px, py)
+            A function to construct Fuzzy itemset from 2 fuzzy itemsets
+        Intersection(nighb1,nighb2)
+            Return common neighbours of 2 itemsset nighbours
+        findElementWithTID(ulist, tid)
+            To find element with same tid as given
+        WriteOut(prefix, prefixLen, item, sumIutil,period)
+            To Store the patten
     
          Executing the code on terminal
         -------
-        Format: python3 FFSI.py <inputFile> <outputFile> <neighbours> <minSup>
-        Examples:  python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 6  (minSup will be considered in support count or frequency)
-                    python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 0.3 (minSup and maxPer will be considered in percentage of database)
-
+        Format: python3 FFSI.py <inputFile> <outputFile> <neighbours> <minSup> <separator>
+        Examples:  python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
+                   python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 0.3 (minSup and maxPer will be considered in percentage of database)
+                                                            (will conseder "\t" as separator in both input and neighbourhood files)
+                   python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 3 , 
+                                                              (will conseder "," as separator in both input and neighbourhood files)
         Sample run of importing the code:
         -------------------------------
         
@@ -184,9 +205,9 @@ class FFSP(frequentPatterns):
 
         obj.startMine()
 
-        frequentPatterns = obj.getFrequentPatterns()
+        fuzzySpatialFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Spatial Frequent Patterns:", len(fuzzySpatialFrequentPatterns))
 
         obj.storePatternsInFile("outp")
 
@@ -213,11 +234,13 @@ class FFSP(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    nFile =" "
     memoryUSS = float()
     memoryRSS = float()
+    sep="\t"
 
-    def __init__(self, iFile, nFile, minsup):
-        super().__init__(iFile, nFile, minsup)
+    def __init__(self, iFile, nFile, minsup,sep="\t"):
+        super().__init__(iFile, nFile, minsup,sep)
         self.mapItemNighbours = {}
         self.startTime = 0
         self.endTime = 0
@@ -268,7 +291,7 @@ class FFSP(frequentPatterns):
         with open(self.nFile, 'r') as file1:
             for line in file1:
                 line=line.split("\n")[0]
-                parts = line.split("\t")
+                parts = line.split(self.sep)
                 item = parts[0]
                 neigh1 = []
                 for i in range(1, len(parts)):
@@ -278,8 +301,8 @@ class FFSP(frequentPatterns):
             for line in file:
                 line=line.split("\n")[0]
                 parts = line.split(":")
-                items = parts[0].split("\t")
-                quanaities = parts[1].split("\t")
+                items = parts[0].split(self.sep)
+                quanaities = parts[2].split(self.sep)
                 self.dbLen += 1
                 for i in range(0, len(items)):
                     regions = Reagions(int(quanaities[i]), 3)
@@ -306,7 +329,7 @@ class FFSP(frequentPatterns):
             mapItemsToFFLIST = {}
             self.minSup=self.convert(self.minSup)
             minSup = self.minSup
-            print(minSup)
+            print("minsup: ",minSup)
             for item1 in self.mapItemsLowSum.keys():
                 item = item1
                 low = self.mapItemsLowSum[item]
@@ -331,8 +354,8 @@ class FFSP(frequentPatterns):
             for line in file:
                 line=line.split("\n")[0]
                 parts = line.split(":")
-                items = parts[0].split("\t")
-                quanaities = parts[1].split("\t")
+                items = parts[0].split(self.sep)
+                quanaities = parts[2].split(self.sep)
                 revisedTransaction = []
                 for i in range(0, len(items)):
                     pair = Pair()
@@ -523,7 +546,7 @@ class FFSP(frequentPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -545,11 +568,14 @@ class FFSP(frequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
-        ap = FFSP(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6: # to  include a user specifed separator
+            ap = FFSI(sys.argv[1], sys.argv[3], sys.argv[4],sys.argv[5])
+        if len(sys.argv) == 5:  # to consider "\t" as a separator
+            ap = FFSI(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
+        fuzzySpatialFrequentPatterns = ap.getPatterns()
+        print("Total number of Fuzzy Frequent Spatial Patterns:", len(fuzzySpatialFrequentPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
