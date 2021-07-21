@@ -44,7 +44,7 @@ class utilityPatterns(ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must employ in PAMI
 
 
-       Attributes
+       Attributes:
         ----------
         iFile : str
             Input file name or path of the input file
@@ -66,7 +66,7 @@ class utilityPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
+        Methods:
         -------
         startMine()
             Calling this function will start the actual mining process
