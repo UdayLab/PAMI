@@ -42,8 +42,8 @@ class frequentPatterns(ABC):
         employ in PAMI
 
 
-       Attributes
-        ----------
+       Attributes:
+       ----------
         iFile : str
             Input file name or path of the input file
         minSup: integer or float or str
@@ -67,8 +67,8 @@ class frequentPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+       Methods:
+       -------
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -86,9 +86,8 @@ class frequentPatterns(ABC):
 
     """
 
-    def __init__(self, iFile, minSup, sep = "\t"):
+    def __init__(self, iFile, minSup, sep="\t"):
         """
-
         :param iFile: Input file name or path of the input file
         :type iFile: str
         :param minSup: The user can specify minSup either in count or proportion of database size.
@@ -98,12 +97,12 @@ class frequentPatterns(ABC):
         :type minSup: int or float or str
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
-
         """
 
         self.iFile = iFile
         self.sep = sep
         self.minSup = minSup
+
 
     @abstractmethod
     def iFile(self):
@@ -119,7 +118,7 @@ class frequentPatterns(ABC):
 
     @abstractmethod
     def sep(self):
-        """Variable to store the input file path/file name"""
+        """Variable to store the user-specified minimum support value"""
 
         pass
 

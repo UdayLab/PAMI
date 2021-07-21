@@ -30,7 +30,7 @@ class Apriori(frequentPatterns):
            In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
 
 
-        Attributes
+        Attributes:
         ----------
         iFile : str
             Input file name or path of the input file
@@ -58,7 +58,7 @@ class Apriori(frequentPatterns):
             To store the transactions of a database in list
 
 
-        Methods
+        Methods:
         -------
         startMine()
             Mining process will start from here
@@ -98,18 +98,31 @@ class Apriori(frequentPatterns):
 
 
         import PAMI.frequentPattern.basic.Apriori as alg
+
         obj = alg.Apriori(iFile, minSup)
+
         obj.startMine()
+
         frequentPatterns = obj.getPatterns()
+
         print("Total number of Frequent Patterns:", len(frequentPatterns))
+
         obj.storePatternsInFile(oFile)
+
         Df = obj.getPatternInDataFrame()
+
         memUSS = obj.getMemoryUSS()
+
         print("Total Memory in USS:", memUSS)
+
         memRSS = obj.getMemoryRSS()
+
         print("Total Memory in RSS", memRSS)
+
         run = obj.getRuntime()
+
         print("Total ExecutionTime in seconds:", run)
+
 
         Credits:
         --------
