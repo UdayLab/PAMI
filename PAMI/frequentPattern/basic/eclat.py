@@ -57,7 +57,7 @@ class Eclat(frequentPatterns):
         -------
             startMine()
                 Mining process will start from here
-            getFrequentPatterns()
+            getPatterns()
                 Complete set of patterns will be retrieved with this function
             storePatternsInFile(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
@@ -72,10 +72,8 @@ class Eclat(frequentPatterns):
             creatingItemSets()
                 Scans the dataset or dataframes and stores in list format
             frequentOneItem()
-                Generating one frequent patterns
-            dictKeysToInt(iList)
-                Converting dictionary keys to integer elements
-            eclatGeneration(cList)
+                Generates one frequent patterns
+            eclatGeneration(candidateList)
                 It will generate the combinations of frequent items
             generateFrequentPatterns(tidList)
                 It will generate the combinations of frequent items from a list of items
@@ -156,37 +154,20 @@ class Eclat(frequentPatterns):
                     candidate[self.Database[i][j]] += [i]
         self.finalPatterns = {keys: value for keys, value in candidate.items() if len(value) >= self.minSup}
 
-    @staticmethod
-    def dictKeysToInt(iList):
-        """Converting dictionary keys to integer elements
-
-        :param iList: Dictionary with patterns as keys and their support count as a value
-        :type iList: dict
-        :returns: list of integer patterns to represent dictionary keys
-        :rtype: list
-        """
-
-        temp = []
-        for ite in iList.keys():
-            ite = [int(i) for i in ite.strip('[]').split()]
-            temp.append(ite)
-            # print(sorted(temp))
-        return sorted(temp)
-
-    def eclatGeneration(self, cList):
+    def eclatGeneration(self, candidateList):
         """It will generate the combinations of frequent items
 
-        :param cList :it represents the items with their respective transaction identifiers
-        :type cList: dictionary
+        :param candidateList :it represents the items with their respective transaction identifiers
+        :type candidateList: dictionary
         :return: returning transaction dictionary
         :rtype: dict
         """
         # to generate all
         tidList = {}
-        key = list(cList.keys())
+        key = list(candidateList.keys())
         for i in range(0, len(key)):
             for j in range(i + 1, len(key)):
-                intersectionList = list(set(cList[key[i]]).intersection(set(cList[key[j]])))
+                intersectionList = list(set(candidateList[key[i]]).intersection(set(candidateList[key[j]])))
                 itemList = []
                 itemList += key[i]
                 itemList += key[j]

@@ -34,6 +34,8 @@ class Apriori(frequentPatterns):
         ----------
         iFile : str
             Input file name or path of the input file
+        oFile : str
+            Name of the output file or the path of output file
         minSup: float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -42,8 +44,6 @@ class Apriori(frequentPatterns):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
-        oFile : str
-            Name of the output file or the path of output file
         startTime:float
             To record the start time of the mining process
         endTime:float
@@ -100,7 +100,7 @@ class Apriori(frequentPatterns):
         import PAMI.frequentPattern.basic.Apriori as alg
         obj = alg.Apriori(iFile, minSup)
         obj.startMine()
-        frequentPatterns = obj.getFrequentPatterns()
+        frequentPatterns = obj.getPatterns()
         print("Total number of Frequent Patterns:", len(frequentPatterns))
         obj.storePatternsInFile(oFile)
         Df = obj.getPatternInDataFrame()
