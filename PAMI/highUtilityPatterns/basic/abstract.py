@@ -40,8 +40,7 @@ import resource
 import functools
 
 class utilityPatterns(ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-        employ in PAMI
+    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must employ in PAMI
 
 
        Attributes
