@@ -51,6 +51,9 @@ class frequentPatterns(ABC):
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator
         startTime:float
             To record the start time of the algorithm
         endTime:float
@@ -187,7 +190,9 @@ class frequentPatterns(ABC):
     @abstractmethod
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the program will be retrieved from this function"""
+
         pass
+
 
     @abstractmethod
     def getRuntime(self):
