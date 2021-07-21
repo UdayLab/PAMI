@@ -17,111 +17,93 @@
 import sys
 from abstract import *
 
-
-class Eclatbitset(frequentPatterns):
+class eclatbitset(frequentPatterns):
     """
-            EclatBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
-            This program employs downward closure property to  reduce the search space effectively.
-            This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
-            transactional database.
+        EclatBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs downward closure property to  reduce the search space effectively. This algorithm employs depth-first search technique to find the complete set of frequent patterns in a transactional database.
 
-            Reference:
-            ----------
-                Zaki, M.J., Gouda, K.: Fast vertical mining using diffsets. Technical Report 01-1, Computer Science
-                Dept., Rensselaer Polytechnic Institute (March 2001), https://doi.org/10.1145/956750.956788
+    Reference:
+    ----------
+            Zaki, M.J., Gouda, K.: Fast vertical mining using diffsets. Technical Report 01-1, Computer Science
+            Dept., Rensselaer Polytechnic Institute (March 2001), https://doi.org/10.1145/956750.956788
 
-            Attributes
-            ----------
-            self.iFile : str
-                Input file name or path of the input file
-            minSup: float or int or str
-                The user can specify minSup either in count or proportion of database size.
-                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
-                However, the users can override their default separator.
-            self.oFile : str
-                Name of the output file or path of the output file
-            self.startTime:float
-                To record the start time of the mining process
-            self.endTime:float
-                To record the completion time of the mining process
-            self.finalPatterns: dict
-                Storing the complete set of patterns in a dictionary variable
-            self.memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            self.memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-            self.Database : list
-                To store the complete set of transactions available in the input database/file
+    Attributes:
+    -----------
+        self.iFile : str
+            Input file name or path of the input file
+        self.minSup: float
+            UserSpecified minimum support value. It has to be given in terms of count of total number of
+            transactions in the input database/file
+        self.startTime:float
+            To record the start time of the mining process
+        self.endTime:float
+            To record the completion time of the mining process
+        self.finalPatterns: dict
+            Storing the complete set of patterns in a dictionary variable
+        self.oFile : str
+            Name of the output file to store complete set of frequent patterns
+        self.memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        self.memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
+        self.Database : list
+            To store the complete set of transactions available in the input database/file
 
-            Methods
-            -------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            storePatternsInFile(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
-            getPatternsInDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            creatingItemSets()
-                Scans the dataset or dataframes and stores in list format
-            generationOfAllItems()
-                It will generate the combinations of frequent items
+    Methods:
+    -------
+    startMine()
+        Mining process will start from here
+    getFrequentPatterns()
+        Complete set of patterns will be retrieved with this function
+    storePatternsInFile(oFile)
+        Complete set of frequent patterns will be loaded in to a output file
+    getPatternsInDataFrame()
+        Complete set of frequent patterns will be loaded in to a dataframe
+    getMemoryUSS()
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+    getMemoryRSS()
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+    getRuntime()
+        Total amount of runtime taken by the mining process will be retrieved from this function
+    creatingItemSets(iFileName)
+        Storing the complete transactions of the database/input file in a database variable
+    generationOfAllItems()
+        It will generate the combinations of frequent items
+    startMine()
+        the main function to mine the patterns
 
-            Executing the code on terminal:
-            -------------------------------
+    Executing the code on terminal:
+    -------------------------------
 
-            Format:
-            -------
-            python3 eclatbitset.py <inputFile> <outputFile> <minSup>
+    Format:
+    -------
+    python3 eclatbitset.py <inputFile> <outputFile> <minSup>
 
-            Examples:
-            ---------
-            python3 eclatbitset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+    Examples:
+    ---------
+    python3 eclatbitset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
-            python3 eclatbitset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+    python3 eclatbitset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
-        Sample run of the importing code:
-        ---------------------------------
-        import PAMI.frequentPattern.basic.eclatbitset as alg
+    Sample run of the importing code:
+    ---------------------------------
 
-        obj = alg.Eclatbitset(iFile, minSup)
+    import PAMI.frequentPattern.basic.eclatbitset as alg
+    obj = alg.Eclatbitset(iFile, minSup)
+    obj.startMine()
+    frequentPatterns = obj.getFrequentPatterns()
+    print("Total number of Frequent Patterns:", len(frequentPatterns))
+    obj.storePatternsInFile(oFile)
+    Df = obj.getPatternInDataFrame()
+    memUSS = obj.getMemoryUSS()
+    print("Total Memory in USS:", memUSS)
+    memRSS = obj.getMemoryRSS()
+    print("Total Memory in RSS", memRSS)
+    run = obj.getRuntime()
+    print("Total ExecutionTime in seconds:", run)
 
-        obj.startMine()
-
-        frequentPatterns = obj.getPatterns()
-
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
-
-        obj.storePatternsInFile(oFile)
-
-        Df = obj.getPatternInDataFrame()
-
-        memUSS = obj.getMemoryUSS()
-
-        print("Total Memory in USS:", memUSS)
-
-        memRSS = obj.getMemoryRSS()
-
-        print("Total Memory in RSS", memRSS)
-
-        run = obj.getRuntime()
-
-        print("Total ExecutionTime in seconds:", run)
-
-        Credits:
-        --------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+    Credits:
+    --------
+    The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """
     startTime = float()
@@ -136,6 +118,24 @@ class Eclatbitset(frequentPatterns):
     Database = []
     mapSupport = {}
     lno = 0
+
+    def convert(self, value):
+        """
+        To convert the user specified minSup value
+        :param value: user specified minSup value
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (self.lno * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (self.lno * value)
+            else:
+                value = int(value)
+        return value
 
     def creatingItemSets(self):
         """Storing the complete transactions of the database/input file in a database variable
@@ -167,24 +167,6 @@ class Eclatbitset(frequentPatterns):
                 self.mapSupport[x] = y
         pList = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (len(x[1])), reverse=True)]
         return pList
-
-    def convert(self, value):
-        """
-        To convert the user specified minSup value
-        :param value: user specified minSup value
-        :return: converted type
-        """
-        if type(value) is int:
-            value = int(value)
-        if type(value) is float:
-            value = (self.lno * value)
-        if type(value) is str:
-            if '.' in value:
-                value = float(value)
-                value = (self.lno * value)
-            else:
-                value = int(value)
-        return value
 
     @staticmethod
     def countSupport(tids):
@@ -286,7 +268,7 @@ class Eclatbitset(frequentPatterns):
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using Eclat-bitset algorithm")
+        print("Frequent patterns were generated successfully using Eclat_bitset algorithm")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -341,7 +323,7 @@ class Eclatbitset(frequentPatterns):
             patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getPatterns(self):
+    def getFrequentPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -352,9 +334,9 @@ class Eclatbitset(frequentPatterns):
 
 if __name__ == "__main__":
     if len(sys.argv) == 4:
-        ap = Eclatbitset(sys.argv[1], sys.argv[3])
+        ap = eclatbitset(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getPatterns()
+        frequentPatterns = ap.getFrequentPatterns()
         print("Total number of Frequent Patterns:", len(frequentPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()

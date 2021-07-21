@@ -1,37 +1,117 @@
-## Welcome to GitHub Pages
+# Sparse dataframe
 
-You can use the [editor on GitHub](https://github.com/udayRage/PAMI/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+### Introduction
+A sparse dataframe is basically a (non-sparse) matrix in which the first column represents the row-identifier/timestamp, 
+the second column represents the item, and the third column represents the value of the corresponding item.
+The format of the sparse dataframe is as follows:
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+      rowIdentifier/timestamp   Item1   Value
 
-### Markdown
+An example of a dense dataframe generated from the customer purchase database is as follows:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+  timestamp | Item | Value
+  ---------|-----|---
+    1| Bread | 3
+    1|Jam|1
+    1|Butter|2
+    2|Bread|7
+    2|Jam|2
+   ...|...|...
 
-```markdown
-Syntax highlighted code block
+### Converting a sparse dataframe into different database formats
+Currently, PAMI supports converting a dataframe into a transactional database, temporal database, ond a utility database.
+The users can avail this support by employing the methods available in **dataPreprocessign.sparse2DB** class.  
+We now present these three methods.
 
-# Header 1
-## Header 2
-### Header 3
+#### Converting a dense dataframe into a transactional database
+A [transactional database](transactionalDatabase.html) represents a sparse and binary representation of items occurring in a dataframe. 
+The steps to convert a dataframe into a transactional database is as follows:
 
-- Bulleted
-- List
+1. Initialize the sparse2DB class by passing the following three parameters: 
+   1. inputDataFrame  - the dataframe that needs to converted into a database
+   1. thresholdValue  - this value will be used to convert a non-binary data frame into a binary database
+   1. condition       - The condition that needs to employed on the threshold value. Currently, the users can specify 
+      the following six constraints: >, >=, <, <=, ==, and !=.
 
-1. Numbered
-2. List
+1. Call 'createTransactional(outputFileName)' method to store the dataframe as a transactional database.
 
-**Bold** and _Italic_ and `Code` text
+A sample program to convert a dataframe into a transactional database and use it in a pattern mining algorithm, say FP-growth, is provided below
 
-[Link](url) and ![Image](src)
-```
+ ```Python
+   from PAMI.dataProcessing import sparse2DB as pro
+   from PAMI.frequentPattern.basic import fpGrowth as alg
+   import pandas as pd
+   
+   # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
+   db=pro.sparse2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+   # Convert and store the dataframe as a transactional database file
+   db.createTransactional(outputFile='/home/userName/transactionalDB.txt')  
+   # Getting the fileName of the transactional database
+   print('The output file is saved at ' + db.getFileName())
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+   #Using the generated transactional database in FP-growth algorithm to discover frequent patterns
 
-### Jekyll Themes
+   obj = alg.fpGrowth(iFile=db.getFileName(), minSup='10.0')
+   obj.startMine()
+   patternsDF = obj.getPatternsInDataFrame()
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/udayRage/PAMI/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+   ```
 
-### Support or Contact
+#### Converting a dense dataframe into a temporal database
+A [temporal database](temporalDatabase.html) represents a sparse and binary representation of items occurring at a particular timestamp
+in a dataframe.  The steps to convert a dataframe into a temporal database is as follows:
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+1. Initialize the sparse2DB class by passing the following three parameters: 
+   1. inputDataFrame  - the dataframe that needs to converted into a database
+   1. thresholdValue  - this value will be used to convert a non-binary data frame into a binary database
+   1. condition       - The condition that needs to employed on the threshold value. Currently, the users can specify 
+      the following six constraints: >, >=, <, <=, ==, and !=.
+
+1. Call 'createTemporal(outputFileName)' method to store the dataframe as a temporal database.
+
+A sample program to convert a dataframe into a temporal database and use it in a pattern mining algorithm, say PFP-growth++, is provided below
+
+ ```Python
+   from PAMI.dataProcessing import sparse2DB as pro
+   from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
+   import pandas as pd
+   
+   # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
+   db=pro.sparse2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+   # Convert and store the dataframe as a transactional database file
+   db.createTransactional(outputFile='/home/userName/temporalDB.txt')  
+   # Getting the fileName of the transactional database
+   print('The output file is saved at ' + db.getFileName())
+
+   obj = alg.PFPGrowthPlus(db.getFileName(), minSup="2", maxPer="6")
+   obj.startMine()
+   patternsDF = obj.getPatternsInDataFrame()
+   
+  ``` 
+#### Converting a dense dataframe into a utility database
+A [utility database](utilityDatabase.html) represents a sparse and non-binary representation of items occurring in
+each row of a dataframe.  The steps to convert a dataframe into a utility database is as follows:
+
+1. Initialize the sparse2DB class by passing the following three parameters: 
+   1. inputDataFrame  - the dataframe that needs to converted into a database
+   1. thresholdValue  - this value will be used to convert a non-binary data frame into a binary database
+   1. condition       - The condition that needs to employed on the threshold value. Currently, the users can specify 
+      the following six constraints: >, >=, <, <=, ==, and !=.
+
+1. Call 'createUtility(outputFileName)' method to store the dataframe as a temporal database.
+
+A sample program to convert a dataframe into a utility database and use it in a pattern mining algorithm, say EFIM, is provided below
+
+ ```Python
+   from PAMI.dataProcessing import sparse2DB as pro
+   from PAMI.highUtilityPatterns.basic import EFIM as alg
+   import pandas as pd
+   
+   # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
+   db=pro.sparse2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+   # Convert and store the dataframe as a transactional database file
+   db.createTransactional(outputFile='/home/userName/utilityDB.txt')     
+   # Getting the fileName of the transactional database
+   print('The output file is saved at ' + db.getFileName())
+
+  ```
