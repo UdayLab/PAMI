@@ -23,8 +23,8 @@ class Node:
     """
         A class used to represent the node of frequentPatternTree
 
-        Attributes
-        ----------
+    Attributes:
+    ----------
         itemId: int
             storing item of a node
         counter: int
@@ -34,8 +34,8 @@ class Node:
         children: list
             To maintain the children of node
 
-        Methods
-        -------
+    Methods:
+    -------
 
         addChild(node)
             Updates the nodes children list and parent for the given node
@@ -63,10 +63,10 @@ class Node:
 
 class Tree:
     """
-        A class used to represent the frequentPatternGrowth tree structure
+    A class used to represent the frequentPatternGrowth tree structure
 
-        Attributes
-        ----------
+    Attributes:
+    ----------
         root : Node
             The first node of the tree set to Null.
         summaries : dictionary
@@ -74,8 +74,8 @@ class Tree:
         info : dictionary
             frequency of items in the transactions
 
-        Methods
-        -------
+    Methods:
+    -------
         addTransaction(transaction, freq)
             adding items of  transactions into the tree as nodes and freq is the count of nodes
         getFinalConditionalPatterns(node)
@@ -95,8 +95,11 @@ class Tree:
         """adding transaction into tree
 
         :param transaction: it represents the one transactions in database
+
         :type transaction: list
+
         :param count: frequency of item
+
         :type count: int
         """
 
@@ -117,6 +120,18 @@ class Tree:
                 currentNode.freq += count
 
     def getFinalConditionalPatterns(self, alpha):
+        """
+        generates the conditional patterns for a node
+
+        Parameters:
+        ----------
+            alpha: node to generate conditional patterns
+
+        Returns
+        -------
+            returns conditional patterns, frequency of each item in conditional patterns
+
+        """
         finalPatterns = []
         finalFreq = []
         for i in self.summaries[alpha]:
@@ -133,6 +148,17 @@ class Tree:
         return finalPatterns, finalFreq, info
 
     def getConditionalTransactions(self, ConditionalPatterns, conditionalFreq):
+        """
+        To calculate the frequency of items in conditional patterns and sorting the patterns
+        Parameters
+        ----------
+        ConditionalPatterns: paths of a node
+        conditionalFreq: frequency of each item in the path
+
+        Returns
+        -------
+            conditional patterns and frequncy of each item in transactions
+        """
         global minSup
         pat = []
         freq = []
@@ -155,6 +181,17 @@ class Tree:
         return pat, freq, up_dict
 
     def generatePatterns(self, prefix):
+        """
+        To generate the frequent patterns
+        Parameters
+        ----------
+        prefix: an empty list
+
+        Returns
+        -------
+        Frequent patterns that are extracted from fp-tree
+
+        """
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
@@ -234,35 +271,47 @@ class fpGrowth(frequentPatterns):
         frequentOneItem()
             Extracts the one-frequent patterns from transactions
             
-        Executing the code on terminal:
-        -------
+    Executing the code on terminal:
+    -------
         Format:
         -------
-        python3 fpGrowth.py <inputFile> <outputFile> <minSup>
+            python3 fpGrowth.py <inputFile> <outputFile> <minSup>
 
         Examples:
         ---------
-        python3 fpGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            python3 fpGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
-        python3 fpGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+            python3 fpGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
 
-        Sample run of the importing code:
-        -----------
+    Sample run of the importing code:
+    -----------
 
 
         from PAMI.frequentPattern.basic import fpGrowth as alg
+
         obj = alg.fpGrowth(iFile, minSup)
+
         obj.startMine()
+
         frequentPatterns = obj.getPatterns()
+
         print("Total number of Frequent Patterns:", len(frequentPatterns))
+
         obj.storePatternsInFile(oFile)
+
         Df = obj.getPatternInDataFrame()
+
         memUSS = obj.getMemoryUSS()
+
         print("Total Memory in USS:", memUSS)
+
         memRSS = obj.getMemoryRSS()
+
         print("Total Memory in RSS", memRSS)
+
         run = obj.getRuntime()
+
         print("Total ExecutionTime in seconds:", run)
 
         Credits:
@@ -292,7 +341,7 @@ class fpGrowth(frequentPatterns):
             Storing the complete transactions of the database/input file in a database variable
 
 
-            """
+        """
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
@@ -305,7 +354,9 @@ class fpGrowth(frequentPatterns):
     def convert(self, value):
         """
         to convert the type of user specified minSup value
+
         :param value: user specified minSup value
+
         :return: converted type
         """
         if type(value) is int:
@@ -322,7 +373,8 @@ class fpGrowth(frequentPatterns):
 
 
     def frequentOneItem(self):
-        """Generating One frequent items sets
+        """
+        Generating One frequent items sets
 
         """
         for tr in self.Database:
@@ -362,13 +414,14 @@ class fpGrowth(frequentPatterns):
     def buildTree(self, transactions, info):
         """
         Builds the tree with updated transactions
-        Parameters
+        Parameters:
         ----------
-        transactions: updated transactions
-        info: support details of each item in transactions
+            transactions: updated transactions
+            info: support details of each item in transactions
 
-        Returns: transactions compressed in fp-tree
+        Returns:
         -------
+            transactions compressed in fp-tree
 
         """
         rootNode = Tree()
@@ -380,12 +433,13 @@ class fpGrowth(frequentPatterns):
     def savePeriodic(self, itemSet):
         """
         The duplication items and their ranks
-        Parameters
+        Parameters:
         ----------
-        itemSet: frequent itemset that generated
+            itemSet: frequent itemset that generated
 
-        Returns: patterns with original item names.
+        Returns:
         -------
+            patterns with original item names.
 
         """
         temp = str()
@@ -394,7 +448,8 @@ class fpGrowth(frequentPatterns):
         return temp
 
     def startMine(self):
-        """main program to start the operation
+        """
+            main program to start the operation
 
         """
         global minSup
@@ -426,6 +481,7 @@ class fpGrowth(frequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -435,6 +491,7 @@ class fpGrowth(frequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -445,6 +502,7 @@ class fpGrowth(frequentPatterns):
 
 
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -454,6 +512,7 @@ class fpGrowth(frequentPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -468,6 +527,7 @@ class fpGrowth(frequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -480,6 +540,7 @@ class fpGrowth(frequentPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
+
         :rtype: dict
         """
         return self.finalPatterns

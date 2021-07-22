@@ -26,106 +26,106 @@ class Apriori(frequentPatterns):
 
         Reference:
         ----------
-           Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
-           In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
+            Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
+            In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
 
 
         Attributes:
         ----------
-        iFile : str
-            Input file name or path of the input file
-        oFile : str
-            Name of the output file or the path of output file
-        minSup: float or int or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-            However, the users can override their default separator.
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
-        finalPatterns: dict
-            Storing the complete set of patterns in a dictionary variable
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        Database : list
-            To store the transactions of a database in list
+            iFile : str
+                Input file name or path of the input file
+            oFile : str
+                Name of the output file or the path of output file
+            minSup: float or int or str
+                The user can specify minSup either in count or proportion of database size.
+                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            sep : str
+                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+                However, the users can override their default separator.
+            startTime:float
+                To record the start time of the mining process
+            endTime:float
+                To record the completion time of the mining process
+            finalPatterns: dict
+                Storing the complete set of patterns in a dictionary variable
+            memoryUSS : float
+                To store the total amount of USS memory consumed by the program
+            memoryRSS : float
+                To store the total amount of RSS memory consumed by the program
+            Database : list
+                To store the transactions of a database in list
 
 
         Methods:
         -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        candidateToFrequent(candidateList)
-            Generates frequent patterns from the candidate patterns
-        frequentToCandidate(frequentList, length)
-            Generates candidate patterns from the frequent patterns
+            startMine()
+                Mining process will start from here
+            getPatterns()
+                Complete set of patterns will be retrieved with this function
+            storePatternsInFile(oFile)
+                Complete set of frequent patterns will be loaded in to a output file
+            getPatternsInDataFrame()
+                Complete set of frequent patterns will be loaded in to a dataframe
+            getMemoryUSS()
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
+            getMemoryRSS()
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            getRuntime()
+                Total amount of runtime taken by the mining process will be retrieved from this function
+            candidateToFrequent(candidateList)
+                Generates frequent patterns from the candidate patterns
+            frequentToCandidate(frequentList, length)
+                Generates candidate patterns from the frequent patterns
         
         
         Executing the code on terminal:
         -------------------------------
 
-        Format:
-        ------
-        python3 apriori.py <inputFile> <outputFile> <minSup>
+            Format:
+            ------
+                python3 apriori.py <inputFile> <outputFile> <minSup>
 
-        Examples:
-        ---------
-        python3 apriori.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            Examples:
+            ---------
+                python3 apriori.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
-        python3 apriori.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+                python3 apriori.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
         Sample run of the importing code:
         ---------------------------------
 
 
-        import PAMI.frequentPattern.basic.Apriori as alg
+            import PAMI.frequentPattern.basic.Apriori as alg
 
-        obj = alg.Apriori(iFile, minSup)
+            obj = alg.Apriori(iFile, minSup)
 
-        obj.startMine()
+            obj.startMine()
 
-        frequentPatterns = obj.getPatterns()
+            frequentPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        obj.storePatternsInFile(oFile)
+            obj.storePatternsInFile(oFile)
 
-        Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
         Credits:
         --------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -143,7 +143,9 @@ class Apriori(frequentPatterns):
     def convert(self, value):
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
+
         :return: converted type
         """
         if type(value) is int:
@@ -162,8 +164,11 @@ class Apriori(frequentPatterns):
         """Generates frequent patterns from the candidate patterns
 
         :param candidateList: Candidate patterns will be given as input
+
         :type candidateList: list
+
         :return: returning set of all frequent patterns
+
         :rtype: dict
         """
 
@@ -181,10 +186,15 @@ class Apriori(frequentPatterns):
         """Generates candidate patterns from the frequent patterns
 
         :param frequentList: set of all frequent patterns to generate candidate patterns of each of size is length
+
         :type frequentList: dict
+
         :param length: size of each candidate patterns to be generated
+
         :type length: int
+
         :return: set of candidate patterns in sorted order
+
         :rtype: list
         """
 
@@ -195,7 +205,9 @@ class Apriori(frequentPatterns):
         return sorted(frequentToCandidateList)
 
     def startMine(self):
-        """ Frequent pattern mining process will start from here"""
+        """
+            Frequent pattern mining process will start from here
+        """
 
         self.startTime = time.time()
         try:
@@ -229,6 +241,7 @@ class Apriori(frequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -238,6 +251,7 @@ class Apriori(frequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -247,6 +261,7 @@ class Apriori(frequentPatterns):
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -256,6 +271,7 @@ class Apriori(frequentPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -270,6 +286,7 @@ class Apriori(frequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -282,6 +299,7 @@ class Apriori(frequentPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
+
         :rtype: dict
         """
         return self.finalPatterns

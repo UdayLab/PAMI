@@ -19,11 +19,11 @@ from abstract import *
 
 class eclatbitset(frequentPatterns):
     """
-        EclatBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs downward closure property to  reduce the search space effectively. This algorithm employs depth-first search technique to find the complete set of frequent patterns in a transactional database.
+    EclatBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs downward closure property to  reduce the search space effectively. This algorithm employs depth-first search technique to find the complete set of frequent patterns in a transactional database.
 
     Reference:
     ----------
-            Zaki, M.J., Gouda, K.: Fast vertical mining using diffsets. Technical Report 01-1, Computer Science
+        Zaki, M.J., Gouda, K.: Fast vertical mining using diffsets. Technical Report 01-1, Computer Science
             Dept., Rensselaer Polytechnic Institute (March 2001), https://doi.org/10.1145/956750.956788
 
     Attributes:
@@ -79,36 +79,48 @@ class eclatbitset(frequentPatterns):
     Executing the code on terminal:
     -------------------------------
 
-    Format:
-    -------
-    python3 eclatbitset.py <inputFile> <outputFile> <minSup>
+        Format:
+        -------
+        python3 eclatbitset.py <inputFile> <outputFile> <minSup>
 
-    Examples:
-    ---------
-    python3 eclatbitset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+        Examples:
+        ---------
+        python3 eclatbitset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
-    python3 eclatbitset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+        python3 eclatbitset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
     Sample run of the importing code:
     ---------------------------------
 
-    import PAMI.frequentPattern.basic.eclatbitset as alg
-    obj = alg.eclatbitset(iFile, minSup)
-    obj.startMine()
-    frequentPatterns = obj.getPatterns()
-    print("Total number of Frequent Patterns:", len(frequentPatterns))
-    obj.storePatternsInFile(oFile)
-    Df = obj.getPatternInDataFrame()
-    memUSS = obj.getMemoryUSS()
-    print("Total Memory in USS:", memUSS)
-    memRSS = obj.getMemoryRSS()
-    print("Total Memory in RSS", memRSS)
-    run = obj.getRuntime()
-    print("Total ExecutionTime in seconds:", run)
+        import PAMI.frequentPattern.basic.eclatbitset as alg
+
+        obj = alg.eclatbitset(iFile, minSup)
+
+        obj.startMine()
+
+        frequentPatterns = obj.getPatterns()
+
+        print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+        obj.storePatternsInFile(oFile)
+
+        Df = obj.getPatternInDataFrame()
+
+        memUSS = obj.getMemoryUSS()
+
+        print("Total Memory in USS:", memUSS)
+
+        memRSS = obj.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = obj.getRuntime()
+
+        print("Total ExecutionTime in seconds:", run)
 
     Credits:
     --------
-    The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """
     startTime = float()
@@ -127,7 +139,9 @@ class eclatbitset(frequentPatterns):
     def convert(self, value):
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
+
         :return: converted type
         """
         if type(value) is int:
@@ -143,7 +157,8 @@ class eclatbitset(frequentPatterns):
         return value
 
     def creatingItemSets(self):
-        """Storing the complete transactions of the database/input file in a database variable
+        """
+            Storing the complete transactions of the database/input file in a database variable
 
         """
         items = []
@@ -178,6 +193,7 @@ class eclatbitset(frequentPatterns):
         """To count support of 1's in tids
 
         :param tids: bitset representation of itemSets
+
         :return:  count
         """
         count = 0
@@ -190,8 +206,11 @@ class eclatbitset(frequentPatterns):
         """To save the patterns satisfying the minSup condition
 
         :param prefix: prefix item of itemSet
+
         :param suffix: suffix item of itemSet
+
         :param tidSetX: bitset representation of itemSet
+
         :return: saving the itemSet in to finalPatterns
         """
         if prefix is None:
@@ -208,10 +227,15 @@ class eclatbitset(frequentPatterns):
         """It will generate the combinations of frequent items with prefix and  list of items
 
             :param prefix: it represents the prefix item to form the combinations
+
             :type prefix: list
+
             :param itemSets: it represents the suffix items of prefix
+
             :type itemSets: list
+
             :param tidSets: represents the tidlists of itemSets
+
             :type tidSets: 2d list
         """
         if len(itemSets) == 1:
@@ -279,6 +303,7 @@ class eclatbitset(frequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -288,6 +313,7 @@ class eclatbitset(frequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -297,6 +323,7 @@ class eclatbitset(frequentPatterns):
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -306,6 +333,7 @@ class eclatbitset(frequentPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -320,6 +348,7 @@ class eclatbitset(frequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -332,6 +361,7 @@ class eclatbitset(frequentPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
+
         :rtype: dict
         """
         return self.finalPatterns

@@ -29,7 +29,7 @@ class Eclat(frequentPatterns):
             Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
             372-390 (2000), https://ieeexplore.ieee.org/document/846291
 
-        Attributes
+        Attributes:
         ----------
             iFile : str
                 Input file name or path of the input file
@@ -53,7 +53,8 @@ class Eclat(frequentPatterns):
                 To store the total amount of USS memory consumed by the program
             memoryRSS : float
                 To store the total amount of RSS memory consumed by the program
-        Methods
+
+        Methods:
         -------
             startMine()
                 Mining process will start from here
@@ -81,38 +82,48 @@ class Eclat(frequentPatterns):
         Executing the code on terminal:
         -------------------------------
 
-        Format:
-        ------
-        python3 eclat.py <inputFile> <outputFile> <minSup>
+            Format:
+            ------
+            python3 eclat.py <inputFile> <outputFile> <minSup>
 
-        Examples:
-        ---------
-        python3 eclat.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            Examples:
+            ---------
+            python3 eclat.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
-        python3 eclat.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+            python3 eclat.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
 
         Sample run of the importing code:
         ---------------------------------
 
+            import PAMI.frequentPattern.basic.eclat as alg
 
-        import PAMI.frequentPattern.basic.eclat as alg
-        obj = alg.Eclat(iFile, minSup)
-        obj.startMine()
-        frequentPatterns = obj.getPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
-        obj.storePatternsInFile(oFile)
-        Df = obj.getPatternInDataFrame()
-        memUSS = obj.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = obj.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = obj.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+            obj = alg.Eclat(iFile, minSup)
+
+            obj.startMine()
+
+            frequentPatterns = obj.getPatterns()
+
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+            obj.storePatternsInFile(oFile)
+
+            Df = obj.getPatternInDataFrame()
+
+            memUSS = obj.getMemoryUSS()
+
+            print("Total Memory in USS:", memUSS)
+
+            memRSS = obj.getMemoryRSS()
+
+            print("Total Memory in RSS", memRSS)
+
+            run = obj.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
 
         Credits:
         --------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -130,7 +141,7 @@ class Eclat(frequentPatterns):
     def creatingItemSets(self):
         """Storing the complete transactions of the database/input file in a database variable
 
-            """
+        """
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
@@ -143,7 +154,9 @@ class Eclat(frequentPatterns):
 
     # function to get frequent one pattern
     def frequentOneItem(self):
-        """Generating one frequent patterns"""
+        """
+        Generating one frequent patterns
+        """
 
         candidate = {}
         for i in range(len(self.Database)):
@@ -158,8 +171,11 @@ class Eclat(frequentPatterns):
         """It will generate the combinations of frequent items
 
         :param candidateList :it represents the items with their respective transaction identifiers
+
         :type candidateList: dictionary
+
         :return: returning transaction dictionary
+
         :rtype: dict
         """
         # to generate all
@@ -181,8 +197,11 @@ class Eclat(frequentPatterns):
         """It will generate the combinations of frequent items from a list of items
 
         :param tidList :it represents the items with their respective transaction identifiers
+
         :type tidList: dictionary
+
         :return: returning transaction dictionary
+
         :rtype: dict
         """
         tidList1 = {}
@@ -203,7 +222,9 @@ class Eclat(frequentPatterns):
     def convert(self, value):
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
+
         :return: converted type
         """
         if type(value) is int:
@@ -258,6 +279,7 @@ class Eclat(frequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -267,6 +289,7 @@ class Eclat(frequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -276,6 +299,7 @@ class Eclat(frequentPatterns):
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -285,6 +309,7 @@ class Eclat(frequentPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -299,6 +324,7 @@ class Eclat(frequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -311,6 +337,7 @@ class Eclat(frequentPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
+
         :rtype: dict
         """
         return self.finalPatterns

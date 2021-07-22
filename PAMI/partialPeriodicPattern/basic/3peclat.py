@@ -18,12 +18,13 @@ from abstract import *
 
 
 class ThreePEclat(partialPeriodicPatterns):
-    """ 3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
+    """
+    3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
 
-        Reference :
+    Reference :
 
-        Parameters:
-        ----------
+    Parameters:
+    ----------
         self.iFile : file
             Name of the Input file or path of the input file
         self. oFile : file
@@ -62,8 +63,8 @@ class ThreePEclat(partialPeriodicPatterns):
         tidList : dict
             stores the timestamps of an item
 
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -84,10 +85,9 @@ class ThreePEclat(partialPeriodicPatterns):
             Calculates the support and period for a list of timestamps.
         Generation()
             Used to implement prefix class equivalence method to generate the periodic patterns recursively
-        startMine()
-            Main program
-        Executing the code on terminal
-        -------
+
+    Executing the code on terminal:
+    -------
 
         Format: python3 3peclat.py <inputFile> <outputFile> <periodicSupport> <period>
 
@@ -96,8 +96,8 @@ class ThreePEclat(partialPeriodicPatterns):
                   python3 3peclat.py sampleDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)
         
 
-        Sample run of importing the code:
-        -------------------
+    Sample run of importing the code:
+    -------------------
          
         from PAMI.periodicFrequentPattern.basic import 3peclat as alg
 
@@ -156,6 +156,7 @@ class ThreePEclat(partialPeriodicPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+
         :return: converted value
         """
         if type(value) is int:
@@ -175,10 +176,9 @@ class ThreePEclat(partialPeriodicPatterns):
             calculates the support and periodicity with list of timestamps
 
             :param tids : timestamps of a pattern
+
             :type tids : list
-
-
-                    """
+        """
         tids.sort()
         sup = 0
         for j in range(len(tids) - 1):
@@ -218,10 +218,15 @@ class ThreePEclat(partialPeriodicPatterns):
             saves the patterns that satisfy the partial periodic property.
 
             :param prefix: the prefix of a pattern
+
             :type prefix: list
+
             :param suffix : the suffix of a patterns
+
             :type suffix : list
+
             :param tidSetX : the timestamp of a patterns
+
             :type tidSetX : list
 
 
@@ -242,11 +247,16 @@ class ThreePEclat(partialPeriodicPatterns):
             Generates the patterns following Equivalence-class methods
 
             :param prefix :  main equivalence prefix
+
             :type prefix : partial-periodic item or pattern
+
             :param itemSets : patterns which are items combined with prefix and satisfying the periodicity
                             and partial property with their timestamps
+
             :type itemSets : list
+
             :param tidSets : timestamps of the items in the argument itemSets
+
             :type tidSets : list
 
 
@@ -278,9 +288,8 @@ class ThreePEclat(partialPeriodicPatterns):
         
     def startMine(self):
         """
-                Main program start with extracting the periodic frequent items from the database and
-                performs prefix equivalence to form the combinations and generates partial-periodic patterns.
-
+            Main program start with extracting the periodic frequent items from the database and
+            performs prefix equivalence to form the combinations and generates partial-periodic patterns.
 
         """
         self.startTime = time.time()
@@ -308,9 +317,11 @@ class ThreePEclat(partialPeriodicPatterns):
         self.memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -320,16 +331,18 @@ class ThreePEclat(partialPeriodicPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
         return self.memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -339,6 +352,7 @@ class ThreePEclat(partialPeriodicPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -353,6 +367,7 @@ class ThreePEclat(partialPeriodicPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -365,6 +380,7 @@ class ThreePEclat(partialPeriodicPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
+
         :rtype: dict
         """
         return self.finalPatterns

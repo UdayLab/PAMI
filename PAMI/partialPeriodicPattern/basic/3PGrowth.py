@@ -184,7 +184,7 @@ class Tree(object):
             if abs(timeStamps[j] - timeStamps[i]) <= period:
                 per += 1
             sup += 1
-        return [per]
+        return per
 
     def conditionalTransactions(self, conditionalPatterns, conditionalTimeStamps):
         """ It generates the conditional patterns with periodic frequent items
@@ -208,11 +208,11 @@ class Tree(object):
         updatedDictionary = {}
         for m in data1:
             updatedDictionary[m] = self.getPeriodicSupport(data1[m])
-        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v[0] >= periodicSupport}
+        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v >= periodicSupport}
         count = 0
         for p in conditionalPatterns:
             p1 = [v for v in p if v in updatedDictionary]
-            trans = sorted(p1, key=lambda x: (updatedDictionary.get(x)[0], -x), reverse=True)
+            trans = sorted(p1, key=lambda x: (updatedDictionary.get(x), -x), reverse=True)
             if len(trans) > 0:
                 patterns.append(trans)
                 timeStamps.append(conditionalTimeStamps[count])
@@ -225,7 +225,7 @@ class Tree(object):
                 :param prefix : forms the combination of items
                 :type prefix : list
                         """
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
+        for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
             yield pattern, self.info[i]
@@ -401,8 +401,8 @@ class ThreePGrowth(partialPeriodicPatterns):
                         data[tr[i]][0] += 1
                     data[tr[i]][1] = int(tr[0])
                     data[tr[i]][2] += 1
-        data = {k: [v[0]] for k, v in data.items() if v[0] >= self.periodicSupport}
-        pfList = [k for k, v in sorted(data.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
+        data = {k: v[0] for k, v in data.items() if v[0] >= self.periodicSupport}
+        pfList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(pfList)])
         return data, pfList
 
