@@ -24,10 +24,10 @@ lno = int()
 
 class Node(object):
     """
-            A class used to represent the node of frequentPatternTree
+        A class used to represent the node of frequentPatternTree
 
-           Attributes
-            ----------
+        Attributes:
+        ----------
             item : int or None
                 Storing item of a node
             timeStamps : list
@@ -37,8 +37,8 @@ class Node(object):
             children : list
                 To maintain the children of a node
 
-            Methods
-            -------
+        Methods:
+        -------
 
             addChild(itemName)
                 Storing the children to their respective parent nodes
@@ -48,8 +48,11 @@ class Node(object):
         """ Initializing the Node class
 
         :param item: Storing the item of a node
+
         :type item: int or None
+
         :param children: To maintain the children of a node
+
         :type children: dict
         """
 
@@ -70,10 +73,10 @@ class Node(object):
 
 class Tree(object):
     """
-            A class used to represent the frequentPatternGrowth tree structure
+        A class used to represent the frequentPatternGrowth tree structure
 
-           Attributes
-            ----------
+        Attributes:
+        ----------
             root : Node
                 Represents the root node of the tree
             summaries : dictionary
@@ -82,8 +85,8 @@ class Tree(object):
                 Stores the support of the items
 
 
-            Methods
-            -------
+        Methods:
+        -------
             addTransactions(Database)
                 Creating transaction as a branch in frequentPatternTree
             getConditionalPatterns(Node)
@@ -106,11 +109,15 @@ class Tree(object):
     def addTransaction(self, transaction, tid):
         """     Adding a transaction into tree
 
-                :param transaction: To represent the complete database
-                :type transaction: list
-                :param tid: To represent the timestamp of a database
-                :type tid: list
-                :return: pfp-growth tree
+            :param transaction: To represent the complete database
+
+            :type transaction: list
+
+            :param tid: To represent the timestamp of a database
+
+            :type tid: list
+
+            :return: pfp-growth tree
         """
 
         currentNode = self.root
@@ -131,7 +138,9 @@ class Tree(object):
         """Generates all the conditional patterns of a respective node
 
             :param alpha: To represent a Node in the tree
+
             :type alpha: Node
+
             :return: A tuple consisting of finalPatterns, conditional pattern base and information
         """
         finalPatterns = []
@@ -154,6 +163,7 @@ class Tree(object):
         """To get the timestamps of a node
 
         :param node: A node in the tree
+
         :return: Timestamps of a node
         """
 
@@ -164,7 +174,9 @@ class Tree(object):
         """ Removing the node from tree
 
             :param nodeValue: To represent a node in the tree
+
             :type nodeValue: node
+
             :return: Tree with their nodes updated with timestamps
         """
 
@@ -176,6 +188,7 @@ class Tree(object):
         """ To get all the timestamps of the nodes which share same item name
 
             :param alpha: Node in a tree
+
             :return: Timestamps of a  node
         """
         temporary = []
@@ -188,6 +201,7 @@ class Tree(object):
         """To calculate the periodicity and support
 
         :param timeStamps: Timestamps of an item set
+
         :return: support, periodicity
         """
 
@@ -209,9 +223,13 @@ class Tree(object):
         """ It generates the conditional patterns with periodic-frequent items
 
             :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
+
             :type conditionalPatterns: list
+
             :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
+
             :type conditionalTimeStamps: list
+
             :returns: Returns conditional transactions by removing non-periodic and non-frequent items
         """
 
@@ -243,7 +261,9 @@ class Tree(object):
         """ Generates the patterns
 
             :param prefix: Forms the combination of items
+
             :type prefix: list
+
             :returns: yields patterns with their support and periodicity
         """
 
@@ -265,17 +285,30 @@ class Tree(object):
 class PFPGrowth(periodicFrequentPatterns):
     """ PFPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
-        Reference:
-        --------
+    Reference:
+    --------
         Syed Khairuzzaman Tanbeer, Chowdhury Farhan, Byeong-Soo Jeong, and Young-Koo Lee, "Discovering Periodic-Frequent
         Patterns in Transactional Databases", PAKDD 2009, https://doi.org/10.1007/978-3-642-01307-2_24
 
-       Attributes
-        ----------
+    Attributes:
+    ----------
         iFile : file
-            Name of the Input file to mine complete set of periodic-frequent patterns
+            Name of the Input file or path of the input file
         oFile : file
-            Name of the output file to store complete set of periodic-frequent patterns
+            Name of the output file or path of the output file
+        minSup: int or float or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        maxPer: int or float or str
+            The user can specify maxPer either in count or proportion of database size.
+            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -284,10 +317,6 @@ class PFPGrowth(periodicFrequentPatterns):
             To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
-        minSup : int/float
-            The user given minimum support
-        maxPer : int/float
-            The user given maximum period
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -296,16 +325,14 @@ class PFPGrowth(periodicFrequentPatterns):
             To represent the total no of transaction
         tree : class
             To represents the Tree class
-        itemSetCount : int
-            To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
 
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
@@ -330,8 +357,8 @@ class PFPGrowth(periodicFrequentPatterns):
         startMine()
             Mining process will start from this function
 
-        Executing the code on terminal:
-        -------
+    Executing the code on terminal:
+    -------
         Format:
         ------
         python3 PFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
@@ -343,8 +370,8 @@ class PFPGrowth(periodicFrequentPatterns):
 
         python3 PFPGrowth.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)
 
-        Sample run of importing the code:
-        -------------------
+    Sample run of importing the code:
+    -------------------
         from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg
 
         obj = alg.PFPGrowth(iFile, minSup, maxPer)
@@ -371,8 +398,8 @@ class PFPGrowth(periodicFrequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
+    Credits:
+    -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
@@ -383,6 +410,7 @@ class PFPGrowth(periodicFrequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -391,20 +419,22 @@ class PFPGrowth(periodicFrequentPatterns):
     lno = 0
 
     def creatingItemSets(self):
-        """ Storing the complete values of the database/input file in a database variable
+        """
+        Storing the complete values of the database/input file in a database variable
         """
 
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    li = [i.rstrip() for i in line.split("\t")]
+                    li = [i.rstrip() for i in line.split(self.sep())]
                     self.Database.append(li)
                     self.lno += 1
         except IOError:
             print("File Not Found")
 
     def periodicFrequentOneItem(self):
-        """ Calculates the support of each item in the database and assign ranks to the items
+        """
+        Calculates the support of each item in the database and assign ranks to the items
             by decreasing support and returns the frequent items list
 
             :returns: return the one-length periodic frequent patterns
@@ -429,7 +459,9 @@ class PFPGrowth(periodicFrequentPatterns):
         """ Remove the items which are not frequent from database and updates the database with rank of items
 
             :param dict1: frequent items with support
+
             :type dict1: dictionary
+
             :return: Sorted and updated transactions
             """
         list1 = []
@@ -450,9 +482,13 @@ class PFPGrowth(periodicFrequentPatterns):
         """ It takes the database and support of an each item and construct the main tree by setting root node as a null
 
             :param data: it represents the one Databases in database
+
             :type data: list
+
             :param info: it represents the support of each item
+
             :type info: dictionary
+
             :return: returns root node of tree
         """
 
@@ -467,6 +503,7 @@ class PFPGrowth(periodicFrequentPatterns):
         """ To convert the ranks of items in to their original item names
 
             :param itemSet: frequent pattern
+
             :return: frequent pattern with original item names
         """
         t1 = str()
@@ -479,6 +516,7 @@ class PFPGrowth(periodicFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+
         :return: converted value
         """
         if type(value) is int:
@@ -494,7 +532,8 @@ class PFPGrowth(periodicFrequentPatterns):
         return value
 
     def startMine(self):
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
 
         global minSup, maxPer, lno
@@ -529,6 +568,7 @@ class PFPGrowth(periodicFrequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -538,6 +578,7 @@ class PFPGrowth(periodicFrequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -548,6 +589,7 @@ class PFPGrowth(periodicFrequentPatterns):
 
 
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -557,6 +599,7 @@ class PFPGrowth(periodicFrequentPatterns):
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -571,6 +614,7 @@ class PFPGrowth(periodicFrequentPatterns):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -579,27 +623,32 @@ class PFPGrowth(periodicFrequentPatterns):
             s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
-    def getPeriodicFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
+
         :rtype: dict
         """
         return self.finalPatterns
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
-        ap = PFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+    ap = str()
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            ap = PFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        if len(sys.argv) == 5:
+            ap = PFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
-        frequentPatterns = ap.getPeriodicFrequentPatterns()
-        print("Total number of Periodic Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Periodic-Frequent Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
