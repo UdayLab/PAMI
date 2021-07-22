@@ -11,8 +11,8 @@ class SpatialEclat(spatialFrequentPatterns):
 
             ...
 
-        Attributes :
-        ----------
+    Attributes:
+    ----------
             iFile : str
                 Input file name or path of the input file
             nFile: str:
@@ -35,8 +35,8 @@ class SpatialEclat(spatialFrequentPatterns):
             Database : list
                 To store the complete set of transactions available in the input database/file
 
-        Methods :
-        -------
+    Methods:
+    -------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -70,16 +70,24 @@ class SpatialEclat(spatialFrequentPatterns):
              mapNighbours(file):
                 A function to map items to their neighbours
 
-        Executing the code on terminal :
-        ------------------------------
+    Executing the code on terminal :
+    ------------------------------
             Format: python3 apriori.py <inputFile> <outputFile> <neighbourFile> <minSup>
+
             Examples:
+
             python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
+
             python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
+
                                                                 (it considers "\t" as separator)
-                    SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 , 
+            python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 ,
+
                                                                 (it will consider "," as a separator)
 
+
+    Using the algorithm in a program :
+    ------------------------------
 
         obj = alg.SpatialEclat("sampleTDB.txt", "sampleN.txt", 5)
 

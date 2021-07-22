@@ -21,7 +21,7 @@ class ThreePEclat(partialPeriodicPatterns):
     """
     3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
 
-    Reference :
+    Reference:
 
     Parameters:
     ----------

@@ -3,6 +3,7 @@ import pandas as pd
 class dense2DB:
     """
         This class create Data Base from DataFrame.
+
         Attribute:
         ----------
         inputDF : pandas.DataFrame
