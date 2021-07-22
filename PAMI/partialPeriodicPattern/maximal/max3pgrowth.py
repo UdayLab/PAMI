@@ -25,26 +25,26 @@ pfList = []
 
 class Node(object):
     """
-     A class used to represent the node of frequentPatternTree
+    A class used to represent the node of frequentPatternTree
 
-            ...
+    ...
 
-            Attributes
-            ----------
-            item : int
-                storing item of a node
-            timeStamps : list
-                To maintain the timestamps of Database at the end of the branch
-            parent : node
-                To maintain the parent of every node
-            children : list
-                To maintain the children of node
+    Attributes:
+    ----------
+        item : int
+            storing item of a node
+        timeStamps : list
+            To maintain the timestamps of Database at the end of the branch
+        parent : node
+            To maintain the parent of every node
+        children : list
+            To maintain the children of node
 
-            Methods
-            -------
+    Methods:
+    -------
 
-            addChild(itemName)
-                storing the children to their respective parent nodes
+        addChild(itemName)
+            storing the children to their respective parent nodes
     """
 
     def __init__(self, item, children):
@@ -56,7 +56,9 @@ class Node(object):
     def addChild(self, node):
         """
         To add the children details to the parent node children list
+
         :param node: children node
+
         :return: adding to parent node children
         """
         self.children[node.item] = node
@@ -67,31 +69,31 @@ class Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
 
-            ...
+    ...
 
-            Attributes
-            ----------
-            root : Node
-                Represents the root node of the tree
-            summaries : dictionary
-                storing the nodes with same item name
-            info : dictionary
-                stores the support of items
+    Attributes:
+    ----------
+        root : Node
+            Represents the root node of the tree
+        summaries : dictionary
+            storing the nodes with same item name
+        info : dictionary
+            stores the support of items
 
 
-            Methods
-            -------
-            addTransaction(Database)
-                creating Database as a branch in frequentPatternTree
-            getConditionPatterns(Node)
-                generates the conditional patterns from tree for specific node
-            conditionalTransaction(prefixPaths,Support)
-                takes the prefixPath of a node and support at child of the path and extract the frequent items from
-                prefixPaths and generates prefixPaths with items which are frequent
-            remove(Node)
-                removes the node from tree once after generating all the patterns respective to the node
-            generatePatterns(Node)
-                starts from the root node of the tree and mines the frequent patterns
+    Methods:
+    -------
+        addTransaction(Database)
+            creating Database as a branch in frequentPatternTree
+        getConditionPatterns(Node)
+            generates the conditional patterns from tree for specific node
+        conditionalTransaction(prefixPaths,Support)
+            takes the prefixPath of a node and support at child of the path and extract the frequent items from
+            prefixPaths and generates prefixPaths with items which are frequent
+        remove(Node)
+            removes the node from tree once after generating all the patterns respective to the node
+        generatePatterns(Node)
+            starts from the root node of the tree and mines the frequent patterns
     """
 
     def __init__(self):
@@ -102,8 +104,11 @@ class Tree(object):
     def addTransaction(self, transaction, tid):
         """
         adding transaction into database
+
         :param transaction: transactions in a database
+
         :param tid: timestamp of the transaction in database
+
         :return: pftree
         """
         currentNode = self.root
@@ -123,7 +128,9 @@ class Tree(object):
     def getConditionalPatterns(self, alpha):
         """
         to get the conditional patterns of a node
+
         :param alpha: node in the tree
+
         :return: conditional patterns of a node
         """
         finalPatterns = []
@@ -144,7 +151,9 @@ class Tree(object):
     def removeNode(self, nodeValue):
         """
         removes the leaf node by pushing its timestamps to parent node
+
         :param nodeValue: node of a tree
+
         :return:
         """
         for i in self.summaries[nodeValue]:
@@ -155,7 +164,9 @@ class Tree(object):
     def getTimeStamps(self, alpha):
         """
         to get all the timestamps related to a node in tree
+
         :param alpha: node of a tree
+
         :return: timestamps of a node
         """
         temp = []
@@ -166,7 +177,9 @@ class Tree(object):
     def generatePatterns(self, prefix):
         """
             To generate the maximal periodic frequent patterns
+
             :param prefix: an empty list of itemSet to form the combinations
+
             :return: maximal periodic frequent patterns
         """
         global maximalTree, patterns
@@ -181,7 +194,7 @@ class Tree(object):
             for k in info:
                 tail.append(k)
             sub = head + tail
-            if maximalTree.checkerSub(sub) is 1:
+            if maximalTree.checkerSub(sub) == 1:
                 for pat in range(len(condPattern)):
                     conditionalTree.addTransaction(condPattern[pat], timeStamps[pat])
                 if len(condPattern) >= 1:
@@ -195,8 +208,11 @@ class Tree(object):
 
 def convert(itemSet):
     """
+
     to convert the maximal pattern items with their original item names
+
     :param itemSet: maximal periodic frequent pattern
+
     :return: pattern with original item names
     """
     t1 = []
@@ -209,20 +225,20 @@ class MNode(object):
     """
     A class used to represent the node of frequentPatternTree
 
-            ...
+    ...
 
-            Attributes
-            ----------
-            item : int
-                storing item of a node
-            children : list
-                To maintain the children of node
+    Attributes:
+    ----------
+        item : int
+            storing item of a node
+        children : list
+            To maintain the children of node
 
-            Methods
-            -------
+    Methods:
+    -------
 
-            addChild(itemName)
-                storing the children to their respective parent nodes
+        addChild(itemName)
+            storing the children to their respective parent nodes
     """
 
     def __init__(self, item, children):
@@ -232,7 +248,9 @@ class MNode(object):
     def addChild(self, node):
         """
         To add the children details to parent node children variable
+
         :param node: children node
+
         :return: adding children node to parent node
         """
         self.children[node.item] = node
@@ -243,19 +261,19 @@ class MPTree(object):
     """
     A class used to represent the node of frequentPatternTree
 
-            ...
+    ...
 
-            Attributes
-            ----------
-            root : node
-                the root of a tree
-            summaries : dict
-                to store the items with same name into dictionary
+    Attributes:
+    ----------
+        root : node
+            the root of a tree
+        summaries : dict
+            to store the items with same name into dictionary
 
-            Methods
-            -------
-            checkerSub(itemSet)
-                to check of subset of itemSet is present in tree
+    Methods:
+    -------
+        checkerSub(itemSet)
+            to check of subset of itemSet is present in tree
     """
 
     def __init__(self):
@@ -265,7 +283,9 @@ class MPTree(object):
     def addTransaction(self, transaction):
         """
         to add the transaction in maximal tree
+
         :param transaction: resultant periodic frequent pattern
+
         :return: maximal tree
         """
         currentNode = self.root
@@ -285,7 +305,9 @@ class MPTree(object):
     def checkerSub(self, items):
         """
         To check subset present of items in the maximal tree
+
         :param items: the pattern to check for subsets
+
         :return: 1
         """
         items.sort(reverse=True)
@@ -313,25 +335,28 @@ maximalTree = MPTree()
 def getPeriodAndSupport(timeStamps):
     """
     To calculate the periodicity and support of a pattern with their respective timeStamps
+
     :param timeStamps: timeStamps
+
     :return: Support and periodicity
     """
     timeStamps.sort()
     per = 0
-    sup = 0
     for i in range(len(timeStamps) - 1):
         j = i + 1
         if abs(timeStamps[j] - timeStamps[i]) <= period:
             per += 1
-            sup += 1
-    return [sup, per]
+    return per
 
 
 def conditionalTransactions(condPatterns, condTimeStamps):
     """
     To calculate the timestamps of conditional items in conditional patterns
+
     :param condPatterns: conditional patterns of node
+
     :param condTimeStamps: timeStamps of a conditional patterns
+
     :return: removing items with low periodicSupport or periodicity and sort the conditional transactions
     """
     pat = []
@@ -346,11 +371,11 @@ def conditionalTransactions(condPatterns, condTimeStamps):
     updatedDict = {}
     for m in data1:
         updatedDict[m] = getPeriodAndSupport(data1[m])
-    updatedDict = {k: v for k, v in updatedDict.items() if v[1] >= periodicSupport}
+    updatedDict = {k: v for k, v in updatedDict.items() if v >= periodicSupport}
     count = 0
     for p in condPatterns:
         p1 = [v for v in p if v in updatedDict]
-        trans = sorted(p1, key=lambda x: (updatedDict.get(x)[0], -x), reverse=True)
+        trans = sorted(p1, key=lambda x: (updatedDict.get(x), -x), reverse=True)
         if len(trans) > 0:
             pat.append(trans)
             timeStamps.append(condTimeStamps[count])
@@ -359,21 +384,35 @@ def conditionalTransactions(condPatterns, condTimeStamps):
 
 
 class MaxThreePGrowth(partialPeriodicPatterns):
-    """ MaxPF-Growth is one of the fundamental algorithm to discover maximal periodic-frequent
-        patterns in a temporal database.
+    """ Max3p-Growth algorithm IS to discover maximal periodic-frequent patterns in a temporal database.
+        It extract the partial periodic patterns from 3p-tree and checks for the maximal property and stores
+        all the maximal patterns in max3p-tree and extracts the maximal periodic patterns.
 
-            Reference:
-            --------
-            R. Uday Kiran, Yutaka Watanobe, Bhaskar Chaudhury, Koji Zettsu, Masashi Toyoda, Masaru Kitsuregawa,
-            "Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases",
-            IEEE 2020, https://ieeexplore.ieee.org/document/9260063
+        Reference:
+        --------
+        R. Uday Kiran, Yutaka Watanobe, Bhaskar Chaudhury, Koji Zettsu, Masashi Toyoda, Masaru Kitsuregawa,
+        "Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases",
+        IEEE 2020, https://ieeexplore.ieee.org/document/9260063
 
-           Attributes
-            ----------
+        Attributes:
+        ----------
             iFile : file
-                Name of the Input file to mine complete set of periodic-frequent patterns
+                Name of the Input file or path of the input file
             oFile : file
-                Name of the output file to store complete set of periodic-frequent patterns
+                Name of the output file or path of the output file
+            periodicSupport: float or int or str
+                The user can specify periodicSupport either in count or proportion of database size.
+                If the program detects the data type of periodicSupport is integer, then it treats periodicSupport is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: periodicSupport=10 will be treated as integer, while periodicSupport=10.0 will be treated as float
+            period: float or int or str
+                The user can specify period either in count or proportion of database size.
+                If the program detects the data type of period is integer, then it treats period is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: period=10 will be treated as integer, while period=10.0 will be treated as float
+            sep : str
+                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+                However, the users can override their default separator.
             memoryUSS : float
                 To store the total amount of USS memory consumed by the program
             memoryRSS : float
@@ -399,8 +438,8 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             finalPatterns : dict
                 it represents to store the patterns
 
-            Methods
-            -------
+        Methods:
+        -------
             startMine()
                 Mining process will start from here
             getFrequentPatterns()
@@ -426,20 +465,21 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             startMine()
                 the main method to run the program
 
-            Executing the code on terminal:
-            -------
+        Executing the code on terminal:
+        -------
             Format:
             ------
-            python3 max3prowth.py <inputFile> <outputFile> <periodicSupport> <period>
+                python3 max3prowth.py <inputFile> <outputFile> <periodicSupport> <period>
 
             Examples:
             --------
-            python3 max3pgrowth.py sampleTDB.txt patterns.txt 0.3 0.4  (periodicSupport will be considered in percentage of database
-            transactions)
-            python3 max3pgrowth.py sampleTDB.txt patterns.txt 3 4  (periodicSupport will be considered in support count or frequency)
+                python3 max3pgrowth.py sampleTDB.txt patterns.txt 0.3 0.4  (periodicSupport will be considered in percentage of database
+                transactions)
+
+                python3 max3pgrowth.py sampleTDB.txt patterns.txt 3 4  (periodicSupport will be considered in count)
             
-            Sample run of the importing code:
-            -----------
+        Sample run of the importing code:
+        -----------
             from PAMI.periodicFrequentPattern.maximal import ThreePGrowth as alg
 
             obj = alg.ThreePGrowth(iFile, periodicSupport, period)
@@ -467,8 +507,8 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             print("Total ExecutionTime in seconds:", run)
 
          
-            Credits:
-            -------
+        Credits:
+        -------
             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
@@ -479,11 +519,12 @@ class MaxThreePGrowth(partialPeriodicPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
     rank = {}
-    rankedUp = {}
+    rankDup = {}
     lno = 0
 
     def creatingitemSets(self):
@@ -494,9 +535,9 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    li = line.split("\t")
-                    li1 = [i.strip() for i in li]
-                    self.Database.append(li1)
+                    line.strip()
+                    li = [i.strip() for i in line.split(self.sep)]
+                    self.Database.append(li)
                     self.lno += 1
         except IOError:
             print("File Not Found")
@@ -564,17 +605,6 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             rootNode.addTransaction(data[i][1:], set1)
         return rootNode
 
-    def savePeriodic(self, itemSet):
-        """
-        To convert the ranks of items in to their original item names
-        :param itemSet: frequent pattern
-        :return: frequent pattern with original item names
-        """
-        t1 = str()
-        for i in itemSet:
-            t1 = t1 + self.rankedUp[i] + " "
-        return t1
-
     def convert(self, value):
         """
         To convert the given user specified value
@@ -613,13 +643,15 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         generatedItems = self.periodicFrequentOneItem()
         updatedDatabases = self.updateDatabases(generatedItems)
         for x, y in self.rank.items():
-            self.rankedUp[y] = x
+            self.rankDup[y] = x
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedDatabases, info)
         Tree.generatePatterns([])
         for x, y in patterns.items():
-            x = self.savePeriodic(x)
-            self.finalPatterns[x] = y
+            st = str()
+            for k in x:
+                st = st + k + " "
+            self.finalPatterns[st] = y
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -677,10 +709,10 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            s1 = x + ":" + str(y[0]) + ":" + str(y[1])
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPartialPeriodicPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
@@ -690,17 +722,21 @@ class MaxThreePGrowth(partialPeriodicPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
-        ap = MaxThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+    ap = str()
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            ap = MaxThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        if len(sys.argv) == 5:
+            ap = MaxThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
-        frequentPatterns = ap.getPartialPeriodicPatterns()
-        print("Total number of Periodic Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Maximal Partial Periodic Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

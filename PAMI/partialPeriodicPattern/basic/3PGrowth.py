@@ -54,33 +54,33 @@ class Node(object):
 
 class Tree(object):
     """
-                A class used to represent the frequentPatternGrowth tree structure
+        A class used to represent the frequentPatternGrowth tree structure
 
-                ...
+        ...
 
-                Attributes
-                ----------
-                root : Node
-                    Represents the root node of the tree
-                summaries : dictionary
-                    storing the nodes with same item name
-                info : dictionary
-                    stores the support of items
+        Attributes
+        ----------
+        root : Node
+            Represents the root node of the tree
+        summaries : dictionary
+            storing the nodes with same item name
+        info : dictionary
+            stores the support of items
 
 
-                Methods
-                -------
-                addTransaction(transaction)
-                    creating transaction as a branch in frequentPatternTree
-                getConditionalPatterns(Node)
-                    generates the conditional patterns from tree for specific node
-                conditionalTransactions(prefixPaths,Support)
-                    takes the prefixPath of a node and support at child of the path and extract the frequent items from
-                    prefixPaths and generates prefixPaths with items which are frequent
-                remove(Node)
-                    removes the node from tree once after generating all the patterns respective to the node
-                generatePatterns(Node)
-                    starts from the root node of the tree and mines the frequent patterns
+        Methods
+        -------
+        addTransaction(transaction)
+            creating transaction as a branch in frequentPatternTree
+        getConditionalPatterns(Node)
+            generates the conditional patterns from tree for specific node
+        conditionalTransactions(prefixPaths,Support)
+            takes the prefixPath of a node and support at child of the path and extract the frequent items from
+            prefixPaths and generates prefixPaths with items which are frequent
+        remove(Node)
+            removes the node from tree once after generating all the patterns respective to the node
+        generatePatterns(Node)
+            starts from the root node of the tree and mines the frequent patterns
 
             """
     def __init__(self):
@@ -92,11 +92,11 @@ class Tree(object):
         """
                 adding transaction into tree
 
-                        :param transaction : it represents the one transactions in database
-                        :type transaction : list
-                        :param tid : represents the timestamp of transaction
-                        :type tid : list
-                """
+                :param transaction : it represents the one transactions in database
+                :type transaction : list
+                :param tid : represents the timestamp of transaction
+                :type tid : list
+        """
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
@@ -112,11 +112,12 @@ class Tree(object):
             currentNode.timeStamps = currentNode.timeStamps + tid
 
     def getConditionalPatterns(self, alpha):
-        """generates all the conditional patterns of respective node
+        """
+            generates all the conditional patterns of respective node
 
-                            :param alpha : it represents the Node in tree
-                            :type alpha : Node
-                """
+            :param alpha : it represents the Node in tree
+            :type alpha : Node
+        """
         finalPatterns = []
         finalSets = []
         for i in self.summaries[alpha]:
@@ -137,16 +138,29 @@ class Tree(object):
         return finalTs
 
     def removeNode(self, nodeValue):
-        """removing the node from tree
+        """
+            removing the node from tree
 
-                                :param nodeValue : it represents the node in tree
-                                :type nodeValue : node
-                                """
+            :param nodeValue : it represents the node in tree
+            :type nodeValue : node
+        """
         for i in self.summaries[nodeValue]:
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
             del i.parent.children[nodeValue]
 
     def getTimeStamps(self, alpha):
+        """
+        Returns the timeStamps of a node
+
+        Parameters
+        ----------
+        alpha: node of tree
+
+        Returns
+        -------
+        timeStamps of a node
+
+        """
         temporary = []
         for i in self.summaries[alpha]:
             temporary += i.timeStamps
@@ -170,7 +184,7 @@ class Tree(object):
             if abs(timeStamps[j] - timeStamps[i]) <= period:
                 per += 1
             sup += 1
-        return [per]
+        return per
 
     def conditionalTransactions(self, conditionalPatterns, conditionalTimeStamps):
         """ It generates the conditional patterns with periodic frequent items
@@ -194,11 +208,11 @@ class Tree(object):
         updatedDictionary = {}
         for m in data1:
             updatedDictionary[m] = self.getPeriodicSupport(data1[m])
-        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v[0] >= periodicSupport}
+        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v >= periodicSupport}
         count = 0
         for p in conditionalPatterns:
             p1 = [v for v in p if v in updatedDictionary]
-            trans = sorted(p1, key=lambda x: (updatedDictionary.get(x)[0], -x), reverse=True)
+            trans = sorted(p1, key=lambda x: (updatedDictionary.get(x), -x), reverse=True)
             if len(trans) > 0:
                 patterns.append(trans)
                 timeStamps.append(conditionalTimeStamps[count])
@@ -211,7 +225,7 @@ class Tree(object):
                 :param prefix : forms the combination of items
                 :type prefix : list
                         """
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
+        for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
             yield pattern, self.info[i]
@@ -233,68 +247,78 @@ class ThreePGrowth(partialPeriodicPatterns):
         Reference : Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
         Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535
 
-        Parameters
-            ----------
-            self.iFile : file
-                Name of the Input file to mine complete set of frequent patterns
-           self. oFile : file
-                Name of the output file to store complete set of frequent patterns
-            self.memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            self.memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-            self.startTime:float
-                To record the start time of the mining process
-            self.endTime:float
-                To record the completion time of the mining process
-            self.minSup : float
-                The user given minSup
-            self.Database : list
-                To store the transactions of a database in list
-            self.mapSupport : Dictionary
-                To maintain the information of item and their frequency
-            self.lno : int
-                it represents the total no of transactions
-            self.tree : class
-                it represents the Tree class
-            self.itemSetCount : int
-                it represents the total no of patterns
-            self.finalPatterns : dict
-                it represents to store the patterns
+        Parameters:
+        ----------
+        self.iFile : file
+            Name of the Input file or path of the input file
+        self. oFile : file
+            Name of the output file or path of the output file
+        periodicSupport: float or int or str
+            The user can specify periodicSupport either in count or proportion of database size.
+            If the program detects the data type of periodicSupport is integer, then it treats periodicSupport is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: periodicSupport=10 will be treated as integer, while periodicSupport=10.0 will be treated as float
+        period: float or int or str
+            The user can specify period either in count or proportion of database size.
+            If the program detects the data type of period is integer, then it treats period is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: period=10 will be treated as integer, while period=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
+        self.memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        self.memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
+        self.startTime:float
+            To record the start time of the mining process
+        self.endTime:float
+            To record the completion time of the mining process
+        Database : list
+            To store the transactions of a database in list
+        mapSupport : Dictionary
+            To maintain the information of item and their frequency
+        lno : int
+            it represents the total no of transactions
+        tree : class
+            it represents the Tree class
+        finalPatterns : dict
+            it represents to store the patterns
 
-            Methods
-            -------
-            startMine()
-                Mining process will start from here
-            getFrequentPatterns()
-                Complete set of patterns will be retrieved with this function
-            storePatternsInFile(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
-            getPatternsInDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            check(line)
-                To check the delimiter used in the user input file
-            creatingItemSets(fileName)
-                Scans the dataset or dataframes and stores in list format
-            partialPeriodicOneItem()
-                Extracts the one-frequent patterns from transactions
-            updateTransactions()
-                updates the transactions by removing the aperiodic items and sort the transactions with items 
-                by decreaing support
-            buildTree()
-                constrcuts the main tree by setting the root node as null
-            startMine()
-                main program to mine the partial periodic patterns
-            
-        Format: python3 3PGrowth.py <inputFile> <outputFile> <minSup>
-        Examples: python3 3PGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
-                  python3 3PGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+        Methods:
+        -------
+
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        storePatternsInFile(oFile)
+            Complete set of frequent patterns will be loaded in to a output file
+        getPatternsInDataFrame()
+            Complete set of frequent patterns will be loaded in to a dataframe
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+        creatingItemSets()
+            Scans the dataset or dataframes and stores in list format
+        partialPeriodicOneItem()
+            Extracts the one-frequent patterns from transactions
+        updateTransactions()
+            updates the transactions by removing the aperiodic items and sort the transactions with items
+            by decreaing support
+        buildTree()
+            constrcuts the main tree by setting the root node as null
+        startMine()
+            main program to mine the partial periodic patterns
+
+        Format: python3 3PGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
+
+        Examples: python3 3PGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)
+
+                  python3 3PGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
         
         Sample run of the importing code:
         -----------
@@ -304,7 +328,7 @@ class ThreePGrowth(partialPeriodicPatterns):
 
         obj.startMine()
 
-        partialPeriodicPatterns = obj.partialPeriodicPatterns()
+        partialPeriodicPatterns = obj.getPatterns()
 
         print("Total number of partial periodic Patterns:", len(partialPeriodicPatterns))
 
@@ -337,6 +361,7 @@ class ThreePGrowth(partialPeriodicPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -353,7 +378,7 @@ class ThreePGrowth(partialPeriodicPatterns):
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    li1 = [i.strip() for i in line.split("\t")]
+                    li1 = [i.strip() for i in line.split(self.sep)]
                     self.Database.append(li1)
                     self.lno += 1
         except IOError:
@@ -376,8 +401,8 @@ class ThreePGrowth(partialPeriodicPatterns):
                         data[tr[i]][0] += 1
                     data[tr[i]][1] = int(tr[0])
                     data[tr[i]][2] += 1
-        data = {k: [v[0]] for k, v in data.items() if v[0] >= self.periodicSupport}
-        pfList = [k for k, v in sorted(data.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
+        data = {k: v[0] for k, v in data.items() if v[0] >= self.periodicSupport}
+        pfList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(pfList)])
         return data, pfList
 
@@ -473,12 +498,12 @@ class ThreePGrowth(partialPeriodicPatterns):
         patterns = Tree.generatePatterns([])
         for i in patterns:
             s = self.savePeriodic(i[0])
-            self.finalPatterns[tuple(s)] = i[1]
+            self.finalPatterns[s] = i[1]
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
-        print("Partial Periodic Patterns were generated successfully using 3P algorithm ")
+        print("Partial Periodic Patterns were generated successfully using 3PGrowth algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -534,7 +559,7 @@ class ThreePGrowth(partialPeriodicPatterns):
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPartialPeriodicPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -544,17 +569,21 @@ class ThreePGrowth(partialPeriodicPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
-        ap = ThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+    ap = str()
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            ap = ThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        if len(sys.argv) == 5:
+            ap = ThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
-        frequentPatterns = ap.getPartialPeriodicPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Partial Periodic Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

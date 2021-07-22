@@ -20,9 +20,19 @@ class partialPeriodicPatterns(ABC):
         ----------
         iFile : str
             Input file name or path of the input file
-        minSup: float
-            UserSpecified minimum support value. It has to be given in terms of count of total number of transactions
-            in the input database/file
+        periodicSupport: float or int or str
+            The user can specify periodicSupport either in count or proportion of database size.
+            If the program detects the data type of periodicSupport is integer, then it treats periodicSupport is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: periodicSupport=10 will be treated as integer, while periodicSupport=10.0 will be treated as float
+        period: float or int or str
+            The user can specify period either in count or proportion of database size.
+            If the program detects the data type of period is integer, then it treats period is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: period=10 will be treated as integer, while period=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         startTime:float
             To record the start time of the algorithm
         endTime:float
@@ -30,7 +40,7 @@ class partialPeriodicPatterns(ABC):
         finalPatterns: dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
-            Name of the output file to store complete set of frequent patterns
+            Name of the output file or path of the output file
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -54,7 +64,7 @@ class partialPeriodicPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, periodicSupport, period):
+    def __init__(self, iFile, periodicSupport, period, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -66,6 +76,7 @@ class partialPeriodicPatterns(ABC):
         self.iFile = iFile
         self.periodicSupport = periodicSupport
         self.period = period
+        self.sep = sep
 
     @abstractmethod
     def iFile(self):
@@ -80,6 +91,12 @@ class partialPeriodicPatterns(ABC):
         pass
     def period(self):
         """Variable to store the user specified maximum periodicity value"""
+
+        pass
+
+    @abstractmethod
+    def sep(self):
+        """Variable to store the input file path/file name"""
 
         pass
 
@@ -126,7 +143,7 @@ class partialPeriodicPatterns(ABC):
         pass
 
     @abstractmethod
-    def getPartialPeriodicPatterns(self):
+    def getPatterns(self):
         """Complete set of frequent patterns generated will be retrieved from this function"""
 
         pass

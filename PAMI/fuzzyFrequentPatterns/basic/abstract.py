@@ -37,7 +37,7 @@ import os.path
 import psutil
 
 
-class fuzzyPeriodicFrequentPatterns(ABC):
+class fuzzyFrequentPattenrs(ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
@@ -50,9 +50,7 @@ class fuzzyPeriodicFrequentPatterns(ABC):
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=0.1 will be treated as float
-        maxPer: int
-            The user specified Maximum periodicity
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator
@@ -88,7 +86,7 @@ class fuzzyPeriodicFrequentPatterns(ABC):
 
     """
 
-    def __init__(self, iFile, minSup, maxPer, sep="\t"):
+    def __init__(self, iFile, minSup, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -97,8 +95,6 @@ class fuzzyPeriodicFrequentPatterns(ABC):
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         :type minSup: int or float or str
-        :param maxPer: The user can specify maximum Periodicity
-        :type maxPer: int
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
         """
@@ -106,7 +102,6 @@ class fuzzyPeriodicFrequentPatterns(ABC):
         self.iFile = iFile
         self.sep = sep
         self.minSup = minSup
-        self.maxPer=maxPer
 
 
     @abstractmethod
@@ -118,12 +113,6 @@ class fuzzyPeriodicFrequentPatterns(ABC):
     @abstractmethod
     def minSup(self):
         """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @abstractmethod
-    def maxPer(self):
-        """Variable to store the user-specified maximum Periodicity value"""
 
         pass
 

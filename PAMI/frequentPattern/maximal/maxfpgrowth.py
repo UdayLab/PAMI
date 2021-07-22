@@ -26,8 +26,8 @@ class Node(object):
     """ A class used to represent the node of frequentPatternTree
 
 
-           Attributes
-            ----------
+        Attributes:
+        ----------
             item : int
                 storing item of a node
             counter : list
@@ -37,8 +37,8 @@ class Node(object):
             children : list
                 To maintain the children of node
 
-            Methods
-            -------
+        Methods:
+        -------
             addChild(itemName)
                 storing the children to their respective parent nodes
     """
@@ -47,8 +47,11 @@ class Node(object):
         """ Initializing the Node class
 
         :param item: Storing the item of a node
+
         :type item: int or None
+
         :param children: To maintain the children of a node
+
         :type children: dict
         """
         self.item = item
@@ -60,6 +63,7 @@ class Node(object):
         """Adding a child to the created node
 
         :param node: node object
+
         :type node: object
         """
         self.children[node.item] = node
@@ -68,11 +72,11 @@ class Node(object):
 
 class Tree(object):
     """
-            A class used to represent the frequentPatternGrowth tree structure
+        A class used to represent the frequentPatternGrowth tree structure
 
 
-           Attributes
-            ----------
+        Attributes:
+        ----------
             root : Node
                 Represents the root node of the tree
             summaries : dictionary
@@ -81,8 +85,8 @@ class Tree(object):
                 stores the support of items
 
 
-            Methods
-            -------
+        Methods:
+        -------
             addTransaction(transaction)
                 creating transaction as a branch in frequentPatternTree
             addConditionalTransaction(prefixPaths, supportOfItems)
@@ -108,6 +112,7 @@ class Tree(object):
         adding transactions into tree
 
         :param transaction: represents the transaction in a database
+
         :return: tree
         """
         currentNode = self.root
@@ -130,7 +135,9 @@ class Tree(object):
             Loading the database into a tree
 
         :param transaction: conditional transaction of a node
+
         :param count: the support of conditional transaction
+
         :return: conditional tree
         """
         currentNode = self.root
@@ -153,6 +160,7 @@ class Tree(object):
         generates all the conditional patterns of respective node
 
         :param alpha: it represents the Node in tree
+
         :return: conditional patterns of a node
         """
         finalPatterns = []
@@ -173,8 +181,11 @@ class Tree(object):
     def conditionalTransactions(self, condPatterns, condFreq):
         """
         sorting and removing the items from conditional transactions which don't satisfy minSup
+
         :param condPatterns: conditional patterns if a node
+
         :param condFreq: frequency at leaf node of conditional transaction
+
         :return: conditional patterns and their frequency respectively
         """
         global minSup
@@ -202,7 +213,9 @@ class Tree(object):
     def removeNode(self, nodeValue):
         """
         to remove the node from the original tree
+
         :param nodeValue: leaf node of tree
+
         :return: tree after deleting node
         """
         for i in self.summaries[nodeValue]:
@@ -214,6 +227,7 @@ class Tree(object):
         generates the patterns
 
         :param prefix: forms the combination of items
+
         :return: the maximal frequent patterns
         """
         global maximalTree, pfList, patterns
@@ -245,6 +259,7 @@ def convertItems(itemSet):
     To convert the item ranks into their original item names
 
     :param itemSet: itemSet or a pattern
+
     :return: original pattern
     """
     t1 = []
@@ -255,19 +270,17 @@ def convertItems(itemSet):
 
 class MNode(object):
     """
-            A class used to represent the node in maximal tree
+        A class used to represent the node in maximal tree
 
-
-
-           Attributes
-            ----------
+        Attributes:
+        ----------
             item : int
                 storing item of a node
             children : list
                 To maintain the children of node
 
-            Methods
-            -------
+        Methods:
+        -------
             addChild(itemName)
                 storing the children to their respective parent nodes
     """
@@ -279,7 +292,9 @@ class MNode(object):
     def addChild(self, node):
         """
         To add the children details to a parent node
+
         :param node: children node
+
         :return: adding children details to parent node
         """
         self.children[node.item] = node
@@ -288,10 +303,10 @@ class MNode(object):
 
 class MPTree(object):
     """
-            A class used to represent the frequentPatternGrowth tree structure
+        A class used to represent the frequentPatternGrowth tree structure
 
-           Attributes
-            ----------
+        Attributes:
+        ----------
             root : Node
                 Represents the root node of the tree
             summaries : dictionary
@@ -317,6 +332,7 @@ class MPTree(object):
         To construct the maximal frequent pattern into maximal tree
 
         :param transaction: the maximal frequent patterns extracted till now
+
         :return: the maximal tree
         """
         currentNode = self.root
@@ -338,6 +354,7 @@ class MPTree(object):
         To check the subset of pattern present in tree
 
         :param items: the sub frequent pattern
+
         :return: checks if subset present in the tree
         """
         items.sort(reverse=True)
@@ -369,10 +386,10 @@ class Maxfpgrowth(frequentPatterns):
 
     Reference:
     ---------
-    Grahne, G. and Zhu, J., "High Performance Mining of Maximal Frequent itemSets",
-    http://users.encs.concordia.ca/~grahne/papers/hpdm03.pdf
+        Grahne, G. and Zhu, J., "High Performance Mining of Maximal Frequent itemSets",
+        http://users.encs.concordia.ca/~grahne/papers/hpdm03.pdf
 
-   Attributes
+    Attributes:
     ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
@@ -405,7 +422,7 @@ class Maxfpgrowth(frequentPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-    Methods
+    Methods:
     -------
         startMine()
             Mining process will start from here
@@ -434,39 +451,47 @@ class Maxfpgrowth(frequentPatterns):
 
     Executing the code on terminal:
     -------
-    Format:
-    ------
-    python3 maxfpgrowth.py <inputFile> <outputFile> <minSup>
+        Format:
+        ------
+            python3 maxfpgrowth.py <inputFile> <outputFile> <minSup>
 
-    Examples:
-    -------
-    python3 maxfpgrowth.py sampleDB.txt patterns.txt 0.3   (minSup will be considered in percentage of database transactions)
+        Examples:
+        -------
+            python3 maxfpgrowth.py sampleDB.txt patterns.txt 0.3   (minSup will be considered in percentage of database transactions)
 
-    python3 maxfpgrowth.py sampleDB.txt patterns.txt 3     (minSup will be considered in support count or frequency)
+            python3 maxfpgrowth.py sampleDB.txt patterns.txt 3     (minSup will be considered in support count or frequency)
 
     Sample run of the imported code:
     --------------
+        from PAMI.frequentPattern.maximal import maxfpgrowth as alg
 
+        obj = alg.Maxfpgrowth("../basic/sampleTDB.txt", "2")
 
-    from PAMI.frequentPattern.maximal import maxfpgrowth as alg
-    obj = alg.Maxfpgrowth("../basic/sampleTDB.txt", "2")
-    obj.startMine()
-    frequentPatterns = obj.getPatterns()
-    print("Total number of Frequent Patterns:", len(frequentPatterns))
-    obj.storePatternsInFile("patterns")
-    Df = obj.getPatternsInDataFrame()
-    memUSS = obj.getMemoryUSS()
-    print("Total Memory in USS:", memUSS)
-    memRSS = obj.getMemoryRSS()
-    print("Total Memory in RSS", memRSS)
-    run = obj.getRuntime()
-    print("Total ExecutionTime in seconds:", run)
+        obj.startMine()
+
+        frequentPatterns = obj.getPatterns()
+
+        print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+        obj.storePatternsInFile("patterns")
+
+        Df = obj.getPatternsInDataFrame()
+
+        memUSS = obj.getMemoryUSS()
+
+        print("Total Memory in USS:", memUSS)
+
+        memRSS = obj.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = obj.getRuntime()
+
+        print("Total ExecutionTime in seconds:", run)
 
     Credits:
     -------
-    The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-
-
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
     startTime = float()
@@ -485,7 +510,8 @@ class Maxfpgrowth(frequentPatterns):
     lno = 0
 
     def creatingItemSets(self):
-        """ Storing the complete Databases of the database/input file in a database variable
+        """
+        Storing the complete Databases of the database/input file in a database variable
         """
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
@@ -520,7 +546,9 @@ class Maxfpgrowth(frequentPatterns):
         """ To sort the transactions in their support descending order and allocating ranks respectively
 
         :param oneLength: 1-length frequent items in dictionary
+
         :return: returning the sorted list
+
         :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
                     rank = {'a':0, 'b':1, 'c':2, 'd':3}
         """
@@ -604,6 +632,7 @@ class Maxfpgrowth(frequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -613,6 +642,7 @@ class Maxfpgrowth(frequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -621,8 +651,8 @@ class Maxfpgrowth(frequentPatterns):
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -632,6 +662,7 @@ class Maxfpgrowth(frequentPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -646,6 +677,7 @@ class Maxfpgrowth(frequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -658,6 +690,7 @@ class Maxfpgrowth(frequentPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
+
         :rtype: dict
         """
         return self.finalPatterns
