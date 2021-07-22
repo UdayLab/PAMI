@@ -175,13 +175,13 @@ class fpGrowth(frequentPatterns):
        It stores the database in compressed fp-tree decreasing the memory usage and extracts the
        patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
 
-        Reference:
-        ---------
+    Reference :
+    ---------
            Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
            Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
 
-        Attributes
-        ----------
+    Attributes :
+    ----------
         iFile : file
             Input file name or path of the input file
         minSup: float or int or str
@@ -213,8 +213,8 @@ class fpGrowth(frequentPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-        Methods
-        -------
+    Methods :
+    -------
         startMine()
             Mining process will start from here
         getPatterns()
