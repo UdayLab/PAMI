@@ -3,7 +3,7 @@ import sys
 import pandas as pd
 
 
-class SpatialEclat(frequentPatterns):
+class SpatialEclat(spatialFrequentPatterns):
     """ 
         Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
         Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
@@ -11,10 +11,12 @@ class SpatialEclat(frequentPatterns):
 
             ...
 
-            Attributes
-            ----------
+        Attributes :
+        ----------
             iFile : str
                 Input file name or path of the input file
+            nFile: str:
+               Name of Neighbourhood file name
             minSup: float
                 UserSpecified minimum support value. It has to be given in terms of count of total number of
                 transactions in the input database/file
@@ -33,11 +35,11 @@ class SpatialEclat(frequentPatterns):
             Database : list
                 To store the complete set of transactions available in the input database/file
 
-            Methods
-            -------
+        Methods :
+        -------
             startMine()
                 Mining process will start from here
-            getFrequentPatterns()
+            getPatterns()
                 Complete set of patterns will be retrieved with this function
             storePatternsInFile(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
@@ -59,7 +61,7 @@ class SpatialEclat(frequentPatterns):
                 Converting dictionary keys to integer elements
             eclatGeneration(cList)
                 It will generate the combinations of frequent items
-            generateFrequentPatterns(tidList)
+            generatespatialFrequentPatterns(tidList)
                 It will generate the combinations of frequent items from a list of items
             convert(value):
                 To convert the given user specified value    
@@ -68,23 +70,24 @@ class SpatialEclat(frequentPatterns):
              mapNighbours(file):
                 A function to map items to their neighbours
 
-        Executing the code on terminal
+        Executing the code on terminal :
         ------------------------------
-        Format: python3 apriori.py <inputFile> <outputFile> <neighbourFile> <minSup>
-        Examples:
-        python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 0.5
-                        (minSup will be considered in percentage of database transactions)
-        python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3
-                        (minSup will be considered in support count or frequency)
+            Format: python3 apriori.py <inputFile> <outputFile> <neighbourFile> <minSup>
+            Examples:
+            python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
+            python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
+                                                                (it considers "\t" as separator)
+                    SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 , 
+                                                                (it will consider "," as a separator)
 
 
         obj = alg.SpatialEclat("sampleTDB.txt", "sampleN.txt", 5)
 
         obj.startMine()
 
-        frequentPatterns = obj.getFrequentPatterns()
+        spatialFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
 
         obj.storePatternsInFile("outFile")
 
@@ -101,9 +104,9 @@ class SpatialEclat(frequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
 
-        Credits:
-        -------
-            The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
+    Credits:
+    -------
+        The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
     """
 
     minSup = float()
@@ -112,13 +115,14 @@ class SpatialEclat(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
-    nFileName = " "
+    nFile=" "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
+    sep="\t"
 
-    def __init__(self, iFile, nFile, minSup):
-        super().__init__(iFile, nFile, minSup)
+    def __init__(self, iFile, nFile, minSup, sep="\t"):
+        super().__init__(iFile, nFile, minSup, sep)
         self.NighboursMap = {}
 
     def creatingItemSets(self, iFileName):
@@ -136,7 +140,7 @@ class SpatialEclat(frequentPatterns):
                     lineNumber += 1
                     # delimiter = self.findDelimiter([*line])
                     # li=[lineNumber]
-                    li = line.split("\t")
+                    li = line.split(self.sep)
                     li1 = [i.rstrip() for i in li]
                     self.Database.append([i.rstrip() for i in li1])
                     # else:
@@ -144,7 +148,7 @@ class SpatialEclat(frequentPatterns):
                     # data.append([lineNumber,li1])
                 else:
                     lineNumber += 1
-                    li = line.split("\t")
+                    li = line.split(self.sep)
                     # if delimiter==',':
                     li1 = [i.rstrip() for i in li]
                     self.Database.append(li1)
@@ -227,7 +231,7 @@ class SpatialEclat(frequentPatterns):
                         tidList[tuple(set(itemList))] = intersectionList
         return tidList
 
-    def generateFrequentPatterns(self, tidList):
+    def generatespatialFrequentPatterns(self, tidList):
         """It will generate the combinations of frequent items from a list of items
 
         :param tidList :it represents the items with their respective transaction identifiers
@@ -283,7 +287,7 @@ class SpatialEclat(frequentPatterns):
         """
         with open(name, 'r', encoding='utf-8') as f:
             for line in f:
-                li = line.split("\t")
+                li = line.split(self.sep)
                 item = li[0]
                 nibs = li[1:]
                 self.NighboursMap[item] = nibs
@@ -301,7 +305,7 @@ class SpatialEclat(frequentPatterns):
         self.mapNighbours(self.nFile)
         print(self.minSup)
         self.frequentOneItem()
-        frequentSet = self.generateFrequentPatterns(self.finalPatterns)
+        frequentSet = self.generatespatialFrequentPatterns(self.finalPatterns)
         # print("frequentSet",self.finalPatterns)
         for x, y in frequentSet.items():
             if x not in self.finalPatterns:
@@ -377,7 +381,7 @@ class SpatialEclat(frequentPatterns):
             patternsAndSupport = pat + ": " + str(len(y))
             writer.write("%s \n" % patternsAndSupport)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -387,13 +391,14 @@ class SpatialEclat(frequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 5:
-        print("Error!, arguments miss match")
-    else:
-        ap = SpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            ap = SpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4],sys.argv[5])
+        if len(sys.argv) == 5:
+            ap = SpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
+        spatialFrequentPatterns = ap.getPatterns()
+        print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
@@ -401,3 +406,5 @@ if __name__ == "__main__":
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
+    else:
+        print("Error!,Parameter doesn't match")
