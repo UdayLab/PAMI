@@ -8,8 +8,8 @@ class FFList:
     """
         A class represent a Fuzzy List of an element
 
-       Attributes
-        ----------
+    Attributes:
+    ----------
         item: int
             the item name
         sumLUtil: float
@@ -21,8 +21,8 @@ class FFList:
         maxPeriod: int
             it represent the max period of a item
 
-        Methods
-        -------
+    Methods:
+    -------
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
 
@@ -62,7 +62,7 @@ class Element:
     """
         A class represents an Element of a fuzzy list
 
-       Attributes
+        Attributes:
         ----------
         tid : int
             keep tact of transaction id
@@ -85,8 +85,8 @@ class Reagions:
     """
             A class calculate the regions
 
-           Attributes
-            ----------
+        Attributes:
+        ----------
             low : int
                 low region value
             middle: int 
@@ -124,18 +124,18 @@ class Pair:
         self.quantity = 0
 
 
-class FPFPMiner(periodicFrequentPatterns):
+class FPFPMiner(fuzzyPeriodicFrequentPatterns):
     """
         Fuzzy Periodic Frequent Pattern Miner is desired to find all fuzzy periodic frequent patterns which is
         on-trivial and challenging problem to its huge search space.we are using efficient pruning
         techniques to reduce the search space.
 
 
-       Attributes
-        ----------
-        self.iFile : file
+    Attributes:
+    ----------
+        iFile : file
             Name of the input file to mine complete set of fuzzy spatial frequent patterns
-           self. oFile : file
+        oFile : file
                Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : float
             The user given support
@@ -171,11 +171,11 @@ class FPFPMiner(periodicFrequentPatterns):
             represent the last tid of fuzzy items
         itemsToRegion: map
             represent items with respective regions
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -189,20 +189,30 @@ class FPFPMiner(periodicFrequentPatterns):
             Total amount of runtime taken by the mining process will be retrieved from this function            
         convert(value):
             To convert the given user specified value
+        FSFIMining( prefix, prefixLen, fsFim, minSup)
+            Method generate FFI from prefix
+        construct(px, py)
+            A function to construct Fuzzy itemset from 2 fuzzy itemsets
+        findElementWithTID(ulist, tid)
+            To find element with same tid as given
+        WriteOut(prefix, prefixLen, item, sumIutil,period)
+            To Store the patten
     
-        Executing the code on terminal:
-        -------
+     Executing the code on terminal:
+     -------
         Format:
         ------
-        python3 FPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer>
+        python3 FPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer> <separator>
 
         Examples:
         ------
         python3  FPFPMiner.py sampleTDB.txt output.txt 2 3 (minSup and maxPer will be considered in support count or frequency)
         python3  FPFPMiner.py sampleTDB.txt output.txt 0.25 3 (minSup and maxPer will be considered in percentage of database)
+                                        (will consider "\t" as separator)
+        python3  FPFPMiner.py sampleTDB.txt output.txt 2 3  ,(will conseider ',' as separato)
         
-        Sample run of importing the code:
-        -------------------------------
+    Sample run of importing the code:
+    -------------------------------
 
         import FPFPMiner as alg
 
@@ -210,9 +220,9 @@ class FPFPMiner(periodicFrequentPatterns):
 
         obj.startMine()
 
-        frequentPatterns = obj.getPeriodicFrequentPatterns()
+        periodicFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Fuzzy Periodic Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Fuzzy Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
         obj.storePatternsInFile("output.txt")
 
@@ -231,6 +241,7 @@ class FPFPMiner(periodicFrequentPatterns):
         Credits:
         -------
             The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
+            The complete verification and documentation is done by Penugonda Ravikumar.
 
     """
     startTime = float()
@@ -242,9 +253,10 @@ class FPFPMiner(periodicFrequentPatterns):
     oFile = " "
     memoryUSS = float()
     memoryRSS = float()
+    sep=""
 
-    def __init__(self, iFile, minSup, period):
-        super().__init__(iFile, minSup, period)
+    def __init__(self, iFile, minSup, period,sep="\t"):
+        super().__init__(iFile, minSup, period,sep)
         self.oFile = ""
         self.BufferSize = 200
         self.itemsetBuffer = []
@@ -291,7 +303,8 @@ class FPFPMiner(periodicFrequentPatterns):
         return value
 
     def startMine(self):
-        """ Fuzzy periodic Frequent pattern mining process will start from here
+        """
+        	Fuzzy periodic Frequent pattern mining process will start from here
         """
         maxTID = 0
         lastTIDs = {}
@@ -301,8 +314,8 @@ class FPFPMiner(periodicFrequentPatterns):
                 parts = line.split(":")
                 tid = int(parts[0])
                 self.dbLen += 1
-                items = parts[1].split("	")
-                quantities = parts[2].split("	")
+                items = parts[1].split(self.sep)
+                quantities = parts[3].split(self.sep)
                 if tid < maxTID:
                     maxTID = tid
                 for i in range(0, len(items)):
@@ -360,8 +373,8 @@ class FPFPMiner(periodicFrequentPatterns):
             for line in file:
                 parts = line.split(":")
                 tid = int(parts[0])
-                items = parts[1].split("	")
-                quantities = parts[2].split("	")
+                items = parts[1].split(self.sep)
+                quantities = parts[3].split(self.sep)
                 revisedTransaction = []
                 for i in range(0, len(items)):
                     pair = Pair()
@@ -539,7 +552,7 @@ class FPFPMiner(periodicFrequentPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def getPeriodicFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -561,11 +574,14 @@ class FPFPMiner(periodicFrequentPatterns):
 
 
 if __name__ == "__main__":
-    if(len(sys.argv)==5):
-        ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(sys.argv)==5 or len(sys.argv)==6:
+        if len(sys.argv)==6: # to  include a user specifed separator
+        	ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4],sys.argv[5])
+        if len(sys.argv)==5:   # to consider "\t" as a separator
+        	ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
-        frequentPatterns = ap.getPeriodicFrequentPatterns()
-        print("Total number of Fuzzy Periodic Frequent Patterns:", len(frequentPatterns))
+        periodicFrequentPatterns = ap.getPatterns()
+        print("Total number of Fuzzy Periodic Frequent Patterns:", len(periodicFrequentPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
