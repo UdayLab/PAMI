@@ -224,8 +224,8 @@ class cpgrowth(corelatedPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-        Methods
-        -------
+    Methods :
+    -------
        startMine()
             Mining process will start from here
         getPatterns()
@@ -252,16 +252,17 @@ class cpgrowth(corelatedPatterns):
         saveItemSet(prefix, prefixLength, support)
             To save the frequent patterns mined form frequentPatternTree
 
-        Executing the code on terminal
-        ------------------------------
-
-        Format: python3 apriori.py <inputFile> <outputFile> <minSup> <minAllConf>
-
+    Executing the code on terminal
+    ------------------------------
+        Format: python3 apriori.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
         Examples: python3 cpgrowth.py inp.txt output.txt 4.0 0.3   (minSup will be considered in percentage of database transactions)
                   python3 cpgrowth.py  patterns.txt 4  0.3   (minSup will be considered in support count or frequency)
+                                                                (it will consider '\t' as separator)
+                  python3 cpgrowth.py sampleDB.txt patterns.txt 0.23 0.2  , 
+                                                                (it will consider ',' as separator)
 
-        Sample run of the importing code:
-        ---------------------------------
+    Sample run of the importing code:
+    ---------------------------------
 
         import cpgrowthpp as alg
 
@@ -289,9 +290,9 @@ class cpgrowth(corelatedPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        --------
-        The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.
+    Credits:
+    --------
+        The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.
 
         """
 
@@ -610,9 +611,9 @@ class cpgrowth(corelatedPatterns):
 
 if __name__ == "__main__":
     if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
+        if len(sys.argv) == 6: #includes separator
         	ap = cpgrowth(sys.argv[1], sys.argv[3],float(sys.argv[4]),sys.argv[5])
-        if len(sys.argv) == 5:
+        if len(sys.argv) == 5: # to consider '\t' as separator
         	ap = cpgrowth(sys.argv[1], sys.argv[3],float(sys.argv[4]))
         ap.startMine()
         corelatedPatterns = ap.getPatterns()

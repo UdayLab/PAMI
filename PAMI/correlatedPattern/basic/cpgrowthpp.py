@@ -230,7 +230,13 @@ class cpgrowthpp(corelatedPatterns):
         it is based on traditional Fpgrowth Algorithm,This algorithm uses breadth-first search technique to find the 
         corelated Frequent patterns in transactional database.
 
-        Attributes
+        Reference :
+        ---------
+        	Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals. 
+        	 In: Liddle S.W., Schewe KD., Tjoa A.M., Zhou X. (eds) Database and Expert Systems Applications. DEXA 2012. Lecture Notes in Computer Science, vol 7446. Springer, Berlin, Heidelberg. 
+        	 https://doi.org/10.1007/978-3-642-32600-4_18
+        
+        Attributes :
         ----------
 
         iFile : file
@@ -266,7 +272,7 @@ class cpgrowthpp(corelatedPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-        Methods
+        Methods :
         -------
         startMine()
             Mining process will start from here
@@ -299,13 +305,15 @@ class cpgrowthpp(corelatedPatterns):
 
         Format:
         -------
-        python3 cpgrowthpp.py <inputFile> <outputFile> <minSup> <minAllConf>
+        python3 cpgrowthpp.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
 
         Examples:
         ---------
         python3 cpgrowthpp.py sampleDB.txt patterns.txt 0.23 0.2  (minSup will be considered in percentage of database transactions)
-
         python3 cpgrowthpp.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)
+                                                      (it will consider '\t' as separator)
+        python3 cpgrowthpp.py sampleDB.txt patterns.txt 0.23 0.2  , 
+                                                       (it will consider ',' as separator)
 
         Sample run of the importing code:
         ---------------------------------
@@ -338,7 +346,7 @@ class cpgrowthpp(corelatedPatterns):
 
         Credits:
         --------
-        The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.
+        The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.
 
         """
 
@@ -644,9 +652,9 @@ class cpgrowthpp(corelatedPatterns):
 
 if __name__ == "__main__":
     if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
+        if len(sys.argv) == 6: #includes separator
         	ap = cpgrowthpp(sys.argv[1], sys.argv[3],float(sys.argv[4]),sys.argv[5])
-        if len(sys.argv) == 5:
+        if len(sys.argv) == 5: #to consider '\t' as separator
         	ap = cpgrowthpp(sys.argv[1], sys.argv[3],float(sys.argv[4]))
         ap.startMine()
         corelatedPatterns = ap.getPatterns()
