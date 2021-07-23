@@ -224,13 +224,19 @@ class Tree:
                     current = child
 
 
-class cpgrowthpp(frequentPatterns):
+class cpgrowthpp(corelatedPatterns):
     """ 
          cpgrowth is one of the fundamental algorithm to discover Corelated frequent patterns in a transactional database.
         it is based on traditional Fpgrowth Algorithm,This algorithm uses breadth-first search technique to find the 
         corelated Frequent patterns in transactional database.
 
-        Attributes
+        Reference :
+        ---------
+        	Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals. 
+        	 In: Liddle S.W., Schewe KD., Tjoa A.M., Zhou X. (eds) Database and Expert Systems Applications. DEXA 2012. Lecture Notes in Computer Science, vol 7446. Springer, Berlin, Heidelberg. 
+        	 https://doi.org/10.1007/978-3-642-32600-4_18
+        
+        Attributes :
         ----------
 
         iFile : file
@@ -247,6 +253,8 @@ class cpgrowthpp(frequentPatterns):
             To record the completion time of the mining process
         minSup : float
             The user given minSup
+        minAllConf: float
+            The user given minimum all confidence Ratio (should be in range of 0 to 1) 
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -264,11 +272,11 @@ class cpgrowthpp(frequentPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-        Methods
+        Methods :
         -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -280,8 +288,6 @@ class cpgrowthpp(frequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
-        check(line)
-            To check the delimiter used in the user input file
         creatingItemSets(fileName)
             Scans the dataset or dataframes and stores in list format
         frequentOneItem()
@@ -299,26 +305,28 @@ class cpgrowthpp(frequentPatterns):
 
         Format:
         -------
-        python3 cpgrowthpp.py <inputFile> <outputFile> <minSup> <minRatio>
+        python3 cpgrowthpp.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
 
         Examples:
         ---------
         python3 cpgrowthpp.py sampleDB.txt patterns.txt 0.23 0.2  (minSup will be considered in percentage of database transactions)
-
         python3 cpgrowthpp.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)
+                                                      (it will consider '\t' as separator)
+        python3 cpgrowthpp.py sampleDB.txt patterns.txt 0.23 0.2  , 
+                                                       (it will consider ',' as separator)
 
         Sample run of the importing code:
         ---------------------------------
 
         import cpgrowthpp as alg
 
-        obj = alg.cpgrowthpp(iFile, minSup,minRatio)
+        obj = alg.cpgrowthpp(iFile, minSup,minAllConf)
 
         obj.startMine()
 
-        frequentPatterns = obj.getFrequentPatterns()
+        corelatedPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Frequent Patterns:", len(corelatedPatterns))
 
         obj.storePatternsInFile(oFile)
 
@@ -338,7 +346,7 @@ class cpgrowthpp(frequentPatterns):
 
         Credits:
         --------
-        The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.
+        The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.
 
         """
 
@@ -348,6 +356,7 @@ class cpgrowthpp(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    minAllConf=0.0
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -358,6 +367,10 @@ class cpgrowthpp(frequentPatterns):
     fpNodeTempBuffer = []
     itemSetCount = 0
     maxPatternLength = 1000
+    sep="\t"
+
+    def __init__(self, iFile, minsup, minAllConf,sep="\t"):
+        super().__init__(iFile,minsup,minAllConf,sep)
 
     def creatingItemSets(self):
         """
@@ -370,7 +383,7 @@ class cpgrowthpp(frequentPatterns):
                 for line in f:
                     line.strip()
                     self.lno += 1
-                    li1 = [i.rstrip() for i in line.split("	")]
+                    li1 = [i.rstrip() for i in line.split(self.sep)]
                     self.Database.append(li1)
         except IOError:
             print("File Not Found")
@@ -429,7 +442,7 @@ class cpgrowthpp(frequentPatterns):
                     prefix.insert(newPrefixLength, tempBuffer[j].itemId)
                     newPrefixLength += 1
             ratio=s/self.mapSupport[self.getMaxItem(prefix,newPrefixLength)]
-            if(ratio>=self.minRatio):
+            if(ratio>=self.minAllConf):
                 self.saveItemSet(prefix, newPrefixLength, s,ratio)
 
     def frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength,mapSupport,minconf):
@@ -468,7 +481,7 @@ class cpgrowthpp(frequentPatterns):
             for i in reversed(frequentPatternTree.headerList):
                 item = i
                 support = mapSupport[i]
-                low=max(int(math.floor(mapSupport[i]*self.minRatio)),self.minSup)
+                low=max(int(math.floor(mapSupport[i]*self.minAllConf)),self.minSup)
                 high=max(int(math.floor(mapSupport[i]/minconf)),self.minSup)
                 betaSupport = support              
                 prefix.insert(prefixLength, item)
@@ -476,7 +489,7 @@ class cpgrowthpp(frequentPatterns):
                 if(self.mapSupport[max1]<self.mapSupport[item]):
                     max1=item
                 ratio=support/self.mapSupport[max1]
-                if(ratio>=self.minRatio):
+                if(ratio>=self.minAllConf):
                     self.saveItemSet(prefix, prefixLength + 1, betaSupport,ratio)
                 if prefixLength + 1 < self.maxPatternLength:
                     prefixPaths = []
@@ -489,8 +502,8 @@ class cpgrowthpp(frequentPatterns):
                             parent1 = path.parent
                             if mapSupport.get(parent1.itemId)>=low and mapSupport.get(parent1.itemId)<=high:
                                 while parent1.itemId != -1:
-                                   mins=int(support/max(mapSupport.get(parent1.itemId),support))
-                                   if(mapSupport.get(parent1.itemId)>=mins):
+                                   allconf=int(support/max(mapSupport.get(parent1.itemId),support))
+                                   if(mapSupport.get(parent1.itemId)>=allconf):
                                        prefixPath.append(parent1)
                                        if mapSupportBeta.get(parent1.itemId) is None:
                                            mapSupportBeta[parent1.itemId] = pathCount
@@ -552,8 +565,8 @@ class cpgrowthpp(frequentPatterns):
         self.tree.createHeaderList(self.mapSupport, self.minSup)
         if len(self.tree.headerList) > 0:
             self.itemSetBuffer = []
-            self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport,self.minRatio)
-        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
+            self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport,self.minAllConf)
+        print("Corelated Frequent patterns were generated successfully using CorelatedePatternGrowth algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -627,7 +640,7 @@ class cpgrowthpp(frequentPatterns):
             s1 = str(pattern) + ": " + str(y)
             writer.write("%s \n" % s1)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
 
@@ -638,11 +651,14 @@ class cpgrowthpp(frequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
-        ap = cpgrowthpp(sys.argv[1], sys.argv[3],float(sys.argv[4]))
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6: #includes separator
+        	ap = cpgrowthpp(sys.argv[1], sys.argv[3],float(sys.argv[4]),sys.argv[5])
+        if len(sys.argv) == 5: #to consider '\t' as separator
+        	ap = cpgrowthpp(sys.argv[1], sys.argv[3],float(sys.argv[4]))
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        corelatedPatterns = ap.getPatterns()
+        print("Total number of Corelated-Frequent Patterns:", len(corelatedPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)

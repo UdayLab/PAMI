@@ -1,14 +1,14 @@
 import sys
+import functools
 import pandas as pd
 from abstract import *
-
 
 class FFList:
     """
      A class represent a Fuzzy List of an element
 
-         Attributes
-         ----------
+    Attributes :
+    ----------
          item: int
              the item name
          sumIutil: float
@@ -17,8 +17,8 @@ class FFList:
              the sum of resting values of a fuzzy item in database
          elements: list
              a list of elements contain tid,Utility and resting values of element in each transaction
-        Methods
-        -------
+    Methods :
+    -------
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
 
@@ -35,6 +35,12 @@ class FFList:
         self.elements = []
 
     def addElement(self, element):
+        """
+            A Method that add a new element to FFList
+
+            :param element: an element to be add to FFList
+            :pram type: Element
+        """
         self.sumIutil += element.iutils
         self.sumRutil += element.rutils
         self.elements.append(element)
@@ -142,21 +148,21 @@ class Pair:
         self.region = 'N'
 
 
-class CFFI(frequentPatterns):
+class fcfp(corelatedFuzzyFrequentPatterns):
     """
-        CFFI is the algorithm to discover Corelated Fuzzy-frequent patterns in a transactional database.
+        fcfp is the algorithm to discover Corelated Fuzzy-frequent patterns in a transactional database.
         it is based on traditianl fuzzy frequent pattern mining.
 
-        Parameters
-        ----------
-        self.iFile : file
-                Name of the input file to mine complete set of fuzzy spatial frequent patterns
-           self. oFile : file
+    Attributes :
+    ----------
+        iFile : file
+            Name of the input file to mine complete set of fuzzy spatial frequent patterns
+        oFile : file
                Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : int
                 The user given support
-        minRatio: float
-             user Specified minRatio
+        minAllConf: float
+             user Specified minAllConf( should be in range 0 and 1)
         memoryRSS : float
                 To store the total amount of RSS memory consumed by the program
         startTime:float
@@ -181,11 +187,11 @@ class CFFI(frequentPatterns):
             represent the size of Buffer
         itemBuffer list
             to kepp track of items in buffer
-         Methods
-        -------
+    Methods :
+    -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -197,27 +203,39 @@ class CFFI(frequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function            
+        getRatio(self, prefix, prefixLen, item)
+            Method to calculate the ration of itemset
         convert(value):
-            To convert the given user specified value        
+            To convert the given user specified value  
+        FSFIMining( prefix, prefixLen, fsFim, minSup)
+            Method generate FFI from prefix
+        construct(px, py)
+            A function to construct Fuzzy itemset from 2 fuzzy itemsets
+        findElementWithTID(ulist, tid)
+            To find element with same tid as given
+        WriteOut(prefix, prefixLen, item, sumIutil,ratio)
+            To Store the patten      
 
-        Executing the code on terminal
-        -------
-            Format: python3 CFFI.py <inputFile> <outputFile> <minSup> <ratio>
-            Examples: python3 CFFI.py sampleTDB.txt output.txt 2 0.2 (minSup will be considered in support count or frequency)
-                      python3 CFFI.py sampleTDB.txt output.txt 0.25 0.2 (minSup and maxPer will be considered in percentage of database)
-
-        Sample run of importing the code:
-        -------------------------------
+    Executing the code on terminal :
+    -------
+            Format: python3 fcfp.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+            Examples: python3 fcfp.py sampleTDB.txt output.txt 2 0.2 (minSup will be considered in support count or frequency)
+                      python3 fcfp.py sampleTDB.txt output.txt 0.25 0.2 (minSup and maxPer will be considered in percentage of database)
+                                                                     (it will consider separator as "\t")
+                      python3 fcfp.py sampleTDB.txt output.txt 2 0.2 ,                    
+                                                                      (it will consider separator as ',')
+    Sample run of importing the code:
+    -------------------------------
         
-        import CFFI as alg
+        import fcfp as alg
 
-        obj = alg.CFFI("input.txt",2,0.4)
+        obj = alg.fcfp("input.txt",2,0.4)
 
         obj.startMine()
 
-        frequentPatterns = obj.getFrequentPatterns()
+        corelatedFuzzyFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Corelated Fuzzy Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Corelated Fuzzy Frequent Patterns:", len(corelatedFuzzyFrequentPatterns))
 
         obj.storePatternsInFile("outp")
 
@@ -233,9 +251,9 @@ class CFFI(frequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
-            The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
+    Credits:
+    -------
+            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
 
     """
     startTime = float()
@@ -245,16 +263,17 @@ class CFFI(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    minAllConf=0.0
+    sep="\t"
     memoryUSS = float()
     memoryRSS = float()
 
-    def __init__(self, iFile, minSup, ratio):
-        super().__init__(iFile, minSup)
+    def __init__(self, iFile, minSup, ratio,sep="\t"):
+        super().__init__(iFile, minSup,ratio,sep)
         self.temp = {}
         self.mapItemRegionSum = {}
         self.start = 0
         self.end = 0
-        self.minRatio=ratio
         self.itemsCnt = 0
         self.mapItemsLowSum = {}
         self.mapItemsMidSum = {}
@@ -322,15 +341,15 @@ class CFFI(frequentPatterns):
         """ 
             Frequent pattern mining process will start from here
         """
-        self.start = datetime.datetime.now()
+        self.start = time.time()
         self.minSup = self.convert(self.minSup)
         minSup = self.minSup
         with open(self.iFile, 'r') as file:
             for line in file:
                 self.dbLen += 1
                 parts = line.split(":")
-                items = parts[0].split("	")
-                quanaities = parts[1].split("	")
+                items = parts[0].split(self.sep)
+                quanaities = parts[2].split(self.sep)
                 for i in range(0, len(items)):
                     item = items[i]
                     regions = Reagions(item, int(quanaities[i]), 3, self.mapItemRegionSum)
@@ -381,8 +400,8 @@ class CFFI(frequentPatterns):
         with open(self.iFile, 'r') as file:
             for line in file:
                 parts = line.split(":")
-                items = parts[0].split("	")
-                quanaities = parts[1].split("	")
+                items = parts[0].split(self.sep)
+                quanaities = parts[2].split(self.sep)
                 revisedTransaction = []
                 for i in range(0, len(items)):
                     pair = Pair()
@@ -417,7 +436,7 @@ class CFFI(frequentPatterns):
                         FFListOfItem.addElement(element)
                 tid += 1
         self.FSFIMining(self.itemsetBuffer, 0, listOfFFIlist, self.minSup)
-        self.endtime = datetime.datetime.now()
+        self.endtime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
@@ -443,7 +462,7 @@ class CFFI(frequentPatterns):
             X = FSFIM[i]
             if X.sumIutil >= minsup:
                 ratio = self.getRatio(prefix, prefixLen, X)
-                if ratio >= self.minRatio:
+                if ratio >= self.minAllConf:
                     self.WriteOut(prefix, prefixLen, X, ratio)
             if X.sumRutil >= minsup:
                 exULs = []
@@ -491,7 +510,6 @@ class CFFI(frequentPatterns):
        """
         return self.memoryRSS
 
-    @property
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
@@ -499,8 +517,7 @@ class CFFI(frequentPatterns):
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
        """
-        dif = self.endtime - self.start
-        return dif.total_seconds() * 1000
+        return self.endtime - self.start
 
     def getRatio(self, prefix, prefixLen, item):
         """Method to calculate the ration of itemset
@@ -547,7 +564,7 @@ class CFFI(frequentPatterns):
         # self.bwriter.write(res)
         self.finalPatterns[res] = res1
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -581,7 +598,7 @@ class CFFI(frequentPatterns):
             patternsAndSupport = str(x) + " : " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -591,17 +608,20 @@ class CFFI(frequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 5:
-        print("Error !,input arguments miss-match please enter 4 inputs only")
-    else:
-        ap = CFFI(sys.argv[1], sys.argv[3], float(sys.argv[4]))
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6: # to includes separator
+            ap = fcfp(sys.argv[1], sys.argv[3],float(sys.argv[4]),sys.argv[5])
+        if len(sys.argv) == 5: # to consider '\t' as separator
+           ap = fcfp(sys.argv[1], sys.argv[3],float(sys.argv[4]))
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Correlated Fuzzy Frequent Patterns:", len(frequentPatterns))
+        fuzzycorelatedFrequentPattenrs = ap.getPatterns()
+        print("Total number of Fuzzy-Frequent Patterns:", len(fuzzycorelatedFrequentPattenrs))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime
+        run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
+    else:
+        print("Error! The number of input parameters do not match the total number of parameters provided")
