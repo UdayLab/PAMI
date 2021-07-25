@@ -55,8 +55,9 @@ class FFList:
 class Element:
     """
         A class represents an Element of a fuzzy list
-        Attributes
-        ----------
+
+    Attributes:
+    ----------
             tid : int
                 keep tact of transaction id
             iUtils: float
@@ -75,8 +76,8 @@ class Reagions:
     """
         A class calculate the regions
 
-        Attributes:
-        ----------
+    Attributes:
+    ----------
             low : int
                 low region value
             middle: int 
@@ -223,8 +224,8 @@ class FFI(fuzzyFrequentPattenrs):
         print("Total ExecutionTime in seconds:", run)
 
 
-        Credits:
-        -------
+    Credits:
+    -------
             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
     startTime = float()
