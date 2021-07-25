@@ -1,7 +1,7 @@
 import sys
 import pandas as pd
-from abstract import *
 import functools 
+from abstract import *
 class Element:
     """
     A class represents an Element of a utility list as used by the HDSHUI algorithm.
@@ -10,20 +10,20 @@ class Element:
     ----------
         ts : int
             keep tact of transaction id
-        nu : int
-            non closed itemset utility
-        nru : int
-             non closed remaining utility
+        snu : int
+            Spatial non closed itemset utility
+        snru : int
+            Spatial non closed remaining utility
         pu : int
             prefix utility
         ppos: int
             position of previous item in the list
     """
 
-    def __init__(self,ts,nu,nru,pu,ppos):
+    def __init__(self,ts,snu,snru,pu,ppos):
         self.ts=ts
-        self.nu=nu
-        self.nru=nru
+        self.snu=snu
+        self.snru=snru
         self.pu=pu
         self.ppos=ppos
 class CUList:
@@ -34,9 +34,9 @@ class CUList:
     ----------
         item: int
             item 
-        sumNu: long
+        sumSnu: long
             the sum of item utilities
-        sumNru: long
+        sumSnru: long
             the sum of remaining utilities
         sumCu : long
             the sum of closed utilities
@@ -55,8 +55,8 @@ class CUList:
     """
     def __init__(self,item):
         self.item=item
-        self.sumnu = 0
-        self.sumnru = 0
+        self.sumSnu = 0
+        self.sumSnru = 0
         self.sumCu = 0
         self.sumCru = 0
         self.sumCpu = 0
@@ -67,8 +67,8 @@ class CUList:
             :param element: element to be addeed to CUList
             :type element: Element
         """
-        self.sumnu+=element.nu
-        self.sumnru+=element.nru
+        self.sumSnu+=element.snu
+        self.sumSnru+=element.snru
         self.elements.append(element)
 
 class Pair:
@@ -81,17 +81,11 @@ class Pair:
 
 class hdshuim(utilityPatterns):
     """
-        Spatial High Utility Itemset Mining (hdshuim) [3] is an important model in data
+        Spatial High Utility Itemset Mining (SHUIM) [3] is an important model in data
         mining with many real-world applications. It involves finding all spatially interesting itemsets having high value 
         in a quantitative spatiotemporal database.
 
-    Reference:
-    ---------
-    	Bommisetty S.C., Penugonda R., Rage U.K., Dao M.S., Zettsu K. (2021) Discovering Spatial High Utility Itemsets in High-Dimensional Spatiotemporal Databases. In: Fujita H., Selamat A., Lin J.CW., Ali M. (eds) Advances and Trends in Artificial Intelligence.
-    	 Artificial Intelligence Practices. IEA/AIE 2021. Lecture Notes in Computer Science, vol 12798. Springer, Cham. 
-    	 https://doi.org/10.1007/978-3-030-79457-6_5
-
-    Attributes:
+    Attributes :
     ----------
         iFile : str
             Name of the input file to mine complete set of frequent patterns
@@ -115,11 +109,13 @@ class hdshuim(utilityPatterns):
             huis created
         neighbors: map
             keep track of nighboues of elements
+        mapOfPMU: map
+            a map to keep track of Probable Maximum utilty(PMU) of each item
     Methods :
     -------
             startMine()
                 Mining process will start from here
-            getFrequentPatterns()
+            getPatterns()
                 Complete set of patterns will be retrieved with this function
             storePatternsInFile(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
@@ -143,11 +139,13 @@ class hdshuim(utilityPatterns):
                A method to updates vales for duplicates
 
 
-    Executing the code on terminal:
+    Executing the code on terminal :
     -------
-        Format: python3 hdshuim.py <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
-        Examples: python3 hdshuim.py sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
-                  python3 hdshuim.py sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
+        Format: python3 hdshuim.py <inputFile> <outputFile> <Neighbours> <minUtil>
+                python3 hdshuim.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
+        Examples: python3 hdshuim.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be "\t" in both input and neighbourhood file)
+                  python3 hdshuim.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be "," in both input and neighbourhood file)
+
     Sample run of importing the code:
     -------------------------------
         
@@ -157,9 +155,9 @@ class hdshuim(utilityPatterns):
 
         obj.startMine()
 
-        frequentPatterns = obj.getUtilityPatterns()
+        Patterns = obj.getPatterns()
 
-        print("Total number of Spatial high Utility Patterns:", len(frequentPatterns))
+        print("Total number of Spatial High-Utility Patterns:", len(Patterns))
 
         obj.storePatternsInFile("output")
 
@@ -176,8 +174,8 @@ class hdshuim(utilityPatterns):
         print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    ------
-            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+    -------
+            The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
             
     """
     
@@ -188,13 +186,13 @@ class hdshuim(utilityPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
-    nFile=" "
-    sep="\t"
+    nFile =" "
     minUtil=0
     memoryUSS = float()
     memoryRSS = float()
-    def __init__(self,iFile,nFile,minUtil,sep="\t"):
-        super().__init__(iFile,nFile,minUtil,sep)
+    sep="\t"
+    def __init__(self,iFile1,neighb1,minUtil,sep="\t"):
+        super().__init__(iFile1,neighb1,minUtil,sep)
         self.startTime=0
         self.endTime=0
         self.hui_cnt=0
@@ -203,7 +201,6 @@ class hdshuim(utilityPatterns):
         self.mapFMAP={}
         self.neighbors={}
         self.finalPatterns = {}
-
     def compareItems(self,o1,o2):
         """
             A method to sort  list of huis in pmu asending order
@@ -213,7 +210,6 @@ class hdshuim(utilityPatterns):
             return int(o1.item)-int(o2.item)
         else:
             return compare
-
     def startMine(self):
         """main program to start the operation
         """
@@ -230,10 +226,9 @@ class hdshuim(utilityPatterns):
                 self.neighbors[item]=neigh1
         with open(self.iFile,'r') as file:
             for line in file:
-                line=line.split("\n")[0]
                 parts=line.split(":")
-                items_str=parts[0].split(self.sep)
-                utility_str=parts[2].split(self.sep)
+                items_str=(parts[0].split("\n")[0]).split(self.sep)
+                utility_str=(parts[2].split("\n")[0]).split(self.sep)
                 transUtility=int(parts[1])
                 trans1=set()
                 for i in range(0,len(items_str)):
@@ -267,10 +262,9 @@ class hdshuim(utilityPatterns):
         ts=1
         with open(self.iFile,'r') as file:
             for line in file:
-                line=line.split("\n")[0]
                 parts=line.split(":")
-                items=parts[0].split(self.sep)
-                utilities=parts[2].split(self.sep)
+                items=(parts[0].split("\n")[0]).split(self.sep)
+                utilities=(parts[2].split("\n")[0]).split(self.sep)
                 ru=0
                 newTwu=0
                 tx_key=[]
@@ -303,10 +297,10 @@ class hdshuim(utilityPatterns):
                         ru=0
                         for i in range(len(revisedTrans)-1,-1,-1):
                             cuListoFItems=mapItemsToCUList[revisedTrans[i].item]
-                            cuListoFItems.elements[pos].nu+=revisedTrans[i].utility
-                            cuListoFItems.elements[pos].nru+=ru
-                            cuListoFItems.sumnu+=revisedTrans[i].utility
-                            cuListoFItems.sumnru+=ru
+                            cuListoFItems.elements[pos].snu+=revisedTrans[i].utility
+                            cuListoFItems.elements[pos].snru+=ru
+                            cuListoFItems.sumSnu+=revisedTrans[i].utility
+                            cuListoFItems.sumSnru+=ru
                             ru+=revisedTrans[i].utility
                             pos=cuListoFItems.elements[pos].ppos
                 #EUCS
@@ -331,7 +325,6 @@ class hdshuim(utilityPatterns):
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
-
     def Explore_SearchTree(self,prefix,uList,ExNeighbors,minUtil):
         """
             A method to find all high utility itemsets
@@ -355,9 +348,9 @@ class hdshuim(utilityPatterns):
             soted_prefix=[0]*(len(prefix)+1)
             soted_prefix=prefix[0:len(prefix)+1]
             soted_prefix.append(x.item)
-            if (x.sumnu + x.sumCu >= minUtil) and(x.item in ExNeighbors):
-                self.saveItemset(prefix,len(prefix),x.item,x.sumnu+x.sumCu)
-            if x.sumnu+x.sumCu+x.sumnru+x.sumCru>=minUtil:#U-Prune # and (x.item in ExNeighbors)):
+            if (x.sumSnu + x.sumCu >= minUtil) and(x.item in ExNeighbors):
+                self.saveItemset(prefix,len(prefix),x.item,x.sumSnu+x.sumCu)
+            if x.sumSnu+x.sumCu+x.sumSnru+x.sumCru>=minUtil:#U-Prune # and (x.item in ExNeighbors)):
                 ULIST=[]
                 for j in range(i,len(uList)):
                     if (uList[j].item in ExNeighbors) and (self.neighbors.get(x.item) != None) and (uList[j].item in self.neighbors.get(x.item)):
@@ -413,7 +406,7 @@ class hdshuim(utilityPatterns):
                     uList=CUList(culs[j].item)
                     excul[j]=uList
                     ey_ts[j]=0
-                    lau[j]=x.sumCu+x.sumCru+x.sumnu+x.sumnru
+                    lau[j]=x.sumCu+x.sumCru+x.sumSnu+x.sumSnru
                     cutil[j]=x.sumCu+x.sumCru
         hashTable={}            
         for ex in x.elements:
@@ -427,7 +420,7 @@ class hdshuim(utilityPatterns):
                 if ey_ts[j]<len(eylist) and eylist[ey_ts[j]].ts==ex.ts:
                     newT.append(j)
                 else:
-                    lau[j]=lau[j]-ex.nu-ex.nru
+                    lau[j]=lau[j]-ex.snu-ex.snru
                     if lau[j]<minUtil:
                         excul[j]=None
                         exSZ=exSZ-1
@@ -443,18 +436,18 @@ class hdshuim(utilityPatterns):
                     for i in range(len(newT)-1,-1,-1):
                         cuListoFItems=excul[newT[i]]
                         y=culs[newT[i]].elements[ey_ts[newT[i]]]
-                        element=Element(ex.ts,ex.nu+y.nu-ex.pu,ru,ex.nu,0)
+                        element=Element(ex.ts,ex.snu+y.snu-ex.pu,ru,ex.snu,0)
                         if(i>0):
                             element.ppos=len(excul[newT[i-1]].elements)
                         else:
                             element.ppos=-1
                         cuListoFItems.addElements(element)
-                        ru+=y.nu-ex.pu
+                        ru+=y.snu-ex.pu
                 else:
                     dppos=hashTable[newT1]
                     self.updateElement(x,culs,st,excul,newT,ex,dppos,ey_ts)
             for j in range(st+1,len(culs)):
-                cutil[j]=cutil[j]+ex.nu+ex.nru
+                cutil[j]=cutil[j]+ex.snu+ex.snru
         filter_culs=[]
         for j in range(st+1,len(culs)):
             if cutil[j]<minUtil or excul[j]==None:
@@ -488,14 +481,14 @@ class hdshuim(utilityPatterns):
             :type length:int
 
         """
-        nru=0
+        snru=0
         for j in range(len(newT)-1,-1,-1):
             ey=culs[newT[j]]
             eyy=ey.elements[ey_ts[newT[j]]]
-            excul[newT[j]].sumCu+=ex.nu+eyy.nu-ex.pu
-            excul[newT[j]].sumCru+=nru
-            excul[newT[j]].sumCpu+=ex.nu
-            nru=nru+eyy.nu-ex.pu
+            excul[newT[j]].sumCu+=ex.snu+eyy.snu-ex.pu
+            excul[newT[j]].sumCru+=snru
+            excul[newT[j]].sumCpu+=ex.snu
+            snru=snru+eyy.snu-ex.pu
 
     def updateElement(self,z,culs,st,excul,newT,ex,duppos,ey_ts):
         """
@@ -520,17 +513,17 @@ class hdshuim(utilityPatterns):
             :parm ey_ts:list of tss
             :type ey_ts:ts
         """
-        nru=0
+        snru=0
         pos=duppos
         for j in range(len(newT)-1,-1,-1):
             ey=culs[newT[j]]
             eyy=ey.elements[ey_ts[newT[j]]]
-            excul[newT[j]].elements[pos].nu+=ex.nu+eyy.nu-ex.pu
-            excul[newT[j]].sumnu+=ex.nu+eyy.nu-ex.pu
-            excul[newT[j]].elements[pos].nru+=nru
-            excul[newT[j]].sumnru+=nru
-            excul[newT[j]].elements[pos].pu+=ex.nu
-            nru=nru+eyy.nu-ex.pu
+            excul[newT[j]].elements[pos].snu+=ex.snu+eyy.snu-ex.pu
+            excul[newT[j]].sumSnu+=ex.snu+eyy.snu-ex.pu
+            excul[newT[j]].elements[pos].snru+=snru
+            excul[newT[j]].sumSnru+=snru
+            excul[newT[j]].elements[pos].pu+=ex.snu
+            snru=snru+eyy.snu-ex.pu
             pos=excul[newT[j]].elements[pos].ppos
             
     def saveItemset(self,prefix,prefixlen,item,utility):
@@ -570,7 +563,6 @@ class hdshuim(utilityPatterns):
             data.append([a, b])
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
-
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
@@ -578,7 +570,6 @@ class hdshuim(utilityPatterns):
         :rtype: dict
         """
         return self.finalPatterns
-
     def storePatternsInFile(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
@@ -590,7 +581,6 @@ class hdshuim(utilityPatterns):
         for x, y in self.finalPatterns.items():
             patternsAndSupport = str(x) + " : " + str(y)
             writer.write("%s \n" % patternsAndSupport)
-
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
@@ -599,7 +589,6 @@ class hdshuim(utilityPatterns):
         """
 
         return self.memoryUSS
-
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
@@ -607,7 +596,6 @@ class hdshuim(utilityPatterns):
         :rtype: float
        """
         return self.memoryRSS
-
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
@@ -617,21 +605,21 @@ class hdshuim(utilityPatterns):
        """
         return self.endTime-self.startTime
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv)==5 or len(sys.argv)==6:
-        if len(sys.argv)==6:
-           ap=hdshuim(sys.argv[1],sys.argv[3],int(sys.argv[4]),sys.argv[5])
-        if len(sys.argv)==5:
-            ap=hdshuim(sys.argv[1],sys.argv[3],int(sys.argv[4]))
+        if len(sys.argv)==6:# to  include a user specifed separator
+        	ap=hdshuim(sys.argv[1],sys.argv[3],int(sys.argv[4]),sys.argv[5])
+        if len(sys.argv)==5: # to consider "\t" as a separator
+        	ap=hdshuim(sys.argv[1],sys.argv[3],int(sys.argv[4]))
         ap.startMine()
-        patterns = ap.getPatterns()
-        print("Total number of Spatial High Utility Patterns:", len(patterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Spatial High-Utility Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
          print("Error! The number of input parameters do not match the total number of parameters provided")
