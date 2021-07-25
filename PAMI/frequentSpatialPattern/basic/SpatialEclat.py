@@ -72,7 +72,7 @@ class SpatialEclat(spatialFrequentPatterns):
 
     Executing the code on terminal :
     ------------------------------
-            Format: python3 apriori.py <inputFile> <outputFile> <neighbourFile> <minSup>
+            Format: python3 SpatialEclat.py <inputFile> <outputFile> <neighbourFile> <minSup>
             Examples:
             python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
             python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
@@ -82,6 +82,7 @@ class SpatialEclat(spatialFrequentPatterns):
 
     Sample run of importing the code :
     -------------------------------
+        import SpatialEclat as alg
         obj = alg.SpatialEclat("sampleTDB.txt", "sampleN.txt", 5)
 
         obj.startMine()
