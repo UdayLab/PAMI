@@ -49,8 +49,9 @@ class FFList:
 class Element:
     """
         A class represents an Element of a fuzzy list
-        Attributes
-        ----------
+
+    Attributes :
+    ----------
         tid : int
             keep tact of transaction id
         iutils: float
@@ -67,9 +68,10 @@ class Element:
 
 class Reagions:
     """
-            A class calculate the regions
-            Attributes
-            ----------
+            A class calculate the region value
+
+    Attributes:
+    ----------
             low : int
                 low region value
             middle: int 
