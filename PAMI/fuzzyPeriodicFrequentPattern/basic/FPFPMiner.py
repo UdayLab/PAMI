@@ -1,6 +1,6 @@
 import sys
 import functools
-#import pandas as pd
+import pandas as pd
 from abstract import *
 
 
@@ -83,10 +83,10 @@ class Element:
 
 class Reagions:
     """
-            A class calculate the regions
+        A class calculate the regions
 
-        Attributes:
-        ----------
+    Attributes:
+    ----------
             low : int
                 low region value
             middle: int 
@@ -119,6 +119,10 @@ class Reagions:
 
 
 class Pair:
+    """
+        A class to store item name and quantity together.
+    """
+
     def __init__(self):
         self.item = 0
         self.quantity = 0
@@ -198,11 +202,11 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         WriteOut(prefix, prefixLen, item, sumIutil,period)
             To Store the patten
     
-     Executing the code on terminal:
-     -------
+    Executing the code on terminal :
+    -------
         Format:
         ------
-        python3 FPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer> <separator>
+        python3 FPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer> <sep>
 
         Examples:
         ------
@@ -238,8 +242,8 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
         
-        Credits:
-        -------
+    Credits:
+    -------
             The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
             The complete verification and documentation is done by Penugonda Ravikumar.
 
@@ -253,10 +257,10 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
     oFile = " "
     memoryUSS = float()
     memoryRSS = float()
-    sep=""
+    sep = ""
 
-    def __init__(self, iFile, minSup, period,sep="\t"):
-        super().__init__(iFile, minSup, period,sep)
+    def __init__(self, iFile, minSup, period, sep="\t"):
+        super().__init__(iFile, minSup, period, sep)
         self.oFile = ""
         self.BufferSize = 200
         self.itemsetBuffer = []
@@ -344,7 +348,7 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
             itemsToRegion = {}
             self.minSup = self.convert(self.minSup)
             self.maxPer = self.convert(self.maxPer)
-            print(self.minSup,self.maxPer)
+            print(self.minSup, self.maxPer)
             for item1 in self.mapItemsLowSum.keys():
                 item = item1
                 low = self.mapItemsLowSum[item]
@@ -492,7 +496,7 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
             prev = ex.tid
         return pxyUL
 
-    def findElementWithTID(self,uList, tid):
+    def findElementWithTID(self, uList, tid):
         """
             To find element with same tid as given
             :param uList: fuzzy list
@@ -537,7 +541,6 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         res1 = str(sumLUtil) + " : " + str(period) + "\n"
         self.finalPatterns[res] = res1
 
-
     def getPatternsInDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
@@ -574,11 +577,11 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv)==5 or len(sys.argv)==6:
-        if len(sys.argv)==6: # to  include a user specifed separator
-        	ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4],sys.argv[5])
-        if len(sys.argv)==5:   # to consider "\t" as a separator
-        	ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:  # to  include a user specifed separator
+            ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        if len(sys.argv) == 5:  # to consider "\t" as a separator
+            ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         periodicFrequentPatterns = ap.getPatterns()
         print("Total number of Fuzzy Periodic Frequent Patterns:", len(periodicFrequentPatterns))
@@ -590,4 +593,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-         print("Error! The number of input parameters do not match the total number of parameters provided")
+        print("Error! The number of input parameters do not match the total number of parameters provided")

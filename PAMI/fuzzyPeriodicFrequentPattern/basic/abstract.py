@@ -42,8 +42,8 @@ class fuzzyPeriodicFrequentPatterns(ABC):
         employ in PAMI
 
 
-       Attributes
-        ----------
+    Attributes :
+    ----------
         iFile : str
             Input file name or path of the input file
         minSup: integer or float or str
@@ -69,8 +69,8 @@ class fuzzyPeriodicFrequentPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    Methods :
+    -------
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
