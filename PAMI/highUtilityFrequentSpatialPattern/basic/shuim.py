@@ -555,7 +555,7 @@ class shuim(utilityPatterns):
         return finalIntersectionList
     def output(self, tempPosition, utility):
         """
-         A method ave a high-utility itemset to file or memory depending on what the user chose
+         A method save all high-utility itemset to file or memory depending on what the user chose
 
          Attiributes:
          ----------
