@@ -211,7 +211,7 @@ class Tree:
 
 class rsfp(relativePatterns):
     """ 
-        Algorthm to find all items with relative support from given dataset
+        Algorthm to find all items with relative support from the given dataset
         
     Reference:
     ---------
