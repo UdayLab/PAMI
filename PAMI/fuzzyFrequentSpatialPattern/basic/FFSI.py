@@ -8,8 +8,8 @@ class FFList:
     """
      A class represent a Fuzzy List of an element
 
-         Attributes
-         ----------
+    Attributes :
+    ----------
          item: int
              the item name
          sumiUtil: float
@@ -18,8 +18,8 @@ class FFList:
              the sum of resting values of a fuzzy item in database
          elements: list
              a list of elements contain tid,Utility and resting values of element in each transaction
-        Methods
-        -------
+    Methods :
+    -------
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
 
@@ -56,8 +56,9 @@ class FFList:
 class Element:
     """
         A class represents an Element of a fuzzy list
-        Attributes
-        ----------
+
+    Attributes :
+    ----------
         tid : int
             keep tact of transaction id
         iUtils: float
@@ -76,8 +77,8 @@ class Reagions:
     """
             A class calculate the regions
 
-           Attributes
-            ----------
+    Attributes :
+    ----------
             low : int
                 low region value
             middle: int 
@@ -125,11 +126,11 @@ class FFSI(fuzzySpatialFrequentPatterns):
         which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
          techniques to reduce the search space.
 
-        Parameters
-        ----------
-        self.iFile : file
+    Attributes :
+    ----------
+        iFile : file
             Name of the input file to mine complete set of fuzzy spatial frequent patterns
-           self. oFile : file
+        oFile : file
                Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : float
             The user given minimum support
@@ -159,8 +160,8 @@ class FFSI(fuzzySpatialFrequentPatterns):
             represent the size of Buffer
         itemBuffer list
             to keep track of items in buffer
-         Methods
-        -------
+    Methods :
+    -------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -188,16 +189,16 @@ class FFSI(fuzzySpatialFrequentPatterns):
         WriteOut(prefix, prefixLen, item, sumIutil,period)
             To Store the patten
     
-         Executing the code on terminal
-        -------
-        Format: python3 FFSI.py <inputFile> <outputFile> <neighbours> <minSup> <separator>
+    Executing the code on terminal :
+    -------
+        Format: python3 FFSI.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
         Examples:  python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
                    python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 0.3 (minSup and maxPer will be considered in percentage of database)
                                                             (will conseder "\t" as separator in both input and neighbourhood files)
                    python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 3 , 
                                                               (will conseder "," as separator in both input and neighbourhood files)
-        Sample run of importing the code:
-        -------------------------------
+    Sample run of importing the code:
+    -------------------------------
         
         import FFSI as alg
 
@@ -207,7 +208,7 @@ class FFSI(fuzzySpatialFrequentPatterns):
 
         fuzzySpatialFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(fuzzySpatialFrequentPatterns))
+        print("Total number of fuzzy frequent spatial patterns:", len(fuzzySpatialFrequentPatterns))
 
         obj.storePatternsInFile("outp")
 
@@ -223,9 +224,9 @@ class FFSI(fuzzySpatialFrequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
-            The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
+    Credits:
+    -------
+            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
     startTime = float()
     endTime = float()
@@ -575,7 +576,7 @@ if __name__ == "__main__":
             ap = FFSI(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         fuzzySpatialFrequentPatterns = ap.getPatterns()
-        print("Total number of Fuzzy Frequent Spatial Patterns:", len(fuzzySpatialFrequentPatterns))
+        print("Total number of fuzzy frequent Spatial Patterns:", len(fuzzySpatialFrequentPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
