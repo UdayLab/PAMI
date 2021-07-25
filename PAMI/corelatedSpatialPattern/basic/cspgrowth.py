@@ -328,8 +328,8 @@ class cspgrowth(corelatedPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
+    Credits:
+    -------
         The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.
 
         """
