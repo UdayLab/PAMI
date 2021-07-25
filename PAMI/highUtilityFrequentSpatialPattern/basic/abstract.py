@@ -42,8 +42,8 @@ class utilityPatterns(ABC):
         employ in PAMI
 
 
-       Attributes
-        ----------
+    Attributes :
+    ----------
         iFile : str
             Input file name or path of the input file
         minUtil: integer 
@@ -64,8 +64,8 @@ class utilityPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    Methods :
+    -------
         startMine()
             Calling this function will start the actual mining process
         getPatterns()

@@ -216,7 +216,7 @@ class shuim(utilityPatterns):
             Name of the input file to mine complete set of frequent patterns
         nFile : file
             Name of the Neighbours file that contain neighbours of items
-       oFile : file
+        oFile : file
             Name of the output file to store complete set of frequent patterns
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
@@ -302,7 +302,7 @@ class shuim(utilityPatterns):
 
         frequentPatterns = obj.getPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Spatial high utility Patterns:", len(frequentPatterns))
 
         obj.storePatternsInFile("output")
 

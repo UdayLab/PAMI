@@ -159,7 +159,7 @@ class hdshuim(utilityPatterns):
 
         frequentPatterns = obj.getUtilityPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Spatial high Utility Patterns:", len(frequentPatterns))
 
         obj.storePatternsInFile("output")
 
