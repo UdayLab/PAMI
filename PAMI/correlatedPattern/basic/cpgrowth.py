@@ -272,7 +272,7 @@ class cpgrowth(corelatedPatterns):
 
         corelatedPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(corelatedPatterns))
+        print("Total number of corelated frequent Patterns:", len(corelatedPatterns))
 
         obj.storePatternsInFile(oFile)
 
