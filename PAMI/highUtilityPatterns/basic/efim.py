@@ -19,6 +19,7 @@ import sys
 import time
 import os
 import psutil
+import pandas as pd
 from functools import cmp_to_key
 from abstract import *
 
@@ -296,15 +297,15 @@ class efim(utilityPatterns):
     Sample run of importing the code:
     -------------------------------
         
-        import shuim as alg
+        import efim as alg
 
-        obj=alg.shuim("input.txt","nighbours.txt",35)
+        obj=alg.efim("input.txt",35)
 
         obj.startMine()
 
         frequentPatterns = obj.getPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
+        print("Total number of high utility Patterns:", len(frequentPatterns))
 
         obj.storePatternsInFile("output")
 

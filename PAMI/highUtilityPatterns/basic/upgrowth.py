@@ -15,6 +15,7 @@
 
 import time
 import sys
+import  pandas as pd
 from abstract import *
 
 class UPItem:
@@ -68,6 +69,7 @@ class UPItem:
 class UPNode:
     """
         A class that represent UPNode
+
     Attribute :
     ---------
     itemId :int
@@ -80,6 +82,10 @@ class UPNode:
         represent the link to next node with same itemid
     childs: list
          link to next node with same item Id (for the header table)
+    Method:
+    ------
+    getChildWithId( name):
+        method to get child node Return the immediate child of this node having a given name
 
     """
     itemId = -1
@@ -112,8 +118,6 @@ class UPNode:
                 return child
         if flag == 0:
             return -1
-
-from UPNode import UPNode
 
 class UPTree:
     """
@@ -559,7 +563,7 @@ if __name__ == "__main__":
     if len(sys.argv)==4 or len(sys.argv)==5:
         if len(sys.argv)==5: #includes separator
             ap=upgrowth(sys.argv[1],int(sys.argv[3]),sys.argv[4])
-        if len(sys.argv)==4: #it take "\t" as aseparator
+        if len(sys.argv)==4: #to consider "\t" as a separator
             ap=upgrowth(sys.argv[1],int(sys.argv[3]))
         ap.startMine()
         Patterns = ap.getPatterns()

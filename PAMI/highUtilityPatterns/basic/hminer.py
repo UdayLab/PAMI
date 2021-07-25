@@ -2,10 +2,10 @@ import sys
 from abstract import *
 class Element:
     """
-    A class represents an Element of a utility list as used by the HDSHUI algorithm.
+    A class represents an Element of a utility list .
 
-        Attributes
-        ----------
+    Attributes :
+    ----------
         ts : int
             keep tact of transaction id
         nu : int
@@ -26,10 +26,10 @@ class Element:
         self.ppos=ppos
 class CUList:
     """
-        A class represents a UtilityList as used by the HDSHUI algorithm.
+        A class represents a UtilityList
 
-        Attributes
-        ----------
+    Attributes :
+    ----------
         item: int
             item 
         sumNu: long
@@ -45,8 +45,8 @@ class CUList:
         elements: list
             the list of elements 
 
-        Methods
-        -------
+    Methods :
+    -------
         addElement(element)
             Method to add an element to this utility list and update the sums at the same time.
     """
@@ -78,11 +78,11 @@ class hminer(utilityPatterns):
     """
         High Utility Itemset Mining (HMIER) is an importent algorithm to miner High utility items from the database.
 
-        Parameters
-        ----------
-        self.iFile : file
+    Attributes:
+    ----------
+        iFile : file
             Name of the input file to mine complete set of frequent patterns
-       self. oFile : file
+        oFile : file
             Name of the output file to store complete set of frequent patterns
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
@@ -100,8 +100,8 @@ class hminer(utilityPatterns):
             huis created
         neighbors: map
             keep track of nighboues of elements
-        Methods
-        -------
+    Methods:
+    -------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -127,25 +127,25 @@ class hminer(utilityPatterns):
             construcCUL(x, culs, st, minUtil, length, exnighbors)
                 A method to construct CUL's database
 
-        Executing the code on terminal
-        -------
+    Executing the code on terminal :
+    -------
         Format: python3 hminer.py <inputFile> <outputFile> <minUtil>
                 python3 hminer.py <inputFile> <outputFile> <minUtil> <separator>
         Examples: python3 hminer.py sampleTDB.txt output.txt 35 (separator will be "\t")
                   python3 hminer.py sampleTDB.txt output.txt 35 ,  (separator will be "," in input file)
 
-        Sample run of importing the code:
-        -------------------------------
+    Sample run of importing the code:
+    -------------------------------
         
         import hminer as alg
 
-        obj=alg.SHDSHUIs("input.txt",35)
+        obj=alg.hminer("input.txt",35)
 
         obj.startMine()
 
         Patterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(Patterns))
+        print("Total number of high utility Patterns:", len(Patterns))
 
         obj.storePatternsInFile("output")
 
@@ -161,10 +161,9 @@ class hminer(utilityPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
-            The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
-            The complete verification and documentation is done by Penugonda Ravikumar.
+    Credits:
+    -------
+            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
             
     """
     
@@ -558,7 +557,7 @@ if __name__ == "__main__":
     if len(sys.argv)==4 or len(sys.argv)==5:
         if len(sys.argv)==5: #includes separator
             ap=hminer(sys.argv[1],int(sys.argv[3]),sys.argv[4])
-        if len(sys.argv)==4: #it take "\t" as aseparator
+        if len(sys.argv)==4: #to consider "\t" as aseparator
             ap=hminer(sys.argv[1],int(sys.argv[3]))
         ap.startMine()
         Patterns = ap.getPatterns()
