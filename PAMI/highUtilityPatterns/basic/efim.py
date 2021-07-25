@@ -503,7 +503,7 @@ class efim(utilityPatterns):
 
     def output(self, tempPosition, utility):
         """
-         Method to print patterns
+         Method to print high utility items
 
          Attiributes:
          ----------
