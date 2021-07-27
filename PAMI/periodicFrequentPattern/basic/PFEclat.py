@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from  PAMI.periodicFrequentPattern.basic.abstract import *
+from PAMI.periodicFrequentPattern.basic.abstract import *
 
 
 class PFEclat(periodicFrequentPatterns):
@@ -111,7 +111,7 @@ class PFEclat(periodicFrequentPatterns):
 
             obj.startMine()
 
-            periodicFrequentPatterns = obj.getPeriodicFrequentPatterns()
+            periodicFrequentPatterns = obj.getPatterns()
 
             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 

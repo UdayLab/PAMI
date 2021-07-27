@@ -63,7 +63,7 @@ class periodicFrequentPatterns(ABC):
         -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
