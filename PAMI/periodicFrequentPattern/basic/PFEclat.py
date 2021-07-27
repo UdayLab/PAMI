@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from PAMI.periodicFrequentPattern.basic.abstract import *
+from abstract import *
 
 
 class PFEclat(periodicFrequentPatterns):
@@ -257,7 +257,7 @@ class PFEclat(periodicFrequentPatterns):
 
 
                     """
-        if len(itemSets) is 1:
+        if len(itemSets) == 1:
             i = itemSets[0]
             tidI = tidSets[0]
             self.save(prefix, [i], tidI)

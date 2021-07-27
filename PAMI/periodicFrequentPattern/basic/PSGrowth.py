@@ -15,7 +15,7 @@
 
 import sys
 from itertools import combinations
-from PAMI.periodicFrequentPattern.basic.abstract import *
+from abstract import *
 
 pfList = []
 minSup = str()
@@ -536,9 +536,22 @@ class PSGrowth(periodicFrequentPatterns):
     Attributes:
     ----------
         iFile : file
-            Name of the Input file to mine complete set of periodic-frequent patterns
+            Name of the Input file or path of the input file
         oFile : file
-            Name of the output file to store complete set of periodic-frequent patterns
+            Name of the output file or path of the output file
+        minSup: int or float or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        maxPer: int or float or str
+            The user can specify maxPer either in count or proportion of database size.
+            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -547,10 +560,6 @@ class PSGrowth(periodicFrequentPatterns):
             To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
-        minSup : int/float
-            The user given minimum support
-        maxPer : int/float
-            The user given maximum period
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -568,7 +577,7 @@ class PSGrowth(periodicFrequentPatterns):
     -------
             startMine()
                 Mining process will start from here
-            getFrequentPatterns()
+            getPatterns()
                 Complete set of patterns will be retrieved with this function
             storePatternsInFile(oFile)
                 Complete set of periodic-frequent patterns will be loaded in to a output file
@@ -584,8 +593,6 @@ class PSGrowth(periodicFrequentPatterns):
                 Scans the dataset or dataframes and stores in list format
             buildTree()
                 after updating the Databases ar added into the tree by setting root node as null
-            startMine()
-                the main method to run the program
 
         Executing the code on terminal:
         -------
@@ -815,9 +822,9 @@ class PSGrowth(periodicFrequentPatterns):
 if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 5:
+        if len(sys.argv) == 6:
             ap = PSGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 4:
+        if len(sys.argv) == 5:
             ap = PSGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
