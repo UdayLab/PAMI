@@ -111,7 +111,7 @@ class PFEclat(periodicFrequentPatterns):
 
             obj.startMine()
 
-            periodicFrequentPatterns = obj.getPeriodicFrequentPatterns()
+            periodicFrequentPatterns = obj.getPatterns()
 
             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
