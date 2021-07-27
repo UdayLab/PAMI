@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from PAMI.periodicFrequentPattern.basic.abstract import *
+from  abstract import *
 
 
 class PFEclat(periodicFrequentPatterns):
@@ -22,110 +22,118 @@ class PFEclat(periodicFrequentPatterns):
 
         Reference:
         --------
-        P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, "Towards efficient discovery of 
-        periodic-frequent patterns in columnar temporal databases", 2021 IEA/AIE.
+            P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, "Towards efficient discovery of
+            periodic-frequent patterns in columnar temporal databases", 2021 IEA/AIE.
 
-       Attributes
+       Attributes:
         ----------
-        iFile : file
-            Name of the Input file to mine complete set of periodic-frequent patterns
-        oFile : file
-            Name of the output file to store complete set of periodic-frequent patterns
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
-        minSup : int/float
-            The user given minimum support
-        maxPer : int/float
-            The user specified maximum period
-        Database : list
-            To store the transactions of a database in list
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            it represents the total no of transactions
-        tree : class
-            it represents the Tree class
-        itemSetCount : int
-            it represents the total no of patterns
-        finalPatterns : dict
-            it represents to store the patterns
-        tidList : dict
-            stores the timestamps of an item
-        hashing : dict
-            stores the patterns with their support to check for the closed property
+            iFile : file
+                Name of the Input file or path of the file
+            oFile : file
+                Name of the output file or path of the file
+            minSup: int or float or str
+                The user can specify minSup either in count or proportion of database size.
+                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            maxPer: int or float or str
+                The user can specify maxPer either in count or proportion of database size.
+                If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+            sep : str
+                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+                However, the users can override their default separator.
+            memoryUSS : float
+                To store the total amount of USS memory consumed by the program
+            memoryRSS : float
+                To store the total amount of RSS memory consumed by the program
+            startTime:float
+                To record the start time of the mining process
+            endTime:float
+                To record the completion time of the mining process
+            Database : list
+                To store the transactions of a database in list
+            mapSupport : Dictionary
+                To maintain the information of item and their frequency
+            lno : int
+                it represents the total no of transactions
+            tree : class
+                it represents the Tree class
+            finalPatterns : dict
+                it represents to store the patterns
+            tidList : dict
+                stores the timestamps of an item
+            hashing : dict
+                stores the patterns with their support to check for the closed property
 
-        Methods
+        Methods:
         -------
-        startMine()
-            Mining process will start from here
-        getFrequentPatterns()
-            Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
-            Complete set of periodic-frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingOneItemSets()
-            Scan the database and store the items with their timestamps which are periodic frequent 
-        getPeriodAndSupport()
-            Calculates the support and period for a list of timestamps.
-        Generation()
-            Used to implement prefix class equivalence method to generate the periodic patterns recursively
+            startMine()
+                Mining process will start from here
+            getPatterns()
+                Complete set of patterns will be retrieved with this function
+            storePatternsInFile(oFile)
+                Complete set of periodic-frequent patterns will be loaded in to a output file
+            getPatternsInDataFrame()
+                Complete set of periodic-frequent patterns will be loaded in to a dataframe
+            getMemoryUSS()
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
+            getMemoryRSS()
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            getRuntime()
+                Total amount of runtime taken by the mining process will be retrieved from this function
+            creatingOneItemSets()
+                Scan the database and store the items with their timestamps which are periodic frequent
+            getPeriodAndSupport()
+                Calculates the support and period for a list of timestamps.
+            Generation()
+                Used to implement prefix class equivalence method to generate the periodic patterns recursively
             
         Executing the code on terminal:
         -------
-        Format:
-        ------
-        python3 PFEclat.py <inputFile> <outputFile> <minSup>
+            Format:
+            ------
+                python3 PFEclat.py <inputFile> <outputFile> <minSup>
 
-        Examples:
-        --------
-        python3 PFEclat.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            Examples:
+            --------
+                python3 PFEclat.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
-        python3 PFEclat.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+                python3 PFEclat.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
         
         Sample run of the imported code:
         --------------
-        from PAMI.periodicFrequentPattern.basic import PFEclat as alg
 
-        obj = alg.PFEclat("../basic/sampleTDB.txt", "2", "5")
+            from PAMI.periodicFrequentPattern.basic import PFEclat as alg
 
-        obj.startMine()
+            obj = alg.PFEclat("../basic/sampleTDB.txt", "2", "5")
 
-        periodicFrequentPatterns = obj.getPeriodicFrequentPatterns()
+            obj.startMine()
 
-        print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+            periodicFrequentPatterns = obj.getPeriodicFrequentPatterns()
 
-        obj.storePatternsInFile("patterns")
+            print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-        Df = obj.getPatternsInDataFrame()
+            obj.storePatternsInFile("patterns")
 
-        memUSS = obj.getMemoryUSS()
+            Df = obj.getPatternsInDataFrame()
 
-        print("Total Memory in USS:", memUSS)
+            memUSS = obj.getMemoryUSS()
 
-        memRSS = obj.getMemoryRSS()
+            print("Total Memory in USS:", memUSS)
 
-        print("Total Memory in RSS", memRSS)
+            memRSS = obj.getMemoryRSS()
 
-        run = obj.getRuntime()
+            print("Total Memory in RSS", memRSS)
 
-        print("Total ExecutionTime in seconds:", run)
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
 
         Credits:
         -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
     
@@ -134,6 +142,7 @@ class PFEclat(periodicFrequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     mapSupport = {}
@@ -149,6 +158,7 @@ class PFEclat(periodicFrequentPatterns):
         """calculates the support and periodicity with list of timestamps
 
             :param tids: timestamps of a pattern
+
             :type tids: list
         """
         tids.sort()
@@ -169,6 +179,7 @@ class PFEclat(periodicFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+
         :return: converted value
         """
         if type(value) is int:
@@ -184,13 +195,14 @@ class PFEclat(periodicFrequentPatterns):
         return value
 
     def creatingOneItemSets(self):
-        """Storing the complete transactions of the database/input file in a database variable
+        """
+        Storing the complete transactions of the database/input file in a database variable
         """
 
         with open(self.iFile, 'r') as f:
             for line in f:
                 self.lno += 1
-                s = [i.strip() for i in line.split("\t")]
+                s = [i.strip() for i in line.split(self.sep)]
                 n = self.lno
                 for i in range(1, len(s)):
                     si = s[i]
@@ -215,10 +227,15 @@ class PFEclat(periodicFrequentPatterns):
         """Saves the patterns that satisfy the periodic frequent property.
 
             :param prefix: the prefix of a pattern
+
             :type prefix: list
+
             :param suffix: the suffix of a patterns
+
             :type suffix: list
+
             :param tidSetI: the timestamp of a patterns
+
             :type tidSetI: list
         """
 
@@ -237,11 +254,16 @@ class PFEclat(periodicFrequentPatterns):
         """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
 
             :param prefix:  main equivalence prefix
+
             :type prefix: periodic-frequent item or pattern
+
             :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
                             and frequent with their timestamps
+
             :type itemSets: list
+
             :param tidSets: timestamps of the items in the argument itemSets
+
             :type tidSets: list
 
 
@@ -271,7 +293,8 @@ class PFEclat(periodicFrequentPatterns):
             self.save(prefix, list(set(itemSetX)), tidSetI)
         
     def startMine(self):
-        """ Main program start with extracting the periodic frequent items from the database and performs prefix
+        """
+        Main program start with extracting the periodic frequent items from the database and performs prefix
         equivalence to form the combinations and generates closed periodic-frequent patterns.
         """
 
@@ -302,6 +325,7 @@ class PFEclat(periodicFrequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -311,6 +335,7 @@ class PFEclat(periodicFrequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -321,6 +346,7 @@ class PFEclat(periodicFrequentPatterns):
 
 
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -330,6 +356,7 @@ class PFEclat(periodicFrequentPatterns):
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -344,6 +371,7 @@ class PFEclat(periodicFrequentPatterns):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -352,27 +380,32 @@ class PFEclat(periodicFrequentPatterns):
             s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
-    def getPeriodicFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
+
         :rtype: dict
         """
         return self.finalPatterns
                     
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
-        ap = PFEclat(sys.argv[1], sys.argv[3], sys.argv[4])
+    ap = str()
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            ap = PFEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        if len(sys.argv) == 5:
+            ap = PFEclat(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
-        frequentPatterns = ap.getPeriodicFrequentPatterns()
-        print("Total number of periodic-frequent patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Periodic-Frequent Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
