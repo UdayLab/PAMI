@@ -314,11 +314,11 @@ class ThreePGrowth(partialPeriodicPatterns):
         startMine()
             main program to mine the partial periodic patterns
 
-        Format: python3 3PGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
+        Format: python3 threePGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
 
-        Examples: python3 3PGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)
+        Examples: python3 threePGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)
 
-                  python3 3PGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
+                  python3 threePGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
         
         Sample run of the importing code:
         -----------
