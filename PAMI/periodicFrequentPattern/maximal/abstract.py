@@ -33,8 +33,6 @@ class periodicFrequentPatterns(ABC):
         ----------
         iFile : str
             Input file name or path of the input file
-        oFile : str
-            Name of the output file or path of the output file
         minSup: int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -54,6 +52,8 @@ class periodicFrequentPatterns(ABC):
             To record the completion time of the algorithm
         finalPatterns: dict
             Storing the complete set of patterns in a dictionary variable
+        oFile : str
+            Name of the output file to store complete set of periodic-frequent patterns
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -63,7 +63,7 @@ class periodicFrequentPatterns(ABC):
         -------
         startMine()
             Mining process will start from here
-        getPatterns()
+        getFrequentPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
@@ -91,8 +91,7 @@ class periodicFrequentPatterns(ABC):
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
         :type maxPer: int or float or str
-        :param sep: str
-            Separator used in the dataset treated as ste
+        :param sep: the separator used in the database
         :type sep: str
         """
 
@@ -112,19 +111,19 @@ class periodicFrequentPatterns(ABC):
         """Variable to store the user-specified minimum support value"""
 
         pass
-
+    
     @abstractmethod
     def maxPer(self):
         """Variable to store the user specified maximum periodicity value"""
 
         pass
-
+    
     @abstractmethod
     def sep(self):
-        """Variable to store the input file path/file name"""
+        """Variable to store the seperator of input file """
 
         pass
-
+    
     @abstractmethod
     def startTime(self):
         """Variable to store the start time of the mining process"""

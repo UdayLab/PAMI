@@ -91,6 +91,8 @@ class periodicFrequentPatterns(ABC):
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
         :type maxPer: int or float or str
+        :param sep: the separator used in the database
+        :type sep: str
         """
 
         self.iFile = iFile
@@ -109,13 +111,19 @@ class periodicFrequentPatterns(ABC):
         """Variable to store the user-specified minimum support value"""
 
         pass
-
+    
     @abstractmethod
     def maxPer(self):
         """Variable to store the user specified maximum periodicity value"""
 
         pass
+    
+    @abstractmethod
+    def sep(self):
+        """Variable to store the seperator of input file """
 
+        pass
+    
     @abstractmethod
     def sep(self):
         """Variable to store the user-specified minimum support value"""
