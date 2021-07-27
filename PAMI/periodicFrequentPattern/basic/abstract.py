@@ -178,7 +178,7 @@ class periodicFrequentPatterns(ABC):
 
     @abstractmethod
     def getPatterns(self):
-        """Complete set of frequent patterns generated will be retrieved from this function"""
+        """Complete set of patterns generated will be retrieved from this function"""
 
         pass
 
