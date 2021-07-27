@@ -29,6 +29,7 @@
 from abstract import *
 import sys
 import math
+import pandas as pd
 
 
 class Node:
@@ -285,8 +286,8 @@ class cspgrowth(corelatedPatterns):
         getNighboirItems(item):
             to get get neighbours of a item
 
-        Executing the code on terminal:
-        -------
+    Executing the code on terminal:
+    -------
         Format:
         -------
         python3 cspgrowth.py <inputFile> <outputFile> <neighboutFile> <minSup> <minAllConf> <sep>
@@ -299,8 +300,8 @@ class cspgrowth(corelatedPatterns):
         python3 cspgrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2 ,
                                                                     (it will consider ',' as a separator)
 
-        Sample run of the importing code:
-        -----------
+    Sample run of the importing code:
+    -----------
         import cspgrowth as alg
 
         obj = alg.cspgrowth(iFile,nFile,minSup,minAllConf)
@@ -309,7 +310,7 @@ class cspgrowth(corelatedPatterns):
 
         corelatedPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(corelatedPatterns))
+        print("Total number of corelated spatial frequent Patterns:", len(corelatedPatterns))
 
         obj.storePatternsInFile(oFile)
 
@@ -327,9 +328,9 @@ class cspgrowth(corelatedPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
-        The complete program was written by BSai Chitra  under the supervision of Professor Rage Uday Kiran.
+    Credits:
+    -------
+        The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.
 
         """
 
@@ -340,7 +341,7 @@ class cspgrowth(corelatedPatterns):
     iFile = " "
     oFile = " "
     nFile = " "
-    minAllConf=0.0
+    minAllConf = 0.0
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -351,10 +352,10 @@ class cspgrowth(corelatedPatterns):
     fpNodeTempBuffer = []
     itemSetCount = 0
     maxPatternLength = 1000
-    sep="\t"
-    
-    def __init__(self, iFile, nFile, minsup, minAllConf,sep="\t"):
-        super().__init__(iFile,nFile,minsup,minAllConf,sep)
+    sep = "\t"
+
+    def __init__(self, iFile, nFile, minsup, minAllConf, sep="\t"):
+        super().__init__(iFile, nFile, minsup, minAllConf, sep)
 
     def creatingItemSets(self):
         """
@@ -367,8 +368,8 @@ class cspgrowth(corelatedPatterns):
                 for line in f:
                     line.strip()
                     self.lno += 1
-                    li=(line.split("\n")[0]).split(self.sep)
-                    #li1 = [i.rstrip() for i in line.split(" ")]
+                    li = (line.split("\n")[0]).split(self.sep)
+                    # li1 = [i.rstrip() for i in line.split(" ")]
                     self.Database.append(li)
         except IOError:
             print("File Not Found")
@@ -381,7 +382,7 @@ class cspgrowth(corelatedPatterns):
         """
         with open(name, 'r', encoding='utf-8') as f:
             for line in f:
-                li =(line.split("\n")[0]).split(self.sep)
+                li = (line.split("\n")[0]).split(self.sep)
                 item = li[0]
                 nibs = li[1:]
                 self.NighboursMap[item] = nibs
@@ -683,10 +684,10 @@ class cspgrowth(corelatedPatterns):
 
 if __name__ == "__main__":
     if len(sys.argv) == 6 or len(sys.argv) == 7:
-        if len(sys.argv) == 7: # to include user specified separator
-        	ap = cspgrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]),sys.argv[6])
-        if len(sys.argv) == 6: # to consider '\t' as a separator
-        	ap = cspgrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]))
+        if len(sys.argv) == 7:  # to include user specified separator
+            ap = cspgrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]), sys.argv[6])
+        if len(sys.argv) == 6:  # to consider '\t' as a separator
+            ap = cspgrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]))
         ap.startMine()
         corelatedPatterns = ap.getPatterns()
         print("Total number of corelated spatail frequent Patterns:", len(corelatedPatterns))

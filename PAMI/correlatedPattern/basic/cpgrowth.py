@@ -226,7 +226,7 @@ class cpgrowth(corelatedPatterns):
 
     Methods :
     -------
-       startMine()
+        startMine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
@@ -254,7 +254,7 @@ class cpgrowth(corelatedPatterns):
 
     Executing the code on terminal
     ------------------------------
-        Format: python3 apriori.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+        Format: python3 cpgrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
         Examples: python3 cpgrowth.py inp.txt output.txt 4.0 0.3   (minSup will be considered in percentage of database transactions)
                   python3 cpgrowth.py  patterns.txt 4  0.3   (minSup will be considered in support count or frequency)
                                                                 (it will consider '\t' as separator)
@@ -264,15 +264,15 @@ class cpgrowth(corelatedPatterns):
     Sample run of the importing code:
     ---------------------------------
 
-        import cpgrowthpp as alg
+        import cpgrowth as alg
 
-        obj = alg.cpgrowthpp(iFile, minSup,minAllConf)
+        obj = alg.cpgrowth(iFile, minSup,minAllConf)
 
         obj.startMine()
 
         corelatedPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(corelatedPatterns))
+        print("Total number of corelated frequent Patterns:", len(corelatedPatterns))
 
         obj.storePatternsInFile(oFile)
 

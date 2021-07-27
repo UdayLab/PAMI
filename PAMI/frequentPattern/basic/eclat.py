@@ -15,7 +15,7 @@
 # from abstract import *
 
 import sys
-from abstract import *
+from PAMI.frequentPattern.basic.abstract import *
 
 
 class Eclat(frequentPatterns):

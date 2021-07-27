@@ -2,11 +2,11 @@ import sys
 from abstract import *
 class Element:
     """
-    A class represents an Element of a utility list as used by the HDSHUI algorithm.
+    A class represents an Element of a utility list .
 
-        Attributes
-        ----------
-        tid : int
+    Attributes :
+    ----------
+        ts : int
             keep tact of transaction id
         nu : int
             non closed itemset utility
@@ -24,13 +24,12 @@ class Element:
         self.nru=nru
         self.pu=pu
         self.ppos=ppos
-
 class CUList:
     """
-        A class represents a UtilityList as used by the HDSHUI algorithm.
+        A class represents a UtilityList
 
-        Attributes:
-        ----------
+    Attributes :
+    ----------
         item: int
             item 
         sumNu: long
@@ -46,8 +45,8 @@ class CUList:
         elements: list
             the list of elements 
 
-        Methods:
-        -------
+    Methods :
+    -------
         addElement(element)
             Method to add an element to this utility list and update the sums at the same time.
     """
@@ -59,7 +58,6 @@ class CUList:
         self.sumCru = 0
         self.sumCpu = 0
         self.elements=[]
-
     def addElements(self,element):
         """
             A method to add new element to CUList
@@ -69,7 +67,6 @@ class CUList:
         self.sumnu+=element.nu;
         self.sumnru+=element.nru;
         self.elements.append(element)
-
 class Pair:
     """
         A class represent an item and its utility in a transaction
@@ -77,21 +74,15 @@ class Pair:
     def __init__(self):
         self.item=0
         self.utility=0
-
 class hminer(utilityPatterns):
     """
         High Utility Itemset Mining (HMIER) is an importent algorithm to miner High utility items from the database.
 
-    References:
-    -----------
-        Srikumar Krishnamoorthy, HMiner: Efficiently mining high utility itemsets,Expert Systems with Applications, Volume 90, 2017, Pages 168-183 https://doi.org/10.1016/j.eswa.2017.08.028.
-
-
-    Parameters:
+    Attributes:
     ----------
         iFile : file
             Name of the input file to mine complete set of frequent patterns
-       oFile : file
+        oFile : file
             Name of the output file to store complete set of frequent patterns
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
@@ -109,10 +100,8 @@ class hminer(utilityPatterns):
             huis created
         neighbors: map
             keep track of nighboues of elements
-
     Methods:
     -------
-
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -138,7 +127,7 @@ class hminer(utilityPatterns):
             construcCUL(x, culs, st, minUtil, length, exnighbors)
                 A method to construct CUL's database
 
-    Executing the code on terminal
+    Executing the code on terminal :
     -------
         Format: python3 hminer.py <inputFile> <outputFile> <minUtil>
                 python3 hminer.py <inputFile> <outputFile> <minUtil> <separator>
@@ -150,13 +139,13 @@ class hminer(utilityPatterns):
         
         import hminer as alg
 
-        obj=alg.SHDSHUIs("input.txt",35)
+        obj=alg.hminer("input.txt",35)
 
         obj.startMine()
 
         Patterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(Patterns))
+        print("Total number of high utility Patterns:", len(Patterns))
 
         obj.storePatternsInFile("output")
 
@@ -174,7 +163,7 @@ class hminer(utilityPatterns):
 
     Credits:
     -------
-        The complete program was written by B. Sai Chitra under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
             
     """
     
@@ -189,9 +178,8 @@ class hminer(utilityPatterns):
     sep="\t"
     memoryUSS = float()
     memoryRSS = float()
-
-    def __init__(self,iFile,minUtil,sep="\t"):
-        super().__init__(iFile,minUtil,sep)
+    def __init__(self,iFile1,minUtil,sep="\t"):
+        super().__init__(iFile1,minUtil,sep)
         self.start=0
         self.end=0
         self.hui_cnt=0
@@ -200,7 +188,6 @@ class hminer(utilityPatterns):
         self.minutil=0
         self.mapFMAP={}
         self.finalPatterns = {}
-
     def hminer(self,o1,o2):
         """
             A method to sort  list of huis in TWU asending order
@@ -210,7 +197,6 @@ class hminer(utilityPatterns):
             return int(o1.item)-int(o2.item)
         else:
             return compare
-
     def startMine(self):
         """
             main program to start the operation
@@ -571,7 +557,7 @@ if __name__ == "__main__":
     if len(sys.argv)==4 or len(sys.argv)==5:
         if len(sys.argv)==5: #includes separator
             ap=hminer(sys.argv[1],int(sys.argv[3]),sys.argv[4])
-        if len(sys.argv)==4: #takes desault separator as sep
+        if len(sys.argv)==4: #to consider "\t" as aseparator
             ap=hminer(sys.argv[1],int(sys.argv[3]))
         ap.startMine()
         Patterns = ap.getPatterns()

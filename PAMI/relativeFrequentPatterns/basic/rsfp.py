@@ -28,6 +28,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from abstract import *
 import sys
+import pandas as pd
 import math
 
 class Node:
@@ -210,7 +211,7 @@ class Tree:
 
 class rsfp(relativePatterns):
     """ 
-        Algorthm to find all items with relative support from given dataset
+        Algorthm to find all items with relative support from the given dataset
         
     Reference:
     ---------
@@ -305,7 +306,7 @@ class rsfp(relativePatterns):
 
         relativePatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(relativePatterns))
+        print("Total number of relative frequent Patterns:", len(relativePatterns))
 
         obj.storePatternsInFile(oFile)
 
@@ -637,7 +638,7 @@ if __name__ == "__main__":
             ap = rsfp(sys.argv[1], sys.argv[3],float(sys.argv[4]))
         ap.startMine()
         corelatedPatterns = ap.getPatterns()
-        print("Total number of Corelated-Frequent Patterns:", len(corelatedPatterns))
+        print("Total number of relative frequent Patterns:", len(corelatedPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)

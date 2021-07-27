@@ -30,13 +30,14 @@
 from abstract import *
 import sys
 import math
+import pandas as pd
 
 class Node:
     """
         A class used to represent the node of frequentPatternTree
 
-       Attributes
-        ----------
+    Attributes :
+    ----------
         itemId: int
             storing item of a node
         counter: int
@@ -48,8 +49,8 @@ class Node:
         nodeLink : node
             Points to the node with same itemId
 
-        Methods
-        -------
+    Methods :
+    -------
 
         getChild(itemName)
             returns the node with same itemName from frequentPatternTree
@@ -82,8 +83,8 @@ class Tree:
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-       Attributes
-       ----------
+    Attributes :
+    ----------
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
         mapItemNodes : dictionary
@@ -93,8 +94,8 @@ class Tree:
         root : Node
             representing the root Node in a tree
 
-        Methods
-        -------
+    Methods :
+    -------
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
         addTransaction(transaction)
@@ -303,12 +304,12 @@ class cpgrowthpp(corelatedPatterns):
         Executing the code on terminal:
         -------
 
-        Format:
-        -------
+          Format
+          -------
         python3 cpgrowthpp.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
 
-        Examples:
-        ---------
+          Examples
+          ---------
         python3 cpgrowthpp.py sampleDB.txt patterns.txt 0.23 0.2  (minSup will be considered in percentage of database transactions)
         python3 cpgrowthpp.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)
                                                       (it will consider '\t' as separator)
@@ -326,7 +327,7 @@ class cpgrowthpp(corelatedPatterns):
 
         corelatedPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(corelatedPatterns))
+        print("Total number of corelated frequent Patterns:", len(corelatedPatterns))
 
         obj.storePatternsInFile(oFile)
 

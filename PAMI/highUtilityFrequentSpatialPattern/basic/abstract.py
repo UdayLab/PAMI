@@ -35,25 +35,22 @@ from itertools import combinations as c
 import os
 import os.path
 import psutil
-import resource
-import functools
+
 
 class utilityPatterns(ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
 
-       Attributes
-        ----------
+    Attributes :
+    ----------
         iFile : str
             Input file name or path of the input file
-        minUtil: integer or float 
-            UserSpecified minimum utility
+        minUtil: integer 
+            The user can specify minUtil either in count
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator
-        nFile: str
-           Name of Neighbourhoof items file
         startTime:float
             To record the start time of the algorithm
         endTime:float
@@ -67,8 +64,8 @@ class utilityPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    Methods :
+    -------
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -86,22 +83,24 @@ class utilityPatterns(ABC):
 
     """
 
-    def __init__(self, iFile,nFile ,minUtil, sep="\t"):
+    def __init__(self, iFile,nFile ,minUtil, sep = "\t"):
         """
+
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param minUtil: UserSpecified minimum utility value.
-        :type minUtil: float
-        :param nFile: neighbourhood file name
+        :param nFile: Input file name or path of the neighbourhood file
         :type nFile: str
+        :param minUtil: The user can specify minUtil in count 
+        :type minUtil: int 
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
+
         """
 
         self.iFile = iFile
         self.sep = sep
-        self.minUtil = minUtil
         self.nFile=nFile
+        self.minUtil = minUtil
 
     @abstractmethod
     def iFile(self):
@@ -117,12 +116,6 @@ class utilityPatterns(ABC):
 
     @abstractmethod
     def minUtil(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @abstractmethod
-    def sep(self):
         """Variable to store the user-specified minimum support value"""
 
         pass

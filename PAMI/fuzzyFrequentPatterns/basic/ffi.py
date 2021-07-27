@@ -55,8 +55,9 @@ class FFList:
 class Element:
     """
         A class represents an Element of a fuzzy list
-        Attributes
-        ----------
+
+    Attributes:
+    ----------
             tid : int
                 keep tact of transaction id
             iUtils: float
@@ -75,8 +76,8 @@ class Reagions:
     """
         A class calculate the regions
 
-        Attributes:
-        ----------
+    Attributes:
+    ----------
             low : int
                 low region value
             middle: int 
@@ -118,7 +119,7 @@ class Pair:
         self.quantity = 0
 
 
-class FFI(fuzzyFrequentPattenrs):
+class ffi(fuzzyFrequentPattenrs):
     """
         Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem 
         to its huge search space.we are using efficient pruning techniques to reduce the search space.
@@ -153,7 +154,7 @@ class FFI(fuzzyFrequentPattenrs):
         mapItemRegions: map
             To Kepp track of fuzzy regions of item
         jointCnt: int
-            To keep track of the number of FFI-list that was constructed
+            To keep track of the number of ffi-list that was constructed
         BufferSize: int
             represent the size of Buffer
         itemBuffer list
@@ -177,9 +178,9 @@ class FFI(fuzzyFrequentPattenrs):
         convert(value):
             To convert the given user specified value
         compareItems(o1, o2)
-            A Function that sort all FFI-list in asendng order of Support
+            A Function that sort all ffi-list in asendng order of Support
         FSFIMining(prefix, prefixLen, FSFIM, minsup)
-            Method generate FFI from prefix
+            Method generate ffi from prefix
         construct(px, py)
             A function to construct Fuzzy itemset from 2 fuzzy itemsets
         findElementWithTID(ulist, tid)
@@ -189,18 +190,18 @@ class FFI(fuzzyFrequentPattenrs):
     
     Executing the code on terminal :
     -------
-        Format: python3 FFI.py <inputFile> <outputFile> <minSup> <separator>
-        Examples:  python3  FFI.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
-                   python3  FFI.py sampleTDB.txt output.txt 0.3 (minSup and maxPer will be considered in percentage of database)
+        Format: python3 ffi.py <inputFile> <outputFile> <minSup> <separator>
+        Examples:  python3  ffi.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
+                   python3  ffi.py sampleTDB.txt output.txt 0.3 (minSup and maxPer will be considered in percentage of database)
                                                       (it will consider '\t' as a separator)
-                    python3  FFI.py sampleTDB.txt output.txt 6 , (it conider ',' as a separater)
+                    python3  ffi.py sampleTDB.txt output.txt 6 , (it conider ',' as a separater)
 
     Sample run of importing the code:
     -------------------------------
         
-        import FFI as alg
+        import ffi as alg
 
-        obj = alg.FFI("input.txt", 2)
+        obj = alg.ffi("input.txt", 2)
 
         obj.startMine()
 
@@ -223,8 +224,8 @@ class FFI(fuzzyFrequentPattenrs):
         print("Total ExecutionTime in seconds:", run)
 
 
-        Credits:
-        -------
+    Credits:
+    -------
             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
     startTime = float()
@@ -256,7 +257,7 @@ class FFI(fuzzyFrequentPattenrs):
 
     def compareItems(self, o1, o2):
         """
-            A Function that sort all FFI-list in asendng order of Support
+            A Function that sort all ffi-list in asendng order of Support
         """
         compare = self.mapItemSum[o1.item] - self.mapItemSum[o2.item]
         if compare == 0:
@@ -320,7 +321,7 @@ class FFI(fuzzyFrequentPattenrs):
                         self.mapItemsHighSum[item] = high
                     else:
                         self.mapItemsHighSum[item] = regions.high
-            listOfFFIlist = []
+            listOfffilist = []
             mapItemsToFFLIST = {}
             self.minSup=self.convert(self.minSup)
             minSup = self.minSup
@@ -342,8 +343,8 @@ class FFI(fuzzyFrequentPattenrs):
                 if self.mapItemSum[item] >= self.minSup:
                     fuList = FFList(item)
                     mapItemsToFFLIST[item] = fuList
-                    listOfFFIlist.append(fuList)
-            listOfFFIlist.sort(key=functools.cmp_to_key(self.compareItems))
+                    listOfffilist.append(fuList)
+            listOfffilist.sort(key=functools.cmp_to_key(self.compareItems))
         tid = 0
         with open(self.iFile, 'r') as file:
             for line in file:
@@ -378,16 +379,16 @@ class FFI(fuzzyFrequentPattenrs):
                         element = Element(tid, pair.quantity, remaingUtility)
                         FFListOfItem.addElement(element)
                 tid += 1
-        self.FSFIMining(self.itemsetBuffer, 0, listOfFFIlist, self.minSup)
+        self.FSFIMining(self.itemsetBuffer, 0, listOfffilist, self.minSup)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
     def FSFIMining(self, prefix, prefixLen, FSFIM, minsup):
-        """Generates FFI from prefix
+        """Generates ffi from prefix
 
-        :param prefix: the prefix patterns of FFI
+        :param prefix: the prefix patterns of ffi
         :type prefix: len
         :param prefixLen: the length of prefix
         :type prefixLen: int
@@ -440,11 +441,11 @@ class FFI(fuzzyFrequentPattenrs):
             A function to construct a new Fuzzy itemset from 2 fuzzy itemsets
 
             :param px:the itemset px
-            :type px:FFI-List
+            :type px:ffi-List
             :param py:ithemset py
-            :type py:FFI-List
+            :type py:ffi-List
             :return :the itemset of pxy(px and py)
-            :rtype :FFI-List
+            :rtype :ffi-List
         """
         pxyUL = FFList(py.item)
         for ex in px.elements:
@@ -459,7 +460,7 @@ class FFI(fuzzyFrequentPattenrs):
         """
             To find element with same tid as given
             :param ulist:fuzzylist
-            :type ulist:FFI-List
+            :type ulist:ffi-List
             :param tid:transaction id
             :type tid:int
             :return:element eith tid as given
@@ -538,9 +539,9 @@ class FFI(fuzzyFrequentPattenrs):
 if __name__ == "__main__":
     if len(sys.argv) == 4 or len(sys.argv) == 5:
         if len(sys.argv) == 5:
-            ap = FFI(sys.argv[1], sys.argv[3],sys.argv[4])
+            ap = ffi(sys.argv[1], sys.argv[3],sys.argv[4])
         if len(sys.argv) == 4:
-           ap = FFI(sys.argv[1], sys.argv[3])
+           ap = ffi(sys.argv[1], sys.argv[3])
         ap.startMine()
         fuzzyFrequentPattenrs = ap.getPatterns()
         print("Total number of Fuzzy-Frequent Patterns:", len(fuzzyFrequentPattenrs))
