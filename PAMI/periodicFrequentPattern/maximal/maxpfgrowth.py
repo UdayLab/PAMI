@@ -727,7 +727,7 @@ if __name__ == "__main__":
             ap = Maxpfgrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
-        print("Total number of Periodic-Frequent Patterns:", len(Patterns))
+        print("Total number of  Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
