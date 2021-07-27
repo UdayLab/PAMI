@@ -63,7 +63,7 @@ class periodicFrequentPatterns(ABC):
         -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
@@ -77,7 +77,7 @@ class periodicFrequentPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup, maxPer, sep='\t'):
+    def __init__(self, iFile, minSup, maxPer, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -91,6 +91,8 @@ class periodicFrequentPatterns(ABC):
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
         :type maxPer: int or float or str
+        :param sep: separator used in user specified input file
+        :type sep: str
         """
 
         self.iFile = iFile
@@ -115,10 +117,9 @@ class periodicFrequentPatterns(ABC):
         """Variable to store the user specified maximum periodicity value"""
 
         pass
-        
-    @abstractmethod
+
     def sep(self):
-        """Variable to store the separator used in user specified input file"""
+        """Variable to store the separator in input file"""
 
         pass
 

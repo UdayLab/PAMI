@@ -363,7 +363,7 @@ class PFEclat(periodicFrequentPatterns):
             s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
-    def getPeriodicFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
