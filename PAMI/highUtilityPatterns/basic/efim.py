@@ -21,7 +21,7 @@ import os
 import psutil
 import pandas as pd
 from functools import cmp_to_key
-from abstract import *
+from PAMI.highUtilityPatterns.basic.abstract import *
 
 class Transaction:
     """

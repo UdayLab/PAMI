@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from  abstract import *
+from PAMI.uncertainPeriodicFrequentPattern.basic.abstract import *
 
 
 minSup = float()

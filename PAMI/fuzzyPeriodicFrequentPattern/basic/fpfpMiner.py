@@ -1,7 +1,7 @@
 import sys
 import functools
 import pandas as pd
-from abstract import *
+from PAMI.fuzzyPeriodicFrequentPattern.basic.abstract import *
 
 
 class FFList:

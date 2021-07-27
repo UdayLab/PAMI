@@ -16,7 +16,7 @@
 import time
 import sys
 import  pandas as pd
-from abstract import *
+from PAMI.highUtilityPatterns.basic.abstract import *
 
 class UPItem:
     """
