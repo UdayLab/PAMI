@@ -165,7 +165,7 @@ class periodicFrequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def getPeriodicFrequentPatterns(self):
+    def getPatterns(self):
         """Complete set of periodic-frequent patterns generated will be retrieved from this function"""
 
         pass
