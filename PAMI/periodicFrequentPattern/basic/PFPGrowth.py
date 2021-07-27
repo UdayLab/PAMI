@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from PAMI.periodicFrequentPattern.basic.abstract import *
+from  abstract import *
 
 
 maxPer = float()
