@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from abstract import *
+from PAMI.periodicFrequentPattern.basic.abstract import *
 
 
 class PFEclat(periodicFrequentPatterns):
@@ -25,12 +25,12 @@ class PFEclat(periodicFrequentPatterns):
             P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, "Towards efficient discovery of 
             periodic-frequent patterns in columnar temporal databases", 2021 IEA/AIE.
 
-       Attributes
-        ----------
+    Attributes:
+    ----------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
-            Name of the output file to store complete set of periodic-frequent patterns
+            Name of the output file or path of the output file
         minSup: int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -69,8 +69,8 @@ class PFEclat(periodicFrequentPatterns):
         hashing : dict
             stores the patterns with their support to check for the closed property
 
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
         getPatterns()
