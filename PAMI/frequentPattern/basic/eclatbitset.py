@@ -15,7 +15,7 @@
 #  Copyright (C)  2021 Rage Uday Kiran
 
 import sys
-from abstract import *
+from PAMI.frequentPattern.basic.abstract import *
 
 class eclatbitset(frequentPatterns):
     """
