@@ -1,12 +1,14 @@
 import sys
-from PAMI.periodicFrequentPattern.closed.abstract import *
+from abstract import *
 
 class CPFPMiner(periodicFrequentPatterns):
     """ CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.
         It uses depth-first search.
 
-        Reference : P. Likhitha et al., "Discovering Closed Periodic-Frequent Patterns in Very Large Temporal Databases"
-        2020 IEEE International Conference on Big Data (Big Data), 2020, https://ieeexplore.ieee.org/document/9378215
+        Reference:
+        -------
+            P. Likhitha et al., "Discovering Closed Periodic-Frequent Patterns in Very Large Temporal Databases"
+            2020 IEEE International Conference on Big Data (Big Data), 2020, https://ieeexplore.ieee.org/document/9378215
 
         ...
         Attributes:
@@ -469,7 +471,7 @@ if __name__ == "__main__":
             ap = CPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
-        print("Total number of Periodic-Frequent Patterns:", len(Patterns))
+        print("Total number of  Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
