@@ -1,5 +1,5 @@
 import sys
-from abstract import *
+from PAMI.localPeriodicPattern.basic.abstract import *
 
 class Node:
     """

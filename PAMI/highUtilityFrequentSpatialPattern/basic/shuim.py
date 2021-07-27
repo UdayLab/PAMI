@@ -1,6 +1,6 @@
 import sys
 import pandas as pd
-from abstract import *
+from PAMI.highUtilityFrequentSpatialPattern.basic.abstract import *
 from functools import cmp_to_key
 
 class Transaction:

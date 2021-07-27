@@ -2,7 +2,7 @@ import sys
 
 import pandas as pd
 
-from abstract import *
+from PAMI.correlatedPattern.basic.abstract import *
 
 class Node:
     """

@@ -26,7 +26,7 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-from abstract import *
+from PAMI.relativeFrequentPatterns.basic.abstract import *
 import sys
 import pandas as pd
 import math

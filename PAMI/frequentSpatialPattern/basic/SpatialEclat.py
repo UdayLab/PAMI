@@ -1,4 +1,4 @@
-from abstract import *
+from PAMI.frequentSpatialPattern.basic.abstract import *
 import sys
 import pandas as pd
 
