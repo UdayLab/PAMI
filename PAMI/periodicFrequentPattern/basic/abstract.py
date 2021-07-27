@@ -43,6 +43,9 @@ class periodicFrequentPatterns(ABC):
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         startTime:float
             To record the start time of the algorithm
         endTime:float
@@ -74,7 +77,7 @@ class periodicFrequentPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup, maxPer):
+    def __init__(self, iFile, minSup, maxPer, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -88,11 +91,14 @@ class periodicFrequentPatterns(ABC):
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
         :type maxPer: int or float or str
+        :param sep: the separator used in the database
+        :type sep: str
         """
 
         self.iFile = iFile
         self.minSup = minSup
         self.maxPer = maxPer
+        self.sep = sep
 
     @abstractmethod
     def iFile(self):
@@ -105,13 +111,19 @@ class periodicFrequentPatterns(ABC):
         """Variable to store the user-specified minimum support value"""
 
         pass
-
+    
     @abstractmethod
     def maxPer(self):
         """Variable to store the user specified maximum periodicity value"""
 
         pass
+    
+    @abstractmethod
+    def sep(self):
+        """Variable to store the seperator of input file """
 
+        pass
+    
     @abstractmethod
     def startTime(self):
         """Variable to store the start time of the mining process"""
@@ -155,7 +167,7 @@ class periodicFrequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def getPeriodicFrequentPatterns(self):
+    def getPatterns(self):
         """Complete set of periodic-frequent patterns generated will be retrieved from this function"""
 
         pass
