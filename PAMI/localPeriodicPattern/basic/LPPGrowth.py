@@ -189,6 +189,8 @@ class LPPGrowth(localPeriodicPatterns):
                 Storing the item and its PTL.
             items : list
                 Storing local periodic item list.
+            :param sep: separator used to distinguish items from each other. The default separator is tab space.
+            :type sep: str
 
             Methods
             -------
@@ -265,6 +267,7 @@ class LPPGrowth(localPeriodicPatterns):
     root = Tree()
     PTL = {}
     items = []
+    sep = ' '
 
     def findDelimiter(self, line):
         """Identifying the delimiter of the input file
@@ -292,7 +295,8 @@ class LPPGrowth(localPeriodicPatterns):
             line = f.readline()
             line = line.strip()
             separator = self.findDelimiter(line)
-            line = [item for item in line.split(separator)]
+            # line = [item for item in line.split(separator)]
+            line = [item for item in line.split(self.sep)]
             self.tsmin = int(line.pop(0))
             ts = self.tsmin
             for item in line:
@@ -314,7 +318,8 @@ class LPPGrowth(localPeriodicPatterns):
                     LPPList[item] = set()
             for line in f:
                 line = line.strip()
-                line = [item for item in line.split(separator)]
+                # line = [item for item in line.split(separator)]
+                line = [item for item in line.split(self.sep)]
                 ts = int(line.pop(0))
                 for item in line:
                     if item in LPPList:
@@ -345,7 +350,8 @@ class LPPGrowth(localPeriodicPatterns):
             line = f.readline()
             line = line.strip()
             separator = self.findDelimiter(line)
-            line = [item for item in line.split(separator)]
+            # line = [item for item in line.split(separator)]
+            line = [item for item in line.split(self.sep)]
             self.tsmin = int(line.pop(0))
             self.tsList = {item: bitVector for item in line}
             count += 1
@@ -353,7 +359,8 @@ class LPPGrowth(localPeriodicPatterns):
                 bitVector = 0b1 << count
                 bitVector = bitVector | 0b1
                 line = line.strip()
-                line = [item for item in line.split(separator)]
+                # line = [item for item in line.split(separator)]
+                line = [item for item in line.split(self.sep)]
                 ts = line.pop(0)
                 for item in line:
                     if self.tsList.get(item):

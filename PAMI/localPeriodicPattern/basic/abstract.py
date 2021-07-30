@@ -82,7 +82,7 @@ class localPeriodicPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, maxPer, maxSoPer, minDur):
+    def __init__(self, iFile, maxPer, maxSoPer, minDur, sep='\t'):
         """
 
         :param iFile: Input file name or path of the input file
@@ -102,12 +102,15 @@ class localPeriodicPatterns(ABC):
             Otherwise, it will be treated as float.
             Example: minDur=10 will be treated as integer, while minDur=10.0 will be treated as float.
         :type minDur: int or float or str
+        :param sep: separator used to distinguish items from each other. The default separator is tab space.
+        :type sep: str
         """
 
         self.iFile = iFile
         self.maxPer = maxPer
         self.maxSoPer = maxSoPer
         self.minDur = minDur
+        self.sep = sep
 
     @abstractmethod
     def iFile(self):
