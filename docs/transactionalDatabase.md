@@ -1,3 +1,6 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
+
 # Theoretical representation of a transactional database
 
 A transactional database is a collection of transactions.  Every transaction constitutes of a transaction-identifier (TID)

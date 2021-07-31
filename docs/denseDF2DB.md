@@ -1,3 +1,5 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
 # Dense dataframe
 
 ### Introduction

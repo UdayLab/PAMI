@@ -1,3 +1,6 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
+
 # Sparse dataframe
 
 ### Introduction

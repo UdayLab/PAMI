@@ -1,3 +1,6 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
+
 # Organization of Algorithms in PAMI
 
 Several theoretical models (e.g., frequent pattern model, correlated pattern model, and periodic pattern model) have been explored in the literature to find 

@@ -1,9 +1,11 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
 # User Manual 
 Key concepts in each link were briefly mentioned to save your valuable time. Click on the necessary links to know more.
 
-1. [About PAMI](index.html)
+1. [About PAMI: Motivation and the people who supported](aboutPAMI.html)
    
-   PAMI is a PAttern MIning Python library to discover hidden patterns in Big Data.
+   PAMI is a PAttern MIning Python library to discover hidden patterns in Big Data
 
 1. [Installation/Update/uninstall PAMI](installation.html)
    
@@ -14,7 +16,11 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    The algorithms in PAMI are organized in a hierarchical structure as follows: 
    
         PAMI.theoriticalModel.basic/maximal/closed/topk.algorithmName
-   
+
+1. [Exceuting Algorithms in PAMI](utilization.html)    
+   1. Importing PAMI algorithms into your program
+   1. Executing PAMI algorithms directly on the terminal
+    
 1. [Creating Databases](createDatabases.html)
    
     1. [Transactional database](transactionalDatabase.html)
@@ -44,6 +50,3 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    1. [Sparse dataframe to database](sparseDF2DB.html)
    1. [Spatiotemporal dataframe to databases](stDF2DB.html)
    
-1. [Exceuting Algorithms in PAMI](utilization.html)    
-   1. Importing PAMI algorithms into your program
-   1. Executing PAMI algorithms directly on the terminal

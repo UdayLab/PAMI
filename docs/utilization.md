@@ -1,3 +1,6 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
+
 # Methods to utilize PAMI library
 
 The PAMI library can be utilized either as a library in any Python program or a command line based stand-alone application. We now describe both of these methods.
