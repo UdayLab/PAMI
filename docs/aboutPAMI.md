@@ -18,11 +18,11 @@ students of my PhD advisor, [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/
 
 
 ### People who supported during the development of PAMI:
-1. [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), IIIT-Hyderabad, India.
 1. [Prof. Masaru Kitsuregawa](http://www.tkl.iis.u-tokyo.ac.jp/Kilab/Members/memo/kitsure_e.html), The University of Tokyo, Japan.
+1. [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), IIIT-Hyderabad, India.
 1. [Prof. Masashi Toyoda](https://www.iis.u-tokyo.ac.jp/en/research/staff/masashi-toyoda/), The University of Tokyo, Japan.
 1. [Dr. Koji Zettsu](https://www2.nict.go.jp/bidal/x166/en/members/zettsu/index.html), NICT, Japan.
-1. [Prof. Yukata Watanobe](https://www.u-aizu.ac.jp/~yutaka/), The University of Aizu, Japan.
+1. [Prof. Philippe Fournier-Viger](https://www.philippe-fournier-viger.com/), Harbin Institute of Technology (Shenzhen), China.
 
 
 ### Students who made significant contributions to PAMI:
