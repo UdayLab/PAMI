@@ -56,7 +56,7 @@ class frequentPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup):
+    def __init__(self, iFile, minSup, ratio):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -67,6 +67,7 @@ class frequentPatterns(ABC):
 
         self.iFile = iFile
         self.minSup = minSup
+        self.minRatio = ratio
 
     @abstractmethod
     def iFile(self):

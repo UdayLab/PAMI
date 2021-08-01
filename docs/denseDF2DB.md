@@ -45,22 +45,22 @@ The steps to convert a dataframe into a transactional database is as follows:
 A sample program to convert a dataframe into a transactional database and use it in a pattern mining algorithm, say FP-growth, is provided below
 
  ```Python
-   from PAMI.dataProcessing import dense2DB as pro
-   from PAMI.frequentPattern.basic import fpGrowth as alg
-   import pandas as pd
-   
-   # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-   db=pro.dense2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
-   # Convert and store the dataframe as a transactional database file
-   db.createTransactional(outputFile='/home/userName/transactionalDB.txt')  
-   # Getting the fileName of the transactional database
-   print('The output file is saved at ' + db.getFileName())
+   from PAMI.DF2DB import denseDF2DB as pro
+from PAMI.frequentPattern.basic import fpGrowth as alg
+import pandas as pd
 
-   #Using the generated transactional database in FP-growth algorithm to discover frequent patterns
+# Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
+db = pro.dense2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+# Convert and store the dataframe as a transactional database file
+db.createTransactional(outputFile='/home/userName/transactionalDB.txt')
+# Getting the fileName of the transactional database
+print('The output file is saved at ' + db.getFileName())
 
-   obj = alg.fpGrowth(iFile=db.getFileName(), minSup='10.0')
-   obj.startMine()
-   patternsDF = obj.getPatternsInDataFrame()
+# Using the generated transactional database in FP-growth algorithm to discover frequent patterns
+
+obj = alg.fpGrowth(iFile=db.getFileName(), minSup='10.0')
+obj.startMine()
+patternsDF = obj.getPatternsInDataFrame()
 
    ```
 
@@ -79,22 +79,22 @@ in a dataframe.  The steps to convert a dataframe into a temporal database is as
 A sample program to convert a dataframe into a temporal database and use it in a pattern mining algorithm, say PFP-growth++, is provided below
 
  ```Python
-   from PAMI.dataProcessing import dense2DB as pro
-   from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
-   import pandas as pd
-   
-   # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-   db=pro.dense2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
-   # Convert and store the dataframe as a transactional database file
-   db.createTransactional(outputFile='/home/userName/temporalDB.txt')  
-   # Getting the fileName of the transactional database
-   print('The output file is saved at ' + db.getFileName())
+   from PAMI.DF2DB import denseDF2DB as pro
+from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
+import pandas as pd
 
-   obj = alg.PFPGrowthPlus(db.getFileName(), minSup="2", maxPer="6")
-   obj.startMine()
-   patternsDF = obj.getPatternsInDataFrame()
-   
-  ``` 
+# Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
+db = pro.dense2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+# Convert and store the dataframe as a transactional database file
+db.createTransactional(outputFile='/home/userName/temporalDB.txt')
+# Getting the fileName of the transactional database
+print('The output file is saved at ' + db.getFileName())
+
+obj = alg.PFPGrowthPlus(db.getFileName(), minSup="2", maxPer="6")
+obj.startMine()
+patternsDF = obj.getPatternsInDataFrame()
+
+``` 
 #### Converting a dense dataframe into a utility database
 A [utility database](utilityDatabase.html) represents a sparse and non-binary representation of items occurring in
 each row of a dataframe.  The steps to convert a dataframe into a utility database is as follows:
@@ -110,15 +110,15 @@ each row of a dataframe.  The steps to convert a dataframe into a utility databa
 A sample program to convert a dataframe into a utility database and use it in a pattern mining algorithm, say EFIM, is provided below
 
  ```Python
-   from PAMI.dataProcessing import dense2DB as pro
-   from PAMI.highUtilityPatterns.basic import EFIM as alg
-   import pandas as pd
-   
-   # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-   db=pro.dense2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
-   # Convert and store the dataframe as a transactional database file
-   db.createTransactional(outputFile='/home/userName/utilityDB.txt')     
-   # Getting the fileName of the transactional database
-   print('The output file is saved at ' + db.getFileName())
+   from PAMI.DF2DB import denseDF2DB as pro
+from PAMI.highUtilityPatterns.basic import EFIM as alg
+import pandas as pd
+
+# Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
+db = pro.dense2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+# Convert and store the dataframe as a transactional database file
+db.createTransactional(outputFile='/home/userName/utilityDB.txt')
+# Getting the fileName of the transactional database
+print('The output file is saved at ' + db.getFileName())
 
   ```
