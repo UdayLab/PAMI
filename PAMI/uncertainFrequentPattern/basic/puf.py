@@ -14,19 +14,19 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from PAMI.uncertainFrequentPattern.basic.abstract import *
+from abstract import *
 minSup = float()
 finalPatterns = {}
 
 
 class Item:
     """
-        A class used to represent the item with probability in transaction of dataset
+    A class used to represent the item with probability in transaction of dataset
 
-        ...
+    ...
 
-        Attributes
-        __________
+    Attributes:
+    __________
         item : int or word
             Represents the name of the item
         probability : float
@@ -44,8 +44,8 @@ class Node(object):
 
         ...
 
-        Attributes
-        ----------
+    Attributes:
+    ----------
         item : int
             storing item of a node
         probability : int
@@ -55,8 +55,8 @@ class Node(object):
         children : list
             To maintain the children of node
 
-        Methods
-        -------
+    Methods:
+    -------
 
         addChild(itemName)
             storing the children to their respective parent nodes
@@ -75,12 +75,12 @@ class Node(object):
 
 class Tree(object):
     """
-        A class used to represent the frequentPatternGrowth tree structure
+    A class used to represent the frequentPatternGrowth tree structure
 
-        ...
+    ...
 
-        Attributes
-        ----------
+    Attributes:
+    ----------
         root : Node
             Represents the root node of the tree
         summaries : dictionary
@@ -89,8 +89,8 @@ class Tree(object):
             stores the support of items
 
 
-        Methods
-        -------
+    Methods:
+    -------
         addTransaction(transaction)
             creating transaction as a branch in frequentPatternTree
         addConditionalPattern(prefixPaths, supportOfItems)
@@ -115,8 +115,9 @@ class Tree(object):
     def addTransaction(self, transaction):
         """adding transaction into tree
 
-                :param transaction : it represents the one self.Database in database
-                :type transaction : list
+            :param transaction : it represents the one self.Database in database
+
+            :type transaction : list
         """
 
         currentNode = self.root
@@ -153,11 +154,14 @@ class Tree(object):
     def addConditionalPattern(self, transaction, sup):
         """constructing conditional tree from prefixPaths
 
-                :param transaction : it represents the one self.Database in database
-                :type transaction : list
-                :param sup : support of prefixPath taken at last child of the path
-                :type sup : int
-                """
+            :param transaction : it represents the one self.Database in database
+
+            :type transaction : list
+
+            :param sup : support of prefixPath taken at last child of the path
+
+            :type sup : int
+        """
 
         # This method takes transaction, support and constructs the conditional tree
         currentNode = self.root
@@ -178,9 +182,10 @@ class Tree(object):
     def conditionalPatterns(self, alpha):
         """generates all the conditional patterns of respective node
 
-                :param alpha : it represents the Node in tree
-                :type alpha : Node
-                """
+            :param alpha : it represents the Node in tree
+
+            :type alpha : Node
+        """
 
         # This method generates conditional patterns of node by traversing the tree
         finalPatterns = []
@@ -201,9 +206,10 @@ class Tree(object):
     def removeNode(self, nodeValue):
         """removing the node from tree
 
-                :param nodeValue : it represents the node in tree
-                :type nodeValue : node
-                """
+            :param nodeValue : it represents the node in tree
+
+            :type nodeValue : node
+        """
 
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
@@ -212,10 +218,13 @@ class Tree(object):
         """ It generates the conditional patterns with frequent items
 
                 :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
+
                 :type condPatterns : list
+
                 :support : the support of conditional pattern in tree
+
                 :support : int
-                """
+        """
 
         global minSup
         pat = []
@@ -242,9 +251,10 @@ class Tree(object):
     def generatePatterns(self, prefix):
         """generates the patterns
 
-                :param prefix : forms the combination of items
-                :type prefix : list
-                """
+            :param prefix : forms the combination of items
+
+            :type prefix : list
+        """
 
         global finalPatterns, minSup
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
@@ -270,17 +280,25 @@ class Pufgrowth(frequentPatterns):
         It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
         using PUF-Tree.
 
-        Reference:
-        --------
+    Reference:
+    --------
         Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
         Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
 
-       Attributes
-        ----------
+    Attributes:
+    ----------
         iFile : file
-            Name of the Input file to mine complete set of frequent patterns
+            Name of the Input file or path of the input file
         oFile : file
-            Name of the output file to store complete set of frequent patterns
+            Name of the output file or path of the output file
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -289,8 +307,6 @@ class Pufgrowth(frequentPatterns):
             To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
-        minSup : int/float
-            The user given minimum support
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -303,11 +319,11 @@ class Pufgrowth(frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -331,17 +347,19 @@ class Pufgrowth(frequentPatterns):
             to convert the user specified value
         startMine()
             Mining process will start from this function
-        Executing the code on terminal:
-        -------
+
+    Executing the code on terminal:
+    -------
         Format:
         ------
-        python3 puf.py <inputFile> <outputFile> <minSup> <maxPer>
+        python3 puf.py <inputFile> <outputFile> <minSup>
         Examples:
         --------
         python3 puf.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
+
         
-        Sample run of importing the code:
-        -------------------
+    Sample run of importing the code:
+    -------------------
 
         from PAMI.uncertainFrequentPattern.basic import puf as alg
 
@@ -349,9 +367,9 @@ class Pufgrowth(frequentPatterns):
 
         obj.startMine()
 
-        FrequentPatterns = obj.getFrequentPatterns()
+        Patterns = obj.getPatterns()
 
-        print("Total number of Periodic Frequent Patterns:", len(periodicPatterns))
+        print("Total number of  Patterns:", len(Patterns))
 
         obj.storePatternsInFile(oFile)
 
@@ -369,8 +387,8 @@ class Pufgrowth(frequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
+    Credits:
+    -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
@@ -380,6 +398,7 @@ class Pufgrowth(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -387,13 +406,12 @@ class Pufgrowth(frequentPatterns):
 
     def creatingItemSets(self):
         """
-
-        :return:
+            Scans the dataset
         """
         try:
             with open(self.iFile, 'r') as f:
                 for line in f:
-                    l = [i.rstrip() for i in line.split("\t")]
+                    l = [i.rstrip() for i in line.split(self.sep)]
                     tr = []
                     for i in l:
                         i1 = i.index('(')
@@ -411,8 +429,9 @@ class Pufgrowth(frequentPatterns):
             ranks to the items by decreasing support and returns the frequent items list
 
                 :param self.Database : it represents the one self.Database in database
+
                 :type self.Database : list
-                """
+        """
 
         mapSupport = {}
         for i in self.Database:
@@ -431,10 +450,13 @@ class Pufgrowth(frequentPatterns):
             node as null
 
                 :param data : it represents the one self.Database in database
+
                 :type data : list
+
                 :param info : it represents the support of each item
+
                 :type info : dictionary
-                """
+        """
 
         rootNode = Tree()
         rootNode.info = info.copy()
@@ -445,11 +467,11 @@ class Pufgrowth(frequentPatterns):
     def updateTransactions(self, dict1):
         """remove the items which are not frequent from self.Database and updates the self.Database with rank of items
 
-                :param list_of_self.Database : it represents the self.Database of database
-                :type list_of_self.Database : list
-                :param dict1 : frequent items with support
-                :type dict1 : dictionary
-                """
+
+            :param dict1 : frequent items with support
+
+            :type dict1 : dictionary
+        """
 
         list1 = []
         for tr in self.Database:
@@ -468,10 +490,13 @@ class Pufgrowth(frequentPatterns):
         """To check the presence of item or pattern in transaction
 
                 :param x: it represents the pattern
+
                 :type x : list
+
                 :param i : represents the uncertain self.Database
+
                 :type i : list
-                """
+        """
 
         # This method taken a transaction as input and returns the tree
         for m in x:
@@ -486,8 +511,10 @@ class Pufgrowth(frequentPatterns):
     def convert(self, value):
         """
         To convert the type of user specified minSup value
-        :param value: user specified minSup value
-        :return: converted type minSup value
+
+            :param value: user specified minSup value
+
+            :return: converted type minSup value
         """
         if type(value) is int:
             value = int(value)
@@ -502,9 +529,10 @@ class Pufgrowth(frequentPatterns):
     
     def removeFalsePositives(self):
         """
-               To remove the false positive patterns generated in frequent patterns
-               :return: patterns with accurate probability
-               """
+            To remove the false positive patterns generated in frequent patterns
+
+            :return: patterns with accurate probability
+        """
         global finalPatterns
         periods = {}
         for i in self.Database:
@@ -534,7 +562,7 @@ class Pufgrowth(frequentPatterns):
             by counting the original support of a patterns
 
 
-                """
+        """
         global minSup
         self.startTime = time.time()
         self.creatingItemSets()
@@ -556,6 +584,7 @@ class Pufgrowth(frequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -565,6 +594,7 @@ class Pufgrowth(frequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -575,6 +605,7 @@ class Pufgrowth(frequentPatterns):
 
 
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -584,6 +615,7 @@ class Pufgrowth(frequentPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -598,6 +630,7 @@ class Pufgrowth(frequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -606,27 +639,32 @@ class Pufgrowth(frequentPatterns):
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
+
         :rtype: dict
         """
         return self.finalPatterns
 
 
 if __name__ == "__main__":
-    if len(sys.argv) is 4:
-        ap = Pufgrowth(sys.argv[1], sys.argv[3])
+    ap = str()
+    if len(sys.argv) == 4 or len(sys.argv) == 5:
+        if len(sys.argv) == 5:
+            ap = Pufgrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+        if len(sys.argv) == 4:
+            ap = Pufgrowth(sys.argv[1], sys.argv[3])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

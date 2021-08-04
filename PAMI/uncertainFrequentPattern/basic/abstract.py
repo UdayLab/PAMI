@@ -28,15 +28,20 @@ class frequentPatterns(ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
     employ in PAMI
 
-        ...
+    ...
 
-        Attributes
-        ----------
+    Attributes:
+    ----------
         iFile : str
             Input file name or path of the input file
-        minSup: float
-            UserSpecified minimum support value. It has to be given in terms of count of total number of transactions
-            in the input database/file
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         startTime:float
             To record the start time of the algorithm
         endTime:float
@@ -50,11 +55,11 @@ class frequentPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -68,17 +73,22 @@ class frequentPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup):
+    def __init__(self, iFile, minSup, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param minSup: UserSpecified minimum support value. It has to be given in terms of count of total number of
-        transactions in the input database/file
-        :type minSup: float
+        :param minSup: The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        :type minSup: int or float or str
+        :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
+        :type sep: str
         """
 
         self.iFile = iFile
         self.minSup = minSup
+        self.sep = sep
 
     @abstractmethod
     def iFile(self):
@@ -89,6 +99,12 @@ class frequentPatterns(ABC):
     @abstractmethod
     def minSup(self):
         """Variable to store the user-specified minimum support value"""
+
+        pass
+
+    @abstractmethod
+    def sep(self):
+        """Variable to store the separator of  input file """
 
         pass
 
@@ -135,8 +151,8 @@ class frequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def getFrequentPatterns(self):
-        """Complete set of frequent patterns generated will be retrieved from this function"""
+    def getPatterns(self):
+        """Complete set of patterns generated will be retrieved from this function"""
 
         pass
 
