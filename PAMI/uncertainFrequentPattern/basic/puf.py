@@ -125,14 +125,14 @@ class Tree(object):
             if transaction[i].item not in currentNode.children:
                 newNode = Node(transaction[i].item, {})
                 l1 = i - 1
-                l = []
+                lp = []
                 while l1 >= 0:
-                    l.append(transaction[l1].probability)
+                    lp.append(transaction[l1].probability)
                     l1 -= 1
-                if len(l) == 0:
+                if len(lp) == 0:
                     newNode.probability = transaction[i].probability
                 else:
-                    newNode.probability = max(l) * transaction[i].probability
+                    newNode.probability = max(lp) * transaction[i].probability
                 currentNode.addChild(newNode)
                 if transaction[i].item in self.summaries:
                     self.summaries[transaction[i].item].append(newNode)
@@ -142,14 +142,14 @@ class Tree(object):
             else:
                 currentNode = currentNode.children[transaction[i].item]
                 l1 = i - 1
-                l = []
+                lp = []
                 while l1 >= 0:
-                    l.append(transaction[l1].probability)
+                    lp.append(transaction[l1].probability)
                     l1 -= 1
-                if len(l) == 0:
+                if len(lp) == 0:
                     currentNode.probability += transaction[i].probability
                 else:
-                    currentNode.probability += max(l) * transaction[i].probability
+                    currentNode.probability += max(lp) * transaction[i].probability
 
     def addConditionalPattern(self, transaction, sup):
         """constructing conditional tree from prefixPaths
@@ -263,8 +263,8 @@ class Tree(object):
             s = 0
             for x in self.summaries[i]:
                 s += x.probability
+            finalPatterns[tuple(pattern)] = self.info[i]
             if s >= minSup:
-                finalPatterns[tuple(pattern)] = self.info[i]
                 patterns, support, info = self.conditionalPatterns(i)
                 conditionalTree = Tree()
                 conditionalTree.info = info.copy()
@@ -411,9 +411,9 @@ class Pufgrowth(frequentPatterns):
         try:
             with open(self.iFile, 'r') as f:
                 for line in f:
-                    l = [i.rstrip() for i in line.split(self.sep)]
+                    li = [i.rstrip() for i in line.split(self.sep)]
                     tr = []
-                    for i in l:
+                    for i in li:
                         i1 = i.index('(')
                         i2 = i.index(')')
                         item = i[0:i1]
@@ -445,7 +445,8 @@ class Pufgrowth(frequentPatterns):
         self.rank = dict([(index, item) for (item, index) in enumerate(plist)])
         return mapSupport, plist
 
-    def buildTree(self, data, info):
+    @staticmethod
+    def buildTree(data, info):
         """it takes the self.Database and support of each item and construct the main tree with setting root
             node as null
 
@@ -486,7 +487,8 @@ class Pufgrowth(frequentPatterns):
                 list1.append(list2)
         return list1
 
-    def check(self, i, x):
+    @staticmethod
+    def check(i, x):
         """To check the presence of item or pattern in transaction
 
                 :param x: it represents the pattern
@@ -508,7 +510,8 @@ class Pufgrowth(frequentPatterns):
                 return 0
         return 1
 
-    def convert(self, value):
+    @staticmethod
+    def convert(value):
         """
         To convert the type of user specified minSup value
 

@@ -582,7 +582,6 @@ class TubeP(frequentPatterns):
         self.startTime = time.time()
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
-        print(type(self.minSup))
         minSup = self.minSup
         mapSupport, plist = self.frequentOneItem()
         transactions1 = self.updateTransactions(mapSupport)

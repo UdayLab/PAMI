@@ -593,6 +593,7 @@ class TubeS(frequentPatterns):
         global minSup
         self.startTime = time.time()
         self.creatingItemSets()
+        self.minSup = self.convert(self.minSup)
         mapSupport, plist = self.scanDatabase()
         transactions1 = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
