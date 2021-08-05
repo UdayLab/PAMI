@@ -106,10 +106,12 @@ class Tree(object):
             addTransaction(transaction)
                 creating transaction as a branch in Tree
             addConditionalTransaction(prefixPaths, supportOfItems)
-                takes the prefixPath of a node and support at child of the path and extract the periodic-frequent items from
-                prefixPaths and generates prefixPaths with items which are frequent
-            conditionalPatterns(Node)
+                construct the conditional tree for prefix paths
+            getConditionalPatterns(Node)
                 generates the conditional patterns from tree for specific node
+            conditionalTransactions(prefixPaths,Support)
+                takes the prefixPath of a node and support at child of the path and extract the frequent items from
+                prefixPaths and generates prefixPaths with items which are frequent
             remove(Node)
                 removes the node from tree once after generating all the patterns respective to the node
             generatePatterns(Node)
@@ -439,7 +441,7 @@ class PTubeP(periodicFrequentPatterns):
 
             obj.startMine()
 
-            periodicFrequentPatterns = obj.getPeriodicFrequentPatterns()
+            periodicFrequentPatterns = obj.getPatterns()
 
             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
@@ -488,7 +490,6 @@ class PTubeP(periodicFrequentPatterns):
             with open(self.iFile, 'r') as f:
                 for line in f:
                     temp = [i.rstrip() for i in line.split(self.sep)]
-                    print(temp)
                     tr = [int(temp[0])]
                     for i in temp[1:]:
                         i1 = i.index('(')
@@ -615,7 +616,7 @@ class PTubeP(periodicFrequentPatterns):
         for i in self.Database:
             for x, y in periodic.items():
                 if len(x) == 1:
-                    periods[x] = y[0]
+                    periods[x] = y
                 else:
                     s = 1
                     check = self.Check(i[1:], x)
@@ -624,11 +625,11 @@ class PTubeP(periodicFrequentPatterns):
                             if j.item in x:
                                 s *= j.probability
                         if x in periods:
-                            periods[x] += s
+                            periods[x][0] += s
                         else:
-                            periods[x] = s
+                            periods[x] = [s, y[1]]
         for x, y in periods.items():
-            if y >= minSup:
+            if y[0] >= minSup:
                 sample = str()
                 for i in x:
                     sample = sample + i + " "
@@ -645,6 +646,7 @@ class PTubeP(periodicFrequentPatterns):
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
+        print(self.maxPer, self.minSup)
         minSup, maxPer, lno = self.minSup, self.maxPer, len(self.Database)
         mapSupport, plist = self.oneItems()
         updatedTrans = self.updateTransactions(mapSupport)
@@ -736,7 +738,7 @@ if __name__ == "__main__":
         Patterns = ap.getPatterns()
         print("Total number of Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
-        print(ap.getPatternsInDataFrame())
+        #print(ap.getPatternsInDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
