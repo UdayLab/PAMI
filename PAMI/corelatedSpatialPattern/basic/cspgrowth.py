@@ -368,7 +368,9 @@ class cspgrowth(corelatedPatterns):
                 for line in f:
                     line.strip()
                     self.lno += 1
-                    li = (line.split("\n")[0]).split(self.sep)
+                    line=line.split("\n")[0]
+                    line=line.strip()
+                    li = line.split(self.sep)
                     # li1 = [i.rstrip() for i in line.split(" ")]
                     self.Database.append(li)
         except IOError:
@@ -382,7 +384,9 @@ class cspgrowth(corelatedPatterns):
         """
         with open(name, 'r', encoding='utf-8') as f:
             for line in f:
-                li = (line.split("\n")[0]).split(self.sep)
+                line=line.split("\n")[0]
+                line=line.strip()
+                li = line.split(self.sep)
                 item = li[0]
                 nibs = li[1:]
                 self.NighboursMap[item] = nibs
