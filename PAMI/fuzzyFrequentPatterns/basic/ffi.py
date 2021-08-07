@@ -297,8 +297,10 @@ class ffi(fuzzyFrequentPattenrs):
             for line in file:
                 line=line.split("\n")[0]
                 parts = line.split(":")
+                parts[0]=parts[0].strip()
+                parts[2]=parts[2].strip()
                 items = parts[0].split(self.sep)
-                quanaities = parts[1].split(self.sep)
+                quanaities = parts[2].split(self.sep)
                 self.dbLen += 1
                 for i in range(0, len(items)):
                     regions = Reagions(float(quanaities[i]), 3)
@@ -350,8 +352,10 @@ class ffi(fuzzyFrequentPattenrs):
             for line in file:
                 line=line.split("\n")[0]
                 parts = line.split(":")
+                parts[0]=parts[0].strip()
+                parts[2]=parts[2].strip()
                 items = parts[0].split(self.sep)
-                quanaities = parts[1].split(self.sep)
+                quanaities = parts[2].split(self.sep)
                 revisedTransaction = []
                 for i in range(0, len(items)):
                     pair = Pair()
