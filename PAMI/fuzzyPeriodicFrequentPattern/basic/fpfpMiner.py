@@ -316,6 +316,8 @@ class fpfpMiner(fuzzyPeriodicFrequentPatterns):
         with open(self.iFile, 'r') as file:
             for line in file:
                 parts = line.split(":")
+                parts[1]=parts[1].strip()
+                parts[3]=parts[3].strip()
                 tid = int(parts[0])
                 self.dbLen += 1
                 items = parts[1].split(self.sep)
@@ -377,6 +379,8 @@ class fpfpMiner(fuzzyPeriodicFrequentPatterns):
             for line in file:
                 parts = line.split(":")
                 tid = int(parts[0])
+                parts[1]=parts[1].strip()
+                parts[3]=parts[3].strip()
                 items = parts[1].split(self.sep)
                 quantities = parts[3].split(self.sep)
                 revisedTransaction = []
