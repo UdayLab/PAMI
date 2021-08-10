@@ -466,7 +466,7 @@ class PTubeS(periodicFrequentPatterns):
                 Total amount of runtime taken by the mining process will be retrieved from this function
             creatingItemSets(fileName)
                 Scans the dataset and stores in a list format
-            oneItems()
+            PeriodicFrequentOneItems()
                 Extracts the one-periodic-frequent patterns from database
             updateDatabases()
                 Update the database by removing aperiodic items and sort the Database by item decreased support
@@ -543,6 +543,7 @@ class PTubeS(periodicFrequentPatterns):
             with open(self.iFile, 'r') as f:
                 for line in f:
                     temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
                     tr = [int(temp[0])]
                     for i in temp[1:]:
                         i1 = i.index('(')
@@ -556,7 +557,7 @@ class PTubeS(periodicFrequentPatterns):
         except IOError:
             print("File Not Found")
 
-    def oneItems(self):
+    def PeriodicFrequentOneItems(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
             ranks to the items by decreasing support and returns the frequent items list
 
@@ -700,7 +701,7 @@ class PTubeS(periodicFrequentPatterns):
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
         minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
-        mapSupport, plist = self.oneItems()
+        mapSupport, plist = self.PeriodicFrequentOneItems()
         updatedTrans = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         Tree = self.buildTree(updatedTrans, info)

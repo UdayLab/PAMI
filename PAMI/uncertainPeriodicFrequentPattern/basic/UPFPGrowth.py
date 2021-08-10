@@ -34,9 +34,9 @@ class Item:
 
         Attributes:
         __________
-            item : int or word
+            item: int or word
                 Represents the name of the item
-            probability : float
+            probability: float
                 Represent the existential probability(likelihood presence) of an item
     """
     def __init__(self, item, probability):
@@ -383,31 +383,31 @@ class UPFPGrowth(periodicFrequentPatterns):
         Methods:
         -------
             startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
-            Complete set of periodic-frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets()
-            Scans the dataset and stores in a list format
-        oneItems()
-            Extracts the one-periodic-frequent patterns from database
-        updateTransaction()
-            Update the database by removing aperiodic items and sort the Database by item decreased support
-        buildTree()
-            After updating the Database, remaining items will be added into the tree by setting root node as null
-        convert()
-            to convert the user specified value
-        removeFalsePositives()
-            to remove the false positives in generated patterns
+                Mining process will start from here
+            getPatterns()
+                Complete set of patterns will be retrieved with this function
+            storePatternsInFile(oFile)
+                Complete set of periodic-frequent patterns will be loaded in to a output file
+            getPatternsInDataFrame()
+                Complete set of periodic-frequent patterns will be loaded in to a dataframe
+            getMemoryUSS()
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
+            getMemoryRSS()
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            getRuntime()
+                Total amount of runtime taken by the mining process will be retrieved from this function
+            creatingItemSets()
+                Scans the dataset and stores in a list format
+            PeriodicFrequentOneItem()
+                Extracts the one-periodic-frequent patterns from database
+            updateTransaction()
+                Update the database by removing aperiodic items and sort the Database by item decreased support
+            buildTree()
+                After updating the Database, remaining items will be added into the tree by setting root node as null
+            convert()
+                to convert the user specified value
+            removeFalsePositives()
+                to remove the false positives in generated patterns
 
         Executing the code on terminal:
         -------
@@ -475,6 +475,7 @@ class UPFPGrowth(periodicFrequentPatterns):
             with open(self.iFile, 'r') as f:
                 for line in f:
                     temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
                     tr = [int(temp[0])]
                     for i in temp[1:]:
                         i1 = i.index('(')

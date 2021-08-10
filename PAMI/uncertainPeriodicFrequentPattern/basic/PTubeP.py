@@ -419,7 +419,7 @@ class PTubeP(periodicFrequentPatterns):
                 After updating the Database, remaining items will be added into the tree by setting root node as null
             convert()
                 to convert the user specified value
-            oneItems()
+            PeriodicFrequentOneItems()
                 To extract the one-length periodic-frequent items
         
         Executing the code on terminal:
@@ -490,6 +490,7 @@ class PTubeP(periodicFrequentPatterns):
             with open(self.iFile, 'r') as f:
                 for line in f:
                     temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
                     tr = [int(temp[0])]
                     for i in temp[1:]:
                         i1 = i.index('(')
@@ -503,7 +504,7 @@ class PTubeP(periodicFrequentPatterns):
         except IOError:
             print("File Not Found")
 
-    def oneItems(self):
+    def PeriodicFrequentOneItems(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
                             ranks to the items by decreasing support and returns the frequent items list
 
@@ -648,7 +649,7 @@ class PTubeP(periodicFrequentPatterns):
         self.maxPer = self.convert(self.maxPer)
         print(self.maxPer, self.minSup)
         minSup, maxPer, lno = self.minSup, self.maxPer, len(self.Database)
-        mapSupport, plist = self.oneItems()
+        mapSupport, plist = self.PeriodicFrequentOneItems()
         updatedTrans = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         root = self.buildTree(updatedTrans, info)

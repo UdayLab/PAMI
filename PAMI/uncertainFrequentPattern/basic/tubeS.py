@@ -1,5 +1,21 @@
+#  Copyright (C)  2021 Rage Uday Kiran
+#
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation,  either version 3 of the License,  or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not,  see <https://www.gnu.org/licenses/>.
+
+
 import sys
-from abstract import *
+from PAMI.uncertainFrequentPattern.basic.abstract import *
 
 
 minSup = float()
@@ -447,6 +463,7 @@ class TubeS(frequentPatterns):
             with open(self.iFile, 'r') as f:
                 for line in f:
                     temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
                     tr = []
                     for i in temp:
                         i1 = i.index('(')
@@ -459,7 +476,7 @@ class TubeS(frequentPatterns):
         except IOError:
             print("File Not Found")
 
-    def scanDatabase(self):
+    def frequentOneItem(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
                     ranks to the items by decreasing support and returns the frequent items list
 
@@ -594,7 +611,7 @@ class TubeS(frequentPatterns):
         self.startTime = time.time()
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
-        mapSupport, plist = self.scanDatabase()
+        mapSupport, plist = self.frequentOneItem()
         transactions1 = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         Tree1 = self.buildTree(transactions1, info)

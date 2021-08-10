@@ -14,7 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from abstract import *
+from PAMI.uncertainFrequentPattern.basic.abstract import *
+
 minSup = float()
 finalPatterns = {}
 
@@ -411,9 +412,10 @@ class Pufgrowth(frequentPatterns):
         try:
             with open(self.iFile, 'r') as f:
                 for line in f:
-                    li = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
                     tr = []
-                    for i in li:
+                    for i in temp:
                         i1 = i.index('(')
                         i2 = i.index(')')
                         item = i[0:i1]
