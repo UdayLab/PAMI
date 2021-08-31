@@ -11,7 +11,7 @@ PAMI constitutes of several pattern mining algorithms to discover interesting pa
                 As a part of future work, we intend to extend PAMI to accept pandas data frame as an input to a pattern mining algorithm.
                 
                 
-    COMMAND: pip install psutil pandas
+    COMMAND: pip install psutil pandas functools
 
 # User manual
   The manual for working with PAMI is available at https://udayrage.github.io/PAMI/manual.html
@@ -21,12 +21,12 @@ Total available algorithms: 41
 
 1. Frequent pattern mining: 
      
-   | Basic | Closed | Maximal |
-   |-------|--------|---------|
-   |Apriori|Closed|maxFP-growth|
-   |FP-growth|    |   |
-   |ECLAT| | |
-   |ECLAT-bitSet| | |
+   | Basic | Closed | Maximal | Top-k |
+   |-------|--------|---------|-------|
+   |Apriori|Closed|maxFP-growth|topK|
+   |FP-growth|    |   | |
+   |ECLAT| | | |
+   |ECLAT-bitSet| | | |
 
 2. Frequent pattern mining using other measures:
     
