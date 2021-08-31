@@ -36,33 +36,37 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
     
     Default separator used in PAMI is tab space. However, users can override the separator with their choice.
    
-   1. [Converting Dataframes to Databases](df2db.html)
-      1. [Dense dataframe to database](denseDF2DB.html)
-      
-      Format of dense dataframe:
-      
-             tid/timestamp<sep>item1<sep>item2<sep>...<sep>itemN
-      
-      Code to convert a dense dataframe into a transactional database:
+5. [Converting Dataframes to Databases](dataFrameCoversio.html)
 
-             from PAMI.DF2DB import denseDF2DB as pro
-             db = pro.dense2DB(inputDataFrame, thresholdValue, condition)
-             db.createTransactional(outputFile)
+   1. [Format of dense dataframe]((denseDF2DB.html)) 
+    
+          tid/timestamp<sep>item1<sep>item2<sep>...<sep>itemN
 
-      1. [Sparse dataframe to database](sparseDF2DB.html)
+   2. [Format of sparse dataframe]((sparseDF2DB.html)) 
 
-          Format of sparse dataframe:
-       
-             tid/timestamp<sep>item<sep>value
+          tid/timestamp<sep>item<sep>value
 
-          Code to convert a sparse dataframe into a transactional database:
-      
-             from PAMI.DF2DB import sparseDF2DB as pro
-             db = pro.sparse2DB(inputDataFrame, thresholdValue, condition)
-             db.createTransactional(outputFile)
-
-      2. [Spatiotemporal dataframe to databases](stDF2DB.html)
+   3. [Dataframe to database conversion](denseDF2DB.html)
    
-5. [Exceuting Algorithms in PAMI](utilization.html)    
+       This program creates a database by specifying a single condition and a threshold value for all items in a database.
+   Code to convert a dataframe into a transactional database:
+
+          from PAMI.DF2DB import DF2DB as pro
+          db = pro.DF2DB(inputDataFrame, thresholdValue, condition, DFtype)
+          # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
+          db.createTransactional(outputFile)
+
+   4. [Dataframe to database conversed advanced](DF2DBPlus.html)
+
+      This program user can specify a different condition and a threshold value for each item in the dataframe. Code to convert a dataframe into a transactional database:
+      
+          from PAMI.DF2DB import DF2DBPlus as pro
+          db = pro.DF2DBPlus(inputDataFrame, itemConditionValueDataFrame, DFtype)
+          # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
+          db.createTransactional(outputFile)
+
+   5. [Spatiotemporal dataframe to databases](stDF2DB.html)
+   
+6. [Exceuting Algorithms in PAMI](utilization.html)    
    1. Importing PAMI algorithms into your program
-   1. Executing PAMI algorithms directly on the terminal
+   2. Executing PAMI algorithms directly on the terminal
