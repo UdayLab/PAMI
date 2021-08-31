@@ -45,7 +45,7 @@ The steps to convert a dataframe into a transactional database is as follows:
 A sample program to convert a dataframe into a transactional database and use it in a pattern mining algorithm, say FP-growth, is provided below
 
  ```Python
-   from PAMI.DF2DB import denseDF2DB as pro
+from PAMI.DF2DB import denseDF2DB as pro
 from PAMI.frequentPattern.basic import fpGrowth as alg
 import pandas as pd
 
