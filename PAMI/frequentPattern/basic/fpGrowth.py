@@ -336,6 +336,11 @@ class fpGrowth(frequentPatterns):
     rank = {}
     rankDup = {}
 
+    def __init__(self,iFile,minSup,sep='\t'):
+        super().__init__(iFile,minSup,sep)
+
+
+
     def creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
