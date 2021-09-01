@@ -1,6 +1,5 @@
 **[CLICK HERE](manual.html)** to access the PAMI manual.
 
-
 ## About PAMI
 PAttern MIning (PAMI) is an important knowledge discovery technique in the data mining. Its objective is to discover 
 interesting patterns hidden in big data. Several theoretical models and efficient algorithms have been described in the
@@ -19,11 +18,11 @@ students of my PhD advisor, [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/
 
 
 ### People who supported during the development of PAMI:
-1. [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), IIIT-Hyderabad, India.
 1. [Prof. Masaru Kitsuregawa](http://www.tkl.iis.u-tokyo.ac.jp/Kilab/Members/memo/kitsure_e.html), The University of Tokyo, Japan.
+1. [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/~pkreddy/), IIIT-Hyderabad, India.
 1. [Prof. Masashi Toyoda](https://www.iis.u-tokyo.ac.jp/en/research/staff/masashi-toyoda/), The University of Tokyo, Japan.
 1. [Dr. Koji Zettsu](https://www2.nict.go.jp/bidal/x166/en/members/zettsu/index.html), NICT, Japan.
-1. [Prof. Yukata Watanobe](https://www.u-aizu.ac.jp/~yutaka/), The University of Aizu, Japan.
+1. [Prof. Philippe Fournier-Viger](https://www.philippe-fournier-viger.com/), Harbin Institute of Technology (Shenzhen), China.
 
 
 ### Students who made significant contributions to PAMI:
@@ -33,3 +32,4 @@ students of my PhD advisor, [Prof. P. Krishna Reddy](https://faculty.iiit.ac.in/
 1. C. Saideep, IIIT-Hyderabad, Telangana, India.
 1. P. Pradeep Chandra Reddy, IIIT-Hyderabad, Telangana, India.
 
+Youtube video: [https://youtu.be/c5REH0wOgZM](https://youtu.be/c5REH0wOgZM)

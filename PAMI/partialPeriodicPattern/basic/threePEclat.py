@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-from abstract import *
+from PAMI.partialPeriodicPattern.basic.abstract import *
 
 
 class ThreePEclat(partialPeriodicPatterns):
@@ -89,17 +89,17 @@ class ThreePEclat(partialPeriodicPatterns):
     Executing the code on terminal:
     -------
 
-        Format: python3 3peclat.py <inputFile> <outputFile> <periodicSupport> <period>
+        Format: python3 threePEclat.py <inputFile> <outputFile> <periodicSupport> <period>
 
-        Examples: python3 3peclat.py sampleDB.txt patterns.txt 0.3 0.4   (periodicSupport and period will be considered in percentage of database transactions)
+        Examples: python3 threePEclat.py sampleDB.txt patterns.txt 0.3 0.4   (periodicSupport and period will be considered in percentage of database transactions)
 
-                  python3 3peclat.py sampleDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)
+                  python3 threePEeclat.py sampleDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)
         
 
     Sample run of importing the code:
     -------------------
          
-        from PAMI.periodicFrequentPattern.basic import 3peclat as alg
+        from PAMI.periodicFrequentPattern.basic import threePEclat as alg
 
         obj = alg.ThreePEclat(iFile, periodicSupport,period)
 

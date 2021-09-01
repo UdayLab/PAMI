@@ -1,3 +1,5 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
 # Spatiotemporal database
 
  A temporal database as described above is said to be a spatiotemporal database if its items

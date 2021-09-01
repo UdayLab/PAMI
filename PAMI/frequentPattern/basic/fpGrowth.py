@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from abstract import *
+from PAMI.frequentPattern.basic.abstract import *
 import sys
 
 minSup = str()
@@ -335,6 +335,11 @@ class fpGrowth(frequentPatterns):
     tree = Tree()
     rank = {}
     rankDup = {}
+
+    def __init__(self,iFile,minSup,sep='\t'):
+        super().__init__(iFile,minSup,sep)
+
+
 
     def creatingItemSets(self):
         """

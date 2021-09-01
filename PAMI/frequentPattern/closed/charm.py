@@ -15,7 +15,7 @@
 
 
 import sys
-from abstract import *
+from PAMI.frequentPattern.closed.abstract import *
 
 
 class Charm(frequentPatterns):

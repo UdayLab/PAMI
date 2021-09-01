@@ -1,4 +1,4 @@
-from abstract import *
+from PAMI.frequentSpatialPattern.basic.abstract import *
 import sys
 import pandas as pd
 
@@ -11,7 +11,7 @@ class SpatialEclat(spatialFrequentPatterns):
 
             ...
 
-    Attributes:
+    Attributes :
     ----------
             iFile : str
                 Input file name or path of the input file
@@ -35,7 +35,7 @@ class SpatialEclat(spatialFrequentPatterns):
             Database : list
                 To store the complete set of transactions available in the input database/file
 
-    Methods:
+    Methods :
     -------
             startMine()
                 Mining process will start from here
@@ -72,23 +72,17 @@ class SpatialEclat(spatialFrequentPatterns):
 
     Executing the code on terminal :
     ------------------------------
-            Format: python3 apriori.py <inputFile> <outputFile> <neighbourFile> <minSup>
-
+            Format: python3 SpatialEclat.py <inputFile> <outputFile> <neighbourFile> <minSup>
             Examples:
-
             python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
-
             python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
-
                                                                 (it considers "\t" as separator)
-            python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 ,
-
+                    SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 , 
                                                                 (it will consider "," as a separator)
 
-
-    Using the algorithm in a program :
-    ------------------------------
-
+    Sample run of importing the code :
+    -------------------------------
+        import SpatialEclat as alg
         obj = alg.SpatialEclat("sampleTDB.txt", "sampleN.txt", 5)
 
         obj.startMine()
@@ -114,7 +108,7 @@ class SpatialEclat(spatialFrequentPatterns):
 
     Credits:
     -------
-        The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
+        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
 
     minSup = float()

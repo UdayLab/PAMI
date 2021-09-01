@@ -3,7 +3,7 @@ import time
 import resource
 import psutil
 import os
-from abstract import *
+from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
 orderOfItem = {}
 

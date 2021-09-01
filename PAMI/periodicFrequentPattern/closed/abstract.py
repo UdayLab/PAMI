@@ -43,6 +43,9 @@ class periodicFrequentPatterns(ABC):
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
         startTime:float
             To record the start time of the algorithm
         endTime:float
@@ -60,7 +63,7 @@ class periodicFrequentPatterns(ABC):
         -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
@@ -74,7 +77,7 @@ class periodicFrequentPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup, maxPer):
+    def __init__(self, iFile, minSup, maxPer, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -88,11 +91,14 @@ class periodicFrequentPatterns(ABC):
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
         :type maxPer: int or float or str
+        :param sep: separator used in user specified input file
+        :type sep: str
         """
 
         self.iFile = iFile
         self.minSup = minSup
         self.maxPer = maxPer
+        self.sep = sep
 
     @abstractmethod
     def iFile(self):
@@ -109,6 +115,11 @@ class periodicFrequentPatterns(ABC):
     @abstractmethod
     def maxPer(self):
         """Variable to store the user specified maximum periodicity value"""
+
+        pass
+
+    def sep(self):
+        """Variable to store the separator in input file"""
 
         pass
 
@@ -155,7 +166,7 @@ class periodicFrequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def getPeriodicFrequentPatterns(self):
+    def getPatterns(self):
         """Complete set of periodic-frequent patterns generated will be retrieved from this function"""
 
         pass

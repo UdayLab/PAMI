@@ -15,7 +15,7 @@
 # from abstract import *
 
 import sys
-from abstract import *
+from PAMI.frequentPattern.basic.abstract import *
 
 
 class Eclat(frequentPatterns):
@@ -316,7 +316,7 @@ class Eclat(frequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, len(b)])
+            data.append([a, b])
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
@@ -354,6 +354,7 @@ if __name__ == "__main__":
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
+        print(ap.getPatternsInDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

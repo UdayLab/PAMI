@@ -1,5 +1,5 @@
 import sys
-from abstract import *
+from PAMI.localPeriodicPattern.basic.abstract import *
 
 class LPPMDepth(localPeriodicPatterns):
     """
@@ -27,6 +27,8 @@ class LPPMDepth(localPeriodicPatterns):
             To store local periodic patterns and its PTL.
         tsList : dict
             To store items and its time stamp as bit vector.
+        :param sep: separator used to distinguish items from each other. The default separator is tab space.
+        :type sep: str
 
         Methods
         -------
@@ -95,6 +97,7 @@ class LPPMDepth(localPeriodicPatterns):
     memoryRSS = float()
     finalPatterns = {}
     tsList = {}
+    sep = ' '
 
     def findSeparator(self, line):
         """Identifying the separator of the input file
@@ -121,7 +124,8 @@ class LPPMDepth(localPeriodicPatterns):
             line = f.readline()
             line = line.strip()
             separator = self.findSeparator(line)
-            line = [item for item in line.split(separator)]
+            # line = [item for item in line.split(separator)]
+            line = [item for item in line.split(self.sep)]
             self.tsmin = int(line.pop(0))
             self.tsList = {item: bitVector for item in line}
             count += 1
@@ -129,7 +133,8 @@ class LPPMDepth(localPeriodicPatterns):
                 bitVector = 0b1 << count
                 bitVector = bitVector | 0b1
                 line = line.strip()
-                line = [item for item in line.split(separator)]
+                # line = [item for item in line.split(separator)]
+                line = [item for item in line.split(self.sep)]
                 ts = line.pop(0)
                 for item in line:
                     if self.tsList.get(item):

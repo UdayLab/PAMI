@@ -1,25 +1,24 @@
 import sys
 import functools
 import pandas as pd
-from abstract import *
-
+from PAMI.fuzzyCorrelatedPattern.basic.abstract import *
 
 class FFList:
     """
      A class represent a Fuzzy List of an element
 
-         Attributes
-         ----------
+    Attributes :
+    ----------
          item: int
              the item name
-         sumiUtil: float
+         sumIutil: float
              the sum of utilities of an fuzzy item in database
-         sumrUtil: float
+         sumRutil: float
              the sum of resting values of a fuzzy item in database
          elements: list
              a list of elements contain tid,Utility and resting values of element in each transaction
-        Methods
-        -------
+    Methods :
+    -------
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
 
@@ -28,10 +27,11 @@ class FFList:
 
     """
 
-    def __init__(self, itemName):
+    def __init__(self, itemName, region):
         self.item = itemName
-        self.sumiUtil = 0.0
-        self.sumrUtil = 0.0
+        self.region = region
+        self.sumIutil = 0.0
+        self.sumRutil = 0.0
         self.elements = []
 
     def addElement(self, element):
@@ -41,43 +41,37 @@ class FFList:
             :param element: an element to be add to FFList
             :pram type: Element
         """
-        self.sumiUtil += element.iUtils
-        self.sumrUtil += element.rUtils
+        self.sumIutil += element.iutils
+        self.sumRutil += element.rutils
         self.elements.append(element)
-
-    def printelement(self):
-        """
-            A Method to Print elements in the FFList
-        """
-        for ele in self.elements:
-            print(ele.tid, ele.iUtils, ele.rUtils)
 
 
 class Element:
     """
         A class represents an Element of a fuzzy list
-        Attributes
-        ----------
+
+    Attributes :
+    ----------
         tid : int
             keep tact of transaction id
-        iUtils: float
+        iutils: float
             the utility of an fuzzy item in the transaction
-        rUtils : float
-            the nighbourhood resting value of an fuzzy item in the transaction
+        rutil : float
+            the neighbourhood resting value of an fuzzy item in the transaction
     """
 
-    def __init__(self, tid, iUtil, rUtil):
+    def __init__(self, tid, iutil, rutil):
         self.tid = tid
-        self.iUtils = iUtil
-        self.rUtils = rUtil
+        self.iutils = iutil
+        self.rutils = rutil
 
 
 class Reagions:
     """
-            A class calculate the regions
+            A class calculate the region value
 
-           Attributes
-            ----------
+    Attributes:
+    ----------
             low : int
                 low region value
             middle: int 
@@ -86,55 +80,91 @@ class Reagions:
                 high region values
         """
 
-    def __init__(self, quantity, regionsNumber):
+    def __init__(self, item, quantity, regionsNumber, mapOfregios):
         self.low = 0
         self.middle = 0
         self.high = 0
-        if regionsNumber == 3:  # if we have 3 regions
+        if regionsNumber == 3:
             if 0 < quantity <= 1:
                 self.low = 1
                 self.high = 0
                 self.middle = 0
-            elif 1 < quantity <= 6:
-                self.low = float((6 - quantity) / 5)
-                self.middle = float((quantity - 1) / 5)
+                t1 = (item, 'L')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp + 1
+            elif 1 <= quantity < 6:
+                self.low = float((-0.2 * quantity) + 1.2)
+                self.middle = float((0.2 * quantity) - 0.2)
                 self.high = 0
-            elif 6 < quantity <= 11:
+                t1 = (item, 'L')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp + 1
+                t1 = (item, 'M')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp + 1
+            elif 6 <= quantity <= 11:
                 self.low = 0
-                self.middle = float((11 - quantity) / 5)
-                self.high = float((quantity - 6) / 5)
+                self.middle = float((-0.2 * quantity) + 2.2)
+                self.high = float((0.2 * quantity) - 1.2)
+                t1 = (item, 'M')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp + 1
+                t1 = (item, 'H')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp + 1
+
             else:
                 self.low = 0
                 self.middle = 0
                 self.high = 1
+                t1 = (item, 'H')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios = temp + 1
 
 
 class Pair:
-    """
-        A class to store item and it's quantity together
-    """
-
     def __init__(self):
+        """
+            A Class to Store item and its quantity together
+        """
         self.item = 0
         self.quantity = 0
+        self.region = 'N'
 
 
-class FFSI(fuzzySpatialFrequentPatterns):
+class fcfp(corelatedFuzzyFrequentPatterns):
     """
-        Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
-        which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
-         techniques to reduce the search space.
+        fcfp is the algorithm to discover Corelated Fuzzy-frequent patterns in a transactional database.
+        it is based on traditianl fuzzy frequent pattern mining.
 
-        Parameters
-        ----------
-        self.iFile : file
+    Attributes :
+    ----------
+        iFile : file
             Name of the input file to mine complete set of fuzzy spatial frequent patterns
-           self. oFile : file
+        oFile : file
                Name of the oFile file to store complete set of fuzzy spatial frequent patterns
-        minSup : float
-            The user given minimum support
-        neighbors: map
-            keep track of neighbours of elements
+        minSup : int
+                The user given support
+        minAllConf: float
+             user Specified minAllConf( should be in range 0 and 1)
         memoryRSS : float
                 To store the total amount of RSS memory consumed by the program
         startTime:float
@@ -158,9 +188,9 @@ class FFSI(fuzzySpatialFrequentPatterns):
         BufferSize: int
             represent the size of Buffer
         itemBuffer list
-            to keep track of items in buffer
-         Methods
-        -------
+            to kepp track of items in buffer
+    Methods :
+    -------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -175,39 +205,39 @@ class FFSI(fuzzySpatialFrequentPatterns):
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function            
+        getRatio(self, prefix, prefixLen, item)
+            Method to calculate the ration of itemset
         convert(value):
-            To convert the given user specified value
+            To convert the given user specified value  
         FSFIMining( prefix, prefixLen, fsFim, minSup)
             Method generate FFI from prefix
         construct(px, py)
             A function to construct Fuzzy itemset from 2 fuzzy itemsets
-        Intersection(nighb1,nighb2)
-            Return common neighbours of 2 itemsset nighbours
         findElementWithTID(ulist, tid)
             To find element with same tid as given
-        WriteOut(prefix, prefixLen, item, sumIutil,period)
-            To Store the patten
-    
-         Executing the code on terminal
-        -------
-        Format: python3 FFSI.py <inputFile> <outputFile> <neighbours> <minSup> <separator>
-        Examples:  python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
-                   python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 0.3 (minSup and maxPer will be considered in percentage of database)
-                                                            (will conseder "\t" as separator in both input and neighbourhood files)
-                   python3  FFSI.py sampleTDB.txt output.txt sampleN.txt 3 , 
-                                                              (will conseder "," as separator in both input and neighbourhood files)
-        Sample run of importing the code:
-        -------------------------------
-        
-        import FFSI as alg
+        WriteOut(prefix, prefixLen, item, sumIutil,ratio)
+            To Store the patten      
 
-        obj = alg.FFSI("input.txt", "neighbours.txt", 2)
+    Executing the code on terminal :
+    -------
+            Format: python3 fcfp.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+            Examples: python3 fcfp.py sampleTDB.txt output.txt 2 0.2 (minSup will be considered in support count or frequency)
+                      python3 fcfp.py sampleTDB.txt output.txt 0.25 0.2 (minSup and maxPer will be considered in percentage of database)
+                                                                     (it will consider separator as "\t")
+                      python3 fcfp.py sampleTDB.txt output.txt 2 0.2 ,                    
+                                                                      (it will consider separator as ',')
+    Sample run of importing the code:
+    -------------------------------
+        
+        import fcfp as alg
+
+        obj = alg.fcfp("input.txt",2,0.4)
 
         obj.startMine()
 
-        fuzzySpatialFrequentPatterns = obj.getPatterns()
+        corelatedFuzzyFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(fuzzySpatialFrequentPatterns))
+        print("Total number of Corelated Fuzzy Frequent Patterns:", len(corelatedFuzzyFrequentPatterns))
 
         obj.storePatternsInFile("outp")
 
@@ -219,13 +249,14 @@ class FFSI(fuzzySpatialFrequentPatterns):
 
         print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+        run = obj.getRuntime
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
-            The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
+    Credits:
+    -------
+            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+
     """
     startTime = float()
     endTime = float()
@@ -234,16 +265,17 @@ class FFSI(fuzzySpatialFrequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
-    nFile =" "
+    minAllConf=0.0
+    sep="\t"
     memoryUSS = float()
     memoryRSS = float()
-    sep="\t"
 
-    def __init__(self, iFile, nFile, minsup,sep="\t"):
-        super().__init__(iFile, nFile, minsup,sep)
-        self.mapItemNighbours = {}
-        self.startTime = 0
-        self.endTime = 0
+    def __init__(self, iFile, minSup, ratio,sep="\t"):
+        super().__init__(iFile, minSup,ratio,sep)
+        self.temp = {}
+        self.mapItemRegionSum = {}
+        self.start = 0
+        self.end = 0
         self.itemsCnt = 0
         self.mapItemsLowSum = {}
         self.mapItemsMidSum = {}
@@ -266,6 +298,29 @@ class FFSI(fuzzySpatialFrequentPatterns):
         else:
             return compare
 
+    def findElementWithTID(self, ulist, tid):
+        """
+        To find element with same tid as given
+        :param ulist: fuzzylist
+        :type ulist: FFI-List
+        :param tid: transaction id
+        :type tid: int
+        :return: element eith tid as given
+        :rtype: element if exists or None
+        """
+        List = ulist.elements
+        first = 0
+        last = len(List) - 1
+        while first <= last:
+            mid = (first + last) >> 1
+            if List[mid].tid < tid:
+                first = mid + 1
+            elif List[mid].tid > tid:
+                last = mid - 1
+            else:
+                return List[mid]
+        return None
+
     def convert(self, value):
         """
         To convert the given user specified value
@@ -285,28 +340,21 @@ class FFSI(fuzzySpatialFrequentPatterns):
         return value
 
     def startMine(self):
-        """ Frequent pattern mining process will start from here
+        """ 
+            Frequent pattern mining process will start from here
         """
-        self.startTime = time.time()
-        with open(self.nFile, 'r') as file1:
-            for line in file1:
-                line=line.split("\n")[0]
-                parts = line.split(self.sep)
-                item = parts[0]
-                neigh1 = []
-                for i in range(1, len(parts)):
-                    neigh1.append(parts[i])
-                self.mapItemNighbours[item] = neigh1
+        self.start = time.time()
+        self.minSup = self.convert(self.minSup)
+        minSup = self.minSup
         with open(self.iFile, 'r') as file:
             for line in file:
-                line=line.split("\n")[0]
+                self.dbLen += 1
                 parts = line.split(":")
                 items = parts[0].split(self.sep)
                 quanaities = parts[2].split(self.sep)
-                self.dbLen += 1
                 for i in range(0, len(items)):
-                    regions = Reagions(int(quanaities[i]), 3)
                     item = items[i]
+                    regions = Reagions(item, int(quanaities[i]), 3, self.mapItemRegionSum)
                     if item in self.mapItemsLowSum.keys():
                         low = self.mapItemsLowSum[item]
                         low += regions.low
@@ -327,32 +375,32 @@ class FFSI(fuzzySpatialFrequentPatterns):
                         self.mapItemsHighSum[item] = regions.high
             listOfFFIlist = []
             mapItemsToFFLIST = {}
-            self.minSup=self.convert(self.minSup)
-            minSup = self.minSup
-            print("minsup: ",minSup)
             for item1 in self.mapItemsLowSum.keys():
                 item = item1
+                region = 'N'
                 low = self.mapItemsLowSum[item]
                 mid = self.mapItemsMidSum[item]
                 high = self.mapItemsHighSum[item]
                 if low >= mid and low >= high:
                     self.mapItemSum[item] = low
                     self.mapItemRegions[item] = "L"
+                    region = 'L'
                 elif mid >= low and mid >= high:
                     self.mapItemSum[item] = mid
                     self.mapItemRegions[item] = "M"
+                    region = 'M'
                 elif high >= low and high >= mid:
                     self.mapItemRegions[item] = "H"
+                    region = 'H'
                     self.mapItemSum[item] = high
                 if self.mapItemSum[item] >= self.minSup:
-                    fuList = FFList(item)
+                    fuList = FFList(item, region)
                     mapItemsToFFLIST[item] = fuList
                     listOfFFIlist.append(fuList)
             listOfFFIlist.sort(key=functools.cmp_to_key(self.compareItems))
         tid = 0
         with open(self.iFile, 'r') as file:
             for line in file:
-                line=line.split("\n")[0]
                 parts = line.split(":")
                 items = parts[0].split(self.sep)
                 quanaities = parts[2].split(self.sep)
@@ -360,41 +408,46 @@ class FFSI(fuzzySpatialFrequentPatterns):
                 for i in range(0, len(items)):
                     pair = Pair()
                     pair.item = items[i]
-                    regions = Reagions(int(quanaities[i]), 3)
+                    regions = Reagions(pair.item, int(quanaities[i]), 3, self.temp)
                     item = pair.item
                     if self.mapItemSum[item] >= minSup:
                         if self.mapItemRegions[pair.item] == "L":
                             pair.quantity = regions.low
+                            pair.region = 'L'
                         elif self.mapItemRegions[pair.item] == "M":
+                            pair.region = 'M'
                             pair.quantity = regions.middle
                         elif self.mapItemRegions[pair.item] == "H":
                             pair.quantity = regions.high
+                            pair.region = 'H'
                         if pair.quantity > 0:
                             revisedTransaction.append(pair)
                 revisedTransaction.sort(key=functools.cmp_to_key(self.compareItems))
                 for i in range(len(revisedTransaction) - 1, -1, -1):
                     pair = revisedTransaction[i]
                     remainUtil = 0
-                    for j in range(len(revisedTransaction) - 1, i, -1):
-                        if self.mapItemNighbours.get(pair.item) is None:
-                            continue
-                        if revisedTransaction[j].item in self.mapItemNighbours[pair.item]:
-                            remainUtil += revisedTransaction[j].quantity
-                    remaingUtility = remainUtil
+                    for j in range(len(revisedTransaction) - 1, i - 1, -1):
+                        remainUtil += revisedTransaction[j].quantity
+                    if pair.quantity > remainUtil:
+                        remaingUtility = pair.quantity
+                    else:
+                        remaingUtility = remainUtil
                     if mapItemsToFFLIST.get(pair.item) is not None:
                         FFListOfItem = mapItemsToFFLIST[pair.item]
                         element = Element(tid, pair.quantity, remaingUtility)
                         FFListOfItem.addElement(element)
                 tid += 1
-        itemNeighbours = list(self.mapItemNighbours.keys())
-        self.FSFIMining(self.itemsetBuffer, 0, listOfFFIlist, self.minSup, itemNeighbours)
-        self.endTime = time.time()
+        self.FSFIMining(self.itemsetBuffer, 0, listOfFFIlist, self.minSup)
+        self.endtime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
+        print("No.Of Itemssets ", self.itemsCnt)
+        print("joinsCnt: ", self.joinsCnt)
 
-    def FSFIMining(self, prefix, prefixLen, FSFIM, minsup, itemNighbours):
-        """Generates FFSI from prefix
+    def FSFIMining(self, prefix, prefixLen, FSFIM, minsup):
+        """
+            Generates FFSI from prefix
 
         :param prefix: the prefix patterns of FFSI
         :type prefix: len
@@ -404,41 +457,43 @@ class FFSI(fuzzySpatialFrequentPatterns):
            :type FSFIM: list
            :param minsup: the minimum support of 
            :type minsup:int
-           :param itemNighbours: the set of common neighbours of prefix
-           :type itemNighbours: set
+           :param itemNighbours : the set of common neighbours of prefix
+           :type itemNighbours : set
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
-            if X.sumiUtil >= minsup:
-                self.WriteOut(prefix, prefixLen, X.item, X.sumiUtil)
-            newNeighbours = self.Intersection(self.mapItemNighbours.get(X.item), itemNighbours)
-            if X.sumrUtil >= minsup:
+            if X.sumIutil >= minsup:
+                ratio = self.getRatio(prefix, prefixLen, X)
+                if ratio >= self.minAllConf:
+                    self.WriteOut(prefix, prefixLen, X, ratio)
+            if X.sumRutil >= minsup:
                 exULs = []
                 for j in range(i + 1, len(FSFIM)):
                     Y = FSFIM[j]
-                    if Y.item in newNeighbours:
-                        exULs.append(self.construct(X, Y))
-                        self.joinsCnt += 1
-                self.itemsetBuffer.insert(prefixLen, X.item)
-                self.FSFIMining(self.itemsetBuffer, prefixLen + 1, exULs, minsup, newNeighbours)
+                    exULs.append(self.construct(X, Y))
+                    self.joinsCnt += 1
+                self.itemsetBuffer.insert(prefixLen, X)
+                self.FSFIMining(self.itemsetBuffer, prefixLen + 1, exULs, minsup)
 
-    def Intersection(self, nighb1, nighb2):
+    def construct(self, px, py):
         """
-            A function to get common neighbours from 2 itemsets
-            :param nighb1: the set of neighbours of itemset 1
-            :type nighb1: set
-            :param nighb2: the set of neighbours of itemset 2
-            :type nighb2: set
-            :return : set of common neighbours of 2 itemsets
-            :rtype :set
+            A function to construct a new Fuzzy itemset from 2 fuzzy itemsets
+
+            :param px:the itemset px
+            :type px:FFI-List
+            :param py:ithemset py
+            :type py:FFI-List
+            :return :the itemset of pxy(px and py)
+            :rtype :FFI-List
         """
-        result = []
-        if nighb1 is None or nighb2 is None:
-            return result
-        for i in range(0, len(nighb1)):
-            if nighb1[i] in nighb2:
-                result.append(nighb1[i])
-        return result
+        pxyUL = FFList(py.item, py.region)
+        for ex in px.elements:
+            ey = self.findElementWithTID(py, ex.tid)
+            if ey is None:
+                continue
+            eXY = Element(ex.tid, min([ex.iutils, ey.iutils], key=lambda x: float(x)), ey.rutils)
+            pxyUL.addElement(eXY)
+        return pxyUL
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -464,52 +519,31 @@ class FFSI(fuzzySpatialFrequentPatterns):
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
        """
-        return self.endTime - self.startTime
+        return self.endtime - self.start
 
-    def construct(self, px, py):
+    def getRatio(self, prefix, prefixLen, item):
+        """Method to calculate the ration of itemset
+            :param prefix: prefix of itemset
+            :type prefix: list
+            :param prefixLen: length of prefix
+            :type prefixLen: int
+            :param item: the last item
+            :type item: int
+            :return : corelated ratio
+            :rtype: float
         """
-            A function to construct a new Fuzzy itemset from 2 fuzzy itemsets
+        res = 1.0
+        n = prefixLen
+        for i in prefix:
+            if self.mapItemRegionSum.get((i.item, i.region)) is not None and res < self.mapItemRegionSum[
+                (i.item, i.region)]:
+                res = self.mapItemRegionSum[(i.item, i.region)]
+        if self.mapItemRegionSum.get((item.item, item.region)) is not None and res < self.mapItemRegionSum[
+            (item.item, item.region)]:
+            res = self.mapItemRegionSum[(item.item, item.region)]
+        return item.sumIutil / res
 
-            :param px:the itemset px
-            :type px:FFI-List
-            :param py:ithemset py
-            :type py:FFI-List
-            :return :the itemset of pxy(px and py)
-            :rtype :FFI-List
-        """
-        pxyUL = FFList(py.item)
-        for ex in px.elements:
-            ey = self.findElementWithTID(py, ex.tid)
-            if ey is None:
-                continue
-            eXY = Element(ex.tid, min([ex.iUtils, ey.iUtils], key=lambda x: float(x)), ey.rUtils)
-            pxyUL.addElement(eXY)
-        return pxyUL
-
-    def findElementWithTID(self, ulist, tid):
-        """
-            To find element with same tid as given
-            :param ulist:fuzzylist
-            :type ulist:FFI-List
-            :param tid:transaction id
-            :type tid:int
-            :return:element eith tid as given
-            :rtype: element if exizt or None
-        """
-        List = ulist.elements
-        first = 0
-        last = len(List) - 1
-        while first <= last:
-            mid = (first + last) >> 1
-            if List[mid].tid < tid:
-                first = mid + 1
-            elif List[mid].tid > tid:
-                last = mid - 1
-            else:
-                return List[mid]
-        return None
-
-    def WriteOut(self, prefix, prefixLen, item, sumIutil):
+    def WriteOut(self, prefix, prefixLen, item, ratio):
         """
             To Store the patten
             :param prefix: prefix of itemset
@@ -520,31 +554,17 @@ class FFSI(fuzzySpatialFrequentPatterns):
             :type item: int
             :param sumIutil: sum of utility of itemset
             :type sumIutil: float
-
+            :param ratio: the ratio of itemset
+            :type ratio: float
         """
         self.itemsCnt += 1
         res = ""
         for i in range(0, prefixLen):
-            res += str(prefix[i]) + "." + str(self.mapItemRegions[prefix[i]]) + " "
-        res += str(item) + "." + str(self.mapItemRegions.get(item))
-        res1 = str(sumIutil)
+            res += str(prefix[i].item) + "." + str(prefix[i].region) + ' '
+        res += str(item.item) + "." + str(item.region)
+        res1 = str(item.sumIutil) + " : " + str(ratio) + "\n"
+        # self.bwriter.write(res)
         self.finalPatterns[res] = res1
-
-    # self.bwriter.write(res)
-
-    def getPatternsInDataFrame(self):
-        """Storing final frequent patterns in a dataframe
-
-        :return: returning frequent patterns in a dataframe
-        :rtype: pd.DataFrame
-        """
-
-        dataFrame = {}
-        data = []
-        for a, b in self.finalPatterns.items():
-            data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataFrame
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
@@ -553,6 +573,20 @@ class FFSI(fuzzySpatialFrequentPatterns):
         :rtype: dict
         """
         return self.finalPatterns
+
+    def getPatternsInDataFrame(self):
+        """Storing final frequent patterns in a dataframe
+
+        :return: returning frequent patterns in a dataframe
+        :rtype: pd.DataFrame
+        """
+
+        dataframe = {}
+        data = []
+        for a, b in self.finalPatterns.items():
+            data.append([a, b])
+            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
+        return dataframe
 
     def storePatternsInFile(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
@@ -566,16 +600,24 @@ class FFSI(fuzzySpatialFrequentPatterns):
             patternsAndSupport = str(x) + " : " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
+    def getPatterns(self):
+        """ Function to send the set of frequent patterns after completion of the mining process
+
+        :return: returning frequent patterns
+        :rtype: dict
+        """
+        return self.finalPatterns
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6: # to  include a user specifed separator
-            ap = FFSI(sys.argv[1], sys.argv[3], sys.argv[4],sys.argv[5])
-        if len(sys.argv) == 5:  # to consider "\t" as a separator
-            ap = FFSI(sys.argv[1], sys.argv[3], sys.argv[4])
+        if len(sys.argv) == 6: # to includes separator
+            ap = fcfp(sys.argv[1], sys.argv[3],float(sys.argv[4]),sys.argv[5])
+        if len(sys.argv) == 5: # to consider '\t' as separator
+           ap = fcfp(sys.argv[1], sys.argv[3],float(sys.argv[4]))
         ap.startMine()
-        fuzzySpatialFrequentPatterns = ap.getPatterns()
-        print("Total number of Fuzzy Frequent Spatial Patterns:", len(fuzzySpatialFrequentPatterns))
+        fuzzycorelatedFrequentPattenrs = ap.getPatterns()
+        print("Total number of Fuzzy-Frequent Patterns:", len(fuzzycorelatedFrequentPattenrs))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)

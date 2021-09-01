@@ -1,3 +1,6 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
+
 # Theoretical representation of a utility database
 
 A utility database represents a non-binary transactional database or a non-binary temporal database.

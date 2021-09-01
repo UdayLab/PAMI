@@ -1,6 +1,6 @@
 import pandas as pd
 
-class sparse2DB:
+class sparseDF2DB:
     """
     This class create Data Base from DataFrame.
 

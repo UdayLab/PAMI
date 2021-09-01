@@ -1,6 +1,6 @@
 import pandas as pd
 
-class dense2DB:
+class denseDF2DB:
     """
         This class create Data Base from DataFrame.
 

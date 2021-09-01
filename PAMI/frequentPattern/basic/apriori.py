@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from abstract import *
+from PAMI.frequentPattern.basic.abstract import *
 import sys
 
 
@@ -322,5 +322,5 @@ if __name__ == "__main__":
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
-else:
-    print("Error! The number of input parameters do not match the total number of parameters provided")
+    else:
+        print("Error! The number of input parameters do not match the total number of parameters provided")

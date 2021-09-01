@@ -1,3 +1,5 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
 # Theoretical representation
 
  A temporal database is a collection of transactions and their associated timestamps.  

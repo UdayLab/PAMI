@@ -1,3 +1,5 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/udayRage/PAMI/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.

@@ -1,7 +1,7 @@
 import sys
 import functools
-#import pandas as pd
-from abstract import *
+import pandas as pd
+from PAMI.fuzzyPeriodicFrequentPattern.basic.abstract import *
 
 
 class FFList:
@@ -83,10 +83,10 @@ class Element:
 
 class Reagions:
     """
-            A class calculate the regions
+        A class calculate the regions
 
-        Attributes:
-        ----------
+    Attributes:
+    ----------
             low : int
                 low region value
             middle: int 
@@ -119,12 +119,16 @@ class Reagions:
 
 
 class Pair:
+    """
+        A class to store item name and quantity together.
+    """
+
     def __init__(self):
         self.item = 0
         self.quantity = 0
 
 
-class FPFPMiner(fuzzyPeriodicFrequentPatterns):
+class fpfpMiner(fuzzyPeriodicFrequentPatterns):
     """
         Fuzzy Periodic Frequent Pattern Miner is desired to find all fuzzy periodic frequent patterns which is
         on-trivial and challenging problem to its huge search space.we are using efficient pruning
@@ -198,25 +202,25 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         WriteOut(prefix, prefixLen, item, sumIutil,period)
             To Store the patten
     
-     Executing the code on terminal:
-     -------
+    Executing the code on terminal :
+    -------
         Format:
         ------
-        python3 FPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer> <separator>
+        python3 fpfpMiner.py <inputFile> <outputFile> <minSup> <maxPer> <sep>
 
         Examples:
         ------
-        python3  FPFPMiner.py sampleTDB.txt output.txt 2 3 (minSup and maxPer will be considered in support count or frequency)
-        python3  FPFPMiner.py sampleTDB.txt output.txt 0.25 3 (minSup and maxPer will be considered in percentage of database)
+        python3  fpfpMiner.py sampleTDB.txt output.txt 2 3 (minSup and maxPer will be considered in support count or frequency)
+        python3  fpfpMiner.py sampleTDB.txt output.txt 0.25 3 (minSup and maxPer will be considered in percentage of database)
                                         (will consider "\t" as separator)
-        python3  FPFPMiner.py sampleTDB.txt output.txt 2 3  ,(will conseider ',' as separato)
+        python3  fpfpMiner.py sampleTDB.txt output.txt 2 3  ,(will conseider ',' as separato)
         
     Sample run of importing the code:
     -------------------------------
 
-        import FPFPMiner as alg
+        import fpfpMiner as alg
 
-        obj =alg.FPFPMiner("input.txt",2,3)
+        obj =alg.fpfpMiner("input.txt",2,3)
 
         obj.startMine()
 
@@ -238,8 +242,8 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
         
-        Credits:
-        -------
+    Credits:
+    -------
             The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
             The complete verification and documentation is done by Penugonda Ravikumar.
 
@@ -253,10 +257,10 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
     oFile = " "
     memoryUSS = float()
     memoryRSS = float()
-    sep=""
+    sep = ""
 
-    def __init__(self, iFile, minSup, period,sep="\t"):
-        super().__init__(iFile, minSup, period,sep)
+    def __init__(self, iFile, minSup, period, sep="\t"):
+        super().__init__(iFile, minSup, period, sep)
         self.oFile = ""
         self.BufferSize = 200
         self.itemsetBuffer = []
@@ -312,6 +316,8 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         with open(self.iFile, 'r') as file:
             for line in file:
                 parts = line.split(":")
+                parts[1]=parts[1].strip()
+                parts[3]=parts[3].strip()
                 tid = int(parts[0])
                 self.dbLen += 1
                 items = parts[1].split(self.sep)
@@ -344,7 +350,7 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
             itemsToRegion = {}
             self.minSup = self.convert(self.minSup)
             self.maxPer = self.convert(self.maxPer)
-            print(self.minSup,self.maxPer)
+            print(self.minSup, self.maxPer)
             for item1 in self.mapItemsLowSum.keys():
                 item = item1
                 low = self.mapItemsLowSum[item]
@@ -373,6 +379,8 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
             for line in file:
                 parts = line.split(":")
                 tid = int(parts[0])
+                parts[1]=parts[1].strip()
+                parts[3]=parts[3].strip()
                 items = parts[1].split(self.sep)
                 quantities = parts[3].split(self.sep)
                 revisedTransaction = []
@@ -492,7 +500,7 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
             prev = ex.tid
         return pxyUL
 
-    def findElementWithTID(self,uList, tid):
+    def findElementWithTID(self, uList, tid):
         """
             To find element with same tid as given
             :param uList: fuzzy list
@@ -537,7 +545,6 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         res1 = str(sumLUtil) + " : " + str(period) + "\n"
         self.finalPatterns[res] = res1
 
-
     def getPatternsInDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
@@ -574,11 +581,11 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv)==5 or len(sys.argv)==6:
-        if len(sys.argv)==6: # to  include a user specifed separator
-        	ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4],sys.argv[5])
-        if len(sys.argv)==5:   # to consider "\t" as a separator
-        	ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:  # to  include a user specifed separator
+            ap = fpfpMiner(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        if len(sys.argv) == 5:  # to consider "\t" as a separator
+            ap = fpfpMiner(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         periodicFrequentPatterns = ap.getPatterns()
         print("Total number of Fuzzy Periodic Frequent Patterns:", len(periodicFrequentPatterns))
@@ -590,4 +597,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-         print("Error! The number of input parameters do not match the total number of parameters provided")
+        print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -26,17 +26,17 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-from abstract import *
+from PAMI.relativeFrequentPatterns.basic.abstract import *
 import sys
+import pandas as pd
 import math
-
 
 class Node:
     """
         A class used to represent the node of frequentPatternTree
 
-       Attributes
-        -----------
+    Attributes:
+    ----------
         itemId: int
             storing item of a node
         counter: int
@@ -48,8 +48,8 @@ class Node:
         nodeLink : node
             Points to the node with same itemId
 
-        Methods
-        --------
+    Methods:
+    -------
 
         getChild(itemName)
             returns the node with same itemName from frequentPatternTree
@@ -81,8 +81,8 @@ class Tree:
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-       Attributes
-        -----------
+    Attributes:
+    ----------
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
         mapItemNodes : dictionary
@@ -92,8 +92,8 @@ class Tree:
         root : Node
             representing the root Node in a tree
 
-        Methods
-        --------
+    Methods:
+    -------
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
         addTransaction(transaction)
@@ -119,7 +119,6 @@ class Tree:
         :type transaction: list
         """
 
-        # This method taken a transaction as input and returns the tree
         current = self.root
         for i in transaction:
             child = current.getChild(i)
@@ -158,7 +157,6 @@ class Tree:
 
         """
 
-        # this method is used print the details of tree
         if not root.child:
             return
         else:
@@ -174,7 +172,6 @@ class Tree:
         :param minSup: it represents the minSup
         :param minSup: float
         """
-        # the frequentPatternTree always maintains the header table to start the mining from leaf nodes
         t1 = []
         for x, y in mapSupport.items():
             if y >= minSup:
@@ -192,7 +189,6 @@ class Tree:
         :param minSup: to check the item meets with minSup
         :param minSup: float
         """
-        # this method is used to add prefix paths in conditional trees of frequentPatternTree
         pathCount = prefix[0].counter
         current = self.root
         prefix.reverse()
@@ -213,16 +209,22 @@ class Tree:
                     current = child
 
 
-class scpgrowth(frequentPatterns):
+class rsfp(relativePatterns):
     """ 
-        scpgrowth corelated algorithm is to discover the spatially corelated patterns from the database
+        Algorthm to find all items with relative support from the given dataset
+        
+    Reference:
+    ---------
+        https://dl.acm.org/doi/abs/10.5555/2694443.2694460
 
-       Attributes
-        -----------
+    Attributes:
+    ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
         oFile : file
             Name of the output file to store complete set of frequent patterns
+        minRsup: float
+            user Spefied  minimum relative support(in range of 0-1)
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -249,16 +251,12 @@ class scpgrowth(frequentPatterns):
             it represents the store the items in mining
         maxPatternLength : int
            it represents the constraint for pattern length
-        minSUp: float
-            user defind minimum support
-        minRatio: float
-           user defined minimum ratio
 
-        Methods
-        --------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
-        getFrequentPatterns()
+        getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(oFile)
             Complete set of frequent patterns will be loaded in to a output file
@@ -283,39 +281,36 @@ class scpgrowth(frequentPatterns):
         frequentPatternGrowthGenerate(frequentPatternTree,prefix,port)
             Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
             mapSupport represents the 1-length items with their respective support
-        mapNighbours(nFile):
-            to map the items to their nighbours
-        getNighboirItems(item):
-            to get get neighbours of a item
-
-        Executing the code on terminal:
-        -------
-
+            
+    Executing the code on terminal:
+    ------
         Format:
         -------
-        python3 scpgrowth.py <inputFile> <outputFile> <neighboutFile> <minSup> <minRatio>
+        python3 rsfp.py <inputFile> <outputFile> <minSup> <minRatio>
 
         Examples:
         ---------
-        python3 scpgrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2  (minSup will be considered in percentage of database transactions)
+        python3 rsfp.py sampleDB.txt patterns.txt 0.5 0.8  (minSup will be considered in percentage of database transactions)
+        python3 rsfp.py sampleDB.txt patterns.txt 3   0.8  (minSup will be considered in support count or frequency)
+                                          (it will consider '\t' as separator)
+        python3 rsfp.py sampleDB.txt patterns.txt 0.23 0.2  , 
+                                                       (it will consider ',' as separator)
 
-        python3 scpgrowth.py sampleTDB.txt output.txt sampleN.txt   0.2  (minSup will be considered in support count or frequency)
+    Sample run of the importing code:
+    -----------
+        import rsfp as alg
 
-        Sample run of the importing code:
-        ---------------------------------
-        import scpgrowth as alg
-
-        obj = alg.scpgrowth(iFile,nFile,minSup,minRatio)
+        obj = alg.rsfp(iFile, minSup,minRatio)
 
         obj.startMine()
 
-        frequentPatterns = obj.getFrequentPatterns()
+        relativePatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        print("Total number of relative frequent Patterns:", len(relativePatterns))
 
         obj.storePatternsInFile(oFile)
 
-        Df = obj.getPatternInDf()
+        Df = obj.getPatternsInDataFrame()
 
         memUSS = obj.getMemoryUSS()
 
@@ -329,10 +324,9 @@ class scpgrowth(frequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        --------
-        The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.
-
+    Credits:
+    -------
+        The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.
         """
 
     startTime = float()
@@ -341,6 +335,7 @@ class scpgrowth(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    minRsup=0.0
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -351,6 +346,10 @@ class scpgrowth(frequentPatterns):
     fpNodeTempBuffer = []
     itemSetCount = 0
     maxPatternLength = 1000
+    sep="\t"
+
+    def __init__(self, iFile, minsup, minRsup,sep="\t"):
+        super().__init__(iFile,minsup,minRsup,sep)
 
     def creatingItemSets(self):
         """
@@ -363,33 +362,10 @@ class scpgrowth(frequentPatterns):
                 for line in f:
                     line.strip()
                     self.lno += 1
-                    li1 = [i.rstrip() for i in line.split("	")]
+                    li1 = [i.rstrip() for i in line.split(self.sep)]
                     self.Database.append(li1)
         except IOError:
             print("File Not Found")
-
-    def mapNighbours(self, name):
-        """
-            A function to map items to their Neighbours
-            :param name: item name
-            :type name: int
-        """
-        with open(name, 'r', encoding='utf-8') as f:
-            for line in f:
-                li = line.split()
-                item = li[0]
-                nibs = li[1:]
-                self.NighboursMap[item] = nibs
-
-    def getNeighbourItems(self, keyset):
-        """
-            A function to get Neighbours of a item
-            :param keyset:itemset
-            :type keyset:str or tuple
-            :return: set of common neighbours 
-            :rtype:set
-         """
-        return self.Neighbours.get(keyset)
 
     def frequentOneItem(self):
         """Generating One frequent items sets
@@ -401,8 +377,10 @@ class scpgrowth(frequentPatterns):
                     self.mapSupport[j] = 1
                 else:
                     self.mapSupport[j] += 1
+        #print(self.Database)
+        #print(self.mapSupport)
 
-    def saveItemSet(self, prefix, prefixLength, support, ratio):
+    def saveItemSet(self, prefix, prefixLength, support,ratio):
         """To save the frequent patterns mined form frequentPatternTree
 
         :param prefix: the frequent pattern
@@ -417,21 +395,7 @@ class scpgrowth(frequentPatterns):
         for i in range(prefixLength):
             sample.append(prefix[i])
         self.itemSetCount += 1
-        self.finalPatterns[tuple(sample)] = str(support) + " : " + str(ratio)
-
-    def getPatternsInDF(self):
-        """Storing final frequent patterns in a dataframe
-
-        :return: returning frequent patterns in a dataframe
-        :rtype: pd.DataFrame
-        """
-
-        dataframe = {}
-        data = []
-        for a, b in self.finalPatterns.items():
-            data.append([a, b])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataframe
+        self.finalPatterns[tuple(sample)] = str(support)+" : "+str(ratio)
 
     def saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength):
         """Generating all the combinations for items in single branch in frequentPatternTree
@@ -449,19 +413,17 @@ class scpgrowth(frequentPatterns):
         """
         max1 = 1 << position
         for i in range(1, max1):
-            commonNeighbours = self.commonitems
             newPrefixLength = prefixLength
             for j in range(position):
                 isSet = i & (1 << j)
                 if isSet > 0:
                     prefix.insert(newPrefixLength, tempBuffer[j].itemId)
                     newPrefixLength += 1
-            ratio = s / self.mapSupport[self.getMaxItem(prefix, newPrefixLength)]
-            if (ratio >= self.minRatio):
-                self.saveItemSet(prefix, newPrefixLength, s, ratio)
+            ratio=s/self.mapSupport[self.getMinItem(prefix,newPrefixLength)]
+            if(ratio>=self.minRsup):
+                self.saveItemSet(prefix, newPrefixLength, s,ratio)
 
-    def frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength, mapSupport, commonNeighbours,
-                                      minconf):
+    def frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength,mapSupport,minRsup):
         """Mining the fp tree
 
         :param frequentPatternTree: it represents the frequentPatternTree
@@ -495,46 +457,37 @@ class scpgrowth(frequentPatterns):
         else:
             for i in reversed(frequentPatternTree.headerList):
                 item = i
-                if item not in commonNeighbours or self.NighboursMap.get(item) is None:
-                    continue
-                newCommonNeighbours = list(set(commonNeighbours).intersection((set(self.NighboursMap.get(item)))))
                 support = mapSupport[i]
-                low = max(int(math.floor(mapSupport[i] * self.minRatio)), self.minSup)
-                high = max(int(math.floor(mapSupport[i] / minconf)), self.minSup)
-                betaSupport = support
+                CminSup=max(self.minSup,support*self.minRsup)
+                betaSupport = support              
                 prefix.insert(prefixLength, item)
-                max1 = self.getMaxItem(prefix, prefixLength)
-                if (self.mapSupport[max1] < self.mapSupport[item]):
-                    max1 = item
-                ratio = support / self.mapSupport[max1]
-                if (ratio >= self.minRatio):
-                    self.saveItemSet(prefix, prefixLength + 1, betaSupport, ratio)
+                max1=self.getMinItem(prefix,prefixLength)
+                if(self.mapSupport[max1]>self.mapSupport[item]):
+                    max1=item
+                ratio=support/self.mapSupport[max1]
+                if(ratio>=self.minRsup):
+                    self.saveItemSet(prefix, prefixLength + 1, betaSupport,ratio)
                 if prefixLength + 1 < self.maxPatternLength:
                     prefixPaths = []
                     path = frequentPatternTree.mapItemNodes.get(item)
                     mapSupportBeta = {}
                     while path is not None:
-                        if path.parent.itemId != -1 or path.parent.itemId in newCommonNeighbours:
+                        if path.parent.itemId != -1:
                             prefixPath = [path]
                             pathCount = path.counter
                             parent1 = path.parent
-                            neigboursTemp = self.commonitems
-                            if low <= mapSupport.get(parent1.itemId) <= high:
-                                while parent1.itemId != -1 and parent1.itemId in neigboursTemp:
-                                    if neigboursTemp is None or self.NighboursMap.get(parent1.itemId) is None:
-                                        break
-                                    neigboursTemp = list(
-                                        set(neigboursTemp).intersection((set(self.NighboursMap.get(parent1.itemId)))))
-                                    mins = int(support / max(mapSupport.get(parent1.itemId), support))
-                                    if (mapSupport.get(parent1.itemId) >= mins):
-                                        prefixPath.append(parent1)
-                                        if mapSupportBeta.get(parent1.itemId) is None:
-                                            mapSupportBeta[parent1.itemId] = pathCount
-                                        else:
-                                            mapSupportBeta[parent1.itemId] = mapSupportBeta[parent1.itemId] + pathCount
-                                        parent1 = parent1.parent
-                                    else:
-                                        break
+                            if mapSupport.get(parent1.itemId)>=CminSup:
+                                while parent1.itemId != -1:
+                                   mins=CminSup
+                                   if(mapSupport.get(parent1.itemId)>=mins):
+                                       prefixPath.append(parent1)
+                                       if mapSupportBeta.get(parent1.itemId) is None:
+                                           mapSupportBeta[parent1.itemId] = pathCount
+                                       else:
+                                           mapSupportBeta[parent1.itemId] = mapSupportBeta[parent1.itemId] + pathCount
+                                       parent1 = parent1.parent
+                                   else:
+                                       break
                                 prefixPaths.append(prefixPath)
                         path = path.nodeLink
                     treeBeta = Tree()
@@ -542,8 +495,7 @@ class scpgrowth(frequentPatterns):
                         treeBeta.addPrefixPath(k, mapSupportBeta, self.minSup)
                     if len(treeBeta.root.child) > 0:
                         treeBeta.createHeaderList(mapSupportBeta, self.minSup)
-                        self.frequentPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta,
-                                                           newCommonNeighbours, minconf)
+                        self.frequentPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1,mapSupportBeta,minRsup)
 
     def convert(self, value):
         """
@@ -564,40 +516,32 @@ class scpgrowth(frequentPatterns):
         return value
 
     def startMine(self):
-        """main program to start the operation
-
+        """
+            main program to start the operation
         """
 
         self.startTime = time.time()
-        self.NighboursMap = {}
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
             raise Exception("Please enter the Minimum Support")
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
-        self.commonitems = set()
-        print(self.minSup, self.minRatio)
-        # print(self.nFile)
-        self.mapNighbours(self.nFile)
         self.frequentOneItem()
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        # print(self.mapSupport)
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
             transaction = []
             for j in i:
                 if j in itemSetBuffer:
                     transaction.append(j)
-                    self.commonitems.add(j)
             transaction.sort(key=lambda val: self.mapSupport[val], reverse=True)
             self.tree.addTransaction(transaction)
         self.tree.createHeaderList(self.mapSupport, self.minSup)
         if len(self.tree.headerList) > 0:
             self.itemSetBuffer = []
-            self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport, self.commonitems,
-                                               self.minRatio)
-        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
+            self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport,self.minRsup)
+        print("relative support frequent patterns were generated successfully using rsfp algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -621,13 +565,15 @@ class scpgrowth(frequentPatterns):
 
         return self.memoryRSS
 
-    def getMaxItem(self, prefix, prefixLength):
-        maxitem = prefix[0]
+    def getMinItem(self,prefix,prefixLength):
+        """
+            returs the minItem from prefix
+        """
+        minitem=prefix[0]
         for i in range(prefixLength):
-            if (self.mapSupport[maxitem] < self.mapSupport[prefix[i]]):
-                maxitem = prefix[i]
-        return maxitem
-
+            if(self.mapSupport[minitem]>self.mapSupport[prefix[i]]):
+                minitem=prefix[i]
+        return minitem
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
@@ -667,21 +613,32 @@ class scpgrowth(frequentPatterns):
             s1 = str(pattern) + ": " + str(y)
             writer.write("%s \n" % s1)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        res=dict();
+        for x, y in self.finalPatterns.items():
+            pattern = str()
+            for i in x:
+                pattern = pattern + i + " "
+            s1 =str(y)
+            res[pattern]=s1;
+
+        return res;
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 6:
-        ap = scpgrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]))
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6: #includes separator
+            ap = rsfp(sys.argv[1], sys.argv[3],float(sys.argv[4]),sys.argv[5])
+        if len(sys.argv) == 5: #to consider '\t' as separator
+            ap = rsfp(sys.argv[1], sys.argv[3],float(sys.argv[4]))
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        corelatedPatterns = ap.getPatterns()
+        print("Total number of relative frequent Patterns:", len(corelatedPatterns))
         ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
@@ -691,3 +648,4 @@ if __name__ == "__main__":
         print("Total ExecutionTime in seconds:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+

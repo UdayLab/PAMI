@@ -12,22 +12,10 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 
 import sys
-from  abstract import *
+from PAMI.uncertainPeriodicFrequentPattern.basic.abstract import *
 
 minSup = float()
 maxPer = float()
@@ -39,17 +27,15 @@ periodic = {}
 
 class Item:
     """
-                A class used to represent the item with probability in transaction of dataset
-
-                ...
-
-                Attributes
-                __________
-                item : int or word
-                    Represents the name of the item
-                probability : float
-                    Represent the existential probability(likelihood presence) of an item
-            """
+    A class used to represent the item with probability in transaction of dataset
+    
+    Attributes:
+    __________
+        item : int or string
+            Represents the name of the item
+        probability : float
+            Represent the existential probability(likelihood presence) of an item
+    """
 
     def __init__(self, item, probability):
         self.item = item
@@ -58,27 +44,25 @@ class Item:
 
 class Node(object):
     """
-            A class used to represent the node of frequentPatternTree
+        A class used to represent the node of frequentPatternTree
+        
+        ...
+        Attributes:
+        ----------
+            item : int
+                storing item of a node
+            probability : int
+                To maintain the expected support of node
+            parent : node
+                To maintain the parent of every node
+            children : list
+                To maintain the children of node
 
-                ...
-
-                Attributes
-                ----------
-                item : int
-                    storing item of a node
-                probability : int
-                    To maintain the expected support of node
-                parent : node
-                    To maintain the parent of every node
-                children : list
-                    To maintain the children of node
-
-                Methods
-                -------
-
-                addChild(itemName)
-                    storing the children to their respective parent nodes
-            """
+        Methods:
+        -------
+            addChild(itemName)
+                storing the children to their respective parent nodes
+    """
 
     def __init__(self, item, children):
         self.item = item
@@ -92,7 +76,9 @@ class Node(object):
     def addChild(self, node):
         """
             to add children details to parent node
+            
             :param node: children node
+            
             :return: update parent node children
         """
         self.children[node.item] = node
@@ -101,37 +87,37 @@ class Node(object):
 
 class Tree(object):
     """
-                A class used to represent the frequentPatternGrowth tree structure
+        A class used to represent the frequentPatternGrowth tree structure
 
-                ...
+        ...
 
-                Attributes
-                ----------
-                root : Node
-                    Represents the root node of the tree
-                summaries : dictionary
-                    storing the nodes with same item name
-                info : dictionary
-                    stores the support of items
+        Attributes:
+        ----------
+            root: Node
+                Represents the root node of the tree
+            summaries: dictionary
+                storing the nodes with same item name
+            info: dictionary
+                stores the support of items
 
 
-                Methods
-                -------
-                addTransaction(transaction)
-                    creating transaction as a branch in frequentPatternTree
-                addConditionnalTransaction(prefixPaths, supportOfItems)
-                    construct the conditional tree for prefix paths
-                conditionalPatterns(Node)
-                    generates the conditional patterns from tree for specific node
-                condtionaltrasnactions(prefixPaths,Support)
-                    takes the prefixPath of a node and support at child of the path and extract the frequent items from
-                    prefixPaths and generates prefixPaths with items which are frequent
-                remove(Node)
-                    removes the node from tree once after generating all the patterns respective to the node
-                generatePatterns(Node)
-                    starts from the root node of the tree and mines the frequent patterns
+        Methods:
+        -------
+            addTransaction(transaction)
+                creating transaction as a branch in Tree
+            addConditionalTransaction(prefixPaths, supportOfItems)
+                construct the conditional tree for prefix paths
+            getConditionalPatterns(Node)
+                generates the conditional patterns from tree for specific node
+            conditionalTransactions(prefixPaths,Support)
+                takes the prefixPath of a node and support at child of the path and extract the frequent items from
+                prefixPaths and generates prefixPaths with items which are frequent
+            remove(Node)
+                removes the node from tree once after generating all the patterns respective to the node
+            generatePatterns(Node)
+                starts from the root node of the tree and mines the frequent patterns
 
-            """
+    """
 
     def __init__(self):
         self.root = Node(None, {})
@@ -139,13 +125,17 @@ class Tree(object):
         self.info = {}
 
     def addTransaction(self, transaction, tid):
-        """adding transaction into tree
+        """
+            adding transaction into tree
 
-                                :param transaction : it represents the one transactions in database
-                                :type transaction : list
-                                :param tid : the timestamp of transaction
-                                :type tid : list
-                                """
+            :param transaction : it represents the one transactions in database
+            
+            :type transaction : list
+            
+            :param tid : the timestamp of transaction
+            
+            :type tid : list
+        """
         currentNode = self.root
         k = 0
         for i in range(len(transaction)):
@@ -186,15 +176,21 @@ class Tree(object):
         currentNode.TimeStamps = currentNode.TimeStamps + tid
 
     def addConditionalPatterns(self, transaction, tid, sup):
-        """constructing conditional tree from prefixPaths
+        """
+            constructing conditional tree from prefixPaths
 
-                :param transaction : it represents the one transactions in database
-                :type transaction : list
-                :param tid : timestamps of a pattern or transaction in tree
-                :param tid : list
-                :param sup : support of prefixPath taken at last child of the path
-                :type sup : int
-                                        """
+            :param transaction : it represents the one transactions in database
+            
+            :type transaction : list
+            
+            :param tid : timestamps of a pattern or transaction in tree
+            
+            :param tid : list
+            
+            :param sup : support of prefixPath taken at last child of the path
+            
+            :type sup : int
+        """
         currentNode = self.root
         k = 0
         for i in range(len(transaction)):
@@ -219,8 +215,9 @@ class Tree(object):
         """generates all the conditional patterns of respective node
 
                 :param alpha : it represents the Node in tree
+                
                 :type alpha : Node
-                                """
+        """
         finalPatterns = []
         finalSets = []
         sup = []
@@ -242,26 +239,21 @@ class Tree(object):
     def removeNode(self, nodeValue):
         """removing the node from tree
 
-                :param nodeValue : it represents the node in tree
-                :type nodeValue : node
-                               """
+            :param nodeValue : it represents the node in tree
+                
+            :type nodeValue : node
+        """
         for i in self.summaries[nodeValue]:
             i.parent.TimeStamps = i.parent.TimeStamps + i.TimeStamps
             del i.parent.children[nodeValue]
-
-    def get_ts(self, alpha):
-        temp = []
-        for i in self.summaries[alpha]:
-            temp += i.TimeStamps
-        return temp
 
     def getPeriodAndSupport(self, support, TimeStamps):
         """
 
         Parameters
         ----------
-        support
-        TimeStamps
+        support: support of pattern
+        TimeStamps: timmeStamps of a pattern
 
         Returns
         -------
@@ -279,7 +271,6 @@ class Tree(object):
             if per > maxPer:
                 return [0, 0]
             cur = TimeStamps[j]
-            # sup+=1
         per = max(per, lno - cur)
         return [sup, per]
 
@@ -287,12 +278,17 @@ class Tree(object):
         """ It generates the conditional patterns with frequent items
 
             :param conditionalPatterns : conditional patterns generated from conditionalPatterns() method for respective node
+            
             :type conditionalPatterns : list
+            
             :param conditionalTimeStamps : timestamps of respective conditional timestamps
+            
             :type conditionalTimeStamps : list
+            
             :param support : the support of conditional pattern in tree
+            
             :type support : list
-            """
+        """
         global minSup, maxPer, lno
         pat = []
         TimeStamps = []
@@ -325,9 +321,10 @@ class Tree(object):
     def generatePatterns(self, prefix):
         """generates the patterns
 
-                                :param prefix : forms the combination of items
-                                :type prefix : list
-                                """
+            :param prefix : forms the combination of items
+            
+            :type prefix : list
+        """
         global periodic, minSup
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0])):
             pattern = prefix[:]
@@ -357,105 +354,116 @@ class PTubeP(periodicFrequentPatterns):
 
         Reference:
         --------
-
-       Attributes
+        
+        
+        Attributes:
         ----------
-        iFile : file
-            Name of the Input file to mine complete set of periodic-frequent patterns
-        oFile : file
-            Name of the output file to store complete set of periodic-frequent patterns
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
-        minSup : int/float
-            The user given minimum support
-        maxPer : int/float
-            The user given maximum period
-        Database : list
-            To store the transactions of a database in list
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            To represent the total no of transaction
-        tree : class
-            To represents the Tree class
-        itemSetCount : int
-            To represents the total no of patterns
-        finalPatterns : dict
-            To store the complete patterns
-        Methods
+            iFile: file
+                Name of the Input file or path of input file
+            oFile: file
+                Name of the output file or path of output file
+            minSup: int or float or str
+                The user can specify minSup either in count or proportion of database size.
+                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            maxPer: int or float or str
+                The user can specify maxPer either in count or proportion of database size.
+                If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+            sep: str
+                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+                However, the users can override their default separator.
+            memoryUSS: float
+                To store the total amount of USS memory consumed by the program
+            memoryRSS: float
+                To store the total amount of RSS memory consumed by the program
+            startTime: float
+                To record the start time of the mining process
+            endTime: float
+                To record the completion time of the mining process
+            Database: list
+                To store the transactions of a database in list
+            mapSupport: Dictionary
+                To maintain the information of item and their frequency
+            lno: int
+                To represent the total no of transaction
+            tree: class
+                To represents the Tree class
+            itemSetCount: int
+                To represents the total no of patterns
+            finalPatterns: dict
+                To store the complete patterns
+        Methods:
         -------
-        startMine()
-            Mining process will start from here
-        getPeriodicFrequentPatterns()
-            Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
-            Complete set of periodic-frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets(fileName)
-            Scans the dataset and stores in a list format
-        PeriodicFrequentOneItem()
-            Extracts the one-periodic-frequent patterns from database
-        updateDatabases()
-            Update the database by removing aperiodic items and sort the Database by item decreased support
-        buildTree()
-            After updating the Database, remaining items will be added into the tree by setting root node as null
-        convert()
-            to convert the user specified value
-        startMine()
-            Mining process will start from this function
+            startMine()
+                Mining process will start from here
+            getPatterns()
+                Complete set of patterns will be retrieved with this function
+            storePatternsInFile(oFile)
+                Complete set of periodic-frequent patterns will be loaded in to a output file
+            getPatternsInDataFrame()
+                Complete set of periodic-frequent patterns will be loaded in to a dataframe
+            getMemoryUSS()
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
+            getMemoryRSS()
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            getRuntime()
+                Total amount of runtime taken by the mining process will be retrieved from this function
+            creatingItemSets(fileName)
+                Scans the dataset and stores in a list format
+            updateDatabases()
+                Update the database by removing aperiodic items and sort the Database by item decreased support
+            buildTree()
+                After updating the Database, remaining items will be added into the tree by setting root node as null
+            convert()
+                to convert the user specified value
+            PeriodicFrequentOneItems()
+                To extract the one-length periodic-frequent items
+        
         Executing the code on terminal:
         -------
-        Format:
-        ------
-        python3 PTubeP.py <inputFile> <outputFile> <minSup> <maxPer>
-        Examples:
-        --------
-        python3 PTubeP.py sampleTDB.txt patterns.txt 0.3 4     (minSup and maxPer will be considered in support count or frequency)
+            Format:
+            ------
+                python3 PTubeP.py <inputFile> <outputFile> <minSup> <maxPer>
+        
+            Examples:
+            --------
+                python3 PTubeP.py sampleTDB.txt patterns.txt 0.3 4     (minSup and maxPer will be considered in support count or frequency)
+        
         Sample run of importing the code:
         -------------------
 
-        from PAMI.uncertainPeriodicFrequentPattern.basic import PTubeP as alg
+            from PAMI.uncertainPeriodicFrequentPattern.basic import PTubeP as alg
 
-        obj = alg.PTubeP(iFile, minSup, maxPer)
+            obj = alg.PTubeP(iFile, minSup, maxPer)
 
-        obj.startMine()
+            obj.startMine()
 
-        periodicFrequentPatterns = obj.getPeriodicFrequentPatterns()
+            periodicFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+            print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-        obj.storePatternsInFile(oFile)
+            obj.storePatternsInFile(oFile)
 
-        Df = obj.getPatternsInDataFrame()
+            Df = obj.getPatternsInDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
         Credits:
         -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
     startTime = float()
@@ -465,6 +473,7 @@ class PTubeP(periodicFrequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -480,7 +489,8 @@ class PTubeP(periodicFrequentPatterns):
         try:
             with open(self.iFile, 'r') as f:
                 for line in f:
-                    temp = [i.rstrip() for i in line.split("\t")]
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
                     tr = [int(temp[0])]
                     for i in temp[1:]:
                         i1 = i.index('(')
@@ -494,7 +504,7 @@ class PTubeP(periodicFrequentPatterns):
         except IOError:
             print("File Not Found")
 
-    def scanDatabase(self):
+    def PeriodicFrequentOneItems(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
                             ranks to the items by decreasing support and returns the frequent items list
 
@@ -522,11 +532,14 @@ class PTubeP(periodicFrequentPatterns):
         """it takes the transactions and support of each item and construct the main tree with setting root
                             node as null
 
-                                :param data : it represents the one transactions in database
-                                :type data : list
-                                :param info : it represents the support of each item
-                                :type info : dictionary
-                                """
+            :param data : it represents the one transactions in database
+
+            :type data : list
+
+            :param info : it represents the support of each item
+
+            :type info : dictionary
+        """
         rootNode = Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
@@ -538,8 +551,9 @@ class PTubeP(periodicFrequentPatterns):
         """remove the items which are not frequent from transactions and updates the transactions with rank of items
 
                 :param dict1 : frequent items with support
+
                 :type dict1 : dictionary
-                """
+        """
         list1 = []
         for tr in self.Database:
             list2 = [int(tr[0])]
@@ -556,11 +570,14 @@ class PTubeP(periodicFrequentPatterns):
     def Check(self, i, x):
         """To check the presence of item or pattern in transaction
 
-                                :param x: it represents the pattern
-                                :type x : list
-                                :param i : represents the uncertain transactions
-                                :type i : list
-                                """
+            :param x: it represents the pattern
+
+            :type x : list
+
+            :param i : represents the uncertain transactions
+
+            :type i : list
+        """
         for m in x:
             k = 0
             for n in i:
@@ -573,7 +590,9 @@ class PTubeP(periodicFrequentPatterns):
     def convert(self, value):
         """
             To convert the given user specified value
+
             :param value: user specified value
+
             :return: converted value
         """
         if type(value) is int:
@@ -591,13 +610,14 @@ class PTubeP(periodicFrequentPatterns):
     def removeFalsePositives(self):
         """
         To remove false positives in generated patterns
+
         :return: original patterns
         """
         periods = {}
         for i in self.Database:
             for x, y in periodic.items():
                 if len(x) == 1:
-                    periods[x] = y[0]
+                    periods[x] = y
                 else:
                     s = 1
                     check = self.Check(i[1:], x)
@@ -606,11 +626,11 @@ class PTubeP(periodicFrequentPatterns):
                             if j.item in x:
                                 s *= j.probability
                         if x in periods:
-                            periods[x] += s
+                            periods[x][0] += s
                         else:
-                            periods[x] = s
+                            periods[x] = [s, y[1]]
         for x, y in periods.items():
-            if y >= minSup:
+            if y[0] >= minSup:
                 sample = str()
                 for i in x:
                     sample = sample + i + " "
@@ -627,8 +647,9 @@ class PTubeP(periodicFrequentPatterns):
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
+        print(self.maxPer, self.minSup)
         minSup, maxPer, lno = self.minSup, self.maxPer, len(self.Database)
-        mapSupport, plist = self.scanDatabase()
+        mapSupport, plist = self.PeriodicFrequentOneItems()
         updatedTrans = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         root = self.buildTree(updatedTrans, info)
@@ -644,6 +665,7 @@ class PTubeP(periodicFrequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -653,6 +675,7 @@ class PTubeP(periodicFrequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -661,8 +684,8 @@ class PTubeP(periodicFrequentPatterns):
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -672,6 +695,7 @@ class PTubeP(periodicFrequentPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -686,6 +710,7 @@ class PTubeP(periodicFrequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self.oFile = outFile
@@ -694,7 +719,7 @@ class PTubeP(periodicFrequentPatterns):
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPeriodicFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -704,17 +729,22 @@ class PTubeP(periodicFrequentPatterns):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) is 5:
-        ap = PTubeP(sys.argv[1], sys.argv[3], sys.argv[5])
+    ap = str()
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            ap = PTubeP(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        if len(sys.argv) == 5:
+            ap = PTubeP(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
-        frequentPatterns = ap.getPeriodicFrequentPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
+        #print(ap.getPatternsInDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

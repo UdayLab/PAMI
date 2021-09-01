@@ -1,3 +1,6 @@
+**[CLICK HERE](manual.html)** to access the PAMI manual.
+
+
 # Installing PAMI library
 
 ## Requirements
