@@ -11,13 +11,13 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
          pip install pami
    
-3. [Organization of Algorithms in PAMI](organization.html)
+3. [Organization of algorithms in PAMI](organization.html)
    
    The algorithms in PAMI are organized in a hierarchical structure as follows: 
    
         PAMI.theoriticalModel.basic/maximal/closed/topk.algorithmName
    
-4. [Creating Databases](createDatabases.html)
+4. [Format to create different databases](createDatabases.html)
    
     1. [Transactional database](transactionalDatabase.html)
        
@@ -36,7 +36,11 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
     
     Default separator used in PAMI is tab space. However, users can override the separator with their choice.
    
-5. [Converting Dataframes to Databases](dataFrameCoversio.html)
+5. [Getting the statistics of databases](databaseStats.html)
+   1. [Statistics of a transactional database](transactionalDatabaseStats.md)
+   
+   2. [statistics of a temporal database](temporalDatabaseStats.md)
+6. [Converting Dataframes to Databases](dataFrameCoversio.html)
 
    1. [Format of dense dataframe]((denseDF2DB.html)) 
     
