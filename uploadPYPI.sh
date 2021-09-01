@@ -7,8 +7,8 @@ python3 setup.py sdist bdist_wheel
 echo "Uploading to test repository"
 python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-echo "Wait for 2 minute to update the repository"
-sleep 120
+echo "Wait for 5 minute to update the repository"
+sleep 300
 
 echo "installing PAMI from the testPYPI"
 python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps pami
