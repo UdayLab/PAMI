@@ -38,9 +38,53 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
 5. [Getting the statistics of databases](databaseStats.html)
    1. [Statistics of a transactional database](transactionalDatabaseStats.md)
-   
-   2. [statistics of a temporal database](temporalDatabaseStats.md)
-6. [Converting Dataframes to Databases](dataFrameCoversio.html)
+        This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
+        
+          from dbStats import transactionalDatabaseStats as tds
+          obj=tds.transactionalDatabaseStats(inputFile,sep)
+          obj.run()
+          
+          #Getting basic stats of a database
+          print("Database Size: " + obj.getDatabaseSize())
+          print("Minimum transaction length:" + obj.getMinimumTransactionLength())
+          print("Maximum transaction length:" + obj.getMaximumTransactionLength()) 
+          print("Average transaction length:" + obj.getAverageTransactionLength())
+          print("Standard deviation of transaction lengths:" + obj.getStandardDeviationTransactionLength())
+          
+          #Distribution of items' frequencies and transactional lengths
+          itemFrequencies = obj.getItemFrequencies() #format: <item: freq>
+          tranLenDistribution = obj.getTransanctionalLengthDistribution()  #format: <tranLength: freq>
+          obj.storeInFile(itemFrequencies,outputFileName)
+          obj.storeInFile(tranLenDistribution,outputFileName)        
+          
+   2. [Statistics of a temporal database](temporalDatabaseStats.md)
+        This program outputs the statistical details of a temporal database. It will also output the distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
+        
+          from dbStats import temporalDatabaseStats as tds
+          obj=tds.temporalDatabaseStats(inputFile,sep)
+          obj.run()
+          
+          #Getting basic stats of a database
+          print("Database Size: " + obj.getDatabaseSize())
+          print("Minimum transaction length:" + obj.getMinimumTransactionLength())
+          print("Maximum transaction length:" + obj.getMaximumTransactionLength()) 
+          print("Average transaction length:" + obj.getAverageTransactionLength())
+          print("Standard deviation of transaction lengths:" + obj.getStandardDeviationTransactionLength())
+          print("Minimum period:" + obj.getMinimumPeriod())
+          print("Maximum period:" + obj.getMaximumPeriod())
+          print("Average period:" + obj.getAveragePeriod())
+         
+          #Distribution of items' frequencies, transactional lengths, and distribution of transactions per timestamp
+          itemFrequencies = obj.getItemFrequencies() #format: <item: freq>
+          tranLenDistribution = obj.getTransanctionalLengthDistribution()  #format: <tranLength: freq>
+          transactionsPerTimestamp = obj.getNumberOfTransactionsPerTimestamp() #format: <timestamp: freq>
+          obj.storeInFile(itemFrequencies,outputFileName)
+          obj.storeInFile(tranLenDistribution,outputFileName) 
+          obj.storeInFile(transactionsPerTimeStamp,outputFileName)
+ 
+          
+          
+6. [Converting dataframes to databases](dataFrameCoversio.html)
 
    1. [Format of dense dataframe]((denseDF2DB.html)) 
     
