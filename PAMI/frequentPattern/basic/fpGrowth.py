@@ -477,7 +477,7 @@ class fpGrowth(frequentPatterns):
             s = self.savePeriodic(k[0])
             self.finalPatterns[str(s)] = k[1]
         print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
-        del self.Database
+        self.Database = None
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
