@@ -37,8 +37,14 @@ Depending on the type of patterns that are being discovered from the data, the m
 
 In the PAMI library, the mining algorithms have been packaged in a hierarchical fashion. The first hierarchical level is 'PAMI'.
 The second hierarchical level is the name of the theoretical model. The third hierarchical level is the type of the mining algorithm.
-The last hierarhical level contains the mining algorithms.
-   
+The last hierarchical level contains the mining algorithms. The organizational structure of algorithms in PAMI is shown below:
+
+      PAMI
+        |-theoriticalModel
+                 |-patternType (e.g., basic/maximal/closed/topk)
+                          |-algorithmName
+                          
+                          
 1. PAMI
    * theoreticalModel1
       * basic

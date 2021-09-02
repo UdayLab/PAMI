@@ -117,4 +117,24 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
 6. [Exceuting Algorithms in PAMI](utilization.html)    
    1. [Importing PAMI algorithms into your program](useAlgo.html)
+   
+          from PAMI.frequentPattern.basic import fpGrowth  as alg
+          obj = alg.fpGrowth(inputFile,minSup,sep)
+          obj.startMine()
+          obj.storePatternsInFile('patterns.txt')
+          df = obj.getPatternsInDataFrame()
+          print('Runtime: ' + str(obj.getRuntime()))
+          print('Memory: ' + str(obj.getMemoryRSS()))
+
    2. [Executing PAMI algorithms directly on the terminal](terminalExecute.html)
+        1. Download the PAMI-main.zip file from GitHub
+        2. Unzip the PAMI-main.zip file.
+        3. Enter into the PAMI-main folder and move the PAMI sub-folder to the location of your choice. 
+        4. Let the location be /home/username/PAMI
+        5. Execute the following command:
+        
+          python PAMI/patternModel/patternType/algorithm.py inputFile outputFile parameters
+          
+          E.g., python PAMI/frequentPattern/basic/fpGrowth.py inputFile outputFile minSup
+            
+
