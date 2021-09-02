@@ -336,8 +336,8 @@ class fpGrowth(frequentPatterns):
     rank = {}
     rankDup = {}
 
-    '''def __init__(self,iFile,minSup,sep='\t'):
-        super().__init__(iFile,minSup,sep)'''
+    def __init__(self,iFile,minSup,sep='\t'):
+        super().__init__(iFile,minSup,sep)
 
 
 
