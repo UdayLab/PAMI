@@ -116,5 +116,5 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    5. [Spatiotemporal dataframe to databases](stDF2DB.html)
    
 6. [Exceuting Algorithms in PAMI](utilization.html)    
-   1. Importing PAMI algorithms into your program
-   2. Executing PAMI algorithms directly on the terminal
+   1. [Importing PAMI algorithms into your program](useAlgo.html)
+   2. [Executing PAMI algorithms directly on the terminal](terminalExecute.html)
