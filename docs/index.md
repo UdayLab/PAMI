@@ -45,53 +45,68 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
 5. [Getting the statistics of databases](databaseStats.html)
    1. [Statistics of a transactional database](transactionalDatabaseStats.md)
+   
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
         
-          from dbStats import transactionalDatabaseStats as tds
+            import PAMI.dbStats.transactionalDatabaseStats as tds
           
-          obj=tds.transactionalDatabaseStats(inputFile,sep)
-          obj.run()
-          
-          #Getting basic stats of a database
-          print("Database Size: " + obj.getDatabaseSize())
-          print("Minimum transaction length:" + obj.getMinimumTransactionLength())
-          print("Maximum transaction length:" + obj.getMaximumTransactionLength()) 
-          print("Average transaction length:" + obj.getAverageTransactionLength())
-          print("Standard deviation of transaction lengths:" + obj.getStandardDeviationTransactionLength())
-          
-          #Distribution of items' frequencies and transactional lengths
-          itemFrequencies = obj.getItemFrequencies() #format: <item: freq>
-          tranLenDistribution = obj.getTransanctionalLengthDistribution()  #format: <tranLength: freq>
-          obj.storeInFile(itemFrequencies,outputFileName)
-          obj.storeInFile(tranLenDistribution,outputFileName)        
+             obj = tds.transactionalDatabaseStats(inputFile)
+            obj.run()
+            
+            print(f'Database size : {obj.getDatabaseSize()}')
+            print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+            print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+            print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+            print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+            
+            itemFrequencies = obj.getSortedListOfItemFrequencies()
+            transactionLength = obj.getTransanctionalLengthDistribution()
+            obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
+            obj.storeInFile(transactionLength, 'transactionSize.csv')        
           
    2. [Statistics of a temporal database](temporalDatabaseStats.md)
         This program outputs the statistical details of a temporal database. It will also output the distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
         
-          from dbStats import temporalDatabaseStats as tds
+            import PAMI.dbStats.temporalDatabaseStats as tds
           
-          obj=tds.temporalDatabaseStats(inputFile,sep)
-          obj.run()
-          
-          #Getting basic stats of a database
-          print("Database Size: " + obj.getDatabaseSize())
-          print("Minimum transaction length:" + obj.getMinimumTransactionLength())
-          print("Maximum transaction length:" + obj.getMaximumTransactionLength()) 
-          print("Average transaction length:" + obj.getAverageTransactionLength())
-          print("Standard deviation of transaction lengths:" + obj.getStandardDeviationTransactionLength())
-          print("Minimum period:" + obj.getMinimumPeriod())
-          print("Maximum period:" + obj.getMaximumPeriod())
-          print("Average period:" + obj.getAveragePeriod())
-         
-          #Distribution of items' frequencies, transactional lengths, and distribution of transactions per timestamp
-          itemFrequencies = obj.getItemFrequencies() #format: <item: freq>
-          tranLenDistribution = obj.getTransanctionalLengthDistribution()  #format: <tranLength: freq>
-          transactionsPerTimestamp = obj.getNumberOfTransactionsPerTimestamp() #format: <timestamp: freq>
-          obj.storeInFile(itemFrequencies,outputFileName)
-          obj.storeInFile(tranLenDistribution,outputFileName) 
-          obj.storeInFile(transactionsPerTimeStamp,outputFileName)
+             obj = tds.temporalDatabaseStats(inputFile, sep='\t')
+            obj.run()
+            
+            print(f'Database size : {obj.getDatabaseSize()}')
+            print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+            print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+            print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+            print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+            print(f'Minimum period : {obj.getMinimumPeriod()}')
+            print(f'Average period : {obj.getAveragePeriod()}')
+            print(f'Maximum period : {obj.getMaximumPeriod()}')
+            
+            itemFrequencies = obj.getSortedListOfItemFrequencies()
+            transactionLength = obj.getTransanctionalLengthDistribution()
+            numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
+            obj.storeInFile(itemFrequencies,'itemFrequency.csv')
+            obj.storeInFile(transactionLength, 'transactionSize.csv')
+            obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
  
-          
+   3. [Statistics of a utility database](utilityDatabaseStats.md)
+            import PAMI.dbStats.utilityDatabaseStats as uds
+            
+            obj = uds.utilityDatabaseStats(inputFile)
+            obj.run()
+            print(f'Database size : {obj.getDatabaseSize()}')
+            print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+            print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+            print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+            print(f'Total utility : {obj.getTotalUtility()}')
+            print(f'Minimum utility : {obj.getMinimumUtility()}')
+            print(f'Average utility : {obj.getAverageUtility()}')
+            print(f'Maximum utility : {obj.getMaximumUtility()}')
+            itemFrequencies = obj.getSortedListOfItemFrequencies()
+            transactionLength = obj.getTransanctionalLengthDistribution()
+            utility = obj.getSortedUtilityValuesOfItem()
+            obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
+            obj.storeInFile(transactionLength, 'transactionSize.csv')
+            obj.storeInFile(utility, 'utility.csv')
           
 6. [Converting dataframes to databases](dataFrameCoversio.html)
 
