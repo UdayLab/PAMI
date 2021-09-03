@@ -354,7 +354,7 @@ class CPFPMiner(periodicFrequentPatterns):
         """
         Mining process will start from here
         """
-        self.startTime = int(round(time.time() * 1000))
+        self.startTime = time.time()
         periodicFrequentItems = self.scanDatabase()
         for i in range(len(periodicFrequentItems)):
             itemX = periodicFrequentItems[i]
