@@ -1,8 +1,8 @@
 import statistics
 
-class transactionalDatabaseStats:
+class utilityDatabaseStats:
     """
-    transactionalDatabaseStats is class to get stats of database.
+    utilityDatabaseStats is class to get stats of database.
 
         Attributes:
         ----------
@@ -12,6 +12,8 @@ class transactionalDatabaseStats:
             store time stamp and its transaction
         lengthList : list
             store length of all transaction
+        utility : dict
+            store utility each item
         sep : str
             separator in file. Default is tab space.
 
@@ -37,6 +39,14 @@ class transactionalDatabaseStats:
             get sorted list of transaction length
         storeInFile(data, outputFile)
             store data into outputFile
+        getMinimumUtility()
+            get the minimum utility
+        getAverageUtility()
+            get the average utility
+        getMaximumUtility()
+            get the maximum utility
+        getSortedUtilityValuesOfItem()
+            get sorted utility values each item
     """
     def __init__(self, inputFile, sep='\t'):
         """
@@ -46,6 +56,7 @@ class transactionalDatabaseStats:
         self.inputFile = inputFile
         self.database = {}
         self.lengthList = []
+        self.utility = {}
         self.sep = sep
 
     def run(self):
@@ -59,10 +70,15 @@ class transactionalDatabaseStats:
         with open(self.inputFile, 'r') as f:
             for line in f:
                 numberOfTransaction += 1
-                line = [s for s in line.strip().split(self.sep)]
-                self.database[numberOfTransaction] = self.database.get(numberOfTransaction, set())
-                self.database[numberOfTransaction] = list(set(self.database[numberOfTransaction]) | set(line))
+                line = [s for s in line.strip().split(':')]
+                transaction = [s for s in line[0].split(self.sep)]
+                utilities = [int(s) for s in line[2].split(self.sep)]
+                self.database[numberOfTransaction] = transaction
+                for i in range(len(transaction)):
+                    self.utility[transaction[i]] = self.utility.get(transaction[i],0)
+                    self.utility[transaction[i]] += utilities[i]
         self.lengthList = [len(s) for s in self.database.values()]
+        self.utility = {k: v for k, v in sorted(self.utility.items(), key=lambda x:x[1], reverse=True)}
 
     def getDatabaseSize(self):
         """
@@ -134,3 +150,38 @@ class transactionalDatabaseStats:
         with open(outputFile, 'w') as f:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
+
+    def getTotalUtility(self):
+        """
+        get sum of utility
+        :return: total utility
+        """
+        return sum(list(self.utility.values()))
+
+    def getMinimumUtility(self):
+        """
+        get the minimum utility
+        :return: minimum utility
+        """
+        return min(list(self.utility.values()))
+
+    def getAverageUtility(self):
+        """
+        get the average utility
+        :return: average utility
+        """
+        return sum(list(self.utility.values())) / len(self.utility)
+
+    def getMaximumUtility(self):
+        """
+        get the maximum utility
+        :return: maximum utility
+        """
+        return max(list(self.utility.values()))
+
+    def getSortedUtilityValuesOfItem(self):
+        """
+        get sorted utility value each item. key is item and value is utility of item
+        :return: sorted dictionary utility value of item
+        """
+        return self.utility

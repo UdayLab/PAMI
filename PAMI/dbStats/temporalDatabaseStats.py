@@ -25,8 +25,8 @@ class temporalDatabaseStats:
             execute readDatabase function
         readDatabase()
             read database from input file
-        getDatabaseLength()
-            get the length of database
+        getDatabaseSize()
+            get the size of database
         getMinimumTransactionLength()
             get the minimum transaction length
         getAverageTransactionLength()
@@ -88,10 +88,10 @@ class temporalDatabaseStats:
             self.periodList.append(int(ts)-preTimeStamp)
             preTimeStamp = ts
 
-    def getDatabaseLength(self):
+    def getDatabaseSize(self):
         """
-        get the Length of database
-        :return: data base length
+        get the size of database
+        :return: data base size
         """
         return len(self.database)
 
@@ -145,7 +145,7 @@ class temporalDatabaseStats:
         for length in self.lengthList:
             transactionLength[length] = transactionLength.get(length, 0)
             transactionLength[length] += 1
-        return {k: v for k, v in sorted(self.database.items(), key=lambda x: x[0])}
+        return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
     def storeInFile(self, data, outputFile):
         """
@@ -157,7 +157,7 @@ class temporalDatabaseStats:
         """
         with open(outputFile, 'w') as f:
             for key, value in data.items():
-                f.write(f'{key},{value}\n')
+                f.write(f'{key}\t{value}\n')
 
     def getMinimumPeriod(self):
         """
