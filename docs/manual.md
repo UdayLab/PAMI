@@ -50,7 +50,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
         
             import PAMI.dbStats.transactionalDatabaseStats as tds
           
-             obj = tds.transactionalDatabaseStats(inputFile)
+            obj = tds.transactionalDatabaseStats(inputFile)
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')
@@ -69,7 +69,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
         
             import PAMI.dbStats.temporalDatabaseStats as tds
           
-             obj = tds.temporalDatabaseStats(inputFile, sep='\t')
+            obj = tds.temporalDatabaseStats(inputFile, sep='\t')
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')
@@ -89,10 +89,12 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
             obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
  
    3. [Statistics of a utility database](utilityDatabaseStats.md)
+   
             import PAMI.dbStats.utilityDatabaseStats as uds
             
             obj = uds.utilityDatabaseStats(inputFile)
             obj.run()
+            
             print(f'Database size : {obj.getDatabaseSize()}')
             print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
             print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
@@ -101,6 +103,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
             print(f'Minimum utility : {obj.getMinimumUtility()}')
             print(f'Average utility : {obj.getAverageUtility()}')
             print(f'Maximum utility : {obj.getMaximumUtility()}')
+            
             itemFrequencies = obj.getSortedListOfItemFrequencies()
             transactionLength = obj.getTransanctionalLengthDistribution()
             utility = obj.getSortedUtilityValuesOfItem()

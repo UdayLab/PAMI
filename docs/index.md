@@ -89,6 +89,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
             obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
  
    3. [Statistics of a utility database](utilityDatabaseStats.md)
+   
             import PAMI.dbStats.utilityDatabaseStats as uds
             
             obj = uds.utilityDatabaseStats(inputFile)
