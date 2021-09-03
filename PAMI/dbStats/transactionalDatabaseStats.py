@@ -69,16 +69,14 @@ class transactionalDatabaseStats:
         get the Length of database
         :return: data base length
         """
-        length = len(self.database)
-        return length
+        return len(self.database)
 
     def getMinimumTransactionLength(self):
         """
         get the minimum transaction length
         :return: minimum transaction length
         """
-        minLength = min(self.lengthList)
-        return minLength
+        return min(self.lengthList)
 
     def getAverageTransactionLength(self):
         """
@@ -86,24 +84,21 @@ class transactionalDatabaseStats:
         :return: average transaction length
         """
         totalLength = sum(self.lengthList)
-        averageLength = totalLength / len(self.database)
-        return averageLength
+        return totalLength / len(self.database)
 
     def getMaximumTransactionLength(self):
         """
         get the maximum transaction length
         :return: maximum transaction length
         """
-        maxLength = max(self.lengthList)
-        return maxLength
+        return max(self.lengthList)
 
     def getStandardDeviationTransactionLength(self):
         """
         get the standard deviation transaction length
         :return: standard deviation transaction length
         """
-        standardDeviation = statistics.pstdev(self.lengthList)
-        return standardDeviation
+        return statistics.pstdev(self.lengthList)
 
     def getSortedListOfItemFrequencies(self):
         """
@@ -115,8 +110,7 @@ class transactionalDatabaseStats:
             for item in self.database[tid]:
                 itemFrequencies[item] = itemFrequencies.get(item, 0)
                 itemFrequencies[item] += 1
-        itemFrequencies = {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
-        return itemFrequencies
+        return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
 
     def getTransanctionalLengthDistribution(self):
         """
@@ -127,8 +121,7 @@ class transactionalDatabaseStats:
         for length in self.lengthList:
             transactionLength[length] = transactionLength.get(length, 0)
             transactionLength[length] += 1
-        transactionLength = {k: v for k, v in sorted(self.database.items(), key=lambda x:x[0])}
-        return transactionLength
+        return {k: v for k, v in sorted(self.database.items(), key=lambda x:x[0])}
 
     def storeInFile(self, data, outputFile):
         """

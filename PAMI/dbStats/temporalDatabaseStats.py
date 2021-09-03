@@ -93,16 +93,14 @@ class temporalDatabaseStats:
         get the Length of database
         :return: data base length
         """
-        length = len(self.database)
-        return length
+        return len(self.database)
 
     def getMinimumTransactionLength(self):
         """
         get the minimum transaction length
         :return: minimum transaction length
         """
-        minLength = min(self.lengthList)
-        return minLength
+        return min(self.lengthList)
 
     def getAverageTransactionLength(self):
         """
@@ -110,24 +108,21 @@ class temporalDatabaseStats:
         :return: average transaction length
         """
         totalLength = sum(self.lengthList)
-        averageLength = totalLength / len(self.database)
-        return averageLength
+        return totalLength / len(self.database)
 
     def getMaximumTransactionLength(self):
         """
         get the maximum transaction length
         :return: maximum transaction length
         """
-        maxLength = max(self.lengthList)
-        return maxLength
+        return max(self.lengthList)
 
     def getStandardDeviationTransactionLength(self):
         """
         get the standard deviation transaction length
         :return: standard deviation transaction length
         """
-        standardDeviation = statistics.pstdev(self.lengthList)
-        return standardDeviation
+        return statistics.pstdev(self.lengthList)
 
     def getSortedListOfItemFrequencies(self):
         """
@@ -139,8 +134,7 @@ class temporalDatabaseStats:
             for item in self.database[tid]:
                 itemFrequencies[item] = itemFrequencies.get(item, 0)
                 itemFrequencies[item] += 1
-        itemFrequencies = {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
-        return itemFrequencies
+        return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
 
     def getTransanctionalLengthDistribution(self):
         """
@@ -151,8 +145,7 @@ class temporalDatabaseStats:
         for length in self.lengthList:
             transactionLength[length] = transactionLength.get(length, 0)
             transactionLength[length] += 1
-        transactionLength = {k: v for k, v in sorted(self.database.items(), key=lambda x: x[0])}
-        return transactionLength
+        return {k: v for k, v in sorted(self.database.items(), key=lambda x: x[0])}
 
     def storeInFile(self, data, outputFile):
         """
@@ -171,8 +164,7 @@ class temporalDatabaseStats:
         get the minimum period
         :return: minimum period
         """
-        minPeriod = min(self.periodList)
-        return minPeriod
+        return  min(self.periodList)
 
     def getAveragePeriod(self):
         """
@@ -180,24 +172,21 @@ class temporalDatabaseStats:
         :return: average period
         """
         totalPeriod = sum(self.periodList)
-        averagePeriod = totalPeriod / len(self.periodList)
-        return averagePeriod
+        return totalPeriod / len(self.periodList)
 
     def getMaximumPeriod(self):
         """
         get the maximum period
         :return: maximum period
         """
-        maxPeriod = max(self.periodList)
-        return maxPeriod
+        return max(self.periodList)
 
     def getStandardDeviationPeriod(self):
         """
         get the standard deviation period
         :return: standard deviation period
         """
-        SDPeriod = statistics.pstdev(self.periodList)
-        return SDPeriod
+        return statistics.pstdev(self.periodList)
 
     def getNumberOfTransactionsPerTimestamp(self):
         """
@@ -205,5 +194,4 @@ class temporalDatabaseStats:
         :return: number of transactions per time stamp as dict
         """
         maxTS = max(list(self.timeStampCount.keys()))
-        numberOfTransactionPerTS = {ts: self.timeStampCount.get(ts,0) for ts in range(1, maxTS+1)}
-        return numberOfTransactionPerTS
+        return {ts: self.timeStampCount.get(ts,0) for ts in range(1, maxTS+1)}
