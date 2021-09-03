@@ -351,8 +351,9 @@ class fpGrowth(frequentPatterns):
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     self.lno += 1
-                    li1 = [i.rstrip() for i in line.split(self.sep)]
-                    self.Database.append(li1)
+                    li = [i.rstrip() for i in line.split(self.sep)]
+                    li = [x for x in li if x]
+                    self.Database.append(li)
         except IOError:
             print("File Not Found")
 
@@ -569,4 +570,15 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = fpGrowth("/home/apiiit-rkv/Downloads/3p/BMS1_itemset_mining.txt", 120, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.storePatternsInFile("patterns.txt")
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

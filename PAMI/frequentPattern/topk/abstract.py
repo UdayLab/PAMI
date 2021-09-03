@@ -86,7 +86,7 @@ class frequentPatterns(ABC):
 
     """
 
-    def __init__(self, iFile, minSup, sep="\t"):
+    def __init__(self, iFile, k, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -101,7 +101,7 @@ class frequentPatterns(ABC):
 
         self.iFile = iFile
         self.sep = sep
-        self.minSup = minSup
+        self.k = k
 
 
     @abstractmethod
@@ -111,7 +111,7 @@ class frequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def minSup(self):
+    def k(self):
         """Variable to store the user-specified minimum support value"""
 
         pass

@@ -517,6 +517,7 @@ class Maxfpgrowth(frequentPatterns):
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     li = [i.rstrip() for i in line.split(self.sep)]
+                    li = [x for x in li if x]
                     self.Database.append(li)
                     self.lno += 1
         except IOError:
@@ -714,4 +715,15 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = Maxfpgrowth("/home/apiiit-rkv/Downloads/3p/BMS1_itemset_mining.txt", 120, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.storePatternsInFile("patterns.txt")
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

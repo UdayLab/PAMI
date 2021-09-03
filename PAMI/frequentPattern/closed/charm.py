@@ -180,6 +180,7 @@ class Charm(frequentPatterns):
         with open(self.iFile, 'r') as f:
             for line in f:
                 i = [i.rstrip() for i in line.split(self.sep)]
+                i = [x for x in i if x]
                 self.lno += 1
                 n = self.lno
                 for j in i:
@@ -480,4 +481,15 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = Charm("/home/apiiit-rkv/Downloads/3p/BMS1_itemset_mining.txt", 120, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.storePatternsInFile("patterns.txt")
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
