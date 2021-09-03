@@ -48,6 +48,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
         
           from dbStats import transactionalDatabaseStats as tds
+          
           obj=tds.transactionalDatabaseStats(inputFile,sep)
           obj.run()
           
@@ -68,6 +69,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
         This program outputs the statistical details of a temporal database. It will also output the distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
         
           from dbStats import temporalDatabaseStats as tds
+          
           obj=tds.temporalDatabaseStats(inputFile,sep)
           obj.run()
           
@@ -107,6 +109,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    Code to convert a dataframe into a transactional database:
 
           from PAMI.DF2DB import DF2DB as pro
+          
           db = pro.DF2DB(inputDataFrame, thresholdValue, condition, DFtype)
           # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
           db.createTransactional(outputFile)
@@ -116,6 +119,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
       This program user can specify a different condition and a threshold value for each item in the dataframe. Code to convert a dataframe into a transactional database:
       
           from PAMI.DF2DB import DF2DBPlus as pro
+          
           db = pro.DF2DBPlus(inputDataFrame, itemConditionValueDataFrame, DFtype)
           # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
           db.createTransactional(outputFile)
@@ -126,6 +130,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    1. [Importing PAMI algorithms into your program](useAlgo.html)
    
           from PAMI.frequentPattern.basic import fpGrowth  as alg
+          
           obj = alg.fpGrowth(inputFile,minSup,sep)
           obj.startMine()
           obj.storePatternsInFile('patterns.txt')
@@ -143,3 +148,11 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
           python PAMI/patternModel/patternType/algorithm.py inputFile outputFile parameters
           
           E.g., python PAMI/frequentPattern/basic/fpGrowth.py inputFile outputFile minSup
+7. [Extras](extras.html)
+   1. [Creation of neighborhood file for spatiotemporal data using Euclidean distance](neighborhoodDatabase.md)
+   
+          from PAMI.extras import createNeighborhoodFileUsingEuclideanDistance as alg
+          
+          obj = alg.createNeighborhoodFileUsingEuclideanDistance(inputFile,outputFile,maxEuclideanDistance)
+          obj.create()
+          

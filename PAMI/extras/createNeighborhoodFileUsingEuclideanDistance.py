@@ -2,32 +2,35 @@ import sys
 import re
 from math import sqrt
 
-class EuclidDistance:
+class createNeighborhoodFileUsingEuclideanDistance:
     """
     This class create a neighbourhood file using euclid distance.
+
     Attribute:
     ----------
         iFile : file
             Input file name or path of the input file
         oFile : file
             Output file name or path pf the output file
-        threshold : int
-            The user can specify threshold.
-            This program find pairs of values whose Euclidean distance is less than or equal to threshold
+        maxDist : int
+            The user can specify maxDist.
+            This program find pairs of values whose Euclidean distance is less than or equal to maxDist
             and store the pairs.
+
     Methods:
+    -------
         startMine()
-            find and store the pairs of values whose Euclidean distance is less than or equal to threshold.
+            find and store the pairs of values whose Euclidean distance is less than or equal to maxDist.
         getFileName()
             This function returns output file name.
     """
 
-    def __init__(self,iFile,oFile,threshold):
+    def __init__(self,iFile,oFile,maxDist):
         self.iFile = iFile
         self.oFile = oFile
-        self.threshold = threshold
+        self.maxDist = maxDist
 
-    def startMine(self):
+    def create(self):
         coordinates = []
         result = {}
         with open(self.iFile,"r") as f:
@@ -49,7 +52,7 @@ class EuclidDistance:
                     ansY = y2-y1
                     dist = abs(pow(ansX,2) - pow(ansY,2))
                     norm = sqrt(dist)
-                    if norm <= float(self.threshold):
+                    if norm <= float(self.maxDist):
                         result[tuple(firstCoordinate)] = result.get(tuple(firstCoordinate),[])
                         result[tuple(firstCoordinate)].append(secondCoordinate)
 
@@ -67,6 +70,6 @@ class EuclidDistance:
         return self.oFile
 
 if __name__ == "__main__":
-    euclid = EuclidDistance(sys.argv[1],sys.argv[2],sys.argv[3])
-    euclid.startMine()
+    euclid = createNeighborhoodFileUsingEuclideanDistance(sys.argv[1],sys.argv[2],sys.argv[3])
+    euclid.create()
 
