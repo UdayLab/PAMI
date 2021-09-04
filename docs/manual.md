@@ -17,8 +17,15 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
         PAMI
           |-theoriticalModel
-                   |-patternType (e.g., basic/maximal/closed/topk)
-                          |-algorithmName
+          |        |-patternType (e.g., basic/maximal/closed/topk)
+          |               |-algorithmName
+          |- ...
+          |
+          |-extras
+                |-DF2DB                    
+                |-dbStats
+                |-plots
+                |-...
    
    An user can import a pattern mining algorithm using the following syntax:
 
@@ -48,7 +55,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
         
-            import PAMI.dbStats.transactionalDatabaseStats as tds
+            import PAMI.extras.dbStats.transactionalDatabaseStats as tds
           
             obj = tds.transactionalDatabaseStats(inputFile)
             obj.run()
@@ -65,9 +72,10 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
             obj.storeInFile(transactionLength, 'transactionSize.csv')        
           
    2. [Statistics of a temporal database](temporalDatabaseStats.md)
+   
         This program outputs the statistical details of a temporal database. It will also output the distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
         
-            import PAMI.dbStats.temporalDatabaseStats as tds
+            import PAMI.extras.dbStats.temporalDatabaseStats as tds
           
             obj = tds.temporalDatabaseStats(inputFile, sep='\t')
             obj.run()
@@ -90,11 +98,10 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
  
    3. [Statistics of a utility database](utilityDatabaseStats.md)
    
-            import PAMI.dbStats.utilityDatabaseStats as uds
+            import PAMI.extras.dbStats.utilityDatabaseStats as uds
             
             obj = uds.utilityDatabaseStats(inputFile)
             obj.run()
-            
             print(f'Database size : {obj.getDatabaseSize()}')
             print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
             print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
@@ -103,7 +110,6 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
             print(f'Minimum utility : {obj.getMinimumUtility()}')
             print(f'Average utility : {obj.getAverageUtility()}')
             print(f'Maximum utility : {obj.getMaximumUtility()}')
-            
             itemFrequencies = obj.getSortedListOfItemFrequencies()
             transactionLength = obj.getTransanctionalLengthDistribution()
             utility = obj.getSortedUtilityValuesOfItem()
@@ -126,7 +132,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
        This program creates a database by specifying a single condition and a threshold value for all items in a database.
    Code to convert a dataframe into a transactional database:
 
-          from PAMI.DF2DB import DF2DB as pro
+          from PAMI.extras.DF2DB import DF2DB as pro
           
           db = pro.DF2DB(inputDataFrame, thresholdValue, condition, DFtype)
           # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
@@ -136,7 +142,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
 
       This program user can specify a different condition and a threshold value for each item in the dataframe. Code to convert a dataframe into a transactional database:
       
-          from PAMI.DF2DB import DF2DBPlus as pro
+          from PAMI.extras.DF2DB import DF2DBPlus as pro
           
           db = pro.DF2DBPlus(inputDataFrame, itemConditionValueDataFrame, DFtype)
           # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
