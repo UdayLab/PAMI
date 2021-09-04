@@ -1,4 +1,4 @@
-**[CLICK HERE](manual.html)** to access the PAMI manual.
+**[CLICK HERE](index.html)** to access the PAMI manual.
 
 ## About PAMI
 PAttern MIning (PAMI) is an important knowledge discovery technique in the data mining. Its objective is to discover 

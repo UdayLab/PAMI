@@ -1,4 +1,4 @@
-**[CLICK HERE](manual.html)** to access the PAMI manual.
+**[CLICK HERE](index.html)** to access the PAMI manual.
 
 # User Manual 
 Key concepts in each link were briefly mentioned to save your valuable time. Click on the necessary links to know more.

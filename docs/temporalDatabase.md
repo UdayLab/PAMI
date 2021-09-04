@@ -1,4 +1,4 @@
-**[CLICK HERE](manual.html)** to access the PAMI manual.
+**[CLICK HERE](index.html)** to access the PAMI manual.
 
 # Theoretical representation
 
