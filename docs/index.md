@@ -9,11 +9,21 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
 
 2. [Installation/Update/uninstall PAMI](installation.html)
    
+   Install the PAMI library
+   
          pip install pami
    
+   Upgrade the PAMI library
+   
+        pip install --upgrade pami
+        
+    Uninstall the PAMI library
+    
+        pip uninstall -y pami
+        
 3. [Organization of algorithms in PAMI](organization.html)
    
-   The algorithms in PAMI are organized in a hierarchical structure as follows: 
+   The algorithms in PAMI are organized in an hierarchical structure as follows: 
    
         PAMI
           |-theoriticalModel
@@ -40,10 +50,16 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
     1. [Temporal database](temporalDatabase.html)
 
             format: timestamp<sep>item1<sep>item2<sep>...<sep>itemN
-    1. [Neighborhood database](neighborhoodDatabase.html)
+    1. [Spatial database](spatialDatabase.html)
             
-            format: spatialItem1<sep>spatialItem3<sep>spatialItem10<sep>...
+        Format of a spatio-transactional database is
+        
+            spatialItem1<sep>spatialItem2<sep> ... <sep>spatialItemN
        
+       Format of a spatio-temporal database is
+       
+            timestamp<sep>spatialItem1<sep>spatialItem2<sep> ... <sep>spatialItemN
+            
     1. [Utility database](utilityDatabase.html)
        
             format: item1<sep>...<sep>itemN:totalUtility:utilityItem1<sep>...<sep>utilityItemN
@@ -51,6 +67,14 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
     Default separator used in PAMI is tab space. However, users can override the separator with their choice.
    
 5. [Getting the statistics of databases](databaseStats.html)
+
+The performance of a mining algorithm primarily depends on the following two key factors: 
+1. Distribution of items' frequencies and 
+1. Distribution of transaction length
+
+Thus, it is important to know the statistical details of a database. PAMI provides inbuilt classes and functions methods to 
+get the statistical details of a database.
+   
    1. [Statistics of a transactional database](transactionalDatabaseStats.md)
    
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
@@ -58,6 +82,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
             import PAMI.extras.dbStats.transactionalDatabaseStats as tds
           
             obj = tds.transactionalDatabaseStats(inputFile)
+            #obj = tds.transactionalDatabaseStats(inputFile,sep=',') #override default tab seperator
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')
@@ -77,7 +102,8 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
         
             import PAMI.extras.dbStats.temporalDatabaseStats as tds
           
-            obj = tds.temporalDatabaseStats(inputFile, sep='\t')
+            obj = tds.temporalDatabaseStats(inputFile)
+            # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')
@@ -101,6 +127,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
             import PAMI.extras.dbStats.utilityDatabaseStats as uds
             
             obj = uds.utilityDatabaseStats(inputFile)
+            #obj = uds.utilityDatabaseStats(inputFile,sep=',') #override default tab separator
             obj.run()
             print(f'Database size : {obj.getDatabaseSize()}')
             print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
@@ -173,7 +200,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
           
           E.g., python PAMI/frequentPattern/basic/fpGrowth.py inputFile outputFile minSup
 7. [Extras](extras.html)
-   1. [Creation of neighborhood file for spatiotemporal data using Euclidean distance](neighborhoodDatabase.md)
+   1. [Creation of neighborhood file for spatiotemporal data using Euclidean distance](spatialDatabase.md)
    
           from PAMI.extras import createNeighborhoodFileUsingEuclideanDistance as alg
           

@@ -1,72 +1,128 @@
 **[CLICK HERE](index.html)** to access the PAMI manual.
 
-# User Manual
-Key concepts in each link were briefly mentioned to save your valuable time. Click on the necessary links to know more.
+#Statistical details of a temporal database
 
-1. [About PAMI: Motivation and the people who supported](aboutPAMI.html)
+The performance of a mining algorithm primarily depends on the following two key factors: 
+1. Distribution of items' frequencies and 
+1. Distribution of transaction length
 
-   PAMI is a PAttern MIning Python library to discover hidden patterns in Big Data.
+Thus, it is important to know the statistical details of a database. PAMI provides inbuilt classes and functions methods to 
+get the statistical details of a database.   In this page, we provide the details of methods to get statistical details from 
+a temporal database. 
 
-2. [Installation/Update/uninstall PAMI](installation.html)
+### Executing temporalDatabaseStats program
 
-         pip install pami
+The temporalDatabaseStats.py program is located in PAMI.extras.dbStats folder. Thus, execute the below lines to run the program.
 
-3. [Organization of Algorithms in PAMI](organization.html)
+    #import the program
+    import PAMI.extras.dbStats.temporalDatabaseStats as tds
+          
+    
+    #initialize the program
+    obj = tds.temporalDatabaseStats(inputFile)
+    # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+    #execute the program
+    obj.run()
+    
+Once the program is executed, users can call different methods to get the statistical details of a database. We now describe the available methods.
 
-   The algorithms in PAMI are organized in a hierarchical structure as follows:
+#### getDatabaseSize()
+    
+   This method returns the total number of transactions in a database.  
+   
+    print(f'Database size : {obj.getDatabaseSize()}')
 
-        PAMI.theoriticalModel.basic/maximal/closed/topk.algorithmName
+#### getMinimumTransactionLength()
 
-4. [Creating Databases](createDatabases.html)
+   This method  returns the length of the small transaction in a database. In other words, this function returns the minimum number of items in a transaction.
+   
+    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
 
-    1. [Transactional database](transactionalDatabase.html)
+#### getAverageTransactionLength()
 
-            format: item1<sep>item2<sep>...<sep>itemN
+   This method  returns the length of an average transaction in a database. In other words, this function returns the average number of items in a transaction.
+   
+    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+   
+#### getMaximumTransactionLength()
+   This method returns the length of the largest transaction in a database. In other words, this function returns the maximum number of items in a transaction. 
 
-    1. [Temporal database](temporalDatabase.html)
+    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+    
+#### getStandardDeviationTransactionLength()
+   This method returns the standard deviation of the lengths of transactions in database.
 
-            format: timestamp<sep>item1<sep>item2<sep>...<sep>itemN
-    1. [Neighborhood database](neighborhoodDatabase.html)
+    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
 
-            format: spatialItem1<sep>spatialItem3<sep>spatialItem10<sep>...
+#### getMinimumPeriod()
+   This method returns the minimum period between two transactions in a database.
+   
+    print(f'Minimum period : {obj.getMinimumPeriod()}')
 
-    1. [Utility database](utilityDatabase.html)
+#### getAveragePeriod()
+   This method returns the average period between two transactions in a database.
+    
+     print(f'Average period : {obj.getAveragePeriod()}')
+     
+#### getMaximumPeriod()
+   This method returns the maximum period between two transactions in a database.
+   
+      print(f'Maximum period : {obj.getMaximumPeriod()}')
+      
+      
+#### getSortedListOfItemFrequencies()
+   This method returns a sorted dictionary of items and their frequencies in the database. The format of this dictionary is {item:frequency} 
+   The items in this dictionary are sorted in frequency descending order. 
+   
+    itemFrequencies = obj.getSortedListOfItemFrequencies()
 
-            format: item1<sep>...<sep>itemN:totalUtility:utilityItem1<sep>...<sep>utilityItemN
+#### getTransanctionalLengthDistribution()
+   This method returns a sorted dictionary of transaction lengths and their occurrence frequencies in the database. 
+   The format of this dictionary is {temporalLength:frequency}.
+   The transaction lengths in this dictionary are sorted in ascending order of their temporal lengths.
+   
+    transactionLength = obj.getTransanctionalLengthDistribution()
 
-   Default separator used in PAMI is tab space. However, users can override the separator with their choice.
+#### getNumberOfTransactionsPerTimestamp()
+   This method returns a sorted dictionary of timestamps and the number of transactions occurring at the corresponding timestamp.
+   The format of this dictionary is {timestamp:frequency}
+   
+     numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
+          
+#### storeInFile(dictionary, returnFileName)
+   This method stores the dictionary in a file. In the output file, the key value pairs of the dictionary are separated by a tab space. 
+   
+    obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
+    obj.storeInFile(transactionLength, 'transactionSize.csv')       
+    obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
+    
+    
+## Sample code 
 
-5. [Converting Dataframes to Databases](dataFrameCoversio.html)
+    import PAMI.extras.dbStats.temporalDatabaseStats as tds
+          
+    obj = tds.temporalDatabaseStats(inputFile)
+    # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+    obj.run()
+    
+    print(f'Database size : {obj.getDatabaseSize()}')
+    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+    print(f'Minimum period : {obj.getMinimumPeriod()}')
+    print(f'Average period : {obj.getAveragePeriod()}')
+    print(f'Maximum period : {obj.getMaximumPeriod()}')
+    
+    itemFrequencies = obj.getSortedListOfItemFrequencies()
+    transactionLength = obj.getTransanctionalLengthDistribution()
+    numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
+    obj.storeInFile(itemFrequencies,'itemFrequency.csv')
+    obj.storeInFile(transactionLength, 'transactionSize.csv')
+    obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
 
-    1. [Format of dense dataframe]((denseDF2DB.html))
 
-           tid/timestamp<sep>item1<sep>item2<sep>...<sep>itemN
 
-    2. [Format of sparse dataframe]((sparseDF2DB.html))
 
-           tid/timestamp<sep>item<sep>value
 
-    3. [Dataframe to database conversion](denseDF2DB.html)
 
-       This program creates a database by specifying a single condition and a threshold value for all items in a database.
-       Code to convert a dataframe into a transactional database:
-
-           from PAMI.DF2DB import DF2DB as pro
-           db = pro.DF2DB(inputDataFrame, thresholdValue, condition, DFtype)
-           # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
-           db.createTransactional(outputFile)
-
-    4. [Dataframe to database conversed advanced](DF2DBPlus.html)
-
-       This program user can specify a different condition and a threshold value for each item in the dataframe. Code to convert a dataframe into a transactional database:
-
-           from PAMI.DF2DB import DF2DBPlus as pro
-           db = pro.DF2DBPlus(inputDataFrame, itemConditionValueDataFrame, DFtype)
-           # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
-           db.createTransactional(outputFile)
-
-    5. [Spatiotemporal dataframe to databases](stDF2DB.html)
-
-6. [Exceuting Algorithms in PAMI](utilization.html)
-    1. Importing PAMI algorithms into your program
-    2. Executing PAMI algorithms directly on the terminal

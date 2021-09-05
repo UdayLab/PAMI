@@ -149,7 +149,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
           
           E.g., python PAMI/frequentPattern/basic/fpGrowth.py inputFile outputFile minSup
 7. [Extras](extras.html)
-   1. [Creation of neighborhood file for spatiotemporal data using Euclidean distance](neighborhoodDatabase.md)
+   1. [Creation of neighborhood file for spatiotemporal data using Euclidean distance](spatialDatabase.md)
    
           from PAMI.extras import createNeighborhoodFileUsingEuclideanDistance as alg
           

@@ -5,17 +5,20 @@
  A temporal database is a collection of transactions and their associated timestamps.  
  A sample temporal database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:
    
-   Timestamp |  tid | Transactions 
+   TID |  Timestamp | Transactions 
      --- | ----- | ---
      1  | 1  | a, b, c
      2  | 2 | d, e
-     5  | 3 | a, e, f  
+     3  | 5 | a, e, f
+     4  | 5 | d, f, g  
 
 ### Rules to create a temporal database
+1. Since TID of a transaction implicitly represents the row number, this information can be ignored to save space.
 1. The first column of every transaction must represent a timestamp. 
 1. The timestamp of the first transaction must always be 1. The timestamps of remaining transactions follow thereafter. 
-   In other words, the tiemstamps in a temporal database must be relative to each other, rather than absolute timestamps.
+   In other words, the timestamps in a temporal database must be relative to each other, rather than absolute timestamps.
 1. Irregular time gaps can exist between the transactions.
+1. Multiple transactions can have a same timestamp. In other words, multiple transactions can occur at a particular timestamp.
 
 ### Temporal database format
 The PAMI library requires every transaction in a temporal database to exist in the following format:
@@ -26,12 +29,13 @@ The PAMI library requires every transaction in a temporal database to exist in t
         1   a   b   c
         2   d   e
         5   a   e   f
+        5   d   f   g
 
 **Note:**
-1. The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
+1. The default separator, i.e., \<sep>, used in PAMI is tab space (or \t). However, the users can override the default 
    separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
    and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.
-1. In a temporal database, items can be represented in integers or strings.
+1. In a temporal database, items can be represented as integers or strings.
 1. The timestamps must exist as integers.
 
 ### Example: finding periodic-frequent patterns in a transactional database using PFP-growth++
