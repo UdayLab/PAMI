@@ -78,7 +78,7 @@ class temporalDatabaseStats:
             for line in f:
                 numberOfTransaction += 1
                 line = [s for s in line.strip().split(self.sep)]
-                self.database[numberOfTransaction] = line
+                self.database[numberOfTransaction] = line[1:]
                 self.timeStampCount[int(line[0])] = self.timeStampCount.get(int(line[0]), 0)
                 self.timeStampCount[int(line[0])] += 1
         self.lengthList = [len(s) for s in self.database.values()]
