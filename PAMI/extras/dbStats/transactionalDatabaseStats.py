@@ -134,3 +134,10 @@ class transactionalDatabaseStats:
         with open(outputFile, 'w') as f:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
+
+    def varience(self):
+        return -1
+
+    def sparsity(self):
+        # percentage of 0 dense dataframe
+        return -1

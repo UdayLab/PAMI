@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-class plotGraph:
+class plotLineGraph:
     """
     This class plot graph of input data
 
@@ -11,13 +11,13 @@ class plotGraph:
 
     Methods:
     -------
-    drawLine()
+    plotLineGraph()
         draw line graph of input data. input data's key is x and value is y.
     """
     def __init__(self, data):
         self.data = data
 
-    def drawLine(self, percentage=100, title='', xlabel='', ylabel=''):
+    def plotLineGraph(self, percentage=100, title='', xlabel='', ylabel=''):
         """
         draw line graph. Plot the input data key as x and value as y
         :param percentage: percentage of graph to plot
