@@ -116,8 +116,8 @@ class transactionalDatabaseStats:
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
         """
-        matrixSize = len(self.getSortedListOfItemFrequencies())
-        return (matrixSize - sum(self.lengthList)) / matrixSize
+        matrixSize = self.getDatabaseSize() * len(self.getSortedListOfItemFrequencies())
+        return (matrixSize - sum(self.getSortedListOfItemFrequencies().values())) / matrixSize
 
     def getSortedListOfItemFrequencies(self):
         """

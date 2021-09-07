@@ -137,8 +137,8 @@ class temporalDatabaseStats:
         get the sparsity of database
         :return: database sparsity
         """
-        matrixSize = len(self.getSortedListOfItemFrequencies())
-        return (matrixSize - sum(self.lengthList)) / matrixSize
+        matrixSize = self.getDatabaseSize()*len(self.getSortedListOfItemFrequencies())
+        return (matrixSize - sum(self.getSortedListOfItemFrequencies().values())) / matrixSize
 
     def getSortedListOfItemFrequencies(self):
         """
