@@ -1,5 +1,4 @@
 import pandas as pd
-from createSparseDF import createSparseDF
 
 class sparseDF2DB:
     """

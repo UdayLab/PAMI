@@ -1,5 +1,5 @@
-from denseDF2DBPlus import *
-from sparseDF2DBPlus import *
+from PAMI.extras.DF2DB.denseDF2DBPlus import *
+from PAMI.extras.DF2DB.sparseDF2DBPlus import *
 
 
 class DF2DBPlus:
