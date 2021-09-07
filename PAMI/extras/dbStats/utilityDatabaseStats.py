@@ -116,6 +116,22 @@ class utilityDatabaseStats:
         """
         return statistics.pstdev(self.lengthList)
 
+    def getVarianceTransactionLength(self):
+        """
+        get the variance transaction length
+        :return: variance transaction length
+        """
+        return statistics.variance(self.lengthList)
+
+    def getSparsity(self):
+        # percentage of 0 dense dataframe
+        """
+        get the sparsity of database
+        :return: database sparsity
+        """
+        matrixSize = len(self.getSortedListOfItemFrequencies())
+        return (matrixSize - sum(self.lengthList)) / matrixSize
+
     def getSortedListOfItemFrequencies(self):
         """
         get sorted list of item frequencies

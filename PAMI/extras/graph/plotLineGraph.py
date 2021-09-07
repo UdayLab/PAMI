@@ -14,10 +14,8 @@ class plotLineGraph:
     plotLineGraph()
         draw line graph of input data. input data's key is x and value is y.
     """
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, data, percentage=100, title='', xlabel='', ylabel=''):
 
-    def plotLineGraph(self, percentage=100, title='', xlabel='', ylabel=''):
         """
         draw line graph. Plot the input data key as x and value as y
         :param percentage: percentage of graph to plot
@@ -29,9 +27,9 @@ class plotLineGraph:
         :param ylabel: ylabel of grapth
         :type ylabel: str
         """
-        numberOfGraphToPlot = int(len(self.data) * percentage / 100)
-        x = tuple(self.data.keys()[:numberOfGraphToPlot])
-        y = tuple(self.data.values()[:numberOfGraphToPlot])
+        numberOfGraphToPlot = int(len(data) * percentage / 100)
+        x = tuple(data.keys())[:numberOfGraphToPlot]
+        y = tuple(data.values())[:numberOfGraphToPlot]
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
         ax.set_title(title)

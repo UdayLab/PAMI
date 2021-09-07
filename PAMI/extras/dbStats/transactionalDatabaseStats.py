@@ -31,6 +31,10 @@ class transactionalDatabaseStats:
             get the maximum transaction length
         getStandardDeviationTransactionLength()
             get the standard deviation of transaction length
+        getVarianceTransactionLength()
+            get the variance of transaction length
+        getSparsity()
+            get the sparsity of database
         getSortedListOfItemFrequencies()
             get sorted list of item frequencies
         getSortedListOfTransactionLength()
@@ -100,6 +104,21 @@ class transactionalDatabaseStats:
         """
         return statistics.pstdev(self.lengthList)
 
+    def getVarianceTransactionLength(self):
+        """
+        get the variance transaction length
+        :return: variance transaction length
+        """
+        return statistics.variance(self.lengthList)
+
+    def getSparsity(self):
+        """
+        get the sparsity of database. sparsity is percentage of 0 of database.
+        :return: database sparsity
+        """
+        matrixSize = len(self.getSortedListOfItemFrequencies())
+        return (matrixSize - sum(self.lengthList)) / matrixSize
+
     def getSortedListOfItemFrequencies(self):
         """
         get sorted list of item frequencies
@@ -134,10 +153,3 @@ class transactionalDatabaseStats:
         with open(outputFile, 'w') as f:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
-
-    def varience(self):
-        return -1
-
-    def sparsity(self):
-        # percentage of 0 dense dataframe
-        return -1
