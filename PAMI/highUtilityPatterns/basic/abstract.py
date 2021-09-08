@@ -36,7 +36,6 @@ import os
 import os.path
 import psutil
 from array import *
-import resource
 import functools
 
 class utilityPatterns(ABC):
