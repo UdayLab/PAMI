@@ -167,7 +167,7 @@ get the statistical details of a database.
         
         plt.plotLineGraphFromDictionary(dictionary,percentageOfItemsToPlot,title,xLabel,yLabel) 
      
-   1. [Plot of items' frequencies](plotItemFrequencies.md)
+   1. [Plotting items' frequencies](plotItemFrequencies.md)
    
           import PAMI.extras.graph.plotLineGraphFromDictionary as plt
           
@@ -177,7 +177,7 @@ get the statistical details of a database.
            
           plt.plotLineGraphFromDictionary(obj.getSortedListOfItemFrequencies(),percentageOfItemsToPlot,title,xLabel,yLabel) 
         
-   2. [Plot of transaction distributions](plotTransactionDistribution.md)
+   2. [Plotting distribution of transaction lengths](plotTransactionDistribution.md)
    
           import PAMI.extras.graph.plotLineGraphFromDictionary as plt
           
