@@ -123,6 +123,13 @@ class utilityDatabaseStats:
         """
         return statistics.variance(self.lengthList)
 
+    def getNumberOfItems(self):
+        """
+        get the number of items in database.
+        :return: number of items
+        """
+        return len(self.getSortedListOfItemFrequencies())
+
     def getSparsity(self):
         # percentage of 0 dense dataframe
         """

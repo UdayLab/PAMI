@@ -111,6 +111,13 @@ class transactionalDatabaseStats:
         """
         return statistics.variance(self.lengthList)
 
+    def getNumberOfItems(self):
+        """
+        get the number of items in database.
+        :return: number of items
+        """
+        return len(self.getSortedListOfItemFrequencies())
+
     def getSparsity(self):
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
