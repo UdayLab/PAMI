@@ -87,6 +87,13 @@ class utilityDatabaseStats:
         """
         return len(self.database)
 
+    def getTotalNumberOfItems(self):
+        """
+        get the number of items in database.
+        :return: number of items
+        """
+        return len(self.getSortedListOfItemFrequencies())
+
     def getMinimumTransactionLength(self):
         """
         get the minimum transaction length

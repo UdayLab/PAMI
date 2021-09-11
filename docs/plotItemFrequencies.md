@@ -80,10 +80,6 @@ get the statistical details of a database.
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
         
             import PAMI.extras.dbStats.transactionalDatabaseStats as tds
-            
-            obj = tds.transactionalDatabaseStats(inputFile)
-            # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
-            obj.run()
           
             print(f'Database size : {obj.getDatabaseSize()}')
             print(f'Total number of items : {obj.getTotalNumberOfItems()}')
@@ -156,37 +152,16 @@ get the statistical details of a database.
             utility = obj.getSortedUtilityValuesOfItem()
             obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
             obj.storeInFile(transactionLength, 'transactionSize.csv')
-            obj.storeInFile(utility, 'utility.csv')            
+            obj.storeInFile(utility, 'utility.csv')
+            
    
 6. [Basic plots of a database](basicPlots.md)
-
-    In the previous chapter, we have presented the methods to understand the statistics of a database. 
-    In continuation, we present the methods to plot the graphs of graphs. 
-    
-        import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-        
-        plt.plotLineGraphFromDictionary(dictionary,percentageOfItemsToPlot,title,xLabel,yLabel) 
-     
    1. [Plot of items' frequencies](plotItemFrequencies.md)
-   
-          import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-          
-          obj = tds.transactionalDatabaseStats(inputFile)
-          # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
-          obj.run()
-           
-          plt.plotLineGraphFromDictionary(obj.getSortedListOfItemFrequencies(),percentageOfItemsToPlot,title,xLabel,yLabel) 
-        
    2. [Plot of transaction distributions](plotTransactionDistribution.md)
    
-          import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+   
+         
           
-          obj = tds.transactionalDatabaseStats(inputFile)
-          # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
-          obj.run()
-           
-          plt.plotLineGraphFromDictionary(obj.getTransanctionalLengthDistribution(),percentageOfItemsToPlot,title,xLabel,yLabel) 
-                  
 7. [Converting dataframes to databases](dataFrameCoversio.html)
 
    1. [Format of dense dataframe]((denseDF2DB.html)) 
@@ -238,7 +213,6 @@ get the statistical details of a database.
         3. Enter into the PAMI-main folder and move the PAMI sub-folder to the location of your choice. 
         4. Let the location be /home/username/PAMI
         5. Execute the following command:
-        
         
           python PAMI/patternModel/patternType/algorithm.py inputFile outputFile parameters
           

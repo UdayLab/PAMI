@@ -28,32 +28,50 @@ Once the program is executed, users can call different methods to get the statis
 
 #### getDatabaseSize()
     
-   This method outputs the total number of transactions in a database.  
+   This method returns the total number of transactions in a database.  
    
     print(f'Database size : {obj.getDatabaseSize()}')
+    
+#### getTotalNumberOfItems()
 
+   This method returns the total number of transactions in a database.
+   
+    print(f'Total number of items : {obj.getTotalNumberOfItems()}')
+
+####.getSparsity()    
+
+   This method returns the sparsity (i.e., the portion of empty values) of the database.
+   
+    printf(f'Database sparsity : {obj.getSparsity()}')
+    
 #### getMinimumTransactionLength()
 
-   This method  outputs the length of the small transaction in a database. In other words, this function outputs the minimum number of items in a transaction.
+   This method  returns the length of the small transaction in a database. In other words, this function returns the minimum number of items in a transaction.
    
     print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
 
 #### getAverageTransactionLength()
 
-   This method  outputs the length of an average transaction in a database. In other words, this function outputs the average number of items in a transaction.
+   This method  returns the length of an average transaction in a database. In other words, this function returns the average number of items in a transaction.
    
     print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
    
 #### getMaximumTransactionLength()
-   This method outputs the length of the largest transaction in a database. In other words, this function outputs the maximum number of items in a transaction. 
+   This method returns the length of the largest transaction in a database. In other words, this function returns the maximum number of items in a transaction. 
 
     print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
     
 #### getStandardDeviationTransactionLength()
-   This method outputs the standard deviation of the lengths of transactions in database.
+   This method returns the standard deviation of the lengths of transactions in database.
 
     print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
 
+#### getVarianceTransactionLength()
+
+   This method returns the variance of the lengths of transactions in a database
+
+    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()') 
+    
 #### getMinimumUtility()
   This method returns the minimum utility of all items in a database.
    
@@ -103,9 +121,13 @@ Once the program is executed, users can call different methods to get the statis
     #obj = uds.utilityDatabaseStats(inputFile,sep=',') #override default tab separator
     obj.run()
     print(f'Database size : {obj.getDatabaseSize()}')
+    print(f'Total number of items : {obj.getTotalNumberOfItems()}')
+    printf(f'Database sparsity : {obj.getSparsity()}')
     print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
     print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
     print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+    print(f'Variance in Transaction Sizes : {obj. getVarianceTransactionLength()')
     print(f'Total utility : {obj.getTotalUtility()}')
     print(f'Minimum utility : {obj.getMinimumUtility()}')
     print(f'Average utility : {obj.getAverageUtility()}')

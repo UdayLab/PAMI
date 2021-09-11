@@ -31,7 +31,19 @@ Once the program is executed, users can call different methods to get the statis
    This method returns the total number of transactions in a database.  
    
     print(f'Database size : {obj.getDatabaseSize()}')
+    
+#### getTotalNumberOfItems()
 
+   This method returns the total number of transactions in a database.
+   
+    print(f'Total number of items : {obj.getTotalNumberOfItems()}')
+
+####.getSparsity()    
+
+   This method returns the sparsity (i.e., the portion of empty values) of the database.
+   
+    printf(f'Database sparsity : {obj.getSparsity()}')
+    
 #### getMinimumTransactionLength()
 
    This method  returns the length of the small transaction in a database. In other words, this function returns the minimum number of items in a transaction.
@@ -53,7 +65,13 @@ Once the program is executed, users can call different methods to get the statis
    This method returns the standard deviation of the lengths of transactions in database.
 
     print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-    
+
+#### getVarianceTransactionLength()
+
+   This method returns the variance of the lengths of transactions in a database
+
+    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
+        
 #### getSortedListOfItemFrequencies()
    This method returns a sorted dictionary of items and their frequencies in the database. The format of this dictionary is {item:frequency} 
    The items in this dictionary are sorted in frequency descending order. 
@@ -78,20 +96,19 @@ Once the program is executed, users can call different methods to get the statis
 
     import PAMI.extras.dbStats.transactionalDatabaseStats as tds
           
-    obj = tds.transactionalDatabaseStats(inputFile)
-    #obj = tds.transactionalDatabaseStats(inputFile,sep=',') #override default tab seperator
-    obj.run()
-            
     print(f'Database size : {obj.getDatabaseSize()}')
+    print(f'Total number of items : {obj.getTotalNumberOfItems()}')
+    printf(f'Database sparsity : {obj.getSparsity()}')
     print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
     print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
     print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
     print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-            
+    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
+    
     itemFrequencies = obj.getSortedListOfItemFrequencies()
     transactionLength = obj.getTransanctionalLengthDistribution()
     obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
-    obj.storeInFile(transactionLength, 'transactionSize.csv')       
+    obj.storeInFile(transactionLength, 'transactionSize.csv')        
 
 
 
