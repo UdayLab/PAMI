@@ -25,8 +25,8 @@ class temporalDatabaseStats:
             execute readDatabase function
         readDatabase()
             read database from input file
-        getDatabaseLength()
-            get the length of database
+        getDatabaseSize()
+            get the size of database
         getMinimumTransactionLength()
             get the minimum transaction length
         getAverageTransactionLength()
@@ -78,7 +78,7 @@ class temporalDatabaseStats:
             for line in f:
                 numberOfTransaction += 1
                 line = [s for s in line.strip().split(self.sep)]
-                self.database[numberOfTransaction] = line
+                self.database[numberOfTransaction] = line[1:]
                 self.timeStampCount[int(line[0])] = self.timeStampCount.get(int(line[0]), 0)
                 self.timeStampCount[int(line[0])] += 1
         self.lengthList = [len(s) for s in self.database.values()]
@@ -88,10 +88,10 @@ class temporalDatabaseStats:
             self.periodList.append(int(ts)-preTimeStamp)
             preTimeStamp = ts
 
-    def getDatabaseLength(self):
+    def getDatabaseSize(self):
         """
-        get the Length of database
-        :return: data base length
+        get the size of database
+        :return: data base size
         """
         return len(self.database)
 
@@ -124,6 +124,29 @@ class temporalDatabaseStats:
         """
         return statistics.pstdev(self.lengthList)
 
+    def getVarianceTransactionLength(self):
+        """
+        get the variance transaction length
+        :return: variance transaction length
+        """
+        return statistics.variance(self.lengthList)
+
+    def getSparsity(self):
+        # percentage of 0 dense dataframe
+        """
+        get the sparsity of database
+        :return: database sparsity
+        """
+        matrixSize = self.getDatabaseSize()*len(self.getSortedListOfItemFrequencies())
+        return (matrixSize - sum(self.getSortedListOfItemFrequencies().values())) / matrixSize
+
+    def getTotalNumberOfItems(self):
+        """
+        get the number of items in database.
+        :return: number of items
+        """
+        return len(self.getSortedListOfItemFrequencies())
+
     def getSortedListOfItemFrequencies(self):
         """
         get sorted list of item frequencies
@@ -145,7 +168,7 @@ class temporalDatabaseStats:
         for length in self.lengthList:
             transactionLength[length] = transactionLength.get(length, 0)
             transactionLength[length] += 1
-        return {k: v for k, v in sorted(self.database.items(), key=lambda x: x[0])}
+        return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
     def storeInFile(self, data, outputFile):
         """
@@ -157,7 +180,7 @@ class temporalDatabaseStats:
         """
         with open(outputFile, 'w') as f:
             for key, value in data.items():
-                f.write(f'{key},{value}\n')
+                f.write(f'{key}\t{value}\n')
 
     def getMinimumPeriod(self):
         """

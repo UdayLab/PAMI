@@ -1,4 +1,4 @@
-**[CLICK HERE](manual.html)** to access the PAMI manual.
+**[CLICK HERE](index.html)** to access the PAMI manual.
 
 
 # Theoretical representation of a transactional database
@@ -15,7 +15,7 @@ and a set of items. A sample transactional database generated from the set of it
 ### Rules to create a transactional database
 1. Since TID of a transaction directly represents its row number in a database, we can ignore this information 
 to save storage space and processing time. 
-1. All items in every transaction must be seperated from one another with a separator.   
+1. All items in every transaction must be with a separator.   
 
 ### Transactional database format
 The format of a transactional database is as follows:
@@ -28,8 +28,7 @@ The format of a transactional database is as follows:
         a   e   f
 
 **Note:**
-1. The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
-   separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
+1. The default separator used in PAMI is tab space (or \t). However, the users can user any separator of their choice, such as space and comma. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
    and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.
 1. In a transactional database, items can be represented in integers or strings.
 
@@ -58,7 +57,9 @@ The format of a transactional database is as follows:
 
    ```
 1. Execute the testPAMI.py file by typing the following command
-      python3 testPAMI.py
+
+       python3 testPAMI.py
+       
 1. After the successful execution, users will find the generated patterns in patterns.txt file
 
  

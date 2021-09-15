@@ -1,5 +1,5 @@
-from denseDF2DB import *
-from sparseDF2DB import *
+from PAMI.extras.DF2DB.denseDF2DB import *
+from PAMI.extras.DF2DB.sparseDF2DB import *
 
 class DF2DB:
     """

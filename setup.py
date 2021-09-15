@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name = 'pami',
-    version = '0.9.7.2.9.2.4',
+    version = '0.9.7.2.9.2.15',
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',
     description = 'This software is being developed at the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
@@ -17,6 +17,8 @@ setuptools.setup(
     install_requires=[            # All necessary packages utilized by our PAMI software
         'psutil',
         'pandas',
+        'matplotlib',
+        'resource',
     ],
     classifiers = [
         'Development Status :: 3 - Alpha',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package

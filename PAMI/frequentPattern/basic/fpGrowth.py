@@ -17,6 +17,7 @@ from PAMI.frequentPattern.basic.abstract import *
 import sys
 
 minSup = str()
+sys.setrecursionlimit(20000)
 
 
 class Node:

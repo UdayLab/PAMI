@@ -11,10 +11,10 @@ PAMI constitutes of several pattern mining algorithms to discover interesting pa
                 As a part of future work, we intend to extend PAMI to accept pandas data frame as an input to a pattern mining algorithm.
                 
                 
-    COMMAND: pip install psutil pandas functools
+    COMMAND: pip install psutil pandas
 
 # User manual
-  The manual for working with PAMI is available at https://udayrage.github.io/PAMI/manual.html
+  The manual for working with PAMI is available at https://udayrage.github.io/PAMI/index.html
   
 # Details 
 Total available algorithms: 41

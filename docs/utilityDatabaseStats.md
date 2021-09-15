@@ -70,7 +70,22 @@ Once the program is executed, users can call different methods to get the statis
 
    This method returns the variance of the lengths of transactions in a database
 
-    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
+    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()') 
+    
+#### getMinimumUtility()
+  This method returns the minimum utility of all items in a database.
+   
+    print(f'Minimum utility : {obj.getMinimumUtility()}')    
+
+#### getAverageUtility()
+  This method returns the average utility of all items in a database.
+   
+    print(f'Average utility : {obj.getAverageUtility()}')    
+    
+#### getMaximumUtility()
+  This method returns the maximum utility of all items in a database.
+   
+    print(f'Maximum utility : {obj.getMaximumUtility()}')    
         
 #### getSortedListOfItemFrequencies()
    This method returns a sorted dictionary of items and their frequencies in the database. The format of this dictionary is {item:frequency} 
@@ -84,18 +99,27 @@ Once the program is executed, users can call different methods to get the statis
    The transaction lengths in this dictionary are sorted in ascending order of their transactional lengths.
    
     transactionLength = obj.getTransanctionalLengthDistribution()
-    
-#### storeInFile(dictionary, outputFileName)
+
+#### getSortedUtilityValuesOfItem()
+   This method returns the sorted dictionary of items and their sum of utility values in a database.
+   The format of this dictionary is {item:sumOfItsUtilities}.
+   
+     utility = obj.getSortedUtilityValuesOfItem()
+         
+#### storeInFile(dictionary, returnFileName)
    This method stores the dictionary in a file. In the output file, the key value pairs of the dictionary are separated by a tab space. 
    
     obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
     obj.storeInFile(transactionLength, 'transactionSize.csv')       
-    
+    obj.storeInFile(utility, 'utility.csv')  
     
 ## Sample code 
 
-    import PAMI.extras.dbStats.transactionalDatabaseStats as tds
-          
+    import PAMI.extras.dbStats.utilityDatabaseStats as uds
+            
+    obj = uds.utilityDatabaseStats(inputFile)
+    #obj = uds.utilityDatabaseStats(inputFile,sep=',') #override default tab separator
+    obj.run()
     print(f'Database size : {obj.getDatabaseSize()}')
     print(f'Total number of items : {obj.getTotalNumberOfItems()}')
     printf(f'Database sparsity : {obj.getSparsity()}')
@@ -103,12 +127,17 @@ Once the program is executed, users can call different methods to get the statis
     print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
     print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
     print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
-    
+    print(f'Variance in Transaction Sizes : {obj. getVarianceTransactionLength()')
+    print(f'Total utility : {obj.getTotalUtility()}')
+    print(f'Minimum utility : {obj.getMinimumUtility()}')
+    print(f'Average utility : {obj.getAverageUtility()}')
+    print(f'Maximum utility : {obj.getMaximumUtility()}')
     itemFrequencies = obj.getSortedListOfItemFrequencies()
     transactionLength = obj.getTransanctionalLengthDistribution()
+    utility = obj.getSortedUtilityValuesOfItem()
     obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
-    obj.storeInFile(transactionLength, 'transactionSize.csv')        
+    obj.storeInFile(transactionLength, 'transactionSize.csv')
+    obj.storeInFile(utility, 'utility.csv')   
 
 
 

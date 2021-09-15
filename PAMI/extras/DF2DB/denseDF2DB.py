@@ -1,5 +1,4 @@
 import pandas as pd
-from createDenseDF import createDenseDF
 
 class denseDF2DB:
     """
@@ -240,7 +239,7 @@ class denseDF2DB:
         self.outputFile = outputFile
         with open(self.outputFile, 'w') as f:
             for tid in self.tids:
-                df = self.inputDF[tid].dropna()
+                df = self.inputDF.loc[tid].dropna()
                 f.write(f'{df.index[0]}')
                 for item in df.index[1:]:
                     f.write(f'\t{item}')

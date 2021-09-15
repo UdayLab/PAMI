@@ -21,8 +21,8 @@ class transactionalDatabaseStats:
             execute readDatabase function
         readDatabase()
             read database from input file
-        getDatabaseLength()
-            get the length of database
+        getDatabaseSize()
+            get the size of database
         getMinimumTransactionLength()
             get the minimum transaction length
         getAverageTransactionLength()
@@ -31,6 +31,10 @@ class transactionalDatabaseStats:
             get the maximum transaction length
         getStandardDeviationTransactionLength()
             get the standard deviation of transaction length
+        getVarianceTransactionLength()
+            get the variance of transaction length
+        getSparsity()
+            get the sparsity of database
         getSortedListOfItemFrequencies()
             get sorted list of item frequencies
         getSortedListOfTransactionLength()
@@ -64,12 +68,19 @@ class transactionalDatabaseStats:
                 self.database[numberOfTransaction] = list(set(self.database[numberOfTransaction]) | set(line))
         self.lengthList = [len(s) for s in self.database.values()]
 
-    def getDatabaseLength(self):
+    def getDatabaseSize(self):
         """
-        get the Length of database
-        :return: data base length
+        get the size of database
+        :return: data base size
         """
         return len(self.database)
+
+    def getTotalNumberOfItems(self):
+        """
+        get the number of items in database.
+        :return: number of items
+        """
+        return len(self.getSortedListOfItemFrequencies())
 
     def getMinimumTransactionLength(self):
         """
@@ -100,6 +111,28 @@ class transactionalDatabaseStats:
         """
         return statistics.pstdev(self.lengthList)
 
+    def getVarianceTransactionLength(self):
+        """
+        get the variance transaction length
+        :return: variance transaction length
+        """
+        return statistics.variance(self.lengthList)
+
+    def getNumberOfItems(self):
+        """
+        get the number of items in database.
+        :return: number of items
+        """
+        return len(self.getSortedListOfItemFrequencies())
+
+    def getSparsity(self):
+        """
+        get the sparsity of database. sparsity is percentage of 0 of database.
+        :return: database sparsity
+        """
+        matrixSize = self.getDatabaseSize() * len(self.getSortedListOfItemFrequencies())
+        return (matrixSize - sum(self.getSortedListOfItemFrequencies().values())) / matrixSize
+
     def getSortedListOfItemFrequencies(self):
         """
         get sorted list of item frequencies
@@ -121,7 +154,7 @@ class transactionalDatabaseStats:
         for length in self.lengthList:
             transactionLength[length] = transactionLength.get(length, 0)
             transactionLength[length] += 1
-        return {k: v for k, v in sorted(self.database.items(), key=lambda x:x[0])}
+        return {k: v for k, v in sorted(transactionLength.items(), key=lambda x:x[0])}
 
     def storeInFile(self, data, outputFile):
         """
@@ -133,4 +166,4 @@ class transactionalDatabaseStats:
         """
         with open(outputFile, 'w') as f:
             for key, value in data.items():
-                f.write(f'{key},{value}\n')
+                f.write(f'{key}\t{value}\n')
