@@ -17,7 +17,7 @@ PAMI constitutes of several pattern mining algorithms to discover interesting pa
   The manual for working with PAMI is available at https://udayrage.github.io/PAMI/index.html
   
 # Details 
-Total available algorithms: 41
+Total available algorithms: 43
 
 1. Frequent pattern mining: 
      
@@ -54,38 +54,38 @@ Total available algorithms: 41
     |-----|
     |SCP-growth|
     
-5. Fuzzy correlated pattern mining:
+6. Fuzzy correlated pattern mining:
 
     |Basic|
     |-----|
     |CFFI|
     
-6. Fuzzy frequent spatial pattern mining:
+7. Fuzzy frequent spatial pattern mining:
 
     |Basic|
     |-----|
     |FFSI|
     
-7. Fuzzy periodic frequent pattern mining:
+8. Fuzzy periodic frequent pattern mining:
 
     |Basic|
     |-----|
     |FPFP-Miner|
     
-8. High utility frequent spatial pattern mining:
+9. High utility frequent spatial pattern mining:
 
     |Basic|
     |-----|
     |HDSHUIM|
  
-9. High utility pattern mining:
+10. High utility pattern mining:
 
-    |Basic|
-    |-----|
-    |EFIM|
-    |UPGrowth|
+     |Basic|
+     |-----|
+     |EFIM|
+     |UPGrowth|
     
-10. Partial periodic frequent pattern:
+11. Partial periodic frequent pattern:
 
     |Basic|
     |-----|
@@ -138,6 +138,12 @@ Total available algorithms: 41
      |LPPMbredth|
      |LPPMdepth|
      |LPPGrowth|
+18. Recurring pattern mining:
+
+     |Basic|
+     |-----|
+     |RPgrowth|
+ 
      
 
 
