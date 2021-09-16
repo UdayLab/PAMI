@@ -54,6 +54,15 @@ Once the program is executed, users can call different methods to get the statis
 
     print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
     
+#### getVarianceTransactionLength()
+   This method returns the varience of the lengths of transactions in database.
+
+     print(f'Variance of Transaction Size :{obj.getVarianceTransactionLength()}')
+
+#### getSparsity():
+   This method retuns the sparsity of the database.
+
+
 #### getSortedListOfItemFrequencies()
    This method returns a sorted dictionary of items and their frequencies in the database. The format of this dictionary is {item:frequency} 
    The items in this dictionary are sorted in frequency descending order. 

@@ -90,7 +90,7 @@ get the statistical details of a database.
             print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
             print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
             print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-            
+            print(f'Variance of Transaction Size :{obj.getVarianceTransactionLength()}') 
             itemFrequencies = obj.getSortedListOfItemFrequencies()
             transactionLength = obj.getTransanctionalLengthDistribution()
             obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
