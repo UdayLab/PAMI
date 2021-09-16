@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-class plotLineGraph:
+class plotLineGraphFromDictionary:
     """
     This class plot graph of input data
 

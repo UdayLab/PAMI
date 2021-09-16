@@ -68,11 +68,12 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
 5. [Getting the statistics of databases](databaseStats.html)
 
-The performance of a mining algorithm primarily depends on the following two key factors: 
-1. Distribution of items' frequencies and 
-1. Distribution of transaction length
+    The performance of a mining algorithm primarily depends on the following two key factors: 
 
-Thus, it is important to know the statistical details of a database. PAMI provides inbuilt classes and functions methods to 
+   1. Distribution of items' frequencies and 
+   2. Distribution of transaction length
+
+    Thus, it is important to know the statistical details of a database. PAMI provides inbuilt classes and functions methods to 
 get the statistical details of a database.
    
    1. [Statistics of a transactional database](transactionalDatabaseStats.md)
@@ -80,17 +81,20 @@ get the statistical details of a database.
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
         
             import PAMI.extras.dbStats.transactionalDatabaseStats as tds
-          
-            obj = tds.transactionalDatabaseStats(inputFile)
-            #obj = tds.transactionalDatabaseStats(inputFile,sep=',') #override default tab seperator
-            obj.run()
             
+            obj = tds.transactionalDatabaseStats(inputFile)
+            # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+            obj.run()
+          
             print(f'Database size : {obj.getDatabaseSize()}')
+            print(f'Total number of items : {obj.getTotalNumberOfItems()}')
+            printf(f'Database sparsity : {obj.getSparsity()}')
             print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
             print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
             print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
             print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-            print(f'Variance of Transaction Size :{obj.getVarianceTransactionLength()}') 
+            print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
+            
             itemFrequencies = obj.getSortedListOfItemFrequencies()
             transactionLength = obj.getTransanctionalLengthDistribution()
             obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
@@ -107,10 +111,14 @@ get the statistical details of a database.
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')
+            print(f'Total number of items : {obj.getTotalNumberOfItems()}')
+            printf(f'Database sparsity : {obj.getSparsity()}')
             print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
             print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
             print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
             print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+            print(f'Variance in Transaction Sizes : {obj. getVarianceTransactionLength()')           
+            
             print(f'Minimum period : {obj.getMinimumPeriod()}')
             print(f'Average period : {obj.getAveragePeriod()}')
             print(f'Maximum period : {obj.getMaximumPeriod()}')
@@ -124,15 +132,22 @@ get the statistical details of a database.
  
    3. [Statistics of a utility database](utilityDatabaseStats.md)
    
+        This program outputs the statistical details of a utility database. It will also output the distribution of items' frequencies, transactional lengths, and sum of utilities of all items in a database.
+       
             import PAMI.extras.dbStats.utilityDatabaseStats as uds
             
             obj = uds.utilityDatabaseStats(inputFile)
             #obj = uds.utilityDatabaseStats(inputFile,sep=',') #override default tab separator
             obj.run()
+            
             print(f'Database size : {obj.getDatabaseSize()}')
+            print(f'Total number of items : {obj.getTotalNumberOfItems()}')
+            printf(f'Database sparsity : {obj.getSparsity()}')
             print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
             print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
             print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+            print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+            print(f'Variance in Transaction Sizes : {obj. getVarianceTransactionLength()')
             print(f'Total utility : {obj.getTotalUtility()}')
             print(f'Minimum utility : {obj.getMinimumUtility()}')
             print(f'Average utility : {obj.getAverageUtility()}')
@@ -142,9 +157,29 @@ get the statistical details of a database.
             utility = obj.getSortedUtilityValuesOfItem()
             obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
             obj.storeInFile(transactionLength, 'transactionSize.csv')
-            obj.storeInFile(utility, 'utility.csv')
+            obj.storeInFile(utility, 'utility.csv')            
+   
+6. [Basic plots of a database](basicPlots.md)
+
+    In the previous chapter, we have presented the methods to understand the statistics of a database. 
+    In continuation, we present the methods to plot the graphs of graphs. 
+    
+        import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+        
+        plt.plotLineGraphFromDictionary(dictionary,percentageOfItemsToPlot,title,xLabel,yLabel) 
+     
+   Example: __Drawing plots for a transactional database.__
+   
+          import PAMI.extras.graph.plotLineGraphFromDictionary as plt
           
-6. [Converting dataframes to databases](dataFrameCoversio.html)
+          obj = tds.transactionalDatabaseStats(inputFile)
+          # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+          obj.run()
+           
+          plt.plotLineGraphFromDictionary(obj.getSortedListOfItemFrequencies(),50,'item frequencies', 'item rank', 'frequency')
+          plt.plotLineGraphFromDictionary(obj.getTransanctionalLengthDistribution(),100,'distribution of transactions', 'transaction length', 'frequency') 
+                  
+7. [Converting dataframes to databases](dataFrameCoversio.html)
 
    1. [Format of dense dataframe]((denseDF2DB.html)) 
     
@@ -195,6 +230,7 @@ get the statistical details of a database.
         3. Enter into the PAMI-main folder and move the PAMI sub-folder to the location of your choice. 
         4. Let the location be /home/username/PAMI
         5. Execute the following command:
+        
         
           python PAMI/patternModel/patternType/algorithm.py inputFile outputFile parameters
           

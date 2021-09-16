@@ -140,6 +140,13 @@ class temporalDatabaseStats:
         matrixSize = self.getDatabaseSize()*len(self.getSortedListOfItemFrequencies())
         return (matrixSize - sum(self.getSortedListOfItemFrequencies().values())) / matrixSize
 
+    def getTotalNumberOfItems(self):
+        """
+        get the number of items in database.
+        :return: number of items
+        """
+        return len(self.getSortedListOfItemFrequencies())
+
     def getSortedListOfItemFrequencies(self):
         """
         get sorted list of item frequencies
