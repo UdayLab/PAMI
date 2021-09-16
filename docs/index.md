@@ -212,7 +212,8 @@ get the statistical details of a database.
 
    5. [Spatiotemporal dataframe to databases](stDF2DB.html)
    
-6. [Exceuting Algorithms in PAMI](utilization.html)    
+8. [Exceuting Algorithms in PAMI](utilization.html)
+
    1. [Importing PAMI algorithms into your program](useAlgo.html)
    
           from PAMI.frequentPattern.basic import fpGrowth  as alg
@@ -225,7 +226,7 @@ get the statistical details of a database.
           print('Memory: ' + str(obj.getMemoryRSS()))
 
    2. [Executing PAMI algorithms directly on the terminal](terminalExecute.html)
-        1. Download the PAMI-main.zip file from  [GitHub](https://github.com/udayRage/PAMI/archive/refs/heads/main.zip)
+        1. Download the PAMI-main.zip file from [GitHub](https://github.com/udayRage/PAMI/archive/refs/heads/main.zip)
         2. Unzip the PAMI-main.zip file.
         3. Enter into the PAMI-main folder and move the PAMI sub-folder to the location of your choice. 
         4. Let the location be /home/username/PAMI
