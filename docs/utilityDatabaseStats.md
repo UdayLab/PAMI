@@ -55,7 +55,17 @@ Once the program is executed, users can call different methods to get the statis
    This method  returns the length of an average transaction in a database. In other words, this function returns the average number of items in a transaction.
    
     print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
-   
+
+#### getVarianceTransactionLength()
+   This method returns the varience of the lengths of transactions in database.
+
+     print(f'Variance of Transaction Size :{obj.getVarianceTransactionLength()}')
+
+#### getSparsity():
+   This method retuns the sparsity of the database.
+
+    print(f'Database sparsity :{obj.getSparsity()}')
+
 #### getMaximumTransactionLength()
    This method returns the length of the largest transaction in a database. In other words, this function returns the maximum number of items in a transaction. 
 

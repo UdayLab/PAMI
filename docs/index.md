@@ -68,11 +68,12 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
 5. [Getting the statistics of databases](databaseStats.html)
 
-The performance of a mining algorithm primarily depends on the following two key factors: 
-1. Distribution of items' frequencies and 
-1. Distribution of transaction length
+    The performance of a mining algorithm primarily depends on the following two key factors: 
 
-Thus, it is important to know the statistical details of a database. PAMI provides inbuilt classes and functions methods to 
+   1. Distribution of items' frequencies and 
+   2. Distribution of transaction length
+
+    Thus, it is important to know the statistical details of a database. PAMI provides inbuilt classes and functions methods to 
 get the statistical details of a database.
    
    1. [Statistics of a transactional database](transactionalDatabaseStats.md)
@@ -167,7 +168,7 @@ get the statistical details of a database.
         
         plt.plotLineGraphFromDictionary(dictionary,percentageOfItemsToPlot,title,xLabel,yLabel) 
      
-   1. [Plot of items' frequencies](plotItemFrequencies.md)
+   Example: __Drawing plots for a transactional database.__
    
           import PAMI.extras.graph.plotLineGraphFromDictionary as plt
           
@@ -175,17 +176,8 @@ get the statistical details of a database.
           # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
           obj.run()
            
-          plt.plotLineGraphFromDictionary(obj.getSortedListOfItemFrequencies(),percentageOfItemsToPlot,title,xLabel,yLabel) 
-        
-   2. [Plot of transaction distributions](plotTransactionDistribution.md)
-   
-          import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-          
-          obj = tds.transactionalDatabaseStats(inputFile)
-          # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
-          obj.run()
-           
-          plt.plotLineGraphFromDictionary(obj.getTransanctionalLengthDistribution(),percentageOfItemsToPlot,title,xLabel,yLabel) 
+          plt.plotLineGraphFromDictionary(obj.getSortedListOfItemFrequencies(),50,'item frequencies', 'item rank', 'frequency')
+          plt.plotLineGraphFromDictionary(obj.getTransanctionalLengthDistribution(),100,'distribution of transactions', 'transaction length', 'frequency') 
                   
 7. [Converting dataframes to databases](dataFrameCoversio.html)
 
@@ -220,7 +212,8 @@ get the statistical details of a database.
 
    5. [Spatiotemporal dataframe to databases](stDF2DB.html)
    
-6. [Exceuting Algorithms in PAMI](utilization.html)    
+8. [Exceuting Algorithms in PAMI](utilization.html)
+
    1. [Importing PAMI algorithms into your program](useAlgo.html)
    
           from PAMI.frequentPattern.basic import fpGrowth  as alg
@@ -233,7 +226,7 @@ get the statistical details of a database.
           print('Memory: ' + str(obj.getMemoryRSS()))
 
    2. [Executing PAMI algorithms directly on the terminal](terminalExecute.html)
-        1. Download the PAMI-main.zip file from  [GitHub](https://github.com/udayRage/PAMI/archive/refs/heads/main.zip)
+        1. Download the PAMI-main.zip file from [GitHub](https://github.com/udayRage/PAMI/archive/refs/heads/main.zip)
         2. Unzip the PAMI-main.zip file.
         3. Enter into the PAMI-main folder and move the PAMI sub-folder to the location of your choice. 
         4. Let the location be /home/username/PAMI

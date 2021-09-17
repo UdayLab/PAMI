@@ -72,6 +72,16 @@ Once the program is executed, users can call different methods to get the statis
 
     print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
     
+#### getVarianceTransactionLength()
+   This method returns the varience of the lengths of transactions in database.
+
+     print(f'Variance of Transaction Size :{obj.getVarianceTransactionLength()}')
+
+#### getSparsity():
+   This method retuns the sparsity of the database.
+
+    print(f'Database sparsity :{obj.getSparsity()}')
+
 #### getMinimumPeriod()
    This method returns the minimum period between two transactions in a database.
    
