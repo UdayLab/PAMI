@@ -148,7 +148,8 @@ class Tree:
         finalPatterns, finalFreq, info = self.getConditionalTransactions(finalPatterns, finalFreq)
         return finalPatterns, finalFreq, info
 
-    def getConditionalTransactions(self, ConditionalPatterns, conditionalFreq):
+    @staticmethod
+    def getConditionalTransactions(ConditionalPatterns, conditionalFreq):
         """
         To calculate the frequency of items in conditional patterns and sorting the patterns
         Parameters
@@ -158,7 +159,7 @@ class Tree:
 
         Returns
         -------
-            conditional patterns and frequncy of each item in transactions
+            conditional patterns and frequency of each item in transactions
         """
         global minSup
         pat = []
@@ -228,7 +229,7 @@ class fpGrowth(frequentPatterns):
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
         oFile : file
             Name of the output file or the path of the output file
@@ -280,7 +281,7 @@ class fpGrowth(frequentPatterns):
 
         Examples:
         ---------
-            python3 fpGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            python3 fpGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
             python3 fpGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
@@ -337,10 +338,8 @@ class fpGrowth(frequentPatterns):
     rank = {}
     rankDup = {}
 
-    def __init__(self,iFile,minSup,sep='\t'):
-        super().__init__(iFile,minSup,sep)
-
-
+    def __init__(self, iFile, minSup, sep='\t'):
+        super().__init__(iFile, minSup, sep)
 
     def creatingItemSets(self):
         """
@@ -352,9 +351,9 @@ class fpGrowth(frequentPatterns):
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     self.lno += 1
-                    li = [i.rstrip() for i in line.split(self.sep)]
-                    li = [x for x in li if x]
-                    self.Database.append(li)
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
         except IOError:
             print("File Not Found")
 
@@ -378,7 +377,6 @@ class fpGrowth(frequentPatterns):
                 value = int(value)
         return value
 
-
     def frequentOneItem(self):
         """
         Generating One frequent items sets
@@ -399,11 +397,13 @@ class fpGrowth(frequentPatterns):
         """
         Updates the items in transactions with rank of items according to their support
 
+        :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
+                    rank = {'a':0, 'b':1, 'c':2, 'd':3}
+
         Parameters
         ----------
         itemSet: list of one-frequent items
 
-        Returns: Updated transactions with rank assigning to each item and deletes the unfequent items
         -------
 
         """
@@ -418,7 +418,8 @@ class fpGrowth(frequentPatterns):
                 list1.append(list2)
         return list1
 
-    def buildTree(self, transactions, info):
+    @staticmethod
+    def buildTree(transactions, info):
         """
         Builds the tree with updated transactions
         Parameters:
@@ -442,7 +443,7 @@ class fpGrowth(frequentPatterns):
         The duplication items and their ranks
         Parameters:
         ----------
-            itemSet: frequent itemset that generated
+            itemSet: frequent itemSet that generated
 
         Returns:
         -------
@@ -571,15 +572,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = fpGrowth("/home/apiiit-rkv/Downloads/3p/BMS1_itemset_mining.txt", 120, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.storePatternsInFile("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

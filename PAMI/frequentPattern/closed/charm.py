@@ -19,9 +19,8 @@ from PAMI.frequentPattern.closed.abstract import *
 
 
 class Charm(frequentPatterns):
-    """ CHARM is one of the fundamental algorithm to discover closed frequent patterns in a transactional database.
+    """ CHARM is an algorithm to discover closed frequent patterns in a transactional database.
         Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset.
-        This program employs downward closure property to  reduce the search space effectively.
         This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
         transactional database.
         
@@ -95,7 +94,7 @@ class Charm(frequentPatterns):
 
             Examples:
 
-            python3 charm.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            python3 charm.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
             python3 charm.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
@@ -110,7 +109,7 @@ class Charm(frequentPatterns):
 
             frequentPatterns = obj.getPatterns()
 
-            print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Closed Frequent Patterns:", len(frequentPatterns))
 
             obj.storePatternsInFile(oFile)
 
@@ -353,7 +352,7 @@ class Charm(frequentPatterns):
     def startMine(self):
         """
         Mining process will start from here by extracting the frequent patterns from the database. It performs prefix
-        equivalence to generate the combinations and generates closed frequent patterns.
+        equivalence to generate the combinations and closed frequent patterns.
         """
         self.startTime = time.time()
         plist = self.creatingItemsets()
@@ -481,15 +480,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = Charm("/home/apiiit-rkv/Downloads/3p/BMS1_itemset_mining.txt", 120, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.storePatternsInFile("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

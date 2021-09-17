@@ -175,7 +175,6 @@ class Tree(object):
 
 
                             """
-        timeStamps = list(set(timeStamps))
         timeStamps.sort()
         per = 0
         sup = 0
@@ -308,7 +307,7 @@ class ThreePGrowth(partialPeriodicPatterns):
             Extracts the one-frequent patterns from transactions
         updateTransactions()
             updates the transactions by removing the aperiodic items and sort the transactions with items
-            by decreaing support
+            by decreasing support
         buildTree()
             constrcuts the main tree by setting the root node as null
         startMine()
@@ -586,4 +585,15 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = ThreePGrowth('/home/apiiit-rkv/Downloads/3p/samplePaper', 2, 3, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Partial Periodic Patterns:", len(Patterns))
+        ap.storePatternsInFile("patterns.txt")
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

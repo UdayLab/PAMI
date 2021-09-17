@@ -30,7 +30,7 @@ class Node(object):
         ----------
             item : int
                 storing item of a node
-            counter : list
+            counter : int
                 To maintain the support of the node
             parent : node
                 To maintain the parent of every node
@@ -155,7 +155,7 @@ class Tree(object):
                 currentNode = currentNode.children[transaction[i]]
                 currentNode.counter += count
 
-    def getConditionalPatterns(self, alpha):
+    def getFinalConditionalPatterns(self, alpha):
         """
         generates all the conditional patterns of respective node
 
@@ -175,10 +175,11 @@ class Tree(object):
                 set2.reverse()
                 finalPatterns.append(set2)
                 finalSets.append(set1)
-        finalPatterns, finalSets, info = self.conditionalTransactions(finalPatterns, finalSets)
+        finalPatterns, finalSets, info = self.getConditionalTransactions(finalPatterns, finalSets)
         return finalPatterns, finalSets, info
 
-    def conditionalTransactions(self, condPatterns, condFreq):
+    @staticmethod
+    def getConditionalTransactions(condPatterns, condFreq):
         """
         sorting and removing the items from conditional transactions which don't satisfy minSup
 
@@ -220,7 +221,6 @@ class Tree(object):
         """
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
-            i = None
 
     def generatePatterns(self, prefix):
         """
@@ -234,7 +234,7 @@ class Tree(object):
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
-            condPatterns, tids, info = self.getConditionalPatterns(i)
+            condPatterns, tids, info = self.getFinalConditionalPatterns(i)
             conditional_tree = Tree()
             conditional_tree.info = info.copy()
             head = pattern[:]
@@ -457,7 +457,7 @@ class Maxfpgrowth(frequentPatterns):
 
         Examples:
         -------
-            python3 maxfpgrowth.py sampleDB.txt patterns.txt 0.3   (minSup will be considered in percentage of database transactions)
+            python3 maxfpgrowth.py sampleDB.txt patterns.txt 0.3   (minSup will be considered in times of minSup and count of database transactions)
 
             python3 maxfpgrowth.py sampleDB.txt patterns.txt 3     (minSup will be considered in support count or frequency)
 
@@ -469,9 +469,9 @@ class Maxfpgrowth(frequentPatterns):
 
         obj.startMine()
 
-        frequentPatterns = obj.getPatterns()
+        MaximalFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        print("Total number of maximal Frequent Patterns:", len(MaximalFrequentPatterns))
 
         obj.storePatternsInFile("patterns")
 
@@ -578,7 +578,6 @@ class Maxfpgrowth(frequentPatterns):
             rootNode.addTransaction(data[i])
         return rootNode
     
-
     def convert(self, value):
         """
         to convert the type of user specified minSup value
@@ -715,15 +714,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = Maxfpgrowth("/home/apiiit-rkv/Downloads/3p/BMS1_itemset_mining.txt", 120, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.storePatternsInFile("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

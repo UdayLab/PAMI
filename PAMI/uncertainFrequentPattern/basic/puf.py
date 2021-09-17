@@ -407,7 +407,7 @@ class Pufgrowth(frequentPatterns):
 
     def creatingItemSets(self):
         """
-            Scans the dataset
+            Scans the uncertain transactional dataset
         """
         try:
             with open(self.iFile, 'r') as f:

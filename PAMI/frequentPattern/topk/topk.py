@@ -16,314 +16,113 @@
 from PAMI.frequentPattern.topk.abstract import *
 import sys
 
-k = str()
-topk = {}
-minimum = int()
 
-
-class Node:
+class TopK(frequentPatterns):
     """
-        A class used to represent the node of frequentPatternTree
+        Top - K is and algorithm to discover top frequent patterns in a transactional database.
 
-    Attributes:
-    ----------
-        itemId: int
-            storing item of a node
-        counter: int
-            To maintain the support of node
-        parent: node
-            To maintain the parent of node
-        children: list
-            To maintain the children of node
-
-    Methods:
-    -------
-
-        addChild(node)
-            Updates the nodes children list and parent for the given node
-
-    """
-
-    def __init__(self, item, children):
-        self.itemId = item
-        self.counter = 1
-        self.parent = None
-        self.children = children
-
-    def addChild(self, node):
-        """
-            Retrieving the child from the tree
-
-            :param node: Children node
-            :type node: Node
-            :return: Updates the children nodes and parent nodes
-
-        """
-        self.children[node.itemId] = node
-        node.parent = self
-
-
-class Tree:
-    """
-    A class used to represent the frequentPatternGrowth tree structure
-
-    Attributes:
-    ----------
-        root : Node
-            The first node of the tree set to Null.
-        summaries : dictionary
-            Stores the nodes itemId which shares same itemId
-        info : dictionary
-            frequency of items in the transactions
-
-    Methods:
-    -------
-        addTransaction(transaction, freq)
-            adding items of  transactions into the tree as nodes and freq is the count of nodes
-        getFinalConditionalPatterns(node)
-            getting the conditional patterns from fp-tree for a node
-        getConditionalPatterns(patterns, frequencies)
-            sort the patterns by removing the items with lower k
-        generatePatterns(prefix)
-            generating the patterns from fp-tree
-    """
-
-    def __init__(self):
-        self.root = Node(None, {})
-        self.summaries = {}
-        self.info = {}
-
-    def addTransaction(self, transaction, count):
-        """adding transaction into tree
-
-        :param transaction: it represents the one transactions in database
-
-        :type transaction: list
-
-        :param count: frequency of item
-
-        :type count: int
-        """
-
-        # This method takes transaction as input and returns the tree
-        currentNode = self.root
-        for i in range(len(transaction)):
-            if transaction[i] not in currentNode.children:
-                newNode = Node(transaction[i], {})
-                newNode.freq = count
-                currentNode.addChild(newNode)
-                if transaction[i] in self.summaries:
-                    self.summaries[transaction[i]].append(newNode)
-                else:
-                    self.summaries[transaction[i]] = [newNode]
-                currentNode = newNode
-            else:
-                currentNode = currentNode.children[transaction[i]]
-                currentNode.freq += count
-
-    def getFinalConditionalPatterns(self, alpha):
-        """
-        generates the conditional patterns for a node
-
-        Parameters:
+        Reference:
         ----------
-            alpha: node to generate conditional patterns
+            Zhi-Hong Deng, Guo-Dong Fang: Mining Top-Rank-K Frequent Patterns: DOI: 10.1109/ICMLC.2007.4370261 · Source: IEEE Xplore
+            https://ieeexplore.ieee.org/document/4370261
 
-        Returns
-        -------
-            returns conditional patterns, frequency of each item in conditional patterns
-
-        """
-        finalPatterns = []
-        finalFreq = []
-        for i in self.summaries[alpha]:
-            set1 = i.freq
-            set2 = []
-            while i.parent.itemId is not None:
-                set2.append(i.parent.itemId)
-                i = i.parent
-            if len(set2) > 0:
-                set2.reverse()
-                finalPatterns.append(set2)
-                finalFreq.append(set1)
-        finalPatterns, finalFreq, info = self.getConditionalTransactions(finalPatterns, finalFreq)
-        return finalPatterns, finalFreq, info
-
-    def getConditionalTransactions(self, ConditionalPatterns, conditionalFreq):
-        """
-        To calculate the frequency of items in conditional patterns and sorting the patterns
-        Parameters
+        Attributes:
         ----------
-        ConditionalPatterns: paths of a node
-        conditionalFreq: frequency of each item in the path
+            iFile : str
+                Input file name or path of the input file
+            k: int
+                User specified counte of top frequent patterns
+            sep : str
+                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+                However, the users can override their default separator.
+            oFile : str
+                Name of the output file or the path of the output file
+            startTime:float
+                To record the start time of the mining process
+            endTime:float
+                To record the completion time of the mining process
+            finalPatterns: dict
+                Storing the complete set of patterns in a dictionary variable
+            memoryUSS : float
+                To store the total amount of USS memory consumed by the program
+            memoryRSS : float
+                To store the total amount of RSS memory consumed by the program
 
-        Returns
+        Methods:
         -------
-            conditional patterns and frequncy of each item in transactions
-        """
-        global k
-        pat = []
-        freq = []
-        data1 = {}
-        for i in range(len(ConditionalPatterns)):
-            for j in ConditionalPatterns[i]:
-                if j in data1:
-                    data1[j] += conditionalFreq[i]
-                else:
-                    data1[j] = conditionalFreq[i]
-        up_dict = {k: v for k, v in data1.items() if v >= k}
-        count = 0
-        for p in ConditionalPatterns:
-            p1 = [v for v in p if v in up_dict]
-            trans = sorted(p1, key=lambda x: (up_dict.get(x), -x), reverse=True)
-            if len(trans) > 0:
-                pat.append(trans)
-                freq.append(conditionalFreq[count])
-            count += 1
-        return pat, freq, up_dict
+            startMine()
+                Mining process will start from here
+            getPatterns()
+                Complete set of patterns will be retrieved with this function
+            storePatternsInFile(oFile)
+                Complete set of frequent patterns will be loaded in to a output file
+            getPatternsInDataFrame()
+                Complete set of frequent patterns will be loaded in to a dataframe
+            getMemoryUSS()
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
+            getMemoryRSS()
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            getRuntime()
+                Total amount of runtime taken by the mining process will be retrieved from this function
+            creatingItemSets()
+                Scans the dataset or dataframes and stores in list format
+            frequentOneItem()
+                Generates one frequent patterns
+            eclatGeneration(candidateList)
+                It will generate the combinations of frequent items
+            generateFrequentPatterns(tidList)
+                It will generate the combinations of frequent items from a list of items
 
-    def generatePatterns(self, prefix):
-        """
-        To generate the frequent patterns
-        Parameters
-        ----------
-        prefix: an empty list
+        Executing the code on terminal:
+        -------------------------------
 
-        Returns
-        -------
-        Frequent patterns that are extracted from fp-tree
+            Format:
+            ------
+            python3 topk.py <inputFile> <outputFile> <minSup>
 
-        """
-        global minimum, topk
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
-            pattern = prefix[:]
-            pattern.append(i)
-            if self.info[i] > minimum:
-            yield pattern, self.info[i]
-            patterns, freq, info = self.getFinalConditionalPatterns(i)
-            conditionalTree = Tree()
-            conditionalTree.info = info.copy()
-            for pat in range(len(patterns)):
-                conditionalTree.addTransaction(patterns[pat], freq[pat])
-            if len(patterns) > 0:
-                for q in conditionalTree.generatePatterns(pattern):
-                    yield q
+            Examples:
+            ---------
+            python3 topk.py sampleDB.txt patterns.txt 10
 
 
-class Topk(frequentPatterns):
-    """
-       Topk is one of the fundamental algorithm to discover top frequent patterns in a transactional database.
-       Here the fpgrowth procedure is employed.
+        Sample run of the importing code:
+        ---------------------------------
 
-    Reference :
-    ---------
-           Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
-           Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
+            import PAMI.frequentPattern.topk.topk as alg
 
-    Attributes :
-    ----------
-        iFile : file
-            Input file name or path of the input file
-        K: float or int or str
-            The user can specify k either in count
-            Example: k=10 will be treated as integer
-        sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-            However, the users can override their default separator.
-        oFile : file
-            Name of the output file or the path of the output file
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        Database : list
-            To store the transactions of a database in list
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            it represents the total no of transactions
-        tree : class
-            it represents the Tree class
-        finalPatterns : dict
-            it represents to store the patterns
+            obj = alg.TopK(iFile, minSup)
 
-    Methods :
-    -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets()
-            Scans the dataset or dataframes and stores in list format
-        frequentOneItem()
-            Extracts the one-frequent patterns from transactions
+            obj.startMine()
 
-    Executing the code on terminal:
-    -------
-        Format:
-        -------
-            python3 Topk.py <inputFile> <outputFile> <k>
+            frequentPatterns = obj.getPatterns()
 
-        Examples:
-        ---------
-            python3 Topk.py sampleDB.txt patterns.txt 10.0   (k will be considered in percentage of database transactions)
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            python3 Topk.py sampleDB.txt patterns.txt 10     (k will be considered in support count or frequency)
+            obj.storePatternsInFile(oFile)
 
+            Df = obj.getPatternInDataFrame()
 
-    Sample run of the importing code:
-    -----------
+            memUSS = obj.getMemoryUSS()
 
+            print("Total Memory in USS:", memUSS)
 
-        from PAMI.frequentPattern.basic import Topk as alg
+            memRSS = obj.getMemoryRSS()
 
-        obj = alg.Topk(iFile, k)
+            print("Total Memory in RSS", memRSS)
 
-        obj.startMine()
+            run = obj.getRuntime()
 
-        frequentPatterns = obj.getPatterns()
-
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
-
-        obj.storePatternsInFile(oFile)
-
-        Df = obj.getPatternInDataFrame()
-
-        memUSS = obj.getMemoryUSS()
-
-        print("Total Memory in USS:", memUSS)
-
-        memRSS = obj.getMemoryRSS()
-
-        print("Total Memory in RSS", memRSS)
-
-        run = obj.getRuntime()
-
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
         Credits:
-        -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+        --------
+            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
-        """
+    """
 
     startTime = float()
     endTime = float()
-    k = str()
+    k = int()
     finalPatterns = {}
     iFile = " "
     oFile = " "
@@ -331,152 +130,155 @@ class Topk(frequentPatterns):
     memoryUSS = float()
     memoryRSS = float()
     Database = []
-    mapSupport = {}
-    lno = 0
-    tree = Tree()
-    rank = {}
-    rankDup = {}
+    tidList = {}
+    minimum = int()
 
     def creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
-
         """
         try:
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    self.lno += 1
-                    li1 = [i.rstrip() for i in line.split(self.sep)]
-                    self.Database.append(li1)
+                    line.strip()
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
         except IOError:
             print("File Not Found")
-
-    def convert(self, value):
-        """
-        to convert the type of user specified k value
-
-        :param value: user specified k value
-
-        :return: converted type
-        """
-        if type(value) is int:
-            value = int(value)
-        if type(value) is float:
-            value = (len(self.Database) * value)
-        if type(value) is str:
-            if '.' in value:
-                value = float(value)
-                value = (len(self.Database) * value)
-            else:
-                value = int(value)
-        return value
+            quit()
 
     def frequentOneItem(self):
         """
-        Generating One frequent items sets
-
+        Generating one frequent patterns
         """
-        global topk, k, minimum
-        for tr in self.Database:
-            for i in range(0, len(tr)):
-                if tr[i] not in self.mapSupport:
-                    self.mapSupport[tr[i]] = 1
+
+        try:
+            candidate = {}
+            k = 0
+            with open(self.iFile, 'r', encoding='utf-8') as f:
+                for line in f:
+                    k += 1
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    for j in temp:
+                        if j not in candidate:
+                            candidate[j] = 1
+                            self.tidList[j] = [k]
+                        else:
+                            candidate[j] += 1
+                            self.tidList[j].append(k)
+            plist = [key for key, value in sorted(candidate.items(), key=lambda x: x[1], reverse=True)]
+            for i in plist:
+                if len(self.finalPatterns) >= self.k:
+                    break
                 else:
-                    self.mapSupport[tr[i]] += 1
-        genList = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        for i in range(k):
-            topk[genList[i]] = self.mapSupport[genList[i]]
-            if i > k:
-                break
-        minimum = topk
-        self.rank = dict([(index, item) for (item, index) in enumerate(genList)])
-        return genList
+                    self.finalPatterns[i] = candidate[i]
+            self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+            plist = list(self.finalPatterns.keys())
+            return plist
+        except IOError:
+            print("File Not Found")
+            quit()
 
-    def updateTransactions(self, itemSet):
+    def save(self, prefix, suffix, tidSetI):
+        """Saves the patterns that satisfy the periodic frequent property.
+
+            :param prefix: the prefix of a pattern
+            :type prefix: list
+            :param suffix: the suffix of a patterns
+            :type suffix: list
+            :param tidSetI: the timestamp of a patterns
+            :type tidSetI: list
         """
-        Updates the items in transactions with rank of items according to their support
 
-        Parameters
-        ----------
-        itemSet: list of one-frequent items
+        if prefix is None:
+            prefix = suffix
+        else:
+            prefix = prefix + suffix
+        val = len(tidSetI)
+        sample = str()
+        for i in prefix:
+            sample = sample + i + " "
+        if len(self.finalPatterns) < self.k:
+            self.finalPatterns[sample] = val
+            self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+        else:
+            for x, y in self.finalPatterns.items():
+                if y < val:
+                    del self.finalPatterns[x]
+                    self.finalPatterns[x] =y
+                    self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+                if val >= y:
+                    if val == y and len(prefix) > len(x):
+                        del self.finalPatterns[x]
+                        self.finalPatterns[x] = y
+                        self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
 
-        Returns: Updated transactions with rank assigning to each item and deletes the unfequent items
-        -------
+    def Generation(self, prefix, itemSets, tidSets):
+        """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
 
-        """
-        list1 = []
-        for tr in self.Database:
-            list2 = []
-            for i in range(len(tr)):
-                if tr[i] in itemSet:
-                    list2.append(self.rank[tr[i]])
-            if len(list2) >= 1:
-                list2.sort()
-                list1.append(list2)
-        return list1
+            :param prefix:  main equivalence prefix
+            :type prefix: periodic-frequent item or pattern
+            :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
+                            and frequent with their timestamps
+            :type itemSets: list
+            :param tidSets: timestamps of the items in the argument itemSets
+            :type tidSets: list
 
-    def buildTree(self, transactions, info):
-        """
-        Builds the tree with updated transactions
-        Parameters:
-        ----------
-            transactions: updated transactions
-            info: support details of each item in transactions
 
-        Returns:
-        -------
-            transactions compressed in fp-tree
-
-        """
-        rootNode = Tree()
-        rootNode.info = info.copy()
-        for i in range(len(transactions)):
-            rootNode.addTransaction(transactions[i], 1)
-        return rootNode
-
-    def savePeriodic(self, itemSet):
-        """
-        The duplication items and their ranks
-        Parameters:
-        ----------
-            itemSet: frequent itemset that generated
-
-        Returns:
-        -------
-            patterns with original item names.
-
-        """
-        temp = str()
-        for i in itemSet:
-            temp = temp + self.rankDup[i] + " "
-        return temp
+                    """
+        if len(itemSets) == 1:
+            i = itemSets[0]
+            tidI = tidSets[0]
+            self.save(prefix, [i], tidI)
+            return
+        for i in range(len(itemSets)):
+            itemI = itemSets[i]
+            if itemI is None:
+                continue
+            tidSetI = tidSets[i]
+            classItemSets = []
+            classTidSets = []
+            itemSetX = [itemI]
+            for j in range(i + 1, len(itemSets)):
+                itemJ = itemSets[j]
+                tidSetJ = tidSets[j]
+                y = list(set(tidSetI).intersection(tidSetJ))
+                if len(y) >= self.minimum:
+                    classItemSets.append(itemJ)
+                    classTidSets.append(y)
+            newPrefix = list(set(itemSetX)) + prefix
+            self.Generation(newPrefix, classItemSets, classTidSets)
+            self.save(prefix, list(set(itemSetX)), tidSetI)
 
     def startMine(self):
         """
-            main program to start the operation
+            Main function of the program
 
         """
-        global k
         self.startTime = time.time()
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self.k is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingItemSets()
-        self.k = self.convert(self.k)
-        k = self.k
-        itemSet = self.frequentOneItem()
-        updatedTransactions = self.updateTransactions(itemSet)
-        for x, y in self.rank.items():
-            self.rankDup[y] = x
-        info = {self.rank[k]: v for k, v in self.mapSupport.items()}
-        Tree = self.buildTree(updatedTransactions, info)
-        patterns = Tree.generatePatterns([])
-        for k in patterns:
-            s = self.savePeriodic(k[0])
-            self.finalPatterns[str(s)] = k[1]
-        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
+        plist = self.frequentOneItem()
+        for i in range(len(plist)):
+            itemI = plist[i]
+            tidSetI = self.tidList[itemI]
+            itemSetX = [itemI]
+            itemSets = []
+            tidSets = []
+            for j in range(i + 1, len(plist)):
+                itemJ = plist[j]
+                tidSetJ = self.tidList[itemJ]
+                y1 = list(set(tidSetI).intersection(tidSetJ))
+                if len(y1) >= self.minimum:
+                    itemSets.append(itemJ)
+                    tidSets.append(y1)
+            self.Generation(itemSetX, itemSets, tidSets)
+        print("TopK Frequent patterns were generated successfully")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -485,9 +287,9 @@ class Topk(frequentPatterns):
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
-        :return: returning USS memory consumed by the mining process
+                    :return: returning USS memory consumed by the mining process
 
-        :rtype: float
+                    :rtype: float
         """
 
         return self.memoryUSS
@@ -505,7 +307,6 @@ class Topk(frequentPatterns):
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
 
         :rtype: float
@@ -521,12 +322,12 @@ class Topk(frequentPatterns):
         :rtype: pd.DataFrame
         """
 
-        dataframe = {}
+        dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
             data.append([a, b])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataframe
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+        return dataFrame
 
     def storePatternsInFile(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
@@ -538,8 +339,8 @@ class Topk(frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            s1 = x + ":" + str(y)
-            writer.write("%s \n" % s1)
+            patternsAndSupport = x + ":" + str(y)
+            writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
@@ -555,13 +356,14 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 4 or len(sys.argv) == 5:
         if len(sys.argv) == 5:
-            ap = Topk(sys.argv[1], sys.argv[3], sys.argv[4])
+            ap = TopK(sys.argv[1], sys.argv[3], sys.argv[4])
         if len(sys.argv) == 4:
-            ap = Topk(sys.argv[1], sys.argv[3])
+            ap = TopK(sys.argv[1], sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
         ap.storePatternsInFile(sys.argv[2])
+        print(ap.getPatternsInDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -569,11 +371,12 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = Topk("/home/apiiit-rkv/Downloads/transactional_BMS_WebView_2.csv", 10, ',')
+        ap = TopK('/home/apiiit-rkv/Downloads/datasets/Mushroom', 100, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
         ap.storePatternsInFile("patterns.txt")
+        print(ap.getPatternsInDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -581,4 +384,5 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
 
