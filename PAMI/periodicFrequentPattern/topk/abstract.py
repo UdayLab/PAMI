@@ -32,16 +32,13 @@ class periodicFrequentPatterns(ABC):
         ----------
         iFile : str
             Input file name or path of the input file
-        minSup: int or float or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         maxPer: int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        k: int
+            The user specify k in int
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
@@ -75,14 +72,11 @@ class periodicFrequentPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup, maxPer, sep = '\t'):
+    def __init__(self, iFile, k, maxPer, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param minSup: The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        :param k: int
         :type minSup: int or float or str
         :param maxPer: The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
@@ -94,7 +88,7 @@ class periodicFrequentPatterns(ABC):
         """
 
         self.iFile = iFile
-        self.minSup = minSup
+        self.k = k
         self.maxPer = maxPer
         self.sep = sep
 
@@ -105,7 +99,7 @@ class periodicFrequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def minSup(self):
+    def k(self):
         """Variable to store the user-specified minimum support value"""
 
         pass

@@ -371,7 +371,7 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = TopK('/home/apiiit-rkv/Downloads/datasets/Mushroom', 100, ' ')
+        ap = TopK('/home/apiiit-rkv/Downloads/datasets/Mushroom', 40, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
