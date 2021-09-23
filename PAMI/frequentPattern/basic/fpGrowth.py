@@ -283,7 +283,9 @@ class fpGrowth(frequentPatterns):
         ---------
             python3 fpGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
-            python3 fpGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+            python3 fpGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency) (it will consider "\t" as a separator)
+
+            python3 fpGrowth.py sampleTDB.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
 
 
     Sample run of the importing code:

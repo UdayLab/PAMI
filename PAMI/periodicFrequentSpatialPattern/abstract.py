@@ -12,19 +12,6 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from abc import ABC, abstractmethod
 import time
@@ -37,7 +24,7 @@ import os.path
 import psutil
 
 
-class spatialFrequentPatterns(ABC):
+class spatialPeriodicFrequentPatterns(ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
     Attributes :
@@ -51,8 +38,13 @@ class spatialFrequentPatterns(ABC):
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        maxPer: integer or float or str
+            The user can specify maxPer either in count or proportion of database size.
+            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: maxPer = 10 will be treated as integer, while minSup=10.0 will be treated as float
         sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator
         startTime:float
             To record the start time of the algorithm
@@ -84,7 +76,7 @@ class spatialFrequentPatterns(ABC):
             This function outputs the total runtime of a mining algorithm
     """
 
-    def __init__(self, iFile, nFile, minSup, sep="\t"):
+    def __init__(self, iFile, nFile, minSup, maxPer, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -95,6 +87,11 @@ class spatialFrequentPatterns(ABC):
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         :type minSup: int or float or str
+        :param maxPer: The user can specify maxPer either in count or proportion of database size.
+            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        :type maxPer: int or float or str
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
         """
@@ -103,6 +100,7 @@ class spatialFrequentPatterns(ABC):
         self.nFile=nFile
         self.sep = sep
         self.minSup = minSup
+        self.maxPer = maxPer
 
 
     @abstractmethod
@@ -119,6 +117,12 @@ class spatialFrequentPatterns(ABC):
 
     @abstractmethod
     def minSup(self):
+        """Variable to store the user-specified minimum support value"""
+
+        pass
+
+    @abstractmethod
+    def maxPer(self):
         """Variable to store the user-specified minimum support value"""
 
         pass
