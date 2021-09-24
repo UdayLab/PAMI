@@ -17,8 +17,6 @@ import sys
 from PAMI.frequentPattern.maximal.abstract import *
 
 
-pfList = []
-patterns = {}
 minSup = str()
 
 
@@ -30,7 +28,7 @@ class Node(object):
         ----------
             item : int
                 storing item of a node
-            counter : int
+            counter : list
                 To maintain the support of the node
             parent : node
                 To maintain the parent of every node
@@ -106,6 +104,7 @@ class Tree(object):
         self.root = Node(None, {})
         self.summaries = {}
         self.info = {}
+        self.maximalTree = MPTree()
 
     def addTransaction(self, transaction):
         """
@@ -155,7 +154,7 @@ class Tree(object):
                 currentNode = currentNode.children[transaction[i]]
                 currentNode.counter += count
 
-    def getFinalConditionalPatterns(self, alpha):
+    def getConditionalPatterns(self, alpha):
         """
         generates all the conditional patterns of respective node
 
@@ -175,11 +174,10 @@ class Tree(object):
                 set2.reverse()
                 finalPatterns.append(set2)
                 finalSets.append(set1)
-        finalPatterns, finalSets, info = self.getConditionalTransactions(finalPatterns, finalSets)
+        finalPatterns, finalSets, info = self.conditionalTransactions(finalPatterns, finalSets)
         return finalPatterns, finalSets, info
 
-    @staticmethod
-    def getConditionalTransactions(condPatterns, condFreq):
+    def conditionalTransactions(self, condPatterns, condFreq):
         """
         sorting and removing the items from conditional transactions which don't satisfy minSup
 
@@ -221,8 +219,9 @@ class Tree(object):
         """
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
+            i = None
 
-    def generatePatterns(self, prefix):
+    def generatePatterns(self, prefix, patterns):
         """
         generates the patterns
 
@@ -230,11 +229,10 @@ class Tree(object):
 
         :return: the maximal frequent patterns
         """
-        global maximalTree, pfList, patterns
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
-            condPatterns, tids, info = self.getFinalConditionalPatterns(i)
+            condPatterns, tids, info = self.getConditionalPatterns(i)
             conditional_tree = Tree()
             conditional_tree.info = info.copy()
             head = pattern[:]
@@ -242,30 +240,15 @@ class Tree(object):
             for la in info:
                 tail.append(la)
             sub = head + tail
-            if maximalTree.checkerSub(sub) == 1:
+            if self.maximalTree.checkerSub(sub) == 1:
                 for pat in range(len(condPatterns)):
                     conditional_tree.addConditionalTransaction(condPatterns[pat], tids[pat])
                 if len(condPatterns) >= 1:
-                    conditional_tree.generatePatterns(pattern)
+                    conditional_tree.generatePatterns(pattern, patterns)
                 else:
-                    maximalTree.addTransaction(pattern)
-                    s = convertItems(pattern)
-                    patterns[tuple(s)] = self.info[i]
+                    self.maximalTree.addTransaction(pattern)
+                    patterns[tuple(pattern)] = self.info[i]
             self.removeNode(i)
-
-
-def convertItems(itemSet):
-    """
-    To convert the item ranks into their original item names
-
-    :param itemSet: itemSet or a pattern
-
-    :return: original pattern
-    """
-    t1 = []
-    for i in itemSet:
-        t1.append(pfList[i])
-    return t1
 
 
 class MNode(object):
@@ -377,7 +360,7 @@ class MPTree(object):
 
 
 # Initialising the  variable for maximal tree
-maximalTree = MPTree()
+#maximalTree = MPTree()
 
 
 class Maxfpgrowth(frequentPatterns):
@@ -457,7 +440,7 @@ class Maxfpgrowth(frequentPatterns):
 
         Examples:
         -------
-            python3 maxfpgrowth.py sampleDB.txt patterns.txt 0.3   (minSup will be considered in times of minSup and count of database transactions)
+            python3 maxfpgrowth.py sampleDB.txt patterns.txt 0.3   (minSup will be considered in percentage of database transactions)
 
             python3 maxfpgrowth.py sampleDB.txt patterns.txt 3     (minSup will be considered in support count or frequency)
 
@@ -469,9 +452,9 @@ class Maxfpgrowth(frequentPatterns):
 
         obj.startMine()
 
-        MaximalFrequentPatterns = obj.getPatterns()
+        frequentPatterns = obj.getPatterns()
 
-        print("Total number of maximal Frequent Patterns:", len(MaximalFrequentPatterns))
+        print("Total number of Frequent Patterns:", len(frequentPatterns))
 
         obj.storePatternsInFile("patterns")
 
@@ -508,6 +491,7 @@ class Maxfpgrowth(frequentPatterns):
     rank = {}
     rankdup = {}
     lno = 0
+    data = [Database, finalPatterns, memoryUSS, memoryRSS, rank, rankdup, iFile, oFile]
 
     def creatingItemSets(self):
         """
@@ -518,7 +502,6 @@ class Maxfpgrowth(frequentPatterns):
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     li = [i.rstrip() for i in line.split(self.sep)]
-                    li = [x for x in li if x]
                     self.Database.append(li)
                     self.lno += 1
         except IOError:
@@ -529,7 +512,6 @@ class Maxfpgrowth(frequentPatterns):
 
         :return: 1-length frequent items
         """
-        global pfList
         mapSupport = {}
         k = 0
         for tr in self.Database:
@@ -579,6 +561,7 @@ class Maxfpgrowth(frequentPatterns):
             rootNode.addTransaction(data[i])
         return rootNode
     
+
     def convert(self, value):
         """
         to convert the type of user specified minSup value
@@ -596,13 +579,26 @@ class Maxfpgrowth(frequentPatterns):
             else:
                 value = int(value)
         return value
+        
+    def convertItems(self, itemSet):
+        """
+            To convert the item ranks into their original item names
+
+            :param itemSet: itemSet or a pattern
+
+            :return: original pattern
+        """
+        t1 = []
+        for i in itemSet:
+            t1.append(self.rankdup[i])
+        return t1
 
     def startMine(self):
         """
                 Mining process will start from this function
         """
 
-        global minSup, patterns, pfList
+        global minSup
         self.startTime = time.time()
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -616,13 +612,15 @@ class Maxfpgrowth(frequentPatterns):
         for x, y in self.rank.items():
             self.rankdup[y] = x
         info = {self.rank[k]: v for k, v in generatedItems.items()}
-        Tree = self.buildTree(updatedTransactions, info)
-        Tree.generatePatterns([])
+        patterns = {}
         self.finalPatterns = {}
+        Tree = self.buildTree(updatedTransactions, info)
+        Tree.generatePatterns([], patterns)
         for x, y in patterns.items():
             pattern = str()
+            x = self.convertItems(x)
             for i in x:
-                pattern = pattern + i + " "
+                pattern = pattern + i + "\t"
             self.finalPatterns[pattern] = y
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
@@ -696,6 +694,7 @@ class Maxfpgrowth(frequentPatterns):
         :rtype: dict
         """
         return self.finalPatterns
+        
 
 
 if __name__ == "__main__":
