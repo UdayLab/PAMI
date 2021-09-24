@@ -312,6 +312,8 @@ class MPTree(object):
         :return: 1
         """
         items.sort(reverse=True)
+        print("###", self.summaries)
+        print("......",items)
         item = items[0]
         if item not in self.summaries:
             return 1

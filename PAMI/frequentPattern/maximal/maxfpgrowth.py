@@ -514,6 +514,7 @@ class Maxfpgrowth(frequentPatterns):
         Storing the complete Databases of the database/input file in a database variable
         """
         try:
+            self.Database = []
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     li = [i.rstrip() for i in line.split(self.sep)]
@@ -617,6 +618,7 @@ class Maxfpgrowth(frequentPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedTransactions, info)
         Tree.generatePatterns([])
+        self.finalPatterns = {}
         for x, y in patterns.items():
             pattern = str()
             for i in x:
