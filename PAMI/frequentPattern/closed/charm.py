@@ -176,6 +176,7 @@ class Charm(frequentPatterns):
         """
         Storing the complete frequent patterns of the database/input file in a database variable
         """
+        self.Database = []
         with open(self.iFile, 'r') as f:
             for line in f:
                 i = [i.rstrip() for i in line.split(self.sep)]
@@ -356,6 +357,7 @@ class Charm(frequentPatterns):
         """
         self.startTime = time.time()
         plist = self.creatingItemsets()
+        self.finalPatterns = {}
         for i in range(len(plist)):
             itemX = plist[i]
             if itemX is None:
