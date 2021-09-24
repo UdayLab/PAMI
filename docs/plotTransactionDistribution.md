@@ -220,8 +220,8 @@ get the statistical details of a database.
 7. [Extras](extras.html)
    1. [Creation of neighborhood file for spatiotemporal data using Euclidean distance](spatialDatabase.md)
    
-          from PAMI.extras import createNeighborhoodFileUsingEuclideanDistance as alg
+          from PAMI.extras import findNeighboursUsingEuclidean as alg
           
-          obj = alg.createNeighborhoodFileUsingEuclideanDistance(inputFile,outputFile,maxEuclideanDistance)
+          obj = alg.findNeighboursUsingEuclidean(inputFile,outputFile,maxEuclideanDistance)
           obj.create()
           

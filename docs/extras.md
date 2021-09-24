@@ -151,8 +151,8 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
 7. [Extras](extras.html)
    1. [Creation of neighborhood file for spatiotemporal data using Euclidean distance](spatialDatabase.md)
    
-          from PAMI.extras import createNeighborhoodFileUsingEuclideanDistance as alg
+          from PAMI.extras import findNeighboursUsingEuclidean as alg
           
-          obj = alg.createNeighborhoodFileUsingEuclideanDistance(inputFile,outputFile,maxEuclideanDistance)
+          obj = alg.findNeighboursUsingEuclidean(inputFile,outputFile,maxEuclideanDistance)
           obj.create()
           
