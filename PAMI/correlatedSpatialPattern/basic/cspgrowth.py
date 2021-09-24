@@ -26,7 +26,7 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-from PAMI.corelatedSpatialPattern.basic.abstract import *
+from PAMI.correlatedSpatialPattern.basic.abstract import *
 import sys
 import math
 import pandas as pd

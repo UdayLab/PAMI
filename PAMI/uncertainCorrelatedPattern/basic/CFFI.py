@@ -490,7 +490,7 @@ class CFFI(frequentPatterns):
             :type prefixLen: int
             :param item: the last item
             :type item: int
-            :return : corelatedSpatialPattern ratio
+            :return : correlatedSpatialPattern ratio
             :rtype: float
         """
         res=1.0
