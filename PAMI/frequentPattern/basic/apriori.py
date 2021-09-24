@@ -57,7 +57,6 @@ class Apriori(frequentPatterns):
             Database : list
                 To store the transactions of a database in list
 
-
         Methods:
         -------
             startMine()
@@ -89,13 +88,13 @@ class Apriori(frequentPatterns):
 
             Examples:
             ---------
-                python3 apriori.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+                python3 apriori.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
                 python3 apriori.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
+
         Sample run of the importing code:
         ---------------------------------
-
 
             import PAMI.frequentPattern.basic.Apriori as alg
 
@@ -211,8 +210,12 @@ class Apriori(frequentPatterns):
 
         self.startTime = time.time()
         try:
+            self.Database = []
             with open(self.iFile, 'r') as f:
-                self.Database = [set([i.rstrip() for i in line.split(self.sep)]) for line in f]
+                for line in f:
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(set(temp))
                 f.close()
         except IOError:
             print("File Not Found")
@@ -221,6 +224,7 @@ class Apriori(frequentPatterns):
         items = [{i} for i in itemsList]
         itemsCount = len(items)
         self.minSup = self.convert(self.minSup)
+        self.finalPatterns = {}
         for i in range(1, itemsCount):
             frequentSet = self.candidateToFrequent(items)
             for x,y in frequentSet.items():

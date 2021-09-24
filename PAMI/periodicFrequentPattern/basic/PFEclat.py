@@ -198,23 +198,27 @@ class PFEclat(periodicFrequentPatterns):
         """Storing the complete transactions of the database/input file in a database variable
         """
 
-        with open(self.iFile, 'r') as f:
-            for line in f:
-                self.lno += 1
-                s = [i.strip() for i in line.split(self.sep)]
-                n = self.lno
-                for i in range(1, len(s)):
-                    si = s[i]
-                    if self.mapSupport.get(si) is None:
-                        self.mapSupport[si] = [1, abs(0-n), n]
-                        self.tidList[si] = [n]
-                    else:
-                        self.mapSupport[si][0] += 1
-                        self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n-self.mapSupport[si][2]))
-                        self.mapSupport[si][2] = n
-                        self.tidList[si].append(n)
-        for x, y in self.mapSupport.items():
-            self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
+        try:
+            self.mapSupport, self.tidList = {}, {}
+            with open(self.iFile, 'r') as f:
+                for line in f:
+                    self.lno += 1
+                    s = [i.strip() for i in line.split(self.sep)]
+                    n = self.lno
+                    for i in range(1, len(s)):
+                        si = s[i]
+                        if self.mapSupport.get(si) is None:
+                            self.mapSupport[si] = [1, abs(0-n), n]
+                            self.tidList[si] = [n]
+                        else:
+                            self.mapSupport[si][0] += 1
+                            self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n-self.mapSupport[si][2]))
+                            self.mapSupport[si][2] = n
+                            self.tidList[si].append(n)
+            for x, y in self.mapSupport.items():
+                self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
+        except IOError:
+            print("File Not Found")
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
         self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if v[0] >= self.minSup and v[1] <=
@@ -288,6 +292,7 @@ class PFEclat(periodicFrequentPatterns):
 
         self.startTime = time.time()
         plist = self.creatingOneItemSets()
+        self.finalPatterns = {}
         for i in range(len(plist)):
             itemI = plist[i]
             tidSetI = self.tidList[itemI]

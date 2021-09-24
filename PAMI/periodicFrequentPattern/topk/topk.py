@@ -13,18 +13,18 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.frequentPattern.topk.abstract import *
+from PAMI.periodicFrequentPattern.topk.abstract import *
 import sys
 
 
-class TopK(frequentPatterns):
+class TopK(periodicFrequentPatterns):
     """
-        Top - K is and algorithm to discover top frequent patterns in a transactional database.
+        Top - K is and algorithm to discover top periodic frequent patterns in a transactional database.
 
         Reference:
         ----------
-            Zhi-Hong Deng, Guo-Dong Fang: Mining Top-Rank-K Frequent Patterns: DOI: 10.1109/ICMLC.2007.4370261 · Source: IEEE Xplore
-            https://ieeexplore.ieee.org/document/4370261
+                Komate Amphawan, Philippe Lenca, Athasit Surarerks: "Mining Top-K Periodic-Frequent Pattern from Transactional Databases without Support Threshold"
+                International Conference on Advances in Information Technology: https://link.springer.com/chapter/10.1007/978-3-642-10392-6_3
 
         Attributes:
         ----------
@@ -78,25 +78,25 @@ class TopK(frequentPatterns):
 
             Format:
             ------
-            python3 topk.py <inputFile> <outputFile> <minSup>
+            python3 topk.py <inputFile> <outputFile> <k> <maxPer>
 
             Examples:
             ---------
-            python3 topk.py sampleDB.txt patterns.txt 10
+            python3 topk.py sampleDB.txt patterns.txt 10 3
 
 
         Sample run of the importing code:
         ---------------------------------
 
-            import PAMI.frequentPattern.topk.topk as alg
+            import PAMI.periodicFrequentPattern.topk.topk as alg
 
-            obj = alg.TopK(iFile, minSup)
+            obj = alg.TopK(iFile, k, maxPer)
 
             obj.startMine()
 
-            frequentPatterns = obj.getPatterns()
+            periodicFrequentPatterns = obj.getPatterns()
 
-            print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
 
             obj.storePatternsInFile(oFile)
 
@@ -123,6 +123,7 @@ class TopK(frequentPatterns):
     startTime = float()
     endTime = float()
     k = int()
+    maxPer = " "
     finalPatterns = {}
     iFile = " "
     oFile = " "
@@ -131,7 +132,9 @@ class TopK(frequentPatterns):
     memoryRSS = float()
     Database = []
     tidList = {}
+    lno = int()
     minimum = int()
+    mapSupport = {}
 
     def creatingItemSets(self):
         """
@@ -149,6 +152,24 @@ class TopK(frequentPatterns):
             print("File Not Found")
             quit()
 
+    def convert(self, value):
+        """
+        To convert the given user specified value
+        :param value: user specified value
+        :return: converted value
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self.Database) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self.Database) * value)
+            else:
+                value = int(value)
+        return value
+
     def frequentOneItem(self):
         """
         Generating one frequent patterns
@@ -156,40 +177,74 @@ class TopK(frequentPatterns):
 
         try:
             candidate = {}
-            k = 0
-            with open(self.iFile, 'r', encoding='utf-8') as f:
+            with open(self.iFile) as f:
                 for line in f:
-                    k += 1
-                    temp = [i.rstrip() for i in line.split(self.sep)]
-                    temp = [x for x in temp if x]
-                    for j in temp:
-                        if j not in candidate:
-                            candidate[j] = 1
-                            self.tidList[j] = [k]
+                    self.lno += 1
+                    s = [i.strip() for i in line.split(self.sep)]
+                    s = [x for x in s]
+                    n = self.lno
+                    for i in range(1, len(s)):
+                        si = s[i]
+                        if self.mapSupport.get(si) is None:
+                            self.mapSupport[si] = [1, abs(0 - n), n]
+                            self.tidList[si] = [n]
                         else:
-                            candidate[j] += 1
-                            self.tidList[j].append(k)
-            plist = [key for key, value in sorted(candidate.items(), key=lambda x: x[1], reverse=True)]
+                            self.mapSupport[si][0] += 1
+                            self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n - self.mapSupport[si][2]))
+                            self.mapSupport[si][2] = n
+                            self.tidList[si].append(n)
+                for x, y in self.mapSupport.items():
+                    self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
+                self.maxPer = self.convert(self.maxPer)
+                self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if v[1] <=
+                                   self.maxPer}
+                plist = [key for key, value in
+                         sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
             for i in plist:
                 if len(self.finalPatterns) >= self.k:
                     break
                 else:
-                    self.finalPatterns[i] = candidate[i]
-            self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+                    self.finalPatterns[i] = [self.mapSupport[i][0], self.mapSupport[i][1]]
+            self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
             plist = list(self.finalPatterns.keys())
             return plist
         except IOError:
             print("File Not Found")
             quit()
 
+    def getSupportAndPeriod(self, timeStamps):
+        """To calculate the periodicity and support
+        :param timeStamps: Timestamps of an item set
+        :return: support, periodicity
+        """
+
+        global lno
+        timeStamps.sort()
+        cur = 0
+        per = list()
+        sup = 0
+        for j in range(len(timeStamps)):
+            per.append(timeStamps[j] - cur)
+            cur = timeStamps[j]
+            sup += 1
+        per.append(self.lno - cur)
+        if len(per) == 0:
+            return [0, 0]
+        return [sup, max(per)]
+
     def save(self, prefix, suffix, tidSetI):
         """Saves the patterns that satisfy the periodic frequent property.
 
             :param prefix: the prefix of a pattern
+
             :type prefix: list
+
             :param suffix: the suffix of a patterns
+
             :type suffix: list
+
             :param tidSetI: the timestamp of a patterns
+
             :type tidSetI: list
         """
 
@@ -197,38 +252,40 @@ class TopK(frequentPatterns):
             prefix = suffix
         else:
             prefix = prefix + suffix
-        val = len(tidSetI)
+        val = self.getSupportAndPeriod(tidSetI)
         sample = str()
         for i in prefix:
             sample = sample + i + " "
         if len(self.finalPatterns) < self.k:
             self.finalPatterns[sample] = val
-            self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+            self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
         else:
             for x, y in self.finalPatterns.items():
-                if y < val:
+                if y[0] < val[0]:
                     del self.finalPatterns[x]
-                    self.finalPatterns[x] =y
-                    self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
-                if val >= y:
-                    if val == y and len(prefix) > len(x):
-                        del self.finalPatterns[x]
-                        self.finalPatterns[x] = y
-                        self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+                    self.finalPatterns[x] = y
+                    self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
+                if val[0] > y[0]:
+                    del self.finalPatterns[x]
+                    self.finalPatterns[x] = y
+                    self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
 
     def Generation(self, prefix, itemSets, tidSets):
         """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
 
             :param prefix:  main equivalence prefix
+
             :type prefix: periodic-frequent item or pattern
+
             :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
                             and frequent with their timestamps
+
             :type itemSets: list
+
             :param tidSets: timestamps of the items in the argument itemSets
+
             :type tidSets: list
-
-
-                    """
+        """
         if len(itemSets) == 1:
             i = itemSets[0]
             tidI = tidSets[0]
@@ -246,7 +303,8 @@ class TopK(frequentPatterns):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetI).intersection(tidSetJ))
-                if len(y) >= self.minimum:
+                val = self.getSupportAndPeriod(y)
+                if val[0] >= self.minimum and val[1] <= self.maxPer:
                     classItemSets.append(itemJ)
                     classTidSets.append(y)
             newPrefix = list(set(itemSetX)) + prefix
@@ -274,7 +332,8 @@ class TopK(frequentPatterns):
                 itemJ = plist[j]
                 tidSetJ = self.tidList[itemJ]
                 y1 = list(set(tidSetI).intersection(tidSetJ))
-                if len(y1) >= self.minimum:
+                val = self.getSupportAndPeriod(y1)
+                if val[0] >= self.minimum and val[1] <= self.maxPer:
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             self.Generation(itemSetX, itemSets, tidSets)
@@ -354,11 +413,11 @@ class TopK(frequentPatterns):
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            ap = TopK(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:
             ap = TopK(sys.argv[1], sys.argv[3], sys.argv[4])
-        if len(sys.argv) == 4:
-            ap = TopK(sys.argv[1], sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
@@ -371,7 +430,7 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = TopK('/home/apiiit-rkv/Downloads/datasets/Mushroom', 40, ' ')
+        ap = TopK('/home/apiiit-rkv/Downloads/datasets/Mushroom', 40, 100, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
@@ -384,5 +443,3 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-

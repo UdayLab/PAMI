@@ -88,7 +88,7 @@ class Eclat(frequentPatterns):
 
             Examples:
             ---------
-            python3 eclat.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            python3 eclat.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
             python3 eclat.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
@@ -119,6 +119,7 @@ class Eclat(frequentPatterns):
             print("Total Memory in RSS", memRSS)
 
             run = obj.getRuntime()
+
             print("Total ExecutionTime in seconds:", run)
 
         Credits:
@@ -139,25 +140,27 @@ class Eclat(frequentPatterns):
     Database = []
 
     def creatingItemSets(self):
-        """Storing the complete transactions of the database/input file in a database variable
+        """
+            Storing the complete transactions of the database/input file in a database variable
 
         """
         try:
+            self.Database = []
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     line.strip()
-                    splitter = [i.rstrip() for i in line.split(self.sep)]
-                    self.Database.append(splitter)
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
         except IOError:
             print("File Not Found")
             quit()
 
-    # function to get frequent one pattern
     def frequentOneItem(self):
         """
         Generating one frequent patterns
         """
-
+        self.finalPatterns = {}
         candidate = {}
         for i in range(len(self.Database)):
             for j in range(len(self.Database[i])):
@@ -178,7 +181,6 @@ class Eclat(frequentPatterns):
 
         :rtype: dict
         """
-        # to generate all
         tidList = {}
         key = list(candidateList.keys())
         for i in range(0, len(key)):

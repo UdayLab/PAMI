@@ -403,6 +403,7 @@ class PFPGrowth(periodicFrequentPatterns):
         """
 
         try:
+            self.Database = {}
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     li = [i.rstrip() for i in line.split(self.sep)]

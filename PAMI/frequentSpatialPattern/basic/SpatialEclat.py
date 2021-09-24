@@ -13,76 +13,81 @@ class SpatialEclat(spatialFrequentPatterns):
 
     Attributes :
     ----------
-            iFile : str
-                Input file name or path of the input file
-            nFile: str:
-               Name of Neighbourhood file name
-            minSup: float
-                UserSpecified minimum support value. It has to be given in terms of count of total number of
-                transactions in the input database/file
-            startTime:float
-                To record the start time of the mining process
-            endTime:float
-                To record the completion time of the mining process
-            finalPatterns: dict
-                Storing the complete set of patterns in a dictionary variable
-            oFile : str
-                Name of the output file to store complete set of frequent patterns
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-            Database : list
-                To store the complete set of transactions available in the input database/file
+        iFile : str
+            Input file name or path of the input file
+        nFile: str
+            Name of Neighbourhood file name
+        minSup: int or float or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        startTime:float
+            To record the start time of the mining process
+        endTime:float
+            To record the completion time of the mining process
+        finalPatterns: dict
+            Storing the complete set of patterns in a dictionary variable
+        oFile : str
+            Name of the output file to store complete set of frequent patterns
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
+        Database : list
+            To store the complete set of transactions available in the input database/file
 
     Methods :
     -------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
-            getPatternsAsDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            findDelimiter(line)
-                Identifying the delimiter of the input file
-            creatingItemSets(iFileName)
-                Storing the complete transactions of the database/input file in a database variable
-            frequentOneItem()
-                Generating one frequent patterns
-            dictKeysToInt(iList)
-                Converting dictionary keys to integer elements
-            eclatGeneration(cList)
-                It will generate the combinations of frequent items
-            generatespatialFrequentPatterns(tidList)
-                It will generate the combinations of frequent items from a list of items
-            convert(value):
-                To convert the given user specified value    
-            getNeighbourItems(keyset):
-                A function to get commom neighbours of a itemset
-             mapNeighbours(file):
-                A function to map items to their neighbours
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        storePatternsInFile(oFile)
+            Complete set of frequent patterns will be loaded in to a output file
+        getPatternsInDataFrame()
+            Complete set of frequent patterns will be loaded in to a dataframe
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+        creatingItemSets(iFileName)
+            Storing the complete transactions of the database/input file in a database variable
+        frequentOneItem()
+            Generating one frequent patterns
+        dictKeysToInt(iList)
+            Converting dictionary keys to integer elements
+        eclatGeneration(cList)
+            It will generate the combinations of frequent items
+        generateSpatialFrequentPatterns(tidList)
+            It will generate the combinations of frequent items from a list of items
+        convert(value):
+            To convert the given user specified value    
+        getNeighbourItems(keySet):
+            A function to get common neighbours of a itemSet
+        mapNeighbours(file):
+            A function to map items to their neighbours
 
     Executing the code on terminal :
     ------------------------------
-            Format: python3 SpatialEclat.py <inputFile> <outputFile> <neighbourFile> <minSup>
-            Examples:
+        Format: 
+            python3 SpatialEclat.py <inputFile> <outputFile> <neighbourFile> <minSup>
+            
+        Examples:
             python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
+            
             python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
                                                                 (it considers "\t" as separator)
-                    SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 , 
-                                                                (it will consider "," as a separator)
+                    
+            python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 ','  (it will consider "," as a separator)
 
     Sample run of importing the code :
     -------------------------------
+        
         import SpatialEclat as alg
+        
         obj = alg.SpatialEclat("sampleTDB.txt", "sampleN.txt", 5)
 
         obj.startMine()
@@ -91,7 +96,7 @@ class SpatialEclat(spatialFrequentPatterns):
 
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
 
-        obj.savePatterns("outFile")
+        obj.storePatternsInFile("outFile")
 
         memUSS = obj.getMemoryUSS()
 
@@ -117,11 +122,11 @@ class SpatialEclat(spatialFrequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
-    nFile=" "
+    nFile = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
-    sep="\t"
+    sep = "\t"
 
     def __init__(self, iFile, nFile, minSup, sep="\t"):
         super().__init__(iFile, nFile, minSup, sep)
@@ -137,22 +142,10 @@ class SpatialEclat(spatialFrequentPatterns):
         lineNumber = 0
         with open(iFileName, 'r', encoding='utf-8') as f:
             for line in f:
-                # line.strip()
-                if lineNumber == 0:
-                    lineNumber += 1
-                    # delimiter = self.findDelimiter([*line])
-                    # li=[lineNumber]
-                    li = line.split(self.sep)
-                    li1 = [i.rstrip() for i in li]
-                    self.Database.append([i.rstrip() for i in li1])
-                    # else:
-                    # self.Database.append(li)
-                    # data.append([lineNumber,li1])
-                else:
                     lineNumber += 1
                     li = line.split(self.sep)
-                    # if delimiter==',':
                     li1 = [i.rstrip() for i in li]
+                    li1 = [x for x in li1]
                     self.Database.append(li1)
 
     # function to get frequent one pattern
@@ -160,8 +153,6 @@ class SpatialEclat(spatialFrequentPatterns):
         """Generating one frequent patterns"""
 
         candidate = {}
-        # global finalPatterns, minSup, Database
-        # self.minSup = self.minSup
         for i in range(len(self.Database)):
             for j in range(len(self.Database[i])):
                 if self.Database[i][j] not in candidate:
@@ -169,7 +160,6 @@ class SpatialEclat(spatialFrequentPatterns):
                 else:
                     candidate[self.Database[i][j]] += [i]
         self.finalPatterns = {keys: value for keys, value in candidate.items() if len(value) >= self.minSup}
-        # print(candidate)
 
     def convert(self, value):
         """
@@ -218,10 +208,10 @@ class SpatialEclat(spatialFrequentPatterns):
         tidList = {}
         key = list(cList.keys())
         for i in range(0, len(key)):
-            nighbousItems = self.getNeighbourItems(key[i])
+            NeighboursItems = self.getNeighbourItems(key[i])
             for j in range(i + 1, len(key)):
                 # print(c[key[i]],c[key[j]])
-                if not key[j] in nighbousItems:
+                if not key[j] in NeighboursItems:
                     continue
                 intersectionList = list(set(cList[key[i]]).intersection(set(cList[key[j]])))
                 itemList = []
@@ -233,7 +223,7 @@ class SpatialEclat(spatialFrequentPatterns):
                         tidList[tuple(set(itemList))] = intersectionList
         return tidList
 
-    def generatespatialFrequentPatterns(self, tidList):
+    def generateSpatialFrequentPatterns(self, tidList):
         """It will generate the combinations of frequent items from a list of items
 
         :param tidList :it represents the items with their respective transaction identifiers
@@ -247,9 +237,9 @@ class SpatialEclat(spatialFrequentPatterns):
         else:
             key = list(tidList.keys())
             for i in range(0, len(key)):
-                nighbousItems = self.getNeighbourItems(key[i])
+                NeighboursItems = self.getNeighbourItems(key[i])
                 for j in range(i + 1, len(key)):
-                    if not key[j] in nighbousItems:
+                    if not key[j] in NeighboursItems:
                         continue
                     intersectionList = list(set(tidList[key[i]]).intersection(set(tidList[key[j]])))
                     itemList = []
@@ -260,34 +250,32 @@ class SpatialEclat(spatialFrequentPatterns):
 
         return tidList1
 
-    def getNeighbourItems(self, keyset):
+    def getNeighbourItems(self, keySet):
         """
             A function to get Neighbours of a item
-            :param keyset:itemset
-            :type keyset:str or tuple
+            :param keySet:itemSet
+            :type keySet:str or tuple
             :return: set of common neighbours 
             :rtype:set
         """
-        itemNibours = self.NeighboursMap.keys()
-        if isinstance(keyset, str):
-            if self.NeighboursMap.get(keyset) is None:
+        itemNeighbours = self.NeighboursMap.keys()
+        if isinstance(keySet, str):
+            if self.NeighboursMap.get(keySet) is None:
                 return []
-            itemNibours = list(set(itemNibours).intersection(set(self.NeighboursMap.get(keyset))))
-        if isinstance(keyset, tuple):
-            keyset = list(keyset)
-            # print(keyset)
-            for j in range(0, len(keyset)):
-                i = keyset[j]
-                itemNibours = list(set(itemNibours).intersection(set(self.NeighboursMap.get(i))))
-        return itemNibours
+            itemNeighbours = list(set(itemNeighbours).intersection(set(self.NeighboursMap.get(keySet))))
+        if isinstance(keySet, tuple):
+            keySet = list(keySet)
+            # print(keySet)
+            for j in range(0, len(keySet)):
+                i = keySet[j]
+                itemNeighbours = list(set(itemNeighbours).intersection(set(self.NeighboursMap.get(i))))
+        return itemNeighbours
 
-    def mapNeighbours(self, name):
+    def mapNeighbours(self):
         """
             A function to map items to their Neighbours
-            :param name: item name
-            :type name: int
         """
-        with open(name, 'r', encoding='utf-8') as f:
+        with open(self.nFile, 'r', encoding='utf-8') as f:
             for line in f:
                 li = line.split(self.sep)
                 item = li[0]
@@ -304,17 +292,14 @@ class SpatialEclat(spatialFrequentPatterns):
         iFileName = self.iFile
         self.creatingItemSets(iFileName)
         self.minSup = self.convert(self.minSup)
-        self.mapNeighbours(self.nFile)
-        print(self.minSup)
+        self.mapNeighbours()
         self.frequentOneItem()
-        frequentSet = self.generatespatialFrequentPatterns(self.finalPatterns)
-        # print("frequentSet",self.finalPatterns)
+        frequentSet = self.generateSpatialFrequentPatterns(self.finalPatterns)
         for x, y in frequentSet.items():
             if x not in self.finalPatterns:
                 self.finalPatterns[x] = y
         while 1:
             frequentSet = self.eclatGeneration(frequentSet)
-            # print("frequentSet",frequentSet)
             for x, y in frequentSet.items():
                 if x not in self.finalPatterns:
                     self.finalPatterns[x] = y
@@ -354,7 +339,7 @@ class SpatialEclat(spatialFrequentPatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsInDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -368,7 +353,7 @@ class SpatialEclat(spatialFrequentPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def storePatternsInFile(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -393,15 +378,16 @@ class SpatialEclat(spatialFrequentPatterns):
 
 
 if __name__ == "__main__":
+    ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
         if len(sys.argv) == 6:
-            ap = SpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4],sys.argv[5])
+            ap = SpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:
             ap = SpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         spatialFrequentPatterns = ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.savePatterns(sys.argv[2])
+        ap.storePatternsInFile(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -409,4 +395,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-        print("Error!,Parameter doesn't match")
+        print("Error! The number of input parameters do not match the total number of parameters provided")

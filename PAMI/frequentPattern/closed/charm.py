@@ -19,9 +19,8 @@ from PAMI.frequentPattern.closed.abstract import *
 
 
 class Charm(frequentPatterns):
-    """ CHARM is one of the fundamental algorithm to discover closed frequent patterns in a transactional database.
+    """ CHARM is an algorithm to discover closed frequent patterns in a transactional database.
         Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset.
-        This program employs downward closure property to  reduce the search space effectively.
         This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
         transactional database.
         
@@ -95,7 +94,7 @@ class Charm(frequentPatterns):
 
             Examples:
 
-            python3 charm.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            python3 charm.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
             python3 charm.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
@@ -110,7 +109,7 @@ class Charm(frequentPatterns):
 
             frequentPatterns = obj.getPatterns()
 
-            print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Closed Frequent Patterns:", len(frequentPatterns))
 
             obj.savePatterns(oFile)
 
@@ -177,9 +176,11 @@ class Charm(frequentPatterns):
         """
         Storing the complete frequent patterns of the database/input file in a database variable
         """
+        self.Database = []
         with open(self.iFile, 'r') as f:
             for line in f:
                 i = [i.rstrip() for i in line.split(self.sep)]
+                i = [x for x in i if x]
                 self.lno += 1
                 n = self.lno
                 for j in i:
@@ -352,10 +353,11 @@ class Charm(frequentPatterns):
     def startMine(self):
         """
         Mining process will start from here by extracting the frequent patterns from the database. It performs prefix
-        equivalence to generate the combinations and generates closed frequent patterns.
+        equivalence to generate the combinations and closed frequent patterns.
         """
         self.startTime = time.time()
         plist = self.creatingItemsets()
+        self.finalPatterns = {}
         for i in range(len(plist)):
             itemX = plist[i]
             if itemX is None:
