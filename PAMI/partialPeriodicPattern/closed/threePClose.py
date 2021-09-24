@@ -191,10 +191,11 @@ class Tree(object):
             conditionalTree.info = info.copy()
             head = pattern[:]
             tail = []
+            print(prefix, self.info[i])
             for k in info:
                 tail.append(k)
             sub = head + tail
-            if maximalTree.checkerSub(sub) == 1:
+            if maximalTree.checkerSub(sub, self.info[i]) == 1:
                 for pat in range(len(condPattern)):
                     conditionalTree.addTransaction(condPattern[pat], timeStamps[pat])
                 if len(condPattern) >= 1:
@@ -302,7 +303,7 @@ class MPTree(object):
             else:
                 currentNode = currentNode.children[transaction[i]]
 
-    def checkerSub(self, items):
+    def checkerSub(self, items, val):
         """
         To check subset present of items in the maximal tree
 
@@ -739,4 +740,15 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = MaxThreePGrowth('/home/apiiit-rkv/Downloads/3p/sample', 2, 3, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Maximal Partial Periodic Patterns:", len(Patterns))
+        ap.storePatternsInFile('/home/apiiit-rkv/Downloads/3p/sample4')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

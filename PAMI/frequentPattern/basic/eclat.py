@@ -145,6 +145,7 @@ class Eclat(frequentPatterns):
 
         """
         try:
+            self.Database = []
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     line.strip()
@@ -159,7 +160,7 @@ class Eclat(frequentPatterns):
         """
         Generating one frequent patterns
         """
-
+        self.finalPatterns = {}
         candidate = {}
         for i in range(len(self.Database)):
             for j in range(len(self.Database[i])):

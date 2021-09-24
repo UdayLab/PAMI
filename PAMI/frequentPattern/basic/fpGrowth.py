@@ -350,6 +350,7 @@ class fpGrowth(frequentPatterns):
 
         """
         try:
+            self.Database = []
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     self.lno += 1
@@ -478,6 +479,7 @@ class fpGrowth(frequentPatterns):
         info = {self.rank[k]: v for k, v in self.mapSupport.items()}
         Tree = self.buildTree(updatedTransactions, info)
         patterns = Tree.generatePatterns([])
+        self.finalPatterns = {}
         for k in patterns:
             s = self.savePeriodic(k[0])
             self.finalPatterns[str(s)] = k[1]

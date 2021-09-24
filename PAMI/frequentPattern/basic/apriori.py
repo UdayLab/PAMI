@@ -210,6 +210,7 @@ class Apriori(frequentPatterns):
 
         self.startTime = time.time()
         try:
+            self.Database = []
             with open(self.iFile, 'r') as f:
                 for line in f:
                     temp = [i.rstrip() for i in line.split(self.sep)]
@@ -223,6 +224,7 @@ class Apriori(frequentPatterns):
         items = [{i} for i in itemsList]
         itemsCount = len(items)
         self.minSup = self.convert(self.minSup)
+        self.finalPatterns = {}
         for i in range(1, itemsCount):
             frequentSet = self.candidateToFrequent(items)
             for x,y in frequentSet.items():

@@ -163,14 +163,18 @@ class eclatbitset(frequentPatterns):
         """
         items = []
         p = {}
-        with open(self.iFile, 'r') as f:
-            for line in f:
-                self.lno += 1
-                splitter = [i.rstrip() for i in line.split(self.sep)]
-                splitter = [x for x in splitter if x]
-                for i in splitter:
-                    if i not in items:
-                        items.append(i)
+        self.Database = []
+        try:
+            with open(self.iFile, 'r') as f:
+                for line in f:
+                    self.lno += 1
+                    splitter = [i.rstrip() for i in line.split(self.sep)]
+                    splitter = [x for x in splitter if x]
+                    for i in splitter:
+                        if i not in items:
+                            items.append(i)
+        except IOError:
+            print("File Not Found")
         self.minSup = self.convert(self.minSup)
         with open(self.iFile, 'r') as f:
             for line in f:
@@ -278,6 +282,7 @@ class eclatbitset(frequentPatterns):
         if self.minSup is None:
             raise Exception("Please enter the Minimum Support")
         plist = self.creatingItemSets()
+        self.finalPatterns = {}
         for i in range(len(plist)):
             itemI = plist[i]
             tidSetX = self.mapSupport[itemI]
