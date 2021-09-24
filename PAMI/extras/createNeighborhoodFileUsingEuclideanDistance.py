@@ -12,23 +12,23 @@ class createNeighborhoodFileUsingEuclideanDistance:
             Input file name or path of the input file
         oFile : file
             Output file name or path pf the output file
-        maxDist : int
-            The user can specify maxDist.
-            This program find pairs of values whose Euclidean distance is less than or equal to maxDist
+        maxEucledianDistace : int
+            The user can specify maxEucledianDistace.
+            This program find pairs of values whose Euclidean distance is less than or equal to maxEucledianDistace
             and store the pairs.
 
     Methods:
     -------
         startMine()
-            find and store the pairs of values whose Euclidean distance is less than or equal to maxDist.
+            find and store the pairs of values whose Euclidean distance is less than or equal to maxEucledianDistace.
         getFileName()
             This function returns output file name.
     """
 
-    def __init__(self,iFile,oFile,maxDist):
+    def __init__(self,iFile,oFile,maxEucledianDistace):
         self.iFile = iFile
         self.oFile = oFile
-        self.maxDist = maxDist
+        self.maxEucledianDistace = maxEucledianDistace
 
     def create(self):
         coordinates = []
@@ -52,7 +52,7 @@ class createNeighborhoodFileUsingEuclideanDistance:
                     ansY = y2-y1
                     dist = abs(pow(ansX,2) - pow(ansY,2))
                     norm = sqrt(dist)
-                    if norm <= float(self.maxDist):
+                    if norm <= float(self.maxEucledianDistace):
                         result[tuple(firstCoordinate)] = result.get(tuple(firstCoordinate),[])
                         result[tuple(firstCoordinate)].append(secondCoordinate)
 

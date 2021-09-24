@@ -254,9 +254,9 @@ class shuim(utilityPatterns):
                 Mining process will start from here
         getPatterns()
                 Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
+        savePatterns(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
+        getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
                 Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -296,7 +296,7 @@ class shuim(utilityPatterns):
         
         import shuim as alg
 
-        obj=alg.shuim("input.txt","nighbours.txt",35)
+        obj=alg.shuim("input.txt","Neighbours.txt",35)
 
         obj.startMine()
 
@@ -304,7 +304,7 @@ class shuim(utilityPatterns):
 
         print("Total number of Spatial high utility Patterns:", len(frequentPatterns))
 
-        obj.storePatternsInFile("output")
+        obj.savePatterns("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -711,7 +711,7 @@ class shuim(utilityPatterns):
                 else:
                     self.utilityBinArrayLU[item] = transaction.getPmus()[idx]
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -732,7 +732,7 @@ class shuim(utilityPatterns):
         """
         return self.finalPatterns
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -779,7 +779,7 @@ if __name__ == '__main__':
         ap.startMine()
         patterns = ap.getPatterns()
         print("Total number of Spatial High Utility Patterns:", len(patterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

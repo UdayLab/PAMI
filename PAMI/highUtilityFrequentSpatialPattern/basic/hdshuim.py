@@ -126,11 +126,11 @@ class hdshuim(utilityPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            storePatternsInFile(oFile)
+            savePatterns(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             construcCUL(x, culs, st, minUtil, length, exnighbors)
                 A method to construct CUL's database
-            getPatternsInDataFrame()
+            getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
             getMemoryUSS()
                 Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -160,7 +160,7 @@ class hdshuim(utilityPatterns):
         
         import hdshuim as alg
 
-        obj=alg.hdshuim("input.txt","nighbours.txt",35)
+        obj=alg.hdshuim("input.txt","Neighbours.txt",35)
 
         obj.startMine()
 
@@ -168,7 +168,7 @@ class hdshuim(utilityPatterns):
 
         print("Total number of Spatial High-Utility Patterns:", len(Patterns))
 
-        obj.storePatternsInFile("output")
+        obj.savePatterns("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -331,7 +331,7 @@ class hdshuim(utilityPatterns):
                             mapFMAPItem[pairAfter.item] = twuSUm + newTwu
                 ts += 1
         ExNeighbors = set(self.mapOfPMU.keys())
-        # print(self.nighbours)
+        # print(self.Neighbours)
         self.Explore_SearchTree([], listOfCUList, ExNeighbors, minUtil)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
@@ -348,7 +348,7 @@ class hdshuim(utilityPatterns):
             :type prefix :list
             :parm uList:projectd Utility list
             :type uList: list
-            :parm ExNeighbors: keep track of common nighbours
+            :parm ExNeighbors: keep track of common Neighbours
             :type ExNeighbors: set
             :parm minUtil:user minUtil
             :type minUtil:int
@@ -392,7 +392,7 @@ class hdshuim(utilityPatterns):
             :type minUtil:int
             :parm length: length of x
             :type length:int
-            :parm exnighbors: common nighbours
+            :parm exnighbors: common Neighbours
             :type exnighbors: list
             :return: projectd database of list X
             :rtype: list
@@ -564,7 +564,7 @@ class hdshuim(utilityPatterns):
         self.finalPatterns[res] = res1
         # self.bwriter.write(res)
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -586,7 +586,7 @@ class hdshuim(utilityPatterns):
         """
         return self.finalPatterns
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -634,7 +634,7 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Spatial High-Utility Patterns:", len(Patterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

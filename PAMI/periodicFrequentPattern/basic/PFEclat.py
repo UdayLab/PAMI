@@ -75,9 +75,9 @@ class PFEclat(periodicFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
+        savePatterns(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
+        getPatternsAsDataFrame()
             Complete set of periodic-frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -117,9 +117,9 @@ class PFEclat(periodicFrequentPatterns):
 
             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-            obj.storePatternsInFile("patterns")
+            obj.savePatterns("patterns")
 
-            Df = obj.getPatternsInDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
             memUSS = obj.getMemoryUSS()
 
@@ -337,7 +337,7 @@ class PFEclat(periodicFrequentPatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
@@ -351,7 +351,7 @@ class PFEclat(periodicFrequentPatterns):
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -382,7 +382,7 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Periodic-Frequent Patterns:", len(Patterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

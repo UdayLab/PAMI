@@ -444,9 +444,9 @@ class MaxThreePGrowth(partialPeriodicPatterns):
                 Mining process will start from here
             getFrequentPatterns()
                 Complete set of patterns will be retrieved with this function
-            storePatternsInFile(oFile)
+            savePatterns(oFile)
                 Complete set of periodic-frequent patterns will be loaded in to a output file
-            getPatternsInDataFrame()
+            getPatternsAsDataFrame()
                 Complete set of periodic-frequent patterns will be loaded in to a dataframe
             getMemoryUSS()
                 Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -490,7 +490,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
 
             print("Total number of partial periodic Patterns:", len(partialPeriodicPatterns))
 
-            obj.storePatternsInFile(oFile)
+            obj.savePatterns(oFile)
 
             Df = obj.getPatternInDf()
 
@@ -686,7 +686,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
@@ -700,7 +700,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -731,7 +731,7 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Maximal Partial Periodic Patterns:", len(Patterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

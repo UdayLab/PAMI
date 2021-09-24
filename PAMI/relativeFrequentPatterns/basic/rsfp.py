@@ -258,9 +258,9 @@ class rsfp(relativePatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
+        savePatterns(oFile)
             Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
+        getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -308,9 +308,9 @@ class rsfp(relativePatterns):
 
         print("Total number of relative frequent Patterns:", len(relativePatterns))
 
-        obj.storePatternsInFile(oFile)
+        obj.savePatterns(oFile)
 
-        Df = obj.getPatternsInDataFrame()
+        Df = obj.getPatternsAsDataFrame()
 
         memUSS = obj.getMemoryUSS()
 
@@ -584,7 +584,7 @@ class rsfp(relativePatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -598,7 +598,7 @@ class rsfp(relativePatterns):
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -639,7 +639,7 @@ if __name__ == "__main__":
         ap.startMine()
         corelatedPatterns = ap.getPatterns()
         print("Total number of relative frequent Patterns:", len(corelatedPatterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

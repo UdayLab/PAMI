@@ -202,8 +202,8 @@ get the statistical details of a database.
           
           obj = alg.fpGrowth(inputFile,minSup,sep)
           obj.startMine()
-          obj.storePatternsInFile('patterns.txt')
-          df = obj.getPatternsInDataFrame()
+          obj.savePatterns('patterns.txt')
+          df = obj.getPatternsAsDataFrame()
           print('Runtime: ' + str(obj.getRuntime()))
           print('Memory: ' + str(obj.getMemoryRSS()))
 

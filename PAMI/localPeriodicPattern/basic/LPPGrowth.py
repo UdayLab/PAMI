@@ -220,9 +220,9 @@ class LPPGrowth(localPeriodicPatterns):
                 Total amount of runtime taken by the mining process will be retrieved from this function.
             getLocalPeriodicPatterns()
                 return local periodic patterns and its PTL
-            storePatternsInFile(oFile)
+            savePatterns(oFile)
                 Complete set of local periodic patterns will be loaded in to a output file.
-            getPatternsInDataFrame()
+            getPatternsAsDataFrame()
                 Complete set of local periodic patterns will be loaded in to a dataframe.
 
             Executing the code on terminal
@@ -238,8 +238,8 @@ class LPPGrowth(localPeriodicPatterns):
             obj.startMine()
             localPeriodicPatterns = obj.getLocalPeriodicPatterns()
             print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
-            obj.storePatternsInFile(oFile)
-            Df = obj.getPatternsInDataFrame()
+            obj.savePatterns(oFile)
+            Df = obj.getPatternsAsDataFrame()
             memUSS = obj.getMemoryUSS()
             print(f'Total memory in USS: {memUSS}')
             memRSS = obj.getMemoryRSS()
@@ -639,7 +639,7 @@ class LPPGrowth(localPeriodicPatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final local periodic patterns in a dataframe
 
         :return: returning local periodic patterns in a dataframe
@@ -653,7 +653,7 @@ class LPPGrowth(localPeriodicPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'PTL'])
         return dataFrame
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of local periodic patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -681,7 +681,7 @@ if __name__ == '__main__':
         ap.startMine()
         localPeriodicPatterns = ap.getLocalPeriodicPatterns()
         print(f"Total number of Frequent Patterns: {len(localPeriodicPatterns)}")
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print(f'Total Memory in USS: {memUSS}')
         memRSS = ap.getMemoryRSS()

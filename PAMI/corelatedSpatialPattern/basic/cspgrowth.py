@@ -258,9 +258,9 @@ class cspgrowth(corelatedPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
+        savePatterns(oFile)
             Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
+        getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -281,9 +281,9 @@ class cspgrowth(corelatedPatterns):
         frequentPatternGrowthGenerate(frequentPatternTree,prefix,port)
             Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
             mapSupport represents the 1-length items with their respective support
-        mapNighbours(nFile):
-            to map the items to their nighbours
-        getNighboirItems(item):
+        mapNeighbours(nFile):
+            to map the items to their Neighbours
+        getNeighbourItems(item):
             to get get neighbours of a item
 
     Executing the code on terminal:
@@ -312,7 +312,7 @@ class cspgrowth(corelatedPatterns):
 
         print("Total number of corelated spatial frequent Patterns:", len(corelatedPatterns))
 
-        obj.storePatternsInFile(oFile)
+        obj.savePatterns(oFile)
 
         Df = obj.getPatternInDf()
 
@@ -376,7 +376,7 @@ class cspgrowth(corelatedPatterns):
         except IOError:
             print("File Not Found")
 
-    def mapNighbours(self, name):
+    def mapNeighbours(self, name):
         """
             A function to map items to their Neighbours
             :param name: item name
@@ -389,7 +389,7 @@ class cspgrowth(corelatedPatterns):
                 li = line.split(self.sep)
                 item = li[0]
                 nibs = li[1:]
-                self.NighboursMap[item] = nibs
+                self.NeighboursMap[item] = nibs
 
     def getNeighbourItems(self, keyset):
         """
@@ -505,9 +505,9 @@ class cspgrowth(corelatedPatterns):
         else:
             for i in reversed(frequentPatternTree.headerList):
                 item = i
-                if item not in commonNeighbours or self.NighboursMap.get(item) is None:
+                if item not in commonNeighbours or self.NeighboursMap.get(item) is None:
                     continue
-                newCommonNeighbours = list(set(commonNeighbours).intersection((set(self.NighboursMap.get(item)))))
+                newCommonNeighbours = list(set(commonNeighbours).intersection((set(self.NeighboursMap.get(item)))))
                 support = mapSupport[i]
                 low = max(int(math.floor(mapSupport[i] * self.minAllConf)), self.minSup)
                 high = max(int(math.floor(mapSupport[i] / minconf)), self.minSup)
@@ -531,10 +531,10 @@ class cspgrowth(corelatedPatterns):
                             neigboursTemp = self.commonitems
                             if low <= mapSupport.get(parent1.itemId) <= high:
                                 while parent1.itemId != -1 and parent1.itemId in neigboursTemp:
-                                    if neigboursTemp is None or self.NighboursMap.get(parent1.itemId) is None:
+                                    if neigboursTemp is None or self.NeighboursMap.get(parent1.itemId) is None:
                                         break
                                     neigboursTemp = list(
-                                        set(neigboursTemp).intersection((set(self.NighboursMap.get(parent1.itemId)))))
+                                        set(neigboursTemp).intersection((set(self.NeighboursMap.get(parent1.itemId)))))
                                     mins = int(support / max(mapSupport.get(parent1.itemId), support))
                                     if (mapSupport.get(parent1.itemId) >= mins):
                                         prefixPath.append(parent1)
@@ -579,7 +579,7 @@ class cspgrowth(corelatedPatterns):
         """
 
         self.startTime = time.time()
-        self.NighboursMap = {}
+        self.NeighboursMap = {}
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
@@ -589,7 +589,7 @@ class cspgrowth(corelatedPatterns):
         self.commonitems = set()
         print(self.minSup, self.minAllConf)
         # print(self.nFile)
-        self.mapNighbours(self.nFile)
+        self.mapNeighbours(self.nFile)
         self.frequentOneItem()
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
         # print(self.mapSupport)
@@ -648,7 +648,7 @@ class cspgrowth(corelatedPatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -662,7 +662,7 @@ class cspgrowth(corelatedPatterns):
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -695,7 +695,7 @@ if __name__ == "__main__":
         ap.startMine()
         corelatedPatterns = ap.getPatterns()
         print("Total number of corelated spatail frequent Patterns:", len(corelatedPatterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

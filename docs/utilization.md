@@ -34,7 +34,7 @@ discoveredPatterns = obj.getDiscoveredPatterns()
 print("Total number of discovered patterns:", len(discoveredPatterns))
 
 # Store the discovered patterns in a file. 
-obj.storePatternsInFile('<outputFileName>')
+obj.savePatterns('<outputFileName>')
 
 # Output the discovered patterns as a data frame
 Df = obj.getPatternInDataFrame()
@@ -60,7 +60,7 @@ obj = alg.fpGrowth('inputTransactionalDatabase.tsv', minSup)
 obj.startMine()
 frequentPatterns = obj.getDiscoveredPatterns()
 print("Total number of Frequent Patterns:", len(frequentPatterns))
-obj.storePatternsInFile('outputFile.tsv')
+obj.savePatterns('outputFile.tsv')
 print("Total Memory in RSS", obj.getMemoryRSS())
 print("Total ExecutionTime in seconds:", obj.getRuntime())
 

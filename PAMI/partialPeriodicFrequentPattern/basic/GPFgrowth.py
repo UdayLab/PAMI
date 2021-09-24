@@ -510,7 +510,7 @@ class GPFgrowth(partialPeriodicPatterns):
         Complete set of patterns will be retrieved with this function
     storePatterns InFile(ouputFile)
         Complete set of frequent patterns will be loaded in to a ouput file
-    getPatternsInDataFrame()
+    getPatternsAsDataFrame()
         Complete set of frequent patterns will be loaded in to a ouput file
     getMemoryUSS()
         Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -530,7 +530,7 @@ class GPFgrowth(partialPeriodicPatterns):
     partialPeriodicFrequentPatterns = obj.partialPeriodicFrequentPatterns()
 
     print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
-    obj.storePatternsInFile(oFile)
+    obj.savePatterns(oFile)
     Df = obj.getPatternInDf()
     memUSS = obj.getMemoryUSS()
     print("Total Memory in USS:", memUSS)
@@ -600,7 +600,7 @@ class GPFgrowth(partialPeriodicPatterns):
 
         return self.runTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -613,7 +613,7 @@ class GPFgrowth(partialPeriodicPatterns):
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -637,7 +637,7 @@ if __name__ == '__main__':
         ap.startMine()
         frequentPatterns = ap.getPartialPeriodicPatterns()
         print(f"Total number of Frequent Patterns: {len(frequentPatterns)}")
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print(f'Total Memory in USS: {memUSS}')
         memRSS = ap.getMemoryRSS()

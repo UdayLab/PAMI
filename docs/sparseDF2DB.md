@@ -56,7 +56,7 @@ print('The output file is saved at ' + db.getFileName())
 
 obj = alg.fpGrowth(iFile=db.getFileName(), minSup='10.0')
 obj.startMine()
-patternsDF = obj.getPatternsInDataFrame()
+patternsDF = obj.getPatternsAsDataFrame()
 
    ```
 
@@ -88,7 +88,7 @@ print('The output file is saved at ' + db.getFileName())
 
 obj = alg.PFPGrowthPlus(db.getFileName(), minSup="2", maxPer="6")
 obj.startMine()
-patternsDF = obj.getPatternsInDataFrame()
+patternsDF = obj.getPatternsAsDataFrame()
 
 ``` 
 #### Converting a dense dataframe into a utility database

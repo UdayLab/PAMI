@@ -195,9 +195,9 @@ class fcfp(corelatedFuzzyFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
+        savePatterns(oFile)
             Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
+        getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -239,7 +239,7 @@ class fcfp(corelatedFuzzyFrequentPatterns):
 
         print("Total number of Corelated Fuzzy Frequent Patterns:", len(corelatedFuzzyFrequentPatterns))
 
-        obj.storePatternsInFile("outp")
+        obj.savePatterns("outp")
 
         memUSS = obj.getMemoryUSS()
 
@@ -457,8 +457,8 @@ class fcfp(corelatedFuzzyFrequentPatterns):
            :type FSFIM: list
            :param minsup: the minimum support of 
            :type minsup:int
-           :param itemNighbours : the set of common neighbours of prefix
-           :type itemNighbours : set
+           :param itemNeighbours : the set of common neighbours of prefix
+           :type itemNeighbours : set
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
@@ -574,7 +574,7 @@ class fcfp(corelatedFuzzyFrequentPatterns):
         """
         return self.finalPatterns
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -588,7 +588,7 @@ class fcfp(corelatedFuzzyFrequentPatterns):
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -618,7 +618,7 @@ if __name__ == "__main__":
         ap.startMine()
         fuzzycorelatedFrequentPattenrs = ap.getPatterns()
         print("Total number of Fuzzy-Frequent Patterns:", len(fuzzycorelatedFrequentPattenrs))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

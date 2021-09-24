@@ -60,7 +60,7 @@ The PAMI library requires every transaction in a temporal database to exist in t
    
    #use obj = alg.fpGrowth(inputFile, minSup,sep=',')  to override the default tab space separator with comma
    obj.startMine()  #start the mining process
-   obj.storePatternsInFile(outputFile)      #store the generated patterns in a file
+   obj.savePatterns(outputFile)      #store the generated patterns in a file
       
 
    ```

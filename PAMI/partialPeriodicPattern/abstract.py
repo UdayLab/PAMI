@@ -42,9 +42,9 @@ class partialPeriodicPatterns(ABC):
             Mining process will start from here
         getFrequentPatterns()
             Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
+        savePatterns(oFile)
             Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
+        getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to data frame
         getMemoryUSS()
             Total amount of USS memory consumed by the program will be retrieved from this function
@@ -132,7 +132,7 @@ class partialPeriodicPatterns(ABC):
         pass
 
     @abstractmethod
-    def storePatternsInFile(self, oFile):
+    def savePatterns(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
@@ -142,7 +142,7 @@ class partialPeriodicPatterns(ABC):
         pass
 
     @abstractmethod
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Complete set of frequent patterns will be loaded in to data frame from this function"""
 
         pass

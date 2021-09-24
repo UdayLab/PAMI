@@ -166,9 +166,9 @@ class ffsi(fuzzySpatialFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
+        savePatterns(oFile)
             Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
+        getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -183,7 +183,7 @@ class ffsi(fuzzySpatialFrequentPatterns):
         construct(px, py)
             A function to construct Fuzzy itemset from 2 fuzzy itemsets
         Intersection(nighb1,nighb2)
-            Return common neighbours of 2 itemsset nighbours
+            Return common neighbours of 2 itemsset Neighbours
         findElementWithTID(ulist, tid)
             To find element with same tid as given
         WriteOut(prefix, prefixLen, item, sumIutil,period)
@@ -210,7 +210,7 @@ class ffsi(fuzzySpatialFrequentPatterns):
 
         print("Total number of fuzzy frequent spatial patterns:", len(fuzzySpatialFrequentPatterns))
 
-        obj.storePatternsInFile("outp")
+        obj.savePatterns("outp")
 
         memUSS = obj.getMemoryUSS()
 
@@ -242,7 +242,7 @@ class ffsi(fuzzySpatialFrequentPatterns):
 
     def __init__(self, iFile, nFile, minsup,sep="\t"):
         super().__init__(iFile, nFile, minsup,sep)
-        self.mapItemNighbours = {}
+        self.mapItemNeighbours = {}
         self.startTime = 0
         self.endTime = 0
         self.itemsCnt = 0
@@ -297,7 +297,7 @@ class ffsi(fuzzySpatialFrequentPatterns):
                 neigh1 = []
                 for i in range(1, len(parts)):
                     neigh1.append(parts[i])
-                self.mapItemNighbours[item] = neigh1
+                self.mapItemNeighbours[item] = neigh1
         with open(self.iFile, 'r') as file:
             for line in file:
                 line=line.split("\n")[0]
@@ -377,9 +377,9 @@ class ffsi(fuzzySpatialFrequentPatterns):
                     pair = revisedTransaction[i]
                     remainUtil = 0
                     for j in range(len(revisedTransaction) - 1, i, -1):
-                        if self.mapItemNighbours.get(pair.item) is None:
+                        if self.mapItemNeighbours.get(pair.item) is None:
                             continue
-                        if revisedTransaction[j].item in self.mapItemNighbours[pair.item]:
+                        if revisedTransaction[j].item in self.mapItemNeighbours[pair.item]:
                             remainUtil += revisedTransaction[j].quantity
                     remaingUtility = remainUtil
                     if mapItemsToFFLIST.get(pair.item) is not None:
@@ -387,14 +387,14 @@ class ffsi(fuzzySpatialFrequentPatterns):
                         element = Element(tid, pair.quantity, remaingUtility)
                         FFListOfItem.addElement(element)
                 tid += 1
-        itemNeighbours = list(self.mapItemNighbours.keys())
+        itemNeighbours = list(self.mapItemNeighbours.keys())
         self.FSFIMining(self.itemsetBuffer, 0, listOfFFIlist, self.minSup, itemNeighbours)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
-    def FSFIMining(self, prefix, prefixLen, FSFIM, minsup, itemNighbours):
+    def FSFIMining(self, prefix, prefixLen, FSFIM, minsup, itemNeighbours):
         """Generates ffsi from prefix
 
         :param prefix: the prefix patterns of ffsi
@@ -405,14 +405,14 @@ class ffsi(fuzzySpatialFrequentPatterns):
            :type FSFIM: list
            :param minsup: the minimum support of 
            :type minsup:int
-           :param itemNighbours: the set of common neighbours of prefix
-           :type itemNighbours: set
+           :param itemNeighbours: the set of common neighbours of prefix
+           :type itemNeighbours: set
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
             if X.sumiUtil >= minsup:
                 self.WriteOut(prefix, prefixLen, X.item, X.sumiUtil)
-            newNeighbours = self.Intersection(self.mapItemNighbours.get(X.item), itemNighbours)
+            newNeighbours = self.Intersection(self.mapItemNeighbours.get(X.item), itemNeighbours)
             if X.sumrUtil >= minsup:
                 exULs = []
                 for j in range(i + 1, len(FSFIM)):
@@ -533,7 +533,7 @@ class ffsi(fuzzySpatialFrequentPatterns):
 
     # self.bwriter.write(res)
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -555,7 +555,7 @@ class ffsi(fuzzySpatialFrequentPatterns):
         """
         return self.finalPatterns
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -577,7 +577,7 @@ if __name__ == "__main__":
         ap.startMine()
         fuzzySpatialFrequentPatterns = ap.getPatterns()
         print("Total number of fuzzy frequent Spatial Patterns:", len(fuzzySpatialFrequentPatterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

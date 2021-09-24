@@ -386,9 +386,9 @@ class UPFPGrowth(periodicFrequentPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            storePatternsInFile(oFile)
+            savePatterns(oFile)
                 Complete set of periodic-frequent patterns will be loaded in to a output file
-            getPatternsInDataFrame()
+            getPatternsAsDataFrame()
                 Complete set of periodic-frequent patterns will be loaded in to a dataframe
             getMemoryUSS()
                 Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -431,9 +431,9 @@ class UPFPGrowth(periodicFrequentPatterns):
         
             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
         
-            obj.storePatternsInFile(oFile)
+            obj.savePatterns(oFile)
         
-            Df = obj.getPatternsInDataFrame()
+            Df = obj.getPatternsAsDataFrame()
         
             memUSS = obj.getMemoryUSS()
         
@@ -702,7 +702,7 @@ class UPFPGrowth(periodicFrequentPatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -717,7 +717,7 @@ class UPFPGrowth(periodicFrequentPatterns):
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -750,8 +750,8 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Patterns:", len(Patterns))
-        ap.storePatternsInFile(sys.argv[2])
-        #print(ap.getPatternsInDataFrame())
+        ap.savePatterns(sys.argv[2])
+        #print(ap.getPatternsAsDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
