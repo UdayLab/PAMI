@@ -48,9 +48,9 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            storePatternsInFile(oFile)
+            savePatterns(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
-            getPatternsInDataFrame()
+            getPatternsAsDataFrames()
                 Complete set of frequent patterns will be loaded in to a dataframe
             getMemoryUSS()
                 Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -58,8 +58,6 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
                 Total amount of RSS memory consumed by the mining process will be retrieved from this function
             getRuntime()
                 Total amount of runtime taken by the mining process will be retrieved from this function
-            findDelimiter(line)
-                Identifying the delimiter of the input file
             creatingItemSets(iFileName)
                 Storing the complete transactions of the database/input file in a database variable
             frequentOneItem()
@@ -87,15 +85,15 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
 
         import SpatialEclat as alg
 
-        obj = alg.SpatialEclat("sampleTDB.txt", "sampleN.txt", 5)
+        obj = alg.SpatialEclat("sampleTDB.txt", "sampleN.txt", 5, 3)
 
         obj.startMine()
 
-        spatialFrequentPatterns = obj.getPatterns()
+        spatialPeriodicFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
+        print("Total number of Periodic Spatial Frequent Patterns:", len(spatialPeriodicFrequentPatterns))
 
-        obj.storePatternsInFile("outFile")
+        obj.savePatterns("outFile")
 
         memUSS = obj.getMemoryUSS()
 
@@ -305,6 +303,7 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
         self.creatingItemSets(iFileName)
         self.minSup = self.convert(self.minSup)
         self.mapNeighbours()
+        self.finalPatterns = {}
         plist = self.frequentOneItem()
         for i in range(len(plist)):
             itemX = plist[i]
@@ -354,7 +353,7 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrames(self):
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -367,7 +366,7 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Period'])
         return dataFrame
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -399,7 +398,7 @@ if __name__ == "__main__":
         ap.startMine()
         spatialFrequentPatterns = ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

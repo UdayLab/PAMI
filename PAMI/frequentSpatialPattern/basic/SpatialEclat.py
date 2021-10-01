@@ -43,9 +43,9 @@ class SpatialEclat(spatialFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
+        savePatterns(oFile)
             Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
+        getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -96,7 +96,7 @@ class SpatialEclat(spatialFrequentPatterns):
 
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
 
-        obj.storePatternsInFile("outFile")
+        obj.savePatterns("outFile")
 
         memUSS = obj.getMemoryUSS()
 
@@ -138,15 +138,18 @@ class SpatialEclat(spatialFrequentPatterns):
             :param iFileName: user given input file/input file path
             :type iFileName: str
             """
-        self.Database = []
-        lineNumber = 0
-        with open(iFileName, 'r', encoding='utf-8') as f:
-            for line in f:
+        try:
+            self.Database = []
+            lineNumber = 0
+            with open(iFileName, 'r', encoding='utf-8') as f:
+                for line in f:
                     lineNumber += 1
                     li = line.split(self.sep)
                     li1 = [i.rstrip() for i in li]
                     li1 = [x for x in li1]
                     self.Database.append(li1)
+        except IOError:
+            print("File Not Found")
 
     # function to get frequent one pattern
     def frequentOneItem(self):
@@ -293,6 +296,7 @@ class SpatialEclat(spatialFrequentPatterns):
         self.creatingItemSets(iFileName)
         self.minSup = self.convert(self.minSup)
         self.mapNeighbours()
+        self.finalPatterns = {}
         self.frequentOneItem()
         frequentSet = self.generateSpatialFrequentPatterns(self.finalPatterns)
         for x, y in frequentSet.items():
@@ -339,7 +343,7 @@ class SpatialEclat(spatialFrequentPatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -353,7 +357,7 @@ class SpatialEclat(spatialFrequentPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -387,7 +391,7 @@ if __name__ == "__main__":
         ap.startMine()
         spatialFrequentPatterns = ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
