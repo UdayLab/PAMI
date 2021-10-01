@@ -458,7 +458,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
                 Mining process will start from here
             getFrequentPatterns()
                 Complete set of patterns will be retrieved with this function
-            storePatternsInFile(oFile)
+            savePatterns(oFile)
                 Complete set of periodic-frequent patterns will be loaded in to a output file
             getPatternsInDataFrame()
                 Complete set of periodic-frequent patterns will be loaded in to a dataframe
@@ -504,7 +504,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
 
             print("Total number of partial periodic Patterns:", len(partialPeriodicPatterns))
 
-            obj.storePatternsInFile(oFile)
+            obj.savePatterns(oFile)
 
             Df = obj.getPatternInDf()
 
@@ -547,10 +547,11 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         """
 
         try:
+            self.Database = []
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    line.strip()
                     li = [i.strip() for i in line.split(self.sep)]
+                    i = [x for x in li if x]
                     self.Database.append(li)
                     self.lno += 1
         except IOError:
@@ -662,6 +663,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedDatabases, info)
         Tree.generatePatterns([])
+        self.finalPatterns = {}
         for x, y in patterns.items():
             st = str()
             for k in x:
@@ -715,7 +717,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -746,7 +748,7 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Maximal Partial Periodic Patterns:", len(Patterns))
-        ap.storePatternsInFile(sys.argv[2])
+        ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -754,17 +756,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = MaxThreePGrowth('/home/apiiit-rkv/Downloads/3p/sample', 2, 3, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        for x, y in Patterns.items():
-            print(x, y)
-        print("Total number of Maximal Partial Periodic Patterns:", len(Patterns))
-        ap.storePatternsInFile('/home/apiiit-rkv/Downloads/3p/sample4')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

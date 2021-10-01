@@ -191,26 +191,33 @@ class ThreePEclat(partialPeriodicPatterns):
         """
            Scans the Temporal database / Input file and stores the 1-length partial-periodic patterns.
         """
-        self.lno = len(open(self.iFile).readlines())
-        self.period = self.convert(self.period)
-        with open(self.iFile, 'r') as f:
-            for line in f:
-                s = [i.strip() for i in line.split(self.sep)]
-                n = int(s[0])
-                for i in range(1, len(s)):
-                    si = s[i]
-                    if self.mapSupport.get(si) is None:
-                        self.mapSupport[si] = [0, n]
-                        self.tidList[si] = [n]
-                    else:
-                        lp = n - self.mapSupport[si][1]
-                        if lp <= self.period:
-                            self.mapSupport[si][0] += 1
-                        self.mapSupport[si][1] = n
-                        self.tidList[si].append(n)
-        self.periodicSupport = self.convert(self.periodicSupport)
-        self.mapSupport = {k: v[0] for k, v in self.mapSupport.items() if v[0] >= self.periodicSupport}
-        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x:x[1], reverse=True)]
+        plist = []
+        try:
+            self.tidList = {}
+            self.mapSupport = {}
+            self.lno = len(open(self.iFile).readlines())
+            self.period = self.convert(self.period)
+            with open(self.iFile, 'r') as f:
+                for line in f:
+                    s = [i.strip() for i in line.split(self.sep)]
+                    s = [x for x in s if x]
+                    n = int(s[0])
+                    for i in range(1, len(s)):
+                        si = s[i]
+                        if self.mapSupport.get(si) is None:
+                            self.mapSupport[si] = [0, n]
+                            self.tidList[si] = [n]
+                        else:
+                            lp = n - self.mapSupport[si][1]
+                            if lp <= self.period:
+                                self.mapSupport[si][0] += 1
+                            self.mapSupport[si][1] = n
+                            self.tidList[si].append(n)
+            self.periodicSupport = self.convert(self.periodicSupport)
+            self.mapSupport = {k: v[0] for k, v in self.mapSupport.items() if v[0] >= self.periodicSupport}
+            plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        except IOError:
+            print("File Not Found")
         return plist
     
     def save(self, prefix, suffix, tidSetX):
@@ -294,6 +301,7 @@ class ThreePEclat(partialPeriodicPatterns):
         """
         self.startTime = time.time()
         plist = self.creatingOneitemSets()
+        self.finalPatterns = {}
         for i in range(len(plist)):
             itemI = plist[i]
             tidSetX = self.tidList[itemI]

@@ -137,7 +137,7 @@ class partialPeriodicPatterns(ABC):
         pass
 
     @abstractmethod
-    def storePatternsInFile(self, oFile):
+    def savePatterns(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
         :param oFile: Name of the output file
         :type oFile: file

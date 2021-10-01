@@ -511,7 +511,7 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedTransactions, info)
         patterns = Tree.generatePatterns([])
-        self.finalPatterns = {}
+        self.finalPatterns
         for i in patterns:
             x = self.savePeriodic(i[0])
             self.finalPatterns[x] = i[1]

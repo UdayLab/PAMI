@@ -375,9 +375,11 @@ class ThreePGrowth(partialPeriodicPatterns):
 
             """
         try:
+            self.Database = []
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     li1 = [i.strip() for i in line.split(self.sep)]
+                    i = [x for x in li1 if x]
                     self.Database.append(li1)
                     self.lno += 1
         except IOError:
@@ -495,6 +497,7 @@ class ThreePGrowth(partialPeriodicPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedTransactions, info)
         patterns = Tree.generatePatterns([])
+        self.finalPatterns = {}
         for i in patterns:
             s = self.savePeriodic(i[0])
             self.finalPatterns[s] = i[1]
@@ -585,15 +588,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = ThreePGrowth('/home/apiiit-rkv/Downloads/3p/samplePaper', 2, 3, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Partial Periodic Patterns:", len(Patterns))
-        ap.storePatternsInFile("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

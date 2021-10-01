@@ -533,10 +533,11 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         """
 
         try:
+            self.Database = []
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    line.strip()
                     li = [i.strip() for i in line.split(self.sep)]
+                    li = [x for x in li if x]
                     self.Database.append(li)
                     self.lno += 1
         except IOError:
@@ -647,6 +648,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedDatabases, info)
         Tree.generatePatterns([])
+        self.finalPatterns = {}
         for x, y in patterns.items():
             st = str()
             for k in x:
