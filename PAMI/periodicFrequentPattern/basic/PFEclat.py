@@ -199,11 +199,14 @@ class PFEclat(periodicFrequentPatterns):
         """
 
         try:
+            self.tidList = {}
+            self.mapSupport = {}
             self.mapSupport, self.tidList = {}, {}
             with open(self.iFile, 'r') as f:
                 for line in f:
                     self.lno += 1
                     s = [i.strip() for i in line.split(self.sep)]
+                    s = [x for x in s if x]
                     n = self.lno
                     for i in range(1, len(s)):
                         si = s[i]

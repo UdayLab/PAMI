@@ -680,21 +680,26 @@ class PSGrowth(periodicFrequentPatterns):
         """
             Storing the complete values of a database/input file into a database variable
         """
-        global minSup, maxPer, lno
         data = {}
-        with open(self.iFile, 'r') as f:
-            for line in f:
-                self.lno += 1
-                tr = [i.rstrip() for i in line.split(self.sep)]
-                for i in range(1, len(tr)):
-                    if tr[i] not in data:
-                        data[tr[i]] = [int(tr[0]), int(tr[0]), 1]
-                    else:
-                        data[tr[i]][0] = max(data[tr[i]][0], (int(tr[0]) - data[tr[i]][1]))
-                        data[tr[i]][1] = int(tr[0])
-                        data[tr[i]][2] += 1
-        for key in data:
-            data[key][0] = max(data[key][0], self.lno - data[key][1])
+        try:
+            self.Database = []
+            global minSup, maxPer, lno
+            with open(self.iFile, 'r') as f:
+                for line in f:
+                    self.lno += 1
+                    tr = [i.rstrip() for i in line.split(self.sep)]
+                    tr = [x for x in tr if x]
+                    for i in range(1, len(tr)):
+                        if tr[i] not in data:
+                            data[tr[i]] = [int(tr[0]), int(tr[0]), 1]
+                        else:
+                            data[tr[i]][0] = max(data[tr[i]][0], (int(tr[0]) - data[tr[i]][1]))
+                            data[tr[i]][1] = int(tr[0])
+                            data[tr[i]][2] += 1
+            for key in data:
+                data[key][0] = max(data[key][0], self.lno - data[key][1])
+        except IOError:
+            print("File Not Found")
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
         minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
@@ -745,6 +750,7 @@ class PSGrowth(periodicFrequentPatterns):
         info = {self.rank[k]: v for k, v in OneLengthPeriodicItems.items()}
         Tree = self.buildTree(info, OneLengthPeriodicItems)
         patterns = Tree.generatePatterns([])
+        self.finalPatterns = {}
         for i in patterns:
             sample = str()
             for k in i[0]:

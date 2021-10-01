@@ -186,26 +186,32 @@ class Tree(object):
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
+            print(convert(pattern), self.info[i])
             condPattern, timeStamps, info = self.getConditionalPatterns(i)
             conditionalTree = Tree()
             conditionalTree.info = info.copy()
-            head = pattern[:]
-            tail = []
-            print(prefix, self.info[i])
-            for k in info:
-                tail.append(k)
-            sub = head + tail
-            if maximalTree.checkerSub(sub, self.info[i]) == 1:
+            print(pattern, maximalTree.checkerSub(pattern, self.info[i]))
+            if maximalTree.checkerSub(pattern, self.info[i]) == 1:
+                maximalTree.addTransaction(pattern, self.info[i])
                 for pat in range(len(condPattern)):
                     conditionalTree.addTransaction(condPattern[pat], timeStamps[pat])
                 if len(condPattern) >= 1:
                     conditionalTree.generatePatterns(pattern)
                 else:
-                    maximalTree.addTransaction(pattern)
+                    print("start")
+                    printTree(maximalTree.root)
+                    print("end")
                     s = convert(pattern)
                     patterns[tuple(s)] = self.info[i]
             self.removeNode(i)
 
+def printTree(root):
+    if len(root.children) == 0:
+        return
+    else:
+        for x, y in root.children.items():
+            print(y.item, y.count)
+            printTree(y)
 
 def convert(itemSet):
     """
@@ -242,9 +248,10 @@ class MNode(object):
             storing the children to their respective parent nodes
     """
 
-    def __init__(self, item, children):
+    def __init__(self, item,  children):
         self.item = item
         self.children = children
+        self.count = int()
 
     def addChild(self, node):
         """
@@ -278,10 +285,11 @@ class MPTree(object):
     """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = MNode(None, {})
         self.summaries = {}
 
-    def addTransaction(self, transaction):
+
+    def addTransaction(self, transaction, val):
         """
         to add the transaction in maximal tree
 
@@ -290,10 +298,11 @@ class MPTree(object):
         :return: maximal tree
         """
         currentNode = self.root
-        transaction.sort()
+        transaction.reverse()
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
                 newNode = MNode(transaction[i], {})
+                newNode.count = val
                 currentNode.addChild(newNode)
                 if transaction[i] in self.summaries:
                     self.summaries[transaction[i]].insert(0, newNode)
@@ -302,6 +311,8 @@ class MPTree(object):
                 currentNode = newNode
             else:
                 currentNode = currentNode.children[transaction[i]]
+                currentNode.count = max(val, currentNode.count)
+
 
     def checkerSub(self, items, val):
         """
@@ -312,23 +323,23 @@ class MPTree(object):
         :return: 1
         """
         items.sort(reverse=True)
-        print("###", self.summaries)
-        print("......",items)
-        item = items[0]
-        if item not in self.summaries:
-            return 1
-        else:
-            if len(items) == 1:
-                return 0
-        for t in self.summaries[item]:
-            cur = t.parent
-            i = 1
-            while cur.item is not None:
-                if items[i] == cur.item:
-                    i += 1
-                    if i == len(items):
-                        return 0
-                cur = cur.parent
+        if len(items) >= 1:
+            item = items[0]
+            if item not in self.summaries:
+                return 1
+            patterns = {}
+            for t in self.summaries[item]:
+                itemsList = [t.item]
+                cur = t.parent
+                while cur.item is not None:
+                    itemsList.append(cur.item)
+                    cur = cur.parent
+                itemsList.sort()
+                patterns[tuple(itemsList)] = t.count
+            print(patterns, items, val)
+            for x, y in patterns.items():
+                if set(x).issuperset(set(items)) and y == val:
+                    return 0
         return 1
 
 
@@ -568,6 +579,7 @@ class MaxThreePGrowth(partialPeriodicPatterns):
         data = {k: v[0] for k, v in data.items() if v[0] >= self.periodicSupport}
         pfList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(pfList)])
+        print(self.rank)
         return data
 
     def updateDatabases(self, dict1):
@@ -745,6 +757,8 @@ if __name__ == "__main__":
         ap = MaxThreePGrowth('/home/apiiit-rkv/Downloads/3p/sample', 2, 3, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
+        for x, y in Patterns.items():
+            print(x, y)
         print("Total number of Maximal Partial Periodic Patterns:", len(Patterns))
         ap.storePatternsInFile('/home/apiiit-rkv/Downloads/3p/sample4')
         memUSS = ap.getMemoryUSS()

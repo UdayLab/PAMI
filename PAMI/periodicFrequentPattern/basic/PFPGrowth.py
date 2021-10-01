@@ -403,10 +403,11 @@ class PFPGrowth(periodicFrequentPatterns):
         """
 
         try:
-            self.Database = {}
+            self.Database = []
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     li = [i.rstrip() for i in line.split(self.sep)]
+                    li = [x for x in li if x]
                     self.Database.append(li)
                     self.lno += 1
         except IOError:
@@ -525,6 +526,7 @@ class PFPGrowth(periodicFrequentPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedDatabases, info)
         patterns = Tree.generatePatterns([])
+        self.finalPatterns = {}
         for i in patterns:
             sample = self.savePeriodic(i[0])
             self.finalPatterns[sample] = i[1]

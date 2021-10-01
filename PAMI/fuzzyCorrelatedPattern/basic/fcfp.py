@@ -610,6 +610,7 @@ class fcfp(corelatedFuzzyFrequentPatterns):
 
 
 if __name__ == "__main__":
+    ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
         if len(sys.argv) == 6: # to includes separator
             ap = fcfp(sys.argv[1], sys.argv[3],float(sys.argv[4]),sys.argv[5])

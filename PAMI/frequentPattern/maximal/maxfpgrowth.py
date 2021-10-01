@@ -502,6 +502,7 @@ class Maxfpgrowth(frequentPatterns):
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
                     li = [i.rstrip() for i in line.split(self.sep)]
+                    li = [x for x in li if x]
                     self.Database.append(li)
                     self.lno += 1
         except IOError:

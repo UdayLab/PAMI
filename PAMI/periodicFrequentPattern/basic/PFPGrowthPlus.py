@@ -379,11 +379,12 @@ class PFPGrowthPlus(periodicFrequentPatterns):
             Storing the complete transactions of the database/input file in a database variable
         """
         try:
+            self.Database = []
             with open(self.iFile, 'r', encoding='utf-8') as f:
                 for line in f:
-                    li = line.split(self.sep)
-                    li1 = [i.strip() for i in li]
-                    self.Database.append(li1)
+                    li = [i.strip() for i in line.split(self.sep)]
+                    i = [x for x in li if x]
+                    self.Database.append(li)
                     self.lno += 1
         except IOError:
             print("File Not Found")
@@ -510,6 +511,7 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedTransactions, info)
         patterns = Tree.generatePatterns([])
+        self.finalPatterns = {}
         for i in patterns:
             x = self.savePeriodic(i[0])
             self.finalPatterns[x] = i[1]
