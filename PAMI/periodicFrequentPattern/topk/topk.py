@@ -19,7 +19,7 @@ import sys
 
 class TopK(periodicFrequentPatterns):
     """
-        Top - K is and algorithm to discover top periodic frequent patterns in a transactional database.
+        Top - K is and algorithm to discover top periodic frequent patterns in a temporal database.
 
         Reference:
         ----------
@@ -200,6 +200,7 @@ class TopK(periodicFrequentPatterns):
                                    self.maxPer}
                 plist = [key for key, value in
                          sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
+            self.finalPatterns = {}
             for i in plist:
                 if len(self.finalPatterns) >= self.k:
                     break

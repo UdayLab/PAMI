@@ -16,12 +16,10 @@
 
 
 import sys
-import time
-import os
-import psutil
 import pandas as pd
 from functools import cmp_to_key
 from PAMI.highUtilityPatterns.basic.abstract import *
+
 
 class Transaction:
     """
@@ -35,7 +33,7 @@ class Transaction:
             A list of utilites of items in transaction
         transactionUtility: int
             represent total sum of all utilities in the database
-        prefixutility:
+        prefixUtility:
             prefix Utility values of item
         offset:
             an offset pointer, used by projected transactions
@@ -105,7 +103,7 @@ class Transaction:
 
             Parameters:
             -----------
-            :param oldNamesToNewNames: A map represet old namses to new names
+            :param oldNamesToNewNames: A map represent old names to new names
             :type oldNamesToNewNames: map
         """
         tempItems = []
@@ -121,19 +119,21 @@ class Transaction:
         self.insertionSort()
 
     def insertionSort(self):
-         """
+        """
             A method to sort items in order
-         """
-         for i in range(1, len(self.items)):
-               key = self.items[i]
-               utilityJ = self.utilities[i]
-               j = i - 1
-               while j >= 0 and key < self.items[j]:
-                   self.items[j + 1] = self.items[j]
-                   self.utilities[j + 1] = self.utilities[j]
-                   j -= 1
-               self.items[j + 1] = key
-               self.utilities[j + 1] = utilityJ
+        """
+        for i in range(1, len(self.items)):
+            key = self.items[i]
+            utilityJ = self.utilities[i]
+            j = i - 1
+            while j >= 0 and key < self.items[j]:
+                self.items[j + 1] = self.items[j]
+                self.utilities[j + 1] = self.utilities[j]
+                j -= 1
+            self.items[j + 1] = key
+            self.utilities[j + 1] = utilityJ
+        
+
 
 class Dataset:
     """
@@ -158,17 +158,21 @@ class Dataset:
     """
     transactions = []
     maxItem = 0
-    def __init__(self, datasetpath,sep):
-        self.strToint={}
-        self.intTostr={}
-        self.cnt=1
-        self.sep=sep
-        print(self.sep)
-        with open(datasetpath, 'r') as f:
-            lines = f.readlines()
-            for line in lines:
-                self.transactions.append(self.createTransaction(line))
-        f.close()
+    
+    def __init__(self, datasetPath, sep):
+        self.strToInt = {}
+        self.intToStr = {}
+        self.cnt = 1
+        self.sep = sep
+        try: 
+            self.transactions = []
+            with open(datasetPath, 'r') as f:
+                lines = f.readlines()
+                for line in lines:
+                    self.transactions.append(self.createTransaction(line))
+            f.close()
+        except IOError:
+            print("File Not Found")
 
     def createTransaction(self, line):
         """
@@ -184,15 +188,17 @@ class Dataset:
         trans_list = line.strip().split(':')
         transactionUtility = int(trans_list[1])
         itemsString = trans_list[0].strip().split(self.sep)
+        itemsString = [x for x in itemsString if x]
         utilityString = trans_list[2].strip().split(self.sep)
+        utilityString = [x for x in utilityString if x]
         items = []
         utilities = []
         for idx, item in enumerate(itemsString):
-            if (self.strToint).get(item) is None:
-                self.strToint[item]=self.cnt
-                self.intTostr[self.cnt]=item
-                self.cnt+=1
-            item_int =self.strToint.get(item)
+            if (self.strToInt).get(item) is None:
+                self.strToInt[item] = self.cnt
+                self.intToStr[self.cnt] = item
+                self.cnt += 1
+            item_int = self.strToInt.get(item)
             if item_int > self.maxItem:
                 self.maxItem = item_int
             items.append(item_int)
@@ -211,9 +217,10 @@ class Dataset:
         """
         return self.transactions
 
+
 class efim(utilityPatterns):
     """
-    efim is one of the fastest algorithm to mine High Utility Itemsets from transactional databases.
+    efim is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
     Reference:
     ---------
@@ -234,7 +241,7 @@ class efim(utilityPatterns):
             To record the completion time of the mining process
         minUtil : int
             The user given minUtil
-        highUtilityItemsets: map
+        highUtilityItemSets: map
             set of high utility itemsets
         candidateCount: int
              Number of candidates 
@@ -247,13 +254,13 @@ class efim(utilityPatterns):
         newNamesToOldNames: list
             A map to store the old name corresponding to new name
         maxMemory: float
-        Maximum memory used by this program for runnning
+        Maximum memory used by this program for running
         patternCount: int
             Number of SHUI's
         itemsToKeep: list
             keep only the promising items ie items having twu >= minUtil
         itemsToExplore: list
-            keep items that subtreeUtility greter than minUtil
+            keep items that subtreeUtility greater than minUtil
 
     Methods :
     -------
@@ -271,12 +278,12 @@ class efim(utilityPatterns):
                 Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
                Total amount of runtime taken by the mining process will be retrieved from this function
-        backtrackingefim(transactionsOfP, itemsToKeep, itemsToExplore, prefixLength)
+        backTrackingEFIM(transactionsOfP, itemsToKeep, itemsToExplore, prefixLength)
                A method to mine the SHUIs Recursively
         useUtilityBinArraysToCalculateUpperBounds(transactionsPe, j, itemsToKeep)
-               A method to  calculate the sub-tree utility and local utility of all items that can extend itemset P and e
+               A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P and e
         output(tempPosition, utility)
-               A method ave a high-utility itemset to file or memory depending on what the user chose
+               A method ave a high-utility itemSet to file or memory depending on what the user chose
         is_equal(transaction1, transaction2)
                A method to Check if two transaction are identical
         useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(dataset)
@@ -286,7 +293,7 @@ class efim(utilityPatterns):
         sort_transaction(self, trans1, trans2)
               A Method to sort transaction in the order of PMU
         useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)
-             A method to scan the database using utility bin array to caluclate the pmus                   
+             A method to scan the database using utility bin array to calculate the pmus
 
     Executing the code on terminal :
     -------
@@ -327,16 +334,17 @@ class efim(utilityPatterns):
      
     """
 
-    highUtilityItemsets=[]
+    highUtilityItemsets = []
     candidateCount = 0
     utilityBinArrayLU = {}
     utilityBinArraySU = {}
     oldNamesToNewNames = {}
     newNamesToOldNames = {}
-    strToint={}
-    intTostr={}
+    strToInt = {}
+    intToStr = {}
     Neighbours = {}
     temp = [0]*5000
+    patternCount = int()
     maxMemory = 0
     startTime = float()
     endTime = float()
@@ -345,22 +353,21 @@ class efim(utilityPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
-    nFile=" "
-    sep="\t"
-    minUtil=0
+    nFile = " "
+    sep = "\t"
+    minUtil = 0
     memoryUSS = float()
     memoryRSS = float()
 
-    def __init__(self,iFile,minUtil,sep="\t"):
-        super().__init__(iFile,minUtil,sep)
+    def __init__(self, iFile, minUtil, sep="\t"):
+        super().__init__(iFile, minUtil, sep)
 
     def startMine(self):
-        self.startTime= time.time()
-        self.patternCount=0
-        self.dataset = Dataset(self.iFile,self.sep)
+        self.startTime = time.time()
+        self.dataset = Dataset(self.iFile, self.sep)
         f = open(self.oFile, 'w')
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
-        minUtil=int(self.minUtil)
+        minUtil = int(self.minUtil)
         itemsToKeep = []
         for key in self.utilityBinArrayLU.keys():
             if self.utilityBinArrayLU[key] >= minUtil:
@@ -385,20 +392,20 @@ class efim(utilityPatterns):
         for item in itemsToKeep:
             if self.utilityBinArraySU[item] >= minUtil:
                 itemsToExplore.append(item)
-        self.backtrackingefim(self.dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
+        self.backTrackingEFIM(self.dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
-    def backtrackingefim(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
+    def backTrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
         """
             A method to mine the SHUIs Recursively
 
             Attributes:
             ----------
-            :param transactionOfP: the list of transactions containing the current prefix P
-            :type transactionOfP: list 
+            :param transactionsOfP: the list of transactions containing the current prefix P
+            :type transactionsOfP: list 
             :param itemsToKeep: the list of secondary items in the p-projected database
             :type itemsToKeep: list
             :param itemsToExplore: the list of primary items in the p-projected database
@@ -464,22 +471,22 @@ class efim(utilityPatterns):
             newItemsToKeep = []
             newItemsToExplore = []
             for l in range(idx + 1, len(itemsToKeep)):
-                itemk = itemsToKeep[l]
-                if self.utilityBinArraySU[itemk] >= self.minUtil:
-                    newItemsToExplore.append(itemk)
-                    newItemsToKeep.append(itemk)
-                elif self.utilityBinArrayLU[itemk] >= self.minUtil:
-                    newItemsToKeep.append(itemk)
-            self.backtrackingefim(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
+                itemK = itemsToKeep[l]
+                if self.utilityBinArraySU[itemK] >= self.minUtil:
+                    newItemsToExplore.append(itemK)
+                    newItemsToKeep.append(itemK)
+                elif self.utilityBinArrayLU[itemK] >= self.minUtil:
+                    newItemsToKeep.append(itemK)
+            self.backTrackingEFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
 
     def useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
         """
-            A method to  calculate the sub-tree utility and local utility of all items that can extend itemset P U {e}
+            A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
 
             Attributes:
             -----------
-            :param transactionPe: transactions the projected database for P U {e}
-            :type transaction: list
+            :param transactionsPe: transactions the projected database for P U {e}
+            :type transactionsPe: list
             :param j:he position of j in the list of promising items
             :type j:int
             :param itemsToKeep :the list of promising items
@@ -505,32 +512,32 @@ class efim(utilityPatterns):
         """
          Method to print high utility items
 
-         Attiributes:
+         Attributes:
          ----------
-         :param tempPosition: postion of last item 
+         :param tempPosition: position of last item 
          :type tempPosition : int 
-         :param utility: total utility of itemset
+         :param utility: total utility of itemSet
          :type utility: int
         """
         self.patternCount += 1
-        s1=""
+        s1 = ""
         for i in range(0, tempPosition+1):
-            s1+=self.dataset.intTostr.get((self.temp[i]))
+            s1 += self.dataset.intToStr.get((self.temp[i]))
             if i != tempPosition:
-                s1+=" "
-        self.finalPatterns[s1]=str(utility)
+                s1 += " "
+        self.finalPatterns[s1] = str(utility)
 
     def is_equal(self, transaction1, transaction2):
         """
          A method to Check if two transaction are identical
 
-         Attiributes:
+         Attributes:
          ----------
          :param  transaction1: the first transaction
-         :type  transaction1: Trasaction
+         :type  transaction1: Transaction
          :param  transaction2:    the second transaction
          :type  transaction2: Transaction
-         :rteurn : whether both are identical or not
+         :return : whether both are identical or not
          :rtype: bool
         """
         length1 = len(transaction1.items) - transaction1.offset
@@ -573,10 +580,10 @@ class efim(utilityPatterns):
 
             Attributes:
             ----------
-            :param transaction: transaction of items
-            :type transaction: Transaction 
-            :return: sorted transaction
-            :rtype: Transaction
+            :param transactions: transaction of items
+            :type transactions: Transaction 
+            :return: sorted transactions
+            :rtype: Transactions
         """
         cmp_items = cmp_to_key(self.sort_transaction)
         transactions.sort(key=cmp_items)
@@ -625,7 +632,7 @@ class efim(utilityPatterns):
 
     def useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
         """
-            A method to scan the database using utility bin array to caluclate the pmus
+            A method to scan the database using utility bin array to calculate the pmus
             Attributes:
             ----------
             :param dataset: the transaction database
@@ -652,6 +659,7 @@ class efim(utilityPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
 
         return dataFrame
+    
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
@@ -698,12 +706,14 @@ class efim(utilityPatterns):
        """
         return self.endTime-self.startTime
 
+
 if __name__ == '__main__':
-    if len(sys.argv)==4 or len(sys.argv)==5:
-        if len(sys.argv)==5: #includes separator
-           ap=efim(sys.argv[1],int(sys.argv[3]),sys.argv[4])
-        if len(sys.argv)==4: #takes "\t" as a separator
-           ap=efim(sys.argv[1],int(sys.argv[3]))
+    ap = str()
+    if len(sys.argv) == 4 or len(sys.argv) == 5:
+        if len(sys.argv) == 5:    #includes separator
+            ap = efim(sys.argv[1], int(sys.argv[3]), sys.argv[4])
+        if len(sys.argv) == 4:    #takes "\t" as a separator
+            ap = efim(sys.argv[1], int(sys.argv[3]))
         ap.startMine()
         patterns = ap.getPatterns()
         print("Total number of Spatial High Utility Patterns:", len(patterns))
@@ -715,4 +725,4 @@ if __name__ == '__main__':
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-         print("Error! The number of input parameters do not match the total number of parameters provided")
+        print("Error! The number of input parameters do not match the total number of parameters provided")

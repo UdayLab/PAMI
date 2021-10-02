@@ -170,6 +170,7 @@ class TopK(frequentPatterns):
                         else:
                             candidate[j] += 1
                             self.tidList[j].append(k)
+            self.finalPatterns = {}
             plist = [key for key, value in sorted(candidate.items(), key=lambda x: x[1], reverse=True)]
             for i in plist:
                 if len(self.finalPatterns) >= self.k:

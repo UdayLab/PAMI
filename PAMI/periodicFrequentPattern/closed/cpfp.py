@@ -154,27 +154,32 @@ class CPFPMiner(periodicFrequentPatterns):
         -------
         Returns the 1-length periodic-frequent items
         """
-        with open(self.iFile, 'r') as f:
-            for line in f:
-                self.lno += 1
-                s = [i.rstrip() for i in line.split(self.sep)]
-                n = int(s[0])
-                for i in range(1, len(s)):
-                    si = s[i]
-                    if self.mapSupport.get(si) is None:
-                        self.mapSupport[si] = [1, abs(0 - n), n]
-                        self.tidList[si] = [n]
-                    else:
-                        self.mapSupport[si][0] += 1
-                        self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n - self.mapSupport[si][2]))
-                        self.mapSupport[si][2] = n
-                        self.tidList[si].append(n)
-        for x, y in self.mapSupport.items():
-            self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
-        self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if
+        try:
+            self.tidList = {}
+            self.mapSupport = {}
+            with open(self.iFile, 'r') as f:
+                for line in f:
+                    self.lno += 1
+                    s = [i.rstrip() for i in line.split(self.sep)]
+                    n = int(s[0])
+                    for i in range(1, len(s)):
+                        si = s[i]
+                        if self.mapSupport.get(si) is None:
+                            self.mapSupport[si] = [1, abs(0 - n), n]
+                            self.tidList[si] = [n]
+                        else:
+                            self.mapSupport[si][0] += 1
+                            self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n - self.mapSupport[si][2]))
+                            self.mapSupport[si][2] = n
+                            self.tidList[si].append(n)
+            for x, y in self.mapSupport.items():
+                self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
+            self.minSup = self.convert(self.minSup)
+            self.maxPer = self.convert(self.maxPer)
+            self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if
                            v[0] >= self.minSup and v[1] <= self.maxPer}
+        except IOError:
+            print("File Not Found")
         periodicFrequentItems = {}
         self.tidList = {k: v for k, v in self.tidList.items() if k in self.mapSupport}
         for x, y in self.tidList.items():
