@@ -19,6 +19,11 @@ This software is provided under [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2
 2. Datasets to implement PAMI algorithms are available at https://www.u-aizu.ac.jp/~udayrage/software.html
 3. Please report issues in the software at https://github.com/udayRage/PAMI/issues
   
+  
+# Installation
+
+       pip install pami
+       
 # Details 
 Total available algorithms: 43
 
