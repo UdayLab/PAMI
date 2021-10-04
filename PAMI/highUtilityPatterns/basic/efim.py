@@ -30,7 +30,7 @@ class Transaction:
         items: list
             A list of items in transaction 
         utilities: list
-            A list of utilites of items in transaction
+            A list of utilities of items in transaction
         transactionUtility: int
             represent total sum of all utilities in the database
         prefixUtility:
@@ -134,7 +134,6 @@ class Transaction:
             self.utilities[j + 1] = utilityJ
         
 
-
 class Dataset:
     """
         A class represent the list of transactions in this dataset
@@ -194,7 +193,7 @@ class Dataset:
         items = []
         utilities = []
         for idx, item in enumerate(itemsString):
-            if (self.strToInt).get(item) is None:
+            if self.strToInt.get(item) is None:
                 self.strToInt[item] = self.cnt
                 self.intToStr[self.cnt] = item
                 self.cnt += 1
@@ -218,7 +217,7 @@ class Dataset:
         return self.transactions
 
 
-class efim(utilityPatterns):
+class Efim(utilityPatterns):
     """
     efim is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
@@ -241,8 +240,8 @@ class efim(utilityPatterns):
             To record the completion time of the mining process
         minUtil : int
             The user given minUtil
-        highUtilityItemSets: map
-            set of high utility itemsets
+        highUtilityitemSets: map
+            set of high utility itemSets
         candidateCount: int
              Number of candidates 
         utilityBinArrayLU: list
@@ -334,7 +333,7 @@ class efim(utilityPatterns):
      
     """
 
-    highUtilityItemsets = []
+    highUtilityitemSets = []
     candidateCount = 0
     utilityBinArrayLU = {}
     utilityBinArraySU = {}
@@ -365,7 +364,7 @@ class efim(utilityPatterns):
     def startMine(self):
         self.startTime = time.time()
         self.dataset = Dataset(self.iFile, self.sep)
-        f = open(self.oFile, 'w')
+        #f = open(self.oFile, 'w')
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
         minUtil = int(self.minUtil)
         itemsToKeep = []
@@ -711,9 +710,9 @@ if __name__ == '__main__':
     ap = str()
     if len(sys.argv) == 4 or len(sys.argv) == 5:
         if len(sys.argv) == 5:    #includes separator
-            ap = efim(sys.argv[1], int(sys.argv[3]), sys.argv[4])
+            ap = Efim(sys.argv[1], int(sys.argv[3]), sys.argv[4])
         if len(sys.argv) == 4:    #takes "\t" as a separator
-            ap = efim(sys.argv[1], int(sys.argv[3]))
+            ap = Efim(sys.argv[1], int(sys.argv[3]))
         ap.startMine()
         patterns = ap.getPatterns()
         print("Total number of Spatial High Utility Patterns:", len(patterns))
