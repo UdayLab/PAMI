@@ -385,6 +385,7 @@ class fpGrowth(frequentPatterns):
         Generating One frequent items sets
 
         """
+        self.mapSupport = {}
         for tr in self.Database:
             for i in range(0, len(tr)):
                 if tr[i] not in self.mapSupport:

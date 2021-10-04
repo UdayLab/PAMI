@@ -164,6 +164,7 @@ class eclatbitset(frequentPatterns):
         items = []
         p = {}
         self.Database = []
+        self.mapSupport = {}
         try:
             with open(self.iFile, 'r') as f:
                 for line in f:
