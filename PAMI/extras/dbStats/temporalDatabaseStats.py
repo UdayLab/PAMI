@@ -57,6 +57,7 @@ class temporalDatabaseStats:
         """
         :param inputFile: input file name or path
         :type inputFile: str
+        :param sep:
         """
         self.inputFile = inputFile
         self.database = {}
