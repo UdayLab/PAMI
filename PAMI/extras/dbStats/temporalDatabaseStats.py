@@ -114,19 +114,61 @@ class temporalDatabaseStats:
         read database from input file and store into database and size of each transaction.
         And store the period between transactions as list
         """
-        self.creatingItemSets()
         numberOfTransaction = 0
-        for line in self.Database:
-            numberOfTransaction += 1
-            self.database[numberOfTransaction] = line[1:]
-            self.timeStampCount[int(line[0])] = self.timeStampCount.get(int(line[0]), 0)
-            self.timeStampCount[int(line[0])] += 1
+        if isinstance(self.inputFile, pd.DataFrame):
+            if self.inputFile.empty:
+                print("its empty..")
+            i = self.inputFile.columns.values.tolist()
+            if 'ts' in i and 'Transactions' in i:
+                self.database = self.inputFile.set_index('ts').T.to_dict(orient='records')[0]
+            if 'ts' in i and 'Patterns' in i:
+                self.database = self.inputFile.set_index('ts').T.to_dict(orient='records')[0]
+            self.timeStampCount = self.inputFile.groupby('ts').count().T.to_dict(orient='records')[0]
+
+        if isinstance(self.inputFile, str):
+            if validators.url(self.inputFile):
+                data = urlopen(self.inputFile)
+                for line in data:
+                    numberOfTransaction += 1
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.database[numberOfTransaction] = temp[1:]
+                    self.timeStampCount[int(temp[0])] = self.timeStampCount.get(int(line[0]), 0)
+                    self.timeStampCount[int(temp[0])] += 1
+            else:
+                try:
+                    with open(self.inputFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            numberOfTransaction += 1
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.database[numberOfTransaction] = temp[1:]
+                            self.timeStampCount[int(temp[0])] = self.timeStampCount.get(int(line[0]), 0)
+                            self.timeStampCount[int(temp[0])] += 1
+                except IOError:
+                    print("File Not Found")
+                    quit()
         self.lengthList = [len(s) for s in self.database.values()]
-        timeStampList = sorted(list(self.timeStampCount.keys()))
+        timeStampList = sorted(list(self.database.keys()))
         preTimeStamp = 0
         for ts in timeStampList:
             self.periodList.append(int(ts)-preTimeStamp)
             preTimeStamp = ts
+
+        # for line in self.Database:
+        #     numberOfTransaction += 1
+        #     self.database[numberOfTransaction] = line[1:]
+        #     self.timeStampCount[int(line[0])] = self.timeStampCount.get(int(line[0]), 0)
+        #     self.timeStampCount[int(line[0])] += 1
+        # self.lengthList = [len(s) for s in self.database.values()]
+        # timeStampList = sorted(list(self.timeStampCount.keys()))
+        # preTimeStamp = 0
+        # for ts in timeStampList:
+        #     self.periodList.append(int(ts)-preTimeStamp)
+        #     preTimeStamp = ts
 
     def getDatabaseSize(self):
         """
@@ -258,3 +300,37 @@ class temporalDatabaseStats:
         """
         maxTS = max(list(self.timeStampCount.keys()))
         return {ts: self.timeStampCount.get(ts,0) for ts in range(1, maxTS+1)}
+
+if __name__ == '__main__':
+    data = {'ts': [1, 1, 3, 4, 5, 6, 7],
+
+            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
+                             ['a', 'd', 'g', 'k'],
+
+                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
+
+    data = pd.DataFrame.from_dict(data)
+    obj = temporalDatabaseStats(data)
+    obj = temporalDatabaseStats('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv')
+    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+    obj.run()
+    print(f'Database size : {obj.getDatabaseSize()}')
+    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+    print(f'Variance : {obj.getVarianceTransactionLength()}')
+    print(f'Sparsity : {obj.getSparsity()}')
+    print(f'Number of items : {obj.getTotalNumberOfItems()}')
+    print(f'Minimum period : {obj.getMinimumPeriod()}')
+    print(f'Average period : {obj.getAveragePeriod()}')
+    print(f'Maximum period : {obj.getMaximumPeriod()}')
+    itemFrequencies = obj.getSortedListOfItemFrequencies()
+    transactionLength = obj.getTransanctionalLengthDistribution()
+    numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
+    # obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
+    # obj.storeInFile(transactionLength, 'transactionSize.csv')
+    # obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
+    plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+    plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+    plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)
