@@ -15,6 +15,8 @@
 
 from PAMI.frequentPattern.basic.abstract import *
 import sys
+import validators
+from urllib.request import urlopen
 
 
 class Apriori(frequentPatterns):
@@ -139,6 +141,45 @@ class Apriori(frequentPatterns):
     memoryRSS = float()
     Database = []
 
+    def creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            temp = []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                temp = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                temp = self.iFile['Patterns'].tolist()
+            for k in temp:
+                self.Database.append(set(k))
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(set(temp))
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(set(temp))
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
     def convert(self, value):
         """
         To convert the user specified minSup value
@@ -207,19 +248,9 @@ class Apriori(frequentPatterns):
         """
             Frequent pattern mining process will start from here
         """
-
+        self.Database = []
         self.startTime = time.time()
-        try:
-            self.Database = []
-            with open(self.iFile, 'r') as f:
-                for line in f:
-                    temp = [i.rstrip() for i in line.split(self.sep)]
-                    temp = [x for x in temp if x]
-                    self.Database.append(set(temp))
-                f.close()
-        except IOError:
-            print("File Not Found")
-            quit()
+        self.creatingItemSets()
         itemsList = sorted(list(set.union(*self.Database)))  # because Database is list
         items = [{i} for i in itemsList]
         itemsCount = len(items)

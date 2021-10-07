@@ -15,6 +15,8 @@
 
 
 import sys
+from urllib.request import urlopen
+import validators
 from PAMI.frequentPattern.closed.abstract import *
 
 
@@ -29,107 +31,107 @@ class Charm(frequentPatterns):
             Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
             Proceedings of the 2002 SIAM, SDM. 2002, 457-473, https://doi.org/10.1137/1.9781611972726.27
 
-       Attributes
-       ----------
-            iFile : file
-                Name of the Input file or path of the input file
-            oFile : file
-                Name of the output file or path of the output file
-            minSup: float or int or str
-                The user can specify minSup either in count or proportion of database size.
-                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-                However, the users can override their default separator.
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-            startTime: float
-                To record the start time of the mining process
-            endTime: float
-                To record the completion time of the mining process
-            Database : list
-                To store the transactions of a database in list
-            mapSupport : Dictionary
-                To maintain the information of item and their frequency
-            lno : int
-                it represents the total no of transactions
-            tree : class
-                it represents the Tree class
-            itemSetCount : int
-                it represents the total no of patterns
-            finalPatterns : dict
-                it represents to store the patterns
-            tidList : dict
-                stores the timestamps of an item
-            hashing : dict
-                stores the patterns with their support to check for the closed property
+    Attributes
+    ----------
+        self.iFile : file
+            Name of the Input file or path of the input file
+        self.oFile : file
+            Name of the output file or path of the output file
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
+        startTime: float
+            To record the start time of the mining process
+        endTime: float
+            To record the completion time of the mining process
+        Database : list
+            To store the transactions of a database in list
+        mapSupport : Dictionary
+            To maintain the information of item and their frequency
+        lno : int
+            it represents the total no of transactions
+        tree : class
+            it represents the Tree class
+        itemSetCount : int
+            it represents the total no of patterns
+        finalPatterns : dict
+            it represents to store the patterns
+        tidList : dict
+            stores the timestamps of an item
+        hashing : dict
+            stores the patterns with their support to check for the closed property
 
-        Methods:
-        -------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
-            getPatternsAsDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            creatingItemsets()
-                Stores the frequent patterns with their timestamps from the dataset
+    Methods:
+    -------
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        savePatterns(oFile)
+            Complete set of frequent patterns will be loaded in to a output file
+        getPatternsAsDataFrame()
+            Complete set of frequent patterns will be loaded in to a dataframe
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+        creatingItemsets()
+            Stores the frequent patterns with their timestamps from the dataset
         
         
-        Executing the code on terminal:
-        -------
-            Format: python3 charm.py <inputFile> <outputFile> <minSup>
+    Executing the code on terminal:
+    -------
+        Format: python3 charm.py <inputFile> <outputFile> <minSup>
 
-            Examples:
+        Examples:
 
-            python3 charm.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+        python3 charm.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
-            python3 charm.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+        python3 charm.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
-        Sample run of the importing code:
-        --------------
+    Sample run of the importing code:
+    --------------
 
-            from PAMI.frequentPattern.closed import closed as alg
+        from PAMI.frequentPattern.closed import closed as alg
 
-            obj = alg.Closed(iFile, minSup)
+        obj = alg.Closed(iFile, minSup)
 
-            obj.startMine()
+        obj.startMine()
 
-            frequentPatterns = obj.getPatterns()
+        frequentPatterns = obj.getPatterns()
 
-            print("Total number of Closed Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Closed Frequent Patterns:", len(frequentPatterns))
 
-            obj.savePatterns(oFile)
+        obj.savePatterns(oFile)
 
-            Df = obj.getPatternsAsDataFrame()
+        Df = obj.getPatternsAsDataFrame()
 
-            memUSS = obj.getMemoryUSS()
+        memUSS = obj.getMemoryUSS()
 
-            print("Total Memory in USS:", memUSS)
+        print("Total Memory in USS:", memUSS)
 
-            memRSS = obj.getMemoryRSS()
+        memRSS = obj.getMemoryRSS()
 
-            print("Total Memory in RSS", memRSS)
+        print("Total Memory in RSS", memRSS)
 
-            run = obj.getRuntime()
+        run = obj.getRuntime()
 
-            print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+    Credits:
+    -------
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
 
@@ -176,20 +178,58 @@ class Charm(frequentPatterns):
         """
         Storing the complete frequent patterns of the database/input file in a database variable
         """
-        self.Database = []
-        with open(self.iFile, 'r') as f:
-            for line in f:
-                i = [i.rstrip() for i in line.split(self.sep)]
-                i = [x for x in i if x]
+        self.mapSupport = {}
+        self.tidList = {}
+        self.lno = 0
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            for i in self.Database:
                 self.lno += 1
-                n = self.lno
                 for j in i:
                     if j not in self.mapSupport:
                         self.mapSupport[j] = 1
-                        self.tidList[j] = [n]
+                        self.tidList[j] = [self.lno]
                     else:
                         self.mapSupport[j] += 1
-                        self.tidList[j].append(n)
+                        self.tidList[j].append(self.lno)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    self.lno += 1
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    for j in temp:
+                        if j not in self.mapSupport:
+                            self.mapSupport[j] = 1
+                            self.tidList[j] = [self.lno]
+                        else:
+                            self.mapSupport[j] += 1
+                            self.tidList[j].append(self.lno)
+            else:
+                try:
+                    with open(self.iFile, 'r') as f:
+                        for line in f:
+                            i = [i.rstrip() for i in line.split(self.sep)]
+                            i = [x for x in i if x]
+                            self.lno += 1
+                            for j in i:
+                                if j not in self.mapSupport:
+                                    self.mapSupport[j] = 1
+                                    self.tidList[j] = [self.lno]
+                                else:
+                                    self.mapSupport[j] += 1
+                                    self.tidList[j].append(self.lno)
+                except IOError:
+                    print("File Not Found")
         self.minSup = self.convert(self.minSup)
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
         flist = {}
@@ -358,6 +398,7 @@ class Charm(frequentPatterns):
         self.startTime = time.time()
         plist = self.creatingItemsets()
         self.finalPatterns = {}
+        self.hashing = {}
         for i in range(len(plist)):
             itemX = plist[i]
             if itemX is None:

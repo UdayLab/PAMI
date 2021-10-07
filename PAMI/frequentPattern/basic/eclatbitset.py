@@ -15,11 +15,15 @@
 #  Copyright (C)  2021 Rage Uday Kiran
 
 import sys
+from urllib.request import urlopen
+import validators
 from PAMI.frequentPattern.basic.abstract import *
 
-class eclatbitset(frequentPatterns):
+
+class EclatBitset(frequentPatterns):
     """
-    EclatBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs downward closure property to  reduce the search space effectively. This algorithm employs depth-first search technique to find the complete set of frequent patterns in a transactional database.
+    EclatBitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+    This program implemented following the eclat bitset algorithm.
 
     Reference:
     ----------
@@ -36,7 +40,7 @@ class eclatbitset(frequentPatterns):
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
         self.oFile : str
             Name of the output file or path of the output file
@@ -81,20 +85,20 @@ class eclatbitset(frequentPatterns):
 
         Format:
         -------
-        python3 eclatbitset.py <inputFile> <outputFile> <minSup>
+        python3 EclatBitset.py <inputFile> <outputFile> <minSup>
 
         Examples:
         ---------
-        python3 eclatbitset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+        python3 EclatBitset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
-        python3 eclatbitset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+        python3 EclatBitset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
     Sample run of the importing code:
     ---------------------------------
 
-        import PAMI.frequentPattern.basic.eclatbitset as alg
+        import PAMI.frequentPattern.basic.EclatBitset as alg
 
-        obj = alg.eclatbitset(iFile, minSup)
+        obj = alg.EclatBitset(iFile, minSup)
 
         obj.startMine()
 
@@ -161,34 +165,53 @@ class eclatbitset(frequentPatterns):
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        items = []
-        p = {}
         self.Database = []
         self.mapSupport = {}
-        try:
-            with open(self.iFile, 'r') as f:
-                for line in f:
-                    self.lno += 1
-                    splitter = [i.rstrip() for i in line.split(self.sep)]
-                    splitter = [x for x in splitter if x]
-                    for i in splitter:
-                        if i not in items:
-                            items.append(i)
-        except IOError:
-            print("File Not Found")
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r') as f:
+                        for line in f:
+                            self.lno += 1
+                            splitter = [i.rstrip() for i in line.split(self.sep)]
+                            splitter = [x for x in splitter if x]
+                            self.Database.append(splitter)
+                except IOError:
+                    print("File Not Found")
         self.minSup = self.convert(self.minSup)
-        with open(self.iFile, 'r') as f:
-            for line in f:
-                li = [i.rstrip() for i in line.split(self.sep)]
-                li = [x for x in li if x]
-                for j in items:
-                    count = 0
-                    if j in li:
-                        count = 1
-                    if j not in p:
-                        p[j] = [count]
-                    else:
-                        p[j].append(count)
+    
+    def OneFrequentItems(self):
+        items = []
+        p = {}
+        for i in self.Database:
+            for j in i:
+                if j not in items:
+                    items.append(j)
+        for temp in self.Database:
+            for j in items:
+                count = 0
+                if j in temp:
+                    count = 1
+                if j not in p:
+                    p[j] = [count]
+                else:
+                    p[j].append(count)
         for x, y in p.items():
             if self.countSupport(y) >= self.minSup:
                 self.mapSupport[x] = y
@@ -241,14 +264,14 @@ class eclatbitset(frequentPatterns):
 
             :type itemSets: list
 
-            :param tidSets: represents the tidlists of itemSets
+            :param tidSets: represents the tidLists of itemSets
 
             :type tidSets: 2d list
         """
         if len(itemSets) == 1:
             i = itemSets[0]
-            tidi = tidSets[0]
-            self.save(prefix, [i], tidi)
+            tidI = tidSets[0]
+            self.save(prefix, [i], tidI)
             return
         for i in range(len(itemSets)):
             itemI = itemSets[i]
@@ -270,6 +293,7 @@ class eclatbitset(frequentPatterns):
             self.generationOfAll(newprefix, classItemSets, classTidSets)
             del classItemSets, classTidSets
             self.save(prefix, list(set(itemSetx)), tidSetX)
+            #raise Exception("end of time")
 
     def startMine(self):
         """Frequent pattern mining process will start from here
@@ -282,7 +306,8 @@ class eclatbitset(frequentPatterns):
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
             raise Exception("Please enter the Minimum Support")
-        plist = self.creatingItemSets()
+        self.creatingItemSets()
+        plist = self.OneFrequentItems()
         self.finalPatterns = {}
         for i in range(len(plist)):
             itemI = plist[i]
@@ -379,9 +404,9 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 4 or len(sys.argv) == 5:
         if len(sys.argv) == 5:
-            ap = eclatbitset(sys.argv[1], sys.argv[3], sys.argv[4])
+            ap = EclatBitset(sys.argv[1], sys.argv[3], sys.argv[4])
         if len(sys.argv) == 4:
-            ap = eclatbitset(sys.argv[1], sys.argv[3])
+            ap = EclatBitset(sys.argv[1], sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))

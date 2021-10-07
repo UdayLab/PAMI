@@ -15,6 +15,8 @@
 
 from PAMI.frequentPattern.basic.abstract import *
 import sys
+from urllib.request import urlopen
+import validators
 
 minSup = str()
 sys.setrecursionlimit(20000)
@@ -349,16 +351,36 @@ class fpGrowth(frequentPatterns):
 
 
         """
-        try:
-            self.Database = []
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
-                    self.lno += 1
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            #print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     self.Database.append(temp)
-        except IOError:
-            print("File Not Found")
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def convert(self, value):
         """

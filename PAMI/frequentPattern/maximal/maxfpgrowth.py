@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
+from urllib.request import urlopen
+import validators
 from PAMI.frequentPattern.maximal.abstract import *
 
 
@@ -495,18 +497,40 @@ class Maxfpgrowth(frequentPatterns):
 
     def creatingItemSets(self):
         """
-        Storing the complete Databases of the database/input file in a database variable
+            Storing the complete transactions of the database/input file in a database variable
+
+
         """
-        try:
-            self.Database = []
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
-                    li = [i.rstrip() for i in line.split(self.sep)]
-                    li = [x for x in li if x]
-                    self.Database.append(li)
-                    self.lno += 1
-        except IOError:
-            print("File Not Found")
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            #print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def frequentOneItem(self):
         """ To extract the one-length frequent itemSets
@@ -561,7 +585,7 @@ class Maxfpgrowth(frequentPatterns):
         for i in range(len(data)):
             rootNode.addTransaction(data[i])
         return rootNode
-    
+
 
     def convert(self, value):
         """
@@ -580,7 +604,7 @@ class Maxfpgrowth(frequentPatterns):
             else:
                 value = int(value)
         return value
-        
+
     def convertItems(self, itemSet):
         """
             To convert the item ranks into their original item names
@@ -621,7 +645,7 @@ class Maxfpgrowth(frequentPatterns):
             pattern = str()
             x = self.convertItems(x)
             for i in x:
-                pattern = pattern + i + "\t"
+                pattern = pattern + i + " "
             self.finalPatterns[pattern] = y
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
@@ -695,7 +719,7 @@ class Maxfpgrowth(frequentPatterns):
         :rtype: dict
         """
         return self.finalPatterns
-        
+
 
 
 if __name__ == "__main__":

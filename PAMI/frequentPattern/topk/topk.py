@@ -15,6 +15,8 @@
 
 from PAMI.frequentPattern.topk.abstract import *
 import sys
+from urllib.request import urlopen
+import validators
 
 
 class TopK(frequentPatterns):
@@ -138,51 +140,63 @@ class TopK(frequentPatterns):
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        try:
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
+
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
                     line.strip()
+                    line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     self.Database.append(temp)
-        except IOError:
-            print("File Not Found")
-            quit()
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def frequentOneItem(self):
         """
         Generating one frequent patterns
         """
-
-        try:
-            self.Database = []
-            candidate = {}
-            k = 0
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
-                    k += 1
-                    temp = [i.rstrip() for i in line.split(self.sep)]
-                    temp = [x for x in temp if x]
-                    for j in temp:
-                        if j not in candidate:
-                            candidate[j] = 1
-                            self.tidList[j] = [k]
-                        else:
-                            candidate[j] += 1
-                            self.tidList[j].append(k)
-            self.finalPatterns = {}
-            plist = [key for key, value in sorted(candidate.items(), key=lambda x: x[1], reverse=True)]
-            for i in plist:
-                if len(self.finalPatterns) >= self.k:
-                    break
+        candidate = {}
+        self.tidList = {}
+        for i in range(len(self.Database)):
+            for j in self.Database[i]:
+                if j not in candidate:
+                    candidate[j] = 1
+                    self.tidList[j] = [i]
                 else:
-                    self.finalPatterns[i] = candidate[i]
-            self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
-            plist = list(self.finalPatterns.keys())
-            return plist
-        except IOError:
-            print("File Not Found")
-            quit()
+                    candidate[j] += 1
+                    self.tidList[j].append(i)
+        self.finalPatterns = {}
+        plist = [key for key, value in sorted(candidate.items(), key=lambda x: x[1], reverse=True)]
+        for i in plist:
+            if len(self.finalPatterns) >= self.k:
+                break
+            else:
+                self.finalPatterns[i] = candidate[i]
+        self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+        plist = list(self.finalPatterns.keys())
+        return plist
+
 
     def save(self, prefix, suffix, tidSetI):
         """Saves the patterns that satisfy the periodic frequent property.
@@ -265,6 +279,7 @@ class TopK(frequentPatterns):
             raise Exception("Please enter the file path or file name:")
         if self.k is None:
             raise Exception("Please enter the Minimum Support")
+        self.creatingItemSets()
         plist = self.frequentOneItem()
         for i in range(len(plist)):
             itemI = plist[i]
@@ -373,18 +388,6 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = TopK('/home/apiiit-rkv/Downloads/datasets/Mushroom', 40, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns("patterns.txt")
-        print(ap.getPatternsAsDataFrame())
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 
