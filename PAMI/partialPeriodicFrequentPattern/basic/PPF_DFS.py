@@ -275,7 +275,7 @@ class PPF_DFS(partialPeriodicPatterns):
         self.path = self.iFile
         starttime = time.time()
         plist = self.scanDatabase(self.path)
-        print(len(plist))
+        #print(len(plist))
         for i in range(len(plist)):
             itemx = plist[i]
             tidsetx = self.tidlist[itemx]
