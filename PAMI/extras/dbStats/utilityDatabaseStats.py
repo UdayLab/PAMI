@@ -1,4 +1,7 @@
 import statistics
+import validators
+from urllib.request import urlopen
+import pandas as pd
 
 class utilityDatabaseStats:
     """
@@ -62,21 +65,64 @@ class utilityDatabaseStats:
     def run(self):
         self.readDatabase()
 
+    def creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self.Database = []
+        self.utilityValues = []
+        if isinstance(self.inputFile, pd.DataFrame):
+            if self.inputFile.empty:
+                print("its empty..")
+            i = self.inputFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.inputFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.inputFile['Patterns'].tolist()
+            if 'Utility' in i:
+                self.utilityValues = self.inputFile['Utility'].tolist()
+
+        if isinstance(self.inputFile, str):
+            if validators.url(self.inputFile):
+                data = urlopen(self.inputFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(":")]
+                    transaction = [s for s in temp[0].split(self.sep)]
+                    self.Database.append([x for x in transaction if x])
+                    utilities = [int(s) for s in temp[2].split(self.sep)]
+                    self.utilityValues.append([x for x in utilities if x])
+            else:
+                try:
+                    with open(self.inputFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(":")]
+                            transaction = [s for s in temp[0].split(self.sep)]
+                            self.Database.append([x for x in transaction if x])
+                            utilities = [int(s) for s in temp[2].split(self.sep)]
+                            self.utilityValues.append([x for x in utilities if x])
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
     def readDatabase(self):
         """
         read database from input file and store into database and size of each transaction.
         """
         numberOfTransaction = 0
-        with open(self.inputFile, 'r') as f:
-            for line in f:
-                numberOfTransaction += 1
-                line = [s for s in line.strip().split(':')]
-                transaction = [s for s in line[0].split(self.sep)]
-                utilities = [int(s) for s in line[2].split(self.sep)]
-                self.database[numberOfTransaction] = transaction
-                for i in range(len(transaction)):
-                    self.utility[transaction[i]] = self.utility.get(transaction[i],0)
-                    self.utility[transaction[i]] += utilities[i]
+        self.creatingItemSets()
+        for k in range(len(self.Database)):
+            numberOfTransaction += 1
+            transaction = self.Database[k]
+            utilities = self.utilityValues[k]
+            self.database[numberOfTransaction] = transaction
+            for i in range(len(transaction)):
+                self.utility[transaction[i]] = self.utility.get(transaction[i],0)
+                self.utility[transaction[i]] += utilities[i]
         self.lengthList = [len(s) for s in self.database.values()]
         self.utility = {k: v for k, v in sorted(self.utility.items(), key=lambda x:x[1], reverse=True)}
 

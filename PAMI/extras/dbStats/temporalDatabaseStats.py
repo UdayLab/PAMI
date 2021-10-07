@@ -1,4 +1,7 @@
 import statistics
+import pandas as pd
+import validators
+from urllib.request import urlopen
 
 class temporalDatabaseStats:
     """
@@ -69,19 +72,55 @@ class temporalDatabaseStats:
     def run(self):
         self.readDatabase()
 
+    def creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self.Database = []
+        if isinstance(self.inputFile, pd.DataFrame):
+            if self.inputFile.empty:
+                print("its empty..")
+            i = self.inputFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.inputFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.inputFile['Patterns'].tolist()
+
+        if isinstance(self.inputFile, str):
+            if validators.url(self.inputFile):
+                data = urlopen(self.inputFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.inputFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
     def readDatabase(self):
         """
         read database from input file and store into database and size of each transaction.
         And store the period between transactions as list
         """
+        self.creatingItemSets()
         numberOfTransaction = 0
-        with open(self.inputFile, 'r') as f:
-            for line in f:
-                numberOfTransaction += 1
-                line = [s for s in line.strip().split(self.sep)]
-                self.database[numberOfTransaction] = line[1:]
-                self.timeStampCount[int(line[0])] = self.timeStampCount.get(int(line[0]), 0)
-                self.timeStampCount[int(line[0])] += 1
+        for line in self.Database:
+            numberOfTransaction += 1
+            self.database[numberOfTransaction] = line[1:]
+            self.timeStampCount[int(line[0])] = self.timeStampCount.get(int(line[0]), 0)
+            self.timeStampCount[int(line[0])] += 1
         self.lengthList = [len(s) for s in self.database.values()]
         timeStampList = sorted(list(self.timeStampCount.keys()))
         preTimeStamp = 0

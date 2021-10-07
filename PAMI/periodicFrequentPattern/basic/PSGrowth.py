@@ -15,6 +15,8 @@
 
 import sys
 from itertools import combinations
+import validators
+from urllib.request import urlopen
 from PAMI.periodicFrequentPattern.basic.abstract import *
 
 pfList = []
@@ -575,27 +577,27 @@ class PSGrowth(periodicFrequentPatterns):
 
     Methods:
     -------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
-                Complete set of periodic-frequent patterns will be loaded in to a output file
-            getConditionalPatternsInDataFrame()
-                Complete set of periodic-frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            creatingItemSets()
-                Scans the dataset or dataframes and stores in list format
-            buildTree()
-                after updating the Databases ar added into the tree by setting root node as null
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        savePatterns(oFile)
+            Complete set of periodic-frequent patterns will be loaded in to a output file
+        getConditionalPatternsInDataFrame()
+            Complete set of periodic-frequent patterns will be loaded in to a dataframe
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+        OneLengthItems()
+            Scans the dataset or dataframes and stores in list format
+        buildTree()
+            after updating the Databases ar added into the tree by setting root node as null
 
-        Executing the code on terminal:
-        -------
+    Executing the code on terminal:
+    -------
         Format:
         ------
         python3 PSGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
@@ -608,38 +610,38 @@ class PSGrowth(periodicFrequentPatterns):
         python3 PSGrowth.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)
 
 
-        Sample run of the imported code:
-        --------------
+    Sample run of the imported code:
+    --------------
 
-            from PAMI.periodicFrequentPattern.basic import PSGrowth as alg
+        from PAMI.periodicFrequentPattern.basic import PSGrowth as alg
 
-            obj = alg.PSGrowth("../basic/sampleTDB.txt", "2", "6")
+        obj = alg.PSGrowth("../basic/sampleTDB.txt", "2", "6")
 
-            obj.startMine()
+        obj.startMine()
 
-            periodicFrequentPatterns = obj.getPatterns()
+        periodicFrequentPatterns = obj.getPatterns()
 
-            print("Total number of  Patterns:", len(periodicFrequentPatterns))
+        print("Total number of  Patterns:", len(periodicFrequentPatterns))
 
-            obj.savePatterns("patterns")
+        obj.savePatterns("patterns")
 
-            Df = obj.getPatternsAsDataFrame()
+        Df = obj.getPatternsAsDataFrame()
 
-            memUSS = obj.getMemoryUSS()
+        memUSS = obj.getMemoryUSS()
 
-            print("Total Memory in USS:", memUSS)
+        print("Total Memory in USS:", memUSS)
 
-            memRSS = obj.getMemoryRSS()
+        memRSS = obj.getMemoryRSS()
 
-            print("Total Memory in RSS", memRSS)
+        print("Total Memory in RSS", memRSS)
 
-            run = obj.getRuntime()
+        run = obj.getRuntime()
 
-            print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+    Credits:
+    -------
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
 
@@ -678,28 +680,57 @@ class PSGrowth(periodicFrequentPatterns):
 
     def creatingItemSets(self):
         """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            #print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
+    def OneLengthItems(self):
+        """
             Storing the complete values of a database/input file into a database variable
         """
         data = {}
-        try:
-            self.Database = []
-            global minSup, maxPer, lno
-            with open(self.iFile, 'r') as f:
-                for line in f:
-                    self.lno += 1
-                    tr = [i.rstrip() for i in line.split(self.sep)]
-                    tr = [x for x in tr if x]
-                    for i in range(1, len(tr)):
-                        if tr[i] not in data:
-                            data[tr[i]] = [int(tr[0]), int(tr[0]), 1]
-                        else:
-                            data[tr[i]][0] = max(data[tr[i]][0], (int(tr[0]) - data[tr[i]][1]))
-                            data[tr[i]][1] = int(tr[0])
-                            data[tr[i]][2] += 1
-            for key in data:
-                data[key][0] = max(data[key][0], self.lno - data[key][1])
-        except IOError:
-            print("File Not Found")
+        global minSup, maxPer, lno
+        for tr in self.Database:
+            for i in range(1, len(tr)):
+                if tr[i] not in data:
+                    data[tr[i]] = [int(tr[0]), int(tr[0]), 1]
+                else:
+                    data[tr[i]][0] = max(data[tr[i]][0], (int(tr[0]) - data[tr[i]][1]))
+                    data[tr[i]][1] = int(tr[0])
+                    data[tr[i]][2] += 1
+        for key in data:
+            data[key][0] = max(data[key][0], self.lno - data[key][1])
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
         minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
@@ -746,7 +777,8 @@ class PSGrowth(periodicFrequentPatterns):
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
             raise Exception("Please enter the Minimum Support")
-        OneLengthPeriodicItems, pfList = self.creatingItemSets()
+        self.creatingItemSets()
+        OneLengthPeriodicItems, pfList = self.OneLengthItems()
         info = {self.rank[k]: v for k, v in OneLengthPeriodicItems.items()}
         Tree = self.buildTree(info, OneLengthPeriodicItems)
         patterns = Tree.generatePatterns([])
