@@ -261,3 +261,4 @@ class utilityDatabaseStats:
         :return: sorted dictionary utility value of item
         """
         return self.utility
+
