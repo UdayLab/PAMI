@@ -146,6 +146,7 @@ class Eclat(frequentPatterns):
             Storing the complete transactions of the database/input file in a database variable
 
         """
+        self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
             if self.iFile.empty:
                 print("its empty..")
