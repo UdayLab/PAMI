@@ -51,10 +51,9 @@ class transactionalDatabaseStats:
         :type inputFile: str
         """
         self.inputFile = inputFile
-        self.database = {}
         self.lengthList = []
         self.sep = sep
-        self.Database = []
+        self.database = {}
 
     def run(self):
         self.readDatabase()
@@ -100,12 +99,38 @@ class transactionalDatabaseStats:
         """
         read database from input file and store into database and size of each transaction.
         """
-        self.creatingItemSets()
+        #self.creatingItemSets()
         numberOfTransaction = 0
-        for line in self.Database:
-            numberOfTransaction += 1
-            self.database[numberOfTransaction] = self.database.get(numberOfTransaction, set())
-            self.database[numberOfTransaction] = list(set(self.database[numberOfTransaction]) | set(line))
+        if isinstance(self.inputFile, pd.DataFrame):
+            if self.inputFile.empty:
+                print("its empty..")
+            i = self.inputFile.columns.values.tolist()
+            if 'tid' in i and 'Transactions' in i:
+                self.database = self.inputFile.set_index('tid').T.to_dict(orient='records')[0]
+            if 'tid' in i and 'Patterns' in i:
+                self.database = self.inputFile.set_index('tid').T.to_dict(orient='records')[0]
+        if isinstance(self.inputFile, str):
+            if validators.url(self.inputFile):
+                data = urlopen(self.inputFile)
+                for line in data:
+                    numberOfTransaction += 1
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.database[numberOfTransaction] = temp
+            else:
+                try:
+                    with open(self.inputFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            numberOfTransaction += 1
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.database[numberOfTransaction] = temp
+                except IOError:
+                    print("File Not Found")
+                    quit()
         self.lengthList = [len(s) for s in self.database.values()]
 
     def getDatabaseSize(self):
@@ -207,3 +232,30 @@ class transactionalDatabaseStats:
         with open(outputFile, 'w') as f:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
+
+if __name__ == '__main__':
+    data = {'tid': [1, 2, 3, 4, 5, 6, 7],
+
+            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
+                             ['a', 'd', 'g', 'k'],
+
+                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
+
+    data = pd.DataFrame.from_dict(data)
+    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+    #obj = transactionalDatabaseStats(data)
+    obj = transactionalDatabaseStats('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_T10I4D100K.csv')
+    obj.run()
+    print(f'Database size : {obj.getDatabaseSize()}')
+    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()}')
+    print(f'Number of items : {obj.getNumberOfItems()}')
+    itemFrequencies = obj.getSortedListOfItemFrequencies()
+    transactionLength = obj.getTransanctionalLengthDistribution()
+    #obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
+    #obj.storeInFile(transactionLength, 'transactionSize.csv')
+    plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+    plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
