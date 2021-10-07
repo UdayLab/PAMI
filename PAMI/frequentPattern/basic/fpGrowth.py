@@ -599,4 +599,34 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        data = {'tid': [1, 2, 3, 4, 5, 6, 7],
+
+                'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
+                                 ['a', 'd', 'g', 'k'],
+
+                                 ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
+
+        data = pd.DataFrame.from_dict(data)
+
+        ap = fpGrowth(data, minSup=2)
+
+        ap.startMine()
+
+        Patterns = ap.getPatterns()
+
+        print("Total number of Frequent Patterns:", len(Patterns))
+
+        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+
+        memUSS = ap.getMemoryUSS()
+
+        print("Total Memory in USS:", memUSS)
+
+        memRSS = ap.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = ap.getRuntime()
+
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
