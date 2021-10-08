@@ -433,6 +433,8 @@ class Charm(frequentPatterns):
         print("Closed Frequent patterns were generated successfully using charm algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
