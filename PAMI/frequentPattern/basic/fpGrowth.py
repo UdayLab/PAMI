@@ -508,6 +508,8 @@ class fpGrowth(frequentPatterns):
             self.finalPatterns[str(s)] = k[1]
         print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
         self.endTime = time.time()
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
