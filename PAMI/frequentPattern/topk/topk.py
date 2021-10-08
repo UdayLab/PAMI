@@ -297,6 +297,8 @@ class TopK(frequentPatterns):
             self.Generation(itemSetX, itemSets, tidSets)
         print("TopK Frequent patterns were generated successfully")
         self.endTime = time.time()
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
