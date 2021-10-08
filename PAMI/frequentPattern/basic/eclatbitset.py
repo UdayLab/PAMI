@@ -328,6 +328,8 @@ class EclatBitset(frequentPatterns):
             self.save(None, itemSetx, tidSetX)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using Eclat_bitset algorithm")
