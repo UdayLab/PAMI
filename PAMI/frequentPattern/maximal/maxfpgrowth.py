@@ -649,6 +649,8 @@ class Maxfpgrowth(frequentPatterns):
             self.finalPatterns[pattern] = y
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         print("Maximal Frequent patterns were generated successfully using MaxFp-Growth algorithm ")
