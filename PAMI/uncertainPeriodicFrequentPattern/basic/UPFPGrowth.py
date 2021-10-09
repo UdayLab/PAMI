@@ -322,8 +322,8 @@ class Tree(object):
             s = 0
             for x in self.summaries[i]:
                 s += x.probability
+            periodic[tuple(pattern)] = self.info[i]
             if s >= minSup:
-                periodic[tuple(pattern)] = self.info[i]
                 patterns, timeStamps, support, info = self.getConditionalPatterns(i)
                 conditionalTree = Tree()
                 conditionalTree.info = info.copy()
