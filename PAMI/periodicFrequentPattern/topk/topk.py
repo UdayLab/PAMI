@@ -15,6 +15,8 @@
 
 from PAMI.periodicFrequentPattern.topk.abstract import *
 import sys
+import validators
+from urllib.request import urlopen
 
 
 class TopK(periodicFrequentPatterns):
@@ -23,8 +25,8 @@ class TopK(periodicFrequentPatterns):
 
         Reference:
         ----------
-                Komate Amphawan, Philippe Lenca, Athasit Surarerks: "Mining Top-K Periodic-Frequent Pattern from Transactional Databases without Support Threshold"
-                International Conference on Advances in Information Technology: https://link.springer.com/chapter/10.1007/978-3-642-10392-6_3
+            Komate Amphawan, Philippe Lenca, Athasit Surarerks: "Mining Top-K Periodic-Frequent Pattern from Transactional Databases without Support Threshold"
+            International Conference on Advances in Information Technology: https://link.springer.com/chapter/10.1007/978-3-642-10392-6_3
 
         Attributes:
         ----------
@@ -54,9 +56,9 @@ class TopK(periodicFrequentPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            storePatternsInFile(oFile)
+            savePatterns(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
-            getPatternsInDataFrame()
+            getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
             getMemoryUSS()
                 Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -78,11 +80,11 @@ class TopK(periodicFrequentPatterns):
 
             Format:
             ------
-            python3 topk.py <inputFile> <outputFile> <k> <maxPer>
+                python3 topk.py <inputFile> <outputFile> <k> <maxPer>
 
             Examples:
             ---------
-            python3 topk.py sampleDB.txt patterns.txt 10 3
+                python3 topk.py sampleDB.txt patterns.txt 10 3
 
 
         Sample run of the importing code:
@@ -98,7 +100,7 @@ class TopK(periodicFrequentPatterns):
 
             print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
 
-            obj.storePatternsInFile(oFile)
+            obj.savePatterns(oFile)
 
             Df = obj.getPatternInDataFrame()
 
@@ -141,16 +143,36 @@ class TopK(periodicFrequentPatterns):
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        try:
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            #print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
                     line.strip()
+                    line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     self.Database.append(temp)
-        except IOError:
-            print("File Not Found")
-            quit()
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def convert(self, value):
         """
@@ -175,43 +197,36 @@ class TopK(periodicFrequentPatterns):
         Generating one frequent patterns
         """
 
-        try:
-            candidate = {}
-            with open(self.iFile) as f:
-                for line in f:
-                    self.lno += 1
-                    s = [i.strip() for i in line.split(self.sep)]
-                    s = [x for x in s]
-                    n = self.lno
-                    for i in range(1, len(s)):
-                        si = s[i]
-                        if self.mapSupport.get(si) is None:
-                            self.mapSupport[si] = [1, abs(0 - n), n]
-                            self.tidList[si] = [n]
-                        else:
-                            self.mapSupport[si][0] += 1
-                            self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n - self.mapSupport[si][2]))
-                            self.mapSupport[si][2] = n
-                            self.tidList[si].append(n)
-                for x, y in self.mapSupport.items():
-                    self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
-                self.maxPer = self.convert(self.maxPer)
-                self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if v[1] <=
-                                   self.maxPer}
-                plist = [key for key, value in
-                         sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
-            self.finalPatterns = {}
-            for i in plist:
-                if len(self.finalPatterns) >= self.k:
-                    break
+        self.mapSupport = {}
+        self.tidList = {}
+        for line in self.Database:
+            self.lno += 1
+            s = line
+            for i in range(1, len(s)):
+                si = s[i]
+                if self.mapSupport.get(si) is None:
+                    self.mapSupport[si] = [1, abs(0 - self.lno), self.lno]
+                    self.tidList[si] = [self.lno]
                 else:
-                    self.finalPatterns[i] = [self.mapSupport[i][0], self.mapSupport[i][1]]
-            self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
-            plist = list(self.finalPatterns.keys())
-            return plist
-        except IOError:
-            print("File Not Found")
-            quit()
+                    self.mapSupport[si][0] += 1
+                    self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(self.lno - self.mapSupport[si][2]))
+                    self.mapSupport[si][2] = self.lno
+                    self.tidList[si].append(self.lno)
+        for x, y in self.mapSupport.items():
+            self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
+        self.maxPer = self.convert(self.maxPer)
+        self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if v[1] <= self.maxPer}
+        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
+        self.finalPatterns = {}
+        print(len(plist))
+        for i in plist:
+            if len(self.finalPatterns) >= self.k:
+                break
+            else:
+                self.finalPatterns[i] = [self.mapSupport[i][0], self.mapSupport[i][1]]
+        self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
+        plist = list(self.finalPatterns.keys())
+        return plist
 
     def getSupportAndPeriod(self, timeStamps):
         """To calculate the periodicity and support
@@ -258,18 +273,20 @@ class TopK(periodicFrequentPatterns):
         for i in prefix:
             sample = sample + i + " "
         if len(self.finalPatterns) < self.k:
-            self.finalPatterns[sample] = val
-            self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
+            if val[0] >= self.minimum:
+                self.finalPatterns[sample] = val
+                self.finalPatterns = {k: v for k, v in
+                                  sorted(self.finalPatterns.items(), key=lambda item: item[1], reverse=True)}
+                self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
         else:
-            for x, y in self.finalPatterns.items():
-                if y[0] < val[0]:
-                    del self.finalPatterns[x]
-                    self.finalPatterns[x] = y
-                    self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
+            for x, y in sorted(self.finalPatterns.items(), key=lambda x: x[1][0]):
                 if val[0] > y[0]:
                     del self.finalPatterns[x]
                     self.finalPatterns[x] = y
+                    self.finalPatterns = {k: v for k, v in
+                                          sorted(self.finalPatterns.items(), key=lambda item: item[1], reverse=True)}
                     self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
+                    return
 
     def Generation(self, prefix, itemSets, tidSets):
         """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
@@ -322,6 +339,7 @@ class TopK(periodicFrequentPatterns):
             raise Exception("Please enter the file path or file name:")
         if self.k is None:
             raise Exception("Please enter the Minimum Support")
+        self.creatingItemSets()
         plist = self.frequentOneItem()
         for i in range(len(plist)):
             itemI = plist[i]
@@ -338,7 +356,7 @@ class TopK(periodicFrequentPatterns):
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             self.Generation(itemSetX, itemSets, tidSets)
-        print("TopK Frequent patterns were generated successfully")
+        print("TopK Periodic Frequent patterns were generated successfully")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
@@ -374,7 +392,7 @@ class TopK(periodicFrequentPatterns):
 
         return self.endTime - self.startTime
 
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -389,7 +407,7 @@ class TopK(periodicFrequentPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def storePatternsInFile(self, outFile):
+    def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -422,8 +440,8 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        ap.storePatternsInFile(sys.argv[2])
-        print(ap.getPatternsInDataFrame())
+        ap.savePatterns(sys.argv[2])
+        print(ap.getPatternsAsDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -431,16 +449,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = TopK('/home/apiiit-rkv/Downloads/datasets/Mushroom', 40, 100, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.storePatternsInFile("patterns.txt")
-        print(ap.getPatternsInDataFrame())
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

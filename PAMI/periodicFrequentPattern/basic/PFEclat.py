@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.periodicFrequentPattern.basic.abstract import *
 
 
@@ -96,13 +98,13 @@ class PFEclat(periodicFrequentPatterns):
         -------
         Format:
         ------
-        python3 PFEclat.py <inputFile> <outputFile> <minSup>
+            python3 PFEclat.py <inputFile> <outputFile> <minSup>
 
         Examples:
         --------
-        python3 PFEclat.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            python3 PFEclat.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
 
-        python3 PFEclat.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+            python3 PFEclat.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
         
         Sample run of the imported code:
         --------------
@@ -198,35 +200,56 @@ class PFEclat(periodicFrequentPatterns):
         """Storing the complete transactions of the database/input file in a database variable
         """
         plist = []
-        try:
-            self.tidList = {}
-            self.mapSupport = {}
-            self.mapSupport, self.tidList = {}, {}
-            with open(self.iFile, 'r') as f:
-                for line in f:
-                    self.lno += 1
-                    s = [i.strip() for i in line.split(self.sep)]
-                    s = [x for x in s if x]
-                    n = self.lno
-                    for i in range(1, len(s)):
-                        si = s[i]
-                        if self.mapSupport.get(si) is None:
-                            self.mapSupport[si] = [1, abs(0-n), n]
-                            self.tidList[si] = [n]
-                        else:
-                            self.mapSupport[si][0] += 1
-                            self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n-self.mapSupport[si][2]))
-                            self.mapSupport[si][2] = n
-                            self.tidList[si].append(n)
-            for x, y in self.mapSupport.items():
-                self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
-            self.minSup = self.convert(self.minSup)
-            self.maxPer = self.convert(self.maxPer)
-            self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if v[0] >= self.minSup and v[1] <=
+        Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                Database = self.iFile['Patterns'].tolist()
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
+        self.mapSupport, self.tidList = {}, {}
+        for tr in Database:
+            self.lno += 1
+            for i in range(1, len(tr)):
+                si = tr[i]
+                if self.mapSupport.get(si) is None:
+                        self.mapSupport[si] = [1, abs(0-self.lno), self.lno]
+                        self.tidList[si] = [self.lno]
+                else:
+                        self.mapSupport[si][0] += 1
+                        self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(self.lno-self.mapSupport[si][2]))
+                        self.mapSupport[si][2] = self.lno
+                        self.tidList[si].append(self.lno)
+        for x, y in self.mapSupport.items():
+            self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
+        self.minSup = self.convert(self.minSup)
+        self.maxPer = self.convert(self.maxPer)
+        del Database
+        self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if v[0] >= self.minSup and v[1] <=
                                self.maxPer}
-            plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
-        except IOError:
-            print("File Not Found")
+        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
         return plist
     
     def save(self, prefix, suffix, tidSetI):
@@ -313,6 +336,9 @@ class PFEclat(periodicFrequentPatterns):
             self.save(None, itemSetX, tidSetI)
         print("Periodic-Frequent patterns were generated successfully using eclat_pfp algorithm")
         self.endTime = time.time()
+        self.memoryRSS = float()
+        self.memoryUSS = float()
+        process = str()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss

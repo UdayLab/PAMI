@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.periodicFrequentPattern.maximal.abstract import *
 
 
@@ -267,7 +269,7 @@ class MPTree(object):
         Methods:
         -------
             addTransaction(itemSet)
-                the genarated periodic-frequent pattern is added into maximal-tree
+                the generated periodic-frequent pattern is added into maximal-tree
             checkerSub(itemSet)
                 to check of subset of itemSet is present in tree
     """
@@ -401,7 +403,7 @@ class Maxpfgrowth(periodicFrequentPatterns):
                 Otherwise, it will be treated as float.
                 Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
             sep : str
-                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+                This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
                 However, the users can override their default separator.
             memoryUSS : float
                 To store the total amount of USS memory consumed by the program
@@ -440,7 +442,7 @@ class Maxpfgrowth(periodicFrequentPatterns):
                 Total amount of RSS memory consumed by the mining process will be retrieved from this function
             getRuntime()
                 Total amount of runtime taken by the mining process will be retrieved from this function
-            creatingitemSets(fileName)
+            creatingItemSets(fileName)
                 Scans the dataset or dataframes and stores in list format
             PeriodicFrequentOneItem()
                 Extracts the one-periodic-frequent patterns from Databases
@@ -512,20 +514,40 @@ class Maxpfgrowth(periodicFrequentPatterns):
     rankedUp = {}
     lno = 0
 
-    def creatingitemSets(self):
+    def creatingItemSets(self):
         """ Storing the complete Databases of the database/input file in a database variable
             :rtype: storing transactions into Database variable
         """
 
-        try:
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
-                    li = line.split(self.sep)
-                    li1 = [i.strip() for i in li]
-                    self.Database.append(li1)
-                    self.lno += 1
-        except IOError:
-            print("File Not Found")
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            #print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def periodicFrequentOneItem(self):
         """
@@ -620,7 +642,6 @@ class Maxpfgrowth(periodicFrequentPatterns):
                 value = int(value)
         return value
 
-    
     def startMine(self):
         """ Mining process will start from this function
         """
@@ -631,7 +652,7 @@ class Maxpfgrowth(periodicFrequentPatterns):
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingitemSets()
+        self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
         minSup, maxPer, lno = self.minSup, self.maxPer, len(self.Database)
@@ -644,13 +665,16 @@ class Maxpfgrowth(periodicFrequentPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedDatabases, info)
         Tree.generatePatterns([])
-        for x,y in patterns.items():
+        self.finalPatterns = {}
+        for x, y in patterns.items():
             sample = str()
             for i in x:
                 sample = sample + i + " "
             self.finalPatterns[sample] = y
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         print("Maximal Periodic Frequent patterns were generated successfully using MAX-PFPGrowth algorithm ")
@@ -736,5 +760,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        print("Error! The number of input parameters do not match the total number of parameters provided")
-        
+        print("Error! The number of input parameters do not match the total number of parameters provided")        

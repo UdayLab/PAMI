@@ -218,19 +218,20 @@ class TopK(frequentPatterns):
         for i in prefix:
             sample = sample + i + " "
         if len(self.finalPatterns) < self.k:
-            self.finalPatterns[sample] = val
-            self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+            if val > self.minimum:
+                self.finalPatterns[sample] = val
+                self.finalPatterns = {k: v for k, v in sorted(self.finalPatterns.items(), key=lambda item: item[1], reverse=True)}
+                self.minimum = min([i for i in self.finalPatterns.values()])
         else:
-            for x, y in self.finalPatterns.items():
-                if y < val:
+            for x, y in sorted(self.finalPatterns.items(), key=lambda x: x[1]):
+                if val > y:
                     del self.finalPatterns[x]
-                    self.finalPatterns[x] =y
-                    self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
-                if val >= y:
-                    if val == y and len(prefix) > len(x):
-                        del self.finalPatterns[x]
-                        self.finalPatterns[x] = y
-                        self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+                    self.finalPatterns[sample] = val
+                    self.finalPatterns = {k: v for k, v in
+                                              sorted(self.finalPatterns.items(), key=lambda item: item[1],
+                                                     reverse=True)}
+                    self.minimum = min([i for i in self.finalPatterns.values()])
+                    return
 
     def Generation(self, prefix, itemSets, tidSets):
         """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.

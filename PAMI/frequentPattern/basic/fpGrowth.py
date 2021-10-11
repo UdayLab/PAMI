@@ -615,7 +615,8 @@ if __name__ == "__main__":
         ap.startMine()
 
         Patterns = ap.getPatterns()
-
+        for x, y in Patterns.items():
+            print(x, y)
         print("Total number of Frequent Patterns:", len(Patterns))
 
         ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')

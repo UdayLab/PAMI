@@ -752,19 +752,18 @@ class PSGrowth(periodicFrequentPatterns):
         rootNode = Tree()
         rootNode.info = info.copy()
         k = 0
-        with open(self.iFile, 'r') as f:
-            for line in f:
-                k += 1
-                tr = [i.rstrip() for i in line.split(self.sep)]
-                list2 = [int(tr[0])]
-                for i in range(1, len(tr)):
-                    if tr[i] in sampleDict:
-                        list2.append(self.rank[tr[i]])
-                if len(list2) >= 2:
-                    basket = list2[1:]
-                    basket.sort()
-                    list2[1:] = basket[0:]
-                    rootNode.addTransaction(list2[1:], list2[0])
+        for line in self.Database:
+            k += 1
+            tr = line
+            list2 = [int(tr[0])]
+            for i in range(1, len(tr)):
+                if tr[i] in sampleDict:
+                    list2.append(self.rank[tr[i]])
+            if len(list2) >= 2:
+                basket = list2[1:]
+                basket.sort()
+                list2[1:] = basket[0:]
+                rootNode.addTransaction(list2[1:], list2[0])
         return rootNode
 
     def startMine(self):
@@ -789,6 +788,8 @@ class PSGrowth(periodicFrequentPatterns):
                 sample = sample + k + " "
             self.finalPatterns[sample] = i[1]
         self.endTime = time.time()
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss

@@ -1,5 +1,8 @@
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.periodicFrequentPattern.closed.abstract import *
+
 
 class CPFPMiner(periodicFrequentPatterns):
     """ CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.
@@ -154,32 +157,59 @@ class CPFPMiner(periodicFrequentPatterns):
         -------
         Returns the 1-length periodic-frequent items
         """
-        try:
-            self.tidList = {}
-            self.mapSupport = {}
-            with open(self.iFile, 'r') as f:
-                for line in f:
-                    self.lno += 1
-                    s = [i.rstrip() for i in line.split(self.sep)]
-                    n = int(s[0])
-                    for i in range(1, len(s)):
-                        si = s[i]
-                        if self.mapSupport.get(si) is None:
-                            self.mapSupport[si] = [1, abs(0 - n), n]
-                            self.tidList[si] = [n]
-                        else:
-                            self.mapSupport[si][0] += 1
-                            self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n - self.mapSupport[si][2]))
-                            self.mapSupport[si][2] = n
-                            self.tidList[si].append(n)
-            for x, y in self.mapSupport.items():
-                self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
-            self.minSup = self.convert(self.minSup)
-            self.maxPer = self.convert(self.maxPer)
-            self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if
+        Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                Database = self.iFile['Patterns'].tolist()
+
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
+        self.tidList = {}
+        self.mapSupport = {}
+        for line in Database:
+            self.lno += 1
+            s = line
+            n = int(s[0])
+            for i in range(1, len(s)):
+                si = s[i]
+                if self.mapSupport.get(si) is None:
+                    self.mapSupport[si] = [1, abs(0 - n), n]
+                    self.tidList[si] = [n]
+                else:
+                    self.mapSupport[si][0] += 1
+                    self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n - self.mapSupport[si][2]))
+                    self.mapSupport[si][2] = n
+                    self.tidList[si].append(n)
+        for x, y in self.mapSupport.items():
+            self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
+        del Database
+        self.minSup = self.convert(self.minSup)
+        self.maxPer = self.convert(self.maxPer)
+        self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if
                            v[0] >= self.minSup and v[1] <= self.maxPer}
-        except IOError:
-            print("File Not Found")
         periodicFrequentItems = {}
         self.tidList = {k: v for k, v in self.tidList.items() if k in self.mapSupport}
         for x, y in self.tidList.items():
@@ -361,6 +391,7 @@ class CPFPMiner(periodicFrequentPatterns):
         """
         self.startTime = time.time()
         periodicFrequentItems = self.scanDatabase()
+        self.finalPatterns = {}
         for i in range(len(periodicFrequentItems)):
             itemX = periodicFrequentItems[i]
             if itemX is None:
@@ -395,6 +426,8 @@ class CPFPMiner(periodicFrequentPatterns):
             self.save([], itemSetX, tidSetX)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         print("Closed periodic frequent patterns were generated successfully using CPFPMiner algorithm ")
@@ -485,16 +518,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = CPFPMiner('/home/apiiit-rkv/Downloads/3p/BMS1_itemset_mining.txt', 100, 800, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of  Patterns:", len(Patterns))
-        ap.storePatternsInFile("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
-

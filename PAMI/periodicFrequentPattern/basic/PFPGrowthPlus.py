@@ -413,7 +413,6 @@ class PFPGrowthPlus(periodicFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-
     def periodicFrequentOneItem(self):
         """
             calculates the support of each item in the dataset and assign the ranks to the items
@@ -536,15 +535,17 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedTransactions, info)
         patterns = Tree.generatePatterns([])
-        self.finalPatterns
+        self.finalPatterns = {}
         for i in patterns:
             x = self.savePeriodic(i[0])
             self.finalPatterns[x] = i[1]
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryRSS = float()
+        self.memoryUSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
-        print("periodic-frequent patterns were generated successfully using PFPGrowthPlus algorithm ")
+        print("periodic-frequent patterns were generated successfully using PFPGrowth++ algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

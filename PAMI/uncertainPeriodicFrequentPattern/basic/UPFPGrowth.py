@@ -606,10 +606,10 @@ class UPFPGrowth(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = float(value)
+            value = (len(self.Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = float(value)
+                value = (len(self.Database) * value)
             else:
                 value = int(value)
 
