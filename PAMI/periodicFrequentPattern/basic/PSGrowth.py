@@ -722,6 +722,7 @@ class PSGrowth(periodicFrequentPatterns):
         data = {}
         global minSup, maxPer, lno
         for tr in self.Database:
+            self.lno += 1
             for i in range(1, len(tr)):
                 if tr[i] not in data:
                     data[tr[i]] = [int(tr[0]), int(tr[0]), 1]

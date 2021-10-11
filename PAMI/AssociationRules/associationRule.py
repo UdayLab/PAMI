@@ -39,8 +39,8 @@ class associationRuleMiner:
             sample = str()
             for j in suffix[i+1:]:
                 sample = sample + j
-            print(prefix, sample)
-            self.generation(prefix, sample)
+                print(prefix, sample)
+                self.generation(prefix, sample)
 
     def associationRuleMiner(self):
         flist = []
@@ -52,8 +52,8 @@ class associationRuleMiner:
             sample = str()
             for j in flist[i+1:]:
                 sample = sample + j
-            print(flist[i], sample)
-            self.generation(str(flist[i]), sample)
+                print(flist[i], sample)
+                self.generation(flist[i], sample)
 
 
 
