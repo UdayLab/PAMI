@@ -70,7 +70,6 @@ class generateTransactionalDatabase:
                 for j in itemSet:
                     outFile.write(str(j) + self.sep)
                 outFile.write('\n')
-                print(itemSet)
         # close outFile
         outFile.close()
 
