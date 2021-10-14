@@ -260,8 +260,8 @@ class generatePFListver2:
         dataSize = 0
         currentTime, last = int(), int()
         for l in self.inputFile:
-            currentTime = int(l.pop(0))
-            for item in l:
+            currentTime = int(l[0])
+            for item in l[1:]:
                 if item not in self.PFList:
                     self.PFList[item] = [1, currentTime, currentTime]
                     tidList[item] = set()
