@@ -17,7 +17,7 @@ echo "Uploading PAMI to main PYPI repository"
 python3 -m twine upload dist/*
 
 echo "Deleting unnecessary files"
-rm -rf dist/ pami.egg-info/ build/  
+rm -rf dist/ pami.egg-info/ build/
 
 
 echo "Completed."

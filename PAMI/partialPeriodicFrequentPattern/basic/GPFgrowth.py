@@ -273,20 +273,20 @@ class generatePFListver2:
                     self.PFList[item][2] = currentTime
                     if currentPeriodicity > self.PFList[item][1]:
                         self.PFList[item][1] = currentPeriodicity
-            for l in self.inputFile:
-                currentTime = int(l.pop(0))
-                for item in l:
-                    if item not in self.PFList:
-                        self.PFList[item] = [1, currentTime, currentTime]
-                        tidList[item] = set()
-                        tidList[item].add(currentTime)
-                    else:
-                        tidList[item].add(currentTime)
-                        self.PFList[item][0] += 1
-                        currentPeriodicity = currentTime - self.PFList[item][2]
-                        self.PFList[item][2] = currentTime
-                        if currentPeriodicity > self.PFList[item][1]:
-                            self.PFList[item][1] = currentPeriodicity
+            # for l in self.inputFile:
+            #     currentTime = int(l.pop(0))
+            #     for item in l:
+            #         if item not in self.PFList:
+            #             self.PFList[item] = [1, currentTime, currentTime]
+            #             tidList[item] = set()
+            #             tidList[item].add(currentTime)
+            #         else:
+            #             tidList[item].add(currentTime)
+            #             self.PFList[item][0] += 1
+            #             currentPeriodicity = currentTime - self.PFList[item][2]
+            #             self.PFList[item][2] = currentTime
+            #             if currentPeriodicity > self.PFList[item][1]:
+            #                 self.PFList[item][1] = currentPeriodicity
             last = currentTime
         keys = list(self.PFList)
         for item in keys:
@@ -338,11 +338,11 @@ class generatePFTreever2:
             tempTransaction = [tuple([item]) for item in transaction if tuple([item]) in self.tidList]
             transaction = sorted(tempTransaction, key=lambda x: len(self.tidList[x]), reverse=True)
             self.root.addTransaction(transaction, currentTime)
-            for transaction in self.inputFile:
-                tid = int(transaction.pop(0))
-                tempTransaction = [tuple([item]) for item in transaction if tuple([item]) in self.tidList]
-                transaction = sorted(tempTransaction, key=lambda x: len(self.tidList[x]), reverse=True)
-                self.root.addTransaction(transaction, tid)
+            # for transaction in self.inputFile:
+            #     tid = int(transaction.pop(0))
+            #     tempTransaction = [tuple([item]) for item in transaction if tuple([item]) in self.tidList]
+            #     transaction = sorted(tempTransaction, key=lambda x: len(self.tidList[x]), reverse=True)
+            #     self.root.addTransaction(transaction, tid)
         return self.root
     
     
@@ -531,6 +531,7 @@ class GPFGrowth(partialPeriodicPatterns):
     memoryUSS = float()
     memoryRSS = float()
     Database = []
+    lno = 0
     
     def creatingItemSets(self):
         """
@@ -579,6 +580,7 @@ class GPFGrowth(partialPeriodicPatterns):
     def startMine(self):
         startTime = time.time()
         self.finalPatterns = {}
+        self.creatingItemSets()
         obj = generatePFListver2(self.Database, self.minSup, self.maxPer, self.minPR)
         tidList, last = obj.run()
         PFTree = generatePFTreever2(self.Database, tidList).run()
