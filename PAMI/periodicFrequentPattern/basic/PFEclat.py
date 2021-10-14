@@ -338,7 +338,6 @@ class PFEclat(periodicFrequentPatterns):
         self.endTime = time.time()
         self.memoryRSS = float()
         self.memoryUSS = float()
-        process = str()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss

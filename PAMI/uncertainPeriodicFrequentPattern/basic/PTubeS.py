@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.uncertainPeriodicFrequentPattern.basic.abstract import *
 
 minSup = float()
@@ -343,9 +345,9 @@ def getPeriodAndSupport(s, timeStamps):
     
     :return: support and periodicity of timeStamps
     """
-    global lno, maxPer
+    global lno, maxPer, first, last
     timeStamps.sort()
-    cur = 0
+    cur = first
     per = 0
     sup = s
     for j in range(len(timeStamps)):
@@ -353,7 +355,7 @@ def getPeriodAndSupport(s, timeStamps):
         if per > maxPer:
             return [0, 0]
         cur = timeStamps[j]
-    per = max(per, lno - cur)
+    per = max(per, last - cur)
     return [sup, per]
 
 
@@ -539,9 +541,33 @@ class PTubeS(periodicFrequentPatterns):
 
 
         """
-        try:
-            with open(self.iFile, 'r') as f:
-                for line in f:
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            timeStamps, data, utilities = [], [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            if 'utilityValues' in i:
+                utilities = self.iFile['utilityValues'].tolist()
+            if 'timeStamps' in i:
+                timeStamps = self.iFile['timeStamps'].tolist()
+            for i in range(len(data)):
+                tr = [timeStamps[i]]
+                for j in range(len(data[i])):
+                    product = Item(data[i][j], utilities[i][j])
+                    tr.append(product)
+                self.Database.append(tr)
+            self.lno = len(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     tr = [int(temp[0])]
@@ -554,8 +580,24 @@ class PTubeS(periodicFrequentPatterns):
                         tr.append(product)
                     self.lno += 1
                     self.Database.append(tr)
-        except IOError:
-            print("File Not Found")
+            else:
+                try:
+                    with open(self.iFile, 'r') as f:
+                        for line in f:
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            tr = [int(temp[0])]
+                            for i in temp[1:]:
+                                i1 = i.index('(')
+                                i2 = i.index(')')
+                                item = i[0:i1]
+                                probability = float(i[i1 + 1:i2])
+                                product = Item(item, probability)
+                                tr.append(product)
+                            self.lno += 1
+                            self.Database.append(tr)
+                except IOError:
+                    print("File Not Found")
 
     def PeriodicFrequentOneItems(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
@@ -564,6 +606,8 @@ class PTubeS(periodicFrequentPatterns):
         """
         global first, last
         mapSupport = {}
+        first = min([i[0] for i in self.Database])
+        last = max([i[0] for i in self.Database])
         for i in self.Database:
             n = i[0]
             for j in i[1:]:
@@ -575,8 +619,11 @@ class PTubeS(periodicFrequentPatterns):
                     mapSupport[j.item][2] = n
         for key in mapSupport:
             mapSupport[key][1] = max(mapSupport[key][1], last - mapSupport[key][2])
+        self.maxPer = self.convert(self.maxPer)
+        self.minSup = self.convert(self.minSup)
         mapSupport = {k: [round(v[0], 2), v[1]] for k, v in mapSupport.items() if
                       v[1] <= self.maxPer and v[0] >= self.minSup}
+        print(len(mapSupport))
         plist = [k for k, v in sorted(mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(plist)])
         return mapSupport, plist
@@ -651,10 +698,10 @@ class PTubeS(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = float(value)
+            value = (len(self.Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = float(value)
+                value = (len(self.Database) * value)
             else:
                 value = int(value)
 
@@ -683,7 +730,7 @@ class PTubeS(periodicFrequentPatterns):
                         else:
                             periods[x] = [s, y[1]]
         for x, y in periods.items():
-            if y[0] >= minSup:
+            if y[0] >= self.minSup:
                 sample = str()
                 for i in x:
                     sample = sample + i + " " 
@@ -698,10 +745,9 @@ class PTubeS(periodicFrequentPatterns):
         global lno, first, last, minSup, maxPer
         self.startTime = time.time()
         self.creatingItemSets()
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
-        minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
         mapSupport, plist = self.PeriodicFrequentOneItems()
+        minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
+        print(minSup, maxPer)
         updatedTrans = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         Tree = self.buildTree(updatedTrans, info)
@@ -709,6 +755,8 @@ class PTubeS(periodicFrequentPatterns):
         self.removeFalsePositives()
         print("periodic Frequent patterns were generated successfully using Periodic-TubeS algorithm")
         self.endTime = time.time()
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
@@ -801,4 +849,39 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        data = {'timeStamps': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                'Patterns': [['a', 'b', 'c'], ['b', 'e', 'f'], ['g', 'h'], ['b', 'c', 'd', 'e'], ['a', 'b', 'c', 'd'],
+                             ['d', 'f', 'h'], ['a', 'b', 'c', 'd'], ['c', 'd', 'e', 'f'], ['a', 'b', 'c'],
+                             ['a', 'b', 'c', 'd'],
+                             ['g', 'h'], ['a', 'e', 'f']],
+                'utilityValues': [[0.8, 0.3, 0.1], [0.9, 0.03, 0.7], [0.6, 0.2], [0.6, 0.4, 0.7, 0.8],
+                                  [0.3, 0.7, 0.9, 0.4], [0.3, 0.9, 0.2], [0.5, 0.5, 0.3, 0.8],
+                                  [0.01, 0.4, 0.6, 0.9], [0.6, 0.8, 0.4], [0.6, 0.2, 0.9, 0.1],
+                                  [0.6, 0.2], [0.6, 0.9, 0.3]]}
+        data = pd.DataFrame.from_dict(data)
+        dataset = '/home/apiiit-rkv/Desktop/uncertain/congestion_temporal.txt'
+        ap = PTubeS(dataset, minSup=0.1, maxPer=0.3, sep=' ')
+
+        ap.startMine()
+
+        Patterns = ap.getPatterns()
+        for x, y in Patterns.items():
+            print(x, y)
+        print("Total number of Frequent Patterns:", len(Patterns))
+
+        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+        da = ap.getPatternsAsDataFrame()
+        # print(da)
+
+        memUSS = ap.getMemoryUSS()
+
+        print("Total Memory in USS:", memUSS)
+
+        memRSS = ap.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = ap.getRuntime()
+
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

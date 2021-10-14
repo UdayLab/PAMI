@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.uncertainPeriodicFrequentPattern.basic.abstract import *
 
 
@@ -250,9 +252,9 @@ class Tree(object):
             del i.parent.children[nodeValue]
 
     def getPeriodAndSupport(self, s, timeStamps):
-        global lno, maxPer
+        global lno, maxPer, first, last
         timeStamps.sort()
-        cur = 0
+        cur = first
         per = 0
         sup = s
         for j in range(len(timeStamps)):
@@ -260,7 +262,7 @@ class Tree(object):
             if per > maxPer:
                 return [0, 0]
             cur = timeStamps[j]
-        per = max(per, lno - cur)
+        per = max(per, last - cur)
         return [sup, per]
 
     def conditionalTransactions(self, condPatterns, condTimeStamps, support):
@@ -471,9 +473,33 @@ class UPFPGrowth(periodicFrequentPatterns):
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        try:
-            with open(self.iFile, 'r') as f:
-                for line in f:
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            timeStamps, data, utilities =[], [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            if 'utilityValues' in i:
+                utilities = self.iFile['utilityValues'].tolist()
+            if 'timeStamps' in i:
+                timeStamps = self.iFile['timeStamps'].tolist()
+            for i in range(len(data)):
+                tr = [timeStamps[i]]
+                for j in range(len(data[i])):
+                    product = Item(data[i][j], utilities[i][j])
+                    tr.append(product)
+                self.Database.append(tr)
+            self.lno = len(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     tr = [int(temp[0])]
@@ -486,26 +512,48 @@ class UPFPGrowth(periodicFrequentPatterns):
                         tr.append(product)
                     self.lno += 1
                     self.Database.append(tr)
-        except IOError:
-            print("File Not Found")
+            else:
+                try:
+                    with open(self.iFile, 'r') as f:
+                        for line in f:
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            tr = [int(temp[0])]
+                            for i in temp[1:]:
+                                i1 = i.index('(')
+                                i2 = i.index(')')
+                                item = i[0:i1]
+                                probability = float(i[i1 + 1:i2])
+                                product = Item(item, probability)
+                                tr.append(product)
+                            self.lno += 1
+                            self.Database.append(tr)
+                except IOError:
+                    print("File Not Found")
 
     def periodicFrequentOneItem(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
                     ranks to the items by decreasing support and returns the frequent items list
 
         """
+        global first, last
         mapSupport = {}
+        first = min([i[0] for i in self.Database])
+        last = max([i[0] for i in self.Database])
         for i in self.Database:
             n = i[0]
             for j in i[1:]:
                 if j.item not in mapSupport:
-                    mapSupport[j.item] = [j.probability, abs(0 - n), n]
+                    mapSupport[j.item] = [j.probability, abs(first - n), n]
                 else:
                     mapSupport[j.item][0] += j.probability
                     mapSupport[j.item][1] = max(mapSupport[j.item][1], abs(n - mapSupport[j.item][2]))
                     mapSupport[j.item][2] = n
         for key in mapSupport:
-            mapSupport[key][1] = max(mapSupport[key][1], len(self.Database) - mapSupport[key][2])
+            mapSupport[key][1] = max(mapSupport[key][1], abs(last - mapSupport[key][2]))
+        self.minSup = self.convert(self.minSup)
+        self.maxPer = self.convert(self.maxPer)
+        print(type(self.minSup), type(self.maxPer), self.minSup, self.maxPer)
         mapSupport = {k: [v[0], v[1]] for k, v in mapSupport.items() if v[1] <= self.maxPer and v[0] >= self.minSup}
         plist = [k for k, v in sorted(mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(plist)])
@@ -639,7 +687,7 @@ class UPFPGrowth(periodicFrequentPatterns):
                         else:
                             periods[x] = [s, y[1]]
         for x, y in periods.items():
-            if y[0] >= minSup:
+            if y[0] >= self.minSup:
                 sample = str()
                 for i in x:
                     sample = sample + i + " " 
@@ -657,10 +705,8 @@ class UPFPGrowth(periodicFrequentPatterns):
         self.startTime = time.time()
         lno = 1
         self.creatingItemSets()
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
-        minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
         mapSupport, plist = self.periodicFrequentOneItem()
+        minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
         updatedTrans = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         Tree1 = self.buildTree(updatedTrans, info)
@@ -668,6 +714,8 @@ class UPFPGrowth(periodicFrequentPatterns):
         self.removeFalsePositives()
         print("Periodic frequent patterns were generated successfully using UPFP algorithm")
         self.endTime = time.time()
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
@@ -727,7 +775,7 @@ class UPFPGrowth(periodicFrequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x + ": " + str(y[0]) +" :" +str(y[1])
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -759,4 +807,38 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        data = {'timeStamps': [1,2,3,4,5,6,7,8,9,10,11,12],
+                'Patterns':[['a', 'b','c'],['b','e','f'], ['g','h'], ['b','c','d','e'], ['a','b','c','d'],
+                            ['d','f','h'], ['a','b','c','d'], ['c','d','e','f'], ['a','b','c'], ['a','b','c','d'],
+                            ['g', 'h'], ['a', 'e', 'f']],
+                'utilityValues':[[0.8, 0.3,0.1], [0.9, 0.03, 0.7], [0.6, 0.2], [0.6,0.4,0.7,0.8],
+                                 [0.3,0.7,0.9,0.4], [0.3,0.9,0.2],[0.5,0.5,0.3,0.8],
+                                 [0.01,0.4,0.6,0.9], [0.6,0.8,0.4],[0.6,0.2,0.9,0.1],
+                                 [0.6,0.2],[0.6,0.9,0.3]]}
+        data = pd.DataFrame.from_dict(data)
+        dataset = '/home/apiiit-rkv/Desktop/uncertain/congestion_temporal.txt'
+        ap = UPFPGrowth(dataset, minSup=0.1, maxPer=0.3, sep=' ')
+
+        ap.startMine()
+
+        Patterns = ap.getPatterns()
+        for x, y in Patterns.items():
+            print(x, y)
+        print("Total number of Frequent Patterns:", len(Patterns))
+
+        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+        da = ap.getPatternsAsDataFrame()
+        #print(da)
+
+        memUSS = ap.getMemoryUSS()
+
+        print("Total Memory in USS:", memUSS)
+
+        memRSS = ap.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = ap.getRuntime()
+
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

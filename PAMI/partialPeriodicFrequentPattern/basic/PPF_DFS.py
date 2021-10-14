@@ -1,4 +1,6 @@
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
 
@@ -6,71 +8,111 @@ class PPF_DFS(partialPeriodicPatterns):
     """
     PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 
-    Attributes
+    Attributes:
     ----------
 
-    path : file
-        input file path
-    output : file
-        output file name
-    minSup : float
-        user defined minsup
-    maxPer : float
-        user defined maxPer
-    minPR : float
-        user defined minPR
-    tidlist : dict
-        it store tids each item
-    last : int
-        it represents last time stamp in database
-    lno : int
-        number of line in database
-    mapSupport : dict
-        to maintain the information of item and their frequency
-    finalPatterns : dict
-        it represents to store the patterns
-    runTime : float
-        storing the total runtime of the mining process
-    memoryUSS : float
-        storing the total amount of USS memory consumed by the program
-    memoryRSS : float
-        storing the total amount of RSS memory consumed by the program
+        iFile : file
+            input file path
+        oFile : file
+            output file name
+        minSup : float
+            user defined minSup
+        maxPer : float
+            user defined maxPer
+        minPR : float
+            user defined minPR
+        tidlist : dict
+            it store tids each item
+        last : int
+            it represents last time stamp in database
+        lno : int
+            number of line in database
+        mapSupport : dict
+            to maintain the information of item and their frequency
+        finalPatterns : dict
+            it represents to store the patterns
+        runTime : float
+            storing the total runtime of the mining process
+        memoryUSS : float
+            storing the total amount of USS memory consumed by the program
+        memoryRSS : float
+            storing the total amount of RSS memory consumed by the program
 
-    Methods
+    Methods:
     -------
-    findDelimiter(line)
-        Identifying the delimiter of the input file
-    getPer_Sup(tids)
-        caluclate ip / (sup+1)
-    getPerSup(tids)
-        caluclate ip
-    scanDatabase(path)
-        scan all lines in database
-    sava(prefix,suffix,tidsetx)
-        save prefix pattern with support and periodic ratio
-    Generation(prefix, itemsets, tidsets)
-        Userd to implement prefix class equibalence method to generate the periodic patterns recursively
-    startMine()
-        Mining process will start from here
-    getPartialPeriodicPatterns()
-        Complete set of patterns will be retrieved with this function
-    storePatterns InFile(ouputFile)
-        Complete set of frequent patterns will be loaded in to a ouput file
-    getPatternsAsDataFrame()
-        Complete set of frequent patterns will be loaded in to a ouput file
-    getMemoryUSS()
-        Total amount of USS memory consumed by the mining process will be retrieved from this function
-    getMemoryRSS()
-        Total amount of RSS memory consumed by the mining process will be retrieved from this function
-    getRuntime()
-        Total amount of runtime taken by the mining process will be retrieved from this function
+        getPer_Sup(tids)
+            caluclate ip / (sup+1)
+        getPerSup(tids)
+            caluclate ip
+        oneItems(path)
+            scan all lines in database
+        save(prefix,suffix,tidsetx)
+            save prefix pattern with support and periodic ratio
+        Generation(prefix, itemsets, tidsets)
+            Userd to implement prefix class equibalence method to generate the periodic patterns recursively
+        startMine()
+            Mining process will start from here
+        getPartialPeriodicPatterns()
+            Complete set of patterns will be retrieved with this function
+        savePatterns(ouputFile)
+            Complete set of frequent patterns will be loaded in to a ouput file
+        getPatternsAsDataFrame()
+            Complete set of frequent patterns will be loaded in to a ouput file
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Format: python3 PPF_DFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
-    Examples: python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5
+    Format:
+    -------
+        python3 PPF_DFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
+
+    Examples:
+
+        python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5
+
+    Sample run of the importing code:
+    -----------
+
+
+        from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg
+
+        obj = alg.PPF_DFS(iFile, minSup)
+
+        obj.startMine()
+
+        frequentPatterns = obj.getPatterns()
+
+        print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+        obj.savePatterns(oFile)
+
+        Df = obj.getPatternInDataFrame()
+
+        memUSS = obj.getMemoryUSS()
+
+        print("Total Memory in USS:", memUSS)
+
+        memRSS = obj.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = obj.getRuntime()
+
+        print("Total ExecutionTime in seconds:", run)
+
+        Credits:
+        -------
+        The complete program was written by S. Nakamura  under the supervision of Professor Rage Uday Kiran.\n
+
     """
+
     path = ' '
     iFile = ' '
     oFile = ' '
+    sep = str()
     minSup = float()
     maxPer = float()
     minPR = float()
@@ -84,20 +126,52 @@ class PPF_DFS(partialPeriodicPatterns):
     memoryRSS = float()
     startTime = float()
     endTime = float()
+    Database = []
 
-    def findDelimiter(self, line):
-        """Identifying the delimiter of the input file
-            :param line: list of special characters may be used by a user to split the items in a input file
-            :type line: list of string
-            :returns: Delimited string used in the input file to split each item
-            :rtype: string
-            """
-        l = ['\t', ' ', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
-        j = None
-        for i in l:
-            if i in line:
-                return i
-        return j
+    def creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            timeStamp, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'timeStamps' in i:
+                timeStamp = self.iFile['timeStamps'].tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [timeStamp[i]]
+                tr.append(data[i])
+                self.Database.append(tr)
+            self.lno = len(self.Database)
+            #print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    self.lno += 1
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            self.lno += 1
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def getPer_Sup(self, tids):
         """
@@ -156,47 +230,66 @@ class PPF_DFS(partialPeriodicPatterns):
             return 0
         return sup
 
-    def scanDatabase(self, path):
+    def convert(self, value):
+        """
+        to convert the type of user specified minSup value
+
+        :param value: user specified minSup value
+
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self.Database) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self.Database) * value)
+            else:
+                value = int(value)
+        return value
+
+    def oneItems(self, path):
         """
         scan all lines of database and create support list
         :param path: it represents input file name
         :return: support list each item
         """
         id1 = 0
-        with open(path, 'r') as f:
-            for line in f:
-                self.lno += 1
-                # first=min(first,lno)
-                # last=max(last,lno)
-                line = line.strip()
-                delimiter = self.findDelimiter([*line])
-                s = [i.rstrip() for i in line.split(delimiter)]
-                n = int(s[0])
-                self.last = max(self.last, n)
-                for i in range(1, len(s)):
-                    si = s[i]
-                    if abs(0 - n) <= self.maxPer:
-                        if si not in self.mapSupport:
-                            self.mapSupport[si] = [1, 1, n]
-                            self.tidlist[si] = [n]
-                        else:
-                            lp = abs(n - self.mapSupport[si][2])
-                            if lp <= self.maxPer:
-                                self.mapSupport[si][0] += 1
-                            self.mapSupport[si][1] += 1
-                            self.mapSupport[si][2] = n
-                            self.tidlist[si].append(n)
+        self.maxPer = int(self.maxPer)
+        self.minSup = int(self.minSup)
+        self.minPR = float(self.minPR)
+        print(self.minSup, self.maxPer, self.minPR)
+        for line in self.Database:
+            self.lno += 1
+            s = line
+            n = int(s[0])
+            self.last = max(self.last, n)
+            for i in range(1, len(s)):
+                si = s[i]
+                if abs(0 - n) <= self.maxPer:
+                    if si not in self.mapSupport:
+                        self.mapSupport[si] = [1, 1, n]
+                        self.tidlist[si] = [n]
                     else:
-                        if si not in self.mapSupport:
-                            self.mapSupport[si] = [0, 1, n]
-                            self.tidlist[si] = [n]
-                        else:
-                            lp = abs(n - self.mapSupport[si][2])
-                            if lp <= self.maxPer:
-                                self.mapSupport[si][0] += 1
-                            self.mapSupport[si][1] += 1
-                            self.mapSupport[si][2] = n
-                            self.tidlist[si].append(n)
+                        lp = abs(n - self.mapSupport[si][2])
+                        if lp <= self.maxPer:
+                            self.mapSupport[si][0] += 1
+                        self.mapSupport[si][1] += 1
+                        self.mapSupport[si][2] = n
+                        self.tidlist[si].append(n)
+                else:
+                    if si not in self.mapSupport:
+                        self.mapSupport[si] = [0, 1, n]
+                        self.tidlist[si] = [n]
+                    else:
+                        lp = abs(n - self.mapSupport[si][2])
+                        if lp <= self.maxPer:
+                            self.mapSupport[si][0] += 1
+                        self.mapSupport[si][1] += 1
+                        self.mapSupport[si][2] = n
+                        self.tidlist[si].append(n)
         for x, y in self.mapSupport.items():
             lp = abs(self.last - self.mapSupport[x][2])
             if lp <= self.maxPer:
@@ -223,11 +316,7 @@ class PPF_DFS(partialPeriodicPatterns):
             prefix = prefix + suffix
         val = self.getPerSup(tidsetx)
         val1 = self.getPer_Sup(tidsetx)
-        # print(prefix,tidsetx,val,val1)
         if len(tidsetx) >= self.minSup and val / (len(tidsetx) + 1) >= self.minPR:
-            """self.itemsetCount+=1
-            s1=str(prefix)+":"+str(len(tidsetx))+":"+str(val1)
-            self.writer.write('%s \n'%s1)"""
             self.finalPatterns[tuple(prefix)] = [len(tidsetx), val1]
 
     def Generation(self, prefix, itemsets, tidsets):
@@ -259,7 +348,6 @@ class PPF_DFS(partialPeriodicPatterns):
                 tidsetj = tidsets[j]
                 y = list(set(tidsetx) & set(tidsetj))
                 val = self.getPerSup(y)
-                # if(len(y)>=minsup and val/(len(y)+1)>=minpr):
                 if len(y) >= self.minSup and val / (self.minSup + 1) >= self.minPR:
                     classItemsets.append(itemj)
                     classtidsets.append(y)
@@ -274,8 +362,10 @@ class PPF_DFS(partialPeriodicPatterns):
         """
         self.path = self.iFile
         starttime = time.time()
-        plist = self.scanDatabase(self.path)
+        self.creatingItemSets()
+        plist = self.oneItems(self.path)
         #print(len(plist))
+        self.finalPatterns = {}
         for i in range(len(plist)):
             itemx = plist[i]
             tidsetx = self.tidlist[itemx]
@@ -293,10 +383,11 @@ class PPF_DFS(partialPeriodicPatterns):
                     tidsets.append(y1)
             self.Generation(itemsetx, itemsets, tidsets)
             self.save(None, itemsetx, tidsetx)
-        # print("eclat Total Itemsets:",self.itemsetCount)
         endtime = time.time()
         self.runTime = (endtime - starttime)
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         # print("eclat Time taken:",temp)
@@ -350,7 +441,7 @@ class PPF_DFS(partialPeriodicPatterns):
             s1 = str(x) + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPartialPeriodicPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
@@ -359,19 +450,35 @@ class PPF_DFS(partialPeriodicPatterns):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) == 6:
-        ap = PPF_DFS(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+    ap = str()
+    if len(sys.argv) == 6 or len(sys.argv) == 7:
+        if len(sys.argv) == 7:
+            ap = PPF_DFS(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+        if len(sys.argv) == 6:
+            ap = PPF_DFS(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         ap.startMine()
-        frequentPatterns = ap.getPartialPeriodicPatterns()
-        print(f"Total number of Frequent Patterns: {len(frequentPatterns)}")
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
-        print(f'Total Memory in USS: {memUSS}')
+        print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
-        print(f'Total Memory in RSS: {memRSS}')
+        print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print(f'Total ExecutionTime in seconds: {run}')
+        print("Total ExecutionTime in ms:", run)
     else:
+        ap = PPF_DFS('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
+                     15, 1000, 0.8)
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 

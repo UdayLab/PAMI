@@ -609,27 +609,15 @@ if __name__ == "__main__":
                                  ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
         data = pd.DataFrame.from_dict(data)
-
-        ap = fpGrowth(data, minSup=2)
-
+        ap = fpGrowth('/home/apiiit-rkv/Downloads/transactional_T10I4D100K.csv', 0.006, ',')
         ap.startMine()
-
         Patterns = ap.getPatterns()
-        for x, y in Patterns.items():
-            print(x, y)
         print("Total number of Frequent Patterns:", len(Patterns))
-
         ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
-
         memUSS = ap.getMemoryUSS()
-
         print("Total Memory in USS:", memUSS)
-
         memRSS = ap.getMemoryRSS()
-
         print("Total Memory in RSS", memRSS)
-
         run = ap.getRuntime()
-
         print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

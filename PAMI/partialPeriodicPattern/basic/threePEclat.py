@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.partialPeriodicPattern.basic.abstract import *
 
 

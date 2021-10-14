@@ -155,6 +155,7 @@ class Eclat(frequentPatterns):
                 self.Database = self.iFile['Transactions'].tolist()
             if 'Patterns' in i:
                 self.Database = self.iFile['Patterns'].tolist()
+            # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
@@ -167,9 +168,8 @@ class Eclat(frequentPatterns):
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
-                        for line in self.iFile:
+                        for line in f:
                             line.strip()
-                            #line = line.decode("utf-8")
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
                             self.Database.append(temp)
@@ -387,5 +387,16 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = Eclat('/home/apiiit-rkv/Downloads/transactional_T10I4D100K.csv', 0.006, ',')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
         

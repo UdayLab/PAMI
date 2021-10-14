@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from PAMI.partialPeriodicPattern.basic.abstract import *
+import validators
+from urllib.request import urlopen
 import sys
 
 periodicSupport = float()
@@ -246,8 +248,8 @@ class ThreePGrowth(partialPeriodicPatterns):
         Reference : Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
         Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535
 
-        Parameters:
-        ----------
+    Parameters:
+    ----------
         self.iFile : file
             Name of the Input file or path of the input file
         self. oFile : file
@@ -284,8 +286,8 @@ class ThreePGrowth(partialPeriodicPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-        Methods:
-        -------
+    Methods:
+    -------
 
         startMine()
             Mining process will start from here
@@ -374,16 +376,44 @@ class ThreePGrowth(partialPeriodicPatterns):
 
 
             """
-        try:
-            self.Database = []
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
-                    li1 = [i.strip() for i in line.split(self.sep)]
-                    i = [x for x in li1 if x]
-                    self.Database.append(li1)
-                    self.lno += 1
-        except IOError:
-            print("File Not Found")
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            data, tids = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'timeStamps' in i:
+                tids = self.iFile['timeStamps'].tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [tids[i][0]]
+                tr.append(data[i])
+                self.Database.append(tr)
+            self.lno = len(self.Database)
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def partialPeriodicOneItem(self):
         """
@@ -392,6 +422,8 @@ class ThreePGrowth(partialPeriodicPatterns):
 
                     """
         data = {}
+        self.period = self.convert(self.period)
+        self.periodicSupport = self.convert(self.periodicSupport)
         for tr in self.Database:
             for i in range(1, len(tr)):
                 if tr[i] not in data:
@@ -430,11 +462,11 @@ class ThreePGrowth(partialPeriodicPatterns):
         """it takes the transactions and support of each item and construct the main tree with setting root
                             node as null
 
-                                :param data : it represents the one transactions in database
-                                :type data : list
-                                :param info : it represents the support of each item
-                                :type info : dictionary
-                                """
+                :param data : it represents the one transactions in database
+                :type data : list
+                :param info : it represents the support of each item
+                :type info : dictionary
+        """
         rootNode = Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
@@ -485,17 +517,12 @@ class ThreePGrowth(partialPeriodicPatterns):
         if self.periodicSupport is None:
             raise Exception("Please enter the Minimum Support")
         self.creatingItemSets()
-        self.periodicSupport = self.convert(self.periodicSupport)
-        self.period = self.convert(self.period)
-        periodicSupport, period, lno = self.periodicSupport, self.period, len(self.Database)
-        if self.periodicSupport > len(self.Database):
-            raise Exception("Please enter the minSup in range between 0 to 1")
         generatedItems, pfList = self.partialPeriodicOneItem()
+        periodicSupport, period, lno = self.periodicSupport, self.period, len(self.Database)
         updatedTransactions = self.updateTransactions(generatedItems)
         for x, y in self.rank.items():
             self.rankdup[y] = x
         info = {self.rank[k]: v for k, v in generatedItems.items()}
-        Tree = self.buildTree(updatedTransactions, info)
         patterns = Tree.generatePatterns([])
         self.finalPatterns = {}
         for i in patterns:
@@ -503,6 +530,8 @@ class ThreePGrowth(partialPeriodicPatterns):
             self.finalPatterns[s] = i[1]
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         print("Partial Periodic Patterns were generated successfully using 3PGrowth algorithm ")
@@ -588,4 +617,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        dataset = 'https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
+        ap = ThreePGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
+                          0.01, 0.001)
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Partial Periodic Patterns:", len(Patterns))
+        ap.savePatterns(sys.argv[2])
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

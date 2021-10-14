@@ -51,19 +51,20 @@ class partialPeriodicPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup, maxPer, minPR):
+    def __init__(self, iFile, minSup, maxPer, minPR, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
         :param minSup: UserSpecified minimum support value. It has to be given in terms of count of total number of
         transactions in the input database/file
-        :type minSup: float
+        :type minSup: float/int
         """
 
         self.iFile = iFile
         self.minSup = float(minSup)
         self.maxPer = float(maxPer)
         self.minPR = float(minPR)
+        self.sep = sep
 
     @abstractmethod
     def iFile(self):
@@ -76,7 +77,15 @@ class partialPeriodicPatterns(ABC):
         """Variable to store the user-specified minimum support value"""
 
         pass
+
+    @abstractmethod
     def maxPer(self):
+        """Variable to store the user specified maximum periodicity value"""
+
+        pass
+
+    @abstractmethod
+    def sep(self):
         """Variable to store the user specified maximum periodicity value"""
 
         pass
@@ -124,7 +133,7 @@ class partialPeriodicPatterns(ABC):
         pass
 
     @abstractmethod
-    def getPartialPeriodicPatterns(self):
+    def getPatterns(self):
         """Complete set of frequent patterns generated will be retrieved from this function"""
 
         pass
