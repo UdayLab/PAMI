@@ -1,16 +1,17 @@
 import sys
-import validators
-from urllib.request import urlopen
+import time
+import resource
+import psutil
+import os
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
 orderOfItem = {}
-
 
 class Node:
     """
         A class used to represent the node of frequentPatternTree
         ...
-        Attributes:
+        Attributes
         ----------
         item : int
             storing item of a node
@@ -73,10 +74,9 @@ class Tree:
         createPrefixTree(path,timeStampList)
             create prefix tree by path
         createConditionalTree(PFList, minSup, maxPer, minPR, last)
-            create conditional tree. Its nodes are satisfy IP / (minSup+1) >= minPR
+            create conditional tree. Its nodes are satissfy IP / (minSup+1) >= minPR
 
     """
-
     def __init__(self):
         self.root = Node()
         self.nodeLinks = {}
@@ -87,7 +87,7 @@ class Tree:
         add transaction into tree
         :param transaction: it represents the one transactions in database
         :type transaction: list
-        :param tid: represents the timestamp of transaction
+        :param tid: represets the timestamp of transaction
         :type tid: list
         """
         current = self.root
@@ -166,24 +166,23 @@ class Tree:
     def createConditionalTree(self, PFList, minSup, maxPer, minPR, last):
         """
         create conditional tree by pflist
-        :param PFList: it represent timeStamp each item
+        :param PFList: it represent timasatamp each item
         :type PFList: dict
         :param minSup: it represents minSup
         :param maxPer: it represents maxPer
         :param minPR: it represents minPR
         :param last: it represents last timestamp in database
-        :return: PFlist which satisfy ip / (minSup+1) >= minPR
+        :return: return is PFlist which satisfy ip / (minSup+1) >= minPR
         """
         keys = list(PFList)
         for item in keys:
             ip = calculateIP(maxPer, PFList[item], last).run()
-            if ip / (minSup + 1) >= minPR:
+            if ip / (minSup+1) >= minPR:
                 continue
             else:
                 self.deleteNode(item)
                 del PFList[item]
         return PFList
-
 
 class calculateIP:
     """
@@ -204,7 +203,6 @@ class calculateIP:
         calculate ip from its timestamp list
 
     """
-
     def __init__(self, maxPer, timeStamp, timeStampFinal):
         self.maxPer = maxPer
         self.timeStamp = timeStamp
@@ -221,13 +219,12 @@ class calculateIP:
             return ip
         if self.timeStamp[0] - 0 <= self.maxPer:
             ip += 1
-        for i in range(len(self.timeStamp) - 1):
-            if (self.timeStamp[i + 1] - self.timeStamp[i]) <= self.maxPer:
+        for i in range(len(self.timeStamp)-1):
+            if (self.timeStamp[i+1] - self.timeStamp[i]) <= self.maxPer:
                 ip += 1
-        if abs(self.timeStamp[(len(self.timeStamp) - 1)] - self.timeStampFinal) <= self.maxPer:
+        if abs(self.timeStamp[(len(self.timeStamp)-1)] - self.timeStampFinal) <= self.maxPer:
             ip += 1
         return ip
-
 
 class generatePFListver2:
     """
@@ -236,7 +233,7 @@ class generatePFListver2:
     Attributes
     ----------
     inputFile : str
-        it is input file name
+        it is inpuy file name
     minSup : float
         user defined minimum support value
     maxPer : float
@@ -246,7 +243,6 @@ class generatePFListver2:
     PFList : dict
         storing timestamps each item
     """
-
     def __init__(self, inputFile, minSup, maxPer, minPR):
         self.inputFile = inputFile
         self.minSup = minSup
@@ -262,10 +258,14 @@ class generatePFListver2:
         global orderOfItem
         tidList = {}
         dataSize = 0
-        currentTime, last = int(), int()
-        for l in self.inputFile:
-            currentTime = int(l[0])
-            for item in l[1:]:
+        with open(self.inputFile, 'r') as f:
+            line = f.readline()
+            dataSize += 1
+            line = line.strip()
+            separator = self.findSeparator(line)
+            l = line.split(separator)
+            currentTime = int(l.pop(0))
+            for item in l:
                 if item not in self.PFList:
                     self.PFList[item] = [1, currentTime, currentTime]
                     tidList[item] = set()
@@ -277,34 +277,52 @@ class generatePFListver2:
                     self.PFList[item][2] = currentTime
                     if currentPeriodicity > self.PFList[item][1]:
                         self.PFList[item][1] = currentPeriodicity
-            # for l in self.inputFile:
-            #     currentTime = int(l.pop(0))
-            #     for item in l:
-            #         if item not in self.PFList:
-            #             self.PFList[item] = [1, currentTime, currentTime]
-            #             tidList[item] = set()
-            #             tidList[item].add(currentTime)
-            #         else:
-            #             tidList[item].add(currentTime)
-            #             self.PFList[item][0] += 1
-            #             currentPeriodicity = currentTime - self.PFList[item][2]
-            #             self.PFList[item][2] = currentTime
-            #             if currentPeriodicity > self.PFList[item][1]:
-            #                 self.PFList[item][1] = currentPeriodicity
+            for line in f:
+                dataSize += 1
+                line = line.strip()
+                l = line.split(separator)
+                currentTime = int(l.pop(0))
+                for item in l:
+                    if item not in self.PFList:
+                        self.PFList[item] = [1, currentTime, currentTime]
+                        tidList[item] = set()
+                        tidList[item].add(currentTime)
+                    else:
+                        tidList[item].add(currentTime)
+                        self.PFList[item][0] += 1
+                        currentPeriodicity = currentTime - self.PFList[item][2]
+                        self.PFList[item][2] = currentTime
+                        if currentPeriodicity > self.PFList[item][1]:
+                            self.PFList[item][1] = currentPeriodicity
             last = currentTime
         keys = list(self.PFList)
+        """self.minSup = self.minSup * dataSize
+        self.maxPer = self.maxPer * dataSize"""
         for item in keys:
             currentPeriodicity = currentTime - self.PFList[item][2]
             if currentPeriodicity > self.PFList[item][1]:
                 self.PFList[item][1] = currentPeriodicity
             ip = calculateIP(self.maxPer, tidList[item], last).run()
-            if ip / (self.minSup + 1) < self.minPR:
+            if ip / (self.minSup+1) < self.minPR:
                 del self.PFList[item]
                 del tidList[item]
-        tidList = {tuple([k]): v for k, v in sorted(tidList.items(), key=lambda x: len(x[1]), reverse=True)}
+        #self.PFList = {tuple([k]): v for k, v in sorted(self.PFList.items(), key=lambda x:x[1], reverse=True)}
+        tidList = {tuple([k]): v for k, v in sorted(tidList.items(), key=lambda x:len(x[1]), reverse=True)}
         orderOfItem = tidList.copy()
         return tidList, last
 
+    def findSeparator(self, line):
+        """
+        find separator of line in database
+        :param line: it represents one line in database
+        :type line: list
+        :return: return separator
+        """
+        separator = ['\t', ',', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
+        for i in separator:
+            if i in line:
+                return i
+        return None
 
 class generatePFTreever2:
     """
@@ -324,10 +342,9 @@ class generatePFTreever2:
     run
         it create tree
     find separator(line)
-        find separator in the line of database
+        find separotor in the line of database
 
     """
-
     def __init__(self, inputFile, tidList):
         self.inputFile = inputFile
         self.tidList = tidList
@@ -338,20 +355,38 @@ class generatePFTreever2:
         create tree from database and tidList
         :return: the root node of tree
         """
-        for transaction in self.inputFile:
+        with open(self.inputFile, 'r') as f:
+            line = f.readline()
+            line = line.strip()
+            separator = self.findSeparator(line)
+            transaction = line.split(separator)
             currentTime = int(transaction.pop(0))
             tempTransaction = [tuple([item]) for item in transaction if tuple([item]) in self.tidList]
             transaction = sorted(tempTransaction, key=lambda x: len(self.tidList[x]), reverse=True)
             self.root.addTransaction(transaction, currentTime)
-            # for transaction in self.inputFile:
-            #     tid = int(transaction.pop(0))
-            #     tempTransaction = [tuple([item]) for item in transaction if tuple([item]) in self.tidList]
-            #     transaction = sorted(tempTransaction, key=lambda x: len(self.tidList[x]), reverse=True)
-            #     self.root.addTransaction(transaction, tid)
+            for line in f:
+                line = line.strip()
+                transaction = line.split(separator)
+                tid = int(transaction.pop(0))
+                tempTransaction = [tuple([item]) for item in transaction if tuple([item]) in self.tidList]
+                transaction = sorted(tempTransaction, key=lambda x: len(self.tidList[x]), reverse=True)
+                self.root.addTransaction(transaction, tid)
         return self.root
 
+    def findSeparator(self, line):
+        """
+        find separator of line in database
+        :param line: it represents one line in database
+        :type line: list
+        :return: return separator
+        """
+        separator = ['\t', ',', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
+        for i in separator:
+            if i in line:
+                return i
+        return None
 
-class PFGrowth:
+class PFgroth:
     """
     This class is pattern growth algorithm
     ...
@@ -378,7 +413,6 @@ class PFGrowth:
         it is pattern growth algorithm
 
     """
-
     def __init__(self, tree, prefix, PFList, minSup, maxPer, minPR, last):
         self.tree = tree
         self.prefix = prefix
@@ -432,101 +466,81 @@ class PFGrowth:
                 prefixTree.createPrefixTree(path, tidList)
             ip = calculateIP(self.maxPer, self.PFList[item], self.last).run()
             s = len(self.PFList[item])
-            if ip / (s + 1) >= self.minPR and s >= self.minSup:
-                result[tuple(prefix)] = [s, ip / (s + 1)]
+            if ip / (s+1) >= self.minPR and s >= self.minSup:
+                result[tuple(prefix)] = [s, ip / (s+1)]
             if PFList:
-                PFList = {k: v for k, v in sorted(PFList.items(), key=lambda x: len(orderOfItem[x[0]]), reverse=True)}
+                PFList = {k: v for k, v in sorted(PFList.items(), key=lambda x:len(orderOfItem[x[0]]), reverse=True)}
                 PFList = prefixTree.createConditionalTree(PFList, self.minSup, self.maxPer, self.minPR, self.last)
             if PFList:
-                obj = PFGrowth(prefixTree, prefix, PFList, self.minSup, self.maxPer, self.minPR, self.last)
+                #self.PFList = {tuple([k]): v for k, v in sorted(self.PFList.items(), key=lambda x: x[1], reverse=True)}
+                obj = PFgroth(prefixTree, prefix, PFList, self.minSup, self.maxPer, self.minPR, self.last)
                 result1 = obj.run()
                 result = result | result1
         return result
 
-
-class GPFGrowth(partialPeriodicPatterns):
+class GPFgrowth(partialPeriodicPatterns):
     """
-    GPFGrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
+    GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
 
     ...
-    Attributes:
+    Attributes
     ----------
-        inputFile : file
-            Name of the input file to mine complete set of frequent pattern
-        minSup : float
-            The user defined minSup
-        maxPer : float
-            The user defined maxPer
-        minPR : float
-            The user defined minPR
-        finalPatterns : dict
-            it represents to store the pattern
-        runTime : float
-            storing the total runtime of the mining process
-        memoryUSS : float
-            storing the total amount of USS memory consumed by the program
-        memoryRSS : float
-            storing the total amount of RSS memory consumed by the program
+    inputFile : file
+        Name of the input file to mine complete set of frequent pattern
+    minSup : float
+        The user defined minSup
+    maxPer : float
+        The user defined maxPer
+    minPR : float
+        The user defined minPR
+    finalPatterns : dict
+        it represents to store the pattern
+    runTime : float
+        storing the total runtime of the mining process
+    memoryUSS : float
+        storing the total amount of USS memory consumed by the program
+    memoryRSS : float
+        storing the total amount of RSS memory consumed by the program
 
-    Methods:
+    Methods
     -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        savePatterns(outputFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a output file
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
+    startMine()
+        Mining process will start from here
+    getPartialPeriodicPatterns()
+        Complete set of patterns will be retrieved with this function
+    storePatterns InFile(ouputFile)
+        Complete set of frequent patterns will be loaded in to a ouput file
+    getPatternsAsDataFrame()
+        Complete set of frequent patterns will be loaded in to a ouput file
+    getMemoryUSS()
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+    getMemoryRSS()
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+    getRuntime()
+        Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Format:
-    -------
-        python3 GPFGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
-
-        Examples:
-            python3 GPFGrowth.py sampleDB.txt patterns.txt 10 10 0.5
+    Format: python3 GPFgrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
+    Examples: python3 GPFgrowth.py sampleDB.txt patterns.txt 10 10 0.5
 
     Sample run of the importing code:
     ------------
-        from PAMI.partialPeriodicFrequentPattern.basic import GPFGrowth as alg
+    from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
+    obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)
+    obj.startMine()
+    partialPeriodicFrequentPatterns = obj.partialPeriodicFrequentPatterns()
 
-        obj = alg.GPFGrowth(inputFile, outputFile, minSup, maxPer, minPR)
-
-        obj.startMine()
-
-        partialPeriodicFrequentPatterns = obj.getPatterns()
-
-        print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
-
-        obj.savePatterns(oFile)
-
-        Df = obj.getPatternAsDf()
-
-        memUSS = obj.getMemoryUSS()
-
-        print("Total Memory in USS:", memUSS)
-
-        memRSS = obj.getMemoryRSS()
-
-        print("Total Memory in RSS", memRSS)
-
-        run = obj.getRuntime()
-
-        print("Total ExecutionTime in seconds:", run)
-
-    Credits:
-    -------
-        The complete program was written S.Nakamura under the supervision of Professor RAGE Uday Kiran. \n
+    print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
+    obj.savePatterns(oFile)
+    Df = obj.getPatternInDf()
+    memUSS = obj.getMemoryUSS()
+    print("Total Memory in USS:", memUSS)
+    memRSS = obj.getMemoryRSS()
+    print("Total Memory in RSS", memRSS)
+    run = obj.getRuntime()
+    print("Total ExecutionTime in seconds:", run)
     """
     iFile = ' '
     oFile = ' '
-    sep = ' '
     startTime = float()
     endTime = float()
     minSup = float()
@@ -536,69 +550,31 @@ class GPFGrowth(partialPeriodicPatterns):
     runTime = 0
     memoryUSS = float()
     memoryRSS = float()
-    Database = []
-    lno = 0
-
-    def creatingItemSets(self):
-        """
-            Storing the complete transactions of the database/input file in a database variable
-
-
-        """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
-            timeStamp, data = [], []
-            if self.iFile.empty:
-                print("its empty..")
-            i = self.iFile.columns.values.tolist()
-            if 'timeStamps' in i:
-                timeStamp = self.iFile['timeStamps'].tolist()
-            if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                data = self.iFile['Patterns'].tolist()
-            for i in range(len(data)):
-                tr = [timeStamp[i]]
-                tr.append(data[i])
-                self.Database.append(tr)
-            self.lno = len(self.Database)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
-                for line in data:
-                    self.lno += 1
-                    line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
-                    temp = [x for x in temp if x]
-                    self.Database.append(temp)
-            else:
-                try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
-                        for line in f:
-                            self.lno += 1
-                            temp = [i.rstrip() for i in line.split(self.sep)]
-                            temp = [x for x in temp if x]
-                            self.Database.append(temp)
-                except IOError:
-                    print("File Not Found")
-                    quit()
 
     def startMine(self):
+        self.inputFile = self.iFile
         startTime = time.time()
-        self.finalPatterns = {}
-        self.creatingItemSets()
-        obj = generatePFListver2(self.Database, self.minSup, self.maxPer, self.minPR)
+        """self.TDB = ri.readInputFile(self.inputFile).run()
+        self.minSup = len(self.TDB) * self.minSup
+        self.maxPer = len(self.TDB) * self.maxPer"""
+        #tidList = pfl.generatePFList(self.TDB, self.minSup, self.maxPer).run()
+        obj = generatePFListver2(self.inputFile, self.minSup, self.maxPer, self.minPR)
         tidList, last = obj.run()
-        PFTree = generatePFTreever2(self.Database, tidList).run()
-        obj2 = PFGrowth(PFTree, [], tidList, self.minSup, self.maxPer, self.minPR, last)
+        #orderOfItem = tidList.copy()
+        """self.minSup = obj.minSup
+        self.maxPer = obj.maxPer"""
+        #PFTree = pft.generatePFTree(self.TDB, tidList).run()
+        PFTree = generatePFTreever2(self.inputFile, tidList).run()
+        obj2 = PFgroth(PFTree, [], tidList, self.minSup, self.maxPer, self.minPR, last)
         self.finalPatterns = obj2.run()
         endTime = time.time()
         self.runTime = endTime - startTime
+        """memory = resource.getrusage((resource.RUSAGE_SELF))
+        memory = memory.ru_maxrss"""
         process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
+
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -648,44 +624,25 @@ class GPFGrowth(partialPeriodicPatterns):
             s1 = str(x) + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPartialPeriodicPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self.finalPatterns
 
-
 if __name__ == '__main__':
-    ap = str()
-    if len(sys.argv) == 6 or len(sys.argv) == 7:
-        if len(sys.argv) == 7:
-            ap = GPFGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
-        if len(sys.argv) == 6:
-            ap = GPFGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+    if len(sys.argv) == 6:
+        ap = GPFgrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
+        frequentPatterns = ap.getPartialPeriodicPatterns()
+        print(f"Total number of Frequent Patterns: {len(frequentPatterns)}")
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
+        print(f'Total Memory in USS: {memUSS}')
         memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
+        print(f'Total Memory in RSS: {memRSS}')
         run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+        print(f'Total ExecutionTime in seconds: {run}')
     else:
-        ap = GPFGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                       9, 1000, 0.4)
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        for x, y in Patterns.items():
-            print(x, y)
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
