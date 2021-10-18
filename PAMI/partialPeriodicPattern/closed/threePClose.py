@@ -1,4 +1,6 @@
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.partialPeriodicPattern.closed.abstract import *
 
 

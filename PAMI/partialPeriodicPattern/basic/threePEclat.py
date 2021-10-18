@@ -19,7 +19,7 @@ from urllib.request import urlopen
 from PAMI.partialPeriodicPattern.basic.abstract import *
 
 
-class ThreePEclat(partialPeriodicPatterns):
+class threePEclat(partialPeriodicPatterns):
     """
     3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
 
@@ -103,7 +103,7 @@ class ThreePEclat(partialPeriodicPatterns):
          
         from PAMI.periodicFrequentPattern.basic import threePEclat as alg
 
-        obj = alg.ThreePEclat(iFile, periodicSupport,period)
+        obj = alg.threePEclat(iFile, periodicSupport,period)
 
         obj.startMine()
 
@@ -153,6 +153,10 @@ class ThreePEclat(partialPeriodicPatterns):
     lno = 0
     Database = []
 
+    def intersection(self, a, b):
+        lst3 = [value for value in a if value in b]
+        return lst3
+
     def convert(self, value):
         """
         To convert the given user specified value
@@ -173,53 +177,95 @@ class ThreePEclat(partialPeriodicPatterns):
                 value = int(value)
         return value
 
-    def getPeriodicSupport(self, tids):
+    def getPeriodicSupport(self, timeStamps):
         """
-            calculates the support and periodicity with list of timestamps
+                    calculates the support and periodicity with list of timestamps
 
-            :param tids : timestamps of a pattern
+                    :param timeStamps : timestamps of a pattern
+                    :type timeStamps : list
 
-            :type tids : list
-        """
-        tids.sort()
+
+                            """
+        timeStamps.sort()
+        per = 0
         sup = 0
-        for j in range(len(tids) - 1):
-            per = abs(tids[j+1] - tids[j])
-            if per <= self.period:
-                sup += 1
-        return sup
+        for i in range(len(timeStamps) - 1):
+            j = i + 1
+            if abs(timeStamps[j] - timeStamps[i]) <= self.period:
+                per += 1
+            sup += 1
+        #print(timeStamps, per)
+        return per
+
+    def creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            timeStamp, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'timeStamps' in i:
+                timeStamp = self.iFile['timeStamps'].tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [timeStamp[i]]
+                tr.append(data[i])
+                self.Database.append(tr)
+            self.lno = len(self.Database)
+            #print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    self.lno += 1
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            self.lno += 1
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def creatingOneitemSets(self):
         """
            Scans the Temporal database / Input file and stores the 1-length partial-periodic patterns.
         """
         plist = []
-        try:
-            self.tidList = {}
-            self.mapSupport = {}
-            self.lno = len(open(self.iFile).readlines())
-            self.period = self.convert(self.period)
-            with open(self.iFile, 'r') as f:
-                for line in f:
-                    s = [i.strip() for i in line.split(self.sep)]
-                    s = [x for x in s if x]
-                    n = int(s[0])
-                    for i in range(1, len(s)):
-                        si = s[i]
-                        if self.mapSupport.get(si) is None:
-                            self.mapSupport[si] = [0, n]
-                            self.tidList[si] = [n]
-                        else:
-                            lp = n - self.mapSupport[si][1]
-                            if lp <= self.period:
-                                self.mapSupport[si][0] += 1
-                            self.mapSupport[si][1] = n
-                            self.tidList[si].append(n)
-            self.periodicSupport = self.convert(self.periodicSupport)
-            self.mapSupport = {k: v[0] for k, v in self.mapSupport.items() if v[0] >= self.periodicSupport}
-            plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        except IOError:
-            print("File Not Found")
+        self.tidList = {}
+        self.mapSupport = {}
+        self.period = int(self.period)
+        self.periodicSupport = int(self.periodicSupport)
+        for s in self.Database:
+            n = int(s[0])
+            for i in range(1, len(s)):
+                si = s[i]
+                if self.mapSupport.get(si) is None:
+                    self.mapSupport[si] = [0, n]
+                    self.tidList[si] = [n]
+                else:
+                    lp = n - self.mapSupport[si][1]
+                    if lp <= self.period:
+                        self.mapSupport[si][0] += 1
+                    self.mapSupport[si][1] = n
+                    self.tidList[si].append(n)
+        self.mapSupport = {k: v[0] for k, v in self.mapSupport.items() if v[0] >= self.periodicSupport}
+        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         return plist
     
     def save(self, prefix, suffix, tidSetX):
@@ -302,6 +348,7 @@ class ThreePEclat(partialPeriodicPatterns):
 
         """
         self.startTime = time.time()
+        self.creatingItemSets()
         plist = self.creatingOneitemSets()
         self.finalPatterns = {}
         for i in range(len(plist)):
@@ -400,9 +447,9 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
         if len(sys.argv) == 6:
-            ap = ThreePEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+            ap = threePEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:
-            ap = ThreePEclat(sys.argv[1], sys.argv[3], sys.argv[4])
+            ap = threePEclat(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Partial Periodic Patterns:", len(Patterns))

@@ -1,5 +1,4 @@
 import sys
-
 import validators
 from urllib.request import urlopen
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
@@ -77,6 +76,7 @@ class Tree:
             create conditional tree. Its nodes are satisfy IP / (minSup+1) >= minPR
 
     """
+
     def __init__(self):
         self.root = Node()
         self.nodeLinks = {}
@@ -177,12 +177,13 @@ class Tree:
         keys = list(PFList)
         for item in keys:
             ip = calculateIP(maxPer, PFList[item], last).run()
-            if ip / (minSup+1) >= minPR:
+            if ip / (minSup + 1) >= minPR:
                 continue
             else:
                 self.deleteNode(item)
                 del PFList[item]
         return PFList
+
 
 class calculateIP:
     """
@@ -203,6 +204,7 @@ class calculateIP:
         calculate ip from its timestamp list
 
     """
+
     def __init__(self, maxPer, timeStamp, timeStampFinal):
         self.maxPer = maxPer
         self.timeStamp = timeStamp
@@ -219,12 +221,13 @@ class calculateIP:
             return ip
         if self.timeStamp[0] - 0 <= self.maxPer:
             ip += 1
-        for i in range(len(self.timeStamp)-1):
-            if (self.timeStamp[i+1] - self.timeStamp[i]) <= self.maxPer:
+        for i in range(len(self.timeStamp) - 1):
+            if (self.timeStamp[i + 1] - self.timeStamp[i]) <= self.maxPer:
                 ip += 1
-        if abs(self.timeStamp[(len(self.timeStamp)-1)] - self.timeStampFinal) <= self.maxPer:
+        if abs(self.timeStamp[(len(self.timeStamp) - 1)] - self.timeStampFinal) <= self.maxPer:
             ip += 1
         return ip
+
 
 class generatePFListver2:
     """
@@ -243,6 +246,7 @@ class generatePFListver2:
     PFList : dict
         storing timestamps each item
     """
+
     def __init__(self, inputFile, minSup, maxPer, minPR):
         self.inputFile = inputFile
         self.minSup = minSup
@@ -294,10 +298,10 @@ class generatePFListver2:
             if currentPeriodicity > self.PFList[item][1]:
                 self.PFList[item][1] = currentPeriodicity
             ip = calculateIP(self.maxPer, tidList[item], last).run()
-            if ip / (self.minSup+1) < self.minPR:
+            if ip / (self.minSup + 1) < self.minPR:
                 del self.PFList[item]
                 del tidList[item]
-        tidList = {tuple([k]): v for k, v in sorted(tidList.items(), key=lambda x:len(x[1]), reverse=True)}
+        tidList = {tuple([k]): v for k, v in sorted(tidList.items(), key=lambda x: len(x[1]), reverse=True)}
         orderOfItem = tidList.copy()
         return tidList, last
 
@@ -323,6 +327,7 @@ class generatePFTreever2:
         find separator in the line of database
 
     """
+
     def __init__(self, inputFile, tidList):
         self.inputFile = inputFile
         self.tidList = tidList
@@ -344,8 +349,8 @@ class generatePFTreever2:
             #     transaction = sorted(tempTransaction, key=lambda x: len(self.tidList[x]), reverse=True)
             #     self.root.addTransaction(transaction, tid)
         return self.root
-    
-    
+
+
 class PFGrowth:
     """
     This class is pattern growth algorithm
@@ -373,6 +378,7 @@ class PFGrowth:
         it is pattern growth algorithm
 
     """
+
     def __init__(self, tree, prefix, PFList, minSup, maxPer, minPR, last):
         self.tree = tree
         self.prefix = prefix
@@ -426,8 +432,8 @@ class PFGrowth:
                 prefixTree.createPrefixTree(path, tidList)
             ip = calculateIP(self.maxPer, self.PFList[item], self.last).run()
             s = len(self.PFList[item])
-            if ip / (s+1) >= self.minPR and s >= self.minSup:
-                result[tuple(prefix)] = [s, ip / (s+1)]
+            if ip / (s + 1) >= self.minPR and s >= self.minSup:
+                result[tuple(prefix)] = [s, ip / (s + 1)]
             if PFList:
                 PFList = {k: v for k, v in sorted(PFList.items(), key=lambda x: len(orderOfItem[x[0]]), reverse=True)}
                 PFList = prefixTree.createConditionalTree(PFList, self.minSup, self.maxPer, self.minPR, self.last)
@@ -479,41 +485,41 @@ class GPFGrowth(partialPeriodicPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Format: 
+    Format:
     -------
         python3 GPFGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
-        
-        Examples: 
+
+        Examples:
             python3 GPFGrowth.py sampleDB.txt patterns.txt 10 10 0.5
 
     Sample run of the importing code:
     ------------
         from PAMI.partialPeriodicFrequentPattern.basic import GPFGrowth as alg
-    
+
         obj = alg.GPFGrowth(inputFile, outputFile, minSup, maxPer, minPR)
-    
+
         obj.startMine()
-        
+
         partialPeriodicFrequentPatterns = obj.getPatterns()
 
         print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
-    
+
         obj.savePatterns(oFile)
-    
+
         Df = obj.getPatternAsDf()
-    
+
         memUSS = obj.getMemoryUSS()
-        
+
         print("Total Memory in USS:", memUSS)
-    
+
         memRSS = obj.getMemoryRSS()
-    
+
         print("Total Memory in RSS", memRSS)
-    
+
         run = obj.getRuntime()
-    
+
         print("Total ExecutionTime in seconds:", run)
-    
+
     Credits:
     -------
         The complete program was written S.Nakamura under the supervision of Professor RAGE Uday Kiran. \n
@@ -532,7 +538,7 @@ class GPFGrowth(partialPeriodicPatterns):
     memoryRSS = float()
     Database = []
     lno = 0
-    
+
     def creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
@@ -669,7 +675,7 @@ if __name__ == '__main__':
         print("Total ExecutionTime in ms:", run)
     else:
         ap = GPFGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                     9, 1000, 0.4)
+                       9, 1000, 0.4)
         ap.startMine()
         Patterns = ap.getPatterns()
         for x, y in Patterns.items():
