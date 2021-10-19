@@ -475,7 +475,7 @@ class PFgroth:
                 #self.PFList = {tuple([k]): v for k, v in sorted(self.PFList.items(), key=lambda x: x[1], reverse=True)}
                 obj = PFgroth(prefixTree, prefix, PFList, self.minSup, self.maxPer, self.minPR, self.last)
                 result1 = obj.run()
-                result = result | result1
+                result = {**result, **result1}
         return result
 
 class GPFgrowth(partialPeriodicPatterns):
