@@ -249,8 +249,8 @@ class threePEclat(partialPeriodicPatterns):
         plist = []
         self.tidList = {}
         self.mapSupport = {}
-        self.period = int(self.period)
-        self.periodicSupport = int(self.periodicSupport)
+        self.period = self.convert(self.period)
+        self.periodicSupport = self.convert(self.periodicSupport)
         for s in self.Database:
             n = int(s[0])
             for i in range(1, len(s)):

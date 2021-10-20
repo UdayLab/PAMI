@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from PAMI.partialPeriodicPattern.topk.abstract import *
+import validators
+from urllib.request import urlopen
 import sys
 
 
@@ -140,18 +142,44 @@ class TopK(partialPeriodicPatterns):
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        try:
-            self.Database = []
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
-                    line.strip()
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            timeStamp, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'timeStamps' in i:
+                timeStamp = self.iFile['timeStamps'].tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [timeStamp[i]]
+                tr.append(data[i])
+                self.Database.append(tr)
+            self.lno = len(self.Database)
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    self.lno += 1
+                    line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     self.Database.append(temp)
-        except IOError:
-            print("File Not Found")
-            quit()
-
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            self.lno += 1
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
     def convert(self, value):
         """
         To convert the given user specified value
@@ -175,46 +203,38 @@ class TopK(partialPeriodicPatterns):
         Generating one frequent patterns
         """
 
-        try:
-            self.mapSupport = {}
-            self.tidList = {}
-            self.lno = len(open(self.iFile).readlines())
-            self.periodicity = self.convert(self.periodicity)
-            with open(self.iFile) as f:
-                for line in f:
-                    s = [i.strip() for i in line.split(self.sep)]
-                    s = [x for x in s]
-                    n = self.lno
-                    for i in range(1, len(s)):
-                        si = s[i]
-                        if self.mapSupport.get(si) is None:
-                            self.mapSupport[si] = [1, 0, n]
-                            self.tidList[si] = [n]
-                        else:
-                            self.mapSupport[si][0] += 1
-                            period = abs(n - self.mapSupport[si][2])
-                            if period <= self.periodicity:
-                                self.mapSupport[si][1] += 1
-                            self.mapSupport[si][2] = n
-                            self.tidList[si].append(n)
-                for x, y in self.mapSupport.items():
-                    period = abs(self.lno - self.mapSupport[x][2])
-                    if period <= self.periodicity:
-                        self.mapSupport[x][1] += 1
-                self.mapSupport = {k: v[1] for k, v in self.mapSupport.items()}
-                plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
-            self.finalPatterns = {}
-            for i in plist:
-                if len(self.finalPatterns) >= self.k:
-                    break
+        self.mapSupport = {}
+        self.tidList = {}
+        self.periodicity = self.convert(self.periodicity)
+        for line in self.Database:
+            n = int(line[0])
+            for i in range(1, len(line)):
+                si = line[i]
+                if self.mapSupport.get(si) is None:
+                    self.mapSupport[si] = [1, 0, n]
+                    self.tidList[si] = [n]
                 else:
-                    self.finalPatterns[i] = [self.mapSupport[i][0], self.mapSupport[i][1]]
-            self.minimum = min([self.finalPatterns[i][1] for i in self.finalPatterns.keys()])
-            plist = list(self.finalPatterns.keys())
-            return plist
-        except IOError:
-            print("File Not Found")
-            quit()
+                    self.mapSupport[si][0] += 1
+                    period = abs(n - self.mapSupport[si][2])
+                    if period <= self.periodicity:
+                        self.mapSupport[si][1] += 1
+                    self.mapSupport[si][2] = n
+                    self.tidList[si].append(n)
+        for x, y in self.mapSupport.items():
+            period = abs(self.lno - self.mapSupport[x][2])
+            if period <= self.periodicity:
+                self.mapSupport[x][1] += 1
+        self.mapSupport = {k: v[1] for k, v in self.mapSupport.items()}
+        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
+        self.finalPatterns = {}
+        for i in plist:
+            if len(self.finalPatterns) >= self.k:
+                break
+            else:
+                self.finalPatterns[i] = [self.mapSupport[i][0], self.mapSupport[i][1]]
+        self.minimum = min([self.finalPatterns[i][1] for i in self.finalPatterns.keys()])
+        plist = list(self.finalPatterns.keys())
+        return plist
 
     def getSupportAndPeriod(self, timeStamps):
         """To calculate the periodicity and support
@@ -255,19 +275,20 @@ class TopK(partialPeriodicPatterns):
         for i in prefix:
             sample = sample + i + " "
         if len(self.finalPatterns) < self.k:
-            self.finalPatterns[sample] = val
-            self.minimum = min([self.finalPatterns[i] for i in self.finalPatterns.keys()])
+            if val >= self.minimum:
+                self.finalPatterns[sample] = val
+                self.finalPatterns = {k: v for k, v in
+                                  sorted(self.finalPatterns.items(), key=lambda item: item[1], reverse=True)}
+                self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
         else:
-            for x, y in self.finalPatterns.items():
-                if y < val:
-                    del self.finalPatterns[x]
-                    self.finalPatterns[x] = y
-                    self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
+            for x, y in sorted(self.finalPatterns.items(), key=lambda x: x[1][0]):
                 if val > y:
                     del self.finalPatterns[x]
                     self.finalPatterns[x] = y
+                    self.finalPatterns = {k: v for k, v in
+                                          sorted(self.finalPatterns.items(), key=lambda item: item[1], reverse=True)}
                     self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
-
+                    return
     def Generation(self, prefix, itemSets, tidSets):
         """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
 

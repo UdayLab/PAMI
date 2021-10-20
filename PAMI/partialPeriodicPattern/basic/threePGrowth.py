@@ -453,6 +453,26 @@ class threePGrowth(partialPeriodicPatterns):
             t1.append(self.rankdup[i])
         return t1
 
+    def convert(self, value):
+        """
+        To convert the given user specified value
+
+        :param value: user specified value
+
+        :return: converted value
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self.Database) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self.Database) * value)
+            else:
+                value = int(value)
+        return value
+
     def startMine(self):
         """
                    Main method where the patterns are mined by constructing tree.
@@ -465,8 +485,8 @@ class threePGrowth(partialPeriodicPatterns):
         if self.periodicSupport is None:
             raise Exception("Please enter the Minimum Support")
         self.creatingItemSets()
-        self.periodicSupport = int(self.periodicSupport)
-        self.period = int(self.period)
+        self.periodicSupport = self.convert(self.periodicSupport)
+        self.period = self.convert(self.periodicSupport)
         periodicSupport, period, lno = self.periodicSupport, self.period, len(self.Database)
         if self.periodicSupport > len(self.Database):
             raise Exception("Please enter the minSup in range between 0 to 1")

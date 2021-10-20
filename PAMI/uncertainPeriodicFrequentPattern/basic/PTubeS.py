@@ -14,8 +14,6 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
-import validators
-from urllib.request import urlopen
 from PAMI.uncertainPeriodicFrequentPattern.basic.abstract import *
 
 minSup = float()
@@ -80,9 +78,9 @@ class Node(object):
     def addChild(self, node):
         """
         To add the children details to the parent node
-        
+
         :param node: children node
-        
+
         :return: updated parent node children
         """
         self.children[node.item] = node
@@ -93,11 +91,11 @@ def Second(transaction, i):
     """
     To find the secondProbability of a node in transaction by considering second max probability
     of the prefix items.
-    
+
     :param transaction: transaction in a database with item and probability
-    
+
     :param i: index of the item to calculate secondProbability in a transaction
-    
+
     :return: secondProbability of a node
     """
     temp = []
@@ -111,10 +109,10 @@ def Second(transaction, i):
 
 def printTree(root):
     """
-    To print the details of nodes in tree 
-    
+    To print the details of nodes in tree
+
     :param root: root node of tree
-    
+
     :return: details nodes in depth-first order
     """
     for x, y in root.children.items():
@@ -164,11 +162,11 @@ class Tree(object):
         """adding transaction into tree
 
             :param transaction : it represents the one transactions in database
-            
+
             :type transaction : list
-            
+
             :param tid : the timestamp of transaction
-            
+
             :type tid : list
         """
         currentNode = self.root
@@ -216,19 +214,19 @@ class Tree(object):
         """constructing conditional tree from prefixPaths
 
                 :param transaction: it represents the one transactions in database
-                
+
                 :type transaction: list
-                
+
                 :param tid: timestamps of a pattern or transaction in tree
-                
+
                 :type tid: list
-                
+
                 :param sup: support of prefixPath taken at last child of the path
-                
+
                 :type sup: list
-                
+
                 :param second: second probability of node stores max second probability
-                
+
                 :type second: float
         """
         currentNode = self.root
@@ -257,7 +255,7 @@ class Tree(object):
         """generates all the conditional patterns of respective node
 
             :param alpha : it represents the Node in tree
-            
+
             type alpha : Node
         """
         finalPatterns = []
@@ -285,7 +283,7 @@ class Tree(object):
         """removing the node from tree
 
             :param nodeValue : it represents the node in tree
-            
+
             :type nodeValue : node
         """
         for i in self.summaries[nodeValue]:
@@ -295,9 +293,9 @@ class Tree(object):
     def getTimeStamps(self, alpha):
         """
         To get the timeStamps of a node in tree
-            
+
             :param alpha: node of a tree
-        
+
             :return: timeStamps of a node
         """
         temp = []
@@ -309,7 +307,7 @@ class Tree(object):
         """generates the patterns
 
             :param prefix : forms the combination of items
-            
+
             :type prefix : list
         """
         global periodic, minSup
@@ -338,16 +336,16 @@ class Tree(object):
 def getPeriodAndSupport(s, timeStamps):
     """
     To calculate the support and periodicity of timeStamps
-    
+
     :param s: support
-    
+
     :param timeStamps: timeStamps
-    
+
     :return: support and periodicity of timeStamps
     """
-    global lno, maxPer, first, last
+    global lno, maxPer
     timeStamps.sort()
-    cur = first
+    cur = 0
     per = 0
     sup = s
     for j in range(len(timeStamps)):
@@ -355,7 +353,7 @@ def getPeriodAndSupport(s, timeStamps):
         if per > maxPer:
             return [0, 0]
         cur = timeStamps[j]
-    per = max(per, last - cur)
+    per = max(per, lno - cur)
     return [sup, per]
 
 
@@ -363,15 +361,15 @@ def conditionalTransactions(conditionalPatterns, conditionalTimeStamps, support)
     """ It generates the conditional patterns with frequent items
 
         :param conditionalPatterns : conditional patterns generated from getConditionalPatterns method for respective node
-        
+
         :type conditionalPatterns : list
-        
+
         :param conditionalTimeStamps : timestamps of respective conditional timestamps
-        
+
         :type conditionalTimeStamps : list
-        
+
         :param support : the support of conditional pattern in tree
-        
+
         :type support : list
     """
     global minSup, maxPer
@@ -476,7 +474,7 @@ class PTubeS(periodicFrequentPatterns):
                 After updating the Database, remaining items will be added into the tree by setting root node as null
             convert()
                 to convert the user specified value
-        
+
         Executing the code on terminal:
         -------
             Format:
@@ -541,33 +539,9 @@ class PTubeS(periodicFrequentPatterns):
 
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
-            timeStamps, data, utilities = [], [], []
-            if self.iFile.empty:
-                print("its empty..")
-            i = self.iFile.columns.values.tolist()
-            if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                data = self.iFile['Patterns'].tolist()
-            if 'utilityValues' in i:
-                utilities = self.iFile['utilityValues'].tolist()
-            if 'timeStamps' in i:
-                timeStamps = self.iFile['timeStamps'].tolist()
-            for i in range(len(data)):
-                tr = [timeStamps[i]]
-                for j in range(len(data[i])):
-                    product = Item(data[i][j], utilities[i][j])
-                    tr.append(product)
-                self.Database.append(tr)
-            self.lno = len(self.Database)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
-                for line in data:
-                    line.strip()
-                    line = line.decode("utf-8")
+        try:
+            with open(self.iFile, 'r') as f:
+                for line in f:
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     tr = [int(temp[0])]
@@ -580,24 +554,8 @@ class PTubeS(periodicFrequentPatterns):
                         tr.append(product)
                     self.lno += 1
                     self.Database.append(tr)
-            else:
-                try:
-                    with open(self.iFile, 'r') as f:
-                        for line in f:
-                            temp = [i.rstrip() for i in line.split(self.sep)]
-                            temp = [x for x in temp if x]
-                            tr = [int(temp[0])]
-                            for i in temp[1:]:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                probability = float(i[i1 + 1:i2])
-                                product = Item(item, probability)
-                                tr.append(product)
-                            self.lno += 1
-                            self.Database.append(tr)
-                except IOError:
-                    print("File Not Found")
+        except IOError:
+            print("File Not Found")
 
     def PeriodicFrequentOneItems(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
@@ -606,8 +564,6 @@ class PTubeS(periodicFrequentPatterns):
         """
         global first, last
         mapSupport = {}
-        first = min([i[0] for i in self.Database])
-        last = max([i[0] for i in self.Database])
         for i in self.Database:
             n = i[0]
             for j in i[1:]:
@@ -619,11 +575,8 @@ class PTubeS(periodicFrequentPatterns):
                     mapSupport[j.item][2] = n
         for key in mapSupport:
             mapSupport[key][1] = max(mapSupport[key][1], last - mapSupport[key][2])
-        self.maxPer = self.convert(self.maxPer)
-        self.minSup = self.convert(self.minSup)
         mapSupport = {k: [round(v[0], 2), v[1]] for k, v in mapSupport.items() if
                       v[1] <= self.maxPer and v[0] >= self.minSup}
-        print(len(mapSupport))
         plist = [k for k, v in sorted(mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(plist)])
         return mapSupport, plist
@@ -698,10 +651,10 @@ class PTubeS(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = int(len(self.Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = (len(self.Database) * value)
+                value = int(len(self.Database) * value)
             else:
                 value = int(value)
 
@@ -730,10 +683,10 @@ class PTubeS(periodicFrequentPatterns):
                         else:
                             periods[x] = [s, y[1]]
         for x, y in periods.items():
-            if y[0] >= self.minSup:
+            if y[0] >= minSup:
                 sample = str()
                 for i in x:
-                    sample = sample + i + " " 
+                    sample = sample + i + " "
                 self.finalPatterns[sample] = y
 
     def startMine(self):
@@ -745,9 +698,11 @@ class PTubeS(periodicFrequentPatterns):
         global lno, first, last, minSup, maxPer
         self.startTime = time.time()
         self.creatingItemSets()
-        mapSupport, plist = self.PeriodicFrequentOneItems()
+        self.minSup = self.convert(self.minSup)
+        self.maxPer = self.convert(self.maxPer)
+        print(self.maxPer, self.minSup)
         minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
-        print(minSup, maxPer)
+        mapSupport, plist = self.PeriodicFrequentOneItems()
         updatedTrans = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         Tree = self.buildTree(updatedTrans, info)
@@ -755,8 +710,6 @@ class PTubeS(periodicFrequentPatterns):
         self.removeFalsePositives()
         print("periodic Frequent patterns were generated successfully using Periodic-TubeS algorithm")
         self.endTime = time.time()
-        self.memoryUSS = float()
-        self.memoryRSS = float()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
@@ -841,7 +794,7 @@ if __name__ == "__main__":
         Patterns = ap.getPatterns()
         print("Total number of Patterns:", len(Patterns))
         ap.savePatterns(sys.argv[2])
-        #print(ap.getPatternsAsDataFrame())
+        # print(ap.getPatternsAsDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -849,39 +802,22 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        data = {'timeStamps': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                'Patterns': [['a', 'b', 'c'], ['b', 'e', 'f'], ['g', 'h'], ['b', 'c', 'd', 'e'], ['a', 'b', 'c', 'd'],
-                             ['d', 'f', 'h'], ['a', 'b', 'c', 'd'], ['c', 'd', 'e', 'f'], ['a', 'b', 'c'],
-                             ['a', 'b', 'c', 'd'],
-                             ['g', 'h'], ['a', 'e', 'f']],
-                'utilityValues': [[0.8, 0.3, 0.1], [0.9, 0.03, 0.7], [0.6, 0.2], [0.6, 0.4, 0.7, 0.8],
-                                  [0.3, 0.7, 0.9, 0.4], [0.3, 0.9, 0.2], [0.5, 0.5, 0.3, 0.8],
-                                  [0.01, 0.4, 0.6, 0.9], [0.6, 0.8, 0.4], [0.6, 0.2, 0.9, 0.1],
-                                  [0.6, 0.2], [0.6, 0.9, 0.3]]}
-        data = pd.DataFrame.from_dict(data)
+        #data = pd.DataFrame.from_dict(data)
         dataset = '/home/apiiit-rkv/Desktop/uncertain/congestion_temporal.txt'
-        ap = PTubeS(dataset, minSup=0.1, maxPer=0.3, sep=' ')
-
+        ap = PTubeS(dataset, minSup=20, maxPer=1000, sep=' ')
+        print(ap.minSup, ap.maxPer)
         ap.startMine()
 
         Patterns = ap.getPatterns()
         for x, y in Patterns.items():
             print(x, y)
         print("Total number of Frequent Patterns:", len(Patterns))
-
         ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
         da = ap.getPatternsAsDataFrame()
-        # print(da)
-
         memUSS = ap.getMemoryUSS()
-
         print("Total Memory in USS:", memUSS)
-
         memRSS = ap.getMemoryRSS()
-
         print("Total Memory in RSS", memRSS)
-
         run = ap.getRuntime()
-
         print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

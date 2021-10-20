@@ -1,4 +1,3 @@
-
 #  Copyright (C)  2021 Rage Uday Kiran
 #
 #      This program is free software: you can redistribute it and/or modify
@@ -17,6 +16,9 @@
 
 import sys
 import pandas as pd
+import validators
+import requests
+from urllib.request import Request, urlopen
 from functools import cmp_to_key
 from PAMI.highUtilityPatterns.basic.abstract import *
 
@@ -163,15 +165,34 @@ class Dataset:
         self.intToStr = {}
         self.cnt = 1
         self.sep = sep
-        try: 
-            self.transactions = []
-            with open(datasetPath, 'r') as f:
-                lines = f.readlines()
-                for line in lines:
+        self.Database = []
+        if isinstance(datasetPath, pd.DataFrame):
+            utilities, data = [], []
+            if datasetPath.empty:
+                print("its empty..")
+            i = datasetPath.columns.values.tolist()
+            if 'Transactions' in i:
+                data = datasetPath['Transactions'].tolist()
+            if 'utilities' in i:
+                utilities = datasetPath['Patterns'].tolist()
+            self.transactions.append(self.createTransaction(data, utilities))
+            # print(self.Database)
+        if isinstance(datasetPath, str):
+            if validators.url(datasetPath):
+                data = urlopen(datasetPath)
+                for line in data:
+                    line = line.decode("utf-8")
+                    #temp = [i.rstrip() for i in line.split(self.sep)]
+                    #temp = [x for x in temp if x]
                     self.transactions.append(self.createTransaction(line))
-            f.close()
-        except IOError:
-            print("File Not Found")
+            else:
+                try:
+                    with open(datasetPath, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            self.transactions.append(self.createTransaction(line))
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def createTransaction(self, line):
         """
@@ -353,6 +374,7 @@ class Efim(utilityPatterns):
     iFile = " "
     oFile = " "
     nFile = " "
+    lno = 0
     sep = "\t"
     minUtil = 0
     memoryUSS = float()
@@ -364,7 +386,6 @@ class Efim(utilityPatterns):
     def startMine(self):
         self.startTime = time.time()
         self.dataset = Dataset(self.iFile, self.sep)
-        #f = open(self.oFile, 'w')
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
         minUtil = int(self.minUtil)
         itemsToKeep = []
@@ -724,4 +745,16 @@ if __name__ == '__main__':
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        #ap = Efim('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/sampleTDB.txt', 3)
+        ap = Efim('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 50000, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of huis:", len(Patterns))
+        ap.savePatterns('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/patterns.txt')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

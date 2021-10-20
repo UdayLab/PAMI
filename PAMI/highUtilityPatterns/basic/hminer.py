@@ -192,7 +192,7 @@ class HMiner(utilityPatterns):
     memoryUSS = float()
     memoryRSS = float()
 
-    def __init__(self, iFile1, minUtil, sep = "\t"):
+    def __init__(self, iFile1, minUtil, sep="\t"):
         super().__init__(iFile1, minUtil, sep)
         self.start = 0
         self.end = 0
@@ -336,6 +336,7 @@ class HMiner(utilityPatterns):
             if x.sumnu + x.sumCu + x.sumnru + x.sumCru >= minutil:
                 exULs = self.construcCUL(x, uList, i, minutil, len(soted_prefix))
                 self.Explore_SearchTree(soted_prefix, exULs, minutil)
+
     def construcCUL(self, x, culs, st, minutil, length):
         """
             A method to construct CUL's database
@@ -599,5 +600,16 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 50000, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of huis:", len(Patterns))
+        ap.savePatterns('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/patterns.txt')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
          

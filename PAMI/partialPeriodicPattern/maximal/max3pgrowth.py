@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.partialPeriodicPattern.maximal.abstract import *
 
 periodicSupport = float()
@@ -383,7 +385,7 @@ def conditionalTransactions(condPatterns, condTimeStamps):
     return pat, timeStamps, updatedDict
 
 
-class MaxThreePGrowth(partialPeriodicPatterns):
+class maxThreePGrowth(partialPeriodicPatterns):
     """ Max3p-Growth algorithm IS to discover maximal periodic-frequent patterns in a temporal database.
         It extract the partial periodic patterns from 3p-tree and checks for the maximal property and stores
         all the maximal patterns in max3p-tree and extracts the maximal periodic patterns.
@@ -532,16 +534,44 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             :rtype: storing transactions into Database variable
         """
 
-        try:
-            self.Database = []
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
-                    li = [i.strip() for i in line.split(self.sep)]
-                    li = [x for x in li if x]
-                    self.Database.append(li)
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            timeStamp, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'timeStamps' in i:
+                timeStamp = self.iFile['timeStamps'].tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [timeStamp[i]]
+                tr.append(data[i])
+                self.Database.append(tr)
+            self.lno = len(self.Database)
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
                     self.lno += 1
-        except IOError:
-            print("File Not Found")
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            self.lno += 1
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def periodicFrequentOneItem(self):
         """
@@ -656,6 +686,8 @@ class MaxThreePGrowth(partialPeriodicPatterns):
             self.finalPatterns[st] = y
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         print("Maximal Partial Periodic Frequent patterns were generated successfully using MAX-3PGrowth algorithm ")
@@ -727,9 +759,9 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
         if len(sys.argv) == 6:
-            ap = MaxThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+            ap = maxThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:
-            ap = MaxThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+            ap = maxThreePGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Maximal Partial Periodic Patterns:", len(Patterns))

@@ -77,6 +77,7 @@ class partialPeriodicPatterns(ABC):
 
         pass
 
+    @abstractmethod
     def period(self):
         """Variable to store the user specified maximum periodicity value"""
 
@@ -146,7 +147,7 @@ class partialPeriodicPatterns(ABC):
         pass
 
     @abstractmethod
-    def getPatternsInDataFrame(self):
+    def getPatternsAsDataFrame(self):
         """Complete set of frequent patterns will be loaded in to data frame from this function"""
 
         pass

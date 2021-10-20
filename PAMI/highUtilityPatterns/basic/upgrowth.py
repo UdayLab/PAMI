@@ -13,10 +13,12 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import time
 import sys
-import  pandas as pd
+import validators
+from urllib.request import urlopen
+import pandas as pd
 from PAMI.highUtilityPatterns.basic.abstract import *
+
 
 class UPItem:
     """
@@ -66,26 +68,27 @@ class UPItem:
         """
         return self.name
 
+
 class UPNode:
     """
         A class that represent UPNode
 
     Attribute :
     ---------
-    itemId :int
-        name of the item
-    count: int
-        represent the count of items
-    nodeUtility: int
-        Represent the utility of current node
-    nodeLink: UPNode
-        represent the link to next node with same itemid
-    childs: list
-         link to next node with same item Id (for the header table)
+        itemId :int
+            name of the item
+        count: int
+            represent the count of items
+        nodeUtility: int
+            Represent the utility of current node
+        nodeLink: UPNode
+            represent the link to next node with same itemid
+        childs: list
+            link to next node with same item Id (for the header table)
     Method:
     ------
-    getChildWithId( name):
-        method to get child node Return the immediate child of this node having a given name
+        getChildWithId( name):
+            method to get child node Return the immediate child of this node having a given name
 
     """
     itemId = -1
@@ -114,10 +117,10 @@ class UPNode:
         flag = 0
         for child in self.childs:
             if child.itemId == name:
-                flag = 1
                 return child
         if flag == 0:
             return -1
+
 
 class UPTree:
     """
@@ -125,27 +128,27 @@ class UPTree:
 
     Attributes :
     -----------
-    headerList: list
-        List of items in the header table
-    mapItemNodes: map
-        Map that indicates the last node for each item using the node links
-    root : UPNode
-        root of the tree
-    mapItemToLastNode: map
-        List of pairs (item, Utility) of the header table
-    hasMoreThanOnePath :bool
-        Variable that indicate if the tree has more than one path
+        headerList: list
+            List of items in the header table
+        mapItemNodes: map
+            Map that indicates the last node for each item using the node links
+        root : UPNode
+            root of the tree
+        mapItemToLastNode: map
+            List of pairs (item, Utility) of the header table
+        hasMoreThanOnePath :bool
+            Variable that indicate if the tree has more than one path
     
     Methods:
     --------
-    addTransaction(transaction,rtu)
-        To add a transaction (for initial construction)
-    addLocalTransactio(localPath, pathUtility, mapItemToMinimumItemutility, pathCount)
-        Add a transaction to the UP-Tree (for a local UP-Tree)
-    insertNewNode(currentlocalNode, itemName, nodeUtility)
-        Insert a new node in the UP-Tree as child of a parent node
-    createHeaderList(mapItemToTwu)
-        Method for creating the list of items in the header table, in descending order of TWU or path utility.
+        addTransaction(transaction,rtu)
+            To add a transaction (for initial construction)
+        addLocalTransactio(localPath, pathUtility, mapItemToMinimumItemutility, pathCount)
+            Add a transaction to the UP-Tree (for a local UP-Tree)
+        insertNewNode(currentlocalNode, itemName, nodeUtility)
+            Insert a new node in the UP-Tree as child of a parent node
+        createHeaderList(mapItemToTwu)
+            Method for creating the list of items in the header table, in descending order of TWU or path utility.
 
 
     """
@@ -255,7 +258,8 @@ class UPTree:
         self.headerList = list(self.mapItemNodes.keys())
         self.headerList = sorted(self.headerList, key=lambda x: mapItemToTwu[x], reverse=True)
 
-class upgrowth(utilityPatterns):
+
+class UPGrowth(utilityPatterns):
 
     """
     UP-Growth is two-phase algorithm to mine High Utility Itemsets from transactional databases.
@@ -300,7 +304,7 @@ class upgrowth(utilityPatterns):
                 Complete set of patterns will be retrieved with this function
         createLocalTree(tree, item)
             A Method to Construct conditional pattern base
-        upgrowth( tree, alpha)
+        UPGrowth( tree, alpha)
             A Method to Mine UP Tree recursively
         PrintStats()
             A Method to print no.of phuis
@@ -317,16 +321,16 @@ class upgrowth(utilityPatterns):
 
     Executing the code on terminal :
     -------
-        Format: python3 upgrowth <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
-        Examples: python3 upgrowth sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
-                  python3 upgrowth sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
+        Format: python3 UPGrowth <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
+        Examples: python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
+                  python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
 
     Sample run of importing the code:
     -------------------------------
         
-        import upgrowth as alg
+        from PAMI.highUtilityPatterns.basic import UPGrowth as alg
 
-        obj=alg.upgrowth("input.txt",35)
+        obj=alg.UPGrowth("input.txt",35)
 
         obj.startMine()
 
@@ -360,41 +364,88 @@ class upgrowth(utilityPatterns):
     minUtil = 0
     memoryUSS = float()
     memoryRSS = float()
-    finalPatterns={}
-    iFile=" "
-    oFile=" "
+    finalPatterns = {}
+    iFile = " "
+    oFile = " "
     NumberOfNodes = 0
     ParentNumberOfNodes = 0
     MapItemToMinimumUtility = {}
     phuis = []
+    Database = []
     MapItemToTwu = {}
-    sep="\t"
+    sep = " "
 
-    def __init__(self, iFile, minUtil,sep="\t"):
-        super().__init__(iFile,minUtil,sep)
-        self.finalPatterns = {}
+    def __init__(self, iFile, minUtil, sep = '\t'):
+        super().__init__(iFile, minUtil, sep)
+
+    def creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            timeStamp, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'Utilities' in i:
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [timeStamp[i]]
+                tr.append(data[i])
+                self.Database.append(tr)
+            self.lno = len(self.Database)
+            #print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    self.lno += 1
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            self.lno += 1
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def startMine(self):
-        self.startTime=time.time()
+        self.startTime = time.time()
         tree = UPTree()
         with open(self.iFile, 'r') as o:
             lines = o.readlines()
             for line in lines:
-                line=line.split("\n")[0]
+                line = line.split("\n")[0]
                 transaction = line.strip().split(':')
                 items = transaction[0].split(self.sep)
                 transactionUtility = int(transaction[1])
+                print(items, transactionUtility)
                 for item in items:
                     Item = int(item)
                     if Item in self.MapItemToTwu:
                         self.MapItemToTwu[Item] += transactionUtility
                     else:
                         self.MapItemToTwu[Item] = transactionUtility
+            for x, y in self.MapItemToTwu.items():
+                print(x, y)
             for line in lines:
-                line=line.split("\n")[0]
+                line = line.split("\n")[0]
                 transaction = line.strip().split(':')
                 items = transaction[0].split(self.sep)
                 utilities = transaction[2].split(self.sep)
+                print(items, utilities)
                 remainingUtility = 0
                 revisedTransaction = []
                 for idx, item in enumerate(items):
@@ -415,23 +466,17 @@ class upgrowth(utilityPatterns):
         o.close()
         tree.createHeaderList(self.MapItemToTwu)
         alpha = []
-        self.upgrowth(tree, alpha)
+        self.finalPatterns = {}
+        self.UPGrowth(tree, alpha)
         self.phuis = sorted(self.phuis, key=lambda x: len(x))
-        """SortedPhuis = []
-        for phui in self.phuis:
-            itemset = sorted(phui, key=lambda x: x)
-            SortedPhuis.append(itemset)
-            print(itemset)
-        self.phuis = SortedPhuis
-        with open(self.iFile, 'r') as f:
-            lines = f.readlines()
-        f.close()"""
-        self.endTime=time.time()
+        self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
-    def upgrowth(self, tree, alpha):
+    def UPGrowth(self, tree, alpha):
         """
             A Method to Mine UP Tree recursively
 
@@ -450,10 +495,10 @@ class upgrowth(utilityPatterns):
             if ItemTotalUtility >= self.minUtil:
                 beta = alpha + [item]
                 self.phuis.append(beta)
-                str1=' '.join(map(str, beta))
-                self.finalPatterns[str1]=ItemTotalUtility
+                str1 = ' '.join(map(str, beta))
+                self.finalPatterns[str1] = ItemTotalUtility
                 if len(localTree.headerList) > 0:
-                    self.upgrowth(localTree, beta)
+                    self.UPGrowth(localTree, beta)
 
     def createLocalTree(self, tree, item):
         """
@@ -518,6 +563,7 @@ class upgrowth(utilityPatterns):
             data.append([a, b])
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
+
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
@@ -525,6 +571,7 @@ class upgrowth(utilityPatterns):
         :rtype: dict
         """
         return self.finalPatterns
+
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
@@ -536,6 +583,7 @@ class upgrowth(utilityPatterns):
         for x, y in self.finalPatterns.items():
             patternsAndSupport = str(x) + " : " + str(y)
             writer.write("%s\n" % patternsAndSupport)
+
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
@@ -544,6 +592,7 @@ class upgrowth(utilityPatterns):
         """
 
         return self.memoryUSS
+
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
@@ -551,20 +600,27 @@ class upgrowth(utilityPatterns):
         :rtype: float
        """
         return self.memoryRSS
+
     def getRuntime(self):
-       """Calculating the total amount of runtime taken by the mining process
+
+        """
+        Calculating the total amount of runtime taken by the mining process
+
+            :return: returning total amount of runtime taken by the mining process
+
+            :rtype: float
+
+        """
+        return self.endTime-self.startTime
 
 
-        :return: returning total amount of runtime taken by the mining process
-        :rtype: float
-       """
-       return self.endTime-self.startTime
 if __name__ == "__main__":
-    if len(sys.argv)==4 or len(sys.argv)==5:
-        if len(sys.argv)==5: #includes separator
-            ap=upgrowth(sys.argv[1],int(sys.argv[3]),sys.argv[4])
-        if len(sys.argv)==4: #to consider "\t" as a separator
-            ap=upgrowth(sys.argv[1],int(sys.argv[3]))
+    ap = str()
+    if len(sys.argv) == 4 or len(sys.argv) == 5:
+        if len(sys.argv) == 5:
+            ap = UPGrowth(sys.argv[1], int(sys.argv[3]), sys.argv[4])
+        if len(sys.argv) == 4:
+            ap = UPGrowth(sys.argv[1], int(sys.argv[3]))
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of huis:", len(Patterns))
@@ -576,4 +632,15 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-         print("Error! The number of input parameters do not match the total number of parameters provided")
+        ap = UPGrowth('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/sampleTDB.txt', 3)
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of huis:", len(Patterns))
+        ap.savePatterns('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/patterns.txt')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
+        print("Error! The number of input parameters do not match the total number of parameters provided")

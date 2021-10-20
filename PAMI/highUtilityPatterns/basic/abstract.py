@@ -113,6 +113,12 @@ class utilityPatterns(ABC):
         pass
 
     @abstractmethod
+    def sep(self):
+        """Variable to store the user-specified minimum support value"""
+
+        pass
+
+    @abstractmethod
     def startTime(self):
         """Variable to store the start time of the mining process"""
 

@@ -1,5 +1,7 @@
 from PAMI.frequentSpatialPattern.basic.abstract import *
 import sys
+import validators
+from urllib.request import urlopen
 import pandas as pd
 
 
@@ -86,7 +88,7 @@ class SpatialEclat(spatialFrequentPatterns):
     Sample run of importing the code :
     -------------------------------
         
-        import SpatialEclat as alg
+        import PAMI.frequentSpatialPattern.basic import SpatialEclat as alg
         
         obj = alg.SpatialEclat("sampleTDB.txt", "sampleN.txt", 5)
 
@@ -138,19 +140,35 @@ class SpatialEclat(spatialFrequentPatterns):
             :param iFileName: user given input file/input file path
             :type iFileName: str
             """
-        try:
-            self.Database = []
-            lineNumber = 0
-            with open(iFileName, 'r', encoding='utf-8') as f:
-                for line in f:
-                    lineNumber += 1
-                    li = line.split(self.sep)
-                    li1 = [i.rstrip() for i in li]
-                    li1 = [x for x in li1]
-                    self.Database.append(li1)
-        except IOError:
-            print("File Not Found")
-
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
     # function to get frequent one pattern
     def frequentOneItem(self):
         """Generating one frequent patterns"""
@@ -278,12 +296,37 @@ class SpatialEclat(spatialFrequentPatterns):
         """
             A function to map items to their Neighbours
         """
-        with open(self.nFile, 'r', encoding='utf-8') as f:
-            for line in f:
-                li = line.split(self.sep)
-                item = li[0]
-                nibs = li[1:]
-                self.NeighboursMap[item] = nibs
+        self.NeighboursMap = []
+        if isinstance(self.iFile, pd.DataFrame):
+            data = []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Neighbours' in i:
+                data = self.iFile['Neighbours'].tolist()
+            for i in data:
+                self.NeighboursMap[i[0]] = i[1:]
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.NeighboursMap[temp[0]] = temp[1:]
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.NeighboursMap[temp[0]] = temp[1:]
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def startMine(self):
         """Frequent pattern mining process will start from here"""
@@ -311,6 +354,8 @@ class SpatialEclat(spatialFrequentPatterns):
                 break
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         print("Spatial Frequent patterns were generated successfully using SpatialEclat algorithm")

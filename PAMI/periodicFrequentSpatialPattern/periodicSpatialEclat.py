@@ -1,9 +1,11 @@
 from PAMI.periodicFrequentSpatialPattern.abstract import *
 import sys
+import validators
+from urllib.request import urlopen
 import pandas as pd
 
 
-class SpatialEclat(spatialPeriodicFrequentPatterns):
+class periodicSpatialEclat(spatialPeriodicFrequentPatterns):
     """ 
         Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
         Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
@@ -71,21 +73,21 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
     Executing the code on terminal :
     ------------------------------
         Format:
-            python3 SpatialEclat.py <inputFile> <outputFile> <neighbourFile> <minSup> <maxPer>
+            python3 periodicSpatialEclat.py <inputFile> <outputFile> <neighbourFile> <minSup> <maxPer>
         Examples:
-            python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3 (minSup & maxPer will be considered in percentage of database transactions)
+            python3 periodicSpatialEclat.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3 (minSup & maxPer will be considered in percentage of database transactions)
 
-            python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 5 3 (minSup & maxPer will be considered in support count or frequency)
+            python3 periodicSpatialEclat.py sampleTDB.txt output.txt sampleN.txt 5 3 (minSup & maxPer will be considered in support count or frequency)
                                                                 (it considers "\t" as separator)
 
-            python3 SpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
+            python3 periodicSpatialEclat.py sampleTDB.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
 
     Sample run of importing the code :
     -------------------------------
 
-        import SpatialEclat as alg
+        import PAMI.periodicFrequentSpatialPattern.periodicSpatialEclat as alg
 
-        obj = alg.SpatialEclat("sampleTDB.txt", "sampleN.txt", 5, 3)
+        obj = alg.periodicSpatialEclat("sampleTDB.txt", "sampleN.txt", 5, 3)
 
         obj.startMine()
 
@@ -135,18 +137,35 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
             :param iFileName: user given input file/input file path
             :type iFileName: str
             """
-        try:
-            self.Database = []
-            lineNumber = 0
-            with open(iFileName, 'r', encoding='utf-8') as f:
-                for line in f:
-                    lineNumber += 1
-                    li = line.split(self.sep)
-                    li1 = [i.rstrip() for i in li]
-                    li1 = [x for x in li1]
-                    self.Database.append(li1)
-        except IOError:
-            print("File Not Found")
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     # function to get frequent one pattern
     def frequentOneItem(self):
@@ -285,13 +304,37 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
         """
             A function to map items to their Neighbours
         """
-        with open(self.nFile, 'r', encoding='utf-8') as f:
-            for line in f:
-                li = line.split(self.sep)
-                item = li[0]
-                nibs = li[1:]
-                self.NeighboursMap[item] = nibs
-
+        self.NeighboursMap = []
+        if isinstance(self.iFile, pd.DataFrame):
+            data = []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Neighbours' in i:
+                data = self.iFile['Neighbours'].tolist()
+            for i in data:
+                self.NeighboursMap[i[0]] = i[1:]
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.NeighboursMap[temp[0]] = temp[1:]
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.NeighboursMap[temp[0]] = temp[1:]
+                except IOError:
+                    print("File Not Found")
+                    quit()
     def startMine(self):
         """Frequent pattern mining process will start from here"""
 
@@ -325,6 +368,8 @@ class SpatialEclat(spatialPeriodicFrequentPatterns):
             self.save(None, itemSetX, tidSetX)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         print("Spatial Periodic Frequent patterns were generated successfully using SpatialEclat algorithm")
@@ -392,9 +437,9 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 6 or len(sys.argv) == 7:
         if len(sys.argv) == 7:
-            ap = SpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+            ap = periodicSpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
         if len(sys.argv) == 6:
-            ap = SpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+            ap = periodicSpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         ap.startMine()
         spatialFrequentPatterns = ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))

@@ -4,8 +4,8 @@ from urllib.request import urlopen
 from PAMI.partialPeriodicPattern.closed.abstract import *
 
 
-class ThreePClose(partialPeriodicPatterns):
-    """ ThreePClose algorithm is used to discover the closed partial periodic patterns in temporal databases.
+class threePClose(partialPeriodicPatterns):
+    """ threePClose algorithm is used to discover the closed partial periodic patterns in temporal databases.
         It uses depth-first search.
 
         Reference:
@@ -18,16 +18,16 @@ class ThreePClose(partialPeriodicPatterns):
                 Input file name or path of the input file
             oFile : str
                 Name of the output file or path of the input file
-            minPS: int or float or str
-                The user can specify minPS either in count or proportion of database size.
-                If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
+            periodicSupport: int or float or str
+                The user can specify periodicSupport either in count or proportion of database size.
+                If the program detects the data type of periodicSupport is integer, then it treats periodicSupport is expressed in count.
                 Otherwise, it will be treated as float.
-                Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
-            periodicity: int or float or str
-                The user can specify periodicity either in count or proportion of database size.
-                If the program detects the data type of periodicity is integer, then it treats periodicity is expressed in count.
+                Example: periodicSupport=10 will be treated as integer, while periodicSupport=10.0 will be treated as float
+            period: int or float or str
+                The user can specify period either in count or proportion of database size.
+                If the program detects the data type of period is integer, then it treats period is expressed in count.
                 Otherwise, it will be treated as float.
-                Example: periodicity=10 will be treated as integer, while periodicity=10.0 will be treated as float
+                Example: period=10 will be treated as integer, while period=10.0 will be treated as float
             sep : str
                 This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
                 However, the users can override their default separator.
@@ -64,14 +64,14 @@ class ThreePClose(partialPeriodicPatterns):
         -------
         Format:
         ------
-        python3 ThreePClose.py <inputFile> <outputFile> <minPS> <periodicity>
+            python3 threePClose.py <inputFile> <outputFile> <periodicSupport> <period>
 
         Examples:
         --------
-        python3 ThreePClose.py sampleTDB.txt patterns.txt 0.3 0.4   (minPS and periodicity will be considered in percentage of database
+            python3 threePClose.py sampleTDB.txt patterns.txt 0.3 0.4   (periodicSupport and period will be considered in percentage of database
         transactions)
 
-        python3 ThreePClose.py sampleTDB.txt patterns.txt 3 4     (minPS and periodicity will be considered in support count or frequency)
+            python3 threePClose.py sampleTDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)
 
 
         Sample run of the imported code:
@@ -79,7 +79,7 @@ class ThreePClose(partialPeriodicPatterns):
 
             from PAMI.partialPeriodicPattern.closed import threePClose as alg
 
-            obj = alg.ThreePClose("../basic/sampleTDB.txt", "2", "6")
+            obj = alg.threePClose("../basic/sampleTDB.txt", "2", "6")
 
             obj.startMine()
 
@@ -109,11 +109,12 @@ class ThreePClose(partialPeriodicPatterns):
 
         """
 
-    minPS = float()
-    periodicity = float()
+    periodicSupport = float()
+    period = float()
     startTime = float()
     endTime = float()
     finalPatterns = {}
+    Database = []
     iFile = " "
     oFile = " "
     sep = " "
@@ -147,43 +148,82 @@ class ThreePClose(partialPeriodicPatterns):
             else:
                 value = int(value)
         return value
+    
+    def creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
 
-    def scanDatabase(self):
+
+        """
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            timeStamp, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'timeStamps' in i:
+                timeStamp = self.iFile['timeStamps'].tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [timeStamp[i]]
+                tr.append(data[i])
+                self.Database.append(tr)
+            self.lno = len(self.Database)
+            #print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    self.lno += 1
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            self.lno += 1
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
+    def OneLengthPartialItems(self):
         """
         To scan the database and extracts the 1-length periodic-frequent items
         Returns:
         -------
         Returns the 1-length periodic-frequent items
         """
-        try:
-            self.mapSupport = {}
-            self.tidList = {}
-            self.lno = len(open(self.iFile).readlines())
-            self.periodicity = self.convert(self.periodicity)
-            with open(self.iFile, 'r') as f:
-                for line in f:
-                    s = [i.rstrip() for i in line.split(self.sep)]
-                    n = int(s[0])
-                    for i in range(1, len(s)):
-                        si = s[i]
-                        if self.mapSupport.get(si) is None:
-                            self.mapSupport[si] = [1, 0, n]
-                            self.tidList[si] = [n]
-                        else:
-                            self.mapSupport[si][0] += 1
-                            period = abs(n - self.mapSupport[si][2])
-                            if period <= self.periodicity:
-                                self.mapSupport[si][1] += 1
-                            self.mapSupport[si][2] = n
-                            self.tidList[si].append(n)
-            for x, y in self.mapSupport.items():
-                period = abs(self.lno - self.mapSupport[x][2])
-                if period <= self.periodicity:
-                    self.mapSupport[x][1] += 1
-            self.minPS = self.convert(self.minPS)
-            self.mapSupport = {k: v[1] for k, v in self.mapSupport.items() if v[1] >= self.minPS}
-        except IOError:
-            print("File Not Found")
+        self.mapSupport = {}
+        self.tidList = {}
+        self.period = self.convert(self.period)
+        for line in self.Database:
+            n = int(line[0])
+            for i in range(1, len(line)):
+                si = line[i]
+                if self.mapSupport.get(si) is None:
+                    self.mapSupport[si] = [1, 0, n]
+                    self.tidList[si] = [n]
+                else:
+                    self.mapSupport[si][0] += 1
+                    period = abs(n - self.mapSupport[si][2])
+                    if period <= self.period:
+                        self.mapSupport[si][1] += 1
+                    self.mapSupport[si][2] = n
+                    self.tidList[si].append(n)
+        for x, y in self.mapSupport.items():
+            period = abs(self.lno - self.mapSupport[x][2])
+            if period <= self.period:
+                self.mapSupport[x][1] += 1
+        self.periodicSupport = self.convert(self.periodicSupport)
+        self.mapSupport = {k: v[1] for k, v in self.mapSupport.items() if v[1] >= self.periodicSupport}
         periodicFrequentItems = {}
         self.tidList = {k: v for k, v in self.tidList.items() if k in self.mapSupport}
         for x, y in self.tidList.items():
@@ -218,7 +258,7 @@ class ThreePClose(partialPeriodicPatterns):
         Parameters:
         ----------
             itemSet: generated periodic-frequent itemSet
-            val: support and periodicity of itemSet
+            val: support and period of itemSet
             hashcode: the key generated in calculate() method for every itemSet
 
         Returns
@@ -229,20 +269,20 @@ class ThreePClose(partialPeriodicPatterns):
             return False
         for i in self.hashing[hashcode]:
             itemSetX = i
-            if val == self.hashing[hashcode][itemSetX][0] and set(itemSetX).issuperset(itemSet):
+            if val == self.hashing[hashcode][itemSetX] and set(itemSetX).issuperset(itemSet):
                 return True
         return False
 
     def getPeriodicSupport(self, timeStamps):
         """
-        Calculates the periodicity and support of timeStamps
+        Calculates the period and support of timeStamps
         Parameters:
         ----------
             timeStamps: timeStamps of itemSet
 
         Returns:
         -------
-            periodicity and support
+            period and support
         """
         timeStamps.sort()
         sup = 0
@@ -273,7 +313,7 @@ class ThreePClose(partialPeriodicPatterns):
         prefix = list(set(prefix))
         prefix.sort()
         val = self.getPeriodicSupport(tidSetX)
-        if val >= self.minPS:
+        if val >= self.periodicSupport:
             hashcode = self.calculate(tidSetX)
             if self.contains(prefix, val, hashcode) is False:
                 self.itemSetCount += 1
@@ -291,7 +331,7 @@ class ThreePClose(partialPeriodicPatterns):
         Parameters:
         ----------
             prefix: Prefix class of an itemSet
-            itemSets: suffix items in periodicFrequentItems that satisfies the minPS condition
+            itemSets: suffix items in periodicFrequentItems that satisfies the periodicSupport condition
             tidSets: timeStamps of items in itemSets respectively
 
         Returns:
@@ -309,7 +349,7 @@ class ThreePClose(partialPeriodicPatterns):
             itemJ = itemSets[1]
             tidSetJ = tidSets[1]
             y1 = list(set(tidSetI).intersection(tidSetJ))
-            if len(y1) >= self.minPS:
+            if len(y1) >= self.periodicSupport:
                 suffix = []
                 suffix += [itemI, itemJ]
                 suffix = list(set(suffix))
@@ -333,7 +373,7 @@ class ThreePClose(partialPeriodicPatterns):
                     continue
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetX).intersection(tidSetJ))
-                if len(y) < self.minPS:
+                if len(y) < self.periodicSupport:
                     continue
                 if len(tidSetX) == len(tidSetJ) and len(y) == len(tidSetX):
                     itemSets.insert(j, None)
@@ -359,7 +399,9 @@ class ThreePClose(partialPeriodicPatterns):
         Mining process will start from here
         """
         self.startTime = time.time()
-        periodicFrequentItems = self.scanDatabase()
+        self.creatingItemSets()
+        self.finalPatterns = {}
+        periodicFrequentItems = self.OneLengthPartialItems()
         for i in range(len(periodicFrequentItems)):
             itemX = periodicFrequentItems[i]
             if itemX is None:
@@ -374,7 +416,7 @@ class ThreePClose(partialPeriodicPatterns):
                     continue
                 tidSetJ = self.tidList[itemJ]
                 y1 = list(set(tidSetX).intersection(tidSetJ))
-                if len(y1) < self.minPS:
+                if len(y1) < self.periodicSupport:
                     continue
                 if len(tidSetX) == len(tidSetJ) and len(y1) is len(tidSetX):
                     periodicFrequentItems.insert(j, None)
@@ -386,7 +428,6 @@ class ThreePClose(partialPeriodicPatterns):
                     itemSets.append(itemJ)
                     tidSets.append(y1)
                 else:
-
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             if len(itemSets) > 0:
@@ -394,9 +435,11 @@ class ThreePClose(partialPeriodicPatterns):
             self.save([], itemSetX, tidSetX)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
-        print("Closed periodic frequent patterns were generated successfully using ThreePClose algorithm ")
+        print("Closed periodic frequent patterns were generated successfully using threePClose algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -440,7 +483,7 @@ class ThreePClose(partialPeriodicPatterns):
         data = []
         for a, b in self.finalPatterns.items():
             data.append([a, b[0], b[1]])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Period'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -470,9 +513,9 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
         if len(sys.argv) == 6:
-            ap = ThreePClose(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+            ap = threePClose(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:
-            ap = ThreePClose(sys.argv[1], sys.argv[3], sys.argv[4])
+            ap = threePClose(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of  Patterns:", len(Patterns))
