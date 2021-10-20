@@ -25,6 +25,10 @@ This software is provided under [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2
 
        pip install pami
        
+# Upgrade
+      
+       pip install --upgrade pami
+       
 # Details 
 Total available algorithms: 43
 
