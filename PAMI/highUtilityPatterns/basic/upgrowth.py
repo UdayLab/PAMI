@@ -620,7 +620,7 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = UPGrowth('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 50000, ' ')
+        ap = UPGrowth('/home/apiiit-rkv/Downloads/Reaserch/maximal/retail_utility_spmf.txt', 500000, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of huis:", len(Patterns))

@@ -753,7 +753,7 @@ if __name__ == '__main__':
         print("Total ExecutionTime in seconds:", run)
     else:
         #ap = Efim('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/sampleTDB.txt', 3)
-        ap = Efim('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 200000, ' ')
+        ap = Efim('/home/apiiit-rkv/Downloads/Reaserch/maximal/retail_utility_spmf.txt', 50000, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of huis:", len(Patterns))

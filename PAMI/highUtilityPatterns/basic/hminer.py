@@ -628,7 +628,7 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 200000, ' ')
+        ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/retail_utility_spmf.txt', 50000, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of huis:", len(Patterns))
