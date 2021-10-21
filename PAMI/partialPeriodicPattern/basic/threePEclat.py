@@ -82,7 +82,7 @@ class threePEclat(partialPeriodicPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
         creatingOneitemSets()
-            Scan the database and store the items with their timestamps which are periodic frequent 
+            Scan the database and store the items with their timestamps which are periodic frequent
         getPeriodAndSupport()
             Calculates the support and period for a list of timestamps.
         Generation()
@@ -96,11 +96,11 @@ class threePEclat(partialPeriodicPatterns):
         Examples: python3 threePEclat.py sampleDB.txt patterns.txt 0.3 0.4   (periodicSupport and period will be considered in percentage of database transactions)
 
                   python3 threePEeclat.py sampleDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)
-        
+
 
     Sample run of importing the code:
     -------------------
-         
+
         from PAMI.periodicFrequentPattern.basic import threePEclat as alg
 
         obj = alg.threePEclat(iFile, periodicSupport,period)
@@ -153,10 +153,6 @@ class threePEclat(partialPeriodicPatterns):
     lno = 0
     Database = []
 
-    def intersection(self, a, b):
-        lst3 = [value for value in a if value in b]
-        return lst3
-
     def convert(self, value):
         """
         To convert the given user specified value
@@ -179,52 +175,44 @@ class threePEclat(partialPeriodicPatterns):
 
     def getPeriodicSupport(self, timeStamps):
         """
-                    calculates the support and periodicity with list of timestamps
+            calculates the support and periodicity with list of timestamps
 
-                    :param timeStamps : timestamps of a pattern
-                    :type timeStamps : list
+            :param tids : timestamps of a pattern
 
-
-                            """
+            :type tids : list
+        """
         timeStamps.sort()
         per = 0
-        sup = 0
         for i in range(len(timeStamps) - 1):
             j = i + 1
             if abs(timeStamps[j] - timeStamps[i]) <= self.period:
                 per += 1
-            sup += 1
-        #print(timeStamps, per)
         return per
 
     def creatingItemSets(self):
-        """
-            Storing the complete transactions of the database/input file in a database variable
-
-
-        """
         self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
-            timeStamp, data = [], []
+            data, tids = [], []
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
             if 'timeStamps' in i:
-                timeStamp = self.iFile['timeStamps'].tolist()
+                tids = self.iFile['timeStamps'].tolist()
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
             if 'Patterns' in i:
                 data = self.iFile['Patterns'].tolist()
             for i in range(len(data)):
-                tr = [timeStamp[i]]
+                tr = [tids[i][0]]
                 tr.append(data[i])
                 self.Database.append(tr)
             self.lno = len(self.Database)
-            #print(self.Database)
+            # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
                 for line in data:
+                    line.strip()
                     self.lno += 1
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
@@ -235,6 +223,7 @@ class threePEclat(partialPeriodicPatterns):
                     with open(self.iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             self.lno += 1
+                            line.strip()
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
                             self.Database.append(temp)
@@ -250,8 +239,8 @@ class threePEclat(partialPeriodicPatterns):
         self.tidList = {}
         self.mapSupport = {}
         self.period = self.convert(self.period)
-        self.periodicSupport = self.convert(self.periodicSupport)
-        for s in self.Database:
+        for line in self.Database:
+            s = line
             n = int(s[0])
             for i in range(1, len(s)):
                 si = s[i]
@@ -264,10 +253,11 @@ class threePEclat(partialPeriodicPatterns):
                         self.mapSupport[si][0] += 1
                     self.mapSupport[si][1] = n
                     self.tidList[si].append(n)
+        self.periodicSupport = self.convert(self.periodicSupport)
         self.mapSupport = {k: v[0] for k, v in self.mapSupport.items() if v[0] >= self.periodicSupport}
         plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         return plist
-    
+
     def save(self, prefix, suffix, tidSetX):
         """
             saves the patterns that satisfy the partial periodic property.
@@ -296,7 +286,7 @@ class threePEclat(partialPeriodicPatterns):
             for i in prefix:
                 sample = sample + i + " "
             self.finalPatterns[sample] = val
-    
+
     def Generation(self, prefix, itemSets, tidSets):
         """
             Generates the patterns following Equivalence-class methods
@@ -329,7 +319,7 @@ class threePEclat(partialPeriodicPatterns):
             classItemSets = []
             classTidSets = []
             itemSetX = [itemI]
-            for j in range(i+1, len(itemSets)):
+            for j in range(i + 1, len(itemSets)):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetX).intersection(tidSetJ))
@@ -340,7 +330,7 @@ class threePEclat(partialPeriodicPatterns):
             newprefix = list(set(itemSetX)) + prefix
             self.Generation(newprefix, classItemSets, classTidSets)
             self.save(prefix, list(set(itemSetX)), tidSetX)
-        
+
     def startMine(self):
         """
             Main program start with extracting the periodic frequent items from the database and
@@ -357,7 +347,7 @@ class threePEclat(partialPeriodicPatterns):
             itemSetX = [itemI]
             itemSets = []
             tidSets = []
-            for j in range(i+1, len(plist)):
+            for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
                 tidSetJ = self.tidList[itemJ]
                 y1 = list(set(tidSetX).intersection(tidSetJ))
@@ -441,7 +431,7 @@ class threePEclat(partialPeriodicPatterns):
         :rtype: dict
         """
         return self.finalPatterns
-                    
+
 
 if __name__ == "__main__":
     ap = str()
@@ -461,4 +451,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        dataset = 'https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
+        ap = threePEclat('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
+                          0.001, 0.01)
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Partial Periodic Patterns:", len(Patterns))
+        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

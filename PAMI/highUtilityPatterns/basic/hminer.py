@@ -1,4 +1,6 @@
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.highUtilityPatterns.basic.abstract import *
 
 
@@ -185,6 +187,7 @@ class HMiner(utilityPatterns):
     minSup = str()
     maxPer = float()
     finalPatterns = {}
+    Database = {}
     iFile = " "
     oFile = " "
     minUtil = 0
@@ -213,104 +216,129 @@ class HMiner(utilityPatterns):
         else:
             return compare
 
+    def creteItemsets(self):
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            utilities, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                data = self.iFile['Transactions'].tolist()
+            if 'utilities' in i:
+                utilities = self.iFile['Patterns'].tolist()
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line = line.decode("utf-8")
+                    self.Database.append(line)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            self.Database.append(line)
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
+
     def startMine(self):
         """
             main program to start the operation
         """
         self.startTime = time.time()
-        try:
-            with open(self.iFile, 'r') as file:
-                for line in file:
-                    line = line.split("\n")[0]
-                    parts = line.split(":")
-                    items_str = parts[0].split(self.sep)
-                    utility_str = parts[2].split(self.sep)
-                    transUtility = int(parts[1])
-                    for i in range(0, len(items_str)):
-                        item = items_str[i]
-                        twu = self.mapOfTWU.get(item)
-                        if twu == None:
-                            twu = transUtility
-                        else:
-                            twu += transUtility
-                        self.mapOfTWU[item] = twu
-            listOfCUList = []
-            hashTable = {}
-            mapItemsToCUList = {}
-            minutil = self.minUtil
-            for item in self.mapOfTWU.keys():
-                if self.mapOfTWU.get(item) >= minutil:
-                    uList = CUList(item)
-                    mapItemsToCUList[item] = uList
-                    listOfCUList.append(uList)
-            listOfCUList.sort(key=functools.cmp_to_key(self.hminer))
-            tid = 1
-            with open(self.iFile, 'r') as file:
-                for line in file:
-                    line = line.split("\n")[0]
-                    parts = line.split(":")
-                    items = parts[0].split(self.sep)
-                    utilities = parts[2].split(self.sep)
-                    ru = 0
-                    newTwu = 0
-                    tx_key = []
-                    revisedTrans = []
-                    for i in range(0, len(items)):
-                        pair = Pair()
-                        pair.item = items[i]
-                        pair.utility = int(utilities[i])
-                        if self.mapOfTWU.get(pair.item) >= minutil:
-                            revisedTrans.append(pair)
-                            tx_key.append(pair.item)
-                            newTwu += pair.utility
-                    revisedTrans.sort(key=functools.cmp_to_key(self.hminer))
-                    tx_key1 = tuple(tx_key)
-                    if len(revisedTrans) > 0:
-                        if tx_key1 not in hashTable.keys():
-                            hashTable[tx_key1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans)-1].item].elements)
-                            for i in range(len(revisedTrans)-1, -1, -1):
-                                pair = revisedTrans[i]
-                                cuListoFItems = mapItemsToCUList.get(pair.item)
-                                element = Element(tid, pair.utility, ru, 0, 0)
-                                if i > 0:
-                                    element.ppos = len(mapItemsToCUList[revisedTrans[i-1].item].elements)
-                                else:
-                                    element.ppos =- 1
-                                cuListoFItems.addElements(element)
-                                ru += pair.utility
-                        else:
-                            pos = hashTable[tx_key1]
-                            ru = 0
-                            for i in range(len(revisedTrans)-1, -1, -1):
-                                cuListoFItems = mapItemsToCUList[revisedTrans[i].item]
-                                cuListoFItems.elements[pos].nu += revisedTrans[i].utility
-                                cuListoFItems.elements[pos].nru += ru
-                                cuListoFItems.sumnu += revisedTrans[i].utility
-                                cuListoFItems.sumnru += ru
-                                ru += revisedTrans[i].utility
-                                pos = cuListoFItems.elements[pos].ppos
-                    #EUCS
+        self.creteItemsets()
+        for line in self.Database:
+            line = line.split("\n")[0]
+            parts = line.split(":")
+            items_str = parts[0].split(self.sep)
+            utility_str = parts[2].split(self.sep)
+            transUtility = int(parts[1])
+            for i in range(0, len(items_str)):
+                item = items_str[i]
+                twu = self.mapOfTWU.get(item)
+                if twu == None:
+                    twu = transUtility
+                else:
+                    twu += transUtility
+                self.mapOfTWU[item] = twu
+        listOfCUList = []
+        hashTable = {}
+        mapItemsToCUList = {}
+        minutil = self.minUtil
+        for item in self.mapOfTWU.keys():
+            if self.mapOfTWU.get(item) >= minutil:
+                uList = CUList(item)
+                mapItemsToCUList[item] = uList
+                listOfCUList.append(uList)
+        listOfCUList.sort(key=functools.cmp_to_key(self.hminer))
+        tid = 1
+        for line in self.Database:
+            line = line.split("\n")[0]
+            parts = line.split(":")
+            items = parts[0].split(self.sep)
+            utilities = parts[2].split(self.sep)
+            ru = 0
+            newTwu = 0
+            tx_key = []
+            revisedTrans = []
+            for i in range(0, len(items)):
+                pair = Pair()
+                pair.item = items[i]
+                pair.utility = int(utilities[i])
+                if self.mapOfTWU.get(pair.item) >= minutil:
+                    revisedTrans.append(pair)
+                    tx_key.append(pair.item)
+                    newTwu += pair.utility
+            revisedTrans.sort(key=functools.cmp_to_key(self.hminer))
+            tx_key1 = tuple(tx_key)
+            if len(revisedTrans) > 0:
+                if tx_key1 not in hashTable.keys():
+                    hashTable[tx_key1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans)-1].item].elements)
                     for i in range(len(revisedTrans)-1, -1, -1):
                         pair = revisedTrans[i]
-                        mapFMAPItem = self.mapFMAP.get(pair.item)
-                        if mapFMAPItem == None:
-                            mapFMAPItem = {}
-                            self.mapFMAP[pair.item] = mapFMAPItem
-                        for j in range(i+1, len(revisedTrans)):
-                            pairAfter = revisedTrans[j]
-                            twuSUm = mapFMAPItem.get(pairAfter.item)
-                            if twuSUm is None:
-                                mapFMAPItem[pairAfter.item] = newTwu
-                            else:
-                                mapFMAPItem[pairAfter.item] = twuSUm + newTwu
-                    tid += 1
-            self.Explore_SearchTree([], listOfCUList, minutil)
-            self.endTime = time.time()
-            process = psutil.Process(os.getpid())
-            self.memoryUSS = process.memory_full_info().uss
-            self.memoryRSS = process.memory_info().rss
-        except IOError:
-            print("File Not Found")
+                        cuListoFItems = mapItemsToCUList.get(pair.item)
+                        element = Element(tid, pair.utility, ru, 0, 0)
+                        if i > 0:
+                            element.ppos = len(mapItemsToCUList[revisedTrans[i-1].item].elements)
+                        else:
+                            element.ppos =- 1
+                        cuListoFItems.addElements(element)
+                        ru += pair.utility
+                else:
+                    pos = hashTable[tx_key1]
+                    ru = 0
+                    for i in range(len(revisedTrans)-1, -1, -1):
+                        cuListoFItems = mapItemsToCUList[revisedTrans[i].item]
+                        cuListoFItems.elements[pos].nu += revisedTrans[i].utility
+                        cuListoFItems.elements[pos].nru += ru
+                        cuListoFItems.sumnu += revisedTrans[i].utility
+                        cuListoFItems.sumnru += ru
+                        ru += revisedTrans[i].utility
+                        pos = cuListoFItems.elements[pos].ppos
+                    #EUCS
+            for i in range(len(revisedTrans)-1, -1, -1):
+                pair = revisedTrans[i]
+                mapFMAPItem = self.mapFMAP.get(pair.item)
+                if mapFMAPItem == None:
+                    mapFMAPItem = {}
+                    self.mapFMAP[pair.item] = mapFMAPItem
+                for j in range(i+1, len(revisedTrans)):
+                    pairAfter = revisedTrans[j]
+                    twuSUm = mapFMAPItem.get(pairAfter.item)
+                    if twuSUm is None:
+                        mapFMAPItem[pairAfter.item] = newTwu
+                    else:
+                        mapFMAPItem[pairAfter.item] = twuSUm + newTwu
+            tid += 1
+        self.Explore_SearchTree([], listOfCUList, minutil)
+        self.endTime = time.time()
+        process = psutil.Process(os.getpid())
+        self.memoryUSS = process.memory_full_info().uss
+        self.memoryRSS = process.memory_info().rss
+        print("High Utility patterns were generated successfully using HMiner algorithm")
 
     def Explore_SearchTree(self, prefix, uList, minutil):
         """
@@ -600,7 +628,7 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 50000, ' ')
+        ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 200000, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of huis:", len(Patterns))

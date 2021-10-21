@@ -398,25 +398,18 @@ class UPGrowth(utilityPatterns):
                 tr = [timeStamp[i]]
                 tr.append(data[i])
                 self.Database.append(tr)
-            self.lno = len(self.Database)
             #print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
                 for line in data:
-                    self.lno += 1
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
-                    temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self.Database.append(line)
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.lno += 1
-                            temp = [i.rstrip() for i in line.split(self.sep)]
-                            temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self.Database.append(line)
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -424,46 +417,40 @@ class UPGrowth(utilityPatterns):
     def startMine(self):
         self.startTime = time.time()
         tree = UPTree()
-        with open(self.iFile, 'r') as o:
-            lines = o.readlines()
-            for line in lines:
-                line = line.split("\n")[0]
-                transaction = line.strip().split(':')
-                items = transaction[0].split(self.sep)
-                transactionUtility = int(transaction[1])
-                print(items, transactionUtility)
-                for item in items:
-                    Item = int(item)
-                    if Item in self.MapItemToTwu:
-                        self.MapItemToTwu[Item] += transactionUtility
-                    else:
-                        self.MapItemToTwu[Item] = transactionUtility
-            for x, y in self.MapItemToTwu.items():
-                print(x, y)
-            for line in lines:
-                line = line.split("\n")[0]
-                transaction = line.strip().split(':')
-                items = transaction[0].split(self.sep)
-                utilities = transaction[2].split(self.sep)
-                print(items, utilities)
-                remainingUtility = 0
-                revisedTransaction = []
-                for idx, item in enumerate(items):
-                    Item = int(item)
-                    utility = int(utilities[idx])
-                    if self.MapItemToTwu[Item] >= self.minUtil:
-                        element = UPItem(Item, utility)
-                        revisedTransaction.append(element)
-                        remainingUtility += utility
-                        if Item in self.MapItemToMinimumUtility:
-                            minItemUtil = self.MapItemToMinimumUtility[Item]
-                            if utility < minItemUtil:
-                                self.MapItemToMinimumUtility[Item] = utility
-                        else:
+        self.creatingItemSets()
+        for line in self.Database:
+            line = line.split("\n")[0]
+            transaction = line.strip().split(':')
+            items = transaction[0].split(self.sep)
+            transactionUtility = int(transaction[1])
+            for item in items:
+                Item = int(item)
+                if Item in self.MapItemToTwu:
+                    self.MapItemToTwu[Item] += transactionUtility
+                else:
+                    self.MapItemToTwu[Item] = transactionUtility
+        for line in self.Database:
+            line = line.split("\n")[0]
+            transaction = line.strip().split(':')
+            items = transaction[0].split(self.sep)
+            utilities = transaction[2].split(self.sep)
+            remainingUtility = 0
+            revisedTransaction = []
+            for idx, item in enumerate(items):
+                Item = int(item)
+                utility = int(utilities[idx])
+                if self.MapItemToTwu[Item] >= self.minUtil:
+                    element = UPItem(Item, utility)
+                    revisedTransaction.append(element)
+                    remainingUtility += utility
+                    if Item in self.MapItemToMinimumUtility:
+                        minItemUtil = self.MapItemToMinimumUtility[Item]
+                        if utility < minItemUtil:
                             self.MapItemToMinimumUtility[Item] = utility
-                revisedTransaction = sorted(revisedTransaction, key=lambda x: self.MapItemToTwu[x.name], reverse=True)
-                self.ParentNumberOfNodes += tree.addTransaction(revisedTransaction, remainingUtility)
-        o.close()
+                    else:
+                        self.MapItemToMinimumUtility[Item] = utility
+            revisedTransaction = sorted(revisedTransaction, key=lambda x: self.MapItemToTwu[x.name], reverse=True)
+            self.ParentNumberOfNodes += tree.addTransaction(revisedTransaction, remainingUtility)
         tree.createHeaderList(self.MapItemToTwu)
         alpha = []
         self.finalPatterns = {}
@@ -475,6 +462,7 @@ class UPGrowth(utilityPatterns):
         self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
+        print("High Utility patterns were generated successfully using UPGrowth algorithm")
 
     def UPGrowth(self, tree, alpha):
         """
@@ -632,7 +620,7 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = UPGrowth('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/sampleTDB.txt', 3)
+        ap = UPGrowth('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 50000, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of huis:", len(Patterns))

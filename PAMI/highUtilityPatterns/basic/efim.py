@@ -160,11 +160,14 @@ class Dataset:
     transactions = []
     maxItem = 0
     
-    def __init__(self, datasetPath, sep):
+    def __init__(self,datasetPath, sep):
         self.strToInt = {}
         self.intToStr = {}
         self.cnt = 1
         self.sep = sep
+        self.createItemsets(datasetPath)
+
+    def createItemsets(self, datasetPath):
         self.Database = []
         if isinstance(datasetPath, pd.DataFrame):
             utilities, data = [], []
@@ -182,8 +185,8 @@ class Dataset:
                 data = urlopen(datasetPath)
                 for line in data:
                     line = line.decode("utf-8")
-                    #temp = [i.rstrip() for i in line.split(self.sep)]
-                    #temp = [x for x in temp if x]
+                    # temp = [i.rstrip() for i in line.split(self.sep)]
+                    # temp = [x for x in temp if x]
                     self.transactions.append(self.createTransaction(line))
             else:
                 try:
@@ -386,6 +389,7 @@ class Efim(utilityPatterns):
     def startMine(self):
         self.startTime = time.time()
         self.dataset = Dataset(self.iFile, self.sep)
+        self.dataset = Dataset(self.iFile, self.sep)
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
         minUtil = int(self.minUtil)
         itemsToKeep = []
@@ -415,8 +419,11 @@ class Efim(utilityPatterns):
         self.backTrackingEFIM(self.dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
+        print("High Utility patterns were generated successfully using EFIM algorithm")
 
     def backTrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
         """
@@ -746,7 +753,7 @@ if __name__ == '__main__':
         print("Total ExecutionTime in seconds:", run)
     else:
         #ap = Efim('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/sampleTDB.txt', 3)
-        ap = Efim('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 50000, ' ')
+        ap = Efim('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', 200000, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of huis:", len(Patterns))
