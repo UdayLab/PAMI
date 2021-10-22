@@ -17,8 +17,7 @@
 import sys
 import pandas as pd
 import validators
-import requests
-from urllib.request import Request, urlopen
+from urllib.request import urlopen
 from functools import cmp_to_key
 from PAMI.highUtilityPatterns.basic.abstract import *
 
@@ -388,7 +387,7 @@ class Efim(utilityPatterns):
 
     def startMine(self):
         self.startTime = time.time()
-        self.dataset = Dataset(self.iFile, self.sep)
+        self.finalPatterns = {}
         self.dataset = Dataset(self.iFile, self.sep)
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
         minUtil = int(self.minUtil)
@@ -752,16 +751,4 @@ if __name__ == '__main__':
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-        #ap = Efim('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/sampleTDB.txt', 3)
-        ap = Efim('/home/apiiit-rkv/Downloads/Reaserch/maximal/retail_utility_spmf.txt', 50000, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of huis:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/patterns.txt')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
