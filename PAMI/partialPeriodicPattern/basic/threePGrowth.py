@@ -520,7 +520,6 @@ class threePGrowth(partialPeriodicPatterns):
             raise Exception("Please enter the Minimum Support")
         self.creatingItemSets()
         generatedItems, pfList = self.partialPeriodicOneItem()
-        print(self.period, self.periodicSupport)
         periodicSupport, period, lno = self.periodicSupport, self.period, len(self.Database)
         updatedTransactions = self.updateTransactions(generatedItems)
         for x, y in self.rank.items():
@@ -621,17 +620,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        dataset = 'https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
-        ap = threePGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                          0.001, 0.01)
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Partial Periodic Patterns:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
