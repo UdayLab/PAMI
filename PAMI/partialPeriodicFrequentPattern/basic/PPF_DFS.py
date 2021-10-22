@@ -260,7 +260,6 @@ class PPF_DFS(partialPeriodicPatterns):
         self.maxPer = int(self.maxPer)
         self.minSup = int(self.minSup)
         self.minPR = float(self.minPR)
-        print(self.minSup, self.maxPer, self.minPR)
         for line in self.Database:
             self.lno += 1
             s = line
@@ -361,7 +360,7 @@ class PPF_DFS(partialPeriodicPatterns):
         performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
         """
         self.path = self.iFile
-        starttime = time.time()
+        self.startTime = time.time()
         self.creatingItemSets()
         plist = self.oneItems(self.path)
         #print(len(plist))
@@ -383,8 +382,8 @@ class PPF_DFS(partialPeriodicPatterns):
                     tidsets.append(y1)
             self.Generation(itemsetx, itemsets, tidsets)
             self.save(None, itemsetx, tidsetx)
-        endtime = time.time()
-        self.runTime = (endtime - starttime)
+        self.endTime = time.time()
+        self.runTime = (self.endTime- self.startTime)
         process = psutil.Process(os.getpid())
         self.memoryUSS = float()
         self.memoryRSS = float()

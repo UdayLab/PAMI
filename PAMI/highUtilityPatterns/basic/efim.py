@@ -17,8 +17,7 @@
 import sys
 import pandas as pd
 import validators
-import requests
-from urllib.request import Request, urlopen
+from urllib.request import urlopen
 from functools import cmp_to_key
 from PAMI.highUtilityPatterns.basic.abstract import *
 
@@ -388,7 +387,7 @@ class Efim(utilityPatterns):
 
     def startMine(self):
         self.startTime = time.time()
-        self.dataset = Dataset(self.iFile, self.sep)
+        self.finalPatterns = {}
         self.dataset = Dataset(self.iFile, self.sep)
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
         minUtil = int(self.minUtil)
