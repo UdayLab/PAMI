@@ -628,16 +628,5 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/retail_utility_spmf.txt', 50000, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of huis:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/patterns.txt')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
          
