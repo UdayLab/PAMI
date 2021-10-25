@@ -792,13 +792,11 @@ if __name__ == "__main__":
     else:
         #data = pd.DataFrame.from_dict(data)
         dataset = '/home/apiiit-rkv/Desktop/uncertain/congestion_temporal.txt'
-        ap = PTubeP(dataset, minSup=90, maxPer=1000, sep=' ')
+        ap = PTubeP(dataset, minSup=120, maxPer=1000, sep=' ')
 
         ap.startMine()
         print(ap.minSup, ap.maxPer)
         Patterns = ap.getPatterns()
-        for x, y in Patterns.items():
-            print(x, y)
         print("Total number of Frequent Patterns:", len(Patterns))
         ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
         da = ap.getPatternsAsDataFrame()
