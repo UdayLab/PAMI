@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.uncertainPeriodicFrequentPattern.basic.abstract import *
 
 minSup = float()
@@ -474,12 +476,36 @@ class UPFPGrowth(periodicFrequentPatterns):
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        try:
-            with open(self.iFile, 'r') as f:
-                for line in f:
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            uncertain, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            if 'uncertain' in i:
+                uncertain = self.iFile['uncertain'].tolist()
+            for i in range(len(Patterns)):
+                tr = []
+                for j in range(len(i)):
+                    product = Item(Patterns[i][j], uncertain[i][j])
+                    tr.append(product)
+                self.Database.append(tr)
+                self.lno += 1
+
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
-                    tr = [int(temp[0])]
+                    tr = []
                     for i in temp[1:]:
                         i1 = i.index('(')
                         i2 = i.index(')')
@@ -488,9 +514,25 @@ class UPFPGrowth(periodicFrequentPatterns):
                         product = Item(item, probability)
                         tr.append(product)
                     self.lno += 1
-                    self.Database.append(tr)
-        except IOError:
-            print("File Not Found")
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r') as f:
+                        for line in f:
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            tr = [int(temp[0])]
+                            for i in temp[1:]:
+                                i1 = i.index('(')
+                                i2 = i.index(')')
+                                item = i[0:i1]
+                                probability = float(i[i1 + 1:i2])
+                                product = Item(item, probability)
+                                tr.append(product)
+                            self.lno += 1
+                            self.Database.append(tr)
+                except IOError:
+                    print("File Not Found")
 
     def periodicFrequentOneItem(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
@@ -508,7 +550,7 @@ class UPFPGrowth(periodicFrequentPatterns):
                     mapSupport[j.item][1] = max(mapSupport[j.item][1], abs(n - mapSupport[j.item][2]))
                     mapSupport[j.item][2] = n
         for key in mapSupport:
-            mapSupport[key][1] = max(mapSupport[key][1], len(self.Database) - mapSupport[key][2])
+            mapSupport[key][1] = max(mapSupport[key][1], self.lno - mapSupport[key][2])
         mapSupport = {k: [v[0], v[1]] for k, v in mapSupport.items() if v[1] <= self.maxPer and v[0] >= self.minSup}
         plist = [k for k, v in sorted(mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(plist)])
@@ -609,10 +651,10 @@ class UPFPGrowth(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = int(len(self.Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = (len(self.Database) * value)
+                value = int(len(self.Database) * value)
             else:
                 value = int(value)
 
@@ -763,7 +805,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", run)
     else:
         dataset = '/home/apiiit-rkv/Desktop/uncertain/congestion_temporal.txt'
-        ap = UPFPGrowth(dataset, minSup=20, maxPer=1000, sep=' ')
+        ap = UPFPGrowth(dataset, minSup=90, maxPer=1000, sep=' ')
 
         ap.startMine()
 
