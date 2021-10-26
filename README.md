@@ -9,6 +9,9 @@
 [![GitHub issues](https://img.shields.io/github/issues/udayRage/PAMI)](https://github.com/udayRage/PAMI/issues)
 [![GitHub forks](https://img.shields.io/github/forks/udayRage/PAMI)](https://github.com/udayRage/PAMI/network)
 [![GitHub stars](https://img.shields.io/github/stars/udayRage/PAMI)](https://github.com/udayRage/PAMI/stargazers)
+https://www.code-inspector.com/project/29526/score/svg
+https://www.code-inspector.com/project/29526/status/svg
+
 
 
 
