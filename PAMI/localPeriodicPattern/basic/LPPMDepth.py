@@ -2,6 +2,7 @@ import sys
 from PAMI.localPeriodicPattern.basic.abstract import *
 
 class LPPMDepth(localPeriodicPatterns):
+
     """
         Attributes:
         -----------
@@ -84,8 +85,8 @@ class LPPMDepth(localPeriodicPatterns):
         The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.
     """
     
-    iFile = ' '
-    oFile = ' '
+    iFile = ''
+    oFile = ''
     maxPer = float()
     maxSoPer = float()
     minDur = float()

@@ -42,7 +42,7 @@ A sample program to convert a dataframe into a transactional database and use it
 
  ```Python
 from PAMI.extras.DF2DB import sparseDF2DB as pro
-from PAMI.frequentPattern.basic import fpGrowth as alg
+from PAMI.frequentPattern.basic import FPGrowth as alg
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.

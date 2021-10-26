@@ -132,8 +132,8 @@ class Pair:
 
 class CFFI(frequentPatterns):
     """
-        CFFI is the algorithm to discover Corelated Fuzzy-frequent patterns in a transactional database.
-        it is based on traditianl fuzzy frequent pattern mining.
+        CFFI is the algorithm to discover Correlated Fuzzy-frequent patterns in a transactional database.
+        it is based on traditional fuzzy frequent pattern mining.
 
         Parameters
         ----------
