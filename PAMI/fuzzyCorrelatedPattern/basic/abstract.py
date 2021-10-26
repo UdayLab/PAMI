@@ -104,9 +104,9 @@ class corelatedFuzzyFrequentPatterns(ABC):
         """
 
         self.iFile = iFile
-        self.sep = sep
         self.minSup = minSup
-        self.minAllConf=minAllConf
+        self.minAllConf = minAllConf
+        self.sep = sep
 
 
     @abstractmethod

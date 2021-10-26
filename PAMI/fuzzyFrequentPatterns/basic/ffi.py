@@ -587,4 +587,18 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        minsup = [0.002, 0.003, 0.004, 0.005, 0.006]
+        for i in minsup:
+            ap = ffi('/home/apiiit-rkv/Downloads/Reaserch/maximal/retail_utility_spmf.txt', i, ' ')
+            ap.startMine()
+            print(ap.minSup)
+            fuzzyFrequentPatterns = ap.getPatterns()
+            print("Total number of Fuzzy-Frequent Patterns:", len(fuzzyFrequentPatterns))
+            ap.savePatterns('/home/apiiit-rkv/Downloads/sampleInputs/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
