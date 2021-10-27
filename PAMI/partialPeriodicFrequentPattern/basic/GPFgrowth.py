@@ -386,7 +386,7 @@ class generatePFTreever2:
                 return i
         return None
 
-class PFgroth:
+class PFgrowth:
     """
     This class is pattern growth algorithm
     ...
@@ -473,7 +473,7 @@ class PFgroth:
                 PFList = prefixTree.createConditionalTree(PFList, self.minSup, self.maxPer, self.minPR, self.last)
             if PFList:
                 #self.PFList = {tuple([k]): v for k, v in sorted(self.PFList.items(), key=lambda x: x[1], reverse=True)}
-                obj = PFgroth(prefixTree, prefix, PFList, self.minSup, self.maxPer, self.minPR, self.last)
+                obj = PFgrowth(prefixTree, prefix, PFList, self.minSup, self.maxPer, self.minPR, self.last)
                 result1 = obj.run()
                 result = {**result, **result1}
         return result
@@ -565,7 +565,7 @@ class GPFgrowth(partialPeriodicPatterns):
         self.maxPer = obj.maxPer"""
         #PFTree = pft.generatePFTree(self.TDB, tidList).run()
         PFTree = generatePFTreever2(self.inputFile, tidList).run()
-        obj2 = PFgroth(PFTree, [], tidList, self.minSup, self.maxPer, self.minPR, last)
+        obj2 = PFgrowth(PFTree, [], tidList, self.minSup, self.maxPer, self.minPR, last)
         self.finalPatterns = obj2.run()
         endTime = time.time()
         self.runTime = endTime - startTime

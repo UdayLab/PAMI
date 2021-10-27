@@ -54,7 +54,7 @@ print("Total ExecutionTime in seconds:", obj.getRuntime())
 
 ```Python
 
-from PAMI.frequentPattern.basic import fpGrowth as alg
+from PAMI.frequentPattern.basic import FPGrowth as alg
 
 obj = alg.fpGrowth('inputTransactionalDatabase.tsv', minSup)
 obj.startMine()
