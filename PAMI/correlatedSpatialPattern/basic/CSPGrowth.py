@@ -409,7 +409,7 @@ class CSGrowth(correlatedPatterns):
                 print("its empty..")
             i = self.nFile.columns.values.tolist()
             if 'Neighbours' in i:
-                data = self.nFile['Transactions'].tolist()
+                data = self.nFile['neighbours'].tolist()
             for k in data:
                 item = k[0]
                 nibs = k[1:]
