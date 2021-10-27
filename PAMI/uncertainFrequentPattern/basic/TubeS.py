@@ -459,22 +459,63 @@ class TubeS(frequentPatterns):
 
         Scans the databases and stores the transactions into Database variable
         """
-        try:
-            with open(self.iFile, 'r') as f:
-                for line in f:
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            uncertain, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            if 'uncertain' in i:
+                uncertain = self.iFile['uncertain'].tolist()
+            for k in range(len(Patterns)):
+                tr = []
+                for j in range(len(Patterns[k])):
+                    product = Item(Patterns[k][j], uncertain[k][j])
+                    tr.append(product)
+                self.Database.append(tr)
+                self.lno += 1
+
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     tr = []
-                    for i in temp:
+                    for i in temp[1:]:
                         i1 = i.index('(')
                         i2 = i.index(')')
                         item = i[0:i1]
                         probability = float(i[i1 + 1:i2])
                         product = Item(item, probability)
                         tr.append(product)
-                    self.Database.append(tr)
-        except IOError:
-            print("File Not Found")
+                    self.lno += 1
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r') as f:
+                        for line in f:
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            tr = [int(temp[0])]
+                            for i in temp[1:]:
+                                i1 = i.index('(')
+                                i2 = i.index(')')
+                                item = i[0:i1]
+                                probability = float(i[i1 + 1:i2])
+                                product = Item(item, probability)
+                                tr.append(product)
+                            self.lno += 1
+                            self.Database.append(tr)
+                except IOError:
+                    print("File Not Found")
 
     def frequentOneItem(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
@@ -563,10 +604,10 @@ class TubeS(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = float(value)
+            value = (len(self.Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = float(value)
+                value = (len(self.Database) * value)
             else:
                 value = int(value)
         return value
@@ -611,6 +652,7 @@ class TubeS(frequentPatterns):
         self.startTime = time.time()
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
+        self.finalPatterns = {}
         mapSupport, plist = self.frequentOneItem()
         transactions1 = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
@@ -620,6 +662,8 @@ class TubeS(frequentPatterns):
         print("Frequent patterns were generated successfully using TubeS algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -710,15 +754,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = TubeS("/home/apiiit-rkv/Desktop/uncertain/tubeSample", 0.01, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Patterns:", len(Patterns))
-        ap.storePatternsInFile("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

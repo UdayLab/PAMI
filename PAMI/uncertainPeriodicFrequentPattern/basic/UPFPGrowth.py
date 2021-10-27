@@ -488,10 +488,10 @@ class UPFPGrowth(periodicFrequentPatterns):
                 data = self.iFile['Patterns'].tolist()
             if 'uncertain' in i:
                 uncertain = self.iFile['uncertain'].tolist()
-            for i in range(len(Patterns)):
+            for k in range(len(Patterns)):
                 tr = []
-                for j in range(len(i)):
-                    product = Item(Patterns[i][j], uncertain[i][j])
+                for j in range(len(Patterns[k])):
+                    product = Item(Patterns[k][j], uncertain[k][j])
                     tr.append(product)
                 self.Database.append(tr)
                 self.lno += 1
@@ -697,11 +697,9 @@ class UPFPGrowth(periodicFrequentPatterns):
 
         """
         global lno, maxPer, minSup, first, last, periodic
-        minSup = self.minSup
-        maxPer = self.maxPer
         self.startTime = time.time()
-        lno = 1
         self.creatingItemSets()
+        self.finalPatterns = {}
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
         minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
@@ -714,6 +712,8 @@ class UPFPGrowth(periodicFrequentPatterns):
         print("Periodic frequent patterns were generated successfully using UPFP algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -804,21 +804,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        dataset = '/home/apiiit-rkv/Desktop/uncertain/congestion_temporal.txt'
-        ap = UPFPGrowth(dataset, minSup=90, maxPer=1000, sep=' ')
-
-        ap.startMine()
-
-        Patterns = ap.getPatterns()
-        for x, y in Patterns.items():
-            print(x, y)
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
-        da = ap.getPatternsAsDataFrame()
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

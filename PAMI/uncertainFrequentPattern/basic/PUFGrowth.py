@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import sys
+import validators
+from urllib.request import urlopen
 from PAMI.uncertainFrequentPattern.basic.abstract import *
 
 minSup = float()
@@ -409,22 +411,60 @@ class PUFGrowth(frequentPatterns):
         """
             Scans the uncertain transactional dataset
         """
-        try:
-            with open(self.iFile, 'r') as f:
-                for line in f:
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            uncertain, data = [], []
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                data = self.iFile['Patterns'].tolist()
+            if 'uncertain' in i:
+                uncertain = self.iFile['uncertain'].tolist()
+            for k in range(len(Patterns)):
+                tr = []
+                for j in range(len(Patterns[k])):
+                    product = Item(Patterns[k][j], uncertain[k][j])
+                    tr.append(product)
+                self.Database.append(tr)
+
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     tr = []
-                    for i in temp:
+                    for i in temp[1:]:
                         i1 = i.index('(')
                         i2 = i.index(')')
                         item = i[0:i1]
                         probability = float(i[i1 + 1:i2])
                         product = Item(item, probability)
                         tr.append(product)
-                    self.Database.append(tr)
-        except IOError:
-            print("File Not Found")
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r') as f:
+                        for line in f:
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            tr = [int(temp[0])]
+                            for i in temp[1:]:
+                                i1 = i.index('(')
+                                i2 = i.index(')')
+                                item = i[0:i1]
+                                probability = float(i[i1 + 1:i2])
+                                product = Item(item, probability)
+                                tr.append(product)
+                            self.Database.append(tr)
+                except IOError:
+                    print("File Not Found")
 
     def frequentOneItem(self):
         """takes the self.Database and calculates the support of each item in the dataset and assign the
@@ -512,8 +552,7 @@ class PUFGrowth(frequentPatterns):
                 return 0
         return 1
 
-    @staticmethod
-    def convert(value):
+    def convert(self, value):
         """
         To convert the type of user specified minSup value
 
@@ -524,10 +563,10 @@ class PUFGrowth(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = float(value)
+            value = (len(self.Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = float(value)
+                value = (len(self.Database) * value)
             else:
                 value = int(value)
         return value
@@ -573,6 +612,7 @@ class PUFGrowth(frequentPatterns):
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         minSup = self.minSup
+        self.finalPatterns = {}
         mapSupport, plist = self.frequentOneItem()
         self.Database1 = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
@@ -582,6 +622,8 @@ class PUFGrowth(frequentPatterns):
         print("Frequent patterns were generated from uncertain databases successfully using PUF algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 

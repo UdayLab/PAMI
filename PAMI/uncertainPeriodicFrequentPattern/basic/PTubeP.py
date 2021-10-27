@@ -690,7 +690,7 @@ class PTubeP(periodicFrequentPatterns):
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
-        print(self.maxPer, self.minSup)
+        self.finalPatterns = {}
         minSup, maxPer, lno = self.minSup, self.maxPer, len(self.Database)
         mapSupport, plist = self.PeriodicFrequentOneItems()
         updatedTrans = self.updateTransactions(mapSupport)
@@ -701,6 +701,8 @@ class PTubeP(periodicFrequentPatterns):
         print("Periodic Frequent patterns were generated successfully using Periodic-TubeP algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -790,20 +792,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        #data = pd.DataFrame.from_dict(data)
-        dataset = '/home/apiiit-rkv/Desktop/uncertain/congestion_temporal.txt'
-        ap = PTubeP(dataset, minSup=120, maxPer=1000, sep=' ')
-
-        ap.startMine()
-        print(ap.minSup, ap.maxPer)
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
-        da = ap.getPatternsAsDataFrame()
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
