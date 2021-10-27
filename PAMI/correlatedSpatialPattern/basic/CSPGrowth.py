@@ -28,6 +28,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from PAMI.correlatedSpatialPattern.basic.abstract import *
 import sys
+import validators
+from urllib.request import urlopen
 import math
 import pandas as pd
 
@@ -75,7 +77,7 @@ class Node:
         for i in self.child:
             if i.itemId == itemName:
                 return i
-        return []
+        return None
 
 
 class Tree:
@@ -211,9 +213,9 @@ class Tree:
                     current = child
 
 
-class CSGrowth(corelatedPatterns):
+class CSGrowth(correlatedPatterns):
     """ 
-        CSGrowth corelated algorithm is to discover the spatially corelated patterns from the database
+        CSGrowth correlated algorithm is to discover the spatially correlated patterns from the database
 
     Attributes:
     ---------
@@ -247,8 +249,8 @@ class CSGrowth(corelatedPatterns):
             it represents the store the items in mining
         maxPatternLength : int
            it represents the constraint for pattern length
-        minSUp: float
-            user defind minimum support
+        minSup: float
+            user defined minimum support
         minAllConf: float
            user defined minimum ratio
 
@@ -290,13 +292,13 @@ class CSGrowth(corelatedPatterns):
     -------
         Format:
         -------
-        python3 CSGrowth.py <inputFile> <outputFile> <neighboutFile> <minSup> <minAllConf> <sep>
+        python3 CSGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup> <minAllConf> <sep>
 
         Examples:
         ---------
         python3 CSGrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2  (minSup will be considered in percentage of database transactions)
         python3 CSGrowth.py sampleTDB.txt output.txt sampleN.txt 4  0.2  (minSup will be considered in support count or frequency)
-                                                                    (it will consider "\t" as a sepatator)
+                                                                    (it will consider "\t" as a separator)
         python3 CSGrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2 ,
                                                                     (it will consider ',' as a separator)
 
@@ -308,9 +310,9 @@ class CSGrowth(corelatedPatterns):
 
         obj.startMine()
 
-        corelatedPatterns = obj.getPatterns()
+        correlatedPatterns = obj.getPatterns()
 
-        print("Total number of corelated spatial frequent Patterns:", len(corelatedPatterns))
+        print("Total number of correlated spatial frequent Patterns:", len(correlatedPatterns))
 
         obj.savePatterns(oFile)
 
@@ -353,9 +355,10 @@ class CSGrowth(corelatedPatterns):
     itemSetCount = 0
     maxPatternLength = 1000
     sep = "\t"
+    neighboursMap = {}
 
-    def __init__(self, iFile, nFile, minsup, minAllConf, sep="\t"):
-        super().__init__(iFile, nFile, minsup, minAllConf, sep)
+    def __init__(self, iFile, nFile, minSup, minAllConf, sep="\t"):
+        super().__init__(iFile, nFile, minSup, minAllConf, sep)
 
     def creatingItemSets(self):
         """
@@ -363,43 +366,88 @@ class CSGrowth(corelatedPatterns):
 
 
             """
-        try:
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
                     line.strip()
-                    self.lno += 1
-                    line=line.split("\n")[0]
-                    line=line.strip()
-                    li = line.split(self.sep)
-                    # li1 = [i.rstrip() for i in line.split(" ")]
-                    self.Database.append(li)
-        except IOError:
-            print("File Not Found")
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
-    def mapNeighbours(self, name):
+    def mapNeighbours(self):
         """
             A function to map items to their Neighbours
-            :param name: item name
-            :type name: int
         """
-        with open(name, 'r', encoding='utf-8') as f:
-            for line in f:
-                line=line.split("\n")[0]
-                line=line.strip()
-                li = line.split(self.sep)
-                item = li[0]
-                nibs = li[1:]
-                self.NeighboursMap[item] = nibs
 
-    def getNeighbourItems(self, keyset):
+        self.Database = []
+        if isinstance(self.nFile, pd.DataFrame):
+            data = []
+            if self.nFile.empty:
+                print("its empty..")
+            i = self.nFile.columns.values.tolist()
+            if 'Neighbours' in i:
+                data = self.nFile['Transactions'].tolist()
+            for k in data:
+                item = k[0]
+                nibs = k[1:]
+                self.neighboursMap[item] = nibs
+        if isinstance(self.nFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    item = temp[0]
+                    nibs = temp[1:]
+                    self.neighboursMap[item] = nibs
+            else:
+                try:
+                    with open(self.nFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            item = temp[0]
+                            nibs = temp[1:]
+                            self.neighboursMap[item] = nibs
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
+    def getNeighbourItems(self, keySet):
         """
             A function to get Neighbours of a item
-            :param keyset:itemset
-            :type keyset:str or tuple
+            :param keySet:itemSet
+            :type keySet:str or tuple
             :return: set of common neighbours 
             :rtype:set
          """
-        return self.Neighbours.get(keyset)
+        return self.neighboursMap.get(keySet)
 
     def frequentOneItem(self):
         """Generating One frequent items sets
@@ -467,11 +515,11 @@ class CSGrowth(corelatedPatterns):
                     prefix.insert(newPrefixLength, tempBuffer[j].itemId)
                     newPrefixLength += 1
             ratio = s / self.mapSupport[self.getMaxItem(prefix, newPrefixLength)]
-            if (ratio >= self.minAllConf):
+            if ratio >= self.minAllConf:
                 self.saveItemSet(prefix, newPrefixLength, s, ratio)
 
     def frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength, mapSupport, commonNeighbours,
-                                      minconf):
+                                      minConf):
         """Mining the fp tree
 
         :param frequentPatternTree: it represents the frequentPatternTree
@@ -505,19 +553,19 @@ class CSGrowth(corelatedPatterns):
         else:
             for i in reversed(frequentPatternTree.headerList):
                 item = i
-                if item not in commonNeighbours or self.NeighboursMap.get(item) is None:
+                if item not in commonNeighbours or self.neighboursMap.get(item) is None:
                     continue
-                newCommonNeighbours = list(set(commonNeighbours).intersection((set(self.NeighboursMap.get(item)))))
+                newCommonNeighbours = list(set(commonNeighbours).intersection((set(self.neighboursMap.get(item)))))
                 support = mapSupport[i]
                 low = max(int(math.floor(mapSupport[i] * self.minAllConf)), self.minSup)
-                high = max(int(math.floor(mapSupport[i] / minconf)), self.minSup)
+                high = max(int(math.floor(mapSupport[i] / minConf)), self.minSup)
                 betaSupport = support
                 prefix.insert(prefixLength, item)
                 max1 = self.getMaxItem(prefix, prefixLength)
-                if (self.mapSupport[max1] < self.mapSupport[item]):
+                if self.mapSupport[max1] < self.mapSupport[item]:
                     max1 = item
                 ratio = support / self.mapSupport[max1]
-                if (ratio >= self.minAllConf):
+                if ratio >= self.minAllConf:
                     self.saveItemSet(prefix, prefixLength + 1, betaSupport, ratio)
                 if prefixLength + 1 < self.maxPatternLength:
                     prefixPaths = []
@@ -528,15 +576,15 @@ class CSGrowth(corelatedPatterns):
                             prefixPath = [path]
                             pathCount = path.counter
                             parent1 = path.parent
-                            neigboursTemp = self.commonitems
+                            neighboursTemp = self.commonitems
                             if low <= mapSupport.get(parent1.itemId) <= high:
-                                while parent1.itemId != -1 and parent1.itemId in neigboursTemp:
-                                    if neigboursTemp is None or self.NeighboursMap.get(parent1.itemId) is None:
+                                while parent1.itemId != -1 and parent1.itemId in neighboursTemp:
+                                    if neighboursTemp is None or self.neighboursMap.get(parent1.itemId) is None:
                                         break
-                                    neigboursTemp = list(
-                                        set(neigboursTemp).intersection((set(self.NeighboursMap.get(parent1.itemId)))))
+                                    neighboursTemp = list(
+                                        set(neighboursTemp).intersection((set(self.neighboursMap.get(parent1.itemId)))))
                                     mins = int(support / max(mapSupport.get(parent1.itemId), support))
-                                    if (mapSupport.get(parent1.itemId) >= mins):
+                                    if mapSupport.get(parent1.itemId) >= mins:
                                         prefixPath.append(parent1)
                                         if mapSupportBeta.get(parent1.itemId) is None:
                                             mapSupportBeta[parent1.itemId] = pathCount
@@ -553,7 +601,7 @@ class CSGrowth(corelatedPatterns):
                     if len(treeBeta.root.child) > 0:
                         treeBeta.createHeaderList(mapSupportBeta, self.minSup)
                         self.frequentPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta,
-                                                           newCommonNeighbours, minconf)
+                                                           newCommonNeighbours, minConf)
 
     def convert(self, value):
         """
@@ -579,7 +627,7 @@ class CSGrowth(corelatedPatterns):
         """
 
         self.startTime = time.time()
-        self.NeighboursMap = {}
+        self.neighboursMap = {}
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
@@ -587,12 +635,10 @@ class CSGrowth(corelatedPatterns):
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         self.commonitems = set()
-        print(self.minSup, self.minAllConf)
-        # print(self.nFile)
-        self.mapNeighbours(self.nFile)
+        self.finalPatterns = {}
+        self.mapNeighbours()
         self.frequentOneItem()
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        # print(self.mapSupport)
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
             transaction = []
@@ -607,9 +653,11 @@ class CSGrowth(corelatedPatterns):
             self.itemSetBuffer = []
             self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport, self.commonitems,
                                                self.minAllConf)
-        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
+        print("Correlated Spatial Frequent Patterns were generated successfully using CSPGrowth algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryRSS = float()
+        self.memoryUSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -632,11 +680,11 @@ class CSGrowth(corelatedPatterns):
         return self.memoryRSS
 
     def getMaxItem(self, prefix, prefixLength):
-        maxitem = prefix[0]
+        maxItem = prefix[0]
         for i in range(prefixLength):
-            if (self.mapSupport[maxitem] < self.mapSupport[prefix[i]]):
-                maxitem = prefix[i]
-        return maxitem
+            if self.mapSupport[maxItem] < self.mapSupport[prefix[i]]:
+                maxItem = prefix[i]
+        return maxItem
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -687,14 +735,15 @@ class CSGrowth(corelatedPatterns):
 
 
 if __name__ == "__main__":
+    ap = str()
     if len(sys.argv) == 6 or len(sys.argv) == 7:
-        if len(sys.argv) == 7:  # to include user specified separator
+        if len(sys.argv) == 7:
             ap = CSGrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]), sys.argv[6])
-        if len(sys.argv) == 6:  # to consider '\t' as a separator
+        if len(sys.argv) == 6: 
             ap = CSGrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]))
         ap.startMine()
-        corelatedPatterns = ap.getPatterns()
-        print("Total number of corelated spatail frequent Patterns:", len(corelatedPatterns))
+        correlatedPatterns = ap.getPatterns()
+        print("Total number of correlated spatial frequent Patterns:", len(correlatedPatterns))
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)

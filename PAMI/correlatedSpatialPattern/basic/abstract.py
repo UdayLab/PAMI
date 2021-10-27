@@ -37,7 +37,7 @@ import os.path
 import psutil
 
 
-class corelatedPatterns(ABC):
+class correlatedPatterns(ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
