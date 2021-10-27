@@ -1,4 +1,6 @@
 import sys
+import validators
+from urllib.request import urlopen
 import functools
 import pandas as pd
 from PAMI.fuzzyPeriodicFrequentPattern.basic.abstract import *
@@ -81,7 +83,7 @@ class Element:
         self.period = period
 
 
-class Reagions:
+class Regions:
     """
         A class calculate the regions
 
@@ -152,7 +154,7 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         endTime:float
             To record the completion time of the mining process
         itemsCnt: int
-            To record the number of fuzzy spatial itemsets generated
+            To record the number of fuzzy spatial itemSets generated
         mapItemsLowSum: map
             To keep track of low region values of items
         mapItemsMidSum: map
@@ -196,29 +198,32 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         FSFIMining( prefix, prefixLen, fsFim, minSup)
             Method generate FFI from prefix
         construct(px, py)
-            A function to construct Fuzzy itemset from 2 fuzzy itemsets
-        findElementWithTID(ulist, tid)
+            A function to construct Fuzzy itemSet from 2 fuzzy itemSets
+        findElementWithTID(UList, tid)
             To find element with same tid as given
-        WriteOut(prefix, prefixLen, item, sumIutil,period)
+        WriteOut(prefix, prefixLen, item, sumIUtil,period)
             To Store the patten
     
     Executing the code on terminal :
     -------
         Format:
         ------
-        python3 FPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer> <sep>
+            python3 FPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer> <sep>
 
         Examples:
         ------
-        python3  FPFPMiner.py sampleTDB.txt output.txt 2 3 (minSup and maxPer will be considered in support count or frequency)
-        python3  FPFPMiner.py sampleTDB.txt output.txt 0.25 3 (minSup and maxPer will be considered in percentage of database)
-                                        (will consider "\t" as separator)
-        python3  FPFPMiner.py sampleTDB.txt output.txt 2 3  ,(will conseider ',' as separato)
+            python3  FPFPMiner.py sampleTDB.txt output.txt 2 3 (minSup and maxPer will be considered in support count or frequency)
         
+            python3  FPFPMiner.py sampleTDB.txt output.txt 0.25 0.3 (minSup and maxPer will be considered in percentage of database)
+                                        (will consider "\t" as separator)
+        
+            python3  FPFPMiner.py sampleTDB.txt output.txt 2 3  ,(will consider ',' as separator)
+        
+    
     Sample run of importing the code:
     -------------------------------
 
-        import FPFPMiner as alg
+        from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner as alg
 
         obj =alg.FPFPMiner("input.txt",2,3)
 
@@ -245,7 +250,6 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
     Credits:
     -------
             The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
-            The complete verification and documentation is done by Penugonda Ravikumar.
 
     """
     startTime = float()
@@ -258,12 +262,13 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
     memoryUSS = float()
     memoryRSS = float()
     sep = ""
+    Database = []
 
     def __init__(self, iFile, minSup, period, sep="\t"):
         super().__init__(iFile, minSup, period, sep)
         self.oFile = ""
         self.BufferSize = 200
-        self.itemsetBuffer = []
+        self.itemSetBuffer = []
         self.mapItemRegions = {}
         self.mapItemSum = {}
         self.mapItemsHighSum = {}
@@ -300,129 +305,155 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
             value = (self.dbLen * value)
         if type(value) is str:
             if '.' in value:
-                value = float(value)
                 value = (self.dbLen * value)
             else:
                 value = int(value)
         return value
+    
+    def creatingItemSets(self):
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line = line.decode("utf-8")
+                    self.Database.append(line)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            self.Database.append(line)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def startMine(self):
         """
-        	Fuzzy periodic Frequent pattern mining process will start from here
+            Fuzzy periodic Frequent pattern mining process will start from here
         """
         maxTID = 0
         lastTIDs = {}
         self.startTime = time.time()
-        with open(self.iFile, 'r') as file:
-            for line in file:
-                parts = line.split(":")
-                parts[1]=parts[1].strip()
-                parts[3]=parts[3].strip()
-                tid = int(parts[0])
-                self.dbLen += 1
-                items = parts[1].split(self.sep)
-                quantities = parts[3].split(self.sep)
-                if tid < maxTID:
-                    maxTID = tid
-                for i in range(0, len(items)):
-                    regions = Reagions(int(quantities[i]), 3)
-                    item = items[i]
-                    if item in self.mapItemsLowSum.keys():
-                        low = self.mapItemsLowSum[item]
-                        low += regions.low
-                        self.mapItemsLowSum[item] = low
-                    else:
-                        self.mapItemsLowSum[item] = regions.low
-                    if item in self.mapItemsMidSum.keys():
-                        mid = self.mapItemsMidSum[item]
-                        mid += regions.middle
-                        self.mapItemsMidSum[item] = mid
-                    else:
-                        self.mapItemsMidSum[item] = regions.middle
-                    if item in self.mapItemsHighSum.keys():
-                        high = self.mapItemsHighSum[item]
-                        high += regions.high
-                        self.mapItemsHighSum[item] = high
-                    else:
-                        self.mapItemsHighSum[item] = regions.high
-            listOfFFIList = []
-            mapItemsToFFLIST = {}
-            itemsToRegion = {}
-            self.minSup = self.convert(self.minSup)
-            self.maxPer = self.convert(self.maxPer)
-            print(self.minSup, self.maxPer)
-            for item1 in self.mapItemsLowSum.keys():
-                item = item1
-                low = self.mapItemsLowSum[item]
-                mid = self.mapItemsMidSum[item]
-                high = self.mapItemsHighSum[item]
-                if low >= mid and low >= high:
-                    self.mapItemSum[item] = low
-                    self.mapItemRegions[item] = "L"
-                    itemsToRegion[item] = "L"
-                elif mid >= low and mid >= high:
-                    self.mapItemSum[item] = mid
-                    self.mapItemRegions[item] = "M"
-                    itemsToRegion[item] = "M"
-                elif high >= low and high >= mid:
-                    self.mapItemRegions[item] = "H"
-                    self.mapItemSum[item] = high
-                    itemsToRegion[item] = "H"
+        self.creatingItemSets()
+        self.finalPatterns = {}
+        for line in self.Database:
+            parts = line.split(":")
+            parts[1] = parts[1].strip()
+            parts[3] = parts[3].strip()
+            tid = int(parts[0])
+            self.dbLen += 1
+            items = parts[1].split(self.sep)
+            quantities = parts[3].split(self.sep)
+            if tid < maxTID:
+                maxTID = tid
+            for i in range(0, len(items)):
+                regions = Regions(int(quantities[i]), 3)
+                item = items[i]
+                if item in self.mapItemsLowSum.keys():
+                    low = self.mapItemsLowSum[item]
+                    low += regions.low
+                    self.mapItemsLowSum[item] = low
+                else:
+                    self.mapItemsLowSum[item] = regions.low
+                if item in self.mapItemsMidSum.keys():
+                    mid = self.mapItemsMidSum[item]
+                    mid += regions.middle
+                    self.mapItemsMidSum[item] = mid
+                else:
+                    self.mapItemsMidSum[item] = regions.middle
+                if item in self.mapItemsHighSum.keys():
+                    high = self.mapItemsHighSum[item]
+                    high += regions.high
+                    self.mapItemsHighSum[item] = high
+                else:
+                    self.mapItemsHighSum[item] = regions.high
+        listOfFFIList = []
+        mapItemsToFFLIST = {}
+        itemsToRegion = {}
+        self.minSup = self.convert(self.minSup)
+        self.maxPer = self.convert(self.maxPer)
+        for item1 in self.mapItemsLowSum.keys():
+            item = item1
+            low = self.mapItemsLowSum[item]
+            mid = self.mapItemsMidSum[item]
+            high = self.mapItemsHighSum[item]
+            if low >= mid and low >= high:
+                self.mapItemSum[item] = low
+                self.mapItemRegions[item] = "L"
+                itemsToRegion[item] = "L"
+            elif mid >= low and mid >= high:
+                self.mapItemSum[item] = mid
+                self.mapItemRegions[item] = "M"
+                itemsToRegion[item] = "M"
+            elif high >= low and high >= mid:
+                self.mapItemRegions[item] = "H"
+                self.mapItemSum[item] = high
+                itemsToRegion[item] = "H"
+            if self.mapItemSum[item] >= self.minSup:
+                fUList = FFList(item)
+                k = tuple([item, itemsToRegion.get(item)])
+                mapItemsToFFLIST[k] = fUList
+                listOfFFIList.append(fUList)
+                lastTIDs[item] = tid
+        listOfFFIList.sort(key=functools.cmp_to_key(self.compareItems))
+        for line in self.Database:
+            parts = line.split(":")
+            tid = int(parts[0])
+            parts[1] = parts[1].strip()
+            parts[3] = parts[3].strip()
+            items = parts[1].split(self.sep)
+            quantities = parts[3].split(self.sep)
+            revisedTransaction = []
+            for i in range(0, len(items)):
+                pair = Pair()
+                pair.item = items[i]
+                regions = Regions(int(quantities[i]), 3)
+                item = pair.item
                 if self.mapItemSum[item] >= self.minSup:
-                    fuList = FFList(item)
-                    k = tuple([item, itemsToRegion.get(item)])
-                    mapItemsToFFLIST[k] = fuList
-                    listOfFFIList.append(fuList)
-                    lastTIDs[item] = tid
-            listOfFFIList.sort(key=functools.cmp_to_key(self.compareItems))
-        with open(self.iFile, 'r') as file:
-            for line in file:
-                parts = line.split(":")
-                tid = int(parts[0])
-                parts[1]=parts[1].strip()
-                parts[3]=parts[3].strip()
-                items = parts[1].split(self.sep)
-                quantities = parts[3].split(self.sep)
-                revisedTransaction = []
-                for i in range(0, len(items)):
-                    pair = Pair()
-                    pair.item = items[i]
-                    regions = Reagions(int(quantities[i]), 3)
-                    item = pair.item
-                    if self.mapItemSum[item] >= self.minSup:
-                        if self.mapItemRegions[pair.item] == "L":
-                            pair.quantity = regions.low
-                        elif self.mapItemRegions[pair.item] == "M":
-                            pair.quantity = regions.middle
-                        elif self.mapItemRegions[pair.item] == "H":
-                            pair.quantity = regions.high
-                        if pair.quantity > 0:
-                            revisedTransaction.append(pair)
-                revisedTransaction.sort(key=functools.cmp_to_key(self.compareItems))
-                for i in range(len(revisedTransaction) - 1, -1, -1):
-                    pair = revisedTransaction[i]
-                    remainUtil = 0
-                    for j in range(len(revisedTransaction) - 1, i - 1, -1):
-                        remainUtil += revisedTransaction[j].quantity
-                    if pair.quantity > remainUtil:
-                        remainingUtility = pair.quantity
+                    if self.mapItemRegions[pair.item] == "L":
+                        pair.quantity = regions.low
+                    elif self.mapItemRegions[pair.item] == "M":
+                        pair.quantity = regions.middle
+                    elif self.mapItemRegions[pair.item] == "H":
+                        pair.quantity = regions.high
+                    if pair.quantity > 0:
+                        revisedTransaction.append(pair)
+            revisedTransaction.sort(key=functools.cmp_to_key(self.compareItems))
+            for i in range(len(revisedTransaction) - 1, -1, -1):
+                pair = revisedTransaction[i]
+                remainUtil = 0
+                for j in range(len(revisedTransaction) - 1, i - 1, -1):
+                    remainUtil += revisedTransaction[j].quantity
+                if pair.quantity > remainUtil:
+                    remainingUtility = pair.quantity
+                else:
+                    remainingUtility = remainUtil
+                if mapItemsToFFLIST.get(tuple([pair.item, itemsToRegion[pair.item]])) is not None:
+                    FFListOfItem = mapItemsToFFLIST[tuple([pair.item, itemsToRegion[pair.item]])]
+                    if len(FFListOfItem.elements) == 0:
+                        element = Element(tid, pair.quantity, remainingUtility, 0)
                     else:
-                        remainingUtility = remainUtil
-                    if mapItemsToFFLIST.get(tuple([pair.item, itemsToRegion[pair.item]])) is not None:
-                        FFListOfItem = mapItemsToFFLIST[tuple([pair.item, itemsToRegion[pair.item]])]
-                        if len(FFListOfItem.elements) == 0:
-                            element = Element(tid, pair.quantity, remainingUtility, 0)
+                        if lastTIDs[pair.item] == tid:
+                            element = Element(tid, pair.quantity, remainingUtility, maxTID - tid)
                         else:
-                            if lastTIDs[pair.item] == tid:
-                                element = Element(tid, pair.quantity, remainingUtility, maxTID - tid)
-                            else:
-                                lastTid = FFListOfItem.elements[-1].tid
-                                curPer = tid - lastTid
-                                element = Element(tid, pair.quantity, remainingUtility, curPer)
-                        FFListOfItem.addElement(element)
-        self.FSFIMining(self.itemsetBuffer, 0, listOfFFIList, self.minSup)
+                            lastTid = FFListOfItem.elements[-1].tid
+                            curPer = tid - lastTid
+                            element = Element(tid, pair.quantity, remainingUtility, curPer)
+                    FFListOfItem.addElement(element)
+        self.FSFIMining(self.itemSetBuffer, 0, listOfFFIList, self.minSup)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -434,7 +465,7 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         :type prefix: len
         :param prefixLen: the length of prefix
         :type prefixLen: int
-        :param fsFim: the Fuzzy list of prefix itemsets
+        :param fsFim: the Fuzzy list of prefix itemSets
         :type fsFim: list
         :param minSup: the minimum support of 
         :type minSup:int
@@ -449,8 +480,8 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
                     Y = fsFim[j]
                     exULs.append(self.construct(X, Y))
                     self.joinsCnt += 1
-                self.itemsetBuffer.insert(prefixLen, X.item)
-                self.FSFIMining(self.itemsetBuffer, prefixLen + 1, exULs, minSup, )
+                self.itemSetBuffer.insert(prefixLen, X.item)
+                self.FSFIMining(self.itemSetBuffer, prefixLen + 1, exULs, minSup, )
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -480,7 +511,7 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
 
     def construct(self, px, py):
         """
-            A function to construct a new Fuzzy item set from 2 fuzzy itemsets
+            A function to construct a new Fuzzy item set from 2 fuzzy itemSets
 
             :param px:the item set px
             :type px:FFI-List
@@ -500,17 +531,17 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
             prev = ex.tid
         return pxyUL
 
-    def findElementWithTID(self, uList, tid):
+    def findElementWithTID(self, UList, tid):
         """
             To find element with same tid as given
-            :param uList: fuzzy list
-            :type uList:FFI-List
+            :param UList: fuzzy list
+            :type UList:FFI-List
             :param tid:transaction id
             :type tid:int
             :return:element eith tid as given
-            :rtype: element if exizt or None
+            :rtype: element if exist or None
         """
-        List = uList.elements
+        List = UList.elements
         first = 0
         last = len(List) - 1
         while first <= last:
@@ -581,8 +612,9 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
 
 
 if __name__ == "__main__":
+    ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:  # to  include a user specifed separator
+        if len(sys.argv) == 6:  # to  include a user specified separator
             ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:  # to consider "\t" as a separator
             ap = FPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4])

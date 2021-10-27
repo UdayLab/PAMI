@@ -291,7 +291,7 @@ class FFIMiner(fuzzyFrequentPattenrs):
                 value = int(value)
         return value
 
-    def cretingItemsets(self):
+    def creatingItemsets(self):
         self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
             if self.iFile.empty:
@@ -322,7 +322,7 @@ class FFIMiner(fuzzyFrequentPattenrs):
           fuzzy-Frequent pattern mining process will start from here
         """
         self.startTime = time.time()
-        self.cretingItemsets()
+        self.creatingItemsets()
         for line in self.Database:
             line = line.split("\n")[0]
             parts = line.split(":")
