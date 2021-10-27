@@ -1,8 +1,10 @@
 import sys
-
+import validators
+from urllib.request import urlopen
 import pandas as pd
 
 from PAMI.correlatedPattern.basic.abstract import *
+
 
 class Node:
     """
@@ -40,7 +42,7 @@ class Node:
         for i in self.child:
             if i.itemId == id1:
                 return i
-        return []
+        return None
 
 
 class Tree:
@@ -90,7 +92,7 @@ class Tree:
         current = self.root
         for i in transaction:
             child = current.getChild(i)
-            if child == []:
+            if child is None:
                 newNode = Node()
                 newNode.itemId = i
                 newNode.parent = current
@@ -128,31 +130,31 @@ class Tree:
         
         """
 
-        if root.child == []:
+        if root.child is None:
             return
         else:
             for i in root.child:
                 print(i.itemId, i.counter, i.parent.itemId)
                 self.printTree(i)
 
-    def createHeaderList(self, mapSupport, minsup):
+    def createHeaderList(self, mapSupport, minSup):
         """
         To create the headerList
 
         :param mapSupport : it represents the items with their supports
         :type mapSupport : dictionary
-        :param minsup : it represents the minSup
-        :param minsup : float
+        :param minSup : it represents the minSup
+        :param minSup : float
         """
         
         t1 = []
         for x, y in mapSupport.items():
-            if y >= minsup:
+            if y >= minSup:
                 t1.append(x)
         itemSetBuffer = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.headerList = [i for i in t1 if i in itemSetBuffer]
 
-    def addPrefixPath(self, prefix, mapSupportBeta, minsup):
+    def addPrefixPath(self, prefix, mapSupportBeta, minSup):
         """
         To construct the conditional tree with prefix paths of a node in frequentPatternTree
 
@@ -160,17 +162,17 @@ class Tree:
         :type prefix : list
         :param mapSupportBeta : it represents the items with their supports
         :param mapSupportBeta : dictionary
-        :param minsup : to check the item meets with minSup
-        :param minsup : float
+        :param minSup : to check the item meets with minSup
+        :param minSup : float
         """
         pathCount = prefix[0].counter
         current = self.root
         prefix.reverse()
         for i in range(0, len(prefix) - 1):
             pathItem = prefix[i]
-            if mapSupportBeta.get(pathItem.itemId) >= minsup:
+            if mapSupportBeta.get(pathItem.itemId) >= minSup:
                 child = current.getChild(pathItem.itemId)
-                if child == []:
+                if child is None:
                     newNode = Node()
                     newNode.itemId = pathItem.itemId
                     newNode.parent = current
@@ -183,11 +185,11 @@ class Tree:
                     current = child
 
 
-class CPGrowth(corelatedPatterns):
+class CPGrowth(correlatedPatterns):
     """
-        CPGrowth is one of the fundamental algorithm to discover Corelated frequent patterns in a transactional database.
+        CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database.
         it is based on traditional Fpgrowth Algorithm,This algorithm uses breadth-first search technique to find the 
-        corelated Frequent patterns in transactional database.
+        correlated Frequent patterns in transactional database.
     
     Attributes :
     ----------
@@ -206,7 +208,7 @@ class CPGrowth(corelatedPatterns):
         minSup : int
             The user given minSup
         minAllConf: float
-            The user given minimum all confidence Rati(should be in range of 0 to 1)     
+            The user given minimum all confidence Ratio(should be in range of 0 to 1)
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -264,15 +266,15 @@ class CPGrowth(corelatedPatterns):
     Sample run of the importing code:
     ---------------------------------
 
-        import CPGrowth as alg
+        from PAMI.correlatedPattern.basic import CPGrowth as alg
 
         obj = alg.CPGrowth(iFile, minSup,minAllConf)
 
         obj.startMine()
 
-        corelatedPatterns = obj.getPatterns()
+        correlatedPatterns = obj.getPatterns()
 
-        print("Total number of corelated frequent Patterns:", len(corelatedPatterns))
+        print("Total number of correlated frequent Patterns:", len(correlatedPatterns))
 
         obj.savePatterns(oFile)
 
@@ -304,7 +306,7 @@ class CPGrowth(corelatedPatterns):
     oFile = " "
     memoryUSS = float()
     memoryRSS = float()
-    minAllConf=0.0
+    minAllConf = 0.0
     Database = []
     mapSupport = {}
     lno = 0
@@ -314,49 +316,62 @@ class CPGrowth(corelatedPatterns):
     minAllConf = 0.0
     itemSetCount = 0
     maxPatternLength = 1000
-    sep="\t"
+    sep = "\t"
 
-    def __init__(self, iFile, minsup, minAllConf,sep="\t"):
-        super().__init__(iFile,minsup,minAllConf,sep)
+    def __init__(self, iFile, minSup, minAllConf, sep="\t"):
+        super().__init__(iFile, minSup, minAllConf, sep)
 
-    def creatingItemSets(self, iFileName):
+    def creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
-            :param iFileName: user given input file/input file path
-            :type iFileName: str
-
-
             """
         self.Database = []
-        with open(iFileName, 'r', encoding='utf-8') as f:
-            for line in f:
-                line.strip()
-                if self.lno == 0:
-                    self.lno += 1
-                    # delimiter = self.findDelimiter([*line])
-                    li1 = [i.rstrip() for i in line.split(self.sep)]
-                    self.Database.append(li1)
-                else:
-                    self.lno += 1
-                    li1 = [i.rstrip() for i in line.split(self.sep)]
-                    self.Database.append(li1)
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def getRatio(self, prefix, prefixLength, s):
         """
-    		A FUnction to get itemset Ration
-    		:param prefix:the path
-    		:type prefix: list
-    		:param prefixLength: length
-    		:type prefixLength:int
-    		:s :current ratio
-    		:type s:float
-    		:return: minAllConfof prefix
-    		:rtype:float
-    	"""
+            A Function to get itemSet Ration
+            :param prefix:the path
+            :type prefix: list
+            :param prefixLength: length
+            :type prefixLength:int
+            :s :current ratio
+            :type s:float
+            :return: minAllConf of prefix
+            :rtype:float
+        """
         maximums = 0
         for ele in range(prefixLength):
-            i=prefix[ele]
+            i = prefix[ele]
             if maximums < self.mapSupport.get(i):
                 maximums = self.mapSupport.get(i)
         return s / maximums
@@ -383,14 +398,15 @@ class CPGrowth(corelatedPatterns):
         :type support :  int
         :The frequent patterns are update into global variable finalPatterns
         """
-        allconf= self.getRatio(prefix, prefixLength, support)
-        if allconf< self.minAllConf:
+        allconf = self.getRatio(prefix, prefixLength, support)
+        if allconf < self.minAllConf:
             return
         l = []
         for i in range(prefixLength):
             l.append(prefix[i])
         self.itemSetCount += 1
         self.finalPatterns[tuple(l)] = str(support)+" : "+str(allconf)
+    
     def convert(self, value):
         """
         to convert the type of user specified minSup value
@@ -501,7 +517,6 @@ class CPGrowth(corelatedPatterns):
                         treeBeta.createHeaderList(mapSupportBeta, self.minSup)
                         self.frequentPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta)
     
-
     def startMine(self):
         """
         main program to start the operation
@@ -509,14 +524,13 @@ class CPGrowth(corelatedPatterns):
         """
 
         self.startTime = time.time()
-        if self.iFile == None:
+        if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
-        iFileName = self.iFile
         minAllConf = self.minAllConf
-        self.creatingItemSets(iFileName)
-        self.minSup=self.convert(self.minSup)
-        print("minSup: ", self.minSup)
+        self.creatingItemSets()
+        self.minSup = self.convert(self.minSup)
         self.frequentOneItem()
+        self.finalPatterns = {}
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
@@ -530,9 +544,11 @@ class CPGrowth(corelatedPatterns):
         if len(self.tree.headerList) > 0:
             self.itemSetBuffer = []
             self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport)
-        print("Corelated Frequent patterns were generated successfully using CorelatedePatternGrowth algorithm")
+        print("Correlated Frequent patterns were generated successfully using CorrelatedPatternGrowth algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -610,14 +626,15 @@ class CPGrowth(corelatedPatterns):
 
 
 if __name__ == "__main__":
+    ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6: #includes separator
-        	ap = CPGrowth(sys.argv[1], sys.argv[3],float(sys.argv[4]),sys.argv[5])
-        if len(sys.argv) == 5: # to consider '\t' as separator
-        	ap = CPGrowth(sys.argv[1], sys.argv[3],float(sys.argv[4]))
+        if len(sys.argv) == 6: 
+            ap = CPGrowth(sys.argv[1], sys.argv[3], float(sys.argv[4]), sys.argv[5])
+        if len(sys.argv) == 5: 
+            ap = CPGrowth(sys.argv[1], sys.argv[3], float(sys.argv[4]))
         ap.startMine()
-        corelatedPatterns = ap.getPatterns()
-        print("Total number of Corelated-Frequent Patterns:", len(corelatedPatterns))
+        correlatedPatterns = ap.getPatterns()
+        print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
