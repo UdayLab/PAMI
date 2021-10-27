@@ -236,7 +236,7 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
     Sample run of importing the code:
     -------------------------------
         
-        import FCPGrowth as alg
+        from PAMI.fuzzyCorrelatedPattern.basic import FCPGrowth as alg
 
         obj = alg.FCPGrowth("input.txt",2,0.4)
 
@@ -276,6 +276,7 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
     sep = "\t"
     memoryUSS = float()
     memoryRSS = float()
+    Database = []
 
     def __init__(self, iFile, minSup, ratio, sep="\t"):
         super().__init__(iFile, minSup, ratio, sep)
@@ -571,8 +572,7 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
         res = 1.0
         n = prefixLen
         for i in prefix:
-            if self.mapItemRegionSum.get((i.item, i.region)) is not None and res < self.mapItemRegionSum[
-                (i.item, i.region)]:
+            if self.mapItemRegionSum.get((i.item, i.region)) is not None and res < self.mapItemRegionSum[(i.item, i.region)]:
                 res = self.mapItemRegionSum[(i.item, i.region)]
         if self.mapItemRegionSum.get((item.item, item.region)) is not None and res < self.mapItemRegionSum[
             (item.item, item.region)]:
@@ -641,7 +641,7 @@ if __name__ == "__main__":
             ap = FCPGrowth(sys.argv[1], sys.argv[3], float(sys.argv[4]), sys.argv[5])
         if len(sys.argv) == 5: 
             ap = FCPGrowth(sys.argv[1], sys.argv[3], float(sys.argv[4]))
-        ap.startTimeMine()
+        ap.startMine()
         fuzzycorrelatedFrequentPatterns = ap.getPatterns()
         print("Total number of Fuzzy-Frequent Patterns:", len(fuzzycorrelatedFrequentPatterns))
         ap.savePatterns(sys.argv[2])

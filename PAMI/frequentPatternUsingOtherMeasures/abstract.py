@@ -15,8 +15,8 @@ class frequentPatterns(ABC):
 
         ...
 
-        Attributes
-        ----------
+    Attributes:
+    ----------
         iFile : str
             Input file name or path of the input file
         minSup: float
@@ -35,8 +35,8 @@ class frequentPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
         getFrequentPatterns()
@@ -53,18 +53,20 @@ class frequentPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup,minRatio):
+    def __init__(self, iFile, minSup, minRatio, sep='\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
         :param minSup: UserSpecified minimum support value. It has to be given in terms of count of total number of
         transactions in the input database/file
-        :type minSup: float
+        :type minSup: str
         """
 
         self.iFile = iFile
         self.minSup = minSup
-        self.minRatio=minRatio
+        self.minRatio = minRatio
+        self.sep = sep
+
     @abstractmethod
     def iFile(self):
         """Variable to store the input file path/file name"""
@@ -78,6 +80,12 @@ class frequentPatterns(ABC):
         pass
 
     @abstractmethod
+    def sep(self):
+        """Variable to store the user-specified minimum support value"""
+
+        pass
+
+    @abstractmethod
     def startTime(self):
         """Variable to store the start time of the mining process"""
 
@@ -85,18 +93,6 @@ class frequentPatterns(ABC):
 
     @abstractmethod
     def endTime(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryUSS(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryRSS(self):
         """Variable to store the end time of the complete program"""
 
         pass
@@ -120,7 +116,7 @@ class frequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """Complete set of frequent patterns generated will be retrieved from this function"""
 
         pass

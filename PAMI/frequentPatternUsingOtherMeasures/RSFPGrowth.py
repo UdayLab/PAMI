@@ -1,5 +1,3 @@
-
-
 #  Copyright (C)  2021 Rage Uday Kiran
 #
 #      This program is free software: you can redistribute it and/or modify
@@ -30,14 +28,16 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from PAMI.frequentPatternUsingOtherMeasures.abstract import *
 import sys
-import math
+import validators
+from urllib.request import urlopen
+
 
 class Node:
     """
         A class used to represent the node of frequentPatternTree
 
-       Attributes
-        ----------
+    Attributes:
+    ----------
         itemId: int
             storing item of a node
         counter: int
@@ -49,8 +49,8 @@ class Node:
         nodeLink : node
             Points to the node with same itemId
 
-        Methods
-        -------
+    Methods:
+    -------
 
         getChild(itemName)
             returns the node with same itemName from frequentPatternTree
@@ -75,7 +75,7 @@ class Node:
         for i in self.child:
             if i.itemId == itemName:
                 return i
-        return []
+        return None
 
 
 class Tree:
@@ -216,10 +216,10 @@ class Tree:
 
 class RSFPGrowth(frequentPatterns):
     """ 
-        Algorthm to find all items with relative support from given dataset
+        Algorithm to find all items with relative support from given dataset
 
-        Attributes
-        ----------
+    Attributes:
+    ----------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
         oFile : file
@@ -251,8 +251,8 @@ class RSFPGrowth(frequentPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
         getFrequentPatterns()
@@ -281,27 +281,28 @@ class RSFPGrowth(frequentPatterns):
             Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
             mapSupport represents the 1-length items with their respective support
             
-        Executing the code on terminal:
-        -------
+    Executing the code on terminal:
+    -------
         Format:
         -------
-        python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <minRatio>
+            python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <minRatio>
 
         Examples:
         ---------
-        python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2  (minSup will be considered in percentage of database transactions)
+            python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2  (minSup will be considered in percentage of database transactions)
 
-        python3 RSFPGrowth.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)
+            python3 RSFPGrowth.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)
 
-        Sample run of the importing code:
-        -----------
-        import RSFPGrowth as alg
+    
+    Sample run of the importing code:
+    -----------
+        from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
 
-        obj = alg.RSFPGrowth(iFile, minSup,minRatio)
+        obj = alg.RSFPGrowth(iFile, minSup, minRatio)
 
         obj.startMine()
 
-        frequentPatterns = obj.getFrequentPatterns()
+        frequentPatterns = obj.getPatterns()
 
         print("Total number of Frequent Patterns:", len(frequentPatterns))
 
@@ -321,8 +322,8 @@ class RSFPGrowth(frequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
+    Credits:
+    -------
         The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.
 
         """
@@ -333,6 +334,7 @@ class RSFPGrowth(frequentPatterns):
     finalPatterns = {}
     iFile = " "
     oFile = " "
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -350,15 +352,36 @@ class RSFPGrowth(frequentPatterns):
 
 
             """
-        try:
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
                     line.strip()
-                    self.lno += 1
-                    li1 = [i.rstrip() for i in line.split("	")]
-                    self.Database.append(li1)
-        except IOError:
-            print("File Not Found")
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def frequentOneItem(self):
         """Generating One frequent items sets
@@ -370,10 +393,8 @@ class RSFPGrowth(frequentPatterns):
                     self.mapSupport[j] = 1
                 else:
                     self.mapSupport[j] += 1
-        #print(self.Database)
-        #print(self.mapSupport)
 
-    def saveItemSet(self, prefix, prefixLength, support,ratio):
+    def saveItemSet(self, prefix, prefixLength, support, ratio):
         """To save the frequent patterns mined form frequentPatternTree
 
         :param prefix: the frequent pattern
@@ -412,11 +433,11 @@ class RSFPGrowth(frequentPatterns):
                 if isSet > 0:
                     prefix.insert(newPrefixLength, tempBuffer[j].itemId)
                     newPrefixLength += 1
-            ratio=s/self.mapSupport[self.getMinItem(prefix,newPrefixLength)]
-            if(ratio>=self.minRatio):
-                self.saveItemSet(prefix, newPrefixLength, s,ratio)
+            ratio = s/self.mapSupport[self.getMinItem(prefix, newPrefixLength)]
+            if ratio >= self.minRatio:
+                self.saveItemSet(prefix, newPrefixLength, s, ratio)
 
-    def frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength,mapSupport,minconf):
+    def frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength, mapSupport, minConf):
         """Mining the fp tree
 
         :param frequentPatternTree: it represents the frequentPatternTree
@@ -451,15 +472,15 @@ class RSFPGrowth(frequentPatterns):
             for i in reversed(frequentPatternTree.headerList):
                 item = i
                 support = mapSupport[i]
-                CminSup=max(self.minSup,support*self.minRatio)
+                CminSup = max(self.minSup, support * self.minRatio)
                 betaSupport = support              
                 prefix.insert(prefixLength, item)
-                max1=self.getMinItem(prefix,prefixLength)
-                if(self.mapSupport[max1]>self.mapSupport[item]):
-                    max1=item
-                ratio=support/self.mapSupport[max1]
-                if(ratio>=self.minRatio):
-                    self.saveItemSet(prefix, prefixLength + 1, betaSupport,ratio)
+                max1 = self.getMinItem(prefix, prefixLength)
+                if self.mapSupport[max1] > self.mapSupport[item]:
+                    max1 = item
+                ratio = support/self.mapSupport[max1]
+                if ratio >= self.minRatio:
+                    self.saveItemSet(prefix, prefixLength + 1, betaSupport, ratio)
                 if prefixLength + 1 < self.maxPatternLength:
                     prefixPaths = []
                     path = frequentPatternTree.mapItemNodes.get(item)
@@ -469,18 +490,18 @@ class RSFPGrowth(frequentPatterns):
                             prefixPath = [path]
                             pathCount = path.counter
                             parent1 = path.parent
-                            if mapSupport.get(parent1.itemId)>=CminSup:
+                            if mapSupport.get(parent1.itemId) >= CminSup:
                                 while parent1.itemId != -1:
-                                   mins=CminSup
-                                   if(mapSupport.get(parent1.itemId)>=mins):
-                                       prefixPath.append(parent1)
-                                       if mapSupportBeta.get(parent1.itemId) is None:
-                                           mapSupportBeta[parent1.itemId] = pathCount
-                                       else:
-                                           mapSupportBeta[parent1.itemId] = mapSupportBeta[parent1.itemId] + pathCount
-                                       parent1 = parent1.parent
-                                   else:
-                                       break
+                                    mins = CminSup
+                                    if mapSupport.get(parent1.itemId) >= mins:
+                                        prefixPath.append(parent1)
+                                        if mapSupportBeta.get(parent1.itemId) is None:
+                                            mapSupportBeta[parent1.itemId] = pathCount
+                                        else:
+                                            mapSupportBeta[parent1.itemId] = mapSupportBeta[parent1.itemId] + pathCount
+                                        parent1 = parent1.parent
+                                    else:
+                                        break
                                 prefixPaths.append(prefixPath)
                         path = path.nodeLink
                     treeBeta = Tree()
@@ -488,7 +509,7 @@ class RSFPGrowth(frequentPatterns):
                         treeBeta.addPrefixPath(k, mapSupportBeta, self.minSup)
                     if len(treeBeta.root.child) > 0:
                         treeBeta.createHeaderList(mapSupportBeta, self.minSup)
-                        self.frequentPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1,mapSupportBeta,minconf)
+                        self.frequentPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta, minConf)
 
     def convert(self, value):
         """
@@ -521,6 +542,7 @@ class RSFPGrowth(frequentPatterns):
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         self.frequentOneItem()
+        self.finalPatterns = {}
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
@@ -533,10 +555,12 @@ class RSFPGrowth(frequentPatterns):
         self.tree.createHeaderList(self.mapSupport, self.minSup)
         if len(self.tree.headerList) > 0:
             self.itemSetBuffer = []
-            self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport,self.minRatio)
+            self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport, self.minRatio)
         print("relative support frequent patterns were generated successfully using RSFPGrowth algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryRSS = float()
+        self.memoryUSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -558,15 +582,16 @@ class RSFPGrowth(frequentPatterns):
 
         return self.memoryRSS
 
-    def getMinItem(self,prefix,prefixLength):
+    def getMinItem(self, prefix, prefixLength):
         """
-            returs the minItem from prefix
+            returns the minItem from prefix
         """
-        minitem=prefix[0]
+        minItem = prefix[0]
         for i in range(prefixLength):
-            if(self.mapSupport[minitem]>self.mapSupport[prefix[i]]):
-                minitem=prefix[i]
-        return minitem
+            if self.mapSupport[minItem] > self.mapSupport[prefix[i]]:
+                minItem = prefix[i]
+        return minItem
+    
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
@@ -606,35 +631,39 @@ class RSFPGrowth(frequentPatterns):
             s1 = str(pattern) + ": " + str(y)
             writer.write("%s \n" % s1)
 
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
         """
-        res=dict();
+        res = dict()
         for x, y in self.finalPatterns.items():
             pattern = str()
             for i in x:
                 pattern = pattern + i + " "
-            s1 =str(y)
-            res[pattern]=s1;
+            s1 = str(y)
+            res[pattern] = s1
 
-        return res;
+        return res
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 5:
-        ap = RSFPGrowth(sys.argv[1], sys.argv[3],float(sys.argv[4]))
+    ap = str()
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            ap = RSFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        if len(sys.argv) == 5:
+            ap = RSFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
-        frequentPatterns = ap.getFrequentPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in ms:", run)
     else:
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+        print("Error! The number of input parameters do not match the total number of parameters provided")        
