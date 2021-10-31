@@ -325,7 +325,7 @@ class EFIM(utilityPatterns):
     Sample run of importing the code:
     -------------------------------
         
-        import EFIM as alg
+        from PAMI.highUtilityPatterns.basic import EFIM as alg
 
         obj=alg.EFIM("input.txt",35)
 
