@@ -15,10 +15,8 @@
 
 
 import sys
-import pandas as pd
 import validators
 from urllib.request import urlopen
-from functools import cmp_to_key
 from abstract import *
 
 
@@ -607,7 +605,7 @@ class EFIM(utilityPatterns):
             :return: sorted transactions
             :rtype: Transactions
         """
-        cmp_items = cmp_to_key(self.sort_transaction)
+        cmp_items = functools.cmp_to_key(self.sort_transaction)
         transactions.sort(key=cmp_items)
 
     def sort_transaction(self, trans1, trans2):
