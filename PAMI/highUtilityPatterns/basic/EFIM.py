@@ -17,10 +17,9 @@
 import sys
 import pandas as pd
 import validators
-import requests
-from urllib.request import Request, urlopen
+from urllib.request import urlopen
 from functools import cmp_to_key
-from PAMI.highUtilityPatterns.basic.abstract import *
+from abstract import *
 
 
 class Transaction:
@@ -42,7 +41,7 @@ class Transaction:
     Methods:
     --------
         projectedTransaction(offsetE):
-            A method to create new Transaction from existing till offsetE
+            A method to create new Transaction from existing starting from offsetE until the end
         getItems():
             return items in transaction
         getUtilities():
@@ -50,7 +49,7 @@ class Transaction:
         getLastPosition():
             return last position in a transaction
         removeUnpromisingItems():
-            A method to remove items with low Utility than minUtil
+            A method to remove items which are having low values when compared with minUtil
         insertionSort():
             A method to sort all items in the transaction
     """
@@ -64,7 +63,7 @@ class Transaction:
 
     def projectTransaction(self, offsetE):
         """
-            A method to create new Transaction from existing till offsetE
+            A method to create new Transaction from existing transaction starting from offsetE until the end
 
         Parameters:
         ----------
@@ -101,7 +100,7 @@ class Transaction:
 
     def removeUnpromisingItems(self, oldNamesToNewNames):
         """
-            A method to remove items with low Utility than minUtil
+            A method to remove items which are not present in the map passed to the function
 
             Parameters:
             -----------
@@ -179,7 +178,6 @@ class Dataset:
             if 'utilities' in i:
                 utilities = datasetPath['Patterns'].tolist()
             self.transactions.append(self.createTransaction(data, utilities))
-            # print(self.Database)
         if isinstance(datasetPath, str):
             if validators.url(datasetPath):
                 data = urlopen(datasetPath)
@@ -253,9 +251,9 @@ class EFIM(utilityPatterns):
     Attributes:
     -----------
         iFile : file
-            Name of the input file to mine complete set of frequent patterns
+            Name of the input file to mine complete set of high utility patterns
         oFile : file
-            Name of the output file to store complete set of frequent patterns
+            Name of the output file to store complete set of high utility patterns
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
         startTime:float
@@ -263,27 +261,27 @@ class EFIM(utilityPatterns):
         endTime:float
             To record the completion time of the mining process
         minUtil : int
-            The user given minUtil
+            The user given minUtil value
         highUtilityitemSets: map
             set of high utility itemSets
         candidateCount: int
              Number of candidates 
         utilityBinArrayLU: list
-             A map to hold the pmu values of the items in database
+             A map to hold the local utility values of the items in database
         utilityBinArraySU: list
             A map to hold the subtree utility values of the items is database
         oldNamesToNewNames: list
-            A map to hold the subtree utility values of the items is database
+            A map which contains old names, new names of items as key value pairs
         newNamesToOldNames: list
-            A map to store the old name corresponding to new name
+            A map which contains new names, old names of items as key value pairs
         maxMemory: float
-        Maximum memory used by this program for running
+            Maximum memory used by this program for running
         patternCount: int
-            Number of SHUI's
+            Number of HUI's
         itemsToKeep: list
-            keep only the promising items ie items having twu >= minUtil
+            keep only the promising items ie items having local utility values greater than or equal to minUtil
         itemsToExplore: list
-            keep items that subtreeUtility greater than minUtil
+            list of items that have subtreeUtility value greater than or equal to minUtil
 
     Methods :
     -------
@@ -292,9 +290,9 @@ class EFIM(utilityPatterns):
         getPatterns()
                 Complete set of patterns will be retrieved with this function
         savePatterns(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
+                Complete set of patterns will be loaded in to a output file
         getPatternsAsDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
+                Complete set of patterns will be loaded in to a dataframe
         getMemoryUSS()
                 Total amount of USS memory consumed by the mining process will be retrieved from this function
         getMemoryRSS()
@@ -302,27 +300,27 @@ class EFIM(utilityPatterns):
         getRuntime()
                Total amount of runtime taken by the mining process will be retrieved from this function
         backTrackingEFIM(transactionsOfP, itemsToKeep, itemsToExplore, prefixLength)
-               A method to mine the SHUIs Recursively
+               A method to mine the HUIs Recursively
         useUtilityBinArraysToCalculateUpperBounds(transactionsPe, j, itemsToKeep)
-               A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P and e
+               A method to calculate the sub-tree utility and local utility of all items that can extend itemSet P and e
         output(tempPosition, utility)
-               A method ave a high-utility itemSet to file or memory depending on what the user chose
+               A method to output a high-utility itemSet to file or memory depending on what the user chose
         is_equal(transaction1, transaction2)
                A method to Check if two transaction are identical
         useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(dataset)
-              Scan the initial database to calculate the subtree utility of each items using a utility-bin array
+              A method to calculate the sub tree utility values for single items
         sortDatabase(self, transactions)
-              A Method to sort transaction in the order of PMU
+              A Method to sort transaction
         sort_transaction(self, trans1, trans2)
-              A Method to sort transaction in the order of PMU
+              A Method to sort transaction
         useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)
-             A method to scan the database using utility bin array to calculate the pmus
+             A method to calculate local utility values for single itemsets
 
     Executing the code on terminal :
     -------
-        Format: python3 EFIM <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
-        Examples: python3 EFIM sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
-                  python3 EFIM sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
+        Format: python3 EFIM.py <inputFile> <outputFile> <minUtil> <sep>
+        Examples: python3 EFIM sampleTDB.txt output.txt 35  (it will consider "\t" as separator)
+                  python3 EFIM sampleTDB.txt output.txt 35 , (it will consider "," as separator)
 
     Sample run of importing the code:
     -------------------------------
@@ -333,9 +331,9 @@ class EFIM(utilityPatterns):
 
         obj.startMine()
 
-        frequentPatterns = obj.getPatterns()
+        Patterns = obj.getPatterns()
 
-        print("Total number of high utility Patterns:", len(frequentPatterns))
+        print("Total number of high utility Patterns:", len(Patterns))
 
         obj.savePatterns("output")
 
@@ -371,8 +369,6 @@ class EFIM(utilityPatterns):
     maxMemory = 0
     startTime = float()
     endTime = float()
-    minSup = str()
-    maxPer = float()
     finalPatterns = {}
     iFile = " "
     oFile = " "
@@ -388,7 +384,6 @@ class EFIM(utilityPatterns):
 
     def startMine(self):
         self.startTime = time.time()
-        self.dataset = Dataset(self.iFile, self.sep)
         self.dataset = Dataset(self.iFile, self.sep)
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
         minUtil = int(self.minUtil)
@@ -427,7 +422,7 @@ class EFIM(utilityPatterns):
 
     def backTrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
         """
-            A method to mine the SHUIs Recursively
+            A method to mine the HUIs Recursively
 
             Attributes:
             ----------
@@ -603,7 +598,7 @@ class EFIM(utilityPatterns):
 
     def sortDatabase(self, transactions):
         """
-            A Method to sort transaction in the order of PMU
+            A Method to sort transaction
 
             Attributes:
             ----------
@@ -617,7 +612,7 @@ class EFIM(utilityPatterns):
 
     def sort_transaction(self, trans1, trans2):
         """
-            A Method to sort transaction in the order of PMU
+            A Method to sort transaction
 
             Attributes:
             ----------
@@ -659,7 +654,7 @@ class EFIM(utilityPatterns):
 
     def useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
         """
-            A method to scan the database using utility bin array to calculate the pmus
+            A method to calculate local utility of single itemsets
             Attributes:
             ----------
             :param dataset: the transaction database
@@ -674,23 +669,23 @@ class EFIM(utilityPatterns):
                     self.utilityBinArrayLU[item] = transaction.transactionUtility
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """Storing final patterns in a dataframe
 
-        :return: returning frequent patterns in a dataframe
+        :return: returning patterns in a dataframe
         :rtype: pd.DataFrame
             """
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Utility'])
 
         return dataFrame
     
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """ Function to send the set of patterns after completion of the mining process
 
-        :return: returning frequent patterns
+        :return: returning patterns
         :rtype: dict
         """
         return self.finalPatterns
@@ -743,7 +738,8 @@ if __name__ == '__main__':
             ap = EFIM(sys.argv[1], int(sys.argv[3]))
         ap.startMine()
         patterns = ap.getPatterns()
-        print("Total number of Spatial High Utility Patterns:", len(patterns))
+        print("Total number of High Utility Patterns:", ap.patternCount)
+        print("Total number of Candidate Patterns:", ap.candidateCount)
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
