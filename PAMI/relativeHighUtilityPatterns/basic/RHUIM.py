@@ -351,7 +351,7 @@ class RHUIM(utilityPatterns):
    
     Credits:
     -------
-        The complete program was written by pradeep pallikila under the supervision of Professor Rage Uday Kiran.
+        The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.
      
     """
 

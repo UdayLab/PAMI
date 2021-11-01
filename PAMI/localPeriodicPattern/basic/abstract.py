@@ -42,8 +42,8 @@ class localPeriodicPatterns(ABC):
         employ in PAMI
 
 
-        Attributes:
-        ----------
+    Attributes:
+    ----------
         inputFile : str
             Input file name or path of the input file
         minSup: integer or float or str
@@ -64,8 +64,8 @@ class localPeriodicPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods:
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
         getLocalPeriodicPatterns()
@@ -179,7 +179,7 @@ class localPeriodicPatterns(ABC):
         pass
 
     @abstractmethod
-    def getLocalPeriodicPatterns(self):
+    def getPatterns(self):
         """Complete set of local periodic patterns generated will be retrieved from this function"""
 
         pass

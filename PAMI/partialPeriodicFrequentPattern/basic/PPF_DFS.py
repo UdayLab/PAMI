@@ -76,7 +76,6 @@ class PPF_DFS(partialPeriodicPatterns):
     Sample run of the importing code:
     -----------
 
-
         from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg
 
         obj = alg.PPF_DFS(iFile, minSup)
@@ -103,8 +102,8 @@ class PPF_DFS(partialPeriodicPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
+    Credits:
+    -------
         The complete program was written by S. Nakamura  under the supervision of Professor Rage Uday Kiran.\n
 
     """
@@ -140,7 +139,7 @@ class PPF_DFS(partialPeriodicPatterns):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
-            if 'timeStamps' in i:
+            if 'ts' or 'TS' in i:
                 timeStamp = self.iFile['timeStamps'].tolist()
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
@@ -151,7 +150,7 @@ class PPF_DFS(partialPeriodicPatterns):
                 tr.append(data[i])
                 self.Database.append(tr)
             self.lno = len(self.Database)
-            #print(self.Database)
+
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)

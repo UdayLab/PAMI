@@ -5,10 +5,10 @@ orderOfItem = {}
 
 class Node:
     """
-        A class used to represent the node of frequentPatternTree
-        ...
-        Attributes
-        ----------
+    A class used to represent the node of frequentPatternTree
+    ...
+    Attributes:
+    ----------
         item : int
             storing item of a node
         parent : node
@@ -20,10 +20,10 @@ class Node:
         tidList : set
             To maintain timestamps of node
 
-        Methods
-        -------
+    Methods:
+    -------
         getChild(itemName)
-        storing the children to their respective parent nodes
+            storing the children to their respective parent nodes
     """
 
     def __init__(self):
@@ -47,11 +47,11 @@ class Node:
 
 class Tree:
     """
-        A class used to represent the frequentPatternGrowth tree structure
+    A class used to represent the frequentPatternGrowth tree structure
 
-        ...
-        Attributes
-        ----------
+    ...
+    Attributes:
+    ----------
         root : node
             Represents the root node of the tree
         nodeLinks : dictionary
@@ -59,8 +59,8 @@ class Tree:
         firstNodeLink : dictionary
             storing first node of each item
 
-        Methods
-        -------
+    Methods:
+    -------
         addTransaction(transaction,timeStamp)
             creating transaction as a branch in frequentPatternTree
         fixNodeLinks(itemName, newNode)
@@ -222,22 +222,23 @@ class calculateIP:
             ip += 1
         return ip
 
+
 class generatePFListver2:
     """
     generate time stamp list from input file
     ...
-    Attributes
+    Attributes:
     ----------
-    inputFile : str
-        it is inpuy file name
-    minSup : float
-        user defined minimum support value
-    maxPer : float
-        user defined max Periodicity value
-    minPR : float
-        user defined min PR value
-    PFList : dict
-        storing timestamps each item
+        inputFile : str
+            it is inpuy file name
+        minSup : float
+            user defined minimum support value
+        maxPer : float
+            user defined max Periodicity value
+        minPR : float
+            user defined min PR value
+        PFList : dict
+            storing timestamps each item
     """
     def __init__(self, inputFile, minSup, maxPer, minPR):
         self.inputFile = inputFile
@@ -292,8 +293,6 @@ class generatePFListver2:
                             self.PFList[item][1] = currentPeriodicity
             last = currentTime
         keys = list(self.PFList)
-        """self.minSup = self.minSup * dataSize
-        self.maxPer = self.maxPer * dataSize"""
         for item in keys:
             currentPeriodicity = currentTime - self.PFList[item][2]
             if currentPeriodicity > self.PFList[item][1]:
@@ -479,61 +478,77 @@ class GPFgrowth(partialPeriodicPatterns):
     GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
 
     ...
-    Attributes
+    Attributes:
     ----------
-    inputFile : file
-        Name of the input file to mine complete set of frequent pattern
-    minSup : float
-        The user defined minSup
-    maxPer : float
-        The user defined maxPer
-    minPR : float
-        The user defined minPR
-    finalPatterns : dict
-        it represents to store the pattern
-    runTime : float
-        storing the total runtime of the mining process
-    memoryUSS : float
-        storing the total amount of USS memory consumed by the program
-    memoryRSS : float
-        storing the total amount of RSS memory consumed by the program
+        inputFile : file
+            Name of the input file to mine complete set of frequent pattern
+        minSup : float
+            The user defined minSup
+        maxPer : float
+            The user defined maxPer
+        minPR : float
+            The user defined minPR
+        finalPatterns : dict
+            it represents to store the pattern
+        runTime : float
+            storing the total runtime of the mining process
+        memoryUSS : float
+            storing the total amount of USS memory consumed by the program
+        memoryRSS : float
+            storing the total amount of RSS memory consumed by the program
 
-    Methods
+    Methods:
     -------
-    startMine()
-        Mining process will start from here
-    getPartialPeriodicPatterns()
-        Complete set of patterns will be retrieved with this function
-    storePatterns InFile(ouputFile)
-        Complete set of frequent patterns will be loaded in to a ouput file
-    getPatternsAsDataFrame()
-        Complete set of frequent patterns will be loaded in to a ouput file
-    getMemoryUSS()
-        Total amount of USS memory consumed by the mining process will be retrieved from this function
-    getMemoryRSS()
-        Total amount of RSS memory consumed by the mining process will be retrieved from this function
-    getRuntime()
-        Total amount of runtime taken by the mining process will be retrieved from this function
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        storePatternsInFile(ouputFile)
+            Complete set of frequent patterns will be loaded in to a output file
+        getPatternsAsDataFrame()
+            Complete set of frequent patterns will be loaded in to a output file
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Format: python3 GPFgrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
-    Examples: python3 GPFgrowth.py sampleDB.txt patterns.txt 10 10 0.5
+    Format:
+    ------
+        python3 GPFgrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
+
+        Examples:
+            python3 GPFgrowth.py sampleDB.txt patterns.txt 10 10 0.5
 
     Sample run of the importing code:
     ------------
-    from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
-    obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)
-    obj.startMine()
-    partialPeriodicFrequentPatterns = obj.partialPeriodicFrequentPatterns()
 
-    print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
-    obj.savePatterns(oFile)
-    Df = obj.getPatternInDf()
-    memUSS = obj.getMemoryUSS()
-    print("Total Memory in USS:", memUSS)
-    memRSS = obj.getMemoryRSS()
-    print("Total Memory in RSS", memRSS)
-    run = obj.getRuntime()
-    print("Total ExecutionTime in seconds:", run)
+        from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
+
+        obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)
+
+        obj.startMine()
+
+        partialPeriodicFrequentPatterns = obj.getPatterns()
+
+        print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
+
+        obj.savePatterns(oFile)
+
+        Df = obj.getPatternInDf()
+
+        memUSS = obj.getMemoryUSS()
+
+        print("Total Memory in USS:", memUSS)
+
+        memRSS = obj.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = obj.getRuntime()
+
+        print("Total ExecutionTime in seconds:", run)
     """
     iFile = ' '
     oFile = ' '
@@ -549,25 +564,18 @@ class GPFgrowth(partialPeriodicPatterns):
 
     def startMine(self):
         self.inputFile = self.iFile
-        startTime = time.time()
-        """self.TDB = ri.readInputFile(self.inputFile).run()
-        self.minSup = len(self.TDB) * self.minSup
-        self.maxPer = len(self.TDB) * self.maxPer"""
-        #tidList = pfl.generatePFList(self.TDB, self.minSup, self.maxPer).run()
+        self.startTime = time.time()
+        self.finalPatterns = {}
         obj = generatePFListver2(self.inputFile, self.minSup, self.maxPer, self.minPR)
         tidList, last = obj.run()
-        #orderOfItem = tidList.copy()
-        """self.minSup = obj.minSup
-        self.maxPer = obj.maxPer"""
-        #PFTree = pft.generatePFTree(self.TDB, tidList).run()
         PFTree = generatePFTreever2(self.inputFile, tidList).run()
         obj2 = PFgrowth(PFTree, [], tidList, self.minSup, self.maxPer, self.minPR, last)
         self.finalPatterns = obj2.run()
-        endTime = time.time()
-        self.runTime = endTime - startTime
-        """memory = resource.getrusage((resource.RUSAGE_SELF))
-        memory = memory.ru_maxrss"""
+        self.endTime = time.time()
+        self.runTime = self.endTime - self.startTime
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -620,7 +628,7 @@ class GPFgrowth(partialPeriodicPatterns):
             s1 = str(x) + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPartialPeriodicPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
@@ -628,17 +636,21 @@ class GPFgrowth(partialPeriodicPatterns):
         return self.finalPatterns
 
 if __name__ == '__main__':
-    if len(sys.argv) == 6:
-        ap = GPFgrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+    ap = str()
+    if len(sys.argv) == 6 or len(sys.argv) == 7:
+        if len(sys.argv) == 7:
+            ap = GPFgrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+        if len(sys.argv) == 6:
+            ap = GPFgrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         ap.startMine()
-        frequentPatterns = ap.getPartialPeriodicPatterns()
-        print(f"Total number of Frequent Patterns: {len(frequentPatterns)}")
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
-        print(f'Total Memory in USS: {memUSS}')
+        print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
-        print(f'Total Memory in RSS: {memRSS}')
+        print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print(f'Total ExecutionTime in seconds: {run}')
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

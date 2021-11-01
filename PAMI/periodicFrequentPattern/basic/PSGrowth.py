@@ -214,21 +214,19 @@ def update(updatedSummaries):
 class Node(object):
     """ A class used to represent the node of frequentPatternTree
 
+        Attributes:
+        ----------
+            item : int
+                storing item of a node
+            timeStamps : list
+                To maintain the timeStamps of Database at the end of the branch
+            parent : node
+                To maintain the parent of every node
+            children : list
+                To maintain the children of node
 
-
-               Attributes
-                ----------
-                item : int
-                    storing item of a node
-                timeStamps : list
-                    To maintain the timeStamps of Database at the end of the branch
-                parent : node
-                    To maintain the parent of every node
-                children : list
-                    To maintain the children of node
-
-                Methods
-                -------
+            Methods:
+            -------
 
                 addChild(itemName)
                     storing the children to their respective parent nodes
@@ -263,9 +261,9 @@ class Tree(object):
         A class used to represent the frequentPatternGrowth tree structure
 
 
-       Attributes
-        ----------
-        root : Node
+    Attributes:
+    ----------
+        root : Node or None
             Represents the root node of the tree
         summaries : dictionary
             storing the nodes with same item name
@@ -273,8 +271,8 @@ class Tree(object):
             stores the support of items
 
 
-        Methods
-        -------
+    Methods:
+    -------
             addTransaction(Database)
                 creating Database as a branch in frequentPatternTree
             addConditionalTransactions(prefixPaths, supportOfItems)
@@ -552,7 +550,7 @@ class PSGrowth(periodicFrequentPatterns):
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
         sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
@@ -669,11 +667,11 @@ class PSGrowth(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.lno * value)
+            value = (len(self.Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.lno * value)
+                value = (len(self.Database) * value)
             else:
                 value = int(value)
         return value
@@ -686,13 +684,20 @@ class PSGrowth(periodicFrequentPatterns):
         """
         self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
+            ts, data = [], []
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
+            if 'TS' in i:
+                ts = self.iFile['TS'].tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
+                data = self.iFile['Transactions'].tolist()
             if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [ts[i][0]]
+                tr.append(data[i])
+                self.Database.append(tr)
             #print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):

@@ -1,11 +1,14 @@
 import sys
+import validators
+from urllib.request import urlopen
 from abstract import *
+
 
 class LPPMDepth(localPeriodicPatterns):
 
     """
-        Attributes:
-        -----------
+    Attributes:
+    -----------
         iFile : str
             Input file name or path of the input file
         oFile : str
@@ -28,13 +31,11 @@ class LPPMDepth(localPeriodicPatterns):
             To store local periodic patterns and its PTL.
         tsList : dict
             To store items and its time stamp as bit vector.
-        :param sep: separator used to distinguish items from each other. The default separator is tab space.
-        :type sep: str
+        sep : str
+            separator used to distinguish items from each other. The default separator is tab space.
 
-        Methods
-        -------
-        findSeparator(line)
-            Find the separator of the line which split strings.
+    Methods:
+    -------
         createTSlist()
             Create the TSlist as bit vector from input data.
         generateLPP()
@@ -58,30 +59,45 @@ class LPPMDepth(localPeriodicPatterns):
         getPatternsAsDataFrame()
             Complete set of local periodic patterns will be loaded in to a dataframe.
 
-        Executing the code on terminal
-        ------------------------------
-        Format: python3 LPPMDepth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur>
-        Examples: python3 LPPMDepth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
-                  python3 LPPMDepth.py sampleDB.txt patterns.txt 3 4 5
+    Executing the code on terminal:
+    ------------------------------
+        Format:
+            python3 LPPMDepth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur> <sep>
+        Examples:
+            python3 LPPMDepth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
 
-        Sample run of importing the code
-        --------------------------------
+            python3 LPPMDepth.py sampleDB.txt patterns.txt 3 4 5
+
+    Sample run of importing the code:
+    --------------------------------
         from PAMI.localPeriodicPattern.basic import LPPMDepth as alg
+
         obj = alg.LPPMDepth(iFile, maxPer, maxSoPer, minDur)
+
         obj.startMine()
-        localPeriodicPatterns = obj.getLocalPeriodicPatterns()
+
+        localPeriodicPatterns = obj.getPatterns()
+
         print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
+
         obj.savePatterns(oFile)
+
         Df = obj.getPatternsAsDataFrame()
+
         memUSS = obj.getMemoryUSS()
+
         print(f'Total memory in USS: {memUSS}')
+
         memRSS = obj.getMemoryRSS()
+
         print(f'Total memory in RSS: {memRSS}')
+
         runtime = obj.getRuntime()
+
         print(f'Total execution time in seconds: {runtime})
 
-        Credits
-        -------
+    Credits:
+    -------
         The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.
     """
     
@@ -99,43 +115,60 @@ class LPPMDepth(localPeriodicPatterns):
     finalPatterns = {}
     tsList = {}
     sep = ' '
+    Database = []
 
-    def findSeparator(self, line):
-        """Identifying the separator of the input file
-            :param line: list of special characters may be used by a user to split the items in a input file
-            :type line: list of string
-            :returns: Separate string used in the input file to split each item
-            :rtype: string
-            """
-        l = ['\t', ',', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
-        j = None
-        for i in l:
-            if i in line:
-                return i
-        return j
+    def creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def createTSlist(self):
         """
         Create tsList as bit vector from temporal data.
         """
-        with open(self.iFile, 'r') as f:
+        for line in self.Database:
             count = 1
             bitVector = 0b1 << count
             bitVector = bitVector | 0b1
-            line = f.readline()
-            line = line.strip()
-            separator = self.findSeparator(line)
-            # line = [item for item in line.split(separator)]
-            line = [item for item in line.split(self.sep)]
             self.tsmin = int(line.pop(0))
             self.tsList = {item: bitVector for item in line}
             count += 1
-            for line in f:
+            ts = ' '
+            for line in self.Database:
                 bitVector = 0b1 << count
                 bitVector = bitVector | 0b1
-                line = line.strip()
-                # line = [item for item in line.split(separator)]
-                line = [item for item in line.split(self.sep)]
                 ts = line.pop(0)
                 for item in line:
                     if self.tsList.get(item):
@@ -166,6 +199,8 @@ class LPPMDepth(localPeriodicPatterns):
             ts = ts[2:]
             start = -1
             currentTs = 1
+            tsPre = ' '
+            soPer = ' '
             for t in ts[currentTs:]:
                 if t == '0':
                     currentTs += 1
@@ -234,6 +269,8 @@ class LPPMDepth(localPeriodicPatterns):
         start = -1
         currentTs = 1
         PTL = set()
+        tsPre = ' '
+        soPer = ' '
         for ts in tsList[currentTs:]:
             if ts == '0':
                 currentTs += 1
@@ -301,10 +338,14 @@ class LPPMDepth(localPeriodicPatterns):
         Mining process start from here. This function calls createTSlist and generateLPP.
         """
         self.startTime = time.time()
+        self.finalPatterns = {}
+        self.creatingItemSets()
         self.createTSlist()
         self.generateLPP()
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryRSS = float()
+        self.memoryUSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -362,7 +403,7 @@ class LPPMDepth(localPeriodicPatterns):
             # patternsAndPTL = x + ":" + y
             # writer.write("%s \n" % patternsAndPTL)
 
-    def getLocalPeriodicPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of local periodic patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -371,18 +412,22 @@ class LPPMDepth(localPeriodicPatterns):
         return self.finalPatterns
 
 if __name__ == '__main__':
-    if len(sys.argv) == 6:
-        ap = LPPMDepth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+    ap = str()
+    if len(sys.argv) == 6 or len(sys.argv) == 7:
+        if len(sys.argv) == 7:
+            ap = LPPMDepth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+        if len(sys.argv) == 6:
+            ap = LPPMDepth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         ap.startMine()
-        localPeriodicPatterns = ap.getLocalPeriodicPatterns()
-        print(f"Total number of Frequent Patterns: {len(localPeriodicPatterns)}")
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
-        print(f'Total Memory in USS: {memUSS}')
+        print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
-        print(f'Total Memory in RSS: {memRSS}')
+        print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print(f'Total ExecutionTime in seconds: {run}')
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
 

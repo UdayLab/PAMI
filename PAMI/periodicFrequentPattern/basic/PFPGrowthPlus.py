@@ -285,8 +285,8 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -314,8 +314,8 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         startMine()
             the main method to run the program
 
-        Executing the code on terminal:
-        -------
+    Executing the code on terminal:
+    -------
         Format:
         ------
         python3 PFPGrowthPlus.py <inputFile> <outputFile> <minSup> <maxPer>
@@ -326,8 +326,8 @@ class PFPGrowthPlus(periodicFrequentPatterns):
 
         python3 PFPGrowthPlus.py sampleTDB.txt patterns.txt 3 4     (minSup will be considered in support count or frequency)
 
-        Sample run of the imported code:
-        --------------
+    Sample run of the imported code:
+    --------------
 
             from PAMI.periodicFrequentPattern.basic import PFPGorwthPlus as alg
 
@@ -384,14 +384,20 @@ class PFPGrowthPlus(periodicFrequentPatterns):
         """
         self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
+            data, ts = [], []
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
+            if 'TS' in i:
+                ts = self.iFile['TS'].tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
+                data = self.iFile['Transactions'].tolist()
             if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-            #print(self.Database)
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [ts[i][0]]
+                tr.append(data[i])
+                self.Database.append(tr)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)

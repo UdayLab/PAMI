@@ -196,8 +196,8 @@ class PPP_ECLAT(partialPeriodicPatterns):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
-            if 'timeStamps' in i:
-                tids = self.iFile['timeStamps'].tolist()
+            if 'TS' in i:
+                tids = self.iFile['TS'].tolist()
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
             if 'Patterns' in i:

@@ -520,14 +520,20 @@ class MaxPFGrowth(periodicFrequentPatterns):
         """
 
         if isinstance(self.iFile, pd.DataFrame):
+            data, ts = [], []
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
+            if 'TS' in i:
+                ts = self.iFile['TS'].tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
+                data = self.iFile['Transactions'].tolist()
             if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-            #print(self.Database)
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [ts[i][0]]
+                tr.append(data[i])
+                self.Database.append(tr)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)

@@ -159,13 +159,20 @@ class CPFPMiner(periodicFrequentPatterns):
         """
         Database = []
         if isinstance(self.iFile, pd.DataFrame):
+            ts, data = [], []
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
+            if 'TS' in i:
+                ts = self.iFile['TS'].tolist()
             if 'Transactions' in i:
-                Database = self.iFile['Transactions'].tolist()
+                data = self.iFile['Transactions'].tolist()
             if 'Patterns' in i:
-                Database = self.iFile['Patterns'].tolist()
+                data = self.iFile['Patterns'].tolist()
+            for i in range(len(data)):
+                tr = [ts[i][0]]
+                tr.append(data[i])
+                Database.append(tr)
 
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):

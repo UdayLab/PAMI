@@ -1,13 +1,15 @@
 import sys
-import time
+import validators
+from urllib.request import urlopen
 from abstract import *
+
 
 class LPPMBreadth(localPeriodicPatterns):
 
     """
 
-        Attributes:
-        -----------
+    Attributes:
+    -----------
         iFile : str
             Input file name or path of the input file
         oFile : str
@@ -18,9 +20,9 @@ class LPPMBreadth(localPeriodicPatterns):
             User defined maxSoPer value.
         minDur : float
             User defined minDur value.
-        tsmin : int / date
+        tsMin : int / date
             First time stamp of input data.
-        tsmax : int / date
+        tsMax : int / date
             Last time stamp of input data.
         startTime : float
             Time when start of execution the algorithm.
@@ -30,17 +32,15 @@ class LPPMBreadth(localPeriodicPatterns):
             To store local periodic patterns and its PTL.
         tsList : dict
             To store items and its time stamp as bit vector.
-        :param sep: separator used to distinguish items from each other. The default separator is tab space.
-        :type sep: str
+        sep: str
+            separator used to distinguish items from each other. The default separator is tab space.
 
-        Methods
-        -------
-        findSeparator(line)
-            Find the separator of the line which split strings.
-        createTSlist()
-            Create the TSlist as bit vector from input data.
+    Methods:
+    -------
+        createTSList()
+            Create the tsList as bit vector from input data.
         generateLPP()
-            Generate 1 length local periodic pattens by TSlist and execute depth first search.
+            Generate 1 length local periodic pattens by tsList and execute depth first search.
         calculatePTL(tsList)
             Calculate PTL from input tsList as bit vector
         LPPMBreathSearch(extensionOfP)
@@ -60,39 +60,53 @@ class LPPMBreadth(localPeriodicPatterns):
         getPatternsAsDataFrame()
             Complete set of local periodic patterns will be loaded in to a dataframe.
 
-        Executing the code on terminal
-        ------------------------------
-        Format: python3 LPPBreadth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur>
-        Examples: python3 LPPMBreadth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
+    Executing the code on terminal:
+    ------------------------------
+        Format:
+            python3 LPPBreadth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur>
+        Examples:
+            python3 LPPMBreadth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
 
-        Sample run of importing the code
-        --------------------------------
+    Sample run of importing the code:
+    --------------------------------
         from PAMI.localPeriodicPattern.basic import LPPMBreadth as alg
+
         obj = alg.LPPMBreadth(iFile, maxPer, maxSoPer, minDur)
+
         obj.startMine()
-        localPeriodicPatterns = obj.getLocalPeriodicPatterns()
+
+        localPeriodicPatterns = obj.getPatterns()
+
         print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
+
         obj.savePatterns(oFile)
+
         Df = obj.getPatternsAsDataFrame()
+
         memUSS = obj.getMemoryUSS()
+
         print(f'Total memory in USS: {memUSS}')
+
         memRSS = obj.getMemoryRSS()
+
         print(f'Total memory in RSS: {memRSS}')
+
         runtime = obj.getRuntime()
+
         print(f'Total execution time in seconds: {runtime})
 
-        Credits
-        -------
+    Credits:
+    -------
         The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.
     """
 
-    iFile = ''
-    oFile = ''
+    iFile = ' '
+    oFile = ' '
     maxPer = float()
     maxSoPer = float()
     minDur = float()
-    tsmin = 0
-    tsmax = 0
+    tsMin = 0
+    tsMax = 0
     startTime = float()
     endTime = float()
     memoryUSS = float()
@@ -100,43 +114,60 @@ class LPPMBreadth(localPeriodicPatterns):
     finalPatterns = {}
     tsList = {}
     sep = ' '
+    Database = []
 
-    def findDelimiter(self, line):
-        """Identifying the delimiter of the input file
-            :param line: list of special characters may be used by a user to split the items in a input file
-            :type line: list of string
-            :returns: Delimited string used in the input file to split each item
-            :rtype: string
-            """
-        l = ['\t', ',', '*', '&', ' ', '%', '$', '#', '@', '!', '    ', '*', '(', ')']
-        j = None
-        for i in l:
-            if i in line:
-                return i
-        return j
+    def creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
 
-    def createTSlist(self):
+
+        """
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
+    def createTSList(self):
         """
         Create tsList as bit vector from temporal data.
         """
-        with open(self.iFile, 'r') as f:
+        for line in self.Database:
             count = 1
             bitVector = 0b1 << count
             bitVector = bitVector | 0b1
-            line = f.readline()
-            line = line.strip()
-            separator = self.findDelimiter(line)
-            # line = [item for item in line.split(separator)]
-            line = [item for item in line.split(self.sep)]
-            self.tsmin = int(line.pop(0))
+            self.tsMin = int(line.pop(0))
             self.tsList = {item: bitVector for item in line}
             count += 1
-            for line in f:
+            ts = ' '
+            for line in self.Database:
                 bitVector = 0b1 << count
                 bitVector = bitVector | 0b1
-                line = line.strip()
-                # line = [item for item in line.split(separator)]
-                line = [item for item in line.split(self.sep)]
                 ts = line.pop(0)
                 for item in line:
                     if self.tsList.get(item):
@@ -146,7 +177,7 @@ class LPPMBreadth(localPeriodicPatterns):
                     else:
                         self.tsList[item] = bitVector
                 count += 1
-            self.tsmax = int(ts)
+            self.tsMax = int(ts)
             for item in self.tsList:
                 different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
                 self.tsList[item] = self.tsList[item] << different
@@ -167,6 +198,8 @@ class LPPMBreadth(localPeriodicPatterns):
             ts = ts[2:]
             start = -1
             currentTs = 1
+            tsPre = ' '
+            soPer = ' '
             for t in ts[currentTs:]:
                 if t == '0':
                     currentTs += 1
@@ -199,7 +232,7 @@ class LPPMBreadth(localPeriodicPatterns):
                     tsPre = currentTs
                     currentTs += 1
             if start != -1:
-                soPer = max(0, soPer + self.tsmax - tsPre - self.maxPer)
+                soPer = max(0, soPer + self.tsMax - tsPre - self.maxPer)
                 if soPer > self.maxSoPer and tsPre - start >= self.minDur:
                     PTL[item].add((start, tsPre))
                 """else:
@@ -208,8 +241,8 @@ class LPPMBreadth(localPeriodicPatterns):
                     bitVector = bitVector | 0b1
                     bitVector = bitVector << different
                     self.tsList[item] = self.tsList[item] | bitVector"""
-                if soPer <= self.maxSoPer and self.tsmax - start >= self.minDur:
-                    PTL[item].add((start, self.tsmax))
+                if soPer <= self.maxSoPer and self.tsMax - start >= self.minDur:
+                    PTL[item].add((start, self.tsMax))
                 """else:
                     bitVector = 0b1 << currentTs+1
                     different = abs(self.tsList[item].bit_length() - bitVector.bit_length())
@@ -220,15 +253,15 @@ class LPPMBreadth(localPeriodicPatterns):
                 I |= {item}
                 self.finalPatterns[item] = PTL[item]
         I = sorted(list(I))
-        map = {-1:I}
+        map = {-1 : I}
         I = set(I)
         while len(map) > 0:
             map = self.LPPMBreadthSearch(map)
 
-    def calclatePTL(self, tsList):
+    def calculatePTL(self, tsList):
         """
-        calculate PTL from tslist as bit vector.
-        :param tsList: it is one item's tslist which is used bit vector.
+        calculate PTL from tsList as bit vector.
+        :param tsList: it is one item's tsList which is used bit vector.
         :type tsList: int
         :return: it is PTL of input item.
         """
@@ -237,6 +270,8 @@ class LPPMBreadth(localPeriodicPatterns):
         start = -1
         currentTs = 1
         PTL = set()
+        tsPre = ' '
+        soPer = ' '
         for ts in tsList[currentTs:]:
             if ts == '0':
                 currentTs += 1
@@ -263,23 +298,26 @@ class LPPMBreadth(localPeriodicPatterns):
                 tsPre = currentTs
                 currentTs += 1
         if start != -1:
-            soPer = max(0, soPer + self.tsmax - tsPre - self.maxPer)
+            soPer = max(0, soPer + self.tsMax - tsPre - self.maxPer)
             if soPer > self.maxSoPer and tsPre - start >= self.minDur:
                 PTL.add((start, tsPre))
-            if soPer <= self.maxSoPer and self.tsmax - start >= self.minDur:
+            if soPer <= self.maxSoPer and self.tsMax - start >= self.minDur:
                 PTL.add((start, tsPre))
         return PTL
 
-    def LPPMBreadthSearch(self, wmap):
+    def LPPMBreadthSearch(self, wMap):
         """
         Mining n-length local periodic pattens from n-1-length patterns by depth first search.
-        :param wmap: it is w length patterns and its conditional items
-        :type wmap: dict
+        :param wMap: it is w length patterns and its conditional items
+        :type wMap: dict
         :return w1map: it is w+1 length patterns and its conditional items
         :rtype w1map: dict
         """
         w1map = {}
-        for p in wmap:
+
+        for p in wMap:
+            tsp = ' '
+            listP = ' '
             if p != -1:
                 listP = p
                 if type(p) == str:
@@ -287,42 +325,44 @@ class LPPMBreadth(localPeriodicPatterns):
                 tsp = self.tsList[listP[0]]
                 for item in listP[1:]:
                     tsp = tsp & self.tsList[item]
-
-            for x in range(len(wmap[p])-1):
-                for y in range(x+1,len(wmap[p])):
+            for x in range(len(wMap[p])-1):
+                for y in range(x+1, len(wMap[p])):
                     if p == -1:
-                        tspxy = self.tsList[wmap[p][x]] & self.tsList[wmap[p][y]]
+                        tspxy = self.tsList[wMap[p][x]] & self.tsList[wMap[p][y]]
                     else:
-                        tspxy = tsp & self.tsList[wmap[p][x]] & self.tsList[wmap[p][y]]
-                    PTL = self.calclatePTL(tspxy)
+                        tspxy = tsp & self.tsList[wMap[p][x]] & self.tsList[wMap[p][y]]
+                    PTL = self.calculatePTL(tspxy)
                     if len(PTL) > 0:
                         if p == -1:
-                            if not w1map.get(wmap[p][x]):
-                                w1map[wmap[p][x]] = []
-                            pattern = (wmap[p][x], wmap[p][y])
+                            if not w1map.get(wMap[p][x]):
+                                w1map[wMap[p][x]] = []
+                            pattern = (wMap[p][x], wMap[p][y])
                             self.finalPatterns[pattern] = PTL
-                            w1map[wmap[p][x]].append(wmap[p][y])
+                            w1map[wMap[p][x]].append(wMap[p][y])
                         else:
                             pattern = [item for item in listP]
-                            pattern.append(wmap[p][x])
+                            pattern.append(wMap[p][x])
                             pattern1 = pattern.copy()
-                            pattern.append(wmap[p][y])
+                            pattern.append(wMap[p][y])
                             self.finalPatterns[tuple(pattern)] = PTL
                             if not w1map.get(tuple(pattern1)):
                                 w1map[tuple(pattern1)] = []
-                            w1map[tuple(pattern1)].append(wmap[p][y])
+                            w1map[tuple(pattern1)].append(wMap[p][y])
         return w1map
-
 
     def startMine(self):
         """
         Mining process start from here.
         """
         self.startTime = time.time()
-        self.createTSlist()
+        self.creatingItemSets()
+        self.finalPatterns = {}
+        self.createTSList()
         self.generateLPP()
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -377,10 +417,8 @@ class LPPMBreadth(localPeriodicPatterns):
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
             writer.write(f'{x} : {y}\n')
-            # patternsAndPTL = x + ":" + str(y)
-            # writer.write("%s \n" % patternsAndPTL)
 
-    def getLocalPeriodicPatterns(self):
+    def getPatterns(self):
         """ Function to send the set of local periodic patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -389,17 +427,21 @@ class LPPMBreadth(localPeriodicPatterns):
         return self.finalPatterns
 
 if __name__ == '__main__':
-    if len(sys.argv) == 6:
-        ap = LPPMBreadth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+    ap = str()
+    if len(sys.argv) == 6 or len(sys.argv) == 7:
+        if len(sys.argv) == 7:
+            ap = LPPMBreadth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+        if len(sys.argv) == 6:
+            ap = LPPMBreadth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         ap.startMine()
-        localPeriodicPatterns = ap.getLocalPeriodicPatterns()
-        print(f"Total number of Frequent Patterns: {len(localPeriodicPatterns)}")
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
-        print(f'Total Memory in USS: {memUSS}')
+        print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
-        print(f'Total Memory in RSS: {memRSS}')
+        print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print(f'Total ExecutionTime in seconds: {run}')
+        print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
