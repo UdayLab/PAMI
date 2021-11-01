@@ -1,8 +1,10 @@
 import sys
 import validators
 from urllib.request import urlopen
-from PAMI.uncertainCorrelatedPattern.basic.abstract import *
+from abstract import *
 import pandas as pd
+
+
 class FFList:
     """
      A class represent a Fuzzy List of an element
@@ -13,7 +15,7 @@ class FFList:
              the item name
          sumIUtil: float
              the sum of utilities of an fuzzy item in database
-         sumRutil: float
+         sumRUtil: float
              the sum of resting values of a fuzzy item in database
          elements: list
              a list of elements contain tid, Utility and resting values of element in each transaction
@@ -22,7 +24,7 @@ class FFList:
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
 
-        printelement(e)
+        printElement(e)
             Method to print elements            
 
     """
@@ -30,12 +32,12 @@ class FFList:
         self.item = itemName
         self.region = region
         self.sumIUtil = 0.0 
-        self.sumRutil = 0.0 
+        self.sumRUtil = 0.0
         self.elements = []
 
     def addElement(self, element):
-        self.sumIUtil += element.iutils
-        self.sumRutil += element.rutils
+        self.sumIUtil += element.iUtils
+        self.sumRUtil += element.rUtils
         self.elements.append(element) 
 
 
@@ -46,87 +48,86 @@ class Element:
     ----------
         tid : int
             keep tact of transaction id
-        iutils: float
+        iUtils: float
             the utility of an fuzzy item in the transaction
-        rutil : float
+        rUtil : float
             the neighbourhood resting value of an fuzzy item in the transaction
     """
-    def __init__(self, tid, iutil, rutil):
+    def __init__(self, tid, iUtil, rUtil):
         self.tid = tid 
-        self.iutils = iutil
-        self.rutils = rutil
+        self.iUtils = iUtil
+        self.rUtils = rUtil
 
 
 class Regions:
-        """
-            A class calculate the regions
-            Attributes
-            ----------
+    """
+        A class calculate the regions
+        Attributes:
+        ----------
             low : int
                 low region value
             middle: int 
                 middle region value
             high : int
                 high region values
-        """
-        def __init__(self,  item,  quantity,  regionsNumber,  mapOfregios):
-            self.low = 0
-            self.middle = 0
-            self.high = 0
-            if regionsNumber == 3:
-                if 0 < quantity <= 1:
-                    self.low = 1
-                    self.high = 0
-                    self.middle = 0
-                    t1 = (item,  'L')
-                    if t1 not in mapOfregios.keys():
-                        mapOfregios[t1] = 1
-                    else:
-                        temp = mapOfregios[t1]
-                        mapOfregios[t1] = temp+1
-                elif 1 <= quantity < 6:
-                    self.low = float((-0.2 * quantity) + 1.2)
-                    self.middle = float((0.2 * quantity) - 0.2)
-                    self.high = 0
-                    t1 = (item,  'L')
-                    if t1 not in mapOfregios.keys():
-                        mapOfregios[t1] = 1
-                    else:
-                        temp = mapOfregios[t1]
-                        mapOfregios[t1] = temp+1
-                    t1 = (item,  'M')
-                    if t1 not in mapOfregios.keys():
-                        mapOfregios[t1] = 1
-                    else:
-                        temp = mapOfregios[t1]
-                        mapOfregios[t1] = temp+1
-                elif 6 <= quantity <= 11:
-                    self.low = 0
-                    self.middle = float((-0.2 * quantity) + 2.2)
-                    self.high = float((0.2 * quantity) - 1.2)
-                    t1 = (item,  'M')
-                    if t1 not in mapOfregios.keys():
-                        mapOfregios[t1] = 1
-                    else:
-                        temp = mapOfregios[t1]
-                        mapOfregios[t1] = temp + 1
-                    t1 = (item,  'H')
-                    if t1 not in mapOfregios.keys():
-                        mapOfregios[t1] = 1
-                    else:
-                        temp = mapOfregios[t1]
-                        mapOfregios[t1] = temp+1
-
+    """
+    def __init__(self,  item,  quantity,  regionsNumber,  mapOfregios):
+        self.low = 0
+        self.middle = 0
+        self.high = 0
+        if regionsNumber == 3:
+            if 0 < quantity <= 1:
+                self.low = 1
+                self.high = 0
+                self.middle = 0
+                t1 = (item,  'L')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
                 else:
-                    self.low = 0
-                    self.middle = 0
-                    self.high = 1
-                    t1 = (item,  'H')
-                    if t1 not in mapOfregios.keys():
-                        mapOfregios[t1] = 1
-                    else:
-                        temp = mapOfregios[t1]
-                        mapOfregios = temp+1
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp+1
+            elif 1 <= quantity < 6:
+                self.low = float((-0.2 * quantity) + 1.2)
+                self.middle = float((0.2 * quantity) - 0.2)
+                self.high = 0
+                t1 = (item,  'L')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp+1
+                t1 = (item,  'M')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp+1
+            elif 6 <= quantity <= 11:
+                self.low = 0
+                self.middle = float((-0.2 * quantity) + 2.2)
+                self.high = float((0.2 * quantity) - 1.2)
+                t1 = (item,  'M')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp + 1
+                t1 = (item,  'H')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios[t1] = temp+1
+            else:
+                self.low = 0
+                self.middle = 0
+                self.high = 1
+                t1 = (item,  'H')
+                if t1 not in mapOfregios.keys():
+                    mapOfregios[t1] = 1
+                else:
+                    temp = mapOfregios[t1]
+                    mapOfregios = temp+1
 
 
 class Pair:
@@ -151,13 +152,13 @@ class CFFI(frequentPatterns):
         self. oFile : file
             Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : int
-                The user given support
+            The user given support
         neighbors: map
             keep track of neighbours of elements
         memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+            To store the total amount of RSS memory consumed by the program
         startTime:float
-               To record the start time of the mining process
+            To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
         itemsCnt: int
@@ -169,15 +170,15 @@ class CFFI(frequentPatterns):
         mapItemsHighSum: map
             To keep track of high region values of items
         mapItemSum: map
-            To keep track of sum of Fuzzy Vlues of items
+            To keep track of sum of Fuzzy Values of items
         mapItemRegions: map
-            To Kepp track of fuzzy regions of item
+            To Keep track of fuzzy regions of item
         jointCnt: int
             To keep track of the number of FFI-list that was constructed
         BufferSize: int
             represent the size of Buffer
         itemBuffer list
-            to kepp track of items in buffer
+            to keep track of items in buffer
     Methods:
     -------
         startMine()
@@ -209,7 +210,7 @@ class CFFI(frequentPatterns):
     Sample run of importing the code:
     -------------------------------
         
-        from PAMI.uncertainCorrelatedpattern import CFFI as alg
+        from PAMI.uncertainCorrelatedPattern import CFFI as alg
 
         obj = alg.CFFI("input.txt", 2, 0.4)
 
@@ -256,6 +257,7 @@ class CFFI(frequentPatterns):
         self.start = 0
         self.end = 0
         self.itemsCnt = 0
+        self.sep = sep
         self.mapItemsLowSum = {}
         self.mapItemsMidSum = {}
         self.mapItemsHighSum = {}            
@@ -269,18 +271,19 @@ class CFFI(frequentPatterns):
 
     def compareItems(self,  o1,  o2):
         """
-            A Function that sort all FFI-list in asendng order of Support
+            A Function that sort all FFI-list in ascending order of Support
         """
         compare = self.mapItemSum[o1.item] - self.mapItemSum[o2.item]
-        if compare  ==  0:
+        if compare == 0:
             return o1.item - o2.item
         else:
             return compare
 
-    def findElementWithTID(self,  uList,  tid):
+    @staticmethod
+    def findElementWithTID(uList,  tid):
         """
         To find element with same tid as given
-        :param uList: fuzzylist
+        :param uList: fuzzyList
         :type uList: FFI-List
         :param tid: transaction id
         :type tid: int
@@ -291,11 +294,11 @@ class CFFI(frequentPatterns):
         first = 0
         last = len(List)-1
         while first <= last:
-            mid = (first+last)>>1
-            if List[mid].tid<tid:
-                first = mid+1
-            elif List[mid].tid>tid:
-                last = mid-1
+            mid = (first + last) >> 1
+            if List[mid].tid < tid:
+                first = mid + 1
+            elif List[mid].tid > tid:
+                last = mid - 1
             else:
                 return List[mid]
         return None            
@@ -349,6 +352,7 @@ class CFFI(frequentPatterns):
         """
         self.startTime = time.time()
         self.creatingItemSets()
+        self.finalPatterns = {}
         self.minSup = self.convert(self.minSup)
         minSup = self.minSup
         for line in self.Database:
@@ -376,7 +380,7 @@ class CFFI(frequentPatterns):
                     self.mapItemsHighSum[item] = high
                 else:
                     self.mapItemsHighSum[item] = regions.high
-        listOfFFIlist = []
+        listOfFFIList = []
         mapItemsToFFLIST = {}
         for item1 in self.mapItemsLowSum.keys():
             item = item1
@@ -399,8 +403,8 @@ class CFFI(frequentPatterns):
             if self.mapItemSum[item] >= self.minSup:
                 fuList = FFList(item, region)
                 mapItemsToFFLIST[item] = fuList 
-                listOfFFIlist.append(fuList)
-        listOfFFIlist.sort(key = functools.cmp_to_key(self.compareItems))
+                listOfFFIList.append(fuList)
+        listOfFFIList.sort(key=functools.cmp_to_key(self.compareItems))
         tid = 0
         for line in self.Database:
             parts = line.split(":")
@@ -422,15 +426,15 @@ class CFFI(frequentPatterns):
                     elif self.mapItemRegions[pair.item] == "H":
                         pair.quantity = regions.high
                         pair.region = 'H'
-                    if pair.quantity>0:
+                    if pair.quantity > 0:
                         revisedTransaction.append(pair)
-            revisedTransaction.sort(key = functools.cmp_to_key(self.compareItems))
+            revisedTransaction.sort(key=functools.cmp_to_key(self.compareItems))
             for i in range(len(revisedTransaction)-1, -1, -1):
                 pair = revisedTransaction[i]
                 remainUtil = 0
                 for j in range(len(revisedTransaction)-1, i-1, -1):
                     remainUtil += revisedTransaction[j].quantity
-                if pair.quantity>remainUtil:
+                if pair.quantity > remainUtil:
                     remainingUtility = pair.quantity
                 else:
                     remainingUtility = remainUtil
@@ -439,7 +443,7 @@ class CFFI(frequentPatterns):
                     element = Element(tid, pair.quantity, remainingUtility)
                     FFListOfItem.addElement(element)
             tid += 1
-        self.FSFIMining(self.itemSetBuffer, 0, listOfFFIlist, self.minSup) 
+        self.FSFIMining(self.itemSetBuffer, 0, listOfFFIList, self.minSup) 
         self.endTime = time.time() 
         process = psutil.Process(os.getpid())
         self.memoryUSS = float()
@@ -466,7 +470,7 @@ class CFFI(frequentPatterns):
                 ratio = self.getRatio(prefix, prefixLen, X)
                 if ratio >= self.minRatio:
                     self.WriteOut(prefix, prefixLen, X, ratio) 
-            if X.sumRutil >= minSup:
+            if X.sumRUtill >= minSup:
                 exULs = []
                 for j in range(i+1, len(FSFIM)):
                     Y = FSFIM[j]
@@ -474,13 +478,14 @@ class CFFI(frequentPatterns):
                     self.joinsCnt += 1
                 self.itemSetBuffer.insert(prefixLen, X)
                 self.FSFIMining(self.itemSetBuffer, prefixLen+1, exULs, minSup)
+    
     def construct(self, px, py):
         """
             A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
 
             :param px:the itemSet px
             :type px:FFI-List
-            :param py:itemset py
+            :param py:itemSet py
             :type py:FFI-List
             :return :the itemSet of pxy(px and py)
             :rtype :FFI-List
@@ -490,9 +495,10 @@ class CFFI(frequentPatterns):
             ey = self.findElementWithTID(py,  ex.tid)
             if ey is None:
                 continue
-            eXY = Element(ex.tid, min([ex.iutils, ey.iutils], key = lambda x:float(x)), ey.rutils)
+            eXY = Element(ex.tid, min([ex.iUtils, ey.iUtils], key=lambda x: float(x)), ey.rUtils)
             pxyUL.addElement(eXY)
         return pxyUL
+
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
@@ -501,6 +507,7 @@ class CFFI(frequentPatterns):
         """
 
         return self.memoryUSS
+
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
@@ -516,7 +523,7 @@ class CFFI(frequentPatterns):
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
        """
-        return self.endtime-self.start        
+        return self.endTime-self.start
     
     def getRatio(self, prefix, prefixLen, item):
         """Method to calculate the ration of itemSet
@@ -525,18 +532,17 @@ class CFFI(frequentPatterns):
             :param prefixLen: length of prefix
             :type prefixLen: int
             :param item: the last item
-            :type item: int
+            :type item: Node
             :return : correlatedSpatialPattern ratio
             :rtype: float
         """
         res = 1.0
-        n = prefixLen
         for i in prefix:
             if self.mapItemRegionSum.get((i.item,  i.region)) is not None and res < self.mapItemRegionSum[(i.item,  i.region)]:
                 res = self.mapItemRegionSum[(i.item, i.region)]
-        if self.mapItemRegionSum.get((item.item,  item.region)) is not None and res<self.mapItemRegionSum[(item.item,  item.region)]:
+        if self.mapItemRegionSum.get((item.item,  item.region)) is not None and res < self.mapItemRegionSum[(item.item,  item.region)]:
             res = self.mapItemRegionSum[(item.item, item.region)]
-        return  item.sumIUtil/res
+        return item.sumIUtil / res
 
     def WriteOut(self, prefix, prefixLen, item, ratio):
         """
@@ -546,9 +552,7 @@ class CFFI(frequentPatterns):
             :param prefixLen: length of prefix
             :type prefixLen: int
             :param item: the last item
-            :type item: int
-            :param sumIUtil: sum of utility of itemSet
-            :type sumIUtil: float
+            :type item: Node
             :param ratio: the ratio of itemSet
             :type ratio: float
         """
@@ -558,8 +562,8 @@ class CFFI(frequentPatterns):
             res += str(prefix[i].item)+"."+str(prefix[i].region)+' '
         res += str(item.item)+"."+str(item.region) 
         res1 = str(item.sumIUtil)+" : "+str(ratio)+"\n"
-        #self.bwriter.write(res)
         self.finalPatterns[res] = res1 
+
     def getFrequentPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
@@ -567,6 +571,7 @@ class CFFI(frequentPatterns):
         :rtype: dict
         """
         return self.finalPatterns
+    
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
@@ -578,8 +583,9 @@ class CFFI(frequentPatterns):
         data = []
         for a,  b in self.finalPatterns.items():
             data.append([a,  b])
-            dataframe = pd.DataFrame(data,  columns = ['Patterns',  'Support'])
+            dataframe = pd.DataFrame(data,  columns=['Patterns',  'Support'])
         return dataframe
+
     def savePatterns(self,  outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
@@ -601,13 +607,13 @@ class CFFI(frequentPatterns):
         return self.finalPatterns
 
 
-if __name__  ==  "__main__":
+if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            ap = CFFI(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:
             ap = CFFI(sys.argv[1], sys.argv[3], sys.argv[4])
-        if len(sys.argv) == 4:
-            ap = CFFI(sys.argv[1], sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
@@ -620,3 +626,4 @@ if __name__  ==  "__main__":
         print("Total ExecutionTime in ms:", run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+        

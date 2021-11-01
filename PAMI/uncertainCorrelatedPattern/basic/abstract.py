@@ -18,8 +18,8 @@ class frequentPatterns(ABC):
 
         ...
 
-        Attributes
-        ----------
+    Attributes:
+    ----------
         iFile : str
             Input file name or path of the input file
         minSup: float
@@ -38,8 +38,8 @@ class frequentPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
         getFrequentPatterns()
@@ -62,7 +62,7 @@ class frequentPatterns(ABC):
         :type iFile: str
         :param minSup: UserSpecified minimum support value. It has to be given in terms of count of total number of
         transactions in the input database/file
-        :type minSup: float
+        :type minSup: str or float
         """
 
         self.iFile = iFile

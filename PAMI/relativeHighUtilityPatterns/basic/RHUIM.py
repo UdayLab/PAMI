@@ -157,14 +157,14 @@ class Dataset:
     transactions = []
     maxItem = 0
     
-    def __init__(self,datasetPath, sep):
+    def __init__(self, datasetPath, sep):
         self.strToInt = {}
         self.intToStr = {}
         self.cnt = 1
         self.sep = sep
-        self.createItemsets(datasetPath)
+        self.createItemSets(datasetPath)
 
-    def createItemsets(self, datasetPath):
+    def createItemSets(self, datasetPath):
         self.Database = []
         if isinstance(datasetPath, pd.DataFrame):
             utilities, data = [], []
@@ -175,14 +175,12 @@ class Dataset:
                 data = datasetPath['Transactions'].tolist()
             if 'utilities' in i:
                 utilities = datasetPath['Patterns'].tolist()
-            self.transactions.append(self.createTransaction(data, utilities))
+            self.transactions.append(self.createTransaction(data))
         if isinstance(datasetPath, str):
             if validators.url(datasetPath):
                 data = urlopen(datasetPath)
                 for line in data:
                     line = line.decode("utf-8")
-                    # temp = [i.rstrip() for i in line.split(self.sep)]
-                    # temp = [x for x in temp if x]
                     self.transactions.append(self.createTransaction(line))
             else:
                 try:
@@ -239,7 +237,7 @@ class Dataset:
 
 class RHUIM(utilityPatterns):
     """
-    RHUIM algorithm helps us to mine Relative High Utility ItemSets from transactional databases.
+    RHUIM algorithm helps us to mine Relative High Utility itemSets from transactional databases.
     
     Reference:
     ---------
@@ -261,7 +259,7 @@ class RHUIM(utilityPatterns):
             The user given minUtil value
         minUR : float
             The user given minUR value
-        relativeHighUtilityitemSets: map
+        relativeHighUtilityItemSets: map
             set of relative high utility itemSets
         candidateCount: int
              Number of candidates 
@@ -313,20 +311,23 @@ class RHUIM(utilityPatterns):
         sort_transaction(self, trans1, trans2)
               A Method to sort transaction
         useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)
-             A method to calculate local utility values for single itemsets
+             A method to calculate local utility values for single itemSets
 
     Executing the code on terminal :
     -------
-        Format: python3 RHUIM.py <inputFile> <outputFile> <minUtil> <sep>
-        Examples: python3 RHUIM.py sampleTDB.txt output.txt 35 20 (it will consider "\t" as separator)
-                  python3 RHUIM.py sampleTDB.txt output.txt 35 20 , (it will consider "," as separator)
+        Format:
+            python3 RHUIM.py <inputFile> <outputFile> <minUtil> <sep>
+        Examples:
+            python3 RHUIM.py sampleTDB.txt output.txt 35 20 (it will consider "\t" as separator)
+
+            python3 RHUIM.py sampleTDB.txt output.txt 35 20 , (it will consider "," as separator)
 
     Sample run of importing the code:
     -------------------------------
         
         from PAMI.relativeHighUtilityPatterns.basic import RHUIM as alg
 
-        obj=alg.RHUIM("input.txt",35,20)
+        obj=alg.RHUIM("input.txt", 35, 20)
 
         obj.startMine()
 
@@ -354,13 +355,13 @@ class RHUIM(utilityPatterns):
      
     """
 
-    relativeHighUtilityitemSets = []
+    relativeHighUtilityItemSets = []
     candidateCount = 0
     utilityBinArrayLU = {}
     utilityBinArraySU = {}
     oldNamesToNewNames = {}
     newNamesToOldNames = {}
-    singleItemsetUtilities = {}
+    singleItemSetsUtilities = {}
     strToInt = {}
     intToStr = {}
     temp = [0]*5000
@@ -389,7 +390,7 @@ class RHUIM(utilityPatterns):
         minUtil = int(self.minUtil)
         minUR = float(self.minUR)
         # print(minUR)
-        self.singleItemsetUtilities = defaultdict(int)
+        self.singleItemSetsUtilities = defaultdict(int)
         itemsToKeep = []
         for key in self.utilityBinArrayLU.keys():
             if self.utilityBinArrayLU[key] >= minUtil:
@@ -445,7 +446,7 @@ class RHUIM(utilityPatterns):
         for idx, e in enumerate(itemsToExplore):
             transactionsPe = []
             utilityPe = 0
-            utilitySumPe = utilitySumP + self.singleItemsetUtilities[e]
+            utilitySumPe = utilitySumP + self.singleItemSetsUtilities[e]
             previousTransaction = transactionsOfP[0]
             consecutiveMergeCount = 0
             for transaction in transactionsOfP:
@@ -502,7 +503,7 @@ class RHUIM(utilityPatterns):
             newItemsToExplore = []
             for l in range(idx + 1, len(itemsToKeep)):
                 itemK = itemsToKeep[l]
-                utility_sum_pek = utilitySumPe + self.singleItemsetUtilities[itemK]
+                utility_sum_pek = utilitySumPe + self.singleItemSetsUtilities[itemK]
                 subtree_utility_ratio = float(self.utilityBinArraySU[itemK] / utility_sum_pek)
                 local_utility_ratio = float(self.utilityBinArrayLU[itemK] / utility_sum_pek)
                 if self.utilityBinArraySU[itemK] >= self.minUtil and subtree_utility_ratio * 100 >= self.minUR:
@@ -519,11 +520,11 @@ class RHUIM(utilityPatterns):
             Attributes:
             -----------
             :param transactionsPe: transactions the projected database for P U {e}
-            :type transactionsPe: list
+            :type transactionsPe: list or Dataset
             :param j:he position of j in the list of promising items
             :type j:int
             :param itemsToKeep :the list of promising items
-            :type itemsToKeep: list
+            :type itemsToKeep: list or Dataset
 
         """
         for i in range(j + 1, len(itemsToKeep)):
@@ -543,7 +544,7 @@ class RHUIM(utilityPatterns):
 
     def output(self, tempPosition, utility, utilityRatio):
         """
-         Method to print relative high utility itemset
+         Method to print relative high utility itemSet
 
          Attributes:
          ----------
@@ -595,7 +596,7 @@ class RHUIM(utilityPatterns):
         Attributes:
         ----------
         :param dataset: the transaction database
-        :type dataset: list
+        :type dataset: Dataset
         """
         for transaction in dataset.getTransactions():
             sumSU = 0
@@ -604,7 +605,7 @@ class RHUIM(utilityPatterns):
                 item = transaction.getItems()[i]
                 currentUtility = transaction.getUtilities()[i]
                 sumSU += currentUtility
-                self.singleItemsetUtilities[item] += currentUtility
+                self.singleItemSetsUtilities[item] += currentUtility
                 if item in self.utilityBinArraySU.keys():
                     self.utilityBinArraySU[item] += sumSU
                 else:
@@ -618,9 +619,9 @@ class RHUIM(utilityPatterns):
             Attributes:
             ----------
             :param transactions: transaction of items
-            :type transactions: Transaction 
+            :type transactions: list
             :return: sorted transactions
-            :rtype: Transactions
+            :rtype: Transactions or list
         """
         cmp_items = functools.cmp_to_key(self.sort_transaction)
         transactions.sort(key=cmp_items)
@@ -669,7 +670,7 @@ class RHUIM(utilityPatterns):
 
     def useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
         """
-            A method to calculate local utility of single itemsets
+            A method to calculate local utility of single itemSets
             Attributes:
             ----------
             :param dataset: the transaction database
