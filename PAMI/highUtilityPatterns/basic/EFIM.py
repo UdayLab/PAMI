@@ -174,15 +174,13 @@ class Dataset:
             if 'Transactions' in i:
                 data = datasetPath['Transactions'].tolist()
             if 'utilities' in i:
-                utilities = datasetPath['Patterns'].tolist()
-            self.transactions.append(self.createTransaction(data, utilities))
+                utilities = datasetPath['utilities'].tolist()
+            self.transactions.append(self.createTransaction(data))
         if isinstance(datasetPath, str):
             if validators.url(datasetPath):
                 data = urlopen(datasetPath)
                 for line in data:
                     line = line.decode("utf-8")
-                    # temp = [i.rstrip() for i in line.split(self.sep)]
-                    # temp = [x for x in temp if x]
                     self.transactions.append(self.createTransaction(line))
             else:
                 try:
