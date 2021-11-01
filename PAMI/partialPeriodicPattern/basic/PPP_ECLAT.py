@@ -16,7 +16,7 @@
 import sys
 import validators
 from urllib.request import urlopen
-from PAMI.partialPeriodicPattern.basic.abstract import *
+from abstract import *
 
 
 class PPP_ECLAT(partialPeriodicPatterns):

@@ -1,7 +1,7 @@
 import sys
 import validators
 from urllib.request import urlopen
-from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
+from abstract import *
 
 
 class PPF_DFS(partialPeriodicPatterns):

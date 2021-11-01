@@ -1,7 +1,7 @@
 import sys
 import pandas as pd
 import functools
-from PAMI.highUtilityFrequentSpatialPattern.basic.abstract import *
+from abstract import *
 
 
 class Element:

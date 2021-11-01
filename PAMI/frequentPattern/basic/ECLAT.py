@@ -17,7 +17,7 @@
 import sys
 import validators
 from urllib.request import urlopen
-from PAMI.frequentPattern.basic.abstract import *
+from abstract import *
 
 
 class ECLAT(frequentPatterns):

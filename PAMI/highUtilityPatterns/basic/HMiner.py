@@ -1,7 +1,7 @@
 import sys
 import validators
 from urllib.request import urlopen
-from PAMI.highUtilityPatterns.basic.abstract import *
+from abstract import *
 
 
 class Element:

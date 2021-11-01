@@ -16,7 +16,7 @@
 import sys
 import validators
 from urllib.request import urlopen
-from PAMI.partialPeriodicPattern.maximal.abstract import *
+from abstract import *
 
 periodicSupport = float()
 period = float()

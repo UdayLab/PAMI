@@ -17,7 +17,7 @@ import sys
 import validators
 from urllib.request import urlopen
 import pandas as pd
-from PAMI.highUtilityPatterns.basic.abstract import *
+from abstract import *
 
 
 class UPItem:

@@ -15,7 +15,7 @@
 
 
 import sys
-from PAMI.uncertainFrequentPattern.basic.abstract import *
+from abstract import *
 
 
 minSup = float()

@@ -1,9 +1,5 @@
 import sys
-import time
-import resource
-import psutil
-import os
-from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
+from abstract import *
 
 orderOfItem = {}
 

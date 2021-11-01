@@ -17,7 +17,7 @@ import sys
 from itertools import combinations
 import validators
 from urllib.request import urlopen
-from PAMI.periodicFrequentPattern.basic.abstract import *
+from abstract import *
 
 pfList = []
 minSup = str()

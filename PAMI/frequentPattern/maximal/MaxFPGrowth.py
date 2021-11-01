@@ -16,7 +16,7 @@
 import sys
 from urllib.request import urlopen
 import validators
-from PAMI.frequentPattern.maximal.abstract import *
+from abstract import *
 
 
 minSup = str()

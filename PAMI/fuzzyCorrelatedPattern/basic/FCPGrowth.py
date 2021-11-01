@@ -3,7 +3,7 @@ import functools
 import pandas as pd
 import validators
 from urllib.request import urlopen
-from PAMI.fuzzyCorrelatedPattern.basic.abstract import *
+from abstract import *
 
 
 class FFList:

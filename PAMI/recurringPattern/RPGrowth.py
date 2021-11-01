@@ -14,6 +14,8 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.PAMI.periodicFrequentPattern.recurring.
 
 import sys
+import validators
+from urllib.request import urlopen
 from abstract import *
 
 
@@ -265,9 +267,7 @@ class Tree(object):
             pattern.append(i)
             if len(self.info.get(i)[0])>=minRec:
                 yield pattern, self.info[i]
-
             patterns, timeStamps, info = self.getConditionalPatterns(i)
-            
             conditionalTree = Tree()
             conditionalTree.info = info.copy()
             for pat in range(len(patterns)):
@@ -352,8 +352,8 @@ class RPGrowth(recurringPatterns):
         convert()
             to convert the user specified value
 
-        Executing the code on terminal:
-        -------
+    Executing the code on terminal:
+    -------
         Format:
         ------
         python3 RPGrowth.py <inputFile> <outputFile> <maxPer> <minPS> <minRec>
@@ -365,8 +365,8 @@ class RPGrowth(recurringPatterns):
 
         python3 RPGrowth.py sampleTDB.txt patterns.txt 3 4 2  (maxPer and minPS  will be considered in support count or frequency and minRec is integer)
 
-        Sample run of importing the code:
-        -------------------
+    Sample run of importing the code:
+    -------------------
 
             from PAMI.periodicFrequentPattern.recurring import RPGrowth as alg
 
@@ -419,15 +419,36 @@ class RPGrowth(recurringPatterns):
         """ Storing the complete values of the database/input file in a database variable
         """
 
-        try:
-            with open(self.iFile, 'r', encoding='utf-8') as f:
-                for line in f:
-                    li = [i.rstrip() for i in line.split(self.sep)]
-                    li = [x for x in li if x]
-                    self.Database.append(li)
-                    self.lno += 1
-        except IOError:
-            print("File Not Found")
+        self.Database = []
+        if isinstance(self.iFile, pd.DataFrame):
+            if self.iFile.empty:
+                print("its empty..")
+            i = self.iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.iFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.iFile['Patterns'].tolist()
+            # print(self.Database)
+        if isinstance(self.iFile, str):
+            if validators.url(self.iFile):
+                data = urlopen(self.iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
 
     def OneItems(self):
         """ Calculates the maxRec and support of each item in the database and assign ranks to the items
@@ -464,7 +485,6 @@ class RPGrowth(recurringPatterns):
         genList=[k for k,v in sorted(data.items(),key=lambda x: (x[1][1],x[0]),reverse=True)]
         self.rank = dict([(index,item) for (item,index) in enumerate(genList)])
         return data,genList
-        
 
     def updateDatabases(self, dict1):
         """ Remove the items which does not  satisfy maxRec from database and updates the database with rank of items
@@ -547,6 +567,7 @@ class RPGrowth(recurringPatterns):
         self.minPS = self.convert(self.minPS)
         self.maxPer = self.convert(self.maxPer)
         self.minRec = int(self.minRec)
+        self.finalPatterns = {}
         maxPer, minPS, minRec, lno = self.maxPer, self.minPS, self.minRec, len(self.Database)
         generatedItems, pfList = self.OneItems()
         updatedDatabases = self.updateDatabases(generatedItems)
@@ -560,6 +581,8 @@ class RPGrowth(recurringPatterns):
             self.finalPatterns[sample] = i[1]
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
         print("Recurring patterns were generated successfully using RPGrowth algorithm ")
@@ -654,4 +677,16 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = RPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
+                      100, 1000, 2)
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Patterns:", len(Patterns))
+        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

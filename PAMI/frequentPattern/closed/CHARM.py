@@ -17,7 +17,7 @@
 import sys
 from urllib.request import urlopen
 import validators
-from PAMI.frequentPattern.closed.abstract import *
+from abstract import *
 
 
 class CHARM(frequentPatterns):

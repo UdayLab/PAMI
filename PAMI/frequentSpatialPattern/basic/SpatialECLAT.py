@@ -1,4 +1,4 @@
-from PAMI.frequentSpatialPattern.basic.abstract import *
+from abstract import *
 import sys
 import validators
 from urllib.request import urlopen
