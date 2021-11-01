@@ -5,7 +5,7 @@ from urllib.request import urlopen
 import pandas as pd
 
 
-class periodicSpatialEclat(spatialPeriodicFrequentPatterns):
+class PFS_ECLAT(spatialPeriodicFrequentPatterns):
     """ 
         Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
         Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
@@ -342,6 +342,7 @@ class periodicSpatialEclat(spatialPeriodicFrequentPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
+
     def startMine(self):
         """Frequent pattern mining process will start from here"""
 
@@ -444,9 +445,9 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 6 or len(sys.argv) == 7:
         if len(sys.argv) == 7:
-            ap = periodicSpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+            ap = PFS_ECLAT(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
         if len(sys.argv) == 6:
-            ap = periodicSpatialEclat(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+            ap = PFS_ECLAT(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         ap.startMine()
         spatialFrequentPatterns = ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))

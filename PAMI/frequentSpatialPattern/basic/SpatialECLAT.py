@@ -88,7 +88,7 @@ class SpatialECLAT(spatialFrequentPatterns):
     Sample run of importing the code :
     -------------------------------
         
-        import PAMI.frequentSpatialPattern.basic import SpatialECLAT as alg
+        from PAMI.frequentSpatialPattern.basic import SpatialECLAT as alg
         
         obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
 

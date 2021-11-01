@@ -193,16 +193,20 @@ class FFIMiner(fuzzyFrequentPattenrs):
     
     Executing the code on terminal :
     -------
-        Format: python3 FFIMinerMiner.py <inputFile> <outputFile> <minSup> <separator>
-        Examples:  python3  FFIMinerMiner.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
-                   python3  FFIMinerMiner.py sampleTDB.txt output.txt 0.3 (minSup and maxPer will be considered in percentage of database)
+        Format:
+            python3 FFIMinerMiner.py <inputFile> <outputFile> <minSup> <separator>
+        Examples:
+            python3  FFIMinerMiner.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
+
+            python3  FFIMinerMiner.py sampleTDB.txt output.txt 0.3 (minSup and maxPer will be considered in percentage of database)
                                                       (it will consider '\t' as a separator)
-                    python3  FFIMinerMiner.py sampleTDB.txt output.txt 6 , (it consider ',' as a separator)
+
+            python3  FFIMinerMiner.py sampleTDB.txt output.txt 6 , (it consider ',' as a separator)
 
     Sample run of importing the code:
     -------------------------------
         
-        import FFIMiner as alg
+        from PAMI.fuzzyFrequentPatterns import FFIMiner as alg
 
         obj = alg.FFIMiner("input.txt", 2)
 
