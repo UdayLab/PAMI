@@ -150,10 +150,14 @@ class HDSHUIM(utilityPatterns):
 
     Executing the code on terminal :
     -------
-        Format: python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil>
-                python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
-        Examples: python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be "\t" in both input and neighbourhood file)
-                  python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be "," in both input and neighbourhood file)
+        Format:
+            python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil>
+
+            python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
+        Examples:
+            python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be "\t" in both input and neighbourhood file)
+
+            python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be "," in both input and neighbourhood file)
 
     Sample run of importing the code:
     -------------------------------

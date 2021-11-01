@@ -56,7 +56,7 @@ class frequentPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup, ratio):
+    def __init__(self, iFile, minSup, ratio, sep='\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -68,6 +68,7 @@ class frequentPatterns(ABC):
         self.iFile = iFile
         self.minSup = minSup
         self.minRatio = ratio
+        self.sep = sep
 
     @abstractmethod
     def iFile(self):
@@ -77,6 +78,12 @@ class frequentPatterns(ABC):
 
     @abstractmethod
     def minSup(self):
+        """Variable to store the user-specified minimum support value"""
+
+        pass
+
+    @abstractmethod
+    def sep(self):
         """Variable to store the user-specified minimum support value"""
 
         pass
@@ -124,7 +131,7 @@ class frequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def getFrequentPatterns(self):
+    def getPatterns(self):
         """Complete set of frequent patterns generated will be retrieved from this function"""
 
         pass
