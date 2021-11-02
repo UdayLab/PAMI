@@ -1,6 +1,4 @@
 import sys
-import validators
-from urllib.request import urlopen
 from abstract import *
 
 
@@ -152,7 +150,7 @@ class HMiner(utilityPatterns):
     Sample run of importing the code:
     -------------------------------
         
-        import PAMI.highUtilityPatterns.basic HMiner as alg
+        from PAMI.highUtilityPatterns.basic import HMiner as alg
 
         obj = alg.HMiner("input.txt",35)
 
@@ -188,6 +186,9 @@ class HMiner(utilityPatterns):
     maxPer = float()
     finalPatterns = {}
     Database = {}
+    transactions = []
+    utilities = []
+    utilitySum = []
     iFile = " "
     oFile = " "
     minUtil = 0
@@ -219,26 +220,39 @@ class HMiner(utilityPatterns):
     def creteItemsets(self):
         self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
-            utilities, data = [], []
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
-            if 'utilities' in i:
-                utilities = self.iFile['Patterns'].tolist()
-            # print(self.Database)
+                self.transactions = self.iFile['Transactions'].tolist()
+            if 'Utilities' in i:
+                self.utilities = self.iFile['Utilities'].tolist()
+            if 'UtilitySum' in i:
+                self.utilitySum = self.iFile['UtilitySum'].tolist()
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
+                print("hey")
                 data = urlopen(self.iFile)
                 for line in data:
                     line = line.decode("utf-8")
-                    self.Database.append(line)
+                    line = line.split("\n")[0]
+                    parts = line.split(":")
+                    items = parts[0].split(self.sep)
+                    self.transactions.append([x for x in items if x])
+                    utilities = parts[2].split(self.sep)
+                    self.utilities.append(utilities)
+                    self.utilitySum.append(int(parts[1]))
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.Database.append(line)
+                            line = line.split("\n")[0]
+                            parts = line.split(":")
+                            items = parts[0].split(self.sep)
+                            self.transactions.append([x for x in items if x])
+                            utilities = parts[2].split(self.sep)
+                            self.utilities.append(utilities)
+                            self.utilitySum.append(int(parts[1]))
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -250,12 +264,11 @@ class HMiner(utilityPatterns):
         """
         self.startTime = time.time()
         self.creteItemsets()
-        for line in self.Database:
-            line = line.split("\n")[0]
-            parts = line.split(":")
-            items_str = parts[0].split(self.sep)
-            utility_str = parts[2].split(self.sep)
-            transUtility = int(parts[1])
+        self.finalPatterns = {}
+        for line in range(len(self.transactions)):
+            items_str = self.transactions[line]
+            utility_str = self.utilities[line]
+            transUtility = self.utilitySum[line]
             for i in range(0, len(items_str)):
                 item = items_str[i]
                 twu = self.mapOfTWU.get(item)
@@ -275,11 +288,9 @@ class HMiner(utilityPatterns):
                 listOfCUList.append(uList)
         listOfCUList.sort(key=functools.cmp_to_key(self.HMiner))
         tid = 1
-        for line in self.Database:
-            line = line.split("\n")[0]
-            parts = line.split(":")
-            items = parts[0].split(self.sep)
-            utilities = parts[2].split(self.sep)
+        for line in range(len(self.transactions)):
+            items = self.transactions[line]
+            utilities = self.utilities[line]
             ru = 0
             newTwu = 0
             tx_key = []
@@ -372,7 +383,7 @@ class HMiner(utilityPatterns):
             Attributes:
             -----------
             :parm x: Compact utility list
-            :type x: list
+            :type x: Node
             :parm culs:list of Compact utility lists
             :type culs:list
             :parm st: starting pos of culs
@@ -628,4 +639,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [200000, 300000, 400000, 500000]
+        for i in l:
+            ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of huis:", len(Patterns))
+            ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -3,7 +3,6 @@ import pandas as pd
 from abstract import *
 from functools import cmp_to_key
 
-
 class Transaction:
     """
         A class to store Transaction of a database

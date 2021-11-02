@@ -15,8 +15,6 @@
 
 
 import sys
-import validators
-from urllib.request import urlopen
 from abstract import *
 
 
@@ -173,25 +171,41 @@ class Dataset:
             i = datasetPath.columns.values.tolist()
             if 'Transactions' in i:
                 data = datasetPath['Transactions'].tolist()
-            if 'utilities' in i:
-                utilities = datasetPath['utilities'].tolist()
-            self.transactions.append(self.createTransaction(data))
+            if 'Utilities' in i:
+                utilities = datasetPath['Utilities'].tolist()
+            if 'TransactionUtility' in i:
+                transactionUtility = datasetPath['TransactionUtility'].tolist()
+            self.transactions.append(self.createTransaction(data, utilities, transactionUtility))
         if isinstance(datasetPath, str):
             if validators.url(datasetPath):
                 data = urlopen(datasetPath)
                 for line in data:
                     line = line.decode("utf-8")
-                    self.transactions.append(self.createTransaction(line))
+                    trans_list = line.strip().split(':')
+                    transactionUtility = int(trans_list[1])
+                    itemsString = trans_list[0].strip().split(self.sep)
+                    itemsString = [x for x in itemsString if x]
+                    utilityString = trans_list[2].strip().split(self.sep)
+                    utilityString = [x for x in utilityString if x]
+                    self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility))
             else:
                 try:
                     with open(datasetPath, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.transactions.append(self.createTransaction(line))
+                            trans_list = line.strip().split(':')
+                            transactionUtility = int(trans_list[1])
+                            itemsString = trans_list[0].strip().split(self.sep)
+                            itemsString = [x for x in itemsString if x]
+                            utilityString = trans_list[2].strip().split(self.sep)
+                            utilityString = [x for x in utilityString if x]
+                            self.transactions.append(
+                                self.createTransaction(itemsString, utilityString, transactionUtility))
+
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def createTransaction(self, line):
+    def createTransaction(self, itemsString, utilityString, transactionUtility):
         """
             A method to create Transaction from dataset given
             
@@ -202,12 +216,12 @@ class Dataset:
             :return : Transaction
             :rtype: Transaction
         """
-        trans_list = line.strip().split(':')
+        '''trans_list = line.strip().split(':')
         transactionUtility = int(trans_list[1])
         itemsString = trans_list[0].strip().split(self.sep)
         itemsString = [x for x in itemsString if x]
         utilityString = trans_list[2].strip().split(self.sep)
-        utilityString = [x for x in utilityString if x]
+        utilityString = [x for x in utilityString if x]'''
         items = []
         utilities = []
         for idx, item in enumerate(itemsString):
@@ -380,6 +394,7 @@ class EFIM(utilityPatterns):
 
     def startMine(self):
         self.startTime = time.time()
+        self.finalPatterns = {}
         self.dataset = Dataset(self.iFile, self.sep)
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
         minUtil = int(self.minUtil)
@@ -744,4 +759,17 @@ if __name__ == '__main__':
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        l = [200000, 300000, 400000, 500000]
+        for i in l:
+            ap = EFIM('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of huis:", len(Patterns))
+            ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -28,6 +28,8 @@
 
 from abc import ABC, abstractmethod
 import time
+import validators
+from urllib.request import urlopen
 import csv
 import pandas as pd
 from collections import defaultdict

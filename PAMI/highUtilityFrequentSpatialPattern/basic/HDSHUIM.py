@@ -162,7 +162,7 @@ class HDSHUIM(utilityPatterns):
     Sample run of importing the code:
     -------------------------------
         
-        import HDSHUIM as alg
+        from PAMI.hightUtilityFrequentSpatialPaattern.basic import HDSHUIM as alg
 
         obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 
@@ -188,7 +188,7 @@ class HDSHUIM(utilityPatterns):
 
     Credits:
     -------
-            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
             
     """
 
