@@ -1,6 +1,3 @@
-import sys
-import validators
-from urllib.request import urlopen
 from abstract import *
 
 
@@ -167,11 +164,9 @@ class CPFPMiner(periodicFrequentPatterns):
                 ts = self.iFile['TS'].tolist()
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                data = self.iFile['Patterns'].tolist()
             for i in range(len(data)):
                 tr = [ts[i][0]]
-                tr.append(data[i])
+                tr = tr + data[i]
                 Database.append(tr)
 
         if isinstance(self.iFile, str):

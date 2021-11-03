@@ -1,6 +1,3 @@
-import sys
-import validators
-from urllib.request import urlopen
 import pandas as pd
 from abstract import *
 
@@ -332,9 +329,6 @@ class CPGrowth(correlatedPatterns):
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-            # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
@@ -642,4 +636,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        for i in l:
+            ap = CPGrowth(sys.argv[1], sys.argv[3], float(sys.argv[4]), sys.argv[5])
+            ap.startMine()
+            correlatedPatterns = ap.getPatterns()
+            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
+            ap.savePatterns(sys.argv[2])
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

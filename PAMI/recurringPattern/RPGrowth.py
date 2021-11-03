@@ -13,9 +13,6 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.PAMI.periodicFrequentPattern.recurring.
 
-import sys
-import validators
-from urllib.request import urlopen
 from abstract import *
 
 
@@ -428,7 +425,6 @@ class RPGrowth(recurringPatterns):
                 self.Database = self.iFile['Transactions'].tolist()
             if 'Patterns' in i:
                 self.Database = self.iFile['Patterns'].tolist()
-            # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)

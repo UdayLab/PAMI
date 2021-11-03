@@ -290,7 +290,7 @@ class RSFPGrowth(relativePatterns):
     -----------
         from PAMI.relativeFrequentPatterns.basic import RSFPGrowth as alg
 
-        obj = alg.RSFPGrowth(iFile, minSup,minRatio)
+        obj = alg.RSFPGrowth(iFile, minSup, minRatio)
 
         obj.startMine()
 

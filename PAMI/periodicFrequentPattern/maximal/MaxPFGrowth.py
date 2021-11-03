@@ -13,9 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import sys
-import validators
-from urllib.request import urlopen
+
 from abstract import *
 
 
@@ -528,11 +526,9 @@ class MaxPFGrowth(periodicFrequentPatterns):
                 ts = self.iFile['TS'].tolist()
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                data = self.iFile['Patterns'].tolist()
             for i in range(len(data)):
                 tr = [ts[i][0]]
-                tr.append(data[i])
+                tr = tr + data[i]
                 self.Database.append(tr)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):

@@ -384,15 +384,13 @@ class PPPGrowth(partialPeriodicPatterns):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
-            if 'timeStamps' in i:
-                tids = self.iFile['timeStamps'].tolist()
+            if 'TS' in i:
+                tids = self.iFile['TS'].tolist()
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                data = self.iFile['Patterns'].tolist()
             for i in range(len(data)):
                 tr = [tids[i][0]]
-                tr.append(data[i])
+                tr = tr + data[i]
                 self.Database.append(tr)
             self.lno = len(self.Database)
             # print(self.Database)

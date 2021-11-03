@@ -273,7 +273,7 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
     iFile = " "
     oFile = " "
     minAllConf = 0.0
-    sep = "\t"
+    sep = " "
     memoryUSS = float()
     memoryRSS = float()
     Database = []
@@ -295,7 +295,8 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
         self.itemSetBuffer = []
         self.finalPatterns = {}
         self.dbLen = 0
-        self.Database = []
+        self.transactions = []
+        self.fuzzyValues = []
 
     def compareItems(self, o1, o2):
         """
@@ -339,37 +340,51 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.dbLen * value)
+            value = (len(self.transactions) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.dbLen * value)
+                value = (len(self.transactions)* value)
             else:
                 value = int(value)
         return value
     
     def creatingItemSets(self):
-        self.Database = []
+        self.transactions, self.fuzzyValues = [], []
         if isinstance(self.iFile, pd.DataFrame):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
+                self.transactions = self.iFile['Transactions'].tolist()
+            if 'fuzzyValues' in i:
+                self.fuzzyValues = self.iFile['Utilities'].tolist()
             # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
                 for line in data:
                     line = line.decode("utf-8")
-                    self.Database.append(line)
+                    line = line.split("\n")[0]
+                    parts = line.split(":")
+                    parts[0] = parts[0].strip()
+                    parts[2] = parts[2].strip()
+                    items = parts[0].split(self.sep)
+                    quantities = parts[2].split(self.sep)
+                    self.transactions.append([x for x in items])
+                    self.fuzzyValues.append([x for x in quantities])
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.Database.append(line)
+                            line = line.split("\n")[0]
+                            parts = line.split(":")
+                            parts[0] = parts[0].strip()
+                            parts[2] = parts[2].strip()
+                            items = parts[0].split(self.sep)
+                            quantities = parts[2].split(self.sep)
+                            self.transactions.append([x for x in items])
+                            self.fuzzyValues.append([x for x in quantities])
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -380,14 +395,10 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
         """
         self.startTime = time.time()
         self.creatingItemSets()
-        for line in self.Database:
-            line = line.split("\n")[0]
-            parts = line.split(":")
-            parts[0] = parts[0].strip()
-            parts[2] = parts[2].strip()
-            items = parts[0].split(self.sep)
-            quantities = parts[2].split(self.sep)
-            self.dbLen += 1
+        for tr in range(len(self.transactions)):
+            items = self.transactions[tr]
+            quantities = self.fuzzyValues[tr]
+            print(items, quantities)
             for i in range(0, len(items)):
                 item = items[i]
                 regions = Regions(item, int(quantities[i]), 3, self.mapItemRegionSum)
@@ -438,10 +449,9 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
                 listOfFFIList.append(fuList)
         listOfFFIList.sort(key=functools.cmp_to_key(self.compareItems))
         tid = 0
-        for line in self.Database:
-            parts = line.split(":")
-            items = parts[0].split(self.sep)
-            quantities = parts[2].split(self.sep)
+        for tr in range(len(self.transactions)):
+            items = self.transactions[tr]
+            quantities = self.fuzzyValues[tr]
             revisedTransaction = []
             for i in range(0, len(items)):
                 pair = Pair()
@@ -652,4 +662,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        l = [200000, 300000, 400000, 500000]
+        for i in l:
+            ap = FCPGrowth('/Users/Likhitha/Downloads/mushroom_utility_SPMF.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of huis:", len(Patterns))
+            ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

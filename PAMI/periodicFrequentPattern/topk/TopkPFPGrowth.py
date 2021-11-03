@@ -157,7 +157,7 @@ class TopkPFPGrowth(periodicFrequentPatterns):
                 data = self.iFile['Patterns'].tolist()
             for i in range(len(data)):
                 tr = [ts[i][0]]
-                tr.append(data[i])
+                tr = tr + data[i]
                 self.Database.append(tr)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):

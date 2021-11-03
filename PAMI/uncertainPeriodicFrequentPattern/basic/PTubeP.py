@@ -14,9 +14,6 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-import sys
-import validators
-from urllib.request import urlopen
 from abstract import *
 
 minSup = float()
@@ -491,20 +488,20 @@ class PTubeP(periodicFrequentPatterns):
 
         self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
-            uncertain, data = [], []
+            uncertain, data, ts = [], [], []
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
+            if 'TS' in i:
+                ts = self.iFile['TS'].tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                data = self.iFile['Patterns'].tolist()
+                data = self.iFile['Transactions'].tolist()
             if 'uncertain' in i:
                 uncertain = self.iFile['uncertain'].tolist()
-            for i in range(len(Patterns)):
-                tr = []
+            for i in range(len(data)):
+                tr = [ts[i]]
                 for j in range(len(i)):
-                    product = Item(Patterns[i][j], uncertain[i][j])
+                    product = Item(data[i][j], uncertain[i][j])
                     tr.append(product)
                 self.Database.append(tr)
                 self.lno += 1

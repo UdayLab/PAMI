@@ -22,6 +22,9 @@ from itertools import combinations as c
 import os
 import os.path
 import psutil
+import sys
+import validators
+from urllib.request import urlopen
 
 
 class spatialPeriodicFrequentPatterns(ABC):

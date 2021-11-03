@@ -13,9 +13,6 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not,  see <https://www.gnu.org/licenses/>.
 
-import sys
-import validators
-from urllib.request import urlopen
 from abstract import *
 
 
@@ -441,14 +438,12 @@ class TubeP(frequentPatterns):
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                data = self.iFile['Patterns'].tolist()
             if 'uncertain' in i:
                 uncertain = self.iFile['uncertain'].tolist()
-            for k in range(len(Patterns)):
+            for k in range(len(data)):
                 tr = []
-                for j in range(len(Patterns[k])):
-                    product = Item(Patterns[k][j], uncertain[k][j])
+                for j in range(len(data[k])):
+                    product = Item(data[k][j], uncertain[k][j])
                     tr.append(product)
                 self.Database.append(tr)
 

@@ -35,7 +35,9 @@ from itertools import combinations as c
 import os
 import os.path
 import psutil
-
+import sys
+import validators
+from urllib.request import urlopen
 
 class fuzzySpatialFrequentPatterns(ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must

@@ -11,6 +11,9 @@ import csv
 import pandas as pd
 from collections import defaultdict
 from itertools import combinations as c
+import sys
+import validators
+from urllib.request import urlopen
 
 class frequentPatterns(ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must

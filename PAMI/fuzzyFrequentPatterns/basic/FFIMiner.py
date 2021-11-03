@@ -259,6 +259,8 @@ class FFIMiner(fuzzyFrequentPattenrs):
         self.joinsCnt = 0
         self.BufferSize = 200
         self.itemSetBuffer = []
+        self.transactions = []
+        self.fuzzyValues = []
         self.finalPatterns = {}
         self.dbLen = 0
 
@@ -296,22 +298,29 @@ class FFIMiner(fuzzyFrequentPattenrs):
         return value
 
     def creatingItemsets(self):
-        self.Database = []
+        self.transactions, self.fuzzyValues, self.Database = [], [], []
         if isinstance(self.iFile, pd.DataFrame):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
+                self.transactions = self.iFile['Transactions'].tolist()
+            if 'fuzzyValues' in i:
+                self.fuzzyValues = self.iFile['Utilities'].tolist()
             # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
                 for line in data:
                     line = line.decode("utf-8")
-                    self.Database.append(line)
+                    line = line.split("\n")[0]
+                    parts = line.split(":")
+                    parts[0] = parts[0].strip()
+                    parts[2] = parts[2].strip()
+                    items = parts[0].split(self.sep)
+                    quantities = parts[2].split(self.sep)
+                    self.transactions.append([x for x in items])
+                    self.fuzzyValues.append([x for x in quantities])
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
@@ -591,4 +600,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        for i in l:
+            ap = FFIMiner('/Users/Likhitha/Downloads/retail_utility_spmf.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of huis:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

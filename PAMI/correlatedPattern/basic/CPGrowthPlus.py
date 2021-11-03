@@ -379,9 +379,6 @@ class CPGrowthPlus(correlatedPatterns):
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-            # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)

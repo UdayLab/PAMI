@@ -7,6 +7,10 @@ from itertools import combinations as c
 import os
 import os.path
 import psutil
+import os
+import validators
+from urllib.request import urlopen
+
 
 
 class frequentPatterns(ABC):

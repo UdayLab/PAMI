@@ -218,7 +218,7 @@ class HMiner(utilityPatterns):
             return compare
 
     def creteItemsets(self):
-        self.Database = []
+        self.transactions, self.utilities, self.utilitySum = [], [], []
         if isinstance(self.iFile, pd.DataFrame):
             if self.iFile.empty:
                 print("its empty..")
@@ -641,11 +641,11 @@ if __name__ == "__main__":
     else:
         l = [200000, 300000, 400000, 500000]
         for i in l:
-            ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', i, ' ')
+            ap = HMiner('/Users/Likhitha/Downloads/mushroom_utility_SPMF.txt', i, ' ')
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()

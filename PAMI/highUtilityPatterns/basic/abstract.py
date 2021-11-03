@@ -27,6 +27,9 @@ import os.path
 import psutil
 from array import *
 import functools
+import sys
+import validators
+from urllib.request import urlopen
 
 class utilityPatterns(ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
