@@ -141,41 +141,32 @@ class PFPECLAT(periodicFrequentPatterns):
 
         """
     
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    mapSupport = {}
-    hashing = {}
-    itemSetCount = 0
-    writer = None
-    minSup = float()
-    maxPer = float()
-    tidList = {}
-    lno = 0
+    self.iFile = " "
+    self.oFile = " "
+    self.sep = " "
+    self.dbSize = None
+    self.Database = None
+    self.minSup = str()
+    self.maxPer = str()
+    self.tidSet = set()
+    self.finalPatterns = {}
+    self.startTime = None
+    self.endTime = None
+    self.memoryUSS = float()
+    self.memoryRSS = float()
 
-    def getSupportAndPeriod(self, tids):
-        """calculates the support and periodicity with list of timestamps
-
-            :param tids: timestamps of a pattern
-            :type tids: list
-        """
-        tids.sort()
+    def getPeriodic(self, tids: set):
+        tidList = list(tids)
+        tidList.sort()
+        tidList.append(self.dbSize)
         cur = 0
         per = 0
-        sup = 0
-        for j in range(len(tids)):
-            per = max(per, tids[j] - cur)
-            if per > self.maxPer:
-                return [0, 0]
-            cur = tids[j]
-            sup += 1
-        per = max(per, self.lno - cur)
-        return [sup, per]
+        for tid in tidList:
+            per = max(per, tid - cur)
+            if per > self.maxPer:  # early stopping
+                break
+            cur = tid
+        return per
 
     def convert(self, value):
         """
@@ -234,115 +225,65 @@ class PFPECLAT(periodicFrequentPatterns):
                 except IOError:
                     print("File Not Found")
                     quit()
-        self.mapSupport, self.tidList = {}, {}
-        for tr in Database:
-            self.lno += 1
-            for i in range(1, len(tr)):
-                si = tr[i]
-                if self.mapSupport.get(si) is None:
-                        self.mapSupport[si] = [1, abs(0-self.lno), self.lno]
-                        self.tidList[si] = [self.lno]
+    
+    def frequentOneItems(self):
+        tid = 0
+        itemsets = {}  # {key: item, value: list of tids}
+        periodicHelper = {}  # {key: item, value: [period, last_tid]}
+        for line in self.Database:
+            tid = int(line[0])
+            self.tidSet.add(tid)
+            for item in line[1:]:
+                if item in itemsets:
+                    itemsets[item].add(tid)
+                    periodicHelper[item][0] = max(periodicHelper[item][0], abs(tid - periodicHelper[item][1]))  # update current max period
+                    periodicHelper[item][1] = tid  # update the last tid
                 else:
-                        self.mapSupport[si][0] += 1
-                        self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(self.lno-self.mapSupport[si][2]))
-                        self.mapSupport[si][2] = self.lno
-                        self.tidList[si].append(self.lno)
-        for x, y in self.mapSupport.items():
-            self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
-        del Database
-        self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if v[0] >= self.minSup and v[1] <=
-                               self.maxPer}
-        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
-        return plist
+                    itemsets[item] = {tid}
+                    periodicHelper[item] = [abs(0 - tid), tid]  # initialize helper
+
+        # finish all items' period
+        self.dbSize = len(self.Database)
+        for item, _ in periodicHelper.items():
+            periodicHelper[item][0] = max(periodicHelper[item][0], abs(self.dbSize - periodicHelper[item][1]))  # tid of the last transaction
+        candidates = []
+        for item, tids in itemsets.items():
+            per = periodicHelper[item][0]
+            sup = len(tids)
+            if sup >= self.minSup and per <= self.maxPer:
+                candidates.append(item)
+                self.finalPatterns[item] = [sup, per, tids]
+        return candidates
     
-    def save(self, prefix, suffix, tidSetI):
-        """Saves the patterns that satisfy the periodic frequent property.
+    def generateEclat(self, candidates):
+        newCandidates = []
+        for i in range(0, len(candidates)):
+            prefixItem = candidates[i]
+            prefixItemSet = prefixItem.split()
+            for j in range(i + 1, len(candidates)):
+                item = candidates[j]
+                itemSet = item.split()
+                if prefixItemSet[:-1] == itemSet[:-1] and prefixItemSet[-1] != itemSet[-1]:
+                    _value = self.finalPatterns[item][2].intersection(self.finalPatterns[prefixItem][2])
+                    sup = len(_value)
+                    per = self.getPeriodic(_value)
+                    if sup >= self.minSup and per <= self.maxPer:
+                        newItem = prefixItem + " " + itemSet[-1]
+                        self.finalPatterns[newItem] = [sup, per, _value]
+                        newCandidates.append(newItem)
 
-            :param prefix: the prefix of a pattern
-            :type prefix: list
-            :param suffix: the suffix of a patterns
-            :type suffix: list
-            :param tidSetI: the timestamp of a patterns
-            :type tidSetI: list
-        """
-
-        if prefix is None:
-            prefix = suffix
-        else:
-            prefix = prefix + suffix
-        val = self.getSupportAndPeriod(tidSetI)
-        if val[0] >= self.minSup and val[1] <= self.maxPer:
-            sample = str()
-            for i in prefix:
-                sample = sample + i + " "
-            self.finalPatterns[sample] = val
+        if len(newCandidates) > 0:
+            self.generateEclat(newCandidates)
     
-    def Generation(self, prefix, itemSets, tidSets):
-        """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
-
-            :param prefix:  main equivalence prefix
-            :type prefix: periodic-frequent item or pattern
-            :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
-                            and frequent with their timestamps
-            :type itemSets: list
-            :param tidSets: timestamps of the items in the argument itemSets
-            :type tidSets: list
-
-
-                    """
-        if len(itemSets) == 1:
-            i = itemSets[0]
-            tidI = tidSets[0]
-            self.save(prefix, [i], tidI)
-            return
-        for i in range(len(itemSets)):
-            itemI = itemSets[i]
-            if itemI is None:
-                continue
-            tidSetI = tidSets[i]
-            classItemSets = []
-            classTidSets = []
-            itemSetX = [itemI]
-            for j in range(i+1, len(itemSets)):
-                itemJ = itemSets[j]
-                tidSetJ = tidSets[j]
-                y = list(set(tidSetI).intersection(tidSetJ))
-                if len(y) >= self.minSup:
-                    classItemSets.append(itemJ)
-                    classTidSets.append(y)
-            newPrefix = list(set(itemSetX)) + prefix
-            self.Generation(newPrefix, classItemSets, classTidSets)
-            self.save(prefix, list(set(itemSetX)), tidSetI)
-        
     def startMine(self):
-        """ Main program start with extracting the periodic frequent items from the database and performs prefix
-        equivalence to form the combinations and generates closed periodic-frequent patterns.
-        """
-
-        self.startTime = time.time()
-        plist = self.creatingOneItemSets()
+        #print(f"Optimized {type(self).__name__}")
+        self.startTime = time()
         self.finalPatterns = {}
-        for i in range(len(plist)):
-            itemI = plist[i]
-            tidSetI = self.tidList[itemI]
-            itemSetX = [itemI]
-            itemSets = []
-            tidSets = []
-            for j in range(i+1, len(plist)):
-                itemJ = plist[j]
-                tidSetJ = self.tidList[itemJ]
-                y1 = list(set(tidSetI).intersection(tidSetJ))
-                if len(y1) >= self.minSup:
-                    itemSets.append(itemJ)
-                    tidSets.append(y1)
-            self.Generation(itemSetX, itemSets, tidSets)
-            self.save(None, itemSetX, tidSetI)
-        print("Periodic-Frequent patterns were generated successfully using eclat_pfp algorithm")
-        self.endTime = time.time()
-        self.memoryRSS = float()
-        self.memoryUSS = float()
+        self.creatingItemSets()
+        self.minSup = self.convert(self.minSup)
+        frequentSets = self.frequentOneItems()
+        self.generateEclat(frequentSets)
+        self.endTime = time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
