@@ -102,9 +102,9 @@ class LPPMBreadth(localPeriodicPatterns):
 
     iFile = ' '
     oFile = ' '
-    maxPer = float()
-    maxSoPer = float()
-    minDur = float()
+    maxPer = str()
+    maxSoPer = str()
+    minDur = str()
     tsMin = 0
     tsMax = 0
     startTime = float()
@@ -350,12 +350,33 @@ class LPPMBreadth(localPeriodicPatterns):
                             w1map[tuple(pattern1)].append(wMap[p][y])
         return w1map
 
+    def convert(self, value):
+        """
+        to convert the type of user specified minSup value
+        :param value: user specified minSup value
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self.Database) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self.Database) * value)
+            else:
+                value = int(value)
+        return value
+
     def startMine(self):
         """
         Mining process start from here.
         """
         self.startTime = time.time()
         self.creatingItemSets()
+        self.maxPer = self.convert(self.maxPer)
+        self.maxSoPer = self.convert(self.maxSoPer)
+        self.minDur = self.convert(self.minDur)
         self.finalPatterns = {}
         self.createTSList()
         self.generateLPP()

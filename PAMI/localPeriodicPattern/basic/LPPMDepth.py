@@ -103,9 +103,9 @@ class LPPMDepth(localPeriodicPatterns):
     
     iFile = ''
     oFile = ''
-    maxPer = float()
-    maxSoPer = float()
-    minDur = float()
+    maxPer = str()
+    maxSoPer = str()
+    minDur = str()
     tsmin = 0
     tsmax = 0
     startTime = float()
@@ -331,6 +331,23 @@ class LPPMDepth(localPeriodicPatterns):
             if extensionsOfPx:
                 self.LPPMDepthSearch(list(extensionsOfPx))
 
+    def convert(self, value):
+        """
+        to convert the type of user specified minSup value
+        :param value: user specified minSup value
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self.Database) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self.Database) * value)
+            else:
+                value = int(value)
+        return value
 
 
     def startMine(self):
@@ -340,6 +357,9 @@ class LPPMDepth(localPeriodicPatterns):
         self.startTime = time.time()
         self.finalPatterns = {}
         self.creatingItemSets()
+        self.maxPer = self.convert(self.maxPer)
+        self.maxSoPer = self.convert(self.maxSoPer)
+        self.minDur = self.convert(self.minDur)
         self.createTSlist()
         self.generateLPP()
         self.endTime = time.time()

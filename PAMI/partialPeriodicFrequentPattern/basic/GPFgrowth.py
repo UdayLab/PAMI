@@ -240,12 +240,13 @@ class generatePFListver2:
         PFList : dict
             storing timestamps each item
     """
-    def __init__(self, inputFile, minSup, maxPer, minPR):
-        self.inputFile = inputFile
+    def __init__(self, Database, minSup, maxPer, minPR):
+        self.Database = Database
         self.minSup = minSup
         self.maxPer = maxPer
         self.minPR = minPR
         self.PFList = {}
+        self.tsList = {}
 
     def run(self):
         """
@@ -254,53 +255,30 @@ class generatePFListver2:
         """
         global orderOfItem
         tidList = {}
-        dataSize = 0
-        with open(self.inputFile, 'r') as f:
-            line = f.readline()
-            dataSize += 1
-            line = line.strip()
-            separator = self.findSeparator(line)
-            l = line.split(separator)
-            currentTime = int(l.pop(0))
-            for item in l:
+        tid = 1
+        for transaction in self.Database:
+            timestamp = int(transaction[0])
+            for item in transaction[1:]:
                 if item not in self.PFList:
-                    self.PFList[item] = [1, currentTime, currentTime]
-                    tidList[item] = set()
-                    tidList[item].add(currentTime)
+                    self.tsList[item] = {}
+                    self.tsList[item][tid] = timestamp
+                    ip = 0
+                    if timestamp <= self.maxPer:
+                        ip = 1
+                    self.PFList[item] = [1, ip, timestamp]
                 else:
-                    tidList[item].add(currentTime)
+                    self.tsList[item][tid] = timestamp
+                    if timestamp - self.PFList[item][2] <= self.maxPer:
+                        self.PFList[item][1] += 1
                     self.PFList[item][0] += 1
-                    currentPeriodicity = currentTime - self.PFList[item][2]
-                    self.PFList[item][2] = currentTime
-                    if currentPeriodicity > self.PFList[item][1]:
-                        self.PFList[item][1] = currentPeriodicity
-            for line in f:
-                dataSize += 1
-                line = line.strip()
-                l = line.split(separator)
-                currentTime = int(l.pop(0))
-                for item in l:
-                    if item not in self.PFList:
-                        self.PFList[item] = [1, currentTime, currentTime]
-                        tidList[item] = set()
-                        tidList[item].add(currentTime)
-                    else:
-                        tidList[item].add(currentTime)
-                        self.PFList[item][0] += 1
-                        currentPeriodicity = currentTime - self.PFList[item][2]
-                        self.PFList[item][2] = currentTime
-                        if currentPeriodicity > self.PFList[item][1]:
-                            self.PFList[item][1] = currentPeriodicity
-            last = currentTime
-        keys = list(self.PFList)
-        for item in keys:
-            currentPeriodicity = currentTime - self.PFList[item][2]
-            if currentPeriodicity > self.PFList[item][1]:
-                self.PFList[item][1] = currentPeriodicity
-            ip = calculateIP(self.maxPer, tidList[item], last).run()
-            if ip / (self.minSup+1) < self.minPR:
-                del self.PFList[item]
-                del tidList[item]
+                    self.PFList[item][2] = timestamp
+            tid += 1
+            last = timestamp
+        for item in self.PFList:
+            if last - self.PFList[item][2] <= self.maxPer:
+                self.PFList[item][1] += 1
+            if self.PFList[item][1] / (self.minSup + 1) < self.minPR or self.PFList[item][1] < self.minSup:
+                del self.tsList[item]
         #self.PFList = {tuple([k]): v for k, v in sorted(self.PFList.items(), key=lambda x:x[1], reverse=True)}
         tidList = {tuple([k]): v for k, v in sorted(tidList.items(), key=lambda x:len(x[1]), reverse=True)}
         orderOfItem = tidList.copy()
@@ -340,8 +318,8 @@ class generatePFTreever2:
         find separotor in the line of database
 
     """
-    def __init__(self, inputFile, tidList):
-        self.inputFile = inputFile
+    def __init__(self, Database, tidList):
+        self.Database = Database
         self.tidList = tidList
         self.root = Tree()
 
@@ -350,22 +328,13 @@ class generatePFTreever2:
         create tree from database and tidList
         :return: the root node of tree
         """
-        with open(self.inputFile, 'r') as f:
-            line = f.readline()
-            line = line.strip()
-            separator = self.findSeparator(line)
-            transaction = line.split(separator)
-            currentTime = int(transaction.pop(0))
-            tempTransaction = [tuple([item]) for item in transaction if tuple([item]) in self.tidList]
-            transaction = sorted(tempTransaction, key=lambda x: len(self.tidList[x]), reverse=True)
-            self.root.addTransaction(transaction, currentTime)
-            for line in f:
-                line = line.strip()
-                transaction = line.split(separator)
-                tid = int(transaction.pop(0))
-                tempTransaction = [tuple([item]) for item in transaction if tuple([item]) in self.tidList]
-                transaction = sorted(tempTransaction, key=lambda x: len(self.tidList[x]), reverse=True)
-                self.root.addTransaction(transaction, tid)
+        tid = 1
+        for transaction in self.Database:
+            timestamp = int(transaction[0])
+            transaction = [item for item in transaction[1:] if item in self.tidList]
+            transaction = sorted(transaction, key=lambda x: len(self.tidList[x]), reverse=True)
+            self.root.addTransaction(transaction, timestamp, tid)
+            tid += 1
         return self.root
 
     def findSeparator(self, line):
@@ -554,21 +523,71 @@ class GPFgrowth(partialPeriodicPatterns):
     oFile = ' '
     startTime = float()
     endTime = float()
-    minSup = float()
-    maxPer = float()
-    minPR = float()
+    minSup = str()
+    maxPer = str()
+    minPR = str()
     finalPatterns = {}
     runTime = 0
     memoryUSS = float()
     memoryRSS = float()
+    Database = []
+
+    def convert(self):
+        if type(self.minSup) == float:
+            self.minSup *= len(self.Database)
+        else:
+            self.minSup = int(self.minSup)
+        if type(self.maxPer) == float:
+            self.maxPer *= len(self.Database)
+        else:
+            self.maxPer = int(self.maxPer)
+        if type(self.minPR) == float:
+            self.minPR *= len(self.Database)
+        else:
+            self.minPR = float(self.minPR)
+
+    def readDatabase(self):
+        if isinstance(self.inputFile, pd.DataFrame):
+            if self.inputFile.empty:
+                print("its empty..")
+            i = self.inputFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self.Database = self.inputFile['Transactions'].tolist()
+            if 'Patterns' in i:
+                self.Database = self.inputFile['Patterns'].tolist()
+        if isinstance(self.inputFile, str):
+            if validators.url(self.inputFile):
+                data = urlopen(self.inputFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [x for x in temp if x]
+                    self.Database.append(temp)
+            else:
+                try:
+                    with open(self.inputFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
 
     def startMine(self):
         self.inputFile = self.iFile
         self.startTime = time.time()
+        self.readDatabase()
+        self.minSup = self.convert(self.minSup)
+        self.maxPer = self.convert(self.maxPer)
+        self.minPR = self.convert(self.minPR)
         self.finalPatterns = {}
-        obj = generatePFListver2(self.inputFile, self.minSup, self.maxPer, self.minPR)
+        obj = generatePFListver2(self.Database, self.minSup, self.maxPer, self.minPR)
         tidList, last = obj.run()
-        PFTree = generatePFTreever2(self.inputFile, tidList).run()
+        PFTree = generatePFTreever2(self.Database, tidList).run()
         obj2 = PFgrowth(PFTree, [], tidList, self.minSup, self.maxPer, self.minPR, last)
         self.finalPatterns = obj2.run()
         self.endTime = time.time()

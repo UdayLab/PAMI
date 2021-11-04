@@ -112,9 +112,9 @@ class PPF_DFS(partialPeriodicPatterns):
     iFile = ' '
     oFile = ' '
     sep = str()
-    minSup = float()
-    maxPer = float()
-    minPR = float()
+    minSup = str()
+    maxPer = str()
+    minPR = str()
     tidlist = {}
     last = 0
     lno = 0
@@ -256,8 +256,8 @@ class PPF_DFS(partialPeriodicPatterns):
         :return: support list each item
         """
         id1 = 0
-        self.maxPer = int(self.maxPer)
-        self.minSup = int(self.minSup)
+        self.maxPer = self.convert(self.maxPer)
+        self.minSup = self.convert(self.minSup)
         self.minPR = float(self.minPR)
         for line in self.Database:
             self.lno += 1
