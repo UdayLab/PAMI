@@ -1,7 +1,7 @@
 import pandas as pd
 from abstract import *
 
-
+frequentPatterns = {}
 class Node:
     """
     A class used to represent the node of frequentPatternTree
@@ -316,7 +316,6 @@ class CPGrowth(correlatedPatterns):
 
     def __init__(self, iFile, minSup, minAllConf, sep="\t"):
         super().__init__(iFile, minSup, minAllConf, sep)
-        self.finalPatterns = {}
 
     def creatingItemSets(self):
         """
@@ -374,6 +373,7 @@ class CPGrowth(correlatedPatterns):
         """Generating One frequent items sets
 
         """
+        self.mapSupport = {}
         for i in self.Database:
             for j in i:
                 if j not in self.mapSupport:
@@ -392,6 +392,7 @@ class CPGrowth(correlatedPatterns):
         :type support :  int
         :The frequent patterns are update into global variable finalPatterns
         """
+        global frequentPatterns
         allconf = self.getRatio(prefix, prefixLength, support)
         if allconf < self.minAllConf:
             return
@@ -516,7 +517,7 @@ class CPGrowth(correlatedPatterns):
         main program to start the operation
 
         """
-
+        global frequentPatterns
         self.startTime = time.time()
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -526,7 +527,6 @@ class CPGrowth(correlatedPatterns):
         self.finalPatterns = {}
         self.frequentOneItem()
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        print(len(self.mapSupport))
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
             transaction = []
@@ -539,7 +539,6 @@ class CPGrowth(correlatedPatterns):
         if len(self.tree.headerList) > 0:
             self.itemSetBuffer = []
             self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport)
-        print(len(self.finalPatterns))
         print("Correlated Frequent patterns were generated successfully using CorrelatedPatternGrowth algorithm")
         self.endTime = time.time()
         self.memoryUSS = float()
@@ -639,10 +638,10 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-        l = [0.0007, 0.0009, 0.01]
+        l = [0.0007, 0.0009, 0.001, 0.002, 0.003, 0.01]
         for i in l:
             ap = CPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_retail.csv',
-                          0.0007, 0.2)
+                          i, 0.7)
             ap.startMine()
             print(ap.minSup, ap.minAllConf, len(ap.Database))
             correlatedPatterns = ap.getPatterns()
