@@ -1,5 +1,3 @@
-import sys
-import pandas as pd
 from abstract import *
 from functools import cmp_to_key
 
@@ -16,7 +14,7 @@ class Transaction:
         transactionUtility: int
             represent total sum of all utilities in the database
         pmus: list
-            represent the pum of each element in the transaction
+            represent the pmu (probable maximum utility) of each element in the transaction
         prefixutility:
             prefix Utility values of item
         offset:
@@ -297,7 +295,7 @@ class SHUIM(utilityPatterns):
     Sample run of importing the code:
     -------------------------------
         
-        import SHUIM as alg
+        from PAMI.highUtilitySpatialPattern.basic import SHUIM as alg
 
         obj=alg.SHUIM("input.txt","Neighbours.txt",35)
 
@@ -323,7 +321,7 @@ class SHUIM(utilityPatterns):
 
     Credits:
     -------
-            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.
     """
     highUtilityItemSets = []
     candidateCount = 0
@@ -715,29 +713,29 @@ class SHUIM(utilityPatterns):
                     self.utilityBinArrayLU[item] = transaction.getPmus()[idx]
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """Storing final patterns in a dataframe
 
-        :return: returning frequent patterns in a dataframe
+        :return: returning patterns in a dataframe
         :rtype: pd.DataFrame
         """
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Utility'])
 
         return dataFrame
     
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """ Function to send the set of patterns after completion of the mining process
 
-        :return: returning frequent patterns
+        :return: returning patterns
         :rtype: dict
         """
         return self.finalPatterns
 
     def savePatterns(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of patterns will be loaded in to a output file
 
         :param outFile: name of the output file
         :type outFile: file
