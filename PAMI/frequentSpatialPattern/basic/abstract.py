@@ -36,7 +36,7 @@ import os
 import os.path
 import psutil
 import sys
-import validatore
+import validators
 from urllib.request import urlopen
 
 
@@ -107,7 +107,7 @@ class spatialFrequentPatterns(ABC):
         """
 
         self.iFile = iFile
-        self.nFile=nFile
+        self.nFile = nFile
         self.sep = sep
         self.minSup = minSup
 

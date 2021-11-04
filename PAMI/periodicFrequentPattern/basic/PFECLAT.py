@@ -13,13 +13,10 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import sys
-import validators
-from urllib.request import urlopen
 from abstract import *
 
 
-class PFPECLAT(periodicFrequentPatterns):
+class PFECLAT(periodicFrequentPatterns):
     """ EclatPFP is the fundamental approach to mine the periodic-frequent patterns.
 
         Reference:
@@ -141,19 +138,19 @@ class PFPECLAT(periodicFrequentPatterns):
 
         """
     
-    self.iFile = " "
-    self.oFile = " "
-    self.sep = " "
-    self.dbSize = None
-    self.Database = None
-    self.minSup = str()
-    self.maxPer = str()
-    self.tidSet = set()
-    self.finalPatterns = {}
-    self.startTime = None
-    self.endTime = None
-    self.memoryUSS = float()
-    self.memoryRSS = float()
+    iFile = " "
+    oFile = " "
+    sep = " "
+    dbSize = None
+    Database = None
+    minSup = str()
+    maxPer = str()
+    tidSet = set()
+    finalPatterns = {}
+    startTime = None
+    endTime = None
+    memoryUSS = float()
+    memoryRSS = float()
 
     def getPeriodic(self, tids: set):
         tidList = list(tids)
@@ -178,11 +175,11 @@ class PFPECLAT(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.lno * value)
+            value = (len(self.Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.lno * value)
+                value = (len(self.Database) * value)
             else:
                 value = int(value)
         return value
@@ -191,7 +188,7 @@ class PFPECLAT(periodicFrequentPatterns):
         """Storing the complete transactions of the database/input file in a database variable
         """
         plist = []
-        Database = []
+        self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
             ts, data = [], []
             if self.iFile.empty:
@@ -204,7 +201,7 @@ class PFPECLAT(periodicFrequentPatterns):
             for i in range(len(data)):
                 tr = [ts[i][0]]
                 tr = tr + data[i]
-                Database.append(tr)
+                self.Database.append(tr)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
@@ -213,7 +210,7 @@ class PFPECLAT(periodicFrequentPatterns):
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
-                    Database.append(temp)
+                    self.Database.append(temp)
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
@@ -221,7 +218,7 @@ class PFPECLAT(periodicFrequentPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
-                            Database.append(temp)
+                            self.Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -277,13 +274,14 @@ class PFPECLAT(periodicFrequentPatterns):
     
     def startMine(self):
         #print(f"Optimized {type(self).__name__}")
-        self.startTime = time()
+        self.startTime = time.time()
         self.finalPatterns = {}
-        self.creatingItemSets()
+        self.creatingOneItemSets()
         self.minSup = self.convert(self.minSup)
+        self.maxPer = self.convert(self.maxPer)
         frequentSets = self.frequentOneItems()
         self.generateEclat(frequentSets)
-        self.endTime = time()
+        self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
@@ -355,9 +353,9 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
         if len(sys.argv) == 6:
-            ap = PFPECLAT(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+            ap = PFECLAT(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:
-            ap = PFPECLAT(sys.argv[1], sys.argv[3], sys.argv[4])
+            ap = PFECLAT(sys.argv[1], sys.argv[3], sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Periodic-Frequent Patterns:", len(Patterns))
@@ -369,4 +367,19 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        for i in l:
+            ap = PFECLAT('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
+                          i, 0.02)
+            ap.startMine()
+            print(ap.minSup, ap.maxPer, len(ap.Database))
+            correlatedPatterns = ap.getPatterns()
+            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

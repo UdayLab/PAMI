@@ -172,7 +172,7 @@ class SpatialECLAT(spatialFrequentPatterns):
     # function to get frequent one pattern
     def frequentOneItem(self):
         """Generating one frequent patterns"""
-
+        self.finalPatterns = {}
         candidate = {}
         for i in range(len(self.Database)):
             for j in range(len(self.Database[i])):
@@ -296,16 +296,18 @@ class SpatialECLAT(spatialFrequentPatterns):
         """
             A function to map items to their Neighbours
         """
-        self.NeighboursMap = []
-        if isinstance(self.iFile, pd.DataFrame):
-            data = []
-            if self.iFile.empty:
+        self.NeighboursMap = {}
+        if isinstance(self.nFile, pd.DataFrame):
+            data, items = [], []
+            if self.nFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self.nFile.columns.values.tolist()
+            if 'item' in i:
+                items = self.nFile['items'].tolist()
             if 'Neighbours' in i:
-                data = self.iFile['Neighbours'].tolist()
-            for i in data:
-                self.NeighboursMap[i[0]] = i[1:]
+                data = self.nFile['Neighbours'].tolist()
+            for k in range(len(items)):
+                self.NeighboursMap[items[k][0]] = data[k]
             # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
@@ -341,6 +343,7 @@ class SpatialECLAT(spatialFrequentPatterns):
         self.mapNeighbours()
         self.finalPatterns = {}
         self.frequentOneItem()
+        print(len(self.finalPatterns))
         frequentSet = self.generateSpatialFrequentPatterns(self.finalPatterns)
         for x, y in frequentSet.items():
             if x not in self.finalPatterns:

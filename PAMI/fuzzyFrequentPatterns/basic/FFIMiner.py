@@ -313,14 +313,7 @@ class FFIMiner(fuzzyFrequentPattenrs):
                 data = urlopen(self.iFile)
                 for line in data:
                     line = line.decode("utf-8")
-                    line = line.split("\n")[0]
-                    parts = line.split(":")
-                    parts[0] = parts[0].strip()
-                    parts[2] = parts[2].strip()
-                    items = parts[0].split(self.sep)
-                    quantities = parts[2].split(self.sep)
-                    self.transactions.append([x for x in items])
-                    self.fuzzyValues.append([x for x in quantities])
+                    self.Database.append(line)
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
@@ -600,17 +593,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-        l = [0.001, 0.002, 0.003, 0.004, 0.005]
-        for i in l:
-            ap = FFIMiner('/Users/Likhitha/Downloads/retail_utility_spmf.txt', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

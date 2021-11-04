@@ -57,7 +57,7 @@ class Node:
             :param itemName: name of the child
             :type itemName: list
             :return: returns the node with same itemName from frequentPatternTree
-            :rtype: list
+            :rtype: None or Node
 
         """
         for i in self.child:
@@ -70,8 +70,8 @@ class Tree:
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-        Attributes
-        ----------
+    Attributes:
+    ----------
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
         mapItemNodes : dictionary
@@ -81,8 +81,8 @@ class Tree:
         root : Node
             representing the root Node in a tree
 
-        Methods
-        -------
+    Methods:
+    -------
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
         addTransaction(transaction)
@@ -334,6 +334,10 @@ class RSFPGrowth(frequentPatterns):
     itemSetCount = 0
     maxPatternLength = 1000
 
+    def __init__(self, iFile, minSup, minRatio, sep='\t'):
+        super().__init__(iFile, minSup, minRatio, sep)
+        self.finalPatterns = {}
+
     def creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
@@ -347,9 +351,6 @@ class RSFPGrowth(frequentPatterns):
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-            # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
@@ -375,6 +376,7 @@ class RSFPGrowth(frequentPatterns):
         """Generating One frequent items sets
 
         """
+        self.mapSupport = {}
         for i in self.Database:
             for j in i:
                 if j not in self.mapSupport:
@@ -529,9 +531,10 @@ class RSFPGrowth(frequentPatterns):
             raise Exception("Please enter the Minimum Support")
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
+        self.minRatio = float(self.minRatio)
         self.frequentOneItem()
-        self.finalPatterns = {}
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
+        print(len(self.mapSupport))
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
             transaction = []
@@ -544,7 +547,7 @@ class RSFPGrowth(frequentPatterns):
         if len(self.tree.headerList) > 0:
             self.itemSetBuffer = []
             self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport, self.minRatio)
-        print("relative support frequent patterns were generated successfully using RSFPGrowth algorithm")
+        print("Relative support frequent patterns were generated successfully using RSFPGrowth algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryRSS = float()
@@ -654,4 +657,19 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [0.006, 0.007, 0.008, 0.009, 0.01]
+        for i in l:
+            ap = RSFPGrowth(
+                'https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_T10I4D100K.csv',
+                0.008, 0.4)
+            ap.startMine()
+            correlatedPatterns = ap.getPatterns()
+            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")        

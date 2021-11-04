@@ -309,13 +309,14 @@ class CPGrowth(correlatedPatterns):
     tree = Tree()
     itemSetBuffer = None
     fpNodeTempBuffer = []
-    minAllConf = 0.0
+    #minAllConf = 0.0
     itemSetCount = 0
     maxPatternLength = 1000
     sep = "\t"
 
     def __init__(self, iFile, minSup, minAllConf, sep="\t"):
         super().__init__(iFile, minSup, minAllConf, sep)
+        self.finalPatterns = {}
 
     def creatingItemSets(self):
         """
@@ -352,7 +353,7 @@ class CPGrowth(correlatedPatterns):
 
     def getRatio(self, prefix, prefixLength, s):
         """
-            A Function to get itemSet Ration
+            A Function to get itemSet Ratio
             :param prefix:the path
             :type prefix: list
             :param prefixLength: length
@@ -522,9 +523,10 @@ class CPGrowth(correlatedPatterns):
         minAllConf = self.minAllConf
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
-        self.frequentOneItem()
         self.finalPatterns = {}
+        self.frequentOneItem()
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
+        print(len(self.mapSupport))
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
             transaction = []
@@ -537,11 +539,12 @@ class CPGrowth(correlatedPatterns):
         if len(self.tree.headerList) > 0:
             self.itemSetBuffer = []
             self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport)
+        print(len(self.finalPatterns))
         print("Correlated Frequent patterns were generated successfully using CorrelatedPatternGrowth algorithm")
         self.endTime = time.time()
-        process = psutil.Process(os.getpid())
         self.memoryUSS = float()
         self.memoryRSS = float()
+        process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -636,13 +639,15 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-        l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        l = [0.0007, 0.0009, 0.01]
         for i in l:
-            ap = CPGrowth(sys.argv[1], sys.argv[3], float(sys.argv[4]), sys.argv[5])
+            ap = CPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_retail.csv',
+                          0.0007, 0.2)
             ap.startMine()
+            print(ap.minSup, ap.minAllConf, len(ap.Database))
             correlatedPatterns = ap.getPatterns()
             print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
-            ap.savePatterns(sys.argv[2])
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()

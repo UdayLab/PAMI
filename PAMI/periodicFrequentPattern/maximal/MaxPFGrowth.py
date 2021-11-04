@@ -512,11 +512,14 @@ class MaxPFGrowth(periodicFrequentPatterns):
     rankedUp = {}
     lno = 0
 
+    def __init__(self, iFile, minSup, maxPer, sep='\t'):
+        super().__init__(iFile, minSup, maxPer, sep)
+
     def creatingItemSets(self):
         """ Storing the complete Databases of the database/input file in a database variable
             :rtype: storing transactions into Database variable
         """
-
+        self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
             data, ts = [], []
             if self.iFile.empty:
@@ -527,8 +530,7 @@ class MaxPFGrowth(periodicFrequentPatterns):
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
             for i in range(len(data)):
-                tr = [ts[i][0]]
-                tr = tr + data[i]
+                tr = [ts[i][0]] + data[i]
                 self.Database.append(tr)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
@@ -667,7 +669,6 @@ class MaxPFGrowth(periodicFrequentPatterns):
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedDatabases, info)
         Tree.generatePatterns([])
-        self.finalPatterns = {}
         for x, y in patterns.items():
             sample = str()
             for i in x:
@@ -762,4 +763,19 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [0.001, 0.01]
+        for i in l:
+            ap = MaxPFGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
+                         i, 0.02)
+            ap.startMine()
+            print(ap.minSup, ap.maxPer, len(ap.Database))
+            correlatedPatterns = ap.getPatterns()
+            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")        
