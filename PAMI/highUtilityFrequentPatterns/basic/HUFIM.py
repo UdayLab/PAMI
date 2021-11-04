@@ -347,7 +347,7 @@ class HUFIM(utilityPatterns):
         
         from PAMI.highUtilityFrequentPatterns.basic import HUFIM as alg
 
-        obj=alg.RHUIM("input.txt", 35, 20)
+        obj=alg.HUFIM("input.txt", 35, 20)
 
         obj.startMine()
 
