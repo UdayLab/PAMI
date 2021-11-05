@@ -98,7 +98,7 @@ class Transaction:
 
     def getSupport(self):
         """
-            A method to return support in a transaction
+            A method to return support of a transaction (number of transactions in the original database having the items present in this transactions)
         """
         return self.support
 
