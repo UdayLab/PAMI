@@ -1,4 +1,3 @@
-import sys
 import pandas as pd
 import functools
 from abstract import *
@@ -13,21 +12,21 @@ class Element:
         ts : int
             keep tact of transaction id
         snu : int
-            Spatial non closed itemset utility
-        snru : int
+            Spatial non closed itemSet utility
+        remainingUtility : int
             Spatial non closed remaining utility
         pu : int
             prefix utility
-        ppos: int
+        prevPos: int
             position of previous item in the list
     """
 
-    def __init__(self, ts, snu, snru, pu, ppos):
+    def __init__(self, ts, snu, remainingUtility, pu, prevPos):
         self.ts = ts
         self.snu = snu
-        self.snru = snru
+        self.remainingUtility = remainingUtility
         self.pu = pu
-        self.ppos = ppos
+        self.prevPos = prevPos
 
 
 class CUList:
@@ -40,7 +39,7 @@ class CUList:
             item 
         sumSnu: long
             the sum of item utilities
-        sumSnru: long
+        sumRemainingUtility: long
             the sum of remaining utilities
         sumCu : long
             the sum of closed utilities
@@ -61,7 +60,7 @@ class CUList:
     def __init__(self, item):
         self.item = item
         self.sumSnu = 0
-        self.sumSnru = 0
+        self.sumRemainingUtility = 0
         self.sumCu = 0
         self.sumCru = 0
         self.sumCpu = 0
@@ -70,11 +69,11 @@ class CUList:
     def addElements(self, element):
         """
             A method to add new element to CUList
-            :param element: element to be addeed to CUList
+            :param element: element to be added to CUList
             :type element: Element
         """
         self.sumSnu += element.snu
-        self.sumSnru += element.snru
+        self.sumRemainingUtility += element.remainingUtility
         self.elements.append(element)
 
 
@@ -90,9 +89,9 @@ class Pair:
 
 class HDSHUIM(utilityPatterns):
     """
-        Spatial High Utility Itemset Mining (SHUIM) [3] is an important model in data
-        mining with many real-world applications. It involves finding all spatially interesting itemsets having high value 
-        in a quantitative spatiotemporal database.
+        Spatial High Utility ItemSet Mining (SHUIM) [3] is an important model in data
+        mining with many real-world applications. It involves finding all spatially interesting itemSets having high value 
+        in a quantitative spatio temporal database.
 
     Attributes :
     ----------
@@ -101,7 +100,7 @@ class HDSHUIM(utilityPatterns):
         oFile : str
             Name of the output file to store complete set of frequent patterns
         nFile: str
-           Name of Neighbourhoof items file
+           Name of Neighbourhood items file
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
         startTime:float
@@ -113,11 +112,11 @@ class HDSHUIM(utilityPatterns):
         mapFMAP: list
             EUCS map of the FHM algorithm
         candidates: int
-            candidates genetated
+            candidates generated
         huiCnt: int
             huis created
         neighbors: map
-            keep track of nighboues of elements
+            keep track of neighbours of elements
         mapOfPMU: map
             a map to keep track of Probable Maximum utilty(PMU) of each item
     Methods :
@@ -128,7 +127,7 @@ class HDSHUIM(utilityPatterns):
                 Complete set of patterns will be retrieved with this function
             savePatterns(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
-            construcCUL(x, culs, st, minUtil, length, exnighbors)
+            constructCUL(x, compactUList, st, minUtil, length, exneighbours)
                 A method to construct CUL's database
             getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -138,13 +137,13 @@ class HDSHUIM(utilityPatterns):
                 Total amount of RSS memory consumed by the mining process will be retrieved from this function
             getRuntime()
                 Total amount of runtime taken by the mining process will be retrieved from this function
-            Explore_SearchTree(prefix, uList, ExNeighbors, minUtil)
-                A method to find all high utility itemsets
-            UpdateCLosed(x, culs, st, excul, newT, ex, ey_ts, length)
+            Explore_SearchTree(prefix, uList, exNeighbours, minUtil)
+                A method to find all high utility itemSets
+            updateClosed(x, compactUList, st, exCul, newT, ex, eyTs, length)
                 A method to update closed values
-            saveItemset(prefix, prefixlen, item, utility)
-               A method to save itemsets
-            updateElement(z, culs, st, excul, newT, ex, duppos, ey_ts)
+            saveItemset(prefix, prefixLen, item, utility)
+               A method to save itemSets
+            updateElement(z, compactUList, st, exCul, newT, ex, duPrevPos, eyTs)
                A method to updates vales for duplicates
 
 
@@ -162,7 +161,7 @@ class HDSHUIM(utilityPatterns):
     Sample run of importing the code:
     -------------------------------
         
-        from PAMI.hightUtilityFrequentSpatialPaattern.basic import HDSHUIM as alg
+        from PAMI.highUtilityFrequentSpatialPattern.basic import HDSHUIM as alg
 
         obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 
@@ -218,7 +217,7 @@ class HDSHUIM(utilityPatterns):
 
     def compareItems(self, o1, o2):
         """
-            A method to sort  list of huis in pmu asending order
+            A method to sort  list of huis in pmu ascending order
         """
         compare = self.mapOfPMU[o1.item] - self.mapOfPMU[o2.item]
         if compare == 0:
@@ -289,226 +288,226 @@ class HDSHUIM(utilityPatterns):
                     pair = Pair()
                     pair.item = items[i]
                     pair.utility = int(utilities[i])
-                    if (self.mapOfPMU.get(pair.item) >= minUtil):
+                    if self.mapOfPMU.get(pair.item) >= minUtil:
                         revisedTrans.append(pair)
                         tx_key.append(pair.item)
                         newTwu += pair.utility
                 revisedTrans.sort(key=functools.cmp_to_key(self.compareItems))
                 tx_key1 = tuple(tx_key)
-                if (len(revisedTrans) > 0):
+                if len(revisedTrans) > 0:
                     if tx_key1 not in hashTable.keys():
                         hashTable[tx_key1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans) - 1].item].elements)
                         for i in range(len(revisedTrans) - 1, -1, -1):
                             pair = revisedTrans[i]
-                            cuListoFItems = mapItemsToCUList.get(pair.item)
+                            cuListOfItems = mapItemsToCUList.get(pair.item)
                             element = Element(ts, pair.utility, ru, 0, 0)
-                            if (i > 0):
-                                element.ppos = len(mapItemsToCUList[revisedTrans[i - 1].item].elements)
+                            if i > 0:
+                                element.prevPos = len(mapItemsToCUList[revisedTrans[i - 1].item].elements)
                             else:
-                                element.ppos = -1
-                            cuListoFItems.addElements(element)
+                                element.prevPos = -1
+                            cuListOfItems.addElements(element)
                             ru += pair.utility
                     else:
                         pos = hashTable[tx_key1]
                         ru = 0
                         for i in range(len(revisedTrans) - 1, -1, -1):
-                            cuListoFItems = mapItemsToCUList[revisedTrans[i].item]
-                            cuListoFItems.elements[pos].snu += revisedTrans[i].utility
-                            cuListoFItems.elements[pos].snru += ru
-                            cuListoFItems.sumSnu += revisedTrans[i].utility
-                            cuListoFItems.sumSnru += ru
+                            cuListOfItems = mapItemsToCUList[revisedTrans[i].item]
+                            cuListOfItems.elements[pos].snu += revisedTrans[i].utility
+                            cuListOfItems.elements[pos].remainingUtility += ru
+                            cuListOfItems.sumSnu += revisedTrans[i].utility
+                            cuListOfItems.sumRemainingUtility += ru
                             ru += revisedTrans[i].utility
-                            pos = cuListoFItems.elements[pos].ppos
+                            pos = cuListOfItems.elements[pos].prevPos
                 # EUCS
                 for i in range(len(revisedTrans) - 1, -1, -1):
                     pair = revisedTrans[i]
                     mapFMAPItem = self.mapFMAP.get(pair.item)
-                    if (mapFMAPItem == None):
+                    if mapFMAPItem is None:
                         mapFMAPItem = {}
                         self.mapFMAP[pair.item] = mapFMAPItem
                     for j in range(i + 1, len(revisedTrans)):
                         pairAfter = revisedTrans[j]
                         twuSUm = mapFMAPItem.get(pairAfter.item)
-                        if (twuSUm == None):
+                        if twuSUm is None:
                             mapFMAPItem[pairAfter.item] = newTwu
                         else:
                             mapFMAPItem[pairAfter.item] = twuSUm + newTwu
                 ts += 1
-        ExNeighbors = set(self.mapOfPMU.keys())
+        exNeighbours = set(self.mapOfPMU.keys())
         # print(self.Neighbours)
-        self.Explore_SearchTree([], listOfCUList, ExNeighbors, minUtil)
+        self.Explore_SearchTree([], listOfCUList, exNeighbours, minUtil)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
-    def Explore_SearchTree(self, prefix, uList, ExNeighbors, minUtil):
+    def Explore_SearchTree(self, prefix, uList, exNeighbours, minUtil):
         """
-            A method to find all high utility itemsets
+            A method to find all high utility itemSets
 
             Attributes:
             -----------
             :parm prefix: it represent all items in prefix
             :type prefix :list
-            :parm uList:projectd Utility list
+            :parm uList:projected Utility list
             :type uList: list
-            :parm ExNeighbors: keep track of common Neighbours
-            :type ExNeighbors: set
+            :parm exNeighbours: keep track of common Neighbours
+            :type exNeighbours: set
             :parm minUtil:user minUtil
             :type minUtil:int
         """
         for i in range(0, len(uList)):
             x = uList[i]
-            if not x.item in ExNeighbors:
+            if x.item not in exNeighbours:
                 continue
             self.candidates += 1
-            soted_prefix = [0] * (len(prefix) + 1)
-            soted_prefix = prefix[0:len(prefix) + 1]
-            soted_prefix.append(x.item)
-            if (x.sumSnu + x.sumCu >= minUtil) and (x.item in ExNeighbors):
+            sortedPrefix = [0] * (len(prefix) + 1)
+            sortedPrefix = prefix[0:len(prefix) + 1]
+            sortedPrefix.append(x.item)
+            if (x.sumSnu + x.sumCu >= minUtil) and (x.item in exNeighbours):
                 self.saveItemset(prefix, len(prefix), x.item, x.sumSnu + x.sumCu)
-            if x.sumSnu + x.sumCu + x.sumSnru + x.sumCru >= minUtil:  # U-Prune # and (x.item in ExNeighbors)):
+            if x.sumSnu + x.sumCu + x.sumRemainingUtility + x.sumCru >= minUtil:  # U-Prune # and (x.item in exNeighbours)):
                 ULIST = []
                 for j in range(i, len(uList)):
-                    if (uList[j].item in ExNeighbors) and (self.neighbors.get(x.item) != None) and (
+                    if (uList[j].item in exNeighbours) and (self.neighbors.get(x.item) != None) and (
                             uList[j].item in self.neighbors.get(x.item)):
                         ULIST.append(uList[j])
-                exULs = self.construcCUL(x, ULIST, -1, minUtil, len(soted_prefix), ExNeighbors)
-                if self.neighbors.get(x.item) != None and ExNeighbors != None:
-                    set1 = ExNeighbors.intersection(self.neighbors.get(x.item))
+                exULs = self.constructCUL(x, ULIST, -1, minUtil, len(sortedPrefix), exNeighbours)
+                if self.neighbors.get(x.item) != None and exNeighbours != None:
+                    set1 = exNeighbours.intersection(self.neighbors.get(x.item))
                     if exULs == None or set1 == None:
                         continue
-                    self.Explore_SearchTree(soted_prefix, exULs, set1, minUtil)
+                    self.Explore_SearchTree(sortedPrefix, exULs, set1, minUtil)
 
-    def construcCUL(self, x, culs, st, minUtil, length, exnighbors):
+    def constructCUL(self, x, compactUList, st, minUtil, length, exNeighbours):
         """
             A method to construct CUL's database
 
             Attributes:
             -----------
             :parm x: Compact utility list
-            :type x: list
-            :parm culs:list of Compact utility lists
-            :type culs:list
-            :parm st: starting pos of culs
+            :type x: Node
+            :parm compactUList:list of Compact utility lists
+            :type compactUList:list
+            :parm st: starting pos of compactUList
             :type st:int
             :parm minUtil: user minUtil
             :type minUtil:int
             :parm length: length of x
             :type length:int
-            :parm exnighbors: common Neighbours
-            :type exnighbors: list
-            :return: projectd database of list X
-            :rtype: list
+            :parm exNeighbours: common Neighbours
+            :type exNeighbours: list
+            :return: projected database of list X
+            :rtype: list or set
         """
-        excul = []
+        exCul = []
         lau = []
-        cutil = []
-        ey_ts = []
-        for i in range(0, len(culs)):
-            uList = CUList(culs[i].item)
-            excul.append(uList)
+        cUtil = []
+        eyTs = []
+        for i in range(0, len(compactUList)):
+            uList = CUList(compactUList[i].item)
+            exCul.append(uList)
             lau.append(0)
-            cutil.append(0)
-            ey_ts.append(0)
-        sz = len(culs) - (st + 1)
+            cUtil.append(0)
+            eyTs.append(0)
+        sz = len(compactUList) - (st + 1)
         exSZ = sz
-        for j in range(st + 1, len(culs)):
+        for j in range(st + 1, len(compactUList)):
             mapOfTWUF = self.mapFMAP[x.item]
-            if (mapOfTWUF != None):
-                twuf = mapOfTWUF.get(culs[j].item)
-                if twuf != None and twuf < minUtil or (not (excul[j].item in exnighbors)):
-                    excul[j] = None
+            if mapOfTWUF is not None:
+                twuf = mapOfTWUF.get(compactUList[j].item)
+                if twuf != None and twuf < minUtil or (not (exCul[j].item in exNeighbours)):
+                    exCul[j] = None
                     exSZ = sz - 1
                 else:
-                    uList = CUList(culs[j].item)
-                    excul[j] = uList
-                    ey_ts[j] = 0
-                    lau[j] = x.sumCu + x.sumCru + x.sumSnu + x.sumSnru
-                    cutil[j] = x.sumCu + x.sumCru
+                    uList = CUList(compactUList[j].item)
+                    exCul[j] = uList
+                    eyTs[j] = 0
+                    lau[j] = x.sumCu + x.sumCru + x.sumSnu + x.sumRemainingUtility
+                    cUtil[j] = x.sumCu + x.sumCru
         hashTable = {}
         for ex in x.elements:
             newT = []
-            for j in range(st + 1, len(culs)):
-                if excul[j] == None:
+            for j in range(st + 1, len(compactUList)):
+                if exCul[j] == None:
                     continue
-                eylist = culs[j].elements
-                while ey_ts[j] < len(eylist) and eylist[ey_ts[j]].ts < ex.ts:
-                    ey_ts[j] = ey_ts[j] + 1
-                if ey_ts[j] < len(eylist) and eylist[ey_ts[j]].ts == ex.ts:
+                eyList = compactUList[j].elements
+                while eyTs[j] < len(eyList) and eyList[eyTs[j]].ts < ex.ts:
+                    eyTs[j] = eyTs[j] + 1
+                if eyTs[j] < len(eyList) and eyList[eyTs[j]].ts == ex.ts:
                     newT.append(j)
                 else:
-                    lau[j] = lau[j] - ex.snu - ex.snru
+                    lau[j] = lau[j] - ex.snu - ex.remainingUtility
                     if lau[j] < minUtil:
-                        excul[j] = None
+                        exCul[j] = None
                         exSZ = exSZ - 1
             if len(newT) == exSZ:
-                self.UpdateCLosed(x, culs, st, excul, newT, ex, ey_ts, length)
+                self.updateClosed(x, compactUList, st, exCul, newT, ex, eyTs, length)
             else:
                 if len(newT) == 0:
                     continue
                 ru = 0
                 newT1 = tuple(newT)
                 if newT1 not in hashTable.keys():
-                    hashTable[newT1] = len(excul[newT[len(newT) - 1]].elements)
+                    hashTable[newT1] = len(exCul[newT[len(newT) - 1]].elements)
                     for i in range(len(newT) - 1, -1, -1):
-                        cuListoFItems = excul[newT[i]]
-                        y = culs[newT[i]].elements[ey_ts[newT[i]]]
+                        cuListOfItems = exCul[newT[i]]
+                        y = compactUList[newT[i]].elements[eyTs[newT[i]]]
                         element = Element(ex.ts, ex.snu + y.snu - ex.pu, ru, ex.snu, 0)
-                        if (i > 0):
-                            element.ppos = len(excul[newT[i - 1]].elements)
+                        if i > 0:
+                            element.prevPos = len(exCul[newT[i - 1]].elements)
                         else:
-                            element.ppos = -1
-                        cuListoFItems.addElements(element)
+                            element.prevPos = -1
+                        cuListOfItems.addElements(element)
                         ru += y.snu - ex.pu
                 else:
-                    dppos = hashTable[newT1]
-                    self.updateElement(x, culs, st, excul, newT, ex, dppos, ey_ts)
-            for j in range(st + 1, len(culs)):
-                cutil[j] = cutil[j] + ex.snu + ex.snru
-        filter_culs = []
-        for j in range(st + 1, len(culs)):
-            if cutil[j] < minUtil or excul[j] == None:
+                    dPrevPos = hashTable[newT1]
+                    self.updateElement(x, compactUList, st, exCul, newT, ex, dPrevPos, eyTs)
+            for j in range(st + 1, len(compactUList)):
+                cUtil[j] = cUtil[j] + ex.snu + ex.remainingUtility
+        filter_compactUList = []
+        for j in range(st + 1, len(compactUList)):
+            if cUtil[j] < minUtil or exCul[j] is None:
                 continue
             else:
                 if length > 1:
-                    excul[j].sumCu += culs[j].sumCu + x.sumCu - x.sumCpu
-                    excul[j].sumCru += culs[j].sumCru
-                    excul[j].sumCpu += x.sumCu
-                filter_culs.append(excul[j])
-        return filter_culs
+                    exCul[j].sumCu += compactUList[j].sumCu + x.sumCu - x.sumCpu
+                    exCul[j].sumCru += compactUList[j].sumCru
+                    exCul[j].sumCpu += x.sumCu
+                filter_compactUList.append(exCul[j])
+        return filter_compactUList
 
-    def UpdateCLosed(self, x, culs, st, excul, newT, ex, ey_ts, length):
+    def updateClosed(self, x, compactUList, st, exCul, newT, ex, eyTs, length):
         """
             A method to update closed values
             Attributes:
             -----------
             :parm x: Compact utility list
             :type x: list
-            :parm culs:list of Compact utility lists
-            :type culs:list
-            :parm st: starting pos of culs
+            :parm compactUList:list of Compact utility lists
+            :type compactUList:list
+            :parm st: starting pos of compactUList
             :type st:int
             :parm newT:transaction to be updated
             :type newT:list
             :parm ex: element ex
             :type ex:element
-            :parm ey_ts:list of tss
-            :type ey_ts:ts
+            :parm eyTs:list of tss
+            :type eyTs:ts
             :parm length: length of x
             :type length:int
 
         """
-        snru = 0
+        remainingUtility = 0
         for j in range(len(newT) - 1, -1, -1):
-            ey = culs[newT[j]]
-            eyy = ey.elements[ey_ts[newT[j]]]
-            excul[newT[j]].sumCu += ex.snu + eyy.snu - ex.pu
-            excul[newT[j]].sumCru += snru
-            excul[newT[j]].sumCpu += ex.snu
-            snru = snru + eyy.snu - ex.pu
+            ey = compactUList[newT[j]]
+            eyy = ey.elements[eyTs[newT[j]]]
+            exCul[newT[j]].sumCu += ex.snu + eyy.snu - ex.pu
+            exCul[newT[j]].sumCru += remainingUtility
+            exCul[newT[j]].sumCpu += ex.snu
+            remainingUtility = remainingUtility + eyy.snu - ex.pu
 
-    def updateElement(self, z, culs, st, excul, newT, ex, duppos, ey_ts):
+    def updateElement(self, z, compactUList, st, exCul, newT, ex, duPrevPos, eyTs):
         """
             A method to updates vales for duplicates
 
@@ -516,57 +515,54 @@ class HDSHUIM(utilityPatterns):
             -----------
             :parm z: Compact utility list
             :type z: list
-            :parm culs:list of Compact utility lists
-            :type culs:list
-            :parm st: starting pos of culs
+            :parm compactUList:list of Compact utility lists
+            :type compactUList:list
+            :parm st: starting pos of compactUList
             :type st:int
-            :parm excul:list of culs
-            :type excul:list
+            :parm exCul:list of compactUList
+            :type exCul:list
             :parm newT:transaction to be updated
             :type newT:list
             :parm ex: element ex
             :type ex:element
-            :parm duppos: position of z in excul
-            :type duppos:int
-            :parm ey_ts:list of tss
-            :type ey_ts:ts
+            :parm duPrevPos: position of z in exCul
+            :type duPrevPos:int
+            :parm eyTs:list of tss
+            :type eyTs:ts
         """
-        snru = 0
-        pos = duppos
+        remainingUtility = 0
+        pos = duPrevPos
         for j in range(len(newT) - 1, -1, -1):
-            ey = culs[newT[j]]
-            eyy = ey.elements[ey_ts[newT[j]]]
-            excul[newT[j]].elements[pos].snu += ex.snu + eyy.snu - ex.pu
-            excul[newT[j]].sumSnu += ex.snu + eyy.snu - ex.pu
-            excul[newT[j]].elements[pos].snru += snru
-            excul[newT[j]].sumSnru += snru
-            excul[newT[j]].elements[pos].pu += ex.snu
-            snru = snru + eyy.snu - ex.pu
-            pos = excul[newT[j]].elements[pos].ppos
+            ey = compactUList[newT[j]]
+            eyy = ey.elements[eyTs[newT[j]]]
+            exCul[newT[j]].elements[pos].snu += ex.snu + eyy.snu - ex.pu
+            exCul[newT[j]].sumSnu += ex.snu + eyy.snu - ex.pu
+            exCul[newT[j]].elements[pos].remainingUtility += remainingUtility
+            exCul[newT[j]].sumRemainingUtility += remainingUtility
+            exCul[newT[j]].elements[pos].pu += ex.snu
+            remainingUtility = remainingUtility + eyy.snu - ex.pu
+            pos = exCul[newT[j]].elements[pos].prevPos
 
-    def saveItemset(self, prefix, prefixlen, item, utility):
+    def saveItemset(self, prefix, prefixLen, item, utility):
         """
-         A method to save itemsets
+         A method to save itemSets
 
          Attributes:
         -----------
         :parm prefix: it represent all items in prefix
         :type prefix :list
-        :pram prefixLen: length of prefix
-        :type prefixLen:int
         :parm item:item
         :type item: int
-        :parm utility:utlity of itemset
+        :parm utility:utility of itemset
         :type utility:int
         """
         self.hui_cnt += 1
         res = ""
-        for i in range(0, prefixlen):
+        for i in range(0, prefixLen):
             res += str(prefix[i]) + " "
         res += str(item)
         res1 = str(utility)
         self.finalPatterns[res] = res1
-        # self.bwriter.write(res)
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -630,8 +626,9 @@ class HDSHUIM(utilityPatterns):
 
 
 if __name__ == "__main__":
+    ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:  # to  include a user specifed separator
+        if len(sys.argv) == 6:  # to  include a user specified separator
             ap = HDSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])
         if len(sys.argv) == 5:  # to consider "\t" as a separator
             ap = HDSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))

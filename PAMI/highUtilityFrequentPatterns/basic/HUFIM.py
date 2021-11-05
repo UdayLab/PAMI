@@ -181,47 +181,63 @@ class Dataset:
     def createItemSets(self, datasetPath):
         self.Database = []
         if isinstance(datasetPath, pd.DataFrame):
-            utilities, data = [], []
+            utilities, data, utilitySum = [], [], []
             if datasetPath.empty:
                 print("its empty..")
             i = datasetPath.columns.values.tolist()
             if 'Transactions' in i:
                 data = datasetPath['Transactions'].tolist()
             if 'utilities' in i:
-                utilities = datasetPath['Patterns'].tolist()
-            self.transactions.append(self.createTransaction(data))
+                utilities = datasetPath['utilities'].tolist()
+            if 'utilitySum' in i:
+                utilitySum = datasetPath['utilitySum'].tolist()
+            for k in range(len(data)):
+                self.transactions.append(self.createTransaction(data[k], utilities[k], utilitySum[k]))
         if isinstance(datasetPath, str):
             if validators.url(datasetPath):
                 data = urlopen(datasetPath)
                 for line in data:
                     line = line.decode("utf-8")
-                    self.transactions.append(self.createTransaction(line))
+                    trans_list = line.strip().split(':')
+                    transactionUtility = int(trans_list[1])
+                    itemsString = trans_list[0].strip().split(self.sep)
+                    itemsString = [x for x in itemsString if x]
+                    utilityString = trans_list[2].strip().split(self.sep)
+                    utilityString = [x for x in utilityString if x]
+                    self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility))
             else:
                 try:
                     with open(datasetPath, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.transactions.append(self.createTransaction(line))
+                            trans_list = line.strip().split(':')
+                            transactionUtility = int(trans_list[1])
+                            itemsString = trans_list[0].strip().split(self.sep)
+                            itemsString = [x for x in itemsString if x]
+                            utilityString = trans_list[2].strip().split(self.sep)
+                            utilityString = [x for x in utilityString if x]
+                            self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility))
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def createTransaction(self, line):
+    def createTransaction(self, items, utilities, utilitySum):
         """
             A method to create Transaction from dataset given
             
             Attributes:
             -----------
-            :param line: represent a single line of database
-            :type line: string
+            :param items: represent a single line of database
+            :type items: list
+            :param utilities: represent a utilities of items
+            :type utilities: list
+            :param utilitySum: represent a the utilitySum
+            :type items: int
             :return : Transaction
             :rtype: Transaction
         """
-        trans_list = line.strip().split(':')
-        transactionUtility = int(trans_list[1])
-        itemsString = trans_list[0].strip().split(self.sep)
-        itemsString = [x for x in itemsString if x]
-        utilityString = trans_list[2].strip().split(self.sep)
-        utilityString = [x for x in utilityString if x]
+        transactionUtility = utilitySum
+        itemsString = items
+        utilityString = utilities
         items = []
         utilities = []
         for idx, item in enumerate(itemsString):
@@ -252,7 +268,8 @@ class Dataset:
 class HUFIM(utilityPatterns):
     """
     HUFIM (High Utility Frequent Itemset Miner) algorithm helps us to mine High Utility Frequent ItemSets (HUFIs) from transactional databases.
-    
+
+
     Reference:
     ---------
         Kiran, R.U., Reddy, T.Y., Fournier-Viger, P., Toyoda, M., Reddy, P.K., & Kitsuregawa, M. (2019).
@@ -404,6 +421,26 @@ class HUFIM(utilityPatterns):
     def __init__(self, iFile, minUtil, minSup, sep="\t"):
         super().__init__(iFile, minUtil, minSup, sep)
 
+    def convert(self, value):
+        """
+        To convert the given user specified value
+
+        :param value: user specified value
+        :return: converted value
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self.dataset.getTransactions()) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self.dataset.getTransactions()) * value)
+            else:
+                value = int(value)
+        return value
+
+
     def startMine(self):
         self.startTime = time.time()
         self.dataset = Dataset(self.iFile, self.sep)
@@ -411,10 +448,10 @@ class HUFIM(utilityPatterns):
         self.singleItemSetsUtility = defaultdict(int)
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
         self.minUtil = int(self.minUtil)
-        self.minSup = int((self.minSup * len(self.dataset.getTransactions())) / 100)
-        print("######################################")
-        print("given minimum support is", self.minSup)
-        print("given minimum utility is", self.minUtil)
+        self.minSup = self.convert(self.minSup)
+        #print("######################################")
+        #print("given minimum support is", self.minSup)
+        #print("given minimum utility is", self.minUtil)
         itemsToKeep = []
         for key in self.utilityBinArrayLU.keys():
             if self.utilityBinArrayLU[key] >= self.minUtil and self.singleItemSetsSupport[key] >= self.minSup:
@@ -812,4 +849,19 @@ if __name__ == '__main__':
         print("Total ExecutionTime in seconds:", run)
         print("######################################")
     else:
+        l = [0.004, 0.005, 0.006, 0.007, 0.008]
+        for i in l:
+            ap = HUFIM('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt',
+                   i, 0.3, ' ')
+            ap.startMine()
+            patterns = ap.getPatterns()
+            print("Total number of High Utility Frequent Patterns:", ap.patternCount)
+            print("Total number of Candidate Patterns:", ap.candidateCount)
+            ap.savePatterns('/home/apiiit-rkv/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

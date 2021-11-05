@@ -192,29 +192,32 @@ class Tree(object):
 
         global maxPer,minPS
         timeStamps.sort()
-        if len(timeStamps)>0:
-            cur=timeStamps[0]
-            st=timeStamps[0]
-            end=timeStamps[0]
-        ps=0
-        lps=1
-        recli=[]
-        for i in range(1,len(timeStamps)):
-            if abs(timeStamps[i]-cur)<=maxPer:
-                lps+=1
+        cur = ' '
+        st = ' '
+        end = ' '
+        if len(timeStamps) > 0:
+            cur = timeStamps[0]
+            st = timeStamps[0]
+            end = timeStamps[0]
+        ps = 0
+        lps = 1
+        recli = []
+        for i in range(1, len(timeStamps)):
+            if abs(timeStamps[i] - cur) <= maxPer:
+                lps += 1
             else:
                 if lps >= minPS:
-                    recli.append([st,end,lps])
-                    ps+=lps
-                lps=1
-                st=timeStamps[i]
-            cur=timeStamps[i]
-            end=cur
-        if lps>=minPS:
-            recli.append([st,end,lps])
+                    recli.append([st, end, lps])
+                    ps += lps
+                lps = 1
+                st = timeStamps[i]
+            cur = timeStamps[i]
+            end = cur
+        if lps >= minPS:
+            recli.append([st, end, lps])
             ps+=lps
         # print(recli)
-        return [recli,ps,len(timeStamps)]
+        return [recli, ps, len(timeStamps)]
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps):
         """ It generates the conditional patterns with periodic-frequent items
@@ -423,8 +426,6 @@ class RPGrowth(recurringPatterns):
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
@@ -673,16 +674,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = RPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                      100, 1000, 2)
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Patterns:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -391,7 +391,7 @@ class UPGrowth(utilityPatterns):
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
             if 'Utilities' in i:
-                data = self.iFile['Patterns'].tolist()
+                data = self.iFile['Utilities'].tolist()
             for i in range(len(data)):
                 tr = [timeStamp[i]]
                 tr.append(data[i])
@@ -618,7 +618,7 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = UPGrowth('/home/apiiit-rkv/Downloads/Reaserch/maximal/retail_utility_spmf.txt', 500000, ' ')
+        ap = UPGrowth('/home/apiiit-rkv/Downloads/Reaserch/maximal/retail_utility_spmf.txt', 20000, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of huis:", len(Patterns))
