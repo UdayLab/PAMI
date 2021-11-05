@@ -280,7 +280,7 @@ class generatePFListver2:
             if self.PFList[item][1] / (self.minSup + 1) < self.minPR or self.PFList[item][1] < self.minSup:
                 del self.tsList[item]
         #self.PFList = {tuple([k]): v for k, v in sorted(self.PFList.items(), key=lambda x:x[1], reverse=True)}
-        tidList = {tuple([k]): v for k, v in sorted(tidList.items(), key=lambda x:len(x[1]), reverse=True)}
+        tidList = {tuple([k]): v for k, v in sorted(self.tsList.items(), key=lambda x:len(x[1]), reverse=True)}
         orderOfItem = tidList.copy()
         return tidList, last
 
@@ -331,9 +331,9 @@ class generatePFTreever2:
         tid = 1
         for transaction in self.Database:
             timestamp = int(transaction[0])
-            transaction = [item for item in transaction[1:] if item in self.tidList]
+            transaction = [tuple([item]) for item in transaction[1:] if tuple([item]) in self.tidList]
             transaction = sorted(transaction, key=lambda x: len(self.tidList[x]), reverse=True)
-            self.root.addTransaction(transaction, timestamp, tid)
+            self.root.addTransaction(transaction, timestamp)
             tid += 1
         return self.root
 
@@ -521,6 +521,7 @@ class GPFgrowth(partialPeriodicPatterns):
     """
     iFile = ' '
     oFile = ' '
+    sep = str()
     startTime = float()
     endTime = float()
     minSup = str()
@@ -532,19 +533,25 @@ class GPFgrowth(partialPeriodicPatterns):
     memoryRSS = float()
     Database = []
 
-    def convert(self):
-        if type(self.minSup) == float:
-            self.minSup *= len(self.Database)
-        else:
-            self.minSup = int(self.minSup)
-        if type(self.maxPer) == float:
-            self.maxPer *= len(self.Database)
-        else:
-            self.maxPer = int(self.maxPer)
-        if type(self.minPR) == float:
-            self.minPR *= len(self.Database)
-        else:
-            self.minPR = float(self.minPR)
+    def convert(self, value):
+        """
+        to convert the type of user specified minSup value
+
+        :param value: user specified minSup value
+
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self.Database) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self.Database) * value)
+            else:
+                value = int(value)
+        return value
 
     def readDatabase(self):
         if isinstance(self.inputFile, pd.DataFrame):
@@ -583,7 +590,7 @@ class GPFgrowth(partialPeriodicPatterns):
         self.readDatabase()
         self.minSup = self.convert(self.minSup)
         self.maxPer = self.convert(self.maxPer)
-        self.minPR = self.convert(self.minPR)
+        # self.minPR = self.convert(self.minPR)
         self.finalPatterns = {}
         obj = generatePFListver2(self.Database, self.minSup, self.maxPer, self.minPR)
         tidList, last = obj.run()
@@ -672,4 +679,16 @@ if __name__ == '__main__':
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = GPFgrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
+                     500, 1000, 0.8)
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        # ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -466,11 +466,11 @@ if __name__ == '__main__':
         print("Total ExecutionTime in ms:", run)
     else:
         ap = PPF_DFS('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                     15, 1000, 0.8)
+                     500, 1000, 0.8)
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+        # ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
