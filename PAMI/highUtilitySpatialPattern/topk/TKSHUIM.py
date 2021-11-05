@@ -381,7 +381,6 @@ class TKSHUIM(utilityPatterns):
                 emptyTransactionCount += 1
         self.dataset.transactions = self.dataset.transactions[emptyTransactionCount:]
         self.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self.dataset)
-        print("minUtil after using RD1 and RD2", self.minUtil)
         self.heapList = []
         itemsToExplore = []
         for item in itemsToKeep:
