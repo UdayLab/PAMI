@@ -1,6 +1,3 @@
-import sys
-import validators
-from urllib.request import urlopen
 import functools
 import pandas as pd
 from abstract import *
@@ -261,8 +258,11 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
     oFile = " "
     memoryUSS = float()
     memoryRSS = float()
-    sep = ""
+    sep = " "
     Database = []
+    transactions = []
+    fuzzyValues = []
+    ts = []
 
     def __init__(self, iFile, minSup, period, sep="\t"):
         super().__init__(iFile, minSup, period, sep)
@@ -289,7 +289,7 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         """
         compare = self.mapItemSum[o1.item] - self.mapItemSum[o2.item]
         if compare == 0:
-            return o1.item - o2.item
+            return int(o1.item) - int(o2.item)
         else:
             return compare
 
@@ -311,27 +311,44 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         return value
     
     def creatingItemSets(self):
-        self.Database = []
+        data, self.transactions, self.fuzzyValues, ts = [], [], [], []
         if isinstance(self.iFile, pd.DataFrame):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
+            if 'TS' in i:
+                self.ts = self.iFile['TS'].tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-            # print(self.Database)
+                self.transactions = self.iFile['Transactions'].tolist()
+            if 'fuzzyValues' in i:
+                self.fuzzyValues = self.iFile['fuzzyValues'].tolist()
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
                 for line in data:
                     line = line.decode("utf-8")
-                    self.Database.append(line)
+                    line = line.split("\n")[0]
+                    parts = line.split(":")
+                    parts[1] = parts[1].strip()
+                    parts[3] = parts[3].strip()
+                    items = parts[1].split(self.sep)
+                    quantities = parts[3].split(self.sep)
+                    self.ts.append(int(parts[0]))
+                    self.transactions.append([x for x in items])
+                    self.fuzzyValues.append([x for x in quantities])
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.Database.append(line)
+                            line = line.split("\n")[0]
+                            parts = line.split(":")
+                            parts[1] = parts[1].strip()
+                            parts[3] = parts[3].strip()
+                            items = parts[1].split(self.sep)
+                            quantities = parts[3].split(self.sep)
+                            self.ts.append(int(parts[0]))
+                            self.transactions.append([x for x in items])
+                            self.fuzzyValues.append([x for x in quantities])
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -345,14 +362,11 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
         self.startTime = time.time()
         self.creatingItemSets()
         self.finalPatterns = {}
-        for line in self.Database:
-            parts = line.split(":")
-            parts[1] = parts[1].strip()
-            parts[3] = parts[3].strip()
-            tid = int(parts[0])
+        for line in range(len(self.transactions)):
+            tid = int(self.ts[line])
             self.dbLen += 1
-            items = parts[1].split(self.sep)
-            quantities = parts[3].split(self.sep)
+            items = self.transactions[line]
+            quantities = self.fuzzyValues[line]
             if tid < maxTID:
                 maxTID = tid
             for i in range(0, len(items)):
@@ -404,14 +418,11 @@ class FPFPMiner(fuzzyPeriodicFrequentPatterns):
                 mapItemsToFFLIST[k] = fUList
                 listOfFFIList.append(fUList)
                 lastTIDs[item] = tid
-        listOfFFIList.sort(key=functools.cmp_to_key(self.compareItems))
-        for line in self.Database:
-            parts = line.split(":")
-            tid = int(parts[0])
-            parts[1] = parts[1].strip()
-            parts[3] = parts[3].strip()
-            items = parts[1].split(self.sep)
-            quantities = parts[3].split(self.sep)
+        #listOfFFIList.sort(key=functools.cmp_to_key(self.compareItems))
+        for line in range(len(self.transactions)):
+            tid = int(self.ts[line])
+            items = self.transactions[line]
+            quantities = self.fuzzyValues[line]
             revisedTransaction = []
             for i in range(0, len(items)):
                 pair = Pair()

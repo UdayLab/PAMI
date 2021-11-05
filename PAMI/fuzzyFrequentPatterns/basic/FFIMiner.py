@@ -1,6 +1,3 @@
-import sys
-import validators
-from urllib.request import urlopen
 import functools
 import pandas as pd
 from abstract import *
@@ -313,12 +310,26 @@ class FFIMiner(fuzzyFrequentPattenrs):
                 data = urlopen(self.iFile)
                 for line in data:
                     line = line.decode("utf-8")
-                    self.Database.append(line)
+                    line = line.split("\n")[0]
+                    parts = line.split(":")
+                    parts[0] = parts[0].strip()
+                    parts[2] = parts[2].strip()
+                    items = parts[0].split(self.sep)
+                    quantities = parts[2].split(self.sep)
+                    self.transactions.append([x for x in items])
+                    self.fuzzyValues.append([x for x in quantities])
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.Database.append(line)
+                            line = line.split("\n")[0]
+                            parts = line.split(":")
+                            parts[0] = parts[0].strip()
+                            parts[2] = parts[2].strip()
+                            items = parts[0].split(self.sep)
+                            quantities = parts[2].split(self.sep)
+                            self.transactions.append([x for x in items])
+                            self.fuzzyValues.append([x for x in quantities])
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -329,13 +340,9 @@ class FFIMiner(fuzzyFrequentPattenrs):
         """
         self.startTime = time.time()
         self.creatingItemsets()
-        for line in self.Database:
-            line = line.split("\n")[0]
-            parts = line.split(":")
-            parts[0] = parts[0].strip()
-            parts[2] = parts[2].strip()
-            items = parts[0].split(self.sep)
-            quantities = parts[2].split(self.sep)
+        for line in range(len(self.transactions)):
+            items = self.transactions[line]
+            quantities = self.fuzzyValues[line]
             self.dbLen += 1
             for i in range(0, len(items)):
                 regions = Regions(float(quantities[i]), 3)
@@ -382,13 +389,9 @@ class FFIMiner(fuzzyFrequentPattenrs):
                 listOfffilist.append(fuList)
         listOfffilist.sort(key=functools.cmp_to_key(self.compareItems))
         tid = 0
-        for line in self.Database:
-            line = line.split("\n")[0]
-            parts = line.split(":")
-            parts[0] = parts[0].strip()
-            parts[2] = parts[2].strip()
-            items = parts[0].split(self.sep)
-            quantities = parts[2].split(self.sep)
+        for line in range(len(self.transactions)):
+            items = self.transactions[line]
+            quantities = self.fuzzyValues[line]
             revisedTransaction = []
             for i in range(0, len(items)):
                 pair = Pair()

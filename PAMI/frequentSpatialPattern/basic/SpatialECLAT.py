@@ -307,7 +307,7 @@ class SpatialECLAT(spatialFrequentPatterns):
             if 'Neighbours' in i:
                 data = self.nFile['Neighbours'].tolist()
             for k in range(len(items)):
-                self.NeighboursMap[items[k][0]] = data[k]
+                self.NeighboursMap[items[k]] = data[k]
             # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):

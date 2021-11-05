@@ -377,10 +377,8 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
                         for line in f:
                             line = line.split("\n")[0]
                             parts = line.split(":")
-                            #parts[0] = parts[0].strip()
-                            #parts[2] = parts[2].strip()
-                            items = [i.rstrip() for i in parts[0].split(self.sep)]
-                            quantities = [i.rstrip() for i in parts[2].split(self.sep)]
+                            items = parts[0].split()
+                            quantities = parts[2].split()
                             self.transactions.append([x for x in items])
                             self.fuzzyValues.append([x for x in quantities])
                 except IOError:

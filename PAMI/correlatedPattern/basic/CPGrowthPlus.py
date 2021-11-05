@@ -418,6 +418,7 @@ class CPGrowthPlus(correlatedPatterns):
         Generating One frequent items sets
 
         """
+        self.mapSupport = {}
         for i in self.Database:
             for j in i:
                 if j not in self.mapSupport:
@@ -576,7 +577,6 @@ class CPGrowthPlus(correlatedPatterns):
             raise Exception("Please enter the Minimum Support")
         self.creatingItemSets()
         self.finalPatterns = {}
-        print(len(self.finalPatterns))
         self.minSup = self.convert(self.minSup)
         self.frequentOneItem()
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
@@ -593,7 +593,6 @@ class CPGrowthPlus(correlatedPatterns):
         if len(self.tree.headerList) > 0:
             self.itemSetBuffer = []
             self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport, self.minAllConf)
-        print(len(self.finalPatterns))
         print("Correlated Frequent patterns were generated successfully using CorrelatedPatternGrowth algorithm")
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
@@ -699,11 +698,10 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-        l = [0.0007, 0.0009, 0.01]
+        l = [0.0007, 0.0009, 0.001, 0.002, 0.003, 0.01]
         for i in l:
-            ap = CPGrowthPlus(
-                'https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_retail.csv',
-                0.0007, 0.2)
+            ap = CPGrowthPlus('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_retail.csv',
+                          i, 0.7)
             ap.startMine()
             print(ap.minSup, ap.minAllConf, len(ap.Database))
             correlatedPatterns = ap.getPatterns()

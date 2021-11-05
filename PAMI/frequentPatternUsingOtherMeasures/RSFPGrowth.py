@@ -206,6 +206,11 @@ class RSFPGrowth(frequentPatterns):
     """ 
         Algorithm to find all items with relative support from given dataset
 
+    Reference:
+    --------
+        'Towards Efficient Discovery of Frequent Patterns with Relative Support' R. Uday Kiran and
+               Masaru Kitsuregawa, http://comad.in/comad2012/pdf/kiran.pdf
+
     Attributes:
     ----------
         iFile : file
@@ -533,8 +538,9 @@ class RSFPGrowth(frequentPatterns):
         self.minSup = self.convert(self.minSup)
         self.minRatio = float(self.minRatio)
         self.frequentOneItem()
+        self.finalPatterns = {}
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        print(len(self.mapSupport))
+        print(len(self.mapSupport), len(self.finalPatterns), len(self.Database))
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
             transaction = []
@@ -657,19 +663,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        l = [0.006, 0.007, 0.008, 0.009, 0.01]
-        for i in l:
-            ap = RSFPGrowth(
-                'https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_T10I4D100K.csv',
-                0.008, 0.4)
-            ap.startMine()
-            correlatedPatterns = ap.getPatterns()
-            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")        

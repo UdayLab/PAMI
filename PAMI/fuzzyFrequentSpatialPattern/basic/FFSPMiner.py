@@ -1,7 +1,4 @@
-import sys
 import functools
-import validators
-from urllib.request import urlopen
 import pandas as pd
 from abstract import *
 
@@ -245,6 +242,8 @@ class FFSPMiner(fuzzySpatialFrequentPatterns):
     memoryUSS = float()
     memoryRSS = float()
     sep="\t"
+    transactions = []
+    fuzzyValues = []
 
     def __init__(self, iFile, nFile, minSup, sep="\t"):
         super().__init__(iFile, nFile, minSup, sep)
@@ -291,45 +290,53 @@ class FFSPMiner(fuzzySpatialFrequentPatterns):
         return value
 
     def creatingItemSets(self):
-        self.Database = []
+        self.transactions, self.fuzzyValues = [], []
         if isinstance(self.iFile, pd.DataFrame):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-            # print(self.Database)
+                self.transactions = self.iFile['Transactions'].tolist()
+            if 'fuzzyValues' in i:
+                self.fuzzyValues = self.iFile['Utilities'].tolist()
+
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
                 for line in data:
                     line = line.decode("utf-8")
-                    self.Database.append(line)
+                    line = line.split("\n")[0]
+                    parts = line.split(":")
+                    items = parts[0].split(self.sep)
+                    quantities = parts[2].split(self.sep)
+                    self.transactions.append([x for x in items])
+                    self.fuzzyValues.append([x for x in quantities])
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.Database.append(line)
+                            line = line.split("\n")[0]
+                            parts = line.split(":")
+                            items = parts[0].split(self.sep)
+                            quantities = parts[2].split(self.sep)
+                            self.transactions.append([x for x in items])
+                            self.fuzzyValues.append([x for x in quantities])
                 except IOError:
                     print("File Not Found")
                     quit()
 
     def mapNeighbours(self):
         if isinstance(self.nFile, pd.DataFrame):
-            data = []
+            data, items = [], []
             if self.nFile.empty:
                 print("its empty..")
             i = self.nFile.columns.values.tolist()
+            if 'items' in i:
+                items = self.nFile['items'].tolist()
             if 'Neighbours' in i:
                 data = self.nFile['Neighbours'].tolist()
-            for k in data:
-                item = k[0]
-                neigh1 = []
-                for i in range(1, len(k)):
-                    neigh1.append(k[i])
-                self.mapItemNeighbours[item] = neigh1
+            for k in range(len(items)):
+                self.mapItemNeighbours[items[k]] = data[k]
 
         if isinstance(self.nFile, str):
             if validators.url(self.nFile):
@@ -367,11 +374,9 @@ class FFSPMiner(fuzzySpatialFrequentPatterns):
         self.creatingItemSets()
         self.finalPatterns = {}
         self.mapNeighbours()
-        for line in self.Database:
-            line = line.split("\n")[0]
-            parts = line.split(":")
-            items = parts[0].split(self.sep)
-            quantities = parts[2].split(self.sep)
+        for line in range(len(self.transactions)):
+            items = self.transactions[line]
+            quantities = self.fuzzyValues[line]
             self.dbLen += 1
             for i in range(0, len(items)):
                 regions = Regions(int(quantities[i]), 3)
@@ -418,11 +423,9 @@ class FFSPMiner(fuzzySpatialFrequentPatterns):
                 listOfFFList.append(fuList)
         listOfFFList.sort(key=functools.cmp_to_key(self.compareItems))
         tid = 0
-        for line in self.Database:
-            line = line.split("\n")[0]
-            parts = line.split(":")
-            items = parts[0].split(self.sep)
-            quantities = parts[2].split(self.sep)
+        for line in range(len(self.transactions)):
+            items = self.transactions[line]
+            quantities = self.fuzzyValues[line]
             revisedTransaction = []
             for i in range(0, len(items)):
                 pair = Pair()
