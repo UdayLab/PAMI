@@ -206,6 +206,11 @@ class RSFPGrowth(frequentPatterns):
     """ 
         Algorithm to find all items with relative support from given dataset
 
+    Reference:
+    --------
+        'Towards Efficient Discovery of Frequent Patterns with Relative Support' R. Uday Kiran and
+               Masaru Kitsuregawa, http://comad.in/comad2012/pdf/kiran.pdf
+
     Attributes:
     ----------
         iFile : file
