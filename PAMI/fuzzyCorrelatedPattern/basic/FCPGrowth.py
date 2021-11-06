@@ -1,8 +1,6 @@
-import sys
+
 import functools
 import pandas as pd
-import validators
-from urllib.request import urlopen
 from abstract import *
 
 
@@ -379,10 +377,8 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
                         for line in f:
                             line = line.split("\n")[0]
                             parts = line.split(":")
-                            parts[0] = parts[0].strip()
-                            parts[2] = parts[2].strip()
-                            items = parts[0].split(self.sep)
-                            quantities = parts[2].split(self.sep)
+                            items = parts[0].split()
+                            quantities = parts[2].split()
                             self.transactions.append([x for x in items])
                             self.fuzzyValues.append([x for x in quantities])
                 except IOError:
@@ -398,7 +394,6 @@ class FCPGrowth(corelatedFuzzyFrequentPatterns):
         for tr in range(len(self.transactions)):
             items = self.transactions[tr]
             quantities = self.fuzzyValues[tr]
-            print(items, quantities)
             for i in range(0, len(items)):
                 item = items[i]
                 regions = Regions(item, int(quantities[i]), 3, self.mapItemRegionSum)
@@ -662,17 +657,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-        l = [200000, 300000, 400000, 500000]
-        for i in l:
-            ap = FCPGrowth('/Users/Likhitha/Downloads/mushroom_utility_SPMF.txt', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

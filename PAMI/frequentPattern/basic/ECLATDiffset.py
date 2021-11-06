@@ -17,16 +17,13 @@
 from abstract import *
 
 
-class ECLAT(frequentPatterns):
-    """ ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
-        This program employs downward closure property to  reduce the search space effectively.
-        This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
-        transactional database.
-
+class ECLATDiffset(frequentPatterns):
+    """
+        It uses diffset to extract the frequent patterns.
         Reference:
         ----------
-            Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
-            372-390 (2000), https://ieeexplore.ieee.org/document/846291
+            KDD '03: Proceedings of the ninth ACM SIGKDD international conference on Knowledge discovery and data mining
+            August 2003 Pages 326–335 https://doi.org/10.1145/956750.956788
 
         Attributes:
         ----------
@@ -83,19 +80,19 @@ class ECLAT(frequentPatterns):
 
             Format:
             ------
-            python3 ECLAT.py <inputFile> <outputFile> <minSup>
+            python3 ECLATDiffset.py <inputFile> <outputFile> <minSup>
 
             Examples:
             ---------
-            python3 ECLAT.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+            python3 ECLATDiffset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
-            python3 ECLAT.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+            python3 ECLATDiffset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
 
         Sample run of the importing code:
         ---------------------------------
 
-            import PAMI.frequentPattern.basic.ECLAT as alg
+            import PAMI.frequentPattern.basic.ECLATDiffset as alg
 
             obj = alg.ECLAT(iFile, minSup)
 
@@ -123,7 +120,7 @@ class ECLAT(frequentPatterns):
 
         Credits:
         --------
-            The complete program was written by Kundai  under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by Kundai under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -137,6 +134,8 @@ class ECLAT(frequentPatterns):
     memoryUSS = float()
     memoryRSS = float()
     Database = []
+    diffSets = {}
+    trans_set = set()
 
     def creatingItemSets(self):
         """
@@ -171,55 +170,6 @@ class ECLAT(frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def getUniqueItemList(self):
-        """
-        Generating one frequent patterns
-        """
-        self.finalPatterns = {}
-        candidate = {}
-        uniqueItem = []
-        for i in range(len(self.Database)):
-            for j in range(len(self.Database[i])):
-                if self.Database[i][j] not in candidate:
-                    candidate[self.Database[i][j]] = {i}
-                else:
-                    candidate[self.Database[i][j]].add(i)
-        for key, value in candidate.items():
-            supp = len(value)
-            if supp >= self.minSup:
-                self.finalPatterns[key] = [value]
-                uniqueItem.append(key)
-        uniqueItem.sort(key=int)
-        return uniqueItem
-
-    def generateFrequentPatterns(self, candidateFrequent):
-        """It will generate the combinations of frequent items
-
-        :param candidateFrequent :it represents the items with their respective transaction identifiers
-
-        :type candidateFrequent: list
-
-        :return: returning transaction dictionary
-
-        :rtype: dict
-        """
-        new_freqList = []
-        for i in range(0, len(candidateFrequent)):
-            item1 = candidateFrequent[i]
-            i1_list = item1.split()
-            for j in range(i + 1, len(candidateFrequent)):
-                item2 = candidateFrequent[j]
-                i2_list = item2.split()
-                if i1_list[:-1] == i2_list[:-1]:
-                    interSet = self.finalPatterns[item1][0].intersection(self.finalPatterns[item2][0])
-                    if len(interSet) >= self.minSup:
-                        newKey = item1 + " " + i2_list[-1]
-                        self.finalPatterns[newKey] = [interSet]
-                        new_freqList.append(newKey)
-
-                    if len(new_freqList) > 0:
-                        self.generateFrequentPatterns(new_freqList)
-
     def convert(self, value):
         """
         To convert the user specified minSup value
@@ -240,6 +190,53 @@ class ECLAT(frequentPatterns):
                 value = int(value)
         return value
 
+    def getUniqueItemList(self):
+
+        # tidSets will store all the initial tids
+        tidSets = {}
+        # uniqueItem will store all frequent 1 items
+        uniqueItem = []
+        for line in self.Database:
+                transNum = 0
+                # Database = [set([i.rstrip() for i in transaction.split('\t')]) for transaction in f]
+                for transaction in self.Database:
+                    transNum += 1
+                    self.trans_set.add(transNum)
+                    for item in transaction:
+                        if item in tidSets:
+                            tidSets[item].add(transNum)
+                        else:
+                            tidSets[item] = {transNum}
+        for key, value in tidSets.items():
+            supp = len(value)
+            if supp >= self.minSup:
+                self.diffSets[key] = [supp, self.trans_set.difference(value)]
+                uniqueItem.append(key)
+
+        uniqueItem.sort(key=int)
+        # print()
+        return uniqueItem
+
+    def runEclat(self, candidateList):
+
+        newList = []
+        for i in range(0, len(candidateList)):
+            item1 = candidateList[i]
+            iList = item1.split()
+            for j in range(i + 1, len(candidateList)):
+                item2 = candidateList[j]
+                jList = item2.split()
+                if iList[:-1] == jList[:-1]:
+                    unionDiffSet = self.diffSets[item2][1].difference(self.diffSets[item1][1])
+                    unionSup = self.diffSets[item1][0] - len(unionDiffSet)
+                    if unionSup >= self.minSup:
+                        newKey = item1 + " " + jList[-1]
+                        self.diffSets[newKey] = [unionSup, unionDiffSet]
+                        newList.append(newKey)
+
+            if len(newList) > 0:
+                self.runEclat(newList)
+
     def startMine(self):
         """Frequent pattern mining process will start from here"""
 
@@ -251,9 +248,7 @@ class ECLAT(frequentPatterns):
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         uniqueItemList = self.getUniqueItemList()
-        self.generateFrequentPatterns(uniqueItemList)
-        for x, y in self.finalPatterns.items():
-            self.finalPatterns[x] = len(y[0])
+        self.runEclat(uniqueItemList)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = float()
@@ -334,9 +329,9 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 4 or len(sys.argv) == 5:
         if len(sys.argv) == 5:
-            ap = ECLAT(sys.argv[1], sys.argv[3], sys.argv[4])
+            ap = ECLATDiffset(sys.argv[1], sys.argv[3], sys.argv[4])
         if len(sys.argv) == 4:
-            ap = ECLAT(sys.argv[1], sys.argv[3])
+            ap = ECLATDiffset(sys.argv[1], sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
@@ -349,6 +344,19 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = ECLATDiffset('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_T10I4D100K.csv',
+                   3000)
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.savePatterns('/home/apiiit-rkv/Downloads/output')
+        print(ap.getPatternsAsDataFrame())
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
-        
+

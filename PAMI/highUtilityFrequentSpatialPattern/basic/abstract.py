@@ -43,7 +43,7 @@ from urllib.request import urlopen
 
 
 class utilityPatterns(ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+    """ This abstract base class defines the variables and methods that every high utility frequent spatial pattern mining algorithm must
         employ in PAMI
 
 
@@ -53,6 +53,10 @@ class utilityPatterns(ABC):
             Input file name or path of the input file
         minUtil: integer 
             The user can specify minUtil either in count
+        minSup: integer
+            The user specified minimum support
+        maxDist: integer
+            The user specified maximum distance constraint
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator
@@ -63,7 +67,7 @@ class utilityPatterns(ABC):
         finalPatterns: dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
-            Name of the output file to store complete set of frequent patterns
+            Name of the output file to store complete set of patterns generated
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -88,7 +92,7 @@ class utilityPatterns(ABC):
 
     """
 
-    def __init__(self, iFile,nFile ,minUtil, sep = "\t"):
+    def __init__(self, iFile, nFile, minUtil, minSup, sep="\t"):
         """
 
         :param iFile: Input file name or path of the input file
@@ -96,16 +100,18 @@ class utilityPatterns(ABC):
         :param nFile: Input file name or path of the neighbourhood file
         :type nFile: str
         :param minUtil: The user can specify minUtil in count 
-        :type minUtil: int 
+        :type minUtil: int
+        :param minSup: The user can specify minSup in count
+        :type minSup: int
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
-
         """
 
         self.iFile = iFile
         self.sep = sep
-        self.nFile=nFile
+        self.nFile = nFile
         self.minUtil = minUtil
+        self.minSup = minSup
 
     @abstractmethod
     def iFile(self):
@@ -121,6 +127,12 @@ class utilityPatterns(ABC):
 
     @abstractmethod
     def minUtil(self):
+        """Variable to store the user-specified minimum utility value"""
+
+        pass
+
+    @abstractmethod
+    def minSup(self):
         """Variable to store the user-specified minimum support value"""
 
         pass
@@ -157,7 +169,7 @@ class utilityPatterns(ABC):
 
     @abstractmethod
     def oFile(self):
-        """Variable to store the name of the output file to store the complete set of frequent patterns"""
+        """Variable to store the name of the output file to store the complete set of patterns generated"""
 
         pass
 
@@ -169,13 +181,13 @@ class utilityPatterns(ABC):
 
     @abstractmethod
     def getPatterns(self):
-        """Complete set of frequent patterns generated will be retrieved from this function"""
+        """Complete set of patterns generated will be retrieved from this function"""
 
         pass
 
     @abstractmethod
     def savePatterns(self, oFile):
-        """Complete set of frequent patterns will be saved in to an output file from this function
+        """Complete set of patterns generated will be saved in to an output file from this function
 
         :param oFile: Name of the output file
         :type oFile: file
@@ -185,7 +197,7 @@ class utilityPatterns(ABC):
 
     @abstractmethod
     def getPatternsAsDataFrame(self):
-        """Complete set of frequent patterns will be loaded in to data frame from this function"""
+        """Complete set of patterns will be loaded in to data frame from this function"""
 
         pass
 

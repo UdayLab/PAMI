@@ -14,6 +14,19 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #      Copyright (C)  2021 Rage Uday Kiran
 
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 
 from abstract import *
 import sys
@@ -405,6 +418,7 @@ class CPGrowthPlus(correlatedPatterns):
         Generating One frequent items sets
 
         """
+        self.mapSupport = {}
         for i in self.Database:
             for j in i:
                 if j not in self.mapSupport:
@@ -566,6 +580,7 @@ class CPGrowthPlus(correlatedPatterns):
         self.minSup = self.convert(self.minSup)
         self.frequentOneItem()
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
+        print(len(self.mapSupport))
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
             transaction = []
@@ -683,4 +698,19 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        l = [0.0007, 0.0009, 0.001, 0.002, 0.003, 0.01]
+        for i in l:
+            ap = CPGrowthPlus('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_retail.csv',
+                          i, 0.7)
+            ap.startMine()
+            print(ap.minSup, ap.minAllConf, len(ap.Database))
+            correlatedPatterns = ap.getPatterns()
+            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

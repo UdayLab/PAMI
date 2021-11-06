@@ -493,7 +493,6 @@ class MaxFPGrowth(frequentPatterns):
     rank = {}
     rankdup = {}
     lno = 0
-    data = [Database, finalPatterns, memoryUSS, memoryRSS, rank, rankdup, iFile, oFile]
 
     def creatingItemSets(self):
         """
@@ -508,9 +507,6 @@ class MaxFPGrowth(frequentPatterns):
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
                 self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-            #print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
@@ -527,6 +523,7 @@ class MaxFPGrowth(frequentPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
+                            print(line)
                             self.Database.append(temp)
                 except IOError:
                     print("File Not Found")
@@ -547,6 +544,7 @@ class MaxFPGrowth(frequentPatterns):
                 else:
                     mapSupport[tr[i]] += 1
         mapSupport = {k: v for k, v in mapSupport.items() if v >= self.minSup}
+        print(len(mapSupport), self.minSup)
         genList = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(genList)])
         return mapSupport, genList
@@ -596,11 +594,11 @@ class MaxFPGrowth(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.lno * value)
+            value = (len(self.Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.lno * value)
+                value = ((len(self.Database)) * value)
             else:
                 value = int(value)
         return value
@@ -721,7 +719,6 @@ class MaxFPGrowth(frequentPatterns):
         :rtype: dict
         """
         return self.finalPatterns
-
 
 
 if __name__ == "__main__":

@@ -35,27 +35,23 @@ from itertools import combinations as c
 import os
 import os.path
 import psutil
-import sys
-import validators
-from urllib.request import urlopen
+from array import *
+import functools
 
 
-class spatialFrequentPatterns(ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+class utilityPatterns(ABC):
+    """ This abstract base class defines the variables and methods that every relative high utility pattern mining algorithm must
         employ in PAMI
 
 
-    Attributes :
-    ----------
+       Attributes
+        ----------
         iFile : str
             Input file name or path of the input file
-        nFile: str
-            Neighbourhoof file name
-        minSup: integer or float or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        minUtil: integer 
+            The user can specify minUtil either in count
+        minSup: float
+            minimum support given by the user can be percentage or integer
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator
@@ -72,8 +68,8 @@ class spatialFrequentPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-    Methods :
-    -------
+        Methods
+        -------
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -91,26 +87,24 @@ class spatialFrequentPatterns(ABC):
 
     """
 
-    def __init__(self, iFile, nFile, minSup, sep="\t"):
+    def __init__(self, iFile, minUtil, minSup, sep="\t"):
         """
+
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param nFile: Neighbourhood name of the input
-        :type nFile: str
-        :param minSup: The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        :type minSup: int or float or str
+        :param minUtil: The user can specify minUtil in count 
+        :type minUtil: int
+        :param minSup: The user should specify minSup (minimum support)
+        :type minSup: float
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
+
         """
 
         self.iFile = iFile
-        self.nFile = nFile
         self.sep = sep
+        self.minUtil = minUtil
         self.minSup = minSup
-
 
     @abstractmethod
     def iFile(self):
@@ -119,8 +113,8 @@ class spatialFrequentPatterns(ABC):
         pass
 
     @abstractmethod
-    def nFile(self):
-        """Variable to store the neighbourhood file path/file name"""
+    def minUtil(self):
+        """Variable to store the user-specified minimum utility value"""
 
         pass
 

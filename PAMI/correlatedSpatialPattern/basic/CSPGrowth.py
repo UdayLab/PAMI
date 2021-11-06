@@ -14,6 +14,19 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #      Copyright (C)  2021 Rage Uday Kiran
 
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 from abstract import *
 import sys
 import validators
@@ -201,7 +214,7 @@ class Tree:
                     current = child
 
 
-class CSGrowth(correlatedPatterns):
+class CSPGrowth(correlatedPatterns):
     """ 
         CSGrowth correlated algorithm is to discover the spatially correlated patterns from the database
 
@@ -280,14 +293,14 @@ class CSGrowth(correlatedPatterns):
     -------
         Format:
         -------
-        python3 CSGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup> <minAllConf> <sep>
+        python3 CSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup> <minAllConf> <sep>
 
         Examples:
         ---------
-        python3 CSGrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2  (minSup will be considered in percentage of database transactions)
-        python3 CSGrowth.py sampleTDB.txt output.txt sampleN.txt 4  0.2  (minSup will be considered in support count or frequency)
+        python3 CSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2  (minSup will be considered in percentage of database transactions)
+        python3 CSPGrowth.py sampleTDB.txt output.txt sampleN.txt 4  0.2  (minSup will be considered in support count or frequency)
                                                                     (it will consider "\t" as a separator)
-        python3 CSGrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2 ,
+        python3 CSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2 ,
                                                                     (it will consider ',' as a separator)
 
     Sample run of the importing code:
@@ -387,19 +400,18 @@ class CSGrowth(correlatedPatterns):
         """
             A function to map items to their Neighbours
         """
-
-        self.Database = []
+        self.neighboursMap = {}
         if isinstance(self.nFile, pd.DataFrame):
-            data = []
+            data, items = [], []
             if self.nFile.empty:
                 print("its empty..")
             i = self.nFile.columns.values.tolist()
+            if 'items' in i:
+                items = self.nFile['items'].tolist()
             if 'Neighbours' in i:
                 data = self.nFile['neighbours'].tolist()
-            for k in data:
-                item = k[0]
-                nibs = k[1:]
-                self.neighboursMap[item] = nibs
+            for k in range(len(data)):
+                self.neighboursMap[items[k]] = data[k]
         if isinstance(self.nFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
@@ -439,6 +451,7 @@ class CSGrowth(correlatedPatterns):
         """Generating One frequent items sets
 
         """
+        self.mapSupport = {}
         for i in self.Database:
             for j in i:
                 if j not in self.mapSupport:
@@ -613,7 +626,6 @@ class CSGrowth(correlatedPatterns):
         """
 
         self.startTime = time.time()
-        self.neighboursMap = {}
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
@@ -621,9 +633,9 @@ class CSGrowth(correlatedPatterns):
         self.creatingItemSets()
         self.minSup = self.convert(self.minSup)
         self.commonitems = set()
-        self.finalPatterns = {}
         self.mapNeighbours()
         self.frequentOneItem()
+        self.finalPatterns = {}
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
@@ -724,9 +736,9 @@ if __name__ == "__main__":
     ap = str()
     if len(sys.argv) == 6 or len(sys.argv) == 7:
         if len(sys.argv) == 7:
-            ap = CSGrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]), sys.argv[6])
+            ap = CSPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]), sys.argv[6])
         if len(sys.argv) == 6: 
-            ap = CSGrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]))
+            ap = CSPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], float(sys.argv[5]))
         ap.startMine()
         correlatedPatterns = ap.getPatterns()
         print("Total number of correlated spatial frequent Patterns:", len(correlatedPatterns))

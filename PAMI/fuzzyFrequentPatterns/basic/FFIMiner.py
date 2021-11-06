@@ -1,6 +1,3 @@
-import sys
-import validators
-from urllib.request import urlopen
 import functools
 import pandas as pd
 from abstract import *
@@ -325,7 +322,14 @@ class FFIMiner(fuzzyFrequentPattenrs):
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.Database.append(line)
+                            line = line.split("\n")[0]
+                            parts = line.split(":")
+                            parts[0] = parts[0].strip()
+                            parts[2] = parts[2].strip()
+                            items = parts[0].split(self.sep)
+                            quantities = parts[2].split(self.sep)
+                            self.transactions.append([x for x in items])
+                            self.fuzzyValues.append([x for x in quantities])
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -336,13 +340,9 @@ class FFIMiner(fuzzyFrequentPattenrs):
         """
         self.startTime = time.time()
         self.creatingItemsets()
-        for line in self.Database:
-            line = line.split("\n")[0]
-            parts = line.split(":")
-            parts[0] = parts[0].strip()
-            parts[2] = parts[2].strip()
-            items = parts[0].split(self.sep)
-            quantities = parts[2].split(self.sep)
+        for line in range(len(self.transactions)):
+            items = self.transactions[line]
+            quantities = self.fuzzyValues[line]
             self.dbLen += 1
             for i in range(0, len(items)):
                 regions = Regions(float(quantities[i]), 3)
@@ -389,13 +389,9 @@ class FFIMiner(fuzzyFrequentPattenrs):
                 listOfffilist.append(fuList)
         listOfffilist.sort(key=functools.cmp_to_key(self.compareItems))
         tid = 0
-        for line in self.Database:
-            line = line.split("\n")[0]
-            parts = line.split(":")
-            parts[0] = parts[0].strip()
-            parts[2] = parts[2].strip()
-            items = parts[0].split(self.sep)
-            quantities = parts[2].split(self.sep)
+        for line in range(len(self.transactions)):
+            items = self.transactions[line]
+            quantities = self.fuzzyValues[line]
             revisedTransaction = []
             for i in range(0, len(items)):
                 pair = Pair()
@@ -600,17 +596,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
-        l = [0.001, 0.002, 0.003, 0.004, 0.005]
-        for i in l:
-            ap = FFIMiner('/Users/Likhitha/Downloads/retail_utility_spmf.txt', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -1,7 +1,6 @@
-import sys
-import pandas as pd
 from abstract import *
 from functools import cmp_to_key
+import heapq
 
 class Transaction:
     """
@@ -16,7 +15,7 @@ class Transaction:
         transactionUtility: int
             represent total sum of all utilities in the database
         pmus: list
-            represent the pum of each element in the transaction
+            represent the pmu (probable maximum utility) of each element in the transaction
         prefixutility:
             prefix Utility values of item
         offset:
@@ -205,13 +204,13 @@ class Dataset:
         return self.transactions
 
 
-class SHUIM(utilityPatterns):
+class TKSHUIM(utilityPatterns):
     """
-      Spatial High Utility itemSet Mining (SHUIM) aims to discover all itemSets in a spatioTemporal database
-       that satisfy the user-specified minimum utility and maximum distance constraints
+      Top K Spatial High Utility ItemSet Mining (TKSHUIM) aims to discover Top-K Spatial High Utility Itemsets
+      (TKSHUIs) in a spatioTemporal database
     Reference:
     ---------
-        https://doi.org/10.1007/978-3-030-37188-3_17
+
 
     Attributes:
     -----------
@@ -227,10 +226,8 @@ class SHUIM(utilityPatterns):
             To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
-        minUtil : int
-            The user given minUtil
-        highUtilityItemSets: map
-            set of high utility itemSets
+        k : int
+            The user given k value
         candidateCount: int
              Number of candidates 
         utilityBinArrayLU: list
@@ -243,9 +240,8 @@ class SHUIM(utilityPatterns):
             A map to store the old name corresponding to new name
         Neighbours : map
             A dictionary to store the neighbours of a item
-        maxMemory:Maximum memory used by this program for running
-        patternCount: int
-            Number of SHUI's
+        maxMemory: float
+            Maximum memory used by this program for running
         itemsToKeep: list
             keep only the promising items ie items having twu >= minUtil
         itemsToExplore: list
@@ -258,9 +254,9 @@ class SHUIM(utilityPatterns):
         getPatterns()
                 Complete set of patterns will be retrieved with this function
         savePatterns(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
+                Complete set of patterns will be loaded in to a output file
         getPatternsAsDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
+                Complete set of patterns will be loaded in to a dataframe
         getMemoryUSS()
                 Total amount of USS memory consumed by the mining process will be retrieved from this function
         getMemoryRSS()
@@ -270,7 +266,7 @@ class SHUIM(utilityPatterns):
         calculateNeighbourIntersection(self, prefixLength)
                A method to return common Neighbours of items
         backtrackingEFIM(transactionsOfP, itemsToKeep, itemsToExplore, prefixLength)
-               A method to mine the SHUIs Recursively
+               A method to mine the TKSHUIs Recursively
         useUtilityBinArraysToCalculateUpperBounds(transactionsPe, j, itemsToKeep, neighbourhoodList)
                A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P and e
         output(tempPosition, utility)
@@ -290,22 +286,20 @@ class SHUIM(utilityPatterns):
 
     Executing the code on terminal :
     -------
-        Format: python3 SHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
-        Examples: python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
-                  python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
+        Format: python3 TKSHUIM.py <inputFile> <outputFile> <Neighbours> <k> <sep>
+        Examples: python3 TKSHUIM.py sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
+                  python3 TKSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
 
     Sample run of importing the code:
     -------------------------------
         
-        import SHUIM as alg
+        from PAMI.highUtilitySpatialPattern.topk import TKSHUIM as alg
 
-        obj=alg.SHUIM("input.txt","Neighbours.txt",35)
+        obj=alg.TKSHUIM("input.txt","Neighbours.txt",35)
 
         obj.startMine()
 
-        frequentPatterns = obj.getPatterns()
-
-        print("Total number of Spatial high utility Patterns:", len(frequentPatterns))
+        Patterns = obj.getPatterns()
 
         obj.savePatterns("output")
 
@@ -323,9 +317,8 @@ class SHUIM(utilityPatterns):
 
     Credits:
     -------
-            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.
     """
-    highUtilityItemSets = []
     candidateCount = 0
     utilityBinArrayLU = {}
     utilityBinArraySU = {}
@@ -338,8 +331,6 @@ class SHUIM(utilityPatterns):
     maxMemory = 0
     startTime = float()
     endTime = float()
-    minSup = str()
-    maxPer = float()
     finalPatterns = {}
     iFile = " "
     oFile = " "
@@ -348,13 +339,13 @@ class SHUIM(utilityPatterns):
     minUtil = 0
     memoryUSS = float()
     memoryRSS = float()
-    
-    def __init__(self, iFile, nFile, minUtil, sep="\t"):
-        super().__init__(iFile, nFile, minUtil, sep)
+    heapList = []
+
+    def __init__(self, iFile, nFile, k, sep="\t"):
+        super().__init__(iFile, nFile, k, sep)
 
     def startMine(self):
         self.startTime = time.time()
-        self.patternCount = 0
         self.finalPatterns = {}
         self.dataset = Dataset(self.iFile, self.sep)
         with open(self.nFile, 'r') as o:
@@ -390,6 +381,7 @@ class SHUIM(utilityPatterns):
                 emptyTransactionCount += 1
         self.dataset.transactions = self.dataset.transactions[emptyTransactionCount:]
         self.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self.dataset)
+        self.heapList = []
         itemsToExplore = []
         for item in itemsToKeep:
             if self.utilityBinArraySU[item] >= self.minUtil:
@@ -408,10 +400,13 @@ class SHUIM(utilityPatterns):
         self.memoryRSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
+        for item in self.heapList:
+            self.finalPatterns[item[1]] = item[0]
+        print('TOP-K mining process is completed by TKSHUIM')
 
     def backtrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
         """
-            A method to mine the SHUIs Recursively
+            A method to mine the TKSHUIs Recursively
 
             Attributes:
             ----------
@@ -480,7 +475,6 @@ class SHUIM(utilityPatterns):
             if utilityPe >= self.minUtil:
                 self.output(prefixLength, utilityPe)
             neighbourhoodList = self.calculateNeighbourIntersection(prefixLength)
-            #print(neighbourhoodList)
             self.useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep, neighbourhoodList)
             newItemsToKeep = []
             newItemsToExplore = []
@@ -567,13 +561,12 @@ class SHUIM(utilityPatterns):
          :param utility: total utility of itemSet
          :type utility: int
         """
-        self.patternCount += 1
         s1 = ""
         for i in range(0, tempPosition+1):
             s1 += self.dataset.intTostr.get((self.temp[i]))
             if i != tempPosition:
                 s1 += " "
-        self.finalPatterns[s1] = str(utility)
+        self.additemset(s1, utility)
 
     def is_equal(self, transaction1, transaction2):
         """
@@ -707,37 +700,68 @@ class SHUIM(utilityPatterns):
             :type dataset: database
 
         """
+        utilityMatrix = defaultdict(lambda: defaultdict(int))
         for transaction in dataset.getTransactions():
             for idx, item in enumerate(transaction.getItems()):
                 if item in self.utilityBinArrayLU:
                     self.utilityBinArrayLU[item] += transaction.getPmus()[idx]
                 else:
                     self.utilityBinArrayLU[item] = transaction.getPmus()[idx]
+                utilityMatrix[item][item] += transaction.getUtilities()[idx]
+                if item in self.Neighbours:
+                    neighbors = self.Neighbours[item]
+                    utility = transaction.getUtilities()[idx]
+                    for i, itemj in enumerate(transaction.getItems()):
+                        if (itemj != item) and (itemj in neighbors):
+                            utilityMatrix[item][itemj] += (utility + transaction.getUtilities()[i])
+
+        for item in utilityMatrix.keys():
+            for itemj in utilityMatrix[item].keys():
+                if itemj >= item:
+                    val = utilityMatrix[item][itemj]
+                    if val != 0 and val > self.minUtil:
+                        if itemj == item:
+                            itemset = str(item)
+                        else:
+                            itemset = str(item) + str(itemj)
+                        self.additemset(itemset, val)
+
+    def additemset(self, itemset, utility):
+        """
+        adds the itemset to the priority queue
+        """
+        heapq.heappush(self.heapList, (utility, itemset))
+        if len(self.heapList) > self.k:
+            while len(self.heapList) > self.k:
+                heapq.heappop(self.heapList)
+                if len(self.heapList) == 0:
+                    break
+            self.minUtil = heapq.nsmallest(1, self.heapList)[0][0]
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """Storing final patterns in a dataframe
 
-        :return: returning frequent patterns in a dataframe
+        :return: returning patterns in a dataframe
         :rtype: pd.DataFrame
         """
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Utility'])
 
         return dataFrame
     
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """ Function to send the set of patterns after completion of the mining process
 
-        :return: returning frequent patterns
+        :return: returning patterns
         :rtype: dict
         """
         return self.finalPatterns
 
     def savePatterns(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of patterns will be loaded in to a output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -779,12 +803,10 @@ if __name__ == '__main__':
     ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
         if len(sys.argv) == 6:
-            ap = SHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])
+            ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])
         if len(sys.argv) == 5:
-            ap = SHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))
+            ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))
         ap.startMine()
-        patterns = ap.getPatterns()
-        print("Total number of Spatial High Utility Patterns:", len(patterns))
         ap.savePatterns(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
