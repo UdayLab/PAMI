@@ -1,4 +1,4 @@
-from abstract import *
+from PAMI.uncertainCorrelatedPattern.basic.abstract import *
 import pandas as pd
 
 
