@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import pandas as pd
-from abstract import *
+from PAMI.highUtilityPatterns.basic.abstract import *
 
 
 class UPItem:
