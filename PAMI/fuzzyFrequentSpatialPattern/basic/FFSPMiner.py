@@ -1,6 +1,6 @@
 import functools
 import pandas as pd
-from abstract import *
+from PAMI.fuzzyFrequentSpatialPattern.basic.abstract import *
 
 
 class FFList:
