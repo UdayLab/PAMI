@@ -15,7 +15,7 @@
 
 
 import sys
-from abstract import *
+from PAMI.highUtilityPatterns.basic.abstract import *
 
 
 class Transaction:
