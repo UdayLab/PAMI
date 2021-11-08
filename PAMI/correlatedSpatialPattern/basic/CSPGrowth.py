@@ -27,7 +27,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.correlatedSpatialPattern.baisc.abstract import *
+from PAMI.correlatedSpatialPattern.basic.abstract import *
 import sys
 import validators
 from urllib.request import urlopen
