@@ -17,7 +17,7 @@
 import sys
 from urllib.request import urlopen
 import validators
-from abstract import *
+from PAMI.frequentPattern.basic.abstract import *
 
 
 class ECLATbitset(frequentPatterns):
