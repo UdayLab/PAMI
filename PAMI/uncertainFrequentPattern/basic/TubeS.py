@@ -15,7 +15,7 @@
 
 
 
-from PAMI.uncertainFrequnetPattern.abstract import *
+from PAMI.uncertainFrequnetPattern.basic.abstract import *
 
 
 minSup = float()
