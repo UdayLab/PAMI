@@ -13,9 +13,6 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import sys
-import validators
-from urllib.request import urlopen
 from abstract import *
 
 
@@ -416,8 +413,6 @@ class PFPGrowth(periodicFrequentPatterns):
                 ts = self.iFile['TS'].tolist()
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                data = self.iFile['Patterns'].tolist()
             for i in range(len(data)):
                 tr = [ts[i][0]]
                 tr = tr + data[i]
@@ -651,19 +646,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        l = [0.001, 0.002, 0.003, 0.004, 0.005]
-        for i in l:
-            ap = PFPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                          i, 0.02)
-            ap.startMine()
-            print(ap.minSup, ap.maxPer, len(ap.Database))
-            correlatedPatterns = ap.getPatterns()
-            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

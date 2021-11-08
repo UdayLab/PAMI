@@ -1,6 +1,4 @@
-import sys
-import validators
-from urllib.request import urlopen
+
 from abstract import *
 
 
@@ -390,6 +388,7 @@ class LPPGrowth(localPeriodicPatterns):
             for line in self.Database:
                 bitVector = 0b1 << count
                 bitVector = bitVector | 0b1
+                print(line)
                 ts = line.pop(0)
                 for item in line:
                     if self.tsList.get(item):
@@ -744,4 +743,18 @@ if __name__ == '__main__':
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [0.004, 0.005, 0.006, 0.007, 0.008]
+        for i in l:
+            ap = LPPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
+                           , i, 0.01, 0.01)
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Frequent Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

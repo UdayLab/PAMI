@@ -175,11 +175,11 @@ class PFECLAT(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (self.dbSize * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (self.dbSize * value)
             else:
                 value = int(value)
         return value
@@ -188,7 +188,7 @@ class PFECLAT(periodicFrequentPatterns):
         """Storing the complete transactions of the database/input file in a database variable
         """
         plist = []
-        self.Database = []
+        Database = []
         if isinstance(self.iFile, pd.DataFrame):
             ts, data = [], []
             if self.iFile.empty:
@@ -201,7 +201,7 @@ class PFECLAT(periodicFrequentPatterns):
             for i in range(len(data)):
                 tr = [ts[i][0]]
                 tr = tr + data[i]
-                self.Database.append(tr)
+                Database.append(tr)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
@@ -210,7 +210,7 @@ class PFECLAT(periodicFrequentPatterns):
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    Database.append(temp)
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
@@ -218,31 +218,34 @@ class PFECLAT(periodicFrequentPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
-    
-    def frequentOneItems(self):
         tid = 0
         itemsets = {}  # {key: item, value: list of tids}
         periodicHelper = {}  # {key: item, value: [period, last_tid]}
-        for line in self.Database:
+        for line in Database:
             tid = int(line[0])
             self.tidSet.add(tid)
             for item in line[1:]:
                 if item in itemsets:
                     itemsets[item].add(tid)
-                    periodicHelper[item][0] = max(periodicHelper[item][0], abs(tid - periodicHelper[item][1]))  # update current max period
+                    periodicHelper[item][0] = max(periodicHelper[item][0],
+                                                  abs(tid - periodicHelper[item][1]))  # update current max period
                     periodicHelper[item][1] = tid  # update the last tid
                 else:
                     itemsets[item] = {tid}
                     periodicHelper[item] = [abs(0 - tid), tid]  # initialize helper
 
         # finish all items' period
-        self.dbSize = len(self.Database)
+        self.dbSize = len(Database)
+        self.minSup = self.convert(self.minSup)
+        self.maxPer = self.convert(self.maxPer)
+        del Database
         for item, _ in periodicHelper.items():
-            periodicHelper[item][0] = max(periodicHelper[item][0], abs(self.dbSize - periodicHelper[item][1]))  # tid of the last transaction
+            periodicHelper[item][0] = max(periodicHelper[item][0],
+                                          abs(self.dbSize - periodicHelper[item][1]))  # tid of the last transaction
         candidates = []
         for item, tids in itemsets.items():
             per = periodicHelper[item][0]
@@ -276,13 +279,12 @@ class PFECLAT(periodicFrequentPatterns):
         #print(f"Optimized {type(self).__name__}")
         self.startTime = time.time()
         self.finalPatterns = {}
-        self.creatingOneItemSets()
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
-        frequentSets = self.frequentOneItems()
+        frequentSets = self.creatingOneItemSets()
         self.generateEclat(frequentSets)
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
+        self.memoryRSS = float()
+        self.memoryUSS = float()
         self.memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
@@ -367,19 +369,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        l = [0.001, 0.002, 0.003, 0.004, 0.005]
-        for i in l:
-            ap = PFECLAT('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                          i, 0.02)
-            ap.startMine()
-            print(ap.minSup, ap.maxPer, len(ap.Database))
-            correlatedPatterns = ap.getPatterns()
-            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

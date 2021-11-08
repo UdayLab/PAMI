@@ -396,19 +396,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        l = [0.001, 0.002, 0.003, 0.004, 0.005]
-        for i in l:
-            ap = PFECLAT('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                          i, 0.02)
-            ap.startMine()
-            print(ap.minSup, ap.maxPer)
-            correlatedPatterns = ap.getPatterns()
-            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

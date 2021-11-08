@@ -64,9 +64,9 @@ class partialPeriodicPatterns(ABC):
         """
 
         self.iFile = iFile
-        self.minSup = float(minSup)
-        self.maxPer = float(maxPer)
-        self.minPR = float(minPR)
+        self.minSup = minSup
+        self.maxPer = maxPer
+        self.minPR = minPR
         self.sep = sep
 
     @abstractmethod

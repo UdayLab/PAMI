@@ -13,7 +13,6 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import sys
 import pandas as pd
 from abstract import *
 
@@ -112,12 +111,10 @@ class UPNode:
             :param name: represent id of item
             :type name: int
         """
-        flag = 0
         for child in self.childs:
             if child.itemId == name:
                 return child
-        if flag == 0:
-            return -1
+        return -1
 
 
 class UPTree:
@@ -175,17 +172,34 @@ class UPTree:
         currentNode = self.root
         NumberOfNodes = 0
         RemainingUtility = 0
+        # for idx, item in enumerate(transaction):
+        #     itemName = item.name
+        #     child = currentNode.getChildWithId(itemName)
+        #     RemainingUtility += item.utility
+        #     if child == -1:
+        #         NumberOfNodes += 1
+        #         nodeUtility = RemainingUtility
+        #         currentNode = self.insertNewNode(currentNode, itemName, nodeUtility)
+        #     else:
+        #         child.count += 1
+        #         child.nodeUtility += RemainingUtility
+        #         currentNode = child
         for idx, item in enumerate(transaction):
+            for k in range(idx +1, len(transaction)):
+                RemainingUtility += transaction[k].getUtility()
             itemName = item.name
             child = currentNode.getChildWithId(itemName)
-            RemainingUtility += item.utility
             if child == -1:
                 NumberOfNodes += 1
-                nodeUtility = RemainingUtility
+                nodeUtility = RTU - RemainingUtility
+                RemainingUtility = 0
                 currentNode = self.insertNewNode(currentNode, itemName, nodeUtility)
             else:
+                currentNU = child.nodeUtility
+                nodeUtility = currentNU + (RTU - RemainingUtility)
+                RemainingUtility = 0
                 child.count += 1
-                child.nodeUtility += RemainingUtility
+                child.nodeUtility = nodeUtility
                 currentNode = child
         return NumberOfNodes
 
@@ -205,17 +219,34 @@ class UPTree:
         currentLocalNode = self.root
         RemainingUtility = 0
         NumberOfNodes = 0
-        for item in localPath:
-            RemainingUtility += mapItemToMinimumItemutility[item] * pathCount
-        for item in localPath:
-            RemainingUtility -= mapItemToMinimumItemutility[item] * pathCount
+        # for item in localPath:
+        #     RemainingUtility += mapItemToMinimumItemutility[item] * pathCount
+        # for item in localPath:
+        #     RemainingUtility -= mapItemToMinimumItemutility[item] * pathCount
+        #     child = currentLocalNode.getChildWithId(item)
+        #     if child == -1:
+        #         NumberOfNodes += 1
+        #         currentLocalNode = self.insertNewNode(currentLocalNode, item, pathUtility - RemainingUtility)
+        #     else:
+        #         child.count += 1
+        #         child.nodeUtility += (pathUtility - RemainingUtility)
+        #         currentLocalNode = child
+        for idx, item in enumerate(localPath):
+            for k in range(idx+1, len(localPath)):
+                search = localPath[k]
+                RemainingUtility += mapItemToMinimumItemutility[search] * pathCount
             child = currentLocalNode.getChildWithId(item)
             if child == -1:
                 NumberOfNodes += 1
-                currentLocalNode = self.insertNewNode(currentLocalNode, item, pathUtility - RemainingUtility)
+                nodeUtility = pathUtility - RemainingUtility
+                RemainingUtility = 0
+                currentLocalNode = self.insertNewNode(currentLocalNode, item, nodeUtility)
             else:
+                currentNU = child.nodeUtility
+                nodeUtility = currentNU + (pathUtility - RemainingUtility)
+                RemainingUtility = 0
                 child.count += 1
-                child.nodeUtility += (pathUtility - RemainingUtility)
+                child.nodeUtility = nodeUtility
                 currentLocalNode = child
         return NumberOfNodes
 
@@ -368,6 +399,7 @@ class UPGrowth(utilityPatterns):
     NumberOfNodes = 0
     ParentNumberOfNodes = 0
     MapItemToMinimumUtility = {}
+    MapItemsetsToUtilities = defaultdict(int)
     phuis = []
     Database = []
     MapItemToTwu = {}
@@ -443,7 +475,7 @@ class UPGrowth(utilityPatterns):
                     remainingUtility += utility
                     if Item in self.MapItemToMinimumUtility:
                         minItemUtil = self.MapItemToMinimumUtility[Item]
-                        if utility < minItemUtil:
+                        if minItemUtil >= utility:
                             self.MapItemToMinimumUtility[Item] = utility
                     else:
                         self.MapItemToMinimumUtility[Item] = utility
@@ -452,8 +484,41 @@ class UPGrowth(utilityPatterns):
         tree.createHeaderList(self.MapItemToTwu)
         alpha = []
         self.finalPatterns = {}
+        # print("number of nodes in parent tree", self.ParentNumberOfNodes)
         self.UPGrowth(tree, alpha)
-        self.phuis = sorted(self.phuis, key=lambda x: len(x))
+        # self.phuis = sorted(self.phuis, key=lambda x: len(x))
+        # print(self.phuis[0:10])
+        for line in self.Database:
+            line = line.split("\n")[0]
+            transaction = line.strip().split(':')
+            items = transaction[0].split(self.sep)
+            utilities = transaction[2].split(self.sep)
+            mapItemToUtility = {}
+            for idx, item in enumerate(items):
+                Item = int(item)
+                utility = int(utilities[idx])
+                if self.MapItemToTwu[Item] >= self.minUtil:
+                    mapItemToUtility[Item] = utility
+            for itemset in self.phuis:
+                l = len(itemset)
+                count = 0
+                utility = 0
+                for item in itemset:
+                    item = int(item)
+                    if item in mapItemToUtility:
+                        utility += mapItemToUtility[item]
+                        count += 1
+                if count == l:
+                    self.MapItemsetsToUtilities[tuple(itemset)] += utility
+
+        for itemset in self.phuis:
+            util = self.MapItemsetsToUtilities[tuple(itemset)]
+            if util >= self.minUtil:
+                s = ""
+                for item in itemset:
+                    s = s + str(item)
+                    s = s + " "
+                self.finalPatterns[s] = util
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = float()
@@ -481,8 +546,8 @@ class UPGrowth(utilityPatterns):
             if ItemTotalUtility >= self.minUtil:
                 beta = alpha + [item]
                 self.phuis.append(beta)
-                str1 = ' '.join(map(str, beta))
-                self.finalPatterns[str1] = ItemTotalUtility
+                # str1 = ' '.join(map(str, beta))
+                # self.finalPatterns[str1] = ItemTotalUtility
                 if len(localTree.headerList) > 0:
                     self.UPGrowth(localTree, beta)
 
@@ -524,7 +589,7 @@ class UPGrowth(utilityPatterns):
                 if itemPathUtility[node.itemId] >= self.minUtil:
                     localPath.append(node.itemId)
                 else:
-                    pathUtility -= node.count * self.MapItemToMinimumUtility[node.itemId]
+                    pathUtility -= pathCount * self.MapItemToMinimumUtility[node.itemId]
             localPath = sorted(localPath, key=lambda x: itemPathUtility[x], reverse=True)
             self.NumberOfNodes += localTree.addLocalTransaction(localPath, pathUtility, self.MapItemToMinimumUtility, pathCount)
         localTree.createHeaderList(itemPathUtility)
