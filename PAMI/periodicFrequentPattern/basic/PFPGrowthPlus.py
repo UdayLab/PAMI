@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from abstract import *
+from PAMI.periodicFrequentPattern.basic.abstract import *
 
 maxPer = float()
 minSup = float()
