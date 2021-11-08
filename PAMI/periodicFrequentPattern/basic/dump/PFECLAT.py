@@ -16,7 +16,7 @@
 import sys
 import validators
 from urllib.request import urlopen
-from abstract import *
+from PAMI.periodicFrequentpattern.basic.dump.abstract import *
 
 
 class PFECLAT(periodicFrequentPatterns):
