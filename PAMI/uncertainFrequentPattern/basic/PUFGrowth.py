@@ -435,7 +435,7 @@ class PUFGrowth(frequentPatterns):
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     tr = []
-                    for i in temp[1:]:
+                    for i in temp:
                         i1 = i.index('(')
                         i2 = i.index(')')
                         item = i[0:i1]
@@ -449,8 +449,8 @@ class PUFGrowth(frequentPatterns):
                         for line in f:
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
-                            tr = [int(temp[0])]
-                            for i in temp[1:]:
+                            tr = []
+                            for i in temp:
                                 i1 = i.index('(')
                                 i2 = i.index(')')
                                 item = i[0:i1]
@@ -709,4 +709,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [200, 220, 240, 260, 280, 300]
+        for i in l:
+            ap = PUFGrowth('/home/apiiit-rkv/Desktop/uncertain/congestion', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Patterns:", len(Patterns))
+            ap.savePatterns('/home/apiiit-rkv/Desktop/uncertain/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

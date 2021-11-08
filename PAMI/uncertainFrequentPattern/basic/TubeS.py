@@ -453,6 +453,7 @@ class TubeS(frequentPatterns):
     memoryRSS = float()
     Database = []
     rank = {}
+    lno = 0
 
     def creatingItemSets(self):
         """
@@ -487,7 +488,7 @@ class TubeS(frequentPatterns):
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
                     tr = []
-                    for i in temp[1:]:
+                    for i in temp:
                         i1 = i.index('(')
                         i2 = i.index(')')
                         item = i[0:i1]
@@ -502,8 +503,8 @@ class TubeS(frequentPatterns):
                         for line in f:
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
-                            tr = [int(temp[0])]
-                            for i in temp[1:]:
+                            tr = []
+                            for i in temp:
                                 i1 = i.index('(')
                                 i2 = i.index(')')
                                 item = i[0:i1]
@@ -652,6 +653,7 @@ class TubeS(frequentPatterns):
         self.minSup = self.convert(self.minSup)
         self.finalPatterns = {}
         mapSupport, plist = self.frequentOneItem()
+        print(len(mapSupport))
         transactions1 = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         Tree1 = self.buildTree(transactions1, info)
@@ -752,4 +754,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [260, 280, 300]
+        for i in l:
+            ap = TubeS('/home/apiiit-rkv/Desktop/uncertain/congestion', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Patterns:", len(Patterns))
+            ap.savePatterns('/home/apiiit-rkv/Desktop/uncertain/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

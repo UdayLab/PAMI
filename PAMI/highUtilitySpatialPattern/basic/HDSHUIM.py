@@ -643,4 +643,16 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = HDSHUIM('/home/apiiit-rkv/Downloads/ffsi_rainFallHighUtilityTransactionalDatabase.txt',
+                     '/home/apiiit-rkv/Downloads/ffsi_neighborhoodRainFall_6.txt', 3000000, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Spatial High-Utility Patterns:", len(Patterns))
+        ap.savePatterns(sys.argv[2])
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

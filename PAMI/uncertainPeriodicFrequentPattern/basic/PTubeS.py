@@ -579,12 +579,14 @@ class PTubeS(periodicFrequentPatterns):
                     self.Database.append(temp)
             else:
                 try:
+                    count = 0
                     with open(self.iFile, 'r') as f:
                         for line in f:
+                            count += 1
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
-                            tr = [int(temp[0])]
-                            for i in temp[1:]:
+                            tr = [count]
+                            for i in temp:
                                 i1 = i.index('(')
                                 i2 = i.index(')')
                                 item = i[0:i1]
@@ -843,4 +845,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [100, 120, 140, 160, 180, 200]
+        for i in l:
+            ap = PTubeS('/home/apiiit-rkv/Desktop/uncertain/congestion', i, 2000, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Patterns:", len(Patterns))
+            ap.savePatterns('/home/apiiit-rkv/Desktop/uncertain/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
