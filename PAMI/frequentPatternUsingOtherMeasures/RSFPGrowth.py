@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #      Copyright (C)  2021 Rage Uday Kiran
 
-from abstract import *
+from PAMI.frequentPatternUsingOtherMeasure.abstract import *
 import sys
 import validators
 from urllib.request import urlopen
