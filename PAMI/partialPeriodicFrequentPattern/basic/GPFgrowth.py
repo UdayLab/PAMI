@@ -1,5 +1,5 @@
 import sys
-from abstract import *
+from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
 orderOfItem = {}
 
