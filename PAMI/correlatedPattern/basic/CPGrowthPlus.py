@@ -28,7 +28,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from PAMI.correlatedpattern.baic.abstract import *
+from PAMI.correlatedPattern.baic.abstract import *
 import sys
 import math
 import validators
