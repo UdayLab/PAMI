@@ -1,5 +1,5 @@
 import pandas as pd
-from abstract import *
+from PAMI.correlatedPattern.basic abstract import *
 
 frequentPatterns = {}
 class Node:
