@@ -1,7 +1,7 @@
 import sys
 import validators
 from urllib.request import urlopen
-from abstract import *
+from PAMI.partialPeriodicPattern.closed.abstract import *
 
 
 class PPPClose(partialPeriodicPatterns):
