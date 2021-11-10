@@ -13,10 +13,10 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.frequentPattern.basic.fpabstract import *
+from PAMI.frequentPattern.basic import fpabstract as _fp
 
 minSup = str()
-sys.setrecursionlimit(20000)
+_fp._sys.setrecursionlimit(20000)
 
 
 class _Node:
@@ -207,7 +207,7 @@ class _Tree:
                     yield q
 
 
-class FPGrowth(frequentPatterns):
+class FPGrowth(_fp._frequentPatterns):
     """
        FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
        It stores the database in compressed fp-tree decreasing the memory usage and extracts the
@@ -349,7 +349,7 @@ class FPGrowth(frequentPatterns):
 
         """
         self.__Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        if isinstance(self.iFile, _fp._pd.DataFrame):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
@@ -358,8 +358,8 @@ class FPGrowth(frequentPatterns):
 
             #print(self.Database)
         if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+            if _fp._validators.url(self.iFile):
+                data = _fp._urlopen(self.iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
@@ -483,7 +483,7 @@ class FPGrowth(frequentPatterns):
 
         """
         global minSup
-        self.__startTime = time.time()
+        self.__startTime = _fp._time.time()
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
@@ -503,10 +503,10 @@ class FPGrowth(frequentPatterns):
             s = self.__savePeriodic(k[0])
             self.__finalPatterns[str(s)] = k[1]
         print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
-        self.__endTime = time.time()
+        self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
         self.__memoryRSS = float()
-        process = psutil.Process(os.getpid())
+        process = _fp._psutil.Process(_fp._os.getpid())
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
 
@@ -553,7 +553,7 @@ class FPGrowth(frequentPatterns):
         data = []
         for a, b in self.__finalPatterns.items():
             data.append([a, b])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
     def savePatterns(self, outFile):
@@ -580,22 +580,22 @@ class FPGrowth(frequentPatterns):
 
 
 if __name__ == "__main__":
-    ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
-        if len(sys.argv) == 5:
-            ap = FPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
-        if len(sys.argv) == 4:
-            ap = FPGrowth(sys.argv[1], sys.argv[3])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+    _ap = str()
+    if len(_fp._sys.argv) == 4 or len(_fp._sys.argv) == 5:
+        if len(_fp._sys.argv) == 5:
+            _ap = FPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
+        if len(_fp._sys.argv) == 4:
+            _ap = FPGrowth(_fp._sys.argv[1], _fp._sys.argv[3])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(_Patterns))
+        _ap.savePatterns(_fp._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         '''ap = FPGrowth('/Users/Likhitha/Downloads/mushrooms.txt', 500, ' ')
         ap.startMine()
