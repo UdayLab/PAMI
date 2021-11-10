@@ -13,16 +13,13 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.frequentPattern.basic.abstract import *
-import sys
-from urllib.request import urlopen
-import validators
+from PAMI.frequentPattern.basic.fpabstract import *
 
 minSup = str()
 sys.setrecursionlimit(20000)
 
 
-class Node:
+class _Node:
     """
         A class used to represent the node of frequentPatternTree
 
@@ -64,7 +61,7 @@ class Node:
         node.parent = self
 
 
-class Tree:
+class _Tree:
     """
     A class used to represent the frequentPatternGrowth tree structure
 
@@ -90,7 +87,7 @@ class Tree:
     """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
@@ -110,7 +107,7 @@ class Tree:
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
-                newNode = Node(transaction[i], {})
+                newNode = _Node(transaction[i], {})
                 newNode.freq = count
                 currentNode.addChild(newNode)
                 if transaction[i] in self.summaries:
@@ -201,7 +198,7 @@ class Tree:
             pattern.append(i)
             yield pattern, self.info[i]
             patterns, freq, info = self.getFinalConditionalPatterns(i)
-            conditionalTree = Tree()
+            conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             for pat in range(len(patterns)):
                 conditionalTree.addTransaction(patterns[pat], freq[pat])
@@ -326,40 +323,39 @@ class FPGrowth(frequentPatterns):
 
         """
 
-    startTime = float()
-    endTime = float()
+    __startTime = float()
+    __endTime = float()
     minSup = str()
-    finalPatterns = {}
+    __finalPatterns = {}
     iFile = " "
     oFile = " "
     sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    mapSupport = {}
-    lno = 0
-    tree = Tree()
-    rank = {}
-    rankDup = {}
+    __memoryUSS = float()
+    __memoryRSS = float()
+    __Database = []
+    __mapSupport = {}
+    __lno = 0
+    __tree = _Tree()
+    __rank = {}
+    __rankDup = {}
 
     def __init__(self, iFile, minSup, sep='\t'):
         super().__init__(iFile, minSup, sep)
 
-    def creatingItemSets(self):
+    def __creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
 
         """
-        self.Database = []
+        self.__Database = []
         if isinstance(self.iFile, pd.DataFrame):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
+                self.__Database = self.iFile['Transactions'].tolist()
+
             #print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
@@ -369,7 +365,7 @@ class FPGrowth(frequentPatterns):
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self.sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self.__Database.append(temp)
             else:
                 try:
                     with open(self.iFile, 'r', encoding='utf-8') as f:
@@ -377,12 +373,12 @@ class FPGrowth(frequentPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self.__Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def convert(self, value):
+    def __convert(self, value):
         """
         to convert the type of user specified minSup value
 
@@ -393,33 +389,33 @@ class FPGrowth(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self.__Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self.__Database) * value)
             else:
                 value = int(value)
         return value
 
-    def frequentOneItem(self):
+    def __frequentOneItem(self):
         """
         Generating One frequent items sets
 
         """
-        self.mapSupport = {}
-        for tr in self.Database:
+        self.__mapSupport = {}
+        for tr in self.__Database:
             for i in range(0, len(tr)):
-                if tr[i] not in self.mapSupport:
-                    self.mapSupport[tr[i]] = 1
+                if tr[i] not in self.__mapSupport:
+                    self.__mapSupport[tr[i]] = 1
                 else:
-                    self.mapSupport[tr[i]] += 1
-        self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        genList = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        self.rank = dict([(index, item) for (item, index) in enumerate(genList)])
+                    self.__mapSupport[tr[i]] += 1
+        self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self.minSup}
+        genList = [k for k, v in sorted(self.__mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        self.__rank = dict([(index, item) for (item, index) in enumerate(genList)])
         return genList
 
-    def updateTransactions(self, itemSet):
+    def __updateTransactions(self, itemSet):
         """
         Updates the items in transactions with rank of items according to their support
 
@@ -434,18 +430,18 @@ class FPGrowth(frequentPatterns):
 
         """
         list1 = []
-        for tr in self.Database:
+        for tr in self.__Database:
             list2 = []
             for i in range(len(tr)):
                 if tr[i] in itemSet:
-                    list2.append(self.rank[tr[i]])
+                    list2.append(self.__rank[tr[i]])
             if len(list2) >= 1:
                 list2.sort()
                 list1.append(list2)
         return list1
 
     @staticmethod
-    def buildTree(transactions, info):
+    def __buildTree(transactions, info):
         """
         Builds the tree with updated transactions
         Parameters:
@@ -458,13 +454,13 @@ class FPGrowth(frequentPatterns):
             transactions compressed in fp-tree
 
         """
-        rootNode = Tree()
+        rootNode = _Tree()
         rootNode.info = info.copy()
         for i in range(len(transactions)):
             rootNode.addTransaction(transactions[i], 1)
         return rootNode
 
-    def savePeriodic(self, itemSet):
+    def __savePeriodic(self, itemSet):
         """
         The duplication items and their ranks
         Parameters:
@@ -478,7 +474,7 @@ class FPGrowth(frequentPatterns):
         """
         temp = str()
         for i in itemSet:
-            temp = temp + self.rankDup[i] + " "
+            temp = temp + self.__rankDup[i] + " "
         return temp
 
     def startMine(self):
@@ -487,32 +483,32 @@ class FPGrowth(frequentPatterns):
 
         """
         global minSup
-        self.startTime = time.time()
+        self.__startTime = time.time()
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingItemSets()
-        self.minSup = self.convert(self.minSup)
+        self.__creatingItemSets()
+        self.minSup = self.__convert(self.minSup)
         minSup = self.minSup
-        itemSet = self.frequentOneItem()
-        updatedTransactions = self.updateTransactions(itemSet)
-        for x, y in self.rank.items():
-            self.rankDup[y] = x
-        info = {self.rank[k]: v for k, v in self.mapSupport.items()}
-        Tree = self.buildTree(updatedTransactions, info)
-        patterns = Tree.generatePatterns([])
-        self.finalPatterns = {}
+        itemSet = self.__frequentOneItem()
+        updatedTransactions = self.__updateTransactions(itemSet)
+        for x, y in self.__rank.items():
+            self.__rankDup[y] = x
+        info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
+        __Tree = self.__buildTree(updatedTransactions, info)
+        patterns = __Tree.generatePatterns([])
+        self.__finalPatterns = {}
         for k in patterns:
-            s = self.savePeriodic(k[0])
-            self.finalPatterns[str(s)] = k[1]
+            s = self.__savePeriodic(k[0])
+            self.__finalPatterns[str(s)] = k[1]
         print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
-        self.endTime = time.time()
-        self.memoryUSS = float()
-        self.memoryRSS = float()
+        self.__endTime = time.time()
+        self.__memoryUSS = float()
+        self.__memoryRSS = float()
         process = psutil.Process(os.getpid())
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self.__memoryUSS = process.memory_full_info().uss
+        self.__memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -522,7 +518,7 @@ class FPGrowth(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self.__memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -532,7 +528,7 @@ class FPGrowth(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self.__memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -543,7 +539,7 @@ class FPGrowth(frequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self.__endTime - self.__startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -555,7 +551,7 @@ class FPGrowth(frequentPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self.__finalPatterns.items():
             data.append([a, b])
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
@@ -569,7 +565,7 @@ class FPGrowth(frequentPatterns):
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        for x, y in self.__finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -580,7 +576,7 @@ class FPGrowth(frequentPatterns):
 
         :rtype: dict
         """
-        return self.finalPatterns
+        return self.__finalPatterns
 
 
 if __name__ == "__main__":
@@ -601,4 +597,15 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        '''ap = FPGrowth('/Users/Likhitha/Downloads/mushrooms.txt', 500, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.savePatterns('/Users/Likhitha/Downloads/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
