@@ -102,9 +102,9 @@ class _frequentPatterns(_ABC):
         :type sep: str
         """
 
-        self.iFile = iFile
-        self.sep = sep
-        self.minSup = minSup
+        self._iFile = iFile
+        self._sep = sep
+        self._minSup = minSup
         self.__startTime = str()
         self.__endTime = str()
         self.__finalPatterns = str()

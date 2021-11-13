@@ -15,7 +15,7 @@
 
 from PAMI.frequentPattern.basic import fpabstract as _fp
 
-minSup = str()
+_minSup = str()
 _fp._sys.setrecursionlimit(20000)
 
 
@@ -160,7 +160,7 @@ class _Tree:
         -------
             conditional patterns and frequency of each item in transactions
         """
-        global minSup
+        global _minSup
         pat = []
         freq = []
         data1 = {}
@@ -170,7 +170,7 @@ class _Tree:
                     data1[j] += conditionalFreq[i]
                 else:
                     data1[j] = conditionalFreq[i]
-        up_dict = {k: v for k, v in data1.items() if v >= minSup}
+        up_dict = {k: v for k, v in data1.items() if v >= _minSup}
         count = 0
         for p in ConditionalPatterns:
             p1 = [v for v in p if v in up_dict]
@@ -325,11 +325,11 @@ class FPGrowth(_fp._frequentPatterns):
 
     __startTime = float()
     __endTime = float()
-    minSup = str()
+    _minSup = str()
     __finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
     __memoryUSS = float()
     __memoryRSS = float()
     __Database = []
@@ -349,29 +349,29 @@ class FPGrowth(_fp._frequentPatterns):
 
         """
         self.__Database = []
-        if isinstance(self.iFile, _fp._pd.DataFrame):
-            if self.iFile.empty:
+        if isinstance(self._iFile, _fp._pd.DataFrame):
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.__Database = self.iFile['Transactions'].tolist()
+                self.__Database = self._iFile['Transactions'].tolist()
 
             #print(self.Database)
-        if isinstance(self.iFile, str):
-            if _fp._validators.url(self.iFile):
-                data = _fp._urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _fp._validators.url(self._iFile):
+                data = _fp._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
                     self.__Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             self.__Database.append(temp)
                 except IOError:
@@ -410,7 +410,7 @@ class FPGrowth(_fp._frequentPatterns):
                     self.__mapSupport[tr[i]] = 1
                 else:
                     self.__mapSupport[tr[i]] += 1
-        self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self.minSup}
+        self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self._minSup}
         genList = [k for k, v in sorted(self.__mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.__rank = dict([(index, item) for (item, index) in enumerate(genList)])
         return genList
@@ -482,15 +482,15 @@ class FPGrowth(_fp._frequentPatterns):
             main program to start the operation
 
         """
-        global minSup
+        global _minSup
         self.__startTime = _fp._time.time()
-        if self.iFile is None:
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.minSup is None:
+        if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
         self.__creatingItemSets()
-        self.minSup = self.__convert(self.minSup)
-        minSup = self.minSup
+        self._minSup = self.__convert(self._minSup)
+        _minSup = self._minSup
         itemSet = self.__frequentOneItem()
         updatedTransactions = self.__updateTransactions(itemSet)
         for x, y in self.__rank.items():
@@ -563,8 +563,8 @@ class FPGrowth(_fp._frequentPatterns):
 
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
         for x, y in self.__finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
@@ -597,7 +597,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''ap = FPGrowth('/Users/Likhitha/Downloads/mushrooms.txt', 500, ' ')
+        ap = FPGrowth('/Users/Likhitha/Downloads/mushrooms.txt', 500, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
@@ -607,5 +607,5 @@ if __name__ == "__main__":
         memRSS = ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)'''
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

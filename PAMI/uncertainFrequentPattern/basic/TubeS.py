@@ -14,8 +14,7 @@
 #      along with this program.  If not,  see <https://www.gnu.org/licenses/>.
 
 
-
-from PAMI.uncertainFrequnetPattern.basic.abstract import *
+from PAMI.uncertainFrequentPattern.basic.abstract import *
 
 
 minSup = float()
