@@ -20,13 +20,16 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
     Uninstall the PAMI library
     
         pip uninstall -y pami
-        
-3. [Organization of algorithms in PAMI](organization.html)
+    
+    
+3. Tutorials
+   1. [Periodic-frequent pattern mining](tutorials/periodicFrequentPattern.html)
+4. [Organization of algorithms in PAMI](organization.html)
    
    The algorithms in PAMI are organized in an hierarchical structure as follows: 
    
         PAMI
-          |-theoriticalModel
+          |-theoriticalPatternModel
           |        |-patternType (e.g., basic/maximal/closed/topk)
           |               |-algorithmName
           |- ...
@@ -39,18 +42,20 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    
    An user can import a pattern mining algorithm using the following syntax:
 
-       PAMI.theoriticalModel.basic/closed/maximal/topk import Algorithm as algo
+       PAMI.theoriticalPatternModel.<basic/closed/maximal/topk> import Algorithm as algo
     
-4. [Format to create different databases](createDatabases.html)
-   
+5. [Format to create different databases](createDatabases.html)
+
+   The default separator for the items in a transaction is tab space. However, users can employ any separator of their choice, say comma and white space.
+
     1. [Transactional database](transactionalDatabase.html)
        
             format: item1<sep>item2<sep>...<sep>itemN
        
-    1. [Temporal database](temporalDatabase.html)
+    2. [Temporal database](temporalDatabase.html)
 
             format: timestamp<sep>item1<sep>item2<sep>...<sep>itemN
-    1. [Spatial database](spatialDatabase.html)
+    3. [Spatial database](spatialDatabase.html)
             
         Format of a spatio-transactional database is
         
@@ -60,25 +65,33 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
        
             timestamp<sep>spatialItem1<sep>spatialItem2<sep> ... <sep>spatialItemN
             
-    1. [Utility database](utilityDatabase.html)
+    4. [Utility database](utilityDatabase.html)
        
             format: item1<sep>...<sep>itemN:totalUtility:utilityItem1<sep>...<sep>utilityItemN
     
-    Default separator used in PAMI is tab space. However, users can override the separator with their choice.
+    5. [Uncertain database](uncertainDatabases.md)
+            
+       Uncertain transactional database
+
+           format: item1<sep>...<sep>itemN:uncertainityValueItem1<sep>...<sep>uncertainityValueItemN
+
+       Uncertain temporal database
+
+           format: timestamp<sep>item1<sep>...<sep>itemN:uncertainityValueItem1<sep>...<sep>uncertainityValueItemN
    
-5. [Getting the statistics of databases](databaseStats.html)
+6. [Getting the statistics of databases](databaseStats.html)
 
     The performance of a mining algorithm primarily depends on the following two key factors: 
 
    1. Distribution of items' frequencies and 
    2. Distribution of transaction length
 
-    Thus, it is important to know the statistical details of a database. PAMI provides inbuilt classes and functions methods to 
-get the statistical details of a database.
+    Thus, it is important to know the statistical details of a database. PAMI provides inbuilt classes and functions to 
+derive the statistical details of a database.
    
    1. [Statistics of a transactional database](transactionalDatabaseStats.md)
    
-        This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
+        This program outputs the statistical details of a transactional database. The details include distribution of items' frequencies and transactional lengths.
         
             import PAMI.extras.dbStats.transactionalDatabaseStats as tds
             
@@ -102,7 +115,7 @@ get the statistical details of a database.
           
    2. [Statistics of a temporal database](temporalDatabaseStats.md)
    
-        This program outputs the statistical details of a temporal database. It will also output the distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
+        This program outputs the statistical details of a temporal database. The details include distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
         
             import PAMI.extras.dbStats.temporalDatabaseStats as tds
           
@@ -159,10 +172,10 @@ get the statistical details of a database.
             obj.storeInFile(transactionLength, 'transactionSize.csv')
             obj.storeInFile(utility, 'utility.csv')            
    
-6. [Basic plots of a database](basicPlots.md)
+7. [Basic plots of a database](basicPlots.md)
 
-    In the previous chapter, we have presented the methods to understand the statistics of a database. 
-    In continuation, we present the methods to plot the graphs of graphs. 
+    In the previous chapter, we have presented the methods to derive the statistics of a database. 
+    In continuation, we present the methods to plot the graphs. 
     
         import PAMI.extras.graph.plotLineGraphFromDictionary as plt
         
@@ -179,7 +192,7 @@ get the statistical details of a database.
           plt.plotLineGraphFromDictionary(obj.getSortedListOfItemFrequencies(),50,'item frequencies', 'item rank', 'frequency')
           plt.plotLineGraphFromDictionary(obj.getTransanctionalLengthDistribution(),100,'distribution of transactions', 'transaction length', 'frequency') 
                   
-7. [Converting dataframes to databases](dataFrameCoversio.html)
+8. [Converting dataframes to databases](dataFrameCoversio.html)
 
    1. [Format of dense dataframe]((denseDF2DB.html)) 
     
@@ -212,7 +225,7 @@ get the statistical details of a database.
 
    5. [Spatiotemporal dataframe to databases](stDF2DB.html)
    
-8. [Exceuting Algorithms in PAMI](utilization.html)
+9. [Exceuting Algorithms in PAMI](utilization.html)
 
    1. [Importing PAMI algorithms into your program](useAlgo.html)
    
