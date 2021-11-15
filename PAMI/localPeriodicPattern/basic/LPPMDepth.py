@@ -156,33 +156,34 @@ class LPPMDepth(localPeriodicPatterns):
         """
         Create tsList as bit vector from temporal data.
         """
+        # for line in self.Database:
+        #     count = 1
+        #     bitVector = 0b1 << count
+        #     bitVector = bitVector | 0b1
+        #     self.tsmin = int(line.pop(0))
+        #     self.tsList = {item: bitVector for item in line}
+        #     count += 1
+        #     ts = ' '
+        count = 1
         for line in self.Database:
-            count = 1
             bitVector = 0b1 << count
             bitVector = bitVector | 0b1
-            self.tsmin = int(line.pop(0))
-            self.tsList = {item: bitVector for item in line}
+            ts = line[0]
+            for item in line[1:]:
+                if self.tsList.get(item):
+                    different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
+                    self.tsList[item] = self.tsList[item] << different
+                    self.tsList[item] = self.tsList[item] | 0b1
+                else:
+                    self.tsList[item] = bitVector
             count += 1
-            ts = ' '
-            for line in self.Database:
-                bitVector = 0b1 << count
-                bitVector = bitVector | 0b1
-                ts = line.pop(0)
-                for item in line:
-                    if self.tsList.get(item):
-                        different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
-                        self.tsList[item] = self.tsList[item] << different
-                        self.tsList[item] = self.tsList[item] | 0b1
-                    else:
-                        self.tsList[item] = bitVector
-                count += 1
             self.tsmax = int(ts)
-            for item in self.tsList:
-                different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
-                self.tsList[item] = self.tsList[item] << different
-        self.maxPer = (count-1) * self.maxPer
-        self.maxSoPer = (count-1) * self.maxSoPer
-        self.minDur = (count-1) * self.minDur
+        for item in self.tsList:
+            different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
+            self.tsList[item] = self.tsList[item] << different
+        self.maxPer = self.convert(self.maxPer)
+        self.maxSoPer = self.convert(self.maxSoPer)
+        self.minDur = self.convert(self.minDur)
 
     def generateLPP(self):
         """
@@ -431,36 +432,41 @@ class LPPMDepth(localPeriodicPatterns):
 
 
 if __name__ == '__main__':
-    ap = str()
-    if len(sys.argv) == 6 or len(sys.argv) == 7:
-        if len(sys.argv) == 7:
-            ap = LPPMDepth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
-        if len(sys.argv) == 6:
-            ap = LPPMDepth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
-    else:
-        l = [0.004, 0.005, 0.006, 0.007, 0.008]
-        for i in l:
-            ap = LPPMDepth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
-                             , i, 0.01, 0.01)
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Frequent Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
-        print("Error! The number of input parameters do not match the total number of parameters provided")
-
+#     ap = str()
+#     if len(sys.argv) == 6 or len(sys.argv) == 7:
+#         if len(sys.argv) == 7:
+#             ap = LPPMDepth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+#         if len(sys.argv) == 6:
+#             ap = LPPMDepth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+#         ap.startMine()
+#         Patterns = ap.getPatterns()
+#         print("Total number of Frequent Patterns:", len(Patterns))
+#         ap.savePatterns(sys.argv[2])
+#         memUSS = ap.getMemoryUSS()
+#         print("Total Memory in USS:", memUSS)
+#         memRSS = ap.getMemoryRSS()
+#         print("Total Memory in RSS", memRSS)
+#         run = ap.getRuntime()
+#         print("Total ExecutionTime in ms:", run)
+#     else:
+#         l = [0.004, 0.005, 0.006, 0.007, 0.008]
+#         for i in l:
+#             ap = LPPMDepth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
+#                              , i, 0.01, 0.01)
+#             ap.startMine()
+#             Patterns = ap.getPatterns()
+#             print("Total number of Frequent Patterns:", len(Patterns))
+#             ap.savePatterns('/Users/Likhitha/Downloads/output')
+#             memUSS = ap.getMemoryUSS()
+#             print("Total Memory in USS:", memUSS)
+#             memRSS = ap.getMemoryRSS()
+#             print("Total Memory in RSS", memRSS)
+#             run = ap.getRuntime()
+#             print("Total ExecutionTime in ms:", run)
+#         print("Error! The number of input parameters do not match the total number of parameters provided")
+#
+    obj = LPPMDepth('test.txt', 3, 2, 7)
+    # obj.startMine()
+    obj.startMine()
+    localPeriodicPatterns = obj.getPatterns()
+    print(f'Pattenrs:{len(localPeriodicPatterns)}')
