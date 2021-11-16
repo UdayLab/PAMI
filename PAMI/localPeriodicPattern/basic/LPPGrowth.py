@@ -381,23 +381,24 @@ class LPPGrowth(localPeriodicPatterns):
             count = 1
             bitVector = 0b1 << count
             bitVector = bitVector | 0b1
-            self.tsMin = int(line.pop(0))
-            self.tsList = {item: bitVector for item in line}
-            count += 1
-            ts = ' '
-            for line in self.Database:
-                bitVector = 0b1 << count
-                bitVector = bitVector | 0b1
-                print(line)
-                ts = line.pop(0)
-                for item in line:
-                    if self.tsList.get(item):
-                        different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
-                        self.tsList[item] = self.tsList[item] << different
-                        self.tsList[item] = self.tsList[item] | 0b1
-                    else:
-                        self.tsList[item] = bitVector
+            if len(line) > 0:
+                self.tsMin = int(line.pop(0))
+                self.tsList = {item: bitVector for item in line}
                 count += 1
+                ts = ' '
+                for line in self.Database:
+                    bitVector = 0b1 << count
+                    bitVector = bitVector | 0b1
+                    if len(line) > 0:
+                        ts = line.pop(0)
+                        for item in line:
+                            if self.tsList.get(item):
+                                different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
+                                self.tsList[item] = self.tsList[item] << different
+                                self.tsList[item] = self.tsList[item] | 0b1
+                            else:
+                                self.tsList[item] = bitVector
+                        count += 1
             self.tsMax = int(ts)
             for item in self.tsList:
                 different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
@@ -743,18 +744,16 @@ if __name__ == '__main__':
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        l = [0.004, 0.005, 0.006, 0.007, 0.008]
-        for i in l:
-            ap = LPPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
-                           , i, 0.01, 0.01)
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Frequent Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
+        ap = LPPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
+                           , 1000, 2000, 20000)
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.savePatterns('/Users/Likhitha/Downloads/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
