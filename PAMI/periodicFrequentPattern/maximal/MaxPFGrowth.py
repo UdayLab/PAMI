@@ -14,14 +14,12 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from PAMI.periodicFrequnetPattern.maximal.abstract import *
+from PAMI.periodicFrequentPattern.maximal.abstract import *
 
 
 minSup = float()
 maxPer = float()
 lno = int()
-patterns = {}
-pfList = []
 
 
 class Node(object):
@@ -98,6 +96,7 @@ class Tree(object):
         self.root = Node(None, {})
         self.summaries = {}
         self.info = {}
+        self.maximalTree = MPTree()
 
     def addTransaction(self, transaction, tid):
         """
@@ -171,7 +170,7 @@ class Tree(object):
             temp += i.timeStamps
         return temp
 
-    def generatePatterns(self, prefix):
+    def generatePatterns(self, prefix, patterns):
         """
             To generate the maximal periodic frequent patterns
 
@@ -179,7 +178,7 @@ class Tree(object):
 
             :return: maximal periodic frequent patterns
         """
-        global maximalTree, patterns
+        global maximalTree
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
@@ -191,30 +190,16 @@ class Tree(object):
             for k in info:
                 tail.append(k)
             sub = head + tail
-            if maximalTree.checkerSub(sub) == 1:
+            if self.maximalTree.checkerSub(sub) == 1:
                 for pat in range(len(condPattern)):
                     conditionalTree.addTransaction(condPattern[pat], timeStamps[pat])
                 if len(condPattern) >= 1:
-                    conditionalTree.generatePatterns(pattern)
+                    conditionalTree.generatePatterns(pattern, patterns)
                 else:
-                    maximalTree.addTransaction(pattern)
-                    s = convert(pattern)
-                    patterns[tuple(s)] = self.info[i]
+                    self.maximalTree.addTransaction(pattern)
+                    #s = convert(pattern)
+                    patterns[tuple(pattern)] = self.info[i]
             self.removeNode(i)
-
-
-def convert(itemSet):
-    """
-    to convert the maximal pattern items with their original item names
-
-    :param itemSet: maximal periodic frequent pattern
-
-    :return: pattern with original item names
-    """
-    t1 = []
-    for i in itemSet:
-        t1.append(pfList[i])
-    return t1
 
 
 class MNode(object):
@@ -320,7 +305,7 @@ class MPTree(object):
         return 1
 
 
-maximalTree = MPTree()
+#maximalTree = MPTree()
 
 
 def getPeriodAndSupport(timeStamps):
@@ -511,6 +496,7 @@ class MaxPFGrowth(periodicFrequentPatterns):
     rank = {}
     rankedUp = {}
     lno = 0
+    patterns = {}
 
     def __init__(self, iFile, minSup, maxPer, sep='\t'):
         super().__init__(iFile, minSup, maxPer, sep)
@@ -561,7 +547,6 @@ class MaxPFGrowth(periodicFrequentPatterns):
 
 
             """
-        global pfList
         data = {}
         for tr in self.Database:
             for i in range(1, len(tr)):
@@ -650,7 +635,8 @@ class MaxPFGrowth(periodicFrequentPatterns):
         """ Mining process will start from this function
         """
 
-        global minSup, maxPer, lno, patterns
+        global minSup, maxPer, lno
+        self.patterns = {}
         self.startTime = time.time()
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -668,12 +654,14 @@ class MaxPFGrowth(periodicFrequentPatterns):
             self.rankedUp[y] = x
         info = {self.rank[k]: v for k, v in generatedItems.items()}
         Tree = self.buildTree(updatedDatabases, info)
-        Tree.generatePatterns([])
-        for x, y in patterns.items():
-            sample = str()
+        self.finalPatterns = {}
+        Tree.generatePatterns([], self.patterns)
+        for x, y in self.patterns.items():
+            pattern = str()
+            x = self.savePeriodic(x)
             for i in x:
-                sample = sample + i + " "
-            self.finalPatterns[sample] = y
+                pattern = pattern + i + " "
+            self.finalPatterns[pattern] = y
         self.endTime = time.time()
         process = psutil.Process(os.getpid())
         self.memoryUSS = float()
@@ -763,19 +751,4 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        l = [0.001, 0.01]
-        for i in l:
-            ap = MaxPFGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                         i, 0.02)
-            ap.startMine()
-            print(ap.minSup, ap.maxPer, len(ap.Database))
-            correlatedPatterns = ap.getPatterns()
-            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")        

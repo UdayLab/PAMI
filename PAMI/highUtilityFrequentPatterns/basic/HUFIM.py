@@ -12,15 +12,24 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+from PAMI.highUtilityFrequentPatterns.basic import abstract as _ab
 
 
-import sys
-import validators
-from urllib.request import urlopen
-from PAMI.highUtilityFrequentPatterns.basic.abstract import *
-
-
-class Transaction:
+class _Transaction:
     """
         A class to store Transaction of a database
 
@@ -74,7 +83,7 @@ class Transaction:
             :param offsetE: an offset over the original transaction for projecting the transaction
             :type offsetE: int
         """
-        new_transaction = Transaction(self.items, self.utilities, self.transactionUtility)
+        new_transaction = _Transaction(self.items, self.utilities, self.transactionUtility)
         utilityE = self.utilities[offsetE]
         new_transaction.prefixUtility = self.prefixUtility + utilityE
         new_transaction.transactionUtility = self.transactionUtility - utilityE
@@ -147,7 +156,7 @@ class Transaction:
             self.utilities[j + 1] = utilityJ
         
 
-class Dataset:
+class _Dataset:
     """
         A class represent the list of transactions in this dataset
 
@@ -180,7 +189,7 @@ class Dataset:
 
     def createItemSets(self, datasetPath):
         self.Database = []
-        if isinstance(datasetPath, pd.DataFrame):
+        if isinstance(datasetPath, _ab._pd.DataFrame):
             utilities, data, utilitySum = [], [], []
             if datasetPath.empty:
                 print("its empty..")
@@ -194,8 +203,8 @@ class Dataset:
             for k in range(len(data)):
                 self.transactions.append(self.createTransaction(data[k], utilities[k], utilitySum[k]))
         if isinstance(datasetPath, str):
-            if validators.url(datasetPath):
-                data = urlopen(datasetPath)
+            if _ab._validators.url(datasetPath):
+                data = _ab._urlopen(datasetPath)
                 for line in data:
                     line = line.decode("utf-8")
                     trans_list = line.strip().split(':')
@@ -250,7 +259,7 @@ class Dataset:
                 self.maxItem = item_int
             items.append(item_int)
             utilities.append(int(utilityString[idx]))
-        return Transaction(items, utilities, transactionUtility)
+        return _Transaction(items, utilities, transactionUtility)
 
     def getMaxItem(self):
         """
@@ -265,7 +274,7 @@ class Dataset:
         return self.transactions
 
 
-class HUFIM(utilityPatterns):
+class HUFIM(_ab._utilityPatterns):
     """
     HUFIM (High Utility Frequent Itemset Miner) algorithm helps us to mine High Utility Frequent ItemSets (HUFIs) from transactional databases.
 
@@ -339,13 +348,13 @@ class HUFIM(utilityPatterns):
                A method to calculate the sub-tree utility and local utility of all items that can extend itemSet P and e
         output(tempPosition, utility)
                A method to output a relative-high-utility itemSet to file or memory depending on what the user chose
-        is_equal(transaction1, transaction2)
+        isEqual(transaction1, transaction2)
                A method to Check if two transaction are identical
         useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(dataset)
               A method to calculate the sub tree utility values for single items
         sortDatabase(self, transactions)
               A Method to sort transaction
-        sort_transaction(self, trans1, trans2)
+        sortTransaction(self, trans1, trans2)
               A Method to sort transaction
         useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)
              A method to calculate local utility values for single itemSets
@@ -392,36 +401,36 @@ class HUFIM(utilityPatterns):
      
     """
 
-    highUtilityFrequentItemSets = []
-    candidateCount = 0
-    utilityBinArrayLU = {}
-    utilityBinArraySU = {}
-    oldNamesToNewNames = {}
-    newNamesToOldNames = {}
-    singleItemSetsSupport = {}
-    singleItemSetsUtility = {}
-    strToInt = {}
-    intToStr = {}
-    temp = [0]*5000
-    patternCount = int()
-    maxMemory = 0
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    nFile = " "
-    lno = 0
-    sep = "\t"
-    minUtil = 0
-    minSup = 0
-    memoryUSS = float()
-    memoryRSS = float()
+    _highUtilityFrequentItemSets = []
+    _candidateCount = 0
+    _utilityBinArrayLU = {}
+    _utilityBinArraySU = {}
+    _oldNamesToNewNames = {}
+    _newNamesToOldNames = {}
+    _singleItemSetsSupport = {}
+    _singleItemSetsUtility = {}
+    _strToInt = {}
+    _intToStr = {}
+    _temp = [0]*5000
+    _patternCount = int()
+    _maxMemory = 0
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _nFile = " "
+    _lno = 0
+    _sep = "\t"
+    _minUtil = 0
+    _minSup = 0
+    _memoryUSS = float()
+    _memoryRSS = float()
 
     def __init__(self, iFile, minUtil, minSup, sep="\t"):
         super().__init__(iFile, minUtil, minSup, sep)
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -431,74 +440,75 @@ class HUFIM(utilityPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.dataset.getTransactions()) * value)
+            value = (len(self._dataset.getTransactions()) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.dataset.getTransactions()) * value)
+                value = (len(self._dataset.getTransactions()) * value)
             else:
                 value = int(value)
         return value
 
 
     def startMine(self):
-        self.startTime = time.time()
-        self.dataset = Dataset(self.iFile, self.sep)
-        self.singleItemSetsSupport = defaultdict(int)
-        self.singleItemSetsUtility = defaultdict(int)
-        self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
-        self.minUtil = int(self.minUtil)
-        self.minSup = self.convert(self.minSup)
+        self._startTime = _ab._time.time()
+        self._finalPatterns = {}
+        self._dataset = _Dataset(self._iFile, self._sep)
+        self._singleItemSetsSupport = _ab._defaultdict(int)
+        self._singleItemSetsUtility = _ab._defaultdict(int)
+        self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
+        self._minUtil = int(self._minUtil)
+        self._minSup = self._convert(self._minSup)
         #print("######################################")
         #print("given minimum support is", self.minSup)
         #print("given minimum utility is", self.minUtil)
         itemsToKeep = []
-        for key in self.utilityBinArrayLU.keys():
-            if self.utilityBinArrayLU[key] >= self.minUtil and self.singleItemSetsSupport[key] >= self.minSup:
+        for key in self._utilityBinArrayLU.keys():
+            if self._utilityBinArrayLU[key] >= self._minUtil and self._singleItemSetsSupport[key] >= self._minSup:
                 itemsToKeep.append(key)
         # sorting items in decreasing order of utilities
-        itemsToKeep = sorted(itemsToKeep, key=lambda x: self.singleItemSetsUtility[x], reverse=True)
+        itemsToKeep = sorted(itemsToKeep, key=lambda x: self._singleItemSetsUtility[x], reverse=True)
         currentName = 1
         for idx, item in enumerate(itemsToKeep):
-            self.oldNamesToNewNames[item] = currentName
-            self.newNamesToOldNames[currentName] = item
+            self._oldNamesToNewNames[item] = currentName
+            self._newNamesToOldNames[currentName] = item
             itemsToKeep[idx] = currentName
             currentName += 1
-        for transaction in self.dataset.getTransactions():
-            transaction.removeUnpromisingItems(self.oldNamesToNewNames)
-        self.sortDatabase(self.dataset.getTransactions())
+        for transaction in self._dataset.getTransactions():
+            transaction.removeUnpromisingItems(self._oldNamesToNewNames)
+        self._sortDatabase(self._dataset.getTransactions())
         emptyTransactionCount = 0
-        for transaction in self.dataset.getTransactions():
+        for transaction in self._dataset.getTransactions():
             if len(transaction.getItems()) == 0:
                 emptyTransactionCount += 1
-        self.dataset.transactions = self.dataset.transactions[emptyTransactionCount:]
+        self._dataset.transactions = self._dataset.transactions[emptyTransactionCount:]
         # calculating suffix utility values
         totalUtility = 0
         for item in itemsToKeep:
-            totalUtility += self.singleItemSetsUtility[self.newNamesToOldNames[item]]
+            totalUtility += self._singleItemSetsUtility[self._newNamesToOldNames[item]]
         # piItems
         piItems = []
         for item in itemsToKeep:
-            if totalUtility >= self.minUtil:
+            if totalUtility >= self._minUtil:
                 piItems.append(item)
-                totalUtility -= self.singleItemSetsUtility[self.newNamesToOldNames[item]]
+                totalUtility -= self._singleItemSetsUtility[self._newNamesToOldNames[item]]
             else:
                 break
-        self.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self.dataset)
+        self._useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self._dataset)
         itemsToExplore = []
         for item in piItems:
-            if self.utilityBinArraySU[item] >= self.minUtil:
+            if self._utilityBinArraySU[item] >= self._minUtil:
                 itemsToExplore.append(item)
-        self.backTrackingHUFIM(self.dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._backTrackingHUFIM(self._dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("High Utility Frequent patterns were generated successfully using HUFIM algorithm")
 
-    def backTrackingHUFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
+    def _backTrackingHUFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
         """
             A method to mine the HUFIs Recursively
 
@@ -518,7 +528,7 @@ class HUFIM(utilityPatterns):
         # print("items to explore", [self.dataset.intToStr.get(x) for x in [self.newNamesToOldNames[y] for y  in itemsToExplore]])
         # print("items to keep", [self.dataset.intToStr.get(x) for x in [self.newNamesToOldNames[y] for y in itemsToKeep]])
         # print("--------------")
-        self.candidateCount += len(itemsToExplore)
+        self._candidateCount += len(itemsToExplore)
         for idx, e in enumerate(itemsToExplore):
             # print("exploring item", self.dataset.intToStr.get(self.newNamesToOldNames[e]))
             transactionsPe = []
@@ -538,7 +548,7 @@ class HUFIM(utilityPatterns):
                         utilityPe += projectedTransaction.prefixUtility
                         if previousTransaction == []:
                             previousTransaction = projectedTransaction
-                        elif self.is_equal(projectedTransaction, previousTransaction):
+                        elif self._isEqual(projectedTransaction, previousTransaction):
                             if consecutiveMergeCount == 0:
                                 items = previousTransaction.items[previousTransaction.offset:]
                                 utilities = previousTransaction.utilities[previousTransaction.offset:]
@@ -552,7 +562,7 @@ class HUFIM(utilityPatterns):
                                     positionProjection += 1
                                 previousTransaction.prefixUtility += projectedTransaction.prefixUtility
                                 sumUtilities = previousTransaction.prefixUtility
-                                previousTransaction = Transaction(items, utilities, previousTransaction.transactionUtility + projectedTransaction.transactionUtility)
+                                previousTransaction = _Transaction(items, utilities, previousTransaction.transactionUtility + projectedTransaction.transactionUtility)
                                 previousTransaction.prefixUtility = sumUtilities
                                 previousTransaction.support = support
                                 previousTransaction.support += projectedTransaction.getSupport()
@@ -579,24 +589,24 @@ class HUFIM(utilityPatterns):
                 transactionsPe.append(previousTransaction)
                 supportPe += previousTransaction.getSupport()
             # print("support is", supportPe)
-            self.temp[prefixLength] = self.newNamesToOldNames[e]
-            if (utilityPe >= self.minUtil) and (supportPe >= self.minSup):
-                self.output(prefixLength, utilityPe, supportPe)
-            if supportPe >= self.minSup:
-                self.useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep)
+            self._temp[prefixLength] = self._newNamesToOldNames[e]
+            if (utilityPe >= self._minUtil) and (supportPe >= self._minSup):
+                self._output(prefixLength, utilityPe, supportPe)
+            if supportPe >= self._minSup:
+                self._useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep)
                 newItemsToKeep = []
                 newItemsToExplore = []
                 for l in range(idx + 1, len(itemsToKeep)):
                     itemK = itemsToKeep[l]
-                    if self.utilityBinArraySU[itemK] >= self.minUtil:
+                    if self._utilityBinArraySU[itemK] >= self._minUtil:
                         newItemsToExplore.append(itemK)
                         newItemsToKeep.append(itemK)
-                    elif self.utilityBinArrayLU[itemK] >= self.minUtil:
+                    elif self._utilityBinArrayLU[itemK] >= self._minUtil:
                         newItemsToKeep.append(itemK)
                 if len(transactionsPe) != 0:
-                    self.backTrackingHUFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
+                    self._backTrackingHUFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
 
-    def useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
+    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
         """
             A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
 
@@ -612,8 +622,8 @@ class HUFIM(utilityPatterns):
         """
         for i in range(j + 1, len(itemsToKeep)):
             item = itemsToKeep[i]
-            self.utilityBinArrayLU[item] = 0
-            self.utilityBinArraySU[item] = 0
+            self._utilityBinArrayLU[item] = 0
+            self._utilityBinArraySU[item] = 0
         for transaction in transactionsPe:
             sumRemainingUtility = 0
             i = len(transaction.getItems()) - 1
@@ -621,11 +631,11 @@ class HUFIM(utilityPatterns):
                 item = transaction.getItems()[i]
                 if item in itemsToKeep:
                     sumRemainingUtility += transaction.getUtilities()[i]
-                    self.utilityBinArraySU[item] += sumRemainingUtility + transaction.prefixUtility
-                    self.utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
+                    self._utilityBinArraySU[item] += sumRemainingUtility + transaction.prefixUtility
+                    self._utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
                 i -= 1
 
-    def output(self, tempPosition, utility, support):
+    def _output(self, tempPosition, utility, support):
         """
          Method to print itemSets
 
@@ -638,15 +648,15 @@ class HUFIM(utilityPatterns):
          :param support: support of an itemSet
          :type support: int
         """
-        self.patternCount += 1
+        self._patternCount += 1
         s1 = ""
         for i in range(0, tempPosition+1):
-            s1 += self.dataset.intToStr.get((self.temp[i]))
+            s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
                 s1 += " "
-        self.finalPatterns[s1] = str(utility) + ":" + str(support)
+        self._finalPatterns[s1] = str(utility) + ":" + str(support)
 
-    def is_equal(self, transaction1, transaction2):
+    def _isEqual(self, transaction1, transaction2):
         """
          A method to Check if two transaction are identical
 
@@ -672,7 +682,7 @@ class HUFIM(utilityPatterns):
             position2 += 1
         return True
 
-    def useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
         """
         Scan the initial database to calculate the subtree utility of each items using a utility-bin array
 
@@ -688,13 +698,13 @@ class HUFIM(utilityPatterns):
                 item = transaction.getItems()[i]
                 currentUtility = transaction.getUtilities()[i]
                 sumSU += currentUtility
-                if item in self.utilityBinArraySU.keys():
-                    self.utilityBinArraySU[item] += sumSU
+                if item in self._utilityBinArraySU.keys():
+                    self._utilityBinArraySU[item] += sumSU
                 else:
-                    self.utilityBinArraySU[item] = sumSU
+                    self._utilityBinArraySU[item] = sumSU
                 i -= 1
 
-    def sortDatabase(self, transactions):
+    def _sortDatabase(self, transactions):
         """
             A Method to sort transaction
 
@@ -705,10 +715,10 @@ class HUFIM(utilityPatterns):
             :return: sorted transactions
             :rtype: Transactions or list
         """
-        cmp_items = functools.cmp_to_key(self.sort_transaction)
-        transactions.sort(key=cmp_items)
+        compareItems = _ab._functools.cmp_to_key(self._sortTransaction)
+        transactions.sort(key=compareItems)
 
-    def sort_transaction(self, trans1, trans2):
+    def _sortTransaction(self, trans1, trans2):
         """
             A Method to sort transaction
 
@@ -721,21 +731,21 @@ class HUFIM(utilityPatterns):
             :return: sorted transaction
             :rtype:    Transaction
         """
-        trans1_items = trans1.getItems()
-        trans2_items = trans2.getItems()
-        pos1 = len(trans1_items) - 1
-        pos2 = len(trans2_items) - 1
-        if len(trans1_items) < len(trans2_items):
+        transItemsX = trans1.getItems()
+        transItemsY = trans2.getItems()
+        pos1 = len(transItemsX) - 1
+        pos2 = len(transItemsY) - 1
+        if len(transItemsX) < len(transItemsY):
             while pos1 >= 0:
-                sub = trans2_items[pos2] - trans1_items[pos1]
+                sub = transItemsY[pos2] - transItemsX[pos1]
                 if sub != 0:
                     return sub
                 pos1 -= 1
                 pos2 -= 1
             return -1
-        elif len(trans1_items) > len(trans2_items):
+        elif len(transItemsX) > len(transItemsY):
             while pos2 >= 0:
-                sub = trans2_items[pos2] - trans1_items[pos1]
+                sub = transItemsY[pos2] - transItemsX[pos1]
                 if sub != 0:
                     return sub
                 pos1 -= 1
@@ -743,14 +753,14 @@ class HUFIM(utilityPatterns):
             return 1
         else:
             while pos2 >= 0:
-                sub = trans2_items[pos2] - trans1_items[pos1]
+                sub = transItemsY[pos2] - transItemsX[pos1]
                 if sub != 0:
                     return sub
                 pos1 -= 1
                 pos2 -= 1
             return 0
 
-    def useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
         """
             A method to calculate local utility of single itemSets
             Attributes:
@@ -761,12 +771,12 @@ class HUFIM(utilityPatterns):
         """
         for transaction in dataset.getTransactions():
             for idx, item in enumerate(transaction.getItems()):
-                self.singleItemSetsSupport[item] += 1
-                self.singleItemSetsUtility[item] += transaction.getUtilities()[idx]
-                if item in self.utilityBinArrayLU:
-                    self.utilityBinArrayLU[item] += transaction.transactionUtility
+                self._singleItemSetsSupport[item] += 1
+                self._singleItemSetsUtility[item] += transaction.getUtilities()[idx]
+                if item in self._utilityBinArrayLU:
+                    self._utilityBinArrayLU[item] += transaction.transactionUtility
                 else:
-                    self.utilityBinArrayLU[item] = transaction.transactionUtility
+                    self._utilityBinArrayLU[item] = transaction.transactionUtility
 
     def getPatternsAsDataFrame(self):
         """Storing final patterns in a dataframe
@@ -776,9 +786,9 @@ class HUFIM(utilityPatterns):
             """
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Utility:Support'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility:Support'])
 
         return dataFrame
     
@@ -788,7 +798,7 @@ class HUFIM(utilityPatterns):
         :return: returning patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
@@ -796,9 +806,9 @@ class HUFIM(utilityPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             patternsAndSupport = str(x) + " : " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
@@ -809,7 +819,7 @@ class HUFIM(utilityPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -817,7 +827,7 @@ class HUFIM(utilityPatterns):
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -826,21 +836,21 @@ class HUFIM(utilityPatterns):
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
        """
-        return self.endTime-self.startTime
+        return self._endTime-self._startTime
 
 
 if __name__ == '__main__':
     ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:    #includes separator
-            ap = HUFIM(sys.argv[1], int(sys.argv[3]), float(sys.argv[4]), sys.argv[5])
-        if len(sys.argv) == 5:    #takes "\t" as a separator
-            ap = HUFIM(sys.argv[1], int(sys.argv[3]), float(sys.argv[4]))
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:    #includes separator
+            ap = HUFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]), _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:    #takes "\t" as a separator
+            ap = HUFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]))
         ap.startMine()
         patterns = ap.getPatterns()
-        print("Total number of High Utility Frequent Patterns:", ap.patternCount)
-        print("Total number of Candidate Patterns:", ap.candidateCount)
-        ap.savePatterns(sys.argv[2])
+        print("Total number of High Utility Frequent Patterns:", ap._patternCount)
+        print("Total number of Candidate Patterns:", ap._candidateCount)
+        ap.savePatterns(_ab._sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -849,15 +859,14 @@ if __name__ == '__main__':
         print("Total ExecutionTime in seconds:", run)
         print("######################################")
     else:
-        l = [0.004, 0.005, 0.006, 0.007, 0.008]
+        l = [2000, 5000, 40000]
         for i in l:
-            ap = HUFIM('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt',
-                   i, 0.3, ' ')
+            ap = HUFIM('/Users/Likhitha/Downloads/mushroom_utility_SPMF.txt', i, 1000, ' ')
             ap.startMine()
             patterns = ap.getPatterns()
-            print("Total number of High Utility Frequent Patterns:", ap.patternCount)
-            print("Total number of Candidate Patterns:", ap.candidateCount)
-            ap.savePatterns('/home/apiiit-rkv/Downloads/output')
+            print("Total number of High Utility Frequent Patterns:", ap._patternCount)
+            print("Total number of Candidate Patterns:", ap._candidateCount)
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()

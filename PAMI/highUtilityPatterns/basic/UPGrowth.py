@@ -14,20 +14,19 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import pandas as pd
-from PAMI.highUtilityPatterns.basic.abstract import *
+from abstract import *
 
 
 class UPItem:
     """
     A class to represent the UPItem
-    
+
     Attribute :
     --------
     name: int
         name of item
     utility: int
         utility of item
-
     Methods :
     -------
     getUtility()
@@ -36,7 +35,6 @@ class UPItem:
         method to set node utility
     getName()
         method to get name of particular item
-
     """
     name = 0
     utility = 0
@@ -69,7 +67,6 @@ class UPItem:
 class UPNode:
     """
         A class that represent UPNode
-
     Attribute :
     ---------
         itemId :int
@@ -86,7 +83,6 @@ class UPNode:
     ------
         getChildWithId( name):
             method to get child node Return the immediate child of this node having a given name
-
     """
     itemId = -1
     count = 1
@@ -120,7 +116,6 @@ class UPNode:
 class UPTree:
     """
         A class to represent UPTree
-
     Attributes :
     -----------
         headerList: list
@@ -133,7 +128,7 @@ class UPTree:
             List of pairs (item, Utility) of the header table
         hasMoreThanOnePath :bool
             Variable that indicate if the tree has more than one path
-    
+
     Methods:
     --------
         addTransaction(transaction,rtu)
@@ -144,8 +139,6 @@ class UPTree:
             Insert a new node in the UP-Tree as child of a parent node
         createHeaderList(mapItemToTwu)
             Method for creating the list of items in the header table, in descending order of TWU or path utility.
-
-
     """
     headerList = []
     hasMoreThanOnePath = False
@@ -163,7 +156,6 @@ class UPTree:
     def addTransaction(self, transaction, RTU):
         """
             A Method to add new Transaction to tree
-
             :param transaction: the reorganised transaction
             :type transaction: list
             :param RTU :reorganised transaction utility
@@ -185,7 +177,7 @@ class UPTree:
         #         child.nodeUtility += RemainingUtility
         #         currentNode = child
         for idx, item in enumerate(transaction):
-            for k in range(idx +1, len(transaction)):
+            for k in range(idx + 1, len(transaction)):
                 RemainingUtility += transaction[k].getUtility()
             itemName = item.name
             child = currentNode.getChildWithId(itemName)
@@ -206,7 +198,7 @@ class UPTree:
     def addLocalTransaction(self, localPath, pathUtility, mapItemToMinimumItemutility, pathCount):
         """
             A Method to add addLocalTransaction to tree
-            
+
             :param localPath: The path to insert
             :type localPath: list
             :param pathUtility: the Utility of path
@@ -232,7 +224,7 @@ class UPTree:
         #         child.nodeUtility += (pathUtility - RemainingUtility)
         #         currentLocalNode = child
         for idx, item in enumerate(localPath):
-            for k in range(idx+1, len(localPath)):
+            for k in range(idx + 1, len(localPath)):
                 search = localPath[k]
                 RemainingUtility += mapItemToMinimumItemutility[search] * pathCount
             child = currentLocalNode.getChildWithId(item)
@@ -280,7 +272,6 @@ class UPTree:
     def createHeaderList(self, mapItemToTwu):
         """
             A Method for creating the list of items in the header table, in descending order of TWU or path utility.
-
             :param mapItemToTwu: the Utilities of each item
             :type mapItemToTwu: map
         """
@@ -289,16 +280,15 @@ class UPTree:
 
 
 class UPGrowth(utilityPatterns):
-
     """
     UP-Growth is two-phase algorithm to mine High Utility Itemsets from transactional databases.
-    
+
     Reference:
     ---------
-        Vincent S. Tseng, Cheng-Wei Wu, Bai-En Shie, and Philip S. Yu. 2010. UP-Growth: an efficient algorithm for high utility itemset mining. 
+        Vincent S. Tseng, Cheng-Wei Wu, Bai-En Shie, and Philip S. Yu. 2010. UP-Growth: an efficient algorithm for high utility itemset mining.
         In Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining (KDD '10).
         Association for Computing Machinery, New York, NY, USA, 253–262. DOI:https://doi.org/10.1145/1835804.1835839
-    
+
     Attributes:
     ---------
         iFile : file
@@ -313,7 +303,7 @@ class UPGrowth(utilityPatterns):
             To record the completion time of the mining process
         minUtil : int
             The user given minUtil
-        NumberOfNodes : int   
+        NumberOfNodes : int
             Total number of nodes generated while building the tree
         ParentNumberOfNodes : int
            Total number of nodes required to build the parent tree
@@ -323,7 +313,6 @@ class UPGrowth(utilityPatterns):
             A list to store the phuis
         MapItemToTwu : map
             A map to store the twu of each item in database
-   
 
     Methods :
     -------
@@ -346,45 +335,32 @@ class UPGrowth(utilityPatterns):
         getMemoryRSS()
                 Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
-               Total amount of runtime taken by the mining process will be retrieved from this function                 
-
+               Total amount of runtime taken by the mining process will be retrieved from this function
     Executing the code on terminal :
     -------
         Format: python3 UPGrowth <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
         Examples: python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
                   python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
-
     Sample run of importing the code:
     -------------------------------
-        
+
         from PAMI.highUtilityPatterns.basic import UPGrowth as alg
-
         obj=alg.UPGrowth("input.txt",35)
-
         obj.startMine()
-
         frequentPatterns = obj.getPatterns()
-
         print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
-
         obj.savePatterns("output")
-
         memUSS = obj.getMemoryUSS()
-
         print("Total Memory in USS:", memUSS)
-
         memRSS = obj.getMemoryRSS()
-
         print("Total Memory in RSS", memRSS)
-
         run = obj.getRuntime()
-
         print("Total ExecutionTime in seconds:", run)
-   
+
     Credits:
     -------
         The complete program was written by pradeep pallikila under the supervision of Professor Rage Uday Kiran.
-   
+
     """
 
     maxMemory = 0
@@ -405,14 +381,12 @@ class UPGrowth(utilityPatterns):
     MapItemToTwu = {}
     sep = " "
 
-    def __init__(self, iFile, minUtil, sep = '\t'):
+    def __init__(self, iFile, minUtil, sep='\t'):
         super().__init__(iFile, minUtil, sep)
 
     def creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
-
-
         """
         self.Database = []
         if isinstance(self.iFile, pd.DataFrame):
@@ -423,12 +397,12 @@ class UPGrowth(utilityPatterns):
             if 'Transactions' in i:
                 data = self.iFile['Transactions'].tolist()
             if 'Utilities' in i:
-                data = self.iFile['Utilities'].tolist()
+                data = self.iFile['Patterns'].tolist()
             for i in range(len(data)):
                 tr = [timeStamp[i]]
                 tr.append(data[i])
                 self.Database.append(tr)
-            #print(self.Database)
+            # print(self.Database)
         if isinstance(self.iFile, str):
             if validators.url(self.iFile):
                 data = urlopen(self.iFile)
@@ -448,6 +422,7 @@ class UPGrowth(utilityPatterns):
         self.startTime = time.time()
         tree = UPTree()
         self.creatingItemSets()
+        self.finalPatterns = {}
         for line in self.Database:
             line = line.split("\n")[0]
             transaction = line.strip().split(':')
@@ -530,10 +505,9 @@ class UPGrowth(utilityPatterns):
     def UPGrowth(self, tree, alpha):
         """
             A Method to Mine UP Tree recursively
-
             :param tree: UPTree to mine
             :type tree: UPTree
-            :param alpha: prefix itemset 
+            :param alpha: prefix itemset
             :type alpha: list
         """
         for item in reversed(tree.headerList):
@@ -554,8 +528,7 @@ class UPGrowth(utilityPatterns):
     def createLocalTree(self, tree, item):
         """
             A Method to Construct conditional pattern base
-
-            :param tree: the UPtree 
+            :param tree: the UPtree
             :type tree:UPTree
             :param item: item that need to construct conditional patterns
             :type item: int
@@ -591,7 +564,8 @@ class UPGrowth(utilityPatterns):
                 else:
                     pathUtility -= pathCount * self.MapItemToMinimumUtility[node.itemId]
             localPath = sorted(localPath, key=lambda x: itemPathUtility[x], reverse=True)
-            self.NumberOfNodes += localTree.addLocalTransaction(localPath, pathUtility, self.MapItemToMinimumUtility, pathCount)
+            self.NumberOfNodes += localTree.addLocalTransaction(localPath, pathUtility, self.MapItemToMinimumUtility,
+                                                                pathCount)
         localTree.createHeaderList(itemPathUtility)
         return localTree
 
@@ -603,7 +577,6 @@ class UPGrowth(utilityPatterns):
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
-
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -617,7 +590,6 @@ class UPGrowth(utilityPatterns):
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
-
         :return: returning frequent patterns
         :rtype: dict
         """
@@ -625,7 +597,6 @@ class UPGrowth(utilityPatterns):
 
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
-
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -637,7 +608,6 @@ class UPGrowth(utilityPatterns):
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -646,7 +616,6 @@ class UPGrowth(utilityPatterns):
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
@@ -656,13 +625,10 @@ class UPGrowth(utilityPatterns):
 
         """
         Calculating the total amount of runtime taken by the mining process
-
             :return: returning total amount of runtime taken by the mining process
-
             :rtype: float
-
         """
-        return self.endTime-self.startTime
+        return self.endTime - self.startTime
 
 
 if __name__ == "__main__":
@@ -683,15 +649,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = UPGrowth('/home/apiiit-rkv/Downloads/Reaserch/maximal/retail_utility_spmf.txt', 20000, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of huis:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/sampleInputs/upgrowth/patterns.txt')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+        l = [500000]
+        for i in l:
+            ap = UPGrowth('/Users/Likhitha/Downloads/mushroom_utility_SPMF.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of huis:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
