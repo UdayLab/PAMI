@@ -109,68 +109,68 @@ class localPeriodicPatterns(ABC):
         :type sep: str
         """
 
-        self.iFile = iFile
-        self.maxPer = maxPer
-        self.maxSoPer = maxSoPer
-        self.minDur = minDur
-        self.sep = sep
+        self._localPeriodicPatterns__iFile = iFile
+        self._localPeriodicPatterns__maxPer = maxPer
+        self._localPeriodicPatterns__maxSoPer = maxSoPer
+        self._localPeriodicPatterns__minDur = minDur
+        self._localPeriodicPatterns__sep = sep
 
     @abstractmethod
-    def iFile(self):
+    def __iFile(self):
         """Variable to store the input file path/file name"""
 
         pass
 
     @abstractmethod
-    def maxPer(self):
+    def __maxPer(self):
         """Variable to store the user-specified minimum support value"""
 
         pass
 
     @abstractmethod
-    def maxSoPer(self):
+    def __maxSoPer(self):
         """Variable to store the user-specified minimum support value"""
 
         pass
 
     @abstractmethod
-    def minDur(self):
+    def __minDur(self):
         """Variable to store the user-specified minimum support value"""
 
         pass
 
     @abstractmethod
-    def startTime(self):
+    def __startTime(self):
         """Variable to store the start time of the mining process"""
 
         pass
 
     @abstractmethod
-    def endTime(self):
+    def __endTime(self):
         """Variable to store the end time of the complete program"""
 
         pass
 
     @abstractmethod
-    def memoryUSS(self):
+    def __memoryUSS(self):
         """Variable to store USS memory consumed by the program"""
 
         pass
 
     @abstractmethod
-    def memoryRSS(self):
+    def __memoryRSS(self):
         """Variable to store RSS memory consumed by the program"""
 
         pass
 
     @abstractmethod
-    def finalPatterns(self):
+    def __finalPatterns(self):
         """Variable to store the complete set of patterns in a dictionary"""
 
         pass
 
     @abstractmethod
-    def oFile(self):
+    def __oFile(self):
         """Variable to store the name of the output file to store the complete set of local periodic patterns"""
 
         pass

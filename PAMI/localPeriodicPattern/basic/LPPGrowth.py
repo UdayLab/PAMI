@@ -268,63 +268,63 @@ class LPPGrowth(localPeriodicPatterns):
         -------
             The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.
         """
-    iFile = ' '
-    oFile = ' '
-    maxPer = str()
-    maxSoPer = str()
-    minDur = str()
-    tsMin = 0
-    tsMax = 0
-    startTime = float()
-    endTime = float()
-    memoryUSS = float()
-    memoryRSS = float()
-    finalPatterns = {}
-    tsList = {}
-    root = Tree()
-    PTL = {}
-    items = []
-    sep = ' '
-    Database = []
+    _localPeriodicPatterns__iFile = ' '
+    _localPeriodicPatterns__oFile = ' '
+    _localPeriodicPatterns__maxPer = str()
+    _localPeriodicPatterns__maxSoPer = str()
+    _localPeriodicPatterns__minDur = str()
+    __tsMin = 0
+    __tsMax = 0
+    _localPeriodicPatterns__startTime = float()
+    _localPeriodicPatterns__endTime = float()
+    _localPeriodicPatterns__memoryUSS = float()
+    _localPeriodicPatterns__memoryRSS = float()
+    _localPeriodicPatterns__finalPatterns = {}
+    __tsList = {}
+    __root = Tree()
+    __PTL = {}
+    __items = []
+    _localPeriodicPatterns__sep = ' '
+    __Database = []
 
-    def creatingItemSets(self):
+    def __creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
-            if self.iFile.empty:
+        self.__Database = []
+        if isinstance(self._localPeriodicPatterns__iFile, pd.DataFrame):
+            if self._localPeriodicPatterns__iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._localPeriodicPatterns__iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
+                self.__Database = self._localPeriodicPatterns__iFile['Transactions'].tolist()
             if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
+                self.__Database = self._localPeriodicPatterns__iFile['Patterns'].tolist()
 
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._localPeriodicPatterns__iFile, str):
+            if validators.url(self._localPeriodicPatterns__iFile):
+                data = urlopen(self._localPeriodicPatterns__iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._localPeriodicPatterns__sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self.__Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._localPeriodicPatterns__iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._localPeriodicPatterns__sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self.__Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def createLPPlist(self):
+    def __createLPPlist(self):
         """
         Create Local Periodic Pattern list from temporal data.
         """
@@ -332,20 +332,20 @@ class LPPGrowth(localPeriodicPatterns):
         PTL = {}
         start = {}
         tsPre = {}
-        for line in self.Database:
+        for line in self.__Database:
             soPer = ' '
-            self.tsMin = int(line.pop(0))
-            ts = self.tsMin
+            self.__tsMin = int(line.pop(0))
+            ts = self.__tsMin
             for item in line:
                 if item in LPPList:
                     per = ts - tsPre[item]
-                    if per <= self.maxPer and start == -1:
+                    if per <= self._localPeriodicPatterns__maxPer and start == -1:
                         start = tsPre[item]
-                        soPer = self.maxSoPer
+                        soPer = self._localPeriodicPatterns__maxSoPer
                     if start != -1:
-                        soPer = max(0, soPer + per - self.maxPer)
-                        if soPer > self.maxSoPer:
-                            if tsPre[item] - start[item] <= self.minDur:
+                        soPer = max(0, soPer + per - self._localPeriodicPatterns__maxPer)
+                        if soPer > self._localPeriodicPatterns__maxSoPer:
+                            if tsPre[item] - start[item] <= self._localPeriodicPatterns__minDur:
                                 PTL[item].add((start[item], tsPre[item]))
                                 LPPList[item] = PTL[item]
                             start[item] = -1
@@ -353,17 +353,17 @@ class LPPGrowth(localPeriodicPatterns):
                     tsPre[item] = ts
                     start[item] = -1
                     LPPList[item] = set()
-            for line in self.Database:
+            for line in self.__Database:
                 ts = int(line.pop(0))
                 for item in line:
                     if item in LPPList:
                         per = ts - tsPre[item]
-                        if per <= self.maxPer and start[item] == -1:
+                        if per <= self._localPeriodicPatterns__maxPer and start[item] == -1:
                             start[item] = tsPre[item]
-                            soPer = self.maxSoPer
+                            soPer = self._localPeriodicPatterns__maxSoPer
                         if start[item] != -1:
-                            soPer = max(0, soPer + per - self.maxPer)
-                            if soPer > self.maxSoPer:
+                            soPer = max(0, soPer + per - self._localPeriodicPatterns__maxPer)
+                            if soPer > self._localPeriodicPatterns__maxSoPer:
                                 PTL[item].add((start[item], tsPre[item]))
                                 LPPList[item] = PTL[item]
                             start[item] = -1
@@ -373,47 +373,48 @@ class LPPGrowth(localPeriodicPatterns):
                         start[item] = -1
                         LPPList[item] = set()
 
-    def createTSList(self):
+    def __createTSList(self):
         """
         Create tsList as bit vector from temporal data.
         """
-        for line in self.Database:
-            count = 1
+        # for line in self.__Database:
+        #     count = 1
+        #     bitVector = 0b1 << count
+        #     bitVector = bitVector | 0b1
+        #     self.__tsMin = int(line.pop(0))
+        #     self.__tsList = {item: bitVector for item in line}
+        #     count += 1
+        #     ts = ' '
+        count = 1
+        for line in self.__Database:
             bitVector = 0b1 << count
             bitVector = bitVector | 0b1
-            self.tsMin = int(line.pop(0))
-            self.tsList = {item: bitVector for item in line}
+            # print(line)
+            ts = line[0]
+            for item in line[1:]:
+                if self.__tsList.get(item):
+                    different = abs(bitVector.bit_length() - self.__tsList[item].bit_length())
+                    self.__tsList[item] = self.__tsList[item] << different
+                    self.__tsList[item] = self.__tsList[item] | 0b1
+                else:
+                    self.__tsList[item] = bitVector
             count += 1
-            ts = ' '
-            for line in self.Database:
-                bitVector = 0b1 << count
-                bitVector = bitVector | 0b1
-                print(line)
-                ts = line.pop(0)
-                for item in line:
-                    if self.tsList.get(item):
-                        different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
-                        self.tsList[item] = self.tsList[item] << different
-                        self.tsList[item] = self.tsList[item] | 0b1
-                    else:
-                        self.tsList[item] = bitVector
-                count += 1
-            self.tsMax = int(ts)
-            for item in self.tsList:
-                different = abs(bitVector.bit_length() - self.tsList[item].bit_length())
-                self.tsList[item] = self.tsList[item] << different
-            self.maxPer = (count - 1) * self.maxPer
-            self.maxSoPer = (count - 1) * self.maxSoPer
-            self.minDur = (count - 1) * self.minDur
+            self.__tsMax = int(ts)
+        for item in self.__tsList:
+            different = abs(bitVector.bit_length() - self.__tsList[item].bit_length())
+            self.__tsList[item] = self.__tsList[item] << different
+        self._localPeriodicPatterns__maxPer = self.__convert(self._localPeriodicPatterns__maxPer)
+        self._localPeriodicPatterns__maxSoPer = self.__convert(self._localPeriodicPatterns__maxSoPer)
+        self._localPeriodicPatterns__minDur = self.__convert(self._localPeriodicPatterns__minDur)
 
-    def generateLPP(self):
+    def __generateLPP(self):
         """
         Generate local periodic items from bit vector tsList.
         """
         PTL = {}
-        for item in self.tsList:
+        for item in self.__tsList:
             PTL[item] = set()
-            ts = list(bin(self.tsList[item]))
+            ts = list(bin(self.__tsList[item]))
             ts = ts[2:]
             start = -1
             currentTs = 1
@@ -433,13 +434,13 @@ class LPPGrowth(localPeriodicPatterns):
                     continue
                 else:
                     per = currentTs - tsPre
-                    if per <= self.maxPer and start == -1:
+                    if per <= self._localPeriodicPatterns__maxPer and start == -1:
                         start = tsPre
-                        soPer = self.maxSoPer
+                        soPer = self._localPeriodicPatterns__maxSoPer
                     if start != -1:
-                        soPer = max(0, soPer + per - self.maxPer)
-                        if soPer > self.maxSoPer:
-                            if tsPre - start >= self.minDur:
+                        soPer = max(0, soPer + per - self._localPeriodicPatterns__maxPer)
+                        if soPer > self._localPeriodicPatterns__maxSoPer:
+                            if tsPre - start >= self._localPeriodicPatterns__minDur:
                                 PTL[item].add((start, tsPre))
                             """else:
                                 bitVector = 0b1 << currentTs
@@ -451,8 +452,8 @@ class LPPGrowth(localPeriodicPatterns):
                     tsPre = currentTs
                     currentTs += 1
             if start != -1:
-                soPer = max(0, soPer + self.tsMax - tsPre - self.maxPer)
-                if soPer > self.maxSoPer and tsPre - start >= self.minDur:
+                soPer = max(0, soPer + self.__tsMax - tsPre - self._localPeriodicPatterns__maxPer)
+                if soPer > self._localPeriodicPatterns__maxSoPer and tsPre - start >= self._localPeriodicPatterns__minDur:
                     PTL[item].add((start, tsPre))
                 """else:
                     bitVector = 0b1 << currentTs+1
@@ -460,33 +461,33 @@ class LPPGrowth(localPeriodicPatterns):
                     bitVector = bitVector | 0b1
                     bitVector = bitVector << different
                     self.tsList[item] = self.tsList[item] | bitVector"""
-                if soPer <= self.maxSoPer and self.tsMax - start >= self.minDur:
-                    PTL[item].add((start, self.tsMax))
+                if soPer <= self._localPeriodicPatterns__maxSoPer and self.__tsMax - start >= self._localPeriodicPatterns__minDur:
+                    PTL[item].add((start, self.__tsMax))
                 """else:
                     bitVector = 0b1 << currentTs+1
                     different = abs(self.tsList[item].bit_length() - bitVector.bit_length())
                     bitVector = bitVector | 0b1
                     bitVector = bitVector << different
                     self.tsList[item] = self.tsList[item] | bitVector"""
-        self.PTL = {k: v for k, v in PTL.items() if len(v) > 0}
-        self.items = list(self.PTL.keys())
+        self.__PTL = {k: v for k, v in PTL.items() if len(v) > 0}
+        self.__items = list(self.__PTL.keys())
 
-    def createLPPTree(self):
+    def __createLPPTree(self):
         """
         Create transaction tree of local periodic item from input data.
         """
-        for line in self.Database:
+        for line in self.__Database:
             ts = int(line[0])
-            tempTransaction = [item for item in line if item in self.items]
-            transaction = sorted(tempTransaction, key=lambda x: len(self.PTL[x]), reverse=True)
-            self.root.addTransaction(transaction, ts)
-            for line in self.Database:
-                tid = int(transaction.pop(0))
-                tempTransaction = [item for item in transaction if item in self.items]
-                transaction = sorted(tempTransaction, key=lambda x: len(self.PTL[x]), reverse=True)
-                self.root.addTransaction(transaction, tid)
+            tempTransaction = [item for item in line[1:] if item in self.__items]
+            transaction = sorted(tempTransaction, key=lambda x: len(self.__PTL[x]), reverse=True)
+            self.__root.addTransaction(transaction, ts)
+            # for line in self.__Database:
+            #     tid = int(transaction[0])
+            #     tempTransaction = [item for item in transaction[1:] if item in self.__items]
+            #     transaction = sorted(tempTransaction, key=lambda x: len(self.__PTL[x]), reverse=True)
+            #     self.__root.addTransaction(transaction, tid)
 
-    def patternGrowth(self, tree, prefix, prefixPFList):
+    def __patternGrowth(self, tree, prefix, prefixPFList):
         """
         Create prefix tree and prefixPFList. Store finalPatterns and its PTL.
         :param tree: The root node of prefix tree.
@@ -532,19 +533,19 @@ class LPPGrowth(localPeriodicPatterns):
                     currentNode = currentNode.parent
                 prefixTree.createPrefixTree(path, tidList)
             if len(prefixCopy) == 1:
-                self.finalPatterns[prefixCopy[0]] = self.calculatePTLbit(self.tsList[item])
+                self._localPeriodicPatterns__finalPatterns[prefixCopy[0]] = self.__calculatePTLbit(self.__tsList[item])
             else:
-                self.finalPatterns[tuple(prefixCopy)] = self.calculatePTL(prefixPFList[item])
+                self._localPeriodicPatterns__finalPatterns[tuple(prefixCopy)] = self.__calculatePTL(prefixPFList[item])
             candidateItems = list(PFList)
             for i in candidateItems:
-                PTL = self.calculatePTL(PFList[i])
+                PTL = self.__calculatePTL(PFList[i])
                 if len(PTL) == 0:
                     prefixTree.deleteNode(i)
                     del PFList[i]
             if PFList:
-                self.patternGrowth(prefixTree, prefixCopy, PFList)
+                self.__patternGrowth(prefixTree, prefixCopy, PFList)
 
-    def calculatePTL(self, tsList):
+    def __calculatePTL(self, tsList):
         """
         Calculate PTL from input tsList as integer list/
         :param tsList: It is tsList which store time stamp as integer.
@@ -558,25 +559,25 @@ class LPPGrowth(localPeriodicPatterns):
         soPer = ' '
         for ts in tsList[1:]:
             per = ts - tsPre
-            if per <= self.maxPer and start == -1:
+            if per <= self._localPeriodicPatterns__maxPer and start == -1:
                 start = tsPre
-                soPer = self.maxSoPer
+                soPer = self._localPeriodicPatterns__maxSoPer
             if start != -1:
-                soPer = max(0, soPer + per - self.maxPer)
-                if soPer > self.maxSoPer:
-                    if tsPre - start >= self.minDur:
+                soPer = max(0, soPer + per - self._localPeriodicPatterns__maxPer)
+                if soPer > self._localPeriodicPatterns__maxSoPer:
+                    if tsPre - start >= self._localPeriodicPatterns__minDur:
                         PTL.add((start, tsPre))
                     start = -1
             tsPre = ts
         if start != -1:
-            soPer = max(0, soPer + self.tsMax - tsPre - self.maxPer)
-            if soPer > self.maxSoPer and tsPre - start >= self.minDur:
+            soPer = max(0, soPer + self.__tsMax - tsPre - self._localPeriodicPatterns__maxPer)
+            if soPer > self._localPeriodicPatterns__maxSoPer and tsPre - start >= self._localPeriodicPatterns__minDur:
                 PTL.add((start, tsPre))
-            if soPer <= self.maxSoPer and self.tsMax - start >= self.minDur:
-                PTL.add((start, self.tsMax))
+            if soPer <= self._localPeriodicPatterns__maxSoPer and self.__tsMax - start >= self._localPeriodicPatterns__minDur:
+                PTL.add((start, self.__tsMax))
         return PTL
 
-    def calculatePTLbit(self, tsList):
+    def __calculatePTLbit(self, tsList):
         """
         Calculate PTL from input tsList as bit vector.
         :param tsList: It is tsList which store time stamp as bit vector.
@@ -604,26 +605,26 @@ class LPPGrowth(localPeriodicPatterns):
                 continue
             else:
                 per = currentTs - tsPre
-                if per <= self.maxPer and start == -1:
+                if per <= self._localPeriodicPatterns__maxPer and start == -1:
                     start = tsPre
-                    soPer = self.maxSoPer
+                    soPer = self._localPeriodicPatterns__maxSoPer
                 if start != -1:
-                    soPer = max(0, soPer + per - self.maxPer)
-                    if soPer > self.maxSoPer:
-                        if tsPre - start >= self.minDur:
+                    soPer = max(0, soPer + per - self._localPeriodicPatterns__maxPer)
+                    if soPer > self._localPeriodicPatterns__maxSoPer:
+                        if tsPre - start >= self._localPeriodicPatterns__minDur:
                             PTL.add((start, tsPre))
                         start = -1
                 tsPre = currentTs
                 currentTs += 1
         if start != -1:
-            soPer = max(0, soPer + self.tsMax - tsPre - self.maxPer)
-            if soPer > self.maxSoPer and tsPre - start >= self.minDur:
+            soPer = max(0, soPer + self.__tsMax - tsPre - self._localPeriodicPatterns__maxPer)
+            if soPer > self._localPeriodicPatterns__maxSoPer and tsPre - start >= self._localPeriodicPatterns__minDur:
                 PTL.add((start, tsPre))
-            if soPer <= self.maxSoPer and self.tsMax - start >= self.minDur:
+            if soPer <= self._localPeriodicPatterns__maxSoPer and self.__tsMax - start >= self._localPeriodicPatterns__minDur:
                 PTL.add((start, tsPre))
         return PTL
 
-    def convert(self, value):
+    def __convert(self, value):
         """
         to convert the type of user specified minSup value
         :param value: user specified minSup value
@@ -632,11 +633,11 @@ class LPPGrowth(localPeriodicPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self.__Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self.__Database) * value)
             else:
                 value = int(value)
         return value
@@ -645,22 +646,22 @@ class LPPGrowth(localPeriodicPatterns):
         """
         Mining process start from here.
         """
-        self.startTime = time.time()
-        self.finalPatterns = {}
-        self.creatingItemSets()
-        self.maxPer = self.convert(self.maxPer)
-        self.maxSoPer = self.convert(self.maxSoPer)
-        self.minDur = self.convert(self.minDur)
-        self.createTSList()
-        self.generateLPP()
-        self.createLPPTree()
-        self.patternGrowth(self.root, [], self.items)
-        self.endTime = time.time()
+        self._localPeriodicPatterns__startTime = time.time()
+        self._localPeriodicPatterns__finalPatterns = {}
+        self.__creatingItemSets()
+        self._localPeriodicPatterns__maxPer = self.__convert(self._localPeriodicPatterns__maxPer)
+        self._localPeriodicPatterns__maxSoPer = self.__convert(self._localPeriodicPatterns__maxSoPer)
+        self._localPeriodicPatterns__minDur = self.__convert(self._localPeriodicPatterns__minDur)
+        self.__createTSList()
+        self.__generateLPP()
+        self.__createLPPTree()
+        self.__patternGrowth(self.__root, [], self.__items)
+        self._localPeriodicPatterns__endTime = time.time()
         process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._localPeriodicPatterns__memoryUSS = float()
+        self._localPeriodicPatterns__memoryRSS = float()
+        self._localPeriodicPatterns__memoryUSS = process.memory_full_info().uss
+        self._localPeriodicPatterns__memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -669,7 +670,7 @@ class LPPGrowth(localPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._localPeriodicPatterns__memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -678,7 +679,7 @@ class LPPGrowth(localPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._localPeriodicPatterns__memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -687,7 +688,7 @@ class LPPGrowth(localPeriodicPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._localPeriodicPatterns__endTime - self._localPeriodicPatterns__startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final local periodic patterns in a dataframe
@@ -698,7 +699,7 @@ class LPPGrowth(localPeriodicPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._localPeriodicPatterns__finalPatterns.items():
             data.append([a, b])
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'PTL'])
         return dataFrame
@@ -709,9 +710,9 @@ class LPPGrowth(localPeriodicPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._localPeriodicPatterns__oFile = outFile
+        writer = open(self._localPeriodicPatterns__oFile, 'w+')
+        for x, y in self._localPeriodicPatterns__finalPatterns.items():
             writer.write(f'{x} : {y}\n')
             # patternsAndPTL = x + ":" + y
             # writer.write("%s \n" % patternsAndPTL)
@@ -722,39 +723,44 @@ class LPPGrowth(localPeriodicPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._localPeriodicPatterns__finalPatterns
 
 
 if __name__ == '__main__':
-    ap = str()
-    if len(sys.argv) == 6 or len(sys.argv) == 7:
-        if len(sys.argv) == 7:
-            ap = LPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
-        if len(sys.argv) == 6:
-            ap = LPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
-    else:
-        l = [0.004, 0.005, 0.006, 0.007, 0.008]
-        for i in l:
-            ap = LPPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
-                           , i, 0.01, 0.01)
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Frequent Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+    # ap = str()
+    # if len(sys.argv) == 6 or len(sys.argv) == 7:
+    #     if len(sys.argv) == 7:
+    #         ap = LPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
+    #     if len(sys.argv) == 6:
+    #         ap = LPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+    #     ap.startMine()
+    #     Patterns = ap.getPatterns()
+    #     print("Total number of Frequent Patterns:", len(Patterns))
+    #     ap.savePatterns(sys.argv[2])
+    #     memUSS = ap.getMemoryUSS()
+    #     print("Total Memory in USS:", memUSS)
+    #     memRSS = ap.getMemoryRSS()
+    #     print("Total Memory in RSS", memRSS)
+    #     run = ap.getRuntime()
+    #     print("Total ExecutionTime in ms:", run)
+    # else:
+    #     l = [0.004, 0.005, 0.006, 0.007, 0.008]
+    #     for i in l:
+    #         ap = LPPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
+    #                        , i, 0.01, 0.01)
+    #         ap.startMine()
+    #         Patterns = ap.getPatterns()
+    #         print("Total number of Frequent Patterns:", len(Patterns))
+    #         ap.savePatterns('/Users/Likhitha/Downloads/output')
+    #         memUSS = ap.getMemoryUSS()
+    #         print("Total Memory in USS:", memUSS)
+    #         memRSS = ap.getMemoryRSS()
+    #         print("Total Memory in RSS", memRSS)
+    #         run = ap.getRuntime()
+    #         print("Total ExecutionTime in ms:", run)
+    #     print("Error! The number of input parameters do not match the total number of parameters provided")
+    obj = LPPGrowth('test.txt', 3, 2, 7)
+    # obj.startMine()
+    obj.startMine()
+    localPeriodicPatterns = obj.getPatterns()
+    print(f'Pattenrs:{len(localPeriodicPatterns)}')
