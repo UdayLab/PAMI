@@ -177,6 +177,7 @@ class LPPMBreadth(localPeriodicPatterns):
                     self.__tsList[item] = bitVector
             count += 1
             self.__tsMax = int(ts)
+
         for item in self.__tsList:
             different = abs(bitVector.bit_length() - self.__tsList[item].bit_length())
             self.__tsList[item] = self.__tsList[item] << different
