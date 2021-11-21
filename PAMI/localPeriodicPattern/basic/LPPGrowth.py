@@ -760,7 +760,7 @@ if __name__ == '__main__':
     #         run = ap.getRuntime()
     #         print("Total ExecutionTime in ms:", run)
     #     print("Error! The number of input parameters do not match the total number of parameters provided")
-    obj = LPPGrowth('test.txt', 3, 2, 7)
+    obj = LPPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv', 1000, 2000, 20000)
     # obj.startMine()
     obj.startMine()
     localPeriodicPatterns = obj.getPatterns()

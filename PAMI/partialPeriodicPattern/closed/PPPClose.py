@@ -1,17 +1,17 @@
-import sys
-import validators
-from urllib.request import urlopen
-from PAMI.partialPeriodicPattern.closed.abstract import *
+import sys as _sys
+import validators as _validators
+from urllib.request import urlopen as _urlopen
+from PAMI.partialPeriodicPattern.closed import abstract as _abstract
 
 
-class PPPClose(partialPeriodicPatterns):
+class PPPClose(_abstract._partialPeriodicPatterns):
     """ PPPClose algorithm is used to discover the closed partial periodic patterns in temporal databases.
         It uses depth-first search.
 
         Reference:
         -------
         ...
-        
+
         Attributes:
         ----------
             iFile : str
@@ -109,27 +109,27 @@ class PPPClose(partialPeriodicPatterns):
 
         """
 
-    periodicSupport = float()
-    period = float()
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    Database = []
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    transaction = []
-    hashing = {}
-    mapSupport = {}
-    itemSetCount = 0
-    maxItemId = 0
-    tableSize = 10000
-    tidList = {}
-    lno = 0
+    _periodicSupport = float()
+    _period = float()
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _Database = []
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _transaction = []
+    _hashing = {}
+    _mapSupport = {}
+    _itemSetCount = 0
+    _maxItemId = 0
+    _tableSize = 10000
+    _tidList = {}
+    _lno = 0
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -140,90 +140,90 @@ class PPPClose(partialPeriodicPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.lno * value)
+            value = (self._lno * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.lno * value)
+                value = (self._lno * value)
             else:
                 value = int(value)
         return value
-    
-    def creatingItemSets(self):
+
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self._Database = []
+        if isinstance(self._iFile, _abstract._pd.DataFrame):
             timeStamp, data = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                timeStamp = self.iFile['TS'].tolist()
+                timeStamp = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [timeStamp[i]]
                 tr = tr + data[i]
-                self.Database.append(tr)
-            self.lno = len(self.Database)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                self._Database.append(tr)
+            self._lno = len(self._Database)
+        if isinstance(self._iFile, str):
+            if _validators.url(self._iFile):
+                data = _urlopen(self._iFile)
                 for line in data:
-                    self.lno += 1
+                    self._lno += 1
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.lno += 1
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            self._lno += 1
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def OneLengthPartialItems(self):
+    def _OneLengthPartialItems(self):
         """
         To scan the database and extracts the 1-length periodic-frequent items
         Returns:
         -------
         Returns the 1-length periodic-frequent items
         """
-        self.mapSupport = {}
-        self.tidList = {}
-        self.period = self.convert(self.period)
-        for line in self.Database:
+        self._mapSupport = {}
+        self._tidList = {}
+        self._period = self._convert(self._period)
+        for line in self._Database:
             n = int(line[0])
             for i in range(1, len(line)):
                 si = line[i]
-                if self.mapSupport.get(si) is None:
-                    self.mapSupport[si] = [1, 0, n]
-                    self.tidList[si] = [n]
+                if self._mapSupport.get(si) is None:
+                    self._mapSupport[si] = [1, 0, n]
+                    self._tidList[si] = [n]
                 else:
-                    self.mapSupport[si][0] += 1
-                    period = abs(n - self.mapSupport[si][2])
-                    if period <= self.period:
-                        self.mapSupport[si][1] += 1
-                    self.mapSupport[si][2] = n
-                    self.tidList[si].append(n)
-        for x, y in self.mapSupport.items():
-            period = abs(self.lno - self.mapSupport[x][2])
-            if period <= self.period:
-                self.mapSupport[x][1] += 1
-        self.periodicSupport = self.convert(self.periodicSupport)
-        self.mapSupport = {k: v[1] for k, v in self.mapSupport.items() if v[1] >= self.periodicSupport}
+                    self._mapSupport[si][0] += 1
+                    period = abs(n - self._mapSupport[si][2])
+                    if period <= self._period:
+                        self._mapSupport[si][1] += 1
+                    self._mapSupport[si][2] = n
+                    self._tidList[si].append(n)
+        for x, y in self._mapSupport.items():
+            period = abs(self._lno - self._mapSupport[x][2])
+            if period <= self._period:
+                self._mapSupport[x][1] += 1
+        self._periodicSupport = self._convert(self._periodicSupport)
+        self._mapSupport = {k: v[1] for k, v in self._mapSupport.items() if v[1] >= self._periodicSupport}
         periodicFrequentItems = {}
-        self.tidList = {k: v for k, v in self.tidList.items() if k in self.mapSupport}
-        for x, y in self.tidList.items():
+        self._tidList = {k: v for k, v in self._tidList.items() if k in self._mapSupport}
+        for x, y in self._tidList.items():
             t1 = 0
             for i in y:
                 t1 += i
@@ -231,7 +231,7 @@ class PPPClose(partialPeriodicPatterns):
         periodicFrequentItems = [key for key, value in sorted(periodicFrequentItems.items(), key=lambda x: x[1])]
         return periodicFrequentItems
 
-    def calculate(self, tidSet):
+    def _calculate(self, tidSet):
         """
         To calculate the weight if pattern based on the respective timeStamps
         Parameters
@@ -247,9 +247,9 @@ class PPPClose(partialPeriodicPatterns):
             hashcode += i
         if hashcode < 0:
             hashcode = abs(0 - hashcode)
-        return hashcode % self.tableSize
+        return hashcode % self._tableSize
 
-    def contains(self, itemSet, val, hashcode):
+    def _contains(self, itemSet, val, hashcode):
         """
         To check if the key(hashcode) is in dictionary(hashing) variable
         Parameters:
@@ -262,15 +262,15 @@ class PPPClose(partialPeriodicPatterns):
         -------
             true if itemSet with same support present in dictionary(hashing) or else returns false
         """
-        if self.hashing.get(hashcode) is None:
+        if self._hashing.get(hashcode) is None:
             return False
-        for i in self.hashing[hashcode]:
+        for i in self._hashing[hashcode]:
             itemSetX = i
-            if val == self.hashing[hashcode][itemSetX] and set(itemSetX).issuperset(itemSet):
+            if val == self._hashing[hashcode][itemSetX] and set(itemSetX).issuperset(itemSet):
                 return True
         return False
 
-    def getPeriodicSupport(self, timeStamps):
+    def _getPeriodicSupport(self, timeStamps):
         """
         Calculates the period and support of timeStamps
         Parameters:
@@ -285,11 +285,11 @@ class PPPClose(partialPeriodicPatterns):
         sup = 0
         for j in range(len(timeStamps) - 1):
             per = abs(timeStamps[j + 1] - timeStamps[j])
-            if per <= self.period:
+            if per <= self._period:
                 sup += 1
         return sup
 
-    def save(self, prefix, suffix, tidSetX):
+    def _save(self, prefix, suffix, tidSetX):
         """
         Saves the generated pattern which satisfies the closed property
         Parameters:
@@ -309,21 +309,21 @@ class PPPClose(partialPeriodicPatterns):
             prefix = prefix + suffix
         prefix = list(set(prefix))
         prefix.sort()
-        val = self.getPeriodicSupport(tidSetX)
-        if val >= self.periodicSupport:
-            hashcode = self.calculate(tidSetX)
-            if self.contains(prefix, val, hashcode) is False:
-                self.itemSetCount += 1
+        val = self._getPeriodicSupport(tidSetX)
+        if val >= self._periodicSupport:
+            hashcode = self._calculate(tidSetX)
+            if self._contains(prefix, val, hashcode) is False:
+                self._itemSetCount += 1
                 sample = str()
                 for i in prefix:
                     sample = sample + i + " "
-                self.finalPatterns[sample] = val
-            if hashcode not in self.hashing:
-                self.hashing[hashcode] = {tuple(prefix): val}
+                self._finalPatterns[sample] = val
+            if hashcode not in self._hashing:
+                self._hashing[hashcode] = {tuple(prefix): val}
             else:
-                self.hashing[hashcode][tuple(prefix)] = val
+                self._hashing[hashcode][tuple(prefix)] = val
 
-    def processEquivalenceClass(self, prefix, itemSets, tidSets):
+    def _processEquivalenceClass(self, prefix, itemSets, tidSets):
         """
         Parameters:
         ----------
@@ -338,7 +338,7 @@ class PPPClose(partialPeriodicPatterns):
         if len(itemSets) == 1:
             i = itemSets[0]
             tidList = tidSets[0]
-            self.save(prefix, [i], tidList)
+            self._save(prefix, [i], tidList)
             return
         if len(itemSets) == 2:
             itemI = itemSets[0]
@@ -346,15 +346,15 @@ class PPPClose(partialPeriodicPatterns):
             itemJ = itemSets[1]
             tidSetJ = tidSets[1]
             y1 = list(set(tidSetI).intersection(tidSetJ))
-            if len(y1) >= self.periodicSupport:
+            if len(y1) >= self._periodicSupport:
                 suffix = []
                 suffix += [itemI, itemJ]
                 suffix = list(set(suffix))
-                self.save(prefix, suffix, y1)
+                self._save(prefix, suffix, y1)
             if len(y1) != len(tidSetI):
-                self.save(prefix, [itemI], tidSetI)
+                self._save(prefix, [itemI], tidSetI)
             if len(y1) != len(tidSetJ):
-                self.save(prefix, [itemJ], tidSetJ)
+                self._save(prefix, [itemJ], tidSetJ)
             return
         for i in range(len(itemSets)):
             itemX = itemSets[i]
@@ -370,7 +370,7 @@ class PPPClose(partialPeriodicPatterns):
                     continue
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetX).intersection(tidSetJ))
-                if len(y) < self.periodicSupport:
+                if len(y) < self._periodicSupport:
                     continue
                 if len(tidSetX) == len(tidSetJ) and len(y) == len(tidSetX):
                     itemSets.insert(j, None)
@@ -388,22 +388,23 @@ class PPPClose(partialPeriodicPatterns):
                     classTidSets.append(y)
             if len(classItemSets) > 0:
                 newPrefix = list(set(itemSetX)) + prefix
-                self.processEquivalenceClass(newPrefix, classItemSets, classTidSets)
-            self.save(prefix, list(set(itemSetX)), tidSetX)
+                self._processEquivalenceClass(newPrefix, classItemSets, classTidSets)
+            self._save(prefix, list(set(itemSetX)), tidSetX)
 
     def startMine(self):
         """
         Mining process will start from here
         """
-        self.startTime = time.time()
-        self.creatingItemSets()
-        self.finalPatterns = {}
-        periodicFrequentItems = self.OneLengthPartialItems()
+        self._startTime = _abstract._time.time()
+        self._creatingItemSets()
+        self._hashing = {}
+        self._finalPatterns = {}
+        periodicFrequentItems = self._OneLengthPartialItems()
         for i in range(len(periodicFrequentItems)):
             itemX = periodicFrequentItems[i]
             if itemX is None:
                 continue
-            tidSetX = self.tidList[itemX]
+            tidSetX = self._tidList[itemX]
             itemSetX = [itemX]
             itemSets = []
             tidSets = []
@@ -411,9 +412,9 @@ class PPPClose(partialPeriodicPatterns):
                 itemJ = periodicFrequentItems[j]
                 if itemJ is None:
                     continue
-                tidSetJ = self.tidList[itemJ]
+                tidSetJ = self._tidList[itemJ]
                 y1 = list(set(tidSetX).intersection(tidSetJ))
-                if len(y1) < self.periodicSupport:
+                if len(y1) < self._periodicSupport:
                     continue
                 if len(tidSetX) == len(tidSetJ) and len(y1) is len(tidSetX):
                     periodicFrequentItems.insert(j, None)
@@ -428,14 +429,14 @@ class PPPClose(partialPeriodicPatterns):
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             if len(itemSets) > 0:
-                self.processEquivalenceClass(itemSetX, itemSets, tidSets)
-            self.save([], itemSetX, tidSetX)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+                self._processEquivalenceClass(itemSetX, itemSets, tidSets)
+            self._save([], itemSetX, tidSetX)
+        self._endTime = _abstract._time.time()
+        process = _abstract._psutil.Process(_abstract._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Closed periodic frequent patterns were generated successfully using PPPClose algorithm ")
 
     def getMemoryUSS(self):
@@ -446,7 +447,7 @@ class PPPClose(partialPeriodicPatterns):
             :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -456,7 +457,7 @@ class PPPClose(partialPeriodicPatterns):
             :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -466,7 +467,7 @@ class PPPClose(partialPeriodicPatterns):
             :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -478,9 +479,9 @@ class PPPClose(partialPeriodicPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
-            data.append([a, b[0], b[1]])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Period'])
+        for a, b in self._finalPatterns.items():
+            data.append([a, b])
+            dataFrame = _abstract._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -490,10 +491,10 @@ class PPPClose(partialPeriodicPatterns):
 
             :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
-            s1 = x + ":" + str(y[0]) + ":" + str(y[1])
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -503,20 +504,20 @@ class PPPClose(partialPeriodicPatterns):
 
             :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = PPPClose(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = PPPClose(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(_sys.argv) == 5 or len(_sys.argv) == 6:
+        if len(_sys.argv) == 6:
+            ap = PPPClose(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
+        if len(_sys.argv) == 5:
+            ap = PPPClose(_sys.argv[1], _sys.argv[3], _sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of  Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -524,5 +525,18 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        for i in l:
+            ap = PPPClose('/Users/Likhitha/Downloads/Datasets/BMS1_itemset_mining.txt', i, 100, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of  Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
 

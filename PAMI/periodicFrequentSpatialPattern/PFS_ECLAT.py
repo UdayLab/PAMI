@@ -1,11 +1,7 @@
-from PAMI.periodicFrequentSpatialPattern.abstract import *
-import sys
-import validators
-from urllib.request import urlopen
-import pandas as pd
+from PAMI.periodicFrequentSpatialPattern import abstract as _ab
 
 
-class PFS_ECLAT(spatialPeriodicFrequentPatterns):
+class PFS_ECLAT(_ab._spatialPeriodicFrequentPatterns):
     """ 
         Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
         Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
@@ -114,87 +110,87 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
         The complete program was written by P. Likhitha under the supervision of Professor Rage Uday Kiran.
     """
 
-    minSup = " "
-    maxPer = " "
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    nFile = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    sep = "\t"
-    lno = 0
+    _minSup = " "
+    _maxPer = " "
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _nFile = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _sep = "\t"
+    _lno = 0
 
     def __init__(self, iFile, nFile, minSup, maxPer, sep="\t"):
         super().__init__(iFile, nFile, minSup, maxPer, sep)
-        self.NeighboursMap = {}
+        self._NeighboursMap = {}
 
-    def creatingItemSets(self, iFileName):
+    def _creatingItemSets(self):
         """Storing the complete transactions of the database/input file in a database variable
-            :param iFileName: user given input file/input file path
-            :type iFileName: str
+
             """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
             data, ts = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                ts = self.iFile['TS'].tolist()
+                ts = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [ts[i][0]]
                 tr = tr + data[i]
-                self.Database.append(tr)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                self._Database.append(tr)
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
     # function to get frequent one pattern
-    def frequentOneItem(self):
+    def _frequentOneItem(self):
         """Generating one frequent patterns"""
 
         candidate = {}
-        for i in self.Database:
-            self.lno += 1
-            for j in i:
+        for i in self._Database:
+            self._lno += 1
+            n = int(i[0])
+            for j in i[1:]:
                 if j not in candidate:
-                    candidate[j] = [1, abs(0-self.lno), self.lno, [self.lno]]
+                    candidate[j] = [1, abs(0-n), n, [n]]
                 else:
                     candidate[j][0] += 1
-                    candidate[j][1] = max(candidate[j][1], abs(self.lno - candidate[j][2]))
-                    candidate[j][2] = self.lno
-                    candidate[j][3].append(self.lno)
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
-        self.tidList = {k: v[3] for k, v in candidate.items() if v[0] >= self.minSup and v[1] <= self.maxPer}
-        candidate = {k: [v[0], v[1]] for k, v in candidate.items() if v[0] >= self.minSup and v[1] <= self.maxPer}
+                    candidate[j][1] = max(candidate[j][1], abs(n - candidate[j][2]))
+                    candidate[j][2] = n
+                    candidate[j][3].append(n)
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        self._tidList = {k: v[3] for k, v in candidate.items() if v[0] >= self._minSup and v[1] <= self._maxPer}
+        candidate = {k: [v[0], v[1]] for k, v in candidate.items() if v[0] >= self._minSup and v[1] <= self._maxPer}
         plist = [key for key, value in sorted(candidate.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
         return plist
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
         :param value: user specified value
@@ -203,16 +199,16 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
 
-    def getSupportAndPeriod(self, timeStamps):
+    def _getSupportAndPeriod(self, timeStamps):
         """calculates the support and periodicity with list of timestamps
 
             :param timeStamps: timestamps of a pattern
@@ -224,14 +220,14 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
         sup = 0
         for j in range(len(timeStamps)):
             per = max(per, timeStamps[j] - cur)
-            if per > self.maxPer:
+            if per > self._maxPer:
                 return [0, 0]
             cur = timeStamps[j]
             sup += 1
-        per = max(per, self.lno - cur)
+        per = max(per, self._lno - cur)
         return [sup, per]
 
-    def save(self, prefix, suffix, tidSetX):
+    def _save(self, prefix, suffix, tidSetX):
         """Saves the patterns that satisfy the periodic frequent property.
 
             :param prefix: the prefix of a pattern
@@ -247,15 +243,15 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
             prefix = suffix
         else:
             prefix = prefix + suffix
-        val = self.getSupportAndPeriod(tidSetX)
-        if val[0] >= self.minSup and val[1] <= self.maxPer:
-            self.finalPatterns[tuple(prefix)] = val
+        val = self._getSupportAndPeriod(tidSetX)
+        if val[0] >= self._minSup and val[1] <= self._maxPer:
+            self._finalPatterns[tuple(prefix)] = val
 
-    def Generation(self, prefix, itemSets, tidSets):
+    def _Generation(self, prefix, itemSets, tidSets):
         if len(itemSets) == 1:
             i = itemSets[0]
             tidI = tidSets[0]
-            self.save(prefix, [i], tidI)
+            self._save(prefix, [i], tidI)
             return
         for i in range(len(itemSets)):
             itemX = itemSets[i]
@@ -265,27 +261,27 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
             classItemSets = []
             classTidSets = []
             itemSetX = [itemX]
-            neighboursItemsI = self.getNeighbourItems(itemSets[i])
+            neighboursItemsI = self._getNeighbourItems(itemSets[i])
             for j in range(i + 1, len(itemSets)):
-                neighboursItemsJ = self.getNeighbourItems(itemSets[i])
+                neighboursItemsJ = self._getNeighbourItems(itemSets[i])
                 if not itemSets[j] in neighboursItemsI:
                     continue
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetX).intersection(tidSetJ))
-                if len(y) >= self.minSup:
+                if len(y) >= self._minSup:
                     ne = list(set(neighboursItemsI).intersection(neighboursItemsJ))
                     x = []
                     x = x + [itemX]
                     x = x + [itemJ]
-                    self.NeighboursMap[tuple(x)] = ne
+                    self._NeighboursMap[tuple(x)] = ne
                     classItemSets.append(itemJ)
                     classTidSets.append(y)
             newPrefix = list(set(itemSetX)) + prefix
-            self.Generation(newPrefix, classItemSets, classTidSets)
-            self.save(prefix, list(set(itemSetX)), tidSetX)
+            self._Generation(newPrefix, classItemSets, classTidSets)
+            self._save(prefix, list(set(itemSetX)), tidSetX)
 
-    def getNeighbourItems(self, keySet):
+    def _getNeighbourItems(self, keySet):
         """
             A function to get Neighbours of a item
             :param keySet:itemSet
@@ -293,49 +289,49 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
             :return: set of common neighbours 
             :rtype:set
         """
-        itemNeighbours = self.NeighboursMap.keys()
+        itemNeighbours = self._NeighboursMap.keys()
         if isinstance(keySet, str):
-            if self.NeighboursMap.get(keySet) is None:
+            if self._NeighboursMap.get(keySet) is None:
                 return []
-            itemNeighbours = list(set(itemNeighbours).intersection(set(self.NeighboursMap.get(keySet))))
+            itemNeighbours = list(set(itemNeighbours).intersection(set(self._NeighboursMap.get(keySet))))
         if isinstance(keySet, tuple):
             keySet = list(keySet)
             for j in range(0, len(keySet)):
                 i = keySet[j]
-                itemNeighbours = list(set(itemNeighbours).intersection(set(self.NeighboursMap.get(i))))
+                itemNeighbours = list(set(itemNeighbours).intersection(set(self._NeighboursMap.get(i))))
         return itemNeighbours
 
     def mapNeighbours(self):
         """
             A function to map items to their Neighbours
         """
-        self.NeighboursMap = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self._NeighboursMap = {}
+        if isinstance(self._nFile, _ab._pd.DataFrame):
             data = []
-            if self.iFile.empty:
+            if self._nFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._nFile.columns.values.tolist()
             if 'Neighbours' in i:
-                data = self.iFile['Neighbours'].tolist()
+                data = self._nFile['Neighbours'].tolist()
             for i in data:
-                self.NeighboursMap[i[0]] = i[1:]
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                self._NeighboursMap[i[0]] = i[1:]
+        if isinstance(self._nFile, str):
+            if _ab._validators.url(self._nFile):
+                data = _ab._urlopen(self._nFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.NeighboursMap[temp[0]] = temp[1:]
+                    self._NeighboursMap[temp[0]] = temp[1:]
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._nFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.NeighboursMap[temp[0]] = temp[1:]
+                            self._NeighboursMap[temp[0]] = temp[1:]
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -344,39 +340,38 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
         """Frequent pattern mining process will start from here"""
 
         # global items_sets, endTime, startTime
-        self.startTime = time.time()
-        if self.iFile is None:
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        iFileName = self.iFile
-        self.creatingItemSets(iFileName)
-        self.minSup = self.convert(self.minSup)
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
         self.mapNeighbours()
-        self.finalPatterns = {}
-        plist = self.frequentOneItem()
+        self._finalPatterns = {}
+        plist = self._frequentOneItem()
         for i in range(len(plist)):
             itemX = plist[i]
-            tidSetX = self.tidList[itemX]
+            tidSetX = self._tidList[itemX]
             itemSetX = [itemX]
             itemSets = []
             tidSets = []
-            neighboursItems = self.getNeighbourItems(plist[i])
+            neighboursItems = self._getNeighbourItems(plist[i])
             for j in range(i + 1, len(plist)):
                 if not plist[j] in neighboursItems:
                     continue
                 itemJ = plist[j]
-                tidSetJ = self.tidList[itemJ]
+                tidSetJ = self._tidList[itemJ]
                 y1 = list(set(tidSetX).intersection(tidSetJ))
-                if len(y1) >= self.minSup:
+                if len(y1) >= self._minSup:
                     itemSets.append(itemJ)
                     tidSets.append(y1)
-            self.Generation(itemSetX, itemSets, tidSets)
-            self.save(None, itemSetX, tidSetX)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+            self._Generation(itemSetX, itemSets, tidSets)
+            self._save(None, itemSetX, tidSetX)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Spatial Periodic Frequent patterns were generated successfully using SpatialEclat algorithm")
 
     def getMemoryUSS(self):
@@ -385,7 +380,7 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -393,7 +388,7 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -401,9 +396,9 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
-    def getPatternsAsDataFrames(self):
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -411,9 +406,9 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b[0], b[1]])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Period'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Period'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -421,9 +416,9 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             pat = ""
             for i in x:
                 pat += str(i) + " "
@@ -435,20 +430,20 @@ class PFS_ECLAT(spatialPeriodicFrequentPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 6 or len(sys.argv) == 7:
-        if len(sys.argv) == 7:
-            ap = PFS_ECLAT(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
-        if len(sys.argv) == 6:
-            ap = PFS_ECLAT(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+    if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
+        if len(_ab._sys.argv) == 7:
+            ap = PFS_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
+        if len(_ab._sys.argv) == 6:
+            ap = PFS_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         ap.startMine()
         spatialFrequentPatterns = ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_ab._sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

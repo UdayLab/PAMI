@@ -14,10 +14,10 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # from abstract import *
 
-from PAMI.frequentPattern.basic.abstract import *
+from PAMI.frequentPattern.basic import abstract as _ab
 
 
-class ECLATDiffset(frequentPatterns):
+class ECLATDiffset(_ab._frequentPatterns):
     """
         It uses diffset to extract the frequent patterns.
         Reference:
@@ -124,53 +124,53 @@ class ECLATDiffset(frequentPatterns):
 
     """
 
-    minSup = float()
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    diffSets = {}
-    trans_set = set()
+    _minSup = float()
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _diffSets = {}
+    _trans_set = set()
 
-    def creatingItemSets(self):
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
-            if self.iFile.empty:
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                self._Database = self._iFile['Transactions'].tolist()
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the user specified minSup value
 
@@ -181,27 +181,27 @@ class ECLATDiffset(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
 
-    def getUniqueItemList(self):
+    def _getUniqueItemList(self):
 
         # tidSets will store all the initial tids
         tidSets = {}
         # uniqueItem will store all frequent 1 items
         uniqueItem = []
-        for line in self.Database:
+        for line in self._Database:
                 transNum = 0
                 # Database = [set([i.rstrip() for i in transaction.split('\t')]) for transaction in f]
-                for transaction in self.Database:
+                for transaction in self._Database:
                     transNum += 1
-                    self.trans_set.add(transNum)
+                    self._trans_set.add(transNum)
                     for item in transaction:
                         if item in tidSets:
                             tidSets[item].add(transNum)
@@ -209,15 +209,15 @@ class ECLATDiffset(frequentPatterns):
                             tidSets[item] = {transNum}
         for key, value in tidSets.items():
             supp = len(value)
-            if supp >= self.minSup:
-                self.diffSets[key] = [supp, self.trans_set.difference(value)]
+            if supp >= self._minSup:
+                self._diffSets[key] = [supp, self._trans_set.difference(value)]
                 uniqueItem.append(key)
 
         uniqueItem.sort(key=int)
         # print()
         return uniqueItem
 
-    def runEclat(self, candidateList):
+    def _runEclat(self, candidateList):
 
         newList = []
         for i in range(0, len(candidateList)):
@@ -227,34 +227,34 @@ class ECLATDiffset(frequentPatterns):
                 item2 = candidateList[j]
                 jList = item2.split()
                 if iList[:-1] == jList[:-1]:
-                    unionDiffSet = self.diffSets[item2][1].difference(self.diffSets[item1][1])
-                    unionSup = self.diffSets[item1][0] - len(unionDiffSet)
-                    if unionSup >= self.minSup:
+                    unionDiffSet = self._diffSets[item2][1].difference(self._diffSets[item1][1])
+                    unionSup = self._diffSets[item1][0] - len(unionDiffSet)
+                    if unionSup >= self._minSup:
                         newKey = item1 + " " + jList[-1]
-                        self.diffSets[newKey] = [unionSup, unionDiffSet]
+                        self._diffSets[newKey] = [unionSup, unionDiffSet]
                         newList.append(newKey)
 
             if len(newList) > 0:
-                self.runEclat(newList)
+                self._runEclat(newList)
 
     def startMine(self):
         """Frequent pattern mining process will start from here"""
 
-        self.startTime = time.time()
-        if self.iFile is None:
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.minSup is None:
+        if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingItemSets()
-        self.minSup = self.convert(self.minSup)
-        uniqueItemList = self.getUniqueItemList()
-        self.runEclat(uniqueItemList)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        uniqueItemList = self._getUniqueItemList()
+        self._runEclat(uniqueItemList)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using ECLAT algorithm")
 
     def getMemoryUSS(self):
@@ -265,7 +265,7 @@ class ECLATDiffset(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -275,7 +275,7 @@ class ECLATDiffset(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -285,7 +285,7 @@ class ECLATDiffset(frequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -297,9 +297,9 @@ class ECLATDiffset(frequentPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -309,9 +309,9 @@ class ECLATDiffset(frequentPatterns):
 
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
@@ -322,20 +322,20 @@ class ECLATDiffset(frequentPatterns):
 
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
-        if len(sys.argv) == 5:
-            ap = ECLATDiffset(sys.argv[1], sys.argv[3], sys.argv[4])
-        if len(sys.argv) == 4:
-            ap = ECLATDiffset(sys.argv[1], sys.argv[3])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:
+            ap = ECLATDiffset(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            ap = ECLATDiffset(_ab._sys.argv[1], _ab._sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_ab._sys.argv[2])
         print(ap.getPatternsAsDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
@@ -344,19 +344,19 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        ap = ECLATDiffset('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_T10I4D100K.csv',
-                   3000)
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/output')
-        print(ap.getPatternsAsDataFrame())
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+        '''l = [6000]
+        for i in l:
+            ap = ECLATDiffset('/Users/Likhitha/Downloads/mushrooms.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Frequent Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 

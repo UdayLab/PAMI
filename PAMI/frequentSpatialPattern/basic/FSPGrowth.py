@@ -1,8 +1,9 @@
-from PAMI.frequentSpatialPattern.basic.abstract import *
-from collections import OrderedDict
+
+from PAMI.frequentSpatialPattern.basic import abstract as _ab
 
 
-class Node:
+
+class _Node:
     """
     A class used to represent the node of frequentPatternTree
 
@@ -18,6 +19,7 @@ class Node:
             To maintain the prefix of node
 
     """
+
     def __init__(self, item, count, children):
         self.item = item
         self.count = count
@@ -25,7 +27,7 @@ class Node:
         self.prefix = []
 
 
-class Tree:
+class _Tree:
     """
     A class used to represent the frequentPatternGrowth tree structure
 
@@ -55,8 +57,8 @@ class Tree:
     """
 
     def __init__(self):
-        self.root = Node(None, 0, {})
-        self.nodeLink = OrderedDict()
+        self.root = _Node(None, 0, {})
+        self.nodeLink = _ab._OrderedDict()
 
     def createTree(self, transaction, count):
         """
@@ -69,7 +71,7 @@ class Tree:
         current = self.root
         for item in transaction:
             if item not in current.children:
-                current.children[item] = Node(item, count, {})
+                current.children[item] = _Node(item, count, {})
                 current.children[item].prefix = transaction[0:transaction.index(item)]
                 self.linkNode(current.children[item])
             else:
@@ -96,9 +98,9 @@ class Tree:
         :param neighbour: dict
         :return: Tree
         """
-        pTree = Tree()
+        pTree = _Tree()
         for node in self.nodeLink[item]:
-            #print(node.item, neighbour[node.item])
+            # print(node.item, neighbour[node.item])
             node.prefix = [item for item in node.prefix if item in neighbour.get(node.item)]
             pTree.createTree(node.prefix, node.count)
         return pTree
@@ -153,10 +155,9 @@ class Tree:
                 frequentItems[i] += node.count
         frequentItems = {key: value for key, value in frequentItems.items() if value >= minSup}
         for i in frequentItems:
-            pattern = list(suffixItem)
-            pattern.append(i)
-            frequentPatterns.append((tuple(pattern), frequentItems[i]))
-            frequentPatterns.extend(pTree.getPattern(i, tuple(pattern), minSup, neighbour))
+            pattern = suffixItem + "\t" + i
+            frequentPatterns.append((pattern, frequentItems[i]))
+            frequentPatterns.extend(pTree.getPattern(i, pattern, minSup, neighbour))
         return frequentPatterns
 
     def mining(self, minSup, neighbourhood=None):
@@ -170,11 +171,11 @@ class Tree:
         frequentPatterns = []
         flist = sorted([item for item in self.nodeLink.keys()])
         for item in reversed(flist):
-            frequentPatterns.extend(self.getPattern(item, (item,), minSup, neighbourhood))
+            frequentPatterns.extend(self.getPattern(item, item, minSup, neighbourhood))
         return frequentPatterns
 
 
-class FSPGrowth(spatialFrequentPatterns):
+class FSPGrowth(_ab._spatialFrequentPatterns):
     """
     Attributes:
     ----------
@@ -225,6 +226,8 @@ class FSPGrowth(spatialFrequentPatterns):
             This function maps neighbourhood to number.
             Because in this program, each item is mapped to number based on fpList so that it can be distributed.
             So the contents of neighbourhood must also be mapped to a number.
+        createFPTree()
+            This function creates FPTree.
         getAllFrequentPatterns(data, fpList, ndata)
             This function generates all frequent patterns
     Executing the code on terminal :
@@ -273,20 +276,20 @@ class FSPGrowth(spatialFrequentPatterns):
         The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
     """
 
-    minSup = float()
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    nFile = " "
-    oFile = " "
-    sep = " "
-    lno = 0
-    memoryUSS = float()
-    memoryRSS = float()
-    transaction = []
-    neighbourList = {}
-    fpList = []
+    _minSup = float()
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _nFile = " "
+    _oFile = " "
+    _sep = " "
+    _lno = 0
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _neighbourList = {}
+    _fpList = []
 
     '''def __init__(self, iFile, nFile, minSup, sep):
         self.iFile = iFile
@@ -294,85 +297,74 @@ class FSPGrowth(spatialFrequentPatterns):
         self.minSup = minSup
         self.sep = sep'''
 
-    def readDatabase(self):
+    def _readDatabase(self):
         """
         Read input file and neighborhood file
-        In, addition, find frequent patterns that length is one.
         """
 
-        self.Database = []
-        self.fpList = []
-        self.finalPatterns = {}
-        if isinstance(self.iFile, pd.DataFrame):
-            if self.iFile.empty:
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-            self.lno = len(self.Database)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                self._Database = self._iFile['Transactions'].tolist()
+            self._lno = len(self._Database)
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
-                    self.lno += 1
+                    self._lno += 1
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            self.lno += 1
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            self._lno += 1
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
-                    print("File Not Found")
+                    print("File Not Found1")
                     quit()
-        oneFrequentItem = {}
-        for line in self.Database:
-            for item in line:
-                oneFrequentItem[item] = oneFrequentItem.get(item, 0) + 1
-        oneFrequentItem = {key: value for key, value in oneFrequentItem.items() if value >= self.minSup}
-        self.fpList = list(dict(sorted(oneFrequentItem.items(), key=lambda x: x[1], reverse=True)))
-        print(len(self.fpList))
-        self.finalPatterns = oneFrequentItem
 
-        self.neighbourList = {}
-        if isinstance(self.nFile, pd.DataFrame):
+        self._neighbourList = {}
+        if isinstance(self._nFile, _ab._pd.DataFrame):
             data, items = [], []
-            if self.nFile.empty:
+            if self._nFile.empty:
                 print("its empty..")
-            i = self.nFile.columns.values.tolist()
+            i = self._nFile.columns.values.tolist()
             if 'item' in i:
-                items = self.nFile['items'].tolist()
+                items = self._nFile['items'].tolist()
             if 'Neighbours' in i:
-                data = self.nFile['Neighbours'].tolist()
+                data = self._nFile['Neighbours'].tolist()
             for k in range(len(items)):
-                self.neighbourList[items[k][0]] = data[k]
+                self._neighbourList[items[k][0]] = data[k]
             # print(self.Database)
-        if isinstance(self.nFile, str):
-            if validators.url(self.nFile):
-                data = urlopen(self.nFile)
+        if isinstance(self._nFile, str):
+            if _ab._validators.url(self._nFile):
+                data = _ab._urlopen(self._nFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.neighbourList[temp[0]] = temp[1:]
+                    self._neighbourList[temp[0]] = temp[1:]
             else:
                 try:
-                    with open(self.nFile, 'r', encoding='utf-8') as f:
+                    with open(self._nFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.neighbourList[temp[0]] = temp[1:]
+                            self._neighbourList[temp[0]] = temp[1:]
                 except IOError:
-                    print("File Not Found")
+                    print("File Not Found2")
                     quit()
         '''with open(self.nFile, "r") as nf:
             for line in nf:
@@ -384,15 +376,32 @@ class FSPGrowth(spatialFrequentPatterns):
                     else:
                         self.neighbourList[key].append(tuple(l[i].rstrip().split(' ')))'''
 
-    def sortTransaction(self):
+    def _getFrequentItems(self):
+        """
+        Create frequent items and self.fpList from self.database
+        """
+        oneFrequentItem = {}
+        for transaction in self._Database:
+            for item in transaction:
+                oneFrequentItem[item] = oneFrequentItem.get(item, 0) + 1
+        self._finalPatterns = {key: value for key, value in oneFrequentItem.items() if value >= self._minSup}
+        self._fpList = list(dict(sorted(oneFrequentItem.items(), key=lambda x: x[1], reverse=True)))
+
+    def _createFPTree(self):
+        FPTree = _Tree()
+        for transaction in self._Database:
+            FPTree.createTree(transaction, 1)
+        return FPTree
+
+    def _sortTransaction(self):
         """
         Sort each transaction of self.Database based on self.fpList
         """
-        for i in range(len(self.Database)):
-            self.Database[i] = [item for item in self.Database[i] if item in self.fpList]
-            self.Database[i].sort(key=lambda value: self.fpList.index(value))
+        for i in range(len(self._Database)):
+            self._Database[i] = [item for item in self._Database[i] if item in self._fpList]
+            self._Database[i].sort(key=lambda value: self._fpList.index(value))
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
         :param value: user specified value
@@ -401,11 +410,11 @@ class FSPGrowth(spatialFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.lno * value)
+            value = (self._lno * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.lno * value)
+                value = (self._lno * value)
             else:
                 value = int(value)
         return value
@@ -414,22 +423,22 @@ class FSPGrowth(spatialFrequentPatterns):
         """
         start pattern mining from here
         """
-        self.startTime = time.time()
-        self.finalPatterns = {}
-        self.readDatabase()
-        self.minSup = self.convert(self.minSup)
-        self.sortTransaction()
-        FPTree = Tree()
-        for trans in self.Database:
-            FPTree.createTree(trans, 1)
-        self.finalPatterns.update(dict(FPTree.mining(self.minSup, self.neighbourList)))
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._startTime = _ab._time.time()
+        self._finalPatterns = {}
+        self._readDatabase()
+        self._minSup = self._convert(self._minSup)
+        self._getFrequentItems()
+        self._sortTransaction()
+        _FPTree = self._createFPTree()
+        self._finalPatterns = (dict(_FPTree.mining(self._minSup, self._neighbourList)))
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Frequent Spatial Patterns successfully generated using FSPGrowth")
+
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -437,7 +446,7 @@ class FSPGrowth(spatialFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -445,7 +454,7 @@ class FSPGrowth(spatialFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -453,7 +462,7 @@ class FSPGrowth(spatialFrequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -465,9 +474,9 @@ class FSPGrowth(spatialFrequentPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
     def savePatterns(self, oFile):
@@ -476,9 +485,9 @@ class FSPGrowth(spatialFrequentPatterns):
         :param oFile: name of the output file
         :type oFile: file
         """
-        self.oFile = oFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = oFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -488,12 +497,12 @@ class FSPGrowth(spatialFrequentPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
     '''def savePatterns(self):
         """
         Complete set of frequent patterns will be loaded in to a output file
-        
+
         """
         s = ""
         s1 = ""
@@ -514,15 +523,15 @@ class FSPGrowth(spatialFrequentPatterns):
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = FSPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = FSPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:
+            ap = FSPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:
+            ap = FSPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         ap.startMine()
         spatialFrequentPatterns = ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_ab._sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -530,4 +539,16 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        ap = FSPGrowth('/Users/Likhitha/Downloads/Datasets/T10I4D200K.txt',
+                       '/Users/Likhitha/Downloads/Datasets/t10_neighbours', 2000, ' ')
+        ap.startMine()
+        spatialFrequentPatterns = ap.getPatterns()
+        print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
+        ap.savePatterns('/Users/Likhitha/Downloads/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

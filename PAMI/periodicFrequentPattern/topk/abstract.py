@@ -13,22 +13,22 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from abc import ABC, abstractmethod
-import time
-import math
-import csv
-import pandas as pd
-from collections import defaultdict
-from itertools import combinations as c
-import os
-import os.path
-import psutil
-import sys
-import validators
-from urllib.request import urlopen
+from abc import ABC as _ABC, abstractmethod as _abstractmethod
+import time as _time
+import math as _math
+import csv as _csv
+import pandas as _pd
+from collections import defaultdict as _defauldict
+from itertools import combinations as _c
+import os as _os
+import os.path as _ospath
+import psutil as _psutil
+import sys as _sys
+import validators as _validators
+from urllib.request import urlopen as _urlopen
 
 
-class periodicFrequentPatterns(ABC):
+class _periodicFrequentPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
         employ in PAMI
        Attributes
@@ -90,12 +90,18 @@ class periodicFrequentPatterns(ABC):
         :type sep: str
         """
 
-        self.iFile = iFile
-        self.k = k
-        self.maxPer = maxPer
-        self.sep = sep
+        self._iFile = iFile
+        self._k = k
+        self._maxPer = maxPer
+        self._sep = sep
+        self._oFile = str()
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._finalPatterns = {}
 
-    @abstractmethod
+    '''@abstractmethod
     def iFile(self):
         """Variable to store the input file path/file name"""
 
@@ -152,38 +158,38 @@ class periodicFrequentPatterns(ABC):
     def oFile(self):
         """Variable to store the name of the output file to store the complete set of periodic-frequent patterns"""
 
-        pass
+        pass'''
 
-    @abstractmethod
+    @_abstractmethod
     def startMine(self):
         """Code for the mining process will start from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getPatterns(self):
         """Complete set of periodic-frequent patterns generated will be retrieved from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getPatternsAsDataFrame(self):
         """Complete set of periodic-frequent patterns will be loaded in to data frame from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the program will be retrieved from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the program will be retrieved from this function"""
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getRuntime(self):
         """Total amount of runtime taken by the program will be retrieved from this function"""
 

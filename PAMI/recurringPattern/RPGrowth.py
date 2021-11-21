@@ -18,7 +18,7 @@ from PAMI.recurringPattern.abstract import *
 
 maxPer = float()
 minPS = float()
-minRec= float()
+minRec = float()
 lno = int()
 
 

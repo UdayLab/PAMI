@@ -13,19 +13,19 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.partialPeriodicPattern.topk.abstract import *
-import validators
-from urllib.request import urlopen
-import sys
+from PAMI.partialPeriodicPattern.topk import abstract as _abstract
+import validators as _validators
+from urllib.request import urlopen as _urlopen
+import sys as _sys
 
 
-class Topk_PPPGrowth(partialPeriodicPatterns):
+class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
     """
         Top - K is and algorithm to discover top partial periodic patterns in a temporal  database.
 
         Reference:
         ----------
-            
+
 
         Attributes:
         ----------
@@ -121,64 +121,65 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
 
     """
 
-    startTime = float()
-    endTime = float()
-    k = int()
-    periodicity = " "
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    tidList = {}
-    lno = int()
-    minimum = int()
-    mapSupport = {}
+    _startTime = float()
+    _endTime = float()
+    _k = int()
+    _periodicity = " "
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _tidList = {}
+    _lno = int()
+    _minimum = int()
+    _mapSupport = {}
 
-    def creatingItemSets(self):
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self._Database = []
+        if isinstance(self._iFile, _abstract._pd.DataFrame):
             timeStamp, data = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                timeStamp = self.iFile['TS'].tolist()
+                timeStamp = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [timeStamp[i]]
                 tr = tr + data[i]
-                self.Database.append(tr)
-            self.lno = len(self.Database)
+                self._Database.append(tr)
+            self._lno = len(self._Database)
             # print(self.Database)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _validators.url(self._iFile):
+                data = _urlopen(self._iFile)
                 for line in data:
-                    self.lno += 1
+                    self._lno += 1
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.lno += 1
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            self._lno += 1
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
-    def convert(self, value):
+
+    def _convert(self, value):
         """
         To convert the given user specified value
         :param value: user specified value
@@ -187,54 +188,58 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
 
-    def frequentOneItem(self):
+    def _frequentOneItem(self):
         """
         Generating one frequent patterns
         """
 
-        self.mapSupport = {}
-        self.tidList = {}
-        self.periodicity = self.convert(self.periodicity)
-        for line in self.Database:
+        self._mapSupport = {}
+        self._tidList = {}
+        self._periodicity = self._convert(self._periodicity)
+        self._k = int(self._convert(self._k))
+        for line in self._Database:
             n = int(line[0])
             for i in range(1, len(line)):
                 si = line[i]
-                if self.mapSupport.get(si) is None:
-                    self.mapSupport[si] = [1, 0, n]
-                    self.tidList[si] = [n]
+                if self._mapSupport.get(si) is None:
+                    self._mapSupport[si] = [1, 0, n]
+                    self._tidList[si] = [n]
                 else:
-                    self.mapSupport[si][0] += 1
-                    period = abs(n - self.mapSupport[si][2])
-                    if period <= self.periodicity:
-                        self.mapSupport[si][1] += 1
-                    self.mapSupport[si][2] = n
-                    self.tidList[si].append(n)
-        for x, y in self.mapSupport.items():
-            period = abs(self.lno - self.mapSupport[x][2])
-            if period <= self.periodicity:
-                self.mapSupport[x][1] += 1
-        self.mapSupport = {k: v[1] for k, v in self.mapSupport.items()}
-        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
-        self.finalPatterns = {}
+                    self._mapSupport[si][0] += 1
+                    period = abs(n - self._mapSupport[si][2])
+                    if period <= self._periodicity:
+                        self._mapSupport[si][1] += 1
+                    self._mapSupport[si][2] = n
+                    self._tidList[si].append(n)
+        for x, y in self._mapSupport.items():
+            period = abs(self._lno - self._mapSupport[x][2])
+            if period <= self._periodicity:
+                self._mapSupport[x][1] += 1
+        self._mapSupport = {k: v[1] for k, v in self._mapSupport.items()}
+        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[0], reverse=True)]
+        self._finalPatterns = {}
         for i in plist:
-            if len(self.finalPatterns) >= self.k:
+            if self._mapSupport[i] == 0:
+                continue
+            if len(self._finalPatterns) >= self._k:
                 break
             else:
-                self.finalPatterns[i] = [self.mapSupport[i][0], self.mapSupport[i][1]]
-        self.minimum = min([self.finalPatterns[i][1] for i in self.finalPatterns.keys()])
-        plist = list(self.finalPatterns.keys())
+                self._finalPatterns[i] = self._mapSupport[i]
+        print(len(self._finalPatterns),  self._k, self._periodicity)
+        self._minimum = min([self._finalPatterns[i] for i in self._finalPatterns.keys()])
+        plist = list(self._finalPatterns.keys())
         return plist
 
-    def getSupportAndPeriod(self, timeStamps):
+    def _getSupportAndPeriod(self, timeStamps):
         """To calculate the periodicity and support
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
@@ -244,11 +249,11 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
         sup = 0
         for j in range(len(timeStamps) - 1):
             per = abs(timeStamps[j + 1] - timeStamps[j])
-            if per <= self.periodicity:
+            if per <= self._periodicity:
                 sup += 1
         return sup
 
-    def save(self, prefix, suffix, tidSetI):
+    def _save(self, prefix, suffix, tidSetI):
         """Saves the patterns that satisfy the periodic frequent property.
 
             :param prefix: the prefix of a pattern
@@ -268,26 +273,27 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
             prefix = suffix
         else:
             prefix = prefix + suffix
-        val = self.getSupportAndPeriod(tidSetI)
+        val = self._getSupportAndPeriod(tidSetI)
         sample = str()
         for i in prefix:
             sample = sample + i + " "
-        if len(self.finalPatterns) < self.k:
-            if val >= self.minimum:
-                self.finalPatterns[sample] = val
-                self.finalPatterns = {k: v for k, v in
-                                  sorted(self.finalPatterns.items(), key=lambda item: item[1], reverse=True)}
-                self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
+        if len(self._finalPatterns) < self._k:
+            if val >= self._minimum:
+                self._finalPatterns[sample] = val
+                self._finalPatterns = {k: v for k, v in
+                                       sorted(self._finalPatterns.items(), key=lambda item: item[1], reverse=True)}
+                self._minimum = min([self._finalPatterns[i] for i in self._finalPatterns.keys()])
         else:
-            for x, y in sorted(self.finalPatterns.items(), key=lambda x: x[1][0]):
+            for x, y in sorted(self._finalPatterns.items(), key=lambda x: x[1]):
                 if val > y:
-                    del self.finalPatterns[x]
-                    self.finalPatterns[x] = y
-                    self.finalPatterns = {k: v for k, v in
-                                          sorted(self.finalPatterns.items(), key=lambda item: item[1], reverse=True)}
-                    self.minimum = min([self.finalPatterns[i][0] for i in self.finalPatterns.keys()])
+                    del self._finalPatterns[x]
+                    self._finalPatterns[x] = y
+                    self._finalPatterns = {k: v for k, v in
+                                           sorted(self._finalPatterns.items(), key=lambda item: item[1], reverse=True)}
+                    self._minimum = min([self._finalPatterns[i] for i in self._finalPatterns.keys()])
                     return
-    def Generation(self, prefix, itemSets, tidSets):
+
+    def _Generation(self, prefix, itemSets, tidSets):
         """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
 
             :param prefix:  main equivalence prefix
@@ -306,7 +312,7 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
         if len(itemSets) == 1:
             i = itemSets[0]
             tidI = tidSets[0]
-            self.save(prefix, [i], tidI)
+            self._save(prefix, [i], tidI)
             return
         for i in range(len(itemSets)):
             itemI = itemSets[i]
@@ -320,45 +326,48 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetI).intersection(tidSetJ))
-                val = self.getSupportAndPeriod(y)
-                if val >= self.minimum:
+                val = self._getSupportAndPeriod(y)
+                if val >= self._minimum:
                     classItemSets.append(itemJ)
                     classTidSets.append(y)
             newPrefix = list(set(itemSetX)) + prefix
-            self.Generation(newPrefix, classItemSets, classTidSets)
-            self.save(prefix, list(set(itemSetX)), tidSetI)
+            self._Generation(newPrefix, classItemSets, classTidSets)
+            self._save(prefix, list(set(itemSetX)), tidSetI)
 
     def startMine(self):
         """
             Main function of the program
 
         """
-        self.startTime = time.time()
-        if self.iFile is None:
+        self._startTime = _abstract._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.k is None:
+        if self._k is None:
             raise Exception("Please enter the Minimum Support")
-        plist = self.frequentOneItem()
+        self._creatingItemSets()
+        plist = self._frequentOneItem()
         for i in range(len(plist)):
             itemI = plist[i]
-            tidSetI = self.tidList[itemI]
+            tidSetI = self._tidList[itemI]
             itemSetX = [itemI]
             itemSets = []
             tidSets = []
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
-                tidSetJ = self.tidList[itemJ]
+                tidSetJ = self._tidList[itemJ]
                 y1 = list(set(tidSetI).intersection(tidSetJ))
-                val = self.getSupportAndPeriod(y1)
-                if val >= self.minimum:
+                val = self._getSupportAndPeriod(y1)
+                if val >= self._minimum:
                     itemSets.append(itemJ)
                     tidSets.append(y1)
-            self.Generation(itemSetX, itemSets, tidSets)
+            self._Generation(itemSetX, itemSets, tidSets)
         print("TopK partial periodic patterns were generated successfully")
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._endTime = _abstract._time.time()
+        process = _abstract._psutil.Process(_abstract._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -368,7 +377,7 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
                     :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -378,7 +387,7 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -388,7 +397,7 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -400,9 +409,9 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = _abstract._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -412,9 +421,9 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
 
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
@@ -425,20 +434,20 @@ class Topk_PPPGrowth(partialPeriodicPatterns):
 
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = Topk_PPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = Topk_PPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(_sys.argv) == 5 or len(_sys.argv) == 6:
+        if len(_sys.argv) == 6:
+            ap = Topk_PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
+        if len(_sys.argv) == 5:
+            ap = Topk_PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_sys.argv[2])
         print(ap.getPatternsAsDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
@@ -447,4 +456,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        '''l = [100, 150]
+        for i in l:
+            ap = Topk_PPPGrowth('/Users/Likhitha/Downloads/Datasets/BMS1_itemset_mining.txt', i, 100, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of  Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

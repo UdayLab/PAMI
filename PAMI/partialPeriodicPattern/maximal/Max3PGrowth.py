@@ -13,19 +13,18 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import sys
-import validators
-from urllib.request import urlopen
-from PAMI.partialPeriodicPattern.maximal.abstract import *
+import sys as _sys
+import validators as _validators
+from urllib.request import urlopen as _urlopen
+from PAMI.partialPeriodicPattern.maximal import abstract as _abstract
 
-periodicSupport = float()
-period = float()
-lno = int()
-patterns = {}
-pfList = []
+_periodicSupport = float()
+_period = float()
+_lno = int()
 
 
-class Node(object):
+
+class _Node(object):
     """
     A class used to represent the node of frequentPatternTree
 
@@ -55,7 +54,7 @@ class Node(object):
         self.parent = None
         self.timeStamps = []
 
-    def addChild(self, node):
+    def _addChild(self, node):
         """
         To add the children details to the parent node children list
 
@@ -67,7 +66,7 @@ class Node(object):
         node.parent = self
 
 
-class Tree(object):
+class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
 
@@ -99,11 +98,12 @@ class Tree(object):
     """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
+        self.maximalTree = _MPTree()
 
-    def addTransaction(self, transaction, tid):
+    def _addTransaction(self, transaction, tid):
         """
         adding transaction into database
 
@@ -116,8 +116,8 @@ class Tree(object):
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
-                newNode = Node(transaction[i], {})
-                currentNode.addChild(newNode)
+                newNode = _Node(transaction[i], {})
+                currentNode._addChild(newNode)
                 if transaction[i] in self.summaries:
                     self.summaries[transaction[i]].append(newNode)
                 else:
@@ -127,7 +127,7 @@ class Tree(object):
                 currentNode = currentNode.children[transaction[i]]
         currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def getConditionalPatterns(self, alpha):
+    def _getConditionalPatterns(self, alpha):
         """
         to get the conditional patterns of a node
 
@@ -147,10 +147,10 @@ class Tree(object):
                 set2.reverse()
                 finalPatterns.append(set2)
                 finalSets.append(set1)
-        finalPatterns, finalSets, info = conditionalTransactions(finalPatterns, finalSets)
+        finalPatterns, finalSets, info = _conditionalTransactions(finalPatterns, finalSets)
         return finalPatterns, finalSets, info
 
-    def removeNode(self, nodeValue):
+    def _removeNode(self, nodeValue):
         """
         removes the leaf node by pushing its timestamps to parent node
 
@@ -163,7 +163,7 @@ class Tree(object):
             del i.parent.children[nodeValue]
             i = None
 
-    def getTimeStamps(self, alpha):
+    def _getTimeStamps(self, alpha):
         """
         to get all the timestamps related to a node in tree
 
@@ -176,7 +176,7 @@ class Tree(object):
             temp += i.timeStamps
         return temp
 
-    def generatePatterns(self, prefix):
+    def _generatePatterns(self, prefix, _patterns):
         """
             To generate the maximal periodic frequent patterns
 
@@ -184,46 +184,30 @@ class Tree(object):
 
             :return: maximal periodic frequent patterns
         """
-        global maximalTree, patterns
+
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
-            condPattern, timeStamps, info = self.getConditionalPatterns(i)
-            conditionalTree = Tree()
+            condPattern, timeStamps, info = self._getConditionalPatterns(i)
+            conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             head = pattern[:]
             tail = []
             for k in info:
                 tail.append(k)
             sub = head + tail
-            if maximalTree.checkerSub(sub) == 1:
+            if self.maximalTree._checkerSub(sub) == 1:
                 for pat in range(len(condPattern)):
-                    conditionalTree.addTransaction(condPattern[pat], timeStamps[pat])
+                    conditionalTree._addTransaction(condPattern[pat], timeStamps[pat])
                 if len(condPattern) >= 1:
-                    conditionalTree.generatePatterns(pattern)
+                    conditionalTree._generatePatterns(pattern, _patterns)
                 else:
-                    maximalTree.addTransaction(pattern)
-                    s = convert(pattern)
-                    patterns[tuple(s)] = self.info[i]
-            self.removeNode(i)
+                    self.maximalTree._addTransaction(pattern)
+                    _patterns[tuple(pattern)] = self.info[i]
+            self._removeNode(i)
 
 
-def convert(itemSet):
-    """
-
-    to convert the maximal pattern items with their original item names
-
-    :param itemSet: maximal periodic frequent pattern
-
-    :return: pattern with original item names
-    """
-    t1 = []
-    for i in itemSet:
-        t1.append(pfList[i])
-    return t1
-
-
-class MNode(object):
+class _MNode(object):
     """
     A class used to represent the node of frequentPatternTree
 
@@ -247,7 +231,7 @@ class MNode(object):
         self.item = item
         self.children = children
 
-    def addChild(self, node):
+    def _addChild(self, node):
         """
         To add the children details to parent node children variable
 
@@ -259,7 +243,7 @@ class MNode(object):
         node.parent = self
 
 
-class MPTree(object):
+class _MPTree(object):
     """
     A class used to represent the node of frequentPatternTree
 
@@ -279,10 +263,10 @@ class MPTree(object):
     """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = _Node(None, {})
         self.summaries = {}
 
-    def addTransaction(self, transaction):
+    def _addTransaction(self, transaction):
         """
         to add the transaction in maximal tree
 
@@ -294,8 +278,8 @@ class MPTree(object):
         transaction.sort()
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
-                newNode = MNode(transaction[i], {})
-                currentNode.addChild(newNode)
+                newNode = _MNode(transaction[i], {})
+                currentNode._addChild(newNode)
                 if transaction[i] in self.summaries:
                     self.summaries[transaction[i]].insert(0, newNode)
                 else:
@@ -304,7 +288,7 @@ class MPTree(object):
             else:
                 currentNode = currentNode.children[transaction[i]]
 
-    def checkerSub(self, items):
+    def _checkerSub(self, items):
         """
         To check subset present of items in the maximal tree
 
@@ -331,10 +315,10 @@ class MPTree(object):
         return 1
 
 
-maximalTree = MPTree()
+#_maximalTree = _MPTree()
 
 
-def getPeriodAndSupport(timeStamps):
+def _getPeriodAndSupport(timeStamps):
     """
     To calculate the periodicity and support of a pattern with their respective timeStamps
 
@@ -346,12 +330,12 @@ def getPeriodAndSupport(timeStamps):
     per = 0
     for i in range(len(timeStamps) - 1):
         j = i + 1
-        if abs(timeStamps[j] - timeStamps[i]) <= period:
+        if abs(timeStamps[j] - timeStamps[i]) <= _period:
             per += 1
     return per
 
 
-def conditionalTransactions(condPatterns, condTimeStamps):
+def _conditionalTransactions(condPatterns, condTimeStamps):
     """
     To calculate the timestamps of conditional items in conditional patterns
 
@@ -372,8 +356,8 @@ def conditionalTransactions(condPatterns, condTimeStamps):
                 data1[j] = condTimeStamps[i]
     updatedDict = {}
     for m in data1:
-        updatedDict[m] = getPeriodAndSupport(data1[m])
-    updatedDict = {k: v for k, v in updatedDict.items() if v >= periodicSupport}
+        updatedDict[m] = _getPeriodAndSupport(data1[m])
+    updatedDict = {k: v for k, v in updatedDict.items() if v >= _periodicSupport}
     count = 0
     for p in condPatterns:
         p1 = [v for v in p if v in updatedDict]
@@ -385,7 +369,7 @@ def conditionalTransactions(condPatterns, condTimeStamps):
     return pat, timeStamps, updatedDict
 
 
-class Max3PGrowth(partialPeriodicPatterns):
+class Max3PGrowth(_abstract._partialPeriodicPatterns):
     """ Max3p-Growth algorithm IS to discover maximal periodic-frequent patterns in a temporal database.
         It extract the partial periodic patterns from 3p-tree and checks for the maximal property and stores
         all the maximal patterns in max3p-tree and extracts the maximal periodic patterns.
@@ -479,7 +463,7 @@ class Max3PGrowth(partialPeriodicPatterns):
                 transactions)
 
                 python3 Max3PGrowth.py sampleTDB.txt patterns.txt 3 4  (periodicSupport will be considered in count)
-            
+
         Sample run of the importing code:
         -----------
             from PAMI.periodicFrequentPattern.maximal import ThreePGrowth as alg
@@ -508,70 +492,72 @@ class Max3PGrowth(partialPeriodicPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-         
+
         Credits:
         -------
             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
-    startTime = float()
-    endTime = float()
-    periodicSupport = str()
-    period = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    rank = {}
-    rankDup = {}
-    lno = 0
+    _startTime = float()
+    _endTime = float()
+    _periodicSupport = str()
+    _period = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _rank = {}
+    _rankDup = {}
+    _lno = 0
+    _patterns = {}
+    _pfList = {}
 
-    def creatingitemSets(self):
+    def _creatingitemSets(self):
         """ Storing the complete Databases of the database/input file in a database variable
             :rtype: storing transactions into Database variable
         """
 
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self._Database = []
+        if isinstance(self._iFile, _abstract._pd.DataFrame):
             timeStamp, data = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                timeStamp = self.iFile['TS'].tolist()
+                timeStamp = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [timeStamp[i]]
                 tr = tr + data[i]
-                self.Database.append(tr)
-            self.lno = len(self.Database)
+                self._Database.append(tr)
+            self._lno = len(self._Database)
             # print(self.Database)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _validators.url(self._iFile):
+                data = _urlopen(self._iFile)
                 for line in data:
-                    self.lno += 1
+                    self._lno += 1
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.lno += 1
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            self._lno += 1
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def periodicFrequentOneItem(self):
+    def _periodicFrequentOneItem(self):
         """
             calculates the support of each item in the dataset and assign the ranks to the items
             by decreasing support and returns the frequent items list
@@ -579,24 +565,24 @@ class Max3PGrowth(partialPeriodicPatterns):
 
 
             """
-        global pfList
+        self._pfList = {}
         data = {}
-        for tr in self.Database:
+        for tr in self._Database:
             for i in range(1, len(tr)):
                 if tr[i] not in data:
                     data[tr[i]] = [0, int(tr[0]), 1]
                 else:
                     lp = abs(int(tr[0]) - data[tr[i]][1])
-                    if lp <= period:
+                    if lp <= _period:
                         data[tr[i]][0] += 1
                     data[tr[i]][1] = int(tr[0])
                     data[tr[i]][2] += 1
-        data = {k: v[0] for k, v in data.items() if v[0] >= self.periodicSupport }
-        pfList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
-        self.rank = dict([(index, item) for (item, index) in enumerate(pfList)])
+        data = {k: v[0] for k, v in data.items() if v[0] >= self._periodicSupport}
+        self._pfList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
+        self._rank = dict([(index, item) for (item, index) in enumerate(self._pfList)])
         return data
 
-    def updateDatabases(self, dict1):
+    def _updateDatabases(self, dict1):
         """ Remove the items which are not frequent from Databases and updates the Databases with rank of items
 
             :param dict1: frequent items with support
@@ -604,11 +590,11 @@ class Max3PGrowth(partialPeriodicPatterns):
             :rtype: sorted and updated transactions
             """
         list1 = []
-        for tr in self.Database:
+        for tr in self._Database:
             list2 = [int(tr[0])]
             for i in range(1, len(tr)):
                 if tr[i] in dict1:
-                    list2.append(self.rank[tr[i]])
+                    list2.append(self._rank[tr[i]])
             if len(list2) >= 2:
                 basket = list2[1:]
                 basket.sort()
@@ -617,7 +603,7 @@ class Max3PGrowth(partialPeriodicPatterns):
         return list1
 
     @staticmethod
-    def buildTree(data, info):
+    def _buildTree(data, info):
         """ it takes the Databases and support of each item and construct the main tree with setting root node as null
 
             :param data: it represents the one Databases in database
@@ -627,14 +613,14 @@ class Max3PGrowth(partialPeriodicPatterns):
             :rtype: returns root node of tree
         """
 
-        rootNode = Tree()
+        rootNode = _Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
             set1 = [data[i][0]]
-            rootNode.addTransaction(data[i][1:], set1)
+            rootNode._addTransaction(data[i][1:], set1)
         return rootNode
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -644,50 +630,66 @@ class Max3PGrowth(partialPeriodicPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
+
+    def _convertItems(self, itemSet):
+        """
+
+        to convert the maximal pattern items with their original item names
+
+        :param itemSet: maximal periodic frequent pattern
+
+        :return: pattern with original item names
+        """
+        t1 = []
+        for i in itemSet:
+            t1.append(self._pfList[i])
+        return t1
 
     def startMine(self):
         """ Mining process will start from this function
         """
 
-        global periodicSupport, period, lno, patterns
-        self.startTime = time.time()
-        if self.iFile is None:
+        global _periodicSupport, _period, _lno
+        self._startTime = _abstract._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.periodicSupport is None:
+        if self._periodicSupport is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingitemSets()
-        self.periodicSupport = self.convert(self.periodicSupport)
-        self.period = self.convert(self.period)
-        periodicSupport, period, lno = self.periodicSupport, self.period, len(self.Database)
-        if self.periodicSupport > len(self.Database):
+        self._creatingitemSets()
+        self._periodicSupport = self._convert(self._periodicSupport)
+        self._period = self._convert(self._period)
+        _periodicSupport, _period, _lno = self._periodicSupport, self._period, len(self._Database)
+        if self._periodicSupport > len(self._Database):
             raise Exception("Please enter the periodicSupport in range between 0 to 1")
-        generatedItems = self.periodicFrequentOneItem()
-        updatedDatabases = self.updateDatabases(generatedItems)
-        for x, y in self.rank.items():
-            self.rankDup[y] = x
-        info = {self.rank[k]: v for k, v in generatedItems.items()}
-        Tree = self.buildTree(updatedDatabases, info)
-        Tree.generatePatterns([])
-        self.finalPatterns = {}
-        for x, y in patterns.items():
+        generatedItems = self._periodicFrequentOneItem()
+        updatedDatabases = self._updateDatabases(generatedItems)
+        for x, y in self._rank.items():
+            self._rankDup[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedDatabases, info)
+        self._patterns = {}
+        Tree._generatePatterns([], self._patterns)
+        self._finalPatterns = {}
+        for x, y in self._patterns.items():
             st = str()
+            x = self._convertItems(x)
             for k in x:
                 st = st + k + " "
-            self.finalPatterns[st] = y
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+            self._finalPatterns[st] = y
+        self._endTime = _abstract._time.time()
+        process = _abstract._psutil.Process(_abstract._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Maximal Partial Periodic Frequent patterns were generated successfully using MAX-3PGrowth algorithm ")
 
     def getMemoryUSS(self):
@@ -697,7 +699,7 @@ class Max3PGrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -706,7 +708,7 @@ class Max3PGrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -716,7 +718,7 @@ class Max3PGrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final periodic-frequent patterns in a dataframe
@@ -727,9 +729,9 @@ class Max3PGrowth(partialPeriodicPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
-            data.append([a, b[0], b[1]])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+        for a, b in self._finalPatterns.items():
+            data.append([a, b])
+            dataFrame = _abstract._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -738,9 +740,9 @@ class Max3PGrowth(partialPeriodicPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -750,20 +752,20 @@ class Max3PGrowth(partialPeriodicPatterns):
         :return: returning periodic-frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = Max3PGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = Max3PGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(_sys.argv) == 5 or len(_sys.argv) == 6:
+        if len(_sys.argv) == 6:
+            ap = Max3PGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
+        if len(_sys.argv) == 5:
+            ap = Max3PGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Maximal Partial Periodic Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -771,4 +773,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        for i in l:
+            ap = Max3PGrowth('/Users/Likhitha/Downloads/Datasets/BMS1_itemset_mining.txt', i, 100, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of  Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

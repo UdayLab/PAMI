@@ -56,7 +56,6 @@ class RuleMiner:
                 self.generation(flist[i], sample)
 
 
-
 if __name__ == '__main__':
     data = {'c':2, 'cb':2, 'b':5,
             'bd':3, 'ba':3, 'd':5, 'da':3, 'a':5}

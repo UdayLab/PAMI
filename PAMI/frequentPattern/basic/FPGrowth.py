@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.frequentPattern.basic import fpabstract as _fp
+from PAMI.frequentPattern.basic import abstract as _fp
 
 _minSup = str()
 _fp._sys.setrecursionlimit(20000)
@@ -597,15 +597,17 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        ap = FPGrowth('/Users/Likhitha/Downloads/mushrooms.txt', 500, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns('/Users/Likhitha/Downloads/output')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+        '''l = [600,700,800, 900, 1000]
+        for i in l:
+            ap = FPGrowth('/Users/Likhitha/Downloads/mushrooms.txt', 500, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Frequent Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

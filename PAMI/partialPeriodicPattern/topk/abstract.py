@@ -14,34 +14,34 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from abc import ABC, abstractmethod
-import time
-import math
-import csv
-import pandas as pd
-from collections import defaultdict
-from itertools import combinations as c
-import os
-import os.path
-import psutil
-import sys
-import validators
-from urllib.request import urlopen
+import time as _time
+import math as _math
+import csv as _csv
+import pandas as _pd
+from collections import defaultdict as _defaultdict
+from itertools import combinations as _combinations
+import os as _os
+import os.path as _path
+import psutil as _psutil
+import sys as _sys
+import validators as _validators
+from urllib.request import urlopen as _urlopen
 
 
 class partialPeriodicPatterns(ABC):
     """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
         employ in PAMI
 
-       Attributes
-        ----------
+    Attributes:
+    ----------
         iFile : str
             Input file name or path of the input file
-        minSup: int or float or str
+        k: int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: int or float or str
+        periodicity: int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
@@ -80,48 +80,54 @@ class partialPeriodicPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup, maxPer, sep = '\t'):
+    def __init__(self, iFile, k, periodicity, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param minSup: The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+        :param k: The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats k is expressed in count.
             Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        :type minSup: int or float or str
-        :param maxPer: The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+            Example: k=10 will be treated as integer, while minSup=10.0 will be treated as float
+        :type k: int or float or str
+        :param periodicity: The user can specify periodicity either in count or proportion of database size.
+            If the program detects the data type of periodicity is integer, then it treats periodicity is expressed in count.
             Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        :type maxPer: int or float or str
+            Example: periodicity=10 will be treated as integer, while periodicity=10.0 will be treated as float
+        :type periodicity: int or float or str
         :param sep: separator used in user specified input file
         :type sep: str
         """
 
-        self.iFile = iFile
-        self.minSup = minSup
-        self.maxPer = maxPer
-        self.sep = sep
+        self._iFile = iFile
+        self._k = k
+        self._periodicity = periodicity
+        self._sep = sep
+        self._oFile = str()
+        self._finalPatterns = {}
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._startTime = float()
+        self._endTime = float()
 
-    @abstractmethod
-    def iFile(self):
+    '''@abstractmethod
+    def _iFile(self):
         """Variable to store the input file path/file name"""
 
         pass
 
     @abstractmethod
-    def minSup(self):
+    def _minSup(self):
         """Variable to store the user-specified minimum support value"""
 
         pass
 
     @abstractmethod
-    def maxPer(self):
+    def _maxPer(self):
         """Variable to store the user specified maximum periodicity value"""
 
         pass
 
-    def sep(self):
+    def _sep(self):
         """Variable to store the separator in input file"""
 
         pass
@@ -160,7 +166,7 @@ class partialPeriodicPatterns(ABC):
     def oFile(self):
         """Variable to store the name of the output file to store the complete set of periodic-frequent patterns"""
 
-        pass
+        pass'''
 
     @abstractmethod
     def startMine(self):

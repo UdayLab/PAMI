@@ -13,13 +13,11 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import sys
-import validators
-from urllib.request import urlopen
-from PAMI.partialPeriodicPattern.basic.abstract import *
+
+from PAMI.partialPeriodicPattern.basic import abstract as _ab
 
 
-class PPP_ECLAT(partialPeriodicPatterns):
+class PPP_ECLAT(_ab._partialPeriodicPatterns):
     """
     3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
 
@@ -135,25 +133,24 @@ class PPP_ECLAT(partialPeriodicPatterns):
 
 
         """
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    mapSupport = {}
-    hashing = {}
-    itemsetCount = 0
-    writer = None
-    periodicSupport = str()
-    period = str()
-    tidList = {}
-    lno = 0
-    Database = []
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _mapSupport = {}
+    _itemsetCount = 0
+    _writer = None
+    _periodicSupport = str()
+    _period = str()
+    _tidList = {}
+    _lno = 0
+    _Database = []
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -164,99 +161,99 @@ class PPP_ECLAT(partialPeriodicPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
 
-    def getPeriodicSupport(self, timeStamps):
+    def _getPeriodicSupport(self, timeStamps):
         """
             calculates the support and periodicity with list of timestamps
 
-            :param tids : timestamps of a pattern
+            :param timeStamps : timestamps of a pattern
 
-            :type tids : list
+            :type timeStamps : list
         """
         timeStamps.sort()
         per = 0
         for i in range(len(timeStamps) - 1):
             j = i + 1
-            if abs(timeStamps[j] - timeStamps[i]) <= self.period:
+            if abs(timeStamps[j] - timeStamps[i]) <= self._period:
                 per += 1
         return per
 
-    def creatingItemSets(self):
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+    def _creatingItemSets(self):
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
             data, tids = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                tids = self.iFile['TS'].tolist()
+                tids = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [tids[i][0]]
                 tr = tr + data[i]
-                self.Database.append(tr)
-            self.lno = len(self.Database)
+                self._Database.append(tr)
+            self._lno = len(self._Database)
 
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
-                    self.lno += 1
+                    self._lno += 1
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.lno += 1
+                            self._lno += 1
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def creatingOneitemSets(self):
+    def _creatingOneitemSets(self):
         """
            Scans the Temporal database / Input file and stores the 1-length partial-periodic patterns.
         """
         plist = []
-        self.tidList = {}
-        self.mapSupport = {}
-        self.period = self.convert(self.period)
-        for line in self.Database:
+        self._tidList = {}
+        self._mapSupport = {}
+        self._period = self._convert(self._period)
+        for line in self._Database:
             s = line
             n = int(s[0])
             for i in range(1, len(s)):
                 si = s[i]
-                if self.mapSupport.get(si) is None:
-                    self.mapSupport[si] = [0, n]
-                    self.tidList[si] = [n]
+                if self._mapSupport.get(si) is None:
+                    self._mapSupport[si] = [0, n]
+                    self._tidList[si] = [n]
                 else:
-                    lp = n - self.mapSupport[si][1]
-                    if lp <= self.period:
-                        self.mapSupport[si][0] += 1
-                    self.mapSupport[si][1] = n
-                    self.tidList[si].append(n)
-        self.periodicSupport = self.convert(self.periodicSupport)
-        self.mapSupport = {k: v[0] for k, v in self.mapSupport.items() if v[0] >= self.periodicSupport}
-        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
+                    lp = n - self._mapSupport[si][1]
+                    if lp <= self._period:
+                        self._mapSupport[si][0] += 1
+                    self._mapSupport[si][1] = n
+                    self._tidList[si].append(n)
+        self._periodicSupport = self._convert(self._periodicSupport)
+        self._mapSupport = {k: v[0] for k, v in self._mapSupport.items() if v[0] >= self._periodicSupport}
+        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
         return plist
 
-    def save(self, prefix, suffix, tidSetX):
+    def _save(self, prefix, suffix, tidSetX):
         """
             saves the patterns that satisfy the partial periodic property.
 
@@ -278,14 +275,14 @@ class PPP_ECLAT(partialPeriodicPatterns):
             prefix = suffix
         else:
             prefix = prefix + suffix
-        val = self.getPeriodicSupport(tidSetX)
-        if val >= self.periodicSupport:
+        val = self._getPeriodicSupport(tidSetX)
+        if val >= self._periodicSupport:
             sample = str()
             for i in prefix:
                 sample = sample + i + " "
-            self.finalPatterns[sample] = val
+            self._finalPatterns[sample] = val
 
-    def Generation(self, prefix, itemSets, tidSets):
+    def _Generation(self, prefix, itemSets, tidSets):
         """
             Generates the patterns following Equivalence-class methods
 
@@ -307,7 +304,7 @@ class PPP_ECLAT(partialPeriodicPatterns):
         if len(itemSets) == 1:
             i = itemSets[0]
             tidi = tidSets[0]
-            self.save(prefix, [i], tidi)
+            self._save(prefix, [i], tidi)
             return
         for i in range(len(itemSets)):
             itemI = itemSets[i]
@@ -321,13 +318,13 @@ class PPP_ECLAT(partialPeriodicPatterns):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetX).intersection(tidSetJ))
-                val = self.getPeriodicSupport(y)
-                if val >= self.periodicSupport:
+                val = self._getPeriodicSupport(y)
+                if val >= self._periodicSupport:
                     classItemSets.append(itemJ)
                     classTidSets.append(y)
             newprefix = list(set(itemSetX)) + prefix
-            self.Generation(newprefix, classItemSets, classTidSets)
-            self.save(prefix, list(set(itemSetX)), tidSetX)
+            self._Generation(newprefix, classItemSets, classTidSets)
+            self._save(prefix, list(set(itemSetX)), tidSetX)
 
     def startMine(self):
         """
@@ -335,31 +332,33 @@ class PPP_ECLAT(partialPeriodicPatterns):
             performs prefix equivalence to form the combinations and generates partial-periodic patterns.
 
         """
-        self.startTime = time.time()
-        self.creatingItemSets()
-        plist = self.creatingOneitemSets()
-        self.finalPatterns = {}
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        plist = self._creatingOneitemSets()
+        self._finalPatterns = {}
         for i in range(len(plist)):
             itemI = plist[i]
-            tidSetX = self.tidList[itemI]
+            tidSetX = self._tidList[itemI]
             itemSetX = [itemI]
             itemSets = []
             tidSets = []
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
-                tidSetJ = self.tidList[itemJ]
+                tidSetJ = self._tidList[itemJ]
                 y1 = list(set(tidSetX).intersection(tidSetJ))
-                val = self.getPeriodicSupport(y1)
-                if val >= self.periodicSupport:
+                val = self._getPeriodicSupport(y1)
+                if val >= self._periodicSupport:
                     itemSets.append(itemJ)
                     tidSets.append(y1)
-            self.Generation(itemSetX, itemSets, tidSets)
-            self.save(None, itemSetX, tidSetX)
+            self._Generation(itemSetX, itemSets, tidSets)
+            self._save(None, itemSetX, tidSetX)
         print("Partial Periodic Frequent patterns were generated successfully using 3PEclat algorithm")
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
         """
@@ -370,7 +369,7 @@ class PPP_ECLAT(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -380,7 +379,7 @@ class PPP_ECLAT(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """
@@ -391,7 +390,7 @@ class PPP_ECLAT(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -403,9 +402,9 @@ class PPP_ECLAT(partialPeriodicPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.finalPatterns.items():
-            data.append([a, b[0], b[1]])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+        for a, b in self._finalPatterns.items():
+            data.append([a, b])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataframe
 
     def savePatterns(self, outFile):
@@ -415,9 +414,9 @@ class PPP_ECLAT(partialPeriodicPatterns):
 
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -428,20 +427,20 @@ class PPP_ECLAT(partialPeriodicPatterns):
 
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = PPP_ECLAT(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = PPP_ECLAT(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:
+            ap = PPP_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:
+            ap = PPP_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Partial Periodic Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_ab._sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -449,4 +448,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        for i in l:
+            ap = PPP_ECLAT('/Users/Likhitha/Downloads/Datasets/BMS1_itemset_mining.txt', i, 100, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of  Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

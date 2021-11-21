@@ -13,16 +13,14 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import sys
-from urllib.request import urlopen
-import validators
-from PAMI.frequentPattern.maximal.abstract import *
+
+from PAMI.frequentPattern.maximal import abstract as _ab
 
 
-minSup = str()
+_minSup = str()
 
 
-class Node(object):
+class _Node(object):
     """ A class used to represent the node of frequentPatternTree
 
 
@@ -64,13 +62,13 @@ class Node(object):
 
         :param node: node object
 
-        :type node: object
+        :type node: Node
         """
         self.children[node.item] = node
         node.parent = self
 
 
-class Tree(object):
+class _Tree(object):
     """
         A class used to represent the frequentPatternGrowth tree structure
 
@@ -103,10 +101,10 @@ class Tree(object):
     """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
-        self.maximalTree = MPTree()
+        self.maximalTree = _MPTree()
 
     def addTransaction(self, transaction):
         """
@@ -119,7 +117,7 @@ class Tree(object):
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
-                newNode = Node(transaction[i], {})
+                newNode = _Node(transaction[i], {})
                 newNode.counter = 1
                 currentNode.addChild(newNode)
                 if transaction[i] in self.summaries:
@@ -144,7 +142,7 @@ class Tree(object):
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
-                newNode = Node(transaction[i], {})
+                newNode = _Node(transaction[i], {})
                 newNode.counter = count
                 currentNode.addChild(newNode)
                 if transaction[i] in self.summaries:
@@ -189,7 +187,7 @@ class Tree(object):
 
         :return: conditional patterns and their frequency respectively
         """
-        global minSup
+        global _minSup
         pat = []
         tids = []
         data1 = {}
@@ -200,7 +198,7 @@ class Tree(object):
                 else:
                     data1[j] += condFreq[i]
         updatedDict = {}
-        updatedDict = {k: v for k, v in data1.items() if v >= minSup}
+        updatedDict = {k: v for k, v in data1.items() if v >= _minSup}
         count = 0
         for p in condPatterns:
             p1 = [v for v in p if v in updatedDict]
@@ -235,7 +233,7 @@ class Tree(object):
             pattern = prefix[:]
             pattern.append(i)
             condPatterns, tids, info = self.getConditionalPatterns(i)
-            conditional_tree = Tree()
+            conditional_tree = _Tree()
             conditional_tree.info = info.copy()
             head = pattern[:]
             tail = []
@@ -253,7 +251,7 @@ class Tree(object):
             self.removeNode(i)
 
 
-class MNode(object):
+class _MNode(object):
     """
         A class used to represent the node in maximal tree
 
@@ -286,7 +284,7 @@ class MNode(object):
         node.parent = self
 
 
-class MPTree(object):
+class _MPTree(object):
     """
         A class used to represent the frequentPatternGrowth tree structure
 
@@ -309,7 +307,7 @@ class MPTree(object):
     """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = _MNode(None, {})
         self.summaries = {}
 
     def addTransaction(self, transaction):
@@ -324,7 +322,7 @@ class MPTree(object):
         transaction.sort()
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
-                newNode = MNode(transaction[i], {})
+                newNode = _MNode(transaction[i], {})
                 currentNode.addChild(newNode)
                 if transaction[i] in self.summaries:
                     self.summaries[transaction[i]].insert(0, newNode)
@@ -365,7 +363,7 @@ class MPTree(object):
 #maximalTree = MPTree()
 
 
-class MaxFPGrowth(frequentPatterns):
+class MaxFPGrowth(_ab._frequentPatterns):
     """
     MaxFP-Growth is one of the fundamental algorithm to discover maximal frequent patterns in a transactional database.
 
@@ -479,77 +477,77 @@ class MaxFPGrowth(frequentPatterns):
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
-    startTime = float()
-    endTime = float()
-    minSup = str()
-    maxPer = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    rank = {}
-    rankdup = {}
-    lno = 0
+    _startTime = float()
+    _endTime = float()
+    _minSup = str()
+    _maxPer = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _rank = {}
+    _rankdup = {}
+    _lno = 0
 
-    def creatingItemSets(self):
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
-            if self.iFile.empty:
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                self._Database = self._iFile['Transactions'].tolist()
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            print(line)
-                            self.Database.append(temp)
+                            #print(line)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def frequentOneItem(self):
+    def _frequentOneItem(self):
         """ To extract the one-length frequent itemSets
 
         :return: 1-length frequent items
         """
-        mapSupport = {}
+        _mapSupport = {}
         k = 0
-        for tr in self.Database:
+        for tr in self._Database:
             k += 1
             for i in range(0, len(tr)):
-                if tr[i] not in mapSupport:
-                    mapSupport[tr[i]] = 1
+                if tr[i] not in _mapSupport:
+                    _mapSupport[tr[i]] = 1
                 else:
-                    mapSupport[tr[i]] += 1
-        mapSupport = {k: v for k, v in mapSupport.items() if v >= self.minSup}
-        print(len(mapSupport), self.minSup)
-        genList = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        self.rank = dict([(index, item) for (item, index) in enumerate(genList)])
-        return mapSupport, genList
+                    _mapSupport[tr[i]] += 1
+        _mapSupport = {k: v for k, v in _mapSupport.items() if v >= self._minSup}
+        #print(len(mapSupport), self.minSup)
+        genList = [k for k, v in sorted(_mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        self._rank = dict([(index, item) for (item, index) in enumerate(genList)])
+        return _mapSupport, genList
 
-    def updateTransactions(self, oneLength):
+    def _updateTransactions(self, oneLength):
         """ To sort the transactions in their support descending order and allocating ranks respectively
 
         :param oneLength: 1-length frequent items in dictionary
@@ -560,32 +558,32 @@ class MaxFPGrowth(frequentPatterns):
                     rank = {'a':0, 'b':1, 'c':2, 'd':3}
         """
         list1 = []
-        for tr in self.Database:
+        for tr in self._Database:
             list2 = []
             for i in range(0, len(tr)):
                 if tr[i] in oneLength:
-                    list2.append(self.rank[tr[i]])
+                    list2.append(self._rank[tr[i]])
             if len(list2) >= 2:
                 list2.sort()
                 list1.append(list2)
         return list1
 
     @staticmethod
-    def buildTree(data, info):
+    def _buildTree(data, info):
         """
         creating the root node as null in fp-tree and and adding all transactions into tree.
         :param data: updated transactions
         :param info: rank of items in transactions
         :return: fp-tree
         """
-        rootNode = Tree()
+        rootNode = _Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
             rootNode.addTransaction(data[i])
         return rootNode
 
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         to convert the type of user specified minSup value
         :param value: user specified minSup value
@@ -594,16 +592,16 @@ class MaxFPGrowth(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = ((len(self.Database)) * value)
+                value = ((len(self._Database)) * value)
             else:
                 value = int(value)
         return value
 
-    def convertItems(self, itemSet):
+    def _convertItems(self, itemSet):
         """
             To convert the item ranks into their original item names
 
@@ -613,7 +611,7 @@ class MaxFPGrowth(frequentPatterns):
         """
         t1 = []
         for i in itemSet:
-            t1.append(self.rankdup[i])
+            t1.append(self._rankdup[i])
         return t1
 
     def startMine(self):
@@ -621,36 +619,36 @@ class MaxFPGrowth(frequentPatterns):
                 Mining process will start from this function
         """
 
-        global minSup
-        self.startTime = time.time()
-        if self.iFile is None:
+        global _minSup
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.minSup is None:
+        if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingItemSets()
-        self.minSup = self.convert(self.minSup)
-        minSup = self.minSup
-        generatedItems, pfList = self.frequentOneItem()
-        updatedTransactions = self.updateTransactions(generatedItems)
-        for x, y in self.rank.items():
-            self.rankdup[y] = x
-        info = {self.rank[k]: v for k, v in generatedItems.items()}
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        _minSup = self._minSup
+        generatedItems, pfList = self._frequentOneItem()
+        updatedTransactions = self._updateTransactions(generatedItems)
+        for x, y in self._rank.items():
+            self._rankdup[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
         patterns = {}
-        self.finalPatterns = {}
-        Tree = self.buildTree(updatedTransactions, info)
+        self._finalPatterns = {}
+        Tree = self._buildTree(updatedTransactions, info)
         Tree.generatePatterns([], patterns)
         for x, y in patterns.items():
             pattern = str()
-            x = self.convertItems(x)
+            x = self._convertItems(x)
             for i in x:
                 pattern = pattern + i + " "
-            self.finalPatterns[pattern] = y
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+            self._finalPatterns[pattern] = y
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Maximal Frequent patterns were generated successfully using MaxFp-Growth algorithm ")
 
     def getMemoryUSS(self):
@@ -661,7 +659,7 @@ class MaxFPGrowth(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -671,7 +669,7 @@ class MaxFPGrowth(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -681,7 +679,7 @@ class MaxFPGrowth(frequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -693,9 +691,9 @@ class MaxFPGrowth(frequentPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -705,9 +703,9 @@ class MaxFPGrowth(frequentPatterns):
 
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -718,20 +716,20 @@ class MaxFPGrowth(frequentPatterns):
 
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
-        if len(sys.argv) == 5:
-            ap = MaxFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
-        if len(sys.argv) == 4:
-            ap = MaxFPGrowth(sys.argv[1], sys.argv[3])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:
+            ap = MaxFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            ap = MaxFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Maximal Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_ab._sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -739,4 +737,18 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        '''l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        for i in l:
+            ap = MaxFPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
+                       i)
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Closed Frequent Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

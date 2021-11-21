@@ -14,10 +14,10 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # from abstract import *
 
-from PAMI.frequentPattern.basic.abstract import *
+from PAMI.frequentPattern.basic import abstract as _ab
 
 
-class ECLAT(frequentPatterns):
+class ECLAT(_ab._frequentPatterns):
     """ ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
         This program employs downward closure property to  reduce the search space effectively.
         This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
@@ -127,72 +127,72 @@ class ECLAT(frequentPatterns):
 
     """
 
-    minSup = float()
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
+    _minSup = float()
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
 
-    def creatingItemSets(self):
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
-            if self.iFile.empty:
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                self._Database = self._iFile['Transactions'].tolist()
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def getUniqueItemList(self):
+    def _getUniqueItemList(self):
         """
         Generating one frequent patterns
         """
-        self.finalPatterns = {}
+        self._finalPatterns = {}
         candidate = {}
         uniqueItem = []
-        for i in range(len(self.Database)):
-            for j in range(len(self.Database[i])):
-                if self.Database[i][j] not in candidate:
-                    candidate[self.Database[i][j]] = {i}
+        for i in range(len(self._Database)):
+            for j in range(len(self._Database[i])):
+                if self._Database[i][j] not in candidate:
+                    candidate[self._Database[i][j]] = {i}
                 else:
-                    candidate[self.Database[i][j]].add(i)
+                    candidate[self._Database[i][j]].add(i)
         for key, value in candidate.items():
             supp = len(value)
-            if supp >= self.minSup:
-                self.finalPatterns[key] = [value]
+            if supp >= self._minSup:
+                self._finalPatterns[key] = [value]
                 uniqueItem.append(key)
         uniqueItem.sort(key=int)
         return uniqueItem
 
-    def generateFrequentPatterns(self, candidateFrequent):
+    def _generateFrequentPatterns(self, candidateFrequent):
         """It will generate the combinations of frequent items
 
         :param candidateFrequent :it represents the items with their respective transaction identifiers
@@ -211,16 +211,16 @@ class ECLAT(frequentPatterns):
                 item2 = candidateFrequent[j]
                 i2_list = item2.split()
                 if i1_list[:-1] == i2_list[:-1]:
-                    interSet = self.finalPatterns[item1][0].intersection(self.finalPatterns[item2][0])
-                    if len(interSet) >= self.minSup:
+                    interSet = self._finalPatterns[item1][0].intersection(self._finalPatterns[item2][0])
+                    if len(interSet) >= self._minSup:
                         newKey = item1 + " " + i2_list[-1]
-                        self.finalPatterns[newKey] = [interSet]
+                        self._finalPatterns[newKey] = [interSet]
                         new_freqList.append(newKey)
 
                     if len(new_freqList) > 0:
-                        self.generateFrequentPatterns(new_freqList)
+                        self._generateFrequentPatterns(new_freqList)
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the user specified minSup value
 
@@ -231,11 +231,11 @@ class ECLAT(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
@@ -243,23 +243,23 @@ class ECLAT(frequentPatterns):
     def startMine(self):
         """Frequent pattern mining process will start from here"""
 
-        self.startTime = time.time()
-        if self.iFile is None:
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.minSup is None:
+        if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingItemSets()
-        self.minSup = self.convert(self.minSup)
-        uniqueItemList = self.getUniqueItemList()
-        self.generateFrequentPatterns(uniqueItemList)
-        for x, y in self.finalPatterns.items():
-            self.finalPatterns[x] = len(y[0])
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        uniqueItemList = self._getUniqueItemList()
+        self._generateFrequentPatterns(uniqueItemList)
+        for x, y in self._finalPatterns.items():
+            self._finalPatterns[x] = len(y[0])
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using ECLAT algorithm")
 
     def getMemoryUSS(self):
@@ -270,7 +270,7 @@ class ECLAT(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -280,7 +280,7 @@ class ECLAT(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -290,7 +290,7 @@ class ECLAT(frequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -302,9 +302,9 @@ class ECLAT(frequentPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -314,9 +314,9 @@ class ECLAT(frequentPatterns):
 
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
@@ -327,20 +327,20 @@ class ECLAT(frequentPatterns):
 
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
-        if len(sys.argv) == 5:
-            ap = ECLAT(sys.argv[1], sys.argv[3], sys.argv[4])
-        if len(sys.argv) == 4:
-            ap = ECLAT(sys.argv[1], sys.argv[3])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:
+            ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_ab._sys.argv[2])
         print(ap.getPatternsAsDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
@@ -349,6 +349,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [6000]
+        for i in l:
+            ap = ECLAT('/Users/Likhitha/Downloads/mushrooms.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Frequent Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-        

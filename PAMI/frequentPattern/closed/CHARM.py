@@ -12,15 +12,25 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-import sys
-from urllib.request import urlopen
-import validators
-from PAMI.frequentPattern.closed.abstract import *
+from PAMI.frequentPattern.closed import abstract as _ab
 
 
-class CHARM(frequentPatterns):
+class CHARM(_ab._frequentPatterns):
     """ CHARM is an algorithm to discover closed frequent patterns in a transactional database.
         Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset.
         This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
@@ -31,11 +41,11 @@ class CHARM(frequentPatterns):
             Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
             Proceedings of the 2002 SIAM, SDM. 2002, 457-473, https://doi.org/10.1137/1.9781611972726.27
 
-    Attributes
+    Attributes:
     ----------
-        self.iFile : file
+        iFile : file
             Name of the Input file or path of the input file
-        self.oFile : file
+        oFile : file
             Name of the output file or path of the output file
         minSup: float or int or str
             The user can specify minSup either in count or proportion of database size.
@@ -135,26 +145,26 @@ class CHARM(frequentPatterns):
 
         """
 
-    startTime = float()
-    endTime = float()
-    minSup = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    tidList = {}
-    lno = 0
-    mapSupport = {}
-    hashing = {}
-    itemSetCount = 0
-    maxItemId = 0
-    tableSize = 10000
-    writer = None
+    _startTime = float()
+    _endTime = float()
+    _minSup = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _tidList = {}
+    _lno = 0
+    _mapSupport = {}
+    _hashing = {}
+    _itemSetCount = 0
+    _maxItemId = 0
+    _tableSize = 10000
+    _writer = None
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         to convert the type of user specified minSup value
 
@@ -165,84 +175,82 @@ class CHARM(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.lno * value)
+            value = (self._lno * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.lno * value)
+                value = (self._lno * value)
             else:
                 value = int(value)
         return value
 
-    def creatingItemsets(self):
+    def _creatingItemsets(self):
         """
         Storing the complete frequent patterns of the database/input file in a database variable
         """
-        self.mapSupport = {}
-        self.tidList = {}
-        self.lno = 0
-        if isinstance(self.iFile, pd.DataFrame):
-            if self.iFile.empty:
+        self._mapSupport = {}
+        self._tidList = {}
+        self._lno = 0
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-            for i in self.Database:
-                self.lno += 1
+                self._Database = self._iFile['Transactions'].tolist()
+            for i in self._Database:
+                self._lno += 1
                 for j in i:
-                    if j not in self.mapSupport:
-                        self.mapSupport[j] = 1
-                        self.tidList[j] = [self.lno]
+                    if j not in self._mapSupport:
+                        self._mapSupport[j] = 1
+                        self._tidList[j] = [self._lno]
                     else:
-                        self.mapSupport[j] += 1
-                        self.tidList[j].append(self.lno)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                        self._mapSupport[j] += 1
+                        self._tidList[j].append(self._lno)
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
-                    self.lno += 1
+                    self._lno += 1
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
                     for j in temp:
-                        if j not in self.mapSupport:
-                            self.mapSupport[j] = 1
-                            self.tidList[j] = [self.lno]
+                        if j not in self._mapSupport:
+                            self._mapSupport[j] = 1
+                            self._tidList[j] = [self._lno]
                         else:
-                            self.mapSupport[j] += 1
-                            self.tidList[j].append(self.lno)
+                            self._mapSupport[j] += 1
+                            self._tidList[j].append(self._lno)
             else:
                 try:
-                    with open(self.iFile, 'r') as f:
+                    with open(self._iFile, 'r') as f:
                         for line in f:
-                            i = [i.rstrip() for i in line.split(self.sep)]
+                            i = [i.rstrip() for i in line.split(self._sep)]
                             i = [x for x in i if x]
-                            self.lno += 1
+                            self._lno += 1
                             for j in i:
-                                if j not in self.mapSupport:
-                                    self.mapSupport[j] = 1
-                                    self.tidList[j] = [self.lno]
+                                if j not in self._mapSupport:
+                                    self._mapSupport[j] = 1
+                                    self._tidList[j] = [self._lno]
                                 else:
-                                    self.mapSupport[j] += 1
-                                    self.tidList[j].append(self.lno)
+                                    self._mapSupport[j] += 1
+                                    self._tidList[j].append(self._lno)
                 except IOError:
                     print("File Not Found")
-        self.minSup = self.convert(self.minSup)
-        self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        flist = {}
-        self.tidList = {k: v for k, v in self.tidList.items() if k in self.mapSupport}
-        for x, y in self.tidList.items():
+        self._minSup = self._convert(self._minSup)
+        self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
+        _flist = {}
+        self._tidList = {k: v for k, v in self._tidList.items() if k in self._mapSupport}
+        for x, y in self._tidList.items():
             t1 = 0
             for i in y:
                 t1 += i
-            flist[x] = t1
-        flist = [key for key, value in sorted(flist.items(), key=lambda x: x[1])]
-        return flist
+            _flist[x] = t1
+        _flist = [key for key, value in sorted(_flist.items(), key=lambda x: x[1])]
+        return _flist
 
-    def calculate(self, tidSet):
+    def _calculate(self, tidSet):
         """To calculate the hashcode of pattern
 
             :param tidSet: the timestamps of a pattern
@@ -257,9 +265,9 @@ class CHARM(frequentPatterns):
             hashcode += i
         if hashcode < 0:
             hashcode = abs(0 - hashcode)
-        return hashcode % self.tableSize
+        return hashcode % self._tableSize
 
-    def contains(self, itemSet, value, hashcode):
+    def _contains(self, itemSet, value, hashcode):
         """ Check for the closed property(patterns with same support) by checking the hashcode(sum of timestamps),
             if hashcode key in hashing dict is none then returns a false, else returns with true.
 
@@ -275,15 +283,15 @@ class CHARM(frequentPatterns):
 
             :type hashcode: int
             """
-        if self.hashing.get(hashcode) is None:
+        if self._hashing.get(hashcode) is None:
             return False
-        for i in self.hashing[hashcode]:
+        for i in self._hashing[hashcode]:
             itemSetx = i
-            if value == self.hashing[hashcode][itemSetx] and set(itemSetx).issuperset(itemSet):
+            if value == self._hashing[hashcode][itemSetx] and set(itemSetx).issuperset(itemSet):
                 return True
         return False
 
-    def save(self, prefix, suffix, tidSetx):
+    def _save(self, prefix, suffix, tidSetx):
         """ Check for the closed property (patterns with same support), if found deletes the subsets and stores
             supersets and also saves the patterns that satisfy the closed property
 
@@ -304,20 +312,20 @@ class CHARM(frequentPatterns):
         prefix = list(set(prefix))
         prefix.sort()
         val = len(tidSetx)
-        if val >= self.minSup:
-            hashcode = self.calculate(tidSetx)
-            if self.contains(prefix, val, hashcode) is False:
+        if val >= self._minSup:
+            hashcode = self._calculate(tidSetx)
+            if self._contains(prefix, val, hashcode) is False:
                 sample = str()
                 for i in prefix:
                     sample = sample + i + " "
-                self.itemSetCount += 1
-                self.finalPatterns[sample] = val
-            if hashcode not in self.hashing:
-                self.hashing[hashcode] = {tuple(prefix): val}
+                self._itemSetCount += 1
+                self._finalPatterns[sample] = val
+            if hashcode not in self._hashing:
+                self._hashing[hashcode] = {tuple(prefix): val}
             else:
-                self.hashing[hashcode][tuple(prefix)] = val
+                self._hashing[hashcode][tuple(prefix)] = val
 
-    def processEquivalenceClass(self, prefix, itemSets, tidSets):
+    def _processEquivalenceClass(self, prefix, itemSets, tidSets):
         """ Equivalence class is followed  and check for the patterns which satisfies frequent properties.
 
             :param prefix:  main equivalence prefix
@@ -337,7 +345,7 @@ class CHARM(frequentPatterns):
         if len(itemSets) == 1:
             i = itemSets[0]
             tidI = tidSets[0]
-            self.save(prefix, [i], tidI)
+            self._save(prefix, [i], tidI)
             return
         if len(itemSets) == 2:
             itemX = itemSets[0]
@@ -345,15 +353,15 @@ class CHARM(frequentPatterns):
             itemY = itemSets[1]
             tidSetY = tidSets[1]
             y1 = list(set(tidSetX).intersection(tidSetY))
-            if len(y1) >= self.minSup:
+            if len(y1) >= self._minSup:
                 suffix = []
                 suffix += [itemX, itemY]
                 suffix = list(set(suffix))
-                self.save(prefix, suffix, y1)
+                self._save(prefix, suffix, y1)
             if len(y1) != len(tidSetX):
-                self.save(prefix, [itemX], tidSetX)
+                self._save(prefix, [itemX], tidSetX)
             if len(y1) != len(tidSetY):
-                self.save(prefix, [itemX], tidSetY)
+                self._save(prefix, [itemX], tidSetY)
             return
         for i in range(len(itemSets)):
             itemX = itemSets[i]
@@ -369,7 +377,7 @@ class CHARM(frequentPatterns):
                     continue
                 tidSetY = tidSets[j]
                 y = list(set(tidSetX).intersection(tidSetY))
-                if len(y) < self.minSup:
+                if len(y) < self._minSup:
                     continue
                 if len(tidSetX) == len(tidSetY) and len(y) == len(tidSetX):
                     itemSets.insert(j, None)
@@ -387,56 +395,56 @@ class CHARM(frequentPatterns):
                     classTidSets.append(y)
             if len(classItemSets) > 0:
                 newPrefix = list(set(itemSetx)) + prefix
-                self.processEquivalenceClass(newPrefix, classItemSets, classTidSets)
-                self.save(prefix, list(set(itemSetx)), tidSetX)
+                self._processEquivalenceClass(newPrefix, classItemSets, classTidSets)
+                self._save(prefix, list(set(itemSetx)), tidSetX)
 
     def startMine(self):
         """
         Mining process will start from here by extracting the frequent patterns from the database. It performs prefix
         equivalence to generate the combinations and closed frequent patterns.
         """
-        self.startTime = time.time()
-        plist = self.creatingItemsets()
-        self.finalPatterns = {}
-        self.hashing = {}
-        for i in range(len(plist)):
-            itemX = plist[i]
+        self._startTime = _ab._time.time()
+        _plist = self._creatingItemsets()
+        self._finalPatterns = {}
+        self._hashing = {}
+        for i in range(len(_plist)):
+            itemX = _plist[i]
             if itemX is None:
                 continue
-            tidSetx = self.tidList[itemX]
+            tidSetx = self._tidList[itemX]
             itemSetx = [itemX]
             itemSets = []
             tidSets = []
-            for j in range(i + 1, len(plist)):
-                itemY = plist[j]
+            for j in range(i + 1, len(_plist)):
+                itemY = _plist[j]
                 if itemY is None:
                     continue
-                tidSetY = self.tidList[itemY]
+                tidSetY = self._tidList[itemY]
                 y1 = list(set(tidSetx).intersection(tidSetY))
-                if len(y1) < self.minSup:
+                if len(y1) < self._minSup:
                     continue
                 if len(tidSetx) == len(tidSetY) and len(y1) == len(tidSetx):
-                    plist.insert(j, None)
+                    _plist.insert(j, None)
                     itemSetx.append(itemY)
                 elif len(tidSetx) < len(tidSetY) and len(y1) == len(tidSetx):
                     itemSetx.append(itemY)
                 elif len(tidSetx) > len(tidSetY) and len(y1) == len(tidSetY):
-                    plist.insert(j, None)
+                    _plist.insert(j, None)
                     itemSets.append(itemY)
                     tidSets.append(y1)
                 else:
                     itemSets.append(itemY)
                     tidSets.append(y1)
             if len(itemSets) > 0:
-                self.processEquivalenceClass(itemSetx, itemSets, tidSets)
-            self.save(None, itemSetx, tidSetx)
+                self._processEquivalenceClass(itemSetx, itemSets, tidSets)
+            self._save(None, itemSetx, tidSetx)
         print("Closed Frequent patterns were generated successfully using CHARM algorithm")
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._endTime = _ab._time.time()
+        _process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = _process.memory_full_info().uss
+        self._memoryRSS = _process.memory_info().rss
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -446,7 +454,7 @@ class CHARM(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -456,7 +464,7 @@ class CHARM(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -466,7 +474,7 @@ class CHARM(frequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -478,9 +486,9 @@ class CHARM(frequentPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
     def savePatterns(self, outFile):
@@ -490,9 +498,9 @@ class CHARM(frequentPatterns):
 
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -504,20 +512,20 @@ class CHARM(frequentPatterns):
         :rtype: dict
         """
 
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
-        if len(sys.argv) == 5:
-            ap = CHARM(sys.argv[1], sys.argv[3], sys.argv[4])
-        if len(sys.argv) == 4:
-            ap = CHARM(sys.argv[1], sys.argv[3])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:
+            ap = CHARM(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            ap = CHARM(_ab._sys.argv[1], _ab._sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Closed Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_ab._sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -525,4 +533,18 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        '''l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        for i in l:
+            ap = CHARM('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
+                       i)
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Closed Frequent Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

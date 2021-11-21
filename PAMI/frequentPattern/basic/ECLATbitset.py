@@ -14,13 +14,10 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #  Copyright (C)  2021 Rage Uday Kiran
 
-import sys
-from urllib.request import urlopen
-import validators
-from PAMI.frequentPattern.basic.abstract import *
+from PAMI.frequentPattern.basic import abstract as _ab
 
 
-class ECLATbitset(frequentPatterns):
+class ECLATbitset(_ab._frequentPatterns):
     """
     ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
     This program implemented following the eclat bitset algorithm.
@@ -127,20 +124,20 @@ class ECLATbitset(frequentPatterns):
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    minSup = str()
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    mapSupport = {}
-    lno = 0
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _minSup = str()
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _mapSupport = {}
+    _lno = 0
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the user specified minSup value
 
@@ -151,59 +148,58 @@ class ECLATbitset(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.lno * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.lno * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
 
-    def creatingItemSets(self):
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
         """
-        self.Database = []
-        self.mapSupport = {}
-        if isinstance(self.iFile, pd.DataFrame):
-            if self.iFile.empty:
+        self._Database = []
+        self._mapSupport = {}
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-            if 'Patterns' in i:
-                self.Database = self.iFile['Patterns'].tolist()
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                self._Database = self._iFile['Transactions'].tolist()
+
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r') as f:
+                    with open(self._iFile, 'r') as f:
                         for line in f:
-                            self.lno += 1
-                            splitter = [i.rstrip() for i in line.split(self.sep)]
+                            self._lno += 1
+                            splitter = [i.rstrip() for i in line.split(self._sep)]
                             splitter = [x for x in splitter if x]
-                            self.Database.append(splitter)
+                            self._Database.append(splitter)
                 except IOError:
                     print("File Not Found")
-        self.minSup = self.convert(self.minSup)
+        self._minSup = self._convert(self._minSup)
     
-    def OneFrequentItems(self):
+    def _OneFrequentItems(self):
         items = []
         p = {}
-        for i in self.Database:
+        for i in self._Database:
             for j in i:
                 if j not in items:
                     items.append(j)
-        for temp in self.Database:
+        for temp in self._Database:
             for j in items:
                 count = 0
                 if j in temp:
@@ -213,13 +209,13 @@ class ECLATbitset(frequentPatterns):
                 else:
                     p[j].append(count)
         for x, y in p.items():
-            if self.countSupport(y) >= self.minSup:
-                self.mapSupport[x] = y
-        pList = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (len(x[1])), reverse=True)]
+            if self._countSupport(y) >= self._minSup:
+                self._mapSupport[x] = y
+        pList = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: (len(x[1])), reverse=True)]
         return pList
 
     @staticmethod
-    def countSupport(tids):
+    def _countSupport(tids):
         """To count support of 1's in tids
 
         :param tids: bitset representation of itemSets
@@ -232,7 +228,7 @@ class ECLATbitset(frequentPatterns):
                 count += 1
         return count
 
-    def save(self, prefix, suffix, tidSetX):
+    def _save(self, prefix, suffix, tidSetX):
         """To save the patterns satisfying the minSup condition
 
         :param prefix: prefix item of itemSet
@@ -247,13 +243,13 @@ class ECLATbitset(frequentPatterns):
             prefix = suffix
         else:
             prefix = prefix + suffix
-        count = self.countSupport(tidSetX)
+        count = self._countSupport(tidSetX)
         sample = str()
         for i in prefix:
             sample = sample + i + " "
-        self.finalPatterns[sample] = count
+        self._finalPatterns[sample] = count
 
-    def generationOfAll(self, prefix, itemSets, tidSets):
+    def _generationOfAll(self, prefix, itemSets, tidSets):
         """It will generate the combinations of frequent items with prefix and  list of items
 
             :param prefix: it represents the prefix item to form the combinations
@@ -271,7 +267,7 @@ class ECLATbitset(frequentPatterns):
         if len(itemSets) == 1:
             i = itemSets[0]
             tidI = tidSets[0]
-            self.save(prefix, [i], tidI)
+            self._save(prefix, [i], tidI)
             return
         for i in range(len(itemSets)):
             itemI = itemSets[i]
@@ -285,14 +281,14 @@ class ECLATbitset(frequentPatterns):
                 itemJ = itemSets[j]
                 tidSetJ = tidSets[j]
                 y = [k & l for k, l in zip(tidSetX, tidSetJ)]
-                support = self.countSupport(y)
-                if support >= self.minSup:
+                support = self._countSupport(y)
+                if support >= self._minSup:
                     classItemSets.append(itemJ)
                     classTidSets.append(y)
             newprefix = list(set(itemSetx)) + prefix
-            self.generationOfAll(newprefix, classItemSets, classTidSets)
+            self._generationOfAll(newprefix, classItemSets, classTidSets)
             del classItemSets, classTidSets
-            self.save(prefix, list(set(itemSetx)), tidSetX)
+            self._save(prefix, list(set(itemSetx)), tidSetX)
             #raise Exception("end of time")
 
     def startMine(self):
@@ -301,37 +297,37 @@ class ECLATbitset(frequentPatterns):
         We form the combinations of single items and  check with minSup condition to check the frequency of patterns
         """
 
-        self.startTime = time.time()
-        if self.iFile is None:
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.minSup is None:
+        if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingItemSets()
-        plist = self.OneFrequentItems()
-        self.finalPatterns = {}
+        self._creatingItemSets()
+        plist = self._OneFrequentItems()
+        self._finalPatterns = {}
         for i in range(len(plist)):
             itemI = plist[i]
-            tidSetX = self.mapSupport[itemI]
+            tidSetX = self._mapSupport[itemI]
             itemSetx = [itemI]
             itemSets = []
             tidSets = []
             for j in range(i + 1, len(plist)):
                 itemJ = plist[j]
-                tidSetJ = self.mapSupport[itemJ]
+                tidSetJ = self._mapSupport[itemJ]
                 y1 = [k & l for k, l in zip(tidSetX, tidSetJ)]
-                support = self.countSupport(y1)
-                if support >= self.minSup:
+                support = self._countSupport(y1)
+                if support >= self._minSup:
                     itemSets.append(itemJ)
                     tidSets.append(y1)
-            self.generationOfAll(itemSetx, itemSets, tidSets)
+            self._generationOfAll(itemSetx, itemSets, tidSets)
             del itemSets, tidSets
-            self.save(None, itemSetx, tidSetX)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+            self._save(None, itemSetx, tidSetX)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using Eclat_bitset algorithm")
 
     def getMemoryUSS(self):
@@ -342,7 +338,7 @@ class ECLATbitset(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -352,7 +348,7 @@ class ECLATbitset(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -362,7 +358,7 @@ class ECLATbitset(frequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -374,9 +370,9 @@ class ECLATbitset(frequentPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -386,9 +382,9 @@ class ECLATbitset(frequentPatterns):
 
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
@@ -399,20 +395,20 @@ class ECLATbitset(frequentPatterns):
 
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
-        if len(sys.argv) == 5:
-            ap = ECLATbitset(sys.argv[1], sys.argv[3], sys.argv[4])
-        if len(sys.argv) == 4:
-            ap = ECLATbitset(sys.argv[1], sys.argv[3])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:
+            ap = ECLATbitset(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            ap = ECLATbitset(_ab._sys.argv[1], _ab._sys.argv[3])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_ab._sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -420,4 +416,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [6000]
+        for i in l:
+            ap = ECLATbitset('/Users/Likhitha/Downloads/mushrooms.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Frequent Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

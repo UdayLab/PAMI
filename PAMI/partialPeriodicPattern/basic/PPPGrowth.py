@@ -13,17 +13,16 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.partialPeriodicPattern.basic.abstract import *
-import validators
-from urllib.request import urlopen
-import sys
+from PAMI.partialPeriodicPattern.basic import abstract as _abstract
+import validators as _validators
+from urllib.request import urlopen as _urlopen
+import sys as _sys
 
-periodicSupport = float()
-period = float()
-lno = int()
+_periodicSupport = float()
+_period = float()
+_lno = int()
 
-
-class Node(object):
+class _Node(object):
     """
         A class used to represent the node of frequentPatternTree
         ...
@@ -55,7 +54,7 @@ class Node(object):
         node.parent = self
 
 
-class Tree(object):
+class _Tree(object):
     """
         A class used to represent the frequentPatternGrowth tree structure
 
@@ -88,11 +87,11 @@ class Tree(object):
             """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
-    def addTransaction(self, transaction, tid):
+    def _addTransaction(self, transaction, tid):
         """
                 adding transaction into tree
 
@@ -104,7 +103,7 @@ class Tree(object):
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
-                newNode = Node(transaction[i], {})
+                newNode = _Node(transaction[i], {})
                 currentNode.addChild(newNode)
                 if transaction[i] in self.summaries:
                     self.summaries[transaction[i]].append(newNode)
@@ -115,7 +114,7 @@ class Tree(object):
                 currentNode = currentNode.children[transaction[i]]
         currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def getConditionalPatterns(self, alpha):
+    def _getConditionalPatterns(self, alpha):
         """
             generates all the conditional patterns of respective node
 
@@ -134,14 +133,14 @@ class Tree(object):
                 set2.reverse()
                 finalPatterns.append(set2)
                 finalSets.append(set1)
-        finalPatterns, finalSets, info = self.conditionalTransactions(finalPatterns, finalSets)
+        finalPatterns, finalSets, info = self._conditionalTransactions(finalPatterns, finalSets)
         return finalPatterns, finalSets, info
 
-    def generateTimeStamps(self, node):
+    def _generateTimeStamps(self, node):
         finalTs = node.timeStamps
         return finalTs
 
-    def removeNode(self, nodeValue):
+    def _removeNode(self, nodeValue):
         """
             removing the node from tree
 
@@ -152,7 +151,7 @@ class Tree(object):
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
             del i.parent.children[nodeValue]
 
-    def getTimeStamps(self, alpha):
+    def _getTimeStamps(self, alpha):
         """
         Returns the timeStamps of a node
 
@@ -170,7 +169,7 @@ class Tree(object):
             temporary += i.timeStamps
         return temporary
 
-    def getPeriodicSupport(self, timeStamps):
+    def _getPeriodicSupport(self, timeStamps):
         """
             calculates the support and periodicity with list of timestamps
 
@@ -185,12 +184,12 @@ class Tree(object):
         sup = 0
         for i in range(len(timeStamps) - 1):
             j = i + 1
-            if abs(timeStamps[j] - timeStamps[i]) <= period:
+            if abs(timeStamps[j] - timeStamps[i]) <= _period:
                 per += 1
             sup += 1
         return per
 
-    def conditionalTransactions(self, conditionalPatterns, conditionalTimeStamps):
+    def _conditionalTransactions(self, conditionalPatterns, conditionalTimeStamps):
         """ It generates the conditional patterns with periodic frequent items
 
                 :param conditionalPatterns : conditional_patterns generated from condition_pattern method for
@@ -199,7 +198,7 @@ class Tree(object):
                 :param conditionalTimeStamps : represents the timestamps of conditional patterns of a node
                 :type conditionalTimeStamps : list
         """
-        global periodicSupport, period
+        global _periodicSupport, _period
         patterns = []
         timeStamps = []
         data1 = {}
@@ -211,8 +210,8 @@ class Tree(object):
                     data1[j] = conditionalTimeStamps[i]
         updatedDictionary = {}
         for m in data1:
-            updatedDictionary[m] = self.getPeriodicSupport(data1[m])
-        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v >= periodicSupport}
+            updatedDictionary[m] = self._getPeriodicSupport(data1[m])
+        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v >= _periodicSupport}
         count = 0
         for p in conditionalPatterns:
             p1 = [v for v in p if v in updatedDictionary]
@@ -223,7 +222,7 @@ class Tree(object):
             count += 1
         return patterns, timeStamps, updatedDictionary
 
-    def generatePatterns(self, prefix):
+    def _generatePatterns(self, prefix):
         """generates the patterns
 
                 :param prefix : forms the combination of items
@@ -233,18 +232,18 @@ class Tree(object):
             pattern = prefix[:]
             pattern.append(i)
             yield pattern, self.info[i]
-            patterns, timeStamps, info = self.getConditionalPatterns(i)
-            conditionalTree = Tree()
+            patterns, timeStamps, info = self._getConditionalPatterns(i)
+            conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             for pat in range(len(patterns)):
-                conditionalTree.addTransaction(patterns[pat], timeStamps[pat])
+                conditionalTree._addTransaction(patterns[pat], timeStamps[pat])
             if len(patterns) > 0:
-                for q in conditionalTree.generatePatterns(pattern):
+                for q in conditionalTree._generatePatterns(pattern):
                     yield q
-            self.removeNode(i)
+            self._removeNode(i)
 
 
-class PPPGrowth(partialPeriodicPatterns):
+class PPPGrowth(_abstract._partialPeriodicPatterns):
     """ 3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.
 
         Reference : Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
@@ -357,100 +356,100 @@ class PPPGrowth(partialPeriodicPatterns):
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
-    periodicSupport = float()
-    period = float()
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    rank = {}
-    rankdup = {}
-    lno = 0
+    _periodicSupport = float()
+    _period = float()
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _rank = {}
+    _rankdup = {}
+    _lno = 0
 
-    def creatingItemSets(self):
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
 
             """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self._Database = []
+        if isinstance(self._iFile, _abstract._pd.DataFrame):
             data, tids = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                tids = self.iFile['TS'].tolist()
+                tids = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [tids[i][0]]
                 tr = tr + data[i]
-                self.Database.append(tr)
-            self.lno = len(self.Database)
+                self._Database.append(tr)
+            self._lno = len(self._Database)
             # print(self.Database)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _validators.url(self._iFile):
+                data = _urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def partialPeriodicOneItem(self):
+    def _partialPeriodicOneItem(self):
         """
                     calculates the support of each item in the dataset and assign the ranks to the items
                     by decreasing support and returns the frequent items list
 
                     """
         data = {}
-        self.period = self.convert(self.period)
-        self.periodicSupport = self.convert(self.periodicSupport)
-        for tr in self.Database:
+        self._period = self._convert(self._period)
+        self._periodicSupport = self._convert(self._periodicSupport)
+        for tr in self._Database:
             for i in range(1, len(tr)):
                 if tr[i] not in data:
                     data[tr[i]] = [0, int(tr[0]), 1]
                 else:
                     lp = int(tr[0]) - data[tr[i]][1]
-                    if lp <= self.period:
+                    if lp <= self._period:
                         data[tr[i]][0] += 1
                     data[tr[i]][1] = int(tr[0])
                     data[tr[i]][2] += 1
-        data = {k: v[0] for k, v in data.items() if v[0] >= self.periodicSupport}
+        data = {k: v[0] for k, v in data.items() if v[0] >= self._periodicSupport}
         pfList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
-        self.rank = dict([(index, item) for (item, index) in enumerate(pfList)])
+        self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
         return data, pfList
 
-    def updateTransactions(self, dict1):
+    def _updateTransactions(self, dict1):
         """remove the items which are not frequent from transactions and updates the transactions with rank of items
 
                     :param dict1 : frequent items with support
                     :type dict1 : dictionary
                     """
         list1 = []
-        for tr in self.Database:
+        for tr in self._Database:
             list2 = [int(tr[0])]
             for i in range(1, len(tr)):
                 if tr[i] in dict1:
-                    list2.append(self.rank[tr[i]])
+                    list2.append(self._rank[tr[i]])
             if len(list2) >= 2:
                 basket = list2[1:]
                 basket.sort()
@@ -458,7 +457,7 @@ class PPPGrowth(partialPeriodicPatterns):
                 list1.append(list2)
         return list1
 
-    def buildTree(self, data, info):
+    def _buildTree(self, data, info):
         """it takes the transactions and support of each item and construct the main tree with setting root
                             node as null
 
@@ -467,15 +466,15 @@ class PPPGrowth(partialPeriodicPatterns):
                 :param info : it represents the support of each item
                 :type info : dictionary
         """
-        rootNode = Tree()
+        rootNode = _Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
             set1 = []
             set1.append(data[i][0])
-            rootNode.addTransaction(data[i][1:], set1)
+            rootNode._addTransaction(data[i][1:], set1)
         return rootNode
 
-    def savePeriodic(self, itemset):
+    def _savePeriodic(self, itemset):
         """
         To convert the pattern with its original item name
         :param itemset: partial periodic pattern
@@ -483,10 +482,10 @@ class PPPGrowth(partialPeriodicPatterns):
         """
         temp = str()
         for i in itemset:
-            temp = temp + self.rankdup[i] + " "
+            temp = temp + self._rankdup[i] + " "
         return temp
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -496,11 +495,11 @@ class PPPGrowth(partialPeriodicPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
@@ -510,31 +509,31 @@ class PPPGrowth(partialPeriodicPatterns):
                    Main method where the patterns are mined by constructing tree.
 
                """
-        global periodicSupport, period, lno
-        self.startTime = time.time()
-        if self.iFile is None:
+        global _periodicSupport, _period, _lno
+        self._startTime = _abstract._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.periodicSupport is None:
+        if self._periodicSupport is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingItemSets()
-        generatedItems, pfList = self.partialPeriodicOneItem()
-        periodicSupport, period, lno = self.periodicSupport, self.period, len(self.Database)
-        updatedTransactions = self.updateTransactions(generatedItems)
-        for x, y in self.rank.items():
-            self.rankdup[y] = x
-        info = {self.rank[k]: v for k, v in generatedItems.items()}
-        Tree = self.buildTree(updatedTransactions, info)
-        patterns = Tree.generatePatterns([])
-        self.finalPatterns = {}
+        self._creatingItemSets()
+        generatedItems, pfList = self._partialPeriodicOneItem()
+        _periodicSupport, _period, _lno = self._periodicSupport, self._period, len(self._Database)
+        updatedTransactions = self._updateTransactions(generatedItems)
+        for x, y in self._rank.items():
+            self._rankdup[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedTransactions, info)
+        patterns = Tree._generatePatterns([])
+        self._finalPatterns = {}
         for i in patterns:
-            s = self.savePeriodic(i[0])
-            self.finalPatterns[s] = i[1]
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+            s = self._savePeriodic(i[0])
+            self._finalPatterns[s] = i[1]
+        self._endTime = _abstract._time.time()
+        process = _abstract._psutil.Process(_abstract._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Partial Periodic Patterns were generated successfully using 3PGrowth algorithm ")
 
     def getMemoryUSS(self):
@@ -544,7 +543,7 @@ class PPPGrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -553,7 +552,7 @@ class PPPGrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -563,7 +562,7 @@ class PPPGrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -574,9 +573,9 @@ class PPPGrowth(partialPeriodicPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
-            data.append([a, b[0], b[1]])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+        for a, b in self._finalPatterns.items():
+            data.append([a, b])
+            dataFrame = _abstract._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -585,9 +584,9 @@ class PPPGrowth(partialPeriodicPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -597,20 +596,20 @@ class PPPGrowth(partialPeriodicPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = PPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = PPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+    if len(_sys.argv) == 5 or len(_sys.argv) == 6:
+        if len(_sys.argv) == 6:
+            ap = PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
+        if len(_sys.argv) == 5:
+            ap = PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Partial Periodic Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -618,4 +617,17 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        for i in l:
+            ap = PPPGrowth('/Users/Likhitha/Downloads/Datasets/BMS1_itemset_mining.txt', i, 100, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of  Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
