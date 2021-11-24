@@ -1,21 +1,21 @@
-from abc import ABC, abstractmethod
+from abc import ABC as _ABC, abstractmethod as _abstractmethod
 from array import *
-import datetime
-import resource
-import time
-import os
-import os.path
-import psutil
-import functools
-import csv
-import pandas as pd
-from collections import defaultdict
-from itertools import combinations as c
-import sys
-import validators
-from urllib.request import urlopen
+import datetime as _datetime
+import resource as _resource
+import time as _time
+import os as _os
+import os.path as _ospath
+import psutil as _psutil
+import functools as _functools
+import csv as _csv
+import pandas as _pd
+from collections import defaultdict as _defaultdict
+from itertools import combinations as _c
+import sys as _sys
+import validators as _validators
+from urllib.request import urlopen as _urlopen
 
-class frequentPatterns(ABC):
+class _frequentPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
     employ in PAMI
 
@@ -68,12 +68,18 @@ class frequentPatterns(ABC):
         :type minSup: str or float
         """
 
-        self.iFile = iFile
-        self.minSup = minSup
-        self.minRatio = ratio
-        self.sep = sep
+        self._iFile = iFile
+        self._minSup = minSup
+        self._minRatio = ratio
+        self._sep = sep
+        self._oFile = str()
+        self._finalPatterns = {}
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryRSS = float()
+        self._memoryUSS = float()
 
-    @abstractmethod
+    '''@abstractmethod
     def iFile(self):
         """Variable to store the input file path/file name"""
 
@@ -125,21 +131,21 @@ class frequentPatterns(ABC):
     def oFile(self):
         """Variable to store the name of the output file to store the complete set of frequent patterns"""
 
-        pass
+        pass'''
 
-    @abstractmethod
+    @_abstractmethod
     def startMine(self):
         """Code for the mining process will start from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getPatterns(self):
         """Complete set of frequent patterns generated will be retrieved from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def savePatterns(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
 
@@ -149,24 +155,24 @@ class frequentPatterns(ABC):
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getPatternsAsDataFrame(self):
         """Complete set of frequent patterns will be loaded in to data frame from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the program will be retrieved from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the program will be retrieved from this function"""
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getRuntime(self):
         """Total amount of runtime taken by the program will be retrieved from this function"""
 

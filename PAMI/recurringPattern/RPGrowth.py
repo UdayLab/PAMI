@@ -13,16 +13,16 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.PAMI.periodicFrequentPattern.recurring.
 
-from PAMI.recurringPattern.abstract import *
+from PAMI.recurringPattern import abstract as _ab
 
 
-maxPer = float()
-minPS = float()
-minRec = float()
-lno = int()
+_maxPer = float()
+_minPS = float()
+_minRec = float()
+_lno = int()
 
 
-class Node(object):
+class _Node(object):
     """
         A class used to represent the node of frequentPatternTree
 
@@ -67,7 +67,7 @@ class Node(object):
         node.parent = self
 
 
-class Tree(object):
+class _Tree(object):
     """
         A class used to represent the frequentPatternGrowth tree structure
 
@@ -98,7 +98,7 @@ class Tree(object):
         """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
@@ -115,7 +115,7 @@ class Tree(object):
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
-                newNode = Node(transaction[i], {})
+                newNode = _Node(transaction[i], {})
                 currentNode.addChild(newNode)
                 if transaction[i] in self.summaries:
                     self.summaries[transaction[i]].append(newNode)
@@ -268,7 +268,7 @@ class Tree(object):
             if len(self.info.get(i)[0])>=minRec:
                 yield pattern, self.info[i]
             patterns, timeStamps, info = self.getConditionalPatterns(i)
-            conditionalTree = Tree()
+            conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             for pat in range(len(patterns)):
                 conditionalTree.addTransaction(patterns[pat], timeStamps[pat])
@@ -278,7 +278,7 @@ class Tree(object):
             self.removeNode(i)
 
 
-class RPGrowth(recurringPatterns):
+class RPGrowth(_ab._recurringPatterns):
     """ RPGrowth is one of the fundamental algorithm to discover recurring patterns in a transactional database.
 
    
@@ -399,91 +399,91 @@ class RPGrowth(recurringPatterns):
             The complete program was written by C. Saideep under the supervision of Professor Rage Uday Kiran.\n
 
     """
-    startTime = float()
-    endTime = float()
-    minPS = str()
-    maxPer = float()
-    minRec = str()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    rank = {}
-    rankedUp = {}
-    lno = 0
+    _startTime = float()
+    _endTime = float()
+    _minPS = str()
+    _maxPer = float()
+    _minRec = str()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _rank = {}
+    _rankedUp = {}
+    _lno = 0
 
-    def creatingItemSets(self):
+    def _creatingItemSets(self):
         """ Storing the complete values of the database/input file in a database variable
         """
 
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
-            if self.iFile.empty:
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+                self._Database = self._iFile['Transactions'].tolist()
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def OneItems(self):
+    def _OneItems(self):
         """ Calculates the maxRec and support of each item in the database and assign ranks to the items
             by decreasing support and returns the RP-list
 
             :returns: return the RP-list
         """
-        global rank
-        data={}
-        for tr in self.Database:
-            for i in range(1,len(tr)):
+        #global rank
+        data = {}
+        for tr in self._Database:
+            for i in range(1, len(tr)):
                 if tr[i] not in data:
-                    data[tr[i]]=[[],int(tr[0]),int(tr[0]),1,0,1]
+                    data[tr[i]] = [[], int(tr[0]), int(tr[0]), 1, 0, 1]
                 else:
-                    lp=int(tr[0])-data[tr[i]][2]
-                    if lp<=self.maxPer:
-                        data[tr[i]][3]+=1
+                    lp = int(tr[0]) - data[tr[i]][2]
+                    if lp <= self._maxPer:
+                        data[tr[i]][3] += 1
 
                     else:
-                        if data[tr[i]][3]>=self.minPS:
-                            data[tr[i]][0].append([data[tr[i]][1],data[tr[i]][2],data[tr[i]][3]])
-                            data[tr[i]][4]+=data[tr[i]][3]
-                        data[tr[i]][3]=1
-                        data[tr[i]][1]=int(tr[0])
-                    data[tr[i]][2]=int(tr[0])
-                    data[tr[i]][5]+=1
+                        if data[tr[i]][3] >= self._minPS:
+                            data[tr[i]][0].append([data[tr[i]][1], data[tr[i]][2], data[tr[i]][3]])
+                            data[tr[i]][4] += data[tr[i]][3]
+                        data[tr[i]][3] = 1
+                        data[tr[i]][1] = int(tr[0])
+                    data[tr[i]][2] = int(tr[0])
+                    data[tr[i]][5] += 1
             # print(data)
            
         for ri in data:
-            if data[ri][3]>=self.minPS:
-                data[ri][0].append([data[ri][1],data[ri][2],data[ri][3]])
-                data[ri][4]+=data[ri][3]
-        data={k: [v[0],v[5]] for k,v in data.items() if v[4]>=(self.minPS*self.minRec)}
-        genList=[k for k,v in sorted(data.items(),key=lambda x: (x[1][1],x[0]),reverse=True)]
-        self.rank = dict([(index,item) for (item,index) in enumerate(genList)])
-        return data,genList
+            if data[ri][3] >= self._minPS:
+                data[ri][0].append([data[ri][1], data[ri][2], data[ri][3]])
+                data[ri][4] += data[ri][3]
+        data = {k: [v[0], v[5]] for k, v in data.items() if v[4] >= (self._minPS*self._minRec)}
+        genList = [k for k, v in sorted(data.items(), key=lambda x: (x[1][1], x[0]), reverse=True)]
+        self._rank = dict([(index, item) for (item, index) in enumerate(genList)])
+        return data, genList
 
-    def updateDatabases(self, dict1):
+    def _updateDatabases(self, dict1):
         """ Remove the items which does not  satisfy maxRec from database and updates the database with rank of items
 
             :param dict1: Recurring items with support and recurrence
@@ -491,11 +491,11 @@ class RPGrowth(recurringPatterns):
             :return: Sorted and updated transactions
             """
         list1 = []
-        for tr in self.Database:
+        for tr in self._Database:
             list2 = [int(tr[0])]
             for i in range(1, len(tr)):
                 if tr[i] in dict1:
-                    list2.append(self.rank[tr[i]])
+                    list2.append(self._rank[tr[i]])
             if len(list2) >= 2:
                 basket = list2[1:]
                 basket.sort()
@@ -505,7 +505,7 @@ class RPGrowth(recurringPatterns):
         return list1
 
     @staticmethod
-    def buildTree(data, info):
+    def _buildTree(data, info):
         """ It takes the database and construct the main tree by setting root node as a null
 
             :param data: it represents the one items in database
@@ -515,14 +515,14 @@ class RPGrowth(recurringPatterns):
             :return: returns root node of tree
         """
 
-        rootNode = Tree()
+        rootNode = _Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
             set1 = [data[i][0]]
             rootNode.addTransaction(data[i][1:], set1)
         return rootNode
 
-    def savePeriodic(self, itemSet):
+    def _savePeriodic(self, itemSet):
         """ To convert the ranks of items in to their original item names
 
             :param itemSet: recurring pattern
@@ -530,10 +530,10 @@ class RPGrowth(recurringPatterns):
         """
         t1 = str()
         for i in itemSet:
-            t1 = t1 + self.rankedUp[i] + " "
+            t1 = t1 + self._rankedUp[i] + " "
         return t1
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -543,11 +543,11 @@ class RPGrowth(recurringPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
@@ -556,32 +556,32 @@ class RPGrowth(recurringPatterns):
         """ Mining process will start from this function
         """
 
-        global minPS, minRec, maxPer, lno
-        self.startTime = time.time()
-        if self.iFile is None:
+        global _minPS, _minRec, _maxPer, _lno
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        self.creatingItemSets()
-        self.minPS = self.convert(self.minPS)
-        self.maxPer = self.convert(self.maxPer)
-        self.minRec = int(self.minRec)
-        self.finalPatterns = {}
-        maxPer, minPS, minRec, lno = self.maxPer, self.minPS, self.minRec, len(self.Database)
-        generatedItems, pfList = self.OneItems()
-        updatedDatabases = self.updateDatabases(generatedItems)
-        for x, y in self.rank.items():
-            self.rankedUp[y] = x
-        info = {self.rank[k]: v for k, v in generatedItems.items()}
-        Tree = self.buildTree(updatedDatabases, info)
+        self._creatingItemSets()
+        self._minPS = self._convert(self._minPS)
+        self._maxPer = self._convert(self._maxPer)
+        self._minRec = int(self._minRec)
+        self._finalPatterns = {}
+        _maxPer, _minPS, _minRec, _lno = self._maxPer, self._minPS, self._minRec, len(self._Database)
+        generatedItems, pfList = self._OneItems()
+        updatedDatabases = self._updateDatabases(generatedItems)
+        for x, y in self._rank.items():
+            self._rankedUp[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedDatabases, info)
         patterns = Tree.generatePatterns([])
         for i in patterns:
-            sample = self.savePeriodic(i[0])
-            self.finalPatterns[sample] = i[1]
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+            sample = self._savePeriodic(i[0])
+            self._finalPatterns[sample] = i[1]
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Recurring patterns were generated successfully using RPGrowth algorithm ")
 
     def getMemoryUSS(self):
@@ -591,7 +591,7 @@ class RPGrowth(recurringPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -600,7 +600,7 @@ class RPGrowth(recurringPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -610,7 +610,7 @@ class RPGrowth(recurringPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final periodic-frequent patterns in a dataframe
@@ -621,12 +621,12 @@ class RPGrowth(recurringPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
-            z=[]
+        for a, b in self._finalPatterns.items():
+            z = []
             for k in b[1]:
-                z.append({[k[0],k[1]],k[2]})
-            data.append([a, b[1], len(b[1]) , z])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Recurrance', 'intervals'])
+                z.append({[k[0], k[1]], k[2]})
+            data.append([a, b[1], len(b[1]), z])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Recurrance', 'intervals'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -635,15 +635,15 @@ class RPGrowth(recurringPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             # print(x,y)
-            str1='{'
+            str1 = '{'
             for z in y[0]:
-                str1+= '{'+str([z[0],z[1]])+' : '+ str(z[2])+'}'
-            str1+='}'
-            s1 = x + ":"+ str(y[1])  +":" + str(len(y[0])) + ":" + str1
+                str1 += '{'+str([z[0], z[1]])+' : ' + str(z[2]) + '}'
+            str1 += '}'
+            s1 = x + ":" + str(y[1]) + ":" + str(len(y[0])) + ":" + str1
             writer.write("%s \n" % s1)
         writer.close()
 
@@ -653,20 +653,20 @@ class RPGrowth(recurringPatterns):
         :return: returning periodic-frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     ap = str()
-    if len(sys.argv) == 6 or len(sys.argv) == 7:
-        if len(sys.argv) == 7:
-            ap = RPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
-        if len(sys.argv) == 6:
-            ap = RPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+    if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
+        if len(_ab._sys.argv) == 7:
+            ap = RPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
+        if len(_ab._sys.argv) == 6:
+            ap = RPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.savePatterns(_ab._sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

@@ -14,10 +14,10 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from PAMI.relativeHighUtilityPatterns.basic.abstract import *
+from PAMI.relativeHighUtilityPatterns.basic import abstract as _ab
 
 
-class Transaction:
+class _Transaction:
     """
         A class to store Transaction of a database
 
@@ -65,7 +65,7 @@ class Transaction:
             :param offsetE: an offset over the original transaction for projecting the transaction
             :type offsetE: int
         """
-        new_transaction = Transaction(self.items, self.utilities, self.transactionUtility)
+        new_transaction = _Transaction(self.items, self.utilities, self.transactionUtility)
         utilityE = self.utilities[offsetE]
         new_transaction.prefixUtility = self.prefixUtility + utilityE
         new_transaction.transactionUtility = self.transactionUtility - utilityE
@@ -130,7 +130,7 @@ class Transaction:
             self.utilities[j + 1] = utilityJ
         
 
-class Dataset:
+class _Dataset:
     """
         A class represent the list of transactions in this dataset
 
@@ -162,49 +162,66 @@ class Dataset:
         self.createItemSets(datasetPath)
 
     def createItemSets(self, datasetPath):
-        self.Database = []
-        if isinstance(datasetPath, pd.DataFrame):
-            utilities, data = [], []
+        self.transactions = []
+        itemsets, utilities, utilityValues = [], [], []
+        if isinstance(datasetPath, _ab._pd.DataFrame):
+            utilities, data, utilityValues = [], [], []
             if datasetPath.empty:
                 print("its empty..")
             i = datasetPath.columns.values.tolist()
             if 'Transactions' in i:
-                data = datasetPath['Transactions'].tolist()
-            if 'utilities' in i:
+                itemsets = datasetPath['Transactions'].tolist()
+            if 'Utilities' in i:
                 utilities = datasetPath['Patterns'].tolist()
-            self.transactions.append(self.createTransaction(data))
+            if 'UtilitySum' in i:
+                utilityValues = datasetPath['utilitySum'].tolist()
+            for k in range(len(itemsets)):
+                self.transactions.append(self.createTransaction(itemsets[k], utilities[k], utilityValues[k]))
         if isinstance(datasetPath, str):
-            if validators.url(datasetPath):
-                data = urlopen(datasetPath)
+            if _ab._validators.url(datasetPath):
+                data = _ab._urlopen(datasetPath)
                 for line in data:
                     line = line.decode("utf-8")
-                    self.transactions.append(self.createTransaction(line))
+                    trans_list = line.strip().split(':')
+                    transactionUtility = int(trans_list[1])
+                    itemsString = trans_list[0].strip().split(self.sep)
+                    itemsString = [x for x in itemsString if x]
+                    utilityString = trans_list[2].strip().split(self.sep)
+                    utilityString = [x for x in utilityString if x]
+                    self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility))
             else:
                 try:
                     with open(datasetPath, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.transactions.append(self.createTransaction(line))
+                            trans_list = line.strip().split(':')
+                            transactionUtility = int(trans_list[1])
+                            itemsString = trans_list[0].strip().split(self.sep)
+                            itemsString = [x for x in itemsString if x]
+                            utilityString = trans_list[2].strip().split(self.sep)
+                            utilityString = [x for x in utilityString if x]
+                            self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility))
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def createTransaction(self, line):
+    def createTransaction(self, itemSet, utilities, utilitySum):
         """
             A method to create Transaction from dataset given
             
             Attributes:
             -----------
-            :param line: represent a single line of database
-            :type line: string
+            :param itemSet: represent a transactions itemset in database
+            :type itemSet: list
+            :param utilities: utility values of respective transaction itemSets
+            :type utilities: list
+            :param utilitySum: represent the sum of utility Sum
+            :type utilitySum: int
             :return : Transaction
             :rtype: Transaction
         """
-        trans_list = line.strip().split(':')
-        transactionUtility = int(trans_list[1])
-        itemsString = trans_list[0].strip().split(self.sep)
-        itemsString = [x for x in itemsString if x]
-        utilityString = trans_list[2].strip().split(self.sep)
-        utilityString = [x for x in utilityString if x]
+        transactionUtility = utilitySum
+        itemsString = itemSet
+        utilityString = utilities
         items = []
         utilities = []
         for idx, item in enumerate(itemsString):
@@ -217,7 +234,7 @@ class Dataset:
                 self.maxItem = item_int
             items.append(item_int)
             utilities.append(int(utilityString[idx]))
-        return Transaction(items, utilities, transactionUtility)
+        return _Transaction(items, utilities, transactionUtility)
 
     def getMaxItem(self):
         """
@@ -232,7 +249,7 @@ class Dataset:
         return self.transactions
 
 
-class RHUIM(utilityPatterns):
+class RHUIM(_ab._utilityPatterns):
     """
     RHUIM algorithm helps us to mine Relative High Utility itemSets from transactional databases.
     
@@ -352,77 +369,78 @@ class RHUIM(utilityPatterns):
      
     """
 
-    relativeHighUtilityItemSets = []
-    candidateCount = 0
-    utilityBinArrayLU = {}
-    utilityBinArraySU = {}
-    oldNamesToNewNames = {}
-    newNamesToOldNames = {}
-    singleItemSetsUtilities = {}
-    strToInt = {}
-    intToStr = {}
-    temp = [0]*5000
-    patternCount = int()
-    maxMemory = 0
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    nFile = " "
-    lno = 0
-    sep = "\t"
-    minUtil = 0
-    minUR = 0
-    memoryUSS = float()
-    memoryRSS = float()
+    _relativeHighUtilityItemSets = []
+    _candidateCount = 0
+    _utilityBinArrayLU = {}
+    _utilityBinArraySU = {}
+    _oldNamesToNewNames = {}
+    _newNamesToOldNames = {}
+    _singleItemSetsUtilities = {}
+    _strToInt = {}
+    _intToStr = {}
+    _temp = [0]*5000
+    _patternCount = int()
+    _maxMemory = 0
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _nFile = " "
+    _lno = 0
+    _sep = "\t"
+    _minUtil = 0
+    _minUR = 0
+    _memoryUSS = float()
+    _memoryRSS = float()
 
     def __init__(self, iFile, minUtil, minUR, sep="\t"):
         super().__init__(iFile, minUtil, minUR, sep)
 
     def startMine(self):
-        self.startTime = time.time()
-        self.dataset = Dataset(self.iFile, self.sep)
-        self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
-        minUtil = int(self.minUtil)
-        minUR = float(self.minUR)
+        self._startTime = _ab._time.time()
+        self._dataset = _Dataset(self._iFile, self._sep)
+        self._finalPatterns = {}
+        self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
+        _minUtil = int(self._minUtil)
+        _minUR = float(self._minUR)
         # print(minUR)
-        self.singleItemSetsUtilities = defaultdict(int)
+        self._singleItemSetsUtilities = _ab._defaultdict(int)
         itemsToKeep = []
-        for key in self.utilityBinArrayLU.keys():
-            if self.utilityBinArrayLU[key] >= minUtil:
+        for key in self._utilityBinArrayLU.keys():
+            if self._utilityBinArrayLU[key] >= _minUtil:
                 itemsToKeep.append(key)
-        itemsToKeep = sorted(itemsToKeep, key=lambda x: self.utilityBinArrayLU[x])
+        itemsToKeep = sorted(itemsToKeep, key=lambda x: self._utilityBinArrayLU[x])
         currentName = 1
         for idx, item in enumerate(itemsToKeep):
-            self.oldNamesToNewNames[item] = currentName
-            self.newNamesToOldNames[currentName] = item
+            self._oldNamesToNewNames[item] = currentName
+            self._newNamesToOldNames[currentName] = item
             itemsToKeep[idx] = currentName
             currentName += 1
-        for transaction in self.dataset.getTransactions():
-            transaction.removeUnpromisingItems(self.oldNamesToNewNames)
-        self.sortDatabase(self.dataset.getTransactions())
+        for transaction in self._dataset.getTransactions():
+            transaction.removeUnpromisingItems(self._oldNamesToNewNames)
+        self.sortDatabase(self._dataset.getTransactions())
         emptyTransactionCount = 0
-        for transaction in self.dataset.getTransactions():
+        for transaction in self._dataset.getTransactions():
             if len(transaction.getItems()) == 0:
                 emptyTransactionCount += 1
-        self.dataset.transactions = self.dataset.transactions[emptyTransactionCount:]
-        self.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self.dataset)
+        self._dataset.transactions = self._dataset.transactions[emptyTransactionCount:]
+        self._useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self._dataset)
         itemsToExplore = []
         for item in itemsToKeep:
-            if self.utilityBinArraySU[item] >= minUtil:
+            if self._utilityBinArraySU[item] >= _minUtil:
                 itemsToExplore.append(item)
         utilitySum = 0
-        self.backTrackingRHUIM(self.dataset.getTransactions(), itemsToKeep, itemsToExplore, 0, utilitySum)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._backTrackingRHUIM(self._dataset.getTransactions(), itemsToKeep, itemsToExplore, 0, utilitySum)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Relative High Utility patterns were generated successfully using RHUIM algorithm")
 
-    def backTrackingRHUIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength, utilitySumP):
+    def _backTrackingRHUIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength, utilitySumP):
         """
             A method to mine the RHUIs Recursively
 
@@ -439,11 +457,11 @@ class RHUIM(utilityPatterns):
             :param utilitySumP: a variable to hold sum of utilities of all items in P
             :type utilitySumP int
         """
-        self.candidateCount += len(itemsToExplore)
+        self._candidateCount += len(itemsToExplore)
         for idx, e in enumerate(itemsToExplore):
             transactionsPe = []
             utilityPe = 0
-            utilitySumPe = utilitySumP + self.singleItemSetsUtilities[e]
+            utilitySumPe = utilitySumP + self._singleItemSetsUtilities[e]
             previousTransaction = transactionsOfP[0]
             consecutiveMergeCount = 0
             for transaction in transactionsOfP:
@@ -457,7 +475,7 @@ class RHUIM(utilityPatterns):
                         utilityPe += projectedTransaction.prefixUtility
                         if previousTransaction == transactionsOfP[0]:
                             previousTransaction = projectedTransaction
-                        elif self.is_equal(projectedTransaction, previousTransaction):
+                        elif self._isEqual(projectedTransaction, previousTransaction):
                             if consecutiveMergeCount == 0:
                                 items = previousTransaction.items[previousTransaction.offset:]
                                 utilities = previousTransaction.utilities[previousTransaction.offset:]
@@ -470,7 +488,7 @@ class RHUIM(utilityPatterns):
                                     positionProjection += 1
                                 previousTransaction.prefixUtility += projectedTransaction.prefixUtility
                                 sumUtilities = previousTransaction.prefixUtility
-                                previousTransaction = Transaction(items, utilities, previousTransaction.transactionUtility + projectedTransaction.transactionUtility)
+                                previousTransaction = _Transaction(items, utilities, previousTransaction.transactionUtility + projectedTransaction.transactionUtility)
                                 previousTransaction.prefixUtility = sumUtilities
                             else:
                                 positionPrevious = 0
@@ -491,26 +509,26 @@ class RHUIM(utilityPatterns):
                     transaction.offset = positionE
             if previousTransaction != transactionsOfP[0]:
                 transactionsPe.append(previousTransaction)
-            self.temp[prefixLength] = self.newNamesToOldNames[e]
+            self._temp[prefixLength] = self._newNamesToOldNames[e]
             utility_ratio_pe = float(utilityPe / utilitySumPe)
-            if (utilityPe >= self.minUtil) and (utility_ratio_pe * 100 >= self.minUR):
-                self.output(prefixLength, utilityPe, utility_ratio_pe)
-            self.useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep)
+            if (utilityPe >= self._minUtil) and (utility_ratio_pe * 100 >= self._minUR):
+                self._output(prefixLength, utilityPe, utility_ratio_pe)
+            self._useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep)
             newItemsToKeep = []
             newItemsToExplore = []
             for l in range(idx + 1, len(itemsToKeep)):
                 itemK = itemsToKeep[l]
-                utility_sum_pek = utilitySumPe + self.singleItemSetsUtilities[itemK]
-                subtree_utility_ratio = float(self.utilityBinArraySU[itemK] / utility_sum_pek)
-                local_utility_ratio = float(self.utilityBinArrayLU[itemK] / utility_sum_pek)
-                if self.utilityBinArraySU[itemK] >= self.minUtil and subtree_utility_ratio * 100 >= self.minUR:
+                utility_sum_pek = utilitySumPe + self._singleItemSetsUtilities[itemK]
+                subtree_utility_ratio = float(self._utilityBinArraySU[itemK] / utility_sum_pek)
+                local_utility_ratio = float(self._utilityBinArrayLU[itemK] / utility_sum_pek)
+                if self._utilityBinArraySU[itemK] >= self._minUtil and subtree_utility_ratio * 100 >= self._minUR:
                     newItemsToExplore.append(itemK)
                     newItemsToKeep.append(itemK)
-                elif self.utilityBinArrayLU[itemK] >= self.minUtil and local_utility_ratio * 100 >= self.minUR:
+                elif self._utilityBinArrayLU[itemK] >= self._minUtil and local_utility_ratio * 100 >= self._minUR:
                     newItemsToKeep.append(itemK)
-            self.backTrackingRHUIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1, utilitySumPe)
+            self._backTrackingRHUIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1, utilitySumPe)
 
-    def useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
+    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
         """
             A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
 
@@ -526,8 +544,8 @@ class RHUIM(utilityPatterns):
         """
         for i in range(j + 1, len(itemsToKeep)):
             item = itemsToKeep[i]
-            self.utilityBinArrayLU[item] = 0
-            self.utilityBinArraySU[item] = 0
+            self._utilityBinArrayLU[item] = 0
+            self._utilityBinArraySU[item] = 0
         for transaction in transactionsPe:
             sumRemainingUtility = 0
             i = len(transaction.getItems()) - 1
@@ -535,11 +553,11 @@ class RHUIM(utilityPatterns):
                 item = transaction.getItems()[i]
                 if item in itemsToKeep:
                     sumRemainingUtility += transaction.getUtilities()[i]
-                    self.utilityBinArraySU[item] += sumRemainingUtility + transaction.prefixUtility
-                    self.utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
+                    self._utilityBinArraySU[item] += sumRemainingUtility + transaction.prefixUtility
+                    self._utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
                 i -= 1
 
-    def output(self, tempPosition, utility, utilityRatio):
+    def _output(self, tempPosition, utility, utilityRatio):
         """
          Method to print relative high utility itemSet
 
@@ -552,15 +570,15 @@ class RHUIM(utilityPatterns):
          :param utilityRatio: utility ratio of an itemSet
          :type utilityRatio: float
         """
-        self.patternCount += 1
+        self._patternCount += 1
         s1 = ""
         for i in range(0, tempPosition+1):
-            s1 += self.dataset.intToStr.get((self.temp[i]))
+            s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
                 s1 += " "
-        self.finalPatterns[s1] = str(utility) + ":" + str(utilityRatio)
+        self._finalPatterns[s1] = str(utility) + ":" + str(utilityRatio)
 
-    def is_equal(self, transaction1, transaction2):
+    def _isEqual(self, transaction1, transaction2):
         """
          A method to Check if two transaction are identical
 
@@ -586,7 +604,7 @@ class RHUIM(utilityPatterns):
             position2 += 1
         return True
 
-    def useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
         """
         Scan the initial database to calculate the subtree utility of each items using a utility-bin array
 
@@ -602,11 +620,11 @@ class RHUIM(utilityPatterns):
                 item = transaction.getItems()[i]
                 currentUtility = transaction.getUtilities()[i]
                 sumSU += currentUtility
-                self.singleItemSetsUtilities[item] += currentUtility
-                if item in self.utilityBinArraySU.keys():
-                    self.utilityBinArraySU[item] += sumSU
+                self._singleItemSetsUtilities[item] += currentUtility
+                if item in self._utilityBinArraySU.keys():
+                    self._utilityBinArraySU[item] += sumSU
                 else:
-                    self.utilityBinArraySU[item] = sumSU
+                    self._utilityBinArraySU[item] = sumSU
                 i -= 1
 
     def sortDatabase(self, transactions):
@@ -620,7 +638,7 @@ class RHUIM(utilityPatterns):
             :return: sorted transactions
             :rtype: Transactions or list
         """
-        cmp_items = functools.cmp_to_key(self.sort_transaction)
+        cmp_items = _ab._functools.cmp_to_key(self.sort_transaction)
         transactions.sort(key=cmp_items)
 
     def sort_transaction(self, trans1, trans2):
@@ -665,7 +683,7 @@ class RHUIM(utilityPatterns):
                 pos2 -= 1
             return 0
 
-    def useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
         """
             A method to calculate local utility of single itemSets
             Attributes:
@@ -676,10 +694,10 @@ class RHUIM(utilityPatterns):
         """
         for transaction in dataset.getTransactions():
             for item in transaction.getItems():
-                if item in self.utilityBinArrayLU:
-                    self.utilityBinArrayLU[item] += transaction.transactionUtility
+                if item in self._utilityBinArrayLU:
+                    self._utilityBinArrayLU[item] += transaction.transactionUtility
                 else:
-                    self.utilityBinArrayLU[item] = transaction.transactionUtility
+                    self._utilityBinArrayLU[item] = transaction.transactionUtility
 
     def getPatternsAsDataFrame(self):
         """Storing final patterns in a dataframe
@@ -689,9 +707,9 @@ class RHUIM(utilityPatterns):
             """
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Utility:UtilityRatio'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility:UtilityRatio'])
 
         return dataFrame
     
@@ -701,7 +719,7 @@ class RHUIM(utilityPatterns):
         :return: returning patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
@@ -711,7 +729,7 @@ class RHUIM(utilityPatterns):
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        for x, y in self._finalPatterns.items():
             patternsAndSupport = str(x) + " : " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
@@ -722,7 +740,7 @@ class RHUIM(utilityPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -730,7 +748,7 @@ class RHUIM(utilityPatterns):
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -739,21 +757,21 @@ class RHUIM(utilityPatterns):
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
        """
-        return self.endTime-self.startTime
+        return self._endTime-self._startTime
 
 
 if __name__ == '__main__':
     ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:    #includes separator
-            ap = RHUIM(sys.argv[1], int(sys.argv[3]), float(sys.argv[4]), sys.argv[5])
-        if len(sys.argv) == 5:    #takes "\t" as a separator
-            ap = RHUIM(sys.argv[1], int(sys.argv[3]), float(sys.argv[4]))
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:    #includes separator
+            ap = RHUIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]), _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:    #takes "\t" as a separator
+            ap = RHUIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]))
         ap.startMine()
         patterns = ap.getPatterns()
-        print("Total number of Relative High Utility Patterns:", ap.patternCount)
-        print("Total number of Candidate Patterns:", ap.candidateCount)
-        ap.savePatterns(sys.argv[2])
+        print("Total number of Relative High Utility Patterns:", ap._patternCount)
+        print("Total number of Candidate Patterns:", ap._candidateCount)
+        ap.savePatterns(_ab._sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -761,4 +779,19 @@ if __name__ == '__main__':
         run = ap.getRuntime()
         print("Total ExecutionTime in seconds:", run)
     else:
+        '''l = [50000, 70000, 90000, 100000]
+        for i in l:
+            ap = RHUIM('/home/apiiit-rkv/pamiDatasets/utility/retail_utility.txt',
+                   i, 0.4, ' ')
+            ap.startMine()
+            patterns = ap.getPatterns()
+            print("Total number of Relative High Utility Patterns:", ap._patternCount)
+            print("Total number of Candidate Patterns:", ap._candidateCount)
+            ap.savePatterns('/home/apiiit-rkv/pamiDatasets/utility/output')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in seconds:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

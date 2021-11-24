@@ -14,14 +14,14 @@
 #      along with this program.  If not,  see <https://www.gnu.org/licenses/>.
 
 
-from PAMI.uncertainFrequentPattern.basic.abstract import *
-
+from PAMI.uncertainFrequentPattern.basic import abstract as _fp
 
 minSup = float()
-finalPatterns = {}
+_fp._sys.setrecursionlimit(20000)
+__finalPatterns = {}
 
 
-class Item:
+class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
 
@@ -40,7 +40,7 @@ class Item:
         self.probability = probability
 
 
-class Node(object):
+class _Node(object):
     """
             A class used to represent the node of frequentPatternTree
 
@@ -108,7 +108,7 @@ def printTree(root):
         printTree(y)
 
 
-class Tree(object):
+class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
 
@@ -143,7 +143,7 @@ class Tree(object):
             """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
@@ -159,7 +159,7 @@ class Tree(object):
         for i in range(len(transaction)):
             k += 1
             if transaction[i].item not in currentNode.children:
-                newNode = Node(transaction[i].item, {})
+                newNode = _Node(transaction[i].item, {})
                 newNode.k = k
                 if k >= 3:
                     newNode.secondProbability = Second(transaction, i)
@@ -214,7 +214,7 @@ class Tree(object):
         for i in range(len(transaction)):
             k += 1
             if transaction[i] not in currentNode.children:
-                newNode = Node(transaction[i], {})
+                newNode = _Node(transaction[i], {})
                 newNode.k = k
                 newNode.secondProbability = second
                 newNode.probability = sup
@@ -235,7 +235,7 @@ class Tree(object):
 
             :param alpha : it represents the Node in tree
 
-            :type alpha : Node
+            :type alpha : _Node
         """
         finalPatterns = []
         sup = []
@@ -305,7 +305,7 @@ class Tree(object):
 
             :type prefix : list
         """
-        global finalPatterns, minSup
+        global __finalPatterns, _minSup
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
             pattern = prefix[:]
             pattern.append(i)
@@ -316,10 +316,10 @@ class Tree(object):
                 elif x.k >= 3:
                     n = x.probability * pow(x.secondProbability, (x.k - 2))
                     s += n
-            finalPatterns[tuple(pattern)] = self.info[i]
-            if s >= minSup:
+            __finalPatterns[tuple(pattern)] = self.info[i]
+            if s >= _minSup:
                 patterns, support, info, second = self.conditionalPatterns(i)
-                conditionalTree = Tree()
+                conditionalTree = _Tree()
                 conditionalTree.info = info.copy()
                 for pat in range(len(patterns)):
                     conditionalTree.addConditionalTransaction(patterns[pat], support[pat], second[pat])
@@ -328,7 +328,7 @@ class Tree(object):
             self.removeNode(i)
 
 
-class TubeS(frequentPatterns):
+class TubeS(_fp._frequentPatterns):
     """
     TubeP is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
 
@@ -440,47 +440,48 @@ class TubeS(frequentPatterns):
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
-    startTime = float()
-    endTime = float()
+    __startTime = float()
+    __endTime = float()
     minSup = float()
     maxPer = float()
-    finalPatterns = {}
+    __finalPatterns = {}
     iFile = " "
     oFile = " "
     sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    rank = {}
-    lno = 0
-
-    def creatingItemSets(self):
+    __memoryUSS = float()
+    __memoryRSS = float()
+    __Database = []
+    __rank = {}
+    __lno = 0
+    def __init__(self, iFile, minSup, sep='\t'):
+        super().__init__(iFile, minSup, sep)
+    def __creatingItemSets(self):
         """
 
         Scans the databases and stores the transactions into Database variable
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self.__Database = []
+        if isinstance(self.iFile, _fp._pd.DataFrame):
             uncertain, data = [], []
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.iFile['Transactions'].tolist()
+                self.__Database = self.iFile['Transactions'].tolist()
             if 'uncertain' in i:
                 uncertain = self.iFile['uncertain'].tolist()
             for k in range(len(data)):
                 tr = []
                 for j in range(len(data[k])):
-                    product = Item(data[k][j], uncertain[k][j])
+                    product = _Item(data[k][j], uncertain[k][j])
                     tr.append(product)
-                self.Database.append(tr)
-                self.lno += 1
+                self.__Database.append(tr)
+                self.__lno += 1
 
             # print(self.Database)
         if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+            if _fp._validators.url(self.iFile):
+                data = _fp._urlopen(self.iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
@@ -492,10 +493,10 @@ class TubeS(frequentPatterns):
                         i2 = i.index(')')
                         item = i[0:i1]
                         probability = float(i[i1 + 1:i2])
-                        product = Item(item, probability)
+                        product = _Item(item, probability)
                         tr.append(product)
-                    self.lno += 1
-                    self.Database.append(temp)
+                    self.__lno += 1
+                    self.__Database.append(temp)
             else:
                 try:
                     with open(self.iFile, 'r') as f:
@@ -508,21 +509,21 @@ class TubeS(frequentPatterns):
                                 i2 = i.index(')')
                                 item = i[0:i1]
                                 probability = float(i[i1 + 1:i2])
-                                product = Item(item, probability)
+                                product = _Item(item, probability)
                                 tr.append(product)
-                            self.lno += 1
-                            self.Database.append(tr)
+                            self.__lno += 1
+                            self.__Database.append(tr)
                 except IOError:
                     print("File Not Found")
 
-    def frequentOneItem(self):
+    def __frequentOneItem(self):
         """takes the transactions and calculates the support of each item in the dataset and assign the
                     ranks to the items by decreasing support and returns the frequent items list
 
         """
         global minSup
         mapSupport = {}
-        for i in self.Database:
+        for i in self.__Database:
             for j in i:
                 if j.item not in mapSupport:
                     mapSupport[j.item] = round(j.probability, 2)
@@ -530,10 +531,10 @@ class TubeS(frequentPatterns):
                     mapSupport[j.item] += round(j.probability, 2)
         mapSupport = {k: round(v, 2) for k, v in mapSupport.items() if v >= self.minSup}
         plist = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        self.rank = dict([(index, item) for (item, index) in enumerate(plist)])
+        self.__rank = dict([(index, item) for (item, index) in enumerate(plist)])
         return mapSupport, plist
 
-    def buildTree(self, data, info):
+    def __buildTree(self, data, info):
         """it takes the transactions and support of each item and construct the main tree with setting root
                     node as null
 
@@ -545,7 +546,7 @@ class TubeS(frequentPatterns):
 
             :type info : dictionary
         """
-        rootNode = Tree()
+        rootNode = _Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
             rootNode.addTransaction(data[i])
@@ -559,19 +560,19 @@ class TubeS(frequentPatterns):
                 :type dict1 : dictionary
         """
         list1 = []
-        for tr in self.Database:
+        for tr in self.__Database:
             list2 = []
             for i in range(0, len(tr)):
                 if tr[i].item in dict1:
                     list2.append(tr[i])
             if (len(list2) >= 2):
                 basket = list2
-                basket.sort(key=lambda val: self.rank[val.item])
+                basket.sort(key=lambda val: self.__rank[val.item])
                 list2 = basket
                 list1.append(list2)
         return list1
 
-    def Check(self, i, x):
+    def __Check(self, i, x):
         """To check the presence of item or pattern in transaction
 
             :param x: it represents the pattern
@@ -591,7 +592,7 @@ class TubeS(frequentPatterns):
                 return 0
         return 1
 
-    def convert(self, value):
+    def __convert(self, value):
         """
             To convert the type of user specified minSup value
 
@@ -602,29 +603,29 @@ class TubeS(frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self.__Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = (len(self.Database) * value)
+                value = (len(self.__Database) * value)
             else:
                 value = int(value)
         return value
 
-    def removeFalsePositives(self):
+    def __removeFalsePositives(self):
         """
         To remove the false positive patterns generated in frequent patterns
 
         :return: patterns with accurate probability
         """
-        global finalPatterns
+        global __finalPatterns
         periods = {}
-        for i in self.Database:
-            for x, y in finalPatterns.items():
+        for i in self.__Database:
+            for x, y in __finalPatterns.items():
                 if len(x) == 1:
                     periods[x] = y
                 else:
                     s = 1
-                    check = self.Check(i, x)
+                    check = self.__Check(i, x)
                     if check == 1:
                         for j in i:
                             if j.item in x:
@@ -638,7 +639,7 @@ class TubeS(frequentPatterns):
                 sample = str()
                 for i in x:
                     sample = sample + i + " "
-                self.finalPatterns[sample] = y
+                self.__finalPatterns[sample] = y
 
     def startMine(self):
         """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
@@ -647,24 +648,24 @@ class TubeS(frequentPatterns):
 
         """
         global minSup
-        self.startTime = time.time()
-        self.creatingItemSets()
-        self.minSup = self.convert(self.minSup)
-        self.finalPatterns = {}
-        mapSupport, plist = self.frequentOneItem()
+        self.__startTime = _fp._time.time()
+        self.__creatingItemSets()
+        self.minSup = self.__convert(self.minSup)
+        self.__finalPatterns = {}
+        mapSupport, plist = self.__frequentOneItem()
         print(len(mapSupport))
         transactions1 = self.updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
-        Tree1 = self.buildTree(transactions1, info)
+        Tree1 = self.__buildTree(transactions1, info)
         Tree1.generatePatterns([])
-        self.removeFalsePositives()
+        self.__removeFalsePositives()
         print("Frequent patterns were generated successfully using TubeS algorithm")
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self.__endTime = _fp._time.time()
+        process = _fp._psutil.Process(_fp._os.getpid())
+        self.__memoryUSS = float()
+        self.__memoryRSS = float()
+        self.__memoryUSS = process.memory_full_info().uss
+        self.__memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -674,7 +675,7 @@ class TubeS(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self.__memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -684,7 +685,7 @@ class TubeS(frequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self.__memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -695,7 +696,7 @@ class TubeS(frequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self.__endTime - self.__startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -707,9 +708,9 @@ class TubeS(frequentPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self.__finalPatterns.items():
             data.append([a, b])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
     def savePatterns(self, outFile):
@@ -721,7 +722,7 @@ class TubeS(frequentPatterns):
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        for x, y in self.__finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -732,38 +733,38 @@ class TubeS(frequentPatterns):
 
         :rtype: dict
         """
-        return self.finalPatterns
+        return self.__finalPatterns
 
 
 if __name__ == "__main__":
-    ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
-        if len(sys.argv) == 5:
-            ap = TubeS(sys.argv[1], sys.argv[3], sys.argv[4])
-        if len(sys.argv) == 4:
-            ap = TubeS(sys.argv[1], sys.argv[3])
-        ap.startMine()
-        Patterns = ap.getPatterns()
+    _ap = str()
+    if len(_fp._sys.argv) == 4 or len(_fp._sys.argv) == 5:
+        if len(_fp._sys.argv) == 5:
+            _ap = TubeS(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
+        if len(_fp._sys.argv) == 4:
+            _ap = TubeS(_fp._sys.argv[1], _fp._sys.argv[3])
+        _ap.startMine()
+        Patterns = _ap.getPatterns()
         print("Total number of  Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
+        _ap.savePatterns(_fp._sys.argv[2])
+        memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
+        memRSS = _ap.getMemoryRSS()
         print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
+        run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        l = [260, 280, 300]
+        '''l = [260, 280, 300]
         for i in l:
-            ap = TubeS('/home/apiiit-rkv/Desktop/uncertain/congestion', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
+            _ap = TubeS('/home/apiiit-rkv/Desktop/uncertain/congestion', i, ' ')
+            _ap.startMine()
+            Patterns = _ap.getPatterns()
             print("Total number of Patterns:", len(Patterns))
-            ap.savePatterns('/home/apiiit-rkv/Desktop/uncertain/output')
-            memUSS = ap.getMemoryUSS()
+            _ap.savePatterns('/home/apiiit-rkv/Desktop/uncertain/output')
+            memUSS = _ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
+            memRSS = _ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
+            run = _ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
