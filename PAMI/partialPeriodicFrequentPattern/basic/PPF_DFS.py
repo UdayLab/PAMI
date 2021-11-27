@@ -108,71 +108,71 @@ class PPF_DFS(partialPeriodicPatterns):
 
     """
 
-    path = ' '
-    iFile = ' '
-    oFile = ' '
-    sep = str()
-    minSup = str()
-    maxPer = str()
-    minPR = str()
-    tidlist = {}
-    last = 0
-    lno = 0
-    mapSupport = {}
-    finalPatterns = {}
-    runTime = float()
-    memoryUSS = float()
-    memoryRSS = float()
-    startTime = float()
-    endTime = float()
-    Database = []
+    __path = ' '
+    _partialPeriodicPatterns__iFile = ' '
+    _partialPeriodicPatterns__oFile = ' '
+    _partialPeriodicPatterns__sep = str()
+    _partialPeriodicPatterns__minSup = str()
+    _partialPeriodicPatterns__maxPer = str()
+    _partialPeriodicPatterns__minPR = str()
+    __tidlist = {}
+    __last = 0
+    __lno = 0
+    __mapSupport = {}
+    _partialPeriodicPatterns__finalPatterns = {}
+    __runTime = float()
+    _partialPeriodicPatterns__memoryUSS = float()
+    _partialPeriodicPatterns__memoryRSS = float()
+    _partialPeriodicPatterns__startTime = float()
+    _partialPeriodicPatterns__endTime = float()
+    __Database = []
 
-    def creatingItemSets(self):
+    def __creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self.__Database = []
+        if isinstance(self._partialPeriodicPatterns__iFile, pd.DataFrame):
             timeStamp, data = [], []
-            if self.iFile.empty:
+            if self._partialPeriodicPatterns__iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._partialPeriodicPatterns__iFile.columns.values.tolist()
             if 'ts' or 'TS' in i:
-                timeStamp = self.iFile['timeStamps'].tolist()
+                timeStamp = self._partialPeriodicPatterns__iFile['timeStamps'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._partialPeriodicPatterns__iFile['Transactions'].tolist()
             if 'Patterns' in i:
-                data = self.iFile['Patterns'].tolist()
+                data = self._partialPeriodicPatterns__iFile['Patterns'].tolist()
             for i in range(len(data)):
                 tr = [timeStamp[i]]
                 tr.append(data[i])
-                self.Database.append(tr)
-            self.lno = len(self.Database)
+                self.__Database.append(tr)
+            self.__lno = len(self.__Database)
 
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._partialPeriodicPatterns__iFile, str):
+            if validators.url(self._partialPeriodicPatterns__iFile):
+                data = urlopen(self._partialPeriodicPatterns__iFile)
                 for line in data:
-                    self.lno += 1
+                    self.__lno += 1
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._partialPeriodicPatterns__sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self.__Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._partialPeriodicPatterns__iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            self.lno += 1
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            self.__lno += 1
+                            temp = [i.rstrip() for i in line.split(self._partialPeriodicPatterns__sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self.__Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def getPer_Sup(self, tids):
+    def __getPer_Sup(self, tids):
         """
         calculate ip / (sup+1)
         :param tids: it represent tid list
@@ -187,21 +187,21 @@ class PPF_DFS(partialPeriodicPatterns):
         cur = 0
         if len(tids) == 0:
             return 0
-        if abs(0 - tids[0]) <= self.maxPer:
+        if abs(0 - tids[0]) <= self._partialPeriodicPatterns__maxPer:
             sup += 1
         for j in range(len(tids) - 1):
             i = j + 1
             per = abs(tids[i] - tids[j])
-            if (per <= self.maxPer):
+            if (per <= self._partialPeriodicPatterns__maxPer):
                 sup += 1
             cur = tids[j]
-        if abs(self.last - tids[len(tids) - 1]) <= self.maxPer:
+        if abs(self.__last - tids[len(tids) - 1]) <= self._partialPeriodicPatterns__maxPer:
             sup += 1
         if sup == 0:
             return 0
         return sup / (len(tids) + 1)
 
-    def getPerSup(self, tids):
+    def _partialPeriodicPatterns__getPerSup(self, tids):
         """
         calculate ip of a pattern
         :param tids: tid list of the pattern
@@ -216,20 +216,20 @@ class PPF_DFS(partialPeriodicPatterns):
         cur = 0
         if len(tids) == 0:
             return 0
-        if abs(0 - tids[0]) <= self.maxPer:
+        if abs(0 - tids[0]) <= self._partialPeriodicPatterns__maxPer:
             sup += 1
         for j in range(len(tids) - 1):
             i = j + 1
             per = abs(tids[i] - tids[j])
-            if (per <= self.maxPer):
+            if (per <= self._partialPeriodicPatterns__maxPer):
                 sup += 1
-        if abs(tids[len(tids) - 1] - self.last) <= self.maxPer:
+        if abs(tids[len(tids) - 1] - self.__last) <= self._partialPeriodicPatterns__maxPer:
             sup += 1
         if sup == 0:
             return 0
         return sup
 
-    def convert(self, value):
+    def __convert(self, value):
         """
         to convert the type of user specified minSup value
 
@@ -240,64 +240,64 @@ class PPF_DFS(partialPeriodicPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self.__Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self.__Database) * value)
             else:
                 value = int(value)
         return value
 
-    def oneItems(self, path):
+    def __oneItems(self, path):
         """
         scan all lines of database and create support list
         :param path: it represents input file name
         :return: support list each item
         """
         id1 = 0
-        self.maxPer = self.convert(self.maxPer)
-        self.minSup = self.convert(self.minSup)
-        self.minPR = float(self.minPR)
-        for line in self.Database:
-            self.lno += 1
+        self._partialPeriodicPatterns__maxPer = self.__convert(self._partialPeriodicPatterns__maxPer)
+        self._partialPeriodicPatterns__minSup = self.__convert(self._partialPeriodicPatterns__minSup)
+        self._partialPeriodicPatterns__minPR = float(self._partialPeriodicPatterns__minPR)
+        for line in self.__Database:
+            self.__lno += 1
             s = line
             n = int(s[0])
-            self.last = max(self.last, n)
+            self.__last = max(self.__last, n)
             for i in range(1, len(s)):
                 si = s[i]
-                if abs(0 - n) <= self.maxPer:
-                    if si not in self.mapSupport:
-                        self.mapSupport[si] = [1, 1, n]
-                        self.tidlist[si] = [n]
+                if abs(0 - n) <= self._partialPeriodicPatterns__maxPer:
+                    if si not in self.__mapSupport:
+                        self.__mapSupport[si] = [1, 1, n]
+                        self.__tidlist[si] = [n]
                     else:
-                        lp = abs(n - self.mapSupport[si][2])
-                        if lp <= self.maxPer:
-                            self.mapSupport[si][0] += 1
-                        self.mapSupport[si][1] += 1
-                        self.mapSupport[si][2] = n
-                        self.tidlist[si].append(n)
+                        lp = abs(n - self.__mapSupport[si][2])
+                        if lp <= self._partialPeriodicPatterns__maxPer:
+                            self.__mapSupport[si][0] += 1
+                        self.__mapSupport[si][1] += 1
+                        self.__mapSupport[si][2] = n
+                        self.__tidlist[si].append(n)
                 else:
-                    if si not in self.mapSupport:
-                        self.mapSupport[si] = [0, 1, n]
-                        self.tidlist[si] = [n]
+                    if si not in self.__mapSupport:
+                        self.__mapSupport[si] = [0, 1, n]
+                        self.__tidlist[si] = [n]
                     else:
-                        lp = abs(n - self.mapSupport[si][2])
-                        if lp <= self.maxPer:
-                            self.mapSupport[si][0] += 1
-                        self.mapSupport[si][1] += 1
-                        self.mapSupport[si][2] = n
-                        self.tidlist[si].append(n)
-        for x, y in self.mapSupport.items():
-            lp = abs(self.last - self.mapSupport[x][2])
-            if lp <= self.maxPer:
-                self.mapSupport[x][0] += 1
-        self.mapSupport = {k: [v[1], v[0]] for k, v in self.mapSupport.items() if
-                           v[1] >= self.minSup and v[0] / (self.minSup + 1) >= self.minPR}
-        plist = [key for key, value in sorted(self.mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
+                        lp = abs(n - self.__mapSupport[si][2])
+                        if lp <= self._partialPeriodicPatterns__maxPer:
+                            self.__mapSupport[si][0] += 1
+                        self.__mapSupport[si][1] += 1
+                        self.__mapSupport[si][2] = n
+                        self.__tidlist[si].append(n)
+        for x, y in self.__mapSupport.items():
+            lp = abs(self.__last - self.__mapSupport[x][2])
+            if lp <= self._partialPeriodicPatterns__maxPer:
+                self.__mapSupport[x][0] += 1
+        self.__mapSupport = {k: [v[1], v[0]] for k, v in self.__mapSupport.items() if
+                             v[1] >= self._partialPeriodicPatterns__minSup and v[0] / (self._partialPeriodicPatterns__minSup + 1) >= self._partialPeriodicPatterns__minPR}
+        plist = [key for key, value in sorted(self.__mapSupport.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
         return plist
 
-    def save(self, prefix, suffix, tidsetx):
+    def __save(self, prefix, suffix, tidsetx):
         """
         sava prefix patterns with support and periodic ratio
         :param prefix: prefix patterns
@@ -312,12 +312,12 @@ class PPF_DFS(partialPeriodicPatterns):
             prefix = suffix
         else:
             prefix = prefix + suffix
-        val = self.getPerSup(tidsetx)
-        val1 = self.getPer_Sup(tidsetx)
-        if len(tidsetx) >= self.minSup and val / (len(tidsetx) + 1) >= self.minPR:
-            self.finalPatterns[tuple(prefix)] = [len(tidsetx), val1]
+        val = self._partialPeriodicPatterns__getPerSup(tidsetx)
+        val1 = self.__getPer_Sup(tidsetx)
+        if len(tidsetx) >= self._partialPeriodicPatterns__minSup and val / (len(tidsetx) + 1) >= self._partialPeriodicPatterns__minPR:
+            self._partialPeriodicPatterns__finalPatterns[tuple(prefix)] = [len(tidsetx), val1]
 
-    def Generation(self, prefix, itemsets, tidsets):
+    def __Generation(self, prefix, itemsets, tidsets):
         """
         here equibalence class is followed amd checks fro the patterns generated for periodic frequent patterns.
         :param prefix: main equivalence prefix
@@ -331,7 +331,7 @@ class PPF_DFS(partialPeriodicPatterns):
         if (len(itemsets) == 1):
             i = itemsets[0]
             tidi = tidsets[0]
-            self.save(prefix, [i], tidi)
+            self.__save(prefix, [i], tidi)
             return
         for i in range(len(itemsets)):
             itemx = itemsets[i]
@@ -345,49 +345,49 @@ class PPF_DFS(partialPeriodicPatterns):
                 itemj = itemsets[j]
                 tidsetj = tidsets[j]
                 y = list(set(tidsetx) & set(tidsetj))
-                val = self.getPerSup(y)
-                if len(y) >= self.minSup and val / (self.minSup + 1) >= self.minPR:
+                val = self._partialPeriodicPatterns__getPerSup(y)
+                if len(y) >= self._partialPeriodicPatterns__minSup and val / (self._partialPeriodicPatterns__minSup + 1) >= self._partialPeriodicPatterns__minPR:
                     classItemsets.append(itemj)
                     classtidsets.append(y)
             newprefix = list(set(itemsetx)) + prefix
-            self.Generation(newprefix, classItemsets, classtidsets)
-            self.save(prefix, list(set(itemsetx)), tidsetx)
+            self.__Generation(newprefix, classItemsets, classtidsets)
+            self.__save(prefix, list(set(itemsetx)), tidsetx)
 
     def startMine(self):
         """
         Main program start with extracting the periodic frequent items from the database and
         performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
         """
-        self.path = self.iFile
-        self.startTime = time.time()
-        self.creatingItemSets()
-        plist = self.oneItems(self.path)
+        self.__path = self._partialPeriodicPatterns__iFile
+        self._partialPeriodicPatterns__startTime = time.time()
+        self.__creatingItemSets()
+        plist = self.__oneItems(self.__path)
         #print(len(plist))
-        self.finalPatterns = {}
+        self._partialPeriodicPatterns__finalPatterns = {}
         for i in range(len(plist)):
             itemx = plist[i]
-            tidsetx = self.tidlist[itemx]
+            tidsetx = self.__tidlist[itemx]
             itemsetx = [itemx]
             itemsets = []
             tidsets = []
             for j in range(i + 1, len(plist)):
                 itemj = plist[j]
-                tidsetj = self.tidlist[itemj]
+                tidsetj = self.__tidlist[itemj]
                 y1 = list(set(tidsetx) & set(tidsetj))
-                val = self.getPerSup(y1)
+                val = self._partialPeriodicPatterns__getPerSup(y1)
                 # if(len(y1)>=minsup and val/(len(y1)+1)>=minpr):
-                if len(y1) >= self.minSup and val / (self.minSup + 1) >= self.minPR:
+                if len(y1) >= self._partialPeriodicPatterns__minSup and val / (self._partialPeriodicPatterns__minSup + 1) >= self._partialPeriodicPatterns__minPR:
                     itemsets.append(itemj)
                     tidsets.append(y1)
-            self.Generation(itemsetx, itemsets, tidsets)
-            self.save(None, itemsetx, tidsetx)
-        self.endTime = time.time()
-        self.runTime = (self.endTime- self.startTime)
+            self.__Generation(itemsetx, itemsets, tidsets)
+            self.__save(None, itemsetx, tidsetx)
+        self._partialPeriodicPatterns__endTime = time.time()
+        self.__runTime = (self._partialPeriodicPatterns__endTime - self._partialPeriodicPatterns__startTime)
         process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._partialPeriodicPatterns__memoryUSS = float()
+        self._partialPeriodicPatterns__memoryRSS = float()
+        self._partialPeriodicPatterns__memoryUSS = process.memory_full_info().uss
+        self._partialPeriodicPatterns__memoryRSS = process.memory_info().rss
         # print("eclat Time taken:",temp)
         # print("eclat Memory Space:",resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
 
@@ -397,7 +397,7 @@ class PPF_DFS(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._partialPeriodicPatterns__memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -405,7 +405,7 @@ class PPF_DFS(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._partialPeriodicPatterns__memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -413,7 +413,7 @@ class PPF_DFS(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.runTime
+        return self.__runTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -423,7 +423,7 @@ class PPF_DFS(partialPeriodicPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._partialPeriodicPatterns__finalPatterns.items():
             data.append([a, b[0], b[1]])
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
@@ -433,9 +433,9 @@ class PPF_DFS(partialPeriodicPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._partialPeriodicPatterns__oFile = outFile
+        writer = open(self._partialPeriodicPatterns__oFile, 'w+')
+        for x, y in self._partialPeriodicPatterns__finalPatterns.items():
             s1 = str(x) + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -444,7 +444,7 @@ class PPF_DFS(partialPeriodicPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._partialPeriodicPatterns__finalPatterns
 
 
 if __name__ == '__main__':

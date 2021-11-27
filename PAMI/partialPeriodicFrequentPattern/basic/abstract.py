@@ -63,68 +63,68 @@ class partialPeriodicPatterns(ABC):
         :type minSup: float/int
         """
 
-        self.iFile = iFile
-        self.minSup = minSup
-        self.maxPer = maxPer
-        self.minPR = minPR
-        self.sep = sep
+        self._partialPeriodicPatterns__iFile = iFile
+        self._partialPeriodicPatterns__minSup = minSup
+        self._partialPeriodicPatterns__maxPer = maxPer
+        self._partialPeriodicPatterns__minPR = minPR
+        self._partialPeriodicPatterns__sep = sep
 
     @abstractmethod
-    def iFile(self):
+    def __iFile(self):
         """Variable to store the input file path/file name"""
 
         pass
 
     @abstractmethod
-    def minSup(self):
+    def __minSup(self):
         """Variable to store the user-specified minimum support value"""
 
         pass
 
     @abstractmethod
-    def maxPer(self):
+    def __maxPer(self):
         """Variable to store the user specified maximum periodicity value"""
 
         pass
 
     @abstractmethod
-    def sep(self):
+    def __sep(self):
         """Variable to store the user specified maximum periodicity value"""
 
         pass
 
     @abstractmethod
-    def startTime(self):
+    def __startTime(self):
         """Variable to store the start time of the mining process"""
 
         pass
 
     @abstractmethod
-    def endTime(self):
+    def __endTime(self):
         """Variable to store the end time of the complete program"""
 
         pass
 
     @abstractmethod
-    def memoryUSS(self):
+    def __memoryUSS(self):
         """Variable to store the end time of the complete program"""
 
         pass
 
     @abstractmethod
-    def memoryRSS(self):
+    def __memoryRSS(self):
         """Variable to store the end time of the complete program"""
 
         pass
 
     @abstractmethod
-    def finalPatterns(self):
+    def __finalPatterns(self):
         """Variable to store the complete set of patterns in a dictionary"""
 
         pass
 
     @abstractmethod
-    def oFile(self):
+    def __oFile(self):
         """Variable to store the name of the output file to store the complete set of frequent patterns"""
 
         pass

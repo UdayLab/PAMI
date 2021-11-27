@@ -519,21 +519,21 @@ class GPFgrowth(partialPeriodicPatterns):
 
         print("Total ExecutionTime in seconds:", run)
     """
-    iFile = ' '
-    oFile = ' '
-    sep = str()
-    startTime = float()
-    endTime = float()
-    minSup = str()
-    maxPer = str()
-    minPR = str()
-    finalPatterns = {}
+    _partialPeriodicPatterns__iFile = ' '
+    _partialPeriodicPatterns__oFile = ' '
+    _partialPeriodicPatterns__sep = str()
+    _partialPeriodicPatterns__startTime = float()
+    _partialPeriodicPatterns__endTime = float()
+    _partialPeriodicPatterns__minSup = str()
+    _partialPeriodicPatterns__maxPer = str()
+    _partialPeriodicPatterns__minPR = str()
+    _partialPeriodicPatterns__finalPatterns = {}
     runTime = 0
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
+    _partialPeriodicPatterns__memoryUSS = float()
+    _partialPeriodicPatterns__memoryRSS = float()
+    __Database = []
 
-    def convert(self, value):
+    def __convert(self, value):
         """
         to convert the type of user specified minSup value
 
@@ -544,66 +544,66 @@ class GPFgrowth(partialPeriodicPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self.__Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self.__Database) * value)
             else:
                 value = int(value)
         return value
 
-    def readDatabase(self):
-        if isinstance(self.inputFile, pd.DataFrame):
-            if self.inputFile.empty:
+    def __readDatabase(self):
+        if isinstance(self.__inputFile, pd.DataFrame):
+            if self.__inputFile.empty:
                 print("its empty..")
-            i = self.inputFile.columns.values.tolist()
+            i = self.__inputFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.inputFile['Transactions'].tolist()
+                self.Database = self.__inputFile['Transactions'].tolist()
             if 'Patterns' in i:
-                self.Database = self.inputFile['Patterns'].tolist()
-        if isinstance(self.inputFile, str):
-            if validators.url(self.inputFile):
-                data = urlopen(self.inputFile)
+                self.__Database = self.__inputFile['Patterns'].tolist()
+        if isinstance(self.__inputFile, str):
+            if validators.url(self.__inputFile):
+                data = urlopen(self.__inputFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._partialPeriodicPatterns__sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self.__Database.append(temp)
             else:
                 try:
-                    with open(self.inputFile, 'r', encoding='utf-8') as f:
+                    with open(self.__inputFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._partialPeriodicPatterns__sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self.__Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
 
     def startMine(self):
-        self.inputFile = self.iFile
-        self.startTime = time.time()
-        self.readDatabase()
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
+        self.__inputFile = self._partialPeriodicPatterns__iFile
+        self._partialPeriodicPatterns__startTime = time.time()
+        self.__readDatabase()
+        self._partialPeriodicPatterns__minSup = self.__convert(self._partialPeriodicPatterns__minSup)
+        self._partialPeriodicPatterns__maxPer = self.__convert(self._partialPeriodicPatterns__maxPer)
         # self.minPR = self.convert(self.minPR)
-        self.finalPatterns = {}
-        obj = generatePFListver2(self.Database, self.minSup, self.maxPer, self.minPR)
+        self._partialPeriodicPatterns__finalPatterns = {}
+        obj = generatePFListver2(self.__Database, self._partialPeriodicPatterns__minSup, self._partialPeriodicPatterns__maxPer, self._partialPeriodicPatterns__minPR)
         tidList, last = obj.run()
-        PFTree = generatePFTreever2(self.Database, tidList).run()
-        obj2 = PFgrowth(PFTree, [], tidList, self.minSup, self.maxPer, self.minPR, last)
-        self.finalPatterns = obj2.run()
-        self.endTime = time.time()
-        self.runTime = self.endTime - self.startTime
+        PFTree = generatePFTreever2(self.__Database, tidList).run()
+        obj2 = PFgrowth(PFTree, [], tidList, self._partialPeriodicPatterns__minSup, self._partialPeriodicPatterns__maxPer, self._partialPeriodicPatterns__minPR, last)
+        self._partialPeriodicPatterns__finalPatterns = obj2.run()
+        self._partialPeriodicPatterns__endTime = time.time()
+        self.__runTime = self._partialPeriodicPatterns__endTime - self._partialPeriodicPatterns__startTime
         process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._partialPeriodicPatterns__memoryUSS = float()
+        self._partialPeriodicPatterns__memoryRSS = float()
+        self._partialPeriodicPatterns__memoryUSS = process.memory_full_info().uss
+        self._partialPeriodicPatterns__memoryRSS = process.memory_info().rss
 
 
     def getMemoryUSS(self):
@@ -612,7 +612,7 @@ class GPFgrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._partialPeriodicPatterns__memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -620,7 +620,7 @@ class GPFgrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._partialPeriodicPatterns__memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -628,7 +628,7 @@ class GPFgrowth(partialPeriodicPatterns):
         :rtype: float
         """
 
-        return self.runTime
+        return self.__runTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -638,7 +638,7 @@ class GPFgrowth(partialPeriodicPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._partialPeriodicPatterns__finalPatterns.items():
             data.append([a, b[0], b[1]])
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
@@ -650,7 +650,7 @@ class GPFgrowth(partialPeriodicPatterns):
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        for x, y in self._partialPeriodicPatterns__finalPatterns.items():
             s1 = str(x) + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -659,7 +659,7 @@ class GPFgrowth(partialPeriodicPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._partialPeriodicPatterns__finalPatterns
 
 if __name__ == '__main__':
     ap = str()
