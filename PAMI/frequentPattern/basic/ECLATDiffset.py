@@ -213,7 +213,7 @@ class ECLATDiffset(_ab._frequentPatterns):
                 self._diffSets[key] = [supp, self._trans_set.difference(value)]
                 uniqueItem.append(key)
 
-        uniqueItem.sort(key=int)
+        uniqueItem.sort()
         # print()
         return uniqueItem
 
