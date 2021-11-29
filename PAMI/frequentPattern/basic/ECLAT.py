@@ -189,7 +189,7 @@ class ECLAT(_ab._frequentPatterns):
             if supp >= self._minSup:
                 self._finalPatterns[key] = [value]
                 uniqueItem.append(key)
-        uniqueItem.sort(key=int)
+        uniqueItem.sort()
         return uniqueItem
 
     def _generateFrequentPatterns(self, candidateFrequent):
