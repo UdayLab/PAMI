@@ -331,28 +331,29 @@ class ECLAT(_ab._frequentPatterns):
 
 
 if __name__ == "__main__":
-    ap = str()
+    _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(_ab._sys.argv[2])
-        print(ap.getPatternsAsDataFrame())
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+            _ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(_Patterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        print(_ap.getPatternsAsDataFrame())
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
-        l = [6000]
+        '''l = [3000, 4000, 5000, 6000]
         for i in l:
             ap = ECLAT('/Users/Likhitha/Downloads/mushrooms.txt', i, ' ')
             ap.startMine()
+            print(ap._minSup)
             Patterns = ap.getPatterns()
             print("Total number of Frequent Patterns:", len(Patterns))
             ap.savePatterns('/Users/Likhitha/Downloads/output')
@@ -361,5 +362,5 @@ if __name__ == "__main__":
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

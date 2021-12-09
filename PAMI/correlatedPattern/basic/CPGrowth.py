@@ -373,6 +373,7 @@ class CPGrowth(_ab._correlatedPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
+                            print(temp)
                             self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
@@ -663,7 +664,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in seconds:", _run)
     else:
-        '''l = [0.0007, 0.0009, 0.001, 0.002, 0.003, 0.01]
+        l = [0.0007, 0.0009, 0.001, 0.002, 0.003, 0.01]
         for i in l:
             ap = CPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_retail.csv',
                           i, 0.7)
@@ -677,5 +678,5 @@ if __name__ == "__main__":
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)'''
+            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
