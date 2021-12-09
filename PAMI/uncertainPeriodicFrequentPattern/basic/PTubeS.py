@@ -751,8 +751,8 @@ class PTubeS(_ab._periodicFrequentPatterns):
         updatedTrans = self._updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         Tree = self._buildTree(updatedTrans, info)
-        self.periodic = {}
-        Tree.generatePatterns([], self.periodic)
+        self._periodic = {}
+        Tree.generatePatterns([], self._periodic)
         self._removeFalsePositives()
         print("periodic Frequent patterns were generated successfully using Periodic-TubeS algorithm")
         self._endTime = _ab._time.time()
@@ -832,27 +832,27 @@ class PTubeS(_ab._periodicFrequentPatterns):
 
 
 if __name__ == "__main__":
-    ap = str()
+    _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            ap = PTubeS(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = PTubeS(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            ap = PTubeS(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Patterns:", len(Patterns))
-        ap.savePatterns(_ab._sys.argv[2])
+            _ap = PTubeS(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Patterns:", len(_Patterns))
+        _ap.savePatterns(_ab._sys.argv[2])
         # print(ap.getPatternsAsDataFrame())
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
-        '''l = [100, 120, 140, 160, 180, 200]
+        l = [140]
         for i in l:
-            ap = PTubeS('/home/apiiit-rkv/Desktop/uncertain/congestion', i, 2000, ' ')
+            ap = PTubeS('/home/apiiit-rkv/Desktop/uncertain/congestion_temporal.txt', i, 2000, ' ')
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of Patterns:", len(Patterns))
@@ -862,5 +862,5 @@ if __name__ == "__main__":
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

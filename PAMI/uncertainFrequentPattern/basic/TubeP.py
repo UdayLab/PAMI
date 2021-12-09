@@ -236,7 +236,7 @@ class _Tree(object):
 
             :type support: list
         """
-        global minSup
+        global _minSup
         pat = []
         sup = []
         data1 = {}
@@ -247,7 +247,7 @@ class _Tree(object):
                 else:
                     data1[j] = support[i]
         updatedDict = {}
-        updatedDict = {k: v for k, v in data1.items() if v >= minSup}
+        updatedDict = {k: v for k, v in data1.items() if v >= _minSup}
         count = 0
         for p in condPatterns:
             p1 = [v for v in p if v in updatedDict]
@@ -414,9 +414,9 @@ class TubeP(_fp._frequentPatterns):
     """
     __startTime = float()
     __endTime = float()
-    minSup = str()
+    _minSup = str()
     __finalPatterns = {}
-    iFile = " "
+    _iFile = " "
     oFile = " "
     sep = " "
     __memoryUSS = float()
@@ -433,15 +433,15 @@ class TubeP(_fp._frequentPatterns):
         Scans the dataset and stores the transactions into Database variable
         """
         self.__Database = []
-        if isinstance(self.iFile, _fp._pd.DataFrame):
+        if isinstance(self._iFile, _fp._pd.DataFrame):
             uncertain, data = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.__Database = self.iFile['Transactions'].tolist()
+                self.__Database = self._iFile['Transactions'].tolist()
             if 'uncertain' in i:
-                uncertain = self.iFile['uncertain'].tolist()
+                uncertain = self._iFile['uncertain'].tolist()
             for k in range(len(data)):
                 tr = []
                 for j in range(len(data[k])):
@@ -450,9 +450,9 @@ class TubeP(_fp._frequentPatterns):
                 self.__Database.append(tr)
 
             # print(self.Database)
-        if isinstance(self.iFile, str):
-            if _fp._validators.url(self.iFile):
-                data = _fp._urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _fp._validators.url(self._iFile):
+                data = _fp._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
@@ -469,7 +469,7 @@ class TubeP(_fp._frequentPatterns):
                     self.__Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r') as f:
+                    with open(self._iFile, 'r') as f:
                         for line in f:
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
@@ -490,7 +490,7 @@ class TubeP(_fp._frequentPatterns):
                     ranks to the items by decreasing support and returns the frequent items list
 
         """
-        global minSup
+        global _minSup
         mapSupport = {}
         for i in self.__Database:
             for j in i:
@@ -498,7 +498,7 @@ class TubeP(_fp._frequentPatterns):
                     mapSupport[j.item] = round(j.probability, 2)
                 else:
                     mapSupport[j.item] += round(j.probability, 2)
-        mapSupport = {k: round(v, 2) for k, v in mapSupport.items() if v >= self.minSup}
+        mapSupport = {k: round(v, 2) for k, v in mapSupport.items() if v >= self._minSup}
         plist = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.__rank = dict([(index, item) for (item, index) in enumerate(plist)])
         return mapSupport, plist
@@ -604,7 +604,7 @@ class TubeP(_fp._frequentPatterns):
                         else:
                             periods[x] = s
         for x, y in periods.items():
-            if y >= self.minSup:
+            if y >= self._minSup:
                 sample = str()
                 for i in x:
                     sample = sample + i + " "
@@ -616,11 +616,11 @@ class TubeP(_fp._frequentPatterns):
 
 
         """
-        global minSup
+        global _minSup
         self.__startTime = _fp._time.time()
         self.__creatingItemSets()
-        self.minSup = self.__convert(self.minSup)
-        minSup = self.minSup
+        self._minSup = self.__convert(self._minSup)
+        _minSup = self._minSup
         self.__finalPatterns = {}
         mapSupport, plist = self.__frequentOneItem()
         transactions1 = self.__updateTransactions(mapSupport)
@@ -723,7 +723,7 @@ if __name__ == "__main__":
         run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
-        '''l = [200, 220, 240, 260, 280, 300]
+        l = [200, 220, 240, 260, 280, 300]
         for i in l:
             _ap = TubeP('/home/apiiit-rkv/Desktop/uncertain/congestion', i, ' ')
             _ap.startMine()
@@ -735,5 +735,5 @@ if __name__ == "__main__":
             memRSS = _ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = _ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
