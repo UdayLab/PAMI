@@ -158,6 +158,8 @@ class Dataset:
     def __init__(self,datasetPath, sep):
         self.strToInt = {}
         self.intToStr = {}
+        self.transactions = []
+        self.maxItem = 0
         self.cnt = 1
         self.sep = sep
         self.createItemsets(datasetPath)
@@ -374,7 +376,7 @@ class EFIM(utilityPatterns):
     strToInt = {}
     intToStr = {}
     Neighbours = {}
-    temp = [0]*5000
+    temp = [0] * 5000
     patternCount = int()
     maxMemory = 0
     startTime = float()
@@ -388,13 +390,31 @@ class EFIM(utilityPatterns):
     minUtil = 0
     memoryUSS = float()
     memoryRSS = float()
+    startTime = time.time()
 
     def __init__(self, iFile, minUtil, sep="\t"):
         super().__init__(iFile, minUtil, sep)
+        self.sep = sep
+        self.highUtilityitemSets = []
+        self.candidateCount = 0
+        self.utilityBinArrayLU = {}
+        self.utilityBinArraySU = {}
+        self.oldNamesToNewNames = {}
+        self.newNamesToOldNames = {}
+        self.strToInt = {}
+        self.intToStr = {}
+        self.Neighbours = {}
+        self.temp = [0] * 5000
+        self.patternCount = 0
+        self.maxMemory = 0
+        self.endTime = float()
+        self.finalPatterns = {}
+        self.lno = 0
+        self.memoryUSS = float()
+        self.memoryRSS = float()
 
     def startMine(self):
         self.startTime = time.time()
-        self.finalPatterns = {}
         self.dataset = Dataset(self.iFile, self.sep)
         self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
         minUtil = int(self.minUtil)
@@ -510,7 +530,8 @@ class EFIM(utilityPatterns):
                     newItemsToKeep.append(itemK)
                 elif self.utilityBinArrayLU[itemK] >= self.minUtil:
                     newItemsToKeep.append(itemK)
-            self.backTrackingEFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
+            if len(transactionsPe) != 0:
+                self.backTrackingEFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
 
     def useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
         """
@@ -761,11 +782,11 @@ if __name__ == '__main__':
     else:
         l = [200000, 300000, 400000, 500000]
         for i in l:
-            ap = EFIM('/Users/Likhitha/Downloads/mushroom_utility_SPMF.txt', i, ' ')
+            ap = EFIM('/home/pradeep/Downloads/mushroom_utility_SPMF.txt', i, ' ')
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            ap.savePatterns('/home/pradeep/Downloads/output.txt')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()
