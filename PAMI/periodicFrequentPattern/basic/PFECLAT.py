@@ -13,10 +13,10 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.periodicFrequentPattern.basic.abstract import *
+import abstract as _ab
 
 
-class PFECLAT(periodicFrequentPatterns):
+class PFECLAT(_ab._periodicFrequentPatterns):
     """ EclatPFP is the fundamental approach to mine the periodic-frequent patterns.
 
         Reference:
@@ -138,34 +138,34 @@ class PFECLAT(periodicFrequentPatterns):
 
         """
     
-    iFile = " "
-    oFile = " "
-    sep = " "
-    dbSize = None
-    Database = None
-    minSup = str()
-    maxPer = str()
-    tidSet = set()
-    finalPatterns = {}
-    startTime = None
-    endTime = None
-    memoryUSS = float()
-    memoryRSS = float()
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _dbSize = None
+    _Database = None
+    _minSup = str()
+    _maxPer = str()
+    _tidSet = set()
+    _finalPatterns = {}
+    _startTime = None
+    _endTime = None
+    _memoryUSS = float()
+    _memoryRSS = float()
 
-    def getPeriodic(self, tids: set):
+    def _getPeriodic(self, tids: set):
         tidList = list(tids)
         tidList.sort()
-        tidList.append(self.dbSize)
+        tidList.append(self._dbSize)
         cur = 0
         per = 0
         for tid in tidList:
             per = max(per, tid - cur)
-            if per > self.maxPer:  # early stopping
+            if per > self._maxPer:  # early stopping
                 break
             cur = tid
         return per
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -175,48 +175,48 @@ class PFECLAT(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.dbSize * value)
+            value = (self._dbSize * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.dbSize * value)
+                value = (self._dbSize * value)
             else:
                 value = int(value)
         return value
 
-    def creatingOneItemSets(self):
+    def _creatingOneItemSets(self):
         """Storing the complete transactions of the database/input file in a database variable
         """
         plist = []
         Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        if isinstance(self._iFile, _ab._pd.DataFrame):
             ts, data = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                ts = self.iFile['TS'].tolist()
+                ts = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [ts[i][0]]
                 tr = tr + data[i]
                 Database.append(tr)
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
                     Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             Database.append(temp)
                 except IOError:
@@ -227,7 +227,7 @@ class PFECLAT(periodicFrequentPatterns):
         periodicHelper = {}  # {key: item, value: [period, last_tid]}
         for line in Database:
             tid = int(line[0])
-            self.tidSet.add(tid)
+            self._tidSet.add(tid)
             for item in line[1:]:
                 if item in itemsets:
                     itemsets[item].add(tid)
@@ -239,23 +239,23 @@ class PFECLAT(periodicFrequentPatterns):
                     periodicHelper[item] = [abs(0 - tid), tid]  # initialize helper
 
         # finish all items' period
-        self.dbSize = len(Database)
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
+        self._dbSize = len(Database)
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
         del Database
         for item, _ in periodicHelper.items():
             periodicHelper[item][0] = max(periodicHelper[item][0],
-                                          abs(self.dbSize - periodicHelper[item][1]))  # tid of the last transaction
+                                          abs(self._dbSize - periodicHelper[item][1]))  # tid of the last transaction
         candidates = []
         for item, tids in itemsets.items():
             per = periodicHelper[item][0]
             sup = len(tids)
-            if sup >= self.minSup and per <= self.maxPer:
+            if sup >= self._minSup and per <= self._maxPer:
                 candidates.append(item)
-                self.finalPatterns[item] = [sup, per, tids]
+                self._finalPatterns[item] = [sup, per, tids]
         return candidates
     
-    def generateEclat(self, candidates):
+    def _generateEclat(self, candidates):
         newCandidates = []
         for i in range(0, len(candidates)):
             prefixItem = candidates[i]
@@ -264,29 +264,29 @@ class PFECLAT(periodicFrequentPatterns):
                 item = candidates[j]
                 itemSet = item.split()
                 if prefixItemSet[:-1] == itemSet[:-1] and prefixItemSet[-1] != itemSet[-1]:
-                    _value = self.finalPatterns[item][2].intersection(self.finalPatterns[prefixItem][2])
+                    _value = self._finalPatterns[item][2].intersection(self._finalPatterns[prefixItem][2])
                     sup = len(_value)
-                    per = self.getPeriodic(_value)
-                    if sup >= self.minSup and per <= self.maxPer:
+                    per = self._getPeriodic(_value)
+                    if sup >= self._minSup and per <= self._maxPer:
                         newItem = prefixItem + " " + itemSet[-1]
-                        self.finalPatterns[newItem] = [sup, per, _value]
+                        self._finalPatterns[newItem] = [sup, per, _value]
                         newCandidates.append(newItem)
 
         if len(newCandidates) > 0:
-            self.generateEclat(newCandidates)
+            self._generateEclat(newCandidates)
     
     def startMine(self):
         #print(f"Optimized {type(self).__name__}")
-        self.startTime = time.time()
-        self.finalPatterns = {}
-        frequentSets = self.creatingOneItemSets()
-        self.generateEclat(frequentSets)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryRSS = float()
-        self.memoryUSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._startTime = _ab._time.time()
+        self._finalPatterns = {}
+        frequentSets = self._creatingOneItemSets()
+        self._generateEclat(frequentSets)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -295,7 +295,7 @@ class PFECLAT(periodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -304,7 +304,7 @@ class PFECLAT(periodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -314,7 +314,7 @@ class PFECLAT(periodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final periodic-frequent patterns in a dataframe
@@ -325,9 +325,9 @@ class PFECLAT(periodicFrequentPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b[0], b[1]])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
     def savePatterns(self, outFile):
@@ -336,9 +336,9 @@ class PFECLAT(periodicFrequentPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
@@ -348,25 +348,25 @@ class PFECLAT(periodicFrequentPatterns):
         :return: returning periodic-frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
                     
 
 if __name__ == "__main__":
-    ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = PFECLAT(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = PFECLAT(sys.argv[1], sys.argv[3], sys.argv[4])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Periodic-Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+    _ap = str()
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:
+            _ap = PFECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:
+            _ap = PFECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Periodic-Frequent Patterns:", len(_Patterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

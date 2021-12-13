@@ -14,7 +14,7 @@
 #      along with this program.  If not,  see <https://www.gnu.org/licenses/>.
 
 
-from PAMI.uncertainFrequentPattern.basic import abstract as _fp
+import abstract as _fp
 
 minSup = float()
 _fp._sys.setrecursionlimit(20000)
@@ -744,15 +744,15 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 4:
             _ap = TubeS(_fp._sys.argv[1], _fp._sys.argv[3])
         _ap.startMine()
-        Patterns = _ap.getPatterns()
-        print("Total number of  Patterns:", len(Patterns))
+        _Patterns = _ap.getPatterns()
+        print("Total number of  Patterns:", len(_Patterns))
         _ap.savePatterns(_fp._sys.argv[2])
-        memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         '''l = [260, 280, 300]
         for i in l:

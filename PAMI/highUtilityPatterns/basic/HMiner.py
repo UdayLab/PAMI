@@ -1,11 +1,10 @@
-import sys
-from PAMI.highUtilityPatterns.basic.abstract import *
+
+import abstract as _ab
 
 
-class Element:
+class _Element:
     """
     A class represents an Element of a utility list .
-
     Attributes :
     ----------
         ts : int
@@ -28,10 +27,9 @@ class Element:
         self.ppos = ppos
 
 
-class CUList:
+class _CUList:
     """
         A class represents a UtilityList
-
     Attributes :
     ----------
         item: int
@@ -48,12 +46,12 @@ class CUList:
             the sum of closed prefix utilities
         elements: list
             the list of elements 
-
     Methods :
     -------
         addElement(element)
             Method to add an element to this utility list and update the sums at the same time.
     """
+
     def __init__(self, item):
         self.item = item
         self.sumnu = 0
@@ -74,19 +72,19 @@ class CUList:
         self.elements.append(element)
 
 
-class Pair:
+class _Pair:
     """
         A class represent an item and its utility in a transaction
     """
+
     def __init__(self):
         self.item = 0
         self.utility = 0
 
 
-class HMiner(utilityPatterns):
+class HMiner(_ab._utilityPatterns):
     """
         High Utility itemSet Mining (HMIER) is an importent algorithm to miner High utility items from the database.
-
     Attributes:
     ----------
         iFile : file
@@ -135,193 +133,186 @@ class HMiner(utilityPatterns):
             A method to updates vales for duplicates
         construcCUL(x, culs, st, minUtil, length, exnighbors)
             A method to construct CUL's database
-
     Executing the code on terminal :
     -------
         Format:
             python3 HMiner.py <inputFile> <outputFile> <minUtil>
-
             python3 HMiner.py <inputFile> <outputFile> <minUtil> <separator>
         Examples:
             python3 HMiner.py sampleTDB.txt output.txt 35 (separator will be "\t")
-
             python3 HMiner.py sampleTDB.txt output.txt 35 ,  (separator will be "," in input file)
-
     Sample run of importing the code:
     -------------------------------
-        
+
         from PAMI.highUtilityPatterns.basic import HMiner as alg
-
+        
         obj = alg.HMiner("input.txt",35)
-
+        
         obj.startMine()
-
+        
         Patterns = obj.getPatterns()
-
+        
         print("Total number of high utility Patterns:", len(Patterns))
-
+        
         obj.savePatterns("output")
-
+        
         memUSS = obj.getMemoryUSS()
-
+        
         print("Total Memory in USS:", memUSS)
-
+        
         memRSS = obj.getMemoryRSS()
-
+        
         print("Total Memory in RSS", memRSS)
-
+        
         run = obj.getRuntime()
-
+        
         print("Total ExecutionTime in seconds:", run)
-
+    
     Credits:
     -------
         The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
-            
+
     """
-    
-    startTime = float()
-    endTime = float()
-    minSup = str()
-    maxPer = float()
-    finalPatterns = {}
-    Database = {}
-    transactions = []
-    utilities = []
-    utilitySum = []
-    iFile = " "
-    oFile = " "
-    minUtil = 0
-    sep = "\t"
-    memoryUSS = float()
-    memoryRSS = float()
+
+    _startTime = float()
+    _endTime = float()
+    _minSup = str()
+    _maxPer = float()
+    _finalPatterns = {}
+    _Database = {}
+    _transactions = []
+    _utilities = []
+    _utilitySum = []
+    _iFile = " "
+    _oFile = " "
+    _minUtil = 0
+    _sep = "\t"
+    _memoryUSS = float()
+    _memoryRSS = float()
 
     def __init__(self, iFile1, minUtil, sep="\t"):
         super().__init__(iFile1, minUtil, sep)
-        self.start = 0
-        self.end = 0
-        self.hui_cnt = 0
-        self.candidates = 0
-        self.mapOfTWU = {}
-        self.minutil = 0
-        self.mapFMAP = {}
-        self.finalPatterns = {}
+        self._huiCount = 0
+        self._candidates = 0
+        self._mapOfTWU = {}
+        self._minutil = 0
+        self._mapFMAP = {}
+        self._finalPatterns = {}
 
-    def HMiner(self, o1, o2):
+    def _HMiner(self, o1, o2):
         """
             A method to sort  list of huis in TWU asending order
         """
-        compare = self.mapOfTWU[o1.item] - self.mapOfTWU[o2.item]
+        compare = self._mapOfTWU[o1.item] - self._mapOfTWU[o2.item]
         if compare == 0:
             return int(o1.item) - int(o2.item)
         else:
             return compare
 
-    def creteItemsets(self):
-        self.transactions, self.utilities, self.utilitySum = [], [], []
-        if isinstance(self.iFile, pd.DataFrame):
-            if self.iFile.empty:
+    def _creteItemsets(self):
+        self._transactions, self._utilities, self._utilitySum = [], [], []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.transactions = self.iFile['Transactions'].tolist()
+                self._transactions = self._iFile['Transactions'].tolist()
             if 'Utilities' in i:
-                self.utilities = self.iFile['Utilities'].tolist()
+                self._utilities = self._iFile['Utilities'].tolist()
             if 'UtilitySum' in i:
-                self.utilitySum = self.iFile['UtilitySum'].tolist()
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                print("hey")
-                data = urlopen(self.iFile)
+                self._utilitySum = self._iFile['UtilitySum'].tolist()
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                #print("hey")
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line = line.decode("utf-8")
                     line = line.split("\n")[0]
                     parts = line.split(":")
-                    items = parts[0].split(self.sep)
-                    self.transactions.append([x for x in items if x])
-                    utilities = parts[2].split(self.sep)
-                    self.utilities.append(utilities)
-                    self.utilitySum.append(int(parts[1]))
+                    items = parts[0].split(self._sep)
+                    self._transactions.append([x for x in items if x])
+                    utilities = parts[2].split(self._sep)
+                    self._utilities.append(utilities)
+                    self._utilitySum.append(int(parts[1]))
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line = line.split("\n")[0]
                             parts = line.split(":")
-                            items = parts[0].split(self.sep)
-                            self.transactions.append([x for x in items if x])
-                            utilities = parts[2].split(self.sep)
-                            self.utilities.append(utilities)
-                            self.utilitySum.append(int(parts[1]))
+                            items = parts[0].split(self._sep)
+                            self._transactions.append([x for x in items if x])
+                            utilities = parts[2].split(self._sep)
+                            self._utilities.append(utilities)
+                            self._utilitySum.append(int(parts[1]))
                 except IOError:
                     print("File Not Found")
                     quit()
-
 
     def startMine(self):
         """
             main program to start the operation
         """
-        self.startTime = time.time()
-        self.creteItemsets()
-        self.finalPatterns = {}
-        for line in range(len(self.transactions)):
-            items_str = self.transactions[line]
-            utility_str = self.utilities[line]
-            transUtility = self.utilitySum[line]
+        self._startTime = _ab._time.time()
+        self._creteItemsets()
+        self._finalPatterns = {}
+        for line in range(len(self._transactions)):
+            items_str = self._transactions[line]
+            utility_str = self._utilities[line]
+            transUtility = self._utilitySum[line]
             for i in range(0, len(items_str)):
                 item = items_str[i]
-                twu = self.mapOfTWU.get(item)
+                twu = self._mapOfTWU.get(item)
                 if twu == None:
                     twu = transUtility
                 else:
                     twu += transUtility
-                self.mapOfTWU[item] = twu
+                self._mapOfTWU[item] = twu
         listOfCUList = []
         hashTable = {}
         mapItemsToCUList = {}
-        minutil = self.minUtil
-        for item in self.mapOfTWU.keys():
-            if self.mapOfTWU.get(item) >= minutil:
-                uList = CUList(item)
+        minutil = self._minUtil
+        for item in self._mapOfTWU.keys():
+            if self._mapOfTWU.get(item) >= self._minUtil:
+                uList = _CUList(item)
                 mapItemsToCUList[item] = uList
                 listOfCUList.append(uList)
-        listOfCUList.sort(key=functools.cmp_to_key(self.HMiner))
+        listOfCUList.sort(key=_ab._functools.cmp_to_key(self._HMiner))
         tid = 1
-        for line in range(len(self.transactions)):
-            items = self.transactions[line]
-            utilities = self.utilities[line]
+        for line in range(len(self._transactions)):
+            items = self._transactions[line]
+            utilities = self._utilities[line]
             ru = 0
             newTwu = 0
             tx_key = []
             revisedTrans = []
             for i in range(0, len(items)):
-                pair = Pair()
+                pair = _Pair()
                 pair.item = items[i]
                 pair.utility = int(utilities[i])
-                if self.mapOfTWU.get(pair.item) >= minutil:
+                if self._mapOfTWU.get(pair.item) >= self._minUtil:
                     revisedTrans.append(pair)
                     tx_key.append(pair.item)
                     newTwu += pair.utility
-            revisedTrans.sort(key=functools.cmp_to_key(self.HMiner))
+            revisedTrans.sort(key=_ab._functools.cmp_to_key(self._HMiner))
             tx_key1 = tuple(tx_key)
             if len(revisedTrans) > 0:
                 if tx_key1 not in hashTable.keys():
-                    hashTable[tx_key1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans)-1].item].elements)
-                    for i in range(len(revisedTrans)-1, -1, -1):
+                    hashTable[tx_key1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans) - 1].item].elements)
+                    for i in range(len(revisedTrans) - 1, -1, -1):
                         pair = revisedTrans[i]
                         cuListoFItems = mapItemsToCUList.get(pair.item)
-                        element = Element(tid, pair.utility, ru, 0, 0)
+                        element = _Element(tid, pair.utility, ru, 0, 0)
                         if i > 0:
-                            element.ppos = len(mapItemsToCUList[revisedTrans[i-1].item].elements)
+                            element.ppos = len(mapItemsToCUList[revisedTrans[i - 1].item].elements)
                         else:
-                            element.ppos =- 1
+                            element.ppos = - 1
                         cuListoFItems.addElements(element)
                         ru += pair.utility
                 else:
                     pos = hashTable[tx_key1]
                     ru = 0
-                    for i in range(len(revisedTrans)-1, -1, -1):
+                    for i in range(len(revisedTrans) - 1, -1, -1):
                         cuListoFItems = mapItemsToCUList[revisedTrans[i].item]
                         cuListoFItems.elements[pos].nu += revisedTrans[i].utility
                         cuListoFItems.elements[pos].nru += ru
@@ -329,14 +320,14 @@ class HMiner(utilityPatterns):
                         cuListoFItems.sumnru += ru
                         ru += revisedTrans[i].utility
                         pos = cuListoFItems.elements[pos].ppos
-                    #EUCS
-            for i in range(len(revisedTrans)-1, -1, -1):
+                    # EUCS
+            for i in range(len(revisedTrans) - 1, -1, -1):
                 pair = revisedTrans[i]
-                mapFMAPItem = self.mapFMAP.get(pair.item)
+                mapFMAPItem = self._mapFMAP.get(pair.item)
                 if mapFMAPItem == None:
                     mapFMAPItem = {}
-                    self.mapFMAP[pair.item] = mapFMAPItem
-                for j in range(i+1, len(revisedTrans)):
+                    self._mapFMAP[pair.item] = mapFMAPItem
+                for j in range(i + 1, len(revisedTrans)):
                     pairAfter = revisedTrans[j]
                     twuSUm = mapFMAPItem.get(pairAfter.item)
                     if twuSUm is None:
@@ -344,17 +335,18 @@ class HMiner(utilityPatterns):
                     else:
                         mapFMAPItem[pairAfter.item] = twuSUm + newTwu
             tid += 1
-        self.Explore_SearchTree([], listOfCUList, minutil)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._ExploreSearchTree([], listOfCUList, minutil)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("High Utility patterns were generated successfully using HMiner algorithm")
 
-    def Explore_SearchTree(self, prefix, uList, minutil):
+    def _ExploreSearchTree(self, prefix, uList, minutil):
         """
             A method to find all high utility itemSets
-
             Attributes:
             -----------
             :parm prefix: it represent all items in prefix
@@ -370,16 +362,15 @@ class HMiner(utilityPatterns):
             soted_prefix = prefix[0:len(prefix) + 1]
             soted_prefix.append(x.item)
             if x.sumnu + x.sumCu >= minutil:
-                self.saveitemSet(prefix, len(prefix), x.item, x.sumnu + x.sumCu)
-            self.candidates += 1
+                self._saveitemSet(prefix, len(prefix), x.item, x.sumnu + x.sumCu)
+            self._candidates += 1
             if x.sumnu + x.sumCu + x.sumnru + x.sumCru >= minutil:
-                exULs = self.construcCUL(x, uList, i, minutil, len(soted_prefix))
-                self.Explore_SearchTree(soted_prefix, exULs, minutil)
+                exULs = self._construcCUL(x, uList, i, minutil, len(soted_prefix))
+                self._ExploreSearchTree(soted_prefix, exULs, minutil)
 
-    def construcCUL(self, x, culs, st, minutil, length):
+    def _construcCUL(self, x, culs, st, minutil, length):
         """
             A method to construct CUL's database
-
             Attributes:
             -----------
             :parm x: Compact utility list
@@ -400,30 +391,30 @@ class HMiner(utilityPatterns):
         cutil = []
         ey_tid = []
         for i in range(0, len(culs)):
-            uList = CUList(culs[i].item)
+            uList = _CUList(culs[i].item)
             excul.append(uList)
             lau.append(0)
             cutil.append(0)
             ey_tid.append(0)
-        sz = len(culs)-(st+1)
+        sz = len(culs) - (st + 1)
         exSZ = sz
-        for j in range(st+1, len(culs)):
-            mapOfTWUF = self.mapFMAP[x.item]
+        for j in range(st + 1, len(culs)):
+            mapOfTWUF = self._mapFMAP[x.item]
             if mapOfTWUF != None:
                 twuf = mapOfTWUF.get(culs[j].item)
                 if twuf != None and twuf < minutil:
                     excul[j] = None
-                    exSZ = sz-1
+                    exSZ = sz - 1
                 else:
-                    uList = CUList(culs[j].item)
+                    uList = _CUList(culs[j].item)
                     excul[j] = uList
                     ey_tid[j] = 0
                     lau[j] = x.sumCu + x.sumCru + x.sumnu + x.sumnru
                     cutil[j] = x.sumCu + x.sumCru
-        hashTable = {}            
+        hashTable = {}
         for ex in x.elements:
             newT = []
-            for j in range(st+1, len(culs)):
+            for j in range(st + 1, len(culs)):
                 if excul[j] is None:
                     continue
                 eylist = culs[j].elements
@@ -437,31 +428,31 @@ class HMiner(utilityPatterns):
                         excul[j] = None
                         exSZ = exSZ - 1
             if len(newT) == exSZ:
-                self.UpdateCLosed(x, culs, st, excul, newT, ex, ey_tid, length)
+                self._UpdateCLosed(x, culs, st, excul, newT, ex, ey_tid, length)
             else:
                 if len(newT) == 0:
                     continue
                 ru = 0
                 newT1 = tuple(newT)
                 if newT1 not in hashTable.keys():
-                    hashTable[newT1] = len(excul[newT[len(newT)-1]].elements)
-                    for i in range(len(newT)-1, -1, -1):
+                    hashTable[newT1] = len(excul[newT[len(newT) - 1]].elements)
+                    for i in range(len(newT) - 1, -1, -1):
                         cuListoFItems = excul[newT[i]]
                         y = culs[newT[i]].elements[ey_tid[newT[i]]]
-                        element = Element(ex.tid, ex.nu + y.nu - ex.pu, ru, ex.nu, 0)
+                        element = _Element(ex.tid, ex.nu + y.nu - ex.pu, ru, ex.nu, 0)
                         if i > 0:
-                            element.ppos = len(excul[newT[i-1]].elements)
+                            element.ppos = len(excul[newT[i - 1]].elements)
                         else:
-                            element.ppos =- 1
+                            element.ppos = - 1
                         cuListoFItems.addElements(element)
                         ru += y.nu - ex.pu
                 else:
                     dppos = hashTable[newT1]
-                    self.updateElement(x, culs, st, excul, newT, ex, dppos, ey_tid)
-            for j in range(st+1, len(culs)):
+                    self._updateElement(x, culs, st, excul, newT, ex, dppos, ey_tid)
+            for j in range(st + 1, len(culs)):
                 cutil[j] = cutil[j] + ex.nu + ex.nru
         filter_culs = []
-        for j in range(st+1, len(culs)):
+        for j in range(st + 1, len(culs)):
             if cutil[j] < minutil or excul[j] is None:
                 continue
             else:
@@ -471,8 +462,8 @@ class HMiner(utilityPatterns):
                     excul[j].sumCpu += x.sumCu
                 filter_culs.append(excul[j])
         return filter_culs
-    
-    def UpdateCLosed(self, x, culs, st, excul, newT, ex, ey_tid, length):
+
+    def _UpdateCLosed(self, x, culs, st, excul, newT, ex, ey_tid, length):
         """
             A method to update closed values
             Attributes:
@@ -491,21 +482,19 @@ class HMiner(utilityPatterns):
             :type ey_tid:ts
             :parm length: length of x
             :type length:int
-
         """
         nru = 0
-        for j in range(len(newT)-1, -1, -1):
+        for j in range(len(newT) - 1, -1, -1):
             ey = culs[newT[j]]
             eyy = ey.elements[ey_tid[newT[j]]]
             excul[newT[j]].sumCu += ex.nu + eyy.nu - ex.pu
             excul[newT[j]].sumCru += nru
             excul[newT[j]].sumCpu += ex.nu
             nru = nru + eyy.nu - ex.pu
-    
-    def updateElement(self, z, culs, st, excul, newT, ex, duppos, ey_tid):
+
+    def _updateElement(self, z, culs, st, excul, newT, ex, duppos, ey_tid):
         """
             A method to updates vales for duplicates
-
             Attributes:
             -----------
             :parm z: Compact utility list
@@ -527,7 +516,7 @@ class HMiner(utilityPatterns):
         """
         nru = 0
         pos = duppos
-        for j in range(len(newT)-1, -1, -1):
+        for j in range(len(newT) - 1, -1, -1):
             ey = culs[newT[j]]
             eyy = ey.elements[ey_tid[newT[j]]]
             excul[newT[j]].elements[pos].nu += ex.nu + eyy.nu - ex.pu
@@ -537,11 +526,10 @@ class HMiner(utilityPatterns):
             excul[newT[j]].elements[pos].pu += ex.nu
             nru = nru + eyy.nu - ex.pu
             pos = excul[newT[j]].elements[pos].ppos
-    
-    def saveitemSet(self, prefix, prefixLen, item, utility):
+
+    def _saveitemSet(self, prefix, prefixLen, item, utility):
         """
          A method to save itemSets
-
          Attributes:
         -----------
         :parm prefix: it represent all items in prefix
@@ -553,103 +541,96 @@ class HMiner(utilityPatterns):
         :parm utility:utility of itemSet
         :type utility:int
         """
-        self.hui_cnt += 1
+        self._huiCount += 1
         res = ""
         for i in range(0, prefixLen):
-            res += str(prefix[i])+" "
+            res += str(prefix[i]) + " "
         res += str(item)
-        self.finalPatterns[str(res)] = str(utility)
-    
+        self._finalPatterns[str(res)] = str(utility)
+
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
-
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
-    
+
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
-
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
-    
+        return self._finalPatterns
+
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
-
         :param outFile: name of the output file
         :type outFile: file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        for x, y in self._finalPatterns.items():
             patternsAndSupport = str(x) + " : " + str(y)
             writer.write("%s\n" % patternsAndSupport)
-    
+
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
 
-        return self.memoryUSS
-    
+        return self._memoryUSS
+
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
-        return self.memoryRSS
-    
+        return self._memoryRSS
+
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
-
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
-        return self.endTime-self.startTime
+        return self._endTime - self._startTime
 
 
 if __name__ == "__main__":
-    ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
-        if len(sys.argv) == 5: #includes separator
-            ap = HMiner(sys.argv[1], int(sys.argv[3]), sys.argv[4])
-        if len(sys.argv) == 4: # to consider "\t" as aseparator
-            ap = HMiner(sys.argv[1], int(sys.argv[3]))
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of huis:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+    _ap = str()
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:  # includes separator
+            _ap = HMiner(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:  # to consider "\t" as aseparator
+            _ap = HMiner(_ab._sys.argv[1], int(_ab._sys.argv[3]))
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of huis:", len(_Patterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
-        l = [200000, 300000, 400000, 500000]
+        '''l = [200000, 300000, 400000, 500000]
         for i in l:
-            ap = HMiner('/Users/Likhitha/Downloads/mushroom_utility_SPMF.txt', i, ' ')
+            ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', i, ' ')
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            ap.savePatterns('/home/apiiit-rkv/Downloads/output.txt')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

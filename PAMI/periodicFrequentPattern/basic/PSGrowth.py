@@ -13,16 +13,16 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from itertools import combinations
-from PAMI.periodicFrequentPattern.basic.abstract import *
+from itertools import combinations as _combinations
+import abstract as _ab
 
-pfList = []
-minSup = int()
-maxPer = int()
-lno = int()
+_pfList = []
+_minSup = int()
+_maxPer = int()
+_lno = int()
 
 
-class Interval(object):
+class _Interval(object):
     """
         To represent the timestamp interval of a node in summaries
     """
@@ -34,7 +34,7 @@ class Interval(object):
         self.sup = sup
 
 
-class NodeSummaries(object):
+class _NodeSummaries(object):
     """
         To define the summaries of timeStamps of a node
 
@@ -60,17 +60,17 @@ class NodeSummaries(object):
         """
         k = self.totalSummaries[-1]
         diff = tid - k.end
-        if diff <= maxPer:
+        if diff <= _maxPer:
             k.end = tid
             k.per = max(diff, k.per)
             #             print(k.per)
             k.sup += 1
         else:
-            self.totalSummaries.append(Interval(tid, tid, 0, 1))
+            self.totalSummaries.append(_Interval(tid, tid, 0, 1))
         return self.totalSummaries
 
 
-def merge(summariesX, summariesY):
+def _merge(summariesX, summariesY):
     """To Merge the timeStamps
 
     :param summariesX:  TimeStamps of an one itemSet
@@ -86,8 +86,8 @@ def merge(summariesX, summariesY):
         if summariesX[iter1].start < summariesY[iter2].start:
             if summariesX[iter1].end < summariesY[iter2].start:
                 diff = summariesY[iter2].start - summariesX[iter1].end
-                if diff > maxPer:
-                    updatedSummaries.append(Interval(summariesX[iter1].start,
+                if diff > _maxPer:
+                    updatedSummaries.append(_Interval(summariesX[iter1].start,
                                                      summariesX[iter1].end, summariesX[iter1].per,
                                                      summariesX[iter1].sup))
                     iter1 += 1
@@ -98,7 +98,7 @@ def merge(summariesX, summariesY):
                     per1 = max(diff, summariesX[iter1].per)
                     per1 = max(per1, summariesY[iter2].per)
                     updatedSummaries.append(
-                        Interval(summariesX[iter1].start, summariesY[iter2].end, per1,
+                        _Interval(summariesX[iter1].start, summariesY[iter2].end, per1,
                                  summariesX[iter1].sup + summariesY[iter2].sup))
                     iter1 += 1
                     iter2 += 1
@@ -112,13 +112,13 @@ def merge(summariesX, summariesY):
 
             else:
                 if summariesX[iter1].end > summariesY[iter2].end:
-                    updatedSummaries.append(Interval(summariesX[iter1].start, summariesX[iter1].end,
+                    updatedSummaries.append(_Interval(summariesX[iter1].start, summariesX[iter1].end,
                                                      summariesX[iter1].per,
                                                      summariesX[iter1].sup + summariesY[iter2].sup))
                 else:
                     per1 = max(summariesX[iter1].per, summariesY[iter2].per)
                     updatedSummaries.append(
-                        Interval(summariesX[iter1].start, summariesY[iter2].end, per1,
+                        _Interval(summariesX[iter1].start, summariesY[iter2].end, per1,
                                  summariesX[iter1].sup + summariesY[iter2].sup))
                 iter1 += 1
                 iter2 += 1
@@ -132,8 +132,8 @@ def merge(summariesX, summariesY):
         else:
             if summariesY[iter2].end < summariesX[iter1].start:
                 diff = summariesX[iter1].start - summariesY[iter2].end
-                if diff > maxPer:
-                    updatedSummaries.append(Interval(summariesY[iter2].start, summariesY[iter2].end,
+                if diff > _maxPer:
+                    updatedSummaries.append(_Interval(summariesY[iter2].start, summariesY[iter2].end,
                                                      summariesY[iter2].per, summariesY[iter2].sup))
                     iter2 += 1
                     if iter2 >= l2:
@@ -143,7 +143,7 @@ def merge(summariesX, summariesY):
                     per1 = max(diff, summariesY[iter2].per)
                     per1 = max(per1, summariesX[iter1].per)
                     updatedSummaries.append(
-                        Interval(summariesY[iter2].start, summariesX[iter1].end, per1,
+                        _Interval(summariesY[iter2].start, summariesX[iter1].end, per1,
                                  summariesY[iter2].sup + summariesX[iter1].sup))
                     iter2 += 1
                     iter1 += 1
@@ -157,13 +157,13 @@ def merge(summariesX, summariesY):
 
             else:
                 if summariesY[iter2].end > summariesX[iter1].end:
-                    updatedSummaries.append(Interval(summariesY[iter2].start, summariesY[iter2].end,
+                    updatedSummaries.append(_Interval(summariesY[iter2].start, summariesY[iter2].end,
                                                      summariesY[iter2].per,
                                                      summariesY[iter2].sup + summariesX[iter1].sup))
                 else:
                     per1 = max(summariesY[iter2].per, summariesX[iter1].per)
                     updatedSummaries.append(
-                        Interval(summariesY[iter2].start, summariesX[iter1].end, per1,
+                        _Interval(summariesY[iter2].start, summariesX[iter1].end, per1,
                                  summariesY[iter2].sup + summariesX[iter1].sup))
                 iter2 += 1
                 iter1 += 1
@@ -182,12 +182,12 @@ def merge(summariesX, summariesY):
         while iter1 < l1:
             updatedSummaries.append(summariesX[iter1])
             iter1 += 1
-    updatedSummaries = update(updatedSummaries)
+    updatedSummaries = _update(updatedSummaries)
 
     return updatedSummaries
 
 
-def update(updatedSummaries):
+def _update(updatedSummaries):
     """ After updating the summaries with first, last, and period elements in summaries
 
     :param updatedSummaries: summaries that have been merged
@@ -197,7 +197,7 @@ def update(updatedSummaries):
     cur = updatedSummaries[0]
     for i in range(1, len(updatedSummaries)):
         v = (updatedSummaries[i].start - cur.end)
-        if cur.end > updatedSummaries[i].start or v <= maxPer:
+        if cur.end > updatedSummaries[i].start or v <= _maxPer:
             cur.end = max(updatedSummaries[i].end, cur.end)
             cur.sup += updatedSummaries[i].sup
             cur.per = max(cur.per, updatedSummaries[i].per)
@@ -240,7 +240,7 @@ class Node(object):
         self.item = item
         self.children = children
         self.parent = None
-        self.timeStamps = NodeSummaries()
+        self.timeStamps = _NodeSummaries()
 
     def addChild(self, node):
         """
@@ -253,7 +253,7 @@ class Node(object):
         node.parent = self
 
 
-class Tree(object):
+class _Tree(object):
     """
         A class used to represent the frequentPatternGrowth tree structure
 
@@ -315,7 +315,7 @@ class Tree(object):
         if len(currentNode.timeStamps.totalSummaries) != 0:
             currentNode.timeStamps.insert(tid)
         else:
-            currentNode.timeStamps.totalSummaries.append(Interval(tid, tid, 0, 1))
+            currentNode.timeStamps.totalSummaries.append(_Interval(tid, tid, 0, 1))
 
     def addConditionalPatterns(self, transaction, tid):
         """
@@ -338,7 +338,7 @@ class Tree(object):
             else:
                 currentNode = currentNode.children[transaction[i]]
         if len(currentNode.timeStamps.totalSummaries) != 0:
-            currentNode.timeStamps.totalSummaries = merge(currentNode.timeStamps.totalSummaries, tid)
+            currentNode.timeStamps.totalSummaries = _merge(currentNode.timeStamps.totalSummaries, tid)
         else:
             currentNode.timeStamps.totalSummaries = tid
 
@@ -373,7 +373,7 @@ class Tree(object):
         """
         for i in self.summaries[nodeValue]:
             if len(i.parent.timeStamps.totalSummaries) != 0:
-                i.parent.timeStamps.totalSummaries = merge(i.parent.timeStamps.totalSummaries,
+                i.parent.timeStamps.totalSummaries = _merge(i.parent.timeStamps.totalSummaries,
                                                            i.timeStamps.totalSummaries)
             else:
                 i.parent.timeStamps.totalSummaries = i.timeStamps.totalSummaries
@@ -421,7 +421,7 @@ class Tree(object):
             pattern.append(pfList[i])
             yield pattern, self.info[i]
             patterns, timeStamps, info = self.getConditionalPatterns(i)
-            conditionalTree = Tree()
+            conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             for pat in range(len(patterns)):
                 conditionalTree.addConditionalPatterns(patterns[pat], timeStamps[pat])
@@ -440,7 +440,7 @@ class Tree(object):
                     upp = []
                     for jm in patterns[0]:
                         upp.append(pfList[jm])
-                    allSubsets = subLists(upp)
+                    allSubsets = _subLists(upp)
                     # print(upp,inf)
                     for pa in allSubsets:
                         yield pattern + pa, inf
@@ -449,7 +449,7 @@ class Tree(object):
             self.removeNode(i)
 
 
-def subLists(itemSet):
+def _subLists(itemSet):
     """
     Forms all the subsets of given itemSet
 
@@ -458,7 +458,7 @@ def subLists(itemSet):
     """
     subs = []
     for i in range(1, len(itemSet) + 1):
-        temp = [list(x) for x in combinations(itemSet, i)]
+        temp = [list(x) for x in _combinations(itemSet, i)]
         if len(temp) > 0:
             subs.extend(temp)
 
@@ -478,11 +478,11 @@ def getPeriodAndSupport(timeStamps):
     for j in range(len(timeStamps)):
         per = max(per, timeStamps[j].start - cur)
         per = max(per, timeStamps[j].per)
-        if per > maxPer:
+        if per > _maxPer:
             return [0, 0]
         cur = timeStamps[j].end
         sup += timeStamps[j].sup
-    per = max(per, lno - cur)
+    per = max(per, _lno - cur)
     return [sup, per]
 
 
@@ -495,21 +495,21 @@ def conditionalTransactions(patterns, timestamp):
     :param timestamp: timeStamps of a conditional pattern
     :return: conditional transactions with their respective timeStamps
     """
-    global minSup, maxPer
+    global _minSup, _maxPer
     pat = []
     timeStamps = []
     data1 = {}
     for i in range(len(patterns)):
         for j in patterns[i]:
             if j in data1:
-                data1[j] = merge(data1[j], timestamp[i])
+                data1[j] = _merge(data1[j], timestamp[i])
             else:
                 data1[j] = timestamp[i]
 
     updatedDict = {}
     for m in data1:
         updatedDict[m] = getPeriodAndSupport(data1[m])
-    updatedDict = {k: v for k, v in updatedDict.items() if v[0] >= minSup and v[1] <= maxPer}
+    updatedDict = {k: v for k, v in updatedDict.items() if v[0] >= _minSup and v[1] <= _maxPer}
     count = 0
     for p in patterns:
         p1 = [v for v in p if v in updatedDict]
@@ -521,7 +521,7 @@ def conditionalTransactions(patterns, timestamp):
     return pat, timeStamps, updatedDict
 
 
-class PSGrowth(periodicFrequentPatterns):
+class PSGrowth(_ab._periodicFrequentPatterns):
     """PS-Growth is one of the fundamental algorithm to discover periodic-frequent patterns in a temporal database.
 
     Reference :
@@ -640,21 +640,21 @@ class PSGrowth(periodicFrequentPatterns):
 
     """
 
-    startTime = float()
-    endTime = float()
-    minSup = str()
-    maxPer = str()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    rank = {}
-    lno = 0
+    _startTime = float()
+    _endTime = float()
+    _minSup = str()
+    _maxPer = str()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _rank = {}
+    _lno = 0
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -664,65 +664,65 @@ class PSGrowth(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
 
-    def creatingItemSets(self):
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
             ts, data = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                ts = self.iFile['TS'].tolist()
+                ts = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [ts[i][0]]
                 tr = tr + data[i]
-                self.Database.append(tr)
+                self._Database.append(tr)
 
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def OneLengthItems(self):
+    def _OneLengthItems(self):
         """
             Storing the complete values of a database/input file into a database variable
         """
         data = {}
-        global minSup, maxPer, lno
-        for tr in self.Database:
-            self.lno += 1
+        global _minSup, _maxPer, _lno
+        for tr in self._Database:
+            self._lno += 1
             for i in range(1, len(tr)):
                 if tr[i] not in data:
                     data[tr[i]] = [int(tr[0]), int(tr[0]), 1]
@@ -731,16 +731,16 @@ class PSGrowth(periodicFrequentPatterns):
                     data[tr[i]][1] = int(tr[0])
                     data[tr[i]][2] += 1
         for key in data:
-            data[key][0] = max(data[key][0], self.lno - data[key][1])
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
-        minSup, maxPer, lno = self.minSup, self.maxPer, self.lno
-        data = {k: [v[2], v[0]] for k, v in data.items() if v[0] <= self.maxPer and v[2] >= self.minSup}
+            data[key][0] = max(data[key][0], self._lno - data[key][1])
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        _minSup, _maxPer, _lno = self._minSup, self._maxPer, self._lno
+        data = {k: [v[2], v[0]] for k, v in data.items() if v[0] <= self._maxPer and v[2] >= self._minSup}
         genList = [k for k, v in sorted(data.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
-        self.rank = dict([(index, item) for (item, index) in enumerate(genList)])
+        self._rank = dict([(index, item) for (item, index) in enumerate(genList)])
         return data, genList
 
-    def buildTree(self, info, sampleDict):
+    def _buildTree(self, info, sampleDict):
         """ it takes the Databases and support of each item and construct the main tree with setting root
                             node as null
 
@@ -750,16 +750,16 @@ class PSGrowth(periodicFrequentPatterns):
             :type sampleDict: dict
             :return: Returns the root node of the tree
         """
-        rootNode = Tree()
+        rootNode = _Tree()
         rootNode.info = info.copy()
         k = 0
-        for line in self.Database:
+        for line in self._Database:
             k += 1
             tr = line
             list2 = [int(tr[0])]
             for i in range(1, len(tr)):
                 if tr[i] in sampleDict:
-                    list2.append(self.rank[tr[i]])
+                    list2.append(self._rank[tr[i]])
             if len(list2) >= 2:
                 basket = list2[1:]
                 basket.sort()
@@ -771,29 +771,29 @@ class PSGrowth(periodicFrequentPatterns):
         """
             Mining process will start from this function
         """
-        global minSup, maxPer, lno, pfList
-        self.startTime = time.time()
-        if self.iFile is None:
+        global _minSup, _maxPer, _lno, _pfList
+        self.startTime = _ab._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.minSup is None:
+        if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingItemSets()
-        OneLengthPeriodicItems, pfList = self.OneLengthItems()
-        info = {self.rank[k]: v for k, v in OneLengthPeriodicItems.items()}
-        Tree = self.buildTree(info, OneLengthPeriodicItems)
+        self._creatingItemSets()
+        OneLengthPeriodicItems, pfList = self._OneLengthItems()
+        info = {self._rank[k]: v for k, v in OneLengthPeriodicItems.items()}
+        Tree = self._buildTree(info, OneLengthPeriodicItems)
         patterns = Tree.generatePatterns([])
-        self.finalPatterns = {}
+        self._finalPatterns = {}
         for i in patterns:
             sample = str()
             for k in i[0]:
                 sample = sample + k + " "
-            self.finalPatterns[sample] = i[1]
-        self.endTime = time.time()
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+            self._finalPatterns[sample] = i[1]
+        self._endTime = _ab._time.time()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Periodic-Frequent patterns were generated successfully using PS-Growth algorithm ")
 
     def getMemoryUSS(self):
@@ -803,7 +803,7 @@ class PSGrowth(periodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -812,7 +812,7 @@ class PSGrowth(periodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -822,7 +822,7 @@ class PSGrowth(periodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final periodic-frequent patterns in a dataframe
@@ -833,9 +833,9 @@ class PSGrowth(periodicFrequentPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b[0], b[1]])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -844,9 +844,9 @@ class PSGrowth(periodicFrequentPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
@@ -856,25 +856,25 @@ class PSGrowth(periodicFrequentPatterns):
         :return: returning periodic-frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
-    ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = PSGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = PSGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+    _ap = str()
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:
+            _ap = PSGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:
+            _ap = PSGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Patterns:", len(_Patterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

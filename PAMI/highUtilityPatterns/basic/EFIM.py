@@ -14,11 +14,11 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-import sys
-from PAMI.highUtilityPatterns.basic.abstract import *
+
+import abstract as _ab
 
 
-class Transaction:
+class _Transaction:
     """
         A class to store Transaction of a database
 
@@ -66,7 +66,7 @@ class Transaction:
             :param offsetE: an offset over the original transaction for projecting the transaction
             :type offsetE: int
         """
-        new_transaction = Transaction(self.items, self.utilities, self.transactionUtility)
+        new_transaction = _Transaction(self.items, self.utilities, self.transactionUtility)
         utilityE = self.utilities[offsetE]
         new_transaction.prefixUtility = self.prefixUtility + utilityE
         new_transaction.transactionUtility = self.transactionUtility - utilityE
@@ -131,7 +131,7 @@ class Transaction:
             self.utilities[j + 1] = utilityJ
         
 
-class Dataset:
+class _Dataset:
     """
         A class represent the list of transactions in this dataset
 
@@ -166,8 +166,8 @@ class Dataset:
 
     def createItemsets(self, datasetPath):
         self.Database = []
-        if isinstance(datasetPath, pd.DataFrame):
-            utilities, data = [], []
+        if isinstance(datasetPath, _ab._pd.DataFrame):
+            utilities, data, transactionUtility = [], [], []
             if datasetPath.empty:
                 print("its empty..")
             i = datasetPath.columns.values.tolist()
@@ -179,8 +179,8 @@ class Dataset:
                 transactionUtility = datasetPath['TransactionUtility'].tolist()
             self.transactions.append(self.createTransaction(data, utilities, transactionUtility))
         if isinstance(datasetPath, str):
-            if validators.url(datasetPath):
-                data = urlopen(datasetPath)
+            if _ab._validators.url(datasetPath):
+                data = _ab._urlopen(datasetPath)
                 for line in data:
                     line = line.decode("utf-8")
                     trans_list = line.strip().split(':')
@@ -236,7 +236,7 @@ class Dataset:
                 self.maxItem = item_int
             items.append(item_int)
             utilities.append(int(utilityString[idx]))
-        return Transaction(items, utilities, transactionUtility)
+        return _Transaction(items, utilities, transactionUtility)
 
     def getMaxItem(self):
         """
@@ -251,7 +251,7 @@ class Dataset:
         return self.transactions
 
 
-class EFIM(utilityPatterns):
+class EFIM(_ab._utilityPatterns):
     """
     EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
@@ -367,91 +367,90 @@ class EFIM(utilityPatterns):
      
     """
 
-    highUtilityitemSets = []
-    candidateCount = 0
-    utilityBinArrayLU = {}
-    utilityBinArraySU = {}
-    oldNamesToNewNames = {}
-    newNamesToOldNames = {}
-    strToInt = {}
-    intToStr = {}
-    Neighbours = {}
-    temp = [0] * 5000
-    patternCount = int()
-    maxMemory = 0
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    nFile = " "
-    lno = 0
-    sep = "\t"
-    minUtil = 0
-    memoryUSS = float()
-    memoryRSS = float()
-    startTime = time.time()
+    _highUtilityitemSets = []
+    _candidateCount = 0
+    _utilityBinArrayLU = {}
+    _utilityBinArraySU = {}
+    _oldNamesToNewNames = {}
+    _newNamesToOldNames = {}
+    _strToInt = {}
+    _intToStr = {}
+    _Neighbours = {}
+    _temp = [0] * 5000
+    _patternCount = int()
+    _maxMemory = 0
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _nFile = " "
+    _lno = 0
+    _sep = "\t"
+    _minUtil = 0
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _startTime = _ab._time.time()
 
     def __init__(self, iFile, minUtil, sep="\t"):
         super().__init__(iFile, minUtil, sep)
-        self.sep = sep
-        self.highUtilityitemSets = []
-        self.candidateCount = 0
-        self.utilityBinArrayLU = {}
-        self.utilityBinArraySU = {}
-        self.oldNamesToNewNames = {}
-        self.newNamesToOldNames = {}
-        self.strToInt = {}
-        self.intToStr = {}
-        self.Neighbours = {}
-        self.temp = [0] * 5000
-        self.patternCount = 0
-        self.maxMemory = 0
-        self.endTime = float()
-        self.finalPatterns = {}
-        self.lno = 0
-        self.memoryUSS = float()
-        self.memoryRSS = float()
+        self._sep = sep
+        self._highUtilityitemSets = []
+        self._candidateCount = 0
+        self._utilityBinArrayLU = {}
+        self._utilityBinArraySU = {}
+        self._oldNamesToNewNames = {}
+        self._newNamesToOldNames = {}
+        self._strToInt = {}
+        self._intToStr = {}
+        self._Neighbours = {}
+        self._temp = [0] * 5000
+        self._patternCount = 0
+        self._maxMemory = 0
+        self._endTime = float()
+        self._finalPatterns = {}
+        self._lno = 0
+        self._memoryUSS = float()
+        self._memoryRSS = float()
 
     def startMine(self):
-        self.startTime = time.time()
-        self.dataset = Dataset(self.iFile, self.sep)
-        self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
-        minUtil = int(self.minUtil)
+        self._startTime = _ab._time.time()
+        self._dataset = _Dataset(self._iFile, self._sep)
+        self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
+        minUtil = int(self._minUtil)
         itemsToKeep = []
-        for key in self.utilityBinArrayLU.keys():
-            if self.utilityBinArrayLU[key] >= minUtil:
+        for key in self._utilityBinArrayLU.keys():
+            if self._utilityBinArrayLU[key] >= self._minUtil:
                 itemsToKeep.append(key)
-        itemsToKeep = sorted(itemsToKeep, key=lambda x: self.utilityBinArrayLU[x])
+        itemsToKeep = sorted(itemsToKeep, key=lambda x: self._utilityBinArrayLU[x])
         currentName = 1
         for idx, item in enumerate(itemsToKeep):
-            self.oldNamesToNewNames[item] = currentName
-            self.newNamesToOldNames[currentName] = item
+            self._oldNamesToNewNames[item] = currentName
+            self._newNamesToOldNames[currentName] = item
             itemsToKeep[idx] = currentName
             currentName += 1
-        for transaction in self.dataset.getTransactions():
-            transaction.removeUnpromisingItems(self.oldNamesToNewNames)
-        self.sortDatabase(self.dataset.getTransactions())
+        for transaction in self._dataset.getTransactions():
+            transaction.removeUnpromisingItems(self._oldNamesToNewNames)
+        self._sortDatabase(self._dataset.getTransactions())
         emptyTransactionCount = 0
-        for transaction in self.dataset.getTransactions():
+        for transaction in self._dataset.getTransactions():
             if len(transaction.getItems()) == 0:
                 emptyTransactionCount += 1
-        self.dataset.transactions = self.dataset.transactions[emptyTransactionCount:]
-        self.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self.dataset)
+        self._dataset.transactions = self._dataset.transactions[emptyTransactionCount:]
+        self._useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self._dataset)
         itemsToExplore = []
         for item in itemsToKeep:
-            if self.utilityBinArraySU[item] >= minUtil:
+            if self._utilityBinArraySU[item] >= self._minUtil:
                 itemsToExplore.append(item)
-        self.backTrackingEFIM(self.dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+        self._backTrackingEFIM(self._dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("High Utility patterns were generated successfully using EFIM algorithm")
 
-    def backTrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
+    def _backTrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
         """
             A method to mine the HUIs Recursively
 
@@ -466,7 +465,7 @@ class EFIM(utilityPatterns):
             :param prefixLength: current prefixLength
             :type prefixLength: int
         """
-        self.candidateCount += len(itemsToExplore)
+        self._candidateCount += len(itemsToExplore)
         for idx, e in enumerate(itemsToExplore):
             transactionsPe = []
             utilityPe = 0
@@ -483,7 +482,7 @@ class EFIM(utilityPatterns):
                         utilityPe += projectedTransaction.prefixUtility
                         if previousTransaction == transactionsOfP[0]:
                             previousTransaction = projectedTransaction
-                        elif self.is_equal(projectedTransaction, previousTransaction):
+                        elif self._isEqual(projectedTransaction, previousTransaction):
                             if consecutiveMergeCount == 0:
                                 items = previousTransaction.items[previousTransaction.offset:]
                                 utilities = previousTransaction.utilities[previousTransaction.offset:]
@@ -496,7 +495,7 @@ class EFIM(utilityPatterns):
                                     positionProjection += 1
                                 previousTransaction.prefixUtility += projectedTransaction.prefixUtility
                                 sumUtilities = previousTransaction.prefixUtility
-                                previousTransaction = Transaction(items, utilities, previousTransaction.transactionUtility + projectedTransaction.transactionUtility)
+                                previousTransaction = _Transaction(items, utilities, previousTransaction.transactionUtility + projectedTransaction.transactionUtility)
                                 previousTransaction.prefixUtility = sumUtilities
                             else:
                                 positionPrevious = 0
@@ -517,23 +516,23 @@ class EFIM(utilityPatterns):
                     transaction.offset = positionE
             if previousTransaction != transactionsOfP[0]:
                 transactionsPe.append(previousTransaction)
-            self.temp[prefixLength] = self.newNamesToOldNames[e]
-            if utilityPe >= self.minUtil:
-                self.output(prefixLength, utilityPe)
-            self.useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep)
+            self._temp[prefixLength] = self._newNamesToOldNames[e]
+            if utilityPe >= self._minUtil:
+                self._output(prefixLength, utilityPe)
+            self._useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep)
             newItemsToKeep = []
             newItemsToExplore = []
             for l in range(idx + 1, len(itemsToKeep)):
                 itemK = itemsToKeep[l]
-                if self.utilityBinArraySU[itemK] >= self.minUtil:
+                if self._utilityBinArraySU[itemK] >= self._minUtil:
                     newItemsToExplore.append(itemK)
                     newItemsToKeep.append(itemK)
-                elif self.utilityBinArrayLU[itemK] >= self.minUtil:
+                elif self._utilityBinArrayLU[itemK] >= self._minUtil:
                     newItemsToKeep.append(itemK)
             if len(transactionsPe) != 0:
-                self.backTrackingEFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
+                self._backTrackingEFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
 
-    def useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
+    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
         """
             A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
 
@@ -549,8 +548,8 @@ class EFIM(utilityPatterns):
         """
         for i in range(j + 1, len(itemsToKeep)):
             item = itemsToKeep[i]
-            self.utilityBinArrayLU[item] = 0
-            self.utilityBinArraySU[item] = 0
+            self._utilityBinArrayLU[item] = 0
+            self._utilityBinArraySU[item] = 0
         for transaction in transactionsPe:
             sumRemainingUtility = 0
             i = len(transaction.getItems()) - 1
@@ -558,11 +557,11 @@ class EFIM(utilityPatterns):
                 item = transaction.getItems()[i]
                 if item in itemsToKeep:
                     sumRemainingUtility += transaction.getUtilities()[i]
-                    self.utilityBinArraySU[item] += sumRemainingUtility + transaction.prefixUtility
-                    self.utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
+                    self._utilityBinArraySU[item] += sumRemainingUtility + transaction.prefixUtility
+                    self._utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
                 i -= 1
 
-    def output(self, tempPosition, utility):
+    def _output(self, tempPosition, utility):
         """
          Method to print high utility items
 
@@ -573,15 +572,15 @@ class EFIM(utilityPatterns):
          :param utility: total utility of itemSet
          :type utility: int
         """
-        self.patternCount += 1
+        self._patternCount += 1
         s1 = ""
         for i in range(0, tempPosition+1):
-            s1 += self.dataset.intToStr.get((self.temp[i]))
+            s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
                 s1 += " "
-        self.finalPatterns[s1] = str(utility)
+        self._finalPatterns[s1] = str(utility)
 
-    def is_equal(self, transaction1, transaction2):
+    def _isEqual(self, transaction1, transaction2):
         """
          A method to Check if two transaction are identical
 
@@ -607,7 +606,7 @@ class EFIM(utilityPatterns):
             position2 += 1
         return True
 
-    def useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
         """
         Scan the initial database to calculate the subtree utility of each items using a utility-bin array
 
@@ -622,13 +621,13 @@ class EFIM(utilityPatterns):
             while i >= 0:
                 item = transaction.getItems()[i]
                 sumSU += transaction.getUtilities()[i]
-                if item in self.utilityBinArraySU.keys():
-                    self.utilityBinArraySU[item] += sumSU
+                if item in self._utilityBinArraySU.keys():
+                    self._utilityBinArraySU[item] += sumSU
                 else:
-                    self.utilityBinArraySU[item] = sumSU
+                    self._utilityBinArraySU[item] = sumSU
                 i -= 1
 
-    def sortDatabase(self, transactions):
+    def _sortDatabase(self, transactions):
         """
             A Method to sort transaction
 
@@ -639,7 +638,7 @@ class EFIM(utilityPatterns):
             :return: sorted transactions
             :rtype: Transactions
         """
-        cmp_items = functools.cmp_to_key(self.sort_transaction)
+        cmp_items = _ab._functools.cmp_to_key(self.sort_transaction)
         transactions.sort(key=cmp_items)
 
     def sort_transaction(self, trans1, trans2):
@@ -684,7 +683,7 @@ class EFIM(utilityPatterns):
                 pos2 -= 1
             return 0
 
-    def useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
         """
             A method to calculate local utility of single itemsets
             Attributes:
@@ -695,10 +694,10 @@ class EFIM(utilityPatterns):
         """
         for transaction in dataset.getTransactions():
             for item in transaction.getItems():
-                if item in self.utilityBinArrayLU:
-                    self.utilityBinArrayLU[item] += transaction.transactionUtility
+                if item in self._utilityBinArrayLU:
+                    self._utilityBinArrayLU[item] += transaction.transactionUtility
                 else:
-                    self.utilityBinArrayLU[item] = transaction.transactionUtility
+                    self._utilityBinArrayLU[item] = transaction.transactionUtility
 
     def getPatternsAsDataFrame(self):
         """Storing final patterns in a dataframe
@@ -708,9 +707,9 @@ class EFIM(utilityPatterns):
             """
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Utility'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility'])
 
         return dataFrame
     
@@ -720,7 +719,7 @@ class EFIM(utilityPatterns):
         :return: returning patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
@@ -730,7 +729,7 @@ class EFIM(utilityPatterns):
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        for x, y in self._finalPatterns.items():
             patternsAndSupport = str(x) + " : " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
@@ -741,7 +740,7 @@ class EFIM(utilityPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -749,7 +748,7 @@ class EFIM(utilityPatterns):
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -758,39 +757,39 @@ class EFIM(utilityPatterns):
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
        """
-        return self.endTime-self.startTime
+        return self._endTime-self._startTime
 
 
 if __name__ == '__main__':
-    ap = str()
-    if len(sys.argv) == 4 or len(sys.argv) == 5:
-        if len(sys.argv) == 5:    #includes separator
-            ap = EFIM(sys.argv[1], int(sys.argv[3]), sys.argv[4])
-        if len(sys.argv) == 4:    #takes "\t" as a separator
-            ap = EFIM(sys.argv[1], int(sys.argv[3]))
-        ap.startMine()
-        patterns = ap.getPatterns()
-        print("Total number of High Utility Patterns:", ap.patternCount)
-        print("Total number of Candidate Patterns:", ap.candidateCount)
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+    _ap = str()
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:    #includes separator
+            _ap = EFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
+            _ap = EFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]))
+        _ap.startMine()
+        _patterns = _ap.getPatterns()
+        print("Total number of High Utility Patterns:", _ap._patternCount)
+        #print("Total number of Candidate Patterns:", ap.candidateCount)
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
     else:
-        l = [200000, 300000, 400000, 500000]
+        '''l = [200000, 300000, 400000, 500000]
         for i in l:
-            ap = EFIM('/home/pradeep/Downloads/mushroom_utility_SPMF.txt', i, ' ')
+            ap = EFIM('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', i, ' ')
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/home/pradeep/Downloads/output.txt')
+            ap.savePatterns('/home/apiiit-rkv/Downloads/output.txt')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

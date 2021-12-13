@@ -13,15 +13,15 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.periodicFrequentPattern.basic.abstract import *
+import abstract as _ab
 
 
-maxPer = float()
-minSup = float()
-lno = int()
+_maxPer = float()
+_minSup = float()
+_lno = int()
 
 
-class Node(object):
+class _Node(object):
     """
         A class used to represent the node of frequentPatternTree
 
@@ -66,7 +66,7 @@ class Node(object):
         node.parent = self
 
 
-class Tree(object):
+class _Tree(object):
     """
         A class used to represent the frequentPatternGrowth tree structure
 
@@ -97,7 +97,7 @@ class Tree(object):
         """
 
     def __init__(self):
-        self.root = Node(None, {})
+        self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
@@ -114,7 +114,7 @@ class Tree(object):
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i] not in currentNode.children:
-                newNode = Node(transaction[i], {})
+                newNode = _Node(transaction[i], {})
                 currentNode.addChild(newNode)
                 if transaction[i] in self.summaries:
                     self.summaries[transaction[i]].append(newNode)
@@ -189,7 +189,7 @@ class Tree(object):
         :return: support, periodicity
         """
 
-        global maxPer, lno
+        global _maxPer, _lno
         timeStamps.sort()
         cur = 0
         per = list()
@@ -198,7 +198,7 @@ class Tree(object):
             per.append(timeStamps[j] - cur)
             cur = timeStamps[j]
             sup += 1
-        per.append(lno - cur)
+        per.append(_lno - cur)
         if len(per) == 0:
             return [0, 0]
         return [sup, max(per)]
@@ -213,7 +213,7 @@ class Tree(object):
             :returns: Returns conditional transactions by removing non-periodic and non-frequent items
         """
 
-        global maxPer, minSup
+        global _maxPer, _minSup
         pat = []
         timeStamps = []
         data1 = {}
@@ -226,7 +226,7 @@ class Tree(object):
         updatedDictionary = {}
         for m in data1:
             updatedDictionary[m] = self.getSupportAndPeriod(data1[m])
-        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v[0] >= minSup and v[1] <= maxPer}
+        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v[0] >= _minSup and v[1] <= _maxPer}
         count = 0
         for p in conditionalPatterns:
             p1 = [v for v in p if v in updatedDictionary]
@@ -250,7 +250,7 @@ class Tree(object):
             pattern.append(i)
             yield pattern, self.info[i]
             patterns, timeStamps, info = self.getConditionalPatterns(i)
-            conditionalTree = Tree()
+            conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             for pat in range(len(patterns)):
                 conditionalTree.addTransaction(patterns[pat], timeStamps[pat])
@@ -260,7 +260,7 @@ class Tree(object):
             self.removeNode(i)
 
 
-class PFPGrowth(periodicFrequentPatterns):
+class PFPGrowth(_ab._periodicFrequentPatterns):
     """ PFPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
     Reference:
@@ -382,72 +382,72 @@ class PFPGrowth(periodicFrequentPatterns):
             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
-    startTime = float()
-    endTime = float()
-    minSup = str()
-    maxPer = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    Database = []
-    rank = {}
-    rankedUp = {}
-    lno = 0
+    _startTime = float()
+    _endTime = float()
+    _minSup = str()
+    _maxPer = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _rank = {}
+    _rankedUp = {}
+    _lno = 0
 
-    def creatingItemSets(self):
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
 
         """
-        self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
             data, ts = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                ts = self.iFile['TS'].tolist()
+                ts = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [ts[i][0]]
                 tr = tr + data[i]
-                self.Database.append(tr)
+                self._Database.append(tr)
 
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self.Database.append(temp)
+                            self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
 
-    def periodicFrequentOneItem(self):
+    def _periodicFrequentOneItem(self):
         """ Calculates the support of each item in the database and assign ranks to the items
             by decreasing support and returns the frequent items list
 
             :returns: return the one-length periodic frequent patterns
         """
         data = {}
-        for tr in self.Database:
+        for tr in self._Database:
             for i in range(1, len(tr)):
                 if tr[i] not in data:
                     data[tr[i]] = [int(tr[0]), int(tr[0]), 1]
@@ -456,13 +456,13 @@ class PFPGrowth(periodicFrequentPatterns):
                     data[tr[i]][1] = int(tr[0])
                     data[tr[i]][2] += 1
         for key in data:
-            data[key][0] = max(data[key][0], abs(len(self.Database) - data[key][1]))
-        data = {k: [v[2], v[0]] for k, v in data.items() if v[0] <= self.maxPer and v[2] >= self.minSup}
+            data[key][0] = max(data[key][0], abs(len(self._Database) - data[key][1]))
+        data = {k: [v[2], v[0]] for k, v in data.items() if v[0] <= self._maxPer and v[2] >= self._minSup}
         pfList = [k for k, v in sorted(data.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
-        self.rank = dict([(index, item) for (item, index) in enumerate(pfList)])
+        self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
         return data, pfList
 
-    def updateDatabases(self, dict1):
+    def _updateDatabases(self, dict1):
         """ Remove the items which are not frequent from database and updates the database with rank of items
 
             :param dict1: frequent items with support
@@ -470,11 +470,11 @@ class PFPGrowth(periodicFrequentPatterns):
             :return: Sorted and updated transactions
             """
         list1 = []
-        for tr in self.Database:
+        for tr in self._Database:
             list2 = [int(tr[0])]
             for i in range(1, len(tr)):
                 if tr[i] in dict1:
-                    list2.append(self.rank[tr[i]])
+                    list2.append(self._rank[tr[i]])
             if len(list2) >= 2:
                 basket = list2[1:]
                 basket.sort()
@@ -483,7 +483,7 @@ class PFPGrowth(periodicFrequentPatterns):
         return list1
 
     @staticmethod
-    def buildTree(data, info):
+    def _buildTree(data, info):
         """ It takes the database and support of an each item and construct the main tree by setting root node as a null
 
             :param data: it represents the one Databases in database
@@ -493,14 +493,14 @@ class PFPGrowth(periodicFrequentPatterns):
             :return: returns root node of tree
         """
 
-        rootNode = Tree()
+        rootNode = _Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
             set1 = [data[i][0]]
             rootNode.addTransaction(data[i][1:], set1)
         return rootNode
 
-    def savePeriodic(self, itemSet):
+    def _savePeriodic(self, itemSet):
         """ To convert the ranks of items in to their original item names
 
             :param itemSet: frequent pattern
@@ -508,10 +508,10 @@ class PFPGrowth(periodicFrequentPatterns):
         """
         t1 = str()
         for i in itemSet:
-            t1 = t1 + self.rankedUp[i] + " "
+            t1 = t1 + self._rankedUp[i] + " "
         return t1
 
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -521,11 +521,11 @@ class PFPGrowth(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
@@ -534,35 +534,35 @@ class PFPGrowth(periodicFrequentPatterns):
         """ Mining process will start from this function
         """
 
-        global minSup, maxPer, lno
-        self.startTime = time.time()
-        if self.iFile is None:
+        global _minSup, _maxPer, _lno
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self.minSup is None:
+        if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
-        self.creatingItemSets()
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
-        minSup, maxPer, lno = self.minSup, self.maxPer, len(self.Database)
-        if self.minSup > len(self.Database):
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
+        if self._minSup > len(self._Database):
             raise Exception("Please enter the minSup in range between 0 to 1")
-        generatedItems, pfList = self.periodicFrequentOneItem()
-        updatedDatabases = self.updateDatabases(generatedItems)
-        for x, y in self.rank.items():
-            self.rankedUp[y] = x
-        info = {self.rank[k]: v for k, v in generatedItems.items()}
-        Tree = self.buildTree(updatedDatabases, info)
+        generatedItems, pfList = self._periodicFrequentOneItem()
+        updatedDatabases = self._updateDatabases(generatedItems)
+        for x, y in self._rank.items():
+            self._rankedUp[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedDatabases, info)
         patterns = Tree.generatePatterns([])
-        self.finalPatterns = {}
+        self._finalPatterns = {}
         for i in patterns:
-            sample = self.savePeriodic(i[0])
-            self.finalPatterns[sample] = i[1]
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+            sample = self._savePeriodic(i[0])
+            self._finalPatterns[sample] = i[1]
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Periodic Frequent patterns were generated successfully using PFPGrowth algorithm ")
 
     def getMemoryUSS(self):
@@ -572,7 +572,7 @@ class PFPGrowth(periodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -581,7 +581,7 @@ class PFPGrowth(periodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -591,7 +591,7 @@ class PFPGrowth(periodicFrequentPatterns):
         :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final periodic-frequent patterns in a dataframe
@@ -602,9 +602,9 @@ class PFPGrowth(periodicFrequentPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b[0], b[1]])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -613,9 +613,9 @@ class PFPGrowth(periodicFrequentPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
@@ -625,25 +625,25 @@ class PFPGrowth(periodicFrequentPatterns):
         :return: returning periodic-frequent patterns
         :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
-    ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = PFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = PFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+    _ap = str()
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:
+            _ap = PFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:
+            _ap = PFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Patterns:", len(_Patterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

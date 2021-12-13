@@ -605,22 +605,22 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
 
 if __name__ == "__main__":
-    ap = str()
+    _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-           ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
-        ap.startMine()
-        fuzzyFrequentPatterns = ap.getPatterns()
-        print("Total number of Fuzzy-Frequent Patterns:", len(fuzzyFrequentPatterns))
-        ap.savePatterns(_ab._sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+           _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
+        _ap.startMine()
+        _fuzzyFrequentPatterns = _ap.getPatterns()
+        print("Total number of Fuzzy-Frequent Patterns:", len(_fuzzyFrequentPatterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
     else:
         l = [1800, 1900, 2000, 2200, 2400]
         for i in l:

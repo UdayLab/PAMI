@@ -1,7 +1,7 @@
-from PAMI.periodicFrequentPattern.closed.abstract import *
+import abstract as _ab
 
 
-class CPFPMiner(periodicFrequentPatterns):
+class CPFPMiner(_ab._periodicFrequentPatterns):
     """ CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.
         It uses depth-first search.
 
@@ -108,30 +108,30 @@ class CPFPMiner(periodicFrequentPatterns):
 
         """
 
-    minSup = float()
-    maxPer = float()
-    startTime = float()
-    endTime = float()
-    finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    memoryUSS = float()
-    memoryRSS = float()
-    transaction = []
-    hashing = {}
-    mapSupport = {}
-    itemSetCount = 0
-    maxItemId = 0
-    tableSize = 10000
-    tidList = {}
-    lno = 0
+    _minSup = float()
+    _maxPer = float()
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _transaction = []
+    _hashing = {}
+    _mapSupport = {}
+    _itemSetCount = 0
+    _maxItemId = 0
+    _tableSize = 10000
+    _tidList = {}
+    _lno = 0
 
     def __init__(self, iFile, minSup, maxPer, sep='\t'):
         super().__init__(iFile, minSup, maxPer, sep)
-        self.finalPatterns = {}
+        self._finalPatterns = {}
     
-    def convert(self, value):
+    def _convert(self, value):
         """
         To convert the given user specified value
 
@@ -142,16 +142,16 @@ class CPFPMiner(periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (self.lno * value)
+            value = (self._lno * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (self.lno * value)
+                value = (self._lno * value)
             else:
                 value = int(value)
         return value
 
-    def scanDatabase(self):
+    def _scanDatabase(self):
         """
         To scan the database and extracts the 1-length periodic-frequent items
         Returns:
@@ -159,65 +159,65 @@ class CPFPMiner(periodicFrequentPatterns):
         Returns the 1-length periodic-frequent items
         """
         Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        if isinstance(self._iFile, _ab._pd.DataFrame):
             ts, data = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'TS' in i:
-                ts = self.iFile['TS'].tolist()
+                ts = self._iFile['TS'].tolist()
             if 'Transactions' in i:
-                data = self.iFile['Transactions'].tolist()
+                data = self._iFile['Transactions'].tolist()
             for i in range(len(data)):
                 tr = [ts[i][0]]
                 tr = tr + data[i]
                 Database.append(tr)
 
-        if isinstance(self.iFile, str):
-            if validators.url(self.iFile):
-                data = urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
                     Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r', encoding='utf-8') as f:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
-        self.tidList = {}
-        self.mapSupport = {}
+        self._tidList = {}
+        self._mapSupport = {}
         for line in Database:
-            self.lno += 1
+            self._lno += 1
             s = line
             n = int(s[0])
             for i in range(1, len(s)):
                 si = s[i]
-                if self.mapSupport.get(si) is None:
-                    self.mapSupport[si] = [1, abs(0 - n), n]
-                    self.tidList[si] = [n]
+                if self._mapSupport.get(si) is None:
+                    self._mapSupport[si] = [1, abs(0 - n), n]
+                    self._tidList[si] = [n]
                 else:
-                    self.mapSupport[si][0] += 1
-                    self.mapSupport[si][1] = max(self.mapSupport[si][1], abs(n - self.mapSupport[si][2]))
-                    self.mapSupport[si][2] = n
-                    self.tidList[si].append(n)
-        for x, y in self.mapSupport.items():
-            self.mapSupport[x][1] = max(self.mapSupport[x][1], abs(self.lno - self.mapSupport[x][2]))
-        self.minSup = self.convert(self.minSup)
-        self.maxPer = self.convert(self.maxPer)
-        self.mapSupport = {k: [v[0], v[1]] for k, v in self.mapSupport.items() if
-                           v[0] >= self.minSup and v[1] <= self.maxPer}
+                    self._mapSupport[si][0] += 1
+                    self._mapSupport[si][1] = max(self._mapSupport[si][1], abs(n - self._mapSupport[si][2]))
+                    self._mapSupport[si][2] = n
+                    self._tidList[si].append(n)
+        for x, y in self._mapSupport.items():
+            self._mapSupport[x][1] = max(self._mapSupport[x][1], abs(self._lno - self._mapSupport[x][2]))
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        self._mapSupport = {k: [v[0], v[1]] for k, v in self._mapSupport.items() if
+                           v[0] >= self._minSup and v[1] <= self._maxPer}
         periodicFrequentItems = {}
-        self.tidList = {k: v for k, v in self.tidList.items() if k in self.mapSupport}
-        for x, y in self.tidList.items():
+        self._tidList = {k: v for k, v in self._tidList.items() if k in self._mapSupport}
+        for x, y in self._tidList.items():
             t1 = 0
             for i in y:
                 t1 += i
@@ -225,7 +225,7 @@ class CPFPMiner(periodicFrequentPatterns):
         periodicFrequentItems = [key for key, value in sorted(periodicFrequentItems.items(), key=lambda x: x[1])]
         return periodicFrequentItems
 
-    def calculate(self, tidSet):
+    def _calculate(self, tidSet):
         """
         To calculate the weight if pattern based on the respective timeStamps
         Parameters
@@ -241,9 +241,9 @@ class CPFPMiner(periodicFrequentPatterns):
             hashcode += i
         if hashcode < 0:
             hashcode = abs(0 - hashcode)
-        return hashcode % self.tableSize
+        return hashcode % self._tableSize
 
-    def contains(self, itemSet, val, hashcode):
+    def _contains(self, itemSet, val, hashcode):
         """
         To check if the key(hashcode) is in dictionary(hashing) variable
         Parameters:
@@ -256,15 +256,15 @@ class CPFPMiner(periodicFrequentPatterns):
         -------
             true if itemSet with same support present in dictionary(hashing) or else returns false
         """
-        if self.hashing.get(hashcode) is None:
+        if self._hashing.get(hashcode) is None:
             return False
-        for i in self.hashing[hashcode]:
+        for i in self._hashing[hashcode]:
             itemSetX = i
-            if val[0] == self.hashing[hashcode][itemSetX][0] and set(itemSetX).issuperset(itemSet):
+            if val[0] == self._hashing[hashcode][itemSetX][0] and set(itemSetX).issuperset(itemSet):
                 return True
         return False
 
-    def getPeriodAndSupport(self, timeStamps):
+    def _getPeriodAndSupport(self, timeStamps):
         """
         Calculates the periodicity and support of timeStamps
         Parameters:
@@ -281,14 +281,14 @@ class CPFPMiner(periodicFrequentPatterns):
         sup = 0
         for j in range(len(timeStamps)):
             per = max(per, timeStamps[j] - cur)
-            if per > self.maxPer:
+            if per > self._maxPer:
                 return [0, 0]
             cur = timeStamps[j]
             sup += 1
-        per = max(per, self.lno - cur)
+        per = max(per, self._lno - cur)
         return [sup, per]
 
-    def save(self, prefix, suffix, tidSetX):
+    def _save(self, prefix, suffix, tidSetX):
         """
         Saves the generated pattern which satisfies the closed property
         Parameters:
@@ -308,21 +308,21 @@ class CPFPMiner(periodicFrequentPatterns):
             prefix = prefix + suffix
         prefix = list(set(prefix))
         prefix.sort()
-        val = self.getPeriodAndSupport(tidSetX)
-        if val[0] >= self.minSup and val[1] <= self.maxPer:
-            hashcode = self.calculate(tidSetX)
-            if self.contains(prefix, val, hashcode) is False:
-                self.itemSetCount += 1
+        val = self._getPeriodAndSupport(tidSetX)
+        if val[0] >= self._minSup and val[1] <= self._maxPer:
+            hashcode = self._calculate(tidSetX)
+            if self._contains(prefix, val, hashcode) is False:
+                self._itemSetCount += 1
                 sample = str()
                 for i in prefix:
                     sample = sample + i + " "
-                self.finalPatterns[sample] = val
-            if hashcode not in self.hashing:
-                self.hashing[hashcode] = {tuple(prefix): val}
+                self._finalPatterns[sample] = val
+            if hashcode not in self._hashing:
+                self._hashing[hashcode] = {tuple(prefix): val}
             else:
-                self.hashing[hashcode][tuple(prefix)] = val
+                self._hashing[hashcode][tuple(prefix)] = val
 
-    def processEquivalenceClass(self, prefix, itemSets, tidSets):
+    def _processEquivalenceClass(self, prefix, itemSets, tidSets):
         """
         Parameters:
         ----------
@@ -337,7 +337,7 @@ class CPFPMiner(periodicFrequentPatterns):
         if len(itemSets) == 1:
             i = itemSets[0]
             tidList = tidSets[0]
-            self.save(prefix, [i], tidList)
+            self._save(prefix, [i], tidList)
             return
         if len(itemSets) == 2:
             itemI = itemSets[0]
@@ -345,15 +345,15 @@ class CPFPMiner(periodicFrequentPatterns):
             itemJ = itemSets[1]
             tidSetJ = tidSets[1]
             y1 = list(set(tidSetI).intersection(tidSetJ))
-            if len(y1) >= self.minSup:
+            if len(y1) >= self._minSup:
                 suffix = []
                 suffix += [itemI, itemJ]
                 suffix = list(set(suffix))
-                self.save(prefix, suffix, y1)
+                self._save(prefix, suffix, y1)
             if len(y1) != len(tidSetI):
-                self.save(prefix, [itemI], tidSetI)
+                self._save(prefix, [itemI], tidSetI)
             if len(y1) != len(tidSetJ):
-                self.save(prefix, [itemJ], tidSetJ)
+                self._save(prefix, [itemJ], tidSetJ)
             return
         for i in range(len(itemSets)):
             itemX = itemSets[i]
@@ -369,7 +369,7 @@ class CPFPMiner(periodicFrequentPatterns):
                     continue
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetX).intersection(tidSetJ))
-                if len(y) < self.minSup:
+                if len(y) < self._minSup:
                     continue
                 if len(tidSetX) == len(tidSetJ) and len(y) == len(tidSetX):
                     itemSets.insert(j, None)
@@ -387,22 +387,22 @@ class CPFPMiner(periodicFrequentPatterns):
                     classTidSets.append(y)
             if len(classItemSets) > 0:
                 newPrefix = list(set(itemSetX)) + prefix
-                self.processEquivalenceClass(newPrefix, classItemSets, classTidSets)
-            self.save(prefix, list(set(itemSetX)), tidSetX)
+                self._processEquivalenceClass(newPrefix, classItemSets, classTidSets)
+            self._save(prefix, list(set(itemSetX)), tidSetX)
 
     def startMine(self):
         """
         Mining process will start from here
         """
-        self.startTime = time.time()
-        self.finalPatterns = {}
-        self.hashing = {}
-        periodicFrequentItems = self.scanDatabase()
+        self._startTime = _ab._time.time()
+        self._finalPatterns = {}
+        self._hashing = {}
+        periodicFrequentItems = self._scanDatabase()
         for i in range(len(periodicFrequentItems)):
             itemX = periodicFrequentItems[i]
             if itemX is None:
                 continue
-            tidSetX = self.tidList[itemX]
+            tidSetX = self._tidList[itemX]
             itemSetX = [itemX]
             itemSets = []
             tidSets = []
@@ -410,9 +410,9 @@ class CPFPMiner(periodicFrequentPatterns):
                 itemJ = periodicFrequentItems[j]
                 if itemJ is None:
                     continue
-                tidSetJ = self.tidList[itemJ]
+                tidSetJ = self._tidList[itemJ]
                 y1 = list(set(tidSetX).intersection(tidSetJ))
-                if len(y1) < self.minSup:
+                if len(y1) < self._minSup:
                     continue
                 if len(tidSetX) == len(tidSetJ) and len(y1) is len(tidSetX):
                     periodicFrequentItems.insert(j, None)
@@ -428,14 +428,14 @@ class CPFPMiner(periodicFrequentPatterns):
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             if len(itemSets) > 0:
-                self.processEquivalenceClass(itemSetX, itemSets, tidSets)
-            self.save([], itemSetX, tidSetX)
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
-        self.memoryUSS = float()
-        self.memoryRSS = float()
-        self.memoryUSS = process.memory_full_info().uss
-        self.memoryRSS = process.memory_info().rss
+                self._processEquivalenceClass(itemSetX, itemSets, tidSets)
+            self._save([], itemSetX, tidSetX)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
         print("Closed periodic frequent patterns were generated successfully using CPFPMiner algorithm ")
 
     def getMemoryUSS(self):
@@ -446,7 +446,7 @@ class CPFPMiner(periodicFrequentPatterns):
             :rtype: float
         """
 
-        return self.memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -456,7 +456,7 @@ class CPFPMiner(periodicFrequentPatterns):
             :rtype: float
         """
 
-        return self.memoryRSS
+        return self._memoryRSS
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
@@ -466,7 +466,7 @@ class CPFPMiner(periodicFrequentPatterns):
             :rtype: float
         """
 
-        return self.endTime - self.startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -478,9 +478,9 @@ class CPFPMiner(periodicFrequentPatterns):
 
         dataFrame = {}
         data = []
-        for a, b in self.finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b[0], b[1]])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -490,9 +490,9 @@ class CPFPMiner(periodicFrequentPatterns):
 
             :type outFile: file
         """
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
@@ -503,25 +503,25 @@ class CPFPMiner(periodicFrequentPatterns):
 
             :rtype: dict
         """
-        return self.finalPatterns
+        return self._finalPatterns
         
 
 if __name__ == "__main__":
-    ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            ap = CPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-        if len(sys.argv) == 5:
-            ap = CPFPMiner(sys.argv[1], sys.argv[3], sys.argv[4])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of  Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+    _ap = str()
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:
+            _ap = CPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:
+            _ap = CPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of  Patterns:", len(_Patterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

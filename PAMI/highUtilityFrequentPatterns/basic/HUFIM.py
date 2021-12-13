@@ -840,33 +840,33 @@ class HUFIM(_ab._utilityPatterns):
 
 
 if __name__ == '__main__':
-    ap = str()
+    _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:    #includes separator
-            ap = HUFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]), _ab._sys.argv[5])
+            _ap = HUFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:    #takes "\t" as a separator
-            ap = HUFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]))
-        ap.startMine()
-        patterns = ap.getPatterns()
-        print("Total number of High Utility Frequent Patterns:", ap._patternCount)
-        print("Total number of Candidate Patterns:", ap._candidateCount)
-        ap.savePatterns(_ab._sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
-        print("######################################")
+            _ap = HUFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]))
+        _ap.startMine()
+        _patterns = _ap.getPatterns()
+        print("Total number of High Utility Frequent Patterns:", _ap._patternCount)
+        print("Total number of Candidate Patterns:", _ap._candidateCount)
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
+        #print("######################################")
     else:
         l = [2000, 5000, 40000]
         for i in l:
-            ap = HUFIM('/Users/Likhitha/Downloads/mushroom_utility_SPMF.txt', i, 1000, ' ')
+            ap = HUFIM('/home/apiiit-rkv/Downloads/pol_pm2_16_util', i, 400, ' ')
             ap.startMine()
             patterns = ap.getPatterns()
             print("Total number of High Utility Frequent Patterns:", ap._patternCount)
             print("Total number of Candidate Patterns:", ap._candidateCount)
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            ap.savePatterns('/home/apiiit-rkv/Downloads/output')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()

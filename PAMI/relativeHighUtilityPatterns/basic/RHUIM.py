@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from PAMI.relativeHighUtilityPatterns.basic import abstract as _ab
+import abstract as _ab
 
 
 class _Transaction:
@@ -761,23 +761,23 @@ class RHUIM(_ab._utilityPatterns):
 
 
 if __name__ == '__main__':
-    ap = str()
+    _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:    #includes separator
-            ap = RHUIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]), _ab._sys.argv[5])
+            _ap = RHUIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:    #takes "\t" as a separator
-            ap = RHUIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]))
-        ap.startMine()
-        patterns = ap.getPatterns()
-        print("Total number of Relative High Utility Patterns:", ap._patternCount)
-        print("Total number of Candidate Patterns:", ap._candidateCount)
-        ap.savePatterns(_ab._sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+            _ap = RHUIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]))
+        _ap.startMine()
+        _patterns = _ap.getPatterns()
+        print("Total number of Relative High Utility Patterns:", _ap._patternCount)
+        print("Total number of Candidate Patterns:", _ap._candidateCount)
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
     else:
         '''l = [50000, 70000, 90000, 100000]
         for i in l:

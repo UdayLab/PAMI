@@ -14,24 +14,22 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from abc import ABC, abstractmethod
-import time
-import validators
-from urllib.request import urlopen
-import csv
-import pandas as pd
-from collections import defaultdict
-from itertools import combinations as c
-import os
-import os.path
-import psutil
+from abc import ABC as _ABC, abstractmethod as _abstractmethod
+import time as _time
+import validators as _validators
+from urllib.request import urlopen as _urlopen
+import csv as _csv
+import pandas as _pd
+from collections import defaultdict as _defaultdict
+from itertools import combinations as _c
+import os as _os
+import os.path as _ospath
+import psutil as _psutil
 from array import *
-import functools
-import sys
-import validators
-from urllib.request import urlopen
+import functools as _functools
+import sys as _sys
 
-class utilityPatterns(ABC):
+class _utilityPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
@@ -89,77 +87,29 @@ class utilityPatterns(ABC):
 
         """
 
-        self.iFile = iFile
-        self.sep = sep
-        self.minUtil = minUtil
+        self._iFile = iFile
+        self._sep = sep
+        self._oFile = " "
+        self._minUtil = minUtil
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._finalPatterns = {}
 
-    @abstractmethod
-    def iFile(self):
-        """Variable to store the input file path/file name"""
-
-        pass
-
-    @abstractmethod
-    def minUtil(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @abstractmethod
-    def sep(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @abstractmethod
-    def startTime(self):
-        """Variable to store the start time of the mining process"""
-
-        pass
-
-    @abstractmethod
-    def endTime(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryUSS(self):
-        """Variable to store USS memory consumed by the program"""
-
-        pass
-
-    @abstractmethod
-    def memoryRSS(self):
-        """Variable to store RSS memory consumed by the program"""
-
-        pass
-
-    @abstractmethod
-    def finalPatterns(self):
-        """Variable to store the complete set of patterns in a dictionary"""
-
-        pass
-
-    @abstractmethod
-    def oFile(self):
-        """Variable to store the name of the output file to store the complete set of frequent patterns"""
-
-        pass
-
-    @abstractmethod
+    @_abstractmethod
     def startMine(self):
         """Code for the mining process will start from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getPatterns(self):
         """Complete set of frequent patterns generated will be retrieved from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def savePatterns(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
 
@@ -169,26 +119,26 @@ class utilityPatterns(ABC):
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getPatternsAsDataFrame(self):
         """Complete set of frequent patterns will be loaded in to data frame from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the program will be retrieved from this function"""
 
         pass
 
-    @abstractmethod
+    @_abstractmethod
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the program will be retrieved from this function"""
 
         pass
 
 
-    @abstractmethod
+    @_abstractmethod
     def getRuntime(self):
         """Total amount of runtime taken by the program will be retrieved from this function"""
 

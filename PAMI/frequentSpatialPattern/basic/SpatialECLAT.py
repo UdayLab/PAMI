@@ -424,22 +424,22 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
 
 if __name__ == "__main__":
-    ap = str()
+    _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            ap = SpatialECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = SpatialECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            ap = SpatialECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        ap.startMine()
-        spatialFrequentPatterns = ap.getPatterns()
-        print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.savePatterns(_ab._sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+            _ap = SpatialECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        _ap.startMine()
+        _spatialFrequentPatterns = _ap.getPatterns()
+        print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
     else:
         ap = SpatialECLAT('/Users/Likhitha/Downloads/Datasets/T10I4D200K.txt',
                        '/Users/Likhitha/Downloads/Datasets/t10_neighbours', 1000, ' ')

@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
+import abstract as _ab
 
 _minSup = float()
 _maxPer = float()

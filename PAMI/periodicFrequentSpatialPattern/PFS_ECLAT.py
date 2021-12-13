@@ -1,4 +1,4 @@
-from PAMI.periodicFrequentSpatialPattern import abstract as _ab
+import abstract as _ab
 
 
 class PFS_ECLAT(_ab._spatialPeriodicFrequentPatterns):
@@ -434,21 +434,21 @@ class PFS_ECLAT(_ab._spatialPeriodicFrequentPatterns):
 
 
 if __name__ == "__main__":
-    ap = str()
+    _ap = str()
     if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
         if len(_ab._sys.argv) == 7:
-            ap = PFS_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
+            _ap = PFS_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
-            ap = PFS_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        ap.startMine()
-        spatialFrequentPatterns = ap.getPatterns()
-        print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.savePatterns(_ab._sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+            _ap = PFS_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+        _ap.startMine()
+        _spatialFrequentPatterns = _ap.getPatterns()
+        print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

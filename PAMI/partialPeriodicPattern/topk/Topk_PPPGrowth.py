@@ -438,23 +438,23 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
 
 
 if __name__ == "__main__":
-    ap = str()
+    _ap = str()
     if len(_sys.argv) == 5 or len(_sys.argv) == 6:
         if len(_sys.argv) == 6:
-            ap = Topk_PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
+            _ap = Topk_PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
         if len(_sys.argv) == 5:
-            ap = Topk_PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(_sys.argv[2])
-        print(ap.getPatternsAsDataFrame())
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+            _ap = Topk_PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(_Patterns))
+        _ap.savePatterns(_sys.argv[2])
+        print(_ap.getPatternsAsDataFrame())
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         '''l = [100, 150]
         for i in l:

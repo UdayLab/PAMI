@@ -389,23 +389,23 @@ class FAE(_ab._frequentPatterns):
 
 
 if __name__ == "__main__":
-    ap = str()
+    _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            ap = FAE(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = FAE(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            ap = FAE(_ab._sys.argv[1], _ab._sys.argv[3])
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(_ab._sys.argv[2])
-        print(ap.getPatternsAsDataFrame())
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+            _ap = FAE(_ab._sys.argv[1], _ab._sys.argv[3])
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(_Patterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        print(_ap.getPatternsAsDataFrame())
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         '''l = [0.001, 0.002, 0.003, 0.004, 0.005]
         for i in l:
