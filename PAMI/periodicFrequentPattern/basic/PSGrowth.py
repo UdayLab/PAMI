@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from itertools import combinations as _combinations
-import abstract as _ab
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 _pfList = []
 _minSup = int()

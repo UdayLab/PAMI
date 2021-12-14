@@ -1,4 +1,4 @@
-import abstract as _ab
+from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
 from functools import cmp_to_key as _cmpToKey
 
 class _Transaction:

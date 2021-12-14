@@ -1,4 +1,4 @@
-import abstract as _ab
+from PAMI.uncertainCorrelatedPattern.basic import abstract as _ab
 
 
 class _FFList:

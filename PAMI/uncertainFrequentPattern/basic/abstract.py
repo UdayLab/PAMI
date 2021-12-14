@@ -1,17 +1,3 @@
-#  Copyright (C)  2021 Rage Uday Kiran
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from abc import ABC as _ABC, abstractmethod as _abstractmethod
 import time as _time
@@ -92,66 +78,12 @@ class _frequentPatterns(_ABC):
         self._iFile = iFile
         self._minSup = minSup
         self._sep = sep
-        self._oFile = str()
+        self._oFile = " "
         self._finalPatterns = {}
         self._startTime = float()
         self._endTime = float()
         self._memoryUSS = float()
         self._memoryRSS = float()
-
-    '''@abstractmethod
-    def iFile(self):
-        """Variable to store the input file path/file name"""
-
-        pass
-
-    @abstractmethod
-    def minSup(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @abstractmethod
-    def sep(self):
-        """Variable to store the separator of  input file """
-
-        pass
-
-    @abstractmethod
-    def startTime(self):
-        """Variable to store the start time of the mining process"""
-
-        pass
-
-    @abstractmethod
-    def endTime(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryUSS(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryRSS(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def finalPatterns(self):
-        """Variable to store the complete set of patterns in a dictionary"""
-
-        pass
-
-    @abstractmethod
-    def oFile(self):
-        """Variable to store the name of the output file to store the complete set of frequent patterns"""
-
-        pass'''
 
     @_abstractmethod
     def startMine(self):
@@ -197,4 +129,6 @@ class _frequentPatterns(_ABC):
         """Total amount of runtime taken by the program will be retrieved from this function"""
 
         pass
+
+
 

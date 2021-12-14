@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import abstract as _ab
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 
 class PFECLAT(_ab._periodicFrequentPatterns):

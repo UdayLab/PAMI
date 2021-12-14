@@ -13,19 +13,17 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import abstract as _fp
+from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 
-minSup = str()
-_fp._sys.setrecursionlimit(20000)
-__finalPatterns = {}
+_minSup = str()
+_ab._sys.setrecursionlimit(20000)
+_finalPatterns = {}
 
 
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
-
     ...
-
     Attributes:
     __________
         item : int or word
@@ -42,9 +40,7 @@ class _Item:
 class _Node(object):
     """
     A class used to represent the node of frequentPatternTree
-
         ...
-
     Attributes:
     ----------
         item : int
@@ -55,10 +51,8 @@ class _Node(object):
             To maintain the parent of every node
         children : list
             To maintain the children of node
-
     Methods:
     -------
-
         addChild(itemName)
             storing the children to their respective parent nodes
     """
@@ -77,9 +71,7 @@ class _Node(object):
 class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
-
     ...
-
     Attributes:
     ----------
         root : Node
@@ -88,8 +80,6 @@ class _Tree(object):
             storing the nodes with same item name
         info : dictionary
             stores the support of items
-
-
     Methods:
     -------
         addTransaction(transaction)
@@ -105,7 +95,6 @@ class _Tree(object):
             removes the node from tree once after generating all the patterns respective to the node
         generatePatterns(Node)
             starts from the root node of the tree and mines the frequent patterns
-
     """
 
     def __init__(self):
@@ -115,9 +104,7 @@ class _Tree(object):
 
     def addTransaction(self, transaction):
         """adding transaction into tree
-
             :param transaction : it represents the one self.Database in database
-
             :type transaction : list
         """
 
@@ -154,13 +141,9 @@ class _Tree(object):
 
     def addConditionalPattern(self, transaction, sup):
         """constructing conditional tree from prefixPaths
-
             :param transaction : it represents the one self.Database in database
-
             :type transaction : list
-
             :param sup : support of prefixPath taken at last child of the path
-
             :type sup : int
         """
 
@@ -182,9 +165,7 @@ class _Tree(object):
 
     def conditionalPatterns(self, alpha):
         """generates all the conditional patterns of respective node
-
             :param alpha : it represents the Node in tree
-
             :type alpha : _Node
         """
 
@@ -206,9 +187,7 @@ class _Tree(object):
 
     def removeNode(self, nodeValue):
         """removing the node from tree
-
             :param nodeValue : it represents the node in tree
-
             :type nodeValue : node
         """
 
@@ -217,13 +196,9 @@ class _Tree(object):
 
     def conditionalTransactions(self, condPatterns, support):
         """ It generates the conditional patterns with frequent items
-
                 :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
-
                 :type condPatterns : list
-
                 :support : the support of conditional pattern in tree
-
                 :support : int
         """
 
@@ -251,20 +226,18 @@ class _Tree(object):
 
     def generatePatterns(self, prefix):
         """generates the patterns
-
             :param prefix : forms the combination of items
-
             :type prefix : list
         """
 
-        global __finalPatterns, minSup
+        global _finalPatterns, minSup
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
             pattern = prefix[:]
             pattern.append(i)
             s = 0
             for x in self.summaries[i]:
                 s += x.probability
-            __finalPatterns[tuple(pattern)] = self.info[i]
+            _finalPatterns[tuple(pattern)] = self.info[i]
             if s >= minSup:
                 patterns, support, info = self.conditionalPatterns(i)
                 conditionalTree = _Tree()
@@ -276,16 +249,14 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class PUFGrowth(_fp._frequentPatterns):
+class PUFGrowth(_ab._frequentPatterns):
     """
         It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
         using PUF-Tree.
-
     Reference:
     --------
         Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
         Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
-
     Attributes:
     ----------
         iFile : file
@@ -348,7 +319,6 @@ class PUFGrowth(_fp._frequentPatterns):
             to convert the user specified value
         startMine()
             Mining process will start from this function
-
     Executing the code on terminal:
     -------
         Format:
@@ -357,86 +327,69 @@ class PUFGrowth(_fp._frequentPatterns):
         Examples:
         --------
         python3 PUFGrowth.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
-
-
     Sample run of importing the code:
     -------------------
-
         from PAMI.uncertainFrequentPattern.basic import puf as alg
-
         obj = alg.PUFGrowth(iFile, minSup)
-
         obj.startMine()
-
         Patterns = obj.getPatterns()
-
         print("Total number of  Patterns:", len(Patterns))
-
         obj.savePatterns(oFile)
-
         Df = obj.getPatternsAsDataFrame()
-
         memUSS = obj.getMemoryUSS()
-
         print("Total Memory in USS:", memUSS)
-
         memRSS = obj.getMemoryRSS()
-
         print("Total Memory in RSS", memRSS)
-
         run = obj.getRuntime()
-
         print("Total ExecutionTime in seconds:", run)
-
     Credits:
     -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-
     """
-    __startTime = float()
-    __endTime = float()
-    minSup = str()
-    __finalPatterns = {}
-    iFile = " "
-    oFile = " "
-    sep = " "
-    __memoryUSS = float()
-    __memoryRSS = float()
-    __Database = []
-    __rank = {}
+    _startTime = float()
+    _endTime = float()
+    _minSup = str()
+    _finalPatterns = {}
+    _iFile = " "
+    _oFile = " "
+    _sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _Database = []
+    _rank = {}
 
     def __init__(self, iFile, minSup, sep='\t'):
         super().__init__(iFile, minSup, sep)
 
-    def __creatingItemSets(self):
+    def _creatingItemSets(self):
         """
             Scans the uncertain transactional dataset
         """
-        self.__Database = []
-        if isinstance(self.iFile, _fp._pd.DataFrame):
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
             uncertain, data = [], []
-            if self.iFile.empty:
+            if self._iFile.empty:
                 print("its empty..")
-            i = self.iFile.columns.values.tolist()
+            i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.__Database = self.iFile['Transactions'].tolist()
+                self._Database = self._iFile['Transactions'].tolist()
             if 'uncertain' in i:
-                uncertain = self.iFile['uncertain'].tolist()
+                uncertain = self._iFile['uncertain'].tolist()
             for k in range(len(data)):
                 tr = []
                 for j in range(len(data[k])):
                     product = _Item(data[k][j], uncertain[k][j])
                     tr.append(product)
-                self.__Database.append(tr)
+                self._Database.append(tr)
 
             # print(self.Database)
-        if isinstance(self.iFile, str):
-            if _fp._validators.url(self.iFile):
-                data = _fp._urlopen(self.iFile)
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
+                    temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
                     tr = []
                     for i in temp:
@@ -446,12 +399,12 @@ class PUFGrowth(_fp._frequentPatterns):
                         probability = float(i[i1 + 1:i2])
                         product = _Item(item, probability)
                         tr.append(product)
-                    self.__Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
-                    with open(self.iFile, 'r') as f:
+                    with open(self._iFile, 'r') as f:
                         for line in f:
-                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             tr = []
                             for i in temp:
@@ -461,42 +414,36 @@ class PUFGrowth(_fp._frequentPatterns):
                                 probability = float(i[i1 + 1:i2])
                                 product = _Item(item, probability)
                                 tr.append(product)
-                            self.__Database.append(tr)
+                            self._Database.append(tr)
                 except IOError:
                     print("File Not Found")
 
-    def __frequentOneItem(self):
+    def _frequentOneItem(self):
         """takes the self.Database and calculates the support of each item in the dataset and assign the
             ranks to the items by decreasing support and returns the frequent items list
-
                 :param self.Database : it represents the one self.Database in database
-
                 :type self.Database : list
         """
 
         mapSupport = {}
-        for i in self.__Database:
+        for i in self._Database:
             for j in i:
                 if j.item not in mapSupport:
                     mapSupport[j.item] = j.probability
                 else:
                     mapSupport[j.item] += j.probability
-        mapSupport = {k: v for k, v in mapSupport.items() if v >= self.minSup}
+        mapSupport = {k: v for k, v in mapSupport.items() if v >= self._minSup}
         plist = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.rank = dict([(index, item) for (item, index) in enumerate(plist)])
         return mapSupport, plist
 
     @staticmethod
-    def __buildTree(data, info):
+    def _buildTree(data, info):
         """it takes the self.Database and support of each item and construct the main tree with setting root
             node as null
-
                 :param data : it represents the one self.Database in database
-
                 :type data : list
-
                 :param info : it represents the support of each item
-
                 :type info : dictionary
         """
 
@@ -506,17 +453,14 @@ class PUFGrowth(_fp._frequentPatterns):
             rootNode.addTransaction(data[i])
         return rootNode
 
-    def __updateTransactions(self, dict1):
+    def _updateTransactions(self, dict1):
         """remove the items which are not frequent from self.Database and updates the self.Database with rank of items
-
-
             :param dict1 : frequent items with support
-
             :type dict1 : dictionary
         """
 
         list1 = []
-        for tr in self.__Database:
+        for tr in self._Database:
             list2 = []
             for i in range(0, len(tr)):
                 if tr[i].item in dict1:
@@ -529,15 +473,11 @@ class PUFGrowth(_fp._frequentPatterns):
         return list1
 
     @staticmethod
-    def __check(i, x):
+    def _check(i, x):
         """To check the presence of item or pattern in transaction
-
                 :param x: it represents the pattern
-
                 :type x : list
-
                 :param i : represents the uncertain self.Database
-
                 :type i : list
         """
 
@@ -551,40 +491,37 @@ class PUFGrowth(_fp._frequentPatterns):
                 return 0
         return 1
 
-    def __convert(self, value):
+    def _convert(self, value):
         """
         To convert the type of user specified minSup value
-
             :param value: user specified minSup value
-
             :return: converted type minSup value
         """
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.__Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = (len(self.__Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
 
-    def __removeFalsePositives(self):
+    def _removeFalsePositives(self):
         """
             To remove the false positive patterns generated in frequent patterns
-
             :return: patterns with accurate probability
         """
-        global __finalPatterns
+        global _finalPatterns
         periods = {}
-        for i in self.__Database:
-            for x, y in __finalPatterns.items():
+        for i in self._Database:
+            for x, y in _finalPatterns.items():
                 if len(x) == 1:
                     periods[x] = y
                 else:
                     s = 1
-                    check = self.__check(i, x)
+                    check = self._check(i, x)
                     if check == 1:
                         for j in i:
                             if j.item in x:
@@ -594,53 +531,47 @@ class PUFGrowth(_fp._frequentPatterns):
                         else:
                             periods[x] = s
         for x, y in periods.items():
-            if y >= self.minSup:
+            if y >= self._minSup:
                 sample = str()
                 for i in x:
                     sample = sample + i + " "
-                self.__finalPatterns[sample] = y
+                self._finalPatterns[sample] = y
 
     def startMine(self):
         """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
             by counting the original support of a patterns
-
-
         """
         global minSup
-        self.__startTime = _fp._time.time()
-        self.__creatingItemSets()
-        self.minSup = self.__convert(self.minSup)
-        minSup = self.minSup
-        self.__finalPatterns = {}
-        mapSupport, plist = self.__frequentOneItem()
-        self.Database1 = self.__updateTransactions(mapSupport)
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        minSup = self._minSup
+        self._finalPatterns = {}
+        mapSupport, plist = self._frequentOneItem()
+        self.Database1 = self._updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
-        Tree1 = self.__buildTree(self.Database1, info)
+        Tree1 = self._buildTree(self.Database1, info)
         Tree1.generatePatterns([])
-        self.__removeFalsePositives()
+        self._removeFalsePositives()
         print("Frequent patterns were generated from uncertain databases successfully using PUF algorithm")
-        self.__endTime = _fp._time.time()
-        process = _fp._psutil.Process(_fp._os.getpid())
-        self.__memoryUSS = float()
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
         self.memoryRSS = float()
-        self.__memoryUSS = process.memory_full_info().uss
+        self._memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
-        return self.__memoryUSS
+        return self._memoryUSS
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -648,64 +579,55 @@ class PUFGrowth(_fp._frequentPatterns):
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
-
-
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
-        return self.__endTime - self.__startTime
+        return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
-
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
         dataframe = {}
         data = []
-        for a, b in self.__finalPatterns.items():
+        for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
-
         :param outFile: name of the output file
-
         :type outFile: file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
-        for x, y in self.__finalPatterns.items():
+        for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
-
         :return: returning frequent patterns
-
         :rtype: dict
         """
-        return self.__finalPatterns
+        return self._finalPatterns
 
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_fp._sys.argv) == 4 or len(_fp._sys.argv) == 5:
-        if len(_fp._sys.argv) == 5:
-            _ap = PUFGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
-        if len(_fp._sys.argv) == 4:
-            _ap = PUFGrowth(_fp._sys.argv[1], _fp._sys.argv[3])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:
+            _ap = PUFGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            _ap = PUFGrowth(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns(_fp._sys.argv[2])
+        _ap.savePatterns(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -713,17 +635,17 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''l = [200, 220, 240, 260, 280, 300]
+        l = [0.001, 0.004, 0.006]
         for i in l:
-            _ap = PUFGrowth('/home/apiiit-rkv/Desktop/uncertain/congestion', i, ' ')
+            _ap = PUFGrowth('/Users/likhitha/Downloads/transactionalDb.csv', i, ' ')
             _ap.startMine()
             Patterns = _ap.getPatterns()
             print("Total number of Patterns:", len(Patterns))
-            _ap.savePatterns('/home/apiiit-rkv/Desktop/uncertain/output')
+            _ap.savePatterns('/Users/likhitha/Downloads/output.txt')
             memUSS = _ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = _ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = _ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

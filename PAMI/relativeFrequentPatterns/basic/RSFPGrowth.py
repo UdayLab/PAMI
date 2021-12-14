@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #      Copyright (C)  2021 Rage Uday Kiran
 
-import abstract as _ab
+from PAMI.relativeFrequentPatterns.basic import abstract as _ab
 
 
 class _Node:

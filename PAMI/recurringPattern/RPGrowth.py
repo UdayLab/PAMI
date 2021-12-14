@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.PAMI.periodicFrequentPattern.recurring.
 
-import abstract as _ab
+from PAMI.recurringPattern import abstract as _ab
 
 
 _maxPer = float()

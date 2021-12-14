@@ -1,4 +1,4 @@
-import abstract as _ab
+from PAMI.periodicFrequentSpatialPattern import abstract as _ab
 
 
 class PFS_ECLAT(_ab._spatialPeriodicFrequentPatterns):

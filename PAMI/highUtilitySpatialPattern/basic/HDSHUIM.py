@@ -1,4 +1,4 @@
-import abstract as _ab
+from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
 
 
 class _Element:

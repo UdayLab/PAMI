@@ -1,4 +1,4 @@
-import abstract as _ab
+from PAMI.periodicFrequentPattern.closed import abstract as _ab
 
 
 class CPFPMiner(_ab._periodicFrequentPatterns):
