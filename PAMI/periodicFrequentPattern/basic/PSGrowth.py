@@ -415,10 +415,10 @@ class _Tree(object):
         :param prefix: empty list to form the combinations
         :return: returning the periodic-frequent patterns from the tree
         """
-        global pfList
+        global _pfList
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
             pattern = prefix[:]
-            pattern.append(pfList[i])
+            pattern.append(_pfList[i])
             yield pattern, self.info[i]
             patterns, timeStamps, info = self.getConditionalPatterns(i)
             conditionalTree = _Tree()
@@ -439,7 +439,7 @@ class _Tree(object):
                     patterns[0].reverse()
                     upp = []
                     for jm in patterns[0]:
-                        upp.append(pfList[jm])
+                        upp.append(_pfList[jm])
                     allSubsets = _subLists(upp)
                     # print(upp,inf)
                     for pa in allSubsets:
@@ -710,6 +710,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
+                            print(temp)
                             self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
@@ -778,7 +779,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
-        OneLengthPeriodicItems, pfList = self._OneLengthItems()
+        OneLengthPeriodicItems, _pfList = self._OneLengthItems()
         info = {self._rank[k]: v for k, v in OneLengthPeriodicItems.items()}
         Tree = self._buildTree(info, OneLengthPeriodicItems)
         patterns = Tree.generatePatterns([])

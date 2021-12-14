@@ -287,6 +287,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         self._memoryUSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
+        print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
