@@ -15,7 +15,7 @@
 
 
 
-import abstract as _ab
+from PAMI.highUtilityPatterns.basic import abstract as _ab
 
 
 class _Transaction:
