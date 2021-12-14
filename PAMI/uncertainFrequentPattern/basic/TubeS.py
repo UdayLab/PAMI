@@ -671,7 +671,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        l = [0.001, 0.004, 0.006]
+        '''l = [0.001, 0.004, 0.006]
         for i in l:
             _ap = TubeS('/Users/likhitha/Downloads/transactionalDb.csv', i, ' ')
             _ap.startMine()
@@ -683,5 +683,5 @@ if __name__ == "__main__":
             memRSS = _ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = _ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
