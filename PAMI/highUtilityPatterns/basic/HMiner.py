@@ -1,5 +1,5 @@
 
-import abstract as _ab
+from PAMI.highUtilityPattern.basic import abstract as _ab
 
 
 class _Element:
