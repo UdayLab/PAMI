@@ -233,9 +233,10 @@ class ECLATDiffset(_ab._frequentPatterns):
                         newKey = item1 + " " + jList[-1]
                         self._diffSets[newKey] = [unionSup, unionDiffSet]
                         newList.append(newKey)
+                    else: break
 
-            if len(newList) > 0:
-                self._runEclat(newList)
+        if len(newList) > 0:
+            self._runEclat(newList)
 
     def startMine(self):
         """Frequent pattern mining process will start from here"""
