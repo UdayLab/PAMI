@@ -216,7 +216,7 @@ class ECLAT(_ab._frequentPatterns):
                         newKey = item1 + " " + i2_list[-1]
                         self._finalPatterns[newKey] = [interSet]
                         new_freqList.append(newKey)
-
+                else: break
 
         if len(new_freqList) > 0:
                 self._generateFrequentPatterns(new_freqList)
