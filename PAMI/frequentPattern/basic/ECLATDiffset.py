@@ -217,7 +217,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         # print()
         return uniqueItem
 
-    def _runEclat(self, candidateList):
+    def _runDeclat(self, candidateList):
 
         newList = []
         for i in range(0, len(candidateList)):
@@ -236,7 +236,7 @@ class ECLATDiffset(_ab._frequentPatterns):
                     else: break
 
         if len(newList) > 0:
-            self._runEclat(newList)
+            self._runDeclat(newList)
 
     def startMine(self):
         """Frequent pattern mining process will start from here"""
