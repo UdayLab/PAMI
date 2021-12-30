@@ -1,8 +1,32 @@
-import abstract as _ab
+#  Copyright (C)  2021 Rage Uday Kiran
+#
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#  Copyright (C)  2021 Rage Uday Kiran
+
+from PAMI.frequentPattern.basic import abstract as _ab
+
 
 class ECLATbitset(_ab._frequentPatterns):
     """
     ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+    This program implemented following the eclat bitset algorithm.
+
+    Reference:
+    ----------
+        Zaki, M.J., Gouda, K.: Fast vertical mining using diffsets. Technical Report 01-1, Computer Science
+            Dept., Rensselaer Polytechnic Institute (March 2001), https://doi.org/10.1145/956750.956788
+
     Attributes:
     -----------
         self.iFile : str
@@ -29,32 +53,77 @@ class ECLATbitset(_ab._frequentPatterns):
             To store the total amount of RSS memory consumed by the program
         self.Database : list
             To store the complete set of transactions available in the input database/file
+
     Methods:
     -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        createFrequentItems()
-            Generate frequent items
-        tidToBitset(itemset)
-            Convert tid list to bit set
-        genPatterns(prefix, tidData)
-            Generate frequent patterns
-        genAllFrequentPatterns(frequentItems)
-            Generate all frequent patterns
-    """
+    startMine()
+        Mining process will start from here
+    getPatterns()
+        Complete set of patterns will be retrieved with this function
+    savePatterns(oFile)
+        Complete set of frequent patterns will be loaded in to a output file
+    getPatternsAsDataFrame()
+        Complete set of frequent patterns will be loaded in to a dataframe
+    getMemoryUSS()
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+    getMemoryRSS()
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+    getRuntime()
+        Total amount of runtime taken by the mining process will be retrieved from this function
+    creatingItemSets(iFileName)
+        Storing the complete transactions of the database/input file in a database variable
+    generationOfAllItems()
+        It will generate the combinations of frequent items
+    startMine()
+        the main function to mine the patterns
 
+    Executing the code on terminal:
+    -------------------------------
+
+        Format:
+        -------
+        python3 ECLATbitset.py <inputFile> <outputFile> <minSup>
+
+        Examples:
+        ---------
+        python3 ECLATbitset.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+
+        python3 ECLATbitset.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+
+    Sample run of the importing code:
+    ---------------------------------
+
+        import PAMI.frequentPattern.basic.ECLATbitset as alg
+
+        obj = alg.ECLATbitset(iFile, minSup)
+
+        obj.startMine()
+
+        frequentPatterns = obj.getPatterns()
+
+        print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+        obj.savePatterns(oFile)
+
+        Df = obj.getPatternInDataFrame()
+
+        memUSS = obj.getMemoryUSS()
+
+        print("Total Memory in USS:", memUSS)
+
+        memRSS = obj.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = obj.getRuntime()
+
+        print("Total ExecutionTime in seconds:", run)
+
+    Credits:
+    --------
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+
+        """
     _startTime = float()
     _endTime = float()
     _finalPatterns = {}
@@ -68,11 +137,12 @@ class ECLATbitset(_ab._frequentPatterns):
     _mapSupport = {}
     _lno = 0
 
-
     def _convert(self, value):
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
+
         :return: converted type
         """
         if type(value) is int:
@@ -90,6 +160,7 @@ class ECLATbitset(_ab._frequentPatterns):
     def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
+
         """
         self._Database = []
         self._mapSupport = {}
@@ -121,94 +192,136 @@ class ECLATbitset(_ab._frequentPatterns):
                     print("File Not Found")
         self._minSup = self._convert(self._minSup)
 
-    def creatingFrequentItems(self):
-        """
-        This function creates frequent items from _database.
-        :return: frequentTidData that stores frequent items and their tid list.
-        """
-        tidData = {}
-        self._lno = 0
-        for transaction in self._Database:
-            self._lno = self._lno + 1
-            for item in transaction:
-                if item not in tidData:
-                    tidData[item] = [self._lno]
+    def _OneFrequentItems(self):
+        items = []
+        p = {}
+        for i in self._Database:
+            for j in i:
+                if j not in items:
+                    items.append(j)
+        for temp in self._Database:
+            for j in items:
+                count = 0
+                if j in temp:
+                    count = 1
+                if j not in p:
+                    p[j] = [count]
                 else:
-                    tidData[item].append(self._lno)
-        frequentTidData = {k: v for k, v in tidData.items() if len(v) >= self._minSup}
-        frequentTidData = dict(sorted(frequentTidData.items(), reverse=True, key=lambda x: len(x[1])))
-        return frequentTidData
+                    p[j].append(count)
+        for x, y in p.items():
+            if self._countSupport(y) >= self._minSup:
+                self._mapSupport[x] = y
+        pList = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: (len(x[1])), reverse=True)]
+        return pList
 
-    def tidToBitset(self,itemset):
-        """
-        This function converts tid list to bitset.
-        :param itemset:
-        :return:
-        """
-        bitset = {}
+    @staticmethod
+    def _countSupport(tids):
+        """To count support of 1's in tids
 
-        for k,v in itemset.items():
-            bitset[k] = 0b1
-            bitset[k] = (bitset[k] << int(v[0])) | 0b1
-            for i in range(1,len(v)):
-                diff = int(v[i]) - int(v[i-1])
-                bitset[k] = (bitset[k] << diff) | 0b1
-            bitset[k] = (bitset[k] << (self._lno - int(v[i])))
-        return bitset
+        :param tids: bitset representation of itemSets
 
-    def genPatterns(self,prefix,tidData):
+        :return:  count
         """
-        This function generate frequent pattern about prefix.
-        :param prefix: String
-        :param tidData: list
-        :return:
-        """
-        # variables to store frequent item set and
-        itemset = prefix[0]
+        count = 0
+        for i in tids:
+            if i == 1:
+                count += 1
+        return count
 
-        # Get the length of tidData
-        length = len(tidData)
+    def _save(self, prefix, suffix, tidSetX):
+        """To save the patterns satisfying the minSup condition
 
-        for i in range(length):
-            #tid = prefix[1].intersection(tidData[i][1])
-            tid = prefix[1] & tidData[i][1]
-            count = bin(tid).count("1") - 1
-            #tidLength = len(tid)
-            if count >= self._minSup:
-                frequentItemset = itemset + ' ' + tidData[i][0]
-                self._finalPatterns[frequentItemset] = count
-                self.genPatterns((frequentItemset,tid),tidData[i+1:length])
+        :param prefix: prefix item of itemSet
 
-    def genAllFrequentPatterns(self,frequentItems):
+        :param suffix: suffix item of itemSet
+
+        :param tidSetX: bitset representation of itemSet
+
+        :return: saving the itemSet in to finalPatterns
         """
-        This function generates all frequent patterns.
-        :param frequentItems: frequent items
-        :return:
+        if prefix is None:
+            prefix = suffix
+        else:
+            prefix = prefix + suffix
+        count = self._countSupport(tidSetX)
+        sample = str()
+        for i in prefix:
+            sample = sample + i + " "
+        self._finalPatterns[sample] = count
+
+    def _generationOfAll(self, prefix, itemSets, tidSets):
+        """It will generate the combinations of frequent items with prefix and  list of items
+
+            :param prefix: it represents the prefix item to form the combinations
+
+            :type prefix: list
+
+            :param itemSets: it represents the suffix items of prefix
+
+            :type itemSets: list
+
+            :param tidSets: represents the tidLists of itemSets
+
+            :type tidSets: 2d list
         """
-        tidData = list(frequentItems.items())
-        length = len(tidData)
-        for i in range(length):
-            #print(i,tidData[i][0])
-            self.genPatterns(tidData[i],tidData[i+1:length])
+        if len(itemSets) == 1:
+            i = itemSets[0]
+            tidI = tidSets[0]
+            self._save(prefix, [i], tidI)
+            return
+        for i in range(len(itemSets)):
+            itemI = itemSets[i]
+            if itemI is None:
+                continue
+            tidSetX = tidSets[i]
+            classItemSets = []
+            classTidSets = []
+            itemSetx = [itemI]
+            for j in range(i + 1, len(itemSets)):
+                itemJ = itemSets[j]
+                tidSetJ = tidSets[j]
+                y = [k & l for k, l in zip(tidSetX, tidSetJ)]
+                support = self._countSupport(y)
+                if support >= self._minSup:
+                    classItemSets.append(itemJ)
+                    classTidSets.append(y)
+            newprefix = list(set(itemSetx)) + prefix
+            self._generationOfAll(newprefix, classItemSets, classTidSets)
+            del classItemSets, classTidSets
+            self._save(prefix, list(set(itemSetx)), tidSetX)
+            # raise Exception("end of time")
 
     def startMine(self):
         """Frequent pattern mining process will start from here
-                We start with the scanning the itemSets and store the bitsets respectively.
-                We form the combinations of single items and  check with minSup condition to check the frequency of patterns
-                """
+        We start with the scanning the itemSets and store the bitsets respectively.
+        We form the combinations of single items and  check with minSup condition to check the frequency of patterns
+        """
 
         self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
-
         self._creatingItemSets()
-        frequentItems = self.creatingFrequentItems()
-        self._finalPatterns = {k: len(v) for k, v in frequentItems.items()}
-        frequentItemsBitset = self.tidToBitset(frequentItems)
-        self.genAllFrequentPatterns(frequentItemsBitset)
-        self.savePatterns('output.txt')
+        plist = self._OneFrequentItems()
+        self._finalPatterns = {}
+        for i in range(len(plist)):
+            itemI = plist[i]
+            tidSetX = self._mapSupport[itemI]
+            itemSetx = [itemI]
+            itemSets = []
+            tidSets = []
+            for j in range(i + 1, len(plist)):
+                itemJ = plist[j]
+                tidSetJ = self._mapSupport[itemJ]
+                y1 = [k & l for k, l in zip(tidSetX, tidSetJ)]
+                support = self._countSupport(y1)
+                if support >= self._minSup:
+                    itemSets.append(itemJ)
+                    tidSets.append(y1)
+            self._generationOfAll(itemSetx, itemSets, tidSets)
+            del itemSets, tidSets
+            self._save(None, itemSetx, tidSetX)
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -219,7 +332,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -227,7 +342,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -235,7 +352,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -243,7 +362,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
         """
 
@@ -256,7 +377,9 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
+
         :param outFile: name of the output file
+
         :type outFile: file
         """
         self._oFile = outFile
@@ -267,12 +390,15 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
+
         :rtype: dict
         """
         return self._finalPatterns
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:

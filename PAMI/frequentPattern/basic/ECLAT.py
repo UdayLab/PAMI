@@ -217,8 +217,8 @@ class ECLAT(_ab._frequentPatterns):
                         self._finalPatterns[newKey] = [interSet]
                         new_freqList.append(newKey)
 
-                    if len(new_freqList) > 0:
-                        self._generateFrequentPatterns(new_freqList)
+        if len(new_freqList) > 0:
+                self._generateFrequentPatterns(new_freqList)
 
     def _convert(self, value):
         """
