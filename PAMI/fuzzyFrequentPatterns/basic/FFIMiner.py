@@ -259,7 +259,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
     _startTime = float()
-    -endTime = float()
+    _endTime = float()
     _minSup = str()
     _maxPer = float()
     _finalPatterns = {}
@@ -622,7 +622,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in seconds:", _run)
     else:
-        l = [1800, 1900, 2000, 2200, 2400]
+        '''l = [1800, 1900, 2000, 2200, 2400]
         for i in l:
             ap = FFIMiner('/Users/Likhitha/Downloads/mushroom_utility_spmf.txt', i, ' ')
             ap.startMine()
@@ -634,5 +634,5 @@ if __name__ == "__main__":
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
