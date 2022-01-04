@@ -80,7 +80,7 @@ class _Element:
             tid : int
                 keep tact of transaction id
             iUtils: float
-                the utility of a fuzzy item in the transaction
+                the utility of an fuzzy item in the transaction
             rUtils : float
                 the  resting value of an fuzzy item in the transaction
     """
@@ -278,7 +278,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         self._BufferSize = 200
         self._itemSetBuffer = []
         self._transactionsDB = []
-        self._valueDB = []
+        self._fuzzyValueDB = []
         self._finalPatterns = {}
         self._dbLen = 0
 
@@ -316,7 +316,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         return value
 
     def _creatingItemsets(self):
-        self._transactionsDB, self._valueDB, self._Database = [], [], []
+        self._transactionsDB, self._fuzzyValueDB, self._Database = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
                 print("its empty..")
@@ -324,8 +324,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             if 'Transactions' in i:
                 self._transactionsDB = self._iFile['Transactions'].tolist()
             if 'fuzzyValues' in i:
-                self._valueDB = self._iFile['fuzzyValues'].tolist()
-
+                self._fuzzyValueDB = self._iFile['fuzzyValues'].tolist()
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -338,7 +337,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                     items = parts[0].split(self._sep)
                     quantities = parts[2].split(self._sep)
                     self._transactionsDB.append([x for x in items])
-                    self._valueDB.append([x for x in quantities])
+                    self._fuzzyValueDB.append([x for x in  quantities])
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
@@ -350,7 +349,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                             items = parts[0].split(self._sep)
                             quantities = parts[2].split(self._sep)
                             self._transactionsDB.append([x for x in items])
-                            self._valueDB.append([x for x in quantities])
+                            self._fuzzyValueDB.append([x for x in quantities])
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -368,7 +367,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
         for j in range(len(self._transactionsDB)):
             item_list = self._transactionsDB[j]
-            value_list = self._valueDB[j]
+            value_list = self._fuzzyValueDB[j]
             self._dbLen += 1
 
             for i in range(0, len(item_list)):
@@ -430,7 +429,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             for i in range(0, len(item_list)):
                 pair = _Pair()
                 pair.item = item_list[i]
-                fuzzy_ref = self._valueDB[j][self._transactionsDB[j].index(pair.item)]
+                fuzzy_ref = self._fuzzyValueDB[j][self._transactionsDB[j].index(pair.item)]
 
                 if self._mapItemRegions[pair.item] == "L":
                     pair.quantity = self._regionReferenceMap[str(fuzzy_ref)][low]
@@ -444,14 +443,18 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             for i in range(len(revisedTransaction) - 1, -1, -1):
                 pair = revisedTransaction[i]
                 remainUtil = 0
-                for j in range(len(revisedTransaction) - 1, i, -1):  
+                for j in range(len(revisedTransaction) - 1, i, -1):
                     remainUtil += revisedTransaction[j].quantity
+                    """ print("len:", len(revisedTransaction), "item j", revisedTransaction[j].item, " value: ", revisedTransaction[j].quantity, "total: ", remainUtil)
+                    if tid == 3:
+                        exit(2)"""
                 remainingUtility = remainUtil
                 if mapItemsToFFLIST.get(pair.item) is not None:
                     FFListOfItem = mapItemsToFFLIST[pair.item]
                     element = _Element(tid, pair.quantity, remainingUtility)
                     FFListOfItem.addElement(element)
             tid += 1
+
 
         self._FSFIMining(self._itemSetBuffer, 0, listOfffilist, self._minSup)
         self._endTime = _ab._time.time()
@@ -634,7 +637,7 @@ if __name__ == "__main__":
         # l = [1800, 1900, 2000, 2200, 2400]
         l = [5000]
         for i in range(1):
-            _ap = FFIMiner('mushroom_utility_spmf.txt', 1000, ' ')
+            _ap = FFIMiner('mushroom_utility_spmf.txt', 3900, ' ')
             _ap.startMine()
             fuzzycorrelatedFrequentPatterns = _ap.getPatterns()
             print("Total number of Fuzzy-Frequent Patterns:", len(fuzzycorrelatedFrequentPatterns))
