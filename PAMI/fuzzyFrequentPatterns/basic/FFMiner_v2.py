@@ -109,7 +109,7 @@ class _Regions:
         self.low = 0
         self.middle = 0
         self.high = 0
-        if regionsNumber == 3:  # if we have 3 regions
+        if regionsNumber == 3:
             if 0 < quantity <= 1:
                 self.low = 1
                 self.high = 0
@@ -273,7 +273,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         self._mapItemsHighSum = {}
         self._mapItemSum = {}
         self._mapItemRegions = {}
-        self._regionReferenceMap = {}  # memory to store the fuzzy values
+        self._regionReferenceMap = {}
         self._joinsCnt = 0
         self._BufferSize = 200
         self._itemSetBuffer = []
@@ -325,7 +325,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                 self._transactionsDB = self._iFile['Transactions'].tolist()
             if 'fuzzyValues' in i:
                 self._valueDB = self._iFile['fuzzyValues'].tolist()
-            # print(self.Database)
+                
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -338,14 +338,13 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                     items = parts[0].split(self._sep)
                     quantities = parts[2].split(self._sep)
                     self._transactionsDB.append([x for x in items])
-                    self._valueDB.append([x for x in
-                                          quantities])  # self._valueDB represent measured values for each item in transactionDB respectively
+                    self._valueDB.append([x for x in quantities])
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            line = line.split("\n")[0]  # the [0] converts the list into a string
-                            parts = line.split(":")  # splits the line into 3 parts
+                            line = line.split("\n")[0]
+                            parts = line.split(":")
                             parts[0] = parts[0].strip()
                             parts[2] = parts[2].strip()
                             items = parts[0].split(self._sep)
@@ -366,7 +365,6 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
         self._startTime = _ab._time.time()
         self._creatingItemsets()
-        # print(self._mapItemsLowSum.keys(), self._mapItemsMidSum.keys(), self._mapItemsHighSum.keys())
 
         for j in range(len(self._transactionsDB)):
             item_list = self._transactionsDB[j]
@@ -401,37 +399,29 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         listOfffilist = []
         mapItemsToFFLIST = {}
         self._minSup = self._convert(self._minSup)
-        # minSup = self.minSup
         keyList = self._mapItemsLowSum.keys()
         for item1 in keyList:
             item = item1
             item_total_low = self._mapItemsLowSum[item]
             item_total_mid = self._mapItemsMidSum[item]
             item_total_high = self._mapItemsHighSum[item]
-            # print("key :", item, "\n|low :", self._mapItemsLowSum[item], "|mid :",self._mapItemsMidSum[item], "|high :", self._mapItemsHighSum[item]) #*
             if item_total_low >= item_total_mid and item_total_low >= item_total_high:
                 self._mapItemSum[item] = item_total_low
                 self._mapItemRegions[item] = "L"
-                # print("|Sum :", self._mapItemsLowSum[item], "|Region : L") #*
             elif item_total_mid >= item_total_low and item_total_mid >= item_total_high:
                 self._mapItemSum[item] = item_total_mid
                 self._mapItemRegions[item] = "M"
-                # print("|Sum :", self._mapItemsMidSum[item], "|Region : M")
             elif item_total_high >= item_total_low and item_total_high >= item_total_mid:
                 self._mapItemRegions[item] = "H"
                 self._mapItemSum[item] = item_total_high
-                # print("|Sum :", self._mapItemsHighSum[item], "|Region : H")
             if self._mapItemSum[item] >= self._minSup:
                 fuList = _FFList(item)
                 mapItemsToFFLIST[item] = fuList
                 listOfffilist.append(fuList)
             else:
-                del self._mapItemSum[item]  # to eleminate unncessary checking later
-
-        # del self._mapItemsLowSum
-        # del self._mapItemsMidSum
-        # del self._mapItemsHighSum
-
+                del self._mapItemSum[item]
+                
+                
         listOfffilist.sort(key=_ab._functools.cmp_to_key(self._compareItems))
         tid = 0
         for j in range(len(self._transactionsDB)):
@@ -457,9 +447,6 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                 remainUtil = 0
                 for j in range(len(revisedTransaction) - 1, i, -1):  # modification possible
                     remainUtil += revisedTransaction[j].quantity
-                    """ print("len:", len(revisedTransaction), "item j", revisedTransaction[j].item, " value: ", revisedTransaction[j].quantity, "total: ", remainUtil)
-                    if tid == 3:
-                        exit(2)"""
                 remainingUtility = remainUtil
                 if mapItemsToFFLIST.get(pair.item) is not None:
                     FFListOfItem = mapItemsToFFLIST[pair.item]
@@ -467,8 +454,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                     FFListOfItem.addElement(element)
             tid += 1
 
-        # del self._transactionsDB[:]
-        # del self._valueDB[:]
+
         self._FSFIMining(self._itemSetBuffer, 0, listOfffilist, self._minSup)
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -563,7 +549,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         first = 0
         last = len(List) - 1
         while first <= last:
-            mid = (first + last) >> 1  # bit operation to find middle point
+            mid = (first + last) >> 1 
             if List[mid].tid < tid:
                 first = mid + 1
             elif List[mid].tid > tid:
