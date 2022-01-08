@@ -19,7 +19,7 @@
 #      (at your option) any later version.
 
 
-import abstract as _ab
+from PAMI.fuzzyFrequentPatterns.basic import abstract as _ab
 
 
 class _FFList:
@@ -337,7 +337,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                     items = parts[0].split(self._sep)
                     quantities = parts[2].split(self._sep)
                     self._transactionsDB.append([x for x in items])
-                    self._fuzzyValueDB.append([x for x in  quantities])
+                    self._fuzzyValueDB.append([x for x in quantities])
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
@@ -372,29 +372,29 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
             for i in range(0, len(item_list)):
                 item = item_list[i]
-                fuzzy_ref = value_list[i]
-                if fuzzy_ref not in self._regionReferenceMap:
-                    regions = _Regions(float(fuzzy_ref), 3)
-                    self._regionReferenceMap[fuzzy_ref] = [regions.low, regions.middle, regions.high]
+                fuzzy_val = value_list[i]
+                if fuzzy_val not in self._regionReferenceMap:
+                    regions = _Regions(float(fuzzy_val), 3)
+                    self._regionReferenceMap[fuzzy_val] = [regions.low, regions.middle, regions.high]
                 else:
                     if item in self._mapItemsLowSum.keys():
                         item_total_low = self._mapItemsLowSum[item]
-                        item_total_low += self._regionReferenceMap[fuzzy_ref][low]
+                        item_total_low += self._regionReferenceMap[fuzzy_val][low]
                         self._mapItemsLowSum[item] = item_total_low
                     else:
-                        self._mapItemsLowSum[item] = self._regionReferenceMap[fuzzy_ref][low]
+                        self._mapItemsLowSum[item] = self._regionReferenceMap[fuzzy_val][low]
                     if item in self._mapItemsMidSum.keys():
                         item_total_mid = self._mapItemsMidSum[item]
-                        item_total_mid += self._regionReferenceMap[fuzzy_ref][mid]
+                        item_total_mid += self._regionReferenceMap[fuzzy_val][mid]
                         self._mapItemsMidSum[item] = item_total_mid
                     else:
-                        self._mapItemsMidSum[item] = self._regionReferenceMap[fuzzy_ref][mid]
+                        self._mapItemsMidSum[item] = self._regionReferenceMap[fuzzy_val][mid]
                     if item in self._mapItemsHighSum.keys():
                         item_total_high = self._mapItemsHighSum[item]
-                        item_total_high += self._regionReferenceMap[fuzzy_ref][high]
+                        item_total_high += self._regionReferenceMap[fuzzy_val][high]
                         self._mapItemsHighSum[item] = item_total_high
                     else:
-                        self._mapItemsHighSum[item] = self._regionReferenceMap[fuzzy_ref][high]
+                        self._mapItemsHighSum[item] = self._regionReferenceMap[fuzzy_val][high]
         listOfffilist = []
         mapItemsToFFLIST = {}
         self._minSup = self._convert(self._minSup)
@@ -429,14 +429,14 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             for i in range(0, len(item_list)):
                 pair = _Pair()
                 pair.item = item_list[i]
-                fuzzy_ref = self._fuzzyValueDB[j][self._transactionsDB[j].index(pair.item)]
+                fuzzy_val = self._fuzzyValueDB[j][self._transactionsDB[j].index(pair.item)]
 
                 if self._mapItemRegions[pair.item] == "L":
-                    pair.quantity = self._regionReferenceMap[str(fuzzy_ref)][low]
+                    pair.quantity = self._regionReferenceMap[str(fuzzy_val)][low]
                 elif self._mapItemRegions[pair.item] == "M":
-                    pair.quantity = self._regionReferenceMap[str(fuzzy_ref)][mid]
+                    pair.quantity = self._regionReferenceMap[str(fuzzy_val)][mid]
                 elif self._mapItemRegions[pair.item] == "H":
-                    pair.quantity = self._regionReferenceMap[str(fuzzy_ref)][high]
+                    pair.quantity = self._regionReferenceMap[str(fuzzy_val)][high]
                 if pair.quantity > 0:
                     revisedTransaction.append(pair)
             revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
