@@ -445,9 +445,6 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                 remainUtil = 0
                 for j in range(len(revisedTransaction) - 1, i, -1):
                     remainUtil += revisedTransaction[j].quantity
-                    """ print("len:", len(revisedTransaction), "item j", revisedTransaction[j].item, " value: ", revisedTransaction[j].quantity, "total: ", remainUtil)
-                    if tid == 3:
-                        exit(2)"""
                 remainingUtility = remainUtil
                 if mapItemsToFFLIST.get(pair.item) is not None:
                     FFListOfItem = mapItemsToFFLIST[pair.item]
@@ -635,7 +632,7 @@ if __name__ == "__main__":
         print("Total ExecutionTime in seconds:", _run)
     elif len(_ab._sys.argv) == 1:
         # l = [1800, 1900, 2000, 2200, 2400]
-        l = [5000]
+        #l = [5000]
         for i in range(1):
             _ap = FFIMiner('mushroom_utility_spmf.txt', 3900, ' ')
             _ap.startMine()
