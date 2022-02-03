@@ -3,7 +3,7 @@ from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
 
 class _Element:
     """
-    A class represents an Element of a utility list as used by the HDSHUI algorithm.
+    A class represents an Element of a utility list as used by the HDSHUIM algorithm.
 
     Attributes :
     ----------
@@ -29,7 +29,7 @@ class _Element:
 
 class _CUList:
     """
-        A class represents a UtilityList as used by the HDSHUI algorithm.
+        A class represents a UtilityList as used by the HDSHUIM algorithm.
 
     Attributes :
     ----------
@@ -116,7 +116,7 @@ class HDSHUIM(_ab._utilityPatterns):
         neighbors: map
             keep track of neighbours of elements
         mapOfPMU: map
-            a map to keep track of Probable Maximum utilty(PMU) of each item
+            a map to keep track of Probable Maximum utility(PMU) of each item
     Methods :
     -------
             startMine()
@@ -125,7 +125,7 @@ class HDSHUIM(_ab._utilityPatterns):
                 Complete set of patterns will be retrieved with this function
             savePatterns(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
-            constructCUL(x, compactUList, st, minUtil, length, exneighbours)
+            constructCUL(x, compactUList, st, minUtil, length, exNeighbours)
                 A method to construct CUL's database
             getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -139,7 +139,7 @@ class HDSHUIM(_ab._utilityPatterns):
                 A method to find all high utility itemSets
             updateClosed(x, compactUList, st, exCul, newT, ex, eyTs, length)
                 A method to update closed values
-            saveItemset(prefix, prefixLen, item, utility)
+            saveItemSet(prefix, prefixLen, item, utility)
                A method to save itemSets
             updateElement(z, compactUList, st, exCul, newT, ex, duPrevPos, eyTs)
                A method to updates vales for duplicates
@@ -232,42 +232,44 @@ class HDSHUIM(_ab._utilityPatterns):
             for line in file1:
                 line = line.split("\n")[0]
                 parts = line.split(self._sep)
+                parts = [i.strip() for i in parts]
                 item = parts[0]
-                neigh1 = set()
+                neigh1 = list()
                 for i in range(1, len(parts)):
-                    neigh1.add(parts[i])
-                self._neighbors[item] = neigh1
+                    neigh1.append(parts[i])
+                self._neighbors[item] = set(neigh1)
+        print(len(self._neighbors))
         with open(self._iFile, 'r') as file:
             for line in file:
                 parts = line.split(":")
-                items_str = (parts[0].split("\n")[0]).split(self._sep)
-                utility_str = (parts[2].split("\n")[0]).split(self._sep)
+                itemString = (parts[0].split("\n")[0]).split(self._sep)
+                utilityString = (parts[2].split("\n")[0]).split(self._sep)
                 transUtility = int(parts[1])
                 trans1 = set()
-                for i in range(0, len(items_str)):
-                    trans1.add(items_str[i])
-                for i in range(0, len(items_str)):
-                    item = items_str[i]
+                for i in range(0, len(itemString)):
+                    trans1.add(itemString[i])
+                for i in range(0, len(itemString)):
+                    item = itemString[i]
                     twu = self._mapOfPMU.get(item)
-                    if (twu == None):
-                        twu = int(utility_str[i])
+                    if twu is None:
+                        twu = int(utilityString[i])
                     else:
-                        twu += int(utility_str[i])
+                        twu += int(utilityString[i])
                     self._mapOfPMU[item] = twu
-                    if (self._neighbors.get(item) == None):
+                    if self._neighbors.get(item) is None:
                         continue
                     neighbours2 = trans1.intersection(self._neighbors.get(item))
                     for item2 in neighbours2:
-                        if (self._mapOfPMU.get(item2) == None):
-                            self._mapOfPMU[item2] = int(utility_str[i])
+                        if self._mapOfPMU.get(item2) is None:
+                            self._mapOfPMU[item2] = int(utilityString[i])
                         else:
-                            self._mapOfPMU[item2] += int(utility_str[i])
+                            self._mapOfPMU[item2] += int(utilityString[i])
 
         listOfCUList = []
         hashTable = {}
         mapItemsToCUList = {}
         for item in self._mapOfPMU.keys():
-            if (self._mapOfPMU.get(item) >= minUtil):
+            if self._mapOfPMU.get(item) >= minUtil:
                 uList = _CUList(item)
                 mapItemsToCUList[item] = uList
                 listOfCUList.append(uList)
@@ -280,7 +282,7 @@ class HDSHUIM(_ab._utilityPatterns):
                 utilities = (parts[2].split("\n")[0]).split(self._sep)
                 ru = 0
                 newTwu = 0
-                tx_key = []
+                txKey = []
                 revisedTrans = []
                 for i in range(0, len(items)):
                     pair = _Pair()
@@ -288,13 +290,13 @@ class HDSHUIM(_ab._utilityPatterns):
                     pair.utility = int(utilities[i])
                     if self._mapOfPMU.get(pair.item) >= minUtil:
                         revisedTrans.append(pair)
-                        tx_key.append(pair.item)
+                        txKey.append(pair.item)
                         newTwu += pair.utility
                 revisedTrans.sort(key=_ab._functools.cmp_to_key(self._compareItems))
-                tx_key1 = tuple(tx_key)
+                txKey1 = tuple(txKey)
                 if len(revisedTrans) > 0:
-                    if tx_key1 not in hashTable.keys():
-                        hashTable[tx_key1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans) - 1].item].elements)
+                    if txKey1 not in hashTable.keys():
+                        hashTable[txKey1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans) - 1].item].elements)
                         for i in range(len(revisedTrans) - 1, -1, -1):
                             pair = revisedTrans[i]
                             cuListOfItems = mapItemsToCUList.get(pair.item)
@@ -306,7 +308,7 @@ class HDSHUIM(_ab._utilityPatterns):
                             cuListOfItems.addElements(element)
                             ru += pair.utility
                     else:
-                        pos = hashTable[tx_key1]
+                        pos = hashTable[txKey1]
                         ru = 0
                         for i in range(len(revisedTrans) - 1, -1, -1):
                             cuListOfItems = mapItemsToCUList[revisedTrans[i].item]
@@ -352,7 +354,7 @@ class HDSHUIM(_ab._utilityPatterns):
             :parm uList:projected Utility list
             :type uList: list
             :parm exNeighbours: keep track of common Neighbours
-            :type exNeighbours: list
+            :type exNeighbours: set
             :parm minUtil:user minUtil
             :type minUtil:int
         """
@@ -365,17 +367,17 @@ class HDSHUIM(_ab._utilityPatterns):
             sortedPrefix = prefix[0:len(prefix) + 1]
             sortedPrefix.append(x.item)
             if (x.sumSnu + x.sumCu >= minUtil) and (x.item in exNeighbours):
-                self._saveItemset(prefix, len(prefix), x.item, x.sumSnu + x.sumCu)
+                self._saveItemSet(prefix, len(prefix), x.item, x.sumSnu + x.sumCu)
             if x.sumSnu + x.sumCu + x.sumRemainingUtility + x.sumCru >= minUtil:  # U-Prune # and (x.item in exNeighbours)):
                 ULIST = []
                 for j in range(i, len(uList)):
-                    if (uList[j].item in exNeighbours) and (self._neighbors.get(x.item) != None) and (
+                    if (uList[j].item in exNeighbours) and (self._neighbors.get(x.item) is not None) and (
                             uList[j].item in self._neighbors.get(x.item)):
                         ULIST.append(uList[j])
                 exULs = self._constructCUL(x, ULIST, -1, minUtil, len(sortedPrefix), exNeighbours)
-                if self._neighbors.get(x.item) != None and exNeighbours != None:
+                if self._neighbors.get(x.item) is not None and exNeighbours is not None:
                     set1 = exNeighbours.intersection(self._neighbors.get(x.item))
-                    if exULs == None or set1 == None:
+                    if exULs is None or set1 is None:
                         continue
                     self._ExploreSearchTree(sortedPrefix, exULs, set1, minUtil)
 
@@ -396,7 +398,7 @@ class HDSHUIM(_ab._utilityPatterns):
             :parm length: length of x
             :type length:int
             :parm exNeighbours: common Neighbours
-            :type exNeighbours: list
+            :type exNeighbours: set
             :return: projected database of list X
             :rtype: list or set
         """
@@ -429,7 +431,7 @@ class HDSHUIM(_ab._utilityPatterns):
         for ex in x.elements:
             newT = []
             for j in range(st + 1, len(compactUList)):
-                if exCul[j] == None:
+                if exCul[j] is None:
                     continue
                 eyList = compactUList[j].elements
                 while eyTs[j] < len(eyList) and eyList[eyTs[j]].ts < ex.ts:
@@ -543,7 +545,7 @@ class HDSHUIM(_ab._utilityPatterns):
             remainingUtility = remainingUtility + eyy.snu - ex.pu
             pos = exCul[newT[j]].elements[pos].prevPos
 
-    def _saveItemset(self, prefix, prefixLen, item, utility):
+    def _saveItemSet(self, prefix, prefixLen, item, utility):
         """
          A method to save itemSets
 
@@ -553,7 +555,7 @@ class HDSHUIM(_ab._utilityPatterns):
         :type prefix :list
         :parm item:item
         :type item: int
-        :parm utility:utility of itemset
+        :parm utility:utility of itemSet
         :type utility:int
         """
         self._huiCount += 1
@@ -643,16 +645,16 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        ap = HDSHUIM('/home/apiiit-rkv/Downloads/ffsi_rainFallHighUtilityTransactionalDatabase.txt',
-                     '/home/apiiit-rkv/Downloads/ffsi_neighborhoodRainFall_6.txt', 3000000, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Spatial High-Utility Patterns:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/output.txt')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+        _ap = HDSHUIM('/Users/likhitha/Downloads/pollution_data_30.txt', '/Users/likhitha/Downloads/pollution_nearest_30.txt',
+                    1000, ' ')
+        _ap.startMine()
+        _patterns = _ap.getPatterns()
+        print("Total number of Spatial High Utility Patterns:", len(_patterns))
+        _ap.savePatterns('/Users/likhitha/Downloads/HUIS/output.txt')
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -346,8 +346,8 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                             parts = line.split(":")
                             items = parts[0].split(self._sep)
                             quantities = parts[2].split(self._sep)
-                            self.transactions.append([x for x in items])
-                            self.fuzzyValues.append([x for x in quantities])
+                            self._transactions.append([x for x in items])
+                            self._fuzzyValues.append([x for x in quantities])
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -402,9 +402,9 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._creatingItemSets()
         self._finalPatterns = {}
         self._mapNeighbours()
-        for line in range(len(self.transactions)):
-            items = self.transactions[line]
-            quantities = self.fuzzyValues[line]
+        for line in range(len(self._transactions)):
+            items = self._transactions[line]
+            quantities = self._fuzzyValues[line]
             self._dbLen += 1
             for i in range(0, len(items)):
                 regions = _Regions(int(quantities[i]), 3)
@@ -450,9 +450,9 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                 listOfFFList.append(fuList)
         listOfFFList.sort(key=_ab._functools.cmp_to_key(self._compareItems))
         tid = 0
-        for line in range(len(self.transactions)):
-            items = self.transactions[line]
-            quantities = self.fuzzyValues[line]
+        for line in range(len(self._transactions)):
+            items = self._transactions[line]
+            quantities = self._fuzzyValues[line]
             revisedTransaction = []
             for i in range(0, len(items)):
                 pair = _Pair()
@@ -682,4 +682,15 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in seconds:", _run)
     else:
+        _ap = FFSPMiner('/Users/likhitha/Downloads/pm_data.txt', '/Users/likhitha/Downloads/pm_15.txt', 600, ' ')
+        _ap.startMine()
+        _fuzzySpatialFrequentPatterns = _ap.getPatterns()
+        print("Total number of fuzzy frequent Spatial Patterns:", len(_fuzzySpatialFrequentPatterns))
+        _ap.savePatterns('/Users/likhitha/Downloads/output.txt')
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

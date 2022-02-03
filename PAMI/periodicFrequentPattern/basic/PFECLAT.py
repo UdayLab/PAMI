@@ -213,10 +213,13 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                     Database.append(temp)
             else:
                 try:
+                    count = 0
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
+                            count += 1
                             line.strip()
-                            temp = [i.rstrip() for i in line.split(self._sep)]
+                            temp = [count]
+                            temp = temp + [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             Database.append(temp)
                 except IOError:
@@ -370,4 +373,15 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
+        '''_ap = PFECLAT('/Users/Likhitha/Downloads/dense_DB.csv', 23, 25, ',')
+        _ap.startMine()
+        _Patterns = _ap.getPatterns()
+        print("Total number of Patterns:", len(_Patterns))
+        _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

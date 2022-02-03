@@ -1,6 +1,7 @@
 from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
 from functools import cmp_to_key as _cmpToKey
 
+
 class _Transaction:
     """
         A class to store Transaction of a database
@@ -10,12 +11,12 @@ class _Transaction:
         items: list
             A list of items in transaction 
         utilities: list
-            A list of utilites of items in transaction
+            A list of utilities of items in transaction
         transactionUtility: int
             represent total sum of all utilities in the database
         pmus: list
             represent the pmu (probable maximum utility) of each element in the transaction
-        prefixutility:
+        prefixUtility:
             prefix Utility values of item
         offset:
             an offset pointer, used by projected transactions
@@ -92,7 +93,7 @@ class _Transaction:
     def removeUnpromisingItems(self, oldNamesToNewNames):
         """
             A method to remove items with low Utility than minUtil
-            :param oldNamesToNewNames: A map represent old namses to new names
+            :param oldNamesToNewNames: A map represent old names to new names
             :type oldNamesToNewNames: map
         """
         tempItems = []
@@ -148,8 +149,8 @@ class _Dataset:
     maxItem = 0
     
     def __init__(self, datasetpath, sep):
-        self.strToint = {}
-        self.intTostr = {}
+        self.strToInt = {}
+        self.intToStr = {}
         self.cnt = 1
         self.sep = sep
         with open(datasetpath, 'r') as f:
@@ -178,11 +179,11 @@ class _Dataset:
         utilities = []
         pmus = []
         for idx, item in enumerate(itemsString):
-            if (self.strToint).get(item) is None:
-                self.strToint[item] = self.cnt
-                self.intTostr[self.cnt] = item
+            if (self.strToInt).get(item) is None:
+                self.strToInt[item] = self.cnt
+                self.intToStr[self.cnt] = item
                 self.cnt += 1
-            item_int = self.strToint.get(item)
+            item_int = self.strToInt.get(item)
             if item_int > self.maxItem:
                 self.maxItem = item_int
             items.append(item_int)
@@ -329,8 +330,8 @@ class SHUIM(_ab._utilityPatterns):
     _utilityBinArraySU = {}
     _oldNamesToNewNames = {}
     _newNamesToOldNames = {}
-    _strToint = {}
-    _intTostr = {}
+    _strToInt = {}
+    _intToStr = {}
     _Neighbours = {}
     _temp = [0] * 5000
     _maxMemory = 0
@@ -360,12 +361,14 @@ class SHUIM(_ab._utilityPatterns):
             for line in lines:
                 line = line.split("\n")[0]
                 line_split = line.split(self._sep)
-                item = self._dataset.strToint.get(line_split[0])
+                line_split = [i.strip() for i in line_split]
+                item = self._dataset.strToInt.get(line_split[0])
                 lst = []
                 for i in range(1, len(line_split)):
-                    lst.append(self._dataset.strToint.get(line_split[i]))
+                    lst.append(self._dataset.strToInt.get(line_split[i]))
                 self._Neighbours[item] = lst
         o.close()
+        print(len(self._Neighbours))
         InitialMemory = _ab._psutil.virtual_memory()[3]
         self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
         itemsToKeep = []
@@ -478,7 +481,6 @@ class SHUIM(_ab._utilityPatterns):
             if utilityPe >= self._minUtil:
                 self._output(prefixLength, utilityPe)
             neighbourhoodList = self._calculateNeighbourIntersection(prefixLength)
-            #print(neighbourhoodList)
             self._useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep, neighbourhoodList)
             newItemsToKeep = []
             newItemsToExplore = []
@@ -568,7 +570,7 @@ class SHUIM(_ab._utilityPatterns):
         self._patternCount += 1
         s1 = ""
         for i in range(0, tempPosition+1):
-            s1 += self._dataset.intTostr.get((self._temp[i]))
+            s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
                 s1 += " "
         self._finalPatterns[s1] = str(utility)
@@ -791,4 +793,16 @@ if __name__ == '__main__':
         _run = _ap.getRuntime()
         print("Total ExecutionTime in seconds:", _run)
     else:
+        _ap = SHUIM('/Users/likhitha/Downloads/pollution_data_30.txt', '/Users/likhitha/Downloads/pollution_nearest_30.txt',
+                140000, ' ')
+        _ap.startMine()
+        _patterns = _ap.getPatterns()
+        print("Total number of Spatial High Utility Patterns:", len(_patterns))
+        _ap.savePatterns('/Users/likhitha/Downloads/HUIS/output.txt')
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

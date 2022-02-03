@@ -710,7 +710,6 @@ class PSGrowth(_ab._periodicFrequentPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            print(temp)
                             self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
@@ -878,4 +877,16 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
+        _ap = PSGrowth('/Users/Likhitha/Downloads/dense_DB.csv', 20, 23, ',')
+        _ap.startMine()
+        print(len(_ap._Database))
+        _Patterns = _ap.getPatterns()
+        print("Total number of Patterns:", len(_Patterns))
+        _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

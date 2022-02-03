@@ -183,7 +183,7 @@ class _Dataset:
             :return : Transaction
             :rtype: Transaction
         """
-        print(line)
+        #print(line)
         transList = line.strip().split(':')
         transactionUtility = int(transList[1])
         itemsString = transList[0].strip().split(self.sep)
@@ -845,17 +845,17 @@ if __name__ == '__main__':
         print("Total ExecutionTime in seconds:", _run)
         #print("######################################")
     else:
-        ap = SHUFIM('/home/apiiit-rkv/Downloads/pol_pm2_16_util', '/home/apiiit-rkv/Downloads/spatial_Eclat/spatial/pollution_neighbours',
-                    int(20000), float(0.7), ' ')
-        ap.startMine()
-        patterns = ap.getPatterns()
-        print("Total number of Spatial High Utility Frequent Patterns:", len(patterns))
-        ap.savePatterns('/')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
-        print("######################################")
+        _ap = SHUFIM('/Users/likhitha/Downloads/HUIS/main_1.txt',
+                      '/Users/likhitha/Downloads/HUIS/bms_neighbourhoodFile_1.txt',
+                      10, 10, ' ')
+        _ap.startMine()
+        _patterns = _ap.getPatterns()
+        print("Total number of Spatial High Utility Patterns:", len(_patterns))
+        _ap.savePatterns('/Users/likhitha/Downloads/HUIS/output.txt')
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
