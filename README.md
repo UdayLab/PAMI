@@ -37,7 +37,7 @@ Total available algorithms: 43
 1. Frequent pattern mining: 
      
    | Basic | Closed | Maximal | Top-k | CUDA | pyspark |
-   |-------|--------|---------|-------|
+   |-------|--------|---------|-------|------|--------|
    |Apriori|Closed|maxFP-growth|topK|cudaAprioriGCT|parallelApriori|
    |FP-growth|    |   | |cudaAprioriTID|parallelFPGrowth|
    |ECLAT| | | |cudaEclatGCT|parallelECLAT|
@@ -148,7 +148,7 @@ Total available algorithms: 43
 17. Partial periodic pattern mining:
 
     |Basic|Closed|Maximal|topk|
-    |-----|-------|
+    |-----|-------|------|----|
     |3P-growth|3P-close|max3P-growth|Topk_3Pgrowth|
     |3PECLAT| | | | |
     
