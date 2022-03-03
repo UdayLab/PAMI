@@ -150,7 +150,7 @@ Total available algorithms: 43
     |Basic|Closed|Maximal|topk|
     |-----|-------|
     |3P-growth|3P-close|max3P-growth|Topk_3Pgrowth|
-    |3PECLAT| | | |
+    |3PECLAT| | | | |
     
 
 18. Periodic correlated pattern mining: 
