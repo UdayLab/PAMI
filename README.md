@@ -36,12 +36,13 @@ Total available algorithms: 43
 
 1. Frequent pattern mining: 
      
-   | Basic | Closed | Maximal | Top-k |
+   | Basic | Closed | Maximal | Top-k | CUDA | pyspark |
    |-------|--------|---------|-------|
-   |Apriori|Closed|maxFP-growth|topK|
-   |FP-growth|    |   | |
-   |ECLAT| | | |
-   |ECLAT-bitSet| | | |
+   |Apriori|Closed|maxFP-growth|topK|cudaAprioriGCT|parallelApriori|
+   |FP-growth|    |   | |cudaAprioriTID|parallelFPGrowth|
+   |ECLAT| | | |cudaEclatGCT|parallelECLAT|
+   |ECLAT-bitSet| | | | | |
+   |ECLAT-diffset|  | | | |
 
 2. Frequent pattern mining using other measures:
     
@@ -61,53 +62,81 @@ Total available algorithms: 43
     |Basic|
     |-----|
     |spatialECLAT|
-    |FSP-growth ?|
+    |FSP-growth|
     
 5. Correlated spatial pattern mining: 
 
     |Basic|
     |-----|
-    |SCP-growth|
+    |CSP-growth|
     
 6. Fuzzy correlated pattern mining:
 
     |Basic|
     |-----|
-    |CFFI|
-    
-7. Fuzzy frequent spatial pattern mining:
+    |FCP-growth|
+
+7. Fuzzy Frequent pattern mining:
 
     |Basic|
     |-----|
-    |FFSI|
+    |FFI-Miner|
     
-8. Fuzzy periodic frequent pattern mining:
+8. Fuzzy frequent spatial pattern mining:
+
+    |Basic|
+    |-----|
+    |FFSP-Miner|
+    
+9. Fuzzy periodic frequent pattern mining:
 
     |Basic|
     |-----|
     |FPFP-Miner|
-    
-9. High utility frequent spatial pattern mining:
+
+10. High utility frequent pattern mining:
 
     |Basic|
     |-----|
-    |HDSHUIM|
+    |HUFIM|
+    
+11. High utility frequent spatial pattern mining:
+
+    |Basic|
+    |-----|
+    |SHUFIM|
  
-10. High utility pattern mining:
+12. High utility pattern mining:
 
      |Basic|
      |-----|
      |EFIM|
+     |HMiner|
      |UPGrowth|
+     
+13. High utility spatial pattern mining:
+
+     |Basic|topk|
+     |-----|----|
+     |HDSHIM|TKSHUIM|
+     |SHUIM|
+     
+14. Local periodic pattern mining:
+
+     |Basic|
+     |-----|
+     |LPPGrowth|
+     |LPPMBreadth|
+     |LPPMDepth|
     
-11. Partial periodic frequent pattern:
+15. Partial periodic frequent pattern:
 
     |Basic|
     |-----|
     |GPF-growth|
     |PPF-DFS|
     
-12. Periodic frequent pattern mining: 
+16. Periodic frequent pattern mining: 
 
     |Basic| Closed | Maximal |
     |-----|--------|---------|
@@ -116,29 +145,37 @@ Total available algorithms: 43
     |PS-growth| | |
     |PFP-ECLAT| | |
     
-13. Partial periodic pattern mining:
+17. Partial periodic pattern mining:
 
-    |Basic|Maximal|
+    |Basic|Closed|Maximal|topk|
     |-----|-------|
-    |3P-growth|max3P-growth|
-    |3PECLAT| |
+    |3P-growth|3P-close|max3P-growth|Topk_3Pgrowth|
+    |3PECLAT| | | |
     
 
-14. Uncertain correlated pattern mining: 
+18. Periodic correlated pattern mining: 
+    
+    |Basic|
+    |-----|
+    |EPCP-growth|
+    
+
+19. Uncertain correlated pattern mining: 
     
     |Basic|
     |-----|
     |CFFI|
     
-15. Uncertain frequent pattern mining:
+20. Uncertain frequent pattern mining:
     
-    |Basic|
-    |-----|
-    |PUF|
-    |TubeP|
-    |TubeS|
+    |Basic| top-k |
+    |-----|-----|
+    |PUF|TUFP|
+    |TubeP| |
+    |TubeS| | 
+    |UVEclat| |
     
-16. Uncertain periodic frequent pattern mining:
+21. Uncertain periodic frequent pattern mining:
      
      |Basic|
      |-----|
@@ -146,19 +183,33 @@ Total available algorithms: 43
      |PTubeS|
      |UPFP-growth|
      
-17. Local periodic pattern mining:
-
-     |Basic|
-     |-----|
-     |LPPMbredth|
-     |LPPMdepth|
-     |LPPGrowth|
-18. Recurring pattern mining:
+22. Recurring pattern mining:
 
      |Basic|
      |-----|
      |RPgrowth|
+     
+23. Relative High utility pattern mining: 
+    
+    |Basic|
+    |-----|
+    |RHUIM|
  
+24. Stable periodic pattern mining: 
+    
+    |Basic|
+    |-----|
+    |SPP-growth|
+    
+25. Uncertain correlated pattern mining: 
+    
+    |Basic|
+    |-----|
+    |CFFI|
+ 
+     
+ 
+     
      
 
 
