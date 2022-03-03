@@ -1,8 +1,7 @@
 from pyspark.context import SparkContext
 from pyspark.conf import SparkConf
-#from FPTree import Tree
 # import abstract as _ab
-import apabstract as _ab
+from PAMI.frequentPattern.pyspark import abstract as _ab
 from collections import OrderedDict
 
 class Node:
