@@ -37,32 +37,32 @@ class DF2DB:
         else:
             raise Exception('DF type should be sparse or dense')
 
-    def getDB(self, outputFile):
+    def getTransactional(self, outputFile):
         """
         create transactional database and return outputFileName
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name
         """
-        self.DF2DB.createDB(outputFile)
+        self.DF2DB.createTransactional(outputFile)
         return self.DF2DB.getFileName()
 
-    def getTDB(self, outputFile):
+    def getTemporal(self, outputFile):
         """
         create temporal database and return outputFile name
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name
         """
-        self.DF2DB.createTDB(outputFile)
+        self.DF2DB.createTemporal(outputFile)
         return self.DF2DB.getFileName()
 
-    def getUDB(self, outputFile):
+    def getUtility(self, outputFile):
         """
         create utility database and return outputFile name
         :param outputFile:  file name or path to store database
         :type outputFile: str
         :return: outputFile name
         """
-        self.DF2DB.createUDB(outputFile)
+        self.DF2DB.createUtility(outputFile)
         return self.DF2DB.getFileName()

@@ -259,7 +259,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
     _startTime = float()
-    _endTime = float()
+    -endTime = float()
     _minSup = str()
     _maxPer = float()
     _finalPatterns = {}
@@ -605,24 +605,24 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
 
 if __name__ == "__main__":
-    _ap = str()
+    ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-           _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
-        _ap.startMine()
-        _fuzzyFrequentPatterns = _ap.getPatterns()
-        print("Total number of Fuzzy-Frequent Patterns:", len(_fuzzyFrequentPatterns))
-        _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+           ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
+        ap.startMine()
+        fuzzyFrequentPatterns = ap.getPatterns()
+        print("Total number of Fuzzy-Frequent Patterns:", len(fuzzyFrequentPatterns))
+        ap.savePatterns(_ab._sys.argv[2])
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in seconds:", run)
     else:
-        '''l = [1800, 1900, 2000, 2200, 2400]
+        l = [1800, 1900, 2000, 2200, 2400]
         for i in l:
             ap = FFIMiner('/Users/Likhitha/Downloads/mushroom_utility_spmf.txt', i, ' ')
             ap.startMine()
@@ -634,5 +634,5 @@ if __name__ == "__main__":
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)'''
+            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

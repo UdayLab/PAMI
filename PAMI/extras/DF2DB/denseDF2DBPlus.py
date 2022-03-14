@@ -42,7 +42,7 @@ class denseDF2DBPlus:
         self.df = pd.merge(self.inputDF, self.thresholdConditionDF, left_index=True, right_index=True)
 
 
-    def createDB(self, outputFile):
+    def createTransactional(self, outputFile):
         """
         Create transactional data base
 
@@ -72,7 +72,7 @@ class denseDF2DBPlus:
 
 
 
-    def createTDB(self, outputFile):
+    def createTemporal(self, outputFile):
         """
         Create temporal data base
 
@@ -101,7 +101,7 @@ class denseDF2DBPlus:
                     continue
                 f.write('\n')
 
-    def createUDB(self, outputFile):
+    def createUtility(self, outputFile):
         """
         Create the utility data base.
 

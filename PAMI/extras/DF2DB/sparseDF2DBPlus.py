@@ -39,7 +39,7 @@ class sparseDF2DBPlus:
         self.df = self.df.drop(columns=['value', 'threshold', 'condition'])
         self.df = self.df.groupby(level=0)['item'].apply(list)
 
-    def createDB(self, outputFile):
+    def createTransactional(self, outputFile):
         """
         Create transactional data base
 
@@ -55,7 +55,7 @@ class sparseDF2DBPlus:
                     f.write(f',{item}')
                 f.write('\n')
 
-    def createTDB(self, outputFile):
+    def createTemporal(self, outputFile):
         """
         Create temporal data base
 
@@ -71,7 +71,7 @@ class sparseDF2DBPlus:
                     f.write(f',{item}')
                 f.write('\n')
 
-    def createUDB(self, outputFile):
+    def createUtility(self, outputFile):
         """
         Create the utility data base.
 
