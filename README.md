@@ -23,6 +23,8 @@ This software is provided under [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2
 3. Please report issues in the software at https://github.com/udayRage/PAMI/issues
   
   
+  __Contact us by Discord__ https://discord.gg/9WgKkrSJ
+  
 # Installation
 
        pip install pami
