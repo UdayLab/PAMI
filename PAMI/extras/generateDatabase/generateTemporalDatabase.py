@@ -32,14 +32,14 @@ class generateTemporalDatabase:
         getDatabaseAsDataFrame:
             returns dataframe
     """
-    def __init__(self, numOfTransactions, maxNumOfItem, maxNumOfItemsPerTransaction, outputFile, percentage=50,
+    def __init__(self, numOfTransactions, maxNumOfItems, maxNumOfItemsPerTransaction, outputFile, percentage=50,
                  sep='\t', typeOfFile="Database"):
         """
 
         :param numOfTransactions: number of transactions
         :type numOfTransactions: int
-        :param maxNumOfItem: Highest value an item can be
-        :type maxNumOfItem: int
+        :param maxNumOfItems: Highest value an item can be
+        :type maxNumOfItems: int
         :param maxNumOfItemsPerTransaction: max number of items per transaction
         :type maxNumOfItemsPerTransaction: int
         :param outputFile: output file/filename
@@ -53,7 +53,7 @@ class generateTemporalDatabase:
         :type typeOfFile: str
         """
         self.numOfTransactions = numOfTransactions
-        self.maxNumOfItem = maxNumOfItem
+        self.maxNumOfItems = maxNumOfItems
         self.maxNumOfItemsPerTransaction = maxNumOfItemsPerTransaction
         self.outputFile = outputFile
         self.percentage = percentage
@@ -95,11 +95,11 @@ class generateTemporalDatabase:
             # for the number of items that was decided above
             for j in range(randNumOfItems):
                 # we generate the item randomly and write it to disk
-                item = random.randint(1, self.maxNumOfItem)
+                item = random.randint(1, self.maxNumOfItems)
                 # if we already added this item to this item set
                 # we choose another one
                 while item in alreadyAdded:
-                    item = random.randint(1, self.maxNumOfItem)
+                    item = random.randint(1, self.maxNumOfItems)
                 alreadyAdded.add(item)
                 itemSet.append(item)
             # sort the item set
@@ -126,11 +126,11 @@ class generateTemporalDatabase:
                 randNumOfItems = random.randint(1, self.maxNumOfItemsPerTransaction)
                 for j in range(randNumOfItems):
                     # we generate the item randomly and write it to disk
-                    item = random.randint(1, self.maxNumOfItem)
+                    item = random.randint(1, self.maxNumOfItems)
                     # if we already added this item to this item set
                     # we choose another one
                     while item in alreadyAdded:
-                        item = random.randint(1, self.maxNumOfItem)
+                        item = random.randint(1, self.maxNumOfItems)
                     alreadyAdded.add(item)
                     itemSet.append(item)
                 # sort the item set
@@ -159,25 +159,25 @@ class generateTemporalDatabase:
 
 if __name__ == '__main__':
     numOfTransactions = 100
-    maxNumOfItem = 10
+    maxNumOfItems = 10
     maxNumOfItemsPerTransaction = 6
     outFileName = 'temporal_out.txt'
     sep = '\t'
     frameOrBase = "database"
 
-    temporalDB = generateTemporalDatabase(numOfTransactions, maxNumOfItem, maxNumOfItemsPerTransaction, outFileName)
+    temporalDB = generateTemporalDatabase(numOfTransactions, maxNumOfItems, maxNumOfItemsPerTransaction, outFileName)
 
     temporalDB.createTemporalFile()
 
     numOfTransactions = 100
-    maxNumOfItem = 10
+    maxNumOfItems = 10
     maxNumOfItemsPerTransaction = 6
     outFileName = 'temporal_ot.txt'
     sep = '\t'
     percent = 50
     frameOrBase = "dataframe"
 
-    temporalDB = generateTemporalDatabase(numOfTransactions, maxNumOfItem, maxNumOfItemsPerTransaction, outFileName, percent, sep, frameOrBase )
+    temporalDB = generateTemporalDatabase(numOfTransactions, maxNumOfItems, maxNumOfItemsPerTransaction, outFileName, percent, sep, frameOrBase )
 
     temporalDB.createTemporalFile()
 

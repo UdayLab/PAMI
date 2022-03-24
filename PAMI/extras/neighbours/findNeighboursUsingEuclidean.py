@@ -2,7 +2,7 @@ import sys
 import re
 from math import sqrt
 
-class findNeighboursUsingEuclidean:
+class createNeighborhoodFileUsingEuclideanDistance:
     """
     This class create a neighbourhood file using euclid distance.
 
@@ -25,17 +25,16 @@ class findNeighboursUsingEuclidean:
             This function returns output file name.
     """
 
-    def __init__(self,iFile,oFile,maxEucledianDistace):
+    def __init__(self,iFile,oFile,maxEucledianDistace, seperator='\t'):
         self.iFile = iFile
         self.oFile = oFile
         self.maxEucledianDistace = maxEucledianDistace
 
-    def create(self):
         coordinates = []
         result = {}
         with open(self.iFile,"r") as f:
             for line in f:
-                l = line.rstrip().split("\t")
+                l = line.rstrip().split(seperator)
                 l[0] = re.sub(r'[^0-9. ]', '', l[0])
                 coordinates.append(l[0].rstrip().split(' '))
 
@@ -58,10 +57,10 @@ class findNeighboursUsingEuclidean:
 
         with open(self.oFile,"w") as f:
             for i in result:
-                string = i[0]+" "+i[1]+"\t"
+                string = "Point(" +i[0]+" "+i[1] + ")"+ seperator
                 f.write(string)
                 for j in result[i]:
-                    string = j[0] + " " + j[1] + "\t"
+                    string = "Point(" + j[0] + " " + j[1] + ")"+ seperator
                     f.write(string)
                 f.write("\n")
 
@@ -70,6 +69,5 @@ class findNeighboursUsingEuclidean:
         return self.oFile
 
 if __name__ == "__main__":
-    euclid = findNeighboursUsingEuclidean(sys.argv[1],sys.argv[2],sys.argv[3])
-    euclid.create()
+    createNeighborhoodFileUsingEuclideanDistance(sys.argv[1],sys.argv[2],sys.argv[3])
 

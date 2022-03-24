@@ -21,10 +21,8 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
     
         pip uninstall -y pami
     
-    
-3. Tutorials
-   1. [Periodic-frequent pattern mining](tutorials/periodicFrequentPattern.html)
-4. [Organization of algorithms in PAMI](organization.html)
+  
+3. [Organization of algorithms in PAMI](organization.html)
    
    The algorithms in PAMI are organized in an hierarchical structure as follows: 
    
@@ -44,9 +42,11 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
 
        PAMI.theoriticalPatternModel.<basic/closed/maximal/topk> import Algorithm as algo
     
-5. [Format to create different databases](createDatabases.html)
+4. [Format to create different types of databases](createDatabases.html)
 
-   The default separator for the items in a transaction is tab space. However, users can employ any separator of their choice, say comma and white space.
+   PAMI considers "tab space" as the default separator to distinguish items within a transaction. However, users can override this seperator.
+
+   The algorithms in PAMI support both numeric and string data types. Thus, the items within a database can be numbers or strings.  
 
     1. [Transactional database](transactionalDatabase.html)
        
@@ -78,8 +78,56 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
        Uncertain temporal database
 
            format: timestamp<sep>item1<sep>...<sep>itemN:uncertainityValueItem1<sep>...<sep>uncertainityValueItemN
+5. [Converting dataframes to databases](dataFrameCoversio.html)
+
+      Dataframes are popularly used in Python programing language for pipelining purposes. Depending on the arrangment 
+      of the data in a data frame, we categorize them as a dense data frame and a sparse data frame. PAMI currently
+provides in-built procedures to convert these data frames into transactional and temporal databases.
+
+   1. [Format of dense dataframe]((denseDF2DB.html)) 
+    
+          tid/timestamp<sep>item1<sep>item2<sep>...<sep>itemN
+
+   2. [Format of sparse dataframe]((sparseDF2DB.html)) 
+
+          tid/timestamp<sep>item<sep>value
+
+   3. [Basic approach to convert a dataframe into a database](denseDF2DB.html)
    
-6. [Getting the statistics of databases](databaseStats.html)
+       This program creates a database by specifying a single condition and a threshold value for all items in a database.
+   Code to convert a dataframe into a transactional database:
+
+          from PAMI.extras.DF2DB import DF2DB as convertBasic
+          
+          db = convertBasic.DF2DB(inputDataFrame, thresholdValue, condition, DFtype)
+          # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
+   
+          #Creates transactional database from a dataframe
+          db.createTransactional(outputFileName)
+   
+          #Creates temporal database from a dataframe
+          db.createTemporal(outputFileName) 
+   
+   4. [An advanced approach to convert a dataframe into a database](DF2DBPlus.html)
+
+      The basic approach (mentioned above) allows the user to specify a single condition to all items in a data frame. However, in some real-world applications, users may need to 
+      a different condition and a different threshold value for each item in a dataframe. The below code facilitates the user to create a database by specifying a different condition and a value for each item in a data frame.
+      
+          from PAMI.extras.DF2DB import DF2DBPlus as convertAdvanced
+          
+          db = convertAdvanced.DF2DBPlus(inputDataFrame, itemConditionValueDataFrame, DFtype)
+          # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
+          db.createTransactional(outputFile)
+
+   5. [Spatiotemporal dataframe to databases](stDF2DB.html)
+   
+      To be written.
+   
+6. [Creation of synthetic databases](createDatabases.html)
+
+      To be written.
+
+7. [Understanding the statistics of a database](databaseStats.html)
 
     The performance of a mining algorithm primarily depends on the following two key factors: 
 
@@ -111,8 +159,8 @@ derive the statistical details of a database.
             itemFrequencies = obj.getSortedListOfItemFrequencies()
             transactionLength = obj.getTransanctionalLengthDistribution()
             obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
-            obj.storeInFile(transactionLength, 'transactionSize.csv')        
-          
+            obj.storeInFile(transactionLength, 'transactionSize.csv')
+     
    2. [Statistics of a temporal database](temporalDatabaseStats.md)
    
         This program outputs the statistical details of a temporal database. The details include distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
@@ -172,7 +220,7 @@ derive the statistical details of a database.
             obj.storeInFile(transactionLength, 'transactionSize.csv')
             obj.storeInFile(utility, 'utility.csv')            
    
-7. [Basic plots of a database](basicPlots.md)
+8. [Basic plots of a database](basicPlots.md)
 
     In the previous chapter, we have presented the methods to derive the statistics of a database. 
     In continuation, we present the methods to plot the graphs. 
@@ -188,43 +236,11 @@ derive the statistical details of a database.
           obj = tds.transactionalDatabaseStats(inputFile)
           # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
           obj.run()
-           
+          
+          import PAMI.extras.graph.plotLineGraphFromDictionary as plt   
           plt.plotLineGraphFromDictionary(obj.getSortedListOfItemFrequencies(),50,'item frequencies', 'item rank', 'frequency')
           plt.plotLineGraphFromDictionary(obj.getTransanctionalLengthDistribution(),100,'distribution of transactions', 'transaction length', 'frequency') 
-                  
-8. [Converting dataframes to databases](dataFrameCoversio.html)
 
-   1. [Format of dense dataframe]((denseDF2DB.html)) 
-    
-          tid/timestamp<sep>item1<sep>item2<sep>...<sep>itemN
-
-   2. [Format of sparse dataframe]((sparseDF2DB.html)) 
-
-          tid/timestamp<sep>item<sep>value
-
-   3. [Dataframe to database conversion](denseDF2DB.html)
-   
-       This program creates a database by specifying a single condition and a threshold value for all items in a database.
-   Code to convert a dataframe into a transactional database:
-
-          from PAMI.extras.DF2DB import DF2DB as pro
-          
-          db = pro.DF2DB(inputDataFrame, thresholdValue, condition, DFtype)
-          # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
-          db.createTransactional(outputFile)
-
-   4. [Dataframe to database conversed advanced](DF2DBPlus.html)
-
-      This program user can specify a different condition and a threshold value for each item in the dataframe. Code to convert a dataframe into a transactional database:
-      
-          from PAMI.extras.DF2DB import DF2DBPlus as pro
-          
-          db = pro.DF2DBPlus(inputDataFrame, itemConditionValueDataFrame, DFtype)
-          # DFtype='sparse'  or 'dense'. Default type of an input dataframe is sparse
-          db.createTransactional(outputFile)
-
-   5. [Spatiotemporal dataframe to databases](stDF2DB.html)
-   
 9. [Exceuting Algorithms in PAMI](utilization.html)
 
    1. [Importing PAMI algorithms into your program](useAlgo.html)
@@ -249,11 +265,14 @@ derive the statistical details of a database.
           python PAMI/patternModel/patternType/algorithm.py inputFile outputFile parameters
           
           E.g., python PAMI/frequentPattern/basic/fpGrowth.py inputFile outputFile minSup
-7. [Extras](extras.html)
-   1. [Creation of neighborhood file for spatiotemporal data using Euclidean distance](spatialDatabase.md)
+
+9. [Extras](extras.html)
+    1. [Generating latex graphs for publishing results in conferences and journals](generateLatexGraphs.html)
    
-          from PAMI.extras import findNeighboursUsingEuclidean as alg
+         To be written.
+    2. [Creation of neighborhood file from spatiotemporal database using Euclidean distance](spatialDatabase.md)
+   
+           from PAMI.extras.neighbours import createNeighborhoodFileUsingEuclideanDistance as alg
           
-          obj = alg.findNeighboursUsingEuclidean(inputFile,outputFile,maxEuclideanDistance)
-          obj.create()
+           obj = alg.createNeighborhoodFileUsingEuclideanDistance(inputFile,outputFile,maxEuclideanDistance,seperator) 
           
