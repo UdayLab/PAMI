@@ -166,8 +166,8 @@ derive the statistical details of a database.
             
             itemFrequencies = obj.getSortedListOfItemFrequencies()
             transactionLength = obj.getTransanctionalLengthDistribution()
-            obj.save(itemFrequencies, 'itemFrequency.csv')
-            obj.save(transactionLength, 'transactionSize.csv')
+            obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
+            obj.storeInFile(transactionLength, 'transactionSize.csv')
      
    2. [Statistics of a temporal database](temporalDatabaseStats.md)
    
@@ -195,9 +195,9 @@ derive the statistical details of a database.
             itemFrequencies = obj.getSortedListOfItemFrequencies()
             transactionLength = obj.getTransanctionalLengthDistribution()
             numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
-            obj.save(itemFrequencies,'itemFrequency.csv')
-            obj.save(transactionLength, 'transactionSize.csv')
-            obj.save(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
+            obj.storeInFile(itemFrequencies,'itemFrequency.csv')
+            obj.storeInFile(transactionLength, 'transactionSize.csv')
+            obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
  
    3. [Statistics of a utility database](utilityDatabaseStats.md)
    
@@ -224,9 +224,9 @@ derive the statistical details of a database.
             itemFrequencies = obj.getSortedListOfItemFrequencies()
             transactionLength = obj.getTransanctionalLengthDistribution()
             utility = obj.getSortedUtilityValuesOfItem()
-            obj.save(itemFrequencies, 'itemFrequency.csv')
-            obj.save(transactionLength, 'transactionSize.csv')
-            obj.save(utility, 'utility.csv')            
+            obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
+            obj.storeInFile(transactionLength, 'transactionSize.csv')
+            obj.storeInFile(utility, 'utility.csv')            
    
 8. [Basic plots of a database](basicPlots.md)
 

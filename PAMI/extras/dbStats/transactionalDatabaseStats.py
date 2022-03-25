@@ -42,7 +42,7 @@ class transactionalDatabaseStats:
             get sorted list of item frequencies
         getSortedListOfTransactionLength()
             get sorted list of transaction length
-        storeInFile(data, outputFile)
+        save(data, outputFile)
             store data into outputFile
     """
     def __init__(self, inputFile, sep='\t'):
@@ -184,7 +184,7 @@ class transactionalDatabaseStats:
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x:x[0])}
 
-    def storeInFile(self, data, outputFile):
+    def save(self, data, outputFile):
         """
         store data into outputFile
         :param data: input data
@@ -218,7 +218,7 @@ if __name__ == '__main__':
     print(f'Number of items : {obj.getNumberOfItems()}')
     itemFrequencies = obj.getSortedListOfItemFrequencies()
     transactionLength = obj.getTransanctionalLengthDistribution()
-    #obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
-    #obj.storeInFile(transactionLength, 'transactionSize.csv')
+    #obj.save(itemFrequencies, 'itemFrequency.csv')
+    #obj.save(transactionLength, 'transactionSize.csv')
     plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
     plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')

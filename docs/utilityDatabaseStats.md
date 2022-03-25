@@ -116,12 +116,12 @@ Once the program is executed, users can call different methods to get the statis
    
      utility = obj.getSortedUtilityValuesOfItem()
          
-#### storeInFile(dictionary, returnFileName)
+#### save(dictionary, returnFileName)
    This method stores the dictionary in a file. In the output file, the key value pairs of the dictionary are separated by a tab space. 
    
-    obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
-    obj.storeInFile(transactionLength, 'transactionSize.csv')       
-    obj.storeInFile(utility, 'utility.csv')  
+    obj.save(itemFrequencies, 'itemFrequency.csv')
+    obj.save(transactionLength, 'transactionSize.csv')       
+    obj.save(utility, 'utility.csv')  
     
 ## Sample code 
 
@@ -145,9 +145,9 @@ Once the program is executed, users can call different methods to get the statis
     itemFrequencies = obj.getSortedListOfItemFrequencies()
     transactionLength = obj.getTransanctionalLengthDistribution()
     utility = obj.getSortedUtilityValuesOfItem()
-    obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
-    obj.storeInFile(transactionLength, 'transactionSize.csv')
-    obj.storeInFile(utility, 'utility.csv')   
+    obj.save(itemFrequencies, 'itemFrequency.csv')
+    obj.save(transactionLength, 'transactionSize.csv')
+    obj.save(utility, 'utility.csv')   
 
 
 

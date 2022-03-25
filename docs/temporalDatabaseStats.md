@@ -117,12 +117,12 @@ Once the program is executed, users can call different methods to get the statis
    
      numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
           
-#### storeInFile(dictionary, returnFileName)
+#### save(dictionary, returnFileName)
    This method stores the dictionary in a file. In the output file, the key value pairs of the dictionary are separated by a tab space. 
    
-    obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
-    obj.storeInFile(transactionLength, 'transactionSize.csv')       
-    obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
+    obj.save(itemFrequencies, 'itemFrequency.csv')
+    obj.save(transactionLength, 'transactionSize.csv')       
+    obj.save(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
     
     
 ## Sample code 
@@ -148,9 +148,9 @@ Once the program is executed, users can call different methods to get the statis
     itemFrequencies = obj.getSortedListOfItemFrequencies()
     transactionLength = obj.getTransanctionalLengthDistribution()
     numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
-    obj.storeInFile(itemFrequencies,'itemFrequency.csv')
-    obj.storeInFile(transactionLength, 'transactionSize.csv')
-    obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
+    obj.save(itemFrequencies,'itemFrequency.csv')
+    obj.save(transactionLength, 'transactionSize.csv')
+    obj.save(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
 
 
 

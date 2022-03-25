@@ -40,7 +40,7 @@ class utilityDatabaseStats:
             get sorted list of item frequencies
         getSortedListOfTransactionLength()
             get sorted list of transaction length
-        storeInFile(data, outputFile)
+        save(data, outputFile)
             store data into outputFile
         getMinimumUtility()
             get the minimum utility
@@ -215,7 +215,7 @@ class utilityDatabaseStats:
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x:x[0])}
 
-    def storeInFile(self, data, outputFile):
+    def save(self, data, outputFile):
         """
         store data into outputFile
         :param data: input data

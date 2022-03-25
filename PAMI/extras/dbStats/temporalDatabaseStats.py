@@ -42,7 +42,7 @@ class temporalDatabaseStats:
             get sorted list of item frequencies
         getSortedListOfTransactionLength()
             get sorted list of transaction length
-        storeInFile(data, outputFile)
+        save(data, outputFile)
             store data into outputFile
         getMinimumPeriod()
             get the minimum period
@@ -215,7 +215,7 @@ class temporalDatabaseStats:
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
-    def storeInFile(self, data, outputFile):
+    def save(self, data, outputFile):
         """
         store data into outputFile
         :param data: input data
@@ -291,9 +291,9 @@ if __name__ == '__main__':
     itemFrequencies = obj.getSortedListOfItemFrequencies()
     transactionLength = obj.getTransanctionalLengthDistribution()
     numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
-    # obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
-    # obj.storeInFile(transactionLength, 'transactionSize.csv')
-    # obj.storeInFile(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
+    # obj.save(itemFrequencies, 'itemFrequency.csv')
+    # obj.save(transactionLength, 'transactionSize.csv')
+    # obj.save(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
     plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
     plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
     plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)
