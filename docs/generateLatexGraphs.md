@@ -1,3 +1,3 @@
-**[CLICK HERE](index.html)** to access the PAMI manual.
+# **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
 
     To be written          
