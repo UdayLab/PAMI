@@ -3,7 +3,7 @@
 # Exercise 2: Mining frequent patterns in very large databases using a multiple algorithm
 
 
-### Task 1: Implementing multiple algorithm by varying minSup
+### Task 1: Implementing multiple algorithms by varying minSup
 
     import pandas as pd
     result = pd.DataFrame(columns=['algorithm', 'minSup', 'patterns', 'runtime', 'memory'])
