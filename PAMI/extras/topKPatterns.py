@@ -34,7 +34,7 @@ class topKPatterns:
         patterns = sorted(patterns, key=lambda x: len(x[0]), reverse=True)
         return {patternId: patterns[patternId - 1] for patternId in range(1, int(self.k)+1)}
 
-    def storeTopKPatterns(self, outputFile):
+    def savePatterns(self, outputFile):
         """
         store top k length patterns into file. user can defined k value.
         :param outputFile: output file name or path
