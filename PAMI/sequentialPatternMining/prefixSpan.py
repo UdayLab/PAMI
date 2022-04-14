@@ -1,10 +1,10 @@
 from PAMI.sequentialPatternMining import abstract as _ab
 
 
-class PrefixSpan(_ab._frequentPatterns):
+class prefixSpan(_ab._frequentPatterns):
     """
     Attributes:
-        ----------
+    ----------
             iFile : str
                 Input file name or path of the input file
             oFile : str
@@ -100,7 +100,7 @@ class PrefixSpan(_ab._frequentPatterns):
         """
         with open(file, 'r') as f:
             read = f.readlines()
-        self.minSup = int(math.ceil(support * len(read)))
+        self.minSup = int(_ab._math.ceil(support * len(read)))
 
     def _save(self, item, support):
         """
@@ -111,7 +111,7 @@ class PrefixSpan(_ab._frequentPatterns):
         a = ""
         a += str(item)
         a += " -1"
-        self.finalPatterns[a] = str(support)
+        self._finalPatterns[a] = str(support)
 
     def _save1(self, lastBufPos, pseudoSeq):
         """
@@ -122,12 +122,12 @@ class PrefixSpan(_ab._frequentPatterns):
         i = 0
         a = ""
         while i <= lastBufPos:
-            a += str(self.patternBuffer[i])
+            a += str(self._patternBuffer[i])
             a += " "
             i += 1
-        if self.patternBuffer[lastBufPos] != -1:
+        if self._patternBuffer[lastBufPos] != -1:
             a += str(-1)
-        self.finalPatterns[a] = str(len(pseudoSeq))
+        self._finalPatterns[a] = str(len(pseudoSeq))
 
     def _scanDataBase(self):
         """
@@ -203,10 +203,10 @@ class PrefixSpan(_ab._frequentPatterns):
         self.Database = data
         for i in list(sorted(seqId)):
             if len(seqId[i]) >= self.minSup:
-                self.save(i, len(seqId[i]))
-                self.patternBuffer[0] = i
-                projDataB = self.buildProjectedDatabaseSingleItems(i, seqId[i])
-                self.recursionSingleItems(self.patternBuffer, projDataB, 0)
+                self._save(i, len(seqId[i]))
+                self._patternBuffer[0] = i
+                projDataB = self._buildProjectedDatabaseSingleItems(i, seqId[i])
+                self._recursionSingleItems(self._patternBuffer, projDataB, 0)
 
     def _prefixSpanWithMultipleItems(self, seqId, data):
         """
@@ -242,10 +242,10 @@ class PrefixSpan(_ab._frequentPatterns):
         self._Database = data
         for i in list(sorted(seqId)):
             if len(seqId[i]) >= self.minSup:
-                self.save(i, len(seqId[i]))
-                self.patternBuffer[0] = i
-                projDataB = self.buildProjectedDatabaseFirstTimeMultipleItems(i, seqId[i])
-                self.recursion(self.patternBuffer, projDataB, 0)
+                self._save(i, len(seqId[i]))
+                self._patternBuffer[0] = i
+                projDataB = self._buildProjectedDatabaseFirstTimeMultipleItems(i, seqId[i])
+                self._recursion(self._patternBuffer, projDataB, 0)
 
     def _buildProjectedDatabaseSingleItems(self, item, seqId):
         """
@@ -262,7 +262,7 @@ class PrefixSpan(_ab._frequentPatterns):
                 if token != -2:
                     if token == item:
                         if k[j + 1] != -2:
-                            proData = self.PseudoSequence(i, j + 1)
+                            proData = self._PseudoSequence(i, j + 1)
                             proDataBase.append(proData)
                             continue
         return proDataBase
@@ -283,7 +283,7 @@ class PrefixSpan(_ab._frequentPatterns):
                     if token == item:
                         isEndOfSeq = (k[j + 1] == -1 and k[j + 2] == -2)
                         if not isEndOfSeq:
-                            proData = self.PseudoSequence(i, j + 1)
+                            proData = self._PseudoSequence(i, j + 1)
                             proDataBase.append(proData)
                             continue
         return proDataBase
@@ -294,7 +294,7 @@ class PrefixSpan(_ab._frequentPatterns):
         :param dataBase: projected database
         :return: return the dictionary containing item and their values
         """
-        mapItemPseudoSeq = dd(list)
+        mapItemPseudoSeq = _ab._dd(list)
         for i in range(len(dataBase)):
             seqId = dataBase[i][0]
             seq = self.Database[seqId]
@@ -306,7 +306,7 @@ class PrefixSpan(_ab._frequentPatterns):
                     if len(listSeq) > 0:
                         ok = listSeq[len(listSeq) - 1][0] != seqId
                     if ok:
-                        listSeq.append(self.PseudoSequence(seqId, j + 1))
+                        listSeq.append(self._PseudoSequence(seqId, j + 1))
         return mapItemPseudoSeq
 
     def _findAllFrequentPairs(self, dataBase, lastBufPos):
@@ -318,12 +318,12 @@ class PrefixSpan(_ab._frequentPatterns):
         """
         pseudoSeqMP = {}
         pseudoSeqMPIP = {}
-        mapsPairs = dd(list)
-        mapPairsInPostfix = dd(list)
+        mapsPairs = _ab._dd(list)
+        mapPairsInPostfix = _ab._dd(list)
         firstPosOfLasItemBuf = lastBufPos
         while lastBufPos > 0:
             firstPosOfLasItemBuf -= 1
-            if firstPosOfLasItemBuf < 0 or self.patternBuffer[firstPosOfLasItemBuf] == -1:
+            if firstPosOfLasItemBuf < 0 or self._patternBuffer[firstPosOfLasItemBuf] == -1:
                 firstPosOfLasItemBuf += 1
                 break
         posToMatch = firstPosOfLasItemBuf
@@ -359,12 +359,12 @@ class PrefixSpan(_ab._frequentPatterns):
                         if len(pseudoSeqMPIP[pair]) > 0:
                             ok = pseudoSeqMPIP[pair][len(pseudoSeqMPIP[pair]) - 1][0] != seqId
                         if ok:
-                            pseudoSeqMPIP[pair].append(self.PseudoSequence(seqId, j + 1))
+                            pseudoSeqMPIP[pair].append(self._PseudoSequence(seqId, j + 1))
                     else:
                         if len(pseudoSeqMP[pair]) > 0:
                             ok = pseudoSeqMP[pair][len(pseudoSeqMP[pair]) - 1][0] != seqId
                         if ok:
-                            pseudoSeqMP[pair].append(self.PseudoSequence(seqId, j + 1))
+                            pseudoSeqMP[pair].append(self._PseudoSequence(seqId, j + 1))
                     if curItemSetIsPostfix and not isFirstItemSet:
                         pair = token
                         oldPair = mapsPairs[pair]
@@ -378,12 +378,12 @@ class PrefixSpan(_ab._frequentPatterns):
                         if len(pseudoSeqMP[pair]) > 0:
                             ok = pseudoSeqMP[pair][len(pseudoSeqMP[pair]) - 1][0] != seqId
                         if ok:
-                            pseudoSeqMP[pair].append(self.PseudoSequence(seqId, j + 1))
-                    if curItemSetIsPostfix is False and self.patternBuffer[posToMatch] is token:
+                            pseudoSeqMP[pair].append(self._PseudoSequence(seqId, j + 1))
+                    if curItemSetIsPostfix is False and self._patternBuffer[posToMatch] is token:
                         posToMatch += 1
                         if posToMatch > lastBufPos:
                             curItemSetIsPostfix = True
-                elif token is -1:
+                elif token == -1:
                     isFirstItemSet = False
                     curItemSetIsPostfix = False
                     posToMatch = firstPosOfLasItemBuf
@@ -396,14 +396,14 @@ class PrefixSpan(_ab._frequentPatterns):
         :param dataBase: projected database
         :param lastBuffPo: buffer position in the pattern buffer
         """
-        itemPseudoSeq = self.findAllFrequentPairsSingleItems(dataBase)
+        itemPseudoSeq = self._findAllFrequentPairsSingleItems(dataBase)
         if itemPseudoSeq:
             for i in list(sorted(itemPseudoSeq)):
                 if len(itemPseudoSeq[i]) >= self.minSup:
                     patternBuff[lastBuffPo + 1] = -1
                     patternBuff[lastBuffPo + 2] = i
-                    self.save1(lastBuffPo + 2, itemPseudoSeq[i])
-                    self.recursionSingleItems(patternBuff, itemPseudoSeq[i], lastBuffPo + 2)
+                    self._save1(lastBuffPo + 2, itemPseudoSeq[i])
+                    self._recursionSingleItems(patternBuff, itemPseudoSeq[i], lastBuffPo + 2)
 
     def _recursion(self, patternBuff, dataBase, lastBuffPo):
         """
@@ -444,7 +444,7 @@ class PrefixSpan(_ab._frequentPatterns):
         else:
             self._prefixSpanWithSingleItems(seq, dat)
         self._endTime = _ab._time.time()
-        process = psutil.Process(os.getpid())
+        process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
@@ -480,7 +480,7 @@ class PrefixSpan(_ab._frequentPatterns):
         data = []
         for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['SequentialPatterns', 'Support'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['SequentialPatterns', 'Support'])
         return dataFrame
 
     def getPatterns(self):
@@ -503,15 +503,15 @@ class PrefixSpan(_ab._frequentPatterns):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_fp._sys.argv) == 4 or len(_fp._sys.argv) == 5:
-        if len(_fp._sys.argv) == 5:
-            _ap = PrefixSpan(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
-        if len(_fp._sys.argv) == 4:
-            _ap = PrefixSpan(_fp._sys.argv[1], _fp._sys.argv[3])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:
+            _ap = prefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            _ap = prefixSpan(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
-        _ap.savePatterns(_fp._sys.argv[2])
+        _ap.savePatterns(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -521,7 +521,7 @@ if __name__ == "__main__":
     else:
         '''l = [600,700,800, 900, 1000]
         for i in l:
-            ap = FPGrowth('/Users/Likhitha/Downloads/mushrooms.txt', 500, ' ')
+            ap = prefixSpan('/Users/Likhitha/Downloads/PrefixSpan/small.txt', 1, ' ')
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of Frequent Patterns:", len(Patterns))
