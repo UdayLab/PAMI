@@ -207,7 +207,7 @@ if __name__ == '__main__':
     data = pd.DataFrame.from_dict(data)
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
     #obj = transactionalDatabaseStats(data)
-    obj = transactionalDatabaseStats('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_T10I4D100K.csv')
+    obj = transactionalDatabaseStats('/Users/Likhitha/Downloads/outputfile5.txt', ',')
     obj.run()
     print(f'Database size : {obj.getDatabaseSize()}')
     print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')

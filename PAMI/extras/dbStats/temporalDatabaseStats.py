@@ -274,7 +274,7 @@ if __name__ == '__main__':
 
     data = pd.DataFrame.from_dict(data)
     obj = temporalDatabaseStats(data)
-    obj = temporalDatabaseStats('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv')
+    obj = temporalDatabaseStats('/Users/Likhitha/Downloads/datasets-2/temporalDatabases/temporal_retail.csv', ',')
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
     obj.run()
     print(f'Database size : {obj.getDatabaseSize()}')

@@ -262,3 +262,38 @@ class utilityDatabaseStats:
         """
         return self.utility
 
+
+if __name__ == '__main__':
+    data = {'ts': [1, 1, 3, 4, 5, 6, 7],
+
+            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
+                             ['a', 'd', 'g', 'k'],
+
+                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
+
+    data = pd.DataFrame.from_dict(data)
+    import PAMI.extras.dbStats.utilityDatabaseStats as uds
+    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+
+    obj = utilityDatabaseStats(data)
+    obj = uds.utilityDatabaseStats('/Users/Likhitha/Downloads/internalUtility_accidents.csv', sep=',')
+    obj.run()
+    print(f'Database size : {obj.getDatabaseSize()}')
+    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+    print(f'Variance : {obj.getVarianceTransactionLength()}')
+    print(f'Sparsity : {obj.getSparsity()}')
+    print(f'Number of items : {obj.getTotalNumberOfItems()}')
+    print(f'Minimum utility : {obj.getMinimumUtility()}')
+    print(f'Average utility : {obj.getAverageUtility()}')
+    print(f'Maximum utility : {obj.getMaximumUtility()}')
+    print(f'sorted utility value each item : {obj.getSortedUtilityValuesOfItem()}')
+    itemFrequencies = obj.getSortedListOfItemFrequencies()
+    transactionLength = obj.getTransanctionalLengthDistribution()
+    numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
+    plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+    plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+    plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)
+

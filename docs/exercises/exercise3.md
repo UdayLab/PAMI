@@ -22,7 +22,7 @@ A sample code to create a synthetic database is as follows:
     probabilityOfOccurrenceOfAnItem=20  #The probability with which an item must occur in a transaction. The value ranges between 0 to 100. Symbol used for this term is P 
 
     outputFile='D1000I500P20.tsv'
-    data = dbGenerator.generateTransactionalDatabase(totalNumberOfItems, totalNumberofTransactions, probabilityOfOccurrenceOfAnItem, outputFile)
+    data = dbGenerator.generateTransactionalDatabase(totalNumberOfItems, totalNumberOfTransactions, probabilityOfOccurrenceOfAnItem, outputFile)
 
    
 
@@ -106,6 +106,7 @@ The Apriori algorithm can be executed by calling `parallelApriori` class in  PAM
 
 ## Task 4: Visualizing the results of parallelApriori algorithm at particular minSup
 
+    from PAMI.extras.graph import plotLineFromDictionary as plt
     plt.plotLineGraphFromDictionary(numOfPatterns, 100, title = 'patterns', xlabel = 'minSup', ylabel='no of patterns')
     plt.plotLineGraphFromDictionary(runtime, 100, title = 'runtime', xlabel = 'minSup', ylabel='runtime')
     plt.plotLineGraphFromDictionary(memoryUSS, 100, title = 'memory', xlabel = 'minSup', ylabel='memory')

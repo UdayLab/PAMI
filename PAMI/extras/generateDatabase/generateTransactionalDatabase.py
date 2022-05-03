@@ -44,7 +44,7 @@ class generateTransactionalDatabase:
         self.sep = sep
 
         # make outFile
-        with open(self.outFileName, "w") as outFile:
+        with open(self.outFileName, "w+") as outFile:
             # For the number of transactions to be generated
             for i in range(self.numOfTransactions):
                 # This hashset will be used to remember which items have
@@ -83,9 +83,9 @@ class generateTransactionalDatabase:
         return self.outFileName
 
 if __name__ == '__main__':
-    numOfTransactions = 5
-    maxNumOfDistinctItems = 10
-    numOfItemsPerTransaction = 5
-    outFileName = 'out.txt'
+    numOfTransactions = 500
+    maxNumOfDistinctItems = 1000
+    numOfItemsPerTransaction = 20
+    outFileName = '/Users/Likhitha/Downloads/out.txt'
 
     tDG = generateTransactionalDatabase(numOfTransactions, maxNumOfDistinctItems, numOfItemsPerTransaction, outFileName)

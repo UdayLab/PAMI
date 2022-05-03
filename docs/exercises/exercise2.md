@@ -1,6 +1,6 @@
 # **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
 
-# Exercise 2: Mining frequent patterns in very large databases using a multiple algorithm
+# Exercise 2: Mining frequent patterns in very large databases using multiple algorithms
 
 
 ### Task 1: Implementing multiple algorithms by varying minSup
