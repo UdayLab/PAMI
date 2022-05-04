@@ -108,9 +108,10 @@ class temporalDatabaseStats:
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self.sep)]
                             temp = [x for x in temp if x]
-                            self.database[numberOfTransaction] = temp[1:]
-                            self.timeStampCount[int(temp[0])] = self.timeStampCount.get(int(line[0]), 0)
-                            self.timeStampCount[int(temp[0])] += 1
+                            if len(temp) > 0:
+                                self.database[numberOfTransaction] = temp[1:]
+                                self.timeStampCount[int(temp[0])] = self.timeStampCount.get(int(line[0]), 0)
+                                self.timeStampCount[int(temp[0])] += 1
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -273,8 +274,7 @@ if __name__ == '__main__':
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
     data = pd.DataFrame.from_dict(data)
-    obj = temporalDatabaseStats(data)
-    obj = temporalDatabaseStats('/Users/Likhitha/Downloads/datasets-2/temporalDatabases/temporal_retail.csv', ',')
+    obj = temporalDatabaseStats('/Users/Likhitha/Downloads/datasets-2/temporalDatabases/JDSA_datasets/temporal_FAA_merged.txt', '\t')
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
     obj.run()
     print(f'Database size : {obj.getDatabaseSize()}')
