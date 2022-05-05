@@ -1,4 +1,4 @@
-# **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
+# **[Home](../index.html) | [Exercises](../exercises.html) | [Real-world Examples](../examples.html)**
 
 # Mining Frequent Patterns in Very Large Databases
 

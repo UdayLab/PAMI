@@ -1,4 +1,4 @@
-# **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
+# **[Home](../index.html) | [Exercises](../exercises.html) | [Real-world Examples](../examples.html)**
 
 # Exercise 4: Mining frequent patterns in big data using CUDA ECLAT algorithm
 
