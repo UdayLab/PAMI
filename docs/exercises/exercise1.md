@@ -1,4 +1,4 @@
-# **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
+# **[Home](../index.html) | [Exercises](../exercises.html) | [Real-world Examples](../examples.html)**  
 
 # Exercise 1: Mining frequent patterns in very large databases using a single algorithm
 
