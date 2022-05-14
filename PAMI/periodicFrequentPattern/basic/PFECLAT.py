@@ -213,13 +213,10 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                     Database.append(temp)
             else:
                 try:
-                    count = 0
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            count += 1
                             line.strip()
-                            temp = [count]
-                            temp = temp + [i.rstrip() for i in line.split(self._sep)]
+                            temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             Database.append(temp)
                 except IOError:
