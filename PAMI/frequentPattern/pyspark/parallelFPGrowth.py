@@ -369,7 +369,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         self._startTime = _ab._time.time()
         conf = SparkConf().setAppName("FPGrowth").setMaster("local[*]")
         sc = SparkContext(conf=conf)
-        sc.addFile("fpTree.py")
+        #sc.addFile("fpTree.py")
 
         data = sc.textFile(self._iFile, self._numWorkers).map(lambda x: [int(y) for y in x.strip().split(self._sep)])\
             .persist()
