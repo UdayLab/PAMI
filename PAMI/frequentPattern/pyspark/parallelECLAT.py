@@ -3,7 +3,7 @@ from pyspark import SparkConf, SparkContext
 from PAMI.frequentPattern.pyspark import abstract as _ab
 
 
-class PECLAT(_ab._frequentPatterns):
+class parallelECLAT(_ab._frequentPatterns):
     """
         Attributes
         ----------
