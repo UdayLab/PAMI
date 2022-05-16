@@ -1,4 +1,4 @@
-from ParallelCode.Abstract import abstract as _ab
+from PAMI.frequentPattern.pyspark import abstract as _ab
 
 
 class parallelApriori(_ab._frequentPatterns):
