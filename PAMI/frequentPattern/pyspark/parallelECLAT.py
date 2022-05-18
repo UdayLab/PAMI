@@ -64,7 +64,7 @@ class parallelECLAT(_ab._frequentPatterns):
             
             import PAMI.frequentPattern.pyspark.parallelECLAT as alg
             
-            obj = alg.parallelECLAT(iFile, minSup)
+            obj = alg.parallelECLAT(iFile, minSup, numWorkers)
             
             obj.startMine()
             
@@ -204,7 +204,7 @@ class parallelECLAT(_ab._frequentPatterns):
 
         data = sc.textFile(self._iFile, self._numWorkers)\
             .map(lambda line: [int(y) for y in line.rstrip().split(self._sep)])
-        self._minSup = self._convert(len(data), self._minSup)
+        self._minSup = self._convert(data.count(), self._minSup)
         frequentItems = data.flatMap(lambda trans: [(str(item), trans[0]) for item in trans[1:]]) \
             .groupByKey() \
             .filter(lambda x: len(x[1]) >= self._minSup) \
@@ -212,7 +212,7 @@ class parallelECLAT(_ab._frequentPatterns):
             .persist()
 
         freqItems = dict(frequentItems.collect())
-        print(len(freqItems))
+        #print(len(freqItems))
         self._finalPatterns = {k: len(v) for k, v in freqItems.items()}
 
         freqPatterns = list(frequentItems.map(lambda x: self._genPatterns(x, x, list(freqItems.items())))
