@@ -228,6 +228,54 @@ class parallelFPGrowth(_ab._frequentPatterns):
                 FPTree is created on each workers based on partition id.
             getAllFrequentPatterns(data, fpList)
                 Get all frequent patterns
+       
+       Executing the code on terminal:
+       -------------------------------
+            
+            Format:
+            ------
+            
+                python3 parallelFPGrowth.py <inputFile> <outputFile> <minSup> <numWorkers>
+            
+            Examples:
+            ---------
+                python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10.0 3   (minSup will be considered in times of minSup and count of database transactions)
+            
+                python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10 3    (minSup will be considered in support count or frequency)
+       
+       Sample run of the importing code:
+       ---------------------------------
+            
+            import PAMI.frequentPattern.pyspark.parallelFPGrowth as alg
+            
+            obj = alg.parallelFPGrowth(iFile, minSup)
+            
+            obj.startMine()
+            
+            frequentPatterns = obj.getPatterns()
+            
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
+            
+            obj.savePatterns(oFile)
+            
+            Df = obj.getPatternInDataFrame()
+            
+            memUSS = obj.getMemoryUSS()
+            
+            print("Total Memory in USS:", memUSS)
+            
+            memRSS = obj.getMemoryRSS()
+            
+            print("Total Memory in RSS", memRSS)
+            
+            run = obj.getRuntime()
+            
+            print("Total ExecutionTime in seconds:", run)
+        
+        Credits:
+        --------
+            The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
+            
     """
 
     _minSup = float()
