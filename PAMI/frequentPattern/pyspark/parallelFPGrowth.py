@@ -388,6 +388,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using Parallel FPGrowth algorithm")
         sc.stop()
 
 
