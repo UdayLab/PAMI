@@ -248,7 +248,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
             
             import PAMI.frequentPattern.pyspark.parallelFPGrowth as alg
             
-            obj = alg.parallelFPGrowth(iFile, minSup)
+            obj = alg.parallelFPGrowth(iFile, minSup, numWorkers)
             
             obj.startMine()
             
@@ -409,6 +409,24 @@ class parallelFPGrowth(_ab._frequentPatterns):
             if partition not in condTransaction:
                 condTransaction[partition] = filtered[:i + 1]
         return [x for x in condTransaction.items()]
+    
+    def _convert(self, dataLength, value):
+        """
+        To convert the user specified minSup value
+        :param value: user specified minSup value
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (dataLength * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (dataLength * value)
+            else:
+                value = int(value)
+        return value
 
     def startMine(self):
         """
@@ -421,7 +439,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
         data = sc.textFile(self._iFile, self._numWorkers).map(lambda x: [int(y) for y in x.strip().split(self._sep)])\
             .persist()
-
+        self._minSup = self._convert(data.count(), self._minSup)
         frequentItems = self._getFrequentItems(data)
         self._finalPatterns.update(frequentItems)
 
