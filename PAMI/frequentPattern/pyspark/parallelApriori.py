@@ -239,7 +239,7 @@ class parallelApriori(_ab._frequentPatterns):
             candidates = self._genCandidateItemsets(list(frequentPatterns.keys()), length)
             length += 1
             
-    def _convert(self, value):
+    def _convert(self, dataLength, value):
         """
         To convert the user specified minSup value
         :param value: user specified minSup value
@@ -248,11 +248,11 @@ class parallelApriori(_ab._frequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (database * value)
+            value = (dataLength * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (database * value)
+                value = (dataLength * value)
             else:
                 value = int(value)
         return value
@@ -273,7 +273,7 @@ class parallelApriori(_ab._frequentPatterns):
         database = sc.textFile(self._iFile, self._numWorkers).map(lambda x: {int(y) for y in x.rstrip().split(self._sep)})
 
         # Calculating minSup as a percentage
-        self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(len(database), self._minSup)
         oneFrequentItems = self._genFrequentItems(database)
         self._finalPatterns = oneFrequentItems
         self._getAllFrequentPatterns(database, oneFrequentItems)
