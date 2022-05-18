@@ -107,7 +107,7 @@ The Apriori algorithm can be executed by calling `parallelApriori` class in  PAM
 
 ## Task 4: Visualizing the results of parallelApriori algorithm at particular minSup
 
-    from PAMI.extras.graph import plotLineFromDictionary as plt
+    from PAMI.extras.graph import plotLineGraphFromDictionary as plt
     plt.plotLineGraphFromDictionary(numOfPatterns, 100, title = 'patterns', xlabel = 'minSup', ylabel='no of patterns')
     plt.plotLineGraphFromDictionary(runtime, 100, title = 'runtime', xlabel = 'minSup', ylabel='runtime')
     plt.plotLineGraphFromDictionary(memoryUSS, 100, title = 'memory', xlabel = 'minSup', ylabel='memory')
