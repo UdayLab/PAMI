@@ -81,6 +81,7 @@ The Apriori algorithm can be executed by calling `parallelApriori` class in  PAM
 
     obj.savePatterns('patterns.txt')
     df = obj.getPatternsAsDataFrame()
+    print('Total No of patterns: ' + str(len(df)))
     print('Runtime: ' + str(obj.getRuntime()))
     print('Memory: ' + str(obj.getMemoryRSS()))
 
