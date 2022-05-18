@@ -50,8 +50,8 @@ A sample code to create a synthetic database is as follows:
     
     itemFrequencies = obj.getSortedListOfItemFrequencies()
     transactionLength = obj.getTransanctionalLengthDistribution()
-    obj.storeInFile(itemFrequencies, 'itemFrequency.csv')
-    obj.storeInFile(transactionLength, 'transactionSize.csv')
+    obj.save(itemFrequencies, 'itemFrequency.csv')
+    obj.save(transactionLength, 'transactionSize.csv')
 
     #print top 50% of the frequent items
     plt.plotLineGraphFromDictionary(obj.getSortedListOfItemFrequencies(),50,'item frequencies', 'item rank', 'frequency')
@@ -99,7 +99,7 @@ The Apriori algorithm can be executed by calling `parallelApriori` class in  PAM
     for minSup in minSupList:
         obj = alg.parallelApriori(inputFile, minSup=minSup, numWorkers=numWorkers, sep=sep)
         obj.startMine()
-        numOfPatterns[minSup]  = obj.getPatterns()
+        numOfPatterns[minSup]  = len(obj.getPatterns())
         runtime[minSup] = obj.getRuntime()
         memoryUSS[minSup] = obj.getMemoryUSS()
         memoryRSS[minSup] = obj.getMemoryRSS()
