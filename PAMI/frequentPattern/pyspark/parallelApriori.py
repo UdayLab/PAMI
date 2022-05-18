@@ -53,7 +53,7 @@ class parallelApriori(_ab._frequentPatterns):
             Format:
             ------
             
-                python3 parallelApriori.py <inputFile> <outputFile> <minSup>
+                python3 parallelApriori.py <inputFile> <outputFile> <minSup> <numWorkers>
             
             Examples:
             ---------
@@ -273,7 +273,7 @@ class parallelApriori(_ab._frequentPatterns):
         database = sc.textFile(self._iFile, self._numWorkers).map(lambda x: {int(y) for y in x.rstrip().split(self._sep)})
 
         # Calculating minSup as a percentage
-        self._minSup = self._convert(len(database), self._minSup)
+        self._minSup = self._convert(database.count(), self._minSup)
         oneFrequentItems = self._genFrequentItems(database)
         self._finalPatterns = oneFrequentItems
         self._getAllFrequentPatterns(database, oneFrequentItems)
