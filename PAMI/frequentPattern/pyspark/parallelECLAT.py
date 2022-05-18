@@ -174,6 +174,24 @@ class parallelECLAT(_ab._frequentPatterns):
                 freqPatterns[freqPattern] = len(tid)
                 freqPatterns.update(self._genPatterns(data[i], (freqPattern, tid), data))
         return freqPatterns
+    
+    def _convert(self, dataLength, value):
+        """
+        To convert the user specified minSup value
+        :param value: user specified minSup value
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (dataLength * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (datalength * value)
+            else:
+                value = int(value)
+        return value
 
     def startMine(self):
         """
@@ -186,7 +204,7 @@ class parallelECLAT(_ab._frequentPatterns):
 
         data = sc.textFile(self._iFile, self._numWorkers)\
             .map(lambda line: [int(y) for y in line.rstrip().split(self._sep)])
-
+        self._minSup = self._convert(len(data), self._minSup)
         frequentItems = data.flatMap(lambda trans: [(str(item), trans[0]) for item in trans[1:]]) \
             .groupByKey() \
             .filter(lambda x: len(x[1]) >= self._minSup) \
