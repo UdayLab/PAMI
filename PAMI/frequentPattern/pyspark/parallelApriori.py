@@ -232,6 +232,7 @@ class parallelApriori(_ab._frequentPatterns):
         self._memoryRSS = process.memory_info().rss
 
         sc.stop()
+        print("Frequent patterns were generated successfully using Parallel Apriori algorithm")
 
 
 if __name__ == "__main__":
