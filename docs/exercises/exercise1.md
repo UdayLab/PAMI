@@ -22,7 +22,7 @@ A sample code to create a synthetic database is as follows:
     probabilityOfOccurrenceOfAnItem=20  #The probability with which an item must occur in a transaction. The value ranges between 0 to 100. Symbol used for this term is P 
 
     outputFile='D1000I500P20.tsv'
-    data = dbGenerator.generateTransactionalDatabase(totalNumberOfItems, totalNumberOfTransactions, probabilityOfOccurrenceOfAnItem, outputFile)
+    data = dbGenerator.generateTransactionalDatabase(totalNumberOfTransactions, totalNumberOfItems, probabilityOfOccurrenceOfAnItem, outputFile)
  
 
 
@@ -91,7 +91,6 @@ The Apriori algorithm can be executed by calling `Apriori` class in  PAMI.freque
 The Apriori algorithm can be executed by calling `Apriori` class in  PAMI.frequentPattern.basic. 
 
     import pandas as pd
-    result = pd.DataFrame(columns=['algorithm', 'minSup', 'patterns', 'runtime', 'memory'])  # To store the output in dataframe format.
 
     from PAMI.frequentPattern.basic import Apriori as alg
     
