@@ -29,7 +29,7 @@ class generateTransactionalDatabase:
         :param numOfTransactions: number of transactions
         :type numOfTransactions: int
         :param maxNumOfDistinctItems: distinct items per transactions
-        :type maxNumOfDistinctItems: int
+        :type maxNumOfDistinctItems: int 
         :param numOfItemsPerTransaction: items per transaction
         :type numOfItemsPerTransaction: int
         :param outFileName: output filename

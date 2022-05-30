@@ -11,7 +11,7 @@ class scatterPlotSpatialPoints:
         self._iFile = iFile
         self._sep = sep
 
-    def scanningPoints(self):
+    def _scanningPoints(self):
 
         points = {}
         if isinstance(self._iFile, _pd.DataFrame):
@@ -49,7 +49,7 @@ class scatterPlotSpatialPoints:
         return points
 
     def scatterPlotSpatialPoints(self):
-        points = self.scanningPoints()
+        points = self._scanningPoints()
         keys = [i for i in points.keys()]
         values = [i for i in points.values()]
         _plt.scatter(keys, values, c="Red")
