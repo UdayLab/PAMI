@@ -75,6 +75,7 @@ The Apriori algorithm can be executed by calling `parallelApriori` class in  PAM
           
     minSup=0.8     #minimum support of a pattern
     sep='\t'       #default seperator used to seperate items in a database
+    numWorkers = 3
 
     obj = alg.parallelApriori(inputFile,minSup,numWorkers,sep)
     obj.startMine()
@@ -91,6 +92,7 @@ The Apriori algorithm can be executed by calling `parallelApriori` class in  PAM
           
     minSup=[0.01, 0.02, 0.03, 0.04, 0.05]    #minimum support of a pattern
     sep='\t'       #default seperator used to seperate items in a database
+    numWorkers = 3
 
     algorithm = 'parallelApriori'
     numOfPatterns = {}
