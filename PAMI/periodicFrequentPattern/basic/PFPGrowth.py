@@ -646,7 +646,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''_ap = PFPGrowth('/Users/Likhitha/Downloads/dense_DB_3.csv', 20, 23, ',')
+        _ap = PFPGrowth('/Users/Likhitha/Downloads/ECLAT_Ting/recode/sample.txt', 2, 4, ' ')
         _ap.startMine()
         print(len(_ap._Database))
         _Patterns = _ap.getPatterns()
@@ -657,5 +657,5 @@ if __name__ == "__main__":
         _memRSS = _ap.getMemoryRSS()
         print("Total Memory in RSS", _memRSS)
         _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)'''
+        print("Total ExecutionTime in ms:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

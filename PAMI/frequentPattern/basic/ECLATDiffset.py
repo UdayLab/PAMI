@@ -249,14 +249,15 @@ class ECLATDiffset(_ab._frequentPatterns):
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
         uniqueItemList = self._getUniqueItemList()
-        self._runEclat(uniqueItemList)
+        self._runDeclat(uniqueItemList)
+        self._finalPatterns = self._diffSets
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using ECLAT algorithm")
+        print("Frequent patterns were generated successfully using ECLAT Diffset algorithm")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -345,19 +346,17 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''l = [6000]
-        for i in l:
-            ap = ECLATDiffset('/Users/Likhitha/Downloads/mushrooms.txt', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Frequent Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
+        ap = ECLATDiffset('/Users/Likhitha/Downloads/ECLAT_Ting/recode/transactional_sample.txt', 1, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.savePatterns('/Users/Likhitha/Downloads/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 

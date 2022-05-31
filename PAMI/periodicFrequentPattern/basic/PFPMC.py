@@ -13,16 +13,17 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+from itertools import groupby as _groupby
+from operator import itemgetter as _itemgetter
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 
-class PFECLAT(_ab._periodicFrequentPatterns):
-    """ EclatPFP is the fundamental approach to mine the periodic-frequent patterns.
+class PFPMC(_ab._periodicFrequentPatterns):
+    """ EclatDiffset PFP is the fundamental approach to mine the periodic-frequent patterns.
 
-        Reference:
-        --------
-            P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, "Towards efficient discovery of 
-            periodic-frequent patterns in columnar temporal databases", 2021 IEA/AIE.
+    Reference:
+    --------
+
 
     Attributes:
     ----------
@@ -85,30 +86,30 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
         creatingOneItemSets()
-            Scan the database and store the items with their timestamps which are periodic frequent 
+            Scan the database and store the items with their timestamps which are periodic frequent
         getPeriodAndSupport()
             Calculates the support and period for a list of timestamps.
         Generation()
             Used to implement prefix class equivalence method to generate the periodic patterns recursively
-            
+
         Executing the code on terminal:
         -------
         Format:
         ------
-            python3 PFPECLAT.py <inputFile> <outputFile> <minSup>
+            python3 PFPMC.py <inputFile> <outputFile> <minSup> <maxPer>
 
         Examples:
         --------
-            python3 PFPECLAT.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+            python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0   (minSup & maxPer will be considered in percentage of database transactions)
 
-            python3 PFPECLAT.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
-        
+            python3 PFPMC.py sampleDB.txt patterns.txt 10 4     (minSup & maxPer will be considered in support count or frequency)
+
         Sample run of the imported code:
         --------------
-        
-            from PAMI.periodicFrequentPattern.basic import PFPECLAT as alg
 
-            obj = alg.PFPECLAT("../basic/sampleTDB.txt", "2", "5")
+            from PAMI.periodicFrequentPattern.basic import PFPMC as alg
+
+            obj = alg.PFPMC("../basic/sampleTDB.txt", "2", "5")
 
             obj.startMine()
 
@@ -137,7 +138,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
-    
+
     _iFile = " "
     _oFile = " "
     _sep = " "
@@ -149,21 +150,22 @@ class PFECLAT(_ab._periodicFrequentPatterns):
     _finalPatterns = {}
     _startTime = None
     _endTime = None
+    _lastTid = int()
     _memoryUSS = float()
     _memoryRSS = float()
 
     def _getPeriodic(self, tids: set):
-        tidList = list(tids)
-        tidList.sort()
-        tidList.append(self._dbSize)
-        cur = 0
-        per = 0
-        for tid in tidList:
-            per = max(per, tid - cur)
-            if per > self._maxPer:  # early stopping
-                break
-            cur = tid
-        return per
+        tids = list(tids)
+        tids.sort()
+        temp = self._maxPer + 1
+        if self._lastTid in tids:
+            tids.remove(self._lastTid)
+        diffs = []
+        for k, g in _groupby(enumerate(tids), lambda ix: ix[0] - ix[1]):
+            diffs.append(len(list(map(_itemgetter(1), g))))
+        if len(diffs) < 1:
+            return temp
+        return max(diffs) + 1
 
     def _convert(self, value):
         """
@@ -231,63 +233,60 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             for item in line[1:]:
                 if item in itemsets:
                     itemsets[item].add(tid)
-                    periodicHelper[item][0] = max(periodicHelper[item][0],
-                                                  abs(tid - periodicHelper[item][1]))  # update current max period
-                    periodicHelper[item][1] = tid  # update the last tid
                 else:
                     itemsets[item] = {tid}
-                    periodicHelper[item] = [abs(0 - tid), tid]  # initialize helper
 
-        # finish all items' period
         self._dbSize = len(Database)
+        self._lastTid = max(self._tidSet)
         self._minSup = self._convert(self._minSup)
         self._maxPer = self._convert(self._maxPer)
         del Database
-        for item, _ in periodicHelper.items():
-            periodicHelper[item][0] = max(periodicHelper[item][0],
-                                          abs(self._dbSize - periodicHelper[item][1]))  # tid of the last transaction
         candidates = []
         for item, tids in itemsets.items():
-            per = periodicHelper[item][0]
+            diff = self._tidSet.difference(tids)
+            per = self._getPeriodic(diff)
             sup = len(tids)
             if sup >= self._minSup and per <= self._maxPer:
                 candidates.append(item)
-                self._finalPatterns[item] = [sup, per, tids]
+                self._finalPatterns[item] = [sup, per, diff]
         return candidates
-    
-    def _generateEclat(self, candidates):
-        newCandidates = []
-        for i in range(0, len(candidates)):
-            prefixItem = candidates[i]
-            prefixItemSet = prefixItem.split()
-            for j in range(i + 1, len(candidates)):
-                item = candidates[j]
-                itemSet = item.split()
-                if prefixItemSet[:-1] == itemSet[:-1] and prefixItemSet[-1] != itemSet[-1]:
-                    _value = self._finalPatterns[item][2].intersection(self._finalPatterns[prefixItem][2])
-                    sup = len(_value)
-                    per = self._getPeriodic(_value)
-                    if sup >= self._minSup and per <= self._maxPer:
-                        newItem = prefixItem + " " + itemSet[-1]
-                        self._finalPatterns[newItem] = [sup, per, _value]
-                        newCandidates.append(newItem)
 
-        if len(newCandidates) > 0:
-            self._generateEclat(newCandidates)
-    
+    def _generateDiffsetEclat(self, candidates):
+        new_freqList = []
+        for i in range(0, len(candidates)):
+            item1 = candidates[i]
+            i1_list = item1.split()
+            for j in range(i + 1, len(candidates)):
+                item2 = candidates[j]
+                i2_list = item2.split()
+                if i1_list[:-1] == i2_list[:-1]:
+                    union_DiffSet = self._finalPatterns[item2][2].union(self._finalPatterns[item1][2])
+                    sorted(union_DiffSet)
+                    union_supp = len(union_DiffSet)
+                    period = self._getPeriodic(union_DiffSet)
+                    if union_supp >= self._minSup and period <= self._maxPer:
+                        newKey = item1 + " " + i2_list[-1]
+                        self._finalPatterns[newKey] = [union_supp, period, union_DiffSet]
+                        new_freqList.append(newKey)
+                else:
+                    break
+
+        if len(new_freqList) > 0:
+            self._generateDiffsetEclat(new_freqList)
+
     def startMine(self):
-        #print(f"Optimized {type(self).__name__}")
+        # print(f"Optimized {type(self).__name__}")
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         frequentSets = self._creatingOneItemSets()
-        self._generateEclat(frequentSets)
+        self._generateDiffsetEclat(frequentSets)
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryRSS = float()
         self._memoryUSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
+        print("Periodic-Frequent patterns were generated successfully using PFPDiffset ECLAT algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -350,15 +349,15 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
-                    
+
 
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = PFECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = PFPMC(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = PFECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = PFPMC(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Periodic-Frequent Patterns:", len(_Patterns))
@@ -370,11 +369,9 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = PFECLAT('/Users/Likhitha/Downloads/ECLAT_Ting/recode/sample.txt', 3, 4, ' ')
+        _ap = PFPMC('/Users/Likhitha/Downloads/ECLAT_Ting/recode/sample.txt', 3, 4, ' ')
         _ap.startMine()
         _Patterns = _ap.getPatterns()
-        for x, y in _Patterns.items():
-            print(x, y)
         print("Total number of Patterns:", len(_Patterns))
         _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
         _memUSS = _ap.getMemoryUSS()
