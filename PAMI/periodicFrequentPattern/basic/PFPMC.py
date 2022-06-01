@@ -167,6 +167,28 @@ class PFPMC(_ab._periodicFrequentPatterns):
             return temp
         return max(diffs) + 1
 
+    '''def _getPeriodic(self, tids: set):
+        tids = list(tids)
+        tids.sort()
+        temp = self._maxPer + 1
+        #if self._lastTid in tids:
+            #tids.remove(self._lastTid)
+        diffs = []
+        tempPer = 0
+        period = 0
+        for k, g in _groupby(enumerate(tids), lambda ix: ix[0] - ix[1]):
+            diffs.append(len(list(map(_itemgetter(1), g))))
+        if len(diffs) < 1:
+            return temp
+        for i in range(len(tids) - 1):
+            if tids[i+1] - tids[i] == 1:
+                tempPer += 1
+            else:
+                period = max(period, tempPer + 1)
+                tempPer = 0
+
+        return period'''
+
     def _convert(self, value):
         """
         To convert the given user specified value
@@ -262,7 +284,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
                 if i1_list[:-1] == i2_list[:-1]:
                     union_DiffSet = self._finalPatterns[item2][2].union(self._finalPatterns[item1][2])
                     sorted(union_DiffSet)
-                    union_supp = len(union_DiffSet)
+                    union_supp = self._dbSize - len(union_DiffSet)
                     period = self._getPeriodic(union_DiffSet)
                     if union_supp >= self._minSup and period <= self._maxPer:
                         newKey = item1 + " " + i2_list[-1]
@@ -369,9 +391,24 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = PFPMC('/Users/Likhitha/Downloads/ECLAT_Ting/recode/sample.txt', 3, 4, ' ')
+        '''minSupList = [ 300, 400, 500, 600, 700, 800, 900, 1000]
+        for i in minSupList:
+            _ap = PFPMC('/Users/Likhitha/Downloads/DASFAA2022/congestion_300', i, 200, ' ')
+            _ap.startMine()
+            _Patterns = _ap.getPatterns()
+            print("Total number of Patterns:", len(_Patterns))
+            _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
+            _memUSS = _ap.getMemoryUSS()
+            print("Total Memory in USS:", _memUSS)
+            _memRSS = _ap.getMemoryRSS()
+            print("Total Memory in RSS", _memRSS)
+            _run = _ap.getRuntime()
+            print("Total ExecutionTime in ms:", _run)'''
+        '''_ap = PFPMC('/Users/Likhitha/Downloads/ECLAT_Ting/recode/sample.txt', 5, 3, ' ')
         _ap.startMine()
         _Patterns = _ap.getPatterns()
+        for x, y in _Patterns.items():
+            print(x, y)
         print("Total number of Patterns:", len(_Patterns))
         _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
         _memUSS = _ap.getMemoryUSS()
@@ -379,5 +416,5 @@ if __name__ == "__main__":
         _memRSS = _ap.getMemoryRSS()
         print("Total Memory in RSS", _memRSS)
         _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total ExecutionTime in ms:", _run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
