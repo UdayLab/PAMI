@@ -168,23 +168,42 @@ class PFPMC(_ab._periodicFrequentPatterns):
         return max(diffs) + 1
 
     '''def _getPeriodic(self, tids: set):
+
         tids = list(tids)
         tids.sort()
         temp = self._maxPer + 1
-        #if self._lastTid in tids:
-            #tids.remove(self._lastTid)
+        if self._lastTid in tids:
+            tids.remove(self._lastTid)
+        diffs = []
+        # find the longest consecutive period
+
+        count = 0
+        for i in range(len(tids) - 1):
+            if tids[i + 1] == tids[i] + 1:
+                count += 1
+            else:
+                diffs.append(count)
+                count = 0
+        if len(diffs) < 1:
+            return temp
+        return max(diffs) + 1'''
+
+    '''def _getPeriodic(self, tids: set):
+        tids = list(tids)
+        tids.sort()
+        temp = self._maxPer + 1
+        if self._lastTid in tids:
+            tids.remove(self._lastTid)
         diffs = []
         tempPer = 0
         period = 0
-        for k, g in _groupby(enumerate(tids), lambda ix: ix[0] - ix[1]):
-            diffs.append(len(list(map(_itemgetter(1), g))))
-        if len(diffs) < 1:
-            return temp
         for i in range(len(tids) - 1):
             if tids[i+1] - tids[i] == 1:
                 tempPer += 1
             else:
                 period = max(period, tempPer + 1)
+                if period > self._maxPer:
+                    return temp
                 tempPer = 0
 
         return period'''
@@ -404,7 +423,7 @@ if __name__ == "__main__":
             print("Total Memory in RSS", _memRSS)
             _run = _ap.getRuntime()
             print("Total ExecutionTime in ms:", _run)'''
-        '''_ap = PFPMC('/Users/Likhitha/Downloads/ECLAT_Ting/recode/sample.txt', 5, 3, ' ')
+        _ap = PFPMC('/Users/Likhitha/Downloads/ECLAT_Ting/recode/sample.txt', 1, 8, ' ')
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         for x, y in _Patterns.items():
@@ -416,5 +435,5 @@ if __name__ == "__main__":
         _memRSS = _ap.getMemoryRSS()
         print("Total Memory in RSS", _memRSS)
         _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)'''
+        print("Total ExecutionTime in ms:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

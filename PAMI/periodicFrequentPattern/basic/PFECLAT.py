@@ -219,6 +219,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             Database.append(temp)
+                    #print(len(Database))
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -370,17 +371,31 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = PFECLAT('/Users/Likhitha/Downloads/ECLAT_Ting/recode/sample.txt', 3, 4, ' ')
-        _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        for x, y in _Patterns.items():
-            print(x, y)
-        print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        '''minSupList = [300, 400, 500, 600, 700, 800, 900, 1000]
+        for minSup in minSupList:
+            _ap = PFECLAT('/Users/Likhitha/Downloads/DASFAA2022/congestion_300', minSup, 200, ' ')
+            _ap.startMine()
+            _Patterns = _ap.getPatterns()
+            print("Total number of Patterns:", len(_Patterns))
+            _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
+            _memUSS = _ap.getMemoryUSS()
+            print("Total Memory in USS:", _memUSS)
+            _memRSS = _ap.getMemoryRSS()
+            print("Total Memory in RSS", _memRSS)
+            _run = _ap.getRuntime()
+            print("Total ExecutionTime in ms:", _run)'''
+        '''minSup = [450, 470, 490, 510, 530, 550]
+        for i in minSup:
+            _ap = PFECLAT('/Users/Likhitha/Downloads/Nighbours_gen/temp_roads.txt',
+                            i, 250, ',')
+            _ap.startMine()
+            _spatialFrequentPatterns = _ap.getPatterns()
+            print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
+            _ap.savePatterns('/Users/Likhitha/Downloads/Nighbours_gen/output.txt')
+            _memUSS = _ap.getMemoryUSS()
+            print("Total Memory in USS:", _memUSS)
+            _memRSS = _ap.getMemoryRSS()
+            print("Total Memory in RSS", _memRSS)
+            _run = _ap.getRuntime()
+            print("Total ExecutionTime in seconds:", _run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -115,16 +115,17 @@ class TUFP(_ab._frequentPatterns):
     -------
         Format:
         ------
-        python3 tufp.py <inputFile> <outputFile> <minSup>
+
+        python3 TUFP.py <inputFile> <outputFile> <minSup>
         Examples:
         --------
-        python3 tufp.py sampleTDB.txt patterns.txt 0.6    (minSup  will be considered in support count or frequency)
+        python3 TUFP.py sampleTDB.txt patterns.txt 0.6    (minSup  will be considered in support count or frequency)
 
 
     Sample run of importing the code:
     -------------------
 
-        from PAMI.uncertainFrequentPattern.topk import tufp as alg
+        from PAMI.uncertainFrequentPattern.basic import TUFP as alg
 
         obj = alg.TUFP(iFile, minSup)
 
@@ -304,7 +305,7 @@ class TUFP(_ab._frequentPatterns):
                 sample = str()
                 for i in prefix:
                     sample = sample + i + " "
-                index = list(self._finalPatterns.keys())[list(self._finalPatterns.values()).index(self.minimum)]
+                index = list(self._finalPatterns.keys())[list(self._finalPatterns.values()).index(self._minimum)]
                 del self._finalPatterns[index]
                 self._finalPatterns[sample] = val
                 self._minimum = min(list(self._finalPatterns.values()))

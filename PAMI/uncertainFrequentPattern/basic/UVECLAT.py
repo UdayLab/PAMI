@@ -14,8 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
-from collections import Counter as _Counter
-import operator as _operator
+
 
 _minSup = float()
 _finalPatterns = {}
@@ -302,10 +301,16 @@ class UVEclat(_ab._frequentPatterns):
 
     @staticmethod
     def _Intersection(tidSetx, tidSetY):
-        temp1 = _Counter(tidSetx)
-        temp2 = _Counter(tidSetY)
-        res = _Counter({key: temp1[key] * temp2[key] for key in temp1})
-        return res
+        tids = []
+        support = []
+        tidDict = {}
+        for x, y in tidSetx.items():
+            for x1, y1 in tidSetY.items():
+                if x == x1:
+                    tids.append(x)
+                    support.append(y * y1)
+                    tidDict.update({x: y * y1})
+        return tidDict
 
     def _calculateExpSup(self, tidList):
         return sum(tidList.values())

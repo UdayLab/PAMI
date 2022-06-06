@@ -185,6 +185,7 @@ class PFS_ECLAT(_ab._spatialPeriodicFrequentPatterns):
                     candidate[j][3].append(n)
         self._minSup = self._convert(self._minSup)
         self._maxPer = self._convert(self._maxPer)
+        print(self._minSup, self._maxPer)
         self._tidList = {k: v[3] for k, v in candidate.items() if v[0] >= self._minSup and v[1] <= self._maxPer}
         candidate = {k: [v[0], v[1]] for k, v in candidate.items() if v[0] >= self._minSup and v[1] <= self._maxPer}
         plist = [key for key, value in sorted(candidate.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
@@ -451,4 +452,19 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in seconds:", _run)
     else:
+        '''minSup = [450, 470, 490, 510, 530, 550]
+        for i in minSup:
+            _ap = PFS_ECLAT('/Users/Likhitha/Downloads/Nighbours_gen/temp_pollution.txt',
+                        '/Users/Likhitha/Downloads/Nighbours_gen/pollution_neighbours.txt',
+                i, 250, ',')
+            _ap.startMine()
+            _spatialFrequentPatterns = _ap.getPatterns()
+            print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
+            _ap.savePatterns('/Users/Likhitha/Downloads/Nighbours_gen/output.txt')
+            _memUSS = _ap.getMemoryUSS()
+            print("Total Memory in USS:", _memUSS)
+            _memRSS = _ap.getMemoryRSS()
+            print("Total Memory in RSS", _memRSS)
+            _run = _ap.getRuntime()
+            print("Total ExecutionTime in seconds:", _run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

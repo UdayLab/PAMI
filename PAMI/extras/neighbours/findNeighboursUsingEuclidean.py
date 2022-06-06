@@ -37,7 +37,7 @@ class createNeighborhoodFileUsingEuclideanDistance:
                 l = line.rstrip().split(seperator)
                 l[0] = re.sub(r'[^0-9. ]', '', l[0])
                 coordinates.append(l[0].rstrip().split(' '))
-
+                print(l[0])
         for i in range(len(coordinates)):
             for j in range(len(coordinates)):
                 if i != j:
@@ -69,5 +69,6 @@ class createNeighborhoodFileUsingEuclideanDistance:
         return self.oFile
 
 if __name__ == "__main__":
-    createNeighborhoodFileUsingEuclideanDistance(sys.argv[1],sys.argv[2],sys.argv[3])
+    createNeighborhoodFileUsingEuclideanDistance('/Users/Likhitha/Downloads/Nighbours_gen/points','/Users/Likhitha/Downloads/Nighbours_gen/inputOutput.txt',
+                                                 10, ',')
 
