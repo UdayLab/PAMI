@@ -1,4 +1,11 @@
-from PAMI.stablePeriodicFrequentPattern.basic import abstract as _ab
+from urllib.request import urlopen
+import validators
+import pandas as pd
+import resource
+import time
+import sys
+import os
+import psutil
 
 _minSup = int()
 _maxPer = int()
@@ -222,7 +229,7 @@ class SPPGrowth():
 
         """
         self._Database = []
-        if isinstance(self._iFile, _ab._pd.DataFrame):
+        if isinstance(self._iFile, pd.DataFrame):
             data, ts = [], []
             if self._iFile.empty:
                 print("its empty..")
@@ -237,8 +244,8 @@ class SPPGrowth():
                 self._Database.append(tr)
 
         if isinstance(self._iFile, str):
-            if _ab._validators.url(self._iFile):
-                data = _ab._urlopen(self._iFile)
+            if validators.url(self._iFile):
+                data = urlopen(self._iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
@@ -362,7 +369,7 @@ class SPPGrowth():
         """
 
         global _minSup, _maxPer, _lno, _maxLa
-        self._startTime = _ab._time.time()
+        self._startTime = time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:
@@ -386,8 +393,8 @@ class SPPGrowth():
         for i in patterns:
             sample = self._savePeriodic(i[0])
             self._finalPatterns[sample] = i[1]
-        self._endTime = _ab._time.time()
-        process = _ab._psutil.Process(_ab._os.getpid())
+        self._endTime = time.time()
+        process = psutil.Process(os.getpid())
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
@@ -433,7 +440,7 @@ class SPPGrowth():
         data = []
         for a, b in self._finalPatterns.items():
             data.append([a, b[0], b[1]])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+            dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -459,15 +466,15 @@ class SPPGrowth():
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
-        if len(_ab._sys.argv) == 7:
-            _ap = SPPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
-        if len(_ab._sys.argv) == 6:
-            _ap = SPPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+    if len(sys.argv) == 5 or len(sys.argv) == 6:
+        if len(sys.argv) == 6:
+            _ap = PFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+        if len(sys.argv) == 5:
+            _ap = PFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.savePatterns(sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
