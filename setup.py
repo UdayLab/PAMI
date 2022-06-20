@@ -17,6 +17,7 @@ setuptools.setup(
     install_requires=[            # All necessary packages utilized by our PAMI software
         'psutil',
         'pandas',
+	'plotly',
         'matplotlib',
         'resource',
         'validators',
