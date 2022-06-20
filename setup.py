@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name = 'pami',
-    version = '2022.06.20.2',
+    version = '2022.06.20.3',
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',
     description = 'This software is being developed at the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
@@ -17,14 +17,13 @@ setuptools.setup(
     install_requires=[            # All necessary packages utilized by our PAMI software
         'psutil',
         'pandas',
-	'plotly',
+	    'plotly',
         'matplotlib',
         'resource',
         'validators',
         'urllib3',
-	'pyspark',
-	'Pillow',
-	'matplotlib'
+	    'pyspark',
+	    'Pillow',
     ],
     classifiers = [
         'Development Status :: 5 - Production/Stable',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package

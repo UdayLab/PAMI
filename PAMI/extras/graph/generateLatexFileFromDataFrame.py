@@ -2,50 +2,67 @@ import pandas as pd
 
 
 def generateLatexCode(result):
-    latexwriter = open("Latexfile.tex", "w")
-    latexwriter.write("")
-    plots = int(input("How many lines do you want to plot: "))
-    x_label = input("Enter xlable: ")
-    y_label = input("Enter ylable: ")
-    x_min = int(input("Enter xmin: "))
-    x_max = int(input("Enter x_max: "))
-    axis_cs = input("Enter axis cs separated by comma: ")
-    axis_cs = axis_cs.split(",")
-    latexwriter = open("Latexfile.tex", "a")
-    latexwriter.write("\\begin{axis}[\n\txlabel={\\Huge{" + x_label + "}},")
-    latexwriter.write("\n\tylabel={\\Huge{" + y_label + "}},")
-    latexwriter.write("\n\txmin=" + str(x_min) + ", xmax=" + str(x_max) + ",")
-    latexwriter.write("\n\tlegend style={at={(axis cs: " + str(axis_cs[0]) + "," + str(axis_cs[1]) + ")}},\n]")
-    for i in range(0, plots):
-        legendary = input("Enter legendary title for plot: ")
-        print("Enter the color for " + legendary + ": ", end="")
-        color = input()
-        algo_name = input("Plot results for which algorithm? (Please enter algorithm name):")
-        x_axis = input("Which column will become x axis data from dataframe: ")
-        y_axis = input("Which column will become y axis data from dataframe: ")
-        #xaxis = result[x_axis].values.tolist()
-        #yaxis = result[y_axis].values.tolist()
-        df2 = result[['minSup','runtime']] [result['algorithm'] == algo_name]
-        print(df2)
-        algorithm = df2.values.tolist()
-        print(algorithm)
 
-        latexwriter.write("\n\\addplot+  [" + color + "]\n\tcoordinates {\n")
+    titles = result.columns.tolist()
+    titles.remove("minsup")
+    titles.remove("algorithm")
+    for i in range(0, len(titles)):
+        legendary = pd.unique(result[['algorithm']].values.ravel())
+        color = ['red', 'blue', 'green', 'black', 'yellow']
+        xaxis = result["minsup"].values.tolist()
+        yaxis = result[titles[i]].values.tolist()
+        algo = result["algorithm"].values.tolist()
+        x_label = "minsup"
+        filename = titles[i]
+        latexwriter = open(filename + "Latexfile.tex", "w")
+        latexwriter.write("")
+        latexwriter.write("\\begin{axis}[\n\txlabel={\\Huge{" + x_label + "}},")
+        latexwriter.write("\n\tylabel={\\Huge{" + titles[i] + "}},")
+        latexwriter.write("\n\txmin=" + str(min(xaxis)) + ", xmax=" + str(max(xaxis)) + ",")
 
-        for i in range(0, len(algorithm)):
-            latexwriter.write("(" + str(algorithm[i][0]) + ","+ str(algorithm[i][1]) + ")\n")
-        latexwriter.write("\t};   \\addlegendentry{" + legendary + "}\n")
-    latexwriter.write("\\end{axis}")
-    print("Latex file generated successfully")
+        for num in range(0, len(legendary)):
+            latexwriter.write("\n\\addplot+  [" + color[num] + "]\n\tcoordinates {\n")
+            for num2 in range(0, len(xaxis)):
+                if (legendary[num] == algo[num2]):
+                    latexwriter.write("(" + str(xaxis[num2]) + "," + str(yaxis[num2]) + ")\n")
+            latexwriter.write("\t};   \\addlegendentry{" + legendary[num] + "}\n")
+            if (num + 1 == len(legendary)):
+                latexwriter.write("\\end{axis}")
+    print("Latex files generated successfully")
+    #data1 = pd.DataFrame(data)
+    #generateLatexCode(data1)
 
 if __name__ == "__main__":
 
 
-    data = {'Name': ['Jai', 'Princi', 'Gaurav', 'Anuj'],
-            'Age': [27, 24, 22, 32],
-            'Address': [0, 1, 2, 3],
-            'Qualification': [8, 9, 10, 11]}
+    #data = {'Name': ['Jai', 'Princi', 'Gaurav', 'Anuj'],
+            #'Age': [27, 24, 22, 32],
+            #'Address': [0, 1, 2, 3],
+            #'Qualification': [8, 9, 10, 11]}
+    '''data = {'algorithm': ['FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner'
+        ,'Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm'
+        ,'Naive algorithm', ],
+            'minsup': [200,400,600,800,1000,1200,1400,200,400,600,800,1000,1200,1400],
+            'patterns': [25510,5826,2305,1163,657,407,266,101938,16183,5027,2091,1044,574,335],
+            'runtime': [1077.7172002792358,298.6219701766968,186.86728835105896,126.96730422973633
+                ,77.39371657371521,64.73982691764832,46.879486083984375,13175.030002832413,1821.2089745998383
+                ,964.6961390972137,637.1588702201843,350.71105194091797,275.9953947067261,195.6615695953369],
+            'memoryRSS': [164634624,159494144,157622272,156184576,153698304,150597632,149381120,228220928,192770048
+                ,185114624,182939648,178253824,176115712,171659264],
+            'memoryUSS': [144310272,139104256,137232384,135794688,133300224,130195456,128978944,
+                        203337728,172376064,164720640,162545664,157859840,155721728,151265280]
+            }'''
+    data = {
+        'algorithm': ['FGPFPMiner', 'FGPFPMiner', 'FGPFPMiner', 'FGPFPMiner', 'FGPFPMiner', 'FGPFPMiner', 'FGPFPMiner'],
+        'minsup': [200, 400, 600, 800, 1000, 1200, 1400],
+        'patterns': [25510, 5826, 2305, 1163, 657, 407, 266],
+        'runtime': [1077.7172002792358, 298.6219701766968, 186.86728835105896, 126.96730422973633
+            , 77.39371657371521, 64.73982691764832, 46.879486083984375],
+        'memoryRSS': [164634624, 159494144, 157622272, 156184576, 153698304, 150597632, 149381120],
+        'memoryUSS': [144310272, 139104256, 137232384, 135794688, 133300224, 130195456, 128978944]
+        }
+
     data1 = pd.DataFrame(data)
-    print(data1)
+    #print(data1)
     #print(data1['Name'].values.tolist())
     generateLatexCode(data1)
