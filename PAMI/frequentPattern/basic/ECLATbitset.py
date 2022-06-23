@@ -1,4 +1,4 @@
-import abstract as _ab
+from PAMI.frequentPattern.basic import abstract as _ab
 
 class ECLATbitset(_ab._frequentPatterns):
     """
