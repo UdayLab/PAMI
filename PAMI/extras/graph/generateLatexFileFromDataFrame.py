@@ -4,15 +4,15 @@ import pandas as pd
 def generateLatexCode(result):
 
     titles = result.columns.tolist()
-    titles.remove("minsup")
+    titles.remove("minSup")
     titles.remove("algorithm")
     for i in range(0, len(titles)):
         legendary = pd.unique(result[['algorithm']].values.ravel())
         color = ['red', 'blue', 'green', 'black', 'yellow']
-        xaxis = result["minsup"].values.tolist()
+        xaxis = result["minSup"].values.tolist()
         yaxis = result[titles[i]].values.tolist()
         algo = result["algorithm"].values.tolist()
-        x_label = "minsup"
+        x_label = "minSup"
         filename = titles[i]
         latexwriter = open(filename + "Latexfile.tex", "w")
         latexwriter.write("")
