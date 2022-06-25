@@ -77,11 +77,11 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
 
             Format:
             ------
-                python3 TopkPFPGrowth.py <inputFile> <outputFile> <k> <maxPer>
+                python3 TopkPFP.py <inputFile> <outputFile> <k> <maxPer>
 
             Examples:
             ---------
-                python3 TopkPFPGrowth.py sampleDB.txt patterns.txt 10 3
+                python3 TopkPFP.py sampleDB.txt patterns.txt 10 3
 
 
         Sample run of the importing code:

@@ -807,11 +807,11 @@ if __name__ == "__main__":
     else:
         l = [150]
         for i in l:
-            ap = UPFPGrowth('/home/apiiit-rkv/Desktop/uncertain/congestion_temporal.txt', i, 2000, ' ')
+            ap = UPFPGrowth('/Users/Likhitha/Downloads/uncertain/additionalMaterial/Congestion.txt', i, 2000, ' ')
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of Patterns:", len(Patterns))
-            ap.savePatterns('/home/apiiit-rkv/Desktop/uncertain/output')
+            ap.savePatterns('/Users/Likhitha/Downloads/uncertain/output.txt')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()
