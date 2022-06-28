@@ -362,7 +362,7 @@ class _MPTree(object):
 
 
 # Initialising the  variable for maximal tree
-maximalTree = MPTree()
+maximalTree = _MPTree()
 
 
 class MaxFPGrowth(_ab._frequentPatterns):
