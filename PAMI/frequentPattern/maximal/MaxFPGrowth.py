@@ -18,6 +18,7 @@ from PAMI.frequentPattern.maximal import abstract as _ab
 
 
 _minSup = str()
+global maximalTree
 
 
 class _Node(object):
@@ -104,7 +105,7 @@ class _Tree(object):
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
-        self.maximalTree = _MPTree()
+        #self.maximalTree = _MPTree()
 
     def addTransaction(self, transaction):
         """
@@ -229,6 +230,7 @@ class _Tree(object):
 
         :return: the maximal frequent patterns
         """
+        global maximalTree
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
@@ -240,13 +242,13 @@ class _Tree(object):
             for la in info:
                 tail.append(la)
             sub = head + tail
-            if self.maximalTree.checkerSub(sub) == 1:
+            if maximalTree.checkerSub(sub) == 1:
                 for pat in range(len(condPatterns)):
                     conditional_tree.addConditionalTransaction(condPatterns[pat], tids[pat])
                 if len(condPatterns) >= 1:
                     conditional_tree.generatePatterns(pattern, patterns)
                 else:
-                    self.maximalTree.addTransaction(pattern)
+                    maximalTree.addTransaction(pattern)
                     patterns[tuple(pattern)] = self.info[i]
             self.removeNode(i)
 
@@ -360,7 +362,7 @@ class _MPTree(object):
 
 
 # Initialising the  variable for maximal tree
-#maximalTree = MPTree()
+maximalTree = MPTree()
 
 
 class MaxFPGrowth(_ab._frequentPatterns):
