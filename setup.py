@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name = 'pami',
-    version = '2022.06.20.6',
+    version = '2022.06.20.7',
     author = 'Rage Uday Kiran',
     author_email = 'uday.rage@gmail.com',
     description = 'This software is being developed at the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
