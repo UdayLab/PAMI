@@ -16,7 +16,7 @@
 
 from PAMI.periodicFrequentPattern.maximal import abstract as _ab
 
-
+global maximalTree
 _minSup = float()
 _maxPer = float()
 _lno = int()
@@ -96,7 +96,7 @@ class _Tree(object):
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
-        self.maximalTree = _MPTree()
+        #self.maximalTree = _MPTree()
 
     def addTransaction(self, transaction, tid):
         """
@@ -178,6 +178,7 @@ class _Tree(object):
 
             :return: maximal periodic frequent patterns
         """
+        global maximalTree
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
@@ -189,13 +190,13 @@ class _Tree(object):
             for k in info:
                 tail.append(k)
             sub = head + tail
-            if self.maximalTree.checkerSub(sub) == 1:
+            if maximalTree.checkerSub(sub) == 1:
                 for pat in range(len(condPattern)):
                     conditionalTree.addTransaction(condPattern[pat], timeStamps[pat])
                 if len(condPattern) >= 1:
                     conditionalTree.generatePatterns(pattern, patterns)
                 else:
-                    self.maximalTree.addTransaction(pattern)
+                    maximalTree.addTransaction(pattern)
                     #s = convert(pattern)
                     patterns[tuple(pattern)] = self.info[i]
             self.removeNode(i)
@@ -304,7 +305,7 @@ class _MPTree(object):
         return 1
 
 
-#maximalTree = MPTree()
+maximalTree = _MPTree()
 
 
 def _getPeriodAndSupport(timeStamps):
