@@ -21,11 +21,6 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
                 If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
                 Otherwise, it will be treated as float.
                 Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
-            minPS: float or int or str
-                The user can specify minPS either in count or proportion of database size.
-                If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
             sep : str
                 This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
                 However, the users can override their default separator.
@@ -73,21 +68,21 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     Executing the code on terminal :
     ------------------------------
         Format:
-            python3 STEclat.py <inputFile> <outputFile> <neighbourFile> <maxDist> <maxIAT> <minPS> <cutIAT>
+            python3 STEclat.py <inputFile> <outputFile> <neighbourFile>  <maxIAT> <minPS>
         Examples:
-            python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 0.2 0.5 0.3 (maxDIST, maxIAT & minPS will be considered in percentage of database transactions)
+            python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 0.2 0.5 (maxIAT & minPS will be considered in percentage of database transactions)
 
-            python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 2 5 3 (maxDIST, maxIAT & minPS will be considered in support count or frequency)
+            python3 STEclat.py sampleTDB.txt output.txt sampleN.txt  5 3 ( maxIAT & minPS will be considered in support count or frequency)
                                                                 (it considers "\t" as separator)
 
-            python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
+            python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 3 2 ',' (it will consider "," as a separator)
 
     Sample run of importing the code :
     -------------------------------
 
         import PAMI.partialPeriodicSpatialPattern.STEclat as alg
 
-        obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 5, 3, 4, 8)
+        obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 3, 4)
 
         obj.startMine()
 
@@ -115,9 +110,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     """
 
     _maxIAT = " "
-    _maxDist = " "
     _minPS = " "
-    _cutIAT = " "
     _startTime = float()
     _endTime = float()
     _finalPatterns = {}
@@ -130,8 +123,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     _sep = "\t"
     _lno = 0
 
-    def __init__(self, iFile, nFile, maxDist, maxIAT, minPS, cutIAT, sep="\t"):
-        super().__init__(iFile, nFile, maxDist, maxIAT, minPS, cutIAT, sep)
+    def __init__(self, iFile, nFile, maxIAT, minPS, sep="\t"):
+        super().__init__(iFile, nFile, maxIAT, minPS,  sep)
         self._NeighboursMap = {}
 
     def _creatingItemSets(self):
