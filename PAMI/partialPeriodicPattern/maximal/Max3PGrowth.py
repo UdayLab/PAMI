@@ -18,6 +18,7 @@ import validators as _validators
 from urllib.request import urlopen as _urlopen
 from PAMI.partialPeriodicPattern.maximal import abstract as _abstract
 
+global maximalTree
 _periodicSupport = float()
 _period = float()
 _lno = int()
@@ -101,7 +102,7 @@ class _Tree(object):
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
-        self.maximalTree = _MPTree()
+        #self.maximalTree = _MPTree()
 
     def _addTransaction(self, transaction, tid):
         """
@@ -184,7 +185,7 @@ class _Tree(object):
 
             :return: maximal periodic frequent patterns
         """
-
+        global maximalTree
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
@@ -196,13 +197,13 @@ class _Tree(object):
             for k in info:
                 tail.append(k)
             sub = head + tail
-            if self.maximalTree._checkerSub(sub) == 1:
+            if maximalTree._checkerSub(sub) == 1:
                 for pat in range(len(condPattern)):
                     conditionalTree._addTransaction(condPattern[pat], timeStamps[pat])
                 if len(condPattern) >= 1:
                     conditionalTree._generatePatterns(pattern, _patterns)
                 else:
-                    self.maximalTree._addTransaction(pattern)
+                    maximalTree._addTransaction(pattern)
                     _patterns[tuple(pattern)] = self.info[i]
             self._removeNode(i)
 
@@ -315,7 +316,7 @@ class _MPTree(object):
         return 1
 
 
-#_maximalTree = _MPTree()
+maximalTree = _MPTree()
 
 
 def _getPeriodAndSupport(timeStamps):
