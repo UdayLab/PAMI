@@ -18,7 +18,7 @@ def generateLatexCode(result):
         latexwriter.write("")
         latexwriter.write("\\begin{axis}[\n\txlabel={\\Huge{" + x_label + "}},")
         latexwriter.write("\n\tylabel={\\Huge{" + titles[i] + "}},")
-        latexwriter.write("\n\txmin=" + str(min(xaxis)) + ", xmax=" + str(max(xaxis)) + ",")
+        latexwriter.write("\n\txmin=" + str(min(xaxis)) + ", xmax=" + str(max(xaxis)) + ",]")
 
         for num in range(0, len(legendary)):
             latexwriter.write("\n\\addplot+  [" + color[num] + "]\n\tcoordinates {\n")
