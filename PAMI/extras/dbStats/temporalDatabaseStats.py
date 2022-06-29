@@ -84,9 +84,9 @@ class temporalDatabaseStats:
             if self.inputFile.empty:
                 print("its empty..")
             i = self.inputFile.columns.values.tolist()
-            if 'ts' in i and 'Transactions' in i:
+            if 'TS' in i and 'Transactions' in i:
                 self.database = self.inputFile.set_index('ts').T.to_dict(orient='records')[0]
-            if 'ts' in i and 'Patterns' in i:
+            if 'TS' in i and 'Patterns' in i:
                 self.database = self.inputFile.set_index('ts').T.to_dict(orient='records')[0]
             self.timeStampCount = self.inputFile.groupby('ts').count().T.to_dict(orient='records')[0]
 
@@ -180,12 +180,23 @@ class temporalDatabaseStats:
         return statistics.variance(self.lengthList)
 
     def convertDataIntoMatrix(self):
-        big_array = np.zeros((self.getDatabaseSize(), self.getMaximumTransactionLength()))
-        k = [i for i in self.database.values()]
-        for i in range(len(k)):
-            for j in range(len(k[i])):
-                big_array[i, j] = k[i][j]
-        return big_array
+        singleItems = self.getSortedListOfItemFrequencies()
+        itemsets = {}
+        for tid in self.database:
+            for item in singleItems:
+                if item in itemsets:
+                    if item in self.database[tid]:
+                        itemsets[item].append(1)
+                    else:
+                        itemsets[item].append(0)
+                else:
+                    if item in self.database[tid]:
+                        itemsets[item] = [1]
+                    else:
+                        itemsets[item] = [0]
+        data = list(itemsets.values())
+        an_array = np.array(data)
+        return an_array
 
     def getSparsity(self):
         """
@@ -202,8 +213,8 @@ class temporalDatabaseStats:
         :return: database sparsity
         """
         big_array = self.convertDataIntoMatrix()
-        n_zeros = np.count_nonzero(big_array != 0)
-        return (n_zeros / big_array.size)
+        n_zeros = np.count_nonzero(big_array == 1)
+        return (1.0 - n_zeros / big_array.size)
 
     def getTotalNumberOfItems(self):
         """
@@ -294,7 +305,7 @@ if __name__ == '__main__':
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
     data = pd.DataFrame.from_dict(data)
-    obj = temporalDatabaseStats('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv')
+    obj = temporalDatabaseStats('temporal_chess.csv', ',')
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
     obj.run()
@@ -305,7 +316,6 @@ if __name__ == '__main__':
     print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
     print(f'Variance : {obj.getVarianceTransactionLength()}')
     print(f'Sparsity : {obj.getSparsity()}')
-    print(f'Density : {obj.getDensity()}')
     print(f'Number of items : {obj.getTotalNumberOfItems()}')
     print(f'Minimum period : {obj.getMinimumPeriod()}')
     print(f'Average period : {obj.getAveragePeriod()}')
@@ -319,4 +329,5 @@ if __name__ == '__main__':
     plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
     plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
     plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)
+
 

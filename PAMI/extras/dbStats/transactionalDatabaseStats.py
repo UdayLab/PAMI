@@ -157,12 +157,25 @@ class transactionalDatabaseStats:
         return len(self.getSortedListOfItemFrequencies())
 
     def convertDataIntoMatrix(self):
-        big_array = np.zeros((self.getDatabaseSize(), self.getMaximumTransactionLength()))
-        k = [i for i in self.database.values()]
-        for i in range(len(k)):
-            for j in range(len(k[i])):
-                big_array[i, j] = k[i][j]
-        return big_array
+        singleItems = self.getSortedListOfItemFrequencies()
+        # big_array = np.zeros((self.getDatabaseSize(), len(self.getSortedListOfItemFrequencies())))
+        itemsets = {}
+        for i in self.database:
+            for item in singleItems:
+                if item in itemsets:
+                    if item in self.database[i]:
+                        itemsets[item].append(1)
+                    else:
+                        itemsets[item].append(0)
+                else:
+                    if item in self.database[i]:
+                        itemsets[item] = [1]
+                    else:
+                        itemsets[item] = [0]
+        # new = pd.DataFrame.from_dict(itemsets)
+        data = list(itemsets.values())
+        an_array = np.array(data)
+        return an_array
 
     def getSparsity(self):
         """
@@ -230,7 +243,7 @@ if __name__ == '__main__':
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
     # obj = transactionalDatabaseStats(data)
-    obj = transactionalDatabaseStats('drought.csv', ' ')
+    obj = transactionalDatabaseStats('transactional_chess.csv', ',')
     obj.run()
     print(f'Database size : {obj.getDatabaseSize()}')
     print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
@@ -240,11 +253,12 @@ if __name__ == '__main__':
     print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()}')
     print(f'Number of items : {obj.getNumberOfItems()}')
     print(f'Sparsity : {obj.getSparsity()}')
-    print(f'Density : {obj.getDensity()}')
+    # print(f'Density : {obj.getDensity()}')
     itemFrequencies = obj.getSortedListOfItemFrequencies()
     transactionLength = obj.getTransanctionalLengthDistribution()
     # obj.save(itemFrequencies, 'itemFrequency.csv')
     # obj.save(transactionLength, 'transactionSize.csv')
     plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
     plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+
 
