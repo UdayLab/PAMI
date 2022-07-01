@@ -40,9 +40,9 @@ Total available algorithms: 43
      
    | Basic | Closed | Maximal | Top-k | CUDA | pyspark |
    |-------|--------|---------|-------|------|--------|
-   |Apriori|Closed|maxFP-growth|topK|cudaAprioriGCT|parallelApriori|
-   |FP-growth|    |   | |cudaAprioriTID|parallelFPGrowth|
-   |ECLAT| | | |cudaEclatGCT|parallelECLAT|
+   |Apriori |Closed|maxFP-growth|topK|cudaAprioriGCT|parallelApriori|
+   |FP-growth [sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/fpGrowth.pdf)|    |   | |cudaAprioriTID|parallelFPGrowth|
+   |ECLAT [sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/ECLAT.pdf)| | | |cudaEclatGCT|parallelECLAT|
    |ECLAT-bitSet| | | | | |
    |ECLAT-diffset|  | | | |
 
