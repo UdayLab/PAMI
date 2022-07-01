@@ -668,7 +668,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = TSPIN('/Users/Likhitha/Downloads/SPP_sample.txt', 2, 1, 3, ' ')
+        _ap = TSPIN('/Users/Likhitha/Downloads/SPP_sample.txt', 2, 1, 1, ' ')
         _ap.startMine()
         print(len(_ap._Database))
         _Patterns = _ap.getPatterns()

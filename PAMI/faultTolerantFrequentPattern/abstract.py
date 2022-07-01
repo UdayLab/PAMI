@@ -12,7 +12,21 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# from abc import ABC as _ABC, abstractmethod as _abstractmethod
 from abc import ABC as _ABC, abstractmethod as _abstractmethod
 import time as _time
 import csv as _csv
@@ -25,29 +39,26 @@ import psutil as _psutil
 import sys as _sys
 import validators as _validators
 from urllib.request import urlopen as _urlopen
+import functools as _functools
+import itertools as _itertools
 
 
-class _spatialPeriodicFrequentPatterns(_ABC):
+class _frequentPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
-    Attributes :
-    ----------
+
+
+       Attributes:
+       ----------
         iFile : str
             Input file name or path of the input file
-        nFile: str
-            Neighbourhoof file name
         minSup: integer or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: integer or float or str
-            The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: maxPer = 10 will be treated as integer, while minSup=10.0 will be treated as float
         sep : str
-            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator
         startTime:float
             To record the start time of the algorithm
@@ -61,8 +72,9 @@ class _spatialPeriodicFrequentPatterns(_ABC):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-    Methods :
-    -------
+
+       Methods:
+       -------
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -77,85 +89,35 @@ class _spatialPeriodicFrequentPatterns(_ABC):
             This function outputs the total amount of RSS memory consumed by a mining algorithm
         getRuntime()
             This function outputs the total runtime of a mining algorithm
+
     """
 
-    def __init__(self, iFile, nFile, minSup, maxPer, sep="\t"):
+    def __init__(self, iFile, minSup, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
-        :type iFile: str
-        :param nFile: Neighbourhood name of the input
-        :type nFile: str
+        :type iFile: str or DataFrame
         :param minSup: The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         :type minSup: int or float or str
-        :param maxPer: The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        :type maxPer: int or float or str
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
         """
 
         self._iFile = iFile
-        self._nFile = nFile
         self._sep = sep
         self._minSup = minSup
-        self._maxPer = maxPer
-        self._startTime = float()
-        self._endTime = float()
         self._finalPatterns = {}
         self._oFile = str()
         self._memoryUSS = float()
         self._memoryRSS = float()
+        self._startTime = float()
+        self._endTime = float()
 
-
-    '''@abstractmethod
-    def iFile(self):
-        """Variable to store the input file path/file name"""
-        pass
-    @abstractmethod
-    def nFile(self):
-        """Variable to store the neighbourhood file path/file name"""
-        pass
-    @abstractmethod
-    def minSup(self):
-        """Variable to store the user-specified minimum support value"""
-        pass
-    @abstractmethod
-    def maxPer(self):
-        """Variable to store the user-specified minimum support value"""
-        pass
-    @abstractmethod
-    def sep(self):
-        """Variable to store the user-specified minimum support value"""
-        pass
-    @abstractmethod
-    def startTime(self):
-        """Variable to store the start time of the mining process"""
-        pass
-    @abstractmethod
-    def endTime(self):
-        """Variable to store the end time of the complete program"""
-        pass
-    @abstractmethod
-    def memoryUSS(self):
         """Variable to store USS memory consumed by the program"""
-        pass
-    @abstractmethod
-    def memoryRSS(self):
-        """Variable to store RSS memory consumed by the program"""
-        pass
-    @abstractmethod
-    def finalPatterns(self):
-        """Variable to store the complete set of patterns in a dictionary"""
-        pass
-    @abstractmethod
-    def oFile(self):
-        """Variable to store the name of the output file to store the complete set of frequent patterns"""
-        pass'''
+
+
 
     @_abstractmethod
     def startMine(self):
@@ -172,6 +134,7 @@ class _spatialPeriodicFrequentPatterns(_ABC):
     @_abstractmethod
     def savePatterns(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
+
         :param oFile: Name of the output file
         :type oFile: file
         """
@@ -195,7 +158,6 @@ class _spatialPeriodicFrequentPatterns(_ABC):
         """Total amount of RSS memory consumed by the program will be retrieved from this function"""
 
         pass
-
 
     @_abstractmethod
     def getRuntime(self):

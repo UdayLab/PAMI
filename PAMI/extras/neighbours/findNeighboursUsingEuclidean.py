@@ -35,6 +35,7 @@ class createNeighborhoodFileUsingEuclideanDistance:
         with open(self.iFile,"r") as f:
             for line in f:
                 l = line.rstrip().split(seperator)
+                print(l)
                 l[0] = re.sub(r'[^0-9. ]', '', l[0])
                 coordinates.append(l[0].rstrip().split(' '))
                 print(l[0])
@@ -55,7 +56,7 @@ class createNeighborhoodFileUsingEuclideanDistance:
                         result[tuple(firstCoordinate)] = result.get(tuple(firstCoordinate),[])
                         result[tuple(firstCoordinate)].append(secondCoordinate)
 
-        with open(self.oFile,"w") as f:
+        with open(self.oFile,"w+") as f:
             for i in result:
                 string = "Point(" +i[0]+" "+i[1] + ")"+ seperator
                 f.write(string)
@@ -69,6 +70,6 @@ class createNeighborhoodFileUsingEuclideanDistance:
         return self.oFile
 
 if __name__ == "__main__":
-    createNeighborhoodFileUsingEuclideanDistance('/Users/Likhitha/Downloads/Nighbours_gen/points','/Users/Likhitha/Downloads/Nighbours_gen/inputOutput.txt',
+    createNeighborhoodFileUsingEuclideanDistance('/Users/Likhitha/Downloads/Nighbours_gen/temp_roads.txt', '/Users/Likhitha/Downloads/Nighbours_gen/road_points.txt',
                                                  10, ',')
 
