@@ -83,7 +83,7 @@ def Second(transaction, i):
     l1 = max(temp)
     temp.remove(l1)
     l2 = max(temp)
-    return l2
+    return l2 * l2
 
 
 def printTree(root):
