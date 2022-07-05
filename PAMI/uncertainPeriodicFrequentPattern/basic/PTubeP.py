@@ -515,7 +515,7 @@ class PTubeP(_ab._periodicFrequentPatterns):
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    tr = []
+                    tr = [int(temp[0])]
                     for i in temp[1:]:
                         i1 = i.index('(')
                         i2 = i.index(')')
@@ -524,7 +524,7 @@ class PTubeP(_ab._periodicFrequentPatterns):
                         product = _Item(item, probability)
                         tr.append(product)
                     self._lno += 1
-                    self._Database.append(temp)
+                    self._Database.append(tr)
             else:
                 try:
                     count = 0
@@ -534,7 +534,7 @@ class PTubeP(_ab._periodicFrequentPatterns):
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             tr = [count]
-                            for i in temp:
+                            for i in temp[1:]:
                                 i1 = i.index('(')
                                 i2 = i.index(')')
                                 item = i[0:i1]
@@ -557,7 +557,7 @@ class PTubeP(_ab._periodicFrequentPatterns):
             n = int(i[0])
             for j in i[1:]:
                 if j.item not in mapSupport:
-                    mapSupport[j.item] = [round(j.probability, 2), abs(0 - n), n]
+                    mapSupport[j.item] = [round(j.probability, 3), abs(0 - n), n]
                 else:
                     mapSupport[j.item][0] += round(j.probability, 2)
                     mapSupport[j.item][1] = max(mapSupport[j.item][1], abs(n - mapSupport[j.item][2]))
@@ -640,13 +640,12 @@ class PTubeP(_ab._periodicFrequentPatterns):
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = int(len(self._Database) * value)
+            value = float(value)
         if type(value) is str:
             if '.' in value:
-                value = int(len(self._Database) * value)
+                value = float(value)
             else:
                 value = int(value)
-
         return value
 
     def _removeFalsePositives(self):
@@ -792,13 +791,13 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        l = [140]
+        l = [50.0]
         for i in l:
-            ap = PTubeP('/home/apiiit-rkv/Desktop/uncertain/congestion', i, 2000, ' ')
+            ap = PTubeP('https://raw.githubusercontent.com/Likhitha-palla/UPFP/main/Retail_dataset', i, 10000, ' ')
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of Patterns:", len(Patterns))
-            ap.savePatterns('/home/apiiit-rkv/Desktop/uncertain/output')
+            ap.savePatterns('/Users/Likhitha/Downloads/uncertain/output.txt')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()
