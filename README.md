@@ -34,7 +34,7 @@ This software is provided under [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2
        pip install --upgrade pami
        
 # Details 
-Total available algorithms: 43
+Total available algorithms: 70
 
 1. Frequent pattern mining: 
      
