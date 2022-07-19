@@ -89,7 +89,7 @@ class _fuzzySpatialFrequentPatterns(_ABC):
 
     """
 
-    def __init__(self, iFile, nFile, minSup, maxPer, sep="\t"):
+    def __init__(self, iFile, nFile,FuzFile, minSup, maxPer, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -107,6 +107,7 @@ class _fuzzySpatialFrequentPatterns(_ABC):
         self._iFile = iFile
         self._sep = sep
         self._nFile = nFile
+        self._FuzFile = FuzFile
         self._minSup = minSup
         self._maxPer = maxPer
         self._startTime = float()
