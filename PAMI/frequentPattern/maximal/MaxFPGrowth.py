@@ -643,7 +643,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
             pattern = str()
             x = self._convertItems(x)
             for i in x:
-                pattern = pattern + i + " "
+                pattern = pattern + i + "\t"
             self._finalPatterns[pattern] = y
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
