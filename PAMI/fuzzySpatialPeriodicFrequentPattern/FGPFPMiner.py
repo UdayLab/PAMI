@@ -34,7 +34,6 @@ import abstract as _ab
 class _FFList:
     """
      A class represent a Fuzzy List of an element
-
     Attributes :
     ----------
          item: int
@@ -49,10 +48,8 @@ class _FFList:
     -------
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
-
         printElement(e)
             Method to print elements
-
     """
 
     def __init__(self, itemName):
@@ -65,7 +62,6 @@ class _FFList:
     def addElement(self, element):
         """
             A Method that add a new element to FFList
-
             :param element: an element to be add to FFList
             :pram type: Element
         """
@@ -84,7 +80,6 @@ class _FFList:
 class _Element:
     """
         A class represents an Element of a fuzzy list
-
     Attributes :
     ----------
         tid : int
@@ -100,42 +95,6 @@ class _Element:
         self.iUtils = iUtil
         self.rUtils = rUtil
 
-
-class _Regions:
-    """
-            A class calculate the regions
-
-    Attributes :
-    ----------
-            low : int
-                low region value
-            middle: int
-                middle region value
-            high : int
-                high region values
-        """
-
-    def __init__(self, quantity, regionsNumber):
-        self.low = 0
-        self.middle = 0
-        self.high = 0
-        if regionsNumber == 3:
-            if 0 < quantity <= 1:
-                self.low = 1
-                self.high = 0
-                self.middle = 0
-            elif 1 < quantity <= 6:
-                self.low = float((6 - quantity) / 5)
-                self.middle = float((quantity - 1) / 5)
-                self.high = 0
-            elif 6 < quantity <= 11:
-                self.low = 0
-                self.middle = float((11 - quantity) / 5)
-                self.high = float((quantity - 6) / 5)
-            else:
-                self.low = 0
-                self.middle = 0
-                self.high = 1
 
 
 class _Pair:
@@ -153,7 +112,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
         which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
          techniques to reduce the search space.
-
     Attributes :
     ----------
         iFile : file
@@ -216,49 +174,33 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             To find element with same tid as given
         WriteOut(prefix, prefixLen, item, sumIUtil,period)
             To Store the patten
-
     Executing the code on terminal :
     -------
         Format:
             python3 FFSPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
         Examples:
             python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
-
             python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 0.3 (minSup and maxPer will be considered in percentage of database)
                                                             (will consider "\t" as separator in both input and neighbourhood files)
-
             python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 3 ,
                                                               (will consider "," as separator in both input and neighbourhood files)
     Sample run of importing the code:
     -------------------------------
-
         from PAMI.fuzzyFrequentSpatialPattern import FFSPMiner as alg
-
         obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
-
         obj.startMine()
-
         fuzzySpatialFrequentPatterns = obj.getPatterns()
-
         print("Total number of fuzzy frequent spatial patterns:", len(fuzzySpatialFrequentPatterns))
-
         obj.savePatterns("outputFile")
-
         memUSS = obj.getMemoryUSS()
-
         print("Total Memory in USS:", memUSS)
-
         memRSS = obj.getMemoryRSS()
-
         print("Total Memory in RSS", memRSS)
-
         run = obj.getRuntime()
-
         print("Total ExecutionTime in seconds:", run)
-
     Credits:
     -------
-            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by B.Sai Chitra and Kundai Kwangwari under the supervision of Professor Rage Uday Kiran.
     """
 
     _startTime = float()
@@ -269,14 +211,15 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     _iFile = " "
     _oFile = " "
     _nFile = " "
+    _FuzFile = " "
     _memoryUSS = float()
     _memoryRSS = float()
     _sep = "\t"
     _transactionsDB = []
     _fuzzyValuesDB = []
 
-    def __init__(self, iFile, nFile, minSup, maxPer, sep):
-        super().__init__(iFile, nFile, minSup, maxPer, sep)
+    def __init__(self, iFile, nFile, FuzFile, minSup, maxPer, sep):
+        super().__init__(iFile, nFile, FuzFile,minSup, maxPer, sep)
         self._mapItemNeighbours = {}
         self._startTime = 0
         self._endTime = 0
@@ -293,6 +236,10 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._finalPeriodicPatterns = {}
         self._tidList = {}
         self._dbLen = 0
+        self._regionsNumber = 0
+        self._RegionsCal = []
+        self._RegionsLabel = []
+        self._LabelKey = {}
 
     def _compareItems(self, o1, o2):
         """
@@ -320,6 +267,31 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             else:
                 value = int(value)
         return value
+
+    def _fuzzyMembershipFunc(self):
+
+        try:
+            with open(self._FuzFile, 'r', encoding='utf-8') as f:
+                count = 0
+                for line in f:
+                    line = line.split("\n")[0]
+                    parts = line.split(" ")
+                    lowerBound = parts[0].strip()
+                    upperBound = parts[1].strip()
+                    lb_Label = parts[2].strip()
+                    ub_Label = parts[3].strip()
+                    self._RegionsCal.append([int(lowerBound), int(upperBound)])
+                    self._RegionsLabel.append([lb_Label, ub_Label])
+                    for i in range(0, 2):
+                        if lb_Label.capitalize() not in self._LabelKey:
+                            self._LabelKey[lb_Label.capitalize()] = count
+                            count += 1
+                        if ub_Label.capitalize() not in self._LabelKey:
+                            self._LabelKey[ub_Label.capitalize()] = count
+                            count += 1
+        except IOError:
+            print("File Not Found")
+            quit()
 
     def _creatingItemSets(self):
         self._transactionsDB, self._fuzzyValuesDB = [], []
@@ -391,7 +363,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     with open(self._nFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line = line.split("\n")[0]
-                            parts = [i.rstrip() for i in line.split("\t")]
+                            parts = [i.rstrip() for i in line.split(" ")]
                             parts = [x for x in parts]
                             item = parts[0]
                             neigh1 = []
@@ -403,12 +375,35 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     print("File Not Found")
                     quit()
 
+    def _Regions(self, quantity):
+        
+        self.list = [0] * len(self._LabelKey)
+        if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
+            self.list[0] = 1
+            return
+        elif quantity >= self._RegionsCal[-1][0]:
+            self.list[-1] = 1
+            return
+        else:
+            for i in range(1, len(self._RegionsCal) - 1):
+                if self._RegionsCal[i][0] < quantity <= self._RegionsCal[i][1]:
+                    base = self._RegionsCal[i][1] - self._RegionsCal[i][0]
+                    for pos in range(0, 2):
+                        if self._RegionsLabel[i][pos].islower():
+                            self.list[self._LabelKey[self._RegionsLabel[i][pos].capitalize()]] = float(
+                                (self._RegionsCal[i][1] - quantity) / base)
+                        else:
+                            self.list[self._LabelKey[self._RegionsLabel[i][pos].capitalize()]] = float(
+                                (quantity - self._RegionsCal[i][0]) / base)
+            return
+
     def startMine(self):
         """ Frequent pattern mining process will start from here
         """
         self._startTime = _ab._time.time()
         self._mapNeighbours()
         self._creatingItemSets()
+        self._fuzzyMembershipFunc()
         self._finalPatterns = {}
         recent_occur = {}
         low = 0
@@ -436,8 +431,9 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                 fuzzy_ref = fuzzyValues_list[i]
                 if item in self._mapItemNeighbours:
                     if fuzzy_ref not in self._fuzzyRegionReferenceMap:
-                        regions = _Regions(int(fuzzy_ref), 3)
-                        self._fuzzyRegionReferenceMap[fuzzy_ref] = [regions.low, regions.middle, regions.high]
+                        self._Regions(int(fuzzy_ref))
+                        self._fuzzyRegionReferenceMap[fuzzy_ref] = self.list
+
                     else:
                         if item in self._itemSupData.keys():
                             self._itemSupData[item] = [
@@ -474,7 +470,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                 listOfFFList.append(fuList)
 
         del self._itemSupData
-        #del self._tidList
+        del self._tidList
         listOfFFList.sort(key=_ab._functools.cmp_to_key(self._compareItems))
         tid = 0
         for j in range(len(self._transactionsDB)):
@@ -515,7 +511,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _FSFIMining(self, prefix, prefixLen, FSFIM, minSup, itemNeighbours):
         """Generates FFSPMiner from prefix
-
         :param prefix: the prefix patterns of FFSPMiner
         :type prefix: len
         :param prefixLen: the length of prefix
@@ -562,7 +557,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -571,7 +565,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
@@ -579,8 +572,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
-
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
        """
@@ -589,7 +580,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     def _construct(self, _FFListObject1, _FFListObject2):
         """
             A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
-
             :param _FFListObject1:the itemSet px
             :type _FFListObject1:FFI-List
             :param _FFListObject2:itemSet py
@@ -655,7 +645,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             :type item: int
             :param sumIUtil: sum of utility of itemSet
             :type sumIUtil: float
-
         """
         item = _FFListObject.item
         self._itemsCnt += 1
@@ -671,7 +660,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
-
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -685,7 +673,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
-
         :return: returning frequent patterns
         :rtype: dict
         """
@@ -693,7 +680,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
-
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -767,16 +753,16 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         fig.show()
         fig = px.line(result, x='minsup', y='memoryRSS', color='algorithm',title='MemoryRSS)', markers=True)
         fig.show() 
-
+        
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 7:
         if len(_ab._sys.argv) == 6:
             print(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 5:
-            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         result = pd.DataFrame(columns=['algorithm', 'minsup', 'patterns', 'runtime', 'memoryRSS', 'memoryUSS'])
         minsupList = []
         minSup = 2
@@ -787,18 +773,11 @@ if __name__ == "__main__":
 
         algorithm = 'FGPFP'
         for i in range(0, len(minsupList)):
-            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            print(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
+            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], minsupList[i], _ab._sys.argv[5], _ab._sys.argv[6])
             _ap.startMine()
             df = pd.DataFrame([algorithm, minsupList[i], len(_ap.getPatterns()), _ap.getRuntime(), _ap.getMemoryRSS(),
                                _ap.getMemoryUSS()], index=result.columns).T
             result = result.append(df, ignore_index=True)
             
-            
-            
-
-
-
-
-
-
-
+        _ap.savePatterns("1.txt")
