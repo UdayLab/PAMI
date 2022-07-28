@@ -720,7 +720,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         """
         return len(self._finalPatterns)
     
-   def getStatistics(self):
+   def getStats(self):
         print('Total No of patterns: ' + str(self.getPatterns()))
         print('Runtime: ' + str(self.getRuntime()))
         print('Memory (RSS): ' + str(self.getMemoryRSS()))
