@@ -718,7 +718,13 @@ class MaxFPGrowth(_ab._frequentPatterns):
 
         :rtype: dict
         """
-        return self._finalPatterns
+        return len(self._finalPatterns)
+    
+   def getStatistics(self):
+        print('Total No of patterns: ' + str(self.getPatterns()))
+        print('Runtime: ' + str(self.getRuntime()))
+        print('Memory (RSS): ' + str(self.getMemoryRSS()))
+        print('Memory (USS): ' + str(self.getMemoryUSS()))
 
 
 if __name__ == "__main__":
