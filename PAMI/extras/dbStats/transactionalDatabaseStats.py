@@ -240,7 +240,7 @@ class transactionalDatabaseStats:
         print(f'Number of items : {self.getNumberOfItems()}')
         print(f'Sparsity : {self.getSparsity()}')
   
-   def plotGraphs(self):
+    def plotGraphs(self):
         itemFrequencies = self.getSortedListOfItemFrequencies()
         transactionLength = self.getTransanctionalLengthDistribution()
         # obj.save(itemFrequencies, 'itemFrequency.csv')

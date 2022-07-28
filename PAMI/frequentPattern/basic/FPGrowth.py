@@ -578,7 +578,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
         return len(self.__finalPatterns)
     
-   def getStats(self):
+    def getStats(self):
         print('Total No of patterns: ' + str(self.getPatterns()))
         print('Runtime: ' + str(self.getRuntime()))
         print('Memory (RSS): ' + str(self.getMemoryRSS()))
@@ -603,15 +603,17 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''_ap = FPGrowth('/Users/Likhitha/Downloads/dense_DB_3.csv', 23, ',')
-        _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)'''
+        l = [0.2]
+        for i in l:
+            ap = FPGrowth('/Users/Likhitha/Downloads/gurgaonNote0.6.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of Closed Frequent Patterns:", len(Patterns))
+            ap.savePatterns('/Users/Likhitha/Downloads/outputFP.txt')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -308,7 +308,7 @@ class temporalDatabaseStats:
         print(f'Average period : {self.getAveragePeriod()}')
         print(f'Maximum period : {self.getMaximumPeriod()}')
   
-   def plotGraphs(self):
+    def plotGraphs(self):
         itemFrequencies = self.getSortedListOfItemFrequencies()
         transactionLength = self.getTransanctionalLengthDistribution()
         numberOfTransactionPerTimeStamp = self.getNumberOfTransactionsPerTimestamp()

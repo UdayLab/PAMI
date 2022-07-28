@@ -720,7 +720,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         """
         return len(self._finalPatterns)
     
-   def getStats(self):
+    def getStats(self):
         print('Total No of patterns: ' + str(self.getPatterns()))
         print('Runtime: ' + str(self.getRuntime()))
         print('Memory (RSS): ' + str(self.getMemoryRSS()))
@@ -745,18 +745,19 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''l = [0.001, 0.002, 0.003, 0.004, 0.005]
+        l = [0.45]
         for i in l:
-            ap = MaxFPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                       i)
+            ap = MaxFPGrowth('/Users/Likhitha/Downloads/exercise10_dataset.csv',i, ',')
             ap.startMine()
             Patterns = ap.getPatterns()
+            for x,y in Patterns.items():
+                print(x, y)
             print("Total number of Closed Frequent Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            ap.savePatterns('/Users/Likhitha/Downloads/visualizePatterns.csv')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
+            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
