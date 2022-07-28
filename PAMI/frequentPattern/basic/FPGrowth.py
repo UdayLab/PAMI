@@ -576,7 +576,13 @@ class FPGrowth(_fp._frequentPatterns):
 
         :rtype: dict
         """
-        return self.__finalPatterns
+        return len(self.__finalPatterns)
+    
+   def getStatistics(self):
+        print('Total No of patterns: ' + str(self.getPatterns()))
+        print('Runtime: ' + str(self.getRuntime()))
+        print('Memory (RSS): ' + str(self.getMemoryRSS()))
+        print('Memory (USS): ' + str(self.getMemoryUSS()))
 
 
 if __name__ == "__main__":
