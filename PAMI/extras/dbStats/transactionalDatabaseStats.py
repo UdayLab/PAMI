@@ -229,6 +229,24 @@ class transactionalDatabaseStats:
         with open(outputFile, 'w') as f:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
+                   
+    def getStats(self):
+        print(f'Database size : {self.getDatabaseSize()}')
+        print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
+        print(f'Average Transaction Size : {self.getAverageTransactionLength()}')
+        print(f'Maximum Transaction Size : {self.getMaximumTransactionLength()}')
+        print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
+        print(f'Variance in Transaction Sizes : {self.getVarianceTransactionLength()}')
+        print(f'Number of items : {self.getNumberOfItems()}')
+        print(f'Sparsity : {self.getSparsity()}')
+  
+   def plotGraphs(self):
+        itemFrequencies = self.getSortedListOfItemFrequencies()
+        transactionLength = self.getTransanctionalLengthDistribution()
+        # obj.save(itemFrequencies, 'itemFrequency.csv')
+        # obj.save(transactionLength, 'transactionSize.csv')
+        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
 
 
 if __name__ == '__main__':
