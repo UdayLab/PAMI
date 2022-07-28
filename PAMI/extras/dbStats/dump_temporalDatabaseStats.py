@@ -264,6 +264,30 @@ class temporalDatabaseStats:
         """
         maxTS = max(list(self.timeStampCount.keys()))
         return {ts: self.timeStampCount.get(ts,0) for ts in range(1, maxTS+1)}
+    
+   def getStats(self):
+        print(f'Database size : {self.getDatabaseSize()}')
+        print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
+        print(f'Average Transaction Size : {self.getAverageTransactionLength()}')
+        print(f'Maximum Transaction Size : {self.getMaximumTransactionLength()}')
+        print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
+        print(f'Variance : {self.getVarianceTransactionLength()}')
+        print(f'Sparsity : {self.getSparsity()}')
+        print(f'Number of items : {self.getTotalNumberOfItems()}')
+        print(f'Minimum period : {self.getMinimumPeriod()}')
+        print(f'Average period : {self.getAveragePeriod()}')
+        print(f'Maximum period : {self.getMaximumPeriod()}')
+  
+   def plotGraphs(self):
+        itemFrequencies = obj.getSortedListOfItemFrequencies()
+        transactionLength = obj.getTransanctionalLengthDistribution()
+        numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
+        # obj.save(itemFrequencies, 'itemFrequency.csv')
+        # obj.save(transactionLength, 'transactionSize.csv')
+        # obj.save(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
+        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+        plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)
 
 if __name__ == '__main__':
     data = {'ts': [1, 1, 3, 4, 5, 6, 7],
