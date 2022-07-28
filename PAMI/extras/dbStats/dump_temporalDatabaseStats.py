@@ -279,9 +279,9 @@ class temporalDatabaseStats:
         print(f'Maximum period : {self.getMaximumPeriod()}')
   
    def plotGraphs(self):
-        itemFrequencies = obj.getSortedListOfItemFrequencies()
-        transactionLength = obj.getTransanctionalLengthDistribution()
-        numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
+        itemFrequencies = self.getSortedListOfItemFrequencies()
+        transactionLength = self.getTransanctionalLengthDistribution()
+        numberOfTransactionPerTimeStamp = self.getNumberOfTransactionsPerTimestamp()
         # obj.save(itemFrequencies, 'itemFrequency.csv')
         # obj.save(transactionLength, 'transactionSize.csv')
         # obj.save(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
