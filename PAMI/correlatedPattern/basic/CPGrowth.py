@@ -373,7 +373,7 @@ class CPGrowth(_ab._correlatedPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            print(temp)
+                            #print(temp)
                             self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
