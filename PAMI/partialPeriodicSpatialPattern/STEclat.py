@@ -336,7 +336,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         self._creatingItemSets()
-        self._minSup = self._convert(self._minSup)
+        #self._minSup = self._convert(self._minSup)
         self.mapNeighbours()
         self._finalPatterns = {}
         plist = self._frequentOneItem()
