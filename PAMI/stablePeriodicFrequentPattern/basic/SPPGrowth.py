@@ -128,11 +128,16 @@ class _Tree:
         previous = 0
         la = 0
         tsList = sorted(timeStamps)
+        laList = []
         for ts in tsList:
             la = max(0, la + ts - previous - _maxPer)
+            laList.append(la)
             previous = ts
         la = max(0, la + _last - previous - _maxPer)
-        return len(timeStamps), la
+        laList.append(la)
+
+        maxla = max(laList)
+        return len(timeStamps), maxla
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps):
         """ It generates the conditional patterns with periodic-frequent items
@@ -487,5 +492,15 @@ if __name__ == "__main__":
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)'''
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+        ap = SPPGrowth("/Users/masuyudai/Code/Dataset/temporal_T10I4D100K.csv", 500, 300, 900)
+        # ap = SPPGrowth("/Users/masuyudai/Code/Spark/PartialPeriodicFrequent_wrong/sample.csv", 4,2,1," ")
+        # ap = SPPGrowth("/Users/masuyudai/Code/Spark/StablePeriodicFrequent/sample.csv", 5,2,1, " ")
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        # print(len(ap.SPPList))
+
+        # for k,v in Patterns.items():
+        #     print(k,v)
+        # print("Error! The number of input parameters do not match the total number of parameters provided")
 
