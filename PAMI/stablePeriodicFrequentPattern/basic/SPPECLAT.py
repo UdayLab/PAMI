@@ -116,11 +116,16 @@ class SPPEclat:
         previous = 0
         la = 0
         tsList = sorted(tsList)
+        laList = []
         for ts in tsList:
             la = max(0, la + ts - previous - self._maxPer)
+            laList.append(la)
             previous = ts
+            
         la = max(0, la + self._last - previous - self._maxPer)
-        return la
+        laList.append(la)
+        maxla = max(laList)
+        return maxla
 
     def startMine(self):
         self._startTime = _ab._time.time()
@@ -130,6 +135,7 @@ class SPPEclat:
         self._maxLa = self._convert(self._maxLa)
         #print(self._minSup, self._maxPer, self._maxLa)
         self._createSPPList()
+        print(len(self._SPPList))
         self._endTime = _ab._time.time()
         self._memoryUSS = float()
         self._memoryRSS = float()
@@ -204,4 +210,16 @@ if __name__ == '__main__':
         print("Total Memory in RSS", memRSS)
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)'''
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+        ap = SPPEclat("/Users/masuyudai/Code/Dataset/temporal_T10I4D100K.csv", 500, 300, 900)
+        # ap = SPPEclat("/Users/masuyudai/Code/Spark/PartialPeriodicFrequent_wrong/sample.csv", 4,2,1," ")
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        print(ap.getRuntime())
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        # for k,v in Patterns.items():
+        #     print(k,v)
+
+
+        # print("Error! The number of input parameters do not match the total number of parameters provided")
