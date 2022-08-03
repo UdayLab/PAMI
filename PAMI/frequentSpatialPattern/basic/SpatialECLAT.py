@@ -408,9 +408,12 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            pat = ""
-            for i in x:
-                pat += str(i) + " "
+            pat = str()
+            if type(x) == str:
+                pat = x 
+            if type(x) == list:
+                for i in x:
+                    pat = pat + x + '\t'
             patternsAndSupport = pat + ": " + str(len(y))
             writer.write("%s \n" % patternsAndSupport)
 
@@ -441,12 +444,12 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in seconds:", _run)
     else:
-        ap = SpatialECLAT('/Users/Likhitha/Downloads/Datasets/T10I4D200K.txt',
-                       '/Users/Likhitha/Downloads/Datasets/t10_neighbours', 1000, ' ')
+        ap = SpatialECLAT('sensor_transactional.txt',
+                       'sensor_neighbours.txt', 10, '\t')
         ap.startMine()
         spatialFrequentPatterns = ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.savePatterns('/Users/Likhitha/Downloads/output')
+        ap.savePatterns('output.txt')
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
