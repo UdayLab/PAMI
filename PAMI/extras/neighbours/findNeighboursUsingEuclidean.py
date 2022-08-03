@@ -35,10 +35,10 @@ class createNeighborhoodFileUsingEuclideanDistance:
         with open(self.iFile,"r") as f:
             for line in f:
                 l = line.rstrip().split(seperator)
-                print(l)
+                #print(l)
                 l[0] = re.sub(r'[^0-9. ]', '', l[0])
                 coordinates.append(l[0].rstrip().split(' '))
-                print(l[0])
+                #print(l[0])
         for i in range(len(coordinates)):
             for j in range(len(coordinates)):
                 if i != j:
