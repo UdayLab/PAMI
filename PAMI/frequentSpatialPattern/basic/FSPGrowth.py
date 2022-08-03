@@ -1,4 +1,3 @@
-
 from PAMI.frequentSpatialPattern.basic import abstract as _ab
 
 
@@ -6,7 +5,6 @@ from PAMI.frequentSpatialPattern.basic import abstract as _ab
 class _Node:
     """
     A class used to represent the node of frequentPatternTree
-
     Attributes
     ----------
         item : int
@@ -17,7 +15,6 @@ class _Node:
             To maintain the children of node
         prefix : list
             To maintain the prefix of node
-
     """
 
     def __init__(self, item, count, children):
@@ -30,14 +27,12 @@ class _Node:
 class _Tree:
     """
     A class used to represent the frequentPatternGrowth tree structure
-
     Attributes
     ----------
         root : Node
             The first node of the tree set to Null.
         nodeLink : dict
             Stores the nodes which shares same item
-
     Methods
     -------
         createTree(transaction,count)
@@ -63,7 +58,6 @@ class _Tree:
     def createTree(self, transaction, count):
         """
         Create tree or add transaction into yourself.
-
         :param transaction: list
         :param count: int
         :return: Tree
@@ -101,7 +95,8 @@ class _Tree:
         pTree = _Tree()
         for node in self.nodeLink[item]:
             # print(node.item, neighbour[node.item])
-            node.prefix = [item for item in node.prefix if item in neighbour.get(node.item)]
+            if node.item in neighbour:
+                node.prefix = [item for item in node.prefix if item in neighbour.get(node.item)]
             pTree.createTree(node.prefix, node.count)
         return pTree
 
@@ -155,7 +150,7 @@ class _Tree:
                 frequentItems[i] += node.count
         frequentItems = {key: value for key, value in frequentItems.items() if value >= minSup}
         for i in frequentItems:
-            pattern = suffixItem + "\t" + i
+            pattern = suffixItem + "," + i
             frequentPatterns.append((pattern, frequentItems[i]))
             frequentPatterns.extend(pTree.getPattern(i, pattern, minSup, neighbour))
         return frequentPatterns
@@ -197,7 +192,6 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-
     Methods
     -------
         startMine()
@@ -234,43 +228,25 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     ------------------------------
         Format:
             python3 FSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup>
-
         Examples:
             python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
-
             python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
                                                                 (it considers "\t" as separator)
-
             python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 ','  (it will consider "," as a separator)
-
     Sample run of importing the code :
     -------------------------------
-
         from PAMI.frequentSpatialPattern.basic import FSPGrowth as alg
-
         obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
-
         obj.startMine()
-
         spatialFrequentPatterns = obj.getPatterns()
-
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-
         obj.savePatterns("outFile")
-
         memUSS = obj.getMemoryUSS()
-
         print("Total Memory in USS:", memUSS)
-
         memRSS = obj.getMemoryRSS()
-
         print("Total Memory in RSS", memRSS)
-
         run = obj.getRuntime()
-
         print("Total ExecutionTime in seconds:", run)
-
-
     Credits:
     -------
         The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
@@ -426,6 +402,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._readDatabase()
+        print(len(self._Database), len(self._neighbourList))
         self._minSup = self._convert(self._minSup)
         self._getFrequentItems()
         self._sortTransaction()
@@ -466,9 +443,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
-
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -502,7 +477,6 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     '''def savePatterns(self):
         """
         Complete set of frequent patterns will be loaded in to a output file
-
         """
         s = ""
         s1 = ""
@@ -539,12 +513,12 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in seconds:", _run)
     else:
-        ap = FSPGrowth('/Users/Likhitha/Downloads/Datasets/T10I4D200K.txt',
-                       '/Users/Likhitha/Downloads/Datasets/t10_neighbours', 2000, ' ')
+        ap = FSPGrowth('sensor_transactional.txt',
+                       'sensor_neighbour', 150, '\t')
         ap.startMine()
         spatialFrequentPatterns = ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.savePatterns('/Users/Likhitha/Downloads/output')
+        ap.savePatterns('output.txt')
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
