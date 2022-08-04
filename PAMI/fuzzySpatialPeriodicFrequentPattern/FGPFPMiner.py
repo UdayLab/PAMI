@@ -28,7 +28,7 @@
 import time
 import pandas as pd
 import plotly.express as px
-import abstract as _ab
+import PAMI.fuzzySpatialPeriodicFrequentPattern.abstract as _ab
 
 
 class _FFList:
