@@ -259,7 +259,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
     _startTime = float()
-    -endTime = float()
+    _endTime = float()
     _minSup = str()
     _maxPer = float()
     _finalPatterns = {}
