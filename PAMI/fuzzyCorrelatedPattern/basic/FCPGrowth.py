@@ -325,7 +325,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
-            return o1.item - o2.item
+            return int(o1.item) - int(o2.item)
         else:
             return compare
 
