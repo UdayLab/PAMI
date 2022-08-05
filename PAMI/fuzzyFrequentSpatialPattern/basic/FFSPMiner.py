@@ -334,6 +334,8 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                     line = line.decode("utf-8")
                     line = line.split("\n")[0]
                     parts = line.split(":")
+                    parts[0] = parts[0].strip()
+                    parts[2] = parts[2].strip()
                     items = parts[0].split(self._sep)
                     quantities = parts[2].split(self._sep)
                     self.transactions.append([x for x in items])
@@ -344,6 +346,8 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                         for line in f:
                             line = line.split("\n")[0]
                             parts = line.split(":")
+                            parts[0] = parts[0].strip()
+                            parts[2] = parts[2].strip()
                             items = parts[0].split(self._sep)
                             quantities = parts[2].split(self._sep)
                             self._transactions.append([x for x in items])
