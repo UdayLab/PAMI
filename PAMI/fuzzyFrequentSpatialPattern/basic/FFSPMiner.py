@@ -381,7 +381,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                     self._mapItemNeighbours[item] = neigh1
             else:
                 try:
-                    with open(self._iFile, 'r', encoding='utf-8') as f:
+                    with open(self._nFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line = line.split("\n")[0]
                             parts = [i.rstrip() for i in line.split(self._sep)]
