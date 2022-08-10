@@ -351,6 +351,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
+                count = 0
                 for line in data:
                     line = line.decode("utf-8")
                     line = line.split("\n")[0]
@@ -359,12 +360,14 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                     parts[2] = parts[2].strip()
                     items = parts[0].split(self._sep)
                     quantities = parts[2].split(self._sep)
-                    self._ts.append(int(parts[0]))
+                    self._ts.append(count)
                     self._transactions.append([x for x in items])
                     self._fuzzyValues.append([x for x in quantities])
+                    count += 1
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
+                        count = 0
                         for line in f:
                             line = line.split("\n")[0]
                             parts = line.split(":")
@@ -372,9 +375,10 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                             parts[2] = parts[2].strip()
                             items = parts[0].split(self._sep)
                             quantities = parts[2].split(self._sep)
-                            self._ts.append(int(parts[0]))
+                            self._ts.append(count)
                             self._transactions.append([x for x in items])
                             self._fuzzyValues.append([x for x in quantities])
+                            count += 1
                 except IOError:
                     print("File Not Found")
                     quit()
