@@ -96,7 +96,6 @@ class _Element:
         self.rUtils = rUtil
 
 
-
 class _Pair:
     """
         A class to store item and it's quantity together
@@ -219,7 +218,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     _fuzzyValuesDB = []
 
     def __init__(self, iFile, nFile, FuzFile, minSup, maxPer, sep):
-        super().__init__(iFile, nFile, FuzFile,minSup, maxPer, sep)
+        super().__init__(iFile, nFile, FuzFile, minSup, maxPer, sep)
         self._mapItemNeighbours = {}
         self._startTime = 0
         self._endTime = 0
@@ -363,7 +362,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     with open(self._nFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line = line.split("\n")[0]
-                            parts = [i.rstrip() for i in line.split(" ")]
+                            parts = [i.rstrip() for i in line.split(self._sep)]
                             parts = [x for x in parts]
                             item = parts[0]
                             neigh1 = []
@@ -376,13 +375,13 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     quit()
 
     def _Regions(self, quantity):
-        
-        self.list = [0] * len(self._LabelKey)
+
+        self._list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
-            self.list[0] = 1
+            self._list[0] = 1
             return
         elif quantity >= self._RegionsCal[-1][0]:
-            self.list[-1] = 1
+            self._list[-1] = 1
             return
         else:
             for i in range(1, len(self._RegionsCal) - 1):
@@ -390,12 +389,12 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     base = self._RegionsCal[i][1] - self._RegionsCal[i][0]
                     for pos in range(0, 2):
                         if self._RegionsLabel[i][pos].islower():
-                            self.list[self._LabelKey[self._RegionsLabel[i][pos].capitalize()]] = float(
+                            self._list[self._LabelKey[self._RegionsLabel[i][pos].capitalize()]] = float(
                                 (self._RegionsCal[i][1] - quantity) / base)
                         else:
-                            self.list[self._LabelKey[self._RegionsLabel[i][pos].capitalize()]] = float(
+                            self._list[self._LabelKey[self._RegionsLabel[i][pos].capitalize()]] = float(
                                 (quantity - self._RegionsCal[i][0]) / base)
-            return
+        return
 
     def startMine(self):
         """ Frequent pattern mining process will start from here
@@ -406,10 +405,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._fuzzyMembershipFunc()
         self._finalPatterns = {}
         recent_occur = {}
-        low = 0
-        mid = 1
-        high = 2
-
         for line in range(len(self._transactionsDB)):
             item_list = self._transactionsDB[line]
             fuzzyValues_list = self._fuzzyValuesDB[line]
@@ -432,18 +427,13 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                 if item in self._mapItemNeighbours:
                     if fuzzy_ref not in self._fuzzyRegionReferenceMap:
                         self._Regions(int(fuzzy_ref))
-                        self._fuzzyRegionReferenceMap[fuzzy_ref] = self.list
+                        self._fuzzyRegionReferenceMap[fuzzy_ref] = self._list
 
+                    if item in self._itemSupData.keys():
+                        self._itemSupData[item] = [sum(i) for i in zip(self._itemSupData[item],
+                                                                       self._fuzzyRegionReferenceMap[fuzzy_ref])]
                     else:
-                        if item in self._itemSupData.keys():
-                            self._itemSupData[item] = [
-                                self._itemSupData[item][low] + self._fuzzyRegionReferenceMap[fuzzy_ref][low],
-                                self._itemSupData[item][mid] + self._fuzzyRegionReferenceMap[fuzzy_ref][mid],
-                                self._itemSupData[item][high] + self._fuzzyRegionReferenceMap[fuzzy_ref][high]]
-                        else:
-                            self._itemSupData[item] = [self._fuzzyRegionReferenceMap[fuzzy_ref][low],
-                                                       + self._fuzzyRegionReferenceMap[fuzzy_ref][mid],
-                                                       + self._fuzzyRegionReferenceMap[fuzzy_ref][high]]
+                        self._itemSupData[item] = self._fuzzyRegionReferenceMap[fuzzy_ref]
 
         for item in self._tidList.keys():
             self._tidList[item].append(len(self._transactionsDB) - recent_occur[item][-1])
@@ -457,7 +447,11 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
         listOfFFList = []
         mapItemsToFFLIST = {}
-        region_label = ["L", "M", "H"]
+        region_label = []
+        for i in range(0, len(self._RegionsLabel)):
+            if self._RegionsLabel[i][1] not in region_label:
+                region_label.append(str(self._RegionsLabel[i][1]))
+
         self._minSup = self._convert(self._minSup)
         for item in self._itemSupData.keys():
             if max(self._itemSupData[item]) >= self._minSup:
@@ -742,42 +736,41 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                 if (num + 1 == len(legendary)):
                     latexwriter.write("\\end{axis}")
         print("Latex file generated successfully")
-        
+
     def generateGraphs(result):
 
-        fig = px.line(result, x='minsup', y='patterns', color='algorithm', title='Patterns)',markers=True)
+        fig = px.line(result, x='minsup', y='patterns', color='algorithm', title='Patterns)', markers=True)
         fig.show()
         fig = px.line(result, x='minsup', y='runtime', color='algorithm', title='Runtime)', markers=True)
         fig.show()
-        fig = px.line(result, x='minsup', y='memoryUSS', color='algorithm',title='MemoryUSS)', markers=True)
+        fig = px.line(result, x='minsup', y='memoryUSS', color='algorithm', title='MemoryUSS)', markers=True)
         fig.show()
-        fig = px.line(result, x='minsup', y='memoryRSS', color='algorithm',title='MemoryRSS)', markers=True)
-        fig.show() 
-        
+        fig = px.line(result, x='minsup', y='memoryRSS', color='algorithm', title='MemoryRSS)', markers=True)
+        fig.show()
+
 
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 7:
         if len(_ab._sys.argv) == 6:
-            print(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
+            # print(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5],
+                             _ab._sys.argv[6])
         if len(_ab._sys.argv) == 5:
             _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         result = pd.DataFrame(columns=['algorithm', 'minsup', 'patterns', 'runtime', 'memoryRSS', 'memoryUSS'])
-        minsupList = []
-        minSup = 2
 
-        for i in range(0, 1):
-            minSup -= 0
-            minsupList.append(minSup)
 
         algorithm = 'FGPFP'
-        for i in range(0, len(minsupList)):
-            print(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
-            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], minsupList[i], _ab._sys.argv[5], _ab._sys.argv[6])
+        for i in range(0, 1):
+            # print(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
+            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5],
+                             _ab._sys.argv[6])
             _ap.startMine()
-            df = pd.DataFrame([algorithm, minsupList[i], len(_ap.getPatterns()), _ap.getRuntime(), _ap.getMemoryRSS(),
-                               _ap.getMemoryUSS()], index=result.columns).T
+            df = pd.DataFrame(
+                [algorithm, _ab._sys.argv[4], len(_ap.getPatterns()), _ap.getRuntime(), _ap.getMemoryRSS(),
+                 _ap.getMemoryUSS()], index=result.columns).T
             result = result.append(df, ignore_index=True)
-            
-        _ap.savePatterns("1.txt")
+
+        _ap.savePatterns("outputfile.txt")
+
