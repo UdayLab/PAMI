@@ -36,14 +36,16 @@ This software is provided under [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2
 # Details 
 Total available algorithms: 70
 
+Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Similarly, click on __"Adv"__ link to view the advanced tutorial on using a particular algorithm.
+
 1. Frequent pattern mining: 
      
    | Basic | Closed | Maximal | Top-k | CUDA | pyspark |
    |-------|--------|---------|-------|------|--------|
-   |Apriori |Closed|maxFP-growth|topK|cudaAprioriGCT|parallelApriori|
-   |FP-growth [sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/fpGrowth.pdf)|    |   | |cudaAprioriTID|parallelFPGrowth|
-   |ECLAT [sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/ECLAT.pdf)| | | |cudaEclatGCT|parallelECLAT|
-   |ECLAT-bitSet| | | | | |
+   |Apriori [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/Apriori-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/Apriori-ad.pdf) |Closed [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/closed/CHARM-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/closed/CHARM-ad.pdf)|maxFP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/maximal/MaxFPGrowth-st.pdf)|topK|cudaAprioriGCT|parallelApriori|
+   |FP-growth  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/FPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/FPGrowth-ad.pdf)|    |   | |cudaAprioriTID|parallelFPGrowth|
+   |ECLAT  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/ECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/ECLAT-ad.pdf)| | | |cudaEclatGCT|parallelECLAT|
+   |ECLAT-bitSet [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/ECLATbitset-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/ECLATbitset-ad.pdf)| | | | | |
    |ECLAT-diffset|  | | | |
 
 2. Frequent pattern mining using other measures:
@@ -56,45 +58,45 @@ Total available algorithms: 70
 
     |Basic|
     |-----|
-    |CP-growth|
-    |CP-growth++|
+    |CP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowth-st.pdf) -[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowth-ad.pdf) |
+    |CP-growth++ [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPuls-st.pdf)||ad](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPlus-ad.pdf)|
     
 4. Frequent spatial pattern mining: 
 
     |Basic|
     |-----|
-    |spatialECLAT|
-    |FSP-growth|
+    |spatialECLAT  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/SpatialECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/SpatialECLAT-ad.pdf)|
+    |FSP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-ad.pdf)|
     
 5. Correlated spatial pattern mining: 
 
     |Basic|
     |-----|
-    |CSP-growth|
+    |CSP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedSpatialPattern/CSPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedSpatialPattern/CSPGrowth-ad.pdf)|
     
 6. Fuzzy correlated pattern mining:
 
     |Basic|
     |-----|
-    |FCP-growth|
+    |FCP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPattern/FCPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPattern/FCPGrowth-ad.pdf)|
 
 7. Fuzzy Frequent pattern mining:
 
     |Basic|
     |-----|
-    |FFI-Miner|
+    |FFI-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentPatterns/FFIMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentPatterns/FFIMiner-ad.pdf)|
     
 8. Fuzzy frequent spatial pattern mining:
 
     |Basic|
     |-----|
-    |FFSP-Miner|
+    |FFSP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentSpatialPattern/FFSPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentSpatialPattern/FFSPMiner-ad.pdf)|
     
 9. Fuzzy periodic frequent pattern mining:
 
     |Basic|
     |-----|
-    |FPFP-Miner|
+    |FPFP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-ad.pdf)|
 
 10. High utility frequent pattern mining:
 
@@ -135,31 +137,31 @@ Total available algorithms: 70
 
     |Basic|
     |-----|
-    |GPF-growth|
-    |PPF-DFS|
+    |GPF-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/GPFgrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/PPF_DFS-ad.pdf)|
+    |PPF-DFS [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/GPFgrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/PPF_DFS-ad.pdf)|
     
 16. Periodic frequent pattern mining: 
 
     |Basic| Closed | Maximal |
     |-----|--------|---------|
-    |PFP-growth|CPFP|maxPF-growth|
-    |PFP-growth++| | |
-    |PS-growth| | |
-    |PFP-ECLAT| | |
+    |PFP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFPGrouth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFPGrouthPlus-ad.pdf)|CPFP [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/closed/CPFPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/closed/CPFPMiner-ad.pdf)|maxPF-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/maximal/MaxPSGrowth-st.pdf)|
+    |PFP-growth++ [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFPGrouthPlus-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFPGrouthPlus-ad.pdf)| | |
+    |PS-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PSGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PSGrowth-ad.pdf)| | |
+    |PFP-ECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFECLAT-ad.pdf)| | |
     
 17. Partial periodic pattern mining:
 
     |Basic|Closed|Maximal|topk|
     |-----|-------|------|----|
-    |3P-growth|3P-close|max3P-growth|Topk_3Pgrowth|
-    |3PECLAT| | | | |
+    |3P-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/ThreePGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/ThreePGrowth-ad.pdf)|3P-close [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/closed/PPPClose-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/closed/PPPClose-ad.pdf)|max3P-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/maximal/Max3PGrowth-st.pdf)|Topk_3Pgrowth|
+    |3PECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-ad.pdf)| | | | |
     
 
 18. Periodic correlated pattern mining: 
     
     |Basic|
     |-----|
-    |EPCP-growth|
+    |EPCP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicCorrelatedPattern/EPCPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicCorrelatedPattern/EPCPGrowth-ad.pdf)|
     
 
 19. Uncertain correlated pattern mining: 
@@ -213,5 +215,3 @@ Total available algorithms: 70
  
      
      
-
-
