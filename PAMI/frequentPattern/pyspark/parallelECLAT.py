@@ -29,7 +29,6 @@ class parallelECLAT(_ab._frequentPatterns):
                 To store the total amount of RSS memory consumed by the program
             lno : int
                 the number of transactions
-
         Methods:
         -------
             startMine()
@@ -48,7 +47,6 @@ class parallelECLAT(_ab._frequentPatterns):
                 Total amount of runtime taken by the mining process will be retrieved from this function
             genPatterns(suffix, pattern, data)
                 Generate frequent pattern from the arguments
-
         Executing the code on terminal:
         -------------------------------
             Format:
@@ -110,7 +108,7 @@ class parallelECLAT(_ab._frequentPatterns):
     _lno = int()
 
     def __init__(self, iFile, minSup, numWorkers, sep='\t'):
-        super().__init__(iFile, float(minSup), int(numWorkers), sep)
+        super().__init__(iFile, minSup, int(numWorkers), sep)
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -186,16 +184,20 @@ class parallelECLAT(_ab._frequentPatterns):
         :param value: user specified minSup value
         :return: converted type
         """
+        print(value, type(value))
         if type(value) is int:
             value = int(value)
-        if type(value) is float:
+        elif type(value) is float:
             value = (self._lno * value)
-        if type(value) is str:
+        elif type(value) is str:
             if '.' in value:
                 value = float(value)
                 value = (self._lno * value)
             else:
                 value = int(value)
+        else:
+            print("None")
+        print(type(value), value)
         return value
 
     def startMine(self):
