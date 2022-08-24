@@ -177,7 +177,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
                 The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
         """
     _minSup = float()
-    _numWorkers = int()
+    _numPartitions = int()
     _startTime = float()
     _endTime = float()
     _finalPatterns = dict()
@@ -202,7 +202,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         conf = SparkConf().setAppName("Parallel FPGrowth").setMaster("local[*]")
         sc = SparkContext(conf=conf)
 
-        rdd = sc.textFile(self._iFile, self._numWorkers)\
+        rdd = sc.textFile(self._iFile, self._numPartitions)\
             .map(lambda x: x.rstrip().split('\t'))\
             .persist()
 
@@ -242,7 +242,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
             :param item: int
             :return: int
         """
-        return value % self._numWorkers
+        return value % self._numPartitions
 
     def genCondTransaction(self, trans, rank):
         """
@@ -392,7 +392,6 @@ class parallelFPGrowth(_ab._frequentPatterns):
             print("minSup is not correct")
         return value
 
-
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
@@ -403,7 +402,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _finalPatterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_finalPatterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        # _ap.savePatterns(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
