@@ -32,7 +32,6 @@ class Tree:
                 The first node of the tree set to Null
             nodeLink : dict
                 Store nodes that have the same item
-
         Methods
         -------
             addTransaction(transaction, count)
@@ -118,13 +117,12 @@ class parallelFPGrowth(_ab._frequentPatterns):
                     it represents to store the all frequent patterns
                 FPList : list
                     frequent pattern list
-                numPartitions: int
-                    The number of partitions
+                numWorkers: int
+                    The number of workers
                     On each worker node, an executor process is started and this process performs processing.
                     The processing unit of worker node is partition
                 lno : int
                     the number of transactions
-
             Methods
             -------
                 startMine()
@@ -150,57 +148,36 @@ class parallelFPGrowth(_ab._frequentPatterns):
                     Get all frequent patterns
                 genFreqPatterns(item, prefix, tree)
                     Generate frequent patterns based on item and prefix
-
            Executing the code on terminal:
            -------------------------------
-
                 Format:
                 ------
-
                     python3 parallelFPGrowth.py <inputFile> <outputFile> <minSup> <numWorkers>
-
                 Examples:
                 ---------
                     python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10.0 3   (minSup will be considered in times of minSup and count of database transactions)
-
                     python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10 3    (minSup will be considered in support count or frequency)
-
            Sample run of the importing code:
            ---------------------------------
-
                 import PAMI.frequentPattern.pyspark.parallelFPGrowth as alg
-
                 obj = alg.parallelFPGrowth(iFile, minSup, numWorkers)
-
                 obj.startMine()
-
                 frequentPatterns = obj.getPatterns()
-
                 print("Total number of Frequent Patterns:", len(frequentPatterns))
-
                 obj.savePatterns(oFile)
-
                 Df = obj.getPatternInDataFrame()
-
                 memUSS = obj.getMemoryUSS()
-
                 print("Total Memory in USS:", memUSS)
-
                 memRSS = obj.getMemoryRSS()
-
                 print("Total Memory in RSS", memRSS)
-
                 run = obj.getRuntime()
-
                 print("Total ExecutionTime in seconds:", run)
-
             Credits:
             --------
                 The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
-
         """
     _minSup = float()
-    _numPartitions = int()
+    _numWorkers = int()
     _startTime = float()
     _endTime = float()
     _finalPatterns = dict()
@@ -213,8 +190,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
     _lno = int()
 
 
-    def __init__(self, iFile, minSup, numPartitions, sep='\t'):
-        super().__init__(iFile, minSup, int(numPartitions), sep)
+    def __init__(self, iFile, minSup, numWorkers, sep='\t'):
+        super().__init__(iFile, minSup, int(numWorkers), sep)
 
 
     def startMine(self):
@@ -225,7 +202,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         conf = SparkConf().setAppName("Parallel FPGrowth").setMaster("local[*]")
         sc = SparkContext(conf=conf)
 
-        rdd = sc.textFile(self._iFile, self._numPartitions)\
+        rdd = sc.textFile(self._iFile, self._numWorkers)\
             .map(lambda x: x.rstrip().split('\t'))\
             .persist()
 
@@ -265,7 +242,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
             :param item: int
             :return: int
         """
-        return value % self._numPartitions
+        return value % self._numWorkers
 
     def genCondTransaction(self, trans, rank):
         """
