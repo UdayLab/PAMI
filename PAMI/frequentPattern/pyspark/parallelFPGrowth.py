@@ -380,14 +380,16 @@ class parallelFPGrowth(_ab._frequentPatterns):
         """
         if type(value) is int:
             value = int(value)
-        if type(value) is float:
+        elif type(value) is float:
             value = (self._lno * value)
-        if type(value) is str:
+        elif type(value) is str:
             if '.' in value:
                 value = float(value)
                 value = (self._lno * value)
             else:
                 value = int(value)
+        else:
+            print("minSup is not correct")
         return value
 
 
