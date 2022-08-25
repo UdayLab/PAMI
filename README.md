@@ -204,6 +204,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |Basic|
     |-----|
     |SPP-growth|
+    |SP-ECLAT|
     
 25. Uncertain correlated pattern mining: 
     
