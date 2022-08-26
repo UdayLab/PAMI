@@ -231,13 +231,13 @@ class transactionalDatabaseStats:
                 f.write(f'{key}\t{value}\n')
                    
     def getStats(self):
-        print(f'Database size : {self.getDatabaseSize()}')
+        print(f'Database size (total no of transactions) : {self.getDatabaseSize()}')
+        print(f'Number of items : {self.getNumberOfItems()}')
         print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
         print(f'Average Transaction Size : {self.getAverageTransactionLength()}')
         print(f'Maximum Transaction Size : {self.getMaximumTransactionLength()}')
         print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
         print(f'Variance in Transaction Sizes : {self.getVarianceTransactionLength()}')
-        print(f'Number of items : {self.getNumberOfItems()}')
         print(f'Sparsity : {self.getSparsity()}')
   
     def plotGraphs(self):
