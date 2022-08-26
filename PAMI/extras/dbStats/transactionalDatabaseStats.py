@@ -230,7 +230,7 @@ class transactionalDatabaseStats:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
                    
-    def getStats(self):
+    def printStats(self):
         print(f'Database size (total no of transactions) : {self.getDatabaseSize()}')
         print(f'Number of items : {self.getNumberOfItems()}')
         print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
