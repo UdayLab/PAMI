@@ -3,6 +3,7 @@ import pandas as pd
 import validators
 import numpy as np
 from urllib.request import urlopen
+import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 
 class transactionalDatabaseStats:
