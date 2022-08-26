@@ -295,18 +295,18 @@ class temporalDatabaseStats:
         maxTS = max(list(self.timeStampCount.keys()))
         return {ts: self.timeStampCount.get(ts, 0) for ts in range(1, maxTS + 1)}
    
-    def getStats(self):
+    def printStats(self):
         print(f'Database size : {self.getDatabaseSize()}')
+        print(f'Number of items : {self.getTotalNumberOfItems()}')
         print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
         print(f'Average Transaction Size : {self.getAverageTransactionLength()}')
         print(f'Maximum Transaction Size : {self.getMaximumTransactionLength()}')
-        print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
-        print(f'Variance : {self.getVarianceTransactionLength()}')
-        print(f'Sparsity : {self.getSparsity()}')
-        print(f'Number of items : {self.getTotalNumberOfItems()}')
         print(f'Minimum period : {self.getMinimumPeriod()}')
         print(f'Average period : {self.getAveragePeriod()}')
         print(f'Maximum period : {self.getMaximumPeriod()}')
+        print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
+        print(f'Variance : {self.getVarianceTransactionLength()}')
+        print(f'Sparsity : {self.getSparsity()}')
   
     def plotGraphs(self):
         itemFrequencies = self.getSortedListOfItemFrequencies()
