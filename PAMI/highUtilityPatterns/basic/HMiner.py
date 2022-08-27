@@ -600,6 +600,16 @@ class HMiner(_ab._utilityPatterns):
         :rtype: float
         """
         return self._endTime - self._startTime
+    
+    def printStats(self):
+        _Patterns = self.getPatterns()
+        print("Total number of huis:", len(_Patterns))
+        _memUSS = self.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = self.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = self.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
 
 
 if __name__ == "__main__":
@@ -620,17 +630,17 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''l = [200000, 300000, 400000, 500000]
-        for i in l:
-            ap = HMiner('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/home/apiiit-rkv/Downloads/output.txt')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
+        ap = HMiner('sample_util.txt', 20, ' ')
+        ap.startMine()
+        ap.printStats()
+        '''Patterns = ap.getPatterns()
+        print("Total number of huis:", len(Patterns))
+        ap.savePatterns('/home/apiiit-rkv/Downloads/output.txt')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
