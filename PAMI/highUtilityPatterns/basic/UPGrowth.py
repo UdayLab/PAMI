@@ -595,7 +595,7 @@ class UPGrowth(_ab._utilityPatterns):
         data = []
         for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility'])
         return dataFrame
 
     def getPatterns(self):
