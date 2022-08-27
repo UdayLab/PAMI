@@ -837,7 +837,18 @@ class HUFIM(_ab._utilityPatterns):
         :rtype: float
        """
         return self._endTime-self._startTime
-
+    
+    def printStats(self):
+        patterns = self.getPatterns()
+        print("Total number of High Utility Frequent Patterns:",  self._patternCount)
+        #print("Total number of Candidate Patterns:", ap._candidateCount)
+        #ap.savePatterns('/home/apiiit-rkv/Downloads/output')
+        memUSS = self.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = self.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = self.getRuntime()
+        print("Total ExecutionTime in seconds:", run)
 
 if __name__ == '__main__':
     _ap = str()
@@ -849,7 +860,7 @@ if __name__ == '__main__':
         _ap.startMine()
         _patterns = _ap.getPatterns()
         print("Total number of High Utility Frequent Patterns:", _ap._patternCount)
-        print("Total number of Candidate Patterns:", _ap._candidateCount)
+        #print("Total number of Candidate Patterns:", _ap._candidateCount)
         _ap.savePatterns(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
@@ -859,7 +870,7 @@ if __name__ == '__main__':
         print("Total ExecutionTime in seconds:", _run)
         #print("######################################")
     else:
-        l = [2000, 5000, 40000]
+        '''l = [2000, 5000, 40000]
         for i in l:
             ap = HUFIM('/home/apiiit-rkv/Downloads/pol_pm2_16_util', i, 400, ' ')
             ap.startMine()
@@ -872,5 +883,11 @@ if __name__ == '__main__':
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)'''
+        obj = HUFIM('sample_util.txt', 20, 5, ' ')
+        obj.startMine() 
+        obj.savePatterns('output.txt') 
+        Df = obj.getPatternsAsDataFrame()
+        obj.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
