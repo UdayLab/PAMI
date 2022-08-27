@@ -1,96 +1,271 @@
+#  Copyright (C)  2021 Rage Uday Kiran
+#
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 
 from PAMI.highUtilityPatterns.basic import abstract as _ab
 
 
-class _Element:
+class _Transaction:
     """
-    A class represents an Element of a utility list .
-    Attributes :
-    ----------
-        ts : int
-            keep tact of transaction id
-        nu : int
-            non closed itemSet utility
-        nru : int
-             non closed remaining utility
-        pu : int
-            prefix utility
-        ppos: int
-            position of previous item in the list
-    """
+        A class to store Transaction of a database
 
-    def __init__(self, tid, nu, nru, pu, ppos):
-        self.tid = tid
-        self.nu = nu
-        self.nru = nru
-        self.pu = pu
-        self.ppos = ppos
-
-
-class _CUList:
-    """
-        A class represents a UtilityList
-    Attributes :
-    ----------
-        item: int
-            item 
-        sumNu: long
-            the sum of item utilities
-        sumNru: long
-            the sum of remaining utilities
-        sumCu : long
-            the sum of closed utilities
-        sumCru: long
-            the sum of closed remaining utilities
-        sumCpu: long
-            the sum of closed prefix utilities
-        elements: list
-            the list of elements 
-    Methods :
-    -------
-        addElement(element)
-            Method to add an element to this utility list and update the sums at the same time.
-    """
-
-    def __init__(self, item):
-        self.item = item
-        self.sumnu = 0
-        self.sumnru = 0
-        self.sumCu = 0
-        self.sumCru = 0
-        self.sumCpu = 0
-        self.elements = []
-
-    def addElements(self, element):
-        """
-            A method to add new element to CUList
-            :param element: element to be addeed to CUList
-            :type element: Element
-        """
-        self.sumnu += element.nu
-        self.sumnru += element.nru
-        self.elements.append(element)
-
-
-class _Pair:
-    """
-        A class represent an item and its utility in a transaction
-    """
-
-    def __init__(self):
-        self.item = 0
-        self.utility = 0
-
-
-class HMiner(_ab._utilityPatterns):
-    """
-        High Utility itemSet Mining (HMIER) is an importent algorithm to miner High utility items from the database.
     Attributes:
     ----------
+        items: list
+            A list of items in transaction 
+        utilities: list
+            A list of utilities of items in transaction
+        transactionUtility: int
+            represent total sum of all utilities in the database
+        prefixUtility:
+            prefix Utility values of item
+        offset:
+            an offset pointer, used by projected transactions
+    Methods:
+    --------
+        projectedTransaction(offsetE):
+            A method to create new Transaction from existing starting from offsetE until the end
+        getItems():
+            return items in transaction
+        getUtilities():
+            return utilities in transaction
+        getLastPosition():
+            return last position in a transaction
+        removeUnpromisingItems():
+            A method to remove items which are having low values when compared with minUtil
+        insertionSort():
+            A method to sort all items in the transaction
+    """
+    offset = 0
+    prefixUtility = 0
+
+    def __init__(self, items, utilities, transactionUtility):
+        self.items = items
+        self.utilities = utilities
+        self.transactionUtility = transactionUtility
+
+    def projectTransaction(self, offsetE):
+        """
+            A method to create new Transaction from existing transaction starting from offsetE until the end
+
+        Parameters:
+        ----------
+            :param offsetE: an offset over the original transaction for projecting the transaction
+            :type offsetE: int
+        """
+        new_transaction = _Transaction(self.items, self.utilities, self.transactionUtility)
+        utilityE = self.utilities[offsetE]
+        new_transaction.prefixUtility = self.prefixUtility + utilityE
+        new_transaction.transactionUtility = self.transactionUtility - utilityE
+        for i in range(self.offset, offsetE):
+            new_transaction.transactionUtility -= self.utilities[i]
+        new_transaction.offset = offsetE + 1
+        return new_transaction
+
+    def getItems(self):
+        """
+            A method to return items in transaction
+        """
+        return self.items
+
+    def getUtilities(self):
+        """
+            A method to return utilities in transaction
+        """
+        return self.utilities
+
+    def getLastPosition(self):
+        """
+            A method to return last position in a transaction
+        """
+
+        return len(self.items) - 1
+
+    def removeUnpromisingItems(self, oldNamesToNewNames):
+        """
+            A method to remove items which are not present in the map passed to the function
+
+            Parameters:
+            -----------
+            :param oldNamesToNewNames: A map represent old names to new names
+            :type oldNamesToNewNames: map
+        """
+        tempItems = []
+        tempUtilities = []
+        for idx, item in enumerate(self.items):
+            if item in oldNamesToNewNames:
+                tempItems.append(oldNamesToNewNames[item])
+                tempUtilities.append(self.utilities[idx])
+            else:
+                self.transactionUtility -= self.utilities[idx]
+        self.items = tempItems
+        self.utilities = tempUtilities
+        self.insertionSort()
+
+    def insertionSort(self):
+        """
+            A method to sort items in order
+        """
+        for i in range(1, len(self.items)):
+            key = self.items[i]
+            utilityJ = self.utilities[i]
+            j = i - 1
+            while j >= 0 and key < self.items[j]:
+                self.items[j + 1] = self.items[j]
+                self.utilities[j + 1] = self.utilities[j]
+                j -= 1
+            self.items[j + 1] = key
+            self.utilities[j + 1] = utilityJ
+        
+
+class _Dataset:
+    """
+        A class represent the list of transactions in this dataset
+
+    Attributes:
+    ----------
+        transactions :
+            the list of transactions in this dataset
+        maxItem:
+            the largest item name
+        
+    methods:
+    --------
+        createTransaction(line):
+            Create a transaction object from a line from the input file
+        getMaxItem():
+            return Maximum Item
+        getTransactions():
+            return transactions in database
+
+    """
+    transactions = []
+    maxItem = 0
+    
+    def __init__(self,datasetPath, sep):
+        self.strToInt = {}
+        self.intToStr = {}
+        self.transactions = []
+        self.maxItem = 0
+        self.cnt = 1
+        self.sep = sep
+        self.createItemsets(datasetPath)
+
+    def createItemsets(self, datasetPath):
+        self.Database = []
+        if isinstance(datasetPath, _ab._pd.DataFrame):
+            utilities, data, transactionUtility = [], [], []
+            if datasetPath.empty:
+                print("its empty..")
+            i = datasetPath.columns.values.tolist()
+            if 'Transactions' in i:
+                data = datasetPath['Transactions'].tolist()
+            if 'Utilities' in i:
+                utilities = datasetPath['Utilities'].tolist()
+            if 'TransactionUtility' in i:
+                transactionUtility = datasetPath['TransactionUtility'].tolist()
+            self.transactions.append(self.createTransaction(data, utilities, transactionUtility))
+        if isinstance(datasetPath, str):
+            if _ab._validators.url(datasetPath):
+                data = _ab._urlopen(datasetPath)
+                for line in data:
+                    line = line.decode("utf-8")
+                    trans_list = line.strip().split(':')
+                    transactionUtility = int(trans_list[1])
+                    itemsString = trans_list[0].strip().split(self.sep)
+                    itemsString = [x for x in itemsString if x]
+                    utilityString = trans_list[2].strip().split(self.sep)
+                    utilityString = [x for x in utilityString if x]
+                    self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility))
+            else:
+                try:
+                    with open(datasetPath, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            trans_list = line.strip().split(':')
+                            transactionUtility = int(trans_list[1])
+                            itemsString = trans_list[0].strip().split(self.sep)
+                            itemsString = [x for x in itemsString if x]
+                            utilityString = trans_list[2].strip().split(self.sep)
+                            utilityString = [x for x in utilityString if x]
+                            self.transactions.append(
+                                self.createTransaction(itemsString, utilityString, transactionUtility))
+
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
+    def createTransaction(self, itemsString, utilityString, transactionUtility):
+        """
+            A method to create Transaction from dataset given
+            
+            Attributes:
+            -----------
+            :param line: represent a single line of database
+            :type line: string
+            :return : Transaction
+            :rtype: Transaction
+        """
+        '''trans_list = line.strip().split(':')
+        transactionUtility = int(trans_list[1])
+        itemsString = trans_list[0].strip().split(self.sep)
+        itemsString = [x for x in itemsString if x]
+        utilityString = trans_list[2].strip().split(self.sep)
+        utilityString = [x for x in utilityString if x]'''
+        items = []
+        utilities = []
+        for idx, item in enumerate(itemsString):
+            if self.strToInt.get(item) is None:
+                self.strToInt[item] = self.cnt
+                self.intToStr[self.cnt] = item
+                self.cnt += 1
+            item_int = self.strToInt.get(item)
+            if item_int > self.maxItem:
+                self.maxItem = item_int
+            items.append(item_int)
+            utilities.append(int(utilityString[idx]))
+        return _Transaction(items, utilities, transactionUtility)
+
+    def getMaxItem(self):
+        """
+            A method to return name of largest item
+        """
+        return self.maxItem
+
+    def getTransactions(self):
+        """
+            A method to return transactions from database
+        """
+        return self.transactions
+
+
+class EFIM(_ab._utilityPatterns):
+    """
+    EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
+    
+    Reference:
+    ---------
+        Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
+        high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
+    
+    Attributes:
+    -----------
         iFile : file
-            Name of the input file to mine complete set of frequent patterns
+            Name of the input file to mine complete set of high utility patterns
         oFile : file
-            Name of the output file to store complete set of frequent patterns
+            Name of the output file to store complete set of high utility patterns
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
         startTime:float
@@ -98,478 +273,457 @@ class HMiner(_ab._utilityPatterns):
         endTime:float
             To record the completion time of the mining process
         minUtil : int
-            The user given minUtil
-        mapFMAP: list
-            EUCS map of the FHM algorithm
-        candidates: int
-            candidates genetated
-        huiCnt: int
-            huis created
-        neighbors: map
-            keep track of nighboues of elements
-    Methods:
+            The user given minUtil value
+        highUtilityitemSets: map
+            set of high utility itemSets
+        candidateCount: int
+             Number of candidates 
+        utilityBinArrayLU: list
+             A map to hold the local utility values of the items in database
+        utilityBinArraySU: list
+            A map to hold the subtree utility values of the items is database
+        oldNamesToNewNames: list
+            A map which contains old names, new names of items as key value pairs
+        newNamesToOldNames: list
+            A map which contains new names, old names of items as key value pairs
+        maxMemory: float
+            Maximum memory used by this program for running
+        patternCount: int
+            Number of HUI's
+        itemsToKeep: list
+            keep only the promising items ie items having local utility values greater than or equal to minUtil
+        itemsToExplore: list
+            list of items that have subtreeUtility value greater than or equal to minUtil
+
+    Methods :
     -------
         startMine()
-            Mining process will start from here
+                Mining process will start from here
         getPatterns()
-            Complete set of patterns will be retrieved with this function
+                Complete set of patterns will be retrieved with this function
         savePatterns(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
+                Complete set of patterns will be loaded in to a output file
         getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
+                Complete set of patterns will be loaded in to a dataframe
         getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
         getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        Explore_SearchTree(prefix, uList, minUtil)
-            A method to find all high utility itemSets
-        UpdateCLosed(x, culs, st, excul, newT, ex, ey_ts, length)
-            A method to update closed values
-        saveitemSet(prefix, prefixLen, item, utility)
-            A method to save itemSets
-        updateElement(z, culs, st, excul, newT, ex, duppos, ey_ts)
-            A method to updates vales for duplicates
-        construcCUL(x, culs, st, minUtil, length, exnighbors)
-            A method to construct CUL's database
+               Total amount of runtime taken by the mining process will be retrieved from this function
+        backTrackingEFIM(transactionsOfP, itemsToKeep, itemsToExplore, prefixLength)
+               A method to mine the HUIs Recursively
+        useUtilityBinArraysToCalculateUpperBounds(transactionsPe, j, itemsToKeep)
+               A method to calculate the sub-tree utility and local utility of all items that can extend itemSet P and e
+        output(tempPosition, utility)
+               A method to output a high-utility itemSet to file or memory depending on what the user chose
+        is_equal(transaction1, transaction2)
+               A method to Check if two transaction are identical
+        useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(dataset)
+              A method to calculate the sub tree utility values for single items
+        sortDatabase(self, transactions)
+              A Method to sort transaction
+        sort_transaction(self, trans1, trans2)
+              A Method to sort transaction
+        useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)
+             A method to calculate local utility values for single itemsets
+
     Executing the code on terminal :
     -------
-        Format:
-            python3 HMiner.py <inputFile> <outputFile> <minUtil>
-            python3 HMiner.py <inputFile> <outputFile> <minUtil> <separator>
-        Examples:
-            python3 HMiner.py sampleTDB.txt output.txt 35 (separator will be "\t")
-            python3 HMiner.py sampleTDB.txt output.txt 35 ,  (separator will be "," in input file)
+        Format: python3 EFIM.py <inputFile> <outputFile> <minUtil> <sep>
+        Examples: python3 EFIM sampleTDB.txt output.txt 35  (it will consider "\t" as separator)
+                  python3 EFIM sampleTDB.txt output.txt 35 , (it will consider "," as separator)
+
     Sample run of importing the code:
     -------------------------------
+        
+        from PAMI.highUtilityPatterns.basic import EFIM as alg
 
-        from PAMI.highUtilityPatterns.basic import HMiner as alg
-        
-        obj = alg.HMiner("input.txt",35)
-        
+        obj=alg.EFIM("input.txt",35)
+
         obj.startMine()
-        
+
         Patterns = obj.getPatterns()
-        
+
         print("Total number of high utility Patterns:", len(Patterns))
-        
+
         obj.savePatterns("output")
-        
+
         memUSS = obj.getMemoryUSS()
-        
+
         print("Total Memory in USS:", memUSS)
-        
+
         memRSS = obj.getMemoryRSS()
-        
+
         print("Total Memory in RSS", memRSS)
-        
+
         run = obj.getRuntime()
-        
+
         print("Total ExecutionTime in seconds:", run)
-    
+   
     Credits:
     -------
-        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
-
+        The complete program was written by pradeep pallikila under the supervision of Professor Rage Uday Kiran.
+     
     """
 
+    _highUtilityitemSets = []
+    _candidateCount = 0
+    _utilityBinArrayLU = {}
+    _utilityBinArraySU = {}
+    _oldNamesToNewNames = {}
+    _newNamesToOldNames = {}
+    _strToInt = {}
+    _intToStr = {}
+    _Neighbours = {}
+    _temp = [0] * 5000
+    _patternCount = int()
+    _maxMemory = 0
     _startTime = float()
     _endTime = float()
-    _minSup = str()
-    _maxPer = float()
     _finalPatterns = {}
-    _Database = {}
-    _transactions = []
-    _utilities = []
-    _utilitySum = []
     _iFile = " "
-    _oFile = " "
-    _minUtil = 0
+    _nFile = " "
+    _lno = 0
     _sep = "\t"
+    _minUtil = 0
     _memoryUSS = float()
     _memoryRSS = float()
+    _startTime = _ab._time.time()
 
-    def __init__(self, iFile1, minUtil, sep="\t"):
-        super().__init__(iFile1, minUtil, sep)
-        self._huiCount = 0
-        self._candidates = 0
-        self._mapOfTWU = {}
-        self._minutil = 0
-        self._mapFMAP = {}
+    def __init__(self, iFile, minUtil, sep="\t"):
+        super().__init__(iFile, minUtil, sep)
+        self._sep = sep
+        self._highUtilityitemSets = []
+        self._candidateCount = 0
+        self._utilityBinArrayLU = {}
+        self._utilityBinArraySU = {}
+        self._oldNamesToNewNames = {}
+        self._newNamesToOldNames = {}
+        self._strToInt = {}
+        self._intToStr = {}
+        self._Neighbours = {}
+        self._temp = [0] * 5000
+        self._patternCount = 0
+        self._maxMemory = 0
+        self._endTime = float()
         self._finalPatterns = {}
-
-    def _HMiner(self, o1, o2):
-        """
-            A method to sort  list of huis in TWU asending order
-        """
-        compare = self._mapOfTWU[o1.item] - self._mapOfTWU[o2.item]
-        if compare == 0:
-            return int(o1.item) - int(o2.item)
-        else:
-            return compare
-
-    def _creteItemsets(self):
-        self._transactions, self._utilities, self._utilitySum = [], [], []
-        if isinstance(self._iFile, _ab._pd.DataFrame):
-            if self._iFile.empty:
-                print("its empty..")
-            i = self._iFile.columns.values.tolist()
-            if 'Transactions' in i:
-                self._transactions = self._iFile['Transactions'].tolist()
-            if 'Utilities' in i:
-                self._utilities = self._iFile['Utilities'].tolist()
-            if 'UtilitySum' in i:
-                self._utilitySum = self._iFile['UtilitySum'].tolist()
-        if isinstance(self._iFile, str):
-            if _ab._validators.url(self._iFile):
-                #print("hey")
-                data = _ab._urlopen(self._iFile)
-                for line in data:
-                    line = line.decode("utf-8")
-                    line = line.split("\n")[0]
-                    parts = line.split(":")
-                    items = parts[0].split(self._sep)
-                    self._transactions.append([x for x in items if x])
-                    utilities = parts[2].split(self._sep)
-                    self._utilities.append(utilities)
-                    self._utilitySum.append(int(parts[1]))
-            else:
-                try:
-                    with open(self._iFile, 'r', encoding='utf-8') as f:
-                        for line in f:
-                            line = line.split("\n")[0]
-                            parts = line.split(":")
-                            items = parts[0].split(self._sep)
-                            self._transactions.append([x for x in items if x])
-                            utilities = parts[2].split(self._sep)
-                            self._utilities.append(utilities)
-                            self._utilitySum.append(int(parts[1]))
-                except IOError:
-                    print("File Not Found")
-                    quit()
+        self._lno = 0
+        self._memoryUSS = float()
+        self._memoryRSS = float()
 
     def startMine(self):
-        """
-            main program to start the operation
-        """
         self._startTime = _ab._time.time()
-        self._creteItemsets()
-        self._finalPatterns = {}
-        for line in range(len(self._transactions)):
-            items_str = self._transactions[line]
-            utility_str = self._utilities[line]
-            transUtility = self._utilitySum[line]
-            for i in range(0, len(items_str)):
-                item = items_str[i]
-                twu = self._mapOfTWU.get(item)
-                if twu == None:
-                    twu = transUtility
-                else:
-                    twu += transUtility
-                self._mapOfTWU[item] = twu
-        listOfCUList = []
-        hashTable = {}
-        mapItemsToCUList = {}
-        minutil = self._minUtil
-        for item in self._mapOfTWU.keys():
-            if self._mapOfTWU.get(item) >= self._minUtil:
-                uList = _CUList(item)
-                mapItemsToCUList[item] = uList
-                listOfCUList.append(uList)
-        listOfCUList.sort(key=_ab._functools.cmp_to_key(self._HMiner))
-        tid = 1
-        for line in range(len(self._transactions)):
-            items = self._transactions[line]
-            utilities = self._utilities[line]
-            ru = 0
-            newTwu = 0
-            tx_key = []
-            revisedTrans = []
-            for i in range(0, len(items)):
-                pair = _Pair()
-                pair.item = items[i]
-                pair.utility = int(utilities[i])
-                if self._mapOfTWU.get(pair.item) >= self._minUtil:
-                    revisedTrans.append(pair)
-                    tx_key.append(pair.item)
-                    newTwu += pair.utility
-            revisedTrans.sort(key=_ab._functools.cmp_to_key(self._HMiner))
-            tx_key1 = tuple(tx_key)
-            if len(revisedTrans) > 0:
-                if tx_key1 not in hashTable.keys():
-                    hashTable[tx_key1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans) - 1].item].elements)
-                    for i in range(len(revisedTrans) - 1, -1, -1):
-                        pair = revisedTrans[i]
-                        cuListoFItems = mapItemsToCUList.get(pair.item)
-                        element = _Element(tid, pair.utility, ru, 0, 0)
-                        if i > 0:
-                            element.ppos = len(mapItemsToCUList[revisedTrans[i - 1].item].elements)
-                        else:
-                            element.ppos = - 1
-                        cuListoFItems.addElements(element)
-                        ru += pair.utility
-                else:
-                    pos = hashTable[tx_key1]
-                    ru = 0
-                    for i in range(len(revisedTrans) - 1, -1, -1):
-                        cuListoFItems = mapItemsToCUList[revisedTrans[i].item]
-                        cuListoFItems.elements[pos].nu += revisedTrans[i].utility
-                        cuListoFItems.elements[pos].nru += ru
-                        cuListoFItems.sumnu += revisedTrans[i].utility
-                        cuListoFItems.sumnru += ru
-                        ru += revisedTrans[i].utility
-                        pos = cuListoFItems.elements[pos].ppos
-                    # EUCS
-            for i in range(len(revisedTrans) - 1, -1, -1):
-                pair = revisedTrans[i]
-                mapFMAPItem = self._mapFMAP.get(pair.item)
-                if mapFMAPItem == None:
-                    mapFMAPItem = {}
-                    self._mapFMAP[pair.item] = mapFMAPItem
-                for j in range(i + 1, len(revisedTrans)):
-                    pairAfter = revisedTrans[j]
-                    twuSUm = mapFMAPItem.get(pairAfter.item)
-                    if twuSUm is None:
-                        mapFMAPItem[pairAfter.item] = newTwu
-                    else:
-                        mapFMAPItem[pairAfter.item] = twuSUm + newTwu
-            tid += 1
-        self._ExploreSearchTree([], listOfCUList, minutil)
+        self._dataset = _Dataset(self._iFile, self._sep)
+        self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
+        minUtil = int(self._minUtil)
+        itemsToKeep = []
+        for key in self._utilityBinArrayLU.keys():
+            if self._utilityBinArrayLU[key] >= self._minUtil:
+                itemsToKeep.append(key)
+        itemsToKeep = sorted(itemsToKeep, key=lambda x: self._utilityBinArrayLU[x])
+        currentName = 1
+        for idx, item in enumerate(itemsToKeep):
+            self._oldNamesToNewNames[item] = currentName
+            self._newNamesToOldNames[currentName] = item
+            itemsToKeep[idx] = currentName
+            currentName += 1
+        for transaction in self._dataset.getTransactions():
+            transaction.removeUnpromisingItems(self._oldNamesToNewNames)
+        self._sortDatabase(self._dataset.getTransactions())
+        emptyTransactionCount = 0
+        for transaction in self._dataset.getTransactions():
+            if len(transaction.getItems()) == 0:
+                emptyTransactionCount += 1
+        self._dataset.transactions = self._dataset.transactions[emptyTransactionCount:]
+        self._useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self._dataset)
+        itemsToExplore = []
+        for item in itemsToKeep:
+            if self._utilityBinArraySU[item] >= self._minUtil:
+                itemsToExplore.append(item)
+        self._backTrackingEFIM(self._dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryRSS = float()
         self._memoryUSS = float()
+        self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("High Utility patterns were generated successfully using HMiner algorithm")
+        print("High Utility patterns were generated successfully using EFIM algorithm")
 
-    def _ExploreSearchTree(self, prefix, uList, minutil):
+    def _backTrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
         """
-            A method to find all high utility itemSets
-            Attributes:
-            -----------
-            :parm prefix: it represent all items in prefix
-            :type prefix :list
-            :parm uList:projectd Utility list
-            :type uList: list
-            :parm minutil:user minUtil
-            :type minutil:int
-        """
-        for i in range(0, len(uList)):
-            x = uList[i]
-            soted_prefix = [0] * (len(prefix) + 1)
-            soted_prefix = prefix[0:len(prefix) + 1]
-            soted_prefix.append(x.item)
-            if x.sumnu + x.sumCu >= minutil:
-                self._saveitemSet(prefix, len(prefix), x.item, x.sumnu + x.sumCu)
-            self._candidates += 1
-            if x.sumnu + x.sumCu + x.sumnru + x.sumCru >= minutil:
-                exULs = self._construcCUL(x, uList, i, minutil, len(soted_prefix))
-                self._ExploreSearchTree(soted_prefix, exULs, minutil)
+            A method to mine the HUIs Recursively
 
-    def _construcCUL(self, x, culs, st, minutil, length):
-        """
-            A method to construct CUL's database
             Attributes:
-            -----------
-            :parm x: Compact utility list
-            :type x: Node
-            :parm culs:list of Compact utility lists
-            :type culs:list
-            :parm st: starting pos of culs
-            :type st:int
-            :parm minutil: user minUtil
-            :type minutil:int
-            :parm length: length of x
-            :type length:int
-            :return: projectd database of list X
-            :rtype: list
+            ----------
+            :param transactionsOfP: the list of transactions containing the current prefix P
+            :type transactionsOfP: list 
+            :param itemsToKeep: the list of secondary items in the p-projected database
+            :type itemsToKeep: list
+            :param itemsToExplore: the list of primary items in the p-projected database
+            :type itemsToExplore: list
+            :param prefixLength: current prefixLength
+            :type prefixLength: int
         """
-        excul = []
-        lau = []
-        cutil = []
-        ey_tid = []
-        for i in range(0, len(culs)):
-            uList = _CUList(culs[i].item)
-            excul.append(uList)
-            lau.append(0)
-            cutil.append(0)
-            ey_tid.append(0)
-        sz = len(culs) - (st + 1)
-        exSZ = sz
-        for j in range(st + 1, len(culs)):
-            mapOfTWUF = self._mapFMAP[x.item]
-            if mapOfTWUF != None:
-                twuf = mapOfTWUF.get(culs[j].item)
-                if twuf != None and twuf < minutil:
-                    excul[j] = None
-                    exSZ = sz - 1
-                else:
-                    uList = _CUList(culs[j].item)
-                    excul[j] = uList
-                    ey_tid[j] = 0
-                    lau[j] = x.sumCu + x.sumCru + x.sumnu + x.sumnru
-                    cutil[j] = x.sumCu + x.sumCru
-        hashTable = {}
-        for ex in x.elements:
-            newT = []
-            for j in range(st + 1, len(culs)):
-                if excul[j] is None:
-                    continue
-                eylist = culs[j].elements
-                while ey_tid[j] < len(eylist) and eylist[ey_tid[j]].tid < ex.tid:
-                    ey_tid[j] = ey_tid[j] + 1
-                if ey_tid[j] < len(eylist) and eylist[ey_tid[j]].tid == ex.tid:
-                    newT.append(j)
-                else:
-                    lau[j] = lau[j] - ex.nu - ex.nru
-                    if lau[j] < minutil:
-                        excul[j] = None
-                        exSZ = exSZ - 1
-            if len(newT) == exSZ:
-                self._UpdateCLosed(x, culs, st, excul, newT, ex, ey_tid, length)
-            else:
-                if len(newT) == 0:
-                    continue
-                ru = 0
-                newT1 = tuple(newT)
-                if newT1 not in hashTable.keys():
-                    hashTable[newT1] = len(excul[newT[len(newT) - 1]].elements)
-                    for i in range(len(newT) - 1, -1, -1):
-                        cuListoFItems = excul[newT[i]]
-                        y = culs[newT[i]].elements[ey_tid[newT[i]]]
-                        element = _Element(ex.tid, ex.nu + y.nu - ex.pu, ru, ex.nu, 0)
-                        if i > 0:
-                            element.ppos = len(excul[newT[i - 1]].elements)
+        self._candidateCount += len(itemsToExplore)
+        for idx, e in enumerate(itemsToExplore):
+            transactionsPe = []
+            utilityPe = 0
+            previousTransaction = transactionsOfP[0]
+            consecutiveMergeCount = 0
+            for transaction in transactionsOfP:
+                items = transaction.getItems()
+                if e in items:
+                    positionE = items.index(e)
+                    if transaction.getLastPosition() == positionE:
+                        utilityPe += transaction.getUtilities()[positionE] + transaction.prefixUtility
+                    else:
+                        projectedTransaction = transaction.projectTransaction(positionE)
+                        utilityPe += projectedTransaction.prefixUtility
+                        if previousTransaction == transactionsOfP[0]:
+                            previousTransaction = projectedTransaction
+                        elif self._isEqual(projectedTransaction, previousTransaction):
+                            if consecutiveMergeCount == 0:
+                                items = previousTransaction.items[previousTransaction.offset:]
+                                utilities = previousTransaction.utilities[previousTransaction.offset:]
+                                itemsCount = len(items)
+                                positionPrevious = 0
+                                positionProjection = projectedTransaction.offset
+                                while positionPrevious < itemsCount:
+                                    utilities[positionPrevious] += projectedTransaction.utilities[positionProjection]
+                                    positionPrevious += 1
+                                    positionProjection += 1
+                                previousTransaction.prefixUtility += projectedTransaction.prefixUtility
+                                sumUtilities = previousTransaction.prefixUtility
+                                previousTransaction = _Transaction(items, utilities, previousTransaction.transactionUtility + projectedTransaction.transactionUtility)
+                                previousTransaction.prefixUtility = sumUtilities
+                            else:
+                                positionPrevious = 0
+                                positionProjected = projectedTransaction.offset
+                                itemsCount = len(previousTransaction.items)
+                                while positionPrevious < itemsCount:
+                                    previousTransaction.utilities[positionPrevious] += projectedTransaction.utilities[
+                                        positionProjected]
+                                    positionPrevious += 1
+                                    positionProjected += 1
+                                previousTransaction.transactionUtility += projectedTransaction.transactionUtility
+                                previousTransaction.prefixUtility += projectedTransaction.prefixUtility
+                            consecutiveMergeCount += 1
                         else:
-                            element.ppos = - 1
-                        cuListoFItems.addElements(element)
-                        ru += y.nu - ex.pu
-                else:
-                    dppos = hashTable[newT1]
-                    self._updateElement(x, culs, st, excul, newT, ex, dppos, ey_tid)
-            for j in range(st + 1, len(culs)):
-                cutil[j] = cutil[j] + ex.nu + ex.nru
-        filter_culs = []
-        for j in range(st + 1, len(culs)):
-            if cutil[j] < minutil or excul[j] is None:
-                continue
-            else:
-                if length > 1:
-                    excul[j].sumCu += culs[j].sumCu + x.sumCu - x.sumCpu
-                    excul[j].sumCru += culs[j].sumCru
-                    excul[j].sumCpu += x.sumCu
-                filter_culs.append(excul[j])
-        return filter_culs
+                            transactionsPe.append(previousTransaction)
+                            previousTransaction = projectedTransaction
+                            consecutiveMergeCount = 0
+                    transaction.offset = positionE
+            if previousTransaction != transactionsOfP[0]:
+                transactionsPe.append(previousTransaction)
+            self._temp[prefixLength] = self._newNamesToOldNames[e]
+            if utilityPe >= self._minUtil:
+                self._output(prefixLength, utilityPe)
+            self._useUtilityBinArraysToCalculateUpperBounds(transactionsPe, idx, itemsToKeep)
+            newItemsToKeep = []
+            newItemsToExplore = []
+            for l in range(idx + 1, len(itemsToKeep)):
+                itemK = itemsToKeep[l]
+                if self._utilityBinArraySU[itemK] >= self._minUtil:
+                    newItemsToExplore.append(itemK)
+                    newItemsToKeep.append(itemK)
+                elif self._utilityBinArrayLU[itemK] >= self._minUtil:
+                    newItemsToKeep.append(itemK)
+            if len(transactionsPe) != 0:
+                self._backTrackingEFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
 
-    def _UpdateCLosed(self, x, culs, st, excul, newT, ex, ey_tid, length):
+    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
         """
-            A method to update closed values
+            A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
+
             Attributes:
             -----------
-            :parm x: Compact utility list
-            :type x: list
-            :parm culs:list of Compact utility lists
-            :type culs:list
-            :parm st: starting pos of culs
-            :type st:int
-            :parm newT:transaction to be updated
-            :type newT:list
-            :parm ex: element ex
-            :type ex:element
-            :parm ey_tid:list of tss
-            :type ey_tid:ts
-            :parm length: length of x
-            :type length:int
-        """
-        nru = 0
-        for j in range(len(newT) - 1, -1, -1):
-            ey = culs[newT[j]]
-            eyy = ey.elements[ey_tid[newT[j]]]
-            excul[newT[j]].sumCu += ex.nu + eyy.nu - ex.pu
-            excul[newT[j]].sumCru += nru
-            excul[newT[j]].sumCpu += ex.nu
-            nru = nru + eyy.nu - ex.pu
+            :param transactionsPe: transactions the projected database for P U {e}
+            :type transactionsPe: list
+            :param j:he position of j in the list of promising items
+            :type j:int
+            :param itemsToKeep :the list of promising items
+            :type itemsToKeep: list
 
-    def _updateElement(self, z, culs, st, excul, newT, ex, duppos, ey_tid):
         """
-            A method to updates vales for duplicates
-            Attributes:
-            -----------
-            :parm z: Compact utility list
-            :type z: list
-            :parm culs:list of Compact utility lists
-            :type culs:list
-            :parm st: starting pos of culs
-            :type st:int
-            :parm excul:list of culs
-            :type excul:list
-            :parm newT:transaction to be updated
-            :type newT:list
-            :parm ex: element ex
-            :type ex:element
-            :parm duppos: position of z in excul
-            :type duppos:int
-            :parm ey_tid:list of tss
-            :type ey_tid:ts
-        """
-        nru = 0
-        pos = duppos
-        for j in range(len(newT) - 1, -1, -1):
-            ey = culs[newT[j]]
-            eyy = ey.elements[ey_tid[newT[j]]]
-            excul[newT[j]].elements[pos].nu += ex.nu + eyy.nu - ex.pu
-            excul[newT[j]].sumnu += ex.nu + eyy.nu - ex.pu
-            excul[newT[j]].elements[pos].nru += nru
-            excul[newT[j]].sumnru += nru
-            excul[newT[j]].elements[pos].pu += ex.nu
-            nru = nru + eyy.nu - ex.pu
-            pos = excul[newT[j]].elements[pos].ppos
+        for i in range(j + 1, len(itemsToKeep)):
+            item = itemsToKeep[i]
+            self._utilityBinArrayLU[item] = 0
+            self._utilityBinArraySU[item] = 0
+        for transaction in transactionsPe:
+            sumRemainingUtility = 0
+            i = len(transaction.getItems()) - 1
+            while i >= transaction.offset:
+                item = transaction.getItems()[i]
+                if item in itemsToKeep:
+                    sumRemainingUtility += transaction.getUtilities()[i]
+                    self._utilityBinArraySU[item] += sumRemainingUtility + transaction.prefixUtility
+                    self._utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
+                i -= 1
 
-    def _saveitemSet(self, prefix, prefixLen, item, utility):
+    def _output(self, tempPosition, utility):
         """
-         A method to save itemSets
+         Method to print high utility items
+
          Attributes:
-        -----------
-        :parm prefix: it represent all items in prefix
-        :type prefix :list
-        :pram prefixLen: length of prefix
-        :type prefixLen:int
-        :parm item:item
-        :type item: int
-        :parm utility:utility of itemSet
-        :type utility:int
+         ----------
+         :param tempPosition: position of last item 
+         :type tempPosition : int 
+         :param utility: total utility of itemSet
+         :type utility: int
         """
-        self._huiCount += 1
-        res = ""
-        for i in range(0, prefixLen):
-            res += str(prefix[i]) + " "
-        res += str(item)
-        self._finalPatterns[str(res)] = str(utility)
+        self._patternCount += 1
+        s1 = ""
+        for i in range(0, tempPosition+1):
+            s1 += self._dataset.intToStr.get((self._temp[i]))
+            if i != tempPosition:
+                s1 += " "
+        self._finalPatterns[s1] = str(utility)
+
+    def _isEqual(self, transaction1, transaction2):
+        """
+         A method to Check if two transaction are identical
+
+         Attributes:
+         ----------
+         :param  transaction1: the first transaction
+         :type  transaction1: Transaction
+         :param  transaction2:    the second transaction
+         :type  transaction2: Transaction
+         :return : whether both are identical or not
+         :rtype: bool
+        """
+        length1 = len(transaction1.items) - transaction1.offset
+        length2 = len(transaction2.items) - transaction2.offset
+        if length1 != length2:
+            return False
+        position1 = transaction1.offset
+        position2 = transaction2.offset
+        while position1 < len(transaction1.items):
+            if transaction1.items[position1] != transaction2.items[position2]:
+                return False
+            position1 += 1
+            position2 += 1
+        return True
+
+    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
+        """
+        Scan the initial database to calculate the subtree utility of each items using a utility-bin array
+
+        Attributes:
+        ----------
+        :param dataset: the transaction database
+        :type dataset: list
+        """
+        for transaction in dataset.getTransactions():
+            sumSU = 0
+            i = len(transaction.getItems()) - 1
+            while i >= 0:
+                item = transaction.getItems()[i]
+                sumSU += transaction.getUtilities()[i]
+                if item in self._utilityBinArraySU.keys():
+                    self._utilityBinArraySU[item] += sumSU
+                else:
+                    self._utilityBinArraySU[item] = sumSU
+                i -= 1
+
+    def _sortDatabase(self, transactions):
+        """
+            A Method to sort transaction
+
+            Attributes:
+            ----------
+            :param transactions: transaction of items
+            :type transactions: Transaction 
+            :return: sorted transactions
+            :rtype: Transactions
+        """
+        cmp_items = _ab._functools.cmp_to_key(self.sort_transaction)
+        transactions.sort(key=cmp_items)
+
+    def sort_transaction(self, trans1, trans2):
+        """
+            A Method to sort transaction
+
+            Attributes:
+            ----------
+            :param trans1: the first transaction 
+            :type trans1: Transaction 
+            :param trans2:the second transaction 
+            :type trans2: Transaction
+            :return: sorted transaction
+            :rtype:    Transaction
+        """
+        trans1_items = trans1.getItems()
+        trans2_items = trans2.getItems()
+        pos1 = len(trans1_items) - 1
+        pos2 = len(trans2_items) - 1
+        if len(trans1_items) < len(trans2_items):
+            while pos1 >= 0:
+                sub = trans2_items[pos2] - trans1_items[pos1]
+                if sub != 0:
+                    return sub
+                pos1 -= 1
+                pos2 -= 1
+            return -1
+        elif len(trans1_items) > len(trans2_items):
+            while pos2 >= 0:
+                sub = trans2_items[pos2] - trans1_items[pos1]
+                if sub != 0:
+                    return sub
+                pos1 -= 1
+                pos2 -= 1
+            return 1
+        else:
+            while pos2 >= 0:
+                sub = trans2_items[pos2] - trans1_items[pos1]
+                if sub != 0:
+                    return sub
+                pos1 -= 1
+                pos2 -= 1
+            return 0
+
+    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
+        """
+            A method to calculate local utility of single itemsets
+            Attributes:
+            ----------
+            :param dataset: the transaction database
+            :type dataset: database
+
+        """
+        for transaction in dataset.getTransactions():
+            for item in transaction.getItems():
+                if item in self._utilityBinArrayLU:
+                    self._utilityBinArrayLU[item] += transaction.transactionUtility
+                else:
+                    self._utilityBinArrayLU[item] = transaction.transactionUtility
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
-        :return: returning frequent patterns in a dataframe
-        :rtype: pd.DataFrame
-        """
+        """Storing final patterns in a dataframe
 
+        :return: returning patterns in a dataframe
+        :rtype: pd.DataFrame
+            """
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
             data.append([a, b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataFrame
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility'])
 
+        return dataFrame
+    
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
-        :return: returning frequent patterns
+        """ Function to send the set of patterns after completion of the mining process
+
+        :return: returning patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def savePatterns(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
+
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -577,10 +731,11 @@ class HMiner(_ab._utilityPatterns):
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
             patternsAndSupport = str(x) + " : " + str(y)
-            writer.write("%s\n" % patternsAndSupport)
+            writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -589,6 +744,7 @@ class HMiner(_ab._utilityPatterns):
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
@@ -596,51 +752,44 @@ class HMiner(_ab._utilityPatterns):
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
+
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-        """
-        return self._endTime - self._startTime
-    
-    def printStats(self):
-        _Patterns = self.getPatterns()
-        print("Total number of huis:", len(_Patterns))
-        _memUSS = self.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = self.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = self.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+       """
+        return self._endTime-self._startTime
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
-        if len(_ab._sys.argv) == 5:  # includes separator
-            _ap = HMiner(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
-        if len(_ab._sys.argv) == 4:  # to consider "\t" as aseparator
-            _ap = HMiner(_ab._sys.argv[1], int(_ab._sys.argv[3]))
+        if len(_ab._sys.argv) == 5:    #includes separator
+            _ap = EFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
+            _ap = EFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]))
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of huis:", len(_Patterns))
+        _patterns = _ap.getPatterns()
+        print("Total number of High Utility Patterns:", _ap._patternCount)
+        #print("Total number of Candidate Patterns:", ap.candidateCount)
         _ap.savePatterns(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
         print("Total Memory in RSS", _memRSS)
         _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total ExecutionTime in seconds:", _run)
     else:
-        ap = HMiner('sample_util.txt', 20, ' ')
-        ap.startMine()
-        ap.printStats()
-        '''Patterns = ap.getPatterns()
-        print("Total number of huis:", len(Patterns))
-        ap.savePatterns('/home/apiiit-rkv/Downloads/output.txt')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)'''
+        '''l = [200000, 300000, 400000, 500000]
+        for i in l:
+            ap = EFIM('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', i, ' ')
+            ap.startMine()
+            Patterns = ap.getPatterns()
+            print("Total number of huis:", len(Patterns))
+            ap.savePatterns('/home/apiiit-rkv/Downloads/output.txt')
+            memUSS = ap.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = ap.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = ap.getRuntime()
+            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
