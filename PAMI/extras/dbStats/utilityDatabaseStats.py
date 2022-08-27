@@ -261,6 +261,21 @@ class utilityDatabaseStats:
         :return: sorted dictionary utility value of item
         """
         return self.utility
+    
+    def printStats(self):
+        print(f'Database size : {self.getDatabaseSize()}')
+        print(f'Number of items : {self.getTotalNumberOfItems()}')
+        print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
+        print(f'Average Transaction Size : {self.getAverageTransactionLength()}')
+        print(f'Maximum Transaction Size : {self.getMaximumTransactionLength()}')
+        print(f'Minimum utility : {self.getMinimumUtility()}')
+        print(f'Average utility : {self.getAverageUtility()}')
+        print(f'Maximum utility : {self.getMaximumUtility()}')
+        print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
+        print(f'Variance : {self.getVarianceTransactionLength()}')
+        print(f'Sparsity : {self.getSparsity()}')
+        
+        #print(f'sorted utility value each item : {self.getSortedUtilityValuesOfItem()}')
 
 
 if __name__ == '__main__':
@@ -272,13 +287,14 @@ if __name__ == '__main__':
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
     data = pd.DataFrame.from_dict(data)
-    import PAMI.extras.dbStats.utilityDatabaseStats as uds
+    #import PAMI.extras.dbStats.utilityDatabaseStats as uds
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
-    obj = utilityDatabaseStats(data)
-    obj = uds.utilityDatabaseStats('/Users/Likhitha/Downloads/internalUtility_accidents.csv', sep=',')
+    #obj = utilityDatabaseStats(data)
+    obj = utilityDatabaseStats('sample_util.txt', sep=' ')
     obj.run()
-    print(f'Database size : {obj.getDatabaseSize()}')
+    obj.printStats()
+    '''print(f'Database size : {obj.getDatabaseSize()}')
     print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
     print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
     print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
@@ -295,5 +311,6 @@ if __name__ == '__main__':
     numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
     plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
     plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
-    plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)
+    plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)'''
+
 
