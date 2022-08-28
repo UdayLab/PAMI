@@ -172,7 +172,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         """Generating one frequent patterns"""
         self._tidList = {}
         self._mapSupport = {}
-        self._period = self._convert(self._period)
+        self._maxIAT = self._convert(self._maxIAT)
         for line in self._Database:
             s = line
             n = int(s[0])
@@ -183,12 +183,12 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
                     self._tidList[si] = [n]
                 else:
                     lp = n - self._mapSupport[si][1]
-                    if lp <= self._period:
+                    if lp <= self._maxIAT:
                         self._mapSupport[si][0] += 1
                     self._mapSupport[si][1] = n
                     self._tidList[si].append(n)
-        self._periodicSupport = self._convert(self._periodicSupport)
-        self._mapSupport = {k: v[0] for k, v in self._mapSupport.items() if v[0] >= self._periodicSupport}
+        self._minPS = self._convert(self._minPS)
+        self._mapSupport = {k: v[0] for k, v in self._mapSupport.items() if v[0] >= self._minPS}
         plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
         return plist
 
@@ -220,7 +220,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         per = 0
         for i in range(len(timeStamps) - 1):
             j = i + 1
-            if abs(timeStamps[j] - timeStamps[i]) <= self._period:
+            if abs(timeStamps[j] - timeStamps[i]) <= self._maxIAT:
                 per += 1
         return per
 
@@ -241,7 +241,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         else:
             prefix = prefix + suffix
         val = self._getPeriodicSupport(tidSetX)
-        if val >= self._periodicSupport:
+        if val >= self._minPS:
             sample = str()
             for i in prefix:
                 sample = sample + i + " "
@@ -266,7 +266,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetX).intersection(tidSetJ))
                 val = self._getPeriodicSupport(y)
-                if val >= self._periodicSupport:
+                if val >= self._minPS:
                     classItemSets.append(itemJ)
                     classTidSets.append(y)
             newprefix = list(set(itemSetX)) + prefix
@@ -353,7 +353,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
                 itemJ = plist[j]
                 tidSetJ = self._tidList[itemJ]
                 y1 = list(set(tidSetX).intersection(tidSetJ))
-                if len(y1) >= self._minSup:
+                val = self._getPeriodicSupport(y1)
+                if val >= self._minPS:
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             self._Generation(itemSetX, itemSets, tidSets)
@@ -414,7 +415,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
             pat = ""
             for i in x:
                 pat += str(i) + " "
-            patternsAndSupport = pat + ": " + str(y[0]) + ": " + str(y[1])
+            patternsAndSupport = pat + ": " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
@@ -423,7 +424,15 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         :rtype: dict
         """
         return self._finalPatterns
-
+    
+    def printStats(self):
+        print("Total number of Spatial Frequent Patterns:", len(self._getPatterns()))
+        _memUSS = self.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = self.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = self.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
 
 if __name__ == "__main__":
     _ap = str()
@@ -458,4 +467,9 @@ if __name__ == "__main__":
             print("Total Memory in RSS", _memRSS)
             _run = _ap.getRuntime()
             print("Total ExecutionTime in seconds:", _run)'''
+        _ap = STEclat('untitled.txt', 'spatialUtil.txt', 5, 3, ',')
+        _ap.startMine()
+        _ap.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+
