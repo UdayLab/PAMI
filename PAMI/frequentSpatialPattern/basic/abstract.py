@@ -92,7 +92,7 @@ class _spatialFrequentPatterns(_ABC):
 
     """
 
-    def __init__(self, iFile, nFile, minSup, sep="\t"):
+    def __init__(self, iFile, oFile, nFile, minSup, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -109,6 +109,7 @@ class _spatialFrequentPatterns(_ABC):
 
         self._iFile = iFile
         self._nFile = nFile
+        self._oFile = oFile
         self._sep = sep
         self._minSup = minSup
         self._startTime = float()
