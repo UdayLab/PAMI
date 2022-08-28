@@ -543,8 +543,8 @@ class SHUFIM(_ab._utilityPatterns):
                 self._backtrackingEFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
             finalMemory = _ab._psutil.virtual_memory()[3]
             memory = (finalMemory - initialMemory) / 10000
-            if self.maxMemory < memory:
-                self.maxMemory = memory
+            if self._maxMemory < memory:
+                self._maxMemory = memory
 
     def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep, neighbourhoodList):
         """
@@ -824,6 +824,16 @@ class SHUFIM(_ab._utilityPatterns):
         :rtype: float
        """
         return self._endTime-self._startTime
+    
+    def printStats(self):
+        _patterns = self.getPatterns()
+        print("Total number of Spatial High Utility Patterns:", len(_patterns))
+        _memUSS = self.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = self.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = self.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
 
 
 if __name__ == '__main__':
@@ -845,17 +855,9 @@ if __name__ == '__main__':
         print("Total ExecutionTime in seconds:", _run)
         #print("######################################")
     else:
-        _ap = SHUFIM('/Users/likhitha/Downloads/HUIS/main_1.txt',
-                      '/Users/likhitha/Downloads/HUIS/bms_neighbourhoodFile_1.txt',
-                      10, 10, ' ')
+        _ap = SHUFIM('main_9.txt',
+                      'mushroom_neighbourhoodFile_9.txt',
+                      10000, 0.004, ' ')
         _ap.startMine()
-        _patterns = _ap.getPatterns()
-        print("Total number of Spatial High Utility Patterns:", len(_patterns))
-        _ap.savePatterns('/Users/likhitha/Downloads/HUIS/output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+        _ap.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")
