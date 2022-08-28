@@ -27,7 +27,7 @@ import validators as _validators
 from urllib.request import urlopen as _urlopen
 
 
-class _spatialPeriodicFrequentPatterns(_ABC):
+class _geoReferencedPeriodicFrequentPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
     Attributes :
@@ -223,3 +223,4 @@ class _spatialPeriodicFrequentPatterns(_ABC):
         """Total amount of runtime taken by the program will be retrieved from this function"""
 
         pass
+
