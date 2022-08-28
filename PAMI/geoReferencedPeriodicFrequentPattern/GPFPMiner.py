@@ -1,11 +1,10 @@
-from PAMI.periodicFrequentSpatialPattern import abstract as _ab
+from  PAMI.geoReferencedPeriodicFrequentPattern import abstract as _ab
 
 
-class PFS_ECLAT(_ab._spatialPeriodicFrequentPatterns):
+class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
     """ 
-        Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
-        Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
-        scalable version of the Apriori algorithm.
+        GPFPMiner is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
+        Lattice Traversal to mine the geo referenced peridoic frequent patterns.
             ...
     Attributes :
     ----------
@@ -69,27 +68,27 @@ class PFS_ECLAT(_ab._spatialPeriodicFrequentPatterns):
     Executing the code on terminal :
     ------------------------------
         Format:
-            python3 PFS_ECLAT.py <inputFile> <outputFile> <neighbourFile> <minSup> <maxPer>
+            python3 GPFPMiner.py <inputFile> <outputFile> <neighbourFile> <minSup> <maxPer>
         Examples:
-            python3 PFS_ECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3 (minSup & maxPer will be considered in percentage of database transactions)
+            python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3 (minSup & maxPer will be considered in percentage of database transactions)
 
-            python3 PFS_ECLAT.py sampleTDB.txt output.txt sampleN.txt 5 3 (minSup & maxPer will be considered in support count or frequency)
+            python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 5 3 (minSup & maxPer will be considered in support count or frequency)
                                                                 (it considers "\t" as separator)
 
-            python3 PFS_ECLAT.py sampleTDB.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
+            python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 5 3 ',' (it will consider "," as a separator)
 
     Sample run of importing the code :
     -------------------------------
 
-        import PAMI.periodicFrequentSpatialPattern.periodicSpatialEclat as alg
+        import PAMI.geoReferencedPeridicFrequentPattern.GPFPMiner as alg
 
-        obj = alg.periodicSpatialEclat("sampleTDB.txt", "sampleN.txt", 5, 3)
+        obj = alg.GPFPMiner("sampleTDB.txt", "sampleN.txt", 5, 3)
 
         obj.startMine()
 
-        spatialPeriodicFrequentPatterns = obj.getPatterns()
+        Patterns = obj.getPatterns()
 
-        print("Total number of Periodic Spatial Frequent Patterns:", len(spatialPeriodicFrequentPatterns))
+        print("Total number of Geo Referenced Periodic-Frequent Patterns:", len(Patterns))
 
         obj.savePatterns("outFile")
 
@@ -159,8 +158,8 @@ class PFS_ECLAT(_ab._spatialPeriodicFrequentPatterns):
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            line.strip()
-                            temp = [i.rstrip() for i in line.split(self._sep)]
+                            line = line.rstrip()
+                            temp = [i.strip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             self._Database.append(temp)
                 except IOError:
@@ -432,15 +431,24 @@ class PFS_ECLAT(_ab._spatialPeriodicFrequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+    
+    def printStats(self):
+        print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
+        _memUSS = self.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = self.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = self.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
 
 
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
         if len(_ab._sys.argv) == 7:
-            _ap = PFS_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
+            _ap = GPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
-            _ap = PFS_ECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = GPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
         _spatialFrequentPatterns = _ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
@@ -454,7 +462,7 @@ if __name__ == "__main__":
     else:
         '''minSup = [450, 470, 490, 510, 530, 550]
         for i in minSup:
-            _ap = PFS_ECLAT('/Users/Likhitha/Downloads/Nighbours_gen/temp_pollution.txt',
+            _ap = GPFPMiner('/Users/Likhitha/Downloads/Nighbours_gen/temp_pollution.txt',
                         '/Users/Likhitha/Downloads/Nighbours_gen/pollution_neighbours.txt',
                 i, 250, ',')
             _ap.startMine()
@@ -467,4 +475,10 @@ if __name__ == "__main__":
             print("Total Memory in RSS", _memRSS)
             _run = _ap.getRuntime()
             print("Total ExecutionTime in seconds:", _run)'''
+        _ap = GPFPMiner('untitled.txt','spatialUtil.txt', 4, 3, ' ')
+        _ap.startMine()
+        _ap.printStats()
+        print(_ap.getPatternsAsDataFrame())
+        _ap.savePatterns('output.txt')
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
