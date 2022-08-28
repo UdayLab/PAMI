@@ -428,7 +428,7 @@ class CPGrowth(_ab._correlatedPatterns):
         for i in range(prefixLength):
             l.append(prefix[i])
         self._itemSetCount += 1
-        self._finalPatterns[tuple(l)] = str(support)+" : "+str(allconf)
+        self._finalPatterns[tuple(l)] = [support, allconf]
     
     def _convert(self, value):
         """
@@ -616,8 +616,11 @@ class CPGrowth(_ab._correlatedPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+            pat = ""
+            for i in a:
+                pat += str(i) + " "
+            data.append([pat, b[0], b[1]])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Confidence'])
         return dataframe
 
     def savePatterns(self, outFile):
@@ -633,7 +636,7 @@ class CPGrowth(_ab._correlatedPatterns):
             pat = ""
             for i in x:
                 pat += str(i) + " "
-            patternsAndSupport = pat + ": " + str(y)
+            patternsAndSupport = pat + ": " + str(y[0]) + ": " + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
@@ -644,7 +647,15 @@ class CPGrowth(_ab._correlatedPatterns):
         :rtype: dict
         """
         return self._finalPatterns
-
+    
+    def printStats(self):
+        print("Total number of correlated-Frequent Patterns:", len(self.getPatterns()))
+        memUSS = self.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = self.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = self.getRuntime()
+        print("Total ExecutionTime in seconds:", run)
 
 if __name__ == "__main__":
     _ap = str()
@@ -664,9 +675,9 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in seconds:", _run)
     else:
-        l = [0.0007, 0.0009, 0.001, 0.002, 0.003, 0.01]
+        '''l = [0.0007, 0.0009, 0.001, 0.002, 0.003, 0.01]
         for i in l:
-            ap = CPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_retail.csv',
+            ap = CPGrowth('',
                           i, 0.7)
             ap.startMine()
             print(ap._minSup, ap._minAllConf, len(ap._Database))
@@ -678,5 +689,9 @@ if __name__ == "__main__":
             memRSS = ap.getMemoryRSS()
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)'''
+        ap = CPGrowth('untitled.txt',5, 0.5, ' ')
+        ap.startMine()
+        ap.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
