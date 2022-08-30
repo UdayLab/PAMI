@@ -38,7 +38,7 @@ Total available algorithms: 70
 
 Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Similarly, click on __"Adv"__ link to view the advanced tutorial on using a particular algorithm.
 
-1. Frequent pattern mining: 
+1. Frequent pattern mining: [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/frequent.pdf)
      
    | Basic | Closed | Maximal | Top-k | CUDA | pyspark |
    |-------|--------|---------|-------|------|--------|
@@ -54,14 +54,14 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |-----|
     |RSFP|
         
-3. Correlated pattern mining: 
+3. Correlated pattern mining: [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/correlatePatterns.pdf)
 
     |Basic|
     |-----|
     |CP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowth-st.pdf) -[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowth-ad.pdf) |
     |CP-growth++ [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPuls-st.pdf)||ad](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPlus-ad.pdf)|
     
-4. Frequent spatial pattern mining: 
+4. Frequent spatial pattern mining: [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/frequentSpatial.pdf)
 
     |Basic|
     |-----|
@@ -98,19 +98,19 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |-----|
     |FPFP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-ad.pdf)|
 
-10. High utility frequent pattern mining:
+10. High utility frequent pattern mining:  [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtiltiyFrequent.pdf)
 
     |Basic|
     |-----|
     |HUFIM|
     
-11. High utility frequent spatial pattern mining:
+11. High utility frequent spatial pattern mining:  [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtiltiyFrequentSpatial.pdf)
 
     |Basic|
     |-----|
     |SHUFIM|
  
-12. High utility pattern mining:
+12. High utility pattern mining:   [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtility.pdf)
 
      |Basic|
      |-----|
@@ -118,7 +118,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
      |HMiner|
      |UPGrowth|
      
-13. High utility spatial pattern mining:
+13. High utility spatial pattern mining:  [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtilitySpatial.pdf)
 
      |Basic|topk|
      |-----|----|
@@ -140,7 +140,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |GPF-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/GPFgrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/PPF_DFS-ad.pdf)|
     |PPF-DFS [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/GPFgrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/PPF_DFS-ad.pdf)|
     
-16. Periodic frequent pattern mining: 
+16. Periodic frequent pattern mining: [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicFrequent.pdf)
 
     |Basic| Closed | Maximal |
     |-----|--------|---------|
@@ -149,7 +149,13 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |PS-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PSGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PSGrowth-ad.pdf)| | |
     |PFP-ECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFECLAT-ad.pdf)| | |
     
-17. Partial periodic pattern mining:
+17. Geo referenced Periodic frequent pattern mining:   [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicFrequentSpatial.pdf)
+
+     |Basic|
+     |-----|
+     |GPFPMiner|
+    
+18. Partial periodic pattern mining:
 
     |Basic|Closed|Maximal|topk|
     |-----|-------|------|----|
@@ -157,20 +163,20 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |3PECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-ad.pdf)| | | | |
     
 
-18. Periodic correlated pattern mining: 
+19. Periodic correlated pattern mining: 
     
     |Basic|
     |-----|
     |EPCP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicCorrelatedPattern/EPCPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicCorrelatedPattern/EPCPGrowth-ad.pdf)|
     
 
-19. Uncertain correlated pattern mining: 
+20. Uncertain correlated pattern mining: 
     
     |Basic|
     |-----|
     |CFFI|
     
-20. Uncertain frequent pattern mining:
+21. Uncertain frequent pattern mining: [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/uncertainFrequent.pdf)
     
     |Basic| top-k |
     |-----|-----|
@@ -179,34 +185,32 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |TubeS| | 
     |UVEclat| |
     
-21. Uncertain periodic frequent pattern mining:
+22. Uncertain periodic frequent pattern mining: [Sample] (https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/uncertainPeriodicFrequent.pdf)
      
      |Basic|
      |-----|
-     |PTubeP|
-     |PTubeS|
      |UPFP-growth|
      
-22. Recurring pattern mining:
+23. Recurring pattern mining:
 
      |Basic|
      |-----|
      |RPgrowth|
      
-23. Relative High utility pattern mining: 
+24. Relative High utility pattern mining: 
     
     |Basic|
     |-----|
     |RHUIM|
  
-24. Stable periodic pattern mining: 
+25. Stable periodic pattern mining: 
     
     |Basic|
     |-----|
     |SPP-growth|
     |SP-ECLAT|
     
-25. Uncertain correlated pattern mining: 
+26. Uncertain correlated pattern mining: 
     
     |Basic|
     |-----|
