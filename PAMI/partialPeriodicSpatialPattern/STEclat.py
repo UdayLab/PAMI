@@ -68,7 +68,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     Executing the code on terminal :
     ------------------------------
         Format:
-            python3 STEclat.py <inputFile> <outputFile> <neighbourFile>  <maxIAT> <minPS>
+            python3 STEclat.py <inputFile> <outputFile> <neighbourFile>  <minPS>  <maxIAT> 
         Examples:
             python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 0.2 0.5 (maxIAT & minPS will be considered in percentage of database transactions)
 
@@ -123,8 +123,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     _sep = "\t"
     _lno = 0
 
-    def __init__(self, iFile, nFile, maxIAT, minPS, sep="\t"):
-        super().__init__(iFile, nFile, maxIAT, minPS,  sep)
+    def __init__(self, iFile, nFile, minPS, maxIAT, sep="\t"):
+        super().__init__(iFile, nFile, minPS, maxIAT,  sep)
         self._NeighboursMap = {}
 
     def _creatingItemSets(self):
@@ -242,10 +242,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
             prefix = prefix + suffix
         val = self._getPeriodicSupport(tidSetX)
         if val >= self._minPS:
-            sample = str()
-            for i in prefix:
-                sample = sample + i + " "
-            self._finalPatterns[sample] = val
+            self._finalPatterns[tuple(prefix)] = val
 
     def _Generation(self, prefix, itemSets, tidSets):
         if len(itemSets) == 1:
@@ -400,8 +397,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b[0], b[1]])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Period'])
+            data.append([a, b])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -414,7 +411,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         for x, y in self._finalPatterns.items():
             pat = ""
             for i in x:
-                pat += str(i) + " "
+                pat += str(i) + ' '
             patternsAndSupport = pat + ": " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
@@ -424,15 +421,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         :rtype: dict
         """
         return self._finalPatterns
-    
-    def printStats(self):
-        print("Total number of Spatial Frequent Patterns:", len(self._getPatterns()))
-        _memUSS = self.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = self.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = self.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -467,9 +456,19 @@ if __name__ == "__main__":
             print("Total Memory in RSS", _memRSS)
             _run = _ap.getRuntime()
             print("Total ExecutionTime in seconds:", _run)'''
-        _ap = STEclat('untitled.txt', 'spatialUtil.txt', 5, 3, ',')
+        _ap = STEclat('untitled.txt', 'spatialUtil.txt', 3, 4, ' ')
         _ap.startMine()
-        _ap.printStats()
+        _spatialFrequentPatterns = _ap.getPatterns()
+        print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
+        print(_ap.getPatternsAsDataFrame())
+        _ap.savePatterns('output.txt')
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in seconds:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
 
 
