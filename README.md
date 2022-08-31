@@ -53,26 +53,31 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |Basic|
     |-----|
     |RSFP|
+
+
+3. Frequent pattern with multiple minimum support:
+    
+    |Basic|
+    |-----|
+    |CFPGrowth|
+    |CFPGrowth++|
+    
+    
         
-3. Correlated pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/correlatePatterns.pdf)
+4. Correlated pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/correlatePatterns.pdf)
 
     |Basic|
     |-----|
     |CP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowth-st.pdf) -[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowth-ad.pdf) |
     |CP-growth++ [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPuls-st.pdf)||ad](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPlus-ad.pdf)|
     
-4. Frequent spatial pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/frequentSpatial.pdf)
+5. Frequent spatial pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/frequentSpatial.pdf)
 
     |Basic|
     |-----|
     |spatialECLAT  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/SpatialECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/SpatialECLAT-ad.pdf)|
     |FSP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-ad.pdf)|
     
-5. Correlated spatial pattern mining: 
-
-    |Basic|
-    |-----|
-    |CSP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedSpatialPattern/CSPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedSpatialPattern/CSPGrowth-ad.pdf)|
     
 6. Fuzzy correlated pattern mining:
 
