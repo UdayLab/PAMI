@@ -1,6 +1,6 @@
 import pandas as pd
 # creating transactional database by applying threshold
-class createDatabase:
+class imagery2Databases:
      #pass the list of detected objects and specify the minimum probability score an object must maintain.
     def __init__(self,detected_objects,threshold):
         #initialize data frame to store objects
