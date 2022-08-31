@@ -79,7 +79,7 @@ class _partialPeriodicSpatialPatterns(_ABC):
             This function outputs the total runtime of a mining algorithm
     """
 
-    def __init__(self, iFile, nFile, maxIAT, minPS, sep="\t"):
+    def __init__(self, iFile, nFile, minPS, maxIAT, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
