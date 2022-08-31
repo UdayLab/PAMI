@@ -14,7 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #      Copyright (C)  2021 Rage Uday Kiran
 
-from PAMI.frequentPatternUsingOtherMeasure.abstract import *
+import PAMI.frequentPatternUsingOtherMeasures.abstract as _ab
 import sys
 import validators
 from urllib.request import urlopen
@@ -202,7 +202,7 @@ class Tree:
                     current = child
 
 
-class RSFPGrowth(frequentPatterns):
+class RSFPGrowth(_ab.frequentPatterns):
     """ 
         Algorithm to find all items with relative support from given dataset
 
@@ -350,7 +350,7 @@ class RSFPGrowth(frequentPatterns):
 
             """
         self.Database = []
-        if isinstance(self.iFile, pd.DataFrame):
+        if isinstance(self.iFile, _ab.pd.DataFrame):
             if self.iFile.empty:
                 print("its empty..")
             i = self.iFile.columns.values.tolist()
@@ -529,7 +529,7 @@ class RSFPGrowth(frequentPatterns):
             main program to start the operation
         """
 
-        self.startTime = time.time()
+        self.startTime = _ab.time.time()
         if self.iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self.minSup is None:
@@ -540,7 +540,7 @@ class RSFPGrowth(frequentPatterns):
         self.frequentOneItem()
         self.finalPatterns = {}
         self.mapSupport = {k: v for k, v in self.mapSupport.items() if v >= self.minSup}
-        print(len(self.mapSupport), len(self.finalPatterns), len(self.Database))
+        #print(len(self.mapSupport), len(self.finalPatterns), len(self.Database))
         itemSetBuffer = [k for k, v in sorted(self.mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.Database:
             transaction = []
@@ -554,8 +554,8 @@ class RSFPGrowth(frequentPatterns):
             self.itemSetBuffer = []
             self.frequentPatternGrowthGenerate(self.tree, self.itemSetBuffer, 0, self.mapSupport, self.minRatio)
         print("Relative support frequent patterns were generated successfully using RSFPGrowth algorithm")
-        self.endTime = time.time()
-        process = psutil.Process(os.getpid())
+        self.endTime = _ab.time.time()
+        process = _ab.psutil.Process(_ab.os.getpid())
         self.memoryRSS = float()
         self.memoryUSS = float()
         self.memoryUSS = process.memory_full_info().uss
@@ -609,8 +609,11 @@ class RSFPGrowth(frequentPatterns):
         dataframe = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, b])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support'])
+            pattern = str()
+            for i in a:
+                pattern = pattern + i + " "
+            data.append([pattern, b[0], b[1]])
+            dataframe = _ab.pd.DataFrame(data, columns=['Patterns', 'Support', 'RelativeSupport'])
         return dataframe
 
     def savePatterns(self, outFile):
@@ -641,8 +644,16 @@ class RSFPGrowth(frequentPatterns):
                 pattern = pattern + i + " "
             s1 = str(y)
             res[pattern] = s1
-
         return res
+    
+    def printStats(self):
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
 
 
 if __name__ == "__main__":
@@ -663,4 +674,8 @@ if __name__ == "__main__":
         run = ap.getRuntime()
         print("Total ExecutionTime in ms:", run)
     else:
+        ap = RSFPGrowth('untitled1.txt', 4, 0.7, ' ')
+        ap.startMine()
+        ap.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")        
+
