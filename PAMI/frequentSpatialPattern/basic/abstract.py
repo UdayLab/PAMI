@@ -92,7 +92,7 @@ class _spatialFrequentPatterns(_ABC):
 
     """
 
-    def __init__(self, iFile, oFile, nFile, minSup, sep="\t"):
+    def __init__(self, iFile, nFile, minSup, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
