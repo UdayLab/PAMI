@@ -24,6 +24,7 @@ class createDatabase:
                         dataDic[item[0]]=[item[1]]
                     else:
                         dataDic[item[0]].append(item[1])
+            # storing objects,their probabilities and count 
             self.items=[item for item in dataDic.keys()]
             self.values=[max(value) for value in dataDic.values()]
             self.supports=[len(value) for value in dataDic.values()]
@@ -38,55 +39,65 @@ class createDatabase:
     def getDataFrame(self):
         return self.dataframe
     #This function will save the list of objects found in each image as a transactional database.
+
+    # creating transactional database
     def saveAsTransactionalDB(self,outputFile,sep):
         writeFile = open(outputFile,'w')
         for i in range(len(self.itemList)):
-            if i:
+            if self.itemList[i]:
                 writeLine = sep.join(map(str,self.itemList[i]))
                 writeFile.write(writeLine + '\n')
         writeFile.close()
-
+    
+    # creating temporal database
     def saveAsTemporalDB(self,outputFile,sep):
         writeFile = open(outputFile, 'w')
        
         for i in range(len(self.itemList)):
-            if i:
+            if self.itemList[i]:
                 writeLine = sep.join(map(str, self.itemList[i]))
                 writeFile.write(str(i)+sep+writeLine+'\n')
                 
         writeFile.close()
+     
+    # creating utility transactional database
 
     def saveAsUtilityTransactionalDB(self, outputFile, sep):
          writeFile = open(outputFile, 'w')
          for i in range(len(self.itemList)):
-             if i:
+             if self.itemList[i]:
                  writeLine = sep.join(map(str, self.itemList[i]))
                  writeLine2 = sep.join(map(str, self.itemSupport[i]))
                  writeFile.write(writeLine +':'+str(self.itemSupportSum[i])+':' +writeLine2+'\n')
          writeFile.close()
+  
+    # creating utility temporal database
 
     def saveAsUtilityTemporalDB(self,outputFile,sep):
         writeFile = open(outputFile, 'w')
         for i in range(len(self.itemList)):
-            if i:
+            if self.itemList[i]:
                 writeLine = sep.join(map(str, self.itemList[i]))
                 writeLine2 = sep.join(map(str, self.itemSupport[i]))
                 writeFile.write(str(i)+str(sep)+writeLine + ':' + str(self.itemSupportSum[i]) + ':' + writeLine2 + '\n')
         writeFile.close()
+    
+    # creating uncertain transactional database
 
     def saveAsUncertainTransactionalDB(self, outputFile, sep):
              writeFile = open(outputFile, 'w')
              for i in range(len(self.itemList)):
-                 if i:
+                 if self.itemList[i]:
                      writeLine = sep.join(map(str, self.itemList[i]))
                      writeLine2 = sep.join(map(str, self.probabilityValuesList[i]))
                      writeFile.write(writeLine +":1:" +writeLine2+'\n')
              writeFile.close()
+    # creating uncertain Temporal database
 
     def saveAsUncertainTemporalDB(self, outputFile, sep):
              writeFile = open(outputFile, 'w')
              for i in range(len(self.itemList)):
-                 if i:
+                 if self.itemList[i]:
                      writeLine = sep.join(map(str, self.itemList[i]))
                      writeLine2 = sep.join(map(str, self.probabilityValuesList[i]))
                      writeFile.write(str(i)+str(sep)+writeLine +":1:" +writeLine2+'\n')
