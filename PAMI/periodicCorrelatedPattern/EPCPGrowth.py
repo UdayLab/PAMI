@@ -262,7 +262,7 @@ class _Tree(object):
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
             pattern = prefix[:]
             pattern.append(i)
-            print(pattern, self.info[i][0], self.info[i][1], self.info[i][2], self.info[i][3])
+            #print(pattern, self.info[i][0], self.info[i][1], self.info[i][2], self.info[i][3])
             if self.info[i][0] >= _minSup and self.info[i][1] <= _maxPer and self.info[i][2] >= _minAllConf and self.info[i][3] <= _maxPerAllConf:
                 yield pattern, self.info[i]
                 patterns, timeStamps, info = self.getConditionalPatterns(i, pattern)
@@ -637,7 +637,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         data = []
         for a, b in self._finalPatterns.items():
             data.append([a, b[0], b[1], b[2], b[3]])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'allConf', 'Periodicity', 'maxPerAllConf'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity', 'allConf', 'maxPerAllConf'])
         return dataFrame
 
     def savePatterns(self, outFile):
@@ -659,7 +659,17 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         :rtype: dict
         """
         return self._finalPatterns
-
+    
+    def printStats(self):
+        Patterns = self.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        memUSS = self.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = self.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = self.getRuntime()
+        print("Total ExecutionTime in ms:", run)
+        
 
 if __name__ == "__main__":
     _ap = str()
@@ -679,17 +689,10 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''ap = EPCPGrowth('/Users/Likhitha/Downloads/SPP_sample.txt', 2, 0.6, 6, 1.5,  ' ')
+        ap = EPCPGrowth('sampleInputFile.txt', 4, 0.6, 6, 1.5,  ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
-        print(ap.getPatternsAsDataFrame())
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns('/Users/Likhitha/Downloads/EPCP_output.txt')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)'''
+        ap.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
 
