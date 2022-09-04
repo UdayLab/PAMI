@@ -17,13 +17,14 @@ setuptools.setup(
     install_requires=[            # All necessary packages utilized by our PAMI software
         'psutil',
         'pandas',
-	    'plotly',
+	'plotly',
+	'pycuda',
         'matplotlib',
         'resource',
         'validators',
         'urllib3',
-	    'pyspark',
-	    'Pillow',
+	'pyspark',
+	'Pillow',
     ],
     classifiers = [
         'Development Status :: 5 - Production/Stable',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
