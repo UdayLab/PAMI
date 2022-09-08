@@ -144,7 +144,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
      |LPPMBreadth|
      |LPPMDepth|
     
-15. Partial periodic frequent pattern:
+15. Partial periodic frequent pattern: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/partialPeriodicFrequent.pdf)
 
     |Basic|
     |-----|
