@@ -445,7 +445,11 @@ class PFgrowth:
 class GPFgrowth(partialPeriodicPatterns):
     """
     GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
-
+    
+    Reference:
+    ---------
+    R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
+    Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, https://doi.org/10.1016/j.jss.2016.11.035.
     ...
     Attributes:
     ----------
