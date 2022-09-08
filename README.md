@@ -174,18 +174,18 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |3PECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-ad.pdf)| | | | |
     
 
-19. Periodic correlated pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicCorrelated.pdf)
+19. Partial periodic spatial pattern mining:[Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/partialPeriodicSpatial.pdf)
+
+     |Basic|
+     |-----|
+     |STECLAT|
+
+20. Periodic correlated pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicCorrelated.pdf)
     
     |Basic|
     |-----|
     |EPCP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicCorrelatedPattern/EPCPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicCorrelatedPattern/EPCPGrowth-ad.pdf)|
     
-
-20. Uncertain correlated pattern mining: 
-    
-    |Basic|
-    |-----|
-    |CFFI|
     
 21. Uncertain frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/uncertainFrequent.pdf)
     
