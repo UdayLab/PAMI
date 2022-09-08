@@ -48,14 +48,14 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
    |ECLAT-bitSet [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/ECLATbitset-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/ECLATbitset-ad.pdf)| | | | | |
    |ECLAT-diffset|  | | | |
 
-2. Frequent pattern mining using other measures:
+2. Frequent pattern mining using other measures: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/frequentUsingOther.pdf)
     
     |Basic|
     |-----|
     |RSFP|
 
 
-3. Frequent pattern with multiple minimum support:
+3. Frequent pattern with multiple minimum support: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/multipleMinSup.pdf)
     
     |Basic|
     |-----|
@@ -79,25 +79,31 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |FSP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-ad.pdf)|
     
     
-6. Fuzzy correlated pattern mining:
+6. Fuzzy correlated pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzyCorrelated.pdf)
 
     |Basic|
     |-----|
     |FCP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPattern/FCPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPattern/FCPGrowth-ad.pdf)|
 
-7. Fuzzy Frequent pattern mining:
+7. Fuzzy Frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzyFrequent.pdf)
 
     |Basic|
     |-----|
     |FFI-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentPatterns/FFIMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentPatterns/FFIMiner-ad.pdf)|
     
-8. Fuzzy frequent spatial pattern mining:
+8. Fuzzy frequent spatial pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzySpatial.pdf)
 
     |Basic|
     |-----|
     |FFSP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentSpatialPattern/FFSPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentSpatialPattern/FFSPMiner-ad.pdf)|
     
-9. Fuzzy periodic frequent pattern mining:
+9. Fuzzy periodic frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzyPeriodic.pdf)
+
+    |Basic|
+    |-----|
+    |FPFP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-ad.pdf)|
+    
+9. Geo referenced Fuzzy periodic frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzySpatialPeriodic.pdf)
 
     |Basic|
     |-----|
@@ -130,7 +136,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
      |HDSHIM|TKSHUIM|
      |SHUIM|
      
-14. Local periodic pattern mining:
+14. Local periodic pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/localPeriodic.pdf)
 
      |Basic|
      |-----|
@@ -160,7 +166,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
      |-----|
      |GPFPMiner|
     
-18. Partial periodic pattern mining:
+18. Partial periodic pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/partialPeriodic.pdf)
 
     |Basic|Closed|Maximal|topk|
     |-----|-------|------|----|
@@ -168,7 +174,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |3PECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-ad.pdf)| | | | |
     
 
-19. Periodic correlated pattern mining: 
+19. Periodic correlated pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicCorrelated.pdf)
     
     |Basic|
     |-----|
@@ -196,7 +202,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
      |-----|
      |UPFP-growth|
      
-23. Recurring pattern mining:
+23. Recurring pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/RecurringPatterns.pdf)
 
      |Basic|
      |-----|
@@ -208,18 +214,38 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |-----|
     |RHUIM|
  
-25. Stable periodic pattern mining: 
+25. Stable periodic pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/stablePeriodic.pdf)
     
     |Basic|
     |-----|
     |SPP-growth|
     |SP-ECLAT|
     
-26. Uncertain correlated pattern mining: 
+26. Weighted frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/weightedFrequentPatterns.pdf)
     
     |Basic|
     |-----|
-    |CFFI|
+    |WFIM|
+    
+27. Uncertain Weighted frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/weightedUncertainFrequentPatterns.pdf)
+    
+    |Basic|
+    |-----|
+    |WUFIM|
+    
+28. Weighted frequent regular pattern mining: 
+    
+    |Basic|
+    |-----|
+    |WFRIMiner|
+    
+    
+29. Weighted frequent neighbourhood pattern mining: 
+    
+    |Basic|
+    |-----|
+    |SSWFPGrowth|
+ 
  
      
  
