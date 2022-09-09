@@ -208,7 +208,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
      |-----|
      |RPgrowth|
      
-24. Relative High utility pattern mining: 
+24. Relative High utility pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/relativeUtility.pdf)
     
     |Basic|
     |-----|
