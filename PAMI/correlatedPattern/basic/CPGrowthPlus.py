@@ -227,9 +227,9 @@ class _Tree:
 
 class CPGrowthPlus(_ab._correlatedPatterns):
     """ 
-         cpgrowth is one of the fundamental algorithm to discover Correlated frequent patterns in a transactional database.
-        it is based on traditional Fpgrowth Algorithm,This algorithm uses breadth-first search technique to find the 
-        correlated Frequent patterns in transactional database.
+         CPGrowthPlus is one of the efficient algorithm to discover Correlated frequent patterns in a transactional database.
+         Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that
+         have support within specified interval.
 
     Reference :
     ---------
@@ -365,7 +365,7 @@ class CPGrowthPlus(_ab._correlatedPatterns):
     _Database = []
     _mapSupport = {}
     _lno = 0
-    _tree = _Tree()
+    _tree = str()
     _itemSetBuffer = None
     _fpNodeTempBuffer = []
     _itemSetCount = 0
@@ -573,6 +573,7 @@ class CPGrowthPlus(_ab._correlatedPatterns):
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
         self._finalPatterns = {}
+        self._tree = _Tree()
         self._minSup = self._convert(self._minSup)
         self._frequentOneItem()
         self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
