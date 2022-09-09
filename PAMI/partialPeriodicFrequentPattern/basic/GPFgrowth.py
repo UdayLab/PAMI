@@ -277,7 +277,7 @@ class generatePFListver2:
         for item in self.PFList:
             if last - self.PFList[item][2] <= self.maxPer:
                 self.PFList[item][1] += 1
-            if self.PFList[item][1] / (self.minSup + 1) < self.minPR or self.PFList[item][1] < self.minSup:
+            if self.PFList[item][1] / (self.minSup + 1) < self.minPR or self.PFList[item][0] < self.minSup:
                 del self.tsList[item]
         #self.PFList = {tuple([k]): v for k, v in sorted(self.PFList.items(), key=lambda x:x[1], reverse=True)}
         tidList = {tuple([k]): v for k, v in sorted(self.tsList.items(), key=lambda x:len(x[1]), reverse=True)}
