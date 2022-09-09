@@ -2,6 +2,7 @@ import statistics
 import validators
 from urllib.request import urlopen
 import pandas as pd
+import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class utilityDatabaseStats:
     """
@@ -308,7 +309,7 @@ if __name__ == '__main__':
 
     data = pd.DataFrame.from_dict(data)
     #import PAMI.extras.dbStats.utilityDatabaseStats as uds
-    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+    
 
     #obj = utilityDatabaseStats(data)
     obj = utilityDatabaseStats('utility_T20I6D100K.txt', sep=' ')
