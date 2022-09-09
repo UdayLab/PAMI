@@ -30,7 +30,6 @@
 
 from PAMI.correlatedPattern.basic import abstract as _ab
 
-#frequentPatterns = {}
 class _Node:
     """
     A class used to represent the node of frequentPatternTree
@@ -213,8 +212,12 @@ class _Tree:
 class CPGrowth(_ab._correlatedPatterns):
     """
         CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database.
-        it is based on traditional Fpgrowth Algorithm,This algorithm uses breadth-first search technique to find the 
+        it is based on traditional FPGrowth Algorithm,This algorithm uses breadth-first search technique to find the
         correlated Frequent patterns in transactional database.
+
+    Reference :
+    ----------
+        Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
     
     Attributes :
     ----------
@@ -279,21 +282,25 @@ class CPGrowth(_ab._correlatedPatterns):
         saveItemSet(prefix, prefixLength, support)
             To save the frequent patterns mined form frequentPatternTree
 
-    Executing the code on terminal
+    Executing the code on terminal :
     ------------------------------
-        Format: python3 CPGrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
-        Examples: python3 CPGrowth.py inp.txt output.txt 4.0 0.3   (minSup will be considered in percentage of database transactions)
-                  python3 CPGrowth.py  patterns.txt 4  0.3   (minSup will be considered in support count or frequency)
+        Format:
+                python3 CPGrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+        Examples:
+                python3 CPGrowth.py inp.txt output.txt 4.0 0.3   (minSup will be considered in percentage of database transactions)
+
+                python3 CPGrowth.py  patterns.txt 4  0.3   (minSup will be considered in support count or frequency)
                                                                 (it will consider '\t' as separator)
-                  python3 CPGrowth.py sampleDB.txt patterns.txt 0.23 0.2  , 
+
+                python3 CPGrowth.py sampleDB.txt patterns.txt 0.23 0.2  ,
                                                                 (it will consider ',' as separator)
 
-    Sample run of the importing code:
+    Sample run of the importing code :
     ---------------------------------
 
         from PAMI.correlatedPattern.basic import CPGrowth as alg
 
-        obj = alg.CPGrowth(iFile, minSup,minAllConf)
+        obj = alg.CPGrowth(iFile, minSup, minAllConf)
 
         obj.startMine()
 
@@ -335,7 +342,7 @@ class CPGrowth(_ab._correlatedPatterns):
     _Database = []
     _mapSupport = {}
     _lno = 0
-    _tree = _Tree()
+    _tree = str()
     _itemSetBuffer = None
     _fpNodeTempBuffer = []
     _itemSetCount = 0
@@ -373,7 +380,6 @@ class CPGrowth(_ab._correlatedPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            #print(temp)
                             self._Database.append(temp)
                 except IOError:
                     print("File Not Found")
@@ -428,7 +434,7 @@ class CPGrowth(_ab._correlatedPatterns):
         for i in range(prefixLength):
             l.append(prefix[i])
         self._itemSetCount += 1
-        self._finalPatterns[tuple(l)] = [support, allconf]
+        self._finalPatterns[tuple(l)] = str(support)+" : "+str(allconf)
     
     def _convert(self, value):
         """
@@ -542,7 +548,7 @@ class CPGrowth(_ab._correlatedPatterns):
     
     def startMine(self):
         """
-        main program to start the operation
+        main method to start
 
         """
         self._startTime = _ab._time.time()
@@ -550,7 +556,9 @@ class CPGrowth(_ab._correlatedPatterns):
             raise Exception("Please enter the file path or file name:")
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
+        self._tree = _Tree()
         self._finalPatterns = {}
+        print(len(self._finalPatterns))
         self._frequentOneItem()
         self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
         _itemSetBuffer = [k for k, v in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
@@ -616,11 +624,8 @@ class CPGrowth(_ab._correlatedPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            pat = ""
-            for i in a:
-                pat += str(i) + " "
-            data.append([pat, b[0], b[1]])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Confidence'])
+            data.append([a, b])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
     def savePatterns(self, outFile):
@@ -636,7 +641,7 @@ class CPGrowth(_ab._correlatedPatterns):
             pat = ""
             for i in x:
                 pat += str(i) + " "
-            patternsAndSupport = pat + ": " + str(y[0]) + ": " + str(y[1])
+            patternsAndSupport = pat + ": " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
@@ -647,15 +652,7 @@ class CPGrowth(_ab._correlatedPatterns):
         :rtype: dict
         """
         return self._finalPatterns
-    
-    def printStats(self):
-        print("Total number of correlated-Frequent Patterns:", len(self.getPatterns()))
-        memUSS = self.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = self.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = self.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -677,7 +674,7 @@ if __name__ == "__main__":
     else:
         '''l = [0.0007, 0.0009, 0.001, 0.002, 0.003, 0.01]
         for i in l:
-            ap = CPGrowth('',
+            ap = CPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_retail.csv',
                           i, 0.7)
             ap.startMine()
             print(ap._minSup, ap._minAllConf, len(ap._Database))
@@ -690,8 +687,4 @@ if __name__ == "__main__":
             print("Total Memory in RSS", memRSS)
             run = ap.getRuntime()
             print("Total ExecutionTime in seconds:", run)'''
-        ap = CPGrowth('untitled.txt',5, 0.5, ' ')
-        ap.startMine()
-        ap.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
