@@ -222,9 +222,9 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
 
     Reference :
     ---------
-           U. Yun and J. J. Leggett, “Wfim: weighted frequent itemset mining with a weight range and a minimum weight,”
-           in Proceedings of the 2005 SIAM International Conference on Data Mining. SIAM, 2005, pp. 636–640.
-           https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76
+           R. Uday Kiran, P. P. C. Reddy, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy, 
+           "Discovering Spatial Weighted Frequent Itemsets in Spatiotemporal Databases," 2019 International Conference on Data Mining Workshops (ICDMW), 
+           2019, pp. 987-996, doi: 10.1109/ICDMW.2019.00143.
 
     Attributes :
     ----------
