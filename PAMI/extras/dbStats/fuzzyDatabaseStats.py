@@ -2,6 +2,7 @@ import statistics
 import validators
 from urllib.request import urlopen
 import pandas as pd
+import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class fuzzyDatabaseStats:
     """
