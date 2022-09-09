@@ -203,6 +203,20 @@ class utilityDatabaseStats:
                 itemFrequencies[item] = itemFrequencies.get(item, 0)
                 itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
+    
+    def getFrequenciesInRange(self):
+        fre = self.getSortedListOfItemFrequencies()
+        rangeFrequencies = {}
+        maximum = max([i for i in fre.values()])
+        values = [int(i*maximum/6) for i in range(1,6)]
+        print(maximum)
+        va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
+        rangeFrequencies[va] = values[0]
+        for i in range(1,len(values)):
+            
+            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i-1]})
+            rangeFrequencies[va] = values[i]
+        return rangeFrequencies
 
     def getTransanctionalLengthDistribution(self):
         """
@@ -275,7 +289,13 @@ class utilityDatabaseStats:
         print(f'Variance : {self.getVarianceTransactionLength()}')
         print(f'Sparsity : {self.getSparsity()}')
         
-        #print(f'sorted utility value each item : {self.getSortedUtilityValuesOfItem()}')
+    
+    def plotGraphs(self):
+        
+        itemFrequencies = self.getFrequenciesInRange()
+        transactionLength = self.getTransanctionalLengthDistribution()
+        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'Frequency', 'no of items', 'frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
 
 
 if __name__ == '__main__':
@@ -291,9 +311,10 @@ if __name__ == '__main__':
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
     #obj = utilityDatabaseStats(data)
-    obj = utilityDatabaseStats('sample_util.txt', sep=' ')
+    obj = utilityDatabaseStats('utility_T20I6D100K.txt', sep=' ')
     obj.run()
     obj.printStats()
+    obj.plotGraphs()
     '''print(f'Database size : {obj.getDatabaseSize()}')
     print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
     print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
@@ -312,5 +333,6 @@ if __name__ == '__main__':
     plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
     plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
     plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)'''
+
 
 
