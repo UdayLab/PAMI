@@ -194,11 +194,26 @@ class fuzzyDatabaseStats:
         :return: item frequencies
         """
         itemFrequencies = {}
+        rangeFrequencies = {}
         for tid in self.database:
             for item in self.database[tid]:
                 itemFrequencies[item] = itemFrequencies.get(item, 0)
                 itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
+    
+    def getFrequenciesInRange(self):
+        fre = self.getSortedListOfItemFrequencies()
+        rangeFrequencies = {}
+        maximum = max([i for i in fre.values()])
+        values = [int(i*maximum/6) for i in range(1,6)]
+        print(maximum)
+        va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
+        rangeFrequencies[va] = values[0]
+        for i in range(1,len(values)):
+            
+            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i-1]})
+            rangeFrequencies[va] = values[i]
+        return rangeFrequencies
 
     def getTransanctionalLengthDistribution(self):
         """
@@ -272,9 +287,10 @@ class fuzzyDatabaseStats:
         print(f'Sparsity : {self.getSparsity()}')
         
     def plotGraphs(self):
-        itemFrequencies = self.getSortedListOfItemFrequencies()
+        rangeFrequencies = self.getFrequenciesInRange()
+        print(rangeFrequencies)
         transactionLength = self.getTransanctionalLengthDistribution()
-        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+        plt.plotLineGraphFromDictionary(rangeFrequencies, 100, 'Frequency', 'No of items', 'frequency')
         plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
 
 
