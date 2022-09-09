@@ -5,7 +5,7 @@ import pandas as pd
 
 class fuzzyDatabaseStats:
     """
-    fuzzyDatabaseStats is class to get stats of database.
+    utilityDatabaseStats is class to get stats of database.
         Attributes:
         ----------
         inputFile : file
@@ -14,8 +14,8 @@ class fuzzyDatabaseStats:
             store time stamp and its transaction
         lengthList : list
             store length of all transaction
-        fuzzy : dict
-            store fuzzy each item
+        utility : dict
+            store utility each item
         sep : str
             separator in file. Default is tab space.
         Methods:
@@ -40,14 +40,14 @@ class fuzzyDatabaseStats:
             get sorted list of transaction length
         save(data, outputFile)
             store data into outputFile
-        getMinimumfuzzy()
-            get the minimum fuzzy
-        getAveragefuzzy()
-            get the average fuzzy
-        getMaximumfuzzy()
-            get the maximum fuzzy
-        getSortedfuzzyValuesOfItem()
-            get sorted fuzzy values each item
+        getMinimumUtility()
+            get the minimum utility
+        getAverageUtility()
+            get the average utility
+        getMaximumUtility()
+            get the maximum utility
+        getSortedUtilityValuesOfItem()
+            get sorted utility values each item
     """
     def __init__(self, inputFile, sep='\t'):
         """
@@ -57,7 +57,7 @@ class fuzzyDatabaseStats:
         self.inputFile = inputFile
         self.database = {}
         self.lengthList = []
-        self.fuzzy = {}
+        self.utility = {}
         self.sep = sep
 
     def run(self):
@@ -68,7 +68,7 @@ class fuzzyDatabaseStats:
             Storing the complete transactions of the database/input file in a database variable
         """
         self.Database = []
-        self.fuzzyValues = []
+        self.utilityValues = []
         if isinstance(self.inputFile, pd.DataFrame):
             if self.inputFile.empty:
                 print("its empty..")
@@ -77,8 +77,8 @@ class fuzzyDatabaseStats:
                 self.Database = self.inputFile['Transactions'].tolist()
             if 'Patterns' in i:
                 self.Database = self.inputFile['Patterns'].tolist()
-            if 'fuzzy' in i:
-                self.fuzzyValues = self.inputFile['fuzzy'].tolist()
+            if 'Utility' in i:
+                self.utilityValues = self.inputFile['Utility'].tolist()
 
         if isinstance(self.inputFile, str):
             if validators.url(self.inputFile):
@@ -90,7 +90,7 @@ class fuzzyDatabaseStats:
                     transaction = [s for s in temp[0].split(self.sep)]
                     self.Database.append([x for x in transaction if x])
                     utilities = [int(s) for s in temp[2].split(self.sep)]
-                    self.fuzzyValues.append([x for x in utilities if x])
+                    self.utilityValues.append([x for x in utilities if x])
             else:
                 try:
                     with open(self.inputFile, 'r', encoding='utf-8') as f:
@@ -100,7 +100,7 @@ class fuzzyDatabaseStats:
                             transaction = [s for s in temp[0].split(self.sep)]
                             self.Database.append([x for x in transaction if x])
                             utilities = [int(s) for s in temp[1].split(self.sep)]
-                            self.fuzzyValues.append([x for x in utilities if x])
+                            self.utilityValues.append([x for x in utilities if x])
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -114,13 +114,13 @@ class fuzzyDatabaseStats:
         for k in range(len(self.Database)):
             numberOfTransaction += 1
             transaction = self.Database[k]
-            utilities = self.fuzzyValues[k]
+            utilities = self.utilityValues[k]
             self.database[numberOfTransaction] = transaction
             for i in range(len(transaction)):
-                self.fuzzy[transaction[i]] = self.fuzzy.get(transaction[i],0)
-                self.fuzzy[transaction[i]] += utilities[i]
+                self.utility[transaction[i]] = self.utility.get(transaction[i],0)
+                self.utility[transaction[i]] += utilities[i]
         self.lengthList = [len(s) for s in self.database.values()]
-        self.fuzzy = {k: v for k, v in sorted(self.fuzzy.items(), key=lambda x:x[1], reverse=True)}
+        self.utility = {k: v for k, v in sorted(self.utility.items(), key=lambda x:x[1], reverse=True)}
 
     def getDatabaseSize(self):
         """
@@ -223,40 +223,40 @@ class fuzzyDatabaseStats:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
 
-    def getTotalfuzzy(self):
+    def getTotalUtility(self):
         """
-        get sum of fuzzy
-        :return: total fuzzy
+        get sum of utility
+        :return: total utility
         """
-        return sum(list(self.fuzzy.values()))
+        return sum(list(self.utility.values()))
 
-    def getMinimumfuzzy(self):
+    def getMinimumUtility(self):
         """
-        get the minimum fuzzy
-        :return: minimum fuzzy
+        get the minimum utility
+        :return: minimum utility
         """
-        return min(list(self.fuzzy.values()))
+        return min(list(self.utility.values()))
 
-    def getAveragefuzzy(self):
+    def getAverageUtility(self):
         """
-        get the average fuzzy
-        :return: average fuzzy
+        get the average utility
+        :return: average utility
         """
-        return sum(list(self.fuzzy.values())) / len(self.fuzzy)
+        return sum(list(self.utility.values())) / len(self.utility)
 
-    def getMaximumfuzzy(self):
+    def getMaximumUtility(self):
         """
-        get the maximum fuzzy
-        :return: maximum fuzzy
+        get the maximum utility
+        :return: maximum utility
         """
-        return max(list(self.fuzzy.values()))
+        return max(list(self.utility.values()))
 
-    def getSortedfuzzyValuesOfItem(self):
+    def getSortedUtilityValuesOfItem(self):
         """
-        get sorted fuzzy value each item. key is item and value is fuzzy of item
-        :return: sorted dictionary fuzzy value of item
+        get sorted utility value each item. key is item and value is utility of item
+        :return: sorted dictionary utility value of item
         """
-        return self.fuzzy
+        return self.utility
     
     def printStats(self):
         print(f'Database size : {self.getDatabaseSize()}')
@@ -264,14 +264,18 @@ class fuzzyDatabaseStats:
         print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
         print(f'Average Transaction Size : {self.getAverageTransactionLength()}')
         print(f'Maximum Transaction Size : {self.getMaximumTransactionLength()}')
-        print(f'Minimum fuzzy : {self.getMinimumfuzzy()}')
-        print(f'Average fuzzy : {self.getAveragefuzzy()}')
-        print(f'Maximum fuzzy : {self.getMaximumfuzzy()}')
+        print(f'Minimum utility : {self.getMinimumUtility()}')
+        print(f'Average utility : {self.getAverageUtility()}')
+        print(f'Maximum utility : {self.getMaximumUtility()}')
         print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
         print(f'Variance : {self.getVarianceTransactionLength()}')
         print(f'Sparsity : {self.getSparsity()}')
         
-        #print(f'sorted fuzzy value each item : {self.getSortedfuzzyValuesOfItem()}')
+    def plotGraphs(self):
+        itemFrequencies = self.getSortedListOfItemFrequencies()
+        transactionLength = self.getTransanctionalLengthDistribution()
+        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
 
 
 if __name__ == '__main__':
@@ -283,12 +287,30 @@ if __name__ == '__main__':
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
     data = pd.DataFrame.from_dict(data)
-    #import PAMI.extras.dbStats.fuzzyDatabaseStats as uds
+    #import PAMI.extras.dbStats.utilityDatabaseStats as uds
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
-    #obj = fuzzyDatabaseStats(data)
+    #obj = utilityDatabaseStats(data)
     obj = fuzzyDatabaseStats('fuzzy_T20I6D100K.txt', sep=' ')
     obj.run()
     obj.printStats()
-
+    obj.plotGraphs()
+    '''print(f'Database size : {obj.getDatabaseSize()}')
+    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+    print(f'Variance : {obj.getVarianceTransactionLength()}')
+    print(f'Sparsity : {obj.getSparsity()}')
+    print(f'Number of items : {obj.getTotalNumberOfItems()}')
+    print(f'Minimum utility : {obj.getMinimumUtility()}')
+    print(f'Average utility : {obj.getAverageUtility()}')
+    print(f'Maximum utility : {obj.getMaximumUtility()}')
+    print(f'sorted utility value each item : {obj.getSortedUtilityValuesOfItem()}')
+    itemFrequencies = obj.getSortedListOfItemFrequencies()
+    transactionLength = obj.getTransanctionalLengthDistribution()
+    numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
+    plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+    plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+    plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)'''
 
