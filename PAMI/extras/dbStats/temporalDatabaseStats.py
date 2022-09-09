@@ -241,7 +241,7 @@ class temporalDatabaseStats:
         rangeFrequencies = {}
         maximum = max([i for i in fre.values()])
         values = [int(i*maximum/6) for i in range(1,6)]
-        print(maximum)
+        #print(maximum)
         va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
         rangeFrequencies[va] = values[0]
         for i in range(1,len(values)):
