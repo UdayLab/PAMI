@@ -207,6 +207,18 @@ class transactionalDatabaseStats:
                 itemFrequencies[item] = itemFrequencies.get(item, 0)
                 itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
+    
+    def getFrequenciesInRange(self):
+        fre = self.getSortedListOfItemFrequencies()
+        rangeFrequencies = {}
+        maximum = max([i for i in fre.values()])
+        values = [int(i*maximum/6) for i in range(1,6)]
+        va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
+        rangeFrequencies[va] = values[0]
+        for i in range(1,len(values)):
+            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i-1]})
+            rangeFrequencies[va] = values[i]
+        return rangeFrequencies
 
     def getTransanctionalLengthDistribution(self):
         """
@@ -242,11 +254,9 @@ class transactionalDatabaseStats:
         print(f'Sparsity : {self.getSparsity()}')
   
     def plotGraphs(self):
-        itemFrequencies = self.getSortedListOfItemFrequencies()
+        itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
-        # obj.save(itemFrequencies, 'itemFrequency.csv')
-        # obj.save(transactionLength, 'transactionSize.csv')
-        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'Frequency', 'No of items', 'frequency')
         plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
 
 
@@ -262,22 +272,10 @@ if __name__ == '__main__':
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
     # obj = transactionalDatabaseStats(data)
-    obj = transactionalDatabaseStats('transactional_chess.csv', ',')
+    obj = transactionalDatabaseStats('transactional_BMS1.txt', ',')
     obj.run()
-    print(f'Database size : {obj.getDatabaseSize()}')
-    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
-    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
-    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
-    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()}')
-    print(f'Number of items : {obj.getNumberOfItems()}')
-    print(f'Sparsity : {obj.getSparsity()}')
-    # print(f'Density : {obj.getDensity()}')
-    itemFrequencies = obj.getSortedListOfItemFrequencies()
-    transactionLength = obj.getTransanctionalLengthDistribution()
-    # obj.save(itemFrequencies, 'itemFrequency.csv')
-    # obj.save(transactionLength, 'transactionSize.csv')
-    plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
-    plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+    obj.printStats()
+    obj.plotGraphs()
+
 
 
