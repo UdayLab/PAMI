@@ -214,31 +214,31 @@ class RSFPGrowth(_ab._frequentPatterns):
             Name of the Input file to mine complete set of frequent patterns
         oFile : file
             Name of the output file to store complete set of frequent patterns
-        __memoryUSS : float
+        memoryUSS : float
             To store the total amount of USS memory consumed by the program
-        __memoryRSS : float
+        memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        __startTime:float
+        startTime:float
             To record the start time of the mining process
-        __endTime:float
+        endTime:float
             To record the completion time of the mining process
         minSup : float
             The user given minSup
         Database : list
             To store the transactions of a database in list
-        __mapSupport : Dictionary
+        mapSupport : Dictionary
             To maintain the information of item and their frequency
-        __lno : int
+        lno : int
             it represents the total no of transactions
         tree : class
             it represents the Tree class
-        __itemSetCount : int
+        itemSetCount : int
             it represents the total no of patterns
-        __finalPatterns : dict
+        finalPatterns : dict
             it represents to store the patterns
-        __itemSetBuffer : list
+        itemSetBuffer : list
             it represents the store the items in mining
-        __maxPatternLength : int
+        maxPatternLength : int
            it represents the constraint for pattern length
 
     Methods:
@@ -540,7 +540,6 @@ class RSFPGrowth(_ab._frequentPatterns):
         self.__frequentOneItem()
         self.__finalPatterns = {}
         self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self._minSup}
-        print(len(self.__mapSupport), len(self.__finalPatterns), len(self.__Database))
         __itemSetBuffer = [k for k, v in sorted(self.__mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self.__Database:
             transaction = []
@@ -609,7 +608,10 @@ class RSFPGrowth(_ab._frequentPatterns):
         dataframe = {}
         data = []
         for a, b in self.__finalPatterns.items():
-            data.append([a, b])
+            pattern = str()
+            for i in a:
+                pattern = pattern + i + " "
+            data.append([pattern, b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
@@ -641,8 +643,13 @@ class RSFPGrowth(_ab._frequentPatterns):
                 pattern = pattern + i + " "
             s1 = str(y)
             res[pattern] = s1
-
         return res
+
+    def printResults(self):
+        print("Total number of Relative Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -653,29 +660,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = RSFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        l = [0.006, 0.007, 0.008, 0.009, 0.01]
-        for i in l:
-            ap = RSFPGrowth(
-                'https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_T10I4D100K.csv',
-                0.008, 0.4)
-            ap.startMine()
-            correlatedPatterns = ap.getPatterns()
-            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

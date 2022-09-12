@@ -70,65 +70,11 @@ class _frequentPatterns(_ABC):
         self._minSup = minSup
         self._minRatio = minRatio
         self._sep = sep
-    '''@_abstractmethod
-    def iFile(self):
-        """Variable to store the input file path/file name"""
-
-        pass
-
-    @_abstractmethod
-    def nFile(self):
-        """Variable to store the neighbourhood file path/file name"""
-
-        pass
-
-    @_abstractmethod
-    def minSup(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @_abstractmethod
-    def sep(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @_abstractmethod
-    def startTime(self):
-        """Variable to store the start time of the mining process"""
-
-        pass
-
-    @_abstractmethod
-    def endTime(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @_abstractmethod
-    def memoryUSS(self):
-        """Variable to store USS memory consumed by the program"""
-
-        pass
-
-    @_abstractmethod
-    def memoryRSS(self):
-        """Variable to store RSS memory consumed by the program"""
-
-        pass
-
-    @_abstractmethod
-    def finalPatterns(self):
-        """Variable to store the complete set of patterns in a dictionary"""
-
-        pass
-
-    @_abstractmethod
-    def oFile(self):
-        """Variable to store the name of the output file to store the complete set of frequent patterns"""
-
-        pass'''
+        self._finalPatterns = {}
+        self._startTime = float()
+        self._endTime = float()
+        self._memoryRSS = float()
+        self._memoryUSS = float()
 
     @_abstractmethod
     def startMine(self):
@@ -172,5 +118,11 @@ class _frequentPatterns(_ABC):
     @_abstractmethod
     def getRuntime(self):
         """Total amount of runtime taken by the program will be retrieved from this function"""
+
+        pass
+
+    @_abstractmethod
+    def printResults(self):
+        """ To print the results of execution."""
 
         pass
