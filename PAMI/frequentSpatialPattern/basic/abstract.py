@@ -120,66 +120,6 @@ class _spatialFrequentPatterns(_ABC):
         self._oFile = str()
 
 
-    '''@abstractmethod
-    def iFile(self):
-        """Variable to store the input file path/file name"""
-
-        pass
-
-    @abstractmethod
-    def nFile(self):
-        """Variable to store the neighbourhood file path/file name"""
-
-        pass
-
-    @abstractmethod
-    def minSup(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @abstractmethod
-    def sep(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @abstractmethod
-    def startTime(self):
-        """Variable to store the start time of the mining process"""
-
-        pass
-
-    @abstractmethod
-    def endTime(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryUSS(self):
-        """Variable to store USS memory consumed by the program"""
-
-        pass
-
-    @abstractmethod
-    def memoryRSS(self):
-        """Variable to store RSS memory consumed by the program"""
-
-        pass
-
-    @abstractmethod
-    def finalPatterns(self):
-        """Variable to store the complete set of patterns in a dictionary"""
-
-        pass
-
-    @abstractmethod
-    def oFile(self):
-        """Variable to store the name of the output file to store the complete set of frequent patterns"""
-
-        pass'''
-
     @_abstractmethod
     def startMine(self):
         """Code for the mining process will start from this function"""
