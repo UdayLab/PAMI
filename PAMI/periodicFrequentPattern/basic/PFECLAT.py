@@ -219,7 +219,6 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
                             Database.append(temp)
-                    #print(len(Database))
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -277,7 +276,6 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             self._generateEclat(newCandidates)
     
     def startMine(self):
-        #print(f"Optimized {type(self).__name__}")
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         frequentSets = self._creatingOneItemSets()
@@ -351,6 +349,12 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+
+    def printResults(self):
+        print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
                     
 
 if __name__ == "__main__":
@@ -361,41 +365,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = PFECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Periodic-Frequent Patterns:", len(_Patterns))
+        print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''minSupList = [300, 400, 500, 600, 700, 800, 900, 1000]
-        for minSup in minSupList:
-            _ap = PFECLAT('/Users/Likhitha/Downloads/DASFAA2022/congestion_300', minSup, 200, ' ')
-            _ap.startMine()
-            _Patterns = _ap.getPatterns()
-            print("Total number of Patterns:", len(_Patterns))
-            _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
-            _memUSS = _ap.getMemoryUSS()
-            print("Total Memory in USS:", _memUSS)
-            _memRSS = _ap.getMemoryRSS()
-            print("Total Memory in RSS", _memRSS)
-            _run = _ap.getRuntime()
-            print("Total ExecutionTime in ms:", _run)'''
-        '''minSup = [450, 470, 490, 510, 530, 550]
-        for i in minSup:
-            _ap = PFECLAT('/Users/Likhitha/Downloads/Nighbours_gen/temp_roads.txt',
-                            i, 250, ',')
-            _ap.startMine()
-            _spatialFrequentPatterns = _ap.getPatterns()
-            print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
-            _ap.savePatterns('/Users/Likhitha/Downloads/Nighbours_gen/output.txt')
-            _memUSS = _ap.getMemoryUSS()
-            print("Total Memory in USS:", _memUSS)
-            _memRSS = _ap.getMemoryRSS()
-            print("Total Memory in RSS", _memRSS)
-            _run = _ap.getRuntime()
-            print("Total ExecutionTime in seconds:", _run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

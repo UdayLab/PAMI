@@ -149,7 +149,7 @@ class _Tree:
                 frequentItems[i] += node.count
         frequentItems = {key: value for key, value in frequentItems.items() if value >= minSup}
         for i in frequentItems:
-            pattern = suffixItem + "," + i
+            pattern = suffixItem + " " + i
             frequentPatterns.append((pattern, frequentItems[i]))
             frequentPatterns.extend(pTree.getPattern(i, pattern, minSup, neighbour))
         return frequentPatterns
