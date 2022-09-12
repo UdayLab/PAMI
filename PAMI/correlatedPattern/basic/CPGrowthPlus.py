@@ -646,7 +646,10 @@ class CPGrowthPlus(_ab._correlatedPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            pat = " "
+            for i in a:
+                pat += str(i) + " "
+            data.append([pat, b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
