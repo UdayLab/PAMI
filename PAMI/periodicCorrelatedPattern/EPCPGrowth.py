@@ -576,7 +576,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         self._maxPer = self._convert(self._maxPer)
         self._maxPerAllConf = float(self._maxPerAllConf)
         _minSup, _minAllConf, _maxPer, _maxPerAllConf, _lno = self._minSup, self._minAllConf,  self._maxPer, self._maxPerAllConf, len(self._Database)
-        print(_minSup, _minAllConf, _maxPer, _maxPerAllConf)
+        #print(_minSup, _minAllConf, _maxPer, _maxPerAllConf)
         if self._minSup > len(self._Database):
             raise Exception("Please enter the minSup in range between 0 to 1")
         generatedItems, pfList = self._periodicFrequentOneItem()
@@ -596,7 +596,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Periodic Frequent patterns were generated successfully using PFPGrowth algorithm ")
+        print("Correlated Periodic-Frequent patterns were generated successfully using EPCPGrowth algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -660,15 +660,11 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         """
         return self._finalPatterns
     
-    def printStats(self):
-        Patterns = self.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        memUSS = self.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = self.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = self.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+    def printResults(self):
+        print("Total number of Correlated Periodic-Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
         
 
 if __name__ == "__main__":
@@ -679,20 +675,12 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 7:
             _ap = EPCPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], sys.argv[5], sys.argv[6])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
+        print("Total number of Correlated Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  _ap.getRuntime())
     else:
-        ap = EPCPGrowth('sampleInputFile.txt', 4, 0.6, 6, 1.5,  ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        ap.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 
