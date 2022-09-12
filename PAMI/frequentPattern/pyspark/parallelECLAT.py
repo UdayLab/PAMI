@@ -110,63 +110,6 @@ class parallelECLAT(_ab._frequentPatterns):
     def __init__(self, iFile, minSup, numWorkers, sep='\t'):
         super().__init__(iFile, minSup, int(numWorkers), sep)
 
-    def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-        :return: returning USS memory consumed by the mining process
-        :rtype: float
-        """
-
-        return self._memoryUSS
-
-    def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        :return: returning RSS memory consumed by the mining process
-        :rtype: float
-        """
-
-        return self._memoryRSS
-
-    def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-        :return: returning total amount of runtime taken by the mining process
-        :rtype: float
-        """
-
-        return self._endTime - self._startTime
-
-    def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
-        :return: returning frequent patterns in a dataframe
-        :rtype: pd.DataFrame
-        """
-
-        dataFrame = {}
-        data = []
-        for a, b in self._finalPatterns.items():
-            data.append([a, b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataFrame
-
-    def savePatterns(self, outFile):
-        """
-        Complete set of frequent patterns will be loaded in to a output file
-        :param outFile: name of the output file
-        :type outFile: file
-        """
-        self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
-            writer.write("%s \n" % s1)
-
-    def getPatterns(self):
-        """
-        Function to send the set of frequent patterns after completion of the mining process
-        :return: returning frequent patterns
-        :rtype: dict
-        """
-        return self._finalPatterns
-
     def _genPatterns(self, suffix, pattern, data):
         freqPatterns = {}
         index = data.index(suffix)
@@ -252,6 +195,69 @@ class parallelECLAT(_ab._frequentPatterns):
         print("Frequent patterns were generated successfully using Parallel ECLAT algorithm")
         sc.stop()
 
+    def getMemoryUSS(self):
+        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        :return: returning USS memory consumed by the mining process
+        :rtype: float
+        """
+
+        return self._memoryUSS
+
+    def getMemoryRSS(self):
+        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        :return: returning RSS memory consumed by the mining process
+        :rtype: float
+        """
+
+        return self._memoryRSS
+
+    def getRuntime(self):
+        """Calculating the total amount of runtime taken by the mining process
+        :return: returning total amount of runtime taken by the mining process
+        :rtype: float
+        """
+
+        return self._endTime - self._startTime
+
+    def getPatternsAsDataFrame(self):
+        """Storing final frequent patterns in a dataframe
+        :return: returning frequent patterns in a dataframe
+        :rtype: pd.DataFrame
+        """
+
+        dataFrame = {}
+        data = []
+        for a, b in self._finalPatterns.items():
+            data.append([a, b])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        return dataFrame
+
+    def savePatterns(self, outFile):
+        """
+        Complete set of frequent patterns will be loaded in to a output file
+        :param outFile: name of the output file
+        :type outFile: file
+        """
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
+            s1 = x + ":" + str(y)
+            writer.write("%s \n" % s1)
+
+    def getPatterns(self):
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+        :return: returning frequent patterns
+        :rtype: dict
+        """
+        return self._finalPatterns
+
+    def printResults(self):
+        print("Total number of Freuqent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
@@ -260,14 +266,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = parallelECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        _finalPatterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_finalPatterns))
-        # _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
+        _ap.savePatterns(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

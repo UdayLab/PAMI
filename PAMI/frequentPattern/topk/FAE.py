@@ -77,11 +77,11 @@ class FAE(_ab._frequentPatterns):
 
             Format:
             ------
-            python3 FAE.py <inputFile> <outputFile> <minSup>
+                python3 FAE.py <inputFile> <outputFile> <K>
 
             Examples:
             ---------
-            python3 FAE.py sampleDB.txt patterns.txt 10
+                python3 FAE.py sampleDB.txt patterns.txt 10
 
 
         Sample run of the importing code:
@@ -89,13 +89,13 @@ class FAE(_ab._frequentPatterns):
 
             import PAMI.frequentPattern.topK.FAE as alg
 
-            obj = alg.FAE(iFile, minSup)
+            obj = alg.FAE(iFile, K)
 
             obj.startMine()
 
-            frequentPatterns = obj.getPatterns()
+            topKFrequentPatterns = obj.getPatterns()
 
-            print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Frequent Patterns:", len(topKFrequentPatterns))
 
             obj.savePatterns(oFile)
 
@@ -191,9 +191,7 @@ class FAE(_ab._frequentPatterns):
                 self._finalPatterns[i] = candidate[i]
         self._minimum = min([self._finalPatterns[i] for i in self._finalPatterns.keys()])
         plist = list(self._finalPatterns.keys())
-        print(len(plist))
         return plist
-
 
     def _save(self, prefix, suffix, tidSetI):
         """Saves the patterns that satisfy the periodic frequent property.
@@ -312,7 +310,7 @@ class FAE(_ab._frequentPatterns):
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             self._Generation(itemSetX, itemSets, tidSets)
-        print("FAE has successfully generated top-k frequent patterns")
+        print(" TopK frequent patterns were successfully generated using FAE algorithm.")
         self._endTime = _ab._time.time()
         self._memoryUSS = float()
         self._memoryRSS = float()
@@ -387,6 +385,12 @@ class FAE(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
+    def printTOPK(self):
+        print("Top K Frequent  Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -396,31 +400,12 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = FAE(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Top K Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
-        print(_ap.getPatternsAsDataFrame())
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''l = [0.001, 0.002, 0.003, 0.004, 0.005]
-        for i in l:
-            ap = FAE('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_T10I4D100K.csv',
-                             i)
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Closed Frequent Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 

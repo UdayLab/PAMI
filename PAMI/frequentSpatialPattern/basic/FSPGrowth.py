@@ -192,7 +192,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-    Methods
+    Methods:
     -------
         startMine()
             This function starts pattern mining.
@@ -224,29 +224,46 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             This function creates FPTree.
         getAllFrequentPatterns(data, fpList, ndata)
             This function generates all frequent patterns
+
     Executing the code on terminal :
     ------------------------------
         Format:
+
             python3 FSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup>
+
         Examples:
             python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
+
             python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
                                                                 (it considers "\t" as separator)
             python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 ','  (it will consider "," as a separator)
+
     Sample run of importing the code :
     -------------------------------
         from PAMI.frequentSpatialPattern.basic import FSPGrowth as alg
+
         obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
+
         obj.startMine()
+
         spatialFrequentPatterns = obj.getPatterns()
+
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
+
         obj.savePatterns("outFile")
+
         memUSS = obj.getMemoryUSS()
+
         print("Total Memory in USS:", memUSS)
+
         memRSS = obj.getMemoryRSS()
+
         print("Total Memory in RSS", memRSS)
+
         run = obj.getRuntime()
+
         print("Total ExecutionTime in seconds:", run)
+
     Credits:
     -------
         The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
@@ -267,11 +284,6 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     _neighbourList = {}
     _fpList = []
 
-    '''def __init__(self, iFile, nFile, minSup, sep):
-        self.iFile = iFile
-        self.nFile = nFile
-        self.minSup = minSup
-        self.sep = sep'''
 
     def _readDatabase(self):
         """
@@ -474,6 +486,12 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         """
         return self._finalPatterns
 
+    def printResults(self):
+        print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
     '''def savePatterns(self):
         """
         Complete set of frequent patterns will be loaded in to a output file
@@ -503,26 +521,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = FSPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        _spatialFrequentPatterns = _ap.getPatterns()
-        print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
+        print("Total number of Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        ap = FSPGrowth('sensor_transactional.txt',
-                       'sensor_neighbour', 150, '\t')
-        ap.startMine()
-        spatialFrequentPatterns = ap.getPatterns()
-        print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        ap.savePatterns('output.txt')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

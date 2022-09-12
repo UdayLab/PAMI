@@ -558,7 +558,6 @@ class CPGrowth(_ab._correlatedPatterns):
         self._minSup = self._convert(self._minSup)
         self._tree = _Tree()
         self._finalPatterns = {}
-        print(len(self._finalPatterns))
         self._frequentOneItem()
         self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
         _itemSetBuffer = [k for k, v in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
@@ -653,6 +652,11 @@ class CPGrowth(_ab._correlatedPatterns):
         """
         return self._finalPatterns
 
+    def printResults(self):
+        print("Total number of Correlated Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 if __name__ == "__main__":
     _ap = str()
@@ -662,29 +666,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = CPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
-        _correlatedPatterns = _ap.getPatterns()
-        print("Total number of correlated-Frequent Patterns:", len(_correlatedPatterns))
+        print("Total number of correlated-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        '''l = [0.0007, 0.0009, 0.001, 0.002, 0.003, 0.01]
-        for i in l:
-            ap = CPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/transactional_retail.csv',
-                          i, 0.7)
-            ap.startMine()
-            print(ap._minSup, ap._minAllConf, len(ap._Database))
-            correlatedPatterns = ap.getPatterns()
-            print("Total number of correlated-Frequent Patterns:", len(correlatedPatterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

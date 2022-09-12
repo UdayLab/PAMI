@@ -1,8 +1,29 @@
+#  Copyright (C)  2021 Rage Uday Kiran
+#
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 from PAMI.frequentPattern.basic import abstract as _ab
 
 class ECLATbitset(_ab._frequentPatterns):
     """
-    ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+        ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+
+    Reference:
+    ----------
+
+
     Attributes:
     -----------
         self.iFile : str
@@ -272,6 +293,12 @@ class ECLATbitset(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
+    def printResults(self):
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 if __name__=="__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
@@ -280,27 +307,10 @@ if __name__=="__main__":
         if len(_ab._sys.argv) == 4:
             _ap = ECLATbitset(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''l = [2000]
-        for i in l:
-            ap = ECLATbitset('/Users/Likhitha/Downloads/mushrooms.txt', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Frequent Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

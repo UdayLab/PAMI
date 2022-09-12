@@ -133,3 +133,9 @@ class _frequentPatterns(_ABC):
 
         pass
 
+    @_abstractmethod
+    def printResults(self):
+        """ To print the results of execution."""
+
+        pass
+

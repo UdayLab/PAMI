@@ -718,10 +718,10 @@ class MaxFPGrowth(_ab._frequentPatterns):
 
         :rtype: dict
         """
-        return len(self._finalPatterns)
+        return self._finalPatterns
     
-    def getStats(self):
-        print('Total No of patterns: ' + str(self.getPatterns()))
+    def printResults(self):
+        print('Total number of Maximal Frequent Patterns: ' + str(self.getPatterns()))
         print('Runtime: ' + str(self.getRuntime()))
         print('Memory (RSS): ' + str(self.getMemoryRSS()))
         print('Memory (USS): ' + str(self.getMemoryUSS()))
@@ -735,29 +735,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = MaxFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Maximal Frequent Patterns:", len(_Patterns))
         _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total number of Maximal Frequent Patterns:", len(_ap.getPatterns()))
+        print("Total Memory in USS:",  _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        l = [0.45]
-        for i in l:
-            ap = MaxFPGrowth('/Users/Likhitha/Downloads/exercise10_dataset.csv',i, ',')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            for x,y in Patterns.items():
-                print(x, y)
-            print("Total number of Closed Frequent Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/visualizePatterns.csv')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

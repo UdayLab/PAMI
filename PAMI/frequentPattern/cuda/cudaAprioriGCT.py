@@ -61,19 +61,19 @@ class cudaAprioriGCT:
         vb_data = gpuarray.to_gpu(vb_data.astype(np.uint16))
         return vb_data, idx2item
 
-    def get_time(self):
+    def getTime(self):
         return self.__time
 
-    def get_memRSS(self):
+    def getMEMORYRSS(self):
         return self.__memRSS
 
-    def get_memUSS(self):
+    def getMEMORYUSS(self):
         return self.__memUSS
 
-    def get_GPU_MEM(self):
+    def getGPUMemory(self):
         return self.__GPU_MEM
 
-    def get_Patterns(self):
+    def getPatterns(self):
         return self.Patterns
 
     def get_numberOfPatterns(self):
@@ -125,6 +125,12 @@ class cudaAprioriGCT:
         self.__memUSS = psutil.Process(os.getpid()).memory_full_info().uss
         self.Patterns = final
         self.__GPU_MEM = vb_data.nbytes
+
+    def printStats(self):
+        print("Total number of Coverage Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":

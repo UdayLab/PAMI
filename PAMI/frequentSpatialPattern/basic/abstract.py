@@ -109,7 +109,7 @@ class _spatialFrequentPatterns(_ABC):
 
         self._iFile = iFile
         self._nFile = nFile
-        self._oFile = oFile
+        self._oFile = str()
         self._sep = sep
         self._minSup = minSup
         self._startTime = float()
@@ -224,5 +224,12 @@ class _spatialFrequentPatterns(_ABC):
     @_abstractmethod
     def getRuntime(self):
         """Total amount of runtime taken by the program will be retrieved from this function"""
+
+        pass
+
+    @_abstractmethod
+    def printResults(self):
+
+        """ To print the results of execution"""
 
         pass

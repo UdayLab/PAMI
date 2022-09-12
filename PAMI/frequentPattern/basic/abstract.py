@@ -213,3 +213,9 @@ class _frequentPatterns(_ABC):
         """Total amount of runtime taken by the program will be retrieved from this function"""
 
         pass
+
+    @_abstractmethod
+    def printResults(self):
+        """ To print result of the execution"""
+
+        pass

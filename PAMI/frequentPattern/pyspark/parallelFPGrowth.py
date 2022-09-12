@@ -4,7 +4,7 @@ from PAMI.frequentPattern.pyspark import abstract as _ab
 from operator import add
 
 
-class Node:
+class _Node:
     """
         Attribute
         ---------
@@ -24,7 +24,7 @@ class Node:
         self.prefix = prefix
 
 
-class Tree:
+class _Tree:
     """
         Attribute
         ---------
@@ -42,10 +42,9 @@ class Tree:
                 Create conditional pattern base of item
     """
     def __init__(self):
-        self.root = Node(None, [])
+        self.root = _Node(None, [])
         self.nodeLink = {}
         self.itemCount = defaultdict(int)
-
 
     def addTransaction(self, transaction, count):
         """
@@ -57,14 +56,13 @@ class Tree:
         current = self.root
         for item in transaction:
             if item not in current.children:
-                current.children[item] = Node(item, transaction[0:transaction.index(item)])
+                current.children[item] = _Node(item, transaction[0:transaction.index(item)])
                 current.children[item].count += count
                 self.addNodeToNodeLink(current.children[item])
             else:
                 current.children[item].count += count
             self.itemCount[item] += count
             current = current.children[item]
-
 
     def addNodeToNodeLink(self, node):
         """
@@ -77,25 +75,22 @@ class Tree:
         else:
             self.nodeLink[node.item].append(node)
 
-
     def generateConditionalTree(self, item):
         """
         Generate conditional tree based on item
         :param item: str or int
         :return: Tree
         """
-        tree = Tree()
+        tree = _Tree()
         for node in self.nodeLink[item]:
             tree.addTransaction(node.prefix, node.count)
         return tree
 
 
-
-
 class parallelFPGrowth(_ab._frequentPatterns):
     """
-            Attributes
-            ----------
+        Attributes:
+        ----------
                 minSup : float
                     The user can specify minSup either in count or proportion of database size.
                 iFile : file
@@ -110,7 +105,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
                 endTime:float
                     To record the completion time of the mining process
                 memoryUSS : float
-                    To store the total amou.nt of USS memory consumed by the program
+                    To store the total amount of USS memory consumed by the program
                 memoryRSS : float
                     To store the total amount of RSS memory consumed by the program
                 finalPatterns : dict
@@ -148,33 +143,49 @@ class parallelFPGrowth(_ab._frequentPatterns):
                     Get all frequent patterns
                 genFreqPatterns(item, prefix, tree)
                     Generate frequent patterns based on item and prefix
-           Executing the code on terminal:
-           -------------------------------
-                Format:
-                ------
-                    python3 parallelFPGrowth.py <inputFile> <outputFile> <minSup> <numWorkers>
-                Examples:
-                ---------
-                    python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10.0 3   (minSup will be considered in times of minSup and count of database transactions)
-                    python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10 3    (minSup will be considered in support count or frequency)
-           Sample run of the importing code:
-           ---------------------------------
-                import PAMI.frequentPattern.pyspark.parallelFPGrowth as alg
-                obj = alg.parallelFPGrowth(iFile, minSup, numWorkers)
-                obj.startMine()
-                frequentPatterns = obj.getPatterns()
-                print("Total number of Frequent Patterns:", len(frequentPatterns))
-                obj.savePatterns(oFile)
-                Df = obj.getPatternInDataFrame()
-                memUSS = obj.getMemoryUSS()
-                print("Total Memory in USS:", memUSS)
-                memRSS = obj.getMemoryRSS()
-                print("Total Memory in RSS", memRSS)
-                run = obj.getRuntime()
-                print("Total ExecutionTime in seconds:", run)
-            Credits:
-            --------
-                The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
+
+        Executing the code on terminal:
+        -------------------------------
+            Format:
+            ------
+                python3 parallelFPGrowth.py <inputFile> <outputFile> <minSup> <numWorkers>
+            Examples:
+            ---------
+                python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10.0 3   (minSup will be considered in times of minSup and count of database transactions)
+
+                python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10 3    (minSup will be considered in support count or frequency)
+        Sample run of the importing code:
+        ---------------------------------
+
+            import PAMI.frequentPattern.pyspark.parallelFPGrowth as alg
+
+            obj = alg.parallelFPGrowth(iFile, minSup, numWorkers)
+
+            obj.startMine()
+
+            frequentPatterns = obj.getPatterns()
+
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+            obj.savePatterns(oFile)
+
+            Df = obj.getPatternInDataFrame()
+
+            memUSS = obj.getMemoryUSS()
+
+            print("Total Memory in USS:", memUSS)
+
+            memRSS = obj.getMemoryRSS()
+
+            print("Total Memory in RSS", memRSS)
+
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+        Credits:
+        --------
+            The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
         """
     _minSup = float()
     _numPartitions = int()
@@ -220,7 +231,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
         workByPartition = rdd.flatMap(lambda x: self.genCondTransaction(x, rank)).groupByKey()
 
-        trees = workByPartition.foldByKey(Tree(), lambda tree, data: self.buildTree(tree, data))
+        trees = workByPartition.foldByKey(_Tree(), lambda tree, data: self.buildTree(tree, data))
         freqPatterns = trees.flatMap(lambda tree_tuple: self.genAllFrequentPatterns(tree_tuple))
         result = freqPatterns.map(lambda ranks_count: (tuple([self._FPList[z] for z in ranks_count[0]]), ranks_count[1]))\
             .collect()
@@ -239,19 +250,19 @@ class parallelFPGrowth(_ab._frequentPatterns):
     def getPartitionId(self, value):
         """
             Get partition id of item
-            :param item: int
+            :param value: int
             :return: int
         """
         return value % self._numPartitions
 
-    def genCondTransaction(self, trans, rank):
+    def genCondTransaction(self, transaction, rank):
         """
             Generate conditional transactions from transaction
             :param transaction : list
             :param rank: dict
             :return: list
         """
-        newTrans = [rank[item] for item in trans if item in rank.keys()]
+        newTrans = [rank[item] for item in transaction if item in rank.keys()]
         newTrans = sorted(newTrans)
         condTrans = {}
         for i in reversed(newTrans):
@@ -391,6 +402,12 @@ class parallelFPGrowth(_ab._frequentPatterns):
         else:
             print("minSup is not correct")
         return value
+
+    def printStats(self):
+        print("Total number of Coverage Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 if __name__ == "__main__":
     _ap = str()

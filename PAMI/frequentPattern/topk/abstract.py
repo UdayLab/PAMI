@@ -31,15 +31,11 @@ from urllib.request import urlopen as _urlopen
 class _frequentPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
         employ in PAMI
-       Attributes
-        ----------
+
+    Attributes:
+    ----------
         iFile : str
             Input file name or path of the input file
-        maxPer: int or float or str
-            The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
         k: int
             The user specify k in int
         sep : str
@@ -57,8 +53,8 @@ class _frequentPatterns(_ABC):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -80,12 +76,6 @@ class _frequentPatterns(_ABC):
         :param iFile: Input file name or path of the input file
         :type iFile: str
         :param k: int
-        :type minSup: int or float or str
-        :param maxPer: The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        :type maxPer: int or float or str
         :param sep: separator used in user specified input file
         :type sep: str
         """
@@ -99,65 +89,6 @@ class _frequentPatterns(_ABC):
         self._memoryRSS = float()
         self._memoryUSS = float()
         self._finalPatterns = {}
-
-    '''@abstractmethod
-    def iFile(self):
-        """Variable to store the input file path/file name"""
-
-        pass
-
-    @abstractmethod
-    def k(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @abstractmethod
-    def maxPer(self):
-        """Variable to store the user specified maximum periodicity value"""
-
-        pass
-
-    def sep(self):
-        """Variable to store the separator in input file"""
-
-        pass
-
-    @abstractmethod
-    def startTime(self):
-        """Variable to store the start time of the mining process"""
-
-        pass
-
-    @abstractmethod
-    def endTime(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryUSS(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryRSS(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def finalPatterns(self):
-        """Variable to store the complete set of patterns in a dictionary"""
-
-        pass
-
-    @abstractmethod
-    def oFile(self):
-        """Variable to store the name of the output file to store the complete set of periodic-frequent patterns"""
-
-        pass'''
 
     @_abstractmethod
     def startMine(self):

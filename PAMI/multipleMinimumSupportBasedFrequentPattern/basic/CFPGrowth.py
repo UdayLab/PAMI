@@ -13,10 +13,10 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.multipleMinimumSupportBasedFrequentPattern import abstract as _fp
+from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _fp
 
 _fp._sys.setrecursionlimit(20000)
-MIS = {}
+_MIS = {}
 
 class _Node:
     """
@@ -193,13 +193,13 @@ class _Tree:
         Frequent patterns that are extracted from fp-tree
 
         """
-        global MIS
+        global _MIS
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
             sup = []
             for j in pattern:
-                sup.append(MIS[j])
+                sup.append(_MIS[j])
             if self.info[i] >= min(sup):
                 yield pattern, self.info[i]
             patterns, freq, info = self.getFinalConditionalPatterns(i)
@@ -277,13 +277,13 @@ class CFPGrowth(_fp._frequentPatterns):
     -------
         Format:
         -------
-            python3 CFPGrowth.py <inputFile> <outputFile> <minSup>
+            python3 CFPGrowth.py <inputFile> <outputFile>
 
         Examples:
         ---------
-            python3 CFPGrowth.py sampleDB.txt patterns.txt MIS
+            python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
 
-            python3 CFPGrowth.py sampleDB.txt patterns.txt MIS
+            python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
 
             python3 CFPGrowth.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider "," as a separator)
 
@@ -523,7 +523,7 @@ class CFPGrowth(_fp._frequentPatterns):
             main program to start the operation
 
         """
-        global MIS
+        global _MIS
         self.__startTime = _fp._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
@@ -533,7 +533,7 @@ class CFPGrowth(_fp._frequentPatterns):
         itemSet = self.__frequentOneItem()
         updatedTransactions = self.__updateTransactions(itemSet)
         for x, y in self.__rank.items():
-            MIS[y] = self._MISValues[x]
+            _MIS[y] = self._MISValues[x]
             self.__rankDup[y] = x
         info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
         __Tree = self.__buildTree(updatedTransactions, info)
@@ -542,7 +542,7 @@ class CFPGrowth(_fp._frequentPatterns):
         for k in patterns:
             s = self.__savePeriodic(k[0])
             self.__finalPatterns[str(s)] = k[1]
-        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
+        print("Frequent patterns were generated successfully using CFPGrowth algorithm")
         self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
         self.__memoryRSS = float()
@@ -618,6 +618,12 @@ class CFPGrowth(_fp._frequentPatterns):
         """
         return self.__finalPatterns
 
+    def printResults(self):
+        print("Total number of  Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -627,27 +633,10 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 4:
             _ap = CFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_fp._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''_ap = CFPGrowth('/Users/Likhitha/PycharmProjects/Algorithms/multipleMinSup/sample.txt','/Users/Likhitha/PycharmProjects/Algorithms/multipleMinSup/mmFile', ' ')
-        _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        for x, y in _Patterns.items():
-            print(x, y)
-        print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

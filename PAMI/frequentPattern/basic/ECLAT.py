@@ -12,7 +12,7 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-# from abstract import *
+
 
 from PAMI.frequentPattern.basic import abstract as _ab
 
@@ -83,13 +83,13 @@ class ECLAT(_ab._frequentPatterns):
 
             Format:
             ------
-            python3 ECLAT.py <inputFile> <outputFile> <minSup>
+                python3 ECLAT.py <inputFile> <outputFile> <minSup>
 
             Examples:
             ---------
-            python3 ECLAT.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+                python3 ECLAT.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
-            python3 ECLAT.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+                python3 ECLAT.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
 
         Sample run of the importing code:
@@ -330,6 +330,12 @@ class ECLAT(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
+    def printResults(self):
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -339,27 +345,11 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
         print(_ap.getPatternsAsDataFrame())
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:",  _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''_ap = ECLAT('/Users/Likhitha/Downloads/dense_DB_3.csv', 20, ',')
-        _ap.startMine()
-        print(len(_ap._Database))
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

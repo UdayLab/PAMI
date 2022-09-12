@@ -47,8 +47,8 @@ class _frequentPatterns(_ABC):
         employ in PAMI
 
 
-       Attributes:
-       ----------
+    Attributes:
+    ----------
         iFile : str
             Input file name or path of the input file
         MIS : str
@@ -69,8 +69,8 @@ class _frequentPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-       Methods:
-       -------
+    Methods:
+    -------
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -151,5 +151,11 @@ class _frequentPatterns(_ABC):
     @_abstractmethod
     def getRuntime(self):
         """Total amount of runtime taken by the program will be retrieved from this function"""
+
+        pass
+
+    @_abstractmethod
+    def printResults(self):
+        """ To print the results of execution"""
 
         pass

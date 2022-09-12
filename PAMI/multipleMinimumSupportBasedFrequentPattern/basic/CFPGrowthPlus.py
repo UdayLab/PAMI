@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.multipleMinimumSupportBasedFrequentPattern import abstract as _fp
+from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _fp
 
 _fp._sys.setrecursionlimit(20000)
 MIS = {}
@@ -617,6 +617,13 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         """
         return self.__finalPatterns
 
+    def printResults(self):
+        print("Total number of  Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -626,27 +633,10 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 4:
             _ap = CFPGrowthPlus(_fp._sys.argv[1], _fp._sys.argv[3])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_fp._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''_ap = CFPGrowth('/Users/Likhitha/PycharmProjects/Algorithms/multipleMinSup/sample.txt','/Users/Likhitha/PycharmProjects/Algorithms/multipleMinSup/mmFile', ' ')
-        _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        for x, y in _Patterns.items():
-            print(x, y)
-        print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

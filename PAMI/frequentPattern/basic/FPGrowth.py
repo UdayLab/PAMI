@@ -317,8 +317,8 @@ class FPGrowth(_fp._frequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
+    Credits:
+    -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
@@ -576,13 +576,13 @@ class FPGrowth(_fp._frequentPatterns):
 
         :rtype: dict
         """
-        return len(self.__finalPatterns)
+        return self.__finalPatterns
     
-    def getStats(self):
-        print('Total No of patterns: ' + str(self.getPatterns()))
-        print('Runtime: ' + str(self.getRuntime()))
-        print('Memory (RSS): ' + str(self.getMemoryRSS()))
-        print('Memory (USS): ' + str(self.getMemoryUSS()))
+    def getResults(self):
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -593,27 +593,10 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 4:
             _ap = FPGrowth(_fp._sys.argv[1], _fp._sys.argv[3])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Total number of Frequent Patterns:", len( _ap.getPatterns()))
         _ap.savePatterns(_fp._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        l = [0.2]
-        for i in l:
-            ap = FPGrowth('/Users/Likhitha/Downloads/gurgaonNote0.6.txt', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Closed Frequent Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/outputFP.txt')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
