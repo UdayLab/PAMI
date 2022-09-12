@@ -17,18 +17,18 @@ setuptools.setup(
     install_requires=[            # All necessary packages utilized by our PAMI software
         'psutil',
         'pandas',
-	'plotly',
+        'plotly',
         'matplotlib',
         'resource',
         'validators',
         'urllib3',
-	'pyspark',
-	'Pillow',
+        'pyspark',
+        'Pillow',
     ],
     classifiers = [
         'Development Status :: 5 - Production/Stable',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
         'Programming Language :: Python :: 3',
-	'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
     ],
     python_requires = '>=3.5',
