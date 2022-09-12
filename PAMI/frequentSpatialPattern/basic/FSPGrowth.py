@@ -1,7 +1,6 @@
 from PAMI.frequentSpatialPattern.basic import abstract as _ab
 
 
-
 class _Node:
     """
     A class used to represent the node of frequentPatternTree
@@ -192,7 +191,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-    Methods:
+    Methods
     -------
         startMine()
             This function starts pattern mining.
@@ -224,46 +223,29 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             This function creates FPTree.
         getAllFrequentPatterns(data, fpList, ndata)
             This function generates all frequent patterns
-
     Executing the code on terminal :
     ------------------------------
         Format:
-
             python3 FSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup>
-
         Examples:
             python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
-
             python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
                                                                 (it considers "\t" as separator)
             python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 ','  (it will consider "," as a separator)
-
     Sample run of importing the code :
     -------------------------------
         from PAMI.frequentSpatialPattern.basic import FSPGrowth as alg
-
         obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
-
         obj.startMine()
-
         spatialFrequentPatterns = obj.getPatterns()
-
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-
         obj.savePatterns("outFile")
-
         memUSS = obj.getMemoryUSS()
-
         print("Total Memory in USS:", memUSS)
-
         memRSS = obj.getMemoryRSS()
-
         print("Total Memory in RSS", memRSS)
-
         run = obj.getRuntime()
-
         print("Total ExecutionTime in seconds:", run)
-
     Credits:
     -------
         The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
@@ -283,7 +265,6 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     _Database = []
     _neighbourList = {}
     _fpList = []
-
 
     def _readDatabase(self):
         """
@@ -354,15 +335,6 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
                 except IOError:
                     print("File Not Found2")
                     quit()
-        '''with open(self.nFile, "r") as nf:
-            for line in nf:
-                l = line.rstrip().split('\t')
-                key = tuple(l[0].rstrip().split(' '))
-                for i in range(len(l)):
-                    if i == 0:
-                        self.neighbourList[key] = []
-                    else:
-                        self.neighbourList[key].append(tuple(l[i].rstrip().split(' ')))'''
 
     def _getFrequentItems(self):
         """
@@ -419,7 +391,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         self._getFrequentItems()
         self._sortTransaction()
         _FPTree = self._createFPTree()
-        self._finalPatterns = (dict(_FPTree.mining(self._minSup, self._neighbourList)))
+        self._finalPatterns.update(dict(_FPTree.mining(self._minSup, self._neighbourList)))
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -427,7 +399,6 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Frequent Spatial Patterns successfully generated using FSPGrowth")
-
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -484,6 +455,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
+
         return self._finalPatterns
 
     def printResults(self):
@@ -491,26 +463,6 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:",  self.getRuntime())
-
-    '''def savePatterns(self):
-        """
-        Complete set of frequent patterns will be loaded in to a output file
-        """
-        s = ""
-        s1 = ""
-        writer = open(self.oFile, 'w+')
-        for x, y in self.finalPatterns.items():
-            if type(x[0]) == str:
-                s1 = "Point(" + x[0] + " " + x[1] + ")" + " : " + str(y) + "\n"
-            else:
-                for point in x:
-                    s = "Point(" + str(point[0]) + " " + str(point[1]) + ")" + "\t"
-                    s1 += s
-                s1 += ": " + str(y) + "\n"
-            writer.write(s1)
-            s = ""
-            s1 = ""
-    '''
 
 
 if __name__ == "__main__":
@@ -528,3 +480,4 @@ if __name__ == "__main__":
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
