@@ -1,9 +1,0 @@
-psutil
-pandas
-plotly
-matplotlib
-resource
-validators
-urllib3
-pyspark
-Pillow
