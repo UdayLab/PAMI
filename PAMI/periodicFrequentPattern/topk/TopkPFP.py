@@ -410,8 +410,8 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a, b[0], b[1]])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def save(self, outFile):
@@ -424,7 +424,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = x + ":" + str(y)
+            patternsAndSupport = x.replace(' ', '\t') + ":" + f'{y[0]}:{y[1]}'
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
@@ -457,4 +457,18 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+        ap = TopkPFPGrowth('/Users/nakamura0803/PAMI1/PAMI/partialPeriodicFrequentPattern/basic/sample.txt', 2, 3,
+                          sep=' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        # ap.save('/home/apiiit-rkv/Downloads/fp_pami/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
+        ap.save('output.txt')
+        print(ap.getPatternsAsDataFrame())
+    print("Error! The number of input parameters do not match the total number of parameters provided")

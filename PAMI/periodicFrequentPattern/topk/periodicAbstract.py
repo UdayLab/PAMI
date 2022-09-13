@@ -75,7 +75,7 @@ class _periodicFrequentPatterns(_ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, k, sep = '\t'):
+    def __init__(self, iFile, k, sep='\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
