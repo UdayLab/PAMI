@@ -56,7 +56,7 @@ class ECLATbitset(_ab._frequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -196,7 +196,7 @@ class ECLATbitset(_ab._frequentPatterns):
             count = bin(tid).count("1") - 1
             #tidLength = len(tid)
             if count >= self._minSup:
-                frequentItemset = itemset + ' ' + tidData[i][0]
+                frequentItemset = itemset + '\t' + tidData[i][0]
                 self._finalPatterns[frequentItemset] = count
                 self.genPatterns((frequentItemset,tid),tidData[i+1:length])
 
@@ -229,7 +229,6 @@ class ECLATbitset(_ab._frequentPatterns):
         self._finalPatterns = {k: len(v) for k, v in frequentItems.items()}
         frequentItemsBitset = self.tidToBitset(frequentItems)
         self.genAllFrequentPatterns(frequentItemsBitset)
-        self.savePatterns('output.txt')
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -275,7 +274,7 @@ class ECLATbitset(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -308,7 +307,7 @@ if __name__=="__main__":
             _ap = ECLATbitset(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())

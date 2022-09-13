@@ -339,7 +339,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of periodic-frequent patterns will be loaded in to a dataframe
@@ -386,7 +386,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
             print("Total number of Periodic Frequent Patterns:", len(periodicCorrelatedPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternsAsDataFrame()
 
@@ -640,7 +640,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity', 'allConf', 'maxPerAllConf'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -676,7 +676,7 @@ if __name__ == "__main__":
             _ap = EPCPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], sys.argv[5], sys.argv[6])
         _ap.startMine()
         print("Total number of Correlated Periodic-Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:",  _ap.getRuntime())

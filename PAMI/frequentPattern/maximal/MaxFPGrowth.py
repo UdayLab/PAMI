@@ -413,7 +413,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -458,7 +458,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
 
         print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        obj.savePatterns("patterns")
+        obj.save("patterns")
 
         Df = obj.getPatternsAsDataFrame()
 
@@ -698,7 +698,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -735,7 +735,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = MaxFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total number of Maximal Frequent Patterns:", len(_ap.getPatterns()))
         print("Total Memory in USS:",  _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())

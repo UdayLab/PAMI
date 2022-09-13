@@ -52,7 +52,7 @@ class LPPMDepth(localPeriodicPatterns):
             Total amount of runtime taken by the mining process will be retrieved from this function.
         getLocalPeriodicPatterns()
             return local periodic patterns and its PTL
-        savePatterns(oFile)
+        save(oFile)
             Complete set of local periodic patterns will be loaded in to a output file.
         getPatternsAsDataFrame()
             Complete set of local periodic patterns will be loaded in to a dataframe.
@@ -78,7 +78,7 @@ class LPPMDepth(localPeriodicPatterns):
 
         print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternsAsDataFrame()
 
@@ -409,7 +409,7 @@ class LPPMDepth(localPeriodicPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'PTL'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of local periodic patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -441,7 +441,7 @@ if __name__ == '__main__':
 #         ap.startMine()
 #         Patterns = ap.getPatterns()
 #         print("Total number of Frequent Patterns:", len(Patterns))
-#         ap.savePatterns(sys.argv[2])
+#         ap.save(sys.argv[2])
 #         memUSS = ap.getMemoryUSS()
 #         print("Total Memory in USS:", memUSS)
 #         memRSS = ap.getMemoryRSS()
@@ -456,7 +456,7 @@ if __name__ == '__main__':
 #             ap.startMine()
 #             Patterns = ap.getPatterns()
 #             print("Total number of Frequent Patterns:", len(Patterns))
-#             ap.savePatterns('/Users/Likhitha/Downloads/output')
+#             ap.save('/Users/Likhitha/Downloads/output')
 #             memUSS = ap.getMemoryUSS()
 #             print("Total Memory in USS:", memUSS)
 #             memRSS = ap.getMemoryRSS()

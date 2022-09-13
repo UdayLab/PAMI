@@ -62,7 +62,7 @@ class Apriori(_ab._frequentPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
+            save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -105,7 +105,7 @@ class Apriori(_ab._frequentPatterns):
 
             print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternInDataFrame()
 
@@ -257,7 +257,7 @@ class Apriori(_ab._frequentPatterns):
             for x,y in frequentSet.items():
                 sample = str()
                 for k in x:
-                    sample = sample + k + " "
+                    sample = sample + k + "\t"
                 self._finalPatterns[sample] = y
             items = self._frequentToCandidate(frequentSet, i + 1)
             if len(items) == 0:
@@ -315,7 +315,7 @@ class Apriori(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -353,7 +353,7 @@ if __name__ == "__main__":
             _ap =Apriori(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())

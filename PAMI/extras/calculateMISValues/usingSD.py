@@ -91,7 +91,7 @@ class usingBeta():
             dataFrame = _pd.DataFrame(data, columns=['Items', 'MIS'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -105,4 +105,4 @@ class usingBeta():
 if __name__ == '__main__':
     cd = usingBeta("sample.txt", 10, ' ')
     cd.caculateMIS()
-    cd.savePatterns('output.txt')
+    cd.save('output.txt')

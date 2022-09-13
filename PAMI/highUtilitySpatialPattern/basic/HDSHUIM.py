@@ -123,7 +123,7 @@ class HDSHUIM(_ab._utilityPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
+            save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             constructCUL(x, compactUList, st, minUtil, length, exNeighbours)
                 A method to construct CUL's database
@@ -169,7 +169,7 @@ class HDSHUIM(_ab._utilityPatterns):
 
         print("Total number of Spatial High-Utility Patterns:", len(Patterns))
 
-        obj.savePatterns("output")
+        obj.save("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -561,7 +561,7 @@ class HDSHUIM(_ab._utilityPatterns):
         self._huiCount += 1
         res = ""
         for i in range(0, prefixLen):
-            res += str(prefix[i]) + " "
+            res += str(prefix[i]) + "\t"
         res += str(item)
         res1 = str(utility)
         self._finalPatterns[res] = res1
@@ -588,7 +588,7 @@ class HDSHUIM(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -626,6 +626,12 @@ class HDSHUIM(_ab._utilityPatterns):
        """
         return self._endTime - self._startTime
 
+    def printResults(self):
+        print("Total number of Spatial High Utility Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -635,26 +641,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:  # to consider "\t" as a separator
             _ap = HDSHUIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]))
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Spatial High-Utility Patterns:", len(_Patterns))
-        _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total number of Spatial High-Utility Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = HDSHUIM('/Users/likhitha/Downloads/pollution_data_30.txt', '/Users/likhitha/Downloads/pollution_nearest_30.txt',
-                    1000, ' ')
-        _ap.startMine()
-        _patterns = _ap.getPatterns()
-        print("Total number of Spatial High Utility Patterns:", len(_patterns))
-        _ap.savePatterns('/Users/likhitha/Downloads/HUIS/output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

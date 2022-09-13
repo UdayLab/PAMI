@@ -270,7 +270,7 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -314,7 +314,7 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
 
         print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternInDataFrame()
 
@@ -657,7 +657,7 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -690,7 +690,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
-        _ap.savePatterns(_fp._sys.argv[2])
+        _ap.save(_fp._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -705,7 +705,7 @@ if __name__ == "__main__":
         #for x, y in _Patterns.items():
             #print(x, y)
         print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns('/Users/Likhitha/Downloads/output271.txt')
+        _ap.save('/Users/Likhitha/Downloads/output271.txt')
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()

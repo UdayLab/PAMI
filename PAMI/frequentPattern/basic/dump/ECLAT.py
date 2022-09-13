@@ -62,7 +62,7 @@ class ECLAT(frequentPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
+            save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -108,7 +108,7 @@ class ECLAT(frequentPatterns):
 
             print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternInDataFrame()
 
@@ -345,7 +345,7 @@ class ECLAT(frequentPatterns):
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -378,7 +378,7 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.save(sys.argv[2])
         print(ap.getPatternsAsDataFrame())
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)

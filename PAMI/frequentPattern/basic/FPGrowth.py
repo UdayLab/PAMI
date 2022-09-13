@@ -257,7 +257,7 @@ class FPGrowth(_fp._frequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -301,7 +301,7 @@ class FPGrowth(_fp._frequentPatterns):
 
         print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternInDataFrame()
 
@@ -474,7 +474,7 @@ class FPGrowth(_fp._frequentPatterns):
         """
         temp = str()
         for i in itemSet:
-            temp = temp + self.__rankDup[i] + " "
+            temp = temp + self.__rankDup[i] + "\t"
         return temp
 
     def startMine(self):
@@ -556,7 +556,7 @@ class FPGrowth(_fp._frequentPatterns):
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -594,7 +594,7 @@ if __name__ == "__main__":
             _ap = FPGrowth(_fp._sys.argv[1], _fp._sys.argv[3])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len( _ap.getPatterns()))
-        _ap.savePatterns(_fp._sys.argv[2])
+        _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())

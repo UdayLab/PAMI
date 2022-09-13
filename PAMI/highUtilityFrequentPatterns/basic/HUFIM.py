@@ -196,10 +196,10 @@ class _Dataset:
             i = datasetPath.columns.values.tolist()
             if 'Transactions' in i:
                 data = datasetPath['Transactions'].tolist()
-            if 'utilities' in i:
-                utilities = datasetPath['utilities'].tolist()
-            if 'utilitySum' in i:
-                utilitySum = datasetPath['utilitySum'].tolist()
+            if 'Utilities' in i:
+                utilities = datasetPath['Utilities'].tolist()
+            if 'UtilitySum' in i:
+                utilitySum = datasetPath['UtilitySum'].tolist()
             for k in range(len(data)):
                 self.transactions.append(self.createTransaction(data[k], utilities[k], utilitySum[k]))
         if isinstance(datasetPath, str):
@@ -332,7 +332,7 @@ class HUFIM(_ab._utilityPatterns):
                 Mining process will start from here
         getPatterns()
                 Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
                 Complete set of patterns will be loaded in to a output file
         getPatternsAsDataFrame()
                 Complete set of patterns will be loaded in to a dataframe
@@ -381,7 +381,7 @@ class HUFIM(_ab._utilityPatterns):
 
         print("Total number of high utility frequent Patterns:", len(Patterns))
 
-        obj.savePatterns("output")
+        obj.save("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -653,8 +653,8 @@ class HUFIM(_ab._utilityPatterns):
         for i in range(0, tempPosition+1):
             s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
-                s1 += " "
-        self._finalPatterns[s1] = str(utility) + ":" + str(support)
+                s1 += "\t"
+        self._finalPatterns[s1] = [utility, support]
 
     def _isEqual(self, transaction1, transaction2):
         """
@@ -787,8 +787,8 @@ class HUFIM(_ab._utilityPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility:Support'])
+            data.append([a, b[0], b[1]])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility', 'Support'])
 
         return dataFrame
     
@@ -800,7 +800,7 @@ class HUFIM(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -809,7 +809,7 @@ class HUFIM(_ab._utilityPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = str(x) + " : " + str(y[0]) + " : " + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):
@@ -838,17 +838,11 @@ class HUFIM(_ab._utilityPatterns):
        """
         return self._endTime-self._startTime
     
-    def printStats(self):
-        patterns = self.getPatterns()
-        print("Total number of High Utility Frequent Patterns:",  self._patternCount)
-        #print("Total number of Candidate Patterns:", ap._candidateCount)
-        #ap.savePatterns('/home/apiiit-rkv/Downloads/output')
-        memUSS = self.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = self.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = self.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+    def printResults(self):
+        print("Total number of High Utility Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
 
 if __name__ == '__main__':
     _ap = str()
@@ -858,36 +852,11 @@ if __name__ == '__main__':
         if len(_ab._sys.argv) == 5:    #takes "\t" as a separator
             _ap = HUFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]))
         _ap.startMine()
-        _patterns = _ap.getPatterns()
-        print("Total number of High Utility Frequent Patterns:", _ap._patternCount)
-        #print("Total number of Candidate Patterns:", _ap._candidateCount)
-        _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
-        #print("######################################")
+        print("Total number of High Utility Frequent Patterns:", _ap.getPatterns())
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        '''l = [2000, 5000, 40000]
-        for i in l:
-            ap = HUFIM('/home/apiiit-rkv/Downloads/pol_pm2_16_util', i, 400, ' ')
-            ap.startMine()
-            patterns = ap.getPatterns()
-            print("Total number of High Utility Frequent Patterns:", ap._patternCount)
-            print("Total number of Candidate Patterns:", ap._candidateCount)
-            ap.savePatterns('/home/apiiit-rkv/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)'''
-        obj = HUFIM('sample_util.txt', 20, 5, ' ')
-        obj.startMine() 
-        obj.savePatterns('output.txt') 
-        Df = obj.getPatternsAsDataFrame()
-        obj.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")
 

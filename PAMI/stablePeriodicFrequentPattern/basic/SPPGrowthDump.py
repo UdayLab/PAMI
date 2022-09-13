@@ -443,7 +443,7 @@ class SPPGrowth():
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -474,7 +474,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns(sys.argv[2])
+        _ap.save(sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -487,7 +487,7 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns('/Users/Likhitha/Downloads/output')
+        ap.save('/Users/Likhitha/Downloads/output')
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

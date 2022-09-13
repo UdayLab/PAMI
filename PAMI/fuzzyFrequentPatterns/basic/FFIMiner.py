@@ -191,7 +191,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -239,7 +239,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
         print("Total number of Fuzzy Frequent Patterns:", len(fuzzyFrequentPatterns))
 
-        obj.savePatterns("outputFile")
+        obj.save("outputFile")
 
         memUSS = obj.getMemoryUSS()
 
@@ -564,7 +564,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         self._itemsCnt += 1
         res = ""
         for i in range(0, prefixLen):
-            res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + " "
+            res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + "\t"
         res += str(item) + "." + str(self._mapItemRegions.get(item))
         res1 = str(sumIUtil)
         self._finalPatterns[res] = res1
@@ -591,7 +591,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         """
         return self._finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -619,7 +619,7 @@ if __name__ == "__main__":
             _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())

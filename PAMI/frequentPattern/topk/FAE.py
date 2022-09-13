@@ -53,7 +53,7 @@ class FAE(_ab._frequentPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
+            save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -97,7 +97,7 @@ class FAE(_ab._frequentPatterns):
 
             print("Total number of Frequent Patterns:", len(topKFrequentPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternInDataFrame()
 
@@ -211,7 +211,7 @@ class FAE(_ab._frequentPatterns):
         val = len(tidSetI)
         sample = str()
         for i in prefix:
-            sample = sample + i + " "
+            sample = sample + i + "\t"
         if len(self._finalPatterns) < self._k:
             if val > self._minimum:
                 self._finalPatterns[sample] = val
@@ -363,7 +363,7 @@ class FAE(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -401,7 +401,7 @@ if __name__ == "__main__":
             _ap = FAE(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         print("Top K Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())

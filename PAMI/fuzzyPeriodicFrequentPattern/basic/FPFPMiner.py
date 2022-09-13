@@ -206,7 +206,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -256,7 +256,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
 
         print("Total number of Fuzzy Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-        obj.savePatterns("output.txt")
+        obj.save("output.txt")
 
         memUSS = obj.getMemoryUSS()
 
@@ -613,7 +613,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         self._itemsCnt += 1
         res = ""
         for i in range(0, prefixLen):
-            res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + " "
+            res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + "\t"
         res += str(item) + "." + str(self._mapItemRegions.get(item))
         res1 = str(sumLUtil) + " : " + str(period)
         self._finalPatterns[res] = [sumLUtil, period]
@@ -640,7 +640,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         """
         return self._finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -668,7 +668,7 @@ if __name__ == "__main__":
             _ap = FPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         print("Total number of Fuzzy Periodic-Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())

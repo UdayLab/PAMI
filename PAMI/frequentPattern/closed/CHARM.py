@@ -86,7 +86,7 @@ class CHARM(_ab._frequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -123,7 +123,7 @@ class CHARM(_ab._frequentPatterns):
 
         print("Total number of Closed Frequent Patterns:", len(frequentPatterns))
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternsAsDataFrame()
 
@@ -317,7 +317,7 @@ class CHARM(_ab._frequentPatterns):
             if self._contains(prefix, val, hashcode) is False:
                 sample = str()
                 for i in prefix:
-                    sample = sample + i + " "
+                    sample = sample + i + "\t"
                 self._itemSetCount += 1
                 self._finalPatterns[sample] = val
             if hashcode not in self._hashing:
@@ -491,7 +491,7 @@ class CHARM(_ab._frequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -530,7 +530,7 @@ if __name__ == "__main__":
             _ap = CHARM(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         print("Total number of Closed Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         _memRSS = _ap.getMemoryRSS()
         print("Total Memory in RSS", _ap.getMemoryRSS())

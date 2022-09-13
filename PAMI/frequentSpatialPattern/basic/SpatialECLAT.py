@@ -41,7 +41,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -94,7 +94,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
 
-        obj.savePatterns("outFile")
+        obj.save("outFile")
 
         memUSS = obj.getMemoryUSS()
 
@@ -208,7 +208,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
         temp = []
         for ite in iList.keys():
-            ite = [int(i) for i in ite.strip('[]').split(',')]
+            ite = [int(i) for i in ite.strip('[]').split('\t')]
             temp.append(ite)
             # print(sorted(temp))
         return sorted(temp)
@@ -399,7 +399,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -441,7 +441,7 @@ if __name__ == "__main__":
             _ap = SpatialECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         print("Total number of Spatial Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())

@@ -175,8 +175,8 @@ class _Dataset:
                 data = datasetPath['Transactions'].tolist()
             if 'Utilities' in i:
                 utilities = datasetPath['Utilities'].tolist()
-            if 'TransactionUtility' in i:
-                transactionUtility = datasetPath['TransactionUtility'].tolist()
+            if 'UtilitySum' in i:
+                transactionUtility = datasetPath['UtilitySum'].tolist()
             self.transactions.append(self.createTransaction(data, utilities, transactionUtility))
         if isinstance(datasetPath, str):
             if _ab._validators.url(datasetPath):
@@ -301,7 +301,7 @@ class EFIM(_ab._utilityPatterns):
                 Mining process will start from here
         getPatterns()
                 Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
                 Complete set of patterns will be loaded in to a output file
         getPatternsAsDataFrame()
                 Complete set of patterns will be loaded in to a dataframe
@@ -347,7 +347,7 @@ class EFIM(_ab._utilityPatterns):
 
         print("Total number of high utility Patterns:", len(Patterns))
 
-        obj.savePatterns("output")
+        obj.save("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -416,7 +416,7 @@ class EFIM(_ab._utilityPatterns):
         self._startTime = _ab._time.time()
         self._dataset = _Dataset(self._iFile, self._sep)
         self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
-        minUtil = int(self._minUtil)
+        self._minUtil = int(self._minUtil)
         itemsToKeep = []
         for key in self._utilityBinArrayLU.keys():
             if self._utilityBinArrayLU[key] >= self._minUtil:
@@ -577,7 +577,7 @@ class EFIM(_ab._utilityPatterns):
         for i in range(0, tempPosition+1):
             s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
-                s1 += " "
+                s1 += "\t"
         self._finalPatterns[s1] = str(utility)
 
     def _isEqual(self, transaction1, transaction2):
@@ -721,7 +721,7 @@ class EFIM(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -759,6 +759,12 @@ class EFIM(_ab._utilityPatterns):
        """
         return self._endTime-self._startTime
 
+    def printResults(self):
+        print("Total number of High Utility Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
+
 
 if __name__ == '__main__':
     _ap = str()
@@ -768,28 +774,10 @@ if __name__ == '__main__':
         if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
             _ap = EFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]))
         _ap.startMine()
-        _patterns = _ap.getPatterns()
-        print("Total number of High Utility Patterns:", _ap._patternCount)
-        #print("Total number of Candidate Patterns:", ap.candidateCount)
-        _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+        print("Total number of High Utility Patterns:", _ap.getPatterns())
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        '''l = [200000, 300000, 400000, 500000]
-        for i in l:
-            ap = EFIM('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/home/apiiit-rkv/Downloads/output.txt')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

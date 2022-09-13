@@ -300,7 +300,7 @@ class upgrowth(utilityPatterns):
             A Method to Mine UP Tree recursively
         PrintStats()
             A Method to print no.of phuis
-        savePatterns(oFile)
+        save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -330,7 +330,7 @@ class upgrowth(utilityPatterns):
 
         print("Total number of Spatial Frequent Patterns:", len(frequentPatterns))
 
-        obj.savePatterns("output")
+        obj.save("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -521,7 +521,7 @@ class upgrowth(utilityPatterns):
         :rtype: dict
         """
         return self.finalPatterns
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -564,7 +564,7 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of huis:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.save(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

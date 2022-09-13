@@ -59,7 +59,7 @@ class ECLAT(_ab._frequentPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
+            save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -105,7 +105,7 @@ class ECLAT(_ab._frequentPatterns):
 
             print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternInDataFrame()
 
@@ -213,7 +213,7 @@ class ECLAT(_ab._frequentPatterns):
                 if i1_list[:-1] == i2_list[:-1]:
                     interSet = self._finalPatterns[item1][0].intersection(self._finalPatterns[item2][0])
                     if len(interSet) >= self._minSup:
-                        newKey = item1 + " " + i2_list[-1]
+                        newKey = item1 + "\t" + i2_list[-1]
                         self._finalPatterns[newKey] = [interSet]
                         new_freqList.append(newKey)
                 else: break
@@ -308,7 +308,7 @@ class ECLAT(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -346,7 +346,7 @@ if __name__ == "__main__":
             _ap = ECLAT(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print(_ap.getPatternsAsDataFrame())
         print("Total Memory in USS:",  _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())

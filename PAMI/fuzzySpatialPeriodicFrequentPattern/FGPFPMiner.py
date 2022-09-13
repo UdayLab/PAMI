@@ -151,7 +151,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -189,7 +189,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
         obj.startMine()
         print("Total number of fuzzy frequent spatial patterns:", len(obj.getPatterns()))
-        obj.savePatterns("outputFile")
+        obj.save("outputFile")
         print("Total Memory in USS:", obj.getMemoryUSS())
         print("Total Memory in RSS", obj.getMemoryRSS())
         print("Total ExecutionTime in seconds:", obj.getRuntime())
@@ -671,7 +671,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         return self._finalPeriodicPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -752,11 +752,11 @@ if __name__ == "__main__":
             _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
         print("Total number of Spatial Fuzzy Periodic Frequent  Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS",  _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
-        _ap.savePatterns("outputfile.txt")
+        _ap.save("outputfile.txt")
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
 

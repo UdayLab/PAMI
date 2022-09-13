@@ -320,7 +320,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of periodic-frequent patterns will be loaded in to a dataframe
@@ -367,7 +367,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
             print("Total number of Periodic Frequent Patterns:", len(stablePeriodicFrequentPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternsAsDataFrame()
 
@@ -629,7 +629,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -660,7 +660,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -675,7 +675,7 @@ if __name__ == "__main__":
         for x, y in _Patterns.items():
             print(x, y)
         print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns('/Users/Likhitha/Downloads/output.txt')
+        _ap.save('/Users/Likhitha/Downloads/output.txt')
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()

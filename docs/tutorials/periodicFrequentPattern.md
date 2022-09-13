@@ -61,7 +61,7 @@ Step 2: Initialize and execute the mining algorithm by passing the data, minSup 
 
 Step 3: Store the patterns in a file
 
-    obj.savePatterns('patterns.txt')
+    obj.save('patterns.txt')
 
 Step 4: Printing the patterns
 

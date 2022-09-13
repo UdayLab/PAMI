@@ -300,7 +300,7 @@ class RHUIM(_ab._utilityPatterns):
                 Mining process will start from here
         getPatterns()
                 Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
                 Complete set of patterns will be loaded in to a output file
         getPatternsAsDataFrame()
                 Complete set of patterns will be loaded in to a dataframe
@@ -349,7 +349,7 @@ class RHUIM(_ab._utilityPatterns):
 
         print("Total number of relative high utility Patterns:", len(Patterns))
 
-        obj.savePatterns("output")
+        obj.save("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -721,7 +721,7 @@ class RHUIM(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -771,7 +771,7 @@ if __name__ == '__main__':
         _patterns = _ap.getPatterns()
         print("Total number of Relative High Utility Patterns:", _ap._patternCount)
         print("Total number of Candidate Patterns:", _ap._candidateCount)
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -787,7 +787,7 @@ if __name__ == '__main__':
             patterns = ap.getPatterns()
             print("Total number of Relative High Utility Patterns:", ap._patternCount)
             print("Total number of Candidate Patterns:", ap._candidateCount)
-            ap.savePatterns('/home/apiiit-rkv/pamiDatasets/utility/output')
+            ap.save('/home/apiiit-rkv/pamiDatasets/utility/output')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()

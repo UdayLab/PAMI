@@ -197,7 +197,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -245,7 +245,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
         print("Total number of fuzzy frequent spatial patterns:", len(fuzzySpatialFrequentPatterns))
 
-        obj.savePatterns("outputFile")
+        obj.save("outputFile")
 
         memUSS = obj.getMemoryUSS()
 
@@ -661,7 +661,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         return self._finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -689,7 +689,7 @@ if __name__ == "__main__":
             _ap = FFSPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         print("Total number of Spatial Fuzzy Frequent  Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS",  _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())

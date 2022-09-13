@@ -45,7 +45,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
+            save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             getPatternsAsDataFrames()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -90,7 +90,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
 
         print("Total number of Geo Referenced Periodic-Frequent Patterns:", len(Patterns))
 
-        obj.savePatterns("outFile")
+        obj.save("outFile")
 
         memUSS = obj.getMemoryUSS()
 
@@ -411,7 +411,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Period'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -452,7 +452,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _spatialFrequentPatterns = _ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -468,7 +468,7 @@ if __name__ == "__main__":
             _ap.startMine()
             _spatialFrequentPatterns = _ap.getPatterns()
             print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
-            _ap.savePatterns('/Users/Likhitha/Downloads/Nighbours_gen/output.txt')
+            _ap.save('/Users/Likhitha/Downloads/Nighbours_gen/output.txt')
             _memUSS = _ap.getMemoryUSS()
             print("Total Memory in USS:", _memUSS)
             _memRSS = _ap.getMemoryRSS()
@@ -479,6 +479,6 @@ if __name__ == "__main__":
         _ap.startMine()
         _ap.printStats()
         print(_ap.getPatternsAsDataFrame())
-        _ap.savePatterns('output.txt')
+        _ap.save('output.txt')
         print("Error! The number of input parameters do not match the total number of parameters provided")
 

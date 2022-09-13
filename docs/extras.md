@@ -133,7 +133,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
           
           obj = alg.fpGrowth(inputFile,minSup,sep)
           obj.startMine()
-          obj.savePatterns('patterns.txt')
+          obj.save('patterns.txt')
           df = obj.getPatternsAsDataFrame()
           print('Runtime: ' + str(obj.getRuntime()))
           print('Memory: ' + str(obj.getMemoryRSS()))

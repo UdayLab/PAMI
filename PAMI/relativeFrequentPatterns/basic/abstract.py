@@ -45,7 +45,7 @@ class _frequentPatterns(_ABC):
             Mining process will start from here
         getFrequentPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to data frame
@@ -89,7 +89,7 @@ class _frequentPatterns(_ABC):
         pass
 
     @_abstractmethod
-    def savePatterns(self, oFile):
+    def save(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file

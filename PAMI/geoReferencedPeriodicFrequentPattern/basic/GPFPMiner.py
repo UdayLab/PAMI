@@ -45,7 +45,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
+            save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             getPatternsAsDataFrames()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -90,7 +90,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
 
         print("Total number of Geo Referenced Periodic-Frequent Patterns:", len(Patterns))
 
-        obj.savePatterns("outFile")
+        obj.save("outFile")
 
         memUSS = obj.getMemoryUSS()
 
@@ -414,7 +414,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Period'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -451,7 +451,7 @@ if __name__ == "__main__":
             _ap = GPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
         print("Total number of Spatial Periodic-Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())

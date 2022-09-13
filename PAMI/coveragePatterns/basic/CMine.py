@@ -41,7 +41,7 @@ class CMine(_ab._coveragePatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of coverage patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of coverage patterns will be loaded in to a dataframe
@@ -83,7 +83,7 @@ class CMine(_ab._coveragePatterns):
 
             print("Total number of coverage Patterns:", len(coveragePatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternsAsDataFrame()
 
@@ -223,7 +223,7 @@ class CMine(_ab._coveragePatterns):
             andCount = bin(tid).count("1") - 1
             orCount = bin(tid1).count("1") - 1
             if orCount/len(self._Database) >= self._minCS and andCount / len(str(prefix[1])):
-                coverageItemset = itemset + ' ' + tidData[i][0]
+                coverageItemset = itemset + '\t' + tidData[i][0]
                 if orCount / len(self._Database) >= self._minRF:
                     self._finalPatterns[coverageItemset] = andCount
                 self.genPatterns((coverageItemset,tid),tidData[i+1:length])
@@ -254,7 +254,7 @@ class CMine(_ab._coveragePatterns):
         self._finalPatterns = {k: len(v) for k, v in coverageItems.items()}
         coverageItemsBitset = self.tidToBitset(coverageItems)
         self.generateAllPatterns(coverageItemsBitset)
-        self.savePatterns('output.txt')
+        self.save('output.txt')
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -300,7 +300,7 @@ class CMine(_ab._coveragePatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of coverage patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -334,7 +334,7 @@ if __name__=="__main__":
             _ap = CMine(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
         print("Total number of coverage Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())

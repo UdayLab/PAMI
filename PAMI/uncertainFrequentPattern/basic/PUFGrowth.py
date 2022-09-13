@@ -297,7 +297,7 @@ class PUFGrowth(_ab._frequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -334,7 +334,7 @@ class PUFGrowth(_ab._frequentPatterns):
         obj.startMine()
         Patterns = obj.getPatterns()
         print("Total number of  Patterns:", len(Patterns))
-        obj.savePatterns(oFile)
+        obj.save(oFile)
         Df = obj.getPatternsAsDataFrame()
         memUSS = obj.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
@@ -598,7 +598,7 @@ class PUFGrowth(_ab._frequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -627,7 +627,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -639,7 +639,7 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Patterns:", len(Patterns))
-        ap.savePatterns("patterns.txt")
+        ap.save("patterns.txt")
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

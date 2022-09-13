@@ -52,7 +52,7 @@ The format of a transactional database is as follows:
    obj = alg.fpGrowth(inputFile, minSup) 
 # use obj = alg.fpGrowth(inputFile, minSup,sep=',')  to override the default tab space separator with comma
    obj.startMine()  # start the mining process
-   obj.savePatterns(outputFile)      # store the generated patterns in a file
+   obj.save(outputFile)      # store the generated patterns in a file
       
 
    ```

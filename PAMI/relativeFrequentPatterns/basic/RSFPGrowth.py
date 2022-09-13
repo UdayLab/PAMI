@@ -247,7 +247,7 @@ class RSFPGrowth(_ab._frequentPatterns):
             Mining process will start from here
         getFrequentPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -296,7 +296,7 @@ class RSFPGrowth(_ab._frequentPatterns):
 
         print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternsAsDataFrame()
 
@@ -610,12 +610,12 @@ class RSFPGrowth(_ab._frequentPatterns):
         for a, b in self.__finalPatterns.items():
             pattern = str()
             for i in a:
-                pattern = pattern + i + " "
+                pattern = pattern + i + "\t"
             data.append([pattern, b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -626,7 +626,7 @@ class RSFPGrowth(_ab._frequentPatterns):
         for x, y in self.__finalPatterns.items():
             pattern = str()
             for i in x:
-                pattern = pattern + i + " "
+                pattern = pattern + i + "\t"
             s1 = str(pattern) + ": " + str(y)
             writer.write("%s \n" % s1)
 
@@ -640,7 +640,7 @@ class RSFPGrowth(_ab._frequentPatterns):
         for x, y in self.__finalPatterns.items():
             pattern = str()
             for i in x:
-                pattern = pattern + i + " "
+                pattern = pattern + i + "\t"
             s1 = str(y)
             res[pattern] = s1
         return res
@@ -661,7 +661,7 @@ if __name__ == "__main__":
             _ap = RSFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())

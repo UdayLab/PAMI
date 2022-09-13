@@ -69,7 +69,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -109,7 +109,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
         print("Total number of partial periodic patterns:", len(Patterns))
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternsAsDataFrame()
 
@@ -407,7 +407,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -440,7 +440,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Partial Periodic Patterns:", len(_Patterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -454,7 +454,7 @@ if __name__ == "__main__":
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of  Patterns:", len(Patterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
+            ap.save('/Users/Likhitha/Downloads/output')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
             memRSS = ap.getMemoryRSS()

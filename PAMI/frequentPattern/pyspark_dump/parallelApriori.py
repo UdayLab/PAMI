@@ -74,7 +74,7 @@ class parallelApriori(_ab._frequentPatterns):
             
             print("Total number of Frequent Patterns:", len(frequentPatterns))
             
-            obj.savePatterns(oFile)
+            obj.save(oFile)
             
             Df = obj.getPatternInDataFrame()
             
@@ -145,7 +145,7 @@ class parallelApriori(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
@@ -297,7 +297,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _finalPatterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_finalPatterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()

@@ -91,7 +91,7 @@ An example of a utility temporal database is show below:
    obj = alg.EFIM(inputFile,    minUtil) 
    
    obj.startMine()  #start the mining process
-   obj.savePatterns(outputFile)      #store the generated patterns in a file
+   obj.save(outputFile)      #store the generated patterns in a file
       
 
    ```

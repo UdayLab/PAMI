@@ -160,50 +160,87 @@ class _Dataset:
     transactions = []
     maxItem = 0
     
-    def __init__(self, datasetpath, sep):
-        self.strToint = {}
-        self.intTostr = {}
+    def __init__(self, datasetPath, sep):
+        self.strToInt = {}
+        self.intToStr = {}
         self.cnt = 1
         self.sep = sep
-        with open(datasetpath, 'r') as f:
-            lines = f.readlines()
-            for line in lines:
-                self.transactions.append(self.createTransaction(line))
-        f.close()
+        self.transactions = []
+        self.createItemSets(datasetPath)
 
-    def createTransaction(self, line):
+    def createItemSets(self, datasetPath):
+        if isinstance(datasetPath, _ab._pd.DataFrame):
+            utilities, data, utilitySum = [], [], []
+            if datasetPath.empty:
+                print("its empty..")
+            i = datasetPath.columns.values.tolist()
+            if 'Transactions' in i:
+                data = datasetPath['Transactions'].tolist()
+            if 'Utilities' in i:
+                utilities = datasetPath['Utilities'].tolist()
+            if 'UtilitySum' in i:
+                utilitySum = datasetPath['UtilitySum'].tolist()
+            for k in range(len(data)):
+                self.transactions.append(self.createTransaction(data[k], utilities[k], utilitySum[k]))
+        if isinstance(datasetPath, str):
+            if _ab._validators.url(datasetPath):
+                data = _ab._urlopen(datasetPath)
+                for line in data:
+                    line = line.decode("utf-8")
+                    trans_list = line.strip().split(':')
+                    transactionUtility = int(trans_list[1])
+                    itemsString = trans_list[0].strip().split(self.sep)
+                    itemsString = [x for x in itemsString if x]
+                    utilityString = trans_list[2].strip().split(self.sep)
+                    utilityString = [x for x in utilityString if x]
+                    self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility))
+            else:
+                try:
+                    with open(datasetPath, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            trans_list = line.strip().split(':')
+                            transactionUtility = int(trans_list[1])
+                            itemsString = trans_list[0].strip().split(self.sep)
+                            itemsString = [x for x in itemsString if x]
+                            utilityString = trans_list[2].strip().split(self.sep)
+                            utilityString = [x for x in utilityString if x]
+                            self.transactions.append(
+                                self.createTransaction(itemsString, utilityString, transactionUtility))
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
+    def createTransaction(self, items, utilities, utilitySum):
         """
             A method to create Transaction from dataset given
             
             Attributes:
             -----------
-            :param line: represent a single line of database
-            :param line: represent a single line of database
-            :type line: string
+            :param items: represent a utility items in a transaction
+            :param utilities: represent utility of an item in transaction
+            :param utilitySum: represent utility sum of  transaction
+            :type items: list
+            :type utilities: list
+            :type utilitySum: int
             :return : Transaction
             :rtype: Transaction
         """
-        #print(line)
-        transList = line.strip().split(':')
-        transactionUtility = int(transList[1])
-        itemsString = transList[0].strip().split(self.sep)
-        utilityString = transList[2].strip().split(self.sep)
-        pmuString = transList[3].strip().split(self.sep)
+        transactionUtility = utilitySum
+        itemsString = items
+        utilityString = utilities
         items = []
         utilities = []
-        pmus = []
         for idx, item in enumerate(itemsString):
-            if (self.strToint).get(item) is None:
-                self.strToint[item] = self.cnt
-                self.intTostr[self.cnt] = item
+            if self.strToInt.get(item) is None:
+                self.strToInt[item] = self.cnt
+                self.intToStr[self.cnt] = item
                 self.cnt += 1
-            itemInt = self.strToint.get(item)
-            if itemInt > self.maxItem:
-                self.maxItem = itemInt
-            items.append(itemInt)
+            item_int = self.strToInt.get(item)
+            if item_int > self.maxItem:
+                self.maxItem = item_int
+            items.append(item_int)
             utilities.append(int(utilityString[idx]))
-            pmus.append(int(pmuString[idx]))
-        return _Transaction(items, utilities, transactionUtility, pmus)
+        return _Transaction(items, utilities, transactionUtility)
 
     def getMaxItem(self):
         """
@@ -273,7 +310,7 @@ class SHUFIM(_ab._utilityPatterns):
                 Mining process will start from here
         getPatterns()
                 Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -323,7 +360,7 @@ class SHUFIM(_ab._utilityPatterns):
 
         print("Total number of Spatial high utility frequent Patterns:", len(patterns))
 
-        obj.savePatterns("output")
+        obj.save("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -369,6 +406,26 @@ class SHUFIM(_ab._utilityPatterns):
     def __init__(self, iFile, nFile, minUtil, minSup, sep="\t"):
         super().__init__(iFile, nFile, minUtil, minSup, sep)
 
+    def _convert(self, value):
+        """
+        to convert the type of user specified minSup value
+
+        :param value: user specified minSup value
+
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self._dataset.getTransactions()) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self._dataset.getTransactions()) * value)
+            else:
+                value = int(value)
+        return value
+
     def startMine(self):
         self._startTime = _ab._time.time()
         self._patternCount = 0
@@ -377,19 +434,16 @@ class SHUFIM(_ab._utilityPatterns):
         self._singleItemSetsSupport = _ab._defaultdict(int)
         self._singleItemSetsUtility = _ab._defaultdict(int)
         self._minUtil = int(self._minUtil)
-        self._minSup = int((self._minSup * len(self._dataset.getTransactions())) / 100)
-        #print("######################################")
-        #print("given minimum support is", self.minSup)
-        #print("given minimum utility is", self.minUtil)
+        self._minSup = self._convert(self._minSup)
         with open(self._nFile, 'r') as o:
             lines = o.readlines()
             for line in lines:
                 line = line.split("\n")[0]
                 line_split = line.split(self._sep)
-                item = self._dataset.strToint.get(line_split[0])
+                item = self._dataset.strToInt.get(line_split[0])
                 lst = []
                 for i in range(1, len(line_split)):
-                    lst.append(self._dataset.strToint.get(line_split[i]))
+                    lst.append(self._dataset.strToInt.get(line_split[i]))
                 self._Neighbours[item] = lst
         o.close()
         InitialMemory = _ab._psutil.virtual_memory()[3]
@@ -619,10 +673,10 @@ class SHUFIM(_ab._utilityPatterns):
         self._patternCount += 1
         s1 = ""
         for i in range(0, tempPosition+1):
-            s1 += self._dataset.intTostr.get((self._temp[i]))
+            s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
-                s1 += " "
-        self._finalPatterns[s1] = str(utility) + ":" + str(support)
+                s1 += "\t"
+        self._finalPatterns[s1] = [utility, support]
 
     def _isEqual(self, transaction1, transaction2):
         """
@@ -774,8 +828,8 @@ class SHUFIM(_ab._utilityPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility:Support'])
+            data.append([a, b[0], b[1]])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility', 'Support'])
 
         return dataFrame
     
@@ -787,7 +841,7 @@ class SHUFIM(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -796,7 +850,7 @@ class SHUFIM(_ab._utilityPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = str(x) + " : " + str(y[0]) + " : " + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):
@@ -825,39 +879,25 @@ class SHUFIM(_ab._utilityPatterns):
        """
         return self._endTime-self._startTime
     
-    def printStats(self):
-        _patterns = self.getPatterns()
-        print("Total number of Spatial High Utility Patterns:", len(_patterns))
-        _memUSS = self.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = self.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = self.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+    def printResults(self):
+        print("Total number of Spatial High Utility Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
 
 
 if __name__ == '__main__':
     _ap = str()
     if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
         if len(_ab._sys.argv) == 7:
-            _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), float(_ab._sys.argv[5]), _ab._sys.argv[6])
+            _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
-            _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), float(_ab._sys.argv[5]))
+            _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5])
         _ap.startMine()
-        _patterns = _ap.getPatterns()
-        print("Total number of Spatial High Utility Frequent Patterns:", len(_patterns))
-        _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
-        #print("######################################")
+        print("Total number of Spatial High Utility Frequent Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        _ap = SHUFIM('main_9.txt',
-                      'mushroom_neighbourhoodFile_9.txt',
-                      10000, 0.004, ' ')
-        _ap.startMine()
-        _ap.printStats()
         print("Error! The number of input parameters do not match the total number of parameters provided")

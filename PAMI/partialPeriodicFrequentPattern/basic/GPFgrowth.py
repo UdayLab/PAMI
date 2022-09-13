@@ -507,7 +507,7 @@ class GPFgrowth(partialPeriodicPatterns):
 
         print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternInDf()
 
@@ -647,7 +647,7 @@ class GPFgrowth(partialPeriodicPatterns):
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -675,7 +675,7 @@ if __name__ == '__main__':
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.save(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()
@@ -688,7 +688,7 @@ if __name__ == '__main__':
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))
-        # ap.savePatterns('/home/apiiit-rkv/Downloads/fp_pami/output')
+        # ap.save('/home/apiiit-rkv/Downloads/fp_pami/output')
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

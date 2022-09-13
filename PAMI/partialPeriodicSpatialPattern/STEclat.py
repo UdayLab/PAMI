@@ -44,7 +44,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
+            save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             getPatternsAsDataFrames()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -90,7 +90,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
 
         print("Total number of Periodic Spatial Frequent Patterns:", len(partialPeriodicSpatialPatterns))
 
-        obj.savePatterns("outFile")
+        obj.save("outFile")
 
         memUSS = obj.getMemoryUSS()
 
@@ -401,7 +401,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -433,7 +433,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _spatialFrequentPatterns = _ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
@@ -449,7 +449,7 @@ if __name__ == "__main__":
             _ap.startMine()
             _spatialFrequentPatterns = _ap.getPatterns()
             print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
-            _ap.savePatterns('/Users/Likhitha/Downloads/Nighbours_gen/output.txt')
+            _ap.save('/Users/Likhitha/Downloads/Nighbours_gen/output.txt')
             _memUSS = _ap.getMemoryUSS()
             print("Total Memory in USS:", _memUSS)
             _memRSS = _ap.getMemoryRSS()
@@ -461,7 +461,7 @@ if __name__ == "__main__":
         _spatialFrequentPatterns = _ap.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
         print(_ap.getPatternsAsDataFrame())
-        _ap.savePatterns('output.txt')
+        _ap.save('output.txt')
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()

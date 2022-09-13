@@ -326,7 +326,7 @@ class UPGrowth(_ab._utilityPatterns):
             A Method to Mine UP Tree recursively
         PrintStats()
             A Method to print no.of phuis
-        savePatterns(oFile)
+        save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -354,7 +354,7 @@ class UPGrowth(_ab._utilityPatterns):
 
         print("Total number of Spatial Frequent Patterns:", len(highUtilityPatterns))
 
-        obj.savePatterns("output")
+        obj.save("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -408,7 +408,9 @@ class UPGrowth(_ab._utilityPatterns):
             if 'Transactions' in i:
                 data = self._iFile['Transactions'].tolist()
             if 'Utilities' in i:
-                data = self._iFile['Patterns'].tolist()
+                data = self._iFile['Utilities'].tolist()
+            if 'UtilitySum' in i:
+                data = self._iFile['UtilitySum'].tolist()
             for i in range(len(data)):
                 tr = [timeStamp[i]]
                 tr.append(data[i])
@@ -502,7 +504,7 @@ class UPGrowth(_ab._utilityPatterns):
                 s = ""
                 for item in itemset:
                     s = s + str(item)
-                    s = s + " "
+                    s = s + "\t"
                 self._finalPatterns[s] = util
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -605,7 +607,7 @@ class UPGrowth(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -640,6 +642,12 @@ class UPGrowth(_ab._utilityPatterns):
         """
         return self._endTime - self._startTime
 
+    def printResults(self):
+        print("Total number of High Utility Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -649,27 +657,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = UPGrowth(_ab._sys.argv[1], int(_ab._sys.argv[3]))
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of huis:", len(_Patterns))
-        _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''l = [400000, 500000]
-        for i in l:
-            ap = UPGrowth('/home/apiiit-rkv/Downloads/Reaserch/maximal/mushroom_utility_SPMF.txt', i, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of huis:", len(Patterns))
-            ap.savePatterns('/home/apiiit-rkv/Downloads/output.txt')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

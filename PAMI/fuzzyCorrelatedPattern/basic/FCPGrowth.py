@@ -221,7 +221,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             Mining process will startTime from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -269,7 +269,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
 
         print("Total number of Correlated Fuzzy Frequent Patterns:", len(correlatedFuzzyFrequentPatterns))
 
-        obj.savePatterns("output")
+        obj.save("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -622,7 +622,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         self._itemsCnt += 1
         res = ""
         for i in range(0, prefixLen):
-            res += str(prefix[i].item) + "." + str(prefix[i].region) + ' '
+            res += str(prefix[i].item) + "." + str(prefix[i].region) + '\t'
         res += str(item.item) + "." + str(item.region)
         res1 = str(item.sumIUtil) + " : " + str(ratio) + "\n"
         self._finalPatterns[res] = res1
@@ -649,7 +649,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -672,7 +672,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _fuzzycorrelatedFrequentPatterns = _ap.getPatterns()
         print("Total number of Fuzzy-Frequent Patterns:", len(_fuzzycorrelatedFrequentPatterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()

@@ -253,7 +253,7 @@ class TKSHUIM(utilityPatterns):
                 Mining process will start from here
         getPatterns()
                 Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
                 Complete set of patterns will be loaded in to a output file
         getPatternsAsDataFrame()
                 Complete set of patterns will be loaded in to a dataframe
@@ -301,7 +301,7 @@ class TKSHUIM(utilityPatterns):
 
         Patterns = obj.getPatterns()
 
-        obj.savePatterns("output")
+        obj.save("output")
 
         memUSS = obj.getMemoryUSS()
 
@@ -565,7 +565,7 @@ class TKSHUIM(utilityPatterns):
         for i in range(0, tempPosition+1):
             s1 += self.dataset.intTostr.get((self.temp[i]))
             if i != tempPosition:
-                s1 += " "
+                s1 += "\t"
         self.additemset(s1, utility)
 
     def is_equal(self, transaction1, transaction2):
@@ -760,7 +760,7 @@ class TKSHUIM(utilityPatterns):
         """
         return self.finalPatterns
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -798,21 +798,24 @@ class TKSHUIM(utilityPatterns):
        """
         return self.endTime-self.startTime
 
+    def printResults(self):
+        print("Top K Spatial  High Utility Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
 
 if __name__ == '__main__':
-    ap = str()
+    _ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
         if len(sys.argv) == 6:
-            ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])
+            _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])
         if len(sys.argv) == 5:
-            ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))
-        ap.startMine()
-        ap.savePatterns(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+            _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))
+        _ap.startMine()
+        print("Top K Spatial  High Utility Patterns:", len(_ap.getPatterns()))
+        _ap.save(sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

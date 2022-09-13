@@ -76,7 +76,7 @@ class CPPG(_ab._coveragePatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of periodic-frequent patterns will be loaded in to a dataframe
@@ -120,7 +120,7 @@ class CPPG(_ab._coveragePatterns):
 
             print("Total number of coverage Patterns:", len(coveragePatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternsAsDataFrame()
 
@@ -298,7 +298,7 @@ class CPPG(_ab._coveragePatterns):
         """
         t1 = str()
         for i in itemSet:
-            t1 = t1 + self._rankedUp[i] + " "
+            t1 = t1 + self._rankedUp[i] + "\t"
         return t1
 
     def _convert(self, value):
@@ -400,7 +400,7 @@ class CPPG(_ab._coveragePatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -435,8 +435,8 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = CPPG(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
-        print("Total number of Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        print("Total number of Coverage Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:",  _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())

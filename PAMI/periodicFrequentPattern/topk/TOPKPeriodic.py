@@ -275,7 +275,7 @@ class TOPKPeriodic(_ab._periodicFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of periodic-frequent patterns will be loaded in to a dataframe
@@ -323,7 +323,7 @@ class TOPKPeriodic(_ab._periodicFrequentPatterns):
 
             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-            obj.savePatterns("patterns")
+            obj.save("patterns")
 
             Df = obj.getPatternsAsDataFrame()
 
@@ -577,7 +577,7 @@ class TOPKPeriodic(_ab._periodicFrequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -608,7 +608,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()

@@ -149,7 +149,7 @@ class _Tree:
                 frequentItems[i] += node.count
         frequentItems = {key: value for key, value in frequentItems.items() if value >= minSup}
         for i in frequentItems:
-            pattern = suffixItem + " " + i
+            pattern = suffixItem + "\t" + i
             frequentPatterns.append((pattern, frequentItems[i]))
             frequentPatterns.extend(pTree.getPattern(i, pattern, minSup, neighbour))
         return frequentPatterns
@@ -197,7 +197,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             This function starts pattern mining.
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsInDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -239,7 +239,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         obj.startMine()
         spatialFrequentPatterns = obj.getPatterns()
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
-        obj.savePatterns("outFile")
+        obj.save("outFile")
         memUSS = obj.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = obj.getMemoryRSS()
@@ -437,7 +437,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, oFile):
+    def save(self, oFile):
         """
         Complete set of frequent patterns will be loaded in to a output file
         :param oFile: name of the output file
@@ -474,7 +474,7 @@ if __name__ == "__main__":
             _ap = FSPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         print("Total number of Spatial Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())

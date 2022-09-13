@@ -80,7 +80,7 @@ The Apriori algorithm can be executed by calling `Apriori` class in  PAMI.freque
     obj = alg.Apriori(inputFile,minSup,sep)
     obj.startMine()
 
-    obj.savePatterns('patterns.txt')
+    obj.save('patterns.txt')
     df = obj.getPatternsAsDataFrame()
     print('Total number of patterns: ' + str(len(df)))
     print('Runtime: ' + str(obj.getRuntime()))

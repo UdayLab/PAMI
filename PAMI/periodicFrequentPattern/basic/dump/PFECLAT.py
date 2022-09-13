@@ -74,7 +74,7 @@ class PFECLAT(periodicFrequentPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of periodic-frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of periodic-frequent patterns will be loaded in to a dataframe
@@ -109,7 +109,7 @@ class PFECLAT(periodicFrequentPatterns):
             obj.startMine()
             periodicFrequentPatterns = obj.getPatterns()
             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
-            obj.savePatterns("patterns")
+            obj.save("patterns")
             Df = obj.getPatternsAsDataFrame()
             memUSS = obj.getMemoryUSS()
             print("Total Memory in USS:", memUSS)
@@ -359,7 +359,7 @@ class PFECLAT(periodicFrequentPatterns):
             dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -388,7 +388,7 @@ if __name__ == "__main__":
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Periodic-Frequent Patterns:", len(Patterns))
-        ap.savePatterns(sys.argv[2])
+        ap.save(sys.argv[2])
         memUSS = ap.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = ap.getMemoryRSS()

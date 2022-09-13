@@ -260,7 +260,7 @@ class CPGrowth(_ab._correlatedPatterns):
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        savePatterns(oFile)
+        save(oFile)
             Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
@@ -308,7 +308,7 @@ class CPGrowth(_ab._correlatedPatterns):
 
         print("Total number of correlated frequent Patterns:", len(correlatedPatterns))
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternInDf()
 
@@ -625,12 +625,12 @@ class CPGrowth(_ab._correlatedPatterns):
         for a, b in self._finalPatterns.items():
             pat = " "
             for i in a:
-                pat += str(i) + " "
+                pat += str(i) + "\t"
             data.append([pat, b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to a output file
 
@@ -642,7 +642,7 @@ class CPGrowth(_ab._correlatedPatterns):
         for x, y in self._finalPatterns.items():
             pat = ""
             for i in x:
-                pat += str(i) + " "
+                pat += str(i) + "\t"
             patternsAndSupport = pat + ": " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
@@ -670,7 +670,7 @@ if __name__ == "__main__":
             _ap = CPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
         print("Total number of correlated-Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
