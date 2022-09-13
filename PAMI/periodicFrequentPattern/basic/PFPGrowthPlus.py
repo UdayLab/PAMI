@@ -600,7 +600,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.replace(' ', '\t') + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):

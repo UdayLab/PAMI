@@ -643,8 +643,15 @@ class GPFgrowth(partialPeriodicPatterns):
         dataframe = {}
         data = []
         for a, b in self._partialPeriodicPatterns__finalPatterns.items():
-            data.append([a, b[0], b[1]])
-            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+            if len(a) == 1:
+                pattern = f'{a[0][0]}'
+            else:
+                pattern = f'{a[0][0]}'
+                for item in a[1:]:
+                    pattern = pattern + f' {item[0]}'
+            #print(pattern)
+            data.append([pattern, b[0], b[1]])
+            dataframe = pd.DataFrame(data, columns=['Patterns', 'Support', 'PeriodicRatio'])
         return dataframe
 
     def save(self, outFile):
@@ -655,8 +662,13 @@ class GPFgrowth(partialPeriodicPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._partialPeriodicPatterns__finalPatterns.items():
-            s1 = str(x) + ":" + str(y)
-            writer.write("%s \n" % s1)
+            if len(x) == 1:
+                writer.write(f'{x[0][0]}:{y}\n')
+            else:
+                writer.write(f'{x[0][0]}')
+                for item in x[1:]:
+                    writer.write(f'\t{item[0]}')
+                writer.write(f':{y}\n')\
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
@@ -664,6 +676,12 @@ class GPFgrowth(partialPeriodicPatterns):
         :rtype: dict
         """
         return self._partialPeriodicPatterns__finalPatterns
+
+    def getResults(self):
+        print("Total number of Partial Periodic Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
 if __name__ == '__main__':
     ap = str()
@@ -673,26 +691,10 @@ if __name__ == '__main__':
         if len(sys.argv) == 6:
             ap = GPFgrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
+        print("Total number of Frequent Patterns:", len(ap.getPatterns()))
         ap.save(sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
+        print("Total Memory in USS:", ap.getMemoryUSS())
+        print("Total Memory in RSS", ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", ap.getRuntime())
     else:
-        ap = GPFgrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv',
-                     500, 1000, 0.8)
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        # ap.save('/home/apiiit-rkv/Downloads/fp_pami/output')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

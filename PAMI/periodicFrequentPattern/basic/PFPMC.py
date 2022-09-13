@@ -380,7 +380,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y[0]) + ":" + str(y[1])
+            s1 = x.replace(' ', '\t') + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
