@@ -443,12 +443,12 @@ class PPF_DFS(partialPeriodicPatterns):
         writer = open(self._partialPeriodicPatterns__oFile, 'w+')
         for x, y in self._partialPeriodicPatterns__finalPatterns.items():
             if len(x) == 1:
-                writer.write(f'{x[0]}:{y}\n')
+                writer.write(f'{x[0]}:{y[0]}:{y[1]}\n')
             else:
                 writer.write(f'{x[0]}')
                 for item in x[1:]:
                     writer.write(f'\t{item}')
-                writer.write(f':{y}\n')
+                writer.write(f':{y[0]}:{y[1]}\n')
             # s1 = str(x) + ":" + str(y)
             # writer.write("%s \n" % s1)
 

@@ -663,12 +663,12 @@ class GPFgrowth(partialPeriodicPatterns):
         writer = open(self.oFile, 'w+')
         for x, y in self._partialPeriodicPatterns__finalPatterns.items():
             if len(x) == 1:
-                writer.write(f'{x[0][0]}:{y}\n')
+                writer.write(f'{x[0][0]}:{y[0]}:{y[1]}\n')
             else:
                 writer.write(f'{x[0][0]}')
                 for item in x[1:]:
                     writer.write(f'\t{item[0]}')
-                writer.write(f':{y}\n')\
+                writer.write(f':{y[0]}:{y[1]}\n')\
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
