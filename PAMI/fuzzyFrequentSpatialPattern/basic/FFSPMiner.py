@@ -151,6 +151,12 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
          techniques to reduce the search space.
 
+    Reference:
+    ---------
+        Reference: P. Veena, B. S. Chithra, R. U. Kiran, S. Agarwal and K. Zettsu, "Discovering Fuzzy Frequent
+        Spatial Patterns in Large Quantitative Spatiotemporal databases," 2021 IEEE International Conference on Fuzzy Systems
+        (FUZZ-IEEE), 2021, pp. 1-8, doi: 10.1109/FUZZ45933.2021.9494594.
+
     Attributes :
     ----------
         iFile : file
@@ -628,7 +634,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._itemsCnt += 1
         res = ""
         for i in range(0, prefixLen):
-            res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + " "
+            res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + "\t"
         res += str(item) + "." + str(self._mapItemRegions.get(item))
         res1 = str(sumIUtil)
         self._finalPatterns[res] = res1
@@ -667,6 +673,12 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             patternsAndSupport = str(x) + " : " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
+    def printResults(self):
+        print("Total number of Spatial Fuzzy Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -676,25 +688,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = FFSPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        _fuzzySpatialFrequentPatterns = _ap.getPatterns()
-        print("Total number of fuzzy frequent Spatial Patterns:", len(_fuzzySpatialFrequentPatterns))
+        print("Total number of Spatial Fuzzy Frequent  Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        _ap = FFSPMiner('/Users/likhitha/Downloads/pm_data.txt', '/Users/likhitha/Downloads/pm_15.txt', 600, ' ')
-        _ap.startMine()
-        _fuzzySpatialFrequentPatterns = _ap.getPatterns()
-        print("Total number of fuzzy frequent Spatial Patterns:", len(_fuzzySpatialFrequentPatterns))
-        _ap.savePatterns('/Users/likhitha/Downloads/output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

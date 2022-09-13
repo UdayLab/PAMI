@@ -176,27 +176,23 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     Executing the code on terminal :
     -------
         Format:
-            python3 FFSPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
+            python3 FGPFPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <maxPer> <sep>
         Examples:
-            python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
-            python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 0.3 (minSup and maxPer will be considered in percentage of database)
+            python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 3 4  (minSup will be considered in support count or frequency)
+            python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.3 0.4 (minSup and maxPer will be considered in percentage of database)
                                                             (will consider "\t" as separator in both input and neighbourhood files)
-            python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 3 ,
+            python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 3 4 ','
                                                               (will consider "," as separator in both input and neighbourhood files)
     Sample run of importing the code:
     -------------------------------
-        from PAMI.fuzzyFrequentSpatialPattern import FFSPMiner as alg
-        obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
+        from PAMI.fuzzySpatialPeriodicFrequentPattern import FGPFPMiner as alg
+        obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
         obj.startMine()
-        fuzzySpatialFrequentPatterns = obj.getPatterns()
-        print("Total number of fuzzy frequent spatial patterns:", len(fuzzySpatialFrequentPatterns))
+        print("Total number of fuzzy frequent spatial patterns:", len(obj.getPatterns()))
         obj.savePatterns("outputFile")
-        memUSS = obj.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = obj.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = obj.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+        print("Total Memory in USS:", obj.getMemoryUSS())
+        print("Total Memory in RSS", obj.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", obj.getRuntime())
     Credits:
     -------
             The complete program was written by B.Sai Chitra and Kundai Kwangwari under the supervision of Professor Rage Uday Kiran.
@@ -301,7 +297,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             if 'Transactions' in i:
                 self._transactionsDB = self._iFile['Transactions'].tolist()
             if 'fuzzyValues' in i:
-                self._fuzzyValuesDB = self._iFile['Utilities'].tolist()
+                self._fuzzyValuesDB = self._iFile['fuzzyValues'].tolist()
 
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
@@ -663,6 +659,9 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         for a, b in self._finalPeriodicPatterns.items():
             data.append([a, b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        for a, b in self._finalPeriodicPatterns.items():
+            data.append([a, b])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
     def getPatterns(self):
@@ -677,24 +676,18 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         :param outFile: name of the output file
         :type outFile: file
         """
-        filename = self._iFile.strip(".txt")
-        outFile = str(self._minSup) + "_FGPFP_" + filename + "_finalPatterns.txt"
         self.oFile = outFile
         keylist = (self._finalPatterns.keys())
         writer = open(self.oFile, 'w+')
         for x in keylist:
             patternsAndSupport = str(x) + " : " + str(self._finalPatterns[x])
             writer.write("%s \n" % patternsAndSupport)
-
-        outFile = str(self._minSup) + "_FGPFP_" + filename + "_finalPeriodicPatterns.txt"
-        self.oFile = outFile
-        writer = open(self.oFile, 'w+')
         keylist = (self._finalPeriodicPatterns.keys())
         for x in keylist:
             patternsAndSupport = str(x) + " : " + str(self._finalPeriodicPatterns[x])
             writer.write("%s \n" % patternsAndSupport)
 
-    def getPatternsAsDataframe(self):
+    '''def getPatternsAsDataframe(self):
 
         """
         :return: returning periodic frequent patterns in a dataframe
@@ -706,7 +699,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         for a, b in self._finalPeriodicPatterns.items():
             data.append([a, b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        return dataFrame
+        return dataFrame'''
 
     def generateLatexCode(self, result):
 
@@ -753,24 +746,18 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 7:
         if len(_ab._sys.argv) == 6:
-            # print(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
             _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5],
                              _ab._sys.argv[6])
         if len(_ab._sys.argv) == 5:
             _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
-        result = pd.DataFrame(columns=['algorithm', 'minsup', 'patterns', 'runtime', 'memoryRSS', 'memoryUSS'])
-
-
-        algorithm = 'FGPFP'
-        for i in range(0, 1):
-            # print(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
-            _ap = FGPFPMiner(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5],
-                             _ab._sys.argv[6])
-            _ap.startMine()
-            df = pd.DataFrame(
-                [algorithm, _ab._sys.argv[4], len(_ap.getPatterns()), _ap.getRuntime(), _ap.getMemoryRSS(),
-                 _ap.getMemoryUSS()], index=result.columns).T
-            result = result.append(df, ignore_index=True)
-
+        _ap.startMine()
+        print("Total number of Spatial Fuzzy Periodic Frequent  Patterns:", len(_ap.getPatterns()))
+        _ap.savePatterns(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
         _ap.savePatterns("outputfile.txt")
+    else:
+        print("Error! The number of input parameters do not match the total number of parameters provided")
+
 

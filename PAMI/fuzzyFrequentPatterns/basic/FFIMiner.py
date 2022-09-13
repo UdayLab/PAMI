@@ -49,7 +49,7 @@ class _FFList:
             Method to add an element to this fuzzy list and update the sums at the same time.
 
         printElement(e)
-            Method to print elements            
+            Method to print elements
 
     """
 
@@ -106,7 +106,7 @@ class _Regions:
     ----------
             low : int
                 low region value
-            middle: int 
+            middle: int
                 middle region value
             high : int
                 high region values
@@ -117,11 +117,11 @@ class _Regions:
         self.middle = 0
         self.high = 0
         if regionsNumber == 3:  # if we have 3 regions
-            if 0 < quantity <=1:
+            if 0 < quantity <= 1:
                 self.low = 1
                 self.high = 0
                 self.middle = 0
-            elif 1< quantity <= 6:
+            elif 1 < quantity <= 6:
                 self.low = float((6 - quantity) / 5)
                 self.middle = float((quantity - 1) / 5)
                 self.high = 0
@@ -147,7 +147,7 @@ class _Pair:
 
 class FFIMiner(_ab._fuzzyFrequentPattenrs):
     """
-        Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem 
+        Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
         to its huge search space.we are using efficient pruning techniques to reduce the search space.
     Reference :
     ---------
@@ -200,7 +200,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         getMemoryRSS()
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function            
+            Total amount of runtime taken by the mining process will be retrieved from this function
         convert(value):
             To convert the given user specified value
         compareItems(o1, o2)
@@ -213,7 +213,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             To find element with same tid as given
         WriteOut(prefix, prefixLen, item, sumIUtil)
             To Store the patten
-    
+
     Executing the code on terminal :
     -------
         Format:
@@ -228,7 +228,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
     Sample run of importing the code:
     -------------------------------
-        
+
         from PAMI.fuzzyFrequentPatterns import FFIMiner as alg
 
         obj = alg.FFIMiner("input.txt", 2)
@@ -361,7 +361,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                     quit()
 
     def startMine(self):
-        """ 
+        """
           fuzzy-Frequent pattern mining process will start from here
         """
         self._startTime = _ab._time.time()
@@ -394,7 +394,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         listOfffilist = []
         mapItemsToFFLIST = {}
         self._minSup = self._convert(self._minSup)
-        #minSup = self.minSup
+        # minSup = self.minSup
         for item1 in self._mapItemsLowSum.keys():
             item = item1
             low = self._mapItemsLowSum[item]
@@ -462,7 +462,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         :type prefixLen: int
         :param FSFIM: the Fuzzy list of prefix itemSets
         :type FSFIM: list
-        :param minSup: the minimum support of 
+        :param minSup: the minimum support of
         :type minSup:int
         """
         for i in range(0, len(FSFIM)):
@@ -566,7 +566,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         for i in range(0, prefixLen):
             res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + " "
         res += str(item) + "." + str(self._mapItemRegions.get(item))
-        res1 = str(sumIUtil) + "\n"
+        res1 = str(sumIUtil)
         self._finalPatterns[res] = res1
 
     def getPatternsAsDataFrame(self):
@@ -601,38 +601,28 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
             patternsAndSupport = str(x) + " : " + str(y)
-            writer.write("%s" % patternsAndSupport)
+            writer.write("%s \n" % patternsAndSupport)
+
+    def printResults(self):
+        print("Total number of Fuzzy Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
 
 
 if __name__ == "__main__":
-    ap = str()
+    _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-           ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
-        ap.startMine()
-        fuzzyFrequentPatterns = ap.getPatterns()
-        print("Total number of Fuzzy-Frequent Patterns:", len(fuzzyFrequentPatterns))
-        ap.savePatterns(_ab._sys.argv[2])
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
+            _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
+        _ap.startMine()
+        print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
+        _ap.savePatterns(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        l = [1800, 1900, 2000, 2200, 2400]
-        for i in l:
-            ap = FFIMiner('/Users/Likhitha/Downloads/mushroom_utility_spmf.txt', i, ' ')
-            ap.startMine()
-            fuzzycorrelatedFrequentPatterns = ap.getPatterns()
-            print("Total number of Fuzzy-Frequent Patterns:", len(fuzzycorrelatedFrequentPatterns))
-            ap.savePatterns('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
+

@@ -1,4 +1,4 @@
-from  PAMI.geoReferencedPeriodicFrequentPattern import abstract as _ab
+from  PAMI.geoReferencedPeriodicFrequentPattern.basic import abstract as _ab
 
 
 class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
@@ -435,7 +435,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         """
         return self._finalPatterns
     
-    def printStats(self):
+    def printResults(self):
         print("Total number of Spatial Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

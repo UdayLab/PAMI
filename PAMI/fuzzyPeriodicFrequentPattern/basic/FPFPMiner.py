@@ -114,7 +114,7 @@ class _Regions:
     ----------
             low : int
                 low region value
-            middle: int 
+            middle: int
                 middle region value
             high : int
                 high region values
@@ -215,7 +215,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         getMemoryRSS()
             Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function            
+            Total amount of runtime taken by the mining process will be retrieved from this function
         convert(value):
             To convert the given user specified value
         FSFIMining( prefix, prefixLen, fsFim, minSup)
@@ -226,7 +226,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             To find element with same tid as given
         WriteOut(prefix, prefixLen, item, sumIUtil,period)
             To Store the patten
-    
+
     Executing the code on terminal :
     -------
         Format:
@@ -236,13 +236,13 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         Examples:
         ------
             python3  FPFPMiner.py sampleTDB.txt output.txt 2 3 (minSup and maxPer will be considered in support count or frequency)
-        
+
             python3  FPFPMiner.py sampleTDB.txt output.txt 0.25 0.3 (minSup and maxPer will be considered in percentage of database)
                                         (will consider "\t" as separator)
-        
+
             python3  FPFPMiner.py sampleTDB.txt output.txt 2 3  ,(will consider ',' as separator)
-        
-    
+
+
     Sample run of importing the code:
     -------------------------------
 
@@ -269,7 +269,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         run = obj.getRuntime()
 
         print("Total ExecutionTime in seconds:", run)
-        
+
     Credits:
     -------
             The complete program was written by Sai Chitra.B under the supervision of Professor Rage Uday Kiran.
@@ -335,7 +335,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             else:
                 value = int(value)
         return value
-    
+
     def _creatingItemSets(self):
         data, self._transactions, self._fuzzyValues, ts = [], [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -509,7 +509,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         :type prefixLen: int
         :param fsFim: the Fuzzy list of prefix itemSets
         :type fsFim: list
-        :param minSup: the minimum support of 
+        :param minSup: the minimum support of
         :type minSup:int
         """
         for i in range(0, len(fsFim)):
@@ -615,8 +615,8 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         for i in range(0, prefixLen):
             res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + " "
         res += str(item) + "." + str(self._mapItemRegions.get(item))
-        res1 = str(sumLUtil) + " : " + str(period) + "\n"
-        self._finalPatterns[res] = res1
+        res1 = str(sumLUtil) + " : " + str(period)
+        self._finalPatterns[res] = [sumLUtil, period]
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
@@ -628,8 +628,8 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a, b[0], b[1]])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
     def getPatterns(self):
@@ -649,8 +649,14 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = str(x) + " : " + str(y[0]) + " : " + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
+
+    def printResults(self):
+        print("Total number of Fuzzy Periodic-Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -661,14 +667,11 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:  # to consider "\t" as a separator
             _ap = FPFPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        _periodicFrequentPatterns = _ap.getPatterns()
-        print("Total number of Fuzzy Periodic Frequent Patterns:", len(_periodicFrequentPatterns))
+        print("Total number of Fuzzy Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.savePatterns(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
