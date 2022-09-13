@@ -180,3 +180,9 @@ class _partialPeriodicPatterns(_ABC):
         """Total amount of runtime taken by the program will be retrieved from this function"""
 
         pass
+
+    @_abstractmethod
+    def printResults(self):
+        """ To print all the results of execution"""
+
+        pass

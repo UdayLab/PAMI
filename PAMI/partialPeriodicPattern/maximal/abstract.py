@@ -77,65 +77,6 @@ class _partialPeriodicPatterns(_ABC):
         self._memoryUSS = float()
         self._memoryRSS = float()
 
-    '''@abstractmethod
-    def iFile(self):
-        """Variable to store the input file path/file name"""
-
-        pass
-
-    @abstractmethod
-    def periodicSupport(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    def period(self):
-        """Variable to store the user specified maximum periodicity value"""
-
-        pass
-
-    @abstractmethod
-    def sep(self):
-        """Variable to store the input file path/file name"""
-
-        pass
-
-    @abstractmethod
-    def startTime(self):
-        """Variable to store the start time of the mining process"""
-
-        pass
-
-    @abstractmethod
-    def endTime(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryUSS(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryRSS(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def finalPatterns(self):
-        """Variable to store the complete set of patterns in a dictionary"""
-
-        pass
-
-    @abstractmethod
-    def oFile(self):
-        """Variable to store the name of the output file to store the complete set of frequent patterns"""
-
-        pass'''
-
     @_abstractmethod
     def startMine(self):
         """Code for the mining process will start from this function"""
@@ -178,5 +119,11 @@ class _partialPeriodicPatterns(_ABC):
     @_abstractmethod
     def getRuntime(self):
         """Total amount of runtime taken by the program will be retrieved from this function"""
+
+        pass
+
+    @_abstractmethod
+    def printResults(self):
+        """ To print all the results of execution"""
 
         pass

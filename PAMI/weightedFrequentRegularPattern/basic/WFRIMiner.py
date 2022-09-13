@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.weightedFrequentRegularPattern import abstract as _fp
+from PAMI.weightedFrequentRegularPattern.basic import abstract as _fp
 
 _WS = str()
 _regularity = str()
@@ -601,7 +601,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         """
         temp = str()
         for i in itemSet:
-            temp = temp + self._rankDup[i] + " "
+            temp = temp + self._rankDup[i] + "\t"
         return temp
 
     def startMine(self):
@@ -630,7 +630,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         for k in patterns:
             s = self._savePeriodic(k[0])
             self._finalPatterns[str(s)] = k[1]
-        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
+        print("Weighted Frequent Regular patterns were generated successfully using WFRIM algorithm")
         self._endTime = _fp._time.time()
         self._memoryUSS = float()
         self._memoryRSS = float()
@@ -682,7 +682,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
@@ -696,7 +696,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -708,6 +708,12 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         """
         return self._finalPatterns
 
+    def printResults(self):
+        print("Total number of  Weighted Frequent Regular Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -717,27 +723,10 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 5:
             _ap = WFRIMiner(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Total number of Weighted Frequent Regular Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:",  _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = WFRIMiner('/Users/Likhitha/Downloads/wsSample.txt', '/Users/Likhitha/Downloads/ws_weight.txt', 2, 4, ' ')
-        _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        for x, y in _Patterns.items():
-            print(x, y)
-        print("Total number of Patterns:", len(_Patterns))
-        _ap.save('/Users/Likhitha/Downloads/output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

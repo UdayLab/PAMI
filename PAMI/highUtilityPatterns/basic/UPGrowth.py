@@ -501,7 +501,7 @@ class UPGrowth(_ab._utilityPatterns):
         for itemset in self._phuis:
             util = self._MapItemsetsToUtilities[tuple(itemset)]
             if util >= self._minUtil:
-                s = ""
+                s = str()
                 for item in itemset:
                     s = s + str(item)
                     s = s + "\t"
@@ -596,7 +596,7 @@ class UPGrowth(_ab._utilityPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility'])
         return dataFrame
 
@@ -615,7 +615,7 @@ class UPGrowth(_ab._utilityPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = x.strip() + " : " + str(y)
             writer.write("%s\n" % patternsAndSupport)
 
     def getMemoryUSS(self):

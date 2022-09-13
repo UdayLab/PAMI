@@ -624,8 +624,8 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         for i in range(0, prefixLen):
             res += str(prefix[i].item) + "." + str(prefix[i].region) + '\t'
         res += str(item.item) + "." + str(item.region)
-        res1 = str(item.sumIUtil) + " : " + str(ratio) + "\n"
-        self._finalPatterns[res] = res1
+        #res1 = str(item.sumIUtil) + " : " + str(ratio) + "\n"
+        self._finalPatterns[res] = [item.sumIUtil, ratio]
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
@@ -645,8 +645,8 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+            data.append([a.replace('\t'), b[0], b[1]])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Confidence'])
         return dataframe
 
     def save(self, outFile):
@@ -658,8 +658,14 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
+
+    def printResults(self):
+        print("Total number of Fuzzy Correlated Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -670,14 +676,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = FCPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
-        _fuzzycorrelatedFrequentPatterns = _ap.getPatterns()
-        print("Total number of Fuzzy-Frequent Patterns:", len(_fuzzycorrelatedFrequentPatterns))
+        print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+        print("Total Memory in USS:",  _ap.getMemoryUSS())
+        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

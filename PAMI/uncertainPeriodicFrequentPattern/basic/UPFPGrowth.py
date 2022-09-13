@@ -339,10 +339,15 @@ class _Tree(object):
 class UPFPGrowth(_ab._periodicFrequentPatterns):
     """
 
-        UPFPGrowth is  to discover periodic-frequent patterns in a temporal database.
+        UPFPGrowth is  to discover periodic-frequent patterns in a uncertain temporal database.
 
         Reference:
         --------
+            Uday Kiran, R., Likhitha, P., Dao, MS., Zettsu, K., Zhang, J. (2021).
+            Discovering Periodic-Frequent Patterns in Uncertain Temporal Databases. In:
+            Mantoro, T., Lee, M., Ayu, M.A., Wong, K.W., Hidayanto, A.N. (eds) Neural Information Processing.
+            ICONIP 2021. Communications in Computer and Information Science, vol 1516. Springer, Cham.
+            https://doi.org/10.1007/978-3-030-92307-5_83
 
         Attributes:
         ----------
@@ -687,7 +692,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
             if y[0] >= _minSup:
                 sample = str()
                 for i in x:
-                    sample = sample + i + " "
+                    sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
     def startMine(self):
@@ -759,7 +764,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b[0], b[1]])
+            data.append([a.replace('\t', ' '), b[0], b[1]])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
@@ -773,7 +778,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -785,6 +790,12 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         """
         return self._finalPatterns
 
+    def printResults(self):
+        print("Total number of  Uncertain Periodic-Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -794,28 +805,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = UPFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
+        print("Total number of Uncertain Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
-        # print(ap.getPatternsAsDataFrame())
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        l = [50.0]
-        for i in l:
-            ap = UPFPGrowth('https://raw.githubusercontent.com/Likhitha-palla/UPFP/main/Retail_dataset', i, 10000, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Patterns:", len(Patterns))
-            ap.save('/Users/Likhitha/Downloads/uncertain/output.txt')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

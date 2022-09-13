@@ -571,12 +571,12 @@ class RHUIM(_ab._utilityPatterns):
          :type utilityRatio: float
         """
         self._patternCount += 1
-        s1 = ""
+        s1 = str()
         for i in range(0, tempPosition+1):
             s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
-                s1 += " "
-        self._finalPatterns[s1] = str(utility) + ":" + str(utilityRatio)
+                s1 += "\t"
+        self._finalPatterns[s1] = [utility, utilityRatio]
 
     def _isEqual(self, transaction1, transaction2):
         """
@@ -708,8 +708,8 @@ class RHUIM(_ab._utilityPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility:UtilityRatio'])
+            data.append([a.replace('\t', ' '), b[0], b[1]])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility', 'UtilityRatio'])
 
         return dataFrame
     
@@ -730,7 +730,7 @@ class RHUIM(_ab._utilityPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):
@@ -759,6 +759,12 @@ class RHUIM(_ab._utilityPatterns):
        """
         return self._endTime-self._startTime
 
+    def printResults(self):
+        print("Total number of Relative Utility Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == '__main__':
     _ap = str()
@@ -768,30 +774,10 @@ if __name__ == '__main__':
         if len(_ab._sys.argv) == 5:    #takes "\t" as a separator
             _ap = RHUIM(_ab._sys.argv[1], int(_ab._sys.argv[3]), float(_ab._sys.argv[4]))
         _ap.startMine()
-        _patterns = _ap.getPatterns()
-        print("Total number of Relative High Utility Patterns:", _ap._patternCount)
-        print("Total number of Candidate Patterns:", _ap._candidateCount)
+        print("Total number of Relative High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        '''l = [50000, 70000, 90000, 100000]
-        for i in l:
-            ap = RHUIM('/home/apiiit-rkv/pamiDatasets/utility/retail_utility.txt',
-                   i, 0.4, ' ')
-            ap.startMine()
-            patterns = ap.getPatterns()
-            print("Total number of Relative High Utility Patterns:", ap._patternCount)
-            print("Total number of Candidate Patterns:", ap._candidateCount)
-            ap.save('/home/apiiit-rkv/pamiDatasets/utility/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in seconds:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

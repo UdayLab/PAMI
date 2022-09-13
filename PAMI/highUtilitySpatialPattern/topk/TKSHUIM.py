@@ -561,7 +561,7 @@ class TKSHUIM(utilityPatterns):
          :param utility: total utility of itemSet
          :type utility: int
         """
-        s1 = ""
+        s1 = str()
         for i in range(0, tempPosition+1):
             s1 += self.dataset.intTostr.get((self.temp[i]))
             if i != tempPosition:
@@ -747,7 +747,7 @@ class TKSHUIM(utilityPatterns):
         dataFrame = {}
         data = []
         for a, b in self.finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataFrame = pd.DataFrame(data, columns=['Patterns', 'Utility'])
 
         return dataFrame
@@ -769,7 +769,7 @@ class TKSHUIM(utilityPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self.finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):

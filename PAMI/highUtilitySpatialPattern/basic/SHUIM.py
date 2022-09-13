@@ -568,7 +568,7 @@ class SHUIM(_ab._utilityPatterns):
          :type utility: int
         """
         self._patternCount += 1
-        s1 = ""
+        s1 = str()
         for i in range(0, tempPosition+1):
             s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
@@ -723,7 +723,7 @@ class SHUIM(_ab._utilityPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility'])
 
         return dataFrame
@@ -745,7 +745,7 @@ class SHUIM(_ab._utilityPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):

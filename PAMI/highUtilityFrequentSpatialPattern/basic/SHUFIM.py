@@ -671,7 +671,7 @@ class SHUFIM(_ab._utilityPatterns):
          :type support: int
         """
         self._patternCount += 1
-        s1 = ""
+        s1 = str()
         for i in range(0, tempPosition+1):
             s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
@@ -828,7 +828,7 @@ class SHUFIM(_ab._utilityPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b[0], b[1]])
+            data.append([a.replace('\t', ' '), b[0], b[1]])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility', 'Support'])
 
         return dataFrame
@@ -850,7 +850,7 @@ class SHUFIM(_ab._utilityPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y[0]) + " : " + str(y[1])
+            patternsAndSupport = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):

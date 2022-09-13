@@ -1,5 +1,4 @@
 from pyspark import SparkConf, SparkContext
-# import abstract as _ab
 from PAMI.frequentPattern.pyspark import abstract as _ab
 
 
@@ -51,45 +50,45 @@ class parallelECLAT(_ab._frequentPatterns):
         -------------------------------
             Format:
             ------
-            
+
                 python3 parallelECLAT.py <inputFile> <outputFile> <minSup> <numWorkers>
-            
+
             Examples:
             ---------
-            
+
                 python3 parallelECLAT.py sampleDB.txt patterns.txt 10.0 3   (minSup will be considered in times of minSup and count of database transactions)
-            
+
                 python3 paralleECLAT.py sampleDB.txt patterns.txt 10 3    (minSup will be considered in support count or frequency)
-        
+
         Sample run of the importing code:
         ---------------------------------
-            
+
             import PAMI.frequentPattern.pyspark.parallelECLAT as alg
-            
+
             obj = alg.parallelECLAT(iFile, minSup, numWorkers)
-            
+
             obj.startMine()
-            
+
             frequentPatterns = obj.getPatterns()
-            
+
             print("Total number of Frequent Patterns:", len(frequentPatterns))
-            
+
             obj.save(oFile)
-            
+
             Df = obj.getPatternInDataFrame()
-            
+
             memUSS = obj.getMemoryUSS()
-            
+
             print("Total Memory in USS:", memUSS)
-            
+
             memRSS = obj.getMemoryRSS()
-            
+
             print("Total Memory in RSS", memRSS)
-            
+
             run = obj.getRuntime()
-            
+
             print("Total ExecutionTime in seconds:", run)
-        
+
         Credits:
         --------
             The complete program was written by Yudai Masu  under the supervision of Professor Rage Uday Kiran.
@@ -120,14 +119,13 @@ class parallelECLAT(_ab._frequentPatterns):
                 freqPatterns[freqPattern] = len(tid)
                 freqPatterns.update(self._genPatterns(data[i], (freqPattern, tid), data))
         return freqPatterns
-    
+
     def _convert(self, value):
         """
         To convert the user specified minSup value
         :param value: user specified minSup value
         :return: converted type
         """
-        print(value, type(value))
         if type(value) is int:
             value = int(value)
         elif type(value) is float:
@@ -140,7 +138,6 @@ class parallelECLAT(_ab._frequentPatterns):
                 value = int(value)
         else:
             print("None")
-        print(type(value), value)
         return value
 
     def startMine(self):
@@ -152,19 +149,19 @@ class parallelECLAT(_ab._frequentPatterns):
         conf = SparkConf().setAppName("Parallel ECLAT").setMaster("local[*]")
         sc = SparkContext(conf=conf)
 
-        data = sc.textFile(self._iFile, self._numPartitions)\
+        data = sc.textFile(self._iFile, self._numPartitions) \
             .map(lambda line: [int(y) for y in line.rstrip().split(self._sep)]).persist()
         self._lno = data.count()
         self._minSup = self._convert(self._minSup)
 
         frequentItems = None
         if 'transactional' in self._iFile:
-            frequentItems = data.zipWithIndex()\
-                .flatMap(lambda x: [(str(item), x[1]) for item in x[0]])\
+            frequentItems = data.zipWithIndex() \
+                .flatMap(lambda x: [(str(item), x[1]) for item in x[0]]) \
                 .groupByKey() \
-                .filter(lambda x: len(x[1]) >= self._minSup)\
-                .sortBy(lambda x: len(x[1]))\
-                .mapValues(set)\
+                .filter(lambda x: len(x[1]) >= self._minSup) \
+                .sortBy(lambda x: len(x[1])) \
+                .mapValues(set) \
                 .persist()
             data.unpersist()
         elif 'temporal' in self._iFile:
@@ -178,15 +175,25 @@ class parallelECLAT(_ab._frequentPatterns):
             pass
             # print("may be not able to process the input file")
 
-
         freqItems = dict(frequentItems.collect())
-        #print(len(freqItems))
         self._finalPatterns = {k: len(v) for k, v in freqItems.items()}
 
         freqPatterns = list(frequentItems.map(lambda x: self._genPatterns(x, x, list(freqItems.items())))
-                      .filter(lambda x: len(x) != 0).collect())
+                            .filter(lambda x: len(x) != 0).collect())
+
         for value in freqPatterns:
             self._finalPatterns.update(value)
+
+        temp = {}
+        for pattern, v in self._finalPatterns.items():
+            s = ""
+            if isinstance(pattern, str):
+                s += pattern.replace(' ', '\t') + '\t'
+            else:
+                for item in pattern:
+                    s += item + '\t'
+            temp[s] = v
+        self._finalPatterns = temp
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -228,7 +235,7 @@ class parallelECLAT(_ab._frequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
@@ -241,7 +248,7 @@ class parallelECLAT(_ab._frequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -253,10 +260,11 @@ class parallelECLAT(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        print("Total number of Freuqent Patterns:", len(self.getPatterns()))
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
+        print("Total ExecutionTime in ms:", self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -269,7 +277,7 @@ if __name__ == "__main__":
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -438,7 +438,7 @@ class CPGrowthPlus(_ab._correlatedPatterns):
         for i in range(prefixLength):
             sample.append(prefix[i])
         self._itemSetCount += 1
-        self._finalPatterns[tuple(sample)] = str(support)+" : "+str(ratio)
+        self._finalPatterns[tuple(sample)] = [support, ratio]
 
     def _saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength):
         """
@@ -648,9 +648,9 @@ class CPGrowthPlus(_ab._correlatedPatterns):
         for a, b in self._finalPatterns.items():
             pat = " "
             for i in a:
-                pat += str(i) + "\t"
-            data.append([pat, b])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+                pat += str(i) + " "
+            data.append([pat, b[0], b[1]])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Confidence'])
         return dataframe
 
     def save(self, outFile):
@@ -666,7 +666,7 @@ class CPGrowthPlus(_ab._correlatedPatterns):
             pattern = str()
             for i in x:
                 pattern = pattern + i + "\t"
-            s1 = str(pattern) + ": " + str(y)
+            s1 = str(pattern.strip()) + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -694,7 +694,7 @@ if __name__ == "__main__":
             _ap = CPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
         _correlatedPatterns = _ap.getPatterns()
-        print("Total number of correlated-Frequent Patterns:", len(_ap.getPatterns()))
+        print("Total number of Correlated-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())

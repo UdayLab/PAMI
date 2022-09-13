@@ -316,7 +316,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
                 self._itemSetCount += 1
                 sample = str()
                 for i in prefix:
-                    sample = sample + i + " "
+                    sample = sample + i + "\t"
                 self._finalPatterns[sample] = val
             if hashcode not in self._hashing:
                 self._hashing[hashcode] = {tuple(prefix): val}
@@ -480,7 +480,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataFrame = _abstract._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataFrame
 
@@ -494,7 +494,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -506,6 +506,12 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         """
         return self._finalPatterns
 
+    def printResults(self):
+        print("Total number of  Closed Partial Periodic Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -515,28 +521,11 @@ if __name__ == "__main__":
         if len(_sys.argv) == 5:
             _ap = PPPClose(_sys.argv[1], _sys.argv[3], _sys.argv[4])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of  Patterns:", len(_Patterns))
+        print("Total number of  Patterns:", len(_ap.getPatterns()))
         _ap.save(_sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        l = [0.001, 0.002, 0.003, 0.004, 0.005]
-        for i in l:
-            ap = PPPClose('/Users/Likhitha/Downloads/Datasets/BMS1_itemset_mining.txt', i, 100, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of  Patterns:", len(Patterns))
-            ap.save('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
 

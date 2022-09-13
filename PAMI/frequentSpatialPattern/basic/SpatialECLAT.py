@@ -395,7 +395,13 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            pat = str()
+            if type(a) == str:
+                pat = a
+            if type(a) == list:
+                for i in a:
+                    pat = pat + a + ' '
+            data.append([pat.strip(), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
@@ -414,7 +420,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             if type(x) == list:
                 for i in x:
                     pat = pat + x + '\t'
-            patternsAndSupport = pat + ": " + str(len(y))
+            patternsAndSupport = pat.strip() + ":" + str(len(y))
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):

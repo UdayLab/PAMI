@@ -433,7 +433,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
@@ -446,7 +446,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         self._oFile = oFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):

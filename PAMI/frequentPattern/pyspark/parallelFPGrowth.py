@@ -17,6 +17,7 @@ class _Node:
             prefix : list
                 To maintain the prefix of node
     """
+
     def __init__(self, item, prefix):
         self.item = item
         self.count = 0
@@ -41,6 +42,7 @@ class _Tree:
             generateConditionalTree(item)
                 Create conditional pattern base of item
     """
+
     def __init__(self):
         self.root = _Node(None, [])
         self.nodeLink = {}
@@ -143,7 +145,6 @@ class parallelFPGrowth(_ab._frequentPatterns):
                     Get all frequent patterns
                 genFreqPatterns(item, prefix, tree)
                     Generate frequent patterns based on item and prefix
-
         Executing the code on terminal:
         -------------------------------
             Format:
@@ -152,37 +153,22 @@ class parallelFPGrowth(_ab._frequentPatterns):
             Examples:
             ---------
                 python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10.0 3   (minSup will be considered in times of minSup and count of database transactions)
-
                 python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10 3    (minSup will be considered in support count or frequency)
         Sample run of the importing code:
         ---------------------------------
-
             import PAMI.frequentPattern.pyspark.parallelFPGrowth as alg
-
             obj = alg.parallelFPGrowth(iFile, minSup, numWorkers)
-
             obj.startMine()
-
             frequentPatterns = obj.getPatterns()
-
             print("Total number of Frequent Patterns:", len(frequentPatterns))
-
             obj.save(oFile)
-
             Df = obj.getPatternInDataFrame()
-
             memUSS = obj.getMemoryUSS()
-
             print("Total Memory in USS:", memUSS)
-
             memRSS = obj.getMemoryRSS()
-
             print("Total Memory in RSS", memRSS)
-
             run = obj.getRuntime()
-
             print("Total ExecutionTime in seconds:", run)
-
         Credits:
         --------
             The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
@@ -200,10 +186,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
     _memoryRSS = float()
     _lno = int()
 
-
     def __init__(self, iFile, minSup, numWorkers, sep='\t'):
         super().__init__(iFile, minSup, int(numWorkers), sep)
-
 
     def startMine(self):
         """Frequent pattern mining process will start from here"""
@@ -213,17 +197,17 @@ class parallelFPGrowth(_ab._frequentPatterns):
         conf = SparkConf().setAppName("Parallel FPGrowth").setMaster("local[*]")
         sc = SparkContext(conf=conf)
 
-        rdd = sc.textFile(self._iFile, self._numPartitions)\
-            .map(lambda x: x.rstrip().split('\t'))\
+        rdd = sc.textFile(self._iFile, self._numPartitions) \
+            .map(lambda x: x.rstrip().split('\t')) \
             .persist()
 
         self._lno = rdd.count()
         self._minSup = self._convert(self._minSup)
 
-        freqItems = rdd.flatMap(lambda trans: [(item, 1) for item in trans])\
-            .reduceByKey(add)\
-            .filter(lambda x: x[1] >= self._minSup)\
-            .sortBy(lambda x: x[1], ascending=False)\
+        freqItems = rdd.flatMap(lambda trans: [(item, 1) for item in trans]) \
+            .reduceByKey(add) \
+            .filter(lambda x: x[1] >= self._minSup) \
+            .sortBy(lambda x: x[1], ascending=False) \
             .collect()
         self._finalPatterns = dict(freqItems)
         self._FPList = [x[0] for x in freqItems]
@@ -233,10 +217,22 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
         trees = workByPartition.foldByKey(_Tree(), lambda tree, data: self.buildTree(tree, data))
         freqPatterns = trees.flatMap(lambda tree_tuple: self.genAllFrequentPatterns(tree_tuple))
-        result = freqPatterns.map(lambda ranks_count: (tuple([self._FPList[z] for z in ranks_count[0]]), ranks_count[1]))\
+        result = freqPatterns.map(
+            lambda ranks_count: (tuple([self._FPList[z] for z in ranks_count[0]]), ranks_count[1])) \
             .collect()
 
         self._finalPatterns.update(dict(result))
+
+        temp = {}
+        for pattern, v in self._finalPatterns.items():
+            s = ""
+            if isinstance(pattern, str):
+                s += pattern + '\t'
+            else:
+                for item in pattern:
+                    s += item + '\t'
+            temp[s] = v
+        self._finalPatterns = temp
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -245,7 +241,6 @@ class parallelFPGrowth(_ab._frequentPatterns):
         sc.stop()
 
         print("Frequent patterns were generated successfully using Parallel FPGrowth algorithm")
-
 
     def getPartitionId(self, value):
         """
@@ -268,7 +263,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         for i in reversed(newTrans):
             partition = self.getPartitionId(i)
             if partition not in condTrans:
-                condTrans[partition] = newTrans[:newTrans.index(i)+1]
+                condTrans[partition] = newTrans[:newTrans.index(i) + 1]
         return [x for x in condTrans.items()]
 
     @staticmethod
@@ -353,26 +348,19 @@ class parallelFPGrowth(_ab._frequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
     def save(self, outFile):
-        """
-        Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            if type(x) == tuple:
-                pattern = ""
-                for item in x:
-                    pattern = pattern + str(item) + " "
-                s1 = pattern + ":" + str(y)
-            else:
-                s1 = str(x) + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -403,11 +391,12 @@ class parallelFPGrowth(_ab._frequentPatterns):
             print("minSup is not correct")
         return value
 
-    def printStats(self):
-        print("Total number of Coverage Patterns:", len(self.getPatterns()))
+    def printResults(self):
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
+        print("Total ExecutionTime in ms:", self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -417,14 +406,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = parallelFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        _finalPatterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_finalPatterns))
-        # _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

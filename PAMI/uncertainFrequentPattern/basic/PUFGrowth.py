@@ -534,7 +534,7 @@ class PUFGrowth(_ab._frequentPatterns):
             if y >= self._minSup:
                 sample = str()
                 for i in x:
-                    sample = sample + i + " "
+                    sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
     def startMine(self):
@@ -553,7 +553,7 @@ class PUFGrowth(_ab._frequentPatterns):
         Tree1 = self._buildTree(self.Database1, info)
         Tree1.generatePatterns([])
         self._removeFalsePositives()
-        print("Frequent patterns were generated from uncertain databases successfully using PUF algorithm")
+        print("Uncertain Frequent patterns were generated successfully using PUFGrowth algorithm")
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -594,7 +594,7 @@ class PUFGrowth(_ab._frequentPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
@@ -606,7 +606,7 @@ class PUFGrowth(_ab._frequentPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -615,6 +615,12 @@ class PUFGrowth(_ab._frequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+
+    def printResults(self):
+        print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -625,25 +631,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = PUFGrowth(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
+        print("Total number of Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''ap = PUFGrowth("/home/apiiit-rkv/Desktop/uncertain/tubeSample", 0.01, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Patterns:", len(Patterns))
-        ap.save("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

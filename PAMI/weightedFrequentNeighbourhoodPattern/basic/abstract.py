@@ -42,7 +42,7 @@ from urllib.request import urlopen as _urlopen
 import functools as _functools
 
 
-class _weightedFrequentRegularPatterns(_ABC):
+class _weightedFrequentSpatialPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
@@ -51,14 +51,11 @@ class _weightedFrequentRegularPatterns(_ABC):
        ----------
         iFile : str
             Input file name or path of the input file
-        :param weightSupport(ws): The user can specify ws either in count or proportion of database size.
-            If the program detects the data type of ws is integer, then it treats ws is expressed in count.
+        minSup: integer or float or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
-            Example: ws=10 will be treated as integer, while ws=10.0 will be treated as float
-        :param regularity: The user can specify regularity either in count or proportion of database size.
-            If the program detects the data type of regularity is integer, then it treats regularity is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: regularity=10 will be treated as integer, while regularity=10.0 will be treated as float
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator
@@ -94,31 +91,27 @@ class _weightedFrequentRegularPatterns(_ABC):
 
     """
 
-    def __init__(self, iFile, wFile, weightSupport, regularity, sep="\t"):
+    def __init__(self, iFile, nFile, wFile, minSup, minWeight, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame
-        :param wFile: Input weight file name or path of the input file
+        :param wFile: Input file name or path of the input file
         :type wFile: str or DataFrame
-        :param weightSupport(ws): The user can specify ws either in count or proportion of database size.
-            If the program detects the data type of ws is integer, then it treats ws is expressed in count.
+        :param minSup: The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
-            Example: ws=10 will be treated as integer, while ws=10.0 will be treated as float
-        :type weightSupport: int or float or str
-        :param regularity: The user can specify regularity either in count or proportion of database size.
-            If the program detects the data type of regularity is integer, then it treats regularity is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: regularity=10 will be treated as integer, while regularity=10.0 will be treated as float
-        :type regularity: int or float or str
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        :type minSup: int or float or str
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
         """
 
         self._iFile = iFile
         self._wFile = wFile
+        self._nFile = nFile
         self._sep = sep
-        self._regularity = regularity
-        self._WS = weightSupport
+        self._minSup = minSup
+        self._minWeight = minWeight
         self._finalPatterns = {}
         self._oFile = str()
         self._memoryUSS = float()
@@ -169,5 +162,11 @@ class _weightedFrequentRegularPatterns(_ABC):
     @_abstractmethod
     def getRuntime(self):
         """Total amount of runtime taken by the program will be retrieved from this function"""
+
+        pass
+
+    @_abstractmethod
+    def printResults(self):
+        """ To print all the results of execution"""
 
         pass

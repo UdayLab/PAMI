@@ -559,7 +559,7 @@ class HDSHUIM(_ab._utilityPatterns):
         :type utility:int
         """
         self._huiCount += 1
-        res = ""
+        res = str()
         for i in range(0, prefixLen):
             res += str(prefix[i]) + "\t"
         res += str(item)
@@ -576,7 +576,7 @@ class HDSHUIM(_ab._utilityPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
@@ -597,7 +597,7 @@ class HDSHUIM(_ab._utilityPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):

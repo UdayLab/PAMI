@@ -76,8 +76,8 @@ class Apriori(_ab._frequentPatterns):
                 Generates frequent patterns from the candidate patterns
             frequentToCandidate(frequentList, length)
                 Generates candidate patterns from the frequent patterns
-        
-        
+
+
         Executing the code on terminal:
         -------------------------------
 
@@ -213,7 +213,8 @@ class Apriori(_ab._frequentPatterns):
             dictionary = {frozenset(j): int(candidateToFrequentList.get(frozenset(j), 0)) + 1 for j in candidateList if
                           j.issubset(i)}
             candidateToFrequentList.update(dictionary)
-        candidateToFrequentList = {key: value for key, value in candidateToFrequentList.items() if value >= self._minSup}
+        candidateToFrequentList = {key: value for key, value in candidateToFrequentList.items() if
+                                   value >= self._minSup}
 
         return candidateToFrequentList
 
@@ -254,7 +255,7 @@ class Apriori(_ab._frequentPatterns):
         self._finalPatterns = {}
         for i in range(1, itemsCount):
             frequentSet = self._candidateToFrequent(items)
-            for x,y in frequentSet.items():
+            for x, y in frequentSet.items():
                 sample = str()
                 for k in x:
                     sample = sample + k + "\t"
@@ -311,8 +312,9 @@ class Apriori(_ab._frequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
         return dataFrame
 
     def save(self, outFile):
@@ -325,7 +327,7 @@ class Apriori(_ab._frequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -341,7 +343,7 @@ class Apriori(_ab._frequentPatterns):
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -350,7 +352,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap =Apriori(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
@@ -359,3 +361,4 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+

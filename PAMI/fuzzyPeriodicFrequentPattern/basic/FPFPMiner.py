@@ -615,7 +615,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         for i in range(0, prefixLen):
             res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + "\t"
         res += str(item) + "." + str(self._mapItemRegions.get(item))
-        res1 = str(sumLUtil) + " : " + str(period)
+        #res1 = str(sumLUtil) + " : " + str(period)
         self._finalPatterns[res] = [sumLUtil, period]
 
     def getPatternsAsDataFrame(self):
@@ -628,7 +628,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b[0], b[1]])
+            data.append([a.replace('\t', ' '), b[0], b[1]])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
@@ -649,7 +649,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y[0]) + " : " + str(y[1])
+            patternsAndSupport = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):

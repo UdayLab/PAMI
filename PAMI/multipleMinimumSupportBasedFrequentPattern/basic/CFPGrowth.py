@@ -515,7 +515,7 @@ class CFPGrowth(_fp._frequentPatterns):
         """
         temp = str()
         for i in itemSet:
-            temp = temp + self.__rankDup[i] + " "
+            temp = temp + self.__rankDup[i] + "\t"
         return temp
 
     def startMine(self):
@@ -592,7 +592,7 @@ class CFPGrowth(_fp._frequentPatterns):
         dataframe = {}
         data = []
         for a, b in self.__finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
@@ -606,7 +606,7 @@ class CFPGrowth(_fp._frequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self.__finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):

@@ -610,7 +610,7 @@ class RSFPGrowth(_ab._frequentPatterns):
         for a, b in self.__finalPatterns.items():
             pattern = str()
             for i in a:
-                pattern = pattern + i + "\t"
+                pattern = pattern + i + " "
             data.append([pattern, b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
@@ -627,7 +627,7 @@ class RSFPGrowth(_ab._frequentPatterns):
             pattern = str()
             for i in x:
                 pattern = pattern + i + "\t"
-            s1 = str(pattern) + ": " + str(y)
+            s1 = pattern.strip() + ": " + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):

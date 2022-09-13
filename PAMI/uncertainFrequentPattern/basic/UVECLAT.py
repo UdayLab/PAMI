@@ -13,6 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import operator as _operator
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 
 
@@ -296,7 +297,7 @@ class UVEclat(_ab._frequentPatterns):
             if y >= self._minSup:
                 sample = str()
                 for i in x:
-                    sample = sample + i + " "
+                    sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
     @staticmethod
@@ -434,7 +435,7 @@ class UVEclat(_ab._frequentPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
@@ -446,7 +447,7 @@ class UVEclat(_ab._frequentPatterns):
         self.oFile = oFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -455,6 +456,12 @@ class UVEclat(_ab._frequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+
+    def printResults(self):
+        print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -465,25 +472,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = UVEclat(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
+        print("Total number of Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''ap = UVEclat("/home/apiiit-rkv/Desktop/uncertain/tubeSample", 0.01, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Patterns:", len(Patterns))
-        ap.save("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -13,8 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.PAMI.periodicFrequentPattern.recurring.
 
-from PAMI.recurringPattern import abstract as _ab
-
+from PAMI.recurringPattern.basic import abstract as _ab
 
 _maxPer = float()
 _minPS = float()
@@ -530,7 +529,7 @@ class RPGrowth(_ab._recurringPatterns):
         """
         t1 = str()
         for i in itemSet:
-            t1 = t1 + self._rankedUp[i] + " "
+            t1 = t1 + self._rankedUp[i] + "\t"
         return t1
 
     def _convert(self, value):
@@ -625,7 +624,7 @@ class RPGrowth(_ab._recurringPatterns):
             z = []
             for k in b[1]:
                 z.append({[k[0], k[1]], k[2]})
-            data.append([a, b[1], len(b[1]), z])
+            data.append([a.replace('\t', ' '), b[1], len(b[1]), z])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Recurrance', 'intervals'])
         return dataFrame
 
@@ -638,12 +637,11 @@ class RPGrowth(_ab._recurringPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            # print(x,y)
             str1 = '{'
             for z in y[0]:
                 str1 += '{'+str([z[0], z[1]])+' : ' + str(z[2]) + '}'
             str1 += '}'
-            s1 = x + ":" + str(y[1]) + ":" + str(len(y[0])) + ":" + str1
+            s1 = x.strip() + ":" + str(y[1]) + ":" + str(len(y[0])) + ":" + str1
             writer.write("%s \n" % s1)
         writer.close()
 
@@ -655,6 +653,12 @@ class RPGrowth(_ab._recurringPatterns):
         """
         return self._finalPatterns
 
+    def printResults(self):
+        print("Total number of recurrent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -664,14 +668,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = RPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
+        print("Total number of Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

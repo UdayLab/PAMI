@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.weightedFrequentNeighbourhoodPattern import abstract as _fp
+from PAMI.weightedFrequentNeighbourhoodPattern.basic import abstract as _fp
 
 _minSup = str()
 _minWS = int()
@@ -568,7 +568,7 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
         """
         temp = str()
         for i in itemSet:
-            temp = temp + self.__rankDup[i] + " "
+            temp = temp + self.__rankDup[i] + "\t"
         return temp
 
     def startMine(self):
@@ -653,7 +653,7 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
         dataframe = {}
         data = []
         for a, b in self.__finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
@@ -667,7 +667,7 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self.__finalPatterns.items():
-            s1 = x + ":" + str(y)
+            s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -679,6 +679,12 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
         """
         return self.__finalPatterns
 
+    def printResults(self):
+        print("Total number of  Weighted Spatial Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -688,28 +694,10 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 6:
             _ap = WFIM(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(_Patterns))
+        print("Total number of Weighted Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''_ap = WFIM('/Users/Likhitha/Downloads/weightedFrequentItems/WFIMsample.txt',
-                   '/Users/Likhitha/Downloads/weightedFrequentItems/WFIMWeightSample.txt', 3, 1.2, ' ')
-        _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        #for x, y in _Patterns.items():
-            #print(x, y)
-        print("Total number of Patterns:", len(_Patterns))
-        _ap.save('/Users/Likhitha/Downloads/output271.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")

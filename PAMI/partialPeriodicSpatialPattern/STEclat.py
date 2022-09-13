@@ -5,6 +5,13 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     """
 
     ...
+
+    Reference:
+    ---------
+        R. Uday Kiran, C. Saideep, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy,
+        "Discovering Partial Periodic Spatial Patterns in Spatiotemporal Databases," 2019 IEEE International
+        Conference on Big Data (Big Data), 2019, pp. 233-238, doi: 10.1109/BigData47090.2019.9005693.
+
     Attributes :
     ----------
             iFile : str
@@ -397,7 +404,10 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            pat = ""
+            for i in a:
+                pat += str(i) + '\t'
+            data.append([pat, b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataFrame
 
@@ -411,8 +421,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         for x, y in self._finalPatterns.items():
             pat = ""
             for i in x:
-                pat += str(i) + ' '
-            patternsAndSupport = pat + ": " + str(y)
+                pat += str(i) + '\t'
+            patternsAndSupport = pat.strip() + ": " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
@@ -421,6 +431,12 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+
+    def printResults(self):
+        print("Total number of  Spatial Partial Periodic Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -431,43 +447,12 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = STEclat(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
-        _spatialFrequentPatterns = _ap.getPatterns()
-        print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
+        print("Total number of Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:",  _ap.getRuntime())
     else:
-        '''minSup = [450, 470, 490, 510, 530, 550]
-        for i in minSup:
-            _ap = PFS_ECLAT('/Users/Likhitha/Downloads/Nighbours_gen/temp_pollution.txt',
-                        '/Users/Likhitha/Downloads/Nighbours_gen/pollution_neighbours.txt',
-                i, 250, ',')
-            _ap.startMine()
-            _spatialFrequentPatterns = _ap.getPatterns()
-            print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
-            _ap.save('/Users/Likhitha/Downloads/Nighbours_gen/output.txt')
-            _memUSS = _ap.getMemoryUSS()
-            print("Total Memory in USS:", _memUSS)
-            _memRSS = _ap.getMemoryRSS()
-            print("Total Memory in RSS", _memRSS)
-            _run = _ap.getRuntime()
-            print("Total ExecutionTime in seconds:", _run)'''
-        _ap = STEclat('untitled.txt', 'spatialUtil.txt', 3, 4, ' ')
-        _ap.startMine()
-        _spatialFrequentPatterns = _ap.getPatterns()
-        print("Total number of Spatial Frequent Patterns:", len(_spatialFrequentPatterns))
-        print(_ap.getPatternsAsDataFrame())
-        _ap.save('output.txt')
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in seconds:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 

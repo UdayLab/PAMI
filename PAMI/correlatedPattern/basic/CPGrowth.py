@@ -434,7 +434,7 @@ class CPGrowth(_ab._correlatedPatterns):
         for i in range(prefixLength):
             l.append(prefix[i])
         self._itemSetCount += 1
-        self._finalPatterns[tuple(l)] = str(support)+" : "+str(allconf)
+        self._finalPatterns[tuple(l)] = [support, allconf]
     
     def _convert(self, value):
         """
@@ -625,9 +625,9 @@ class CPGrowth(_ab._correlatedPatterns):
         for a, b in self._finalPatterns.items():
             pat = " "
             for i in a:
-                pat += str(i) + "\t"
-            data.append([pat, b])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+                pat += str(i) + " "
+            data.append([pat, b[0], b[1]])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Confidence'])
         return dataframe
 
     def save(self, outFile):
@@ -643,7 +643,7 @@ class CPGrowth(_ab._correlatedPatterns):
             pat = ""
             for i in x:
                 pat += str(i) + "\t"
-            patternsAndSupport = pat + ": " + str(y)
+            patternsAndSupport = pat.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
@@ -669,7 +669,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = CPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
-        print("Total number of correlated-Frequent Patterns:", len(_ap.getPatterns()))
+        print("Total number of Correlated-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())

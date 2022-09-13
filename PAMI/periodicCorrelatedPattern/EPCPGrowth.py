@@ -538,7 +538,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         """
         t1 = str()
         for i in itemSet:
-            t1 = t1 + self._rankedUp[i] + " "
+            t1 = t1 + self._rankedUp[i] + "\t"
         return t1
 
     def _convert(self, value):
@@ -636,7 +636,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b[0], b[1], b[2], b[3]])
+            data.append([a.replace('\t', ' '), b[0], b[1], b[2], b[3]])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity', 'allConf', 'maxPerAllConf'])
         return dataFrame
 
@@ -649,7 +649,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y[0]) + ":" + str(y[1]) + ":" + str(y[2]) + ":" + str(y[3])
+            s1 = x.strip() + ":" + str(y[0]) + ":" + str(y[1]) + ":" + str(y[2]) + ":" + str(y[3])
             writer.write("%s \n" % s1)
 
     def getPatterns(self):

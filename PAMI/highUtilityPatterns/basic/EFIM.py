@@ -573,7 +573,7 @@ class EFIM(_ab._utilityPatterns):
          :type utility: int
         """
         self._patternCount += 1
-        s1 = ""
+        s1 = str()
         for i in range(0, tempPosition+1):
             s1 += self._dataset.intToStr.get((self._temp[i]))
             if i != tempPosition:
@@ -708,7 +708,7 @@ class EFIM(_ab._utilityPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b])
+            data.append([a.replace('\t', ' '), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility'])
 
         return dataFrame
@@ -730,7 +730,7 @@ class EFIM(_ab._utilityPatterns):
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = str(x) + " : " + str(y)
+            patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):
@@ -774,7 +774,7 @@ if __name__ == '__main__':
         if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
             _ap = EFIM(_ab._sys.argv[1], int(_ab._sys.argv[3]))
         _ap.startMine()
-        print("Total number of High Utility Patterns:", _ap.getPatterns())
+        print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS",  _ap.getMemoryRSS())

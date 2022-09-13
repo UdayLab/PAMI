@@ -13,7 +13,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.weightedUncertainFrequentPattern import abstract as _ab
+from PAMI.weightedUncertainFrequentPattern.basic import abstract as _ab
 
 _expSup = str()
 _expWSup = str()
@@ -610,7 +610,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
             if y >= self._expSup and y * weight >= self._expWSup:
                 sample = str()
                 for i in x:
-                    sample = sample + i + " "
+                    sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
     def startMine(self):
@@ -636,7 +636,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         #self._removeFalsePositives()
         #print(_finalPatterns)
         self._finalPatterns = _finalPatterns
-        print("Weighted Frequent patterns were generated from uncertain databases successfully using WUFIM algorithm")
+        print("Weighted Frequent patterns were generated  successfully using WUFIM algorithm")
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -677,6 +677,9 @@ class WUFIM(_ab._weightedFrequentPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
+            s = str()
+            for i in a:
+                s = s + " " + i
             data.append([a, b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
@@ -691,7 +694,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         for x, y in self._finalPatterns.items():
             s = str()
             for i in x:
-                s = s + " " + i
+                s = s + "\t" + i
             s1 = s + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -702,6 +705,12 @@ class WUFIM(_ab._weightedFrequentPatterns):
         """
         return self._finalPatterns
 
+    def printResults(self):
+        print("Total number of  Weighted Uncertain Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
@@ -711,28 +720,10 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = WUFIM(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
+        print("Total number of Weighted Ucertain Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''ap = WUFIM('/Users/Likhitha/Downloads/weightedFrequentItems/sample.txt',
-                   '/Users/Likhitha/Downloads/weightedFrequentItems/HEWIWeightSample.txt', 1.4, 1.5, ' ')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        for x, y in Patterns.items():
-            print(x, y)
-        print("Total number of Patterns:", len(Patterns))
-        ap.save("patterns.txt")
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
