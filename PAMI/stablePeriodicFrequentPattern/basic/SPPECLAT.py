@@ -135,7 +135,6 @@ class SPPEclat:
         self._maxLa = self._convert(self._maxLa)
         #print(self._minSup, self._maxPer, self._maxLa)
         self._createSPPList()
-        print(len(self._SPPList))
         self._endTime = _ab._time.time()
         self._memoryUSS = float()
         self._memoryRSS = float()
@@ -168,8 +167,22 @@ class SPPEclat:
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y[0]) + ":" + str(y[1])
+            s1 = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
+
+    def getPatternsAsDataFrame(self):
+        """Storing final periodic-frequent patterns in a dataframe
+
+        :return: returning periodic-frequent patterns in a dataframe
+        :rtype: pd.DataFrame
+        """
+
+        dataFrame = {}
+        data = []
+        for a, b in self._finalPatterns.items():
+            data.append([a.replace('\t', ' '), b[0], b[1]])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
+        return dataFrame
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
@@ -179,6 +192,11 @@ class SPPEclat:
 
         return self._memoryRSS
 
+    def printResults(self):
+        print("Total number of Stable Periodic  Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
 if __name__ == '__main__':
     _ap = str()
@@ -188,38 +206,10 @@ if __name__ == '__main__':
         if len(_ab._sys.argv) == 6:
             _ap = SPPEclat(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
-        _Patterns = _ap.getPatterns()
-        print("Total number of Patterns:", len(_Patterns))
+        print("Total number of Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
-        _memUSS = _ap.getMemoryUSS()
-        print("Total Memory in USS:", _memUSS)
-        _memRSS = _ap.getMemoryRSS()
-        print("Total Memory in RSS", _memRSS)
-        _run = _ap.getRuntime()
-        print("Total ExecutionTime in ms:", _run)
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        '''ap = SPPEclat('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_retail.csv', 0.001,
-                       0.005, 0.004)
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        ap.save('/Users/Likhitha/Downloads/output')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)'''
-        ap = SPPEclat("/Users/masuyudai/Code/Dataset/temporal_T10I4D100K.csv", 500, 300, 900)
-        # ap = SPPEclat("/Users/masuyudai/Code/Spark/PartialPeriodicFrequent_wrong/sample.csv", 4,2,1," ")
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Frequent Patterns:", len(Patterns))
-        print(ap.getRuntime())
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        # for k,v in Patterns.items():
-        #     print(k,v)
-
-
-        # print("Error! The number of input parameters do not match the total number of parameters provided")
+        print("Error! The number of input parameters do not match the total number of parameters provided")

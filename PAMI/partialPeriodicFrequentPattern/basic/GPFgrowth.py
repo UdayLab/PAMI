@@ -677,7 +677,7 @@ class GPFgrowth(partialPeriodicPatterns):
         """
         return self._partialPeriodicPatterns__finalPatterns
 
-    def getResults(self):
+    def printResults(self):
         print("Total number of Partial Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

@@ -164,7 +164,7 @@ class _corelatedFuzzyFrequentPatterns(_ABC):
         pass
 
     @_abstractmethod
-    def printResult(self):
+    def printResults(self):
         """ To print all the results of execution"""
 
         pass

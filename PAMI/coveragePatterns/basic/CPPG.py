@@ -396,7 +396,7 @@ class CPPG(_ab._coveragePatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a, b[0], b[1]])
+            data.append([a.replace('\t', ' '), b[0], b[1]])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
@@ -409,7 +409,7 @@ class CPPG(_ab._coveragePatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(len(y))
+            s1 = x.strip() + ":" + str(len(y))
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
