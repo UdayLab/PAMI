@@ -224,6 +224,8 @@ class RSFPGrowth(_ab._frequentPatterns):
             To record the completion time of the mining process
         minSup : float
             The user given minSup
+        minRS : float
+            The user given minRS
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -275,7 +277,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     -------
         Format:
         -------
-            python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRatio>
+            python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRS>
 
         Examples:
         ---------
@@ -288,7 +290,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     -----------
         from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
 
-        obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
+        obj = alg.RSFPGrowth(iFile, minSup, __minRS)
 
         obj.startMine()
 
@@ -337,8 +339,8 @@ class RSFPGrowth(_ab._frequentPatterns):
     __itemSetCount = 0
     __maxPatternLength = 1000
 
-    def __init__(self, iFile, __minSup, __minRatio, sep='\t'):
-        super().__init__(iFile, __minSup, __minRatio, sep)
+    def __init__(self, iFile, __minSup, __minRS, sep='\t'):
+        super().__init__(iFile, __minSup, __minRS, sep)
         self.__finalPatterns = {}
 
     def __creatingItemSets(self):

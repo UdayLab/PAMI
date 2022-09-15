@@ -38,7 +38,7 @@ Total available algorithms: 70
 
 Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Similarly, click on __"Adv"__ link to view the advanced tutorial on using a particular algorithm.
 
-1. Frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/frequent.pdf)
+1. Frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentPatternMining.html)
      
    | Basic | Closed | Maximal | Top-k | CUDA | pyspark |
    |-------|--------|---------|-------|------|--------|
