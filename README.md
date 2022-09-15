@@ -79,25 +79,25 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |FSP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-ad.pdf)|
     
     
-6. Fuzzy correlated pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzyCorrelated.pdf)
-
-    |Basic|
-    |-----|
-    |FCP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPattern/FCPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPattern/FCPGrowth-ad.pdf)|
-
-7. Fuzzy Frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzyFrequent.pdf)
+6. Fuzzy Frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/fuzzyFrequentPatternMining.html)
 
     |Basic|
     |-----|
     |FFI-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentPatterns/FFIMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentPatterns/FFIMiner-ad.pdf)|
     
-8. Fuzzy frequent spatial pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzySpatial.pdf)
+7. Fuzzy correlated pattern mining: [Sample](https://udayrage.github.io/PAMI/fuzzyCorrelatedPatternMining.html)
+
+    |Basic|
+    |-----|
+    |FCP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPattern/FCPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPattern/FCPGrowth-ad.pdf)|
+ 
+8. Fuzzy frequent spatial pattern mining: [Sample](https://udayrage.github.io/PAMI/fuzzyFrequentSpatialPatternMining.html)
 
     |Basic|
     |-----|
     |FFSP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentSpatialPattern/FFSPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentSpatialPattern/FFSPMiner-ad.pdf)|
     
-9. Fuzzy periodic frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzyPeriodic.pdf)
+9. Fuzzy periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/fuzzyPeriodicFrequentPatternMining.html)
 
     |Basic|
     |-----|
