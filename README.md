@@ -187,9 +187,16 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |Basic|
     |-----|
     |EPCP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicCorrelatedPattern/EPCPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicCorrelatedPattern/EPCPGrowth-ad.pdf)|
+
+21. Stable periodic pattern mining: [Sample](https://udayrage.github.io/PAMI/stablePeriodicPatterns.html)
     
+    |Basic|
+    |-----|
+    |SPP-growth|
+    |SP-ECLAT|
+
     
-21. Uncertain frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/uncertainFrequent.pdf)
+22. Uncertain frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/uncertainFrequent.pdf)
     
     |Basic| top-k |
     |-----|-----|
@@ -198,30 +205,24 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |TubeS| | 
     |UVEclat| |
     
-22. Uncertain periodic frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/uncertainPeriodicFrequent.pdf)
+23. Uncertain periodic frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/uncertainPeriodicFrequent.pdf)
      
      |Basic|
      |-----|
      |UPFP-growth|
      
-23. Recurring pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/RecurringPatterns.pdf)
+24. Recurring pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/RecurringPatterns.pdf)
 
      |Basic|
      |-----|
      |RPgrowth|
      
-24. Relative High utility pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/relativeUtility.pdf)
+25. Relative High utility pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/relativeUtility.pdf)
     
     |Basic|
     |-----|
-    |RHUIM|
- 
-25. Stable periodic pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/stablePeriodic.pdf)
-    
-    |Basic|
-    |-----|
-    |SPP-growth|
-    |SP-ECLAT|
+    |RHUIM| 
+
     
 26. Weighted frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/weightedFrequentPatterns.pdf)
     
