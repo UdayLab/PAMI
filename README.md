@@ -109,7 +109,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |-----|
     |FPFP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-ad.pdf)|
 
-10. High utility pattern mining:   [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtility.pdf)
+10. High utility pattern mining:   [Sample](https://udayrage.github.io/PAMI/highUtilityPatternMining.html)
 
      |Basic|
      |-----|
@@ -117,13 +117,13 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
      |HMiner|
      |UPGrowth|
 
-11. High utility frequent pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtilityPatternMining.html)
+11. High utility frequent pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtiltiyFrequentPatternMining.html)
 
     |Basic|
     |-----|
     |HUFIM|
     
-12. High utility frequent spatial pattern mining:  [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtiltiyFrequentSpatial.pdf)
+12. High utility frequent spatial pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtilitySpatialPatternMining.html)
 
     |Basic|
     |-----|
@@ -131,29 +131,14 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
  
 
      
-13. High utility spatial pattern mining:  [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtilitySpatial.pdf)
+13. High utility spatial pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtilitySpatialPatternMining.html)
 
      |Basic|topk|
      |-----|----|
      |HDSHIM|TKSHUIM|
      |SHUIM|
-     
-14. Local periodic pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/localPeriodic.pdf)
 
-     |Basic|
-     |-----|
-     |LPPGrowth|
-     |LPPMBreadth|
-     |LPPMDepth|
-    
-15. Partial periodic frequent pattern: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/partialPeriodicFrequent.pdf)
-
-    |Basic|
-    |-----|
-    |GPF-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/GPFgrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/PPF_DFS-ad.pdf)|
-    |PPF-DFS [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/GPFgrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/PPF_DFS-ad.pdf)|
-    
-16. Periodic frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicFrequent.pdf)
+14. Periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicFrequentPatternMining.html)
 
     |Basic| Closed | Maximal |
     |-----|--------|---------|
@@ -162,13 +147,28 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |PS-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PSGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PSGrowth-ad.pdf)| | |
     |PFP-ECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPattern/basic/PFECLAT-ad.pdf)| | |
     
-17. Geo referenced Periodic frequent pattern mining:[Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicFrequentSpatial.pdf)
+15. Geo referenced Periodic frequent pattern mining:[Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicFrequentSpatial.pdf)
 
      |Basic|
      |-----|
      |GPFPMiner|
+
+16. Local periodic pattern mining: [Sample](https://udayrage.github.io/PAMI/localPeriodicPatternMining.html)
+
+     |Basic|
+     |-----|
+     |LPPGrowth|
+     |LPPMBreadth|
+     |LPPMDepth|
     
-18. Partial periodic pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/partialPeriodic.pdf)
+17. Partial periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/partialPeriodicFrequentPattern.html)
+
+    |Basic|
+    |-----|
+    |GPF-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/GPFgrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/PPF_DFS-ad.pdf)|
+    |PPF-DFS [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/GPFgrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicFrequentPattern/PPF_DFS-ad.pdf)|
+     
+18. Partial periodic pattern mining: [Sample](https://udayrage.github.io/PAMI/partialPeriodicPatternMining.html)
 
     |Basic|Closed|Maximal|topk|
     |-----|-------|------|----|
@@ -176,13 +176,13 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |3PECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPattern/basic/PPP_ECLAT-ad.pdf)| | | | |
     
 
-19. Partial periodic spatial pattern mining:[Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/partialPeriodicSpatial.pdf)
+19. Partial periodic spatial pattern mining:[Sample](https://udayrage.github.io/PAMI/partialPeriodicSpatialPatternMining.html)
 
      |Basic|
      |-----|
      |STECLAT|
 
-20. Periodic correlated pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicCorrelated.pdf)
+20. Periodic correlated pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicCorrelatedPatternMining.html)
     
     |Basic|
     |-----|
