@@ -100,7 +100,8 @@ class prefixSpan(_ab._frequentPatterns):
         """
         with open(file, 'r') as f:
             read = f.readlines()
-        self.minSup = int(_ab._math.ceil(support * len(read)))
+        #self.minSup = int(_ab._math.ceil(support * len(read)))
+        self.minSup = int(support)
 
     def _save(self, item, support):
         """
@@ -141,7 +142,7 @@ class prefixSpan(_ab._frequentPatterns):
             for i in read:
                 li = list(map(int, i.split()))
                 lis.append(li)
-        print(lis, type(lis))
+        #print(lis, type(lis))
         return lis
 
     @staticmethod
@@ -222,7 +223,7 @@ class prefixSpan(_ab._frequentPatterns):
             for j in seq:
                 if j >= 0:
                     if j in seqId:
-                        isFreq = len(seqId[j]) >= self._minSup
+                        isFreq = len(seqId[j]) >= self.minSup
                         if isFreq:
                             lis.append(j)
                             curPos += 1
@@ -415,14 +416,14 @@ class prefixSpan(_ab._frequentPatterns):
         mapsPairs = self._findAllFrequentPairs(dataBase, lastBuffPo)
         if mapsPairs:
             for i in list(sorted(mapsPairs[1])):
-                if len(mapsPairs[3][i]) >= self._minSup:
+                if len(mapsPairs[3][i]) >= self.minSup:
                     newBufferPos = lastBuffPo
                     newBufferPos += 1
                     patternBuff[newBufferPos] = i
                     self._save1(newBufferPos, mapsPairs[3][i])
                     self._recursion(patternBuff, mapsPairs[3][i], newBufferPos)
             for i in list(sorted(mapsPairs[0])):
-                if len(mapsPairs[2][i]) >= self._minSup:
+                if len(mapsPairs[2][i]) >= self.minSup:
                     newBufferPos = lastBuffPo
                     newBufferPos += 1
                     patternBuff[newBufferPos] = -1
@@ -519,18 +520,16 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''l = [600,700,800, 900, 1000]
-        for i in l:
-            ap = prefixSpan('/Users/Likhitha/Downloads/PrefixSpan/small.txt', 1, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Frequent Patterns:", len(Patterns))
-            ap.save('/Users/Likhitha/Downloads/output')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)'''
+        ap = prefixSpan('/Users/Likhitha/Downloads/', 2, ' ')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(Patterns))
+        ap.save('/Users/Likhitha/Downloads/output')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
 

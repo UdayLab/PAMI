@@ -170,7 +170,7 @@ class _Dataset:
 
     def createItemSets(self, datasetPath):
         if isinstance(datasetPath, _ab._pd.DataFrame):
-            utilities, data, utilitySum = [], [], []
+            utilities, data, utilitySum, pmuString = [], [], [], []
             if datasetPath.empty:
                 print("its empty..")
             i = datasetPath.columns.values.tolist()
@@ -180,8 +180,10 @@ class _Dataset:
                 utilities = datasetPath['Utilities'].tolist()
             if 'UtilitySum' in i:
                 utilitySum = datasetPath['UtilitySum'].tolist()
+            if 'pmuString' in i:
+                utilitySum = datasetPath['pmuString'].tolist()
             for k in range(len(data)):
-                self.transactions.append(self.createTransaction(data[k], utilities[k], utilitySum[k]))
+                self.transactions.append(self.createTransaction(data[k], utilities[k], utilitySum[k], pmuString[k]))
         if isinstance(datasetPath, str):
             if _ab._validators.url(datasetPath):
                 data = _ab._urlopen(datasetPath)
@@ -193,7 +195,9 @@ class _Dataset:
                     itemsString = [x for x in itemsString if x]
                     utilityString = trans_list[2].strip().split(self.sep)
                     utilityString = [x for x in utilityString if x]
-                    self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility))
+                    pmuString = trans_list[3].strip().split(self.sep)
+                    pmuString = [x for x in pmuString if x]
+                    self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility, pmuString))
             else:
                 try:
                     with open(datasetPath, 'r', encoding='utf-8') as f:
@@ -204,13 +208,15 @@ class _Dataset:
                             itemsString = [x for x in itemsString if x]
                             utilityString = trans_list[2].strip().split(self.sep)
                             utilityString = [x for x in utilityString if x]
+                            pmuString = trans_list[3].strip().split(self.sep)
+                            pmuString = [x for x in pmuString if x]
                             self.transactions.append(
-                                self.createTransaction(itemsString, utilityString, transactionUtility))
+                                self.createTransaction(itemsString, utilityString, transactionUtility, pmuString))
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def createTransaction(self, items, utilities, utilitySum):
+    def createTransaction(self, items, utilities, utilitySum, pmustring):
         """
             A method to create Transaction from dataset given
             
@@ -228,19 +234,22 @@ class _Dataset:
         transactionUtility = utilitySum
         itemsString = items
         utilityString = utilities
+        pmuString = pmustring
         items = []
         utilities = []
+        pmus = []
         for idx, item in enumerate(itemsString):
-            if self.strToInt.get(item) is None:
+            if (self.strToInt).get(item) is None:
                 self.strToInt[item] = self.cnt
                 self.intToStr[self.cnt] = item
                 self.cnt += 1
-            item_int = self.strToInt.get(item)
-            if item_int > self.maxItem:
-                self.maxItem = item_int
-            items.append(item_int)
+            itemInt = self.strToInt.get(item)
+            if itemInt > self.maxItem:
+                self.maxItem = itemInt
+            items.append(itemInt)
             utilities.append(int(utilityString[idx]))
-        return _Transaction(items, utilities, transactionUtility)
+            pmus.append(int(pmuString[idx]))
+        return _Transaction(items, utilities, transactionUtility, pmus)
 
     def getMaxItem(self):
         """

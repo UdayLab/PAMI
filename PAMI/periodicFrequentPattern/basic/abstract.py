@@ -32,8 +32,8 @@ class _periodicFrequentPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
         employ in PAMI
 
-       Attributes
-        ----------
+    Attributes:
+    ----------
         iFile : str
             Input file name or path of the input file
         minSup: int or float or str
@@ -62,8 +62,8 @@ class _periodicFrequentPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    Methods:
+    -------
         startMine()
             Mining process will start from here
         getPatterns()
