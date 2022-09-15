@@ -64,7 +64,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     
     
         
-4. Correlated pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/correlatePatterns.pdf)
+4. Correlated pattern mining: [Sample](https://udayrage.github.io/PAMI/correlatePatternMining.html)
 
     |Basic|
     |-----|
