@@ -103,31 +103,33 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |-----|
     |FPFP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-ad.pdf)|
     
-9. Geo referenced Fuzzy periodic frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/fuzzySpatialPeriodic.pdf)
+9. Geo referenced Fuzzy periodic frequent pattern mining: 
 
     |Basic|
     |-----|
     |FPFP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-ad.pdf)|
 
-10. High utility frequent pattern mining:  [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtiltiyFrequent.pdf)
-
-    |Basic|
-    |-----|
-    |HUFIM|
-    
-11. High utility frequent spatial pattern mining:  [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtiltiyFrequentSpatial.pdf)
-
-    |Basic|
-    |-----|
-    |SHUFIM|
- 
-12. High utility pattern mining:   [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtility.pdf)
+10. High utility pattern mining:   [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtility.pdf)
 
      |Basic|
      |-----|
      |EFIM|
      |HMiner|
      |UPGrowth|
+
+11. High utility frequent pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtilityPatternMining.html)
+
+    |Basic|
+    |-----|
+    |HUFIM|
+    
+12. High utility frequent spatial pattern mining:  [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtiltiyFrequentSpatial.pdf)
+
+    |Basic|
+    |-----|
+    |SHUFIM|
+ 
+
      
 13. High utility spatial pattern mining:  [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/highUtilitySpatial.pdf)
 
