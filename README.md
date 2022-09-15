@@ -71,7 +71,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |CP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowth-st.pdf) -[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowth-ad.pdf) |
     |CP-growth++ [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPuls-st.pdf)||ad](https://github.com/udayRage/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPlus-ad.pdf)|
     
-5. Frequent spatial pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/frequentSpatial.pdf)
+5. Frequent spatial pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentSpatialPatternMining.html)
 
     |Basic|
     |-----|
