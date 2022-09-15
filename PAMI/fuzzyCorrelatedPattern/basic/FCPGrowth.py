@@ -645,7 +645,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t'), b[0], b[1]])
+            data.append([a.replace('\t', ' '), b[0], b[1]])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Confidence'])
         return dataframe
 
@@ -676,7 +676,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = FCPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
-        print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
+        print("Total number of Fuzzy Correlated Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:",  _ap.getMemoryUSS())
         print("Total Memory in RSS",  _ap.getMemoryRSS())

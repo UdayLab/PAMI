@@ -406,7 +406,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         for a, b in self._finalPatterns.items():
             pat = ""
             for i in a:
-                pat += str(i) + '\t'
+                pat += str(i) + ' '
             data.append([pat, b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataFrame

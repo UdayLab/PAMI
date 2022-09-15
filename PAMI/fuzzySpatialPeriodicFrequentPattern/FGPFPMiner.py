@@ -687,6 +687,12 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             patternsAndSupport = x.strip() + ":" + str(self._finalPeriodicPatterns[x])
             writer.write("%s \n" % patternsAndSupport)
 
+    def printResults(self):
+        print("Total number of Spatial Fuzzy Periodic-Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
     '''def getPatternsAsDataframe(self):
 
         """

@@ -1,8 +1,8 @@
 
-from PAMI.localPeriodicPattern.basic.abstract import *
+from PAMI.localPeriodicPattern.basic import abstract as _ab
 
 
-class LPPMBreadth(localPeriodicPatterns):
+class LPPMBreadth(_ab._localPeriodicPatterns):
 
     """
 
@@ -121,7 +121,7 @@ class LPPMBreadth(localPeriodicPatterns):
 
         """
         self.__Database = []
-        if isinstance(self._localPeriodicPatterns__iFile, pd.DataFrame):
+        if isinstance(self._localPeriodicPatterns__iFile, _ab._pd.DataFrame):
             if self._localPeriodicPatterns__iFile.empty:
                 print("its empty..")
             i = self._localPeriodicPatterns__iFile.columns.values.tolist()
@@ -131,8 +131,8 @@ class LPPMBreadth(localPeriodicPatterns):
                 self.__Database = self._localPeriodicPatterns__iFile['Patterns'].tolist()
 
         if isinstance(self._localPeriodicPatterns__iFile, str):
-            if validators.url(self._localPeriodicPatterns__iFile):
-                data = urlopen(self._localPeriodicPatterns__iFile)
+            if _ab._validators.url(self._localPeriodicPatterns__iFile):
+                data = _ab._urlopen(self._localPeriodicPatterns__iFile)
                 for line in data:
                     line.strip()
                     line = line.decode("utf-8")
@@ -372,7 +372,7 @@ class LPPMBreadth(localPeriodicPatterns):
         """
         Mining process start from here.
         """
-        self._localPeriodicPatterns__startTime = time.time()
+        self._localPeriodicPatterns__startTime = _ab._time.time()
         self.__creatingItemSets()
         self._localPeriodicPatterns__maxPer = self.__convert(self._localPeriodicPatterns__maxPer)
         self._localPeriodicPatterns__maxSoPer = self.__convert(self._localPeriodicPatterns__maxSoPer)
@@ -380,8 +380,8 @@ class LPPMBreadth(localPeriodicPatterns):
         self._localPeriodicPatterns__finalPatterns = {}
         self.__createTSList()
         self.__generateLPP()
-        self._localPeriodicPatterns__endTime = time.time()
-        process = psutil.Process(os.getpid())
+        self._localPeriodicPatterns__endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
         self._localPeriodicPatterns__memoryUSS = float()
         self._localPeriodicPatterns__memoryRSS = float()
         self._localPeriodicPatterns__memoryUSS = process.memory_full_info().uss
@@ -424,8 +424,11 @@ class LPPMBreadth(localPeriodicPatterns):
         dataFrame = {}
         data = []
         for a, b in self._localPeriodicPatterns__finalPatterns.items():
-            data.append([a, b])
-            dataFrame = pd.DataFrame(data, columns=['Patterns', 'PTL'])
+            pat = str()
+            for i in a:
+                pat = pat + i + ' '
+            data.append([pat, b])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'PTL'])
         return dataFrame
 
     def save(self, outFile):
@@ -437,7 +440,14 @@ class LPPMBreadth(localPeriodicPatterns):
         self._localPeriodicPatterns__oFile = outFile
         writer = open(self._localPeriodicPatterns__oFile, 'w+')
         for x, y in self._localPeriodicPatterns__finalPatterns.items():
-            writer.write(f'{x} : {y}\n')
+            pat = str()
+            for i in x:
+                pat = pat + i + '\t'
+            pat = pat + ":"
+            for i in y:
+                pat = pat + str(i) + '\t'
+            patternsAndPTL = pat.strip()
+            writer.write("%s \n" % patternsAndPTL)
 
     def getPatterns(self):
         """ Function to send the set of local periodic patterns after completion of the mining process
@@ -447,41 +457,25 @@ class LPPMBreadth(localPeriodicPatterns):
         """
         return self._localPeriodicPatterns__finalPatterns
 
+    def printResults(self):
+        print("Total number of Local Periodic Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
+
 if __name__ == '__main__':
-    # ap = str()
-    # if len(sys.argv) == 6 or len(sys.argv) == 7:
-    #     if len(sys.argv) == 7:
-    #         ap = LPPMBreadth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6])
-    #     if len(sys.argv) == 6:
-    #         ap = LPPMBreadth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-    #     ap.startMine()
-    #     Patterns = ap.getPatterns()
-    #     print("Total number of Frequent Patterns:", len(Patterns))
-    #     ap.save(sys.argv[2])
-    #     memUSS = ap.getMemoryUSS()
-    #     print("Total Memory in USS:", memUSS)
-    #     memRSS = ap.getMemoryRSS()
-    #     print("Total Memory in RSS", memRSS)
-    #     run = ap.getRuntime()
-    #     print("Total ExecutionTime in ms:", run)
-    # else:
-    #     l = [0.004, 0.005, 0.006, 0.007, 0.008]
-    #     for i in l:
-    #         ap = LPPMBreadth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv'
-    #                        , i, 0.01, 0.01)
-    #         ap.startMine()
-    #         Patterns = ap.getPatterns()
-    #         print("Total number of Frequent Patterns:", len(Patterns))
-    #         ap.save('/Users/Likhitha/Downloads/output')
-    #         memUSS = ap.getMemoryUSS()
-    #         print("Total Memory in USS:", memUSS)
-    #         memRSS = ap.getMemoryRSS()
-    #         print("Total Memory in RSS", memRSS)
-    #         run = ap.getRuntime()
-    #         print("Total ExecutionTime in ms:", run)
-    #     print("Error! The number of input parameters do not match the total number of parameters provided")
-    obj = LPPMBreadth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_T10I4D100K.csv', 1000, 2000, 20000)
-    # obj.startMine()
-    obj.startMine()
-    localPeriodicPatterns = obj.getPatterns()
-    print(f'Pattenrs:{len(localPeriodicPatterns)}')
+    _ap = str()
+    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
+        if len(_ab._sys.argv) == 6:
+            _ap = LPPMBreadth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
+        if len(_ab._sys.argv) == 5:
+            _ap = LPPMBreadth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
+        _ap.startMine()
+        print("Total number of Local Periodic Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
+    else:
+        print("Error! The number of input parameters do not match the total number of parameters provided")

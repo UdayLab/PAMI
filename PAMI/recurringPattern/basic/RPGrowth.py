@@ -189,7 +189,7 @@ class _Tree(object):
         :return: recurring intervals with corresponding periodic support, summation of support of periodic intervals, support
         """
 
-        global maxPer,minPS
+        global _maxPer,_minPS
         timeStamps.sort()
         cur = ' '
         st = ' '
@@ -202,17 +202,17 @@ class _Tree(object):
         lps = 1
         recli = []
         for i in range(1, len(timeStamps)):
-            if abs(timeStamps[i] - cur) <= maxPer:
+            if abs(timeStamps[i] - cur) <= _maxPer:
                 lps += 1
             else:
-                if lps >= minPS:
+                if lps >= _minPS:
                     recli.append([st, end, lps])
                     ps += lps
                 lps = 1
                 st = timeStamps[i]
             cur = timeStamps[i]
             end = cur
-        if lps >= minPS:
+        if lps >= _minPS:
             recli.append([st, end, lps])
             ps+=lps
         # print(recli)
@@ -228,7 +228,7 @@ class _Tree(object):
             :returns: Returns conditional transactions by removing non recurring items
         """
 
-        global maxPer, minPS, minRec
+        global _maxPer, _minPS, _minRec
         pat = []
         timeStamps = []
         data1 = {}
@@ -242,7 +242,7 @@ class _Tree(object):
         for m in data1:
             updatedDictionary[m] = self.getSupportAndPeriod(data1[m])
         # print(updatedDictionary)
-        updatedDictionary = {k: [v[0],v[2]] for k, v in updatedDictionary.items() if v[1] >= (minPS*minRec)}
+        updatedDictionary = {k: [v[0],v[2]] for k, v in updatedDictionary.items() if v[1] >= (_minPS*_minRec)}
         count = 0
         for p in conditionalPatterns:
             p1 = [v for v in p if v in updatedDictionary]
@@ -260,11 +260,11 @@ class _Tree(object):
             :type prefix: list
             :returns: yields patterns with their recurrence and support
         """
-
+        global _minRec
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[1], -x)):
             pattern = prefix[:]
             pattern.append(i)
-            if len(self.info.get(i)[0])>=minRec:
+            if len(self.info.get(i)[0]) >= _minRec:
                 yield pattern, self.info[i]
             patterns, timeStamps, info = self.getConditionalPatterns(i)
             conditionalTree = _Tree()
