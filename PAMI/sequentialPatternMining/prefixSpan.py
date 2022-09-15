@@ -1,5 +1,5 @@
-from PAMI.sequentialPatternMining import abstract as _ab
-
+##from PAMI.sequentialPatternMining import abstract as _ab
+import abstract as _ab
 
 class prefixSpan(_ab._frequentPatterns):
     """
