@@ -659,9 +659,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         for a, b in self._finalPeriodicPatterns.items():
             data.append([a.replace('\t', ' '), b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        for a, b in self._finalPeriodicPatterns.items():
-            data.append([a.replace('\t', ' '), b])
-            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
     def getPatterns(self):
@@ -681,10 +678,6 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         writer = open(self.oFile, 'w+')
         for x in keylist:
             patternsAndSupport = x.strip() + ":" + str(self._finalPatterns[x])
-            writer.write("%s \n" % patternsAndSupport)
-        keylist = (self._finalPeriodicPatterns.keys())
-        for x in keylist:
-            patternsAndSupport = x.strip() + ":" + str(self._finalPeriodicPatterns[x])
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
