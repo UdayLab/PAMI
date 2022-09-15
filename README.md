@@ -48,14 +48,14 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
    |ECLAT-bitSet [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/ECLATbitset-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentPattern/basic/ECLATbitset-ad.pdf)| | | | | |
    |ECLAT-diffset|  | | | |
 
-2. Frequent pattern mining using other measures: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/frequentUsingOther.pdf)
+2. Frequent pattern mining using other measures: [Sample](https://udayrage.github.io/PAMI/relativeFrequentPatternMining.html)
     
     |Basic|
     |-----|
     |RSFP|
 
 
-3. Frequent pattern with multiple minimum support: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/multipleMinSup.pdf)
+3. Frequent pattern with multiple minimum support: [Sample](https://udayrage.github.io/PAMI/multipleMinSupFrequentPatternMining.html)
     
     |Basic|
     |-----|
