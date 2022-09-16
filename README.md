@@ -236,14 +236,14 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |-----|
     |WUFIM|
     
-28. Weighted frequent regular pattern mining: To be written
+28. Weighted frequent regular pattern mining: To be Written
     
     |Basic|
     |-----|
     |WFRIMiner|
     
     
-29. Weighted frequent neighbourhood pattern mining: To be written
+29. Weighted frequent neighbourhood pattern mining: TO BE WRITTEN
     
     |Basic|
     |-----|
