@@ -196,7 +196,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |SP-ECLAT|
 
     
-22. Uncertain frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/uncertainFrequent.pdf)
+22. Uncertain frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainFrequentPatternMining.html)
     
     |Basic| top-k |
     |-----|-----|
@@ -205,13 +205,13 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |TubeS| | 
     |UVEclat| |
     
-23. Uncertain periodic frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/uncertainPeriodicFrequent.pdf)
+23. Uncertain periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainPeriodicFrequentPatternMining.html)
      
      |Basic|
      |-----|
      |UPFP-growth|
      
-24. Recurring pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/RecurringPatterns.pdf)
+24. Recurring pattern mining: [Sample](https://udayrage.github.io/PAMI/RecurringPatterns.html)
 
      |Basic|
      |-----|
@@ -224,26 +224,26 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |RHUIM| 
 
     
-26. Weighted frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/weightedFrequentPatterns.pdf)
+26. Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentPatternMining.html)
     
     |Basic|
     |-----|
     |WFIM|
     
-27. Uncertain Weighted frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/weightedUncertainFrequentPatterns.pdf)
+27. Uncertain Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedUncertainFrequentPatetrns.html)
     
     |Basic|
     |-----|
     |WUFIM|
     
-28. Weighted frequent regular pattern mining: 
+28. Weighted frequent regular pattern mining: To be written
     
     |Basic|
     |-----|
     |WFRIMiner|
     
     
-29. Weighted frequent neighbourhood pattern mining: 
+29. Weighted frequent neighbourhood pattern mining: To be written
     
     |Basic|
     |-----|
