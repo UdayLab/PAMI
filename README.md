@@ -224,13 +224,13 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
     |RHUIM| 
 
     
-26. Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentPatternMining.html)
+26. Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentPattern.html)
     
     |Basic|
     |-----|
     |WFIM|
     
-27. Uncertain Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedUncertainFrequentPatetrns.html)
+27. Uncertain Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedUncertainFrequentPatterns.html)
     
     |Basic|
     |-----|
