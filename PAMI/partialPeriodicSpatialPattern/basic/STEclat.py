@@ -1,4 +1,4 @@
-from PAMI.partialPeriodicSpatialPattern import abstract as _ab
+from PAMI.partialPeriodicSpatialPattern.basic import abstract as _ab
 
 
 class STEclat(_ab._partialPeriodicSpatialPatterns):

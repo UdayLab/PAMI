@@ -679,8 +679,8 @@ class WUFIM(_ab._weightedFrequentPatterns):
         for a, b in self._finalPatterns.items():
             s = str()
             for i in a:
-                s = s + " " + i
-            data.append([a, b])
+                s = s + i + " "
+            data.append([s, b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
@@ -694,8 +694,8 @@ class WUFIM(_ab._weightedFrequentPatterns):
         for x, y in self._finalPatterns.items():
             s = str()
             for i in x:
-                s = s + "\t" + i
-            s1 = s + ":" + str(y)
+                s = s  + i + "\t"
+            s1 = s.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):

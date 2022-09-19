@@ -25,10 +25,9 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import time
 import pandas as pd
 import plotly.express as px
-import PAMI.fuzzySpatialPeriodicFrequentPattern.abstract as _ab
+import PAMI.fuzzySpatialPeriodicFrequentPattern.basic.abstract as _ab
 
 
 class _FFList:

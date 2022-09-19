@@ -122,23 +122,22 @@ __Example:__ python3 `EPCPGrowth` `inputFile.txt` `outputFile.txt` `4` `0.5` `3`
 - Install the PAMI package from the PYPI repository by executing the following command:   **pip3 install PAMI**
 * Run the below sample code by making necessary changes
 
-
 ```python
-import PAMI.periodicCorrelatedPattern.EPCPGrowth as alg 
+import PAMI.periodicCorrelatedPattern.basic.EPCPGrowth as alg
 
-iFile = 'sampleInputFile.txt'  #specify the input temporal database 
-minSup = 4                     #specify the minSup value 
-minAllConf = 0.6               #specify the minAllConf value 
-maxPer = 4                     #specify the maxPer value <br>
-maxPerAllConf = 1.5            #specify the maxPerAllConf Value <br>
-seperator = ' '                 #specify the seperator. Default seperator is tab space. <br>
-oFile = 'periodicCorrelatedPatterns.txt'   #specify the output file name<br>
+iFile = 'sampleInputFile.txt'  # specify the input temporal database 
+minSup = 4  # specify the minSup value 
+minAllConf = 0.6  # specify the minAllConf value 
+maxPer = 4  # specify the maxPer value <br>
+maxPerAllConf = 1.5  # specify the maxPerAllConf Value <br>
+seperator = ' '  # specify the seperator. Default seperator is tab space. <br>
+oFile = 'periodicCorrelatedPatterns.txt'  # specify the output file name<br>
 
-obj = alg.EPCPGrowth(iFile, minSup, minAllConf, maxPer, maxPerAllConf, seperator) #initialize the algorithm <br>
-obj.startMine()                       #start the mining process <br>
-obj.save(oFile)               #store the patterns in file <br>
-df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe <br>
-obj.printResults()                      #Print the statistics of mining process
+obj = alg.EPCPGrowth(iFile, minSup, minAllConf, maxPer, maxPerAllConf, seperator)  # initialize the algorithm <br>
+obj.startMine()  # start the mining process <br>
+obj.save(oFile)  # store the patterns in file <br>
+df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe <br>
+obj.printResults()  # Print the statistics of mining process
 ```
 
     Correlated Periodic-Frequent patterns were generated successfully using EPCPGrowth algorithm 

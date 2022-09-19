@@ -14,8 +14,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import sys
 
-from PAMI.periodicCorrelatedPattern import abstract as _ab
-
+from PAMI.periodicCorrelatedPattern.basic import abstract as _ab
 
 _maxPer = float()
 _minAllConf = float()

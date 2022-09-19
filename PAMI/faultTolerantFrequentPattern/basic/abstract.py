@@ -43,7 +43,7 @@ import functools as _functools
 import itertools as _itertools
 
 
-class _frequentPatterns(_ABC):
+class _faultTolerantFrequentPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
@@ -92,7 +92,7 @@ class _frequentPatterns(_ABC):
 
     """
 
-    def __init__(self, iFile, minSup, sep="\t"):
+    def __init__(self, iFile, minSup, itemSup, minLength, faultTolerance, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame
@@ -108,6 +108,9 @@ class _frequentPatterns(_ABC):
         self._iFile = iFile
         self._sep = sep
         self._minSup = minSup
+        self._itemSup = itemSup
+        self._minLength = minLength
+        self._faultTolerance = faultTolerance
         self._finalPatterns = {}
         self._oFile = str()
         self._memoryUSS = float()

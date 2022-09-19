@@ -621,10 +621,13 @@ class RPGrowth(_ab._recurringPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
+            s = str()
+            for i in a:
+                s = s + i + ' '
             z = []
             for k in b[1]:
                 z.append({[k[0], k[1]], k[2]})
-            data.append([a.replace('\t', ' '), b[1], len(b[1]), z])
+            data.append([s.replace('\t', ' '), b[1], len(b[1]), z])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Recurrance', 'intervals'])
         return dataFrame
 
@@ -637,11 +640,14 @@ class RPGrowth(_ab._recurringPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
+            s = str()
+            for i in x:
+                s = s + i + '\t'
             str1 = '{'
             for z in y[0]:
                 str1 += '{'+str([z[0], z[1]])+' : ' + str(z[2]) + '}'
             str1 += '}'
-            s1 = x.strip() + ":" + str(y[1]) + ":" + str(len(y[0])) + ":" + str1
+            s1 = s.strip() + ":" + str(y[1]) + ":" + str(len(y[0])) + ":" + str1
             writer.write("%s \n" % s1)
         writer.close()
 
