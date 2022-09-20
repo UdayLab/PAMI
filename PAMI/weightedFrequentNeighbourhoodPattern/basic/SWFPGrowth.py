@@ -214,17 +214,15 @@ class _Tree:
                     yield q
 
 
-class WFIM(_fp._weightedFrequentSpatialPatterns):
+class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     """
-       WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.
-       It stores the database in compressed fp-tree decreasing the memory usage and extracts the
-       patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+       SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.
 
     Reference :
     ---------
-           R. Uday Kiran, P. P. C. Reddy, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy, 
-           "Discovering Spatial Weighted Frequent Itemsets in Spatiotemporal Databases," 2019 International Conference on Data Mining Workshops (ICDMW), 
-           2019, pp. 987-996, doi: 10.1109/ICDMW.2019.00143.
+        R. Uday Kiran, P. P. C. Reddy, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy,
+        "Discovering Spatial Weighted Frequent Itemsets in Spatiotemporal Databases," 2019 International
+        Conference on Data Mining Workshops (ICDMW), 2019, pp. 987-996, doi: 10.1109/ICDMW.2019.00143.
 
     Attributes :
     ----------
@@ -289,30 +287,30 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
     -------
         Format:
         -------
-            python3 WFIM.py <inputFile> <weightFile> <outputFile> <minSup>
+            python3 SWFPGrowth.py <inputFile> <weightFile> <outputFile> <minSup>
 
         Examples:
         ---------
-            python3 WFIM.py sampleDB.txt weightSample.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+            python3 SWFPGrowth.py sampleDB.txt weightSample.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
-            python3 WFIM.py sampleDB.txt weightFile.txt patterns.txt 10     (minSup will be considered in support count or frequency) (it will consider "\t" as a separator)
+            python3 SWFPGrowth.py sampleDB.txt weightFile.txt patterns.txt 10     (minSup will be considered in support count or frequency) (it will consider "\t" as a separator)
 
-            python3 WFIM.py sampleTDB.txt weightFile.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
+            python3 SWFPGrowth.py sampleTDB.txt weightFile.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
 
 
     Sample run of the importing code:
     -----------
 
 
-        from PAMI.weightFrequentPattern.basic import WFIM as alg
+        from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
 
-        obj = alg.WFIM(iFile, minSup)
+        obj = alg.SWFPGrowth(iFile, wFile, nFile, minSup, minWeight, seperator)
 
         obj.startMine()
 
-        frequentPatterns = obj.getPatterns()
+        Patterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        print("Total number of weighted spatial Frequent Patterns:", len(Patterns))
 
         obj.save(oFile)
 
@@ -603,7 +601,7 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
         for k in patterns:
             s = self.__savePeriodic(k[0])
             self.__finalPatterns[str(s)] = k[1]
-        print("Weighted Frequent patterns were generated successfully using WFIM algorithm")
+        print("Weighted Frequent patterns were generated successfully using SWFPGrowth algorithm")
         self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
         self.__memoryRSS = float()
@@ -688,11 +686,12 @@ class WFIM(_fp._weightedFrequentSpatialPatterns):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_fp._sys.argv) == 6 or len(_fp._sys.argv) == 7:
+    if len(_fp._sys.argv) == 7 or len(_fp._sys.argv) == 8:
+        if len(_fp._sys.argv) == 8:
+            _ap = SWFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5], _fp._sys.argv[6],
+                             _fp._sys.argv[7])
         if len(_fp._sys.argv) == 7:
-            _ap = WFIM(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5], _fp._sys.argv[6])
-        if len(_fp._sys.argv) == 6:
-            _ap = WFIM(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5])
+            _ap = SWFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5], _fp._sys.argv[6])
         _ap.startMine()
         print("Total number of Weighted Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])

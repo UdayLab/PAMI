@@ -265,29 +265,42 @@ class WFIM(_fp._weightedFrequentPatterns):
     -------
         Format:
         -------
-            python3 WFIM.py <inputFile> <weightFile> <outputFile> <minSup>
+            python3 WFIM.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
         Examples:
         ---------
-            python3 WFIM.py sampleDB.txt weightSample.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
-            python3 WFIM.py sampleDB.txt weightFile.txt patterns.txt 10     (minSup will be considered in support count or frequency) (it will consider "\t" as a separator)
-            python3 WFIM.py sampleTDB.txt weightFile.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
+            python3 WFIM.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4  (minSup will be considered in times of minSup and count of database transactions)
+
+            python3 WFIM.py sampleTDB.txt weightFile.txt output.txt 3 1.2 ',' (it will consider "," as a separator)
+
     Sample run of the importing code:
     -----------
         from PAMI.weightFrequentPattern.basic import WFIM as alg
-        obj = alg.WFIM(iFile, minSup)
+
+        obj = alg.WFIM(iFile, wFile, minSup, minWeight)
+
         obj.startMine()
-        frequentPatterns = obj.getPatterns()
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+        Patterns = obj.getPatterns()
+
+        print("Total number of Weighted Frequent Patterns:", len(Patterns))
+
         obj.save(oFile)
+
         Df = obj.getPatternInDataFrame()
+
         memUSS = obj.getMemoryUSS()
+
         print("Total Memory in USS:", memUSS)
+
         memRSS = obj.getMemoryRSS()
+
         print("Total Memory in RSS", memRSS)
+
         run = obj.getRuntime()
+
         print("Total ExecutionTime in seconds:", run)
-        Credits:
-        -------
+    Credits:
+    -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
         """
 

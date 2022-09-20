@@ -25,11 +25,10 @@ class _weightedFrequentPatterns(_ABC):
             Input file name or path of the input file
         wFile : str
             Input file name or path of the input file
+        expSup: float or int or str
+            The user can specify expSup in count.
         expWeSup: float or int or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            The user can specify  in count .
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.

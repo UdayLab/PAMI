@@ -28,7 +28,7 @@ class CPPG(_ab._coveragePatterns):
     --------
         Gowtham Srinivas, P.; Krishna Reddy, P.; Trinath, A. V.; Bhargav, S.; Uday Kiran, R. (2015).
         Mining coverage patterns from transactional databases. Journal of Intelligent Information Systems, 45(3), 423–439.
-        doi:10.1007/s10844-014-0318-3
+        https://link.springer.com/article/10.1007/s10844-014-0318-3
 
     Attributes:
     ----------
@@ -207,16 +207,15 @@ class CPPG(_ab._coveragePatterns):
             :returns: return the one-length periodic frequent patterns
         """
         data = {}
+        count = 0
         for tr in self._Database:
-            for i in range(1, len(tr)):
+            count += 1
+            for i in range(len(tr)):
                 if tr[i] not in data:
-                    data[tr[i]] = [int(tr[0])]
+                    data[tr[i]] = [count]
                 else:
-                    data[tr[i]].append(int(tr[0]))
-        for x, y in data.items():
-            print(x, y, len(y)/len(self._Database))
+                    data[tr[i]].append(count)
         data = {k: v for k, v in data.items() if len(v)/len(self._Database) >= self._minRF}
-        #self._finalPatterns = {k: set(v) for k, v in data.items()}
         pfList = [i for i in sorted(data, key=lambda k: len(data[k]), reverse=True)]
         return data, pfList
 
@@ -230,20 +229,14 @@ class CPPG(_ab._coveragePatterns):
         list2 = []
         for tr in self._Database:
             list1 = []
-            for i in range(1, len(tr)):
+            for i in range(len(tr)):
                 if tr[i] in dict1:
                     list1.append(tr[i])
             list2.append([i for i in dict1 if i in list1])
         return list2
 
     def _buildProjectedDatabase(self, data, info):
-        """ It takes the database and support of an each item and construct the main tree by setting root node as a null
-
-            :param data: it represents the one Databases in database
-            :type data: list
-            :param info: it represents the support of each item
-            :type info: dictionary
-            :return: returns root node of tree
+        """ To construct the projected database for each prefix
         """
         proData = {}
         for i in range(len(info)):
@@ -257,9 +250,11 @@ class CPPG(_ab._coveragePatterns):
                             te.append(k)
                 if len(te) > 0:
                     proData[info[i]].append(te)
+        for x, y in proData.items():
+            print(x, y)
         return proData
 
-    def _generateFrequentPatterns(self, dict,  uniqueItems):
+    def _generateFrequentPatterns(self,  uniqueItems):
         """It will generate the combinations of frequent items
 
         :param uniqueItems :it represents the items with their respective transaction identifiers
@@ -278,8 +273,8 @@ class CPPG(_ab._coveragePatterns):
                 item2 = uniqueItems[j]
                 i2_list = item2.split()
                 if i1_list[:-1] == i2_list[:-1]:
-                    interSet = self._finalPatterns[item1].intersection(self._finalPatterns[item2])
-                    union = self._finalPatterns[item1].union(self._finalPatterns[item2])
+                    interSet = set(self._finalPatterns[item1]).intersection(set(self._finalPatterns[item2]))
+                    union = set(self._finalPatterns[item1]).union(set(self._finalPatterns[item2]))
                     if len(union)/len(self._Database) >= self._minCS and len(interSet)/len(self._finalPatterns[item1]) <= self._maxOR:
                         newKey = item1 + " " + i2_list[-1]
                         self._finalPatterns[newKey] = interSet
@@ -341,6 +336,7 @@ class CPPG(_ab._coveragePatterns):
         if self._minRF > len(self._Database) or self._minCS > len(self._Database) or self._maxOR > len(self._Database):
             raise Exception("Please enter the constraints in range between 0 to 1")
         generatedItems, pfList = self._coverageOneItem()
+        self._finalPatterns = {k: v for k, v in generatedItems.items()}
         updatedDatabases = self._updateDatabases(pfList)
         proData = self._buildProjectedDatabase(updatedDatabases, pfList)
         for x, y in proData.items():
@@ -441,4 +437,9 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
+        _ap = CPPG('sample.txt', 0.4, 0.7, 0.5, ' ')
+        _ap.startMine()
+        print("Total number of Coverage Patterns:", len(_ap.getPatterns()))
+        _ap.save('output.txt')
+        _ap.printResults()
         print("Error! The number of input parameters do not match the total number of parameters provided")

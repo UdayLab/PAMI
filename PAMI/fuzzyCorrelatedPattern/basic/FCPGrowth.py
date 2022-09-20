@@ -301,8 +301,8 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    def __init__(self, iFile, minSup, ratio, sep="\t"):
-        super().__init__(iFile, minSup, ratio, sep)
+    def __init__(self, iFile, minSup, minAllConf, sep="\t"):
+        super().__init__(iFile, minSup, minAllConf, sep)
         self._temp = {}
         self._mapItemRegionSum = {}
         self._itemsCnt = 0

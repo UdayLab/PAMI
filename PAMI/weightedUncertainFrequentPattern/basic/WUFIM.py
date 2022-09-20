@@ -331,10 +331,10 @@ class WUFIM(_ab._weightedFrequentPatterns):
     -------
         Format:
         ------
-        python3 WUFIM.py <inputFile> <outputFile> <minSup>
+        python3 WUFIM.py <inputFile> <outputFile> <weightFile> <expSup> <expWeSup>
         Examples:
         --------
-        python3 WUFIM.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
+        python3 WUFIM.py sampleTDB.txt patterns.txt weightFile.txt 1.4 1.5    (minSup  will be considered in support count or frequency)
 
     Sample run of importing the code:
     -------------------

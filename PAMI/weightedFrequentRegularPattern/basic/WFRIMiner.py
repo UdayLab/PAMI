@@ -346,7 +346,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     -------
         Format:
         -------
-            python3 WFRIMiner.py <inputFile> <outputFile> <minSup> <regularity>
+            python3 WFRIMiner.py <inputFile> <outputFile> <weightFile> <minSup> <regularity>
 
         Examples:
         ---------
@@ -363,13 +363,13 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
         from PAMI.weightedFrequentRegularpattern.basic import WFRIMiner as alg
 
-        obj = alg.WFRIMiner(iFile, WS, regularity)
+        obj = alg.WFRIMiner(iFile, wFile, WS, regularity)
 
         obj.startMine()
 
         weightedFrequentRegularPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(weightedFrequentRegularPatterns))
+        print("Total number of Weighted Frequent Regular Patterns:", len(weightedFrequentRegularPatterns))
 
         obj.save(oFile)
 

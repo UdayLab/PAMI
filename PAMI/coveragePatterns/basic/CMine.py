@@ -6,8 +6,9 @@ class CMine(_ab._coveragePatterns):
 
     Reference:
     ---------
-        P. Gowtham Srinivas, P. Krishna Reddy, A. V. Trinath, Bhargav Sripada, R. Uday Kiran:
-        Mining coverage patterns from transactional databases. J. Intell. Inf. Syst. 45(3): 423-439 (2015)
+        Bhargav Sripada, Polepalli Krishna Reddy, Rage Uday Kiran:
+        Coverage patterns for efficient banner advertisement placement. WWW (Companion Volume) 2011: 131-132
+        https://dl.acm.org/doi/10.1145/1963192.1963259
     
     Attributes:
     -----------
@@ -222,7 +223,7 @@ class CMine(_ab._coveragePatterns):
             tid1 = prefix[1] | tidData[i][1]
             andCount = bin(tid).count("1") - 1
             orCount = bin(tid1).count("1") - 1
-            if orCount/len(self._Database) >= self._minCS and andCount / len(str(prefix[1])):
+            if orCount/len(self._Database) >= self._minCS and andCount / len(str(prefix[1])) <= self._maxOR:
                 coverageItemset = itemset + '\t' + tidData[i][0]
                 if orCount / len(self._Database) >= self._minRF:
                     self._finalPatterns[coverageItemset] = andCount
@@ -339,4 +340,9 @@ if __name__=="__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
+        _ap = CPPG('sample.txt', 0.4, 0.7, 0.5, ' ')
+        _ap.startMine()
+        print("Total number of Coverage Patterns:", len(_ap.getPatterns()))
+        _ap.save('output.txt')
+        _ap.printResults()
         print("Error! The number of input parameters do not match the total number of parameters provided")
