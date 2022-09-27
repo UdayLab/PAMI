@@ -136,41 +136,15 @@ obj.save(oFile)               #store the patterns in file <br>
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe <br>
 obj.printResults()                      #Print the statistics of mining process
 ```
+ 
 
-The recurringPatterns.txt file contains the following patterns (*format:* pattern:support:lability):!cat periodicCorrelatedPatterns.txt
 
-
+```terminal
+!cat recurringPatterns.txt  # will present the patterns
 ```
-!cat recurringPatterns.txt
-```
-
-    a :11:2:{{[1, 4] : 4}{[8, 16] : 7}} 
-    a f :8:2:{{[1, 4] : 3}{[8, 15] : 5}} 
-    a f c :7:2:{{[1, 4] : 3}{[8, 13] : 4}} 
-    a f c d :7:2:{{[1, 4] : 3}{[8, 13] : 4}} 
-    a f c d g :7:2:{{[1, 4] : 3}{[8, 13] : 4}} 
-    a f c g :7:2:{{[1, 4] : 3}{[8, 13] : 4}} 
-    a f d :8:2:{{[1, 4] : 3}{[8, 15] : 5}} 
-    a f d g :8:2:{{[1, 4] : 3}{[8, 15] : 5}} 
-    a f g :8:2:{{[1, 4] : 3}{[8, 15] : 5}} 
-    a d :9:2:{{[1, 4] : 4}{[8, 15] : 5}} 
-    a d g :8:2:{{[1, 4] : 3}{[8, 15] : 5}} 
-    a d g c :7:2:{{[1, 4] : 3}{[8, 13] : 4}} 
-    a d c :8:2:{{[1, 4] : 4}{[8, 13] : 4}} 
-    a g :9:2:{{[1, 4] : 3}{[8, 15] : 6}} 
-    a g c :8:2:{{[1, 4] : 3}{[8, 14] : 5}} 
-    a c :10:2:{{[1, 4] : 4}{[8, 16] : 6}} 
-    d g :9:2:{{[1, 4] : 3}{[8, 15] : 6}} 
-    d g c :8:2:{{[1, 4] : 3}{[8, 13] : 5}} 
-    d g c f :8:2:{{[1, 4] : 3}{[8, 13] : 5}} 
-    d g f :9:2:{{[1, 4] : 3}{[8, 15] : 6}} 
-
-
-The dataframe containing the patterns is shown below:
-
-
+ 
 ```python
-df
+df #prints the data frame
 ```
 
 
