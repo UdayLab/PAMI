@@ -21,7 +21,7 @@ __Note:__  Duplicate items must not exist in a transaction.
 
 ## What is acceptable format of a transactional databases in PAMI
 
-Each row in a transactional database must contain only items. The frequent pattern mining algorithms in PAMI implicitly assume the row number of a transaction as its transactional-identifier to reduce storage and processing costs. A sample transactional database, say [WFIMSample.txt](WFIMSample.txt), is provided below.
+Each row in a transactional database must contain only items. The frequent pattern mining algorithms in PAMI implicitly assume the row number of a transaction as its transactional-identifier to reduce storage and processing costs. A sample transactional database, say [WFIMSample.txt](../WFIMSample.txt), is provided below.
 
 a c d f i m <br>
 a c d f m r <br>
@@ -33,7 +33,7 @@ d m r  <br>
 ## What is the Weighted database?
 
 A weight database is a collection of items with their weights. <br> 
-A hypothetical weight database, say [WFIMWeightSample.txt](WFIMWeightSample.txt), containing the items **_a, b, c, d, e, f, and g_** as shown below:
+A hypothetical weight database, say [WFIMWeightSample.txt](../WFIMWeightSample.txt), containing the items **_a, b, c, d, e, f, and g_** as shown below:
 
 a 1.3  <br>
 b 1.1  <br>

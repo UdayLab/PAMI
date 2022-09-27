@@ -25,7 +25,7 @@ __Note:__  Duplicate items must not exist in a transaction.
 
 ## What is acceptable format of a transactional databases in PAMI
 
-Each row in a transactional database must contain only items. The frequent pattern mining algorithms in PAMI implicitly assume the row number of a transaction as its transactional-identifier to reduce storage and processing costs. A sample transactional database, say [sample.txt](sample.txt), is provided below.
+Each row in a transactional database must contain only items. The frequent pattern mining algorithms in PAMI implicitly assume the row number of a transaction as its transactional-identifier to reduce storage and processing costs. A sample transactional database, say [sample.txt](../sample.txt), is provided below.
 
 B(0.5) C(0.45) F(1.0)   <br>
 A(0.7) B(0.82) D(0.3) F(0.75)  <br>
