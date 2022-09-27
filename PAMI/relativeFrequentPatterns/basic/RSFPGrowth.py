@@ -277,7 +277,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     -------
         Format:
         -------
-            python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRS>
+            python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <minRS>
 
         Examples:
         ---------
@@ -290,7 +290,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     -----------
         from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
 
-        obj = alg.RSFPGrowth(iFile, minSup, __minRS)
+        obj = alg.RSFPGrowth(iFile, minSup, minRS)
 
         obj.startMine()
 
@@ -323,7 +323,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     __startTime = float()
     __endTime = float()
     _minSup = str()
-    _minRatio = float()
+    _minRS = float()
     __finalPatterns = {}
     _iFile = " "
     _oFile = " "
@@ -429,7 +429,7 @@ class RSFPGrowth(_ab._frequentPatterns):
                     prefix.insert(newPrefixLength, tempBuffer[j].itemId)
                     newPrefixLength += 1
             ratio = s / self.__mapSupport[self.__getMinItem(prefix, newPrefixLength)]
-            if ratio >= self._minRatio:
+            if ratio >= self._minRS:
                 self.__saveItemSet(prefix, newPrefixLength, s, ratio)
 
     def __frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength, __mapSupport, minConf):
@@ -467,14 +467,14 @@ class RSFPGrowth(_ab._frequentPatterns):
             for i in reversed(frequentPatternTree.headerList):
                 item = i
                 support = __mapSupport[i]
-                CminSup = max(self._minSup, support * self._minRatio)
+                CminSup = max(self._minSup, support * self._minRS)
                 betaSupport = support
                 prefix.insert(prefixLength, item)
                 max1 = self.__getMinItem(prefix, prefixLength)
                 if self.__mapSupport[max1] > self.__mapSupport[item]:
                     max1 = item
                 ratio = support / self.__mapSupport[max1]
-                if ratio >= self._minRatio:
+                if ratio >= self._minRS:
                     self.__saveItemSet(prefix, prefixLength + 1, betaSupport, ratio)
                 if prefixLength + 1 < self.__maxPatternLength:
                     prefixPaths = []
@@ -538,7 +538,7 @@ class RSFPGrowth(_ab._frequentPatterns):
             raise Exception("Please enter the Minimum Support")
         self.__creatingItemSets()
         self._minSup = self.__convert(self._minSup)
-        self._minRatio = float(self._minRatio)
+        self._minRS = float(self._minRS)
         self.__frequentOneItem()
         self.__finalPatterns = {}
         self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self._minSup}
@@ -553,7 +553,7 @@ class RSFPGrowth(_ab._frequentPatterns):
         self.__tree.createHeaderList(self.__mapSupport, self._minSup)
         if len(self.__tree.headerList) > 0:
             self.__itemSetBuffer = []
-            self.__frequentPatternGrowthGenerate(self.__tree, self.__itemSetBuffer, 0, self.__mapSupport, self._minRatio)
+            self.__frequentPatternGrowthGenerate(self.__tree, self.__itemSetBuffer, 0, self.__mapSupport, self._minRS)
         print("Relative support frequent patterns were generated successfully using RSFPGrowth algorithm")
         self.__endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())

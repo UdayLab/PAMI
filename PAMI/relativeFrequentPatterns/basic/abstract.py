@@ -26,6 +26,8 @@ class _frequentPatterns(_ABC):
         minSup: float
             UserSpecified minimum support value. It has to be given in terms of count of total number of transactions
             in the input database/file
+        minRS: float
+            UserSpecified minimum relative support value. calculated as
         startTime:float
             To record the start time of the algorithm
         endTime:float
