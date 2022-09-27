@@ -118,7 +118,7 @@ obj.printResults()                      #Print the statistics of mining process
 
 
 
-```python
+```terminal
 !cat frequentPatterns.txt
 #format: frequentPattern:support
 ```

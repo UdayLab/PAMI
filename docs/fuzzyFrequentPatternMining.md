@@ -136,7 +136,7 @@ obj.printResults()                      #Print the statistics of mining process
 
 
 
-```python
+```terminal
 !cat fuzzyPatterns.txt
 #format: fuzzyFrequentPattern:support
 ```

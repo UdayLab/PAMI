@@ -11,18 +11,18 @@ Reference:  R. Uday Kiran, Koji Zettsu, Masashi Toyoda, Philippe Fournier-Viger,
 A utility database is a collection of transaction, where each transaction contains a set of items and a positive integer called **_internal utility_** respectively. And each unique item in database is also associated with another positive number called **_external utility_** for each transaction. <br>
 A hypothetical utility database with items **_a, b, c, d, e, f and g_** and its **_internal utility_** is shown below at right side and items with its **_external utilities_** for each transaction is presented at left side.
 
-| Transactions| external utilities |
-| --- |  --- |
-| (a,2) (b,3) (c,1) (g,1) |  5 4 3 2 |
-| (b,3) (c,2) (d,3) (e,2) |  5 2 9 3 |
-| (a,2) (b,1) (c,3) (d,4) | 2 3 5 6 |
-| (a,3) (c,2) (d,1) (f,2) | 1 3 4 6 |
-| (a,3) (b,1) (c,2) (d,1) (g,2) | 2 5 3 6 1 |
-| (c,2) (d,2) (e,3) (f,1) | 2 3 4 5 |
-| (a,2) (b,1) (c,1) (d,2) | 5 4 3 2 |
-| (a,1) (e,2) (f,2) | 4 8 3 |
-| (a,2) (b,2) (c,4) (d,2) | 7 4 9 8 |
-| (b,3) (c,2) (d,2) (e,2) | 5 9 10 24 |
+| Transactions                  | external utilities |
+|-------------------------------|--------------------|
+| (a,2) (b,3) (c,1) (g,1)       | 5 4 3 2            |
+| (b,3) (c,2) (d,3) (e,2)       | 5 2 9 3            |
+| (a,2) (b,1) (c,3) (d,4)       | 2 3 5 6            |
+| (a,3) (c,2) (d,1) (f,2)       | 1 3 4 6            |
+| (a,3) (b,1) (c,2) (d,1) (g,2) | 2 5 3 6 1          |
+| (c,2) (d,2) (e,3) (f,1)       | 2 3 4 5            |
+| (a,2) (b,1) (c,1) (d,2)       | 5 4 3 2            |
+| (a,1) (e,2) (f,2)             | 4 8 3              |
+| (a,2) (b,2) (c,4) (d,2)       | 7 4 9 8            |
+| (b,3) (c,2) (d,2) (e,2)       | 5 9 10 24          |
 
 __Note:__  Duplicate items must not exist in a transaction.
 

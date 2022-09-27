@@ -35,7 +35,7 @@ __Note:__  Duplicate items must not exist within a transaction.
 Each row in a temporal database must contain timestamp and items.  A sample transactional database, say sampleInputFile.txt, is provided below.
 
 
-```python
+```
 !cat recurringSample.txt
 ```
 
@@ -140,7 +140,7 @@ obj.printResults()                      #Print the statistics of mining process
 The recurringPatterns.txt file contains the following patterns (*format:* pattern:support:lability):!cat periodicCorrelatedPatterns.txt
 
 
-```python
+```
 !cat recurringPatterns.txt
 ```
 

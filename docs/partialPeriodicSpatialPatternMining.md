@@ -8,18 +8,18 @@ Partial periodic spatial pattern mining aims to discover all interesting pattern
 
 A temporal database is a collection of transactions at a particular timestamp, where each transaction contains a timestamp and a set of items. <br> A hypothetical temporal database containing the items **_a, b, c, d, e, f, and g_** as shown below
 
-|TS| Transactions|
-| --- | --- |
-| 1 | a b c g |
-| 2 | b c d e |
-| 3 | a b c d | 
-| 4 | a c d f |
-| 5 | a b c d g |
-| 6 | c d e f |
-| 7 | a b c d |
-| 8 | a e f | 
-| 9 | a b c d |
-| 10 | b c d e |
+| TS  | Transactions |
+|-----|--------------|
+| 1   | a b c g      |
+| 2   | b c d e      |
+| 3   | a b c d      | 
+| 4   | a c d f      |
+| 5   | a b c d g    |
+| 6   | c d e f      |
+| 7   | a b c d      |
+| 8   | a e f        | 
+| 9   | a b c d      |
+| 10  | b c d e      |
 
 __Note:__  Duplicate items must not exist in a transaction.
 
@@ -159,7 +159,7 @@ obj.printResults()  # Print the statistics of mining process
 The partialSpatialPatterns.txt file contains the following patterns (*format:* pattern:periodicSupport):!cat partialSpatialPatterns.txt
 
 
-```python
+```terminal
 !cat partialSpatialPatterns.txt
 ```
 

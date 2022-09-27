@@ -13,18 +13,18 @@ Reference: R. Uday Kiran, Sourabh Shrivastava, Philippe Fournier-Viger, Koji Zet
 
 A transactional database is a collection of transactions, where each transaction contains a transaction-identifier and a set of items. <br> A hypothetical transactional database containing the items **_a, b, c, d, e, f, and g_** is shown below
 
-|tid| Transactions|
-| --- | --- |
-| 1 | a b c g |
-| 2 | b c d e |
-| 3 | a b c d | 
-| 4 | a c d f |
-| 5 | a b c d g |
-| 6 | c d e f |
-| 7 | a b c d |
-| 8 | a e f | 
-| 9 | a b c d |
-| 10 | b c d e |
+| tid | Transactions |
+|-----|--------------|
+| 1   | a b c g      |
+| 2   | b c d e      |
+| 3   | a b c d      | 
+| 4   | a c d f      |
+| 5   | a b c d g    |
+| 6   | c d e f      |
+| 7   | a b c d      |
+| 8   | a e f        | 
+| 9   | a b c d      |
+| 10  | b c d e      |
 
 __Note:__  Duplicate items must not exist in a transaction.
 
@@ -61,7 +61,7 @@ A hypothetical neighborhood database containing the items **_a, b, c, d, e, f an
 | f | e, g |
 | g | b, f |
 
-The methodology to create a neighborhood database file from a given geo-referenced database has been described in the manual [creatingNeighborhoodFile.pdf](creatingNeighborhoodFile.pdf)
+The methodology to create a neighborhood database file from a given geo-referenced database has been described in the manual [creatingNeighborhoodFile.html](creatingNeighborhoodFile.html)
 
 ## 5. What is the acceptable format of a neighborhood database?
 
@@ -165,7 +165,7 @@ obj.printResults()                      #Print the statistics of mining process
 
 
 
-```python
+```terminal
 !cat frequentSpatialPatterns.txt
 #The format of the file is pattern:support
 ```

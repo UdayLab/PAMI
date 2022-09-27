@@ -20,18 +20,18 @@ In an external utility database, every transaction contains an item and it exter
 
 An hypothetical internal utility database is shown in below table.
 
-| Transactions|                                    
-| --- |                                             
-| (a,2) (b,3) (c,1) (g,1) |                         
-| (b,3) (c,2) (d,3) (e,2) |                         
-| (a,2) (b,1) (c,3) (d,4) |                          
-| (a,3) (c,2) (d,1) (f,2) |                          
+| Transactions                  |
+|-------------------------------|
+| (a,2) (b,3) (c,1) (g,1)       |                         
+| (b,3) (c,2) (d,3) (e,2)       |                         
+| (a,2) (b,1) (c,3) (d,4)       |                          
+| (a,3) (c,2) (d,1) (f,2)       |                          
 | (a,3) (b,1) (c,2) (d,1) (g,2) |                    
-| (c,2) (d,2) (e,3) (f,1) |                          
-| (a,2) (b,1) (c,1) (d,2) |                          
-| (a,1) (e,2) (f,2) |
-| (a,2) (b,2) (c,4) (d,2) |
-| (b,3) (c,2) (d,2) (e,2) |
+| (c,2) (d,2) (e,3) (f,1)       |                          
+| (a,2) (b,1) (c,1) (d,2)       |                          
+| (a,1) (e,2) (f,2)             |
+| (a,2) (b,2) (c,4) (d,2)       |
+| (b,3) (c,2) (d,2) (e,2)       |
 
 
 A hypothetical external utility database is shown in below table.

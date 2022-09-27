@@ -8,18 +8,18 @@ weighted Frequent pattern mining aims to discover all interesting patterns in a 
 
 A transactional database is a collection of transactions, where each transaction contains a transaction-identifier and a set of items with ites repective uncertain value. <br> A hypothetical transactional database containing the items **_A, B, C, D, E, and F** as shown below
 
-|tid| Transactions|
-| --- | --- |
-| 1 | B(0.5) C(0.45) F(1.0) |
-| 2 | A(0.7) B(0.82) D(0.3) F(0.75) |
-| 3 | C(0.9) D(1.0) E(0.7) | 
-| 4 | A(0.48) B(0.8) C(0.6) D(1.0) |
-| 5 | B(0.7) D(0.3) E(1.0) |
-| 6 | B(0.65) C(1.0) D(0.8) |
-| 7 | C(0.9) D(0.5) F(1.0) | 
-| 8 | A(0.4) E(0.4) |
-| 9 | A(0.8) B(1.0) D(0.8) F(0.7) |
-| 10 | B(0.4) C(0.9) D(1.0) |
+| tid | Transactions                  |
+|-----|-------------------------------|
+| 1   | B(0.5) C(0.45) F(1.0)         |
+| 2   | A(0.7) B(0.82) D(0.3) F(0.75) |
+| 3   | C(0.9) D(1.0) E(0.7)          | 
+| 4   | A(0.48) B(0.8) C(0.6) D(1.0)  |
+| 5   | B(0.7) D(0.3) E(1.0)          |
+| 6   | B(0.65) C(1.0) D(0.8)         |
+| 7   | C(0.9) D(0.5) F(1.0)          | 
+| 8   | A(0.4) E(0.4)                 |
+| 9   | A(0.8) B(1.0) D(0.8) F(0.7)   |
+| 10  | B(0.4) C(0.9) D(1.0)          |
 
 __Note:__  Duplicate items must not exist in a transaction.
 
@@ -111,7 +111,7 @@ __Example:__ python3 `WUFIM.py` `inputFile.txt` `outputFile.txt` `weightSample.t
 
 
 ```python
-import PAMI.weightedUncertainFrequentPattern.WUFIM as alg 
+import PAMI.weightedUncertainFrequentPattern.basic.WUFIM as alg 
 
 iFile = 'sample.txt'  #specify the input transactional database <br>
 wFile = 'HEWIWeightSample.txt'  #specify the input transactional database <br>
@@ -130,7 +130,7 @@ obj.printStats()                      #Print the statistics of mining process
 The weightedPatterns.txt file contains the following patterns (*format:* pattern:support): !cat weightedPatterns.txt
 
 
-```python
+```terminal
 !cat weightedPatterns.txt
 ```
 

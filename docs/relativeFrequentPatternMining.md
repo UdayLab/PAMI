@@ -121,7 +121,7 @@ minRS = 0.6                 #specify the minimum relative support
 seperator = ' '                 #specify the seperator. Default seperator is tab space. 
 oFile = 'frequentPatterns.txt'   #specify the output file name
 
-obj = alg.RSFPGrowth(iFile, minSup, minRatio, seperator) #initialize the algorithm 
+obj = alg.RSFPGrowth(iFile, minSup, minRS, seperator) #initialize the algorithm 
 obj.startMine()                       #start the mining process 
 obj.save(oFile)               #store the patterns in file 
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
@@ -136,7 +136,7 @@ obj.printResults()                      #Print the results of mining process
 
 
 
-```python
+```terminal
 !cat frequentPatterns.txt
 #format: relativeFrequentPattern:support:relativeRatio
 ```

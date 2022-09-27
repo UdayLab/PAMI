@@ -11,18 +11,18 @@ Reference: Fournier-Viger, P., Yang, P., Lin, J. C.-W., Kiran, U. (2019). Discov
 A temporal database is an ordered collection of transactions. A transaction represents a pair constituting of timestamp and a set of items. <br> 
 A hypothetical temporal database containing the items **_a, b, c, d, e, f, and g_** is shown below
 
-|TS| Transactions|
-| --- | --- |
-| 1 | a b c g |
-| 2 | b c d e |
-| 3 | a b c d | 
-| 4 | a c d f |
-| 5 | a b c d g |
-| 6 | c d e f |
-| 7 | a b c d |
-| 8 | a e f | 
-| 9 | a b c d |
-| 10 | b c d e |
+| TS  | Transactions |
+|-----|--------------|
+| 1   | a b c g      |
+| 2   | b c d e      |
+| 3   | a b c d      | 
+| 4   | a c d f      |
+| 5   | a b c d g    |
+| 6   | c d e f      |
+| 7   | a b c d      |
+| 8   | a e f        | 
+| 9   | a b c d      |
+| 10  | b c d e      |
 
 __Note:__  Duplicate items must not exist within a transaction.
 
@@ -129,7 +129,7 @@ obj.printStats()                      #Print the statistics of mining process
 The stablePatterns.txt file contains the following patterns (*format:* pattern:support:lability):!cat stablePatterns.txt
 
 
-```python
+```terminal
 !cat stablePatterns.txt
 ```
 

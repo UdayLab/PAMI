@@ -12,18 +12,18 @@ Reference: R. U. Kiran et al., "Discovering Fuzzy Periodic-Frequent Patterns in 
 
 A fuzzy temporal database is a collection of transactions at a particular timestamp, where each transaction contains a timestamp, set of items, and its fuzzy values respectively. <br> A hypothetical fuzzy temporal database containing the items **_a, b, c, d, e, f, and g_** as shown below
 
-|TS| Transactions|                                     
-| --- | --- |                                          
-| 1| (a.L,0.2) (b.M,0.3) (c.H,0.1) (g.M,0.1) |                          
-| 2|(b.M,0.3) (c.H,0.2) (d.L,0.3) (e.H,0.2)|                          
-| 3|(a.L,0.2) (b.M,0.1) (c.H,0.3) (d.L,0.4)|                          
-| 4|(a.L,0.3) (c.H,0.2) (d.L,0.1) (f.M,0.2)|                          
-| 5|(a.L,0.3) (b.M,0.1) (c.H,0.2) (d.L,0.1) (g.M,0.2)|                    
-| 6|(c.H,0.2) (d.L,0.2) (e.H,0.3) (f.M,0.1)|                          
-| 7|(a.L,0.2) (b.M,0.1) (c.H,0.1) (d.L,0.2) |                        
-| 8|(a.L,0.1) (e.H,0.2) (f.M,0.2) |
-| 9|(a.L,0.2) (b.M,0.2) (c.H,0.4) (d.L,0.2)|
-| 10|(b.M,0.3) (c.H,0.2) (d.L,0.2) (e.H,0.2) |
+| TS  | Transactions                                      |
+|-----|---------------------------------------------------|
+| 1   | (a.L,0.2) (b.M,0.3) (c.H,0.1) (g.M,0.1)           |
+| 2   | (b.M,0.3) (c.H,0.2) (d.L,0.3) (e.H,0.2)           |
+| 3   | (a.L,0.2) (b.M,0.1) (c.H,0.3) (d.L,0.4)           |
+| 4   | (a.L,0.3) (c.H,0.2) (d.L,0.1) (f.M,0.2)           |
+| 5   | (a.L,0.3) (b.M,0.1) (c.H,0.2) (d.L,0.1) (g.M,0.2) |
+| 6   | (c.H,0.2) (d.L,0.2) (e.H,0.3) (f.M,0.1)           |
+| 7   | (a.L,0.2) (b.M,0.1) (c.H,0.1) (d.L,0.2)           |
+| 8   | (a.L,0.1) (e.H,0.2) (f.M,0.2)                     |
+| 9   | (a.L,0.2) (b.M,0.2) (c.H,0.4) (d.L,0.2)           |
+| 10  | (b.M,0.3) (c.H,0.2) (d.L,0.2) (e.H,0.2)           |
 
 __Note:__  Duplicate items must not exist in a transaction.
 
@@ -140,7 +140,7 @@ obj.printResults()                  #(to print the no of patterns, runtime and m
 The FuzzyPeriodicPatterns.txt file contains the following patterns (*format:* pattern:support:periodicity):!cat FuzzyPeriodicPatterns.txt
 
 
-```python
+```terminal
 !cat 'FuzzyPeriodicPatterns.txt'
 #format: fuzzyPeriodicPattern:support:periodicity
 ```

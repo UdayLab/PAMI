@@ -8,18 +8,18 @@ Frequent pattern mining aims to discover all interesting patterns in a transacti
 
 A transactional database is a collection of transactions, where each transaction contains a transaction-identifier and a set of items with their respective uncertain value. <br> A hypothetical transactional database containing the items **_a, b, c, d, e, f, and g_** as shown below.
 
-|tid| Transactions|
-| --- | --- |
-| 1 | a(0.4) b(0.5) c(0.2) g(0.1)  |
-| 2 | b(0.2) c(0.3) d(0.4) e(0.2) |
-| 3 | a(0.3) b(0.1) c(0.3) d(0.4) | 
-| 4 | a(0.2) c(0.6) d(0.2) f(0.1) |
-| 5 | a(0.3) b(0.2) c(0.4) d(0.5) g(0.3) |
-| 6 | c(0.2) d(0.7) e(0.34) f(0.2) |
-| 7 | a(0.6) b(0.4) c(0.3) d(0.2) |
-| 8 | a(0.2) e(0.2) f(0.2)  | 
-| 9 | a(0.1) b(0.3) c(0.2) d(0.4) |
-| 10 | b(0.3) c(0.2) d(0.1) e(0.6) |
+| tid | Transactions                       |
+|-----|------------------------------------|
+| 1   | a(0.4) b(0.5) c(0.2) g(0.1)        |
+| 2   | b(0.2) c(0.3) d(0.4) e(0.2)        |
+| 3   | a(0.3) b(0.1) c(0.3) d(0.4)        | 
+| 4   | a(0.2) c(0.6) d(0.2) f(0.1)        |
+| 5   | a(0.3) b(0.2) c(0.4) d(0.5) g(0.3) |
+| 6   | c(0.2) d(0.7) e(0.34) f(0.2)       |
+| 7   | a(0.6) b(0.4) c(0.3) d(0.2)        |
+| 8   | a(0.2) e(0.2) f(0.2)               | 
+| 9   | a(0.1) b(0.3) c(0.2) d(0.4)        |
+| 10  | b(0.3) c(0.2) d(0.1) e(0.6)        |
 
 __Note:__  Duplicate items must not exist in a transaction.
 
@@ -93,7 +93,7 @@ obj.printStats()                      #Print the statistics of mining process
 The frequentPatterns.txt file contains the following patterns (*format:* pattern:support):!cat frequentPatterns.txt
 
 
-```python
+```terminal
 !cat frequentPatterns.txt
 ```
 

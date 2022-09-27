@@ -125,7 +125,7 @@ obj.printResults()                      #Print the statistics of mining process
 The FuzzyCorrelatedPatterns.txt file contains the following patterns (*format:* pattern:support:lability):!cat FuzzyCorrelatedPatterns.txt
 
 
-```python
+```terminal
 !cat FuzzyCorrelatedPatterns.txt
 ```
 

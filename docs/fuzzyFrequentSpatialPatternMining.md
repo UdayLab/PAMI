@@ -18,18 +18,18 @@ Given a quantitative transactional database containing the items,  *a, b, c, d, 
 
 A hypothetical utility database with items **_a, b, c, d, e, f and g_** and its fuzzy values are shown below:
 
-| Transactions|                                     
-| --- |                                              
-| (a.L,0.2) (b.M,0.3) (c.H,0.1) (g.M,0.1) |                          
-| (b.M,0.3) (c.H,0.2) (d.L,0.3) (e.H,0.2) |                          
-| (a.L,0.2) (b.M,0.1) (c.H,0.3) (d.L,0.4) |                          
-| (a.L,0.3) (c.H,0.2) (d.L,0.1) (f.M,0.2) |                          
+| Transactions                                      |
+|---------------------------------------------------|
+| (a.L,0.2) (b.M,0.3) (c.H,0.1) (g.M,0.1)           |                          
+| (b.M,0.3) (c.H,0.2) (d.L,0.3) (e.H,0.2)           |                          
+| (a.L,0.2) (b.M,0.1) (c.H,0.3) (d.L,0.4)           |                          
+| (a.L,0.3) (c.H,0.2) (d.L,0.1) (f.M,0.2)           |                          
 | (a.L,0.3) (b.M,0.1) (c.H,0.2) (d.L,0.1) (g.M,0.2) |                    
-| (c.H,0.2) (d.L,0.2) (e.H,0.3) (f.M,0.1) |                          
-| (a.L,0.2) (b.M,0.1) (c.H,0.1) (d.L,0.2) |                          
-| (a.L,0.1) (e.H,0.2) (f.M,0.2) |
-| (a.L,0.2) (b.M,0.2) (c.H,0.4) (d.L,0.2) |
-| (b.M,0.3) (c.H,0.2) (d.L,0.2) (e.H,0.2) |
+| (c.H,0.2) (d.L,0.2) (e.H,0.3) (f.M,0.1)           |                          
+| (a.L,0.2) (b.M,0.1) (c.H,0.1) (d.L,0.2)           |                          
+| (a.L,0.1) (e.H,0.2) (f.M,0.2)                     |
+| (a.L,0.2) (b.M,0.2) (c.H,0.4) (d.L,0.2)           |
+| (b.M,0.3) (c.H,0.2) (d.L,0.2) (e.H,0.2)           |
 
 __Note:__  Duplicate items must not exist in a transaction.
 
@@ -178,7 +178,7 @@ obj.printResults()                      #Print the statistics of mining process
 
 
 
-```python
+```terminal
 !cat fuzzySpatialPatterns.txt
 #format: fuzzyFrequentSpatialPattern:support
 ```

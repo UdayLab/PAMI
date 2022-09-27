@@ -8,14 +8,14 @@ weighted Frequent pattern mining aims to discover all interesting patterns in a 
 
 A transactional database is a collection of transactions, where each transaction contains a transaction-identifier and a set of items. <br> A hypothetical transactional database containing the items **_a, b, c, d, e, f, and g_** as shown below
 
-|tid| Transactions|
-| --- | --- |
-| 1 | a c d f i m |
-| 2 | a c d f m r |
-| 3 | b d f m p r | 
-| 4 | b c f m p |
-| 5 | c d f m  r |
-| 6 | d m r |
+| tid | Transactions |
+|-----|--------------|
+| 1   | a c d f i m  |
+| 2   | a c d f m r  |
+| 3   | b d f m p r  | 
+| 4   | b c f m p    |
+| 5   | c d f m  r   |
+| 6   | d m r        |
 
 __Note:__  Duplicate items must not exist in a transaction.
 
@@ -106,7 +106,7 @@ __Example:__ python3 `WFIM.py` `inputFile.txt` `outputFile.txt` `weightSample.tx
 
 
 ```python
-import PAMI.weightedFrequentPattern.WFIM as alg 
+import PAMI.weightedFrequentPattern.basic.WFIM as alg 
 
 iFile = 'WFIMSample.txt'  #specify the input transactional database <br>
 wFile = 'WFIMWeightSample.txt'  #specify the input transactional database <br>
@@ -125,7 +125,7 @@ obj.printStats()                      #Print the statistics of mining process
 The weightedPatterns.txt file contains the following patterns (*format:* pattern:support): !cat weightedPatterns.txt
 
 
-```python
+```terminal
 !cat weightedPatterns.txt
 ```
 
