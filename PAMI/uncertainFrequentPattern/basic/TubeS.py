@@ -299,8 +299,8 @@ class TubeS(_fp._frequentPatterns):
     TubeP is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
     Reference:
     --------
-        Carson Kai-Sang LeungSyed,  Khairuzzaman Tanbeer, "Fast Tree-Based Mining of Frequent Itemsets from Uncertain Data",
-         International Conference on Database Systems for Advanced Applications(DASFAA 2012), https://link.springer.com/chapter/10.1007/978-3-642-29038-1_21
+        Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
+        In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM '14). IEEE Computer Society, USA, 893–898. https://doi.org/10.1109/ICDM.2014.146
     Attributes:
     ----------
         iFile : file
