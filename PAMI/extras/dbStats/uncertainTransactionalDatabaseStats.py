@@ -5,11 +5,9 @@ import numpy as np
 from urllib.request import urlopen
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
-
 class uncertainTransactionalDatabaseStats:
     """
     uncertainTransactionalDatabaseStats is class to get stats of database.
-
         Attributes:
         ----------
         inputFile : file
@@ -20,7 +18,6 @@ class uncertainTransactionalDatabaseStats:
             store length of all transaction
         sep : str
             separator in file. Default is tab space.
-
         Methods:
         -------
         run()
@@ -81,34 +78,21 @@ class uncertainTransactionalDatabaseStats:
                 data = urlopen(self.inputFile)
                 for line in data:
                     numberOfTransaction += 1
-                    line.strip()
+                    line = line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self.sep)]
-                    temp = [x for x in temp if x]
-                    tr = []
-                    for i in temp:
-                        i1 = i.index('(')
-                        i2 = i.index(')')
-                        item = i[0:i1]
-                        #probability = float(i[i1 + 1:i2])
-                        tr.append(item)
-                    self.database[numberOfTransaction] = tr
+                    temp = line.split(':')
+                    temp1 = [i.rstrip() for i in temp[0].split(self.sep)]
+                    temp1 = [x for x in temp if x]
+                    self.database[numberOfTransaction] = temp1
             else:
                 try:
                     with open(self.inputFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             numberOfTransaction += 1
-                            line.strip()
-                            temp = [i.rstrip() for i in line.split(self.sep)]
-                            temp = [x for x in temp if x]
-                            tr = []
-                            for i in temp:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                # probability = float(i[i1 + 1:i2])
-                                tr.append(item)
-                            self.database[numberOfTransaction] = tr
+                            line = line.strip()
+                            temp = line.split(':')
+                            temp1 = [i for i in temp[0].split(self.sep)]
+                            self.database[numberOfTransaction] = temp1
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -275,17 +259,8 @@ class uncertainTransactionalDatabaseStats:
 
 
 if __name__ == '__main__':
-    data = {'tid': [1, 2, 3, 4, 5, 6, 7],
 
-            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
-                             ['a', 'd', 'g', 'k'],
-
-                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
-
-    obj = uncertainTransactionalDatabaseStats('/Users/Likhitha/Downloads/uncertain/T10I4D200K.txt', ' ')
+    obj = uncertainTransactionalDatabaseStats('Uncertain_T10.csv', '\t')
     obj.run()
     obj.printStats()
     obj.plotGraphs()
-
-
-
