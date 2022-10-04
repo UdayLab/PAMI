@@ -196,6 +196,136 @@ class _Tree:
             self.removeNode(i)
 
 class SPPGrowth():
+    """ Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
+         maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
+          greater than maximum lability.
+
+        Reference:
+        --------
+            Dao, H.N. et al. (2022). Towards Efficient Discovery of Stable Periodic Patterns in Big Columnar Temporal Databases.
+            In: Fujita, H., Fournier-Viger, P., Ali, M., Wang, Y. (eds) Advances and Trends in Artificial Intelligence.
+            Theory and Practices in Artificial Intelligence. IEA/AIE 2022. Lecture Notes in Computer Science(), vol 13343. Springer, Cham.
+            https://doi.org/10.1007/978-3-031-08530-7_70
+
+        Attributes:
+        ----------
+            iFile : file
+                Name of the Input file or path of the input file
+            oFile : file
+                Name of the output file or path of the output file
+            minSup: int or float or str
+                The user can specify minSup either in count or proportion of database size.
+                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            maxPer: int or float or str
+                The user can specify maxPer either in count or proportion of database size.
+                If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+            maxLa: int or float or str
+                The user can specify maxLa either in count or proportion of database size.
+                If the program detects the data type of maxLa is integer, then it treats maxLa is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: maxLa=10 will be treated as integer, while maxLa=10.0 will be treated as float
+            sep : str
+                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+                However, the users can override their default separator.
+            memoryUSS : float
+                To store the total amount of USS memory consumed by the program
+            memoryRSS : float
+                To store the total amount of RSS memory consumed by the program
+            startTime:float
+                To record the start time of the mining process
+            endTime:float
+                To record the completion time of the mining process
+            Database : list
+                To store the transactions of a database in list
+            mapSupport : Dictionary
+                To maintain the information of item and their frequency
+            lno : int
+                To represent the total no of transaction
+            tree : class
+                To represents the Tree class
+            itemSetCount : int
+                To represents the total no of patterns
+            finalPatterns : dict
+                To store the complete patterns
+
+        Methods:
+        -------
+            startMine()
+                Mining process will start from here
+            getPatterns()
+                Complete set of patterns will be retrieved with this function
+            save(oFile)
+                Complete set of periodic-frequent patterns will be loaded in to a output file
+            getPatternsAsDataFrame()
+                Complete set of periodic-frequent patterns will be loaded in to a dataframe
+            getMemoryUSS()
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
+            getMemoryRSS()
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            getRuntime()
+                Total amount of runtime taken by the mining process will be retrieved from this function
+            creatingItemSets(fileName)
+                Scans the dataset and stores in a list format
+            PeriodicFrequentOneItem()
+                Extracts the one-periodic-frequent patterns from database
+            updateDatabases()
+                Update the database by removing aperiodic items and sort the Database by item decreased support
+            buildTree()
+                After updating the Database, remaining items will be added into the tree by setting root node as null
+            convert()
+                to convert the user specified value
+
+            Executing the code on terminal:
+            -------
+            Format:
+            ------
+            python3 SPPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
+
+            Examples:
+            --------
+            python3 SPPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 0.3  (constraints will be considered in percentage of database
+            transactions)
+
+            python3 SPPGrowth.py sampleTDB.txt patterns.txt 3 4 3    (constraints will be considered in support count or frequency)
+
+            Sample run of importing the code:
+            -------------------
+
+                from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg
+
+                obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)
+
+                obj.startMine()
+
+                Patterns = obj.getPatterns()
+
+                print("Total number of Stable Periodic Frequent Patterns:", len(Patterns))
+
+                obj.save(oFile)
+
+                Df = obj.getPatternsAsDataFrame()
+
+                memUSS = obj.getMemoryUSS()
+
+                print("Total Memory in USS:", memUSS)
+
+                memRSS = obj.getMemoryRSS()
+
+                print("Total Memory in RSS", memRSS)
+
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+
+            Credits:
+            -------
+                The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+
+        """
     _startTime = float()
     _endTime = float()
     _minSup = str()
