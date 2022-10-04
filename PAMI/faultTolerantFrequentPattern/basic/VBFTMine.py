@@ -13,16 +13,20 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import numpy as _np
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
 
-class FTApriori(_ab._faultTolerantFrequentPatterns):
+class VBFTMine(_ab._faultTolerantFrequentPatterns):
     """
-        FT-Apriori is one of the fundamental algorithm to discover fault tolerant frequent patterns in a transactional database.
+        VBFTMine is one of the fundamental algorithm to discover fault tolerant frequent patterns in a uncertain transactional database based on
+        bitset representation.
         This program employs apriori property (or downward closure property) to  reduce the search space effectively.
 
         Reference:
         ----------
-            Pei, Jian & Tung, Anthony & Han, Jiawei. (2001). Fault-Tolerant Frequent Pattern Mining: Problems and Challenges.
+            Koh, JL., Yo, PW. (2005). An Efficient Approach for Mining Fault-Tolerant Frequent Patterns Based on Bit Vector Representations.
+            In: Zhou, L., Ooi, B.C., Meng, X. (eds) Database Systems for Advanced Applications. DASFAA 2005. Lecture Notes in Computer Science,
+            vol 3453. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11408079_51
 
 
         Attributes:
@@ -79,21 +83,21 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
                 Format:
                 ------
-                    python3 FTApriori.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
+                    python3 VBFTMine.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
 
                 Examples:
                 ---------
-                    python3 FTApriori.py sampleDB.txt patterns.txt 10.0 3.0 3 1  (minSup will be considered in times of minSup and count of database transactions)
+                    python3 VBFTMine.py sampleDB.txt patterns.txt 10.0 3.0 3 1  (minSup will be considered in times of minSup and count of database transactions)
 
-                    python3 FTApriori.py sampleDB.txt patterns.txt 10  3 2 1    (minSup will be considered in support count or frequency)
+                    python3 VBFTMine.py sampleDB.txt patterns.txt 10  3 2 1    (minSup will be considered in support count or frequency)
 
 
             Sample run of the importing code:
             ---------------------------------
 
-                import PAMI.faultTolerantFrequentPattern.basic.FTApriori as alg
+                import PAMI.faultTolerantFrequentPattern.basic.VBFTMine as alg
 
-                obj = alg.FTApriori(iFile, minSup, itemSup, minLength, faultTolerance)
+                obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)
 
                 obj.startMine()
 
@@ -127,6 +131,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     _iFile = " "
     _oFile = " "
     _sep = " "
+    _plist = []
     _memoryUSS = float()
     _memoryRSS = float()
     _Database = []
@@ -165,6 +170,9 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
+                            for i in temp:
+                                if i not in self._plist:
+                                    self._plist.append(i)
                             self._Database.append(set(temp))
                 except IOError:
                     print("File Not Found")
@@ -190,122 +198,204 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                 value = int(value)
         return value
 
+    def _Count(self, tids):
+        count = 0
+        for i in tids:
+            if i == 1:
+                count += 1
+        return count
 
-
-import sys
-import time
-import resource
-import math
-import numpy as np
-path=sys.argv[1]
-output=sys.argv[2]
-itemSup=int(sys.argv[3])
-minSup=int(sys.argv[4])
-faultTolerance=int(sys.argv[5])
-maxPer=int(sys.argv[6])
-Vector={}
-lno=0
-plist=[]
-transactions=[]
-items=[]
-def Per_Sup(tids):
-    per=0
-    cur=0
-    sup=0
-    for i in range(len(tids)):
-        if tids[i]==1:
-            per=max(per,cur-i)
-            if per>maxPer:
-                return [0,0]
-            cur=i
-            sup+=1
-    per=max(per,lno-cur)
-    return [sup,per]
-def Count(tids):
-    count=0
-    for i in tids:
-        if i==1:
-            count+=1
-    return count
-         
-with open(path,'r') as f:
-    for line in f:
-        lno+=1
-        l=line.split()
-        transactions.append(l)
-        for i in l[1:]:
-            if i not in plist:
-                plist.append(i)
-for i in transactions:
-    for j in plist:
-        count=0
-        if j in i:
-            count=1
-        if j in Vector:
-            Vector[j].append(count)
+    def _save(self, prefix, suffix, tidsetx):
+        if (prefix == None):
+            prefix = suffix
         else:
-            Vector[j]=[count]
-for x,y in Vector.items():
-    v=Count(y)
-    if v>=itemSup:
-        items.append(x)
-        
-def save(prefix,suffix,tidsetx):
-        if(prefix==None):
-            prefix=suffix
-        else:
-            prefix=prefix+suffix
-        prefix=list(set(prefix))
+            prefix = prefix + suffix
+        prefix = list(set(prefix))
         prefix.sort()
-        val=Count(tidsetx)
-        print(prefix,val)
-        
-def processEquivalenceClass(prefix,itemsets,tidsets):
-        if(len(itemsets)==1):
-            i=itemsets[0]
-            tidi=tidsets[0]
-            save(prefix,[i],tidi)
+        val = self._Count(tidsetx)
+        self._finalPatterns[tuple(prefix)] = val
+
+    def _processEquivalenceClass(self, prefix, itemsets, tidsets):
+        if (len(itemsets) == 1):
+            i = itemsets[0]
+            tidi = tidsets[0]
+            self._save(prefix, [i], tidi)
             return
         for i in range(len(itemsets)):
-            itemx=itemsets[i]
-            if(itemx==None):
+            itemx = itemsets[i]
+            if (itemx == None):
                 continue
-            tidsetx=tidsets[i]
-            classItemsets=[]
-            classtidsets=[]
-            itemsetx=[itemx]
-            for j in range(i+1,len(itemsets)):
-                itemj=itemsets[j]
-                tidsetj=tidsets[j]
-                y=list(np.array(tidsetx) & np.array(tidsetj))
-                total=Count(y)
-                if total>=itemSup:
+            tidsetx = tidsets[i]
+            classItemsets = []
+            classtidsets = []
+            itemsetx = [itemx]
+            for j in range(i + 1, len(itemsets)):
+                itemj = itemsets[j]
+                tidsetj = tidsets[j]
+                y = list(_np.array(tidsetx) & _np.array(tidsetj))
+                total = self._Count(y)
+                if total >= self._itemSup:
                     classItemsets.append(itemj)
                     classtidsets.append(y)
-            if(len(classItemsets)>0):
-                newprefix=list(set(itemsetx))+prefix
-                processEquivalenceClass(newprefix, classItemsets,classtidsets,classItemSets)
-            save(prefix,list(set(itemsetx)),itemTidsi)
+            if (len(classItemsets) > 0):
+                newprefix = list(set(itemsetx)) + prefix
+                self._processEquivalenceClass(newprefix, classItemsets, classtidsets)
+            self._save(prefix, list(set(itemsetx)), tidsetx)
 
-def Mine(plist):
-    for i in range(len(plist)):
-            itemx=plist[i]
-            tidsetx=Vector[itemx]
-            itemsetx=[itemx]
-            itemsets=[]
-            itemSets=[]
-            tidsets=[]
-            for j in range(i+1,len(plist)):
-                itemj=plist[j]
-                tidsetj=Vector[itemj]
-                y1=list(np.array(tidsetx) & np.array(tidsetj))
-                total=Count(y1)
-                if total>=itemSup:
+    def _oneLengthFrequentItems(self):
+        """ To calculate the one Length items"""
+        Vector = {}
+        items = []
+        for i in self._Database:
+            for j in self._plist:
+                count = 0
+                if j in i:
+                    count = 1
+                if j in Vector:
+                    Vector[j].append(count)
+                else:
+                    Vector[j] = [count]
+        for x, y in Vector.items():
+            v = self._Count(y)
+            if v >= self._itemSup:
+                items.append(x)
+        return Vector, items
+
+    def startMine(self):
+        """
+            Frequent pattern mining process will start from here
+        """
+        self._Database = []
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._itemSup = self._convert(self._itemSup)
+        self._minLength = int(self._minLength)
+        self._faultTolerance = int(self._faultTolerance)
+        Vector, plist = self._oneLengthFrequentItems()
+        for i in range(len(self._plist)):
+            itemx = plist[i]
+            tidsetx = Vector[itemx]
+            itemsetx = [itemx]
+            itemsets = []
+            tidsets = []
+            for j in range(i + 1, len(plist)):
+                itemj = plist[j]
+                tidsetj = Vector[itemj]
+                y1 = list(_np.array(tidsetx) & _np.array(tidsetj))
+                total = self._Count(y1)
+                if total >= self._itemSup:
                     itemsets.append(itemj)
                     tidsets.append(y1)
-            if(len(itemsets)>0):
-                processEquivalenceClass(itemsetx,itemsets,tidsets)
-            save(None,itemsetx,tidsetx)
-    
-               
-Mine(items)
+            if (len(itemsets) > 0):
+                self._processEquivalenceClass(itemsetx, itemsets, tidsets)
+            self._save(None, itemsetx, tidsetx)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using FTApriori algorithm ")
+
+    def getMemoryUSS(self):
+        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+
+        :return: returning USS memory consumed by the mining process
+
+        :rtype: float
+        """
+
+        return self._memoryUSS
+
+    def getMemoryRSS(self):
+        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
+        :return: returning RSS memory consumed by the mining process
+
+        :rtype: float
+        """
+
+        return self._memoryRSS
+
+    def getRuntime(self):
+        """Calculating the total amount of runtime taken by the mining process
+
+        :return: returning total amount of runtime taken by the mining process
+
+        :rtype: float
+        """
+
+        return self._endTime - self._startTime
+
+    def getPatternsAsDataFrame(self):
+        """Storing final frequent patterns in a dataframe
+
+        :return: returning frequent patterns in a dataframe
+
+        :rtype: pd.DataFrame
+        """
+
+        dataFrame = {}
+        data = []
+        for a, b in self._finalPatterns.items():
+            s = str()
+            for i in a:
+                s = s + i + ' '
+            data.append([s, b])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
+        # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
+        return dataFrame
+
+    def save(self, outFile):
+        """Complete set of frequent patterns will be loaded in to a output file
+
+        :param outFile: name of the output file
+
+        :type outFile: file
+        """
+        self._oFile = outFile
+        writer = open(self._oFile, 'w+')
+        for x, y in self._finalPatterns.items():
+            s = str()
+            for i in x:
+                s = s + i + '\t'
+            s1 = s.strip() + ":" + str(y)
+            writer.write("%s \n" % s1)
+
+    def getPatterns(self):
+        """ Function to send the set of frequent patterns after completion of the mining process
+
+        :return: returning frequent patterns
+
+        :rtype: dict
+        """
+        return self._finalPatterns
+
+    def printResults(self):
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
+
+
+if __name__ == "__main__":
+    _ap = str()
+    if len(_ab._sys.argv) == 7 or len(_ab._sys.argv) == 8:
+        if len(_ab._sys.argv) == 8:
+            _ap = VBFTMine(_ab._sys.argv[1], _ab._sys.argv[3],  _ab._sys.argv[4],
+                            _ab._sys.argv[5], _ab._sys.argv[6], _ab._sys.argv[7],)
+        if len(_ab._sys.argv) == 7:
+            _ap = VBFTMine(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
+        _ap.startMine()
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
+    else:
+        _ap = VBFTMine('/Users/Likhitha/Downloads/fault/sample.txt', 6, 5, 3, 2, ' ')
+        _ap.startMine()
+        _ap.printResults()
+        print(_ap.getPatternsAsDataFrame())
+        print("Error! The number of input parameters do not match the total number of parameters provided")

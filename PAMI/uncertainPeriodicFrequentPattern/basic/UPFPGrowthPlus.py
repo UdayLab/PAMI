@@ -344,14 +344,14 @@ class _Tree(object):
             secProb = []
             kk = int()
             for x in self.summaries[i]:
-                s += x.probability
-                secProb.append(x.secondProbability)
-            cutOff = s
-            for j in secProb:
-                cutOff *= j
-            print(pattern, self.info[i], cutOff)
+                if x.k <= 2:
+                    s += x.probability
+                elif x.k >= 3:
+                    n = x.probability * pow(x.secondProbability, (x.k - 2))
+                    s += n
             periodic[tuple(pattern)] = self.info[i]
-            if cutOff >= _minSup:
+            periodic[tuple(pattern)] = self.info[i]
+            if s >= _minSup:
                 periodic[tuple(pattern)] = self.info[i]
                 patterns, TimeStamps, support, probability, info = self.conditionalPatterns(i)
                 conditionalTree = _Tree()
@@ -713,7 +713,6 @@ class PTubeP(_ab._periodicFrequentPatterns):
         self._finalPatterns = {}
         _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
         mapSupport, plist = self._PeriodicFrequentOneItems()
-        print(plist)
         updatedTrans = self._updateTransactions(mapSupport)
         info = {k: v for k, v in mapSupport.items()}
         root = self._buildTree(updatedTrans, info)
@@ -820,13 +819,11 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        l = [0.2, 0.5, 0.9, 1.3, 1.5]
+        l = [400, 500, 600, 700, 800]
         for i in l:
-            ap = PTubeP('sample1', i, 4, ' ')
+            ap = PTubeP('/Users/Likhitha/Downloads/uncertain/additionalMaterial/T10I4D200K.txt', i, 8000, ' ')
             ap.startMine()
             Patterns = ap.getPatterns()
-            for x, y in Patterns.items():
-                print(x, y)
             print("Total number of Patterns:", len(Patterns))
             ap.save('/Users/Likhitha/Downloads/uncertain/output.txt')
             memUSS = ap.getMemoryUSS()
