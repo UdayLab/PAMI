@@ -19,7 +19,7 @@ from PAMI.frequentPattern.basic import Apriori  as alg
 
 
 ```python
-inputFile = '/userData/likhitha/new/frequentPattern/transactional_T10I4D100K.csv'
+inputFile = 'transactional_T10I4D100K.csv'
 
 minimumSupportCount=1000  #Users can also specify this constraint between 0 to 1.
 
