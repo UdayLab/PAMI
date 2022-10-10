@@ -1,6 +1,7 @@
 # Discovering Frequent Patterns in Big Data Using parallelFPGrowth Algorithm
 
 In this tutorial, we will discuss the first approach to find frequent patterns in big data using parallelFPGrowth algorithm.
+
 [__Basic approach:__](#basicApproach) Here, we present the steps to discover frequent patterns using a single minimum support value
 
 ***
