@@ -20,7 +20,7 @@ from PAMI.fuzzyFrequentSpatialPattern.basic import FFSPMiner  as alg
 
 
 ```python
-inputFile = 'fuzzy_T10I4D100K.csv'
+inputFile = 'fuzzyTransactional_T10I4D100K.csv'
 
 minimumSupportCount=100  #Users can also specify this constraint between 0 to 1.
 neighborFile='fuzzy_T10I4D100K_neighbour.csv'
