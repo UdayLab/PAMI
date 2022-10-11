@@ -49,7 +49,7 @@ obj.startMine()            #Start the mining process
 
 
 ```python
-obj.save(outFile='frequentPatternsMinSupCount1000.txt')
+obj.save(outFile='frequentPatternsMinSupCount100.txt')
 ```
 
 ##### Step 4.2. Storing the generated patterns in a data frame
