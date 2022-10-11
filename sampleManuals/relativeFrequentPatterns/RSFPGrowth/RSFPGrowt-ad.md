@@ -12,7 +12,7 @@ In this tutorial, we will discuss the second approach to find frequent patterns 
 
 
 ```python
-from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth  as alg
+from PAMI.relativeFrequentPatterns.basic import RSFPGrowth  as alg
 import pandas as pd
 ```
 
