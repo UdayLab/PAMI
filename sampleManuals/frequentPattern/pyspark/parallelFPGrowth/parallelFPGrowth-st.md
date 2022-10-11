@@ -82,9 +82,9 @@ print('Runtime: ' + str(obj.getRuntime()))
 
 
 
-```python
+
 ##### Step 5.3: Total Memory consumed by the mining algorithm
-```
+
 
 
 ```python
