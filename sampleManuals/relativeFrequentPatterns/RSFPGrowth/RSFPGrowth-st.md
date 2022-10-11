@@ -12,7 +12,7 @@ In this tutorial, we will discuss the first approach to find frequent patterns i
 
 
 ```python
-from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth  as alg
+from PAMI.relativePatterns.basic import RSFPGrowth  as alg
 ```
 
 #### Step 2: Specify the following input parameters
@@ -30,7 +30,7 @@ seperator='\t'
 
 
 ```python
-obj = alg.RSFPGrowth(iFile=inputFile, minSup=minimumSupportCount, minRatio=minRatioEx,sep=seperator)    #initialize
+obj = alg.RSFPGrowth(inputFile, minimumSupportCount, minRatioEx, seperator)    #initialize
 obj.startMine()            #Start the mining process
 ```
 
@@ -43,7 +43,7 @@ obj.startMine()            #Start the mining process
 
 
 ```python
-obj.save(outFile='frequentPatternsMinSupCount1000.txt')
+obj.save(outFile='relativeFrequentPatternsMinSupCount100.txt')
 ```
 
 ##### Step 4.2. Storing the generated patterns in a data frame
