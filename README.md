@@ -113,8 +113,8 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
 
 | Basic    |
 |----------|
-| EFIM     |
-| HMiner   |
+| EFIM  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/highUtilityPatterns/basic/EFIM/EFIM-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/highUtilityPatterns/basic/EFIM/EFIM-ad.md)   |
+| HMiner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/highUtilityPatterns/basic/EFIM/EFIM-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/highUtilityPatterns/basic/HMiner/HMiner-st.md)  |
 | UPGrowth |
 
 11. High utility frequent pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtiltiyFrequentPatternMining.html)
