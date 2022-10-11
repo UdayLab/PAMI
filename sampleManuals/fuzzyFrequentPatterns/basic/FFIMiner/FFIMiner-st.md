@@ -20,7 +20,7 @@ from PAMI.fuzzyFrequentPatterns.basic import FFIMiner  as alg
 
 
 ```python
-inputFile = 'fuzzy_T10I4D100K.csv'
+inputFile = 'fuzzyTransactional_T10I4D100K.csv'
 
 minimumSupportCount=1000  #Users can also specify this constraint between 0 to 1.
 
