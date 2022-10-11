@@ -20,7 +20,7 @@ import pandas as pd
 
 
 ```python
-inputFile = 'fuzzy_T10I4D100K.csv'
+inputFile = 'fuzzyTransactional_T10I4D100K.csv'
 
 minimumSupportCountList=[100,150,200,250,300]  #Users can also specify this constraint between 0 to 1.
 seperator=' '
