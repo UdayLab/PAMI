@@ -180,7 +180,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
 
 | Basic   |
 |---------|
-| STECLAT |
+| STECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPatterns/spatial/STECLAT/STECLAT-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/partialPeriodicPatterns/spatial/STECLAT/STECLAT-ad.md)|
 
 20. Periodic correlated pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicCorrelatedPatternMining.html)
     
