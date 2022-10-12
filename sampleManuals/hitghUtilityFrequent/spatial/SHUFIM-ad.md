@@ -20,7 +20,7 @@ import pandas as pd
 
 
 ```python
-inputFile = 'transactional_mushroom.txt'
+inputFile = 'utility_mushroom.txt'
 minUtilList = [2000, 4000, 6000, 8000, 10000]
 minSup = 100
 seperator = ' '
