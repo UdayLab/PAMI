@@ -151,7 +151,7 @@ Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Si
 
 | Basic     |
 |-----------|
- | GPFPMiner |
+ | GPFPMiner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/spatial/GPFPMiner/GPFPMiner-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/spatial/GPFPMiner/GPFPMiner-ad.md)  |
 
 16. Local periodic pattern mining: [Sample](https://udayrage.github.io/PAMI/localPeriodicPatternMining.html)
 
