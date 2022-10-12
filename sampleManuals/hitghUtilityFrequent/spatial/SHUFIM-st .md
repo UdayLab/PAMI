@@ -19,7 +19,7 @@ from PAMI.highUtilityFrequentSpatialPattern.basic import SHUFIM as alg
 
 
 ```python
-inputFile = 'transactional_mushroom.txt'
+inputFile = 'utility_mushroom.txt'
 neighborFile = 'mushroom_neighbourhood.txt'
 minUtilCount = 10000
 minSup = 100
