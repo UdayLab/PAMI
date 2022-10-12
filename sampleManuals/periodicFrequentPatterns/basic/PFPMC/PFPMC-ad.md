@@ -22,7 +22,7 @@ import pandas as pd
 ```python
 inputFile = 'temporal_T10I4D100K.csv'
 seperator = '\t'
-maxmunPeriodCount = 5000
+maximumPeriodCount = 5000
 minimumSupportCountList = [1000, 1500, 2000, 2500, 3000] 
 #minimumSupport can also specified between 0 to 1. E.g., minSupList = [0.005, 0.006, 0.007, 0.008, 0.009]
 
@@ -36,10 +36,10 @@ result = pd.DataFrame(columns=['algorithm', 'minSup', 'maxPer','patterns', 'runt
 ```python
 algorithm = 'PFPMC'  #specify the algorithm name
 for minSupCount in minimumSupportCountList:
-    obj = alg.PFPMC(iFile=inputFile, minSup=minSupCount,maxPer=maxmunPeriodCount, sep=seperator)
+    obj = alg.PFPMC(iFile=inputFile, minSup=minSupCount,maxPer=maximumPeriodCount, sep=seperator)
     obj.startMine()
     #store the results in the data frame
-    result.loc[result.shape[0]] = [algorithm, minSupCount,maxmunPeriodCount, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
+    result.loc[result.shape[0]] = [algorithm, minSupCount,maximumPeriodCount, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
 
 ```
 
