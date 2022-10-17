@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.extras.generateDatabase package &mdash; Math 00.00.01 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.extras.graph package" href="PAMI.extras.graph.html" />
+    <link rel="prev" title="PAMI.extras.dbStats package" href="PAMI.extras.dbStats.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Math
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedSpatialPattern.html">PAMI.correlatedSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePatterns.html">PAMI.coveragePatterns package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentSpatialPattern.html">PAMI.frequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPatterns.html">PAMI.fuzzyFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentSpatialPattern.html">PAMI.fuzzyFrequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzySpatialPeriodicFrequentPattern.html">PAMI.fuzzySpatialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPatterns.html">PAMI.highUtilityFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentSpatialPattern.html">PAMI.highUtilityFrequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatterns.html">PAMI.highUtilityPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicSpatialPattern.html">PAMI.partialPeriodicSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPatterns.html">PAMI.relativeFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPatterns.html">PAMI.relativeHighUtilityPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainCorrelatedPattern.html">PAMI.uncertainCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Math</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">PAMI</a> &raquo;</li>
+          <li><a href="PAMI.html">PAMI package</a> &raquo;</li>
+          <li><a href="PAMI.extras.html">PAMI.extras package</a> &raquo;</li>
+      <li>PAMI.extras.generateDatabase package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.extras.generateDatabase.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="pami-extras-generatedatabase-package">
+<h1>PAMI.extras.generateDatabase package<a class="headerlink" href="#pami-extras-generatedatabase-package" title="Permalink to this heading"></a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="module-PAMI.extras.generateDatabase.generateSpatioTemporalDatabase">
+<span id="pami-extras-generatedatabase-generatespatiotemporaldatabase-module"></span><h2>PAMI.extras.generateDatabase.generateSpatioTemporalDatabase module<a class="headerlink" href="#module-PAMI.extras.generateDatabase.generateSpatioTemporalDatabase" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.</span></span><span class="sig-name descname"><span class="pre">spatioTemporalDatabaseGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxTimeStamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numberOfItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itemChanceLow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">itemChanceHigh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeStampChanceLow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeStampChanceHigh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#spatioTemporalDatabaseGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.alreadyAdded">
+<span class="sig-name descname"><span class="pre">alreadyAdded</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.alreadyAdded" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.coinFlip">
+<span class="sig-name descname"><span class="pre">coinFlip</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[True,</span> <span class="pre">False]</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.coinFlip" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.createPoint">
+<span class="sig-name descname"><span class="pre">createPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#spatioTemporalDatabaseGenerator.createPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.createPoint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.items">
+<span class="sig-name descname"><span class="pre">items</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.items" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.outFileName">
+<span class="sig-name descname"><span class="pre">outFileName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.outFileName" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.saveAsFile">
+<span class="sig-name descname"><span class="pre">saveAsFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFileName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateSpatioTemporalDatabase.html#spatioTemporalDatabaseGenerator.saveAsFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.saveAsFile" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.timestamp" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-PAMI.extras.generateDatabase.generateTemporalDatabase">
+<span id="pami-extras-generatedatabase-generatetemporaldatabase-module"></span><h2>PAMI.extras.generateDatabase.generateTemporalDatabase module<a class="headerlink" href="#module-PAMI.extras.generateDatabase.generateTemporalDatabase" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateDatabase.generateTemporalDatabase.</span></span><span class="sig-name descname"><span class="pre">generateTemporalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numOfTransactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumOfItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumOfItemsPerTransaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeOfFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Database'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTemporalDatabase.html#generateTemporalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input</p>
+<blockquote>
+<div><dl class="simple">
+<dt>numOfTransactions: int</dt><dd><p>number of transactions</p>
+</dd>
+<dt>maxNumOfItem: int</dt><dd><p>highest value an item can be</p>
+</dd>
+<dt>maxNumOfItemsPerTransaction: int</dt><dd><p>maximum number of items a transaction can be</p>
+</dd>
+<dt>outputFile: str</dt><dd><p>output file name</p>
+</dd>
+<dt>percentage: int</dt><dd><p>percentage of coinToss for TID of temporalDatabase</p>
+</dd>
+<dt>sep: str</dt><dd><p>seperator for database output file</p>
+</dd>
+<dt>typeOfFile: str</dt><dd><p>specify database or dataframe to get corresponding output</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>getFileName():</dt><dd><p>returns filename</p>
+</dd>
+<dt>createTemporalFile():</dt><dd><p>creates temporal database file or dataframe</p>
+</dd>
+<dt>getDatabaseAsDataFrame:</dt><dd><p>returns dataframe</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.createTemporalFile">
+<span class="sig-name descname"><span class="pre">createTemporalFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTemporalDatabase.html#generateTemporalDatabase.createTemporalFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.createTemporalFile" title="Permalink to this definition"></a></dt>
+<dd><p>create Temporal database or dataframe depending on input
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.getDatabaseAsDataFrame">
+<span class="sig-name descname"><span class="pre">getDatabaseAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTemporalDatabase.html#generateTemporalDatabase.getDatabaseAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.getDatabaseAsDataFrame" title="Permalink to this definition"></a></dt>
+<dd><p>return dataframe
+return: pd.dataframe</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.getFileName">
+<span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTemporalDatabase.html#generateTemporalDatabase.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.getFileName" title="Permalink to this definition"></a></dt>
+<dd><p>return filename
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-PAMI.extras.generateDatabase.generateTransactionalDatabase">
+<span id="pami-extras-generatedatabase-generatetransactionaldatabase-module"></span><h2>PAMI.extras.generateDatabase.generateTransactionalDatabase module<a class="headerlink" href="#module-PAMI.extras.generateDatabase.generateTransactionalDatabase" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateDatabase.generateTransactionalDatabase.</span></span><span class="sig-name descname"><span class="pre">generateTransactionalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numOfTransactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumOfDistinctItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numOfItemsPerTransaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outFileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTransactionalDatabase.html#generateTransactionalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>generateTransactionalDatabase generates a transactional database</p>
+<blockquote>
+<div><dl class="simple">
+<dt>numOfTransactions: int</dt><dd><p>number of transactions</p>
+</dd>
+<dt>maxNumOfDistinctItems: int</dt><dd><p>maximum number of distinct items</p>
+</dd>
+<dt>numOfItemsPerTransaction: int</dt><dd><p>number of items per transaction</p>
+</dd>
+<dt>outFileName: str</dt><dd><p>output file name</p>
+</dd>
+<dt>sep: str</dt><dd><p>seperator in file, default is tab space</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>getFileName()</dt><dd><p>get output filename</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase.getFileName">
+<span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTransactionalDatabase.html#generateTransactionalDatabase.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase.getFileName" title="Permalink to this definition"></a></dt>
+<dd><p>return output file name
+:return: output file name</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-PAMI.extras.generateDatabase">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.extras.generateDatabase" title="Permalink to this heading"></a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.extras.dbStats.html" class="btn btn-neutral float-left" title="PAMI.extras.dbStats package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.extras.graph.html" class="btn btn-neutral float-right" title="PAMI.extras.graph package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Chandler Bing.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

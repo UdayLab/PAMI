@@ -362,7 +362,6 @@ class PPF_DFS(partialPeriodicPatterns):
         self._partialPeriodicPatterns__startTime = time.time()
         self.__creatingItemSets()
         plist = self.__oneItems(self.__path)
-        #print(len(plist))
         self._partialPeriodicPatterns__finalPatterns = {}
         for i in range(len(plist)):
             itemx = plist[i]
@@ -375,14 +374,13 @@ class PPF_DFS(partialPeriodicPatterns):
                 tidsetj = self.__tidlist[itemj]
                 y1 = list(set(tidsetx) & set(tidsetj))
                 val = self._partialPeriodicPatterns__getPerSup(y1)
-                # if(len(y1)>=minsup and val/(len(y1)+1)>=minpr):
                 if len(y1) >= self._partialPeriodicPatterns__minSup and val / (self._partialPeriodicPatterns__minSup + 1) >= self._partialPeriodicPatterns__minPR:
                     itemsets.append(itemj)
                     tidsets.append(y1)
             self.__Generation(itemsetx, itemsets, tidsets)
             self.__save(None, itemsetx, tidsetx)
         self._partialPeriodicPatterns__endTime = time.time()
-        self.__runTime = (self._partialPeriodicPatterns__endTime - self._partialPeriodicPatterns__startTime)
+        self.__runTime = self._partialPeriodicPatterns__endTime - self._partialPeriodicPatterns__startTime
         process = psutil.Process(os.getpid())
         self._partialPeriodicPatterns__memoryUSS = float()
         self._partialPeriodicPatterns__memoryRSS = float()
@@ -479,6 +477,14 @@ if __name__ == '__main__':
         print("Total Memory in RSS", ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", ap.getRuntime())
     else:
+        for i in [1000, 2000, 3000, 4000, 5000]:
+            _ap = PPF_DFS('/Users/Likhitha/Downloads/temporal_T10I4D100K.csv', i, 500, 0.7, '\t')
+            _ap.startMine()
+            print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
+            _ap.save('/Users/Likhitha/Downloads/output.txt')
+            print("Total Memory in USS:", _ap.getMemoryUSS())
+            print("Total Memory in RSS", _ap.getMemoryRSS())
+            print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 

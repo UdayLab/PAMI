@@ -202,8 +202,8 @@ class HDSHUIM(_ab._utilityPatterns):
     _memoryRSS = float()
     _sep = "\t"
 
-    def __init__(self, iFile1, neighb1, minUtil, sep="\t"):
-        super().__init__(iFile1, neighb1, minUtil, sep)
+    def __init__(self, iFile, nFile, minUtil, sep="\t"):
+        super().__init__(iFile, nFile, minUtil, sep)
         self._startTime = 0
         self._endTime = 0
         self._huiCount = 0
@@ -238,7 +238,7 @@ class HDSHUIM(_ab._utilityPatterns):
                 for i in range(1, len(parts)):
                     neigh1.append(parts[i])
                 self._neighbors[item] = set(neigh1)
-        print(len(self._neighbors))
+        #print(len(self._neighbors))
         with open(self._iFile, 'r') as file:
             for line in file:
                 parts = line.split(":")

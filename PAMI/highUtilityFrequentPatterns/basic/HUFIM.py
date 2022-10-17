@@ -459,14 +459,10 @@ class HUFIM(_ab._utilityPatterns):
         self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
         self._minUtil = int(self._minUtil)
         self._minSup = self._convert(self._minSup)
-        #print("######################################")
-        #print("given minimum support is", self.minSup)
-        #print("given minimum utility is", self.minUtil)
         itemsToKeep = []
         for key in self._utilityBinArrayLU.keys():
             if self._utilityBinArrayLU[key] >= self._minUtil and self._singleItemSetsSupport[key] >= self._minSup:
                 itemsToKeep.append(key)
-        # sorting items in decreasing order of utilities
         itemsToKeep = sorted(itemsToKeep, key=lambda x: self._singleItemSetsUtility[x], reverse=True)
         currentName = 1
         for idx, item in enumerate(itemsToKeep):

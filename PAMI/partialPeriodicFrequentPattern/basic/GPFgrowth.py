@@ -558,12 +558,13 @@ class GPFgrowth(partialPeriodicPatterns):
         return value
 
     def __readDatabase(self):
+        self.__Database = []
         if isinstance(self.__inputFile, pd.DataFrame):
             if self.__inputFile.empty:
                 print("its empty..")
             i = self.__inputFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.Database = self.__inputFile['Transactions'].tolist()
+                self.__Database = self.__inputFile['Transactions'].tolist()
             if 'Patterns' in i:
                 self.__Database = self.__inputFile['Patterns'].tolist()
         if isinstance(self.__inputFile, str):
@@ -591,6 +592,7 @@ class GPFgrowth(partialPeriodicPatterns):
     def startMine(self):
         self.__inputFile = self._partialPeriodicPatterns__iFile
         self._partialPeriodicPatterns__startTime = time.time()
+        self._partialPeriodicPatterns__finalPatterns = {}
         self.__readDatabase()
         self._partialPeriodicPatterns__minSup = self.__convert(self._partialPeriodicPatterns__minSup)
         self._partialPeriodicPatterns__maxPer = self.__convert(self._partialPeriodicPatterns__maxPer)
@@ -697,4 +699,12 @@ if __name__ == '__main__':
         print("Total Memory in RSS", ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", ap.getRuntime())
     else:
+        for i in [1000, 2000, 3000, 4000, 5000]:
+            _ap = GPFgrowth('/Users/Likhitha/Downloads/temporal_T10I4D100K.csv', i, 500, 0.7, '\t')
+            _ap.startMine()
+            print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
+            _ap.save('/Users/Likhitha/Downloads/output.txt')
+            print("Total Memory in USS:", _ap.getMemoryUSS())
+            print("Total Memory in RSS", _ap.getMemoryRSS())
+            print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")

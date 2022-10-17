@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.frequentPattern.pyspark.parallelApriori &mdash; Math 00.00.01 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> Math
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Math</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>PAMI.frequentPattern.pyspark.parallelApriori</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.frequentPattern.pyspark.parallelApriori</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PAMI.frequentPattern.pyspark</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+
+
+<div class="viewcode-block" id="parallelApriori"><a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori">[docs]</a><span class="k">class</span> <span class="nc">parallelApriori</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :Description: Parallel Apriori is an algorithm to discover frequent patterns in a transactional database. This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.</span>
+
+<span class="sd">    :Reference:</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of frequent patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  minSup: int :</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+<span class="sd">    :param  numPartitions: int :</span>
+<span class="sd">                   The number of partitions. On each worker node, an executor process is started and this process performs processing.The processing unit of worker node is partition</span>
+
+
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        startTime : float</span>
+<span class="sd">          To record the start time of the mining process</span>
+
+<span class="sd">        endTime : float</span>
+<span class="sd">          To record the completion time of the mining process</span>
+
+<span class="sd">        finalPatterns : dict</span>
+<span class="sd">          Storing the complete set of patterns in a dictionary variable</span>
+
+<span class="sd">        memoryUSS : float</span>
+<span class="sd">          To store the total amount of USS memory consumed by the program</span>
+
+<span class="sd">        memoryRSS : float</span>
+<span class="sd">          To store the total amount of RSS memory consumed by the program</span>
+
+<span class="sd">        lno : int</span>
+<span class="sd">                the number of transactions</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_endTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_iFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_oFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_sep</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_numPartitions</span> <span class="o">=</span> <span class="nb">int</span><span class="p">()</span>
+    <span class="n">_lno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">()</span>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">numWorkers</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
+         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">numWorkers</span><span class="p">),</span> <span class="n">sep</span><span class="p">)</span>
+
+<div class="viewcode-block" id="parallelApriori.getMemoryUSS"><a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        :return: returning USS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
+
+<div class="viewcode-block" id="parallelApriori.getMemoryRSS"><a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        :return: returning RSS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
+
+<div class="viewcode-block" id="parallelApriori.getRuntime"><a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
+<span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
+
+<div class="viewcode-block" id="parallelApriori.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Storing final frequent patterns in a dataframe</span>
+<span class="sd">        :return: returning frequent patterns in a dataframe</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dataFrame</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+            <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dataFrame</span></div>
+
+<div class="viewcode-block" id="parallelApriori.savePatterns"><a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.savePatterns">[docs]</a>    <span class="k">def</span> <span class="nf">savePatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Complete set of frequent patterns will be loaded in to a output file</span>
+<span class="sd">        :param outFile: name of the output file</span>
+<span class="sd">        :type outFile: file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="parallelApriori.getPatterns"><a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
+<span class="sd">        :return: returning frequent patterns</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_Mapper</span><span class="p">(</span><span class="n">transaction</span><span class="p">,</span> <span class="n">candidateItemsets</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Map each candidate itemset of candidateItemsets to (itemset,1) if a candidate itemset is in transaction</span>
+
+<span class="sd">        :param transaction: a transaction of database</span>
+<span class="sd">        :type transaction: set</span>
+<span class="sd">        :param candidateItemsets: candidate item sets</span>
+<span class="sd">        :type candidateItemsets: list</span>
+<span class="sd">        :return:set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">candidates</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">itemset</span> <span class="ow">in</span> <span class="n">candidateItemsets</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">itemset</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">transaction</span><span class="p">):</span>
+                <span class="n">candidates</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">itemset</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">candidates</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_genCandidateItemsets</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate candidate itemsets from frequentPatterns</span>
+
+<span class="sd">        :param frequentPatterns: set of all frequent patterns to generate candidate patterns of each of size is length</span>
+<span class="sd">        :type frequentPatterns: list</span>
+<span class="sd">        :param length: size of each candidate patterns to be generated</span>
+<span class="sd">        :type length: int</span>
+<span class="sd">        :return: list of candidate patterns</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_c</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">]])</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">candidates</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">candidates</span>
+
+    <span class="k">def</span> <span class="nf">_genFrequentItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get frequent items which length is 1</span>
+
+
+<span class="sd">        :return: frequent items which length is 1</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frequentItems</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">database</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[(</span><span class="n">item</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
+                             <span class="o">.</span><span class="n">reduceByKey</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
+                             <span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+                             <span class="o">.</span><span class="n">collect</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">frequentItems</span>
+
+    <span class="k">def</span> <span class="nf">_getAllFrequentPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">frequentItems</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all frequent patterns and save them to self.oFile</span>
+
+<span class="sd">        :param database: database</span>
+<span class="sd">        :type : RDD</span>
+<span class="sd">        :param frequentItems: dict</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Get candidate patterns that length is 2</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_c</span><span class="p">(</span><span class="n">frequentItems</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># if each itemset of candidates is in each transaction, then create (itemset,1)</span>
+            <span class="n">mappedDatabase</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">transaction</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Mapper</span><span class="p">(</span><span class="n">transaction</span><span class="p">,</span> <span class="n">candidates</span><span class="p">))</span>
+
+            <span class="c1"># aggregate the values by key by reduceByKey() method</span>
+            <span class="n">frequentPatterns</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">mappedDatabase</span><span class="o">.</span><span class="n">reduceByKey</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">)</span>
+            <span class="n">candidates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_genCandidateItemsets</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">length</span><span class="p">)</span>
+            <span class="n">length</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To convert the user specified minSup value</span>
+<span class="sd">        :param value: user specified minSup value</span>
+<span class="sd">        :return: converted type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lno</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lno</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="parallelApriori.startMine"><a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.startMine">[docs]</a>    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Frequent pattern mining process will start from here</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="c1"># setting SparkConf and SparkContext to process in parallel</span>
+        <span class="n">conf</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_SparkConf</span><span class="p">()</span><span class="o">.</span><span class="n">setAppName</span><span class="p">(</span><span class="s2">&quot;parallelApriori&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setMaster</span><span class="p">(</span><span class="s2">&quot;local[*]&quot;</span><span class="p">)</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_SparkContext</span><span class="p">(</span><span class="n">conf</span><span class="o">=</span><span class="n">conf</span><span class="p">)</span>
+        <span class="c1"># sc.addFile(&quot;file:///home/hadoopuser/Spark_code/abstract.py&quot;)</span>
+
+        <span class="c1"># read database from iFile</span>
+        <span class="n">database</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numPartitions</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lno</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="c1"># Calculating minSup as a percentage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+
+
+        <span class="n">oneFrequentItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_genFrequentItems</span><span class="p">(</span><span class="n">database</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="n">oneFrequentItems</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_getAllFrequentPatterns</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="n">oneFrequentItems</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Frequent patterns were generated successfully using Parallel Apriori algorithm&quot;</span><span class="p">)</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div></div>
+        
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">_ap</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">parallelApriori</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">parallelApriori</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="n">_finalPatterns</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_finalPatterns</span><span class="p">))</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">_memUSS</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_memUSS</span><span class="p">)</span>
+        <span class="n">_memRSS</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">_memRSS</span><span class="p">)</span>
+        <span class="n">_run</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">_run</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Chandler Bing.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

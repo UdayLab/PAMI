@@ -177,7 +177,7 @@ class _Tree(object):
             temp += i.timeStamps
         return temp
 
-    def _generatePatterns(self, prefix, _patterns):
+    def _generatePatterns(self, prefix, _patterns, maximalTree):
         """
             To generate the maximal periodic frequent patterns
 
@@ -185,7 +185,7 @@ class _Tree(object):
 
             :return: maximal periodic frequent patterns
         """
-        global maximalTree
+
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
@@ -201,7 +201,7 @@ class _Tree(object):
                 for pat in range(len(condPattern)):
                     conditionalTree._addTransaction(condPattern[pat], timeStamps[pat])
                 if len(condPattern) >= 1:
-                    conditionalTree._generatePatterns(pattern, _patterns)
+                    conditionalTree._generatePatterns(pattern, _patterns, maximalTree)
                 else:
                     maximalTree._addTransaction(pattern)
                     _patterns[tuple(pattern)] = self.info[i]
@@ -316,7 +316,7 @@ class _MPTree(object):
         return 1
 
 
-maximalTree = _MPTree()
+#maximalTree = _MPTree()
 
 
 def _getPeriodAndSupport(timeStamps):
@@ -515,6 +515,7 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
     _lno = 0
     _patterns = {}
     _pfList = {}
+    _maximalTree = str()
 
     def _creatingitemSets(self):
         """ Storing the complete Databases of the database/input file in a database variable
@@ -677,7 +678,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         info = {self._rank[k]: v for k, v in generatedItems.items()}
         Tree = self._buildTree(updatedDatabases, info)
         self._patterns = {}
-        Tree._generatePatterns([], self._patterns)
+        self._maximalTree = _MPTree()
+        Tree._generatePatterns([], self._patterns, self._maximalTree)
         self._finalPatterns = {}
         for x, y in self._patterns.items():
             st = str()
@@ -776,4 +778,12 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
+        for i in [100, 200, 300, 400, 500]:
+            _ap = Max3PGrowth('/Users/Likhitha/Downloads/temporal_T10I4D100K.csv', i, 5000, '\t')
+            _ap.startMine()
+            print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
+            _ap.save('/Users/Likhitha/Downloads/output.txt')
+            print("Total Memory in USS:", _ap.getMemoryUSS())
+            print("Total Memory in RSS", _ap.getMemoryRSS())
+            print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")

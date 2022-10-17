@@ -153,6 +153,7 @@ class _Dataset:
         self.intToStr = {}
         self.cnt = 1
         self.sep = sep
+        self.transactions = []
         with open(datasetpath, 'r') as f:
             lines = f.readlines()
             for line in lines:
@@ -368,7 +369,7 @@ class SHUIM(_ab._utilityPatterns):
                     lst.append(self._dataset.strToInt.get(line_split[i]))
                 self._Neighbours[item] = lst
         o.close()
-        print(len(self._Neighbours))
+        #print(len(self._Neighbours))
         InitialMemory = _ab._psutil.virtual_memory()[3]
         self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
         itemsToKeep = []
@@ -795,4 +796,12 @@ if __name__ == '__main__':
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
+        for i in [2000, 4000, 6000, 8000, 10000]:
+            _ap = SHUIM('/Users/Likhitha/Downloads/main_9.txt', '/Users/Likhitha/Downloads/mushroom_neighbourhoodFile_9.txt', i, ' ')
+            _ap.startMine()
+            print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
+            #_ap.save(_ab._sys.argv[2])
+            print("Total Memory in USS:", _ap.getMemoryUSS())
+            print("Total Memory in RSS", _ap.getMemoryRSS())
+            print("Total ExecutionTime in seconds:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")

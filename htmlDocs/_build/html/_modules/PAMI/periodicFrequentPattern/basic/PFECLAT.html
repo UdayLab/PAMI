@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.periodicFrequentPattern.basic.PFECLAT &mdash; Math 00.00.01 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> Math
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Math</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>PAMI.periodicFrequentPattern.basic.PFECLAT</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.periodicFrequentPattern.basic.PFECLAT</h1><div class="highlight"><pre>
+<span></span><span class="c1">#  Copyright (C)  2021 Rage Uday Kiran</span>
+<span class="c1">#</span>
+<span class="c1">#      This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#      it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#      the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#      (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#      This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#      but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#      GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#      You should have received a copy of the GNU General Public License</span>
+<span class="c1">#      along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+<span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+
+
+<div class="viewcode-block" id="PFECLAT"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.basic.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT">[docs]</a><span class="k">class</span> <span class="nc">PFECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_periodicFrequentPatterns</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                   :Description: EclatPFE is the fundamental approach to mine the periodic-frequent patterns.</span>
+
+<span class="sd">                   :Reference:   P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, &quot;Towards efficient discovery of</span>
+<span class="sd">                                 periodic-frequent patterns in columnar temporal databases&quot;, 2021 IEA/AIE.</span>
+
+
+<span class="sd">                   :param  iFile: str :</span>
+<span class="sd">                                  Name of the Input file to mine complete set of frequent patterns</span>
+<span class="sd">                   :param  oFile: str :</span>
+<span class="sd">                                  Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">                   :param  minSup: int or float or str :</span>
+<span class="sd">                                    The user can specify minSup either in count or proportion of database size.</span>
+<span class="sd">                                    If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
+<span class="sd">                                    Otherwise, it will be treated as float.</span>
+<span class="sd">                                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</span>
+<span class="sd">                   :param  maxPer: int or float or str :</span>
+<span class="sd">                                The user can specify maxPer either in count or proportion of database size.</span>
+<span class="sd">                                If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
+<span class="sd">                                Otherwise, it will be treated as float.</span>
+<span class="sd">                                Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float</span>
+<span class="sd">                   :param sep: str</span>
+<span class="sd">                                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.</span>
+<span class="sd">                                However, the users can override their default separator.</span>
+
+<span class="sd">                   :Attributes:</span>
+<span class="sd">                        memoryUSS : float</span>
+<span class="sd">                            To store the total amount of USS memory consumed by the program</span>
+<span class="sd">                        memoryRSS : float</span>
+<span class="sd">                            To store the total amount of RSS memory consumed by the program</span>
+<span class="sd">                        startTime:float</span>
+<span class="sd">                            To record the start time of the mining process</span>
+<span class="sd">                        endTime:float</span>
+<span class="sd">                            To record the completion time of the mining process</span>
+<span class="sd">                        Database : list</span>
+<span class="sd">                            To store the transactions of a database in list</span>
+<span class="sd">                        mapSupport : Dictionary</span>
+<span class="sd">                            To maintain the information of item and their frequency</span>
+<span class="sd">                        lno : int</span>
+<span class="sd">                            it represents the total no of transactions</span>
+<span class="sd">                        tree : class</span>
+<span class="sd">                            it represents the Tree class</span>
+<span class="sd">                        itemSetCount : int</span>
+<span class="sd">                            it represents the total no of patterns</span>
+<span class="sd">                        finalPatterns : dict</span>
+<span class="sd">                            it represents to store the patterns</span>
+<span class="sd">                        tidList : dict</span>
+<span class="sd">                            stores the timestamps of an item</span>
+<span class="sd">                        hashing : dict</span>
+<span class="sd">                            stores the patterns with their support to check for the closed property</span>
+
+
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+    
+    <span class="n">_iFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_oFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_sep</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_dbSize</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_Database</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="n">_maxPer</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="n">_tidSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_startTime</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_endTime</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_getPeriodic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tids</span><span class="p">:</span> <span class="nb">set</span><span class="p">):</span>
+        <span class="n">tidList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span>
+        <span class="n">tidList</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">tidList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbSize</span><span class="p">)</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">per</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">tid</span> <span class="ow">in</span> <span class="n">tidList</span><span class="p">:</span>
+            <span class="n">per</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">per</span><span class="p">,</span> <span class="n">tid</span> <span class="o">-</span> <span class="n">cur</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">per</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">:</span>  <span class="c1"># early stopping</span>
+                <span class="k">break</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">tid</span>
+        <span class="k">return</span> <span class="n">per</span>
+
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To convert the given user specified value</span>
+
+<span class="sd">        :param value: user specified value</span>
+<span class="sd">        :return: converted value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbSize</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbSize</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">_creatingOneItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Storing the complete transactions of the database/input file in a database variable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">plist</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">Database</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">ts</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;its empty..&quot;</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;TS&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;TS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;Transactions&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;Transactions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+                <span class="n">tr</span> <span class="o">=</span> <span class="p">[</span><span class="n">ts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+                <span class="n">tr</span> <span class="o">=</span> <span class="n">tr</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_validators</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                    <span class="n">Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                            <span class="n">Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+                    <span class="c1">#print(len(Database))</span>
+                <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
+                    <span class="n">quit</span><span class="p">()</span>
+        <span class="n">tid</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">itemsets</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># {key: item, value: list of tids}</span>
+        <span class="n">periodicHelper</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># {key: item, value: [period, last_tid]}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">Database</span><span class="p">:</span>
+            <span class="n">tid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tidSet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tid</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itemsets</span><span class="p">:</span>
+                    <span class="n">itemsets</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tid</span><span class="p">)</span>
+                    <span class="n">periodicHelper</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">periodicHelper</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                  <span class="nb">abs</span><span class="p">(</span><span class="n">tid</span> <span class="o">-</span> <span class="n">periodicHelper</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>  <span class="c1"># update current max period</span>
+                    <span class="n">periodicHelper</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">tid</span>  <span class="c1"># update the last tid</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">itemsets</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">tid</span><span class="p">}</span>
+                    <span class="n">periodicHelper</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="mi">0</span> <span class="o">-</span> <span class="n">tid</span><span class="p">),</span> <span class="n">tid</span><span class="p">]</span>  <span class="c1"># initialize helper</span>
+
+        <span class="c1"># finish all items&#39; period</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dbSize</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Database</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">Database</span>
+        <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">periodicHelper</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">periodicHelper</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">periodicHelper</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                          <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dbSize</span> <span class="o">-</span> <span class="n">periodicHelper</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>  <span class="c1"># tid of the last transaction</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">tids</span> <span class="ow">in</span> <span class="n">itemsets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">per</span> <span class="o">=</span> <span class="n">periodicHelper</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">sup</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sup</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="ow">and</span> <span class="n">per</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">:</span>
+                <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">sup</span><span class="p">,</span> <span class="n">per</span><span class="p">,</span> <span class="n">tids</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">candidates</span>
+    
+    <span class="k">def</span> <span class="nf">_generateEclat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candidates</span><span class="p">):</span>
+        <span class="n">newCandidates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)):</span>
+            <span class="n">prefixItem</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">prefixItemSet</span> <span class="o">=</span> <span class="n">prefixItem</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)):</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">itemSet</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">prefixItemSet</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">itemSet</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">prefixItemSet</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">itemSet</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">prefixItem</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+                    <span class="n">sup</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">_value</span><span class="p">)</span>
+                    <span class="n">per</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getPeriodic</span><span class="p">(</span><span class="n">_value</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">sup</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="ow">and</span> <span class="n">per</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">:</span>
+                        <span class="n">newItem</span> <span class="o">=</span> <span class="n">prefixItem</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">itemSet</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">newItem</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">sup</span><span class="p">,</span> <span class="n">per</span><span class="p">,</span> <span class="n">_value</span><span class="p">]</span>
+                        <span class="n">newCandidates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newItem</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">newCandidates</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generateEclat</span><span class="p">(</span><span class="n">newCandidates</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="PFECLAT.startMine"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.basic.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.startMine">[docs]</a>    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#print(f&quot;Optimized {type(self).__name__}&quot;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">frequentSets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_creatingOneItemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generateEclat</span><span class="p">(</span><span class="n">frequentSets</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Periodic-Frequent patterns were generated successfully using PFECLAT algorithm &quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PFECLAT.getMemoryUSS"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.basic.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning USS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
+
+<div class="viewcode-block" id="PFECLAT.getMemoryRSS"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.basic.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning RSS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
+
+<div class="viewcode-block" id="PFECLAT.getRuntime"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.basic.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
+
+
+<span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
+
+<div class="viewcode-block" id="PFECLAT.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.basic.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Storing final periodic-frequent patterns in a dataframe</span>
+
+<span class="sd">        :return: returning periodic-frequent patterns in a dataframe</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dataframe</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="n">dataframe</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">,</span> <span class="s1">&#39;Periodicity&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dataframe</span></div>
+
+<div class="viewcode-block" id="PFECLAT.savePatterns"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.basic.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.savePatterns">[docs]</a>    <span class="k">def</span> <span class="nf">savePatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Complete set of periodic-frequent patterns will be loaded in to a output file</span>
+
+<span class="sd">        :param outFile: name of the output file</span>
+<span class="sd">        :type outFile: file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PFECLAT.getPatterns"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.basic.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Function to send the set of periodic-frequent patterns after completion of the mining process</span>
+
+<span class="sd">        :return: returning periodic-frequent patterns</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div></div>
+                    
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">_ap</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">PFECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">PFECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="n">_Patterns</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Periodic-Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_Patterns</span><span class="p">))</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">_memUSS</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_memUSS</span><span class="p">)</span>
+        <span class="n">_memRSS</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">_memRSS</span><span class="p">)</span>
+        <span class="n">_run</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">_run</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;minSupList = [300, 400, 500, 600, 700, 800, 900, 1000]</span>
+<span class="sd">        for minSup in minSupList:</span>
+<span class="sd">            _ap = PFECLAT(&#39;/Users/Likhitha/Downloads/DASFAA2022/congestion_300&#39;, minSup, 200, &#39; &#39;)</span>
+<span class="sd">            _ap.startMine()</span>
+<span class="sd">            _Patterns = _ap.getPatterns()</span>
+<span class="sd">            print(&quot;Total number of Patterns:&quot;, len(_Patterns))</span>
+<span class="sd">            _ap.savePatterns(&#39;/Users/Likhitha/Downloads/output.txt&#39;)</span>
+<span class="sd">            _memUSS = _ap.getMemoryUSS()</span>
+<span class="sd">            print(&quot;Total Memory in USS:&quot;, _memUSS)</span>
+<span class="sd">            _memRSS = _ap.getMemoryRSS()</span>
+<span class="sd">            print(&quot;Total Memory in RSS&quot;, _memRSS)</span>
+<span class="sd">            _run = _ap.getRuntime()</span>
+<span class="sd">            print(&quot;Total ExecutionTime in ms:&quot;, _run)&#39;&#39;&#39;</span>
+        <span class="sd">&#39;&#39;&#39;minSup = [450, 470, 490, 510, 530, 550]</span>
+<span class="sd">        for i in minSup:</span>
+<span class="sd">            _ap = PFECLAT(&#39;/Users/Likhitha/Downloads/Nighbours_gen/temp_roads.txt&#39;,</span>
+<span class="sd">                            i, 250, &#39;,&#39;)</span>
+<span class="sd">            _ap.startMine()</span>
+<span class="sd">            _spatialFrequentPatterns = _ap.getPatterns()</span>
+<span class="sd">            print(&quot;Total number of Spatial Frequent Patterns:&quot;, len(_spatialFrequentPatterns))</span>
+<span class="sd">            _ap.savePatterns(&#39;/Users/Likhitha/Downloads/Nighbours_gen/output.txt&#39;)</span>
+<span class="sd">            _memUSS = _ap.getMemoryUSS()</span>
+<span class="sd">            print(&quot;Total Memory in USS:&quot;, _memUSS)</span>
+<span class="sd">            _memRSS = _ap.getMemoryRSS()</span>
+<span class="sd">            print(&quot;Total Memory in RSS&quot;, _memRSS)</span>
+<span class="sd">            _run = _ap.getRuntime()</span>
+<span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, _run)&#39;&#39;&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Chandler Bing.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

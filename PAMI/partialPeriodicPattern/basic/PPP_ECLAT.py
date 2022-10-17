@@ -450,4 +450,12 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
+        for i in [100, 200, 300, 400, 500]:
+            _ap = PPP_ECLAT('/Users/Likhitha/Downloads/temporal_T10I4D100K.csv', i, 5000, '\t')
+            _ap.startMine()
+            print("Total number of Maximal Partial Periodic Patterns:", len(_ap.getPatterns()))
+            _ap.save('/Users/Likhitha/Downloads/output.txt')
+            print("Total Memory in USS:", _ap.getMemoryUSS())
+            print("Total Memory in RSS", _ap.getMemoryRSS())
+            print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")
