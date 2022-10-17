@@ -33,7 +33,7 @@ This software is provided under [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2
       
        pip install --upgrade pami
        
-#[Code documentation](https://rawcdn.githack.com/udayRage/PAMI/5eea0f346bf7818c7345c8643428ad9ce5087f15/htmlDocs/_build/html/index.html)
+# Code documentation : [Link](https://rawcdn.githack.com/udayRage/PAMI/5eea0f346bf7818c7345c8643428ad9ce5087f15/htmlDocs/_build/html/index.html)
 
        
 # Details 
