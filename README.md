@@ -33,10 +33,14 @@ This software is provided under [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2
       
        pip install --upgrade pami
        
+#Code documentation
+    [link](file:///Users/likhitha/Downloads/PAMI-main%20(1)-2/PAMI-main/docs/_build/html/index.html)
+
+       
 # Details 
 Total available algorithms: 70
 
-Click on __"Basic"__ link to viewe the basic tutorial on using the algorithm. Similarly, click on __"Adv"__ link to view the advanced tutorial on using a particular algorithm.
+Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Similarly, click on __"Adv"__ link to view the advanced tutorial on using a particular algorithm.
 
 1. Frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentPatternMining.html)
      
