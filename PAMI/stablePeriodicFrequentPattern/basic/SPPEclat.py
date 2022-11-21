@@ -205,8 +205,8 @@ class SPPEclat:
         """
         tidLast = {}
         la = {}
-        self._SPPList = []
-        self._tsList = []
+        self._SPPList = {}
+        self._tsList = {}
         for transaction in self._Database:
             ts = int(transaction[0])
             for item in transaction[1:]:
