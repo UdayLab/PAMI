@@ -508,7 +508,7 @@ class SPPGrowth():
         self._maxPer = self._convert(self._maxPer)
         self._maxLa = self._convert(self._maxLa)
         _minSup, _maxPer, _maxLa, _lno = self._minSup, self._maxPer, self._maxLa, len(self._Database)
-        print(_minSup, _maxPer, _maxLa)
+        #print(_minSup, _maxPer, _maxLa)
         if self._minSup > len(self._Database):
             raise Exception("Please enter the minSup in range between 0 to 1")
         generatedItems, pfList = self._periodicFrequentOneItem()
