@@ -268,6 +268,7 @@ class SPPEclat:
         self._minSup = self._convert(self._minSup)
         self._maxPer = self._convert(self._maxPer)
         self._maxLa = self._convert(self._maxLa)
+        self._finalPatterns = {}
         #print(self._minSup, self._maxPer, self._maxLa)
         self._createSPPList()
         self._endTime = _ab._time.time()
