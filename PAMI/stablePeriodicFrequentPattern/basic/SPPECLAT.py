@@ -151,6 +151,7 @@ class SPPEclat:
         self._sep = sep
 
     def _creatingItemsets(self):
+        self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
                 print("its empty..")
@@ -204,6 +205,8 @@ class SPPEclat:
         """
         tidLast = {}
         la = {}
+        self._SPPList = []
+        self._tsList = []
         for transaction in self._Database:
             ts = int(transaction[0])
             for item in transaction[1:]:
