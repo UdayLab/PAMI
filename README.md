@@ -196,7 +196,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
     
 | Basic      |
 |------------|
-| SPP-growth |
+| SPP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-ad%20.md)|
 | SP-ECLAT   |
 
     
