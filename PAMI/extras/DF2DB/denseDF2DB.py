@@ -1,5 +1,3 @@
-import pandas as pd
-
 class denseDF2DB:
     """
         This class create Data Base from DataFrame.
@@ -38,12 +36,13 @@ class denseDF2DB:
         self.tids = []
         self.items = []
         self.outputFile = ' '
-        self.items = list(self.inputDF.columns.values)[1:]
         self.inputDF = self.inputDF.set_index('tid')
+        self.items = list(self.inputDF.columns.values)[1:]
+
         self.tids = list(self.inputDF.index)
 
 
-    def createTransactional(self, outputFile):
+    def createDB(self, outputFile):
         """
         Create transactional data base
 
@@ -133,7 +132,7 @@ class denseDF2DB:
 
 
 
-    def createTemporal(self, outputFile):
+    def createTDB(self, outputFile):
         """
         Create temporal data base
 
@@ -228,7 +227,7 @@ class denseDF2DB:
             else:
                 print('Condition error')
 
-    def createUtility(self, outputFile):
+    def createUDB(self, outputFile):
         """
         Create the utility data base.
 
@@ -259,9 +258,6 @@ class denseDF2DB:
         return self.outputFile
 
 
-if __name__ == '__main__':
-    DF = createDenseDF('denseDF.csv')
-    obj = denseDF2DB(DF.getDF(), '>=', 2)
-    obj.createDB('testTransactional.csv')
-    transactionalDB = obj.getFileName()
-    print(transactionalDB)
+    
+#obj = denseDF2DB(dataset, '>=', 5)
+#obj.createDB('soramame_transactional.txt')
