@@ -53,18 +53,19 @@ class visualizePatterns():
             freq = line[-1]
             freq = "Frequency: " + freq.strip()
             line = line[:-1]
-            points = line[0].split(" ")
+            points = line[0].split("\t")
             points = [x for x in points if x != ""]
             points = [x.strip("POINT(") for x in points]
             points = [x.strip(")") for x in points]
 
             for i in range(len(points)):
+                temp = points[i].split()
                 if i % 2 == 0:
-                    lat.append(float(points[i]))
+                    lat.append(float(temp[0]))
                     name.append(freq)
                     color.append("#" + RHex + GHex + BHex)
                 else:
-                    long.append(float(points[i]))
+                    long.append(float(temp[1]))
 
         df = pd.DataFrame({"lon": long, "lat": lat, "freq": name, "col": color})
     
@@ -73,5 +74,5 @@ class visualizePatterns():
         fig.show()
 
 if __name__ == '__main__':
-    obj = visualizePatterns('sensor_output.txt', 10)
+    obj = visualizePatterns('soramame_output.csv', 3)
     obj.visualize()
