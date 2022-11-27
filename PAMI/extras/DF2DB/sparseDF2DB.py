@@ -3,7 +3,6 @@ import pandas as pd
 class sparseDF2DB:
     """
     This class create Data Base from DataFrame.
-
     Attribute:
     ----------
     inputDF : pandas.DataFrame
@@ -16,7 +15,6 @@ class sparseDF2DB:
         It is data frame to create data base.
     outputFile : str
         Creation data base output to this outputFile.
-
     Methods:
     --------
     createDB(outputFile)
@@ -35,17 +33,18 @@ class sparseDF2DB:
         self.thresholdValue = thresholdValue
         self.outputFile = ''
         if self.condition == '>':
-            self.df = self.inputDF.query(f'value > {self.thresholdValue}')
+            self.df = self.inputDF.query(f'UnitPrice > {self.thresholdValue}')
         elif self.condition == '>=':
-            self.df = self.inputDF.query(f'value >= {self.thresholdValue}')
+            self.df = self.inputDF.query(f'UnitPrice >= {self.thresholdValue}')
         elif self.condition == '<=':
-            self.df = self.inputDF.query(f'value <= {self.thresholdValue}')
+            self.df = self.inputDF.query(f'UnitPrice <= {self.thresholdValue}')
         elif self.condition == '<':
-            self.df = self.inputDF.query(f'value < {self.thresholdValue}')
+            self.df = self.inputDF.query(f'UnitPrice < {self.thresholdValue}')
         else:
             print('Condition error')
-        self.df = self.df.drop(columns='value')
-        self.df = self.df.groupby('tid')['item'].apply(list)
+        self.df = self.df.drop(columns='UnitPrice')
+        self.df = self.df.groupby('InvoiceNo')['Description'].apply(list)
+        #print(self.df)
 
     def createTransactional(self, outputFile):
         """
@@ -58,13 +57,12 @@ class sparseDF2DB:
             for line in self.df:
                 f.write(f'{line[0]}')
                 for item in line[1:]:
-                    f.write(f',{item}')
+                    f.write(f'\t{item}')
                 f.write('\n')
 
     def createTemporal(self, outputFile):
         """
         Create temporal data base
-
         :param outputFile: Write temporal data base into outputFile
         :type outputFile: str
         """
@@ -80,7 +78,6 @@ class sparseDF2DB:
     def createUtility(self, outputFile):
         """
         Create the utility data base.
-
         :param outputFile: Write utility data base into outputFile
         :type outputFile: str
         """
@@ -108,10 +105,9 @@ class sparseDF2DB:
         """
         return self.outputFile
 
-if __name__ == '__main__':
-    DF = createSparseDF('sparseDF.csv')
-    obj = sparseDF2DB(DF.getDF(), '>=', 2)
-    obj.createDB('testTransactional.csv')
-    transactionalDB = obj.getFileName()
-    print(transactionalDB)
-
+# if __name__ == '__main__':
+#     DF = createSparseDF('sparseDF.csv')
+#     obj = sparseDF2DB(DF.getDF(), '>=', 2)
+#     obj.createDB('testTransactional.csv')
+#     transactionalDB = obj.getFileName()
+#     print(transactionalDB)
