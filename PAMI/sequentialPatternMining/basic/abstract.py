@@ -26,34 +26,29 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# from abc import ABC as _ABC, abstractmethod as _abstractmethod
 from abc import ABC as _ABC, abstractmethod as _abstractmethod
 import time as _time
 import csv as _csv
 import pandas as _pd
-from collections import defaultdict as _dd
+from collections import defaultdict as _defaultdict
 from itertools import combinations as _c
 import os as _os
 import os.path as _ospath
 import psutil as _psutil
-import resource as _resource
-import math as _math
 import sys as _sys
 import validators as _validators
 from urllib.request import urlopen as _urlopen
-import tracemalloc as _tracemalloc
-from itertools import chain as _chain
-from itertools import combinations as _combinations
-import re as _re
-from ast import literal_eval as _maketuple
+import functools as _functools
 
 
 class _sequentialPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+    """
+    This abstract base class defines the variables and methods that every frequent pattern mining algorithm in sequential databases must
         employ in PAMI
 
-
-       Attributes:
-       ----------
+    Attributes:
+    ----------
         iFile : str
             Input file name or path of the input file
         minSup: integer or float or str
@@ -77,8 +72,8 @@ class _sequentialPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-       Methods:
-       -------
+    Methods:
+    -------
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -93,13 +88,12 @@ class _sequentialPatterns(_ABC):
             This function outputs the total amount of RSS memory consumed by a mining algorithm
         getRuntime()
             This function outputs the total runtime of a mining algorithm
-
     """
 
-    def __init__(self, iFile, minSup, maxpatternLength, sep="\t"):
+    def __init__(self, iFile, minSup, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
-        :type iFile: str
+        :type iFile: str or DataFrame
         :param minSup: The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -112,13 +106,12 @@ class _sequentialPatterns(_ABC):
         self._iFile = iFile
         self._sep = sep
         self._minSup = minSup
-        self._maxPatternLength = maxpatternLength
-        self._oFile = str()
         self._finalPatterns = {}
-        self._startTime = float()
-        self._endTime = float()
+        self._oFile = str()
         self._memoryUSS = float()
         self._memoryRSS = float()
+        self._startTime = float()
+        self._endTime = float()
 
     @_abstractmethod
     def startMine(self):
@@ -135,7 +128,6 @@ class _sequentialPatterns(_ABC):
     @_abstractmethod
     def save(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
-
         :param oFile: Name of the output file
         :type oFile: file
         """
@@ -163,5 +155,11 @@ class _sequentialPatterns(_ABC):
     @_abstractmethod
     def getRuntime(self):
         """Total amount of runtime taken by the program will be retrieved from this function"""
+
+        pass
+
+    @_abstractmethod
+    def printResults(self):
+        """ To print result of the execution"""
 
         pass
