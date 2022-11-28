@@ -33,17 +33,17 @@ class sparseDF2DB:
         self.thresholdValue = thresholdValue
         self.outputFile = ''
         if self.condition == '>':
-            self.df = self.inputDF.query(f'UnitPrice > {self.thresholdValue}')
+            self.df = self.inputDF.query(f'value > {self.thresholdValue}')
         elif self.condition == '>=':
-            self.df = self.inputDF.query(f'UnitPrice >= {self.thresholdValue}')
+            self.df = self.inputDF.query(f'value >= {self.thresholdValue}')
         elif self.condition == '<=':
-            self.df = self.inputDF.query(f'UnitPrice <= {self.thresholdValue}')
+            self.df = self.inputDF.query(f'value <= {self.thresholdValue}')
         elif self.condition == '<':
-            self.df = self.inputDF.query(f'UnitPrice < {self.thresholdValue}')
+            self.df = self.inputDF.query(f'value < {self.thresholdValue}')
         else:
             print('Condition error')
-        self.df = self.df.drop(columns='UnitPrice')
-        self.df = self.df.groupby('InvoiceNo')['Description'].apply(list)
+        self.df = self.df.drop(columns='value')
+        self.df = self.df.groupby('tid')['transaction'].apply(list)
         #print(self.df)
 
     def createTransactional(self, outputFile):
