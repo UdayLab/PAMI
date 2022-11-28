@@ -58,7 +58,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -71,7 +71,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -84,7 +84,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -97,7 +97,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -109,7 +109,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -121,7 +121,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -148,10 +148,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f',{transaction}')
+                        f.write(f'\t{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -162,10 +162,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f',{transaction}')
+                        f.write(f'\t{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -176,10 +176,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f',{transaction}')
+                        f.write(f'\t{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -190,10 +190,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f',{transaction}')
+                        f.write(f'\t{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -203,10 +203,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f',{transaction}')
+                        f.write(f'\t{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -216,10 +216,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f',{transaction}')
+                        f.write(f'\t{transaction}')
                     else:
                         continue
                     f.write('\n')
