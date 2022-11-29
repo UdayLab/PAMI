@@ -1,95 +1,126 @@
-from PAMI.sequentialPatternMining.basic import abstract as _ab
 
+#  Copyright (C)  2021 Rage Uday Kiran
+#
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
+#
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-class _Sequence:
-    def __init__(self, sequence, support):
-        """
+from sequentialPatternMining.basic import abstract as _ab
+import sys
+import copy
+sys.setrecursionlimit(10000)
+
+class PrefixSpan(_ab._sequentialPatterns):
+    """
+        Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a sequence transactional database.
+        This program employs Prefix Span property (or downward closure property) to  reduce the search space effectively.
+        This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
+        sequence transactional database.
+
+        Reference:
+        ----------
+           J. Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal, M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach.
+           IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)
+
         Attributes:
-            sequence : list
-                A input sequence on which we will create the Sequence object
-            support : int
-                Support of the given sequence
-        """
-        self.sequence = []
-        self.support = support
-        self.place_holder = '_'
-        for element in sequence:
-            self.sequence.append(list(element))
+        ----------
+            iFile : str
+                Input file name or path of the input file
+            oFile : str
+                Name of the output file or the path of output file
+            minSup: float or int or str
+                The user can specify minSup either in count or proportion of database size.
+                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                Otherwise, it will be treated as float.
+                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            sep : str
+                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+                However, the users can override their default separator.
+            startTime:float
+                To record the start time of the mining process
+            endTime:float
+                To record the completion time of the mining process
+            finalPatterns: dict
+                Storing the complete set of patterns in a dictionary variable
+            memoryUSS : float
+                To store the total amount of USS memory consumed by the program
+            memoryRSS : float
+                To store the total amount of RSS memory consumed by the program
+            Database : list
+                To store the transactions of a database in list
 
-    def add(self, seq):
-        """
-        Used when projecting the database by extending a sequence.
-        """
-        if seq.sequence[0][0] == self.place_holder:
-            fEle = seq.sequence[0]
-            fEle.remove(self.place_holder)
-            self.sequence[-1].extend(fEle)
-            print(self.sequence[-1])
-            self.sequence.extend(seq.sequence[1:])
-        else:
-            self.sequence.extend(seq.sequence)
-            if self.support == None:
-                self.support = seq.support
-        self.support = min(self.support, seq.support)
+        Methods:
+        -------
+            startMine()
+                Mining process will start from here
+            getPatterns()
+                Complete set of patterns will be retrieved with this function
+            savePatterns(oFile)
+                Complete set of frequent patterns will be loaded in to a output file
+            getPatternsAsDataFrame()
+                Complete set of frequent patterns will be loaded in to a dataframe
+            getMemoryUSS()
+                Total amount of USS memory consumed by the mining process will be retrieved from this function
+            getMemoryRSS()
+                Total amount of RSS memory consumed by the mining process will be retrieved from this function
+            getRuntime()
+                Total amount of runtime taken by the mining process will be retrieved from this function
+            
 
 
-class prefixSpan(_ab._sequentialPatterns):
+        Executing the code on terminal:
+        -------------------------------
+            Format:
+            ------
+                python3 PrefixSpan.py <inputFile> <outputFile> <minSup>
+            Examples:
+            ---------
+                python3 PrefixSpan.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+
+                python3 PrefixSpan.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+
+        Sample run of the importing code:
+        ---------------------------------
+            import PAMI.sequentialPattern.basic.PrefixSpan as alg
+
+            obj = alg.PrefixSpan(iFile, minSup)
+
+            obj.startMine()
+
+            frequentPatterns = obj.getPatterns()
+
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+            obj.savePatterns(oFile)
+
+            Df = obj.getPatternInDataFrame()
+
+            memUSS = obj.getMemoryUSS()
+
+            print("Total Memory in USS:", memUSS)
+
+            memRSS = obj.getMemoryRSS()
+
+            print("Total Memory in RSS", memRSS)
+
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+        Credits:
+        --------
+            The complete program was written by Suzuki Shota under the supervision of Professor Rage Uday Kiran.
     """
-        PrefixSpan is one of the basic algorithm to discover the frequent sequential patterns.
 
-    Reference:
-    ---------
-        J. Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal,
-        M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach.
-        IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)
-
-    Attribute:
-    ---------
-        iFile : str
-            Input file name or path of the input file
-        oFile : str
-            Name of the output file or the path of output file
-        minSup: float or int or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-            However, the users can override their default separator.
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
-        finalPatterns: dict
-            Storing the complete set of patterns in a dictionary variable
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        Database : list
-            To store the transactions of a database in list
-
-    Methods:
-    -------
-        startMine()
-            Start the Mining Process By calling the recursion function
-        recursion()
-            The main Function to startMine the database level by level
-        projectDataBase()
-            This function will project the input databse based on the input pattern
-        validateLengths()
-            Find whether all the transactions in the sequence is less than the maximum pattern length
-        getFrequentItems()
-            This function will return the frequent items based in the minimum support that is called in the recursion function
-        getTime()
-            return the time taken for mining
-        getMemory()
-            return the maximum memory utilized while mining
-    """
     _minSup = float()
-    _maxPatternLength = int()
-    _PLACEHOLDER = '_'
     _startTime = float()
     _endTime = float()
     _finalPatterns = {}
@@ -99,14 +130,14 @@ class prefixSpan(_ab._sequentialPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
     _Database = []
+    _sepDatabase={}
 
     def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
-
-
         """
         self._Database = []
+
         if isinstance(self._iFile, _ab._pd.DataFrame):
             temp = []
             if self._iFile.empty:
@@ -114,275 +145,328 @@ class prefixSpan(_ab._sequentialPatterns):
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
                 temp = self._iFile['Transactions'].tolist()
-
             for k in temp:
                 self._Database.append(set(k))
+
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
                 for line in data:
-                    line = line.strip()
-                    tempLis = line.split(' -1 ')
-                    tempLis = tempLis[:-1]
-                    mLis = []
-                    for ele in tempLis:
-                        mLis.append(list(map(int, ele.split(self._sep))))
-                    self._Database.append(mLis)
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self._sep)]
+                    temp = [x for x in temp if x]
+                    self._Database.append(set(temp))
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            line = line.strip()
-                            tempLis = line.split(' -1 ')
-                            tempLis = tempLis[:-1]
-                            mLis = []
-                            for ele in tempLis:
-                                mLis.append(list(map(int, ele.split(self._sep))))
-                            self._Database.append(mLis)
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split('-1')]
+                            temp = [x for x in temp if x ]
+                            temp.pop()
+
+                            seq = []
+                            for i in temp:
+                                if len(i)>1:
+                                   for i in list(sorted(set(i.split()))):
+                                       seq.append(i)
+                                   seq.append(-1)
+
+                                else:
+                                    seq.append(i)
+                                    seq.append(-1)
+                            self._Database.append(seq)
+
+
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def _powerset(self, iterable):
-        s = list(iterable)
-        return list(_ab._chain.from_iterable(_ab._combinations(s, r) for r in range(len(s) + 1)))
+    def _convert(self, value):
+        """
+        To convert the user specified minSup value
+        :param value: user specified minSup value
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self._Database) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self._Database) * value)
+            else:
+                value = int(value)
+        return value
 
-    def _recur(self, output, n, subs, lis):
-        if n == len(subs):
-            temp = str(output).replace('(), ', '')
-            temp = temp.replace(', ()', '')
-            temp = temp.replace(',)', ')')
-            if temp != '(())' or len(temp) <= 2:
-                lis.append(temp)
-            return
-        for x in subs[n]:
-            self._recur(output + (x,), n + 1, subs, lis)
+    def makeNext(self, sepDatabase, startrow):
+        """
+         To get next pattern by adding head word to next sequence of startrow
+        :param sepDatabase: dict
+            what words and rows startrow have to add it
+        :param startrow:
+            the patterns get before
+        """
+        for head in sepDatabase.keys():
+            newrow = [i for i in startrow]
 
-    def _isSubSequence1(self, string1, string2, m, n):
-        if m == 0:
-            return True
-        if n == 0:
-            return False
-        if string1[m - 1] == string2[n - 1]:
-            return self._isSubSequence(string1, string2, m - 1, n - 1)
-        return self._isSubSequence(string1, string2, m, n - 1)
+            if len(sepDatabase[head]) >= self._minSup:
+                if newrow!=[]:
+                    newrow.append(-1)
+                newrow.append(head)
+                newrow.append(-1)
+                if str(newrow) not in self._finalPatterns:
+                    self._finalPatterns[str(newrow)] = len(sepDatabase[head])
+                    give = []
+                    give.append(head)
+                    sepDatabase[head] = self.processDatabaseAgain(sepDatabase[head], give)
+                    newrow.pop()
+                    self.makeSeqDatabaseSame(sepDatabase[head], newrow)
+                elif len(sepDatabase[head]) > self._finalPatterns[str(newrow)]:
+                    self._finalPatterns[str(newrow)] = len(sepDatabase[head])
+                    give = []
+                    give.append(head)
+                    sepDatabase[head] = self.processDatabaseAgain(sepDatabase[head], give)
+                    newrow.pop()
+                    self.makeSeqDatabaseSame(sepDatabase[head], newrow)
 
-    def _isSubSequence(self, string1, string2, m, n):
-        if m == 0:
-            return 1
-        if n == 0:
-            return 0
-        if string1[m - 1] == string2[n - 1]:
-            return self._isSubSequence(string1, string2, m - 1, n - 1)
-        return self._isSubSequence(string1, string2, m, n - 1)
 
-    def _FPMUtil(self, sequences, outputFile):
-        allPossibleSequences = []
-        mainDict = {}
-        for sequence in sequences:
-            subs = []
-            for x in sequence:
-                subs.append(list(self._powerset(x)))
 
-            i = len(subs)
-            lis = []
-            output = ()
-            self._recur(output, 0, subs, lis)
-            allPossibleSequences.extend(lis)
+    def processDatabaseAgain(self,database,head):
+        """
+         To delete not frequent words without words in latest sequence
+        :param database: list
+            database of lines have same startrow and head word
+        :param head:list
+         words in latest sequence
+        :return: changed database
 
-        allPossibleSequences = list(set(allPossibleSequences))
+        """
 
-        for seq in allPossibleSequences:
-            for row in sequences:
-                row = str(row).replace(',)', ')')
-                seq1 = seq[1:-1].split('), ')
-                row1 = row[1:-1].split('), ')
-                seq1 = [x + ')' for x in seq if x[-1] != ')']
-                row1 = [x + ')' for x in row if x[-1] != ')']
-                if (mainDict.get(seq)):
-                    mainDict[seq] += self._isSubSequence(seq, row, len(seq), len(row))
-                else:
-                    mainDict[seq] = self._isSubSequence(seq, row, len(seq), len(row))
-        self._finalPatterns = mainDict
+        supDatabase = {}
+        alreadyInData = []
+        newDatabase = []
+        for line in database:
+            alreadyInLine = []
+            for data in line:
+                    if data not in alreadyInLine:
+                        if data not in alreadyInData:
+                            supDatabase[data] = 1
+                            alreadyInData.append(data)
+                        else:
+                            supDatabase[data] += 1
+                        alreadyInLine.append(data)
+        for line in database:
+                newLine = []
+                for i in line:
+                    if supDatabase[i] >= self._minSup or i in head:
+                        if len(newLine) > 1:
+                            if (newLine[-1] != -1 or i != -1):
+                                newLine.append(i)
+                        else:
+                            newLine.append(i)
+                newDatabase.append(newLine)
 
-    def _recursion(self, pattern, inp, threshold, maxPatternLength):
-        '''The main Function to startMine and project the database at each level
-            @ pattern : Pattern to build upon
-            @ inp : Input Database at the current level
-            @ threshold : Minimum support
-            @ maxPattern Length : Maxium Pattern length
-        '''
-        resultList = []
-        if self._validateLengths(pattern, maxPatternLength):
-            freqList = self._getFrequentItems(inp, pattern, threshold, maxPatternLength)
-            for item in freqList:
-                retVal = _Sequence(pattern.sequence, pattern.support)
-                retVal.add(item)
-                if self._validateLengths(pattern, maxPatternLength):
-                    resultList.append(retVal)
-                projectedDB = self._projectDatabase(inp, retVal)
-                newPatterns = self._recursion(retVal, projectedDB, threshold, maxPatternLength)
-                resultList.extend(newPatterns)
-        return resultList
+        return newDatabase
 
-    def _validateLengths(self, pattern, maxPatternLength):
-        '''
-            Find whether all the transactions in the sequence is less than the maximum pattern length
-        '''
-        for item in pattern.sequence:
-            if len(item) > maxPatternLength:
-                return False
-        return True
+    def makeNextSame(self,sepDatabase,startrow):
+        """
+         To get next pattern by adding head word to latest sequence of startrow
+        :param sepDatabase: dict
+            what words and rows startrow have to add it
+        :param startrow:
+            the patterns get before
+        """
+        for head in sepDatabase.keys():
 
-    def _projectDatabase(self, S, pattern):
-        '''
-            This function will project the input databse based on the input pattern
-        '''
-        projectedDB = []
-        lastEle = pattern.sequence[-1]
-        last_item = lastEle[-1]
-        for s in S:
-            projectTempDB = []
-            for element in s:
-                isPrefix = False
-                if self._PLACEHOLDER in element:
-                    if last_item in element and len(pattern.sequence[-1]) > 1:
-                        isPrefix = True
-                else:
-                    isPrefix = True
-                    for item in lastEle:
-                        if item not in element:
-                            isPrefix = False
-                            break
-                if isPrefix:
-                    currentIndex = s.index(element)
-                    lastIndex = element.index(last_item)
-                    if lastIndex == len(element) - 1:
-                        projectTempDB = s[currentIndex + 1:]
+            if len(sepDatabase[head]) >= self._minSup:
+                newrow = startrow.copy()
+                newrow.append(head)
+                newrow.append(-1)
+                if str(newrow) not in self._finalPatterns.keys():
+                    self._finalPatterns[str(newrow)] = len(sepDatabase[head])
+                    if -1 in startrow:
+                        give = self.getSameSeq(startrow)
                     else:
-                        projectTempDB = s[currentIndex:]
-                        index = element.index(last_item)
-                        slicedEle = element[lastIndex:]
-                        slicedEle[0] = self._PLACEHOLDER
-                        projectTempDB[0] = slicedEle
-                    break
-            if len(projectTempDB) != 0:
-                projectedDB.append(projectTempDB)
-        return projectedDB
+                        give = startrow.copy()
+                    give.append(head)
+                    sepDatabase[head] = self.processDatabaseAgain(sepDatabase[head], give)
+                    newrow.pop()
+                    self.makeSeqDatabaseSame(sepDatabase[head], newrow)
+                elif len(sepDatabase[head]) > self._finalPatterns[str(newrow)]:
+                    self._finalPatterns[str(newrow)] = len(sepDatabase[head])
+                    if -1 in startrow:
+                        give = self.getSameSeq(startrow)
+                    else:
+                        give = startrow.copy()
+                    give.append(head)
+                    sepDatabase[head] = self.processDatabaseAgain(sepDatabase[head], give)
+                    newrow.pop()
+                    self.makeSeqDatabaseSame(sepDatabase[head], newrow)
 
-    '''def _loadDataFromFile(self, filename):
-        sequences = []
-        with open(filename) as f:
-            for x in f:
-                tempLis = x.split(' -1 ')
-                tempLis = tempLis[:-1]
-                mLis = []
-                for ele in tempLis:
-                    mLis.append(list(map(int, ele.split())))
-                sequences.append(mLis)
+    def createProjectedDatabaseOne(self, database):
+        """
+        To make 1 length sequence dataset list which start from same word. It was stored only 1 from 1 line.
+        :param database:
+                To store the transactions of a database in list
+        """
+        startrow = []
+        seqDatabase = {}
 
-        self.db = sequences'''
+        for line in database:
+            alreadyInLine = []
+            for data in range(len(line)):
+                if line[data] not in alreadyInLine and line[data] != -1:
+                    if line[data] not in seqDatabase.keys():
+                        seqDatabase[line[data]] = []
+                        seqDatabase[line[data]].append(line[data+1:])
+                        alreadyInLine.append(line[data])
+                    else:
+                        seqDatabase[line[data]].append(line[data+1:])
+                        alreadyInLine.append(line[data])
 
-    def _save(self, output, lis):
-        with open(output, 'w+') as file:
+        if len(seqDatabase) > 0:
+            self.makeNext(seqDatabase, startrow)
+
+    def serchSame(self, database, startrow, give):
+        """
+         To get 2 or more length patterns in same sequence.
+        :param database: list
+            To store the transactions of a database in list which have same startrow and head word
+        :param startrow: list
+            the patterns get before
+        :param give: list
+            the word in latest sequence of startrow
+        :return:
+        """
+        sepDatabaseSame = {}
+        sepDatabaseSame[startrow[-1]] = []
+        for line in database:
+            addLine = 0
             i = 0
-            for x in lis:
-                st = ' -1 '.join(list(map(lambda z: str(z)[1:-1], x.sequence)))
-                st += f' : {x.support}'
-                st += '\n'
-                st = st.replace(', ', '\t')
-                file.write(st)
+            if len(line) > 1:
+                while line[i] != -1:
+                    if line[i] == startrow[-1]:
+                        sepDatabaseSame[startrow[-1]].append(line[i+1:])
+                        addLine = 1
+                        break
+                    i += 1
+                if addLine != 1:
+                    ok = []
+                    while i < len(line):
+                        if line[i] == -1:
+                            ok = []
+                        elif line[i] == startrow[-1]:
+                            ok.append("sk1")
+                        for x in give:
+                            if x == line[i]:
+                                ok.append(x)
+                        if len(ok) == 1+len(give):
+                            sepDatabaseSame[startrow[-1]].append(line[i+1:])
+                            break
+                        i += 1
+        startrow2 = [startrow[0]]
+        startrow.append(-1)
+        if str(startrow) not in self._finalPatterns.keys():
+                self.makeNextSame(sepDatabaseSame, startrow2)
+        elif self._finalPatterns[str(startrow)] < len(sepDatabaseSame[startrow[-2]]):
+            self.makeNextSame(sepDatabaseSame, startrow2)
+        return sepDatabaseSame[startrow[-2]]
 
-    def _getFrequentItems(self, S, pattern, threshold, maxPatternLength):
+    def getSameSeq(self, startrow):
         """
-            This function will return the frequent items based in the minimum support that is called in the recursion function
-            @ pattern : Pattern to check for the frequency
-            @ S : Input Database at the current level
-            @ threshold : Minimum support
-            @ maxPattern Length : Maxium Pattern length
+         To get words in latest sequence
+        :param startrow:
+         the patterns get before
+        :return:
         """
-        items = {}
-        parentItemDict = {}
-        freqList = []
-        if S is None or len(S) == 0:
-            return []
-        if len(pattern.sequence) != 0:
-            lastEle = pattern.sequence[-1]
-        else:
-            lastEle = []
-        for s in S:
-            isPrefix = True
-            for item in lastEle:
-                if item not in s[0]:
-                    isPrefix = False
-                    break
-            if isPrefix and len(lastEle) > 0:
-                index = s[0].index(lastEle[-1])
-                if index < len(s[0]) - 1:
-                    for item in s[0][index + 1:]:
-                        if item in parentItemDict:
-                            parentItemDict[item] += 1
-                        else:
-                            parentItemDict[item] = 1
-            if self._PLACEHOLDER in s[0]:
-                for item in s[0][1:]:
-                    if item in parentItemDict:
-                        parentItemDict[item] += 1
+        give = []
+        newrow = startrow.copy()
+        while newrow[-1] != -1:
+            y = newrow.pop()
+            give.append(y)
+        return give
+
+
+    def makeSeqDatabaseSame(self, database, startrow):
+        """
+            To make sequence dataset list which start from same word(head). It was stored only 1 from 1 line.
+            And it separated by having head in latest sequence of startrow or not.
+
+            :param database:
+                    To store the transactions of a database in list
+            :param startrow: list
+                    the patterns get before
+
+            """
+        seqDatabase = {}
+        seqDatabaseSame = {}
+        for line in database:
+            if len(line) > 1:
+                alreadyInLine = []
+                i = 0
+                while line[i] != -1:
+                        if line[i] not in seqDatabaseSame:
+                            if -1 in startrow:
+                                give = self.getSameSeq(startrow)
+                            else:
+                                give = startrow.copy()
+                            newrow = [startrow[-1], line[i]]
+                            seqDatabaseSame[line[i]] = self.serchSame(database, newrow, give)
+
+                        i += 1
+                same=0
+                while len(line) > i:
+                    if line[i] != -1:
+                        if line[i] not in alreadyInLine:
+                            if line[i] not in seqDatabase:
+                                seqDatabase[line[i]] = []
+                            seqDatabase[line[i]].append(line[i + 1:])
+                            alreadyInLine.append(line[i])
+                        if line[i] == startrow[-1]:
+                            same = 1
+
+                        elif same == 1 and line[i] not in seqDatabaseSame:
+                            if -1 in startrow:
+                                give = self.getSameSeq(startrow)
+                            else:
+                                give = startrow.copy()
+                            newrow= [startrow[-1], line[i]]
+                            seqDatabaseSame[line[i]] = self.serchSame(database, newrow, give)
+
                     else:
-                        parentItemDict[item] = 1
-                s = s[1:]
-            counted = []
-            for element in s:
-                for item in element:
-                    if item not in counted:
-                        counted.append(item)
-                        if item in items:
-                            items[item] += 1
-                        else:
-                            items[item] = 1
+                        same = 0
+                    i += 1
 
-        freqList.extend([_Sequence([[self._PLACEHOLDER, key]], value)
-                         for key, value in parentItemDict.items() if value >= threshold])
-        freqList.extend([_Sequence([[key]], value)
-                         for key, value in items.items() if value >= threshold])
 
-        freqList = [item for item in freqList if self._validateLengths(item, maxPatternLength)]
-        return sorted(freqList, key=lambda x: x.support)
+        if len(seqDatabase) != 0:
+            self.makeNext(seqDatabase, startrow)
+        if len(seqDatabaseSame) != 0:
+            self.makeNextSame(seqDatabaseSame, startrow)
 
     def startMine(self):
-        '''startMine and return the frequent sequence patterns.. '''
+        """
+            Frequent pattern mining process will start from here
+        """
+        self._Database = []
         self._startTime = _ab._time.time()
         self._creatingItemSets()
-        self._minSup = _ab._math.ceil(self._minSup * len(self._Database))
-        if self._minSup == 1:
-            mainTupe = []
-            for x in self._Database:
-                temp = []
-                for y in x:
-                    temp.append(tuple(y))
-                temp = tuple(temp)
-                mainTupe.append(temp)
-            mainTupe = tuple(mainTupe)
-            self._FPMUtil(mainTupe, self._oFile)
-            #print('oFile: ', self._oFile)
-        result = self._recursion(_Sequence([], None),
-                                self._Database,
-                                _ab._math.ceil(self._minSup * len(self._Database)),
-                                self._maxPatternLength)
-        self.endTime = _ab._time.time()
+        self._Database = self.processDatabaseAgain(self._Database, "")
+        self._minSup = self._convert(self._minSup)
+        self.createProjectedDatabaseOne(self._Database)
+        self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print(result)
-        return result
+        print("Frequent patterns were generated successfully using Apriori algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -390,9 +474,7 @@ class prefixSpan(_ab._sequentialPatterns):
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -400,9 +482,7 @@ class prefixSpan(_ab._sequentialPatterns):
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
-
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
@@ -410,68 +490,68 @@ class prefixSpan(_ab._sequentialPatterns):
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
-
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
+            data.append([a, b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
         return dataFrame
 
     def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
-
         :param outFile: name of the output file
-
         :type outFile: file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x.strip() + ":" + str(y)
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
-
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self):
-        print("Total number of Frequent Sequential Patterns:", len(self.getPatterns()))
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:", self.getRuntime())
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = prefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = prefixSpan(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = PrefixSpan(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
-        print("Total number of Sequential Frequent Patterns:", len(_ap.getPatterns()))
+        _Patterns = _ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(_Patterns))
         _ap.save(_ab._sys.argv[2])
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = prefixSpan('/Users/Likhitha/Downloads/MAIN_SPMF/InpDataPrefixSpan', 0.6, 100, ' ')
+        '''_ap = PrefixSpan('retail.txt',1535, ' ')
         _ap.startMine()
-        print("Total number of Sequential Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save('/Users/Likhitha/Downloads/MAIN_SPMF/output.txt')
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
+        _Patterns = _ap.getPatterns()
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
+        print("Total number of Frequent Patterns:", len(_Patterns))'''
         print("Error! The number of input parameters do not match the total number of parameters provided")
