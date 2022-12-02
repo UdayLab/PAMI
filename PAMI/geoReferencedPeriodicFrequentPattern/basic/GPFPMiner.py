@@ -184,7 +184,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                     candidate[j][3].append(n)
         self._minSup = self._convert(self._minSup)
         self._maxPer = self._convert(self._maxPer)
-        print(self._minSup, self._maxPer)
+        #print(self._minSup, self._maxPer)
         self._tidList = {k: v[3] for k, v in candidate.items() if v[0] >= self._minSup and v[1] <= self._maxPer}
         candidate = {k: [v[0], v[1]] for k, v in candidate.items() if v[0] >= self._minSup and v[1] <= self._maxPer}
         plist = [key for key, value in sorted(candidate.items(), key=lambda x: (x[1][0], x[0]), reverse=True)]
