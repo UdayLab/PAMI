@@ -423,16 +423,15 @@ class TubeP(_fp._frequentPatterns):
             if _fp._validators.url(self._iFile):
                 data = _fp._urlopen(self._iFile)
                 for line in data:
-                    line.strip()
+                    line = line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
+                    temp1 = line.split(':')
+                    temp = [i.rstrip() for i in temp[0].split(self._sep)]
+                    uncertain = [float(i.rstrip()) for i in temp[1].split(self._sep)]
                     tr = []
-                    for i in temp:
-                        i1 = i.index('(')
-                        i2 = i.index(')')
-                        item = i[0:i1]
-                        probability = float(i[i1 + 1:i2])
+                    for i in range(len(temp)):
+                        item = temp[i]
+                        probability = uncertain[i]
                         product = _Item(item, probability)
                         tr.append(product)
                     self._Database.append(temp)
@@ -440,14 +439,14 @@ class TubeP(_fp._frequentPatterns):
                 try:
                     with open(self._iFile, 'r') as f:
                         for line in f:
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
+                            temp1 = line.strip()
+                            temp1 = temp1.split(':')
+                            temp = [i.rstrip() for i in temp1[0].split(self._sep)]
+                            uncertain = [float(i.rstrip()) for i in temp1[1].split(self._sep)]
                             tr = []
-                            for i in temp:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                probability = float(i[i1 + 1:i2])
+                            for i in range(len(temp)):
+                                item = temp[i]
+                                probability = uncertain[i]
                                 product = _Item(item, probability)
                                 tr.append(product)
                             self._Database.append(tr)
@@ -642,7 +641,7 @@ class TubeP(_fp._frequentPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self._finalPatterns
+        return len(self._finalPatterns)
 
     def printResults(self):
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
