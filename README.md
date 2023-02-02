@@ -151,7 +151,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 | PS-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/basic/PSGrowth/PSGrowth-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/basic/PSGrowth/PSGrowth-ad.md)              |                                                                                                                                                                                                                                        |                                                                                                                                   |
 | PFP-ECLAT [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/basic/PFECLAT/PFECLAT-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/basic/PFECLAT/PFECLAT-ad%20.md)                |                                                                                                                                                                                                                                        |                                                                                                                                   |
     
-15. Geo referenced Periodic frequent pattern mining:[Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicFrequentSpatial.pdf)
+15. Geo referenced Periodic frequent pattern mining:[Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/periodicFrequentSpatial.html)
 
 | Basic     |
 |-----------|
