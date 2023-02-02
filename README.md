@@ -240,7 +240,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 |-------|
 | WUFIM |
     
-28. Weighted frequent regular pattern mining: To be Written
+28. Weighted frequent regular pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentRegularPatterns.html)
     
 | Basic     |
 |-----------|
