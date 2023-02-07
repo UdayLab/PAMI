@@ -189,6 +189,7 @@ class _Dataset:
 
     def createItemSets(self, datasetPath):
         self.Database = []
+        self.transactions = []
         if isinstance(datasetPath, _ab._pd.DataFrame):
             utilities, data, utilitySum = [], [], []
             if datasetPath.empty:
@@ -453,6 +454,7 @@ class HUFIM(_ab._utilityPatterns):
     def startMine(self):
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
+        self._dataset = []
         self._dataset = _Dataset(self._iFile, self._sep)
         self._singleItemSetsSupport = _ab._defaultdict(int)
         self._singleItemSetsUtility = _ab._defaultdict(int)
