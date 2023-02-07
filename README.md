@@ -204,7 +204,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
     
 | Basic   | top-k |
 |---------|-------|
-| PUF     | TUFP  |
+| PUF [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/PUFGrowth/PUFGrowth-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/PUFGrowth/PUFGrowth-ad.md)    | TUFP  |
 | TubeP   |       |
 | TubeS   |       | 
 | UVEclat |       |
@@ -232,7 +232,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
     
 | Basic |
 |-------|
-| WFIM  |
+| WFIM  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/WFIM/WFIM-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/WFIM/WFIM-ad.md)|
     
 27. Uncertain Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedUncertainFrequentPatterns.html)
     
