@@ -91,7 +91,7 @@ class _weightedFrequentSpatialPatterns(_ABC):
 
     """
 
-    def __init__(self, iFile, nFile, wFile, minSup, minWeight, sep="\t"):
+    def __init__(self, iFile, nFile, minWS, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame
@@ -107,11 +107,9 @@ class _weightedFrequentSpatialPatterns(_ABC):
         """
 
         self._iFile = iFile
-        self._wFile = wFile
         self._nFile = nFile
         self._sep = sep
-        self._minSup = minSup
-        self._minWeight = minWeight
+        self._minWS = minWS
         self._finalPatterns = {}
         self._oFile = str()
         self._memoryUSS = float()

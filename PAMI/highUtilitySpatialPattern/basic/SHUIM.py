@@ -796,8 +796,8 @@ if __name__ == '__main__':
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        for i in [2000, 4000, 6000, 8000, 10000]:
-            _ap = SHUIM('/Users/Likhitha/Downloads/main_9.txt', '/Users/Likhitha/Downloads/mushroom_neighbourhoodFile_9.txt', i, ' ')
+        for i in [100000, 500000]:
+            _ap = SHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt', '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
             _ap.startMine()
             print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
             #_ap.save(_ab._sys.argv[2])

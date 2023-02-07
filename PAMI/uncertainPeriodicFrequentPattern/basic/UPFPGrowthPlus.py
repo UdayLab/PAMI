@@ -363,7 +363,7 @@ class _Tree(object):
             self.removeNode(i)
 
 
-class PTubeP(_ab._periodicFrequentPatterns):
+class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
     """
         Periodic-TubeP is  to discover periodic-frequent patterns in a temporal database.
 
@@ -528,16 +528,17 @@ class PTubeP(_ab._periodicFrequentPatterns):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
                 for line in data:
-                    line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
-                    tr = [int(temp[0])]
-                    for i in temp[1:]:
-                        i1 = i.index('(')
-                        i2 = i.index(')')
-                        item = i[0:i1]
-                        probability = float(i[i1 + 1:i2])
+                    line = line.strip()
+                    line = [i for i in line.split(':')]
+                    temp1 = [i.rstrip() for i in line[0].split(self._sep)]
+                    temp2 = [i.rstrip() for i in line[1].split(self._sep)]
+                    temp1 = [x for x in temp1 if x]
+                    temp2 = [x for x in temp2 if x]
+                    tr = [int(temp1[0])]
+                    for i in range(len(temp1[1:])):
+                        item = temp1[i]
+                        probability = float(temp2[i])
                         product = _Item(item, probability)
                         tr.append(product)
                     self._lno += 1
@@ -547,15 +548,16 @@ class PTubeP(_ab._periodicFrequentPatterns):
                     count = 0
                     with open(self._iFile, 'r') as f:
                         for line in f:
-                            count += 1
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
-                            tr = [int(temp[0])]
-                            for i in temp[1:]:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                probability = float(i[i1 + 1:i2])
+                            line = line.strip()
+                            line = [i for i in line.split(':')]
+                            temp1 = [i.rstrip() for i in line[0].split(self._sep)]
+                            temp2 = [i.rstrip() for i in line[1].split(self._sep)]
+                            temp1 = [x for x in temp1 if x]
+                            temp2 = [x for x in temp2 if x]
+                            tr = [int(temp1[0])]
+                            for i in range(len(temp1[1:])):
+                                item = temp1[i]
+                                probability = float(temp2[i])
                                 product = _Item(item, probability)
                                 tr.append(product)
                             self._lno += 1
@@ -697,7 +699,7 @@ class PTubeP(_ab._periodicFrequentPatterns):
                 for i in x:
                     sample = sample + i + " "
                 self._finalPatterns[sample] = y
-        print("Total false patterns generated:", len(self._periodic) - count)
+        #print("Total false patterns generated:", len(self._periodic) - count)
 
     def startMine(self):
         """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
@@ -804,9 +806,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = PTubeP(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = UPFPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = PTubeP(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = UPFPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
@@ -819,17 +821,15 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        l = [400, 500, 600, 700, 800]
-        for i in l:
-            ap = PTubeP('/Users/Likhitha/Downloads/uncertain/additionalMaterial/T10I4D200K.txt', i, 8000, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Patterns:", len(Patterns))
-            ap.save('/Users/Likhitha/Downloads/uncertain/output.txt')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
+        ap = UPFPGrowthPlus('/Users/likhitha/Downloads/uncertainTemporal_T10I4D100K.csv', 500, 5000, '\t')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Patterns:", len(Patterns))
+        ap.save('/Users/Likhitha/Downloads/uncertain/output.txt')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")

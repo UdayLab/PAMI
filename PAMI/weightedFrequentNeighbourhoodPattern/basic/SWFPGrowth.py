@@ -15,12 +15,18 @@
 
 from PAMI.weightedFrequentNeighbourhoodPattern.basic import abstract as _fp
 
-_minSup = str()
-_minWS = int()
+_minWS = str()
 _weights = {}
+_rank = {}
 _neighbourList = {}
 
 _fp._sys.setrecursionlimit(20000)
+
+
+class _WeightedItem:
+    def __init__(self, item, weight):
+        self.item = item
+        self.weight = weight
 
 
 class _Node:
@@ -49,6 +55,7 @@ class _Node:
     def __init__(self, item, children):
         self.itemId = item
         self.counter = 1
+        self.weight = 0
         self.parent = None
         self.children = children
 
@@ -85,7 +92,7 @@ class _Tree:
         getFinalConditionalPatterns(node)
             getting the conditional patterns from fp-tree for a node
         getConditionalPatterns(patterns, frequencies)
-            sort the patterns by removing the items with lower minSup
+            sort the patterns by removing the items with lower minWS
         generatePatterns(prefix)
             generating the patterns from fp-tree
     """
@@ -108,20 +115,73 @@ class _Tree:
         """
 
         # This method takes transaction as input and returns the tree
+        global _neighbourList, _rank
         currentNode = self.root
         for i in range(len(transaction)):
-            if transaction[i] not in currentNode.children:
-                newNode = _Node(transaction[i], {})
+            wei = 0
+            l1 = i
+            while l1 >= 0:
+                wei += transaction[l1].weight
+                l1 -= 1
+            if transaction[i].item not in currentNode.children:
+                newNode = _Node(transaction[i].item, {})
                 newNode.freq = count
+                newNode.weight = wei
                 currentNode.addChild(newNode)
-                if transaction[i] in self.summaries:
-                    self.summaries[transaction[i]].append(newNode)
+                if _rank[transaction[i].item] in self.summaries:
+                    self.summaries[_rank[transaction[i].item]].append(newNode)
                 else:
-                    self.summaries[transaction[i]] = [newNode]
+                    self.summaries[_rank[transaction[i].item]] = [newNode]
                 currentNode = newNode
             else:
-                currentNode = currentNode.children[transaction[i]]
+                currentNode = currentNode.children[transaction[i].item]
                 currentNode.freq += count
+                currentNode.weight += wei
+
+    def addConditionalPattern(self, transaction, count):
+        """adding transaction into tree
+
+        :param transaction: it represents the one transactions in database
+
+        :type transaction: list
+
+        :param count: frequency of item
+
+        :type count: int
+        """
+
+        # This method takes transaction as input and returns the tree
+        global _neighbourList, _rank
+        currentNode = self.root
+        for i in range(len(transaction)):
+            wei = 0
+            l1 = i
+            while l1 >= 0:
+                wei += transaction[l1].weight
+                l1 -= 1
+            if transaction[i].itemId not in currentNode.children:
+                newNode = _Node(transaction[i].itemId, {})
+                newNode.freq = count
+                newNode.weight = wei
+                currentNode.addChild(newNode)
+                if _rank[transaction[i].itemId] in self.summaries:
+                    self.summaries[_rank[transaction[i].itemId]].append(newNode)
+                else:
+                    self.summaries[_rank[transaction[i].itemId]] = [newNode]
+                currentNode = newNode
+            else:
+                currentNode = currentNode.children[transaction[i].itemId]
+                currentNode.freq += count
+                currentNode.weight += wei
+
+    def printTree(self, root):
+        if len(root.children) == 0:
+            return
+        else:
+            for x, y in root.children.items():
+                #print(y.itemId, y.parent.itemId, y.freq, y.weight)
+                self.printTree(y)
+
 
     def getFinalConditionalPatterns(self, alpha):
         """
@@ -140,11 +200,11 @@ class _Tree:
         finalFreq = []
         global _neighbourList
         for i in self.summaries[alpha]:
-            set1 = i.freq
+            set1 = i.weight
             set2 = []
             while i.parent.itemId is not None:
-                if i.parent.itemId in _neighbourList[i]:
-                    set2.append(i.parent.itemId)
+                if i.parent.itemId in _neighbourList[i.itemId]:
+                    set2.append(i.parent)
                 i = i.parent
             if len(set2) > 0:
                 set2.reverse()
@@ -166,25 +226,26 @@ class _Tree:
         -------
             conditional patterns and frequency of each item in transactions
         """
-        global _minSup, _miniWeight
+        global _rank
         pat = []
         freq = []
         data1 = {}
         for i in range(len(ConditionalPatterns)):
             for j in ConditionalPatterns[i]:
-                if j in data1:
-                    data1[j] += conditionalFreq[i]
+                if j.itemId in data1:
+                    data1[j.itemId] += conditionalFreq[i]
                 else:
-                    data1[j] = conditionalFreq[i]
-        up_dict = {k: v for k, v in data1.items() if v >= _minSup and v * _miniWeight > _minSup}
+                    data1[j.itemId] = conditionalFreq[i]
+        up_dict = {k: v for k, v in data1.items() if v >= _minWS}
         count = 0
         for p in ConditionalPatterns:
-            p1 = [v for v in p if v in up_dict]
-            trans = sorted(p1, key=lambda x: (up_dict.get(x), -x), reverse=True)
+            p1 = [v for v in p if v.itemId in up_dict]
+            trans = sorted(p1, key=lambda x: (up_dict.get(x)), reverse=True)
             if len(trans) > 0:
                 pat.append(trans)
                 freq.append(conditionalFreq[count])
             count += 1
+        up_dict = {_rank[k]: v for k, v in up_dict.items()}
         return pat, freq, up_dict
 
     def generatePatterns(self, prefix):
@@ -199,8 +260,8 @@ class _Tree:
         Frequent patterns that are extracted from fp-tree
 
         """
-        global _miniWeight, _maxWeight, _minWeight, _minSup
-        for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
+        global _minWS
+        for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
             pattern = prefix[:]
             pattern.append(i)
             yield pattern, self.info[i]
@@ -208,7 +269,7 @@ class _Tree:
             conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             for pat in range(len(patterns)):
-                conditionalTree.addTransaction(patterns[pat], freq[pat])
+                conditionalTree.addConditionalPattern(patterns[pat], freq[pat])
             if len(patterns) > 0:
                 for q in conditionalTree.generatePatterns(pattern):
                     yield q
@@ -228,11 +289,11 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     ----------
         iFile : file
             Input file name or path of the input file
-        minSup: float or int or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+        minWS: float or int or str
+            The user can specify minWS either in count or proportion of database size.
+            If the program detects the data type of minWS is integer, then it treats minWS is expressed in count.
             Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            Example: minWS=10 will be treated as integer, while minWS=10.0 will be treated as float
         minWeight: float or int or str
             The user can specify minWeight either in count or proportion of database size.
             If the program detects the data type of minWeight is integer, then it treats minWeight is expressed in count.
@@ -287,13 +348,13 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     -------
         Format:
         -------
-            python3 SWFPGrowth.py <inputFile> <weightFile> <outputFile> <minSup>
+            python3 SWFPGrowth.py <inputFile> <weightFile> <outputFile> <minWS>
 
         Examples:
         ---------
-            python3 SWFPGrowth.py sampleDB.txt weightSample.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+            python3 SWFPGrowth.py sampleDB.txt weightSample.txt patterns.txt 10.0   (minWS will be considered in times of minWS and count of database transactions)
 
-            python3 SWFPGrowth.py sampleDB.txt weightFile.txt patterns.txt 10     (minSup will be considered in support count or frequency) (it will consider "\t" as a separator)
+            python3 SWFPGrowth.py sampleDB.txt weightFile.txt patterns.txt 10     (minWS will be considered in support count or frequency) (it will consider "\t" as a separator)
 
             python3 SWFPGrowth.py sampleTDB.txt weightFile.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
 
@@ -304,7 +365,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
         from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
 
-        obj = alg.SWFPGrowth(iFile, wFile, nFile, minSup, minWeight, seperator)
+        obj = alg.SWFPGrowth(iFile, wFile, nFile, minWS, minWeight, seperator)
 
         obj.startMine()
 
@@ -336,7 +397,8 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
     __startTime = float()
     __endTime = float()
-    _minSup = str()
+    _Weights = {}
+    _minWS = str()
     __finalPatterns = {}
     _neighbourList = {}
     _iFile = " "
@@ -351,8 +413,8 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     __rank = {}
     __rankDup = {}
 
-    def __init__(self, iFile, wFile, minSup, minWeight, sep='\t'):
-        super().__init__(iFile, wFile, minSup, minWeight, sep)
+    def __init__(self, iFile, nFile, minWS, sep='\t'):
+        super().__init__(iFile, nFile, minWS, sep)
 
     def __creatingItemSets(self):
         """
@@ -360,14 +422,13 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
 
         """
-        self.__Database = []
+        self._Database = []
         if isinstance(self._iFile, _fp._pd.DataFrame):
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self.__Database = self._iFile['Transactions'].tolist()
-
+                self._Database = self._iFile['Transactions'].tolist()
             # print(self.Database)
         if isinstance(self._iFile, str):
             if _fp._validators.url(self._iFile):
@@ -377,16 +438,20 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self.__Database.append(temp)
+                    self._Database.append(temp)
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            line.strip()
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
-                            # print(len(temp))
-                            self.__Database.append(temp)
+                            line = line.strip()
+                            line = line.split(':')
+                            temp1 = [i.rstrip() for i in line[0].split(self._sep)]
+                            temp2 = [int(i.strip()) for i in line[1].split(self._sep)]
+                            tr = []
+                            for i in range(len(temp1)):
+                                we = _WeightedItem(temp1[i], temp2[i])
+                                tr.append(we)
+                            self._Database.append(tr)
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -426,65 +491,22 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
                     print("File Not Found2")
                     quit()
 
-    def _scanningWeights(self):
-        """
-            Storing the weights of the variables in input file in a weights variable
-
-
-        """
-        global _weights
-        _weights = {}
-        if isinstance(self._wFile, _fp._pd.DataFrame):
-            items, weights = [], []
-            if self._wFile.empty:
-                print("its empty..")
-            i = self._wFile.columns.values.tolist()
-            if 'items' in i:
-                items = self._wFile['items'].tolist()
-            if 'weights' in i:
-                weights = self._wFile['weights'].tolist()
-            for i in range(len(weights)):
-                _weights[items[i]] = weights[i]
-
-            # print(self.Database)
-        if isinstance(self._wFile, str):
-            if _fp._validators.url(self._wFile):
-                data = _fp._urlopen(self._wFile)
-                for line in data:
-                    line.strip()
-                    line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
-                    _weights[temp[0]] = temp[1]
-            else:
-                try:
-                    with open(self._wFile, 'r', encoding='utf-8') as f:
-                        for line in f:
-                            line.strip()
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
-                            s = int(float(temp[1]))
-                            _weights[temp[0]] = s
-                except IOError:
-                    print("File Not Found")
-                    quit()
-
     def __convert(self, value):
         """
-        to convert the type of user specified minSup value
+        to convert the type of user specified minWS value
 
-        :param value: user specified minSup value
+        :param value: user specified minWS value
 
         :return: converted type
         """
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self.__Database) * value)
+            value = (len(self._Database) * value)
         if type(value) is str:
             if '.' in value:
                 value = float(value)
-                value = (len(self.__Database) * value)
+                value = (len(self._Database) * value)
             else:
                 value = int(value)
         return value
@@ -495,15 +517,18 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
         """
         global _maxWeight
-        self.__mapSupport = {}
-        for tr in self.__Database:
-            for i in range(0, len(tr)):
-                if tr[i] not in self.__mapSupport:
-                    self.__mapSupport[tr[i]] = 1
+        self._mapSupport = {}
+        for tr in self._Database:
+            for i in tr:
+                nn = [j for j in tr if j.item in self._neighbourList[i.item]]
+                if i.item not in self._mapSupport:
+                    self._mapSupport[i.item] = i.weight
                 else:
-                    self.__mapSupport[tr[i]] += 1
-        self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self._minSup and v * _maxWeight > self._minSup}
-        genList = [k for k, v in sorted(self.__mapSupport.items(), key=lambda x: x[1], reverse=True)]
+                    self._mapSupport[i.item] += i.weight
+                for k in nn:
+                    self._mapSupport[i.item] += k.weight
+        self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minWS}
+        genList = [k for k, v in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.__rank = dict([(index, item) for (item, index) in enumerate(genList)])
         return genList
 
@@ -522,14 +547,15 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
         """
         list1 = []
-        for tr in self.__Database:
+        for tr in self._Database:
             list2 = []
             for i in range(len(tr)):
-                if tr[i] in itemSet:
-                    list2.append(self.__rank[tr[i]])
+                if tr[i].item in itemSet:
+                    list2.append(tr[i])
             if len(list2) >= 1:
-                list2.sort()
-                list1.append(list2)
+                basket = list2
+                basket.sort(key=lambda val: self.__rank[val.item])
+                list1.append(basket)
         return list1
 
     @staticmethod
@@ -574,27 +600,28 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
             main program to start the operation
 
         """
-        global _minSup, _minWeight, _miniWeight, _maxWeight, _weights, _neighbourList
+        global _minWS, _neighbourList, _rank
         self.__startTime = _fp._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self._minSup is None:
+        if self._minWS is None:
             raise Exception("Please enter the Minimum Support")
         self.__creatingItemSets()
         self._scanNeighbours()
-        self._scanningWeights()
-        _weights = {k: v for k, v in _weights.items() if v >= _minWeight}
-        _maxWeight = max([s for s in _weights.values()])
-        _miniWeight = min([s for s in _weights.values()])
-        self._minSup = self.__convert(self._minSup)
-        _minSup = self._minSup
+        self._minWS = self.__convert(self._minWS)
+        _minWS = self._minWS
         itemSet = self.__frequentOneItem()
         updatedTransactions = self.__updateTransactions(itemSet)
+        info = {self.__rank[k]: v for k, v in self._mapSupport.items()}
+        _rank = self.__rank
         for x, y in self.__rank.items():
             self.__rankDup[y] = x
-        info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
-        for x, y in info.items():
-            _neighbourList[x] = self._neighbourList[self.__rankDup[x]]
+        _neighbourList = self._neighbourList
+        #self._neighbourList = {k:v for k, v in self._neighbourList.items() if k in self._mapSupport.keys()}
+        # for x, y in self._neighbourList.items():
+        #     xx = [self.__rank[i] for i in y if i in self._mapSupport.keys()]
+        #     _neighbourList[self.__rank[x]] = xx
+        # print(_neighbourList)
         __Tree = self.__buildTree(updatedTransactions, info)
         patterns = __Tree.generatePatterns([])
         self.__finalPatterns = {}
@@ -699,4 +726,11 @@ if __name__ == "__main__":
         print("Total Memory in RSS",  _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
+        _ap = SWFPGrowth('sample.txt', 'neighbourSample.txt', 150, ' ')
+        _ap.startMine()
+        print("Total number of Weighted Spatial Frequent Patterns:", len(_ap.getPatterns()))
+        _ap.save('output.txt')
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")

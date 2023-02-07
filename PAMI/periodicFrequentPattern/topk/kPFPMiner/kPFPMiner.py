@@ -13,16 +13,18 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.periodicFrequentPattern.topk import abstract as _ab
+from PAMI.periodicFrequentPattern.topk.kPFPMiner import abstract as _ab
 
 
-class kPFPMiner(_ab._frequentPatterns):
+class kPFPMiner(_ab._periodicFrequentPatterns):
     """
         Top - K is and algorithm to discover top periodic-frequent patterns in a temporal database.
 
         Reference:
         ----------
-            Likhitha, P., Ravikumar, P., Kiran, R.U., Watanobe, Y. (2022). Discovering Top-k Periodic-Frequent Patterns in Very Large Temporal Databases. Big Data Analytics. BDA 2022. Lecture Notes in Computer Science, vol 13773. Springer, Cham. https://doi.org/10.1007/978-3-031-24094-2_14
+            Likhitha, P., Ravikumar, P., Kiran, R.U., Watanobe, Y. (2022).
+            Discovering Top-k Periodic-Frequent Patterns in Very Large Temporal Databases. Big Data Analytics.
+            BDA 2022. Lecture Notes in Computer Science, vol 13773. Springer, Cham. https://doi.org/10.1007/978-3-031-24094-2_14
 
         Attributes:
         ----------
@@ -203,24 +205,16 @@ class kPFPMiner(_ab._frequentPatterns):
                     self._mapSupport[si][1] = max(self._mapSupport[si][1], abs(n - self._mapSupport[si][2]))
                     self._mapSupport[si][2] = n
                     self._tidList[si].append(n)
-            #for x, y in self._mapSupport.items():
-            #    print(x, y)
-            #print(".....")
         for x, y in self._mapSupport.items():
             self._mapSupport[x][1] = max(self._mapSupport[x][1], abs(n - self._mapSupport[x][2]))
-        #for x, y in self._mapSupport.items():
-        #    print(x, y)
         plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        #print(plist)
         for i in plist:
-            #print(self._tidList[i])
             if len(self._finalPatterns) >= self._k:
                 break
             else:
                 self._finalPatterns[i] = self._mapSupport[i][1]
         self._maximum = max([self._finalPatterns[i] for i in self._finalPatterns.keys()])
         plist = list(self._finalPatterns.keys())
-        #print(len(plist))
         return plist
 
 
@@ -250,8 +244,6 @@ class kPFPMiner(_ab._frequentPatterns):
                 self._maximum = max([i for i in self._finalPatterns.values()])
         else:
             for x, y in sorted(self._finalPatterns.items(), key=lambda x: x[1], reverse=True):
-                #print("Hello")
-                #print(x, y)
                 if val < y:
                     del self._finalPatterns[x]
                     self._finalPatterns[sample] = val
@@ -343,7 +335,7 @@ class kPFPMiner(_ab._frequentPatterns):
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             self._Generation(itemSetX, itemSets, tidSets)
-        print("FAE has successfully generated top-k frequent patterns")
+        print("kPFPMiner has successfully generated top-k frequent patterns")
         self._endTime = _ab._time.time()
         self._memoryUSS = float()
         self._memoryRSS = float()
@@ -396,7 +388,7 @@ class kPFPMiner(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'periodicity'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -417,6 +409,12 @@ class kPFPMiner(_ab._frequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+
+    def printResults(self):
+        print("Total number of  Top-k Periodic Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":

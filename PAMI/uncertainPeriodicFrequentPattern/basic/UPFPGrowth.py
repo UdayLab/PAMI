@@ -324,7 +324,6 @@ class _Tree(object):
             s = 0
             for x in self.summaries[i]:
                 s += x.probability
-            print(pattern, self.info[i], s)
             periodic[tuple(pattern)] = self.info[i]
             if s >= _minSup:
                 patterns, timeStamps, support, info = self.getConditionalPatterns(i)
@@ -505,16 +504,17 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
                 for line in data:
-                    line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
-                    tr = [int(temp[0])]
-                    for i in temp[1:]:
-                        i1 = i.index('(')
-                        i2 = i.index(')')
-                        item = i[0:i1]
-                        probability = float(i[i1 + 1:i2])
+                    line = line.strip()
+                    line = [i for i in line.split(':')]
+                    temp1 = [i.rstrip() for i in line[0].split(self._sep)]
+                    temp2 = [i.rstrip() for i in line[1].split(self._sep)]
+                    temp1 = [x for x in temp1 if x]
+                    temp2 = [x for x in temp2 if x]
+                    tr = [int(temp1[0])]
+                    for i in range(len(temp1[1:])):
+                        item = temp1[i]
+                        probability = float(temp2[i])
                         product = _Item(item, probability)
                         tr.append(product)
                     self._lno += 1
@@ -525,14 +525,16 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
                     with open(self._iFile, 'r') as f:
                         for line in f:
                             #count += 1
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
-                            tr = [int(temp[0])]
-                            for i in temp[1:]:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                probability = float(i[i1 + 1:i2])
+                            line = line.strip()
+                            line = [i for i in line.split(':')]
+                            temp1 = [i.rstrip() for i in line[0].split(self._sep)]
+                            temp2 = [i.rstrip() for i in line[1].split(self._sep)]
+                            temp1 = [x for x in temp1 if x]
+                            temp2 = [x for x in temp2 if x]
+                            tr = [int(temp1[0])]
+                            for i in range(len(temp1[1:])):
+                                item = temp1[i]
+                                probability = float(temp2[i])
                                 product = _Item(item, probability)
                                 tr.append(product)
                             self._lno += 1
@@ -812,17 +814,15 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        l = [0.2, 0.5, 0.9, 1.3, 1.5]
-        for i in l:
-            ap = UPFPGrowth('sample1', i, 4, ' ')
-            ap.startMine()
-            Patterns = ap.getPatterns()
-            print("Total number of Patterns:", len(Patterns))
-            ap.save('/Users/Likhitha/Downloads/uncertain/output.txt')
-            memUSS = ap.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = ap.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = ap.getRuntime()
-            print("Total ExecutionTime in ms:", run)
+        ap = UPFPGrowth('/Users/likhitha/Downloads/uncertainTemporal_T10I4D100K.csv', 500, 5000, '\t')
+        ap.startMine()
+        Patterns = ap.getPatterns()
+        print("Total number of Patterns:", len(Patterns))
+        ap.save('/Users/Likhitha/Downloads/uncertain/output.txt')
+        memUSS = ap.getMemoryUSS()
+        print("Total Memory in USS:", memUSS)
+        memRSS = ap.getMemoryRSS()
+        print("Total Memory in RSS", memRSS)
+        run = ap.getRuntime()
+        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
