@@ -125,13 +125,13 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 
 | Basic |
 |-------|
-| HUFIM |
+| HUFIM [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/hitghUtilityFrequent/basic/HUFIM/HUFIM-st-2.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/hitghUtilityFrequent/basic/HUFIM/HUFIM-ad.md)|
     
 12. High utility frequent spatial pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtilitySpatialPatternMining.html)
 
 | Basic  |
 |--------|
-| SHUFIM |
+| SHUFIM [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/hitghUtilityFrequent/spatial/SHUFIM-st%20.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/hitghUtilityFrequent/spatial/SHUFIM-ad.md)|
  
 
      
