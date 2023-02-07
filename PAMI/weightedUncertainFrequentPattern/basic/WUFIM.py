@@ -338,9 +338,9 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     Sample run of importing the code:
     -------------------
-        from PAMI.weightedUncertainFrequentPattern.basic import WFIM as alg
+        from PAMI.weightedUncertainFrequentPattern.basic import WUFIM as alg
 
-        obj = alg.WFIM(iFile, wFile, expSup, expWSup)
+        obj = alg.WUFIM(iFile, wFile, expSup, expWSup)
 
         obj.startMine()
 
@@ -411,31 +411,34 @@ class WUFIM(_ab._weightedFrequentPatterns):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
                 for line in data:
-                    line.strip()
                     line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
+                    line = line.strip()
+                    line = [i for i in line.split(':')]
+                    temp1 = [i.rstrip() for i in line[0].split(self._sep)]
+                    temp2 = [i.rstrip() for i in line[1].split(self._sep)]
+                    temp1 = [x for x in temp1 if x]
+                    temp2 = [x for x in temp2 if x]
                     tr = []
-                    for i in temp:
-                        i1 = i.index('(')
-                        i2 = i.index(')')
-                        item = i[0:i1]
-                        probability = float(i[i1 + 1:i2])
+                    for i in range(len(temp1)):
+                        item = temp1[i]
+                        probability = float(temp2[i])
                         product = _Item(item, probability)
                         tr.append(product)
-                    self._Database.append(temp)
+                    self._Database.append(tr)
             else:
                 try:
                     with open(self._iFile, 'r') as f:
                         for line in f:
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
+                            line = line.strip()
+                            line = [i for i in line.split(':')]
+                            temp1 = [i.rstrip() for i in line[0].split(self._sep)]
+                            temp2 = [i.rstrip() for i in line[1].split(self._sep)]
+                            temp1 = [x for x in temp1 if x]
+                            temp2 = [x for x in temp2 if x]
                             tr = []
-                            for i in temp:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                probability = float(i[i1 + 1:i2])
+                            for i in range(len(temp1)):
+                                item = temp1[i]
+                                probability = float(temp2[i])
                                 product = _Item(item, probability)
                                 tr.append(product)
                             self._Database.append(tr)
@@ -490,7 +493,8 @@ class WUFIM(_ab._weightedFrequentPatterns):
         for i in self._Database:
             for j in i:
                 if j.item not in mapSupport:
-                    mapSupport[j.item] = [j.probability, self._weights[j.item]]
+                    if self._weights.get(j.item) is not None:
+                        mapSupport[j.item] = [j.probability, self._weights[j.item]]
                 else:
                     mapSupport[j.item][0] += j.probability
         mapSupport = {k: v[0] for k, v in mapSupport.items() if v[0] >= self._expSup and v[0] * v[1] >= self._expWSup}
@@ -626,7 +630,6 @@ class WUFIM(_ab._weightedFrequentPatterns):
         self._expWSup = float(self._expWSup)
         _expSup = self._expSup
         _expWSup = self._expWSup
-        print(_expSup, _expWSup)
         self._finalPatterns = {}
         mapSupport, plist = self._frequentOneItem()
         self.Database1 = self._updateTransactions(mapSupport)
@@ -694,7 +697,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         for x, y in self._finalPatterns.items():
             s = str()
             for i in x:
-                s = s  + i + "\t"
+                s = s + i + "\t"
             s1 = s.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -720,10 +723,18 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = WUFIM(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
-        print("Total number of Weighted Ucertain Patterns:", len(_ap.getPatterns()))
+        print("Total number of Weighted Uncertain Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
+        _ap = WUFIM('/Users/likhitha/Downloads/uncertainTransaction_T10I4D200K.csv', '/Users/likhitha/Downloads/T10_weights.txt',
+                    100, 50, '\t')
+        _ap.startMine()
+        print("Total number of Weighted Ucertain Patterns:", len(_ap.getPatterns()))
+        _ap.save('/Users/likhitha/Downloads/WUFIM_output.txt')
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")
