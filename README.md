@@ -139,8 +139,8 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 
 | Basic  | topk    |
 |--------|---------|
-| HDSHIM | TKSHUIM |
-| SHUIM  |
+| HDSHIM [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/highUtilityPatterns/spatial/HDSHUIM/HDSHUIM-st%20-2.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/highUtilityPatterns/spatial/HDSHUIM/HDSHUIM-ad.md)| TKSHUIM |
+| SHUIM  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/highUtilityPatterns/spatial/SHUM/SHUIM-st.md)|
 
 14. Periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicFrequentPatternMining.html)
 
