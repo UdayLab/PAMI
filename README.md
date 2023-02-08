@@ -247,7 +247,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 | WFRIMiner |
     
     
-29. Weighted frequent neighbourhood pattern mining: TO BE WRITTEN
+29. Weighted frequent neighbourhood pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/docs/weightedSpatialFrequentPattern.html)
     
 | Basic       |
 |-------------|
