@@ -225,7 +225,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
     
 | Basic |
 |-------|
-| RHUIM | 
+| RHUIM [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/highUtilityPatterns/relative/RHUIM-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/highUtilityPatterns/relative/RHUIM-ad.md)| 
 
     
 26. Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentPattern.html)
