@@ -161,9 +161,9 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 
 | Basic       |
 |-------------|
-| LPPGrowth   |
-| LPPMBreadth |
-| LPPMDepth   |
+| LPPGrowth   [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/localPeriodicPatterns/basic/LPPGrowth/LPPGrowth-st.md)|
+| LPPMBreadth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/localPeriodicPatterns/basic/LPPMBreadth/LPPMBreadth-st.md)|
+| LPPMDepth   [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/localPeriodicPatterns/basic/LPPMDepth/LPPMDepth-st.md)|
     
 17. Partial periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/partialPeriodicFrequentPattern.html)
 
@@ -238,7 +238,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
     
 | Basic |
 |-------|
-| WUFIM |
+| WUFIM [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/weightedUncertain/WUFIM-st.md)|
     
 28. Weighted frequent regular pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentRegularPatterns.html)
     
