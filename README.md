@@ -213,7 +213,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 | Basic       |
 |-------------|
 | UPFP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainPeriodicFrequent/basic/UPFPGrowth/UPFPGrowth-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainPeriodicFrequent/basic/UPFPGrowth/UPFPGrowth-ad.md) |
-| UPFP-growth++ [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainPeriodicFrequent/basic/UPFPGrowthPlus/UPFPGrowthPlus-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainPeriodicFrequent/basic/UPFPGrowthPlus/UPFPGrowthPlus-ad.md)|
+| UPFP-growth++ [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainPeriodicFrequent/basic/UPFPGrowthPlus/UPFPGrowthPlus-st.md)|
      
 24. Recurring pattern mining: [Sample](https://udayrage.github.io/PAMI/RecurringPatterns.html)
 
