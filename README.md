@@ -221,7 +221,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 |----------|
 | RPgrowth |
      
-25. Relative High utility pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/relativeUtility.pdf)
+25. Relative High utility pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/relativeUtility.html)
     
 | Basic |
 |-------|
