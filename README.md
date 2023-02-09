@@ -193,10 +193,10 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 
 21. Stable periodic pattern mining: [Sample](https://udayrage.github.io/PAMI/stablePeriodicPatterns.html)
     
-| Basic      |
-|------------|
-| SPP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-ad%20.md)|
-| SPP-ECLAT  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPEclat/SPPECLAT-st-2.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPEclat/SPPECLAT-ad%20.md) |
+| Basic      | TopK |
+|------------|------|
+| SPP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-ad%20.md)| TSPIN  |
+| SPP-ECLAT  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPEclat/SPPECLAT-st-2.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPEclat/SPPECLAT-ad%20.md) |  |
 
     
 22. Uncertain frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainFrequentPatternMining.html)
@@ -252,6 +252,13 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 | Basic       |
 |-------------|
 | SSWFPGrowth |
+
+30. Sequence frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/docs/weightedSpatialFrequentPattern.html)
+    
+| Basic       |
+|-------------|
+| SPADE |
+| prefixSpan |
  
  
      
