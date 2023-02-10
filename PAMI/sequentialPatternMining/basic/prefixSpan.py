@@ -15,9 +15,9 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from sequentialPatternMining.basic import abstract as _ab
-import sys
+
 import copy
-sys.setrecursionlimit(10000)
+_ab._sys.setrecursionlimit(10000)
 
 class PrefixSpan(_ab._sequentialPatterns):
     """
