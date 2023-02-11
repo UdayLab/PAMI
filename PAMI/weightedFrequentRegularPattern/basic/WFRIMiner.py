@@ -525,7 +525,10 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             self._mapSupport[key][0] = max(self._mapSupport[key][0], abs(len(self._Database) - self._mapSupport[key][1]))
         _lno = len(self._Database)
         self._mapSupport = {k: [v[2], v[0]] for k, v in self._mapSupport.items() if v[0] <= self._regularity}
-        gmax = max([self._weight[values] for values in self._mapSupport])
+        for x, y in self._mapSupport.items():
+            if self._weight.get(x) is None:
+                self._weight[x] = 0
+        gmax = max([self._weight[values] for values in self._mapSupport.keys()])
         for x, y in self._mapSupport.items():
             _owf[x] = y[0] * gmax
         self._mapSupport = {k: v for k, v in self._mapSupport.items() if v[0] * _owf[k] >= self._WS}

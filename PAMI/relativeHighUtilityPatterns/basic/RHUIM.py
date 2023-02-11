@@ -255,7 +255,10 @@ class RHUIM(_ab._utilityPatterns):
     
     Reference:
     ---------
-        yet to be updated
+        R. U. Kiran, P. Pallikila, J. M. Luna, P. Fournier-Viger, M. Toyoda and P. K. Reddy,
+        "Discovering Relative High Utility Itemsets in Very Large Transactional Databases Using Null-Invariant Measure,"
+        2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 252-262,
+        doi: 10.1109/BigData52589.2021.9672064.
     
     Attributes:
     -----------
@@ -780,4 +783,11 @@ if __name__ == '__main__':
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
+        _ap = RHUIM('/Users/likhitha/Downloads/utility_datasets/Utility_T10I4D100K.csv', 150000, 0.6, '\t')
+        _ap.startMine()
+        print("Total number of Relative High Utility Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")

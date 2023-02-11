@@ -197,7 +197,6 @@ class _Tree(object):
                     conditionalTree.generatePatterns(pattern, patterns, maximalTree)
                 else:
                     maximalTree.addTransaction(pattern)
-                    #s = convert(pattern)
                     patterns[tuple(pattern)] = self.info[i]
             self.removeNode(i)
 

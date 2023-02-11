@@ -222,7 +222,7 @@ class _Tree(object):
             del i.parent.children[nodeValue]
             i = None
 
-    def generatePatterns(self, prefix, patterns):
+    def generatePatterns(self, prefix, patterns, maximalTree):
         """
         generates the patterns
 
@@ -230,7 +230,6 @@ class _Tree(object):
 
         :return: the maximal frequent patterns
         """
-        global maximalTree
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
@@ -362,7 +361,7 @@ class _MPTree(object):
 
 
 # Initialising the  variable for maximal tree
-maximalTree = _MPTree()
+#maximalTree = _MPTree()
 
 
 class MaxFPGrowth(_ab._frequentPatterns):
@@ -493,6 +492,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
     _rank = {}
     _rankdup = {}
     _lno = 0
+    _maximalTree = str()
 
     def _creatingItemSets(self):
         """
@@ -637,7 +637,8 @@ class MaxFPGrowth(_ab._frequentPatterns):
         info = {self._rank[k]: v for k, v in generatedItems.items()}
         patterns = {}
         self._finalPatterns = {}
-        Tree = self._buildTree(updatedTransactions, info)
+        self._maximalTree = _MPTree()
+        Tree = self._buildTree(updatedTransactions, info, self._maximalTree)
         Tree.generatePatterns([], patterns)
         for x, y in patterns.items():
             pattern = str()

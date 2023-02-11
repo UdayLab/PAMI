@@ -680,4 +680,11 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
+        _ap = RPGrowth('/Users/likhitha/Downloads/temporal_T10I4D100K.csv', 100, 5000, 30, '\t')
+        _ap.startMine()
+        print("Total number of Patterns:", len(_ap.getPatterns()))
+        _ap.save('/Users/likhitha/Downloads/RPGrowth_output.txt')
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")

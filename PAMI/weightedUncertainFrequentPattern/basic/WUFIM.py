@@ -18,8 +18,8 @@ from PAMI.weightedUncertainFrequentPattern.basic import abstract as _ab
 _expSup = str()
 _expWSup = str()
 _weights = {}
-_ab._sys.setrecursionlimit(20000)
 _finalPatterns = {}
+_ab._sys.setrecursionlimit(20000)
 
 
 class _Item:
@@ -236,13 +236,12 @@ class _Tree(object):
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x))):
             pattern = prefix[:]
             pattern.append(i)
-            s = 0
             weight = 0
             for k in pattern:
                 weight = weight + _weights[k]
             weight = weight/len(pattern)
             if self.info.get(i) >= _expSup and self.info.get(i) * weight >= _expWSup:
-                _finalPatterns[tuple(pattern)] = self.info[i]
+                _finalPatterns[tuple(pattern)] = self.info.get(i)
                 patterns, support, info = self.conditionalPatterns(i)
                 conditionalTree = _Tree()
                 conditionalTree.info = info.copy()
@@ -596,22 +595,11 @@ class WUFIM(_ab._weightedFrequentPatterns):
                         else:
                             periods[x] = s
         for x, y in periods.items():
-            weights = []
-            count = 0
             weight = 0
-            for i in self._Database:
-                items = []
-                for k in i:
-                    items.append(k.item)
-                if set(x) .issubset(set(items)):
-                    count += 1
-                    for k in x:
-                        weight = self._weights[k]
-                    weight = weight / len(x)
-                    weights.append(weight)
-            weight = weight / count
-            print(x, y, weight)
-            if y >= self._expSup and y * weight >= self._expWSup:
+            for i in x:
+                weight += self._weights[i]
+            weight = weight / len(x)
+            if weight * y >= self._expWSup:
                 sample = str()
                 for i in x:
                     sample = sample + i + "\t"
@@ -623,6 +611,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         """
         global _expSup, _expWSup, _weights, _finalPatterns
         self._startTime = _ab._time.time()
+        self._Database, self._weights = [], {}
         self._creatingItemSets()
         self._scanningWeights()
         _weights = self._weights
@@ -636,9 +625,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         info = {k: v for k, v in mapSupport.items()}
         Tree1 = self._buildTree(self.Database1, info)
         Tree1.generatePatterns([])
-        #self._removeFalsePositives()
-        #print(_finalPatterns)
-        self._finalPatterns = _finalPatterns
+        self._removeFalsePositives()
         print("Weighted Frequent patterns were generated  successfully using WUFIM algorithm")
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -729,12 +716,4 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = WUFIM('/Users/likhitha/Downloads/uncertainTransaction_T10I4D200K.csv', '/Users/likhitha/Downloads/T10_weights.txt',
-                    100, 50, '\t')
-        _ap.startMine()
-        print("Total number of Weighted Ucertain Patterns:", len(_ap.getPatterns()))
-        _ap.save('/Users/likhitha/Downloads/WUFIM_output.txt')
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")

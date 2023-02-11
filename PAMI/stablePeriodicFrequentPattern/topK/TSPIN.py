@@ -12,7 +12,6 @@
 #
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import sys
 
 from PAMI.stablePeriodicFrequentPattern.topK import abstract as _ab
 
@@ -251,7 +250,6 @@ class _Tree(object):
             Qk[tuple(pattern)] = self.info[i]
             if len(Qk) >= _k:
                 minSup = min([v[0] for v in Qk.values()])
-            print(_k, minSup)
             if len(Qk) > _k:
                 temp = min([v[0] for v in Qk.values()])
                 res = [key for key in Qk if Qk[key] == temp]
@@ -272,7 +270,8 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
     Reference:
     --------
-        https://www.philippe-fournier-viger.com/TSPIN_topk_stable.pdf
+        Fournier-Viger, P., Wang, Y., Yang, P. et al. TSPIN: mining top-k stable periodic patterns.
+        Appl Intell 52, 6917–6938 (2022). https://doi.org/10.1007/s10489-020-02181-6
 
     Attributes:
     ----------
@@ -345,11 +344,11 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         -------
         Format:
         ------
-        python3 TSPIN.py <inputFile> <outputFile> <maxPer> <maxLa>
+        python3 TSPIN.py <inputFile> <outputFile> <k> <maxPer> <maxLa>
 
         Examples:
         --------
-        python3 TSPIN.py sampleTDB.txt patterns.txt 0.3 0.4 0.6   (maxPer, maxLa and k will be considered in percentage of database
+        python3 TSPIN.py sampleTDB.txt patterns.txt 7 0.4 0.6   (maxPer, maxLa and k will be considered in percentage of database
         transactions)
 
         python3 TSPIN.py sampleTDB.txt patterns.txt 3 4 6    (maxPer, maxLa and k will be considered in support count or frequency)
@@ -359,13 +358,13 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
             from PAMI.stablePeriodicFrequentPattern.basic import TSPIN as alg
 
-            obj = alg.TSPIN(iFile, maxPer, maxLa, k)
+            obj = alg.TSPIN(iFile, k, maxPer, maxLa)
 
             obj.startMine()
 
             stablePeriodicFrequentPatterns = obj.getPatterns()
 
-            print("Total number of Periodic Frequent Patterns:", len(stablePeriodicFrequentPatterns))
+            print("Total number of Top-K Stable Periodic Patterns:", len(stablePeriodicFrequentPatterns))
 
             obj.save(oFile)
 
@@ -564,7 +563,6 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         self._maxPer = self._convert(self._maxPer)
         self._k = self._convert(self._k)
         _maxLa, _maxPer, _k, _lno = self._maxLa, self._maxPer, self._k, len(self._Database)
-        print(_maxPer, _maxLa, _k)
         if self._maxLa > len(self._Database):
             raise Exception("Please enter the minSup in range between 0 to 1")
         generatedItems, pfList = self._periodicFrequentOneItem()
@@ -585,7 +583,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Periodic Frequent patterns were generated successfully using PFPGrowth algorithm ")
+        print("Top-K Stable Periodic patterns were generated successfully using TSPIN algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -654,9 +652,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
         if len(_ab._sys.argv) == 7:
-            _ap = TSPIN(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], sys.argv[6])
+            _ap = TSPIN(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         if len(_ab._sys.argv) == 6:
-            _ap = TSPIN(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], sys.argv[5])
+            _ap = TSPIN(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
@@ -668,7 +666,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = TSPIN('/Users/Likhitha/Downloads/SPP_sample.txt', 2, 1, 1, ' ')
+        _ap = TSPIN('/Users/Likhitha/Downloads/SPP_sample.txt', 5, 1, 1, ' ')
         _ap.startMine()
         print(len(_ap._Database))
         _Patterns = _ap.getPatterns()

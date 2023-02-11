@@ -238,7 +238,6 @@ class HDSHUIM(_ab._utilityPatterns):
                 for i in range(1, len(parts)):
                     neigh1.append(parts[i])
                 self._neighbors[item] = set(neigh1)
-        #print(len(self._neighbors))
         with open(self._iFile, 'r') as file:
             for line in file:
                 parts = line.split(":")
@@ -647,11 +646,11 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        for i in [10000, 50000]:
-            _ap = HDSHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt', '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
+        for i in [100000, 500000]:
+            _ap = HDSHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt',
+                    '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
             _ap.startMine()
             print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
-            #_ap.save(_ab._sys.argv[2])
             print("Total Memory in USS:", _ap.getMemoryUSS())
             print("Total Memory in RSS", _ap.getMemoryRSS())
             print("Total ExecutionTime in seconds:", _ap.getRuntime())

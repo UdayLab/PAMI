@@ -818,4 +818,12 @@ if __name__ == '__main__':
         print("Total Memory in RSS",  _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
+        for i in [1000, 5000]:
+            _ap = TKSHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt',
+                    '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
+            _ap.startMine()
+            print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
+            print("Total Memory in USS:", _ap.getMemoryUSS())
+            print("Total Memory in RSS", _ap.getMemoryRSS())
+            print("Total ExecutionTime in seconds:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")
