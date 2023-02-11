@@ -663,7 +663,6 @@ class SPADE(_ab._sequentialPatterns):
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
-        print(self._minSup)
         self.make1LenDatabase()
         self.make2LenDatabase()
         self.make3LenDatabase()
