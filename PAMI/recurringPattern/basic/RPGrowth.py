@@ -625,9 +625,11 @@ class RPGrowth(_ab._recurringPatterns):
             for i in a:
                 s = s + i + ' '
             z = []
-            for k in b[1]:
-                z.append({[k[0], k[1]], k[2]})
-            data.append([s.replace('\t', ' '), b[1], len(b[1]), z])
+            str1 = '{'
+            for z in b[0]:
+                str1 += '{' + str([z[0], z[1]]) + ' : ' + str(z[2]) + '}'
+            str1 += '}'
+            data.append([s.replace('\t', ' '), b[1], len(b[0]), str1])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Recurrance', 'intervals'])
         return dataFrame
 
@@ -680,11 +682,4 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = RPGrowth('/Users/likhitha/Downloads/temporal_T10I4D100K.csv', 100, 5000, 30, '\t')
-        _ap.startMine()
-        print("Total number of Patterns:", len(_ap.getPatterns()))
-        _ap.save('/Users/likhitha/Downloads/RPGrowth_output.txt')
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")
