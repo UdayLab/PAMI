@@ -219,7 +219,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 
 | Basic    |
 |----------|
-| RPgrowth |
+| RPgrowth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/recurring/RPGrowth-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/recurring/RPGrowth-ad.md)|
      
 25. Relative High utility pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/sampleManuals/mainManuals/relativeUtility.html)
     
@@ -257,8 +257,8 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
     
 | Basic       |
 |-------------|
-| SPADE |
-| prefixSpan |
+| SPADE [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/SPADE/Spade-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/SPADE/Spade-ad.md)|
+| prefixSpan [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/prefixSpan/PrifixSpan-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/prefixSpan/PrifixSpan-ad.md)|
  
  
      
