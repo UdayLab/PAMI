@@ -615,7 +615,7 @@ class PUFGrowth(_ab._frequentPatterns):
         :return: returning frequent patterns
         :rtype: dict
         """
-        return len(self._finalPatterns)
+        return self._finalPatterns
 
     def printResults(self):
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))

@@ -716,4 +716,13 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
+        for k in [120, 140, 160, 180, 200]:
+            _ap = WUFIM('/Users/likhitha/Downloads/uncertainTransaction_T10I4D200K.csv', '/Users/likhitha/Downloads/T10_weights.txt',
+                        k, 500, '\t')
+            _ap.startMine()
+            print("Total number of Weighted Uncertain Frequent Patterns:", len(_ap.getPatterns()))
+            _ap.save('/Users/likhitha/Downloads/WUFIM_output.txt')
+            print("Total Memory in USS:", _ap.getMemoryUSS())
+            print("Total Memory in RSS", _ap.getMemoryRSS())
+            print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")

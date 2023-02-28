@@ -26,6 +26,7 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# from abc import ABC as _ABC, abstractmethod as _abstractmethod
 from abc import ABC as _ABC, abstractmethod as _abstractmethod
 import time as _time
 import csv as _csv
@@ -41,13 +42,13 @@ from urllib.request import urlopen as _urlopen
 import functools as _functools
 
 
-class _fuzzyFrequentPattenrs(_ABC):
+class _convert(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
 
-    Attributes :
-    ----------
+       Attributes:
+       ----------
         iFile : str
             Input file name or path of the input file
         minSup: integer or float or str
@@ -71,8 +72,8 @@ class _fuzzyFrequentPattenrs(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-    Methods :
-    -------
+       Methods:
+       -------
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -90,10 +91,10 @@ class _fuzzyFrequentPattenrs(_ABC):
 
     """
 
-    def __init__(self, iFile, fuzFile, minSup, sep="\t"):
+    def __init__(self, iFile, fuzFile, oFile, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
-        :type iFile: str
+        :type iFile: str or DataFrame
         :param minSup: The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -106,63 +107,10 @@ class _fuzzyFrequentPattenrs(_ABC):
         self._iFile = iFile
         self._fuzFile = fuzFile
         self._sep = sep
-        self._minSup = minSup
-        self._startTime = float()
-        self._endTime = float()
-        self._memoryUSS = float()
-        self._memoryRSS = float()
         self._oFile = str()
-        self._finalPatterns = {}
 
     @_abstractmethod
-    def startMine(self):
+    def startConvert(self):
         """Code for the mining process will start from this function"""
-
-        pass
-
-    @_abstractmethod
-    def getPatterns(self):
-        """Complete set of frequent patterns generated will be retrieved from this function"""
-
-        pass
-
-    @_abstractmethod
-    def save(self, oFile):
-        """Complete set of frequent patterns will be saved in to an output file from this function
-
-        :param oFile: Name of the output file
-        :type oFile: file
-        """
-
-        pass
-
-    @_abstractmethod
-    def getPatternsAsDataFrame(self):
-        """Complete set of frequent patterns will be loaded in to data frame from this function"""
-
-        pass
-
-    @_abstractmethod
-    def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the program will be retrieved from this function"""
-
-        pass
-
-    @_abstractmethod
-    def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the program will be retrieved from this function"""
-
-        pass
-
-
-    @_abstractmethod
-    def getRuntime(self):
-        """Total amount of runtime taken by the program will be retrieved from this function"""
-
-
-
-    @_abstractmethod
-    def printResults(self):
-        """ To print all the results of execution"""
 
         pass
