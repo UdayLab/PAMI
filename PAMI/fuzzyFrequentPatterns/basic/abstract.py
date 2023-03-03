@@ -90,7 +90,7 @@ class _fuzzyFrequentPattenrs(_ABC):
 
     """
 
-    def __init__(self, iFile, fuzFile, minSup, sep="\t"):
+    def __init__(self, iFile, minSup, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -104,7 +104,6 @@ class _fuzzyFrequentPattenrs(_ABC):
         """
 
         self._iFile = iFile
-        self._fuzFile = fuzFile
         self._sep = sep
         self._minSup = minSup
         self._startTime = float()

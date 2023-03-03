@@ -11,9 +11,8 @@ In this tutorial, we will discuss the first approach to find Fuzzy Periodic Freq
 
 #### Step 1: Import the FPFPMiner algorithm
 
-
 ```python
-from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner  as alg
+from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner_old  as alg
 ```
 
 #### Step 2: Specify the following input parameters

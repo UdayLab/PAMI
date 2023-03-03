@@ -194,8 +194,7 @@ class _Tree(object):
         for i in pattern:
             l.append(_frequentList[i])
         rs = per/abs(min(l) - 1)
-        #print(pattern, sup, per, l, rs)
-        return [per, rs, len(timeStamps)]
+        return [per, rs]
 
     def _conditionalTransactions(self, conditionalPatterns, conditionalTimeStamps, temp):
         """ It generates the conditional patterns with periodic frequent items
@@ -540,7 +539,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         self._creatingItemSets()
         generatedItems, pfList = self._partialPeriodicOneItem()
         _periodicSupport, _period, _relativePS, _lno = self._periodicSupport, self._period, self._relativePS, len(self._Database)
-        print(_periodicSupport, _period, _relativePS)
+        # print(_periodicSupport, _period, _relativePS)
         updatedTransactions = self._updateTransactions(generatedItems)
         for x, y in self._rank.items():
             self._rankdup[y] = x
@@ -648,8 +647,6 @@ if __name__ == "__main__":
             ap.startMine()
             Patterns = ap.getPatterns()
             print("Total number of  Patterns:", len(Patterns))
-            #for x, y in Patterns.items():
-                #print(x, y)
             ap.save('/Users/Likhitha/Downloads/output')
             memUSS = ap.getMemoryUSS()
             print("Total Memory in USS:", memUSS)

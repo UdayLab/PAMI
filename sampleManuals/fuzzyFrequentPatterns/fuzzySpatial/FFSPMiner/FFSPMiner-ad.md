@@ -10,9 +10,8 @@ In this tutorial, we will discuss the first approach to find Fuzzy Frequent Spat
 
 #### Step 1: Import the FFSPMiner algorithm and pandas data frame
 
-
 ```python
-from PAMI.fuzzyFrequentSpatialPattern.basic import FFSPMiner  as alg
+from PAMI.fuzzyFrequentSpatialPattern.basic import FFSPMiner_old  as alg
 import pandas as pd
 ```
 

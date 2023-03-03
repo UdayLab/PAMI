@@ -154,21 +154,20 @@ __Example:__ python3 `FFSPMiner.py` `inputFile.txt` `outputFile.txt` `neighbourF
 - Install the PAMI package from the PYPI repository by executing the following command:   **pip3 install PAMI**
 * Run the below sample code by making necessary changes
 
-
 ```python
-import PAMI.fuzzyFrequentSpatialPattern.basic.FFSPMiner as alg 
+import PAMI.fuzzyFrequentSpatialPattern.basic.FFSPMiner_old as alg
 
-iFile = 'fuzzyTransactionalDatabase.txt'              #specify the input fuzzy database 
-minSup = 4                              #specify the minSup value 
-seperator = ' '                          #specify the seperator of input file 
-oFile = 'fuzzySpatialPatterns.txt'      #specify the output file name
-nFile = 'sampleNeighbourFile.txt'      #specify the neighbour file of database
+iFile = 'fuzzyTransactionalDatabase.txt'  # specify the input fuzzy database 
+minSup = 4  # specify the minSup value 
+seperator = ' '  # specify the seperator of input file 
+oFile = 'fuzzySpatialPatterns.txt'  # specify the output file name
+nFile = 'sampleNeighbourFile.txt'  # specify the neighbour file of database
 
-obj = alg.FFSPMiner(iFile, nFile, minSup, seperator) #initialize the algorithm 
-obj.startMine()                       #start the mining process 
-obj.save(oFile)               #store the patterns in file 
-df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe
-obj.printResults()                      #Print the statistics of mining process
+obj = alg.FFSPMiner(iFile, nFile, minSup, seperator)  # initialize the algorithm 
+obj.startMine()  # start the mining process 
+obj.save(oFile)  # store the patterns in file 
+df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe
+obj.printResults()  # Print the statistics of mining process
 ```
 
     Total number of Spatial Fuzzy Frequent Patterns: 5

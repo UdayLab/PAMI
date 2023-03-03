@@ -113,20 +113,19 @@ __Example:__ python3 `FFIMiner.py` `inputFile.txt` `outputFile.txt` `5` &nbsp; `
 - Install the PAMI package from the PYPI repository by executing the following command:   **pip3 install PAMI**
 * Run the below sample code by making necessary changes
 
-
 ```python
-import PAMI.fuzzyFrequentPatterns.basic.FFIMiner as alg 
+import PAMI.fuzzyFrequentPatterns.basic.FFIMiner_old as alg
 
-iFile = 'fuzzyTransactionalDatabase.txt'    #specify the input utility database 
-minSup = 4                     #specify the minSupvalue 
-seperator = ' '                #specify the seperator. Default seperator is tab space. 
-oFile = 'fuzzyPatterns.txt'   #specify the output file name
+iFile = 'fuzzyTransactionalDatabase.txt'  # specify the input utility database 
+minSup = 4  # specify the minSupvalue 
+seperator = ' '  # specify the seperator. Default seperator is tab space. 
+oFile = 'fuzzyPatterns.txt'  # specify the output file name
 
-obj = alg.FFIMiner(iFile, minSup, seperator) #initialize the algorithm 
-obj.startMine()                       #start the mining process 
-obj.save(oFile)               #store the patterns in file 
-df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
-obj.printResults()                      #Print the statistics of mining process
+obj = alg.FFIMiner(iFile, minSup, seperator)  # initialize the algorithm 
+obj.startMine()  # start the mining process 
+obj.save(oFile)  # store the patterns in file 
+df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe 
+obj.printResults()  # Print the statistics of mining process
 ```
 
     Total number of Fuzzy Frequent Patterns: 7

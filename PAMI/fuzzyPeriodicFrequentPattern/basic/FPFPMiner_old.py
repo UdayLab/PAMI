@@ -106,6 +106,43 @@ class _Element:
         self.period = period
 
 
+class _Regions:
+    """
+        A class calculate the regions
+
+    Attributes:
+    ----------
+            low : int
+                low region value
+            middle: int
+                middle region value
+            high : int
+                high region values
+        """
+
+    def __init__(self, quantity, regionsNumber):
+        self.low = 0
+        self.middle = 0
+        self.high = 0
+        if regionsNumber == 3:  # if we have 3 regions
+            if 0 < quantity <= 1:
+                self.low = 1
+                self.high = 0
+                self.middle = 0
+            elif 1 < quantity <= 6:
+                self.low = float((6 - quantity) / 5)
+                self.middle = float((quantity - 1) / 5)
+                self.high = 0
+            elif 6 < quantity <= 11:
+                self.low = 0
+                self.middle = float((11 - quantity) / 5)
+                self.high = float((quantity - 6) / 5)
+            else:
+                self.low = 0
+                self.middle = 0
+                self.high = 1
+
+
 class _Pair:
     """
         A class to store item name and quantity together.
@@ -258,12 +295,16 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         self._oFile = ""
         self._BufferSize = 200
         self._itemSetBuffer = []
+        self._mapItemRegions = {}
         self._mapItemSum = {}
+        self._mapItemsHighSum = {}
         self._finalPatterns = {}
         self._joinsCnt = 0
         self._itemsCnt = 0
+        self._mapItemMidSum = {}
         self._startTime = float()
         self._endTime = float()
+        self._mapItemsLowSum = {}
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._dbLen = 0
@@ -316,12 +357,12 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                     line = line.split("\n")[0]
                     parts = line.split(":")
                     parts[0] = parts[0].strip()
-                    parts[1] = parts[1].strip()
+                    parts[2] = parts[2].strip()
                     items = parts[0].split(self._sep)
-                    quantities = parts[1].split(self._sep)
-                    self._ts.append(int(items[0]))
-                    self._transactions.append([x for x in items[1:]])
-                    self._fuzzyValues.append([float(x) for x in quantities])
+                    quantities = parts[2].split(self._sep)
+                    self._ts.append(count)
+                    self._transactions.append([x for x in items])
+                    self._fuzzyValues.append([x for x in quantities])
                     count += 1
             else:
                 try:
@@ -331,12 +372,12 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                             line = line.split("\n")[0]
                             parts = line.split(":")
                             parts[0] = parts[0].strip()
-                            parts[1] = parts[1].strip()
+                            parts[2] = parts[2].strip()
                             items = parts[0].split(self._sep)
-                            quantities = parts[1].split(self._sep)
-                            self._ts.append(int(items[0]))
-                            self._transactions.append([x for x in items[1:]])
-                            self._fuzzyValues.append([float(x) for x in quantities])
+                            quantities = parts[2].split(self._sep)
+                            self._ts.append(count)
+                            self._transactions.append([x for x in items])
+                            self._fuzzyValues.append([x for x in quantities])
                             count += 1
                 except IOError:
                     print("File Not Found")
@@ -360,18 +401,48 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             if tid < maxTID:
                 maxTID = tid
             for i in range(0, len(items)):
+                regions = _Regions(int(quantities[i]), 3)
                 item = items[i]
-                if item in self._mapItemSum:
-                    self._mapItemSum[item] += quantities[i]
+                if item in self._mapItemsLowSum.keys():
+                    low = self._mapItemsLowSum[item]
+                    low += regions.low
+                    self._mapItemsLowSum[item] = low
                 else:
-                    self._mapItemSum[item] = quantities[i]
+                    self._mapItemsLowSum[item] = regions.low
+                if item in self._mapItemMidSum.keys():
+                    mid = self._mapItemMidSum[item]
+                    mid += regions.middle
+                    self._mapItemMidSum[item] = mid
+                else:
+                    self._mapItemMidSum[item] = regions.middle
+                if item in self._mapItemsHighSum.keys():
+                    high = self._mapItemsHighSum[item]
+                    high += regions.high
+                    self._mapItemsHighSum[item] = high
+                else:
+                    self._mapItemsHighSum[item] = regions.high
         listOfFFIList = []
         mapItemsToFFLIST = {}
         itemsToRegion = {}
-        # self._minSup = self._convert(self._minSup)
+        self._minSup = self._convert(self._minSup)
         self._maxPer = self._convert(self._maxPer)
-        for item1 in self._mapItemSum.keys():
+        for item1 in self._mapItemsLowSum.keys():
             item = item1
+            low = self._mapItemsLowSum[item]
+            mid = self._mapItemMidSum[item]
+            high = self._mapItemsHighSum[item]
+            if low >= mid and low >= high:
+                self._mapItemSum[item] = low
+                self._mapItemRegions[item] = "L"
+                itemsToRegion[item] = "L"
+            elif mid >= low and mid >= high:
+                self._mapItemSum[item] = mid
+                self._mapItemRegions[item] = "M"
+                itemsToRegion[item] = "M"
+            elif high >= low and high >= mid:
+                self._mapItemRegions[item] = "H"
+                self._mapItemSum[item] = high
+                itemsToRegion[item] = "H"
             if self._mapItemSum[item] >= self._minSup:
                 fUList = _FFList(item)
                 k = tuple([item, itemsToRegion.get(item)])
@@ -387,9 +458,15 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             for i in range(0, len(items)):
                 pair = _Pair()
                 pair.item = items[i]
+                regions = _Regions(int(quantities[i]), 3)
                 item = pair.item
-                pair.quantity = quantities[i]
                 if self._mapItemSum[item] >= self._minSup:
+                    if self._mapItemRegions[pair.item] == "L":
+                        pair.quantity = regions.low
+                    elif self._mapItemRegions[pair.item] == "M":
+                        pair.quantity = regions.middle
+                    elif self._mapItemRegions[pair.item] == "H":
+                        pair.quantity = regions.high
                     if pair.quantity > 0:
                         revisedTransaction.append(pair)
             revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
@@ -536,8 +613,8 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         self._itemsCnt += 1
         res = ""
         for i in range(0, prefixLen):
-            res += str(prefix[i]) +  "\t"
-        res += str(item)
+            res += str(prefix[i]) + "." + str(self._mapItemRegions[prefix[i]]) + "\t"
+        res += str(item) + "." + str(self._mapItemRegions.get(item))
         #res1 = str(sumLUtil) + " : " + str(period)
         self._finalPatterns[res] = [sumLUtil, period]
 
@@ -596,12 +673,5 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        _ap = FPFPMiner('sample.txt', 1, 5, ' ')
-        _ap.startMine()
-        print("Total number of Fuzzy Periodic-Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save(_ab._sys.argv[2])
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in seconds:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")
 

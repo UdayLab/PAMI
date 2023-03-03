@@ -16,10 +16,11 @@ class transactionalToFuzzy(_ab._convert):
         self._list = []
         self._transactionsDB = []
         self._fuzzyValuesDB = []
+        self._tsDB = []
         self._fuzzyRegionReferenceMap = {}
 
     def _creatingItemSets(self):
-        self._transactionsDB, self._fuzzyValuesDB = [], []
+        self._transactionsDB, self._fuzzyValuesDB, self._tsDB = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
                 print("its empty..")
@@ -38,7 +39,8 @@ class transactionalToFuzzy(_ab._convert):
                     parts = line.split(":")
                     items = parts[0].split(self._sep)
                     quantities = parts[1].split(self._sep)
-                    self._transactionsDB.append([x for x in items])
+                    self._tsDB.append(int(items[0]))
+                    self._transactionsDB.append([x for x in items[1:]])
                     self._fuzzyValuesDB.append([x for x in quantities])
             else:
                 try:
@@ -50,7 +52,8 @@ class transactionalToFuzzy(_ab._convert):
                             parts[1] = parts[1].strip()
                             items = parts[0].split(self._sep)
                             quantities = parts[1].split(self._sep)
-                            self._transactionsDB.append([x for x in items])
+                            self._tsDB.append(int(items[0]))
+                            self._transactionsDB.append([x for x in items[1:]])
                             self._fuzzyValuesDB.append([x for x in quantities])
                 except IOError:
                     print("File Not Found")
@@ -103,7 +106,7 @@ class transactionalToFuzzy(_ab._convert):
             item_list = self._transactionsDB[line]
             fuzzyValues_list = self._fuzzyValuesDB[line]
             self._dbLen += 1
-            s = str()
+            s = str(self._tsDB[line])
             ss = str()
             for i in range(0, len(item_list)):
                 item = item_list[i]

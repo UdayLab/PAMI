@@ -10,9 +10,8 @@ In this tutorial, we will discuss the second approach to find Fuzzy Periodic Fre
 
 #### Step 1: Import the FPFPMiner algorithm and pandas data frame
 
-
 ```python
-from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner  as alg
+from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner_old  as alg
 import pandas as pd
 ```
 

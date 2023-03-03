@@ -175,12 +175,12 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     Executing the code on terminal :
     -------
         Format:
-            python3 FGPFPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <maxPer> <sep>
+            python3 FGPFPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <maxPer> <sep>
         Examples:
-            python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 3 4  (minSup will be considered in support count or frequency)
-            python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.3 0.4 (minSup and maxPer will be considered in percentage of database)
+            python3  FGPFPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3 4  (minSup will be considered in support count or frequency)
+            python3  FGPFPMiner_old.py sampleTDB.txt output.txt sampleN.txt 0.3 0.4 (minSup and maxPer will be considered in percentage of database)
                                                             (will consider "\t" as separator in both input and neighbourhood files)
-            python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 3 4 ','
+            python3  FGPFPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3 4 ','
                                                               (will consider "," as separator in both input and neighbourhood files)
     Sample run of importing the code:
     -------------------------------
