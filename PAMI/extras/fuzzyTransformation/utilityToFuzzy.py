@@ -1,7 +1,7 @@
-from PAMI.extras.fuzzyTransformation import abstract as _ab
+import abstract as _ab
 
 
-class transactionalToFuzzy(_ab._convert):
+class utilityToFuzzy(_ab._convert):
 
     def __init__(self, iFile, fuzFile, oFile, sep='\t'):
         self._iFile = iFile
@@ -38,9 +38,8 @@ class transactionalToFuzzy(_ab._convert):
                     line = line.split("\n")[0]
                     parts = line.split(":")
                     items = parts[0].split(self._sep)
-                    quantities = parts[1].split(self._sep)
-                    #self._tsDB.append(int(items[0]))
-                    self._transactionsDB.append([x for x in items])
+                    quantities = parts[2].split(self._sep)
+                    self._transactionsDB.append([x for x in items[1:]])
                     self._fuzzyValuesDB.append([x for x in quantities])
             else:
                 try:
@@ -49,11 +48,10 @@ class transactionalToFuzzy(_ab._convert):
                             line = line.strip()
                             parts = line.split(":")
                             parts[0] = parts[0].strip()
-                            parts[1] = parts[1].strip()
+                            parts[2] = parts[2].strip()
                             items = parts[0].split(self._sep)
-                            quantities = parts[1].split(self._sep)
-                            #self._tsDB.append(int(items[0]))
-                            self._transactionsDB.append([x for x in items])
+                            quantities = parts[2].split(self._sep)
+                            self._transactionsDB.append([x for x in items[1:]])
                             self._fuzzyValuesDB.append([x for x in quantities])
                 except IOError:
                     print("File Not Found")
@@ -106,7 +104,7 @@ class transactionalToFuzzy(_ab._convert):
             item_list = self._transactionsDB[line]
             fuzzyValues_list = self._fuzzyValuesDB[line]
             self._dbLen += 1
-            s = str(self._tsDB[line])
+            s = str()
             ss = str()
             for i in range(0, len(item_list)):
                 item = item_list[i]
@@ -127,11 +125,11 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = transactionalToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = transactionalToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startConvert()
     else:
-        _ap = transactionalToFuzzy('sample.txt', 'fuzFile.txt', 'output.txt', ' ')
+        _ap = utilityToFuzzy('https://u-aizu.ac.jp/~udayrage/datasets/utilityDatabases/Utility_T10I4D100K.csv', 'fuzFile.txt', 'output.txt', ' ')
         _ap.startConvert()
         print("Error! The number of input parameters do not match the total number of parameters provided")

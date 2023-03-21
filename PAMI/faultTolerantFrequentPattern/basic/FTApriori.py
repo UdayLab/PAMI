@@ -214,31 +214,39 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                     self._mapSupport[i] = 1
                 else:
                     self._mapSupport[i] += 1
+        self._mapSupport = {k:v for k, v in self._mapSupport.items() if v >= self._itemSup}
 
-    def _countItemSupport(self, itemset, transactions):
+    def _countItemSupport(self, itemset):
         tids = {}
         res = True
-        for i in itemset:
-            for k in transactions:
-                if i in k:
-                    if i not in tids:
-                        tids[i] = 1
-                    else:
-                        tids[i] += 1
-        for x, y in tids.items():
-            if y < self._itemSup:
-                res = False
-        return res
+        # for i in itemset:
+        #     for k in transactions:
+        #         if i in k:
+        #             if i not in tids:
+        #                 tids[i] = 1
+        #             else:
+        #                 tids[i] += 1
+        count = 0
+        for x in self._Database:
+            print(x, itemset, set(x) & set(itemset), abs(len(itemset) - len(set(x) & set(itemset))))
+            if abs(len(itemset) - len(set(x) & set(itemset))) <= self._faultTolerance:
+                count += 1
+        # for x, y in tids.items():
+        #     if y < self._itemSup:
+        #         res = False
+        return count
 
     def _getFaultPatterns(self):
         l = [k for k, v in self._mapSupport.items()]
-        for i in range(2, len(l) + 1):
+        for i in range(0, len(l)+1):
             c = _ab._itertools.combinations(l, i)
             for j in c:
-                support, items = self._Count(j)
-                res = self._countItemSupport(j, items)
-                if len(j) > self._minLength and len(j) >= self._faultTolerance and support >= self._minSup and res == True:
-                    self._finalPatterns[tuple(j)] = support
+                #support, items = self._Count(j)
+                #print(support, items)
+                res = self._countItemSupport(j)
+                print(j, res)
+                if len(j) >= self._minLength and res >= self._minSup:
+                    self._finalPatterns[tuple(j)] = res
 
     def startMine(self):
         """
@@ -252,29 +260,27 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         self._minLength = int(self._minLength)
         self._faultTolerance = int(self._faultTolerance)
         self._oneLengthFrequentItems()
-        l = [k for k, v in self._mapSupport.items()]
-        for i in range(len(l)):
-            for j in range(i + 1, len(l)):
-                x, y = l[i], l[j]
-                li = [x, y]
-                count = 0
-                tids = {x: 0, y: 0}
-                for k in self._Database:
-                    if x in k and y in k:
-                        count += 1
-                        tids[x] += 1
-                        tids[y] += 1
-                    if x in k and y not in k:
-                        count += 1
-                        tids[x] = 1
-                    if x not in k and y in k:
-                        count += 1
-                        tids[y] += 1
-                re = True
-                for x, y in tids.items():
-                    if y < self._itemSup:
-                        re = False
-                self._finalPatterns[tuple(li)] = count
+        #l = [k for k, v in self._mapSupport.items()]
+        # for i in range(len(l)):
+        #     for j in range(i + 1, len(l)):
+        #         x, y = l[i], l[j]
+        #         li = [x, y]
+        #         count = 0
+        #         tids = {x: 0, y: 0}
+        #         for k in self._Database:
+        #             if x in k and y in k:
+        #                 count += 1
+        #             if x in k and y not in k:
+        #                 count += 1
+        #             if x not in k and y in k:
+        #                 count += 1
+        #         # re = True
+        #         # for x, y in tids.items():
+        #         #     if y < self._itemSup:
+        #         #         re = False
+        #         print(li, count)
+        #     if len(li) > self._faultTolerance:
+        #         self._finalPatterns[tuple(li)] = count
         self._getFaultPatterns()
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -282,7 +288,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using FTApriori algorithm ")
+        print("Fault-Tolerant Frequent patterns were generated successfully using FTApriori algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -330,7 +336,6 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                 s = s + i + ' '
             data.append([s, b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
-        # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
         return dataFrame
 
     def save(self, outFile):
@@ -359,7 +364,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total number of Fault-Tolerant Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:", self.getRuntime())
@@ -380,7 +385,7 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = FTApriori('/Users/Likhitha/Downloads/fault/sample.txt', 6, 5, 3, 2, ' ')
+        _ap = FTApriori('/Users/Likhitha/Downloads/fault/sample4.txt', 3, 3, 2, 1, ' ')
         _ap.startMine()
         _ap.printResults()
         print(_ap.getPatternsAsDataFrame())

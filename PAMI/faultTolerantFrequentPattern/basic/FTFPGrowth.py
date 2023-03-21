@@ -1,3 +1,5 @@
+from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
+
 #  Copyright (C)  2021 Rage Uday Kiran
 #
 #      This program is free software: you can redistribute it and/or modify
@@ -13,10 +15,11 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _fp
+from PAMI.faultTolerantFrequentPattern.basic import abstract as _fp
 
+_minSup = str()
 _fp._sys.setrecursionlimit(20000)
-_MIS = {}
+
 
 class _Node:
     """
@@ -86,6 +89,7 @@ class _Tree:
     """
 
     def __init__(self):
+        self.headerList = []
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
@@ -169,8 +173,7 @@ class _Tree:
                     data1[j] += conditionalFreq[i]
                 else:
                     data1[j] = conditionalFreq[i]
-        #up_dict = {k: v for k, v in data1.items() if v >= _minSup}
-        up_dict = data1.copy()
+        up_dict = {k: v for k, v in data1.items() if v >= _minSup}
         count = 0
         for p in ConditionalPatterns:
             p1 = [v for v in p if v in up_dict]
@@ -193,15 +196,10 @@ class _Tree:
         Frequent patterns that are extracted from fp-tree
 
         """
-        global _MIS
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
-            sup = []
-            for j in pattern:
-                sup.append(_MIS[j])
-            if self.info[i] >= min(sup):
-                yield pattern, self.info[i]
+            yield pattern, self.info[i]
             patterns, freq, info = self.getFinalConditionalPatterns(i)
             conditionalTree = _Tree()
             conditionalTree.info = info.copy()
@@ -212,22 +210,26 @@ class _Tree:
                     yield q
 
 
-class CFPGrowth(_fp._frequentPatterns):
+class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     """
-       CFPGrowth is one of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.
+       FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+       It stores the database in compressed fp-tree decreasing the memory usage and extracts the
+       patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
 
     Reference :
     ---------
-        Ya-Han Hu and Yen-Liang Chen. 2006. Mining association rules with multiple minimum supports: a new mining algorithm and a support tuning mechanism.
-        Decis. Support Syst. 42, 1 (October 2006), 1–24. https://doi.org/10.1016/j.dss.2004.09.007
-
+           Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
+           Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
 
     Attributes :
     ----------
         iFile : file
             Input file name or path of the input file
-        MIS: file or dictionary
-            Multiple minimum supports of all items in the database
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
@@ -277,24 +279,24 @@ class CFPGrowth(_fp._frequentPatterns):
     -------
         Format:
         -------
-            python3 CFPGrowth.py <inputFile> <outputFile>
+            python3 FPGrowth.py <inputFile> <outputFile> <minSup>
 
         Examples:
         ---------
-            python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
+            python3 FPGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
-            python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
+            python3 FPGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency) (it will consider "\t" as a separator)
 
-            python3 CFPGrowth.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider "," as a separator)
+            python3 FPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
 
 
     Sample run of the importing code:
     -----------
 
 
-        from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowth as alg
+        from PAMI.frequentPattern.basic import FPGrowth as alg
 
-        obj = alg.CFPGrowth(iFile, mIS)
+        obj = alg.FPGrowth(iFile, minSup)
 
         obj.startMine()
 
@@ -326,7 +328,7 @@ class CFPGrowth(_fp._frequentPatterns):
 
     __startTime = float()
     __endTime = float()
-    _MIS = str
+    _minSup = str()
     __finalPatterns = {}
     _iFile = " "
     _oFile = " "
@@ -340,8 +342,8 @@ class CFPGrowth(_fp._frequentPatterns):
     __rank = {}
     __rankDup = {}
 
-    def __init__(self, iFile, MIS, sep='\t'):
-        super().__init__(iFile, MIS, sep)
+    def __init__(self, iFile, minSup, itemSup, minLength, faultTolerance, sep='\t'):
+        super().__init__(iFile, minSup, itemSup, minLength, faultTolerance, sep)
 
     def __creatingItemSets(self):
         """
@@ -362,7 +364,7 @@ class CFPGrowth(_fp._frequentPatterns):
             if _fp._validators.url(self._iFile):
                 data = _fp._urlopen(self._iFile)
                 for line in data:
-                    line = line.strip()
+                    line.strip()
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
@@ -371,52 +373,10 @@ class CFPGrowth(_fp._frequentPatterns):
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            line = line.strip()
-                            temp = [i.rstrip() for i in line.split('\t')]
-                            temp = [x for x in temp if x]
-                            # print(temp)
-                            self.__Database.append(temp)
-                except IOError:
-                    print("File Not Found")
-                    quit()
-
-    def _getMISValues(self):
-        """
-            Storing the Minimum supports given by the user for each item in the database
-
-
-        """
-        self._MISValues = {}
-        if isinstance(self._MIS, _fp._pd.DataFrame):
-            items, MIS = [], []
-            if self._MIS.empty:
-                print("its empty..")
-            i = self._MIS.columns.values.tolist()
-            if 'items' in i:
-                items = self._MIS['items'].tolist()
-            if 'MIS' in i:
-                MIS = self._MIS['MIS'].tolist()
-            for i in range(len(items)):
-                self._MISValues[items[i]] = MIS[i]
-
-        if isinstance(self._MIS, str):
-            if _fp._validators.url(self._MIS):
-                data = _fp._urlopen(self._MIS)
-                for line in data:
-                    line = line.strip()
-                    line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
-                    self._MISValues[temp[0]] = int(temp[1])
-            else:
-                try:
-                    with open(self._MIS, 'r', encoding='utf-8') as f:
-                        for line in f:
-                            line = line.strip()
+                            line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self._MISValues[temp[0]] = int(temp[1])
-                    print(len(self._MISValues))
+                            self.__Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
@@ -448,16 +408,12 @@ class CFPGrowth(_fp._frequentPatterns):
         """
         self.__mapSupport = {}
         for tr in self.__Database:
-            for i in range(len(tr)):
+            for i in range(0, len(tr)):
                 if tr[i] not in self.__mapSupport:
                     self.__mapSupport[tr[i]] = 1
                 else:
                     self.__mapSupport[tr[i]] += 1
-        # for x, y in self.__mapSupport.items():
-        #     print(x, y)
-        self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= min(self._MISValues.values())}
-        # for x, y in self.__mapSupport.items():
-        #     print(x, y)
+        self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self._minSup}
         genList = [k for k, v in sorted(self.__mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.__rank = dict([(index, item) for (item, index) in enumerate(genList)])
         return genList
@@ -529,17 +485,18 @@ class CFPGrowth(_fp._frequentPatterns):
             main program to start the operation
 
         """
-        global _MIS
+        global _minSup
         self.__startTime = _fp._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
         self.__creatingItemSets()
-        self._getMISValues()
-        #MIS = self._MISValues
+        self._minSup = self.__convert(self._minSup)
+        _minSup = self._minSup
         itemSet = self.__frequentOneItem()
         updatedTransactions = self.__updateTransactions(itemSet)
         for x, y in self.__rank.items():
-            _MIS[y] = self._MISValues[x]
             self.__rankDup[y] = x
         info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
         __Tree = self.__buildTree(updatedTransactions, info)
@@ -548,7 +505,7 @@ class CFPGrowth(_fp._frequentPatterns):
         for k in patterns:
             s = self.__savePeriodic(k[0])
             self.__finalPatterns[str(s)] = k[1]
-        print("Frequent patterns were generated successfully using CFPGrowth algorithm")
+        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
         self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
         self.__memoryRSS = float()
@@ -625,19 +582,20 @@ class CFPGrowth(_fp._frequentPatterns):
         return self.__finalPatterns
 
     def printResults(self):
-        print("Total number of  Frequent Patterns:", len(self.getPatterns()))
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_fp._sys.argv) == 4 or len(_fp._sys.argv) == 5:
-        if len(_fp._sys.argv) == 5:
-            _ap = CFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4])
-        if len(_fp._sys.argv) == 4:
-            _ap = CFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3])
+    if len(_fp._sys.argv) == 7 or len(_fp._sys.argv) == 8:
+        if len(_fp._sys.argv) == 8:
+            _ap = FTFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4],
+                             _fp._sys.argv[5], _fp._sys.argv[6], _fp._sys.argv[7])
+        if len(_fp._sys.argv) == 7:
+            _ap = FTFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5], _fp._sys.argv[6])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
@@ -645,11 +603,4 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = CFPGrowth('/Users/Likhitha/Downloads/Transactional_T10I4D100K-3.csv', '/Users/Likhitha/Downloads/MIS_T10I4D100K_.csv', '\t')
-        _ap.startMine()
-        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save('/Users/Likhitha/Downloads/CFPGrowth_output.txt')
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
         print("Error! The number of input parameters do not match the total number of parameters provided")

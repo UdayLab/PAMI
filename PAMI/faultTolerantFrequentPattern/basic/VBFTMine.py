@@ -213,7 +213,8 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         prefix = list(set(prefix))
         prefix.sort()
         val = self._Count(tidsetx)
-        self._finalPatterns[tuple(prefix)] = val
+        if len(prefix) > self._faultTolerance:
+            self._finalPatterns[tuple(prefix)] = val
 
     def _processEquivalenceClass(self, prefix, itemsets, tidsets):
         if (len(itemsets) == 1):
@@ -234,7 +235,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
                 tidsetj = tidsets[j]
                 y = list(_np.array(tidsetx) & _np.array(tidsetj))
                 total = self._Count(y)
-                if total >= self._itemSup:
+                if total >= self._minSup:
                     classItemsets.append(itemj)
                     classtidsets.append(y)
             if (len(classItemsets) > 0):
@@ -273,7 +274,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         self._minLength = int(self._minLength)
         self._faultTolerance = int(self._faultTolerance)
         Vector, plist = self._oneLengthFrequentItems()
-        for i in range(len(self._plist)):
+        for i in range(len(plist)):
             itemx = plist[i]
             tidsetx = Vector[itemx]
             itemsetx = [itemx]
@@ -282,9 +283,9 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
             for j in range(i + 1, len(plist)):
                 itemj = plist[j]
                 tidsetj = Vector[itemj]
-                y1 = list(_np.array(tidsetx) & _np.array(tidsetj))
+                y1 = list(_np.array(tidsetx) | _np.array(tidsetj))
                 total = self._Count(y1)
-                if total >= self._itemSup:
+                if total >= self._minSup:
                     itemsets.append(itemj)
                     tidsets.append(y1)
             if (len(itemsets) > 0):
@@ -296,7 +297,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Frequent patterns were generated successfully using FTApriori algorithm ")
+        print("Fault-Tolerant Frequent patterns were generated successfully using VBFTMine algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -394,7 +395,7 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = VBFTMine('/Users/Likhitha/Downloads/fault/sample.txt', 6, 5, 3, 2, ' ')
+        _ap = VBFTMine('/Users/Likhitha/Downloads/fault/sample4.txt', 3, 3, 2, 1, ' ')
         _ap.startMine()
         _ap.printResults()
         print(_ap.getPatternsAsDataFrame())

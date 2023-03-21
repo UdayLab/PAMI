@@ -367,14 +367,13 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                     self._mapItemSum[item] = quantities[i]
         listOfFFIList = []
         mapItemsToFFLIST = {}
-        itemsToRegion = {}
         # self._minSup = self._convert(self._minSup)
         self._maxPer = self._convert(self._maxPer)
         for item1 in self._mapItemSum.keys():
             item = item1
             if self._mapItemSum[item] >= self._minSup:
                 fUList = _FFList(item)
-                k = tuple([item, itemsToRegion.get(item)])
+                k = tuple([item])
                 mapItemsToFFLIST[k] = fUList
                 listOfFFIList.append(fUList)
                 lastTIDs[item] = tid
@@ -402,8 +401,8 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                     remainingUtility = pair.quantity
                 else:
                     remainingUtility = remainUtil
-                if mapItemsToFFLIST.get(tuple([pair.item, itemsToRegion[pair.item]])) is not None:
-                    FFListOfItem = mapItemsToFFLIST[tuple([pair.item, itemsToRegion[pair.item]])]
+                if mapItemsToFFLIST.get(tuple([pair.item])) is not None:
+                    FFListOfItem = mapItemsToFFLIST[tuple([pair.item])]
                     if len(FFListOfItem.elements) == 0:
                         element = _Element(tid, pair.quantity, remainingUtility, 0)
                     else:
@@ -596,10 +595,10 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
     else:
-        _ap = FPFPMiner('sample.txt', 1, 5, ' ')
+        _ap = FPFPMiner('sample.txt', 1, 10, ' ')
         _ap.startMine()
         print("Total number of Fuzzy Periodic-Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save(_ab._sys.argv[2])
+        _ap.save('output.txt')
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in seconds:", _ap.getRuntime())
