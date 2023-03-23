@@ -206,9 +206,9 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
     
 | Basic   | top-k |
 |---------|-------|
-| PUF [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/PUFGrowth/PUFGrowth-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/PUFGrowth/PUFGrowth-ad.md)    | TUFP  |
-| TubeP   |       |
-| TubeS   |       | 
+| PUF [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/PUFGrowth/PUFGrowth-st-2.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/PUFGrowth/PUFGrowth-ad.md)    | TUFP  |
+| TubeP  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/TubeP/TubeP-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/TubeP/TubeP-ad.md)  |       |
+| TubeS  [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/TubeS/TubeS-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/uncertainFrequentPatterns/basic/TubeS/TubeS-ad.md)  |       | 
 | UVEclat |       |
     
 23. Uncertain periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainPeriodicFrequentPatternMining.html)
