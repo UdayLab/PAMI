@@ -352,7 +352,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
                     tidSets.append(y1)
             self._Generation(itemSetX, itemSets, tidSets)
             self._save(None, itemSetX, tidSetX)
-        print("Partial Periodic Frequent patterns were generated successfully using 3PEclat algorithm")
+        print("Partial Periodic Patterns were generated successfully using 3PEclat algorithm")
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryRSS = float()
