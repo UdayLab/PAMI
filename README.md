@@ -83,7 +83,7 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 | FSP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-st.pdf)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/frequentSpatialPattern/FSPGrowth-ad.pdf)          |
     
     
-6. Fuzzy Frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/fuzzyFrequentPatternMining.html)
+6. Fuzzy Frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/docs/fuzzyFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                   |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
