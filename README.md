@@ -95,19 +95,19 @@ Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Sim
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | FCP-growth [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPatterns/basic/FCPGrowth/FCPGrowth-st%20.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyCorrelatedPatterns/basic/FCPGrowth/FCPGrowth-ad.md) |
  
-8. Fuzzy frequent spatial pattern mining: [Sample](https://udayrage.github.io/PAMI/fuzzyFrequentSpatialPatternMining.html)
+8. Fuzzy frequent spatial pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/docs/fuzzyFrequentSpatialPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                  |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | FFSP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentPatterns/fuzzySpatial/FFSPMiner/FFSPMiner-ad.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyFrequentPatterns/fuzzySpatial/FFSPMiner/FFSPMiner-st.md) |
     
-9. Fuzzy periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/fuzzyPeriodicFrequentPatternMining.html)
+9. Fuzzy periodic frequent pattern mining: [Sample](https://github.com/udayRage/PAMI/blob/main/docs/fuzzyPeriodicFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                    |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
  | FPFP-Miner [Basic](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPatterns/basic/FPFPMiner/FPFPMiner-st.md)-[Adv](https://github.com/udayRage/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPatterns/basic/FPFPMiner/FPFPMiner-ad.md) |
     
-9. Geo referenced Fuzzy periodic frequent pattern mining: 
+9. Geo referenced Fuzzy periodic frequent pattern mining[Sample](https://github.com/udayRage/PAMI/blob/main/docs/fuzzySpatialPeriodicFrequentPatternMining.html): 
 
 | Basic                                                                                                                                                                                                                                    |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
