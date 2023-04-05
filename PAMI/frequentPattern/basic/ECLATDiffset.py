@@ -213,7 +213,8 @@ class ECLATDiffset(_ab._frequentPatterns):
             if supp >= self._minSup:
                 self._diffSets[key] = [supp, self._trans_set.difference(value)]
                 uniqueItem.append(key)
-
+        # for x, y in self._diffSets.items():
+        #     print(x, y)
         uniqueItem.sort()
         # print()
         return uniqueItem
@@ -234,7 +235,8 @@ class ECLATDiffset(_ab._frequentPatterns):
                         newKey = item1 + "\t" + jList[-1]
                         self._diffSets[newKey] = [unionSup, unionDiffSet]
                         newList.append(newKey)
-                    else: break
+                    else: 
+                        break
 
         if len(newList) > 0:
             self._runDeclat(newList)
@@ -243,15 +245,22 @@ class ECLATDiffset(_ab._frequentPatterns):
         """Frequent pattern mining process will start from here"""
 
         self._startTime = _ab._time.time()
+        self._Database = []
+        self._finalPatterns = {}
+        self._diffSets = {}
+        self._trans_set = set()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
+        #print(len(self._Database))
         self._minSup = self._convert(self._minSup)
+        uniqueItemList = []
         uniqueItemList = self._getUniqueItemList()
         self._runDeclat(uniqueItemList)
         self._finalPatterns = self._diffSets
+        #print(len(self._finalPatterns), len(uniqueItemList))
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -301,7 +310,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
+            data.append([a.replace('\t', ' '), b[0]])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
@@ -315,7 +324,7 @@ class ECLATDiffset(_ab._frequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = x.strip() + ":" + str(y)
+            patternsAndSupport = x.strip() + ":" + str(y[0])
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
@@ -350,5 +359,4 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
 
