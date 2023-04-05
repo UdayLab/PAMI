@@ -38,7 +38,7 @@ This software is provided under [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2
 
        
 # Details 
-Total available algorithms: 70
+Total available algorithms: 83
 
 Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Similarly, click on __"Adv"__ link to view the advanced tutorial on using a particular algorithm.
 
