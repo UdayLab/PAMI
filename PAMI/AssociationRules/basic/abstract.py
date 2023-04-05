@@ -91,7 +91,7 @@ class _AssociationRules(_ABC):
 
     """
 
-    def __init__(self, iFile, measure, threshold, sep="\t"):
+    def __init__(self, iFile, threshold, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame
@@ -107,7 +107,6 @@ class _AssociationRules(_ABC):
         self._iFile = iFile
         self._sep = sep
         self._threshold = threshold
-        self._measure = measure
         self._finalPatterns = {}
         self._oFile = str()
         self._memoryUSS = float()

@@ -395,7 +395,7 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = VBFTMine('/Users/Likhitha/Downloads/fault/sample4.txt', 3, 3, 2, 1, ' ')
+        _ap = VBFTMine('/Users/Likhitha/Downloads/fault/sample4.txt', 5, 3, 2, 1, ' ')
         _ap.startMine()
         _ap.printResults()
         print(_ap.getPatternsAsDataFrame())
