@@ -12,7 +12,7 @@ In this tutorial, we will discuss the first approach to find frequent patterns i
 
 
 ```python
-import ECLATDiffset  as alg
+from PAMI.frequentPattern.basic import ECLATDiffset  as alg
 ```
 
 #### Step 2: Specify the following input parameters
