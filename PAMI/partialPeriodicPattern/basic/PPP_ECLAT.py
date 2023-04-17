@@ -128,7 +128,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         Credits:
         -------
 
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+        The complete program was written by P.RaviKumar  under the supervision of Professor Rage Uday Kiran.\n
 
 
 
