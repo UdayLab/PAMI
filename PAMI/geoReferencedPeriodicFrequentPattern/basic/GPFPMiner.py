@@ -106,7 +106,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
 
     Credits:
     -------
-        The complete program was written by P. Likhitha under the supervision of Professor Rage Uday Kiran.
+        The complete program was written by P.RaviKumar under the supervision of Professor Rage Uday Kiran.
     """
 
     _minSup = " "
