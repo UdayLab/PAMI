@@ -21,9 +21,9 @@ PAttern MIning (PAMI) is Python library containing several pattern mining algori
 
 3. Report issues https://github.com/udayRage/PAMI/issues
   
-### New algorithms 
+## New algorithms 
 
-. Version 2023.03.01: prefixSpan and SPADE   
+- Version 2023.03.01: prefixSpan and SPADE   
 
 
 # Installation
