@@ -19,24 +19,22 @@ PAttern MIning (PAMI) is Python library containing several pattern mining algori
 
 2. Datasets   https://u-aizu.ac.jp/~udayrage/datasets.html
 
-3. Report issues https://github.com/udayRage/PAMI/issues
+3. Code documentation https://tinyurl.com/bdnna3v5
+
+4. Report issues https://github.com/udayRage/PAMI/issues
   
 ## New algorithms 
 
 - Version 2023.03.01: prefixSpan and SPADE   
 
 
-# Installation
+# Maintenance
 
-       pip install pami
-       
-# Upgrade
-      
+       pip install pami    
+             
        pip install --upgrade pami
        
-# Code documentation
-[Link](https://rawcdn.githack.com/udayRage/PAMI/5eea0f346bf7818c7345c8643428ad9ce5087f15/htmlDocs/_build/html/index.html)
-
+       pip uninstall pami 
        
 # Details 
 Total available algorithms: 83
