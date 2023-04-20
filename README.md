@@ -25,10 +25,9 @@ PAttern MIning (PAMI) is Python library containing several pattern mining algori
   
  __Recent versions__  
 
-Total algorithms: 83
-
 - Version 2023.03.01: prefixSpan and SPADE   
 
+Total number of algorithms: 83
 
 # Maintenance
 
@@ -46,8 +45,8 @@ Total algorithms: 83
        
 # Tutorials 
 
-
-Click on __"Basic"__ link to view the basic tutorial on using the algorithm. Similarly, click on __"Adv"__ link to view the advanced tutorial on using a particular algorithm.
+- Click on __"Basic"__ link to view the basic tutorial on using the algorithm. 
+- Click on __"Adv"__ link to view the advanced tutorial on using a particular algorithm.
 
 1. Frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentPatternMining.html)
      
