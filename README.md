@@ -30,10 +30,16 @@ PAttern MIning (PAMI) is Python library containing several pattern mining algori
 
 # Maintenance
 
+  Installation
+  
        pip install pami    
-             
+  
+  Updation
+  
        pip install --upgrade pami
-       
+  
+  Uninstallation
+  
        pip uninstall pami 
        
 # Details 
