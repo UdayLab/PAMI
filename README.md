@@ -15,16 +15,17 @@
 PAttern MIning (PAMI) is Python library containing several pattern mining algorithms to discover user interest-based patterns in transactional/temporal/spatiotemporal databases.
 
 
-1. User manual (https://udayrage.github.io/PAMI/index.html)[https://udayrage.github.io/PAMI/index.html]
+1. User manual https://udayrage.github.io/PAMI/index.html
 
-2. Datasets   (https://u-aizu.ac.jp/~udayrage/datasets.html)[https://u-aizu.ac.jp/~udayrage/datasets.html]
+2. Datasets   https://u-aizu.ac.jp/~udayrage/datasets.html
 
-3. Please report issues in the software at https://github.com/udayRage/PAMI/issues
+3. Report issues https://github.com/udayRage/PAMI/issues
   
-### New algorithms in version 2023.03.01
+### New algorithms 
 
-      Sequence mining: prefixSpan, SPADE   
-  
+. Version 2023.03.01: prefixSpan and SPADE   
+
+
 # Installation
 
        pip install pami
