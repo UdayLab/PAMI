@@ -11,19 +11,17 @@
 [![GitHub stars](https://img.shields.io/github/stars/udayRage/PAMI)](https://github.com/udayRage/PAMI/stargazers)
 
 
-
-
-
 # Introduction
-PAMI stands for PAttern MIning. It constitutes several pattern mining algorithms to discover interesting patterns in transactional/temporal/spatiotemporal databases.
-This software is provided under [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007](https://www.gnu.org/licenses/quick-guide-gplv3.html).
+PAttern MIning (PAMI) is Python library containing several pattern mining algorithms to discover user interest-based patterns in transactional/temporal/spatiotemporal databases.
 
-1. The user manual for PAMI library is available at https://udayrage.github.io/PAMI/index.html
-2. Datasets to implement PAMI algorithms are available at https://www.u-aizu.ac.jp/~udayrage/software.html
+
+1. User manual (https://udayrage.github.io/PAMI/index.html)[https://udayrage.github.io/PAMI/index.html]
+
+2. Datasets   (https://u-aizu.ac.jp/~udayrage/datasets.html)[https://u-aizu.ac.jp/~udayrage/datasets.html]
+
 3. Please report issues in the software at https://github.com/udayRage/PAMI/issues
   
   
-  __Contact us by Discord__ https://discord.gg/9WgKkrSJ
   
 # Installation
 
