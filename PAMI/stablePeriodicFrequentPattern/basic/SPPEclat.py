@@ -1,6 +1,6 @@
 from PAMI.stablePeriodicFrequentPattern.basic import abstract as _ab
 
-class SPPEclat:
+class SPPEclat(_ab._stablePeriodicFrequentPatterns):
     """  Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
          maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
           greater than maximum lability.
