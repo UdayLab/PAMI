@@ -1,9 +1,15 @@
+# Utility databases
 
-# What is an Utility database?
+## Description
 
 A utility database represents a non-binary transactional or temporal database.
 
-# Describe the Utility transactional database with an example?
+## Types
+1. Utility transactional databases
+2. Utility temporal databases
+
+## Utility transactional databases
+### Introduction
 A utility transactional database consists of a transactional identifier (tid), items, and their corresponding utility values in a transaction.
 A sample utility transactional database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat},
 is shown in below table:
@@ -13,21 +19,23 @@ is shown in below table:
      1   | (Bread,1$), (Jam,2$), (Butter, 1.5$)
      2   | (Bat, 100$), (Ball, 10$)
      3   | (Pen, 2$), (Book, 5$) 
-## What is the format of utility transactional databases in PAMI?
+
+### Format to create a utility transactional databases in PAMI
 The utility transactional database must exist in the following format:
 
      itemA<seo>itemB<sep>...<sep>itemN : total utility : utilityA<sep>utilityB<sep>...<sep>utilityN
 
 _The 'total utility' represents the total utility value of items in a transaction._
 
-**Note:** 
-1.  The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
-   separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
-   and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.
-    
-1. Items, total utility, and individual utilities of the items within a transaction have to be seperated by the symbol ':'
 
-## Give an example of a utility transactional database?
+### Rules to create a utility transactional database
+
+1. The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
+   separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
+   and comma, usage of tab space facilitates us to effectively distinguish the spatial objects. 
+2. Items, total utility, and individual utilities of the items within a transaction have to be seperated by the symbol ':'
+
+### An example of a utility transactional database
 
       Bread   Jam     Butter:4.5:1    2   1.5
 
@@ -46,7 +54,7 @@ is shown in below table:
     2| 2   | (Bat, 100$), (Ball, 10$)
     5| 3   | (Pen, 2$), (Book, 5$) 
 
-## What is the format of utility temporal databases in PAMI?
+## What is the format to create utility temporal databases in PAMI?
 The utility temporal database must exist in the following format:
 
      timestamp : itemA<seo>itemB<sep>...<sep>itemN : total utility : utilityA<sep>utilityB<sep>...<sep>utilityN
