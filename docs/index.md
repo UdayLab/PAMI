@@ -4,7 +4,7 @@
 Chapter 1: Introduction
 
    1. [About PAMI: Motivation and the people who supported](./manuals/aboutPAMI.html)
-   2. [Installation, update, and uninstallation of PAMI](./manuals/installation.html)
+   2. [Maintenance of PAMI library](./manuals/installation.html)
    3. [Organization of algorithms in PAMI](./manuals/organization.html)
 
 Chapter 2: Preparation of various datasets (or databases)

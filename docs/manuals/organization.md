@@ -1,9 +1,6 @@
-# **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
+## Organization of Algorithms in PAMI
 
-
-# Organization of Algorithms in PAMI
-
-Several theoretical models (e.g., frequent pattern model, correlated pattern model, and periodic pattern model) have been explored in the literature to find 
+Several theoretical models (e.g., frequent pattern model, correlated pattern model, and periodic pattern model) have been described in the literature to find 
 user interest-based patterns in a database.  For each theoretical model, there exists several algorithms to find desired patterns in the data effectively. 
 
 Depending on the type of patterns that are being discovered from the data, the mining algorithms of a theoretical model can be broadly classified into the following three types:
@@ -33,10 +30,10 @@ Depending on the type of patterns that are being discovered from the data, the m
    have introduced top-k pattern mining algorithms to address this open research problem. Given the k value by the user, the objective of these algorithms is
    to find only those top-k patterns that have highest values in a database. 
    
-# Structuring of Algorithms in PAMI
+## Structuring of Algorithms in PAMI
 
 In the PAMI library, the mining algorithms have been packaged in a hierarchical fashion. The first hierarchical level is 'PAMI'.
-The second hierarchical level is the name of the theoretical model. The third hierarchical level is the type of the mining algorithm.
+The second hierarchical level is the name of the theoretical model of an interesting pattern. The third hierarchical level is the type of the mining algorithm.
 The last hierarchical level contains the mining algorithms. The organizational structure of algorithms in PAMI is shown below:
 
       PAMI
@@ -44,7 +41,8 @@ The last hierarchical level contains the mining algorithms. The organizational s
                  |-patternType (e.g., basic/maximal/closed/topk)
                           |-algorithmName
                           
-                          
+An example containing the arrangement of algorithms in PAMI is shown below.
+
 1. PAMI
    * theoreticalModel1
       * basic

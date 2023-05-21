@@ -1,56 +1,54 @@
-# **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
+# Maintenance of PAMI library
 
-
-# Installing PAMI library
+We first describe the basic requirements of PAMI library. Next, we present the maintenance of PAMI library using pip command.
+Next, we describe the cloning of PAMI library from GitHub using _git_ command.  Finally, we discuss the methodology to 
+download the Zip file of PAMI from GitHub and use it.
 
 ## Requirements
 1. Python version: 3.5 and above
 2. Operating system: any
 3. Pre-requisites: psutil and pandas
 
-## Installation, upgrade, and deletion
-The PAMI library can be utilized in one of the following three methods: (i) Installation using pip command, (ii) Cloning using git, and (iii) Downloading from GitHub. 
+## Approach 1: Using pip command
+This is the simplest and convenient way to install, upgrade, and uninstall the PAMI library.  
 
-### Using pip command
-This is the simplest and convenient way to install, upgrade, and utilize PAMI library.  
+1. Installation step 
 
-Execute the below command to install PAMI in your machine.
+       pip install pami
 
-    pip install pami
+2. Upgrade step
 
-After installation, execute the below command to find the details of PAMI.
+       pip install pami -U
+
+3. Uninstallation step  
+
+        pip uninstall pami -y
+
+4. Seeing the installation details
     
-    pip show pami
-
-As PAMI is an activate project, please regularly update the library by executing the following command:
-
-    pip install pami -U
-
-The PAMI library can be deleted from your machine by executing the following command:
-
-    pip uninstall pami -y
+       pip show pami
 
 [**CLICK HERE**](https://pypi.org/project/pami/) for more information on installing PAMI using pip.
 
-### Cloning from GitHub
-Installing a library in some universities and industries require prior permission from the administrative departments. 
-In such cases, the following approach may found to be more convenient way to maintain the updated PAMI library. 
+## Approach 2: Cloning through GitHub
+Installation of PAMI library in some universities and industries may require prior permission from the administrative 
+departments. In such cases, _cloning_ may found to be a convenient way to maintain the latest version of PAMI library. 
 
-Clone the PAMI repository using git command
+1. Clone the PAMI repository using git command
    
-    git clone https://github.com/udayRage/PAMI.git
+       git clone https://github.com/udayRage/PAMI.git
 
-Regularly update the PAMI repository
+2. Regularly update the PAMI repository
 
-    git pull PAMI
+       git pull PAMI
 
-Delete the PAMI repository if you no longer need it
+3. Delete the PAMI repository
 
-    git branch -d PAMI
+       git branch -d PAMI
 
-### Downloading the library from the GitHub
-This is the most difficult and cumbersome process to utilize and maintain PAMI library. Thus, we recommend one of the above two process for utilize PAMI library.
-We are providing this process of installation for completeness purposes.
+## Approach 3: Downloading the library from the GitHub
+This is the most difficult and cumbersome process to utilize and maintain PAMI library. Thus, we recommend one of the above two process for utilizing the PAMI library.
+However, we are providing this process of installation for completeness purposes.
 
 As PAMI is a python package, users can download the source code of this library from the Github and use it. We now explain this process.
 
