@@ -1,6 +1,6 @@
 # Maintenance of PAMI library
 
-We first describe the basic requirements of PAMI library. Next, we present the maintenance of PAMI library using pip command.
+We first describe the basic requirements for installing and using PAMI library. Next, we present the maintenance of PAMI library using pip command.
 Next, we describe the cloning of PAMI library from GitHub using _git_ command.  Finally, we discuss the methodology to 
 download the Zip file of PAMI from GitHub and use it.
 

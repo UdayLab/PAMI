@@ -1,6 +1,7 @@
-# **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
+# What is a Geo-referenced database?
+A geo-referenced database represents the data gathered by a set of fixed sensors observing a particular phenomenon over a time period. It is a combination of __spatial database__ and __transactional/temporal/utility database__.
 
-# Spatial database
+# What is a spatial database? Given an example?
 
 A spatial database is a collection of spatial objects (or items), such as pixels, points, lines, and polygons. 
    The format of the spatial database is as follows:
@@ -19,9 +20,11 @@ A spatial database is a collection of spatial objects (or items), such as pixels
   f   | Point(5 1)
 
 
-## Spatiotransactional database
-A transactional database is said to be a spatiotemporal database if its items represents spatial items. An example of a 
-spatiotransactional database is as follows:
+# List the basic types of geo-referenced databases
+
+### 1. Geo-referenced transactional database
+A transactional database is said to be a geo-referenced transactional database if it contains spatial items. The format of this database is similar to that of [transactional database](transactionalDatabase.html). An example of a 
+geo-referenced transactional database is as follows:
 
 TID | Items
 --- | -----
@@ -30,16 +33,8 @@ TID | Items
  3  | Point(5 0)
  4  | Point(4 0)    Point(5 0)
  
-### Rules to create spatiotransactional database 
-Rules to create the spatiotransactional database are similar to the rules to create [transactional database](transactionalDatabase.html). 
-The rules are as follows:
-1. Since TID of a transaction directly represents its row number in a database, we can ignore this information 
-to save storage space and processing time. 
-1. All spatial items in every transaction must be with a separator.   
- 
- 
- ### Spatiotransactional database format
-The format of a spatiotransactional database is as follows:
+__Note:__ The rules to create a geo-referenced transactional database are same as the rules to create a transactional database. 
+In other words, the format of creating a transaction in a geo-referential database is:
     
     spatialItem1<sep>spatialItem2<sep>...<sep>spatialItemN
     
@@ -51,9 +46,9 @@ An example:
     Point(4 0)    Point(5 0)
 
 
-#Spatiotemporal database
-A temporal database is said to be a spatiotemporal database if its items represents spatial items. An example of a 
-spatiotemporal database is as follows:
+### 2. Geo-referential temporal database
+A temporal database is said to be a geo-referential temporal database if it contains spatial items.  The format of this database is similar to that of [temporal database](temporalDatabase.html). An example of a 
+geo-referential temporal database is as follows:
 
 TID | Timestamp | Items
 --- | --------- | -----
@@ -62,21 +57,8 @@ TID | Timestamp | Items
  3  | 4 | Point(5 0)
  4  | 5 | Point(4 0)    Point(5 0)
 
-### Rules to create spatiotemporal database 
-Rules to create the spatiotemporal database are similar to the rules to create [temporal database](temporalDatabase.html). 
-The rules are as follows:
-1. Since TID of a transaction implicitly represents the row number, this information can be ignored to save space.
-1. The first column of every transaction must represent a timestamp. 
-1. The timestamp of the first transaction must always be 1. The timestamps of remaining transactions follow thereafter. 
-   In other words, the timestamps in a temporal database must be relative to each other, rather than absolute timestamps.
-1. Irregular time gaps can exist between the transactions.
-1. Multiple transactions can have a same timestamp. In other words, multiple transactions can occur at a particular timestamp.
-
-
- Please refer to [temporal database](temporalDatabase.html) to get more details on a temporal database. 
- 
-### Spatiotemporal database format
-The format of a spatiotemporal database is as follows:
+__Note:__ The rules to create geo-referential temporal database are same as the rules to create a temporal database.
+In other words, the format to create geo-referential temporal database is as follows:
     
     timestamp<sep>spatialItem1<sep>spatialItem2<sep>...<sep>spatialItemN
     
@@ -86,3 +68,26 @@ An example:
     2   Point(0 0)    Point(0 2)  Point(5 0)
     4   Point(5 0)
     5   Point(4 0)    Point(5 0)
+
+### 3. Geo-referential utility database
+A utility database is said to be a geo-referential utility database if it contains spatial items.  The format of this database is similar to that of [utility database](utilityDatabase.html).
+An example of a geo-referential utility database is as follows:
+
+TID |  Transactions (items and their prices)
+     --- | -----
+1   | (Point(0 0),100) (Point(0 1),42) (Point(1 0), 20)
+2   | (Point(0 0), 100) (Point(0 2), 10) (Point(5 0), 30)
+3   | (Point(5 0), 30)
+4   | (Point(4 0),30), (Point(5 0),40)
+
+__Note:__ The rules to create geo-referential utility database are same as the rules to create a utility database.
+In other words, the format to create geo-referential utility database is as follows:
+
+    timestamp<sep>spatialItem1<sep>spatialItem2<sep>...<sep>spatialItemN : total utility : utilityA<sep>utilityB<sep>...<sep>utilityN
+
+An example:
+
+    1   Point(0 0)    Point(0 1)  Point(1 0):162:100    42  20
+    2   Point(0 0)    Point(0 2)  Point(5 0):140:100    10  30
+    4   Point(5 0):30:30
+    5   Point(4 0)    Point(5 0):70:30  40

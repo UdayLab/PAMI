@@ -10,9 +10,9 @@ Chapter 1: Introduction
 Chapter 2: Preparation of various datasets (or databases)
    1. [Transactional database](./manuals/transactionalDatabase.html)
    2. [Temporal database](./manuals/temporalDatabase.html)
-   3. [Geo-referenced database](./manuals/spatialDatabase.html)
-   4. [Utility database](./manuals/utilityDatabase.html)
-   5. [Uncertain database (to be written)](./manuals/uncertainDatabases.md)
+   3. [Utility database](./manuals/utilityDatabase.html)
+   4. [Uncertain database (to be written)](./manuals/uncertainDatabases.md)
+   5. [Geo-referenced database](./manuals/spatialDatabase.html)
    6. [Neighborhood database (to be written)](./manuals/neighborhoodDatabase.html)
 
 Chapter 3: Converting dataframes to databases
