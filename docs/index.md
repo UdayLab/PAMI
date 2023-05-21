@@ -10,7 +10,7 @@ Chapter 1: Introduction
 Chapter 2: Preparation of various datasets (or databases)
    1. [Transactional database](./manuals/transactionalDatabase.html)
    2. [Temporal database](./manuals/temporalDatabase.html)
-   3. [Spatial database](./manuals/spatialDatabase.html)
+   3. [Geo-referenced database](./manuals/spatialDatabase.html)
    4. [Utility database](./manuals/utilityDatabase.html)
    5. [Uncertain database (to be written)](./manuals/uncertainDatabases.md)
    6. [Neighborhood database (to be written)](./manuals/neighborhoodDatabase.html)
@@ -26,7 +26,7 @@ Chapter 4: Creation of Very Large Synthetic Databases
   
    1. [Creation of transactional database (under development)](./manuals/createTransactionalDatabase.html)
    2. [Creation of temporal database (under development)](./manuals/createTemporalDatabase.html)
-   3. [Creation of Spatiotemporal database (under development)](./manuals/createSpatiotemporalDatabase.html) 
+   3. [Creation of Geo-referenced database (under development)](./manuals/createSpatiotemporalDatabase.html) 
 
 Chapter 5: Printing, displaying, and saving the statistical details of a database
  
@@ -45,5 +45,5 @@ Chapter 6: Implementing algorithms in PAMI
 Chapter 7: Additional topics
 
    1. [Generating latex graphs for publishing results in conferences and journals (under development)](./manuals/generateLatexGraphs.html)
-   2. [Creation of neighborhood file from a spatiotemporal database using Euclidean distance](./manuals/neighborFileFromspatialDataframe.html)
+   2. [Creation of neighborhood file from a Geo-referenced database using Euclidean distance](./manuals/neighborFileFromspatialDataframe.html)
    
