@@ -1,4 +1,8 @@
-# What is a temporal database?
+[Return to home page](index.html)
+
+## Temporal database
+
+### Description
  A temporal database is a collection of transactions ordered by their timestamp. A sample temporal database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:
    
    TID |  Timestamp | Transactions 
@@ -8,7 +12,7 @@
      3  | 5 | a, e, f
      4  | 5 | d, f, g  
 
-# What are the rules to create a temporal database?
+### Rules to create a temporal database
 
 1. Since TID of a transaction implicitly represents the row number, this information can be ignored to save space.
 2. The first column in the database must represent a timestamp.
@@ -19,16 +23,14 @@
 7. The items in a temporal database can be integers or strings.
 8. '_Tab space_' is the default seperator.   However, temporal databases can be constructed using other seperators, such as comma and space.
 
-Overall, the format of a transaction in a temporal database is as follows:
+### Format of a temporal database
 
     timestamp<sep>item1<sep>item2<sep>...<sep>itemN
 
-# Given an example of a temporal database?
-  An example of a temporal database is:
-
-        1   a   b   c
-        2   d   e
-        5   a   e   f
-        5   d   f   g
+# An example
+    1   a   b   c
+    2   d   e
+    5   a   e   f
+    5   d   f   g
 
 

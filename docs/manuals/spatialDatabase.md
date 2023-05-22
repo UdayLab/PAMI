@@ -1,15 +1,19 @@
-# What is a Geo-referenced database?
+[Return to home page](index.html)
+
+## Geo-referenced database
+### Description
 A geo-referenced database represents the data gathered by a set of fixed sensors observing a particular phenomenon over a time period. It is a combination of __spatial database__ and __transactional/temporal/utility database__.
 
-# What is a spatial database? Given an example?
-
+### Location/Spatial database
 A spatial database is a collection of spatial objects (or items), such as pixels, points, lines, and polygons. 
-   The format of the spatial database is as follows:
+
+#### Format of a spatial database
    
          item : spatialInformation (pixel, point, line, polygon)
 
-   A sample spatial database for the set of items, I={a,b,c,d,e,f}, is shown in below table.
-  
+#### An example
+   A hypothetical spatial database containing the spatial items _a_ to _f_  is
+
  Item |  Spatial information 
   --- | -----
   a   | Point(0 0)
@@ -19,10 +23,12 @@ A spatial database is a collection of spatial objects (or items), such as pixels
   e   | Point(4 0)
   f   | Point(5 1)
 
+### Types of Geo-referenced databases
+1. Geo-referenced transactional databases
+2. Geo-referenced temporal databases
+3. Geo-referenced utility database 
 
-# List the basic types of geo-referenced databases
-
-### 1. Geo-referenced transactional database
+## 1. Geo-referenced transactional database
 A transactional database is said to be a geo-referenced transactional database if it contains spatial items. The format of this database is similar to that of [transactional database](transactionalDatabase.html). An example of a 
 geo-referenced transactional database is as follows:
 
@@ -46,7 +52,7 @@ An example:
     Point(4 0)    Point(5 0)
 
 
-### 2. Geo-referential temporal database
+## 2. Geo-referential temporal database
 A temporal database is said to be a geo-referential temporal database if it contains spatial items.  The format of this database is similar to that of [temporal database](temporalDatabase.html). An example of a 
 geo-referential temporal database is as follows:
 
@@ -69,7 +75,7 @@ An example:
     4   Point(5 0)
     5   Point(4 0)    Point(5 0)
 
-### 3. Geo-referential utility database
+## 3. Geo-referential utility database
 A utility database is said to be a geo-referential utility database if it contains spatial items.  The format of this database is similar to that of [utility database](utilityDatabase.html).
 An example of a geo-referential utility database is as follows:
 

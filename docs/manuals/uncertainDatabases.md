@@ -1,6 +1,8 @@
-# Uncertain database
+[Return to home page](index.html)
 
-## Description
+## Uncertain database
+
+### Description
 An uncertain database is a non-binary database, where an occurrence of an item in a transaction is associated with a 
 probabilistic value that lies between zero and one. The value zero represents the complete non-occurrence of an item, while the 
 value represents the perfect occurrence of an item in a transaction.
@@ -8,7 +10,7 @@ value represents the perfect occurrence of an item in a transaction.
 Currently, the algorithms in PAMI support the discovery of knowledge hidden in two types of uncertain databases, namely uncertain transactional database and uncertain temporal database.
 We now describe each of these databases.
 
-## Types
+### Types
 1. Uncertain transactional database
 2. Uncertain temporal database
 

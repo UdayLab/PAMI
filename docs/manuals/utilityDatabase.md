@@ -1,10 +1,13 @@
-# Utility databases
+[Return to home page](index.html)
 
-## Description
+
+## Utility databases
+
+### Description
 
 A utility database represents a non-binary transactional or temporal database.
 
-## Types
+### Types
 1. Utility transactional databases
 2. Utility temporal databases
 
@@ -20,7 +23,7 @@ is shown in below table:
      2   | (Bat, 100$), (Ball, 10$)
      3   | (Pen, 2$), (Book, 5$) 
 
-### Format to create a utility transactional databases in PAMI
+### Format of a utility transactional database
 The utility transactional database must exist in the following format:
 
      itemA<seo>itemB<sep>...<sep>itemN : total utility : utilityA<sep>utilityB<sep>...<sep>utilityN
@@ -35,7 +38,7 @@ _The 'total utility' represents the total utility value of items in a transactio
    and comma, usage of tab space facilitates us to effectively distinguish the spatial objects. 
 2. Items, total utility, and individual utilities of the items within a transaction have to be seperated by the symbol ':'
 
-### An example of a utility transactional database
+### An example
 
       Bread   Jam     Butter:4.5:1    2   1.5
 
@@ -55,7 +58,7 @@ is shown in below table:
     2| 2   | (Bat, 100$), (Ball, 10$)
     5| 3   | (Pen, 2$), (Book, 5$) 
 
-### Format to create utility temporal databases in PAMI
+### Format of a utility temporal database
 The utility temporal database must exist in the following format:
 
      timestamp : itemA<seo>itemB<sep>...<sep>itemN : total utility : utilityA<sep>utilityB<sep>...<sep>utilityN
@@ -69,7 +72,7 @@ _The 'total utility' represents the total utility value of items in a transactio
     
 1. Timestamp, items, total utility, and individual utilities of the items within a transaction have to be seperated by the symbol ':'
 
-### An example of a utility temporal database
+### An example
 
       1:Bread   Jam     Butter:4.5:1    2   1.5
 
