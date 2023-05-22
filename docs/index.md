@@ -22,7 +22,7 @@ Chapter 3: Converting dataframes to databases
    3. [Basic approach to convert a dataframe into a database](./manuals/denseDF2DB.html)
    4. [An advanced approach to convert a dataframe into a database](./manuals/DF2DBPlus.html)
 
-Chapter 4: Creation of Very Large Synthetic Databases
+Chapter 4: Creation of very large synthetic databases
   
    1. [Creation of transactional database (under development)](./manuals/createTransactionalDatabase.html)
    2. [Creation of temporal database (under development)](./manuals/createTemporalDatabase.html)

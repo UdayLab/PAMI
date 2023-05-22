@@ -43,7 +43,8 @@ _The 'total utility' represents the total utility value of items in a transactio
 
       Pen   Book:7:2   5
 
-# Describe the Utility temporal database with an example?
+## Utility temporal databases
+### Introduction
 An utility temporal database consists of timestamp, tid, items, and their corresponding utility values. 
 A sample utility temporal database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat},
 is shown in below table:
@@ -54,21 +55,21 @@ is shown in below table:
     2| 2   | (Bat, 100$), (Ball, 10$)
     5| 3   | (Pen, 2$), (Book, 5$) 
 
-## What is the format to create utility temporal databases in PAMI?
+### Format to create utility temporal databases in PAMI
 The utility temporal database must exist in the following format:
 
      timestamp : itemA<seo>itemB<sep>...<sep>itemN : total utility : utilityA<sep>utilityB<sep>...<sep>utilityN
 
 _The 'total utility' represents the total utility value of items in a transaction._
 
-**Note:** 
+### Rules to create a utility temporal database
 1.  The default separator, i.e., <sep>, used in PAMI is tab space (or \t). However, the users can override the default 
    separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space 
    and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.
     
 1. Timestamp, items, total utility, and individual utilities of the items within a transaction have to be seperated by the symbol ':'
 
-## Give an example of a utility temporal database?
+### An example of a utility temporal database
 
       1:Bread   Jam     Butter:4.5:1    2   1.5
 
