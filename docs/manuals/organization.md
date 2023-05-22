@@ -1,3 +1,5 @@
+[Return to home page](index.html)
+
 ## Structural Organization  of Algorithms in PAMI
 
 In PAMI, the mining algorithms have been packaged in a hierarchical fashion. The first hierarchical level is 'PAMI'.
@@ -17,7 +19,7 @@ The user can import a pattern mining algorithm using the following syntax:
     PAMI.theoriticalModel.patternType import Algorithm as algo
 
 
-## Pseudo-structural Arrangement of Algorithms in PAMI
+## Pseudo-structural Organization of Algorithms in PAMI
 A hypothetical structural arrangement of algorithms in PAMI is shown below.
 
 1. PAMI
@@ -65,5 +67,9 @@ A hypothetical structural arrangement of algorithms in PAMI is shown below.
             * kAlgo1
             * kAlgo2 ...
             * kAlgoM
+    * extras
+      * graphs
+        * ...
+      * ...
 
 **NOTE:**  The  closed, maximal, and top-k packages exist for a theoretical model if and only if there exist the corresponding mining algorithm in the PAMI library. 
