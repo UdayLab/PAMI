@@ -11,7 +11,7 @@ Chapter 2: Preparation of various datasets (or databases)
    1. [Transactional database](./transactionalDatabase.html)
    2. [Temporal database](./temporalDatabase.html)
    3. [Utility database](./utilityDatabase.html)
-   4. [Uncertain database (to be written)](./uncertainDatabases.md)
+   4. [Uncertain database](./uncertainDatabases.md)
    5. [Geo-referenced database](./spatialDatabase.html)
    6. [Neighborhood database (to be written)](./neighborhoodDatabase.html)
 
