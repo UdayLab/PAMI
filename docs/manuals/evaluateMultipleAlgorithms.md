@@ -48,7 +48,7 @@ for minSup in minSupList:
     obj.startMine()
 
     #append the results into the data frame
-    result.loc[result.shape[0]] = [algorithmName, minSup, len(obj1.getPatterns()), obj1.getRuntime(), obj1.getMemoryRSS()]
+    result.loc[result.shape[0]] = [algorithmName, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
 ```
 
 #### Step 5: Repeat Step-4 for each other pattern mining algorithms
@@ -70,7 +70,7 @@ for minSup in minSupList:
     obj.startMine()
 
     #append the results into the data frame
-    result.loc[result.shape[0]] = [algorithmName, minSup, len(obj1.getPatterns()), obj1.getRuntime(), obj1.getMemoryRSS()]
+    result.loc[result.shape[0]] = [algorithmName, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
 
 #---------------------------------
 #Repeating above steps for another algorithm
@@ -91,7 +91,7 @@ for minSup in minSupList:
     obj.startMine()
 
     #append the results into the data frame
-    result.loc[result.shape[0]] = [algorithmName, minSup, len(obj1.getPatterns()), obj1.getRuntime(), obj1.getMemoryRSS()]
+    result.loc[result.shape[0]] = [algorithmName, minSup, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
 ```
 #### Step 6: Visualizing the comparative results
 
