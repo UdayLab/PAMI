@@ -74,7 +74,7 @@ print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
 print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
 print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
 print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
+print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()}')
 
 itemFrequencies = obj.getSortedListOfItemFrequencies()
 transactionLength = obj.getTransanctionalLengthDistribution()

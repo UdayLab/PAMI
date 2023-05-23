@@ -8,16 +8,16 @@ This page we provide the step-by-step process to evaluate multiple pattern minin
 #### Step 1: Creation of pandas data frame to store the results of multiple algorithms
 
 ```Python
-    import pandas as pd
-    result = pd.DataFrame(columns=['algorithm', 'minSup', 'patterns', 'runtime', 'memory'])
+import pandas as pd
+result = pd.DataFrame(columns=['algorithm', 'minSup', 'patterns', 'runtime', 'memory'])
 ```
 __Note:__ The first column of data frame has to be 'algorithm.'  Otherwise, the code will generate the error.
 
 #### Step 2: Declaring the name of the dataset
 
 ```Python
-    #inputFile = 'fileName'
-    inputFile = 'Transactional_T10I4D100K.csv'
+#inputFile = 'fileName'
+inputFile = 'Transactional_T10I4D100K.csv'
 ```
 
 [Click here to download the dataset.](https://u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/Transactional_T10I4D100K.csv)
@@ -25,92 +25,91 @@ __Note:__ The first column of data frame has to be 'algorithm.'  Otherwise, the 
 #### Step 3: Specify the range of values for an input parameter
 
 ```Python
-    #constraintList = [array of values]  
-    minSupList = [400,500,600,700,800,900,1000]
+#constraintList = [array of values]  
+minSupList = [400,500,600,700,800,900,1000]
 ```
 
 #### Step 4: Declare the algorithm name, import and execute it, and store the results in the data frame
 
 ```Python
-    #algorithmName = 'name of the algorithm'
-    algorithmName = 'Apriori'
-    
-    #import the mining algorithm
-    from PAMI.frequentPattern.basic import Apriori as alg
-    
-    # execute the mining algorithm at different constraint values using the for loop
-    #for constraint in constraintList:
-    for minSup in minSupList:
-        #create an object of the mining algorithm 
-        obj = alg.Apriori(inputFile,minSup, sep='\t')
+#algorithmName = 'name of the algorithm'
+algorithmName = 'Apriori'
 
-        #start the mining process
-        obj.startMine()
+#import the mining algorithm
+from PAMI.frequentPattern.basic import Apriori as alg
 
-        #append the results into the data frame
-        result.loc[result.shape[0]] = [algorithmName, minSup, len(obj1.getPatterns()), obj1.getRuntime(), obj1.getMemoryRSS()]
+# execute the mining algorithm at different constraint values using the for loop
+#for constraint in constraintList:
+for minSup in minSupList:
+    #create an object of the mining algorithm 
+    obj = alg.Apriori(inputFile,minSup, sep='\t')
+
+    #start the mining process
+    obj.startMine()
+
+    #append the results into the data frame
+    result.loc[result.shape[0]] = [algorithmName, minSup, len(obj1.getPatterns()), obj1.getRuntime(), obj1.getMemoryRSS()]
 ```
 
 #### Step 5: Repeat Step-4 for each other pattern mining algorithms
 
 ```Python
-    #algorithmName = 'name of the algorithm'
-    algorithmName = 'FPGrowth'
-    
-    #import the mining algorithm
-    from PAMI.frequentPattern.basic import FPGrowth as alg
-    
-    # execute the mining algorithm at different constraint values using the for loop
-    #for constraint in constraintList:
-    for minSup in minSupList:
-        #create an object of the mining algorithm 
-        obj = alg.FPGrowth(inputFile,minSup, sep='\t')
+#algorithmName = 'name of the algorithm'
+algorithmName = 'FPGrowth'
 
-        #start the mining process
-        obj.startMine()
+#import the mining algorithm
+from PAMI.frequentPattern.basic import FPGrowth as alg
 
-        #append the results into the data frame
-        result.loc[result.shape[0]] = [algorithmName, minSup, len(obj1.getPatterns()), obj1.getRuntime(), obj1.getMemoryRSS()]
+# execute the mining algorithm at different constraint values using the for loop
+#for constraint in constraintList:
+for minSup in minSupList:
+    #create an object of the mining algorithm 
+    obj = alg.FPGrowth(inputFile,minSup, sep='\t')
 
-    #---------------------------------
-    #Repeating above steps for another algorithm
+    #start the mining process
+    obj.startMine()
 
-    #algorithmName = 'name of the algorithm'
-    algorithmName = 'ECLAT'
-    
-    #import the mining algorithm
-    from PAMI.frequentPattern.basic import ECLAT as alg
-    
-    # execute the mining algorithm at different constraint values using the for loop
-    #for constraint in constraintList:
-    for minSup in minSupList:
-        #create an object of the mining algorithm 
-        obj = alg.ECLAT(inputFile,minSup, sep='\t')
+    #append the results into the data frame
+    result.loc[result.shape[0]] = [algorithmName, minSup, len(obj1.getPatterns()), obj1.getRuntime(), obj1.getMemoryRSS()]
 
-        #start the mining process
-        obj.startMine()
+#---------------------------------
+#Repeating above steps for another algorithm
 
-        #append the results into the data frame
-        result.loc[result.shape[0]] = [algorithmName, minSup, len(obj1.getPatterns()), obj1.getRuntime(), obj1.getMemoryRSS()]
+#algorithmName = 'name of the algorithm'
+algorithmName = 'ECLAT'
 
+#import the mining algorithm
+from PAMI.frequentPattern.basic import ECLAT as alg
+
+# execute the mining algorithm at different constraint values using the for loop
+#for constraint in constraintList:
+for minSup in minSupList:
+    #create an object of the mining algorithm 
+    obj = alg.ECLAT(inputFile,minSup, sep='\t')
+
+    #start the mining process
+    obj.startMine()
+
+    #append the results into the data frame
+    result.loc[result.shape[0]] = [algorithmName, minSup, len(obj1.getPatterns()), obj1.getRuntime(), obj1.getMemoryRSS()]
 ```
 #### Step 6: Visualizing the comparative results
 
 ```Python
-    #Import the library 
-    from PAMI.extras.graph import dataFrameInToFigures as dif
-        #Pass the result data frame to the class
-        ab = dif.dataFrameInToFigures(result)
-        #Draw the graphs
-        ab.plotGraphsFromDataFrame()
+#Import the library 
+from PAMI.extras.graph import dataFrameInToFigures as dif
+    #Pass the result data frame to the class
+    ab = dif.dataFrameInToFigures(result)
+    #Draw the graphs
+    ab.plotGraphsFromDataFrame()
 ```
 
 #### Step 7: Creating Latex files for graphs
 
 ```Python
-    #Import the library
-    from PAMI.extras.graph import generateLatexFileFromDataFrame as gdf
-        #Pass the result data frame
-        gdf.generateLatexCode(result)
+#Import the library
+from PAMI.extras.graph import generateLatexFileFromDataFrame as gdf
+    #Pass the result data frame
+    gdf.generateLatexCode(result)
 ```
 __Note:__ The _generateLatexCode_ program create three latex files, namely _patternsLatexfile.tex_, _memoryLatexfile.tex_, and _runtimeLatexfile.tex_. 

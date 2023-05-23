@@ -56,13 +56,13 @@ inputFile = 'Transactional_T10I4D100K.csv'
 minSup=400
 
 #create the object of the mining algorithm 
-obj = alg.fpGrowth(inputFile, minSup)
+obj = alg.FPGrowth(inputFile, minSup)
 
 #start the mining process
 obj.startMine()
 
 #Print the number of interesting patterns generated
-print("Total number of Frequent Patterns:", len(obj.getDiscoveredPatterns()))
+print("Total number of Frequent Patterns:", len(obj.getPatterns()))
 
 #Save the generated patterns in a file
 obj.save('outputFile.tsv')
