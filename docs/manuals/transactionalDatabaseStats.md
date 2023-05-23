@@ -36,47 +36,48 @@ One can import this class using the following syntax:
 
 ## Sample code  - 1: Printing all statistics
 
-    import PAMI.extras.dbStats.transactionalDatabaseStats as stats
+__Note:__ [Click here to download the transactional database](https://u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/Transactional_T10I4D100K.csv)
 
-    inputFile = "<provide the name of a transactional database>"
-    
-    obj=stats.transactionalDatabaseStats(inputFile,sep='\t') 
-    obj.run() 
+```Python
+#import the class file
+import PAMI.extras.dbStats.transactionalDatabaseStats as stats
 
-    obj.printStats() 
-    obj.plotGraphs()
+#specify the file name
+inputFile = 'Transactional_T10I4D100K.csv'
 
+obj=stats.transactionalDatabaseStats(inputFile,sep='\t') 
+obj.run() 
+
+obj.printStats() 
+obj.plotGraphs()
+```
 
 ## Sample code  - 2: Printing individual statistics
 
-    import PAMI.extras.dbStats.transactionalDatabaseStats as tds
-          
-    inputFile = "<provide the name of a transactional database>"
-
-    #initialize the program
-    obj = tds.transactionalDatabaseStats(inputFile)
-    #obj = tds.transactionalDatabaseStats(inputFile,sep='\t') #override default tab seperator
-
-    #execute the program
-    obj.run()
-
-    #print the database statistics
-    print(f'Database size : {obj.getDatabaseSize()}')
-    print(f'Total number of items : {obj.getTotalNumberOfItems()}')
-    printf(f'Database sparsity : {obj.getSparsity()}')
-    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
-    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
-    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
-    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-    print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
+```Python
+import PAMI.extras.dbStats.transactionalDatabaseStats as tds
     
-    itemFrequencies = obj.getSortedListOfItemFrequencies()
-    transactionLength = obj.getTransanctionalLengthDistribution()
-    obj.save(itemFrequencies, 'itemFrequency.csv')
-    obj.save(transactionLength, 'transactionSize.csv')        
+inputFile = "<provide the name of a transactional database>"
 
+#initialize the program
+obj = tds.transactionalDatabaseStats(inputFile)
+#obj = tds.transactionalDatabaseStats(inputFile,sep='\t') #override default tab seperator
 
+#execute the program
+obj.run()
 
+#print the database statistics
+print(f'Database size : {obj.getDatabaseSize()}')
+print(f'Total number of items : {obj.getTotalNumberOfItems()}')
+print(f'Database sparsity : {obj.getSparsity()}')
+print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+print(f'Variance in Transaction Sizes : {obj.getVarianceTransactionLength()')
 
-
-
+itemFrequencies = obj.getSortedListOfItemFrequencies()
+transactionLength = obj.getTransanctionalLengthDistribution()
+obj.save(itemFrequencies, 'itemFrequency.csv')
+obj.save(transactionLength, 'transactionSize.csv')   
+ ```
