@@ -10,9 +10,11 @@ Thus, it is important to know the statistical details of a database. PAMI contai
 get the statistical details of a database.   In this page, we provide the details of methods to get statistical details of 
 a transactional database. 
 
-## Class to use to derive the transactional database statistics
+## Class name
+The class to print the statistics of a transactional base is "_transactionalDatabaseStats_". This class is located at PAMI/extras/dbStats directory.
+One can import this class using the following syntax: 
 
-PAMI.extras.dbStats.transactionalDatabaseStats
+    import PAMI.extras.dbStats.transactionalDatabaseStats as stats
 
 ##Methods
 
