@@ -30,15 +30,17 @@ Chapter 4: Creation of very large synthetic databases
 
 Chapter 5: Printing, displaying, and saving the statistical details of a database
  
-   1. [Transactional databases](./transactionalDatabaseStats.md)      
-   2. [Temporal database](./temporalDatabaseStats.md)
-   3. [Utility database](./utilityDatabaseStats.md)
+   1. [Transactional databases](./transactionalDatabaseStats.html)      
+   2. [Temporal database (partially under development)](./temporalDatabaseStats.html)
+   3. [Utility database (partially under development)](./utilityDatabaseStats.html)   
+   4. [Uncertain database (under development)](./uncertainDatabaseStats.html)
+   5. [Geo-referenced database (under development)](./geoReferencedDatabase.html)
 
 Chapter 6: Implementing algorithms in PAMI
 
    1. [Directly executing PAMI algorithms on a terminal/command prompt](./terminalExecute.html)
-   2. [Using a single algorithm in a Python program](./utilization.html)
-   3. [Evaluation of multiple pattern mining (under development)](./evaluateMultipleAlgorithms.html)
+   2. [Mining interesting patterns using an algorithm](./utilization.html)
+   3. [Evaluating multiple pattern mining algorithms](./evaluateMultipleAlgorithms.html)
 
    __Note:__ Click on the 'Basic' and 'Adv' links of an algorithm in the [Github page](https://github.com/udayRage/PAMI) to know more about its usage.
 
