@@ -1,4 +1,0 @@
-PAMI.frequentPatternUsingOtherMeasures package
-==============================================
-
-
