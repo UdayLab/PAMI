@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="391fcfe8-fddc-4b5e-9e73-5e80ecd3dc61" name="Default Changelist" comment="updating manuals" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Unit Test" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="29gMYpKqh4fB4A0mNRQ3Mcx8KzM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/htmlDocs" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/htmlDocs" />
+      <recent name="$PROJECT_DIR$/PAMI/sequentialPatternMining/closed" />
+      <recent name="$PROJECT_DIR$/PAMI/faultTolerantFrequentPattern/maximal" />
+      <recent name="$PROJECT_DIR$/PAMI/faultTolerantFrequentPattern/basic" />
+      <recent name="$PROJECT_DIR$/PAMI/geoReferencedPeriodicFrequentPattern/basic" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/PAMI/extras/fuzzyTransformation" />
+      <recent name="$PROJECT_DIR$/PAMI/sequentialPatternMining/basic" />
+      <recent name="$PROJECT_DIR$/PAMI/coveragePatterns/basic" />
+      <recent name="$PROJECT_DIR$/PAMI/AssociationRules/basic" />
+      <recent name="$PROJECT_DIR$/PAMI/periodicCorrelatedPattern/basic" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.ARWithConfidence">
+    <configuration name="ARWithConfidence" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PAMI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PAMI/AssociationRules/basic" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PAMI/AssociationRules/basic/ARWithConfidence.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ARWithLeverage" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PAMI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PAMI/AssociationRules/basic" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PAMI/AssociationRules/basic/ARWithLeverage.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ARWithLift" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PAMI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PAMI/AssociationRules/basic" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PAMI/AssociationRules/basic/ARWithLift.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="FTApriori" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PAMI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PAMI/faultTolerantFrequentPattern/basic" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PAMI/faultTolerantFrequentPattern/basic/FTApriori.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="VBFTMine" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PAMI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PAMI/faultTolerantFrequentPattern/basic" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PAMI/faultTolerantFrequentPattern/basic/VBFTMine.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.ARWithConfidence" />
+        <item itemvalue="Python.ARWithLift" />
+        <item itemvalue="Python.ARWithLeverage" />
+        <item itemvalue="Python.FTApriori" />
+        <item itemvalue="Python.VBFTMine" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="391fcfe8-fddc-4b5e-9e73-5e80ecd3dc61" name="Default Changelist" comment="" />
+      <created>1653530329066</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1653530329066</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updates and changes to the version 0.9.7.3.4.37">
+      <created>1654047352474</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654047352474</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Adding new algorithms to version 0.9.7.3.5.0">
+      <created>1654474618497</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1654474618499</updated>
+    </task>
+    <task id="LOCAL-00005" summary="update">
+      <created>1654842075380</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1654842075380</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update">
+      <created>1655355251838</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1655355251838</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Adding plotGraphsFromDataFrame">
+      <created>1655699655853</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1655699655853</updated>
+    </task>
+    <task id="LOCAL-00008" summary="updating setup file">
+      <created>1655699928970</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1655699928970</updated>
+    </task>
+    <task id="LOCAL-00009" summary="updating setup file and generateLate">
+      <created>1655702039358</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1655702039358</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Adding multiple minimum support codes to version v2022.06.4">
+      <created>1656034070536</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1656034070537</updated>
+    </task>
+    <task id="LOCAL-00011" summary="changing and updating statistics code of transactionalDatabaseStats and temporalDatabaseStats a version v2022.06.20.5">
+      <created>1656137287263</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1656137287263</updated>
+    </task>
+    <task id="LOCAL-00012" summary="adding partial periodic spatial pattern code   to  version v2022.06.20.5">
+      <created>1656394449888</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1656394449889</updated>
+    </task>
+    <task id="LOCAL-00013" summary="changing statistics code">
+      <created>1656468733522</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1656468733522</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Adding coveragePatterns, weightedFrequentSpatialPatterns, frequentPatternsBasedOnMultipleMinSupports,">
+      <created>1656638028026</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1656638028027</updated>
+    </task>
+    <task id="LOCAL-00015" summary="updating README.md by adding the sample manual of frequentPattern Algorithms">
+      <created>1656639026586</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1656639026587</updated>
+    </task>
+    <task id="LOCAL-00016" summary="update">
+      <created>1656998598176</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1656998598176</updated>
+    </task>
+    <task id="LOCAL-00017" summary="update">
+      <created>1658981036209</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1658981036209</updated>
+    </task>
+    <task id="LOCAL-00018" summary="adding printResults() method">
+      <created>1662967121524</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1662967121525</updated>
+    </task>
+    <task id="LOCAL-00019" summary="updating setup.py">
+      <created>1662967362736</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1662967362737</updated>
+    </task>
+    <task id="LOCAL-00020" summary="updating setup.py">
+      <created>1662967420003</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1662967420004</updated>
+    </task>
+    <task id="LOCAL-00021" summary="updating">
+      <created>1662968488936</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1662968488937</updated>
+    </task>
+    <task id="LOCAL-00022" summary="updating setup.py">
+      <created>1662968731172</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1662968731174</updated>
+    </task>
+    <task id="LOCAL-00023" summary="updating">
+      <created>1662970283684</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1662970283688</updated>
+    </task>
+    <task id="LOCAL-00024" summary="updating">
+      <created>1662971087345</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1662971087345</updated>
+    </task>
+    <task id="LOCAL-00025" summary="updating">
+      <created>1662971608956</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1662971608958</updated>
+    </task>
+    <task id="LOCAL-00026" summary="updating">
+      <created>1662975305987</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1662975305989</updated>
+    </task>
+    <task id="LOCAL-00027" summary="updating">
+      <created>1662989580462</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1662989580465</updated>
+    </task>
+    <task id="LOCAL-00028" summary="updating">
+      <created>1663028908450</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1663028908453</updated>
+    </task>
+    <task id="LOCAL-00029" summary="updating">
+      <created>1663039625306</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1663039625309</updated>
+    </task>
+    <task id="LOCAL-00030" summary="updating">
+      <created>1663055434733</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1663055434733</updated>
+    </task>
+    <task id="LOCAL-00031" summary="updating">
+      <created>1663123915326</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1663123915326</updated>
+    </task>
+    <task id="LOCAL-00032" summary="updating">
+      <created>1663227998523</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1663227998524</updated>
+    </task>
+    <task id="LOCAL-00033" summary="updating">
+      <created>1663233829519</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1663233829520</updated>
+    </task>
+    <task id="LOCAL-00034" summary="updating">
+      <created>1663551738021</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1663551738024</updated>
+    </task>
+    <task id="LOCAL-00035" summary="updating">
+      <created>1663654961410</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1663654961412</updated>
+    </task>
+    <task id="LOCAL-00036" summary="updating">
+      <created>1664249506487</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1664249506487</updated>
+    </task>
+    <task id="LOCAL-00037" summary="updating">
+      <created>1664771048906</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1664771048906</updated>
+    </task>
+    <task id="LOCAL-00038" summary="updating">
+      <created>1664853955609</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1664853955610</updated>
+    </task>
+    <task id="LOCAL-00039" summary="documenting">
+      <created>1664855600124</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1664855600125</updated>
+    </task>
+    <task id="LOCAL-00040" summary="adding html documents">
+      <created>1665971024264</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1665971024265</updated>
+    </task>
+    <task id="LOCAL-00041" summary="update">
+      <created>1666756794855</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1666756794855</updated>
+    </task>
+    <task id="LOCAL-00042" summary="update">
+      <created>1675735022455</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1675735022455</updated>
+    </task>
+    <task id="LOCAL-00043" summary="update">
+      <created>1675739257556</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1675739257556</updated>
+    </task>
+    <task id="LOCAL-00044" summary="update">
+      <created>1675741100067</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1675741100068</updated>
+    </task>
+    <task id="LOCAL-00045" summary="update">
+      <created>1676075282287</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1676075282290</updated>
+    </task>
+    <task id="LOCAL-00046" summary="update">
+      <created>1676076339985</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1676076339985</updated>
+    </task>
+    <task id="LOCAL-00047" summary="update">
+      <created>1677575993717</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1677575993717</updated>
+    </task>
+    <task id="LOCAL-00048" summary="updating Fuzzy algorithms">
+      <created>1677808557493</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1677808557493</updated>
+    </task>
+    <task id="LOCAL-00049" summary="updating Fault algorithms">
+      <created>1679378072957</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1679378072958</updated>
+    </task>
+    <task id="LOCAL-00050" summary="update">
+      <created>1680660616648</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1680660616649</updated>
+    </task>
+    <task id="LOCAL-00051" summary="updating manuals">
+      <created>1685061928111</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1685061928114</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updates and changes to the version 0.9.7.3.4.37" />
+    <MESSAGE value="Adding new algorithms to version 0.9.7.3.5.0" />
+    <MESSAGE value="Adding plotGraphsFromDataFrame" />
+    <MESSAGE value="updating setup file" />
+    <MESSAGE value="updating setup file and generateLate" />
+    <MESSAGE value="Adding multiple minimum support codes to version v2022.06.4" />
+    <MESSAGE value="changing and updating statistics code of transactionalDatabaseStats and temporalDatabaseStats a version v2022.06.20.5" />
+    <MESSAGE value="adding partial periodic spatial pattern code   to  version v2022.06.20.5" />
+    <MESSAGE value="changing statistics code" />
+    <MESSAGE value="Adding coveragePatterns, weightedFrequentSpatialPatterns, frequentPatternsBasedOnMultipleMinSupports," />
+    <MESSAGE value="updating README.md by adding the sample manual of frequentPattern Algorithms" />
+    <MESSAGE value="adding printResults() method" />
+    <MESSAGE value="updating setup.py" />
+    <MESSAGE value="updating" />
+    <MESSAGE value="documenting" />
+    <MESSAGE value="adding html documents" />
+    <MESSAGE value="updating Fuzzy algorithms" />
+    <MESSAGE value="updating Fault algorithms" />
+    <MESSAGE value="update" />
+    <MESSAGE value="updating manuals" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating manuals" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PAMI/extras/calculateMISValues/usingSD.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
