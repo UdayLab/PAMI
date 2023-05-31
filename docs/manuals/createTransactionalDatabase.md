@@ -12,6 +12,7 @@ A synthetic transactional database can be created by calling `generateTransactio
 import PAMI.extras.generateDatabase.generateTransactionalDatabase as dbGenerator
 ```
 ### Step 2: Specify the parameters
+
 ```Python
 totalNumberOfItems=500      #total number of items that must exist in a database. Symbol used for this term is I
 totalNumberOfTransactions=1000     #Number of transactions that must exist in a database. Symbol used for this term is D
@@ -20,6 +21,7 @@ probabilityOfOccurrenceOfAnItem=20  #The probability with which an item must occ
 outputFile='D1000I500P20.tsv'   #Specify the file name. 'D' represents the database size, 'I' represents the total number of items and 'P' represents the probability of occurrence of an item in a database
 ```
 ### Step 3: Creating the synthetic dataset
+
 ```Python
 data = dbGenerator.generateTransactionalDatabase(totalNumberOfTransactions, totalNumberOfItems, probabilityOfOccurrenceOfAnItem, outputFile)
 ```

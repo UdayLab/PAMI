@@ -24,7 +24,7 @@ Chapter 3: Converting dataframes to databases
 
 Chapter 4: Creation of very large synthetic databases
   
-   1. [Creation of transactional database (under development)](./createTransactionalDatabase.html)
+   1. [Creation of transactional database](./createTransactionalDatabase.html)
    2. [Creation of temporal database (under development)](./createTemporalDatabase.html)
    3. [Creation of Geo-referenced database (under development)](./createSpatiotemporalDatabase.html) 
 
