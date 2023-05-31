@@ -45,7 +45,8 @@ Chapter 6: Implementing algorithms in PAMI
    __Note:__ Click on the 'Basic' and 'Adv' links of an algorithm in the [Github page](https://github.com/udayRage/PAMI) to know more about its usage.
 
 Chapter 7: Visualization in PAMI
-    1. [Visualization of spatial items](visualizeSpatialItems.html)
+
+   1. [Visualization of spatial items](visualizeSpatialItems.html)
 
 Chapter 8: Additional topics
 
