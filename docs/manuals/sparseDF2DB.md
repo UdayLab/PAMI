@@ -61,7 +61,7 @@ db.createTemporalDatabase(outputFile='/home/userName/temporalDB.txt')
 # Getting the fileName of the temporal database
 print('The output file is saved at ' + db.getFileName())
 
-``` 
+``` -
 ### Sparse dataframe into a utility database
 #### Description
 A [utility database](utilityDatabase.html) represents a sparse and non-binary representation of items occurring in
