@@ -1,3 +1,15 @@
+import operator
+
+condition_operator = {
+    '<': operator.lt,
+    '>': operator.gt,
+    '<=': operator.le,
+    '>=': operator.ge,
+    '==': operator.eq,
+    '!=': operator.ne
+}
+
+
 class denseDF2DB:
     """
         This class create Data Base from DataFrame.
@@ -38,9 +50,7 @@ class denseDF2DB:
         self.outputFile = ' '
         self.inputDF = self.inputDF.set_index('tid')
         self.items = list(self.inputDF.columns.values)[1:]
-
         self.tids = list(self.inputDF.index)
-
 
     def createTransactional(self, outputFile):
         """
@@ -52,85 +62,20 @@ class denseDF2DB:
 
         self.outputFile = outputFile
         with open(outputFile, 'w') as f:
-            if self.condition == '>':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] > self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{transaction[0]}')
-                        for item in transaction[1:]:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-
-            elif self.condition == '>=':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] >= self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{transaction[0]}')
-                        for item in transaction[1:]:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-
-            elif self.condition == '<=':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] <= self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{transaction[0]}')
-                        for item in transaction[1:]:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-
-            elif self.condition == '<':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] < self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{transaction[0]}')
-                        for item in transaction[1:]:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-            elif self.condition == '==':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] == self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{transaction[0]}')
-                        for item in transaction[1:]:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-            elif self.condition == '!=':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] != self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{transaction[0]}')
-                        for item in transaction[1:]:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-            else:
+            if self.condition not in condition_operator:
                 print('Condition error')
-
-
+                # Here is important to raise an Exception
+            for tid in self.tids:
+                transaction = [item for item in self.items if condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+                if len(transaction) > 1:
+                    f.write(f'{transaction[0]}')
+                    for item in transaction[1:]:
+                        f.write(f'\t{item}')
+                elif len(transaction) == 1:
+                    f.write(f'{transaction}')
+                else:
+                    continue
+                f.write('\n')
 
     def createTemporal(self, outputFile):
         """
@@ -142,90 +87,21 @@ class denseDF2DB:
 
         self.outputFile = outputFile
         with open(outputFile, 'w') as f:
-            if self.condition == '>':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] > self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{tid}')
-                        for item in transaction:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-
-            elif self.condition == '>=':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] >= self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{tid}')
-                        for item in transaction:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-
-            elif self.condition == '<=':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] <= self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{tid}')
-                        for item in transaction:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-
-            elif self.condition == '<':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] < self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{tid}')
-                        for item in transaction:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-            elif self.condition == '==':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] == self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{tid}')
-                        for item in transaction:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-            elif self.condition == '!=':
-                for tid in self.tids:
-                    transaction = [item for item in self.items if self.inputDF.at[tid, item] != self.thresholdValue]
-                    if len(transaction) > 1:
-                        f.write(f'{tid}')
-                        for item in transaction:
-                            f.write(f'\t{item}')
-                    elif len(transaction) == 1:
-                        f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
-                    else:
-                        continue
-                    f.write('\n')
-
-            else:
+            if self.condition not in condition_operator:
                 print('Condition error')
+                # Here is important to raise an Exception
+            for tid in self.tids:
+                transaction = [item for item in self.items if condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+                if len(transaction) > 1:
+                    f.write(f'{tid}')
+                    for item in transaction:
+                        f.write(f'\t{item}')
+                elif len(transaction) == 1:
+                    f.write(f'{tid}')
+                    f.write(f'\t{transaction}')
+                else:
+                    continue
+                f.write('\n')
 
     def createUtility(self, outputFile):
         """
@@ -257,7 +133,5 @@ class denseDF2DB:
 
         return self.outputFile
 
-
-    
-#obj = denseDF2DB(dataset, '>=', 5)
-#obj.createDB('soramame_transactional.txt')
+# obj = denseDF2DB(dataset, '>=', 5)
+# obj.createDB('soramame_transactional.txt')
