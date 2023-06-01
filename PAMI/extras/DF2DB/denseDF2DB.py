@@ -36,8 +36,8 @@ class denseDF2DB:
         self.tids = []
         self.items = []
         self.outputFile = ' '
-        self.inputDF = self.inputDF.set_index('tid')
-        self.items = list(self.inputDF.columns.values)[1:]
+        self.inputDF = self.inputDF.set_index('tid', drop=True)
+        self.items = list(self.inputDF.columns.values)
 
         self.tids = list(self.inputDF.index)
 
