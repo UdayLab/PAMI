@@ -21,14 +21,16 @@ import PAMI.extras.generateDatabase.generateTemporalDatabase as dbGenerator
 ### Step 2: Specify the parameters
 
 ```Python
-totalNumberOfItems=500      #total number of items that must exist in a database. Symbol used for this term is I
-totalNumberOfTransactions=1000     #Number of transactions that must exist in a database. Symbol used for this term is D
-maxItemsInATransaction=20  #Maximum number of items that must exist in a database
-probabilityOfRecurrenceOfTimeStamp=0   
-#Set the above value to 0 to create an irregular temporal database of Type-II.
+totalNumberOfTransactions_D=1000     #Number of transactions that must exist in a database. Symbol used for this term is D
+totalNumberOfItems_I=500      #total number of items that must exist in a database. Symbol used for this term is I
+maximumLengthOfTransaction_T=20  #Maximum number of items that must exist in a database
+probabilityOfRecurrenceOfTimeStamp_P=0   #Set the above value to 0 to create an irregular temporal database of Type-II.
 
 sep = '\t'    "Specify the seperator. \t is the default seperator"
-outputFile='D1000I500P20_TS_I.tsv'   #Specify the file name. 'D' represents the database size, 'I' represents the total number of items and 'P' represents the probability of occurrence of an item in a database
+outputFile='D1000I500T20P0.tsv'   #Specify the file name. 
+# 'D' represents the database size, 
+# 'I' represents the total number of items and 
+# 'P' represents the probability of occurrence of an item in a database
 ```
 ### Step 3: Creating the synthetic dataset
 
