@@ -1,4 +1,4 @@
-[Return to home page](index.html)
+[__<--__ Return to home page](index.html)
 
 ## Creation of neighborhood file from a geo-referenced (or spatial) database
 

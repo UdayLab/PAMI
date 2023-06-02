@@ -1,4 +1,10 @@
-[Return to home page](index.html)
+[Return to home page](index.html)  
+
+## Creation of temporal database
+
+This page describes the process to create synthetic transactional databases of varying sizes. __Please note that this code is different from the widely used 
+synthetic IBM data generator.__
+[__<--__ Return to home page](index.html)
 
 ## Creation of temporal databases
 

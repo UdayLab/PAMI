@@ -1,4 +1,4 @@
-[Return to home page](index.html)  
+[__<--__ Return to home page](index.html)
 
 ## Conversion of dense dataframe into different database formats
 Currently, PAMI supports converting a dataframe into a transactional database, temporal database, ond a utility database.

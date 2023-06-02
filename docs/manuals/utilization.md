@@ -1,4 +1,4 @@
-[Return to home page](index.html)
+[__<--__ Return to home page](index.html)
 
 ## Mining interesting patterns using an algorithm
 

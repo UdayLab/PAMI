@@ -6,7 +6,7 @@ Chapter 1: Basics
 2. [Inputs and outputs of an algorithm](inputOutput.html)
 3. [Methods to execute an algorithm in PAMI](methodsToExecuteAlgorithms.html)
 4. [Casing style to be followed](casingAlgorithm.html)
-5. [Importance of Abstract class](abstractClassImportance.html)
+5. [Using Abstract class](abstractClassImportance.html)
 6. [Need for main method](needForMainMethod.html)
 7. [Documentation techniques](documentationTechnique.html)
 

@@ -1,4 +1,4 @@
-[Return to home page](index.html)
+[__<--__ Return to home page](index.html)
 
 
 ## Evaluating Multiple Pattern Mining Algorithms on a Dataset

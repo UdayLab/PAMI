@@ -1,5 +1,4 @@
-# **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
-
+[__<--__ Return to home page](index.html)
 
 # Sparse dataframe
 

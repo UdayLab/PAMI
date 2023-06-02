@@ -1,4 +1,4 @@
-[Return to home page](index.html)
+[__<--__ Return to home page](index.html)
 
 ## Visualizing top-_k_ geo-referenced (or spatially) interesting patterns
 

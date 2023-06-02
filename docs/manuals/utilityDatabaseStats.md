@@ -1,6 +1,7 @@
-# **[Home](index.html) | [Exercises](exercises.html) | [Real-world Examples](examples.html)**  
+[__<--__ Return to home page](index.html)
 
-#Statistical details of a transactional database
+
+# Statistical details of a transactional database
 
 The performance of a mining algorithm primarily depends on the following two key factors: 
 1. Distribution of items' frequencies and 
