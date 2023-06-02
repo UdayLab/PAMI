@@ -19,7 +19,7 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 2. Datasets   https://u-aizu.ac.jp/~udayrage/datasets.html
 
-3. Code documentation file:///Users/likhitha/Downloads/PAMI-main-docs/docs/_build/html/index.html
+3. Code documentation https://github.com/udayRage/PAMI/htmlDocs/_build/html/index.html
 
 4. Discussions on PAMI usage https://github.com/udayRage/PAMI/discussions
 
