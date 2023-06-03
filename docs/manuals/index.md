@@ -3,7 +3,7 @@
  
 Chapter 1: Introduction
 
-   1. [About PAMI: Motivation and the people who supported](./aboutPAMI.html)
+   1. [About PAMI: Motivation and the supporting people](./aboutPAMI.html)
    2. [Maintenance of PAMI library](./installation.html)
    3. [Organization of algorithms in PAMI](./organization.html)
 

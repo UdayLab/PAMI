@@ -52,8 +52,7 @@ from PAMI.extras.neighbours import  createNeighborhoodFileUsingEuclideanDistance
 inputFile='geoReferencedInputFile.csv'  #name of the input file 
 outputFile='neighborhoodFile.csv'       #name of the output file
 maximumDistance=10      #specify your own value
-seperator='\t'      #default seperator. 
-
+seperator='\t'      #default seperator.
 ```
 
 #### Step 3: Call the program

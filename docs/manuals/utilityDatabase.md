@@ -26,7 +26,7 @@ is shown in below table:
 ### Format of a utility transactional database
 The utility transactional database must exist in the following format:
 
-     itemA<seo>itemB<sep>...<sep>itemN : total utility : utilityA<sep>utilityB<sep>...<sep>utilityN
+     itemA<seo>itemB<sep>...<sep>itemN:total utility:utilityA<sep>utilityB<sep>...<sep>utilityN
 
 _The 'total utility' represents the total utility value of items in a transaction._
 
@@ -61,7 +61,7 @@ is shown in below table:
 ### Format of a utility temporal database
 The utility temporal database must exist in the following format:
 
-     timestamp : itemA<seo>itemB<sep>...<sep>itemN : total utility : utilityA<sep>utilityB<sep>...<sep>utilityN
+     timestamp:itemA<seo>itemB<sep>...<sep>itemN:total utility:utilityA<sep>utilityB<sep>...<sep>utilityN
 
 _The 'total utility' represents the total utility value of items in a transaction._
 
