@@ -25,13 +25,13 @@
     item<seperator>NeighboringItem1<seperator>NeighboringItem2<seperator>...
 
  
-### 4. An example of a neighborhood file
+### An example
 
     item1   item3   item4   item10  
     item2   item3   item5   item11  ...
     ...
 
-### 5. Procedure to generate neighborhood file
+### Procedure to generate neighborhood file
 
 #### Step 1: Import the program
 

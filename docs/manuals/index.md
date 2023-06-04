@@ -13,8 +13,8 @@ Chapter 2: Preparation of various datasets (or databases)
    3. [Utility database](./utilityDatabase.html)
    4. [Uncertain database](./uncertainDatabases.md)
    5. [Location/spatial database](./locationDatabase.md)
-   6. [Geo-referenced database](./spatialDatabase.html)
-   7. [Neighborhood database (to be written)](./neighborhoodDatabase.html)
+   6. [Neighborhood database](./neighborhoodDatabase.html)
+   7. [Geo-referenced database](./spatialDatabase.html)
 
 Chapter 3: Converting dataframes to databases
 
