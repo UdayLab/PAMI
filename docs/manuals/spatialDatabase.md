@@ -9,7 +9,7 @@ A spatial database is a collection of spatial objects (or items), such as pixels
 
 #### Format of a spatial database
    
-         item : spatialInformation (pixel, point, line, polygon)
+         item : spatialInformation
 
 #### An example
    A hypothetical spatial database containing the spatial items _a_ to _f_  is
