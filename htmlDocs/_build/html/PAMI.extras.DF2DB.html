@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.DF2DB package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.extras.DF2DB package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,58 +128,65 @@
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DB.DF2DB">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.DF2DB.</span></span><span class="sig-name descname"><span class="pre">DF2DB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DFtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sparse'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DB.html#DF2DB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DB.DF2DB" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class create database from DataFrame. Threshold values and conditions are defined to all item.</p>
-<section id="attribute">
-<h3>Attribute:<a class="headerlink" href="#attribute" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>inputDF<span class="classifier">pandas.DataFrame</span></dt><dd><p>It is sparse or dense DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create database from DataFrame. Threshold values and conditions are defined to all item.</p>
 </dd>
-<dt>thresholdValue<span class="classifier">int or float</span></dt><dd><p>It is threshold value of all item</p>
-</dd>
-<dt>condition<span class="classifier">str</span></dt><dd><p>It is condition of all item</p>
-</dd>
-<dt>DFtype<span class="classifier">str</span></dt><dd><p>It is DataFrame type. It should be sparse or dense. Default DF is sparse.</p>
-</dd>
-</dl>
-</section>
-<section id="nethods">
-<h3>Nethods:<a class="headerlink" href="#nethods" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>getDB(outputFile)</dt><dd><p>Create transactional database from DataFrame and store into outputFile</p>
-</dd>
-<dt>getTDB(outputFile)</dt><dd><p>Create temporal database from DataFrame and store into outputFile</p>
-</dd>
-<dt>getUDB(outputFile)</dt><dd><p>Create utility database from DataFrame and store into outputFile</p>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>inputDF</strong> -- DataFrame :
+It is sparse or dense DataFrame</p></li>
+<li><p><strong>thresholdValue</strong> -- int or float :
+It is threshold value of all item</p></li>
+<li><p><strong>condition</strong> -- str :
+It is condition of all item</p></li>
+<li><p><strong>DFtype</strong> -- str :
+It is DataFrame type. It should be sparse or dense. Default DF is sparse.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DB.DF2DB.getTemporal">
 <span class="sig-name descname"><span class="pre">getTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DB.html#DF2DB.getTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DB.DF2DB.getTemporal" title="Permalink to this definition"></a></dt>
-<dd><p>create temporal database and return outputFile name
-:param outputFile: file name or path to store database
-:type outputFile: str
-:return: outputFile name</p>
+<dd><p>create temporal database and return outputFile name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- file name or path to store database</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>outputFile name</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DB.DF2DB.getTransactional">
 <span class="sig-name descname"><span class="pre">getTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DB.html#DF2DB.getTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DB.DF2DB.getTransactional" title="Permalink to this definition"></a></dt>
-<dd><p>create transactional database and return outputFileName
-:param outputFile: file name or path to store database
-:type outputFile: str
-:return: outputFile name</p>
+<dd><p>create transactional database and return outputFileName</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- file name or path to store database</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>outputFile name</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DB.DF2DB.getUtility">
 <span class="sig-name descname"><span class="pre">getUtility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DB.html#DF2DB.getUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DB.DF2DB.getUtility" title="Permalink to this definition"></a></dt>
-<dd><p>create utility database and return outputFile name
-:param outputFile:  file name or path to store database
-:type outputFile: str
-:return: outputFile name</p>
+<dd><p>create utility database and return outputFile name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- file name or path to store database</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>outputFile name</p>
+</dd>
+</dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -189,57 +196,65 @@
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.DF2DBPlus.</span></span><span class="sig-name descname"><span class="pre">DF2DBPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdConditionDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DFtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sparse'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DBPlus.html#DF2DBPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class create database from DataFrame. Threshold values and conditions are defined to each item
-by thresholdConditonDF.</p>
-<section id="id1">
-<h3>Attribute:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>inputDF<span class="classifier">pandas.DataFrame</span></dt><dd><p>It is sparse or dense DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create database from DataFrame. Threshold values and conditions are defined to each item by thresholdConditonDF.</p>
 </dd>
-<dt>thresholdConditionDF<span class="classifier">pandas.DataFrame</span></dt><dd><p>It is DataFrame to contain threshold values and condition each item</p>
-</dd>
-<dt>DFtype<span class="classifier">str</span></dt><dd><p>It is DataFrame type. It should be sparse or dense. Default DF is sparse.</p>
-</dd>
-</dl>
-</section>
-<section id="id2">
-<h3>Nethods:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>getDB(outputFile)</dt><dd><p>Create transactional database from DataFrame and store into outputFile</p>
-</dd>
-<dt>getTDB(outputFile)</dt><dd><p>Create temporal database from DataFrame and store into outputFile</p>
-</dd>
-<dt>getUDB(outputFile)</dt><dd><p>Create utility database from DataFrame and store into outputFile</p>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>inputDF</strong> -- DataFrame :
+It is sparse or dense DataFrame</p></li>
+<li><p><strong>thresholdConditionDF</strong> -- pandas.DataFrame :
+It is DataFrame to contain threshold values and condition each item</p></li>
+<li><p><strong>condition</strong> -- str :
+It is condition of all item</p></li>
+<li><p><strong>DFtype</strong> -- str :
+It is DataFrame type. It should be sparse or dense. Default DF is sparse.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus.getTDB">
 <span class="sig-name descname"><span class="pre">getTDB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DBPlus.html#DF2DBPlus.getTDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus.getTDB" title="Permalink to this definition"></a></dt>
-<dd><p>create temporal database and return outputFile name
-:param outputFile: file name or path to store database
-:type outputFile: str
-:return: outputFile name</p>
+<dd><p>create temporal database and return outputFile name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- file name or path to store database</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>outputFile name</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus.getTransactional">
 <span class="sig-name descname"><span class="pre">getTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DBPlus.html#DF2DBPlus.getTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus.getTransactional" title="Permalink to this definition"></a></dt>
-<dd><p>create transactional database and return outputFileName
-:param outputFile: file name or path to store database
-:type outputFile: str
-:return: outputFile name</p>
+<dd><p>create transactional database and return outputFileName</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- file name or path to store database</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>outputFile name</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus.getUDB">
 <span class="sig-name descname"><span class="pre">getUDB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/DF2DBPlus.html#DF2DBPlus.getUDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus.getUDB" title="Permalink to this definition"></a></dt>
-<dd><p>create utility database and return outputFile name
-:param outputFile:  file name or path to store database
-:type outputFile: str
-:return: outputFile name</p>
+<dd><p>create utility database and return outputFile name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- file name or path to store database</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>outputFile name</p>
+</dd>
+</dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -252,13 +267,16 @@ by thresholdConditonDF.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.createTDB.createTDB.createTDB">
 <span class="sig-name descname"><span class="pre">createTDB</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/createTDB.html#createTDB.createTDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.createTDB.createTDB.createTDB" title="Permalink to this definition"></a></dt>
-<dd><p>Create transactional data base</p>
-<p>:returning a transactional database as DataFrame</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create transactional data base</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.DF2DB.createTDB.createTDB.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/createTDB.html#createTDB.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.createTDB.createTDB.save" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.DF2DB.createTDB.createTDB.savePatterns">
+<span class="sig-name descname"><span class="pre">savePatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/createTDB.html#createTDB.savePatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.createTDB.createTDB.savePatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -276,43 +294,37 @@ by thresholdConditonDF.</p>
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB.denseDF2DB">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.denseDF2DB.</span></span><span class="sig-name descname"><span class="pre">denseDF2DB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB.html#denseDF2DB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class create Data Base from DataFrame.</p>
-<section id="id3">
-<h3>Attribute:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>inputDF<span class="classifier">pandas.DataFrame</span></dt><dd><p>It is dense DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create Data Base from DataFrame.</p>
 </dd>
-<dt>condition<span class="classifier">str</span></dt><dd><p>It is condition to judge the value in dataframe</p>
-</dd>
-<dt>thresholdValue<span class="classifier">int or float:</span></dt><dd><p>User defined value.</p>
-</dd>
-<dt>tids<span class="classifier">list</span></dt><dd><p>It is tids list.</p>
-</dd>
-<dt>items<span class="classifier">list</span></dt><dd><p>Store the items list</p>
-</dd>
-<dt>outputFile<span class="classifier">str</span></dt><dd><p>Creation data base output to this outputFile.</p>
-</dd>
-</dl>
-</section>
-<section id="methods">
-<h3>Methods:<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>createDB(outputFile)</dt><dd><p>Create transactional data base from dataFrame</p>
-</dd>
-<dt>createTDB(outputFile)</dt><dd><p>Create temporal dataBase from dataFrame</p>
-</dd>
-<dt>createUDB(outputFile)</dt><dd><p>Create utility database from dataFrame</p>
-</dd>
-<dt>getFileName()</dt><dd><p>Return outputFileName.</p>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>inputDF</strong> -- dataframe :
+It is dense DataFrame</p></li>
+<li><p><strong>condition</strong> -- str :
+It is condition to judge the value in dataframe</p></li>
+<li><p><strong>thresholdValue</strong> -- int or float :
+User defined value.</p></li>
+<li><p><strong>tids</strong> -- list :
+It is tids list.</p></li>
+<li><p><strong>items</strong> -- list :
+Store the items list</p></li>
+<li><p><strong>outputFile</strong> -- str  :
+Creation data base output to this outputFile.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createTemporal">
 <span class="sig-name descname"><span class="pre">createTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB.html#denseDF2DB.createTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createTemporal" title="Permalink to this definition"></a></dt>
-<dd><p>Create temporal data base</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- Write temporal data base into outputFile</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create temporal data base</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>outputFile</strong> -- str :
+Write temporal data base into outputFile</p>
 </dd>
 </dl>
 </dd></dl>
@@ -320,10 +332,13 @@ by thresholdConditonDF.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createTransactional">
 <span class="sig-name descname"><span class="pre">createTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB.html#denseDF2DB.createTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createTransactional" title="Permalink to this definition"></a></dt>
-<dd><p>Create transactional data base</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- Write transactional data base into outputFile</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create transactional data base</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>outputFile</strong> -- str :
+Write transactional data base into outputFile</p>
 </dd>
 </dl>
 </dd></dl>
@@ -331,10 +346,13 @@ by thresholdConditonDF.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createUtility">
 <span class="sig-name descname"><span class="pre">createUtility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB.html#denseDF2DB.createUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createUtility" title="Permalink to this definition"></a></dt>
-<dd><p>Create the utility data base.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- Write utility data base into outputFile</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Create the utility data base.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>outputFile</strong> -- str :
+Write utility data base into outputFile</p>
 </dd>
 </dl>
 </dd></dl>
@@ -342,15 +360,13 @@ by thresholdConditonDF.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.getFileName">
 <span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DB.html#denseDF2DB.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.getFileName" title="Permalink to this definition"></a></dt>
-<dd><p>return outputFile name</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>outputFile name</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -360,34 +376,25 @@ by thresholdConditonDF.</p>
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DBPlus.denseDF2DBPlus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.denseDF2DBPlus.</span></span><span class="sig-name descname"><span class="pre">denseDF2DBPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdConditionDF</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DBPlus.html#denseDF2DBPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DBPlus.denseDF2DBPlus" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class create Data Base from DataFrame.</p>
-<section id="id4">
-<h3>Attribute:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>inputDF<span class="classifier">pandas.DataFrame</span></dt><dd><p>It is dense DataFrame which was transposed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create Data Base from DataFrame.</p>
 </dd>
-<dt>thresholdConditionDF<span class="classifier">pandas.DataFrame</span></dt><dd><p>It has threshold value and condition each item.</p>
-</dd>
-<dt>tids<span class="classifier">list</span></dt><dd><p>It is tids list.</p>
-</dd>
-<dt>items<span class="classifier">list</span></dt><dd><p>Store the items list</p>
-</dd>
-<dt>df<span class="classifier">pandas.DataFrame</span></dt><dd><p>It is data frame which is merged inputDF and thresholdConditionDF.</p>
-</dd>
-<dt>outputFile<span class="classifier">str</span></dt><dd><p>Creation data base output to this outputFile.</p>
-</dd>
-</dl>
-</section>
-<section id="id5">
-<h3>Methods:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>createDB(outputFile)</dt><dd><p>Create transactional data base from dataFrame</p>
-</dd>
-<dt>createTDB(outputFile)</dt><dd><p>Create temporal dataBase from dataFrame</p>
-</dd>
-<dt>createUDB(outputFile)</dt><dd><p>Create utility database from dataFrame</p>
-</dd>
-<dt>getFileName()</dt><dd><p>Return outputFileName.</p>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>inputDF</strong> -- dataframe :
+It is dense DataFrame</p></li>
+<li><p><strong>condition</strong> -- str :
+It is condition to judge the value in dataframe</p></li>
+<li><p><strong>thresholdValue</strong> -- int or float :
+User defined value.</p></li>
+<li><p><strong>tids</strong> -- list :
+It is tids list.</p></li>
+<li><p><strong>items</strong> -- list :
+Store the items list</p></li>
+<li><p><strong>outputFile</strong> -- str  :
+Creation data base output to this outputFile.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
@@ -426,15 +433,13 @@ by thresholdConditonDF.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.denseDF2DBPlus.denseDF2DBPlus.getFileName">
 <span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/denseDF2DBPlus.html#denseDF2DBPlus.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.denseDF2DBPlus.denseDF2DBPlus.getFileName" title="Permalink to this definition"></a></dt>
-<dd><p>return outputFile name</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>outputFile name</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -444,67 +449,70 @@ by thresholdConditonDF.</p>
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.sparseDF2DB.</span></span><span class="sig-name descname"><span class="pre">sparseDF2DB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdValue</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DB.html#sparseDF2DB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class create Data Base from DataFrame.
-Attribute:
-----------
-inputDF : pandas.DataFrame</p>
-<blockquote>
-<div><p>It is sparse DataFrame</p>
-</div></blockquote>
-<dl class="simple">
-<dt>condition<span class="classifier">str</span></dt><dd><p>It is condition to judge the value in dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create Data Base from DataFrame.</p>
 </dd>
-<dt>thresholdValue<span class="classifier">int or float:</span></dt><dd><p>User defined value.</p>
-</dd>
-<dt>df<span class="classifier">pandas.DataFrame</span></dt><dd><p>It is data frame to create data base.</p>
-</dd>
-<dt>outputFile<span class="classifier">str</span></dt><dd><p>Creation data base output to this outputFile.</p>
-</dd>
-</dl>
-<section id="id6">
-<h3>Methods:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>createDB(outputFile)</dt><dd><p>Create transactional data base from dataFrame</p>
-</dd>
-<dt>createTDB(outputFile)</dt><dd><p>Create temporal dataBase from dataFrame</p>
-</dd>
-<dt>createUDB(outputFile)</dt><dd><p>Create utility data base from dataFrame</p>
-</dd>
-<dt>getFileName()</dt><dd><p>Return outputFileName.</p>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>inputDF</strong> -- dataframe :
+It is dense DataFrame</p></li>
+<li><p><strong>condition</strong> -- str :
+It is condition to judge the value in dataframe</p></li>
+<li><p><strong>thresholdValue</strong> -- int or float :
+User defined value.</p></li>
+<li><p><strong>tids</strong> -- list :
+It is tids list.</p></li>
+<li><p><strong>items</strong> -- list :
+Store the items list</p></li>
+<li><p><strong>outputFile</strong> -- str  :
+Creation data base output to this outputFile.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createTemporal">
 <span class="sig-name descname"><span class="pre">createTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DB.html#sparseDF2DB.createTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createTemporal" title="Permalink to this definition"></a></dt>
-<dd><p>Create temporal data base
-:param outputFile: Write temporal data base into outputFile
-:type outputFile: str</p>
+<dd><p>Create temporal data base</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- Write temporal data base into outputFile</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createTransactional">
 <span class="sig-name descname"><span class="pre">createTransactional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DB.html#sparseDF2DB.createTransactional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createTransactional" title="Permalink to this definition"></a></dt>
-<dd><p>Create transactional data base
-:param outputFile: Write transactional data base into outputFile
-:type outputFile: str</p>
+<dd><p>Create transactional data base</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- Write transactional data base into outputFile</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createUtility">
 <span class="sig-name descname"><span class="pre">createUtility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DB.html#sparseDF2DB.createUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createUtility" title="Permalink to this definition"></a></dt>
-<dd><p>Create the utility data base.
-:param outputFile: Write utility data base into outputFile
-:type outputFile: str</p>
+<dd><p>Create the utility data base.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputFile</strong> (<em>str</em>) -- Write utility data base into outputFile</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.getFileName">
 <span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DB.html#sparseDF2DB.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.getFileName" title="Permalink to this definition"></a></dt>
-<dd><p>return outputFile name
-:return: outputFile name</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>outputFile name</p>
+</dd>
+</dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>
@@ -514,30 +522,25 @@ inputDF : pandas.DataFrame</p>
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.DF2DB.sparseDF2DBPlus.</span></span><span class="sig-name descname"><span class="pre">sparseDF2DBPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputDF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thresholdConditionDF</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DBPlus.html#sparseDF2DBPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class create Data Base from DataFrame.</p>
-<section id="id7">
-<h3>Attribute:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>inputDF<span class="classifier">pandas.DataFrame</span></dt><dd><p>It is sparse DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This class create Data Base from DataFrame.</p>
 </dd>
-<dt>thresholdConditionDF<span class="classifier">pandas.DataFrame</span></dt><dd><p>It has threshold value and condition each item.</p>
-</dd>
-<dt>df<span class="classifier">pandas.DataFrame</span></dt><dd><p>It is data frame to create data base.</p>
-</dd>
-<dt>outputFile<span class="classifier">str</span></dt><dd><p>Creation data base output to this outputFile.</p>
-</dd>
-</dl>
-</section>
-<section id="id8">
-<h3>Methods:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
-<dl class="simple">
-<dt>createDB(outputFile)</dt><dd><p>Create transactional data base from dataFrame</p>
-</dd>
-<dt>createTDB(outputFile)</dt><dd><p>Create temporal dataBase from dataFrame</p>
-</dd>
-<dt>createUDB(outputFile)</dt><dd><p>Create utility data base from dataFrame</p>
-</dd>
-<dt>getFileName()</dt><dd><p>Return outputFileName.</p>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>inputDF</strong> -- dataframe :
+It is dense DataFrame</p></li>
+<li><p><strong>condition</strong> -- str :
+It is condition to judge the value in dataframe</p></li>
+<li><p><strong>thresholdValue</strong> -- int or float :
+User defined value.</p></li>
+<li><p><strong>tids</strong> -- list :
+It is tids list.</p></li>
+<li><p><strong>items</strong> -- list :
+Store the items list</p></li>
+<li><p><strong>outputFile</strong> -- str  :
+Creation data base output to this outputFile.</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
@@ -576,15 +579,13 @@ inputDF : pandas.DataFrame</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus.getFileName">
 <span class="sig-name descname"><span class="pre">getFileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/DF2DB/sparseDF2DBPlus.html#sparseDF2DBPlus.getFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus.getFileName" title="Permalink to this definition"></a></dt>
-<dd><p>return outputFile name</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>outputFile name</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
 </dd></dl>
 
 </section>

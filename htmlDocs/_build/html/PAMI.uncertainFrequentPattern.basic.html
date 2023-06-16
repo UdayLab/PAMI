@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.uncertainFrequentPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.uncertainFrequentPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -214,37 +214,59 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="executing-the-code-on-terminal">
-<h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
+<section id="methods-to-execute-code-on-terminal">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>python3 CUFPTree.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;
-Examples:
----------
-python3 CUFPTree.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">CUFPTree</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">CUFPTree</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
+</dd>
+</dl>
 </div></blockquote>
 </section>
-<section id="sample-run-of-importing-the-code">
-<h3>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.uncertainFrequentPattern.basic import CUFPTree as alg</p>
-<p>obj = alg.CUFPTree(iFile, minSup)</p>
-<p>obj.startMine()</p>
-<p>Patterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of  Patterns:&quot;, len(Patterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">CUFPTree</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">CUFPTree</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span><span class="n">v</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="credits">
-<h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
+<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryRSS">
@@ -402,38 +424,54 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="id5">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 PUFGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;
-Examples:
----------
-python3 PUFGrowth.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PUFGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PUFGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
 </div></blockquote>
-</section>
-<section id="id6">
-<h3>Sample run of importing the code:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">puf</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PUFGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><p>from PAMI.uncertainFrequentPattern.basic import puf as alg
-obj = alg.PUFGrowth(iFile, minSup)
-obj.startMine()
-Patterns = obj.getPatterns()
-print(&quot;Total number of  Patterns:&quot;, len(Patterns))
-obj.save(oFile)
-Df = obj.getPatternsAsDataFrame()
-memUSS = obj.getMemoryUSS()
-print(&quot;Total Memory in USS:&quot;, memUSS)
-memRSS = obj.getMemoryRSS()
-print(&quot;Total Memory in RSS&quot;, memRSS)
-run = obj.getRuntime()
-print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="id7">
-<h3>Credits:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryRSS">
@@ -506,22 +544,22 @@ by counting the original support of a patterns</p>
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TUFP.</span></span><span class="sig-name descname"><span class="pre">TUFP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id8">
-<h3>Description:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<section id="id5">
+<h3>Description:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>It is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database
 using CUP-Lists.</p>
 </div></blockquote>
 </section>
-<section id="id9">
-<h3>Reference:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<section id="id6">
+<h3>Reference:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Tuong Le, Bay Vo, Van-Nam Huynh, Ngoc Thanh Nguyen, Sung Wook Baik 5, &quot;Mining top-k frequent patterns from uncertain databases&quot;,
 Springer Science+Business Media, LLC, part of Springer Nature 2020, <a class="reference external" href="https://doi.org/10.1007/s10489-019-01622-1">https://doi.org/10.1007/s10489-019-01622-1</a></p>
 </div></blockquote>
 </section>
-<section id="id10">
-<h3>Attributes:<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<section id="id7">
+<h3>Attributes:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -559,8 +597,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id11">
-<h3>Methods:<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
+<section id="id8">
+<h3>Methods:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -591,38 +629,54 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="id12">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 TUFP.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;
-Examples:
----------
-python3 TUFP.py sampleTDB.txt patterns.txt 0.6    (minSup  will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">TUFP</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">TUFP</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.6</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
 </div></blockquote>
-</section>
-<section id="id13">
-<h3>Sample run of importing the code:<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">TUFP</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">TUFP</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><p>from PAMI.uncertainFrequentPattern.basic import TUFP as alg</p>
-<p>obj = alg.TUFP(iFile, minSup)</p>
-<p>obj.startMine()</p>
-<p>Patterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of  Patterns:&quot;, len(Patterns))</p>
-<p>obj.storePatternsInFile(oFile)</p>
-<p>Df = obj.getPatternsInDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="id14">
-<h3>Credits:<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryRSS">
@@ -722,19 +776,19 @@ by counting the original support of a patterns</p>
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeP.</span></span><span class="sig-name descname"><span class="pre">TubeP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id15">
-<h3>Description:<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
+<section id="id9">
+<h3>Description:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <p>TubeP is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.</p>
 </section>
-<section id="id16">
-<h3>Reference:<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h3>
+<section id="id10">
+<h3>Reference:<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
 In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM '14). IEEE Computer Society, USA, 893–898. <a class="reference external" href="https://doi.org/10.1109/ICDM.2014.146">https://doi.org/10.1109/ICDM.2014.146</a></p>
 </div></blockquote>
 </section>
-<section id="id17">
-<h3>Attributes:<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h3>
+<section id="id11">
+<h3>Attributes:<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -772,8 +826,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id18">
-<h3>Methods:<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h3>
+<section id="id12">
+<h3>Methods:<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -802,36 +856,54 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="id19">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id19" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 TubeP.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</p>
-<p>python3 TubeP.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">TubeP</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">TubeP</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
 </div></blockquote>
-</section>
-<section id="id20">
-<h3>Sample run of importing the code:<a class="headerlink" href="#id20" title="Permalink to this heading"></a></h3>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">TubeP</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">TubeP</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><p>from PAMI.uncertainFrequentPattern.basic import tubeP as alg</p>
-<p>obj = alg.TubeP(iFile, minSup)</p>
-<p>obj.startMine()</p>
-<p>Patterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of  Patterns:&quot;, len(Patterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="id21">
-<h3>Credits:<a class="headerlink" href="#id21" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getMemoryRSS">
@@ -928,18 +1000,19 @@ by counting the original support of a patterns</p>
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">TubeS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id22">
-<h3>Description:<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h3>
-<p>TubeP is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
-Reference:
-----------</p>
+<section id="id13">
+<h3>Description:<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
+<p>TubeS is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.</p>
+</section>
+<section id="id14">
+<h3>Reference:<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
 In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM '14). IEEE Computer Society, USA, 893–898. <a class="reference external" href="https://doi.org/10.1109/ICDM.2014.146">https://doi.org/10.1109/ICDM.2014.146</a></p>
 </div></blockquote>
 </section>
-<section id="id23">
-<h3>Attributes:<a class="headerlink" href="#id23" title="Permalink to this heading"></a></h3>
+<section id="id15">
+<h3>Attributes:<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -977,8 +1050,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id24">
-<h3>Methods:<a class="headerlink" href="#id24" title="Permalink to this heading"></a></h3>
+<section id="id16">
+<h3>Methods:<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -1007,36 +1080,54 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="id25">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id25" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 TubeS.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</p>
-<p>python3 TubeS.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">TubeS</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">TubeS</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
 </div></blockquote>
-</section>
-<section id="id26">
-<h3>Sample run of importing the code:<a class="headerlink" href="#id26" title="Permalink to this heading"></a></h3>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">TubeS</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">TubeS</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><p>from PAMI.uncertainFrequentPattern.basic import tubeS as alg</p>
-<p>obj = alg.TubeS(iFile, minSup)</p>
-<p>obj.startMine()</p>
-<p>Patterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of  Patterns:&quot;, len(Patterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="id27">
-<h3>Credits:<a class="headerlink" href="#id27" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryRSS">
@@ -1133,22 +1224,22 @@ by counting the original support of a patterns</p>
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.UFGrowth.</span></span><span class="sig-name descname"><span class="pre">UFGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id28">
-<h3>Description:<a class="headerlink" href="#id28" title="Permalink to this heading"></a></h3>
+<section id="id17">
+<h3>Description:<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
 using PUF-Tree.</p>
 </div></blockquote>
 </section>
-<section id="id29">
-<h3>Reference:<a class="headerlink" href="#id29" title="Permalink to this heading"></a></h3>
+<section id="id18">
+<h3>Reference:<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, &quot;PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data&quot;,
 Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), <a class="reference external" href="https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2">https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2</a></p>
 </div></blockquote>
 </section>
-<section id="id30">
-<h3>Attributes:<a class="headerlink" href="#id30" title="Permalink to this heading"></a></h3>
+<section id="id19">
+<h3>Attributes:<a class="headerlink" href="#id19" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -1186,8 +1277,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id31">
-<h3>Methods:<a class="headerlink" href="#id31" title="Permalink to this heading"></a></h3>
+<section id="id20">
+<h3>Methods:<a class="headerlink" href="#id20" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -1218,38 +1309,54 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="id32">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id32" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 PUFGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;
-Examples:
----------
-python3 PUFGrowth.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PUFGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PUFGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
 </div></blockquote>
-</section>
-<section id="id33">
-<h3>Sample run of importing the code:<a class="headerlink" href="#id33" title="Permalink to this heading"></a></h3>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">UFGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">UFGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><p>from PAMI.uncertainFrequentPattern.basic import puf as alg
-obj = alg.PUFGrowth(iFile, minSup)
-obj.startMine()
-Patterns = obj.getPatterns()
-print(&quot;Total number of  Patterns:&quot;, len(Patterns))
-obj.save(oFile)
-Df = obj.getPatternsAsDataFrame()
-memUSS = obj.getMemoryUSS()
-print(&quot;Total Memory in USS:&quot;, memUSS)
-memRSS = obj.getMemoryRSS()
-print(&quot;Total Memory in RSS&quot;, memRSS)
-run = obj.getRuntime()
-print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="id34">
-<h3>Credits:<a class="headerlink" href="#id34" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by P.Likhitha under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryRSS">
@@ -1322,21 +1429,21 @@ by counting the original support of a patterns</p>
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.UVECLAT.</span></span><span class="sig-name descname"><span class="pre">UVEclat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
-<section id="id35">
-<h3>Description:<a class="headerlink" href="#id35" title="Permalink to this heading"></a></h3>
+<section id="id21">
+<h3>Description:<a class="headerlink" href="#id21" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
 using PUF-Tree.</p>
 </div></blockquote>
 </section>
-<section id="id36">
-<h3>Reference:<a class="headerlink" href="#id36" title="Permalink to this heading"></a></h3>
+<section id="id22">
+<h3>Reference:<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h3>
 <p>Carson Kai-Sang Leung, Lijing Sun: &quot;Equivalence class transformation based mining of frequent itemsets from uncertain data&quot;,
 SAC '11: Proceedings of the 2011 ACM Symposium on Applied ComputingMarch, 2011, Pages 983–984,
 <a class="reference external" href="https://doi.org/10.1145/1982185.1982399">https://doi.org/10.1145/1982185.1982399</a></p>
 </section>
-<section id="id37">
-<h3>Attributes:<a class="headerlink" href="#id37" title="Permalink to this heading"></a></h3>
+<section id="id23">
+<h3>Attributes:<a class="headerlink" href="#id23" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -1374,8 +1481,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id38">
-<h3>Methods:<a class="headerlink" href="#id38" title="Permalink to this heading"></a></h3>
+<section id="id24">
+<h3>Methods:<a class="headerlink" href="#id24" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -1398,38 +1505,55 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="id39">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id39" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 uveclat.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;
-Examples:
---------
-python3 uveclat.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">uveclat</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">uveclat</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
 </div></blockquote>
-</section>
-<section id="id40">
-<h3>Sample run of importing the code:<a class="headerlink" href="#id40" title="Permalink to this heading"></a></h3>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">UVECLAT</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">UVEclat</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><p>from PAMI.uncertainFrequentPattern.basic import uveclat as alg</p>
-<p>obj = alg.UVEclat(iFile, minSup)</p>
-<p>obj.startMine()</p>
-<p>Patterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of  Patterns:&quot;, len(Patterns))</p>
-<p>obj.storePatternsInFile(oFile)</p>
-<p>Df = obj.getPatternsInDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="id41">
-<h3>Credits:<a class="headerlink" href="#id41" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by   P.Likhitha    under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryRSS">

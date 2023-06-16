@@ -1,32 +1,54 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# CPGrowthPlus is one of the efficient algorithm to discover Correlated frequent patterns in a transactional database.
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#  **Importing this algorithm into a python program**
+#   -----------------------------------------------
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#                 from PAMI.coveragePattern.basic import CPPG as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#      Copyright (C)  2021 Rage Uday Kiran
+#                 obj = alg.CPPG(iFile, minRF, minCS, maxOR)
+#
+#                 obj.startMine()
+#
+#                 coveragePatterns = obj.getPatterns()
+#
+#                 print("Total number of coverage Patterns:", len(coveragePatterns))
+#
+#                 obj.save(oFile)
+#
+#                 Df = obj.getPatternsAsDataFrame()
+#
+#                 memUSS = obj.getMemoryUSS()
+#
+#                 print("Total Memory in USS:", memUSS)
+#
+#                 memRSS = obj.getMemoryRSS()
+#
+#                 print("Total Memory in RSS", memRSS)
+#
+#                 run = obj.getRuntime()
+#
+#                 print("Total ExecutionTime in seconds:", run)
 
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+"""
 
 from PAMI.correlatedPattern.basic import abstract as _ab
 
@@ -227,23 +249,29 @@ class _Tree:
 
 class CPGrowthPlus(_ab._correlatedPatterns):
     """ 
-         CPGrowthPlus is one of the efficient algorithm to discover Correlated frequent patterns in a transactional database.
-         Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that
-         have support within specified interval.
+    :Description:    CPGrowthPlus is one of the efficient algorithm to discover Correlated frequent patterns in a transactional database.
+                     Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that
+                     have support within specified interval.
 
-    Reference :
-    ---------
-        Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals. 
-        In: Liddle S.W., Schewe KD., Tjoa A.M., Zhou X. (eds) Database and Expert Systems Applications. DEXA 2012. Lecture Notes in Computer Science, vol 7446. Springer, Berlin, Heidelberg. 
+    :Reference:
+        Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals.
+        In: Liddle S.W., Schewe KD., Tjoa A.M., Zhou X. (eds) Database and Expert Systems Applications. DEXA 2012. Lecture Notes in Computer Science, vol 7446. Springer, Berlin, Heidelberg.
         https://doi.org/10.1007/978-3-642-32600-4_18
-        
-    Attributes :
-    ----------
 
-        iFile : file
-            Name of the Input file to mine complete set of frequent patterns
-        oFile : file
-            Name of the output file to store complete set of frequent patterns
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+    :param  minAllConf: str :
+                   Name of Neighbourhood file name
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
+    :Attributes:
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -255,7 +283,7 @@ class CPGrowthPlus(_ab._correlatedPatterns):
         minSup : float
             The user given minSup
         minAllConf: float
-            The user given minimum all confidence Ratio (should be in range of 0 to 1) 
+            The user given minimum all confidence Ratio (should be in range of 0 to 1)
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -273,83 +301,53 @@ class CPGrowthPlus(_ab._correlatedPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-    Methods :
-    -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets(fileName)
-            Scans the dataset or dataframes and stores in list format
-        frequentOneItem()
-            Extracts the one-frequent patterns from transactions
-        saveAllCombination(tempBuffer,s,position,prefix,prefixLength)
-            Forms all the combinations between prefix and tempBuffer lists with support(s)
-        saveItemSet(pattern,support)
-            Stores all the frequent patterns with their respective support
-        frequentPatternGrowthGenerate(frequentPatternTree,prefix,port)
-            Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
-            mapSupport represents the 1-length items with their respective support
-            
-    Executing the code on terminal:
-    -------
+    **Methods to execute code on terminal**
+    ---------------------------------------
 
-        Format:
-        -------
-            python3 CPGrowthPlus.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+            Format:
+                      >>>  python3 CPPG.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
 
-        Examples:
-        ---------
-            python3 CPGrowthPlus.py sampleDB.txt patterns.txt 0.23 0.2  (minSup will be considered in percentage of database transactions)
-        
-            python3 CPGrowthPlus.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)
-                                                      (it will consider '\t' as separator)
-        
-            python3 CPGrowthPlus.py sampleDB.txt patterns.txt 0.23 0.2  ,
-                                                       (it will consider ',' as separator)
+            Example:
+                      >>>   python3 CPPG.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 ','
 
-    Sample run of the importing code:
-    ---------------------------------
 
-        from PAMI.correlatedPattern.basic import CPGrowthPlus as alg
 
-        obj = alg.CPGrowthPlus(iFile, minSup,minAllConf)
+    **Importing this algorithm into a python program**
+    -----------------------------------------------------------------
 
-        obj.startMine()
+    .. code-block:: python
 
-        correlatedPatterns = obj.getPatterns()
+                from PAMI.coveragePattern.basic import CPPG as alg
 
-        print("Total number of correlated frequent Patterns:", len(correlatedPatterns))
+                obj = alg.CPPG(iFile, minRF, minCS, maxOR)
 
-        obj.save(oFile)
+                obj.startMine()
 
-        Df = obj.getPatternInDf()
+                coveragePatterns = obj.getPatterns()
 
-        memUSS = obj.getMemoryUSS()
+                print("Total number of coverage Patterns:", len(coveragePatterns))
 
-        print("Total Memory in USS:", memUSS)
+                obj.save(oFile)
 
-        memRSS = obj.getMemoryRSS()
+                Df = obj.getPatternsAsDataFrame()
 
-        print("Total Memory in RSS", memRSS)
+                memUSS = obj.getMemoryUSS()
 
-        run = obj.getRuntime()
+                print("Total Memory in USS:", memUSS)
 
-        print("Total ExecutionTime in seconds:", run)
+                memRSS = obj.getMemoryRSS()
 
-    Credits:
-    --------
-        The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.
+                print("Total Memory in RSS", memRSS)
+
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+
+
+    **Credits:**
+    -------------
+
+             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
 
         """
 

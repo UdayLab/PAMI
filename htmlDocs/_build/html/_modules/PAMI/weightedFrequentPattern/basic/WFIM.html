@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.weightedFrequentPattern.basic.WFIM &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.weightedFrequentPattern.basic.WFIM &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -265,16 +265,18 @@
 
 <div class="viewcode-block" id="WFIM"><a class="viewcode-back" href="../../../../PAMI.weightedFrequentPattern.basic.html#PAMI.weightedFrequentPattern.basic.WFIM.WFIM">[docs]</a><span class="k">class</span> <span class="nc">WFIM</span><span class="p">(</span><span class="n">_fp</span><span class="o">.</span><span class="n">_weightedFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    -------------</span>
 <span class="sd">       WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.</span>
 <span class="sd">       It stores the database in compressed fp-tree decreasing the memory usage and extracts the</span>
 <span class="sd">       patterns from tree.It employs employs downward closure property to  reduce the search space effectively.</span>
 <span class="sd">    Reference :</span>
-<span class="sd">    ---------</span>
+<span class="sd">    -----------</span>
 <span class="sd">           U. Yun and J. J. Leggett, “Wfim: weighted frequent itemset mining with a weight range and a minimum weight,”</span>
 <span class="sd">           in Proceedings of the 2005 SIAM International Conference on Data Mining. SIAM, 2005, pp. 636–640.</span>
 <span class="sd">           https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76</span>
 <span class="sd">    Attributes :</span>
-<span class="sd">    ----------</span>
+<span class="sd">    ------------</span>
 <span class="sd">        iFile : file</span>
 <span class="sd">            Input file name or path of the input file</span>
 <span class="sd">        minSup: float or int or str</span>
@@ -311,7 +313,7 @@
 <span class="sd">        finalPatterns : dict</span>
 <span class="sd">            it represents to store the patterns</span>
 <span class="sd">    Methods :</span>
-<span class="sd">    -------</span>
+<span class="sd">    ---------</span>
 <span class="sd">        startMine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
@@ -330,48 +332,50 @@
 <span class="sd">            Scans the dataset or dataframes and stores in list format</span>
 <span class="sd">        frequentOneItem()</span>
 <span class="sd">            Extracts the one-frequent patterns from transactions</span>
-<span class="sd">    Executing the code on terminal:</span>
-<span class="sd">    -------</span>
+<span class="sd">    Methods to execute code on terminal</span>
+<span class="sd">    ------------------------------------</span>
 <span class="sd">        Format:</span>
-<span class="sd">        -------</span>
-<span class="sd">            python3 WFIM.py &lt;inputFile&gt; &lt;weightFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minWeight&gt;</span>
-<span class="sd">        Examples:</span>
-<span class="sd">        ---------</span>
-<span class="sd">            python3 WFIM.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4  (minSup will be considered in times of minSup and count of database transactions)</span>
+<span class="sd">                  &gt;&gt;&gt;  python3 WFIM.py &lt;inputFile&gt; &lt;weightFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minWeight&gt;</span>
+<span class="sd">        Example:</span>
+<span class="sd">                  &gt;&gt;&gt;  python3 WFIM.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4</span>
 
-<span class="sd">            python3 WFIM.py sampleTDB.txt weightFile.txt output.txt 3 1.2 &#39;,&#39; (it will consider &quot;,&quot; as a separator)</span>
+<span class="sd">                 .. note:: minSup and maxPer will be considered in support count or frequency</span>
 
-<span class="sd">    Sample run of the importing code:</span>
-<span class="sd">    -----------</span>
-<span class="sd">        from PAMI.weightFrequentPattern.basic import WFIM as alg</span>
+<span class="sd">    **Importing this algorithm into a python program**</span>
+<span class="sd">    --------------------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
 
-<span class="sd">        obj = alg.WFIM(iFile, wFile, minSup, minWeight)</span>
+<span class="sd">            from PAMI.weightFrequentPattern.basic import WFIM as alg</span>
 
-<span class="sd">        obj.startMine()</span>
+<span class="sd">            obj = alg.WFIM(iFile, wFile, minSup, minWeight)</span>
 
-<span class="sd">        Patterns = obj.getPatterns()</span>
+<span class="sd">            obj.startMine()</span>
 
-<span class="sd">        print(&quot;Total number of Weighted Frequent Patterns:&quot;, len(Patterns))</span>
+<span class="sd">            frequentPatterns = obj.getPatterns()</span>
 
-<span class="sd">        obj.save(oFile)</span>
+<span class="sd">            print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</span>
 
-<span class="sd">        Df = obj.getPatternInDataFrame()</span>
+<span class="sd">            obj.savePatterns(oFile)</span>
 
-<span class="sd">        memUSS = obj.getMemoryUSS()</span>
+<span class="sd">            Df = obj.getPatternsAsDataFrame()</span>
 
-<span class="sd">        print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="sd">            memUSS = obj.getmemoryUSS()</span>
 
-<span class="sd">        memRSS = obj.getMemoryRSS()</span>
+<span class="sd">            print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 
-<span class="sd">        print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="sd">            memRSS = obj.getMemoryRSS()</span>
 
-<span class="sd">        run = obj.getRuntime()</span>
+<span class="sd">            print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 
-<span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-<span class="sd">    Credits:</span>
-<span class="sd">    -------</span>
-<span class="sd">        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            run = obj.getRuntime()</span>
+
+<span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
+<span class="sd">    **Credits:**</span>
+
+<span class="sd">             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
 
     <span class="n">__startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
     <span class="n">__endTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>

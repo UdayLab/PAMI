@@ -1,3 +1,56 @@
+
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg
+#
+#     obj = alg.PPF_DFS(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+#
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 import sys
 import validators
 from urllib.request import urlopen
@@ -6,7 +59,9 @@ from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
 class PPF_DFS(partialPeriodicPatterns):
     """
-    PPF_DFS is algorithm to mine the partial periodic frequent patterns.
+    Description:
+    -------------
+        PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 
     Attributes:
     ----------
@@ -39,7 +94,7 @@ class PPF_DFS(partialPeriodicPatterns):
             storing the total amount of RSS memory consumed by the program
 
     Methods:
-    -------
+    --------
         getPer_Sup(tids)
             caluclate ip / (sup+1)
         getPerSup(tids)
@@ -65,16 +120,19 @@ class PPF_DFS(partialPeriodicPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Format:
-    -------
-        python3 PPF_DFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
+    Executing code on Terminal:
+    ------------------------------
+        Format:
+        --------
+            >>> python3 PPF_DFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
 
-    Examples:
-
-        python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5
+        Examples:
+        ---------
+            >>> python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5
 
     Sample run of the importing code:
-    -----------
+    ---------------------------------------
+    .. code-block:: python
 
         from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg
 
@@ -103,7 +161,7 @@ class PPF_DFS(partialPeriodicPatterns):
         print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    -------
+    --------
         The complete program was written by S. Nakamura  under the supervision of Professor Rage Uday Kiran.\n
 
     """

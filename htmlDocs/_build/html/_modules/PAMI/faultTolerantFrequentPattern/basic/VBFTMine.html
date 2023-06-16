@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.faultTolerantFrequentPattern.basic.VBFTMine &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.faultTolerantFrequentPattern.basic.VBFTMine &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -87,106 +87,94 @@
 
 <div class="viewcode-block" id="VBFTMine"><a class="viewcode-back" href="../../../../PAMI.faultTolerantFrequentPattern.basic.html#PAMI.faultTolerantFrequentPattern.basic.VBFTMine.VBFTMine">[docs]</a><span class="k">class</span> <span class="nc">VBFTMine</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_faultTolerantFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        VBFTMine is one of the fundamental algorithm to discover fault tolerant frequent patterns in a uncertain transactional database based on</span>
-<span class="sd">        bitset representation.</span>
-<span class="sd">        This program employs apriori property (or downward closure property) to  reduce the search space effectively.</span>
+<span class="sd">    </span>
+<span class="sd">    :Description:  VBFTMine is one of the fundamental algorithm to discover fault tolerant frequent patterns in a uncertain transactional database based on</span>
+<span class="sd">                   bitset representation.</span>
+<span class="sd">                   This program employs apriori property (or downward closure property) to  reduce the search space effectively.</span>
 
-<span class="sd">        Reference:</span>
-<span class="sd">        ----------</span>
-<span class="sd">            Koh, JL., Yo, PW. (2005). An Efficient Approach for Mining Fault-Tolerant Frequent Patterns Based on Bit Vector Representations.</span>
-<span class="sd">            In: Zhou, L., Ooi, B.C., Meng, X. (eds) Database Systems for Advanced Applications. DASFAA 2005. Lecture Notes in Computer Science,</span>
-<span class="sd">            vol 3453. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11408079_51</span>
-
-
-<span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
-<span class="sd">                iFile : str</span>
-<span class="sd">                    Input file name or path of the input file</span>
-<span class="sd">                oFile : str</span>
-<span class="sd">                    Name of the output file or the path of output file</span>
-<span class="sd">                minSup: float or int or str</span>
+<span class="sd">    :Reference:         Koh, JL., Yo, PW. (2005). An Efficient Approach for Mining Fault-Tolerant Frequent Patterns Based on Bit Vector Representations.</span>
+<span class="sd">                        In: Zhou, L., Ooi, B.C., Meng, X. (eds) Database Systems for Advanced Applications. DASFAA 2005. Lecture Notes in Computer Science,</span>
+<span class="sd">                        vol 3453. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11408079_51</span>
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">           Name of the Input file to mine complete set of frequent patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  minSup: float or int or str :</span>
 <span class="sd">                    The user can specify minSup either in count or proportion of database size.</span>
 <span class="sd">                    If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
 <span class="sd">                    Otherwise, it will be treated as float.</span>
 <span class="sd">                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</span>
-<span class="sd">                sep : str</span>
-<span class="sd">                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.</span>
-<span class="sd">                    However, the users can override their default separator.</span>
-<span class="sd">                startTime:float</span>
-<span class="sd">                    To record the start time of the mining process</span>
-<span class="sd">                endTime:float</span>
-<span class="sd">                    To record the completion time of the mining process</span>
-<span class="sd">                finalPatterns: dict</span>
-<span class="sd">                    Storing the complete set of patterns in a dictionary variable</span>
-<span class="sd">                memoryUSS : float</span>
-<span class="sd">                    To store the total amount of USS memory consumed by the program</span>
-<span class="sd">                memoryRSS : float</span>
-<span class="sd">                    To store the total amount of RSS memory consumed by the program</span>
-<span class="sd">                Database : list</span>
-<span class="sd">                    To store the transactions of a database in list</span>
-
-<span class="sd">            Methods:</span>
-<span class="sd">            -------</span>
-<span class="sd">                startMine()</span>
-<span class="sd">                    Mining process will start from here</span>
-<span class="sd">                getPatterns()</span>
-<span class="sd">                    Complete set of patterns will be retrieved with this function</span>
-<span class="sd">                save(oFile)</span>
-<span class="sd">                    Complete set of frequent patterns will be loaded in to a output file</span>
-<span class="sd">                getPatternsAsDataFrame()</span>
-<span class="sd">                    Complete set of frequent patterns will be loaded in to a dataframe</span>
-<span class="sd">                getMemoryUSS()</span>
-<span class="sd">                    Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
-<span class="sd">                getMemoryRSS()</span>
-<span class="sd">                    Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
-<span class="sd">                getRuntime()</span>
-<span class="sd">                    Total amount of runtime taken by the mining process will be retrieved from this function</span>
-<span class="sd">                candidateToFrequent(candidateList)</span>
-<span class="sd">                    Generates frequent patterns from the candidate patterns</span>
-<span class="sd">                frequentToCandidate(frequentList, length)</span>
-<span class="sd">                    Generates candidate patterns from the frequent patterns</span>
+<span class="sd">    :param  itemSup: int or float :</span>
+<span class="sd">                    Frequency of an item</span>
+<span class="sd">    :param minLength: int</span>
+<span class="sd">                    minimum length of a pattern</span>
+<span class="sd">    :param faultTolerance: int</span>
 
 
-<span class="sd">            Executing the code on terminal:</span>
-<span class="sd">            -------------------------------</span>
-
-<span class="sd">                Format:</span>
-<span class="sd">                ------</span>
-<span class="sd">                    python3 VBFTMine.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;itemSup&gt; &lt;minLength&gt; &lt;faultTolerance&gt;</span>
-
-<span class="sd">                Examples:</span>
-<span class="sd">                ---------</span>
-<span class="sd">                    python3 VBFTMine.py sampleDB.txt patterns.txt 10.0 3.0 3 1  (minSup will be considered in times of minSup and count of database transactions)</span>
-
-<span class="sd">                    python3 VBFTMine.py sampleDB.txt patterns.txt 10  3 2 1    (minSup will be considered in support count or frequency)</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
 
 
-<span class="sd">            Sample run of the importing code:</span>
-<span class="sd">            ---------------------------------</span>
+<span class="sd">    :Attributes:</span>
 
-<span class="sd">                import PAMI.faultTolerantFrequentPattern.basic.VBFTMine as alg</span>
+<span class="sd">        startTime : float</span>
+<span class="sd">          To record the start time of the mining process</span>
 
-<span class="sd">                obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)</span>
+<span class="sd">        endTime : float</span>
+<span class="sd">          To record the completion time of the mining process</span>
 
-<span class="sd">                obj.startMine()</span>
+<span class="sd">        finalPatterns : dict</span>
+<span class="sd">          Storing the complete set of patterns in a dictionary variable</span>
 
-<span class="sd">                faultTolerantFrequentPatterns = obj.getPatterns()</span>
+<span class="sd">        memoryUSS : float</span>
+<span class="sd">          To store the total amount of USS memory consumed by the program</span>
 
-<span class="sd">                print(&quot;Total number of Fault Tolerant Frequent Patterns:&quot;, len(faultTolerantFrequentPatterns))</span>
+<span class="sd">        memoryRSS : float</span>
+<span class="sd">          To store the total amount of RSS memory consumed by the program</span>
 
-<span class="sd">                obj.save(oFile)</span>
+<span class="sd">        Database : list</span>
+<span class="sd">          To store the transactions of a database in list</span>
 
-<span class="sd">                Df = obj.getPatternInDataFrame()</span>
 
-<span class="sd">                print(&quot;Total Memory in USS:&quot;, obj.getMemoryUSS())</span>
+<span class="sd">    Executing the code on terminal:</span>
+<span class="sd">    -------------------------------</span>
 
-<span class="sd">                print(&quot;Total Memory in RSS&quot;, obj.getMemoryRSS())</span>
+<span class="sd">        Format:</span>
+<span class="sd">        --------</span>
+<span class="sd">            &gt;&gt;&gt; python3 VBFTMine.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;itemSup&gt; &lt;minLength&gt; &lt;faultTolerance&gt;</span>
 
-<span class="sd">                print(&quot;Total ExecutionTime in seconds:&quot;, obj.getRuntime())</span>
+<span class="sd">        Examples:</span>
+<span class="sd">        ---------</span>
+<span class="sd">            &gt;&gt;&gt; python3 VBFTMine.py sampleDB.txt patterns.txt 10.0 3.0 3 1  (minSup will be considered in times of minSup and count of database transactions)</span>
 
-<span class="sd">            Credits:</span>
-<span class="sd">            --------</span>
-<span class="sd">                The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</span>
+
+<span class="sd">    Sample run of the importing code:</span>
+<span class="sd">    ---------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">    </span>
+<span class="sd">        import PAMI.faultTolerantFrequentPattern.basic.VBFTMine as alg</span>
+
+<span class="sd">        obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)</span>
+
+<span class="sd">        obj.startMine()</span>
+
+<span class="sd">        faultTolerantFrequentPatterns = obj.getPatterns()</span>
+
+<span class="sd">        print(&quot;Total number of Fault Tolerant Frequent Patterns:&quot;, len(faultTolerantFrequentPatterns))</span>
+
+<span class="sd">        obj.save(oFile)</span>
+
+<span class="sd">        Df = obj.getPatternInDataFrame()</span>
+
+<span class="sd">        print(&quot;Total Memory in USS:&quot;, obj.getMemoryUSS())</span>
+
+<span class="sd">        print(&quot;Total Memory in RSS&quot;, obj.getMemoryRSS())</span>
+
+<span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, obj.getRuntime())</span>
+
+<span class="sd">    Credits:</span>
+<span class="sd">    --------</span>
+<span class="sd">        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 

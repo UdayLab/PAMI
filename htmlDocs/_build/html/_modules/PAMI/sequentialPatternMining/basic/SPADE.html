@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.sequentialPatternMining.basic.SPADE &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.sequentialPatternMining.basic.SPADE &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -89,15 +89,19 @@
 
 <div class="viewcode-block" id="SPADE"><a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.SPADE.SPADE">[docs]</a><span class="k">class</span> <span class="nc">SPADE</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sequentialPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    -------------</span>
 <span class="sd">        SPADE is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.</span>
 <span class="sd">        This program employs SPADE property (or downward closure property) to  reduce the search space effectively.</span>
 <span class="sd">        This algorithm employs breadth-first search technique when 1-2 length patterns and depth-first serch when above 3 length patterns to find the complete set of frequent patterns in a</span>
 <span class="sd">        transactional database.</span>
-<span class="sd">        Reference:</span>
-<span class="sd">        ----------</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">    ----------</span>
 <span class="sd">            Mohammed J. Zaki. 2001. SPADE: An Efficient Algorithm for Mining Frequent Sequences. Mach. Learn. 42, 1-2 (January 2001), 31-60. DOI=10.1023/A:1007652502315 http://dx.doi.org/10.1023/A:1007652502315</span>
-<span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">    ----------</span>
 <span class="sd">            iFile : str</span>
 <span class="sd">                Input file name or path of the input file</span>
 <span class="sd">            oFile : str</span>
@@ -127,8 +131,8 @@
 <span class="sd">            _xLenDatabaseSame : dict</span>
 <span class="sd">                To store the datas in same sequence separated by sequence, rownumber, length.</span>
 
-<span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">    Methods:</span>
+<span class="sd">    -------</span>
 <span class="sd">            startMine()</span>
 <span class="sd">                Mining process will start from here</span>
 <span class="sd">            getPatterns()</span>
@@ -147,35 +151,49 @@
 <span class="sd">                Generates frequent patterns from the candidate patterns</span>
 <span class="sd">            frequentToCandidate(frequentList, length)</span>
 <span class="sd">                Generates candidate patterns from the frequent patterns</span>
+<span class="sd">    **Methods to execute code on terminal**</span>
 
-
-<span class="sd">        Executing the code on terminal:</span>
-<span class="sd">        -------------------------------</span>
 <span class="sd">            Format:</span>
-<span class="sd">            ------</span>
-<span class="sd">                python3 SPADE.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
-<span class="sd">            Examples:</span>
-<span class="sd">            ---------</span>
-<span class="sd">                python3 SPADE.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)</span>
-<span class="sd">                python3 SPADE.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)</span>
-<span class="sd">        Sample run of the importing code:</span>
-<span class="sd">        ---------------------------------</span>
+<span class="sd">                      &gt;&gt;&gt;  python3 SPADE.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">            Example:</span>
+<span class="sd">                      &gt;&gt;&gt;  python3 SPADE.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)</span>
+
+
+
+<span class="sd">    **Importing this algorithm into a python program**</span>
+
+<span class="sd">        .. code-block:: python</span>
+
 <span class="sd">            import PAMI.frequentPattern.basic.SPADE as alg</span>
+
 <span class="sd">            obj = alg.SPADE(iFile, minSup)</span>
+
 <span class="sd">            obj.startMine()</span>
+
 <span class="sd">            frequentPatterns = obj.getPatterns()</span>
+
 <span class="sd">            print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</span>
+
 <span class="sd">            obj.savePatterns(oFile)</span>
+
 <span class="sd">            Df = obj.getPatternInDataFrame()</span>
+
 <span class="sd">            memUSS = obj.getMemoryUSS()</span>
+
 <span class="sd">            print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+
 <span class="sd">            memRSS = obj.getMemoryRSS()</span>
+
 <span class="sd">            print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
 <span class="sd">            run = obj.getRuntime()</span>
+
 <span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-<span class="sd">        Credits:</span>
-<span class="sd">        --------</span>
-<span class="sd">            The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.</span>
+
+<span class="sd">    **Credits:**</span>
+
+<span class="sd">              The complete program was written by Suzuki Shota under the supervision of Professor Rage  Uday Kiran.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>

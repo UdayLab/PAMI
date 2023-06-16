@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.highUtilitySpatialPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.highUtilitySpatialPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,11 +128,22 @@
 <dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.highUtilitySpatialPattern.basic.HDSHUIM.</span></span><span class="sig-name descname"><span class="pre">HDSHUIM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minUtil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/basic/HDSHUIM.html#HDSHUIM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_utilityPatterns</span></code></p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Spatial High Utility ItemSet Mining (SHUIM) [3] is an important model in data
 mining with many real-world applications. It involves finding all spatially interesting itemSets having high value
 in a quantitative spatio temporal database.</p>
 </div></blockquote>
+</section>
+<section id="reference">
+<h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>P. Pallikila et al., &quot;Discovering Top-k Spatial High Utility Itemsets in Very Large Quantitative Spatiotemporal
+databases,&quot; 2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 4925-4935,
+doi: 10.1109/BigData52589.2021.9671912.</p>
+</div></blockquote>
+</section>
 <section id="attributes">
 <h3>Attributes :<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
 <blockquote>
@@ -198,32 +209,47 @@ in a quantitative spatio temporal database.</p>
 <section id="executing-the-code-on-terminal">
 <h3>Executing the code on terminal :<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><dl>
-<dt>Format:</dt><dd><p>python3 HDSHUIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt;</p>
-<p>python3 HDSHUIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;separator&gt;</p>
-</dd>
-<dt>Examples:</dt><dd><p>python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be &quot;     &quot; in both input and neighbourhood file)</p>
-<p>python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be &quot;,&quot; in both input and neighbourhood file)</p>
-</dd>
-</dl>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">HDSHUIM</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Neighbours</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minUtil</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">HDSHUIM</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Neighbours</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minUtil</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">separator</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">HDSHUIM</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="mi">35</span> <span class="p">(</span><span class="n">separator</span> <span class="n">will</span> <span class="n">be</span> <span class="s2">&quot; &quot;</span> <span class="ow">in</span> <span class="n">both</span> <span class="nb">input</span> <span class="ow">and</span> <span class="n">neighbourhood</span> <span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">HDSHUIM</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="mi">35</span> <span class="p">,</span> <span class="p">(</span><span class="n">separator</span> <span class="n">will</span> <span class="n">be</span> <span class="s2">&quot;,&quot;</span> <span class="ow">in</span> <span class="n">both</span> <span class="nb">input</span> <span class="ow">and</span> <span class="n">neighbourhood</span> <span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
 <section id="sample-run-of-importing-the-code">
 <h3>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.highUtilityFrequentSpatialPattern.basic import HDSHUIM as alg</p>
-<p>obj=alg.HDSHUIM(&quot;input.txt&quot;,&quot;Neighbours.txt&quot;,35)</p>
-<p>obj.startMine()</p>
-<p>Patterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Spatial High-Utility Patterns:&quot;, len(Patterns))</p>
-<p>obj.save(&quot;output&quot;)</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.highUtilityFrequentSpatialPattern.basic</span> <span class="kn">import</span> <span class="n">HDSHUIM</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span><span class="o">=</span><span class="n">alg</span><span class="o">.</span><span class="n">HDSHUIM</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span><span class="s2">&quot;Neighbours.txt&quot;</span><span class="p">,</span><span class="mi">35</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">Patterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial High-Utility Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Patterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">)</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="credits">
 <h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
@@ -333,20 +359,23 @@ in a quantitative spatio temporal database.</p>
 <dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.highUtilitySpatialPattern.basic.SHUIM.</span></span><span class="sig-name descname"><span class="pre">SHUIM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minUtil</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/basic/SHUIM.html#SHUIM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_utilityPatterns</span></code></p>
+<section id="id1">
+<h3>Description:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><dl class="simple">
-<dt>Spatial High Utility itemSet Mining (SHUIM) aims to discover all itemSets in a spatioTemporal database</dt><dd><p>that satisfy the user-specified minimum utility and maximum distance constraints</p>
-</dd>
-</dl>
-</div></blockquote>
-<section id="reference">
-<h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p><a class="reference external" href="https://doi.org/10.1007/978-3-030-37188-3_17">https://doi.org/10.1007/978-3-030-37188-3_17</a></p>
+<div><p>Spatial High Utility itemSet Mining (SHUIM) aims to discover all itemSets in a spatioTemporal database
+that satisfy the user-specified minimum utility and maximum distance constraints</p>
 </div></blockquote>
 </section>
-<section id="id1">
-<h3>Attributes:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<section id="id2">
+<h3>Reference:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Rage, Uday &amp; Veena, Pamalla &amp; Penugonda, Ravikumar &amp; Raj, Bathala &amp; Dao, Minh &amp; Zettsu, Koji &amp; Bommisetti, Sai.
+(2023). HDSHUI-miner: a novel algorithm for discovering spatial high-utility itemsets in high-dimensional
+spatiotemporal databases. Applied Intelligence. 53. 1-26. 10.1007/s10489-022-04436-w.</p>
+</div></blockquote>
+</section>
+<section id="id3">
+<h3>Attributes:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of frequent patterns</p>
@@ -391,8 +420,8 @@ patternCount: int</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id2">
-<h3>Methods :<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<section id="id4">
+<h3>Methods :<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -432,35 +461,48 @@ patternCount: int</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id3">
-<h3>Executing the code on terminal :<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>Format: python3 SHUIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;sep&gt;
-Examples: python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35  (it will consider &quot; &quot; as separator)</p>
-<blockquote>
-<div><p>python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (it will consider &quot;,&quot; as separator)</p>
-</div></blockquote>
-</div></blockquote>
-</section>
-<section id="id4">
-<h3>Sample run of importing the code:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.highUtilitySpatialPattern.basic import SHUIM as alg</p>
-<p>obj=alg.SHUIM(&quot;input.txt&quot;,&quot;Neighbours.txt&quot;,35)</p>
-<p>obj.startMine()</p>
-<p>frequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Spatial high utility Patterns:&quot;, len(frequentPatterns))</p>
-<p>obj.save(&quot;output&quot;)</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
 <section id="id5">
-<h3>Credits:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<h3>Executing the code on terminal :<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">SHUIM</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Neighbours</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minUtil</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">SHUIM</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="mi">35</span>  <span class="p">(</span><span class="n">it</span> <span class="n">will</span> <span class="n">consider</span> <span class="s2">&quot;  &quot;</span> <span class="k">as</span> <span class="n">separator</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">SHUIM</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="mi">35</span> <span class="p">,</span> <span class="p">(</span><span class="n">it</span> <span class="n">will</span> <span class="n">consider</span> <span class="s2">&quot;,&quot;</span> <span class="k">as</span> <span class="n">separator</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="id6">
+<h3>Sample run of importing the code:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.highUtilitySpatialPattern.basic</span> <span class="kn">import</span> <span class="n">SHUIM</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span><span class="o">=</span><span class="n">alg</span><span class="o">.</span><span class="n">SHUIM</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span><span class="s2">&quot;Neighbours.txt&quot;</span><span class="p">,</span><span class="mi">35</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial high utility Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">)</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>Credits:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>

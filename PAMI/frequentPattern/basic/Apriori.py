@@ -1,129 +1,144 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+# **Importing this algorithm into a python program**
+# ----------------------------------------------------
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     import PAMI.frequentPattern.basic.Apriori as alg
+#
+#     obj = alg.Apriori(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 from PAMI.frequentPattern.basic import abstract as _ab
 
 
 class Apriori(_ab._frequentPatterns):
     """
-        Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database.
-        This program employs apriori property (or downward closure property) to  reduce the search space effectively.
-        This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a
-        transactional database.
+    :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
-        Reference:
-        ----------
-            Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
+    :Reference:  Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
             In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
 
-
-        Attributes:
-        ----------
-            iFile : str
-                Input file name or path of the input file
-            oFile : str
-                Name of the output file or the path of output file
-            minSup: float or int or str
-                The user can specify minSup either in count or proportion of database size.
-                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-                However, the users can override their default separator.
-            startTime:float
-                To record the start time of the mining process
-            endTime:float
-                To record the completion time of the mining process
-            finalPatterns: dict
-                Storing the complete set of patterns in a dictionary variable
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-            Database : list
-                To store the transactions of a database in list
-
-        Methods:
-        -------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            save(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
-            getPatternsAsDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            candidateToFrequent(candidateList)
-                Generates frequent patterns from the candidate patterns
-            frequentToCandidate(frequentList, length)
-                Generates candidate patterns from the frequent patterns
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
 
-        Executing the code on terminal:
-        -------------------------------
+
+    :Attributes:
+
+        startTime : float
+          To record the start time of the mining process
+
+        endTime : float
+          To record the completion time of the mining process
+
+        finalPatterns : dict
+          Storing the complete set of patterns in a dictionary variable
+
+        memoryUSS : float
+          To store the total amount of USS memory consumed by the program
+
+        memoryRSS : float
+          To store the total amount of RSS memory consumed by the program
+
+        Database : list
+          To store the transactions of a database in list
+
+
+
+    **Methods to execute code on terminal**
+    ----------------------------------------------------
 
             Format:
-            ------
-                python3 Apriori.py <inputFile> <outputFile> <minSup>
+                      >>> python3 Apriori.py <inputFile> <outputFile> <minSup>
 
-            Examples:
-            ---------
-                python3 Apriori.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+            Example:
+                      >>>  python3 Apriori.py sampleDB.txt patterns.txt 10.0
 
-                python3 Apriori.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+            .. note:: minSup will be considered in percentage of database transactions
 
 
-        Sample run of the importing code:
-        ---------------------------------
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------
 
-            import PAMI.frequentPattern.basic.Apriori as alg
+    .. code-block:: python
 
-            obj = alg.Apriori(iFile, minSup)
+             import PAMI.frequentPattern.basic.Apriori as alg
 
-            obj.startMine()
+             obj = alg.Apriori(iFile, minSup)
 
-            frequentPatterns = obj.getPatterns()
+             obj.startMine()
 
-            print("Total number of Frequent Patterns:", len(frequentPatterns))
+             frequentPatterns = obj.getPatterns()
 
-            obj.save(oFile)
+             print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            Df = obj.getPatternInDataFrame()
+             obj.savePatterns(oFile)
 
-            memUSS = obj.getMemoryUSS()
+             Df = obj.getPatternInDataFrame()
 
-            print("Total Memory in USS:", memUSS)
+             memUSS = obj.getMemoryUSS()
 
-            memRSS = obj.getMemoryRSS()
+             print("Total Memory in USS:", memUSS)
 
-            print("Total Memory in RSS", memRSS)
+             memRSS = obj.getMemoryRSS()
 
-            run = obj.getRuntime()
+             print("Total Memory in RSS", memRSS)
 
-            print("Total ExecutionTime in seconds:", run)
+             run = obj.getRuntime()
 
-        Credits:
-        --------
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+             print("Total ExecutionTime in seconds:", run)
+
+
+    **Credits:**
+    -------------
+
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
 

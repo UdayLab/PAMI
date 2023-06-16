@@ -7,7 +7,10 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class uncertainTransactionalDatabaseStats:
     """
-    uncertainTransactionalDatabaseStats is class to get stats of database.
+        :Description:
+         ------------
+         uncertainTransactionalDatabaseStats is class to get stats of database.
+        
         Attributes:
         ----------
         inputFile : file

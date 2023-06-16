@@ -3,10 +3,12 @@ import random
 
 class generateTransactionalDatabase:
     """
-    generateTransactionalDatabase generates a transactional database
+       Description:
+       -------------
+          generateTransactionalDatabase generates a transactional database
 
-        Attributes:
-        -----------
+       Attributes:
+       -----------
         numOfTransactions: int
             number of transactions
         maxNumOfDistinctItems: int

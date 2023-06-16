@@ -6,9 +6,10 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class fuzzyDatabaseStats:
     """
-    utilityDatabaseStats is class to get stats of database.
+        :Description: UtilityDatabaseStats is class to get stats of database.
+        
         Attributes:
-        ----------
+        -----------
         inputFile : file
             input file path
         database : dict
@@ -19,8 +20,9 @@ class fuzzyDatabaseStats:
             store utility each item
         sep : str
             separator in file. Default is tab space.
+            
         Methods:
-        -------
+        ---------
         run()
             execute readDatabase function
         readDatabase()

@@ -1,3 +1,51 @@
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#         from PAMI.frequentSpatialPattern.basic import FSPGrowth as alg
+#
+#         obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
+#
+#         obj.startMine()
+#
+#         spatialFrequentPatterns = obj.getPatterns()
+#
+#         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
+#
+#         obj.save("outFile")
+#
+#         memUSS = obj.getMemoryUSS()
+#
+#         print("Total Memory in USS:", memUSS)
+#
+#         memRSS = obj.getMemoryRSS()
+#
+#         print("Total Memory in RSS", memRSS)
+#
+#         run = obj.getRuntime()
+#
+#         print("Total ExecutionTime in seconds:", run)
+#
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
+
 from PAMI.frequentSpatialPattern.basic import abstract as _ab
 
 
@@ -171,8 +219,17 @@ class _Tree:
 
 class FSPGrowth(_ab._spatialFrequentPatterns):
     """
+    Description:
+    -------------
+        Given a transactional database and a spatial (or neighborhood) file, FSPM aims to discover all of those patterns
+        that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints
+    Reference:
+    -----------
+        Rage, Uday & Fournier Viger, Philippe & Zettsu, Koji & Toyoda, Masashi & Kitsuregawa, Masaru. (2020).
+        Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.
+
     Attributes:
-    ----------
+    ------------
         iFile : file
             Input file name or path of the input file
         nFile : file
@@ -191,8 +248,9 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-    Methods
-    -------
+
+    Methods:
+    --------
         startMine()
             This function starts pattern mining.
         getPatterns()
@@ -223,31 +281,46 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             This function creates FPTree.
         getAllFrequentPatterns(data, fpList, ndata)
             This function generates all frequent patterns
+
     Executing the code on terminal :
-    ------------------------------
+    ---------------------------------
         Format:
-            python3 FSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup>
+
+            >>> python3 FSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup>
         Examples:
-            python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
-            python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
-                                                                (it considers "\t" as separator)
-            python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 ','  (it will consider "," as a separator)
+
+            >>> python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
+
     Sample run of importing the code :
-    -------------------------------
+    -----------------------------------
+    .. code-block:: python
+
         from PAMI.frequentSpatialPattern.basic import FSPGrowth as alg
+
         obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
+
         obj.startMine()
+
         spatialFrequentPatterns = obj.getPatterns()
+
         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
+
         obj.save("outFile")
+
         memUSS = obj.getMemoryUSS()
+
         print("Total Memory in USS:", memUSS)
+
         memRSS = obj.getMemoryRSS()
+
         print("Total Memory in RSS", memRSS)
+
         run = obj.getRuntime()
+
         print("Total ExecutionTime in seconds:", run)
+
     Credits:
-    -------
+    ----------
         The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
     """
 

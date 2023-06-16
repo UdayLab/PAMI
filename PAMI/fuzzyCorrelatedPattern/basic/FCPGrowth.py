@@ -1,31 +1,30 @@
-#  Copyright (C)  2021 Rage Uday Kiran
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+# **Importing this algorithm into a python program**
+# -----------------------------------
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.fuzzyCorrelatedPattern.basic import FCPGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.FCPGrowth("input.txt",2,0.4)
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     obj.startTimeMine()
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     correlatedFuzzyFrequentPatterns = obj.getPatterns()
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
+#     print("Total number of Correlated Fuzzy Frequent Patterns:", len(correlatedFuzzyFrequentPatterns))
+#
+#     obj.save("output")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime
+#
+#     print("Total ExecutionTime in seconds:", run)
 from PAMI.fuzzyCorrelatedPattern.basic import abstract as _ab
 
 
@@ -178,11 +177,18 @@ class _Pair:
 
 class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
     """
+    Description:
+    -------------
         FCPGrowth is the algorithm to discover Correlated Fuzzy-frequent patterns in a transactional database.
         it is based on traditional fuzzy frequent pattern mining.
 
+    Reference:
+    ---------------
+        Lin, N.P., & Chueh, H. (2007). Fuzzy correlation rules mining.
+        https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.416.6053&rep=rep1&type=pdf
+
     Attributes :
-    ----------
+    -------------
         iFile : file
             Name of the input file to mine complete set of fuzzy spatial frequent patterns
         oFile : file
@@ -216,7 +222,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         itemBuffer list
             to keep track of items in buffer
     Methods :
-    -------
+    ------------
         startTimeMine()
             Mining process will startTime from here
         getPatterns()
@@ -245,20 +251,19 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             To Store the patten      
 
     Executing the code on terminal :
-    -------
-            Format: 
-                python3 FCPGrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
-            Examples: 
-                    python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2 (minSup will be considered in support count or frequency)
+    -------------------------------------
+            Format:
+
+                >>> python3 FCPGrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+            Examples:
+
+                >>> python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2 (minSup will be considered in support count or frequency)
                     
-                    python3 FCPGrowth.py sampleTDB.txt output.txt 0.25 0.2 (minSup and maxPer will be considered in percentage of database)
-                                                                     (it will consider separator as "\t")
-                    
-                    python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2 ,
-                                                                      (it will consider separator as ',')
+
     Sample run of importing the code:
-    -------------------------------
-        
+    -----------------------------------
+    .. code-block:: python
+
         from PAMI.fuzzyCorrelatedPattern.basic import FCPGrowth as alg
 
         obj = alg.FCPGrowth("input.txt",2,0.4)
@@ -284,7 +289,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    -------
+    ---------
             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
 
     """

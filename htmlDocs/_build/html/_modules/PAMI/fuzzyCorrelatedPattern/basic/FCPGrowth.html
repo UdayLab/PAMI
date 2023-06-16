@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.fuzzyCorrelatedPattern.basic.FCPGrowth &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.fuzzyCorrelatedPattern.basic.FCPGrowth &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -247,11 +247,18 @@
 
 <div class="viewcode-block" id="FCPGrowth"><a class="viewcode-back" href="../../../../PAMI.fuzzyCorrelatedPattern.basic.html#PAMI.fuzzyCorrelatedPattern.basic.FCPGrowth.FCPGrowth">[docs]</a><span class="k">class</span> <span class="nc">FCPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_corelatedFuzzyFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    -------------</span>
 <span class="sd">        FCPGrowth is the algorithm to discover Correlated Fuzzy-frequent patterns in a transactional database.</span>
 <span class="sd">        it is based on traditional fuzzy frequent pattern mining.</span>
 
+<span class="sd">    Reference:</span>
+<span class="sd">    ---------------</span>
+<span class="sd">        Lin, N.P., &amp; Chueh, H. (2007). Fuzzy correlation rules mining.</span>
+<span class="sd">        https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.416.6053&amp;rep=rep1&amp;type=pdf</span>
+
 <span class="sd">    Attributes :</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -------------</span>
 <span class="sd">        iFile : file</span>
 <span class="sd">            Name of the input file to mine complete set of fuzzy spatial frequent patterns</span>
 <span class="sd">        oFile : file</span>
@@ -285,7 +292,7 @@
 <span class="sd">        itemBuffer list</span>
 <span class="sd">            to keep track of items in buffer</span>
 <span class="sd">    Methods :</span>
-<span class="sd">    -------</span>
+<span class="sd">    ------------</span>
 <span class="sd">        startTimeMine()</span>
 <span class="sd">            Mining process will startTime from here</span>
 <span class="sd">        getPatterns()</span>
@@ -314,20 +321,19 @@
 <span class="sd">            To Store the patten      </span>
 
 <span class="sd">    Executing the code on terminal :</span>
-<span class="sd">    -------</span>
-<span class="sd">            Format: </span>
-<span class="sd">                python3 FCPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minAllConf&gt; &lt;sep&gt;</span>
-<span class="sd">            Examples: </span>
-<span class="sd">                    python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2 (minSup will be considered in support count or frequency)</span>
+<span class="sd">    -------------------------------------</span>
+<span class="sd">            Format:</span>
+
+<span class="sd">                &gt;&gt;&gt; python3 FCPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minAllConf&gt; &lt;sep&gt;</span>
+<span class="sd">            Examples:</span>
+
+<span class="sd">                &gt;&gt;&gt; python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2 (minSup will be considered in support count or frequency)</span>
 <span class="sd">                    </span>
-<span class="sd">                    python3 FCPGrowth.py sampleTDB.txt output.txt 0.25 0.2 (minSup and maxPer will be considered in percentage of database)</span>
-<span class="sd">                                                                     (it will consider separator as &quot;\t&quot;)</span>
-<span class="sd">                    </span>
-<span class="sd">                    python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2 ,</span>
-<span class="sd">                                                                      (it will consider separator as &#39;,&#39;)</span>
+
 <span class="sd">    Sample run of importing the code:</span>
-<span class="sd">    -------------------------------</span>
-<span class="sd">        </span>
+<span class="sd">    -----------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+
 <span class="sd">        from PAMI.fuzzyCorrelatedPattern.basic import FCPGrowth as alg</span>
 
 <span class="sd">        obj = alg.FCPGrowth(&quot;input.txt&quot;,2,0.4)</span>
@@ -353,7 +359,7 @@
 <span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 <span class="sd">    Credits:</span>
-<span class="sd">    -------</span>
+<span class="sd">    ---------</span>
 <span class="sd">            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>

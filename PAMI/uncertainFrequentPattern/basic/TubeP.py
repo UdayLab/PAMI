@@ -1,17 +1,52 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation,  either version 3 of the License,  or
-#      (at your option) any later version.
+#     from PAMI.uncertainFrequentPattern.basic import TubeP as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     obj = alg.TubeP(iFile, minSup)
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not,  see <https://www.gnu.org/licenses/>.
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getmemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _fp
 
@@ -278,13 +313,16 @@ class _Tree(object):
 
 class TubeP(_fp._frequentPatterns):
     """
+    Description:
+    -------------
     TubeP is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
+
     Reference:
-    --------
+    ----------
         Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
         In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM '14). IEEE Computer Society, USA, 893–898. https://doi.org/10.1109/ICDM.2014.146
     Attributes:
-    ----------
+    -----------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -318,7 +356,7 @@ class TubeP(_fp._frequentPatterns):
         finalPatterns : dict
             To store the complete patterns
     Methods:
-    -------
+    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -343,50 +381,50 @@ class TubeP(_fp._frequentPatterns):
             After updating the Database, remaining items will be added into the tree by setting root node as null
         convert()
             to convert the user specified value
-    Executing the code on terminal:
-    -------
-        Format:
-        ------
 
-        python3 TubeP.py <inputFile> <outputFile> <minSup>
+    **Methods to execute code on terminal**
 
-        Examples:
-        --------
+            Format:
+                      >>> python3 TubeP.py <inputFile> <outputFile> <minSup>
+            Example:
+                      >>>  python3 TubeP.py sampleTDB.txt patterns.txt 3
 
-        python3 TubeP.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
+            .. note:: minSup  will be considered in support count or frequency
 
-    Sample run of importing the code:
-    -------------------
-        from PAMI.uncertainFrequentPattern.basic import tubeP as alg
+    **Importing this algorithm into a python program**
 
-        obj = alg.TubeP(iFile, minSup)
+    .. code-block:: python
 
-        obj.startMine()
+            from PAMI.uncertainFrequentPattern.basic import TubeP as alg
 
-        Patterns = obj.getPatterns()
+            obj = alg.TubeP(iFile, minSup)
 
-        print("Total number of  Patterns:", len(Patterns))
+            obj.startMine()
 
-        obj.save(oFile)
+            frequentPatterns = obj.getPatterns()
 
-        Df = obj.getPatternsAsDataFrame()
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        memUSS = obj.getMemoryUSS()
+            obj.savePatterns(oFile)
 
-        print("Total Memory in USS:", memUSS)
+            Df = obj.getPatternsAsDataFrame()
 
-        memRSS = obj.getMemoryRSS()
+            memUSS = obj.getmemoryUSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in USS:", memUSS)
 
-        run = obj.getRuntime()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total Memory in RSS", memRSS)
 
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-    """
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+
+             The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+"""
     _startTime = float()
     _endTime = float()
     _minSup = str()

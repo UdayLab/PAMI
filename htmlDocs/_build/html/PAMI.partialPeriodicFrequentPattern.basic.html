@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.partialPeriodicFrequentPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.partialPeriodicFrequentPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,14 +128,21 @@
 <dt class="sig sig-object py" id="PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.</span></span><span class="sig-name descname"><span class="pre">GPFgrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minPR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicFrequentPattern/basic/GPFgrowth.html#GPFgrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PAMI.partialPeriodicFrequentPattern.basic.abstract.partialPeriodicPatterns" title="PAMI.partialPeriodicFrequentPattern.basic.abstract.partialPeriodicPatterns"><code class="xref py py-class docutils literal notranslate"><span class="pre">partialPeriodicPatterns</span></code></a></p>
-<p>GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.</p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.</p>
+</div></blockquote>
+</section>
 <section id="reference">
 <h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
-<p>R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
-Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, <a class="reference external" href="https://doi.org/10.1016/j.jss.2016.11.035">https://doi.org/10.1016/j.jss.2016.11.035</a>.
-...
-Attributes:
-----------</p>
+<blockquote>
+<div><p>R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
+Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, <a class="reference external" href="https://doi.org/10.1016/j.jss.2016.11.035">https://doi.org/10.1016/j.jss.2016.11.035</a>.</p>
+</div></blockquote>
+</section>
+<section id="attributes">
+<h3>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>inputFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of frequent pattern</p>
@@ -178,32 +185,51 @@ Attributes:
 </dl>
 </div></blockquote>
 </section>
-<section id="format">
-<h3>Format:<a class="headerlink" href="#format" title="Permalink to this heading"></a></h3>
+<section id="executing-code-on-terminal">
+<h3>Executing code on Terminal:<a class="headerlink" href="#executing-code-on-terminal" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>python3 GPFgrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;minPR&gt;</p>
-<dl class="simple">
-<dt>Examples:</dt><dd><p>python3 GPFgrowth.py sampleDB.txt patterns.txt 10 10 0.5</p>
-</dd>
-</dl>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">GPFgrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minPR</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">GPFgrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
 <section id="sample-run-of-the-importing-code">
 <h3>Sample run of the importing code:<a class="headerlink" href="#sample-run-of-the-importing-code" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.partialPeriodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">GPFgrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">GPFgrowth</span><span class="p">(</span><span class="n">inputFile</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">minPR</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">partialPeriodicFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of partial periodic Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">partialPeriodicFrequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDf</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="credits">
+<h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg</p>
-<p>obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)</p>
-<p>obj.startMine()</p>
-<p>partialPeriodicFrequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of partial periodic Patterns:&quot;, len(partialPeriodicFrequentPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternInDf()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
+<div><p>The complete program was written by Nakamura  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getMemoryRSS">
@@ -669,9 +695,14 @@ Attributes:
 <dt class="sig sig-object py" id="PAMI.partialPeriodicFrequentPattern.basic.PPF_DFS.PPF_DFS">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.partialPeriodicFrequentPattern.basic.PPF_DFS.</span></span><span class="sig-name descname"><span class="pre">PPF_DFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minPR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicFrequentPattern/basic/PPF_DFS.html#PPF_DFS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicFrequentPattern.basic.PPF_DFS.PPF_DFS" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PAMI.partialPeriodicFrequentPattern.basic.abstract.partialPeriodicPatterns" title="PAMI.partialPeriodicFrequentPattern.basic.abstract.partialPeriodicPatterns"><code class="xref py py-class docutils literal notranslate"><span class="pre">partialPeriodicPatterns</span></code></a></p>
-<p>PPF_DFS is algorithm to mine the partial periodic frequent patterns.</p>
-<section id="attributes">
-<h3>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
+<section id="id5">
+<h3>Description:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>PPF_DFS is algorithm to mine the partial periodic frequent patterns.</p>
+</div></blockquote>
+</section>
+<section id="id6">
+<h3>Attributes:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>input file path</p>
@@ -703,8 +734,8 @@ Attributes:
 </dl>
 </div></blockquote>
 </section>
-<section id="id5">
-<h3>Methods:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<section id="id7">
+<h3>Methods:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>getPer_Sup(tids)</dt><dd><p>caluclate ip / (sup+1)</p>
@@ -734,34 +765,49 @@ Attributes:
 </dl>
 </div></blockquote>
 </section>
-<section id="id6">
-<h3>Format:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<section id="id8">
+<h3>Executing code on Terminal:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>python3 PPF_DFS.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;minPR&gt;</p>
-</div></blockquote>
-<p class="rubric">Examples</p>
-<p>python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5</p>
-</section>
-<section id="id7">
-<h3>Sample run of the importing code:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg</p>
-<p>obj = alg.PPF_DFS(iFile, minSup)</p>
-<p>obj.startMine()</p>
-<p>frequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternInDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPF_DFS</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minPR</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPF_DFS</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">10</span> <span class="mi">10</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
-<section id="credits">
-<h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
+<section id="id9">
+<h3>Sample run of the importing code:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.partialPeriodicFrequentpattern.basic</span> <span class="kn">import</span> <span class="n">PPF_DFS</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PPF_DFS</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>Credits:<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by S. Nakamura  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
@@ -841,8 +887,8 @@ employ in PAMI</p>
 <blockquote>
 <div><p>...</p>
 </div></blockquote>
-<section id="id8">
-<h3>Attributes:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<section id="id11">
+<h3>Attributes:<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
@@ -865,8 +911,8 @@ in the input database/file</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id9">
-<h3>Methods:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<section id="id12">
+<h3>Methods:<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>

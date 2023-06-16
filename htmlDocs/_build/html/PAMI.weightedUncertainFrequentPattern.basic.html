@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.weightedUncertainFrequentPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.weightedUncertainFrequentPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -95,7 +95,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,18 +128,14 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.weightedUncertainFrequentPattern.basic.WUFIM.</span></span><span class="sig-name descname"><span class="pre">WUFIM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expWSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedUncertainFrequentPattern/basic/WUFIM.html#WUFIM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedUncertainFrequentPattern.basic.WUFIM.WUFIM" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_weightedFrequentPatterns</span></code></p>
 <blockquote>
+<div><blockquote>
 <div><p>It is one of the algorithm to discover weighted frequent patterns in a uncertain transactional database
 using PUF-Tree.</p>
 </div></blockquote>
-<section id="reference">
-<h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Efficient Mining of Weighted Frequent Itemsets in Uncertain Databases, In book: Machine Learning and Data Mining in Pattern Recognition
 Chun-Wei Jerry Lin, Wensheng Gan, Philippe Fournier Viger, Tzung-Pei Hong</p>
 </div></blockquote>
-</section>
-<section id="attributes">
-<h3>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -178,9 +174,6 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="methods">
-<h3>Methods:<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -211,39 +204,52 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="executing-the-code-on-terminal">
-<h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 WUFIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;weightFile&gt; &lt;expSup&gt; &lt;expWeSup&gt;
-Examples:
---------
-python3 WUFIM.py sampleTDB.txt patterns.txt weightFile.txt 1.4 1.5    (minSup  will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">WUFIM</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">WUFIM</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
+</dd>
+</dl>
 </div></blockquote>
-</section>
-<section id="sample-run-of-importing-the-code">
-<h3>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.weightedUncertainFrequentPattern.basic import WUFIM as alg</p>
-<p>obj = alg.WUFIM(iFile, wFile, expSup, expWSup)</p>
-<p>obj.startMine()</p>
-<p>Patterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of  Patterns:&quot;, len(Patterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
+<p><strong>Importing this algorithm into a python program</strong></p>
 </div></blockquote>
-</section>
-<section id="credits">
-<h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.weightedUncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">WFIM</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">WFIM</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">wFile</span><span class="p">,</span> <span class="n">expSup</span><span class="p">,</span> <span class="n">expWSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">Patterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of  Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Patterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedUncertainFrequentPattern.basic.WUFIM.WUFIM.getMemoryRSS">
 <span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedUncertainFrequentPattern/basic/WUFIM.html#WUFIM.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedUncertainFrequentPattern.basic.WUFIM.WUFIM.getMemoryRSS" title="Permalink to this definition"></a></dt>
@@ -305,58 +311,14 @@ python3 WUFIM.py sampleTDB.txt patterns.txt weightFile.txt 1.4 1.5    (minSup  w
 by counting the original support of a patterns</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
-<p><strong>Methods to execute code on terminal</strong></p>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">WUFIM</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-</dd>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">WUFIM</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>minSup  will be considered in support count or frequency</p>
-</div>
-</dd>
-</dl>
-</div></blockquote>
-<p><strong>Importing this algorithm into a python program</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.weightedUncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">WFIM</span> <span class="k">as</span> <span class="n">alg</span>
-
-<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">WFIM</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">wFile</span><span class="p">,</span> <span class="n">expSup</span><span class="p">,</span> <span class="n">expWSup</span><span class="p">)</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
-
-<span class="n">Patterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of  Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Patterns</span><span class="p">))</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
-
-<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
-
-<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
-
-<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
-
-<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Credits:</strong></p>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
-</div></blockquote>
+</section>
+<section id="module-PAMI.weightedUncertainFrequentPattern.basic.abstract">
+<span id="pami-weighteduncertainfrequentpattern-basic-abstract-module"></span><h2>PAMI.weightedUncertainFrequentPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.weightedUncertainFrequentPattern.basic.abstract" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-PAMI.weightedUncertainFrequentPattern.basic">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.weightedUncertainFrequentPattern.basic" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

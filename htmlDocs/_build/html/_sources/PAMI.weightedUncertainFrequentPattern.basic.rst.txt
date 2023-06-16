@@ -12,48 +12,18 @@ PAMI.weightedUncertainFrequentPattern.basic.WUFIM module
    :undoc-members:
    :show-inheritance:
 
-**Methods to execute code on terminal**
+PAMI.weightedUncertainFrequentPattern.basic.abstract module
+-----------------------------------------------------------
 
-        Format:
-                  >>>  python3 WUFIM.py <inputFile> <outputFile> <minSup>
-        Example:
-                  >>>  python3 WUFIM.py sampleTDB.txt patterns.txt 3
+.. automodule:: PAMI.weightedUncertainFrequentPattern.basic.abstract
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-                 .. note:: minSup  will be considered in support count or frequency
+Module contents
+---------------
 
-**Importing this algorithm into a python program**
-
-.. code-block:: python
-
-        from PAMI.weightedUncertainFrequentPattern.basic import WFIM as alg
-
-        obj = alg.WFIM(iFile, wFile, expSup, expWSup)
-
-        obj.startMine()
-
-        Patterns = obj.getPatterns()
-
-        print("Total number of  Patterns:", len(Patterns))
-
-        obj.savePatterns(oFile)
-
-        Df = obj.getPatternsAsDataFrame()
-
-        memUSS = obj.getMemoryUSS()
-
-        print("Total Memory in USS:", memUSS)
-
-        memRSS = obj.getMemoryRSS()
-
-        print("Total Memory in RSS", memRSS)
-
-        run = obj.getRuntime()
-
-        print("Total ExecutionTime in seconds:", run)
-
-
-**Credits:**
-
-         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
-         
-
+.. automodule:: PAMI.weightedUncertainFrequentPattern.basic
+   :members:
+   :undoc-members:
+   :show-inheritance:

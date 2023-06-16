@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.AssociationRules.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.AssociationRules.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,8 +128,10 @@
 <dt class="sig sig-object py" id="PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.AssociationRules.basic.ARWithConfidence.</span></span><span class="sig-name descname"><span class="pre">ARWithConfidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/AssociationRules/basic/ARWithConfidence.html#ARWithConfidence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl>
-<dt>temporalDatabaseStats is class to get stats of database.</dt><dd><dl class="simple">
+<p>temporalDatabaseStats is class to get stats of database.</p>
+<section id="attributes">
+<h3>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
+<dl class="simple">
 <dt>frequentPattern<span class="classifier">list or dict</span></dt><dd><p>list</p>
 </dd>
 <dt>measure: condition to calculate the strength of rule</dt><dd><p>str</p>
@@ -137,9 +139,10 @@
 <dt>threshold: condition to satisfy</dt><dd><p>int</p>
 </dd>
 </dl>
+</section>
+<section id="methods">
+<h3>Methods:<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
 <p>startMine()</p>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getMemoryRSS">
 <span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/AssociationRules/basic/ARWithConfidence.html#ARWithConfidence.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.getMemoryRSS" title="Permalink to this definition"></a></dt>
@@ -198,6 +201,7 @@
 <span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/AssociationRules/basic/ARWithConfidence.html#ARWithConfidence.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.AssociationRules.basic.ARWithConfidence.ARWithConfidence.startMine" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+</section>
 </dd></dl>
 
 <dl class="py class">
@@ -219,8 +223,8 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.AssociationRules.basic.ARWithLeverage.</span></span><span class="sig-name descname"><span class="pre">ARWithLeverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/AssociationRules/basic/ARWithLeverage.html#ARWithLeverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.AssociationRules.basic.ARWithLeverage.ARWithLeverage" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Association Rules.</p>
-<section id="attributes">
-<h3>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
+<section id="id1">
+<h3>Attributes:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <dl class="simple">
 <dt>frequentPattern<span class="classifier">list or dict</span></dt><dd><p>list</p>
 </dd>
@@ -230,8 +234,8 @@
 </dd>
 </dl>
 </section>
-<section id="methods">
-<h3>Methods:<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<section id="id2">
+<h3>Methods:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <p>startMine()</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.AssociationRules.basic.ARWithLeverage.ARWithLeverage.getMemoryRSS">

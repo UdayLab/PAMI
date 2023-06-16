@@ -1,108 +1,145 @@
+# CMine algorithms aims to discover the coverage patterns in transactional databases.
+#
+# **Importing this algorithm into a python program**
+# ----------------------------------------------------
+#     .. code-block:: python
+#
+#                 from PAMI.coveragePattern.basic import CMine as alg
+#
+#                 obj = alg.CMine(iFile, minRF, minCS, maxOR, seperator)
+#
+#                 obj.startMine()
+#
+#                 coveragePatterns = obj.getPatterns()
+#
+#                 print("Total number of coverage Patterns:", len(coveragePatterns))
+#
+#                 obj.save(oFile)
+#
+#                 Df = obj.getPatternsAsDataFrame()
+#
+#                 memUSS = obj.getMemoryUSS()
+#
+#                 print("Total Memory in USS:", memUSS)
+#
+#                 memRSS = obj.getMemoryRSS()
+#
+#                 print("Total Memory in RSS", memRSS)
+#
+#                 run = obj.getRuntime()
+#
+#                 print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
+
+
 from PAMI.coveragePatterns.basic import abstract as _ab
 
 class CMine(_ab._coveragePatterns):
     """
-        CMine algorithms aims to discover the coverage patterns in transactional databases.
 
-    Reference:
-    ---------
-        Bhargav Sripada, Polepalli Krishna Reddy, Rage Uday Kiran:
-        Coverage patterns for efficient banner advertisement placement. WWW (Companion Volume) 2011: 131-132
-        https://dl.acm.org/doi/10.1145/1963192.1963259
-    
-    Attributes:
-    -----------
-        self.iFile : str
-            Input file name or path of the input file
-        minSup: float or int or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        sep : str
-            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
-            However, the users can override their default separator.
-        self.oFile : str
-            Name of the output file or path of the output file
-        self.startTime:float
-            To record the start time of the mining process
-        self.endTime:float
-            To record the completion time of the mining process
-        self.finalPatterns: dict
-            Storing the complete set of patterns in a dictionary variable
-        self.memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        self.memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        self.Database : list
-            To store the complete set of transactions available in the input database/file
-    Methods:
-    -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of coverage patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of coverage patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        createCoverageItems()
-            Generate coverage items
-        tidToBitset(itemset)
-            Convert tid list to bit set
-        genPatterns(prefix, tidData)
-            Generate coverage patterns
-        generateAllPatterns(coverageItems)
-            Generate all coverage patterns
+    :Description:  CMine algorithms aims to discover the coverage patterns in transactional databases.
 
-    Executing the code on terminal:
-    -------
-        Format:
-        ------
-            python3 CMine.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
+    :Reference:    Bhargav Sripada, Polepalli Krishna Reddy, Rage Uday Kiran:
+                   Coverage patterns for efficient banner advertisement placement. WWW (Companion Volume) 2011: 131-132
+                   https://dl.acm.org/doi/10.1145/1963192.1963259
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minRF: float:
+                   Controls the minimum number of transactions in which every item must appear in a database.
+    :param  minCS: float:
+                   Controls the minimum number of transactions in which at least one time within a pattern must appear in a database.
+    :param  maxOR: float:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
 
-        Examples:
-        --------
-            python3 CMine.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 ','
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-        Sample run of importing the code:
-        -------------------
+    :Attributes:
 
-            from PAMI.coveragePattern.basic import CMine as alg
+        startTime : float
+          To record the start time of the mining process
 
-            obj = alg.CMine(iFile, minRF, minCS, maxOR, seperator)
+        endTime : float
+          To record the completion time of the mining process
 
-            obj.startMine()
+        finalPatterns : dict
+          Storing the complete set of patterns in a dictionary variable
 
-            coveragePatterns = obj.getPatterns()
+        memoryUSS : float
+          To store the total amount of USS memory consumed by the program
 
-            print("Total number of coverage Patterns:", len(coveragePatterns))
+        memoryRSS : float
+          To store the total amount of RSS memory consumed by the program
 
-            obj.save(oFile)
+        Database : list
+          To store the transactions of a database in list
 
-            Df = obj.getPatternsAsDataFrame()
 
-            memUSS = obj.getMemoryUSS()
+    **Methods to execute code on terminal**
+    ----------------------------------------------------
+            Format:
+                      >>>  python3 CMine.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
 
-            print("Total Memory in USS:", memUSS)
+            Example:
+                      >>>  python3 CMine.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 ','
 
-            memRSS = obj.getMemoryRSS()
 
-            print("Total Memory in RSS", memRSS)
 
-            run = obj.getRuntime()
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------
+    .. code-block:: python
 
-            print("Total ExecutionTime in seconds:", run)
+                from PAMI.coveragePattern.basic import CMine as alg
 
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+                obj = alg.CMine(iFile, minRF, minCS, maxOR, seperator)
+
+                obj.startMine()
+
+                coveragePatterns = obj.getPatterns()
+
+                print("Total number of coverage Patterns:", len(coveragePatterns))
+
+                obj.save(oFile)
+
+                Df = obj.getPatternsAsDataFrame()
+
+                memUSS = obj.getMemoryUSS()
+
+                print("Total Memory in USS:", memUSS)
+
+                memRSS = obj.getMemoryRSS()
+
+                print("Total Memory in RSS", memRSS)
+
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+
+
+    **Credits:**
+    --------------------------
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+
     """
 
     _startTime = float()

@@ -1,18 +1,50 @@
-#  Copyright (C)  2021 Rage Uday Kiran
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     from PAMI.highUtilityPatterns.basic import UPGrowth as alg
+#
+#     obj=alg.UPGrowth("input.txt",35)
+#
+#     obj.startMine()
+#
+#     highUtilityPatterns = obj.getPatterns()
+#
+#     print("Total number of Spatial Frequent Patterns:", len(highUtilityPatterns))
+#
+#     obj.save("output")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.highUtilityPatterns.basic import abstract as _ab
 
@@ -281,7 +313,9 @@ class _UPTree:
 
 class UPGrowth(_ab._utilityPatterns):
     """
-    UP-Growth is two-phase algorithm to mine High Utility Itemsets from transactional databases.
+    Description:
+    ------------
+        UP-Growth is two-phase algorithm to mine High Utility Itemsets from transactional databases.
 
     Reference:
     ---------
@@ -337,13 +371,18 @@ class UPGrowth(_ab._utilityPatterns):
         getRuntime()
                Total amount of runtime taken by the mining process will be retrieved from this function
     Executing the code on terminal :
-    -------
-        Format: python3 UPGrowth <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
-        Examples: python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
-                  python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
-    Sample run of importing the code:
-    -------------------------------
+    -------------------------------------
+        Format:
+        ------------
+          >>> python3 UPGrowth <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
+        Examples:
+        ------------
+          >>> python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
 
+    Sample run of importing the code:
+    -------------------------------------
+    .. code-block:: python
+    
         from PAMI.highUtilityPatterns.basic import UPGrowth as alg
 
         obj=alg.UPGrowth("input.txt",35)

@@ -1,19 +1,52 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#         from PAMI.highUtilityPatterns.basic import EFIM as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#         obj=alg.EFIM("input.txt",35)
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#         obj.startMine()
+#
+#         Patterns = obj.getPatterns()
+#
+#         print("Total number of high utility Patterns:", len(Patterns))
+#
+#         obj.save("output")
+#
+#         memUSS = obj.getMemoryUSS()
+#
+#         print("Total Memory in USS:", memUSS)
+#
+#         memRSS = obj.getMemoryRSS()
+#
+#         print("Total Memory in RSS", memRSS)
+#
+#         run = obj.getRuntime()
+#
+#         print("Total ExecutionTime in seconds:", run)
 
 
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.highUtilityPatterns.basic import abstract as _ab
 
@@ -253,7 +286,9 @@ class _Dataset:
 
 class EFIM(_ab._utilityPatterns):
     """
-    EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
+    Description:
+    ------------
+        EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
     Reference:
     ---------
@@ -329,13 +364,18 @@ class EFIM(_ab._utilityPatterns):
              A method to calculate local utility values for single itemsets
 
     Executing the code on terminal :
-    -------
-        Format: python3 EFIM.py <inputFile> <outputFile> <minUtil> <sep>
-        Examples: python3 EFIM sampleTDB.txt output.txt 35  (it will consider "\t" as separator)
-                  python3 EFIM sampleTDB.txt output.txt 35 , (it will consider "," as separator)
+    -------------------------------------
+        Format:
+        ------
+           >>> python3 EFIM.py <inputFile> <outputFile> <minUtil> <sep>
+        Examples:
+        ---------
+           >>> python3 EFIM sampleTDB.txt output.txt 35  (it will consider "\t" as separator)
+           >>> python3 EFIM sampleTDB.txt output.txt 35 , (it will consider "," as separator)
 
     Sample run of importing the code:
-    -------------------------------
+    -------------------------------------
+    .. code-block:: python
         
         from PAMI.highUtilityPatterns.basic import EFIM as alg
 

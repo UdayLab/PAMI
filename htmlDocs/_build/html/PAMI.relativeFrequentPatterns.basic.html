@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.relativeFrequentPatterns.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.relativeFrequentPatterns.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,9 +128,12 @@
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPatterns.basic.RSFPGrowth.RSFPGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.relativeFrequentPatterns.basic.RSFPGrowth.</span></span><span class="sig-name descname"><span class="pre">RSFPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_RSFPGrowth__minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_RSFPGrowth__minRS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/relativeFrequentPatterns/basic/RSFPGrowth.html#RSFPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.relativeFrequentPatterns.basic.RSFPGrowth.RSFPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Algorithm to find all items with relative support from given dataset</p>
 </div></blockquote>
+</section>
 <section id="reference">
 <h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
 <blockquote>
@@ -212,41 +215,54 @@ __mapSupport represents the 1-length items with their respective support</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="executing-the-code-on-terminal">
-<h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><blockquote>
-<div><p>python3 RSFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minRS&gt;</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">RSFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">__minRatio</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">RSFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.23</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>maxPer and minPS will be considered in percentage of database transactions</p>
+</div>
 </div></blockquote>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.frequentPatternUsingOtherMeasures</span> <span class="kn">import</span> <span class="n">RSFPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">RSFPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">__minRatio</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><p>python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2  (minSup will be considered in percentage of database transactions)</p>
-<p>python3 RSFPGrowth.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)</p>
-</div></blockquote>
-</div></blockquote>
-</section>
-<section id="sample-run-of-the-importing-code">
-<h3>Sample run of the importing code:<a class="headerlink" href="#sample-run-of-the-importing-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg</p>
-<p>obj = alg.RSFPGrowth(iFile, minSup, minRS)</p>
-<p>obj.startMine()</p>
-<p>frequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getmemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="credits">
-<h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by   Sai Chitra.B   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.relativeFrequentPatterns.basic.RSFPGrowth.RSFPGrowth.getMemoryRSS">

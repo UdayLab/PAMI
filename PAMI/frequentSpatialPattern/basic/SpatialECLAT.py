@@ -1,16 +1,68 @@
+#  **Importing this algorithm into a python program**
+#  ---------------------------------------------------
+#
+#     from PAMI.frequentSpatialPattern.basic import SpatialECLAT as alg
+#
+#     obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
+#
+#     obj.startMine()
+#
+#     spatialFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
+#
+#     obj.save("outFile")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 from PAMI.frequentSpatialPattern.basic import abstract as _ab
 
 
 class SpatialECLAT(_ab._spatialFrequentPatterns):
-    """ 
+    """
+    Description:
+    --------------
         Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
         Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
         scalable version of the Apriori algorithm.
 
-            ...
+    Reference:
+    -----------
+        Rage, Uday & Fournier Viger, Philippe & Zettsu, Koji & Toyoda, Masashi & Kitsuregawa, Masaru. (2020).
+        Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.
 
     Attributes :
-    ----------
+    ---------------
         iFile : str
             Input file name or path of the input file
         nFile: str
@@ -36,7 +88,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             To store the complete set of transactions available in the input database/file
 
     Methods :
-    -------
+    ------------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -69,21 +121,19 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             A function to map items to their neighbours
 
     Executing the code on terminal :
-    ------------------------------
-        Format: 
-            python3 SpatialECLAT.py <inputFile> <outputFile> <neighbourFile> <minSup>
+    ----------------------------------
+        Format:
+
+            >>> python3 SpatialECLAT.py <inputFile> <outputFile> <neighbourFile> <minSup>
             
         Examples:
-            python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
-            
-            python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)
-                                                                (it considers "\t" as separator)
-                    
-            python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 3 ','  (it will consider "," as a separator)
 
+            >>> python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
+            
     Sample run of importing the code :
-    -------------------------------
-        
+    -----------------------------------
+    .. code-block:: python
+
         from PAMI.frequentSpatialPattern.basic import SpatialECLAT as alg
         
         obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
@@ -110,7 +160,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
 
     Credits:
-    -------
+    ---------
         The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
 

@@ -1,16 +1,72 @@
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     from PAMI.periodicFrequentPattern.closed import CPFPMiner as alg
+#
+#     obj = alg.CPFPMiner("../basic/sampleTDB.txt", "2", "6")
+#
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.savePatterns("patterns")
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
+
 from PAMI.periodicFrequentPattern.closed import abstract as _ab
 
 
 class CPFPMiner(_ab._periodicFrequentPatterns):
-    """ CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.
-        It uses depth-first search.
+    """ 
+        Description:
+        ------------
+         
+            CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.
+            It uses depth-first search.
 
         Reference:
         -------
             P. Likhitha et al., "Discovering Closed Periodic-Frequent Patterns in Very Large Temporal Databases"
             2020 IEEE International Conference on Big Data (Big Data), 2020, https://ieeexplore.ieee.org/document/9378215
 
-        ...
+      
         Attributes:
         ----------
             iFile : str
@@ -59,52 +115,51 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
             getRuntime()
                 Total amount of runtime taken by the mining process will be retrieved from this function
 
-        Executing the code on terminal:
-        -------
-        Format:
-        ------
-        python3 CPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer>
-
-        Examples:
-        --------
-        python3 CPFPMiner.py sampleTDB.txt patterns.txt 0.3 0.4   (minSup and maxPer will be considered in percentage of database
-        transactions)
-
-        python3 CPFPMiner.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)
+                
+        **Methods to execute code on terminal**
+        
+                Format:
+                          >>>  python3 CPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer>
+                Example:
+                          >>>  python3 CPFPMiner.py sampleTDB.txt patterns.txt 0.3 0.4
+        
+                .. note:: minSup will be considered in percentage of database transactions
         
         
-        Sample run of the imported code:
-        --------------
+        **Importing this algorithm into a python program**
+        
+        .. code-block:: python
+        
+                    from PAMI.periodicFrequentPattern.closed import CPFPMiner as alg
+        
+                    obj = alg.CPFPMiner("../basic/sampleTDB.txt", "2", "6")
+        
+                    obj.startMine()
+        
+                    periodicFrequentPatterns = obj.getPatterns()
+        
+                    print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
+        
+                    obj.savePatterns("patterns")
+        
+                    Df = obj.getPatternsAsDataFrame()
+        
+                    memUSS = obj.getMemoryUSS()
+        
+                    print("Total Memory in USS:", memUSS)
+        
+                    memRSS = obj.getMemoryRSS()
+        
+                    print("Total Memory in RSS", memRSS)
+        
+                    run = obj.getRuntime()
+        
+                    print("Total ExecutionTime in seconds:", run)
+        
+        **Credits:**
+        
+                 The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
 
-            from PAMI.periodicFrequentPattern.closed import CPFPMiner as alg
-
-            obj = alg.CPFPMiner("../basic/sampleTDB.txt", "2", "6")
-
-            obj.startMine()
-
-            periodicFrequentPatterns = obj.getPatterns()
-
-            print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
-
-            obj.save("patterns")
-
-            Df = obj.getPatternsAsDataFrame()
-
-            memUSS = obj.getMemoryUSS()
-
-            print("Total Memory in USS:", memUSS)
-
-            memRSS = obj.getMemoryRSS()
-
-            print("Total Memory in RSS", memRSS)
-
-            run = obj.getRuntime()
-
-            print("Total ExecutionTime in seconds:", run)
-
-        Credits:
-        -------
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
 

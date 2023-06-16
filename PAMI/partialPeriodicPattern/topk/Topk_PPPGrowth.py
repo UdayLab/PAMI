@@ -1,17 +1,57 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     import PAMI.partialPeriodicPattern.topk.Topk_PPPGrowth as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     obj = alg.Topk_PPPGrowth(iFile, k, periodicity)
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj.startMine()
+#
+#     partialPeriodicPatterns = obj.getPatterns()
+#
+#     print("Total number of top partial periodic Patterns:", len(partialPeriodicPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 
 from PAMI.partialPeriodicPattern.topk import abstract as _abstract
 import validators as _validators
@@ -21,14 +61,16 @@ import sys as _sys
 
 class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
     """
+    Description:
+    -------------
         Top - K is and algorithm to discover top partial periodic patterns in a temporal  database.
 
-        Reference:
-        ----------
+    Reference:
+    ----------
 
 
-        Attributes:
-        ----------
+    Attributes:
+    ------------
             iFile : str
                 Input file name or path of the input file
             k: int
@@ -49,8 +91,8 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
             memoryRSS : float
                 To store the total amount of RSS memory consumed by the program
 
-        Methods:
-        -------
+    Methods:
+    --------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -74,20 +116,21 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
             generateFrequentPatterns(tidList)
                 It will generate the combinations of frequent items from a list of items
 
-        Executing the code on terminal:
-        -------------------------------
+    Executing the code on terminal:
+    -------------------------------
 
-            Format:
-            ------
-            python3 FAE.py <inputFile> <outputFile> <k> <periodicity>
+        Format:
+        ------
+            >>> python3 FAE.py <inputFile> <outputFile> <k> <periodicity>
 
-            Examples:
-            ---------
-            python3 FAE.py sampleDB.txt patterns.txt 10 3
+        Examples:
+        ---------
+            >>> python3 FAE.py sampleDB.txt patterns.txt 10 3
 
 
-        Sample run of the importing code:
-        ---------------------------------
+    Sample run of the importing code:
+    ---------------------------------
+    .. code-block:: python
 
             import PAMI.partialPeriodicPattern.topk.Topk_PPPGrowth as alg
 
@@ -115,8 +158,8 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        --------
+    Credits:
+    ---------
             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """

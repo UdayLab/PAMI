@@ -1,19 +1,56 @@
-#  Copyright (C)  2021 Rage Uday Kiran
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.geoReferencedFrequentPatterns import abstract as _ab
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.geoReferenceFrequentPattern.basic import GFPGrowth as alg
+#
+#     obj = alg.GFPGrowth(iFile, nFile, minSup)
+#
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of  Patterns:", len(Patterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
+# from geoReferencedFrequentPatterns import abstract as _ab
+from PAMI.geoReferencedFrequentPaterns import abstract as _ab
+# import abstract as _ab
 
 _minSup = str()
 _neighbourList = {}
@@ -261,10 +298,12 @@ class _Tree(object):
 
 class GFPGrowth(_ab._frequentPatterns):
     """
+    Description:
+    ------------
         It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
         using GFP-Tree.
     Reference:
-    --------
+    -----------
         
     Attributes:
     ----------
@@ -301,7 +340,7 @@ class GFPGrowth(_ab._frequentPatterns):
         finalPatterns : dict
             To store the complete patterns
     Methods:
-    -------
+    -----------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -329,29 +368,44 @@ class GFPGrowth(_ab._frequentPatterns):
         startMine()
             Mining process will start from this function
     Executing the code on terminal:
-    -------
+    -----------------------------------
         Format:
-        ------
-        python3 GFPGrowth.py <inputFile> <neighborFile> <outputFile> <minSup>
+        ----------
+          >>>  python3 GFPGrowth.py <inputFile> <neighborFile> <outputFile> <minSup>
         Examples:
-        --------
-        python3 GFPGrowth.py sampleTDB.txt sampleNeighbor.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
+        ------------
+          >>> python3 GFPGrowth.py sampleTDB.txt sampleNeighbor.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
     
     Sample run of importing the code:
-    -------------------
+    -----------------------------------
+     .. code-block:: python
+
         from PAMI.geoReferenceFrequentPattern.basic import GFPGrowth as alg
+
         obj = alg.GFPGrowth(iFile, nFile, minSup)
+
         obj.startMine()
+
         Patterns = obj.getPatterns()
+
         print("Total number of  Patterns:", len(Patterns))
+
         obj.savePatterns(oFile)
+
         Df = obj.getPatternsAsDataFrame()
+
         memUSS = obj.getMemoryUSS()
+
         print("Total Memory in USS:", memUSS)
+
         memRSS = obj.getMemoryRSS()
+
         print("Total Memory in RSS", memRSS)
+
         run = obj.getRuntime()
+
         print("Total ExecutionTime in seconds:", run)
+        
     Credits:
     -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n

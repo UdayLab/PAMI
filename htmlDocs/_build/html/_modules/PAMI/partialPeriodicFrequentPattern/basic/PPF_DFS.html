@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.partialPeriodicFrequentPattern.basic.PPF_DFS &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.partialPeriodicFrequentPattern.basic.PPF_DFS &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -75,7 +75,9 @@
 
 <div class="viewcode-block" id="PPF_DFS"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.PPF_DFS.PPF_DFS">[docs]</a><span class="k">class</span> <span class="nc">PPF_DFS</span><span class="p">(</span><span class="n">partialPeriodicPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    PPF_DFS is algorithm to mine the partial periodic frequent patterns.</span>
+<span class="sd">    Description:</span>
+<span class="sd">    -------------</span>
+<span class="sd">        PPF_DFS is algorithm to mine the partial periodic frequent patterns.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">    ----------</span>
@@ -108,7 +110,7 @@
 <span class="sd">            storing the total amount of RSS memory consumed by the program</span>
 
 <span class="sd">    Methods:</span>
-<span class="sd">    -------</span>
+<span class="sd">    --------</span>
 <span class="sd">        getPer_Sup(tids)</span>
 <span class="sd">            caluclate ip / (sup+1)</span>
 <span class="sd">        getPerSup(tids)</span>
@@ -134,16 +136,19 @@
 <span class="sd">        getRuntime()</span>
 <span class="sd">            Total amount of runtime taken by the mining process will be retrieved from this function</span>
 
-<span class="sd">    Format:</span>
-<span class="sd">    -------</span>
-<span class="sd">        python3 PPF_DFS.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;minPR&gt;</span>
+<span class="sd">    Executing code on Terminal:</span>
+<span class="sd">    ------------------------------</span>
+<span class="sd">        Format:</span>
+<span class="sd">        --------</span>
+<span class="sd">            &gt;&gt;&gt; python3 PPF_DFS.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;minPR&gt;</span>
 
-<span class="sd">    Examples:</span>
-
-<span class="sd">        python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5</span>
+<span class="sd">        Examples:</span>
+<span class="sd">        ---------</span>
+<span class="sd">            &gt;&gt;&gt; python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5</span>
 
 <span class="sd">    Sample run of the importing code:</span>
-<span class="sd">    -----------</span>
+<span class="sd">    ---------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
 
 <span class="sd">        from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg</span>
 
@@ -172,7 +177,7 @@
 <span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 <span class="sd">    Credits:</span>
-<span class="sd">    -------</span>
+<span class="sd">    --------</span>
 <span class="sd">        The complete program was written by S. Nakamura  under the supervision of Professor Rage Uday Kiran.\n</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>

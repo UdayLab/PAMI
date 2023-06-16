@@ -10,8 +10,7 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 
 
-
-project = 'PAMI-PAttern MIning'
+project = 'PAMI'
 copyright = '2023, RAGE UDAY KIRAN'
 author = 'RAGE UDAY KIRAN'
 release = '2023.03.01'
@@ -19,11 +18,9 @@ release = '2023.03.01'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = [
-    'sphinx.ext.autodoc',
+extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon'
-]
+    'sphinx.ext.napoleon']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']

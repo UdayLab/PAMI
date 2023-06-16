@@ -1,17 +1,54 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.periodicFrequentPattern.basic import PFPMC as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.PFPMC("../basic/sampleTDB.txt", "2", "5")
+#
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.savePatterns("patterns")
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from itertools import groupby as _groupby
 from operator import itemgetter as _itemgetter
@@ -19,10 +56,14 @@ from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 
 class PFPMC(_ab._periodicFrequentPatterns):
-    """ EclatDiffset PFP is the fundamental approach to mine the periodic-frequent patterns.
+    """
+    Description:
+    ------------
+
+     EclatDiffset PFP is the fundamental approach to mine the periodic-frequent patterns.
 
     Reference:
-    --------
+    --------------
 
 
     Attributes:
@@ -92,50 +133,50 @@ class PFPMC(_ab._periodicFrequentPatterns):
         Generation()
             Used to implement prefix class equivalence method to generate the periodic patterns recursively
 
-        Executing the code on terminal:
-        -------
-        Format:
-        ------
-            python3 PFPMC.py <inputFile> <outputFile> <minSup> <maxPer>
 
-        Examples:
-        --------
-            python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0   (minSup & maxPer will be considered in percentage of database transactions)
+    **Methods to execute code on terminal**
 
-            python3 PFPMC.py sampleDB.txt patterns.txt 10 4     (minSup & maxPer will be considered in support count or frequency)
+            Format:
+                      >>>   python3 PFPMC.py <inputFile> <outputFile> <minSup> <maxPer>
+            Example:
+                      >>>   python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0
+    
+            .. note:: minSup and maxPer will be considered in percentage of database transactions
 
-        Sample run of the imported code:
-        --------------
 
-            from PAMI.periodicFrequentPattern.basic import PFPMC as alg
+    **Importing this algorithm into a python program**
 
-            obj = alg.PFPMC("../basic/sampleTDB.txt", "2", "5")
+    .. code-block:: python
 
-            obj.startMine()
+                from PAMI.periodicFrequentPattern.basic import PFPMC as alg
 
-            periodicFrequentPatterns = obj.getPatterns()
+                obj = alg.PFPMC("../basic/sampleTDB.txt", "2", "5")
 
-            print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+                obj.startMine()
 
-            obj.save("patterns")
+                periodicFrequentPatterns = obj.getPatterns()
 
-            Df = obj.getPatternsAsDataFrame()
+                print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-            memUSS = obj.getMemoryUSS()
+                obj.savePatterns("patterns")
 
-            print("Total Memory in USS:", memUSS)
+                Df = obj.getPatternsAsDataFrame()
 
-            memRSS = obj.getMemoryRSS()
+                memUSS = obj.getMemoryUSS()
 
-            print("Total Memory in RSS", memRSS)
+                print("Total Memory in USS:", memUSS)
 
-            run = obj.getRuntime()
+                memRSS = obj.getMemoryRSS()
 
-            print("Total ExecutionTime in seconds:", run)
+                print("Total Memory in RSS", memRSS)
 
-        Credits:
-        -------
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """
 

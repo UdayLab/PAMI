@@ -8,7 +8,9 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class temporalDatabaseStats:
     """
-    temporalDatabaseStats is class to get stats of database.
+        Description:
+        -------------
+            temporalDatabaseStats is class to get stats of database.
 
         Attributes:
         ----------

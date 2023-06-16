@@ -1,24 +1,61 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     import PAMI.periodicFrequentPattern.topk.TopkPFPGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.TopkPFPGrowth(iFile, k, maxPer)
+#
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 
 from PAMI.periodicFrequentPattern.topk import abstract as _ab
 
 
 class TopkPFPGrowth(_ab._periodicFrequentPatterns):
     """
-        Top - K is and algorithm to discover top periodic frequent patterns in a temporal database.
+        Description:
+        ------------
+            Top - K is and algorithm to discover top periodic frequent patterns in a temporal database.
 
         Reference:
         ----------
@@ -26,7 +63,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
             International Conference on Advances in Information Technology: https://link.springer.com/chapter/10.1007/978-3-642-10392-6_3
 
         Attributes:
-        ----------
+        -----------
             iFile : str
                 Input file name or path of the input file
             k: int
@@ -48,7 +85,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
                 To store the total amount of RSS memory consumed by the program
 
         Methods:
-        -------
+        --------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -77,15 +114,17 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
 
             Format:
             ------
-                python3 TopkPFP.py <inputFile> <outputFile> <k> <maxPer>
+                >>> python3 TopkPFP.py <inputFile> <outputFile> <k> <maxPer>
 
             Examples:
             ---------
-                python3 TopkPFP.py sampleDB.txt patterns.txt 10 3
+                >>> python3 TopkPFP.py sampleDB.txt patterns.txt 10 3
 
 
         Sample run of the importing code:
         ---------------------------------
+
+        .. code-block:: python
 
             import PAMI.periodicFrequentPattern.topk.TopkPFPGrowth as alg
 

@@ -2,30 +2,24 @@ import pandas as pd
 
 class sparseDF2DB:
     """
-    This class create Data Base from DataFrame.
-    Attribute:
-    ----------
-    inputDF : pandas.DataFrame
-        It is sparse DataFrame
-    condition : str
-        It is condition to judge the value in dataframe
-    thresholdValue : int or float:
-        User defined value.
-    df : pandas.DataFrame
-        It is data frame to create data base.
-    outputFile : str
-        Creation data base output to this outputFile.
-    Methods:
-    --------
-    createDB(outputFile)
-        Create transactional data base from dataFrame
-    createTDB(outputFile)
-        Create temporal dataBase from dataFrame
-    createUDB(outputFile)
-        Create utility data base from dataFrame
-    getFileName()
-        Return outputFileName.
-    """
+            :Description:  This class create Data Base from DataFrame.
+
+            :param inputDF: dataframe :
+                It is dense DataFrame
+            :param condition: str :
+                It is condition to judge the value in dataframe
+            :param thresholdValue: int or float :
+                User defined value.
+            :param tids: list :
+                It is tids list.
+            :param items: list :
+                Store the items list
+            :param outputFile: str  :
+                Creation data base output to this outputFile.
+
+
+            """
+
 
     def __init__(self, inputDF, condition, thresholdValue):
         self.inputDF = inputDF
@@ -43,26 +37,28 @@ class sparseDF2DB:
         else:
             print('Condition error')
         self.df = self.df.drop(columns='value')
-        self.df = self.df.groupby('tid')['transaction'].apply(list)
-        #print(self.df)
+        self.df = self.df.groupby('tid')['item'].apply(list)
 
     def createTransactional(self, outputFile):
         """
         Create transactional data base
+
         :param outputFile: Write transactional data base into outputFile
         :type outputFile: str
+
         """
         self.outputFile = outputFile
         with open(self.outputFile, 'w') as f:
             for line in self.df:
                 f.write(f'{line[0]}')
                 for item in line[1:]:
-                    f.write(f'\t{item}')
+                    f.write(f',{item}')
                 f.write('\n')
 
     def createTemporal(self, outputFile):
         """
         Create temporal data base
+
         :param outputFile: Write temporal data base into outputFile
         :type outputFile: str
         """
@@ -78,6 +74,7 @@ class sparseDF2DB:
     def createUtility(self, outputFile):
         """
         Create the utility data base.
+
         :param outputFile: Write utility data base into outputFile
         :type outputFile: str
         """
@@ -100,14 +97,15 @@ class sparseDF2DB:
 
     def getFileName(self):
         """
-        return outputFile name
+
         :return: outputFile name
         """
         return self.outputFile
 
-# if __name__ == '__main__':
-#     DF = createSparseDF('sparseDF.csv')
-#     obj = sparseDF2DB(DF.getDF(), '>=', 2)
-#     obj.createDB('testTransactional.csv')
-#     transactionalDB = obj.getFileName()
-#     print(transactionalDB)
+if __name__ == '__main__':
+    DF = createSparseDF('sparseDF.csv')
+    obj = sparseDF2DB(DF.getDF(), '>=', 2)
+    obj.createDB('testTransactional.csv')
+    transactionalDB = obj.getFileName()
+    print(transactionalDB)
+

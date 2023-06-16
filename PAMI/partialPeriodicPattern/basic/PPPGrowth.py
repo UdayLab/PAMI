@@ -1,17 +1,57 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#         from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#         obj = alg.PPPGrowth(iFile, periodicSupport, period)
+#
+#         obj.startMine()
+#
+#         partialPeriodicPatterns = obj.getPatterns()
+#
+#         print("Total number of partial periodic Patterns:", len(partialPeriodicPatterns))
+#
+#         obj.save(oFile)
+#
+#         Df = obj.getPatternInDf()
+#
+#         memUSS = obj.getMemoryUSS()
+#
+#         print("Total Memory in USS:", memUSS)
+#
+#         memRSS = obj.getMemoryRSS()
+#
+#         print("Total Memory in RSS", memRSS)
+#
+#         run = obj.getRuntime()
+#
+#         print("Total ExecutionTime in seconds:", run)
+
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 
 from PAMI.partialPeriodicPattern.basic import abstract as _abstract
 import validators as _validators
@@ -244,16 +284,21 @@ class _Tree(object):
 
 
 class PPPGrowth(_abstract._partialPeriodicPatterns):
-    """ 3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.
+    """
+    Description:
+    ----------------------
+        3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.
 
-        Reference : Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
+    Reference:
+    -----------
+        Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
         Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535
 
     Parameters:
     ----------
-        self.iFile : file
+        iFile : file
             Name of the Input file or path of the input file
-        self. oFile : file
+        oFile : file
             Name of the output file or path of the output file
         periodicSupport: float or int or str
             The user can specify periodicSupport either in count or proportion of database size.
@@ -268,13 +313,13 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
-        self.memoryUSS : float
+        memoryUSS : float
             To store the total amount of USS memory consumed by the program
-        self.memoryRSS : float
+        memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        self.startTime:float
+        startTime:float
             To record the start time of the mining process
-        self.endTime:float
+        endTime:float
             To record the completion time of the mining process
         Database : list
             To store the transactions of a database in list
@@ -316,14 +361,22 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         startMine()
             main program to mine the partial periodic patterns
 
-        Format: python3 PPPGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
+    Executing the code on terminal:
+    -----------------------------------
+        Format:
+        --------
+           >>> python3 PPPGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
+    
+        Examples:
+        --------
+           >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)
 
-        Examples: python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)
+           >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
 
-                  python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
+    Sample run of the importing code:
+    -----------------------------------------
+    .. code-block:: python
 
-        Sample run of the importing code:
-        -----------
         from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg
 
         obj = alg.PPPGrowth(iFile, periodicSupport, period)
@@ -351,11 +404,11 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         print("Total ExecutionTime in seconds:", run)
 
 
-        Credits:
-        -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+    Credits:
+    -----------------
+    The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
-        """
+    """
     _periodicSupport = float()
     _period = float()
     _startTime = float()

@@ -1,10 +1,73 @@
 
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     from PAMI.localPeriodicPattern.basic import LPPMDepth as alg
+#
+#     obj = alg.LPPMDepth(iFile, maxPer, maxSoPer, minDur)
+#
+#     obj.startMine()
+#
+#     localPeriodicPatterns = obj.getPatterns()
+#
+#     print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print(f'Total memory in USS: {memUSS}')
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print(f'Total memory in RSS: {memRSS}')
+#
+#     runtime = obj.getRuntime()
+#
+#     print(f'Total execution time in seconds: {runtime})
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 from PAMI.localPeriodicPattern.basic import abstract as _ab
 
 
 class LPPMDepth(_ab._localPeriodicPatterns):
 
     """
+    Description:
+    ------------
+        Local Periodic Patterns, which are patterns (sets of events) that have a periodic behavior in some non predefined
+        time-intervals. A pattern is said to be a local periodic pattern if it appears regularly and continuously in some
+        time-intervals. The maxSoPer (maximal period of spillovers) measure allows detecting time-intervals of variable
+        lengths where a pattern is continuously periodic, while the minDur (minimal duration) measure ensures that those
+        time-intervals have a minimum duration.
+
+    Reference:
+    ------------
+        Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
+        a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044
+
     Attributes:
     -----------
         iFile : str
@@ -33,7 +96,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
             separator used to distinguish items from each other. The default separator is tab space.
 
     Methods:
-    -------
+    ---------
         createTSlist()
             Create the TSlist as bit vector from input data.
         generateLPP()
@@ -60,14 +123,18 @@ class LPPMDepth(_ab._localPeriodicPatterns):
     Executing the code on terminal:
     ------------------------------
         Format:
-            python3 LPPMDepth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur> <sep>
+        -------
+           >>> python3 LPPMDepth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur> <sep>
         Examples:
-            python3 LPPMDepth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
+        ---------
+           >>> python3 LPPMDepth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
 
-            python3 LPPMDepth.py sampleDB.txt patterns.txt 3 4 5
+           >>> python3 LPPMDepth.py sampleDB.txt patterns.txt 3 4 5
 
     Sample run of importing the code:
     --------------------------------
+    .. code-block:: python
+
         from PAMI.localPeriodicPattern.basic import LPPMDepth as alg
 
         obj = alg.LPPMDepth(iFile, maxPer, maxSoPer, minDur)
@@ -95,7 +162,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         print(f'Total execution time in seconds: {runtime})
 
     Credits:
-    -------
+    --------
         The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.
     """
     

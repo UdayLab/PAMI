@@ -2,30 +2,24 @@ import pandas as pd
 
 class sparseDF2DBPlus:
     """
-    This class create Data Base from DataFrame.
+            :Description: This class create Data Base from DataFrame.
 
-    Attribute:
-    ----------
-    inputDF : pandas.DataFrame
-        It is sparse DataFrame
-    thresholdConditionDF : pandas.DataFrame
-            It has threshold value and condition each item.
-    df : pandas.DataFrame
-        It is data frame to create data base.
-    outputFile : str
-        Creation data base output to this outputFile.
+            :param inputDF: dataframe :
+                It is dense DataFrame
+            :param condition: str :
+                It is condition to judge the value in dataframe
+            :param thresholdValue: int or float :
+                User defined value.
+            :param tids: list :
+                It is tids list.
+            :param items: list :
+                Store the items list
+            :param outputFile: str  :
+                Creation data base output to this outputFile.
 
-    Methods:
-    --------
-    createDB(outputFile)
-        Create transactional data base from dataFrame
-    createTDB(outputFile)
-        Create temporal dataBase from dataFrame
-    createUDB(outputFile)
-        Create utility data base from dataFrame
-    getFileName()
-        Return outputFileName.
-    """
+
+            """
+
 
     def __init__(self, inputDF, thresholdConditionDF):
         self.inputDF = inputDF
@@ -98,7 +92,7 @@ class sparseDF2DBPlus:
 
     def getFileName(self):
         """
-        return outputFile name
+
 
         :return: outputFile name
         """

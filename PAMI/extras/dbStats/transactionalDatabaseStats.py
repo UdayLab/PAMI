@@ -8,46 +8,19 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class transactionalDatabaseStats:
     """
-    transactionalDatabaseStats is class to get stats of database.
+        :Description:  transactionalDatabaseStats is class to get stats of database.
 
-        Attributes:
-        ----------
-        inputFile : file
+
+        :param inputFile: file :
             input file path
-        database : dict
+        :param database: dict :
             store time stamp and its transaction
-        lengthList : list
-            store length of all transaction
-        sep : str
+        :param lengthList: list :
+            store size of all transaction
+        :param sep: str
             separator in file. Default is tab space.
 
-        Methods:
-        -------
-        run()
-            execute readDatabase function
-        readDatabase()
-            read database from input file
-        getDatabaseSize()
-            get the size of database
-        getMinimumTransactionLength()
-            get the minimum transaction length
-        getAverageTransactionLength()
-            get the average transaction length. It is sum of all transaction length divided by database length.
-        getMaximumTransactionLength()
-            get the maximum transaction length
-        getStandardDeviationTransactionLength()
-            get the standard deviation of transaction length
-        getVarianceTransactionLength()
-            get the variance of transaction length
-        getSparsity()
-            get the sparsity of database
-        getSortedListOfItemFrequencies()
-            get sorted list of item frequencies
-        getSortedListOfTransactionLength()
-            get sorted list of transaction length
-        save(data, outputFile)
-            store data into outputFile
-    """
+           """
 
     def __init__(self, inputFile, sep='\t'):
         """

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.weightedFrequentRegularPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.weightedFrequentRegularPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -207,40 +207,52 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="executing-the-code-on-terminal">
-<h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><blockquote>
-<div><p>python3 WFRIMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;weightFile&gt; &lt;minSup&gt; &lt;regularity&gt;</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">WFRIMiner</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">weightSupport</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">regularity</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">WFRIMiner</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">10</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>WS &amp; regularity will be considered in support count or frequency</p>
+</div>
+</dd>
+</dl>
 </div></blockquote>
-<blockquote>
-<div><p>python3 WFRIMiner.py sampleDB.txt patterns.txt 10.0 5.0  (WS &amp; regularity will be considered in times of WS or regularity and count of database transactions)</p>
-<p>python3 WFRIMiner.py sampleDB.txt patterns.txt 10 5     (WS &amp; regularity will be considered in support count or frequency) (it will consider &quot;      &quot; as a separator)</p>
-<p>python3 WFRIMiner.py sampleTDB.txt output.txt sampleN.txt '10', '5', ',' (it will consider &quot;,&quot; as a separator)</p>
-</div></blockquote>
-</div></blockquote>
-</section>
-<section id="sample-run-of-the-importing-code">
-<h3>Sample run of the importing code:<a class="headerlink" href="#sample-run-of-the-importing-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.weightedFrequentRegularpattern.basic import WFRIMiner as alg</p>
-<p>obj = alg.WFRIMiner(iFile, wFile, WS, regularity)</p>
-<p>obj.startMine()</p>
-<p>weightedFrequentRegularPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Weighted Frequent Regular Patterns:&quot;, len(weightedFrequentRegularPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternInDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="credits">
-<h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.weightedFrequentRegularpattern.basic</span> <span class="kn">import</span> <span class="n">WFRIMiner</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">WFRIMiner</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">WS</span><span class="p">,</span> <span class="n">regularity</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">weightedFrequentRegularPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">weightedFrequentRegularPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
@@ -340,56 +352,12 @@ However, the users can override their default separator.</p>
 </section>
 </dd></dl>
 
-<p><strong>Methods to execute code on terminal</strong></p>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">WFRIMiner</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">weightSupport</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">regularity</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-</dd>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">WFRIMiner</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">10</span> <span class="mi">5</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>WS &amp; regularity will be considered in support count or frequency</p>
-</div>
-</dd>
-</dl>
-</div></blockquote>
-<p><strong>Importing this algorithm into a python program</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.weightedFrequentRegularpattern.basic</span> <span class="kn">import</span> <span class="n">WFRIMiner</span> <span class="k">as</span> <span class="n">alg</span>
-
-<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">WFRIMiner</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">WS</span><span class="p">,</span> <span class="n">regularity</span><span class="p">)</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
-
-<span class="n">weightedFrequentRegularPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">weightedFrequentRegularPatterns</span><span class="p">))</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
-
-<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
-
-<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
-
-<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
-
-<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Credits:</strong></p>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
-</div></blockquote>
-<hr class="docutils" />
+</section>
+<section id="module-PAMI.weightedFrequentRegularPattern.basic.abstract">
+<span id="pami-weightedfrequentregularpattern-basic-abstract-module"></span><h2>PAMI.weightedFrequentRegularPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.weightedFrequentRegularPattern.basic.abstract" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-PAMI.weightedFrequentRegularPattern.basic">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.weightedFrequentRegularPattern.basic" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.correlatedPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.correlatedPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,25 +128,28 @@
 <dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CPGrowth.CPGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.correlatedPattern.basic.CPGrowth.</span></span><span class="sig-name descname"><span class="pre">CPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minAllConf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CPGrowth.html#CPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CPGrowth.CPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_correlatedPatterns</span></code></p>
-<blockquote>
-<div><p>CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database.
-it is based on traditional FPGrowth Algorithm,This algorithm uses breadth-first search technique to find the
-correlated Frequent patterns in transactional database.</p>
-</div></blockquote>
-<section id="reference">
-<h3>Reference :<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).</p>
-</div></blockquote>
-</section>
-<section id="attributes">
-<h3>Attributes :<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><dl class="simple">
-<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file to mine complete set of frequent patterns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>&#64;CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database. It is based on traditional Fpgrowth Algorithm,This algorithm uses breadth-first search technique to find the correlated Frequent patterns in transactional database.</p>
 </dd>
-<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file to store complete set of frequent patterns</p>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).</p>
 </dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> -- str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> -- str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> -- int or float or str :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</p></li>
+<li><p><strong>minAllConf</strong> -- str : Name of Neighbourhood file name</p></li>
+<li><p><strong>sep</strong> -- str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
 </dd>
 <dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
@@ -176,79 +179,61 @@ correlated Frequent patterns in transactional database.</p>
 <dt>maxPatternLength<span class="classifier">int</span></dt><dd><p>it represents the constraint for pattern length</p>
 </dd>
 </dl>
-</div></blockquote>
-</section>
-<section id="methods">
-<h3>Methods :<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><dl class="simple">
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
-</dd>
-<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
-</dd>
-<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
-</dd>
-<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
-</dd>
-<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
-</dd>
-<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
-</dd>
-<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
-</dd>
-<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset or dataframes and stores in list format</p>
-</dd>
-<dt>saveAllCombination(tempBuffer,s,position,prefix,prefixLength)</dt><dd><p>Forms all the combinations between prefix and tempBuffer lists with support(s)</p>
-</dd>
-<dt>frequentPatternGrowthGenerate(frequentPatternTree,prefix,port)</dt><dd><p>Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
-mapSupport represents the 1-length items with their respective support</p>
-</dd>
-<dt>creatingItemSets(iFileName)</dt><dd><p>Method to Storing the complete transactions of the database file in a database variable</p>
-</dd>
-<dt>saveItemSet(prefix, prefixLength, support)</dt><dd><p>To save the frequent patterns mined form frequentPatternTree</p>
 </dd>
 </dl>
-</div></blockquote>
-</section>
-<section id="executing-the-code-on-terminal">
-<h3>Executing the code on terminal :<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
+<section id="methods-to-execute-code-on-terminal">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl>
-<dt>Format:</dt><dd><p>python3 CPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minAllConf&gt; &lt;sep&gt;</p>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CSPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">neighbourFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minAllConf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 </dd>
-<dt>Examples:</dt><dd><p>python3 CPGrowth.py inp.txt output.txt 4.0 0.3   (minSup will be considered in percentage of database transactions)</p>
-<dl class="simple">
-<dt>python3 CPGrowth.py  patterns.txt 4  0.3   (minSup will be considered in support count or frequency)</dt><dd><p>(it will consider '     ' as separator)</p>
-</dd>
-<dt>python3 CPGrowth.py sampleDB.txt patterns.txt 0.23 0.2  ,</dt><dd><p>(it will consider ',' as separator)</p>
-</dd>
-</dl>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">CSPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.25</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
 </dd>
 </dl>
 </div></blockquote>
 </section>
-<section id="sample-run-of-the-importing-code">
-<h3>Sample run of the importing code :<a class="headerlink" href="#sample-run-of-the-importing-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.correlatedPattern.basic import CPGrowth as alg</p>
-<p>obj = alg.CPGrowth(iFile, minSup, minAllConf)</p>
-<p>obj.startMine()</p>
-<p>correlatedPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of correlated frequent Patterns:&quot;, len(correlatedPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternInDf()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.correlatedSpatialPattern.basic</span> <span class="kn">import</span> <span class="n">CSPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">CSPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">frequentPatternsFile</span><span class="p">,</span> <span class="n">measure</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">Rules</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of  Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Patterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="credits">
-<h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
+<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CPGrowth.CPGrowth.getMemoryRSS">
@@ -353,27 +338,33 @@ mapSupport represents the 1-length items with their respective support</p>
 <dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CPGrowthPlus.CPGrowthPlus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.correlatedPattern.basic.CPGrowthPlus.</span></span><span class="sig-name descname"><span class="pre">CPGrowthPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minAllConf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CPGrowthPlus.html#CPGrowthPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CPGrowthPlus.CPGrowthPlus" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_correlatedPatterns</span></code></p>
-<blockquote>
-<div><p>CPGrowthPlus is one of the efficient algorithm to discover Correlated frequent patterns in a transactional database.
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CPGrowthPlus is one of the efficient algorithm to discover Correlated frequent patterns in a transactional database.
 Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that
 have support within specified interval.</p>
-</div></blockquote>
-<section id="id1">
-<h3>Reference :<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals.
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals.
 In: Liddle S.W., Schewe KD., Tjoa A.M., Zhou X. (eds) Database and Expert Systems Applications. DEXA 2012. Lecture Notes in Computer Science, vol 7446. Springer, Berlin, Heidelberg.
 <a class="reference external" href="https://doi.org/10.1007/978-3-642-32600-4_18">https://doi.org/10.1007/978-3-642-32600-4_18</a></p>
-</div></blockquote>
-</section>
-<section id="id2">
-<h3>Attributes :<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><dl class="simple">
-<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file to mine complete set of frequent patterns</p>
 </dd>
-<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file to store complete set of frequent patterns</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> -- str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> -- str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> -- int or float or str :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</p></li>
+<li><p><strong>minAllConf</strong> -- str :
+Name of Neighbourhood file name</p></li>
+<li><p><strong>sep</strong> -- str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
 </dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
 </dd>
 <dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
@@ -403,79 +394,57 @@ In: Liddle S.W., Schewe KD., Tjoa A.M., Zhou X. (eds) Database and Expert System
 <dt>maxPatternLength<span class="classifier">int</span></dt><dd><p>it represents the constraint for pattern length</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<section id="id1">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">CPPG</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minRF</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minCS</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxOR</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="s1">&#39;  &#39;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span>  <span class="n">python3</span> <span class="n">CPPG</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.4</span> <span class="mf">0.7</span> <span class="mf">0.5</span> <span class="s1">&#39;,&#39;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
 </div></blockquote>
+</section>
+<section id="id2">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.coveragePattern.basic</span> <span class="kn">import</span> <span class="n">CPPG</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">CPPG</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minRF</span><span class="p">,</span> <span class="n">minCS</span><span class="p">,</span> <span class="n">maxOR</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">coveragePatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of coverage Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">coveragePatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="id3">
-<h3>Methods :<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<h3><strong>Credits:</strong><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><dl class="simple">
-<dt>startMine()</dt><dd><p>Mining process will start from here</p>
-</dd>
-<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
-</dd>
-<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
-</dd>
-<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
-</dd>
-<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
-</dd>
-<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
-</dd>
-<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
-</dd>
-<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset or dataframes and stores in list format</p>
-</dd>
-<dt>frequentOneItem()</dt><dd><p>Extracts the one-frequent patterns from transactions</p>
-</dd>
-<dt>saveAllCombination(tempBuffer,s,position,prefix,prefixLength)</dt><dd><p>Forms all the combinations between prefix and tempBuffer lists with support(s)</p>
-</dd>
-<dt>saveItemSet(pattern,support)</dt><dd><p>Stores all the frequent patterns with their respective support</p>
-</dd>
-<dt>frequentPatternGrowthGenerate(frequentPatternTree,prefix,port)</dt><dd><p>Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
-mapSupport represents the 1-length items with their respective support</p>
-</dd>
-</dl>
-</div></blockquote>
-</section>
-<section id="id4">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><blockquote>
-<div><p>python3 CPGrowthPlus.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minAllConf&gt; &lt;sep&gt;</p>
-</div></blockquote>
-<blockquote>
-<div><p>python3 CPGrowthPlus.py sampleDB.txt patterns.txt 0.23 0.2  (minSup will be considered in percentage of database transactions)</p>
-<dl class="simple">
-<dt>python3 CPGrowthPlus.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)</dt><dd><p>(it will consider '       ' as separator)</p>
-</dd>
-<dt>python3 CPGrowthPlus.py sampleDB.txt patterns.txt 0.23 0.2  ,</dt><dd><p>(it will consider ',' as separator)</p>
-</dd>
-</dl>
-</div></blockquote>
-</div></blockquote>
-</section>
-<section id="id5">
-<h3>Sample run of the importing code:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.correlatedPattern.basic import CPGrowthPlus as alg</p>
-<p>obj = alg.CPGrowthPlus(iFile, minSup,minAllConf)</p>
-<p>obj.startMine()</p>
-<p>correlatedPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of correlated frequent Patterns:&quot;, len(correlatedPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternInDf()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="id6">
-<h3>Credits:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CPGrowthPlus.CPGrowthPlus.getMemoryRSS">

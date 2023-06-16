@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.localPeriodicPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.localPeriodicPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,6 +128,23 @@
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.localPeriodicPattern.basic.LPPGrowth.</span></span><span class="sig-name descname"><span class="pre">LPPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxSoPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minDur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPGrowth.html#LPPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_localPeriodicPatterns</span></code></p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Local Periodic Patterns, which are patterns (sets of events) that have a periodic behavior in some non predefined
+time-intervals. A pattern is said to be a local periodic pattern if it appears regularly and continuously in some
+time-intervals. The maxSoPer (maximal period of spillovers) measure allows detecting time-intervals of variable
+lengths where a pattern is continuously periodic, while the minDur (minimal duration) measure ensures that those
+time-intervals have a minimum duration.</p>
+</div></blockquote>
+</section>
+<section id="reference">
+<h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
+a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044</p>
+</div></blockquote>
+</section>
 <section id="attributes">
 <h3>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
 <blockquote>
@@ -205,32 +222,46 @@
 <section id="executing-the-code-on-terminal">
 <h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><dl>
-<dt>Format:</dt><dd><p>python3 LPPMGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;maxPer&gt; &lt;minSoPer&gt; &lt;minDur&gt;</p>
-</dd>
-<dt>Examples:</dt><dd><p>python3 LPPMGrowth.py sampleDB.txt patterns.txt 0.3 0.4 0.5</p>
-<p>python3 LPPMGrowth.py sampleDB.txt patterns.txt 3 4 5</p>
-</dd>
-</dl>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">LPPMGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSoPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minDur</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">LPPMGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.3</span> <span class="mf">0.4</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">LPPMGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
 <section id="sample-run-of-importing-the-code">
 <h3>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.localPeriodicPattern.basic import LPPGrowth as alg</p>
-<p>obj = alg.LPPGrowth(iFile, maxPer, maxSoPer, minDur)</p>
-<p>obj.startMine()</p>
-<p>localPeriodicPatterns = obj.getPatterns()</p>
-<p>print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(f'Total memory in USS: {memUSS}')</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(f'Total memory in RSS: {memRSS}')</p>
-<p>runtime = obj.getRuntime()</p>
-<p>print(f'Total execution time in seconds: {runtime})</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.localPeriodicPattern.basic</span> <span class="kn">import</span> <span class="n">LPPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">LPPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">maxSoPer</span><span class="p">,</span> <span class="n">minDur</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">localPeriodicPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total number of local periodic patterns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">localPeriodicPatterns</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total memory in USS: </span><span class="si">{</span><span class="n">memUSS</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total memory in RSS: </span><span class="si">{</span><span class="n">memRSS</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">runtime</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total execution time in seconds: </span><span class="si">{</span><span class="n">runtime</span><span class="si">}</span><span class="s1">)</span>
+</pre></div>
+</div>
 </section>
 <section id="credits">
 <h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
@@ -504,7 +535,24 @@ Attributes:
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.localPeriodicPattern.basic.LPPMBreadth.</span></span><span class="sig-name descname"><span class="pre">LPPMBreadth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxSoPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minDur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMBreadth.html#LPPMBreadth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMBreadth.LPPMBreadth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_localPeriodicPatterns</span></code></p>
 <section id="id3">
-<h3>Attributes:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<h3>Description:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Local Periodic Patterns, which are patterns (sets of events) that have a periodic behavior in some non predefined
+time-intervals. A pattern is said to be a local periodic pattern if it appears regularly and continuously in some
+time-intervals. The maxSoPer (maximal period of spillovers) measure allows detecting time-intervals of variable
+lengths where a pattern is continuously periodic, while the minDur (minimal duration) measure ensures that those
+time-intervals have a minimum duration.</p>
+</div></blockquote>
+</section>
+<section id="id4">
+<h3>Reference:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
+a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044</p>
+</div></blockquote>
+</section>
+<section id="id5">
+<h3>Attributes:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
@@ -534,8 +582,8 @@ Attributes:
 </dl>
 </div></blockquote>
 </section>
-<section id="id4">
-<h3>Methods:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<section id="id6">
+<h3>Methods:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>createTSList()</dt><dd><p>Create the tsList as bit vector from input data.</p>
@@ -563,8 +611,8 @@ Attributes:
 </dl>
 </div></blockquote>
 </section>
-<section id="id5">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<section id="id7">
+<h3>Executing the code on terminal:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>Format:</dt><dd><p>python3 LPPBreadth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;maxPer&gt; &lt;minSoPer&gt; &lt;minDur&gt;</p>
@@ -574,26 +622,38 @@ Attributes:
 </dl>
 </div></blockquote>
 </section>
-<section id="id6">
-<h3>Sample run of importing the code:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.localPeriodicPattern.basic import LPPMBreadth as alg</p>
-<p>obj = alg.LPPMBreadth(iFile, maxPer, maxSoPer, minDur)</p>
-<p>obj.startMine()</p>
-<p>localPeriodicPatterns = obj.getPatterns()</p>
-<p>print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(f'Total memory in USS: {memUSS}')</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(f'Total memory in RSS: {memRSS}')</p>
-<p>runtime = obj.getRuntime()</p>
-<p>print(f'Total execution time in seconds: {runtime})</p>
-</div></blockquote>
+<section id="id8">
+<h3>Sample run of importing the code:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.localPeriodicPattern.basic</span> <span class="kn">import</span> <span class="n">LPPMBreadth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">LPPMBreadth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">maxSoPer</span><span class="p">,</span> <span class="n">minDur</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">localPeriodicPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total number of local periodic patterns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">localPeriodicPatterns</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total memory in USS: </span><span class="si">{</span><span class="n">memUSS</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total memory in RSS: </span><span class="si">{</span><span class="n">memRSS</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">runtime</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total execution time in seconds: </span><span class="si">{</span><span class="n">runtime</span><span class="si">}</span><span class="s1">)</span>
+</pre></div>
+</div>
 </section>
-<section id="id7">
-<h3>Credits:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<section id="id9">
+<h3>Credits:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
@@ -700,8 +760,25 @@ Attributes:
 <dt class="sig sig-object py" id="PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.localPeriodicPattern.basic.LPPMDepth.</span></span><span class="sig-name descname"><span class="pre">LPPMDepth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxSoPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minDur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/localPeriodicPattern/basic/LPPMDepth.html#LPPMDepth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_localPeriodicPatterns</span></code></p>
-<section id="id8">
-<h3>Attributes:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<section id="id10">
+<h3>Description:<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Local Periodic Patterns, which are patterns (sets of events) that have a periodic behavior in some non predefined
+time-intervals. A pattern is said to be a local periodic pattern if it appears regularly and continuously in some
+time-intervals. The maxSoPer (maximal period of spillovers) measure allows detecting time-intervals of variable
+lengths where a pattern is continuously periodic, while the minDur (minimal duration) measure ensures that those
+time-intervals have a minimum duration.</p>
+</div></blockquote>
+</section>
+<section id="id11">
+<h3>Reference:<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
+a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044</p>
+</div></blockquote>
+</section>
+<section id="id12">
+<h3>Attributes:<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
@@ -731,8 +808,8 @@ Attributes:
 </dl>
 </div></blockquote>
 </section>
-<section id="id9">
-<h3>Methods:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<section id="id13">
+<h3>Methods:<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>createTSlist()</dt><dd><p>Create the TSlist as bit vector from input data.</p>
@@ -760,38 +837,52 @@ Attributes:
 </dl>
 </div></blockquote>
 </section>
-<section id="id10">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<section id="id14">
+<h3>Executing the code on terminal:<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><dl>
-<dt>Format:</dt><dd><p>python3 LPPMDepth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;maxPer&gt; &lt;minSoPer&gt; &lt;minDur&gt; &lt;sep&gt;</p>
-</dd>
-<dt>Examples:</dt><dd><p>python3 LPPMDepth.py sampleDB.txt patterns.txt 0.3 0.4 0.5</p>
-<p>python3 LPPMDepth.py sampleDB.txt patterns.txt 3 4 5</p>
-</dd>
-</dl>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">LPPMDepth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSoPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minDur</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">LPPMDepth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.3</span> <span class="mf">0.4</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">LPPMDepth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
-<section id="id11">
-<h3>Sample run of importing the code:<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.localPeriodicPattern.basic import LPPMDepth as alg</p>
-<p>obj = alg.LPPMDepth(iFile, maxPer, maxSoPer, minDur)</p>
-<p>obj.startMine()</p>
-<p>localPeriodicPatterns = obj.getPatterns()</p>
-<p>print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(f'Total memory in USS: {memUSS}')</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(f'Total memory in RSS: {memRSS}')</p>
-<p>runtime = obj.getRuntime()</p>
-<p>print(f'Total execution time in seconds: {runtime})</p>
-</div></blockquote>
+<section id="id15">
+<h3>Sample run of importing the code:<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.localPeriodicPattern.basic</span> <span class="kn">import</span> <span class="n">LPPMDepth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">LPPMDepth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">maxSoPer</span><span class="p">,</span> <span class="n">minDur</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">localPeriodicPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total number of local periodic patterns: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">localPeriodicPatterns</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total memory in USS: </span><span class="si">{</span><span class="n">memUSS</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total memory in RSS: </span><span class="si">{</span><span class="n">memRSS</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">runtime</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total execution time in seconds: </span><span class="si">{</span><span class="n">runtime</span><span class="si">}</span><span class="s1">)</span>
+</pre></div>
+</div>
 </section>
-<section id="id12">
-<h3>Credits:<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
+<section id="id16">
+<h3>Credits:<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>

@@ -1,17 +1,55 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     from PAMI.periodicFrequentPattern.maximal import MaxPFGrowth as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     obj = alg.MaxPFGrowth("../basic/sampleTDB.txt", "2", "6")
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(Patterns))
+#
+#     obj.save("patterns")
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 
 from PAMI.periodicFrequentPattern.maximal import abstract as _ab
@@ -359,8 +397,11 @@ def _conditionalTransactions(condPatterns, condTimeStamps):
 
 
 class MaxPFGrowth(_ab._periodicFrequentPatterns):
-    """ MaxPF-Growth is one of the fundamental algorithm to discover maximal periodic-frequent
-        patterns in a temporal database.
+    """
+        Description:
+        ------------
+            MaxPF-Growth is one of the fundamental algorithm to discover maximal periodic-frequent
+            patterns in a temporal database.
 
         Reference:
         --------
@@ -436,20 +477,22 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
                 the main method to run the program
 
         Executing the code on terminal:
-        -------
+        -----------------------------------
             Format:
-            ------
-            python3 maxpfrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+            -------
+            >>> python3 maxpfrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
             Examples:
             --------
-            python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4  (minSup will be considered in percentage of database
+            >>> python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4  (minSup will be considered in percentage of database
             transactions)
-            python3 maxpfrowth.py sampleTDB.txt patterns.txt 3 4  (minSup will be considered in support count or frequency)
+            >>> python3 maxpfrowth.py sampleTDB.txt patterns.txt 3 4  (minSup will be considered in support count or frequency)
             
             
         Sample run of the imported code:
-        --------------
+        ------------------------------------------
+         .. code-block:: python
+
             from PAMI.periodicFrequentPattern.maximal import MaxPFGrowth as alg
 
             obj = alg.MaxPFGrowth("../basic/sampleTDB.txt", "2", "6")
@@ -476,9 +519,9 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-            Credits:
-            -------
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+        Credits:
+        -------
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
     _startTime = float()

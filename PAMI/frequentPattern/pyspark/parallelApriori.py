@@ -1,99 +1,152 @@
+# Parallel Apriori is an algorithm to discover frequent patterns in a transactional database. This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
+
+#
+#
+#  **Importing this algorithm into a python program**
+#  ---------------------------------------------------
+#
+#         import PAMI.frequentPattern.pyspark.parallelApriori as alg
+#
+#         obj = alg.parallelApriori(iFile, minSup, numWorkers)
+#
+#         obj.startMine()
+#
+#         frequentPatterns = obj.getPatterns()
+#
+#         print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#         obj.savePatterns(oFile)
+#
+#         Df = obj.getPatternInDataFrame()
+#
+#         memUSS = obj.getMemoryUSS()
+#
+#         print("Total Memory in USS:", memUSS)
+#
+#         memRSS = obj.getMemoryRSS()
+#
+#         print("Total Memory in RSS", memRSS)
+#
+#         run = obj.getRuntime()
+#
+#         print("Total ExecutionTime in seconds:", run)
+
+#
+#
+#
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PAMI.frequentPattern.pyspark import abstract as _ab
 
 
 class parallelApriori(_ab._frequentPatterns):
     """
-    Attributes
-    ----------
-        iFile : file
-            Input file name or path of the input file
-        oFile : file
-            Name of the output file or the path of output file
-        minSup : float
-            minSup is a proportion of database size.
-        numPartitions : int
-            The number of partitions
-            On each worker node, an executor process is started and this process performs processing.
-            The processing unit of worker node is partition
+
+    :Description: Parallel Apriori is an algorithm to discover frequent patterns in a transactional database. This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
+
+    :Reference: N. Li, L. Zeng, Q. He and Z. Shi, "Parallel Implementation of Apriori Algorithm Based on MapReduce,"
+                2012 13th ACIS International Conference on Software Engineering, Artificial Intelligence,
+                Networking and Parallel/Distributed Computing, Kyoto, Japan, 2012, pp. 236-241, doi: 10.1109/SNPD.2012.31.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  numPartitions: int :
+                   The number of partitions. On each worker node, an executor process is started and this process performs processing.The processing unit of worker node is partition
+
+
+
+    :Attributes:
+
+        startTime : float
+          To record the start time of the mining process
+
+        endTime : float
+          To record the completion time of the mining process
+
         finalPatterns : dict
-            Storing the complete set of patterns in a dictionary variable
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
+          Storing the complete set of patterns in a dictionary variable
+
         memoryUSS : float
-            To store the total amount of USS memory consumed by the program
+          To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
+          To store the total amount of RSS memory consumed by the program
+
         lno : int
                 the number of transactions
-    Methods:
-    -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        storePatternsInFile(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsInDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        getAllFrequentPatterns(database,frequentItemsets)
-            This function generates all frequent patterns
-        genCandidateItemsets(frequentPatterns, length)
-            This function generates candidate patterns from the frequentPatterns
-        Mapper(transaction,candidateItemsets)
-            This function map each itemset of candidateItemsets to (itemset,1) if itemset is in transaction
-    Executing the code on terminal:
-    -------------------------------
 
+    
+
+    **Methods to execute code on terminal**
+    -----------------------------------------
+    
             Format:
-            ------
+                      >>>  python3 parallelApriori.py <inputFile> <outputFile> <minSup> <numWorkers>
+    
+            Example:
+                      >>>  python3 parallelApriori.py sampleDB.txt patterns.txt 10.0 3
+    
+            .. note:: minSup will be considered in percentage of database transactions
+    
+    
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------------------------------------
+    .. code-block:: python
+    
+                import PAMI.frequentPattern.pyspark.parallelApriori as alg
+    
+                obj = alg.parallelApriori(iFile, minSup, numWorkers)
+    
+                obj.startMine()
+    
+                frequentPatterns = obj.getPatterns()
+    
+                print("Total number of Frequent Patterns:", len(frequentPatterns))
+    
+                obj.savePatterns(oFile)
+    
+                Df = obj.getPatternInDataFrame()
+    
+                memUSS = obj.getMemoryUSS()
+    
+                print("Total Memory in USS:", memUSS)
+    
+                memRSS = obj.getMemoryRSS()
+    
+                print("Total Memory in RSS", memRSS)
+    
+                run = obj.getRuntime()
+    
+                print("Total ExecutionTime in seconds:", run)
+    
+    
+    **Credits:**
+    -----------------------------------------
+    
+             The complete program was written by Yudai Masu  under the supervision of Professor Rage Uday Kiran.
 
-                python3 parallelApriori.py <inputFile> <outputFile> <minSup> <numWorkers>
 
-            Examples:
-            ---------
-                python3 parallelApriori.py sampleDB.txt patterns.txt 10.0 3   (minSup will be considered in times of minSup and count of database transactions)
-
-                python3 parallelApriori.py sampleDB.txt patterns.txt 10 3     (minSup will be considered in support count or frequency)
-
-   Sample run of the importing code:
-   ---------------------------------
-
-            import PAMI.frequentPattern.pyspark.parallelApriori as alg
-
-            obj = alg.parallelApriori(iFile, minSup, numWorkers)
-
-            obj.startMine()
-
-            frequentPatterns = obj.getPatterns()
-
-            print("Total number of Frequent Patterns:", len(frequentPatterns))
-
-            obj.save(oFile)
-
-            Df = obj.getPatternInDataFrame()
-
-            memUSS = obj.getMemoryUSS()
-
-            print("Total Memory in USS:", memUSS)
-
-            memRSS = obj.getMemoryRSS()
-
-            print("Total Memory in RSS", memRSS)
-
-            run = obj.getRuntime()
-
-            print("Total ExecutionTime in seconds:", run)
-    Credits:
-    --------
-        The complete program was written by Yudai Masu  under the supervision of Professor Rage Uday Kiran.
     """
 
     _minSup = float()
@@ -144,11 +197,11 @@ class parallelApriori(_ab._frequentPatterns):
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
+            data.append([a, b])
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def save(self, outFile):
+    def savePatterns(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
@@ -157,7 +210,7 @@ class parallelApriori(_ab._frequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x.strip() + ":" + str(y)
+            s1 = str(x) + " : " + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -172,6 +225,7 @@ class parallelApriori(_ab._frequentPatterns):
     def _Mapper(transaction, candidateItemsets):
         """
         Map each candidate itemset of candidateItemsets to (itemset,1) if a candidate itemset is in transaction
+
         :param transaction: a transaction of database
         :type transaction: set
         :param candidateItemsets: candidate item sets
@@ -189,6 +243,7 @@ class parallelApriori(_ab._frequentPatterns):
     def _genCandidateItemsets(frequentPatterns, length):
         """
         Generate candidate itemsets from frequentPatterns
+
         :param frequentPatterns: set of all frequent patterns to generate candidate patterns of each of size is length
         :type frequentPatterns: list
         :param length: size of each candidate patterns to be generated
@@ -204,6 +259,8 @@ class parallelApriori(_ab._frequentPatterns):
     def _genFrequentItems(self, database):
         """
         Get frequent items which length is 1
+
+
         :return: frequent items which length is 1
         :rtype: dict
         """
@@ -216,6 +273,7 @@ class parallelApriori(_ab._frequentPatterns):
     def _getAllFrequentPatterns(self, database, frequentItems):
         """
         Get all frequent patterns and save them to self.oFile
+
         :param database: database
         :type : RDD
         :param frequentItems: dict
@@ -257,6 +315,7 @@ class parallelApriori(_ab._frequentPatterns):
     def startMine(self):
         """
         Frequent pattern mining process will start from here
+
         :return:
         """
         self._startTime = _ab._time.time()
@@ -267,7 +326,8 @@ class parallelApriori(_ab._frequentPatterns):
         # sc.addFile("file:///home/hadoopuser/Spark_code/abstract.py")
 
         # read database from iFile
-        database = sc.textFile(self._iFile, self._numPartitions).map(lambda x: {y for y in x.rstrip().split(self._sep)})
+        database = sc.textFile(self._iFile, self._numPartitions).map(
+            lambda x: {int(y) for y in x.rstrip().split(self._sep)})
         self._lno = database.count()
         # Calculating minSup as a percentage
         self._minSup = self._convert(self._minSup)
@@ -276,29 +336,12 @@ class parallelApriori(_ab._frequentPatterns):
         self._finalPatterns = oneFrequentItems
         self._getAllFrequentPatterns(database, oneFrequentItems)
 
-        temp = {}
-        for pattern, v in self._finalPatterns.items():
-            s = ""
-            if isinstance(pattern, str):
-                s += pattern.replace(' ', '\t') + '\t'
-            else:
-                for item in pattern:
-                    s += item + '\t'
-            temp[s] = v
-        self._finalPatterns = temp
-
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using Parallel Apriori algorithm")
         sc.stop()
-
-    def printResults(self):
-        print("Total number of Frequent Patterns:", len(self.getPatterns()))
-        print("Total Memory in USS:", self.getMemoryUSS())
-        print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:", self.getRuntime())
 
 
 if __name__ == "__main__":
@@ -309,10 +352,16 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = parallelApriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save(_ab._sys.argv[2])
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
+        _finalPatterns = _ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(_finalPatterns))
+        _ap.savePatterns(_ab._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+

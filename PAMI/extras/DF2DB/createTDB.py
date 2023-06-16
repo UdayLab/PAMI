@@ -12,9 +12,9 @@ class createTDB:
 
     def createTDB(self):
         """
-            Create transactional data base
+            :Description: Create transactional data base
 
-            :returning a transactional database as DataFrame
+
         """
         i = self._df.columns.values.tolist()
         if 'sid' in i:
@@ -23,7 +23,7 @@ class createTDB:
             i = i.split()
             self._updatedItems.append([j for j in i if int(j) > self._threshold])
 
-    def save(self, outFile):
+    def savePatterns(self, outFile):
         """
             Complete set of frequent patterns will be loaded in to a output file
 
@@ -43,12 +43,12 @@ class createTDB:
 if __name__ == '__main__':
     a = createTDB('DataFrame', "1204150")
     a.createTDB()
-    a.save('output.txt')
+    a.savePatterns('output.txt')
     ap = fp.FPGrowth('output.txt', 500, ' ')
     ap.startMine()
     Patterns = ap.getPatterns()
     print("Total number of Frequent Patterns:", len(Patterns))
-    ap.save('fpoutput.txt')
+    ap.savePatterns('fpoutput.txt')
     memUSS = ap.getMemoryUSS()
     print("Total Memory in USS:", memUSS)
     memRSS = ap.getMemoryRSS()

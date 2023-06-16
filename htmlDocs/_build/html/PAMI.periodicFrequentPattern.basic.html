@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.periodicFrequentPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.periodicFrequentPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,13 +128,19 @@
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicFrequentPattern.basic.PFECLAT.</span></span><span class="sig-name descname"><span class="pre">PFECLAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicFrequentPattern/basic/PFECLAT.html#PFECLAT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_periodicFrequentPatterns</span></code></p>
-<p>EclatPFP is the fundamental approach to mine the periodic-frequent patterns.</p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><blockquote>
+<div><p>EclatPFP is the fundamental approach to mine the periodic-frequent patterns.</p>
+</div></blockquote>
+</section>
+<section id="reference">
+<h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
+<blockquote>
 <div><p>P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, &quot;Towards efficient discovery of
 periodic-frequent patterns in columnar temporal databases&quot;, 2021 IEA/AIE.</p>
 </div></blockquote>
-</div></blockquote>
+</section>
 <section id="attributes">
 <h3>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
 <blockquote>
@@ -208,31 +214,55 @@ However, the users can override their default separator.</p>
 <dt>Generation()</dt><dd><p>Used to implement prefix class equivalence method to generate the periodic patterns recursively</p>
 </dd>
 </dl>
-<blockquote>
-<div><p>python3 PFPECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</p>
 </div></blockquote>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 PFPECLAT.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)</p>
-<p>python3 PFPECLAT.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PFECLAT</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span>  <span class="n">python3</span> <span class="n">PFECLAT</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
 </div></blockquote>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PFECLAT</span> <span class="k">as</span> <span class="n">alg</span>
+
+   <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PFECLAT</span><span class="p">(</span><span class="s2">&quot;../basic/sampleTDB.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;5&quot;</span><span class="p">)</span>
+
+   <span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+   <span class="n">periodicFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Periodic Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">periodicFrequentPatterns</span><span class="p">))</span>
+
+   <span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="s2">&quot;patterns&quot;</span><span class="p">)</span>
+
+   <span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+   <span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+   <span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+   <span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><p>from PAMI.periodicFrequentPattern.basic import PFPECLAT as alg</p>
-<p>obj = alg.PFPECLAT(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;5&quot;)</p>
-<p>obj.startMine()</p>
-<p>periodicFrequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</p>
-<p>obj.save(&quot;patterns&quot;)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-<blockquote>
-<div><p>The complete program was written by P.RaviKumar  under the supervision of Professor Rage Uday Kiran.</p>
-</div></blockquote>
+<div><p>The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT.getMemoryRSS">
@@ -337,16 +367,21 @@ However, the users can override their default separator.</p>
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PFPGrowth.PFPGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicFrequentPattern.basic.PFPGrowth.</span></span><span class="sig-name descname"><span class="pre">PFPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicFrequentPattern/basic/PFPGrowth.html#PFPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicFrequentPattern.basic.PFPGrowth.PFPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_periodicFrequentPatterns</span></code></p>
-<p>PFPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.</p>
-<section id="reference">
-<h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
+<section id="id1">
+<h3>Description:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>PFPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.</p>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3>Reference:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Syed Khairuzzaman Tanbeer, Chowdhury Farhan, Byeong-Soo Jeong, and Young-Koo Lee, &quot;Discovering Periodic-Frequent
 Patterns in Transactional Databases&quot;, PAKDD 2009, <a class="reference external" href="https://doi.org/10.1007/978-3-642-01307-2_24">https://doi.org/10.1007/978-3-642-01307-2_24</a></p>
 </div></blockquote>
 </section>
-<section id="id1">
-<h3>Attributes:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<section id="id3">
+<h3>Attributes:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -389,8 +424,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id2">
-<h3>Methods:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<section id="id4">
+<h3>Methods:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -418,28 +453,55 @@ However, the users can override their default separator.</p>
 <dt>convert()</dt><dd><p>to convert the user specified value</p>
 </dd>
 </dl>
-<p>python3 PFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</p>
-<p>python3 PFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4   (minSup and maxPer will be considered in percentage of database
-transactions)</p>
-<p>python3 PFPGrowth.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)</p>
-<blockquote>
-<div><p>from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg</p>
-<p>obj = alg.PFPGrowth(iFile, minSup, maxPer)</p>
-<p>obj.startMine()</p>
-<p>periodicFrequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
 </div></blockquote>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.3</span> <span class="mf">0.4</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
 </div></blockquote>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PFPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PFPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">periodicFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Periodic Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">periodicFrequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
+<blockquote>
+<div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PFPGrowth.PFPGrowth.getMemoryRSS">
@@ -544,14 +606,22 @@ transactions)</p>
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PFPGrowthPlus.PFPGrowthPlus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicFrequentPattern.basic.PFPGrowthPlus.</span></span><span class="sig-name descname"><span class="pre">PFPGrowthPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicFrequentPattern/basic/PFPGrowthPlus.html#PFPGrowthPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicFrequentPattern.basic.PFPGrowthPlus.PFPGrowthPlus" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_periodicFrequentPatterns</span></code></p>
-<dl>
-<dt>PFPGrowthPlus is fundamental and improved version of PFPGrowth algorithm to discover periodic-frequent patterns in temporal database.</dt><dd><p>It uses greedy approach to discover effectively</p>
-<p>R. UdayKiran, MasaruKitsuregawa, and P. KrishnaReddyd, &quot;Efficient discovery of periodic-frequent patterns in
+<section id="id5">
+<h3>Description:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>PFPGrowthPlus is fundamental and improved version of PFPGrowth algorithm to discover periodic-frequent patterns in temporal database.
+It uses greedy approach to discover effectively</p>
+</div></blockquote>
+</section>
+<section id="id6">
+<h3>Reference :<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>R. UdayKiran, MasaruKitsuregawa, and P. KrishnaReddyd, &quot;Efficient discovery of periodic-frequent patterns in
 very large databases,&quot; Journal of Systems and Software February 2016 <a class="reference external" href="https://doi.org/10.1016/j.jss.2015.10.035">https://doi.org/10.1016/j.jss.2015.10.035</a></p>
-</dd>
-</dl>
-<section id="id3">
-<h3>Attributes:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+</div></blockquote>
+</section>
+<section id="id7">
+<h3>Attributes:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -594,8 +664,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id4">
-<h3>Methods:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<section id="id8">
+<h3>Methods:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -626,36 +696,54 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="executing-the-code-on-terminal">
-<h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 PFPGrowthPlus.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</p>
-<p>python3 PFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 0.4   (minSup will be considered in percentage of database transactions)</p>
-<p>python3 PFPGrowthPlus.py sampleTDB.txt patterns.txt 3 4     (minSup will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PFPGrowthPlus</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PFPGrowthPlus</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.3</span> <span class="mf">0.4</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
 </div></blockquote>
-</section>
-<section id="sample-run-of-the-imported-code">
-<h3>Sample run of the imported code:<a class="headerlink" href="#sample-run-of-the-imported-code" title="Permalink to this heading"></a></h3>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PFPGorwthPlus</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PFPGrowthPlus</span><span class="p">(</span><span class="s2">&quot;../basic/sampleTDB.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;6&quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">periodicFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Periodic Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">periodicFrequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="s2">&quot;patterns&quot;</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><blockquote>
-<div><p>from PAMI.periodicFrequentPattern.basic import PFPGorwthPlus as alg</p>
-<p>obj = alg.PFPGrowthPlus(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;6&quot;)</p>
-<p>obj.startMine()</p>
-<p>periodicFrequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</p>
-<p>obj.save(&quot;patterns&quot;)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
-</div></blockquote>
+<div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PFPGrowthPlus.PFPGrowthPlus.getMemoryRSS">
@@ -760,12 +848,17 @@ However, the users can override their default separator.</p>
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PFPMC.PFPMC">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicFrequentPattern.basic.PFPMC.</span></span><span class="sig-name descname"><span class="pre">PFPMC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicFrequentPattern/basic/PFPMC.html#PFPMC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicFrequentPattern.basic.PFPMC.PFPMC" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_periodicFrequentPatterns</span></code></p>
-<p>EclatDiffset PFP is the fundamental approach to mine the periodic-frequent patterns.</p>
-<section id="id5">
-<h3>Reference:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<section id="id9">
+<h3>Description:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>EclatDiffset PFP is the fundamental approach to mine the periodic-frequent patterns.</p>
+</div></blockquote>
 </section>
-<section id="id6">
-<h3>Attributes:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<section id="id10">
+<h3>Reference:<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+</section>
+<section id="id11">
+<h3>Attributes:<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -812,8 +905,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id7">
-<h3>Methods:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<section id="id12">
+<h3>Methods:<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -837,31 +930,55 @@ However, the users can override their default separator.</p>
 <dt>Generation()</dt><dd><p>Used to implement prefix class equivalence method to generate the periodic patterns recursively</p>
 </dd>
 </dl>
-<blockquote>
-<div><p>python3 PFPMC.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</p>
 </div></blockquote>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0   (minSup &amp; maxPer will be considered in percentage of database transactions)</p>
-<p>python3 PFPMC.py sampleDB.txt patterns.txt 10 4     (minSup &amp; maxPer will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span>  <span class="n">python3</span> <span class="n">PFPMC</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span>  <span class="n">python3</span> <span class="n">PFPMC</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span> <span class="mf">4.0</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup and maxPer will be considered in percentage of database transactions</p>
+</div>
 </div></blockquote>
-<blockquote>
-<div><p>from PAMI.periodicFrequentPattern.basic import PFPMC as alg</p>
-<p>obj = alg.PFPMC(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;5&quot;)</p>
-<p>obj.startMine()</p>
-<p>periodicFrequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</p>
-<p>obj.save(&quot;patterns&quot;)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PFPMC</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PFPMC</span><span class="p">(</span><span class="s2">&quot;../basic/sampleTDB.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;5&quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">periodicFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Periodic Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">periodicFrequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="s2">&quot;patterns&quot;</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
-</div></blockquote>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PFPMC.PFPMC.getMemoryRSS">
@@ -967,8 +1084,8 @@ However, the users can override their default separator.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicFrequentPattern.basic.PSGrowth.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicFrequentPattern/basic/PSGrowth.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicFrequentPattern.basic.PSGrowth.Node" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class used to represent the node of frequentPatternTree</p>
-<section id="id8">
-<h3>Attributes:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<section id="id13">
+<h3>Attributes:<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>item<span class="classifier">int</span></dt><dd><p>storing item of a node</p>
@@ -1008,17 +1125,22 @@ However, the users can override their default separator.</p>
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PSGrowth.PSGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicFrequentPattern.basic.PSGrowth.</span></span><span class="sig-name descname"><span class="pre">PSGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicFrequentPattern/basic/PSGrowth.html#PSGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicFrequentPattern.basic.PSGrowth.PSGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_periodicFrequentPatterns</span></code></p>
-<p>PS-Growth is one of the fundamental algorithm to discover periodic-frequent patterns in a temporal database.</p>
-<section id="id9">
-<h3>Reference :<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<section id="id14">
+<h3>Description:<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>PS-Growth is one of the fundamental algorithm to discover periodic-frequent patterns in a temporal database.</p>
+</div></blockquote>
+</section>
+<section id="id15">
+<h3>Reference :<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>A. Anirudh, R. U. Kiran, P. K. Reddy and M. Kitsuregaway, &quot;Memory efficient mining of periodic-frequent
 patterns in transactional databases,&quot; 2016 IEEE Symposium Series on Computational Intelligence (SSCI),
 2016, pp. 1-8, <a class="reference external" href="https://doi.org/10.1109/SSCI.2016.7849926">https://doi.org/10.1109/SSCI.2016.7849926</a></p>
 </div></blockquote>
 </section>
-<section id="id10">
-<h3>Attributes:<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<section id="id16">
+<h3>Attributes:<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -1061,8 +1183,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id11">
-<h3>Methods:<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
+<section id="id17">
+<h3>Methods:<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -1085,38 +1207,54 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-</section>
-<section id="id12">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
+<p><strong>Methods to execute code on terminal</strong></p>
 <blockquote>
-<div><p>python3 PSGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</p>
-<p>python3 PSGrowth.py sampleTDB.txt patterns.txt 0.3 0.4   (minSup and maxPer will be considered in percentage of database
-transactions)</p>
-<p>python3 PSGrowth.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)</p>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PSGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PSGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.3</span> <span class="mf">0.4</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
 </div></blockquote>
-</section>
-<section id="id13">
-<h3>Sample run of the imported code:<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PSGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PSGrowth</span><span class="p">(</span><span class="s2">&quot;../basic/sampleTDB.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;6&quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">periodicFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of  Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">periodicFrequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="s2">&quot;patterns&quot;</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Credits:</strong></p>
 <blockquote>
-<div><p>from PAMI.periodicFrequentPattern.basic import PSGrowth as alg</p>
-<p>obj = alg.PSGrowth(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;6&quot;)</p>
-<p>obj.startMine()</p>
-<p>periodicFrequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of  Patterns:&quot;, len(periodicFrequentPatterns))</p>
-<p>obj.save(&quot;patterns&quot;)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="credits">
-<h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+<div><p>The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PSGrowth.PSGrowth.getMemoryRSS">

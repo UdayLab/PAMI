@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.partialPeriodicPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.partialPeriodicPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,11 +128,19 @@
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPattern.basic.GThreePGrowth.GThreePGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.partialPeriodicPattern.basic.GThreePGrowth.</span></span><span class="sig-name descname"><span class="pre">GThreePGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodicSupport</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relativePS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPattern/basic/GThreePGrowth.html#GThreePGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPattern.basic.GThreePGrowth.GThreePGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_partialPeriodicPatterns</span></code></p>
-<p>3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.</p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.</p>
+</div></blockquote>
+</section>
+<section id="reference">
+<h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Reference : Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
 Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535</p>
 </div></blockquote>
+</section>
 <section id="parameters">
 <h3>Parameters:<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h3>
 <blockquote>
@@ -205,26 +213,55 @@ by decreasing support</p>
 <dt>startMine()</dt><dd><p>main program to mine the partial periodic patterns</p>
 </dd>
 </dl>
-<p>Format: python3 PPPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;periodicSupport&gt; &lt;period&gt;</p>
-<p>Examples: python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)</p>
+</div></blockquote>
+</section>
+<section id="executing-the-code-on-terminal">
+<h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)</p>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">periodicSupport</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">period</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span> <span class="mf">2.0</span>   <span class="p">(</span><span class="n">periodicSupport</span> <span class="ow">and</span> <span class="n">period</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">percentage</span> <span class="n">of</span> <span class="n">database</span> <span class="n">transactions</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">10</span> <span class="mi">2</span>     <span class="p">(</span><span class="n">periodicSupprot</span> <span class="ow">and</span> <span class="n">period</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">count</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
-<p>from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg</p>
-<p>obj = alg.PPPGrowth(iFile, periodicSupport, period)</p>
-<p>obj.startMine()</p>
-<p>partialPeriodicPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of partial periodic Patterns:&quot;, len(partialPeriodicPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternInDf()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
+</section>
+<section id="sample-run-of-the-importing-code">
+<h3>Sample run of the importing code:<a class="headerlink" href="#sample-run-of-the-importing-code" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PPPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PPPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">periodicSupport</span><span class="p">,</span> <span class="n">period</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">partialPeriodicPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of partial periodic Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">partialPeriodicPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDf</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="credits">
+<h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
 <p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
-</div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPattern.basic.GThreePGrowth.GThreePGrowth.getMemoryRSS">
 <span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPattern/basic/GThreePGrowth.html#GThreePGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPattern.basic.GThreePGrowth.GThreePGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
@@ -325,18 +362,26 @@ by decreasing support</p>
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.partialPeriodicPattern.basic.PPPGrowth.</span></span><span class="sig-name descname"><span class="pre">PPPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodicSupport</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPattern/basic/PPPGrowth.html#PPPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_partialPeriodicPatterns</span></code></p>
-<p>3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.</p>
+<section id="id1">
+<h3>Description:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>Reference : Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
+<div><p>3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.</p>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3>Reference:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
 Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535</p>
 </div></blockquote>
-<section id="id1">
-<h3>Parameters:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+</section>
+<section id="id3">
+<h3>Parameters:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
-<dt>self.iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
 </dd>
-<dt>self. oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
 </dd>
 <dt>periodicSupport: float or int or str</dt><dd><p>The user can specify periodicSupport either in count or proportion of database size.
 If the program detects the data type of periodicSupport is integer, then it treats periodicSupport is expressed in count.
@@ -351,13 +396,13 @@ Example: period=10 will be treated as integer, while period=10.0 will be treated
 <dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
 However, the users can override their default separator.</p>
 </dd>
-<dt>self.memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
 </dd>
-<dt>self.memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
 </dd>
-<dt>self.startTime:float</dt><dd><p>To record the start time of the mining process</p>
+<dt>startTime:float</dt><dd><p>To record the start time of the mining process</p>
 </dd>
-<dt>self.endTime:float</dt><dd><p>To record the completion time of the mining process</p>
+<dt>endTime:float</dt><dd><p>To record the completion time of the mining process</p>
 </dd>
 <dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
 </dd>
@@ -372,8 +417,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id2">
-<h3>Methods:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<section id="id4">
+<h3>Methods:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -402,26 +447,55 @@ by decreasing support</p>
 <dt>startMine()</dt><dd><p>main program to mine the partial periodic patterns</p>
 </dd>
 </dl>
-<p>Format: python3 PPPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;periodicSupport&gt; &lt;period&gt;</p>
-<p>Examples: python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)</p>
+</div></blockquote>
+</section>
+<section id="id5">
+<h3>Executing the code on terminal:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)</p>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">periodicSupport</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">period</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span> <span class="mf">2.0</span>   <span class="p">(</span><span class="n">periodicSupport</span> <span class="ow">and</span> <span class="n">period</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">percentage</span> <span class="n">of</span> <span class="n">database</span> <span class="n">transactions</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">10</span> <span class="mi">2</span>     <span class="p">(</span><span class="n">periodicSupprot</span> <span class="ow">and</span> <span class="n">period</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">count</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
-<p>from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg</p>
-<p>obj = alg.PPPGrowth(iFile, periodicSupport, period)</p>
-<p>obj.startMine()</p>
-<p>partialPeriodicPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of partial periodic Patterns:&quot;, len(partialPeriodicPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternInDf()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
+</section>
+<section id="id6">
+<h3>Sample run of the importing code:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PPPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PPPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">periodicSupport</span><span class="p">,</span> <span class="n">period</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">partialPeriodicPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of partial periodic Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">partialPeriodicPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDf</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>Credits:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
-</div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.getMemoryRSS">
 <span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPattern/basic/PPPGrowth.html#PPPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
@@ -525,10 +599,20 @@ by decreasing support</p>
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.partialPeriodicPattern.basic.PPP_ECLAT.</span></span><span class="sig-name descname"><span class="pre">PPP_ECLAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodicSupport</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPattern/basic/PPP_ECLAT.html#PPP_ECLAT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_partialPeriodicPatterns</span></code></p>
-<p>3pEclat is the fundamental approach to mine the partial periodic frequent patterns.</p>
-<p>Reference:</p>
-<section id="id3">
-<h3>Parameters:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<section id="descripition">
+<h3>Descripition:<a class="headerlink" href="#descripition" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>3pEclat is the fundamental approach to mine the partial periodic frequent patterns.</p>
+</div></blockquote>
+</section>
+<section id="id8">
+<h3>Reference:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>To be published</p>
+</div></blockquote>
+</section>
+<section id="id9">
+<h3>Parameters:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>self.iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -571,8 +655,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id4">
-<h3>Methods:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<section id="id10">
+<h3>Methods:<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -598,34 +682,53 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="executing-the-code-on-terminal">
-<h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
+<section id="id11">
+<h3>Executing the code on terminal:<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>Format: python3 PPP_ECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;periodicSupport&gt; &lt;period&gt;</p>
-<p>Examples: python3 PPP_ECLAT.py sampleDB.txt patterns.txt 0.3 0.4   (periodicSupport and period will be considered in percentage of database transactions)</p>
-<blockquote>
-<div><p>python3 threePEeclat.py sampleDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)</p>
-</div></blockquote>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPP_ECLAT</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">periodicSupport</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">period</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PPP_ECLAT</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.3</span> <span class="mf">0.4</span>   <span class="p">(</span><span class="n">periodicSupport</span> <span class="ow">and</span> <span class="n">period</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">percentage</span> <span class="n">of</span> <span class="n">database</span> <span class="n">transactions</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">threePEeclat</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span> <span class="mi">4</span>     <span class="p">(</span><span class="n">periodicSupport</span> <span class="ow">and</span> <span class="n">period</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">support</span> <span class="n">count</span> <span class="ow">or</span> <span class="n">frequency</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
 <section id="sample-run-of-importing-the-code">
 <h3>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg</p>
-<p>obj = alg.PPP_ECLAT(iFile, periodicSupport,period)</p>
-<p>obj.startMine()</p>
-<p>Patterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of partial periodic patterns:&quot;, len(Patterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternsAsDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PPP_ECLAT</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PPP_ECLAT</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">periodicSupport</span><span class="p">,</span><span class="n">period</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">Patterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of partial periodic patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Patterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3>Credits:<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
 <p>The complete program was written by P.RaviKumar  under the supervision of Professor Rage Uday Kiran.</p>
-</div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getMemoryRSS">
 <span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/partialPeriodicPattern/basic/PPP_ECLAT.html#PPP_ECLAT.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.getMemoryRSS" title="Permalink to this definition"></a></dt>

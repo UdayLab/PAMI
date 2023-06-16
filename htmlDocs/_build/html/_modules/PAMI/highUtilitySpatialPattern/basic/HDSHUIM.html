@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.highUtilitySpatialPattern.basic.HDSHUIM &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.highUtilitySpatialPattern.basic.HDSHUIM &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -156,12 +156,19 @@
 
 <div class="viewcode-block" id="HDSHUIM"><a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.HDSHUIM.HDSHUIM">[docs]</a><span class="k">class</span> <span class="nc">HDSHUIM</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_utilityPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    ------------</span>
 <span class="sd">        Spatial High Utility ItemSet Mining (SHUIM) [3] is an important model in data</span>
 <span class="sd">        mining with many real-world applications. It involves finding all spatially interesting itemSets having high value </span>
 <span class="sd">        in a quantitative spatio temporal database.</span>
+<span class="sd">    Reference:</span>
+<span class="sd">    ----------</span>
+<span class="sd">        P. Pallikila et al., &quot;Discovering Top-k Spatial High Utility Itemsets in Very Large Quantitative Spatiotemporal </span>
+<span class="sd">        databases,&quot; 2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 4925-4935,</span>
+<span class="sd">        doi: 10.1109/BigData52589.2021.9671912.</span>
 
 <span class="sd">    Attributes :</span>
-<span class="sd">    ----------</span>
+<span class="sd">    --------------</span>
 <span class="sd">        iFile : str</span>
 <span class="sd">            Name of the input file to mine complete set of frequent patterns</span>
 <span class="sd">        oFile : str</span>
@@ -187,7 +194,7 @@
 <span class="sd">        mapOfPMU: map</span>
 <span class="sd">            a map to keep track of Probable Maximum utility(PMU) of each item</span>
 <span class="sd">    Methods :</span>
-<span class="sd">    -------</span>
+<span class="sd">    ----------</span>
 <span class="sd">            startMine()</span>
 <span class="sd">                Mining process will start from here</span>
 <span class="sd">            getPatterns()</span>
@@ -215,18 +222,21 @@
 
 
 <span class="sd">    Executing the code on terminal :</span>
-<span class="sd">    -------</span>
+<span class="sd">    --------------------------------</span>
 <span class="sd">        Format:</span>
-<span class="sd">            python3 HDSHUIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt;</span>
+<span class="sd">        -------</span>
+<span class="sd">            &gt;&gt;&gt; python3 HDSHUIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt;</span>
 
-<span class="sd">            python3 HDSHUIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;separator&gt;</span>
+<span class="sd">            &gt;&gt;&gt; python3 HDSHUIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;separator&gt;</span>
 <span class="sd">        Examples:</span>
-<span class="sd">            python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be &quot;\t&quot; in both input and neighbourhood file)</span>
+<span class="sd">        ---------</span>
+<span class="sd">            &gt;&gt;&gt; python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be &quot;\t&quot; in both input and neighbourhood file)</span>
 
-<span class="sd">            python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be &quot;,&quot; in both input and neighbourhood file)</span>
+<span class="sd">            &gt;&gt;&gt; python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be &quot;,&quot; in both input and neighbourhood file)</span>
 
 <span class="sd">    Sample run of importing the code:</span>
-<span class="sd">    -------------------------------</span>
+<span class="sd">    -----------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
 <span class="sd">        </span>
 <span class="sd">        from PAMI.highUtilityFrequentSpatialPattern.basic import HDSHUIM as alg</span>
 
@@ -253,7 +263,7 @@
 <span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 <span class="sd">    Credits:</span>
-<span class="sd">    -------</span>
+<span class="sd">    ----------</span>
 <span class="sd">        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</span>
 <span class="sd">            </span>
 <span class="sd">    &quot;&quot;&quot;</span>

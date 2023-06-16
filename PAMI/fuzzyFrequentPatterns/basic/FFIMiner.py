@@ -1,30 +1,50 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     from PAMI.fuzzyFrequentPatterns import FFIMiner as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     obj = alg.FFIMiner("input.txt", 2)
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj.startMine()
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     fuzzyFrequentPatterns = obj.getPatterns()
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     print("Total number of Fuzzy Frequent Patterns:", len(fuzzyFrequentPatterns))
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj.save("outputFile")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.fuzzyFrequentPatterns.basic import abstract as _ab
 
@@ -110,17 +130,21 @@ class _Pair:
 
 class FFIMiner(_ab._fuzzyFrequentPattenrs):
     """
+    Description:
+    -------------
         Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
         to its huge search space.we are using efficient pruning techniques to reduce the search space.
+
     Reference :
-    ---------
+    --------------
         Lin, Chun-Wei & Li, Ting & Fournier Viger, Philippe & Hong, Tzung-Pei. (2015).
         A fast Algorithm for mining fuzzy frequent itemsets. Journal of Intelligent & Fuzzy Systems. 29.
         2373-2379. 10.3233/IFS-151936.
         https://www.researchgate.net/publication/286510908_A_fast_Algorithm_for_mining_fuzzy_frequent_itemSets
 
     Attributes :
-    ----------
+    ---------------
+    
         iFile : string
             Name of the input file to mine complete set of fuzzy  frequent patterns
         fmFile : string
@@ -153,8 +177,9 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             represent the size of Buffer
         itemBuffer list
             to keep track of items in buffer
+
     Methods :
-    -------
+    ------------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -183,19 +208,18 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             To Store the patten
 
     Executing the code on terminal :
-    -------
+    --------------------------------
         Format:
-            python3 FFIMinerMiner.py <inputFile> <outputFile> <minSup> <separator>
+
+            >>> python3 FFIMinerMiner.py <inputFile> <outputFile> <minSup> <separator>
         Examples:
-            python3  FFIMinerMiner.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
 
-            python3  FFIMinerMiner.py sampleTDB.txt output.txt 0.3 (minSup and maxPer will be considered in percentage of database)
-                                                      (it will consider '\t' as a separator)
+            >>> python3  FFIMinerMiner.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
 
-            python3  FFIMinerMiner.py sampleTDB.txt output.txt 6 , (it consider ',' as a separator)
 
     Sample run of importing the code:
-    -------------------------------
+    ----------------------------------
+    .. code-block:: python
 
         from PAMI.fuzzyFrequentPatterns import FFIMiner as alg
 
@@ -223,9 +247,11 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
 
     Credits:
-    -------
+    -----------
         The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+    
     """
+    
     _startTime = float()
     _endTime = float()
     _minSup = str()

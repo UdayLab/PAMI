@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.periodicFrequentPattern.basic.PFECLAT &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.periodicFrequentPattern.basic.PFECLAT &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -86,15 +86,18 @@
 
 
 <div class="viewcode-block" id="PFECLAT"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.basic.html#PAMI.periodicFrequentPattern.basic.PFECLAT.PFECLAT">[docs]</a><span class="k">class</span> <span class="nc">PFECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_periodicFrequentPatterns</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; EclatPFP is the fundamental approach to mine the periodic-frequent patterns.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    -------------</span>
+<span class="sd">        EclatPFP is the fundamental approach to mine the periodic-frequent patterns.</span>
 
-<span class="sd">        Reference:</span>
-<span class="sd">        --------</span>
-<span class="sd">            P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, &quot;Towards efficient discovery of </span>
-<span class="sd">            periodic-frequent patterns in columnar temporal databases&quot;, 2021 IEA/AIE.</span>
+<span class="sd">    Reference:</span>
+<span class="sd">    -----------</span>
+<span class="sd">        P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, &quot;Towards efficient discovery of</span>
+<span class="sd">        periodic-frequent patterns in columnar temporal databases&quot;, 2021 IEA/AIE.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">    ----------</span>
+<span class="sd">    -----------</span>
 <span class="sd">        iFile : file</span>
 <span class="sd">            Name of the Input file or path of the input file</span>
 <span class="sd">        oFile : file</span>
@@ -138,7 +141,7 @@
 <span class="sd">            stores the patterns with their support to check for the closed property</span>
 
 <span class="sd">    Methods:</span>
-<span class="sd">    -------</span>
+<span class="sd">    ---------</span>
 <span class="sd">        startMine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
@@ -160,50 +163,51 @@
 <span class="sd">        Generation()</span>
 <span class="sd">            Used to implement prefix class equivalence method to generate the periodic patterns recursively</span>
 <span class="sd">            </span>
-<span class="sd">        Executing the code on terminal:</span>
-<span class="sd">        -------</span>
-<span class="sd">        Format:</span>
-<span class="sd">        ------</span>
-<span class="sd">            python3 PFPECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
 
-<span class="sd">        Examples:</span>
-<span class="sd">        --------</span>
-<span class="sd">            python3 PFPECLAT.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)</span>
+<span class="sd">    **Methods to execute code on terminal**</span>
 
-<span class="sd">            python3 PFPECLAT.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)</span>
-<span class="sd">        </span>
-<span class="sd">        Sample run of the imported code:</span>
-<span class="sd">        --------------</span>
-<span class="sd">        </span>
-<span class="sd">            from PAMI.periodicFrequentPattern.basic import PFPECLAT as alg</span>
+<span class="sd">            Format:</span>
+<span class="sd">                      &gt;&gt;&gt;  python3 PFECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">            Example:</span>
+<span class="sd">                      &gt;&gt;&gt;   python3 PFECLAT.py sampleDB.txt patterns.txt 10.0</span>
 
-<span class="sd">            obj = alg.PFPECLAT(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;5&quot;)</span>
+<span class="sd">            .. note:: minSup will be considered in percentage of database transactions</span>
 
-<span class="sd">            obj.startMine()</span>
 
-<span class="sd">            periodicFrequentPatterns = obj.getPatterns()</span>
+<span class="sd">    **Importing this algorithm into a python program**</span>
 
-<span class="sd">            print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
+<span class="sd">    .. code-block:: python</span>
 
-<span class="sd">            obj.save(&quot;patterns&quot;)</span>
+<span class="sd">             from PAMI.periodicFrequentPattern.basic import PFECLAT as alg</span>
 
-<span class="sd">            Df = obj.getPatternsAsDataFrame()</span>
+<span class="sd">                obj = alg.PFECLAT(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;5&quot;)</span>
 
-<span class="sd">            memUSS = obj.getMemoryUSS()</span>
+<span class="sd">                obj.startMine()</span>
 
-<span class="sd">            print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="sd">                periodicFrequentPatterns = obj.getPatterns()</span>
 
-<span class="sd">            memRSS = obj.getMemoryRSS()</span>
+<span class="sd">                print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
 
-<span class="sd">            print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="sd">                obj.savePatterns(&quot;patterns&quot;)</span>
 
-<span class="sd">            run = obj.getRuntime()</span>
+<span class="sd">                Df = obj.getPatternsAsDataFrame()</span>
 
-<span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="sd">                memUSS = obj.getMemoryUSS()</span>
 
-<span class="sd">        Credits:</span>
-<span class="sd">        -------</span>
-<span class="sd">            The complete program was written by P.RaviKumar  under the supervision of Professor Rage Uday Kiran.\n</span>
+<span class="sd">                print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+
+<span class="sd">                memRSS = obj.getMemoryRSS()</span>
+
+<span class="sd">                print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
+<span class="sd">                run = obj.getRuntime()</span>
+
+<span class="sd">                print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
+<span class="sd">    **Credits:**</span>
+
+<span class="sd">             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.</span>
+
 
 <span class="sd">        &quot;&quot;&quot;</span>
     

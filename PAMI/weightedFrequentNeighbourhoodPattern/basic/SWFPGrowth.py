@@ -1,17 +1,52 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.SWFPGrowth(iFile, wFile, nFile, minSup, minWeight, seperator)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getmemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.weightedFrequentNeighbourhoodPattern.basic import abstract as _fp
 
@@ -277,16 +312,18 @@ class _Tree:
 
 class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     """
+    Description:
+    -------------
        SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.
 
     Reference :
-    ---------
+    ------------
         R. Uday Kiran, P. P. C. Reddy, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy,
         "Discovering Spatial Weighted Frequent Itemsets in Spatiotemporal Databases," 2019 International
         Conference on Data Mining Workshops (ICDMW), 2019, pp. 987-996, doi: 10.1109/ICDMW.2019.00143.
 
     Attributes :
-    ----------
+    ------------
         iFile : file
             Input file name or path of the input file
         minWS: float or int or str
@@ -324,7 +361,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
             it represents to store the patterns
 
     Methods :
-    -------
+    --------------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -345,13 +382,13 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
             Extracts the one-frequent patterns from transactions
 
     Executing the code on terminal:
-    -------
+    -----------------------------------
         Format:
-        -------
+        --------------
             python3 SWFPGrowth.py <inputFile> <weightFile> <outputFile> <minWS>
 
         Examples:
-        ---------
+        ----------------
             python3 SWFPGrowth.py sampleDB.txt weightSample.txt patterns.txt 10.0   (minWS will be considered in times of minWS and count of database transactions)
 
             python3 SWFPGrowth.py sampleDB.txt weightFile.txt patterns.txt 10     (minWS will be considered in support count or frequency) (it will consider "\t" as a separator)
@@ -359,39 +396,48 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
             python3 SWFPGrowth.py sampleTDB.txt weightFile.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
 
 
-    Sample run of the importing code:
-    -----------
 
+    **Methods to execute code on terminal**
 
-        from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
+            Format:
+                      >>>  python3 SWFPGrowth.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
+            Example:
+                      >>>  python3 SWFPGrowth.py sampleDB.txt weightFile.txt patterns.txt 10  2
 
-        obj = alg.SWFPGrowth(iFile, wFile, nFile, minWS, minWeight, seperator)
+                     .. note:: minSup will be considered in support count or frequency
 
-        obj.startMine()
+    **Importing this algorithm into a python program**
 
-        Patterns = obj.getPatterns()
+    .. code-block:: python
 
-        print("Total number of weighted spatial Frequent Patterns:", len(Patterns))
+            from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
 
-        obj.save(oFile)
+            obj = alg.SWFPGrowth(iFile, wFile, nFile, minSup, minWeight, seperator)
 
-        Df = obj.getPatternInDataFrame()
+            obj.startMine()
 
-        memUSS = obj.getMemoryUSS()
+            frequentPatterns = obj.getPatterns()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        memRSS = obj.getMemoryRSS()
+            obj.savePatterns(oFile)
 
-        print("Total Memory in RSS", memRSS)
+            Df = obj.getPatternsAsDataFrame()
 
-        run = obj.getRuntime()
+            memUSS = obj.getmemoryUSS()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total Memory in USS:", memUSS)
 
-        Credits:
-        -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+            memRSS = obj.getMemoryRSS()
+
+            print("Total Memory in RSS", memRSS)
+
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+    **Credits:**
+
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.faultTolerantFrequentPattern.basic.FTFPGrowth &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.faultTolerantFrequentPattern.basic.FTFPGrowth &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -281,14 +281,16 @@
 
 <div class="viewcode-block" id="FTFPGrowth"><a class="viewcode-back" href="../../../../PAMI.faultTolerantFrequentPattern.basic.html#PAMI.faultTolerantFrequentPattern.basic.FTFPGrowth.FTFPGrowth">[docs]</a><span class="k">class</span> <span class="nc">FTFPGrowth</span><span class="p">(</span><span class="n">_fp</span><span class="o">.</span><span class="n">_faultTolerantFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    ------------</span>
 <span class="sd">       FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.</span>
 <span class="sd">       It stores the database in compressed fp-tree decreasing the memory usage and extracts the</span>
 <span class="sd">       patterns from tree.It employs employs downward closure property to  reduce the search space effectively.</span>
 
 <span class="sd">    Reference :</span>
 <span class="sd">    ---------</span>
-<span class="sd">           Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern</span>
-<span class="sd">           Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023</span>
+<span class="sd">       Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern</span>
+<span class="sd">       Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023</span>
 
 <span class="sd">    Attributes :</span>
 <span class="sd">    ----------</span>
@@ -345,23 +347,20 @@
 <span class="sd">            Extracts the one-frequent patterns from transactions</span>
 
 <span class="sd">    Executing the code on terminal:</span>
-<span class="sd">    -------</span>
+<span class="sd">    -------------------------------</span>
 <span class="sd">        Format:</span>
 <span class="sd">        -------</span>
-<span class="sd">            python3 FPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">            &gt;&gt;&gt; python3 FPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
 
 <span class="sd">        Examples:</span>
 <span class="sd">        ---------</span>
-<span class="sd">            python3 FPGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)</span>
+<span class="sd">            &gt;&gt;&gt; python3 FPGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)</span>
 
-<span class="sd">            python3 FPGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency) (it will consider &quot;\t&quot; as a separator)</span>
-
-<span class="sd">            python3 FPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 &#39;,&#39; (it will consider &quot;,&quot; as a separator)</span>
 
 
 <span class="sd">    Sample run of the importing code:</span>
-<span class="sd">    -----------</span>
-
+<span class="sd">    -----------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
 
 <span class="sd">        from PAMI.frequentPattern.basic import FPGrowth as alg</span>
 
@@ -390,7 +389,7 @@
 <span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 <span class="sd">    Credits:</span>
-<span class="sd">    -------</span>
+<span class="sd">    --------</span>
 <span class="sd">        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>

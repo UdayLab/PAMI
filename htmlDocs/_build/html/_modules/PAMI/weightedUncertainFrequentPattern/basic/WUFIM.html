@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.weightedUncertainFrequentPattern.basic.WUFIM &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.weightedUncertainFrequentPattern.basic.WUFIM &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -323,16 +323,18 @@
 
 <div class="viewcode-block" id="WUFIM"><a class="viewcode-back" href="../../../../PAMI.weightedUncertainFrequentPattern.basic.html#PAMI.weightedUncertainFrequentPattern.basic.WUFIM.WUFIM">[docs]</a><span class="k">class</span> <span class="nc">WUFIM</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_weightedFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    -------------</span>
 <span class="sd">        It is one of the algorithm to discover weighted frequent patterns in a uncertain transactional database</span>
 <span class="sd">        using PUF-Tree.</span>
 
 <span class="sd">    Reference:</span>
-<span class="sd">    --------</span>
+<span class="sd">    ------------</span>
 <span class="sd">        Efficient Mining of Weighted Frequent Itemsets in Uncertain Databases, In book: Machine Learning and Data Mining in Pattern Recognition</span>
 <span class="sd">        Chun-Wei Jerry Lin, Wensheng Gan, Philippe Fournier Viger, Tzung-Pei Hong</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">    ----------</span>
+<span class="sd">    ------------</span>
 <span class="sd">        iFile : file</span>
 <span class="sd">            Name of the Input file or path of the input file</span>
 <span class="sd">        wFile : file</span>
@@ -368,7 +370,7 @@
 <span class="sd">        finalPatterns : dict</span>
 <span class="sd">            To store the complete patterns</span>
 <span class="sd">    Methods:</span>
-<span class="sd">    -------</span>
+<span class="sd">    ---------</span>
 <span class="sd">        startMine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
@@ -395,20 +397,23 @@
 <span class="sd">            to convert the user specified value</span>
 <span class="sd">        startMine()</span>
 <span class="sd">            Mining process will start from this function</span>
-<span class="sd">    Executing the code on terminal:</span>
-<span class="sd">    -------</span>
+
+<span class="sd">    **Methods to execute code on terminal**</span>
+
 <span class="sd">        Format:</span>
-<span class="sd">        ------</span>
-<span class="sd">        python3 WUFIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;weightFile&gt; &lt;expSup&gt; &lt;expWeSup&gt;</span>
-<span class="sd">        Examples:</span>
-<span class="sd">        --------</span>
-<span class="sd">        python3 WUFIM.py sampleTDB.txt patterns.txt weightFile.txt 1.4 1.5    (minSup  will be considered in support count or frequency)</span>
+<span class="sd">                  &gt;&gt;&gt;  python3 WUFIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">        Example:</span>
+<span class="sd">                  &gt;&gt;&gt;  python3 WUFIM.py sampleTDB.txt patterns.txt 3</span>
 
-<span class="sd">    Sample run of importing the code:</span>
-<span class="sd">    -------------------</span>
-<span class="sd">        from PAMI.weightedUncertainFrequentPattern.basic import WUFIM as alg</span>
+<span class="sd">                 .. note:: minSup  will be considered in support count or frequency</span>
 
-<span class="sd">        obj = alg.WUFIM(iFile, wFile, expSup, expWSup)</span>
+<span class="sd">    **Importing this algorithm into a python program**</span>
+
+<span class="sd">.. code-block:: python</span>
+
+<span class="sd">        from PAMI.weightedUncertainFrequentPattern.basic import WFIM as alg</span>
+
+<span class="sd">        obj = alg.WFIM(iFile, wFile, expSup, expWSup)</span>
 
 <span class="sd">        obj.startMine()</span>
 
@@ -416,7 +421,7 @@
 
 <span class="sd">        print(&quot;Total number of  Patterns:&quot;, len(Patterns))</span>
 
-<span class="sd">        obj.save(oFile)</span>
+<span class="sd">        obj.savePatterns(oFile)</span>
 
 <span class="sd">        Df = obj.getPatternsAsDataFrame()</span>
 
@@ -431,10 +436,7 @@
 <span class="sd">        run = obj.getRuntime()</span>
 
 <span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-<span class="sd">    Credits:</span>
-<span class="sd">    -------</span>
-<span class="sd">        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">   &quot;&quot;&quot;</span>
     <span class="n">_startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
     <span class="n">_endTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
     <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>

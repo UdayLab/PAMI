@@ -1,18 +1,52 @@
 
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     import PAMI.frequentPattern.basic.prefixSpan as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.prefixSpan(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.sequentialPatternMining.basic import abstract as _ab
 import copy
@@ -20,87 +54,112 @@ _ab._sys.setrecursionlimit(10000)
 
 class prefixSpan(_ab._sequentialPatterns):
     """
-        Prifix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+
+    Description:
+    --------------
+
+        Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
         This program employs Prifix Span property (or downward closure property) to  reduce the search space effectively.
         This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
         transactional database.
-        Reference:
-        ----------
-           J. Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal, M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach. IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)
-        ----------
-            iFile : str
-                Input file name or path of the input file
-            oFile : str
-                Name of the output file or the path of output file
-            minSup: float or int or str
-                The user can specify minSup either in count or proportion of database size.
-                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-                However, the users can override their default separator.
-            startTime:float
-                To record the start time of the mining process
-            endTime:float
-                To record the completion time of the mining process
-            finalPatterns: dict
-                Storing the complete set of patterns in a dictionary variable
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-            Database : list
-                To store the transactions of a database in list
-        Methods:
-        -------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
-            getPatternsAsDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            candidateToFrequent(candidateList)
-                Generates frequent patterns from the candidate patterns
-            frequentToCandidate(frequentList, length)
-                Generates candidate patterns from the frequent patterns
 
+    Reference:
+    -------------
 
-        Executing the code on terminal:
-        -------------------------------
+       J. Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal, M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach. IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)
+
+    Attributes:
+    -------------
+        iFile : str
+            Input file name or path of the input file
+        oFile : str
+            Name of the output file or the path of output file
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
+        startTime:float
+            To record the start time of the mining process
+        endTime:float
+            To record the completion time of the mining process
+        finalPatterns: dict
+            Storing the complete set of patterns in a dictionary variable
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
+        Database : list
+            To store the transactions of a database in list
+    Methods:
+    ---------
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        savePatterns(oFile)
+            Complete set of frequent patterns will be loaded in to a output file
+        getPatternsAsDataFrame()
+            Complete set of frequent patterns will be loaded in to a dataframe
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+        candidateToFrequent(candidateList)
+            Generates frequent patterns from the candidate patterns
+        frequentToCandidate(frequentList, length)
+            Generates candidate patterns from the frequent patterns
+
+    **Methods to execute code on terminal**
+
             Format:
-            ------
-                python3 prefixSpan.py <inputFile> <outputFile> <minSup>
-            Examples:
-            ---------
-                python3 prefixSpan.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
-                python3 prefixSpan.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
-        Sample run of the importing code:
-        ---------------------------------
+                      >>>  python3 prefixSpan.py <inputFile> <outputFile> <minSup>
+            Example:
+                      >>>  python3 prefixSpan.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+
+                      >>>  python3 prefixSpan.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+
+
+    **Importing this algorithm into a python program**
+
+        .. code-block:: python
+
             import PAMI.frequentPattern.basic.prefixSpan as alg
+
             obj = alg.prefixSpan(iFile, minSup)
+
             obj.startMine()
+
             frequentPatterns = obj.getPatterns()
+
             print("Total number of Frequent Patterns:", len(frequentPatterns))
+
             obj.savePatterns(oFile)
+
             Df = obj.getPatternInDataFrame()
+
             memUSS = obj.getMemoryUSS()
+
             print("Total Memory in USS:", memUSS)
+
             memRSS = obj.getMemoryRSS()
+
             print("Total Memory in RSS", memRSS)
+
             run = obj.getRuntime()
+
             print("Total ExecutionTime in seconds:", run)
-        Credits:
-        --------
-            The complete program was written by Suzuki Shota under the supervision of Professor Rage Uday Kiran.
+
+    **Credits:**
+
+              The complete program was written by Suzuki Shota under the supervision of Professor Rage  Uday Kiran.
+
+
     """
 
     _minSup = float()

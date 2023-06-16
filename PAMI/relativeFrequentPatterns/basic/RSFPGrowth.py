@@ -1,18 +1,53 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#      Copyright (C)  2021 Rage Uday Kiran
+#     obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getmemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.relativeFrequentPatterns.basic import abstract as _ab
 
@@ -201,15 +236,18 @@ class _Tree:
 
 class RSFPGrowth(_ab._frequentPatterns):
     """
+    Description:
+    -------------
+
         Algorithm to find all items with relative support from given dataset
 
     Reference:
-    --------
+    -----------
         'Towards Efficient Discovery of Frequent Patterns with Relative Support' R. Uday Kiran and
                Masaru Kitsuregawa, http://comad.in/comad2012/pdf/kiran.pdf
 
     Attributes:
-    ----------
+    -------------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
         oFile : file
@@ -244,7 +282,7 @@ class RSFPGrowth(_ab._frequentPatterns):
            it represents the constraint for pattern length
 
     Methods:
-    -------
+    --------
         startMine()
             Mining process will start from here
         getFrequentPatterns()
@@ -273,50 +311,50 @@ class RSFPGrowth(_ab._frequentPatterns):
             Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
             __mapSupport represents the 1-length items with their respective support
 
-    Executing the code on terminal:
-    -------
-        Format:
-        -------
-            python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <minRS>
 
-        Examples:
-        ---------
-            python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2  (minSup will be considered in percentage of database transactions)
+    **Methods to execute code on terminal**
 
-            python3 RSFPGrowth.py sampleDB.txt patterns.txt 3   0.2  (minSup will be considered in support count or frequency)
+            Format:
+                      >>>  python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRatio>
+            Example:
+                      >>>  python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2
+
+            .. note:: maxPer and minPS will be considered in percentage of database transactions
 
 
-    Sample run of the importing code:
-    -----------
-        from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
+    **Importing this algorithm into a python program**
 
-        obj = alg.RSFPGrowth(iFile, minSup, minRS)
+    .. code-block:: python
 
-        obj.startMine()
+            from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
 
-        frequentPatterns = obj.getPatterns()
+            obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+            obj.startMine()
 
-        obj.save(oFile)
+            frequentPatterns = obj.getPatterns()
 
-        Df = obj.getPatternsAsDataFrame()
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        memUSS = obj.getmemoryUSS()
+            obj.savePatterns(oFile)
 
-        print("Total Memory in USS:", memUSS)
+            Df = obj.getPatternsAsDataFrame()
 
-        memRSS = obj.getMemoryRSS()
+            memUSS = obj.getmemoryUSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in USS:", memUSS)
 
-        run = obj.getRuntime()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total Memory in RSS", memRSS)
 
-    Credits:
-    -------
-        The complete program was written by Sai Chitra.B  under the supervision of Professor Rage Uday Kiran.
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+
+             The complete program was written by   Sai Chitra.B   under the supervision of Professor Rage Uday Kiran.
 
         """
 

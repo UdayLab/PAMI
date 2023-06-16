@@ -1,17 +1,55 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.periodicFrequentPattern.basic import PSGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.PSGrowth("../basic/sampleTDB.txt", "2", "6")
+#
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of  Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.savePatterns("patterns")
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from itertools import combinations as _combinations
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
@@ -522,7 +560,11 @@ def conditionalTransactions(patterns, timestamp):
 
 
 class PSGrowth(_ab._periodicFrequentPatterns):
-    """PS-Growth is one of the fundamental algorithm to discover periodic-frequent patterns in a temporal database.
+    """
+    Description:
+    ------------
+
+        PS-Growth is one of the fundamental algorithm to discover periodic-frequent patterns in a temporal database.
 
     Reference :
     ----------
@@ -591,52 +633,50 @@ class PSGrowth(_ab._periodicFrequentPatterns):
         buildTree()
             after updating the Databases ar added into the tree by setting root node as null
 
-    Executing the code on terminal:
-    -------
-        Format:
-        ------
-        python3 PSGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
-        Examples:
-        --------
-        python3 PSGrowth.py sampleTDB.txt patterns.txt 0.3 0.4   (minSup and maxPer will be considered in percentage of database
-        transactions)
+    **Methods to execute code on terminal**
 
-        python3 PSGrowth.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)
+            Format:
+                      >>>  python3 PSGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+            Example:
+                      >>>  python3 PSGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+
+            .. note:: minSup will be considered in percentage of database transactions
 
 
-    Sample run of the imported code:
-    --------------
+    **Importing this algorithm into a python program**
 
-        from PAMI.periodicFrequentPattern.basic import PSGrowth as alg
+    .. code-block:: python
 
-        obj = alg.PSGrowth("../basic/sampleTDB.txt", "2", "6")
+            from PAMI.periodicFrequentPattern.basic import PSGrowth as alg
 
-        obj.startMine()
+            obj = alg.PSGrowth("../basic/sampleTDB.txt", "2", "6")
 
-        periodicFrequentPatterns = obj.getPatterns()
+            obj.startMine()
 
-        print("Total number of  Patterns:", len(periodicFrequentPatterns))
+            periodicFrequentPatterns = obj.getPatterns()
 
-        obj.save("patterns")
+            print("Total number of  Patterns:", len(periodicFrequentPatterns))
 
-        Df = obj.getPatternsAsDataFrame()
+            obj.savePatterns("patterns")
 
-        memUSS = obj.getMemoryUSS()
+            Df = obj.getPatternsAsDataFrame()
 
-        print("Total Memory in USS:", memUSS)
+            memUSS = obj.getMemoryUSS()
 
-        memRSS = obj.getMemoryRSS()
+            print("Total Memory in USS:", memUSS)
 
-        print("Total Memory in RSS", memRSS)
+            memRSS = obj.getMemoryRSS()
 
-        run = obj.getRuntime()
+            print("Total Memory in RSS", memRSS)
 
-        print("Total ExecutionTime in seconds:", run)
+            run = obj.getRuntime()
 
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+            print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+
+             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
 
     """
 

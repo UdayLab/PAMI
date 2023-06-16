@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.DF2DB.denseDF2DB &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.extras.DF2DB.denseDF2DB &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -67,36 +67,25 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.extras.DF2DB.denseDF2DB</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="denseDF2DB"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB">[docs]</a><span></span><span class="k">class</span> <span class="nc">denseDF2DB</span><span class="p">:</span>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<div class="viewcode-block" id="denseDF2DB"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB">[docs]</a><span class="k">class</span> <span class="nc">denseDF2DB</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This class create Data Base from DataFrame.</span>
+<span class="sd">        :Description: This class create Data Base from DataFrame.</span>
 
-<span class="sd">        Attribute:</span>
-<span class="sd">        ----------</span>
-<span class="sd">        inputDF : pandas.DataFrame</span>
+<span class="sd">        :param inputDF: dataframe :</span>
 <span class="sd">            It is dense DataFrame</span>
-<span class="sd">        condition : str</span>
+<span class="sd">        :param condition: str :</span>
 <span class="sd">            It is condition to judge the value in dataframe</span>
-<span class="sd">        thresholdValue : int or float:</span>
+<span class="sd">        :param thresholdValue: int or float :</span>
 <span class="sd">            User defined value.</span>
-<span class="sd">        tids : list</span>
+<span class="sd">        :param tids: list :</span>
 <span class="sd">            It is tids list.</span>
-<span class="sd">        items : list</span>
+<span class="sd">        :param items: list :</span>
 <span class="sd">            Store the items list</span>
-<span class="sd">        outputFile : str</span>
+<span class="sd">        :param outputFile: str  :</span>
 <span class="sd">            Creation data base output to this outputFile.</span>
-
-<span class="sd">        Methods:</span>
-<span class="sd">        --------</span>
-<span class="sd">        createDB(outputFile)</span>
-<span class="sd">            Create transactional data base from dataFrame</span>
-<span class="sd">        createTDB(outputFile)</span>
-<span class="sd">            Create temporal dataBase from dataFrame</span>
-<span class="sd">        createUDB(outputFile)</span>
-<span class="sd">            Create utility database from dataFrame</span>
-<span class="sd">        getFileName()</span>
-<span class="sd">            Return outputFileName.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputDF</span><span class="p">,</span> <span class="n">condition</span><span class="p">,</span> <span class="n">thresholdValue</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span> <span class="o">=</span> <span class="n">inputDF</span>
@@ -105,18 +94,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tids</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">outputFile</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tid&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;tid&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="denseDF2DB.createTransactional"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createTransactional">[docs]</a>    <span class="k">def</span> <span class="nf">createTransactional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create transactional data base</span>
+<span class="sd">         :Description: Create transactional data base</span>
 
-<span class="sd">        :param outputFile: Write transactional data base into outputFile</span>
-<span class="sd">        :type outputFile: str</span>
+<span class="sd">         :param outputFile: str :</span>
+<span class="sd">              Write transactional data base into outputFile</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">outputFile</span> <span class="o">=</span> <span class="n">outputFile</span>
@@ -127,7 +116,7 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -140,7 +129,7 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -153,7 +142,7 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -166,7 +155,7 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -178,7 +167,7 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -190,7 +179,7 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -203,10 +192,11 @@
 
 <div class="viewcode-block" id="denseDF2DB.createTemporal"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createTemporal">[docs]</a>    <span class="k">def</span> <span class="nf">createTemporal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create temporal data base</span>
+<span class="sd">         :Description: Create temporal data base</span>
 
-<span class="sd">        :param outputFile: Write temporal data base into outputFile</span>
-<span class="sd">        :type outputFile: str</span>
+<span class="sd">         :param outputFile: str :</span>
+<span class="sd">                 Write temporal data base into outputFile</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">outputFile</span> <span class="o">=</span> <span class="n">outputFile</span>
@@ -217,10 +207,10 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">continue</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -231,10 +221,10 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">continue</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -245,10 +235,10 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">continue</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -259,10 +249,10 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">continue</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -272,10 +262,10 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">continue</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -285,10 +275,10 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">tid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;,</span><span class="si">{</span><span class="n">transaction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">continue</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -298,10 +288,11 @@
 
 <div class="viewcode-block" id="denseDF2DB.createUtility"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createUtility">[docs]</a>    <span class="k">def</span> <span class="nf">createUtility</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create the utility data base.</span>
+<span class="sd">         :Description: Create the utility data base.</span>
 
-<span class="sd">        :param outputFile: Write utility data base into outputFile</span>
-<span class="sd">        :type outputFile: str</span>
+<span class="sd">         :param outputFile:  str :</span>
+<span class="sd">                     Write utility data base into outputFile</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">outputFile</span> <span class="o">=</span> <span class="n">outputFile</span>
@@ -319,17 +310,18 @@
 
 <div class="viewcode-block" id="denseDF2DB.getFileName"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.getFileName">[docs]</a>    <span class="k">def</span> <span class="nf">getFileName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        return outputFile name</span>
-
 <span class="sd">        :return: outputFile name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputFile</span></div></div>
 
 
-    
-<span class="c1">#obj = denseDF2DB(dataset, &#39;&gt;=&#39;, 5)</span>
-<span class="c1">#obj.createDB(&#39;soramame_transactional.txt&#39;)</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">DF</span> <span class="o">=</span> <span class="n">createDenseDF</span><span class="p">(</span><span class="s1">&#39;denseDF.csv&#39;</span><span class="p">)</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">denseDF2DB</span><span class="p">(</span><span class="n">DF</span><span class="o">.</span><span class="n">getDF</span><span class="p">(),</span> <span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">createDB</span><span class="p">(</span><span class="s1">&#39;testTransactional.csv&#39;</span><span class="p">)</span>
+    <span class="n">transactionalDB</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getFileName</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">transactionalDB</span><span class="p">)</span>
 </pre></div>
 
            </div>

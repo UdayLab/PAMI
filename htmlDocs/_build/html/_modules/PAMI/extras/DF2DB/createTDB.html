@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.DF2DB.createTDB &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.extras.DF2DB.createTDB &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -81,9 +81,9 @@
 
 <div class="viewcode-block" id="createTDB.createTDB"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.createTDB">[docs]</a>    <span class="k">def</span> <span class="nf">createTDB</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Create transactional data base</span>
+<span class="sd">            :Description: Create transactional data base</span>
 
-<span class="sd">            :returning a transactional database as DataFrame</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="k">if</span> <span class="s1">&#39;sid&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
@@ -92,7 +92,7 @@
             <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_updatedItems</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_threshold</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="createTDB.save"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<div class="viewcode-block" id="createTDB.savePatterns"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.savePatterns">[docs]</a>    <span class="k">def</span> <span class="nf">savePatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Complete set of frequent patterns will be loaded in to a output file</span>
 
@@ -112,12 +112,12 @@
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">createTDB</span><span class="p">(</span><span class="s1">&#39;DataFrame&#39;</span><span class="p">,</span> <span class="s2">&quot;1204150&quot;</span><span class="p">)</span>
     <span class="n">a</span><span class="o">.</span><span class="n">createTDB</span><span class="p">()</span>
-    <span class="n">a</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;output.txt&#39;</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="s1">&#39;output.txt&#39;</span><span class="p">)</span>
     <span class="n">ap</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">FPGrowth</span><span class="p">(</span><span class="s1">&#39;output.txt&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
     <span class="n">ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
     <span class="n">Patterns</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Patterns</span><span class="p">))</span>
-    <span class="n">ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;fpoutput.txt&#39;</span><span class="p">)</span>
+    <span class="n">ap</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="s1">&#39;fpoutput.txt&#39;</span><span class="p">)</span>
     <span class="n">memUSS</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
     <span class="n">memRSS</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>

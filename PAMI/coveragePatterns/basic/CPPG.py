@@ -1,17 +1,53 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# CPPG  algorithm discovers coverage patterns in a transactional database.
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+# **Importing this algorithm into a python program**
+# --------------------------------------------------
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#             from PAMI.coveragePattern.basic import CPPG as alg
+#
+#             obj = alg.CPPG(iFile, minRF, minCS, maxOR)
+#
+#             obj.startMine()
+#
+#             coveragePatterns = obj.getPatterns()
+#
+#             print("Total number of coverage Patterns:", len(coveragePatterns))
+#
+#             obj.save(oFile)
+#
+#             Df = obj.getPatternsAsDataFrame()
+#
+#             memUSS = obj.getMemoryUSS()
+#
+#             print("Total Memory in USS:", memUSS)
+#
+#             memRSS = obj.getMemoryRSS()
+#
+#             print("Total Memory in RSS", memRSS)
+#
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 from PAMI.coveragePatterns.basic import abstract as _ab
 
@@ -22,123 +58,97 @@ _lno = int()
 
 
 class CPPG(_ab._coveragePatterns):
-    """ CPPG  algorithm discovers coverage patterns in a transactional database.
+    """
 
-    Reference:
-    --------
-        Gowtham Srinivas, P.; Krishna Reddy, P.; Trinath, A. V.; Bhargav, S.; Uday Kiran, R. (2015).
-        Mining coverage patterns from transactional databases. Journal of Intelligent Information Systems, 45(3), 423–439.
-        https://link.springer.com/article/10.1007/s10844-014-0318-3
+    :Description:  CPPG  algorithm discovers coverage patterns in a transactional database.
 
-    Attributes:
-    ----------
-        iFile : file
-            Name of the Input file or path of the input file
-        oFile : file
-            Name of the output file or path of the output file
-        minSup: int or float or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: int or float or str
-            The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-            However, the users can override their default separator.
-        memoryUSS : float
-            To store the total amount of USS memory consumed by the program
-        memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        startTime:float
-            To record the start time of the mining process
-        endTime:float
-            To record the completion time of the mining process
-        Database : list
-            To store the transactions of a database in list
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            To represent the total no of transaction
-        tree : class
-            To represents the Tree class
-        itemSetCount : int
-            To represents the total no of patterns
+    :Reference:     Gowtham Srinivas, P.; Krishna Reddy, P.; Trinath, A. V.; Bhargav, S.; Uday Kiran, R. (2015).
+                    Mining coverage patterns from transactional databases. Journal of Intelligent Information Systems, 45(3), 423–439.
+                    https://link.springer.com/article/10.1007/s10844-014-0318-3
+
+    :param  iFile: str :
+           Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minRF: float:
+                   Controls the minimum number of transactions in which every item must appear in a database.
+    :param  minCS: float:
+                   Controls the minimum number of transactions in which at least one time within a pattern must appear in a database.
+    :param  maxOR: float:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
+    :Attributes:
+
+        startTime : float
+          To record the start time of the mining process
+
+        endTime : float
+          To record the completion time of the mining process
+
         finalPatterns : dict
-            To store the complete patterns
+          Storing the complete set of patterns in a dictionary variable
 
-    Methods:
-    -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of periodic-frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets(fileName)
-            Scans the dataset and stores in a list format
-        coverageOneItem()
-            Extracts the one-coverage patterns from database
-        updateDatabases()
-            Update the database by removing aperiodic items and sort the Database by item decreased support
-        buildTree()
-            After updating the Database, remaining items will be added into the tree by setting root node as null
-        convert()
-            to convert the user specified value
+        memoryUSS : float
+          To store the total amount of USS memory consumed by the program
 
-    Executing the code on terminal:
-    -------
-        Format:
-        ------
-            python3 CPPG.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
+        memoryRSS : float
+          To store the total amount of RSS memory consumed by the program
 
-        Examples:
-        --------
-            python3 CPPG.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 ','
+        Database : list
+          To store the transactions of a database in list
 
-        Sample run of importing the code:
-        -------------------
 
-            from PAMI.coveragePattern.basic import CPPG as alg
+    **Methods to execute code on terminal**
+    ---------------------------------------
 
-            obj = alg.CPPG(iFile, minRF, minCS, maxOR)
+            Format:
+                      >>>  python3 CPPG.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
 
-            obj.startMine()
+            Example:
+                      >>>   python3 CPPG.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 ','
 
-            coveragePatterns = obj.getPatterns()
 
-            print("Total number of coverage Patterns:", len(coveragePatterns))
 
-            obj.save(oFile)
+    **Importing this algorithm into a python program**
+    --------------------------------------------------
 
-            Df = obj.getPatternsAsDataFrame()
+    .. code-block:: python
 
-            memUSS = obj.getMemoryUSS()
+                from PAMI.coveragePattern.basic import CPPG as alg
 
-            print("Total Memory in USS:", memUSS)
+                obj = alg.CPPG(iFile, minRF, minCS, maxOR)
 
-            memRSS = obj.getMemoryRSS()
+                obj.startMine()
 
-            print("Total Memory in RSS", memRSS)
+                coveragePatterns = obj.getPatterns()
 
-            run = obj.getRuntime()
+                print("Total number of coverage Patterns:", len(coveragePatterns))
 
-            print("Total ExecutionTime in seconds:", run)
+                obj.save(oFile)
 
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+                Df = obj.getPatternsAsDataFrame()
+
+                memUSS = obj.getMemoryUSS()
+
+                print("Total Memory in USS:", memUSS)
+
+                memRSS = obj.getMemoryRSS()
+
+                print("Total Memory in RSS", memRSS)
+
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+
+
+    **Credits:**
+    -------------------------
+
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
     _startTime = float()

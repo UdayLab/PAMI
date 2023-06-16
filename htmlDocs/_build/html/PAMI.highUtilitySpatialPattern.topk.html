@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.highUtilitySpatialPattern.topk package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.highUtilitySpatialPattern.topk package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -202,12 +202,20 @@
 <dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.highUtilitySpatialPattern.topk.TKSHUIM.</span></span><span class="sig-name descname"><span class="pre">TKSHUIM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/topk/TKSHUIM.html#TKSHUIM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns" title="PAMI.highUtilitySpatialPattern.topk.abstract.utilityPatterns"><code class="xref py py-class docutils literal notranslate"><span class="pre">utilityPatterns</span></code></a></p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Top K Spatial High Utility ItemSet Mining (TKSHUIM) aims to discover Top-K Spatial High Utility Itemsets
 (TKSHUIs) in a spatioTemporal database</p>
 </div></blockquote>
+</section>
 <section id="reference">
 <h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>P. Pallikila et al., &quot;Discovering Top-k Spatial High Utility Itemsets in Very Large Quantitative Spatiotemporal
+databases,&quot; 2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 4925-4935,
+doi: 10.1109/BigData52589.2021.9671912.</p>
+</div></blockquote>
 </section>
 <section id="id2">
 <h3>Attributes:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
@@ -301,19 +309,29 @@ Examples: python3 TKSHUIM.py sampleTDB.txt output.txt sampleN.txt 35  (it will c
 </section>
 <section id="sample-run-of-importing-the-code">
 <h3>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.highUtilitySpatialPattern.topk import TKSHUIM as alg</p>
-<p>obj=alg.TKSHUIM(&quot;input.txt&quot;,&quot;Neighbours.txt&quot;,35)</p>
-<p>obj.startMine()</p>
-<p>Patterns = obj.getPatterns()</p>
-<p>obj.save(&quot;output&quot;)</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.highUtilitySpatialPattern.topk</span> <span class="kn">import</span> <span class="n">TKSHUIM</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span><span class="o">=</span><span class="n">alg</span><span class="o">.</span><span class="n">TKSHUIM</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span><span class="s2">&quot;Neighbours.txt&quot;</span><span class="p">,</span><span class="mi">35</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">Patterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">)</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="credits">
 <h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>

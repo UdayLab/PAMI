@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.multipleMinimumSupportBasedFrequentPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.multipleMinimumSupportBasedFrequentPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,9 +128,12 @@
 <dt class="sig sig-object py" id="PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowth.CFPGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowth.</span></span><span class="sig-name descname"><span class="pre">CFPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/multipleMinimumSupportBasedFrequentPattern/basic/CFPGrowth.html#CFPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowth.CFPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>CFPGrowth is one of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.</p>
 </div></blockquote>
+</section>
 <section id="reference">
 <h3>Reference :<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
 <blockquote>
@@ -200,14 +203,18 @@ However, the users can override their default separator.</p>
 <section id="executing-the-code-on-terminal">
 <h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><blockquote>
-<div><p>python3 CFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt;</p>
-</div></blockquote>
-<blockquote>
-<div><p>python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt</p>
-<p>python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt</p>
-<p>python3 CFPGrowth.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider &quot;,&quot; as a separator)</p>
-</div></blockquote>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="n">MISFile</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="n">MISFile</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="n">MIS</span> <span class="s1">&#39;,&#39;</span> <span class="p">(</span><span class="n">it</span> <span class="n">will</span> <span class="n">consider</span> <span class="s2">&quot;,&quot;</span> <span class="k">as</span> <span class="n">a</span> <span class="n">separator</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
 <section id="sample-run-of-the-importing-code">
@@ -337,14 +344,20 @@ However, the users can override their default separator.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowthPlus.</span></span><span class="sig-name descname"><span class="pre">CFPGrowthPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/multipleMinimumSupportBasedFrequentPattern/basic/CFPGrowthPlus.html#CFPGrowthPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowthPlus.CFPGrowthPlus" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
 <section id="id1">
-<h3>Reference :<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<h3>Description:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>CFPGrowthPlus is one of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.</p>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3>Reference:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>R. Uday Kiran P. Krishna Reddy Novel techniques to reduce search space in multiple minimum supports-based frequent
 pattern mining algorithms. 11-20 2011 EDBT <a class="reference external" href="https://doi.org/10.1145/1951365.1951370">https://doi.org/10.1145/1951365.1951370</a></p>
 </div></blockquote>
 </section>
-<section id="id2">
-<h3>Attributes :<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<section id="id3">
+<h3>Attributes:<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Input file name or path of the input file</p>
@@ -377,8 +390,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id3">
-<h3>Methods :<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<section id="id4">
+<h3>Methods :<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -402,39 +415,55 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id4">
-<h3>Executing the code on terminal:<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><blockquote>
-<div><p>python3 CFPGrowthPlus.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</p>
-</div></blockquote>
-<blockquote>
-<div><p>python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MIS</p>
-<p>python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MIS</p>
-<p>python3 CFPGrowthPlus.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider &quot;,&quot; as a separator)</p>
-</div></blockquote>
-</div></blockquote>
-</section>
 <section id="id5">
-<h3>Sample run of the importing code:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<h3>Executing the code on terminal:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowthPlus as alg</p>
-<p>obj = alg.CFPGrowthPlus(iFile, mIS)</p>
-<p>obj.startMine()</p>
-<p>frequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternInDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CFPGrowthPlus</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CFPGrowthPlus</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="n">MIS</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CFPGrowthPlus</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="n">MIS</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CFPGrowthPlus</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="n">MIS</span> <span class="s1">&#39;,&#39;</span> <span class="p">(</span><span class="n">it</span> <span class="n">will</span> <span class="n">consider</span> <span class="s2">&quot;,&quot;</span> <span class="k">as</span> <span class="n">a</span> <span class="n">separator</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
 <section id="id6">
-<h3>Credits:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<h3>Sample run of the importing code:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.multipleMinimumSupportBasedFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">CFPGrowthPlus</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">CFPGrowthPlus</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">mIS</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>Credits:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>

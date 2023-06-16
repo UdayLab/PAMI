@@ -1,18 +1,53 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.UPFPGrowth(iFile, minSup, maxPer)
+#
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
 
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
 
 _minSup = float()
@@ -338,19 +373,21 @@ class _Tree(object):
 
 class UPFPGrowth(_ab._periodicFrequentPatterns):
     """
+    Description:
+    -------------
 
         UPFPGrowth is  to discover periodic-frequent patterns in a uncertain temporal database.
 
-        Reference:
-        --------
+    Reference:
+    ---------------
             Uday Kiran, R., Likhitha, P., Dao, MS., Zettsu, K., Zhang, J. (2021).
             Discovering Periodic-Frequent Patterns in Uncertain Temporal Databases. In:
             Mantoro, T., Lee, M., Ayu, M.A., Wong, K.W., Hidayanto, A.N. (eds) Neural Information Processing.
             ICONIP 2021. Communications in Computer and Information Science, vol 1516. Springer, Cham.
             https://doi.org/10.1007/978-3-030-92307-5_83
 
-        Attributes:
-        ----------
+    Attributes:
+    -----------------
             iFile : file
                 Name of the Input file or path of the input file
             oFile : file
@@ -387,8 +424,8 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
             finalPatterns : dict
                 To store the complete patterns
 
-        Methods:
-        -------
+    Methods:
+    --------------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -416,43 +453,47 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
             removeFalsePositives()
                 to remove the false positives in generated patterns
 
-        Executing the code on terminal:
+    Executing the code on terminal:
+    --------------------------------------------
+        Format:
         -------
-            Format:
-            ------
-                python3 UPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
-            Examples:
-            --------
-                python3 UPFPGrowth.py sampleTDB.txt patterns.txt 0.3 4     (minSup and maxPer will be considered in support count or frequency)
 
-        Sample run of importing the code:
-        -------------------
+           >>> python3 UPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
-            from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowth as alg
+        Examples:
+        ------------------------
+           >>> python3 UPFPGrowth.py sampleTDB.txt patterns.txt 0.3 4     (minSup and maxPer will be considered in support count or frequency)
 
-            obj = alg.UPFPGrowth(iFile, minSup, maxPer)
+    **Importing this algorithm into a python program**
+    -----------------------------------------------------------------
 
-            obj.startMine()
+    .. code-block:: python
 
-            periodicFrequentPatterns = obj.getPatterns()
+        from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowth as alg
 
-            print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+        obj = alg.UPFPGrowth(iFile, minSup, maxPer)
 
-            obj.save(oFile)
+        obj.startMine()
 
-            Df = obj.getPatternsAsDataFrame()
+        periodicFrequentPatterns = obj.getPatterns()
 
-            memUSS = obj.getMemoryUSS()
+        print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-            print("Total Memory in USS:", memUSS)
+        obj.save(oFile)
 
-            memRSS = obj.getMemoryRSS()
+        Df = obj.getPatternsAsDataFrame()
 
-            print("Total Memory in RSS", memRSS)
+        memUSS = obj.getMemoryUSS()
 
-            run = obj.getRuntime()
+        print("Total Memory in USS:", memUSS)
 
-            print("Total ExecutionTime in seconds:", run)
+        memRSS = obj.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = obj.getRuntime()
+
+        print("Total ExecutionTime in seconds:", run)
 
     Credits:
     -------

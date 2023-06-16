@@ -1,31 +1,72 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     from PAMI.periodicFrequentPattern.basic import PFECLAT as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     obj = alg.PFECLAT("../basic/sampleTDB.txt", "2", "5")
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.savePatterns("patterns")
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+#
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 
 class PFECLAT(_ab._periodicFrequentPatterns):
-    """ EclatPFP is the fundamental approach to mine the periodic-frequent patterns.
+    """
+    Description:
+    -------------
+        EclatPFP is the fundamental approach to mine the periodic-frequent patterns.
 
-        Reference:
-        --------
-            P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, "Towards efficient discovery of 
-            periodic-frequent patterns in columnar temporal databases", 2021 IEA/AIE.
+    Reference:
+    -----------
+        P. Ravikumar, P.Likhitha, R. Uday kiran, Y. Watanobe, and Koji Zettsu, "Towards efficient discovery of
+        periodic-frequent patterns in columnar temporal databases", 2021 IEA/AIE.
 
     Attributes:
-    ----------
+    -----------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -69,7 +110,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             stores the patterns with their support to check for the closed property
 
     Methods:
-    -------
+    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -91,50 +132,51 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         Generation()
             Used to implement prefix class equivalence method to generate the periodic patterns recursively
             
-        Executing the code on terminal:
-        -------
-        Format:
-        ------
-            python3 PFPECLAT.py <inputFile> <outputFile> <minSup>
 
-        Examples:
-        --------
-            python3 PFPECLAT.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in percentage of database transactions)
+    **Methods to execute code on terminal**
 
-            python3 PFPECLAT.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
-        
-        Sample run of the imported code:
-        --------------
-        
-            from PAMI.periodicFrequentPattern.basic import PFPECLAT as alg
+            Format:
+                      >>>  python3 PFECLAT.py <inputFile> <outputFile> <minSup>
+            Example:
+                      >>>   python3 PFECLAT.py sampleDB.txt patterns.txt 10.0
 
-            obj = alg.PFPECLAT("../basic/sampleTDB.txt", "2", "5")
+            .. note:: minSup will be considered in percentage of database transactions
 
-            obj.startMine()
 
-            periodicFrequentPatterns = obj.getPatterns()
+    **Importing this algorithm into a python program**
 
-            print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+    .. code-block:: python
 
-            obj.save("patterns")
+             from PAMI.periodicFrequentPattern.basic import PFECLAT as alg
 
-            Df = obj.getPatternsAsDataFrame()
+                obj = alg.PFECLAT("../basic/sampleTDB.txt", "2", "5")
 
-            memUSS = obj.getMemoryUSS()
+                obj.startMine()
 
-            print("Total Memory in USS:", memUSS)
+                periodicFrequentPatterns = obj.getPatterns()
 
-            memRSS = obj.getMemoryRSS()
+                print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-            print("Total Memory in RSS", memRSS)
+                obj.savePatterns("patterns")
 
-            run = obj.getRuntime()
+                Df = obj.getPatternsAsDataFrame()
 
-            print("Total ExecutionTime in seconds:", run)
+                memUSS = obj.getMemoryUSS()
 
-        Credits:
-        -------
-            The complete program was written by P.RaviKumar  under the supervision of Professor Rage Uday Kiran.\n
+                print("Total Memory in USS:", memUSS)
+
+                memRSS = obj.getMemoryRSS()
+
+                print("Total Memory in RSS", memRSS)
+
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+
+             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
+
 
         """
     

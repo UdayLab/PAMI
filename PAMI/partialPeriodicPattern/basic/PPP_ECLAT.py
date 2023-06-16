@@ -1,17 +1,53 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     obj = alg.PPP_ECLAT(iFile, periodicSupport, period)
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of partial periodic patterns:", len(Patterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 
 
 from PAMI.partialPeriodicPattern.basic import abstract as _ab
@@ -19,9 +55,14 @@ from PAMI.partialPeriodicPattern.basic import abstract as _ab
 
 class PPP_ECLAT(_ab._partialPeriodicPatterns):
     """
-    3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
+    Descripition:
+    ----------------------
+        3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
 
     Reference:
+    -----------
+        To be published
+
 
     Parameters:
     ----------
@@ -87,17 +128,22 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
             Used to implement prefix class equivalence method to generate the periodic patterns recursively
 
     Executing the code on terminal:
-    -------
+    ----------------------------------------
 
-        Format: python3 PPP_ECLAT.py <inputFile> <outputFile> <periodicSupport> <period>
+        Format:
+        -----------
+           >>> python3 PPP_ECLAT.py <inputFile> <outputFile> <periodicSupport> <period>
 
-        Examples: python3 PPP_ECLAT.py sampleDB.txt patterns.txt 0.3 0.4   (periodicSupport and period will be considered in percentage of database transactions)
+        Examples:
+        -----------
+           >>> python3 PPP_ECLAT.py sampleDB.txt patterns.txt 0.3 0.4   (periodicSupport and period will be considered in percentage of database transactions)
 
-                  python3 threePEeclat.py sampleDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)
+           >>> python3 threePEeclat.py sampleDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)
 
 
     Sample run of importing the code:
-    -------------------
+    -----------------------------------------
+    .. code-block:: python
 
         from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg
 
@@ -125,10 +171,10 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
+    Credits:
+    ------------------
 
-        The complete program was written by P.RaviKumar  under the supervision of Professor Rage Uday Kiran.\n
+    The complete program was written by P.RaviKumar  under the supervision of Professor Rage Uday Kiran.\n
 
 
 

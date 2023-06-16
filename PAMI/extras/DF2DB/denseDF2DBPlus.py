@@ -2,33 +2,22 @@ import pandas as pd
 
 class denseDF2DBPlus:
     """
-        This class create Data Base from DataFrame.
+        :Description: This class create Data Base from DataFrame.
 
-        Attribute:
-        ----------
-        inputDF : pandas.DataFrame
-            It is dense DataFrame which was transposed.
-        thresholdConditionDF : pandas.DataFrame
-            It has threshold value and condition each item.
-        tids : list
+        :param inputDF: dataframe :
+            It is dense DataFrame
+        :param condition: str :
+            It is condition to judge the value in dataframe
+        :param thresholdValue: int or float :
+            User defined value.
+        :param tids: list :
             It is tids list.
-        items : list
+        :param items: list :
             Store the items list
-        df : pandas.DataFrame
-            It is data frame which is merged inputDF and thresholdConditionDF.
-        outputFile : str
+        :param outputFile: str  :
             Creation data base output to this outputFile.
 
-        Methods:
-        --------
-        createDB(outputFile)
-            Create transactional data base from dataFrame
-        createTDB(outputFile)
-            Create temporal dataBase from dataFrame
-        createUDB(outputFile)
-            Create utility database from dataFrame
-        getFileName()
-            Return outputFileName.
+
         """
 
     def __init__(self, inputDF, thresholdConditionDF):
@@ -124,7 +113,7 @@ class denseDF2DBPlus:
 
     def getFileName(self):
         """
-        return outputFile name
+
 
         :return: outputFile name
         """

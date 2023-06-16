@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.frequentSpatialPattern.basic.FSPGrowth &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.frequentSpatialPattern.basic.FSPGrowth &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -240,8 +240,17 @@
 
 <div class="viewcode-block" id="FSPGrowth"><a class="viewcode-back" href="../../../../PAMI.frequentSpatialPattern.basic.html#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth">[docs]</a><span class="k">class</span> <span class="nc">FSPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_spatialFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    -------------</span>
+<span class="sd">        Given a transactional database and a spatial (or neighborhood) file, FSPM aims to discover all of those patterns</span>
+<span class="sd">        that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints</span>
+<span class="sd">    Reference:</span>
+<span class="sd">    -----------</span>
+<span class="sd">        Rage, Uday &amp; Fournier Viger, Philippe &amp; Zettsu, Koji &amp; Toyoda, Masashi &amp; Kitsuregawa, Masaru. (2020).</span>
+<span class="sd">        Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.</span>
+
 <span class="sd">    Attributes:</span>
-<span class="sd">    ----------</span>
+<span class="sd">    ------------</span>
 <span class="sd">        iFile : file</span>
 <span class="sd">            Input file name or path of the input file</span>
 <span class="sd">        nFile : file</span>
@@ -260,8 +269,9 @@
 <span class="sd">            To store the total amount of USS memory consumed by the program</span>
 <span class="sd">        memoryRSS : float</span>
 <span class="sd">            To store the total amount of RSS memory consumed by the program</span>
-<span class="sd">    Methods</span>
-<span class="sd">    -------</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">    --------</span>
 <span class="sd">        startMine()</span>
 <span class="sd">            This function starts pattern mining.</span>
 <span class="sd">        getPatterns()</span>
@@ -292,31 +302,46 @@
 <span class="sd">            This function creates FPTree.</span>
 <span class="sd">        getAllFrequentPatterns(data, fpList, ndata)</span>
 <span class="sd">            This function generates all frequent patterns</span>
+
 <span class="sd">    Executing the code on terminal :</span>
-<span class="sd">    ------------------------------</span>
+<span class="sd">    ---------------------------------</span>
 <span class="sd">        Format:</span>
-<span class="sd">            python3 FSPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbourFile&gt; &lt;minSup&gt;</span>
+
+<span class="sd">            &gt;&gt;&gt; python3 FSPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbourFile&gt; &lt;minSup&gt;</span>
 <span class="sd">        Examples:</span>
-<span class="sd">            python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)</span>
-<span class="sd">            python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)</span>
-<span class="sd">                                                                (it considers &quot;\t&quot; as separator)</span>
-<span class="sd">            python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 &#39;,&#39;  (it will consider &quot;,&quot; as a separator)</span>
+
+<span class="sd">            &gt;&gt;&gt; python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)</span>
+
 <span class="sd">    Sample run of importing the code :</span>
-<span class="sd">    -------------------------------</span>
+<span class="sd">    -----------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+
 <span class="sd">        from PAMI.frequentSpatialPattern.basic import FSPGrowth as alg</span>
+
 <span class="sd">        obj = alg.FSPGrowth(&quot;sampleTDB.txt&quot;, &quot;sampleN.txt&quot;, 5)</span>
+
 <span class="sd">        obj.startMine()</span>
+
 <span class="sd">        spatialFrequentPatterns = obj.getPatterns()</span>
+
 <span class="sd">        print(&quot;Total number of Spatial Frequent Patterns:&quot;, len(spatialFrequentPatterns))</span>
+
 <span class="sd">        obj.save(&quot;outFile&quot;)</span>
+
 <span class="sd">        memUSS = obj.getMemoryUSS()</span>
+
 <span class="sd">        print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+
 <span class="sd">        memRSS = obj.getMemoryRSS()</span>
+
 <span class="sd">        print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
 <span class="sd">        run = obj.getRuntime()</span>
+
 <span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
 <span class="sd">    Credits:</span>
-<span class="sd">    -------</span>
+<span class="sd">    ----------</span>
 <span class="sd">        The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

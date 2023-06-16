@@ -11,7 +11,7 @@ import sys as _sys
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 import functools as _functools
-from pyspark import SparkConf as _SparkConf, SparkContext as _SparkContext
+# from pyspark import SparkConf as _SparkConf, SparkContext as _SparkContext
 
 class _frequentPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must

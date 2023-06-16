@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.periodicFrequentPattern.maximal.MaxPFGrowth &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.periodicFrequentPattern.maximal.MaxPFGrowth &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -428,8 +428,11 @@
 
 
 <div class="viewcode-block" id="MaxPFGrowth"><a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.maximal.html#PAMI.periodicFrequentPattern.maximal.MaxPFGrowth.MaxPFGrowth">[docs]</a><span class="k">class</span> <span class="nc">MaxPFGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_periodicFrequentPatterns</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; MaxPF-Growth is one of the fundamental algorithm to discover maximal periodic-frequent</span>
-<span class="sd">        patterns in a temporal database.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Description:</span>
+<span class="sd">        ------------</span>
+<span class="sd">            MaxPF-Growth is one of the fundamental algorithm to discover maximal periodic-frequent</span>
+<span class="sd">            patterns in a temporal database.</span>
 
 <span class="sd">        Reference:</span>
 <span class="sd">        --------</span>
@@ -505,20 +508,22 @@
 <span class="sd">                the main method to run the program</span>
 
 <span class="sd">        Executing the code on terminal:</span>
-<span class="sd">        -------</span>
+<span class="sd">        -----------------------------------</span>
 <span class="sd">            Format:</span>
-<span class="sd">            ------</span>
-<span class="sd">            python3 maxpfrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+<span class="sd">            -------</span>
+<span class="sd">            &gt;&gt;&gt; python3 maxpfrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
 
 <span class="sd">            Examples:</span>
 <span class="sd">            --------</span>
-<span class="sd">            python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4  (minSup will be considered in percentage of database</span>
+<span class="sd">            &gt;&gt;&gt; python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4  (minSup will be considered in percentage of database</span>
 <span class="sd">            transactions)</span>
-<span class="sd">            python3 maxpfrowth.py sampleTDB.txt patterns.txt 3 4  (minSup will be considered in support count or frequency)</span>
+<span class="sd">            &gt;&gt;&gt; python3 maxpfrowth.py sampleTDB.txt patterns.txt 3 4  (minSup will be considered in support count or frequency)</span>
 <span class="sd">            </span>
 <span class="sd">            </span>
 <span class="sd">        Sample run of the imported code:</span>
-<span class="sd">        --------------</span>
+<span class="sd">        ------------------------------------------</span>
+<span class="sd">         .. code-block:: python</span>
+
 <span class="sd">            from PAMI.periodicFrequentPattern.maximal import MaxPFGrowth as alg</span>
 
 <span class="sd">            obj = alg.MaxPFGrowth(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;6&quot;)</span>
@@ -545,9 +550,9 @@
 
 <span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
-<span class="sd">            Credits:</span>
-<span class="sd">            -------</span>
-<span class="sd">            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n</span>
+<span class="sd">        Credits:</span>
+<span class="sd">        -------</span>
+<span class="sd">        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="n">_startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>

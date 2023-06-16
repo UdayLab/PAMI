@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.generateDatabase package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.extras.generateDatabase package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -172,7 +172,14 @@
 <dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateDatabase.generateTemporalDatabase.</span></span><span class="sig-name descname"><span class="pre">generateTemporalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numOfTransactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumOfItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumOfItemsPerTransaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeOfFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Database'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTemporalDatabase.html#generateTemporalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input</p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input</p>
+</div></blockquote>
+</section>
+<section id="attributes">
+<h3>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>numOfTransactions: int</dt><dd><p>number of transactions</p>
@@ -190,7 +197,12 @@
 <dt>typeOfFile: str</dt><dd><p>specify database or dataframe to get corresponding output</p>
 </dd>
 </dl>
-<dl class="simple">
+</div></blockquote>
+</section>
+<section id="methods">
+<h3>Methods:<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
 <dt>getFileName():</dt><dd><p>returns filename</p>
 </dd>
 <dt>createTemporalFile():</dt><dd><p>creates temporal database file or dataframe</p>
@@ -220,6 +232,7 @@ return: pd.dataframe</p>
 :return:</p>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 </section>
@@ -229,7 +242,14 @@ return: pd.dataframe</p>
 <dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateDatabase.generateTransactionalDatabase.</span></span><span class="sig-name descname"><span class="pre">generateTransactionalDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numOfTransactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxNumOfDistinctItems</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numOfItemsPerTransaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outFileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateDatabase/generateTransactionalDatabase.html#generateTransactionalDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>generateTransactionalDatabase generates a transactional database</p>
+<section id="id1">
+<h3>Description:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>generateTransactionalDatabase generates a transactional database</p>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3>Attributes:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>numOfTransactions: int</dt><dd><p>number of transactions</p>
@@ -255,6 +275,7 @@ return: pd.dataframe</p>
 :return: output file name</p>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 </section>

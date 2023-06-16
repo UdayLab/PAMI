@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.highUtilitySpatialPattern.basic.SHUIM &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.highUtilitySpatialPattern.basic.SHUIM &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -276,11 +276,15 @@
 
 <div class="viewcode-block" id="SHUIM"><a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.basic.html#PAMI.highUtilitySpatialPattern.basic.SHUIM.SHUIM">[docs]</a><span class="k">class</span> <span class="nc">SHUIM</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_utilityPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">      Spatial High Utility itemSet Mining (SHUIM) aims to discover all itemSets in a spatioTemporal database</span>
+<span class="sd">    Description:</span>
+<span class="sd">    -------------</span>
+<span class="sd">       Spatial High Utility itemSet Mining (SHUIM) aims to discover all itemSets in a spatioTemporal database</span>
 <span class="sd">       that satisfy the user-specified minimum utility and maximum distance constraints</span>
 <span class="sd">    Reference:</span>
-<span class="sd">    ---------</span>
-<span class="sd">        https://doi.org/10.1007/978-3-030-37188-3_17</span>
+<span class="sd">    ----------</span>
+<span class="sd">        Rage, Uday &amp; Veena, Pamalla &amp; Penugonda, Ravikumar &amp; Raj, Bathala &amp; Dao, Minh &amp; Zettsu, Koji &amp; Bommisetti, Sai. </span>
+<span class="sd">        (2023). HDSHUI-miner: a novel algorithm for discovering spatial high-utility itemsets in high-dimensional </span>
+<span class="sd">        spatiotemporal databases. Applied Intelligence. 53. 1-26. 10.1007/s10489-022-04436-w.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">    -----------</span>
@@ -321,7 +325,7 @@
 <span class="sd">            keep items that subtreeUtility grater than minUtil</span>
 
 <span class="sd">    Methods :</span>
-<span class="sd">    -------</span>
+<span class="sd">    ----------</span>
 <span class="sd">        startMine()</span>
 <span class="sd">                Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
@@ -358,14 +362,19 @@
 <span class="sd">             A method to scan the database using utility bin array to calculate the pmus                   </span>
 
 <span class="sd">    Executing the code on terminal :</span>
-<span class="sd">    -------</span>
-<span class="sd">        Format: python3 SHUIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;sep&gt;</span>
-<span class="sd">        Examples: python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35  (it will consider &quot;\t&quot; as separator)</span>
-<span class="sd">                  python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (it will consider &quot;,&quot; as separator)</span>
+<span class="sd">    ---------------------------------</span>
+<span class="sd">        Format:</span>
+<span class="sd">        --------</span>
+<span class="sd">             &gt;&gt;&gt; python3 SHUIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;sep&gt;</span>
+<span class="sd">        Examples:</span>
+<span class="sd">        ---------</span>
+<span class="sd">             &gt;&gt;&gt; python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35  (it will consider &quot;\t&quot; as separator)</span>
+<span class="sd">             &gt;&gt;&gt; python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (it will consider &quot;,&quot; as separator)</span>
 
 <span class="sd">    Sample run of importing the code:</span>
-<span class="sd">    -------------------------------</span>
-<span class="sd">        </span>
+<span class="sd">    ----------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+<span class="sd">         </span>
 <span class="sd">        from PAMI.highUtilitySpatialPattern.basic import SHUIM as alg</span>
 
 <span class="sd">        obj=alg.SHUIM(&quot;input.txt&quot;,&quot;Neighbours.txt&quot;,35)</span>
@@ -392,7 +401,7 @@
 
 <span class="sd">    Credits:</span>
 <span class="sd">    -------</span>
-<span class="sd">            The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.</span>
+<span class="sd">         The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_highUtilityItemSets</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">_candidateCount</span> <span class="o">=</span> <span class="mi">0</span>

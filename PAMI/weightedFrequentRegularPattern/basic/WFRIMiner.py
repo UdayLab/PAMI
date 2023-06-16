@@ -1,17 +1,52 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.weightedFrequentRegularpattern.basic import WFRIMiner as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.WFRIMiner(iFile, WS, regularity)
+#
+#     obj.startMine()
+#
+#     weightedFrequentRegularPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(weightedFrequentRegularPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.weightedFrequentRegularPattern.basic import abstract as _fp
 
@@ -342,54 +377,49 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         frequentOneItem()
             Extracts the one-frequent patterns from transactions
 
-    Executing the code on terminal:
-    -------
-        Format:
-        -------
-            python3 WFRIMiner.py <inputFile> <outputFile> <weightFile> <minSup> <regularity>
 
-        Examples:
-        ---------
-            python3 WFRIMiner.py sampleDB.txt patterns.txt 10.0 5.0  (WS & regularity will be considered in times of WS or regularity and count of database transactions)
+    **Methods to execute code on terminal**
 
-            python3 WFRIMiner.py sampleDB.txt patterns.txt 10 5     (WS & regularity will be considered in support count or frequency) (it will consider "\t" as a separator)
+            Format:
+                      >>> python3 WFRIMiner.py <inputFile> <outputFile> <weightSupport> <regularity>
+            Example:
+                      >>>  python3 WFRIMiner.py sampleDB.txt patterns.txt 10 5
 
-            python3 WFRIMiner.py sampleTDB.txt output.txt sampleN.txt '10', '5', ',' (it will consider "," as a separator)
+                     .. note:: WS & regularity will be considered in support count or frequency
 
+    **Importing this algorithm into a python program**
 
-    Sample run of the importing code:
-    -----------
+    .. code-block:: python
 
+            from PAMI.weightedFrequentRegularpattern.basic import WFRIMiner as alg
 
-        from PAMI.weightedFrequentRegularpattern.basic import WFRIMiner as alg
+            obj = alg.WFRIMiner(iFile, WS, regularity)
 
-        obj = alg.WFRIMiner(iFile, wFile, WS, regularity)
+            obj.startMine()
 
-        obj.startMine()
+            weightedFrequentRegularPatterns = obj.getPatterns()
 
-        weightedFrequentRegularPatterns = obj.getPatterns()
+            print("Total number of Frequent Patterns:", len(weightedFrequentRegularPatterns))
 
-        print("Total number of Weighted Frequent Regular Patterns:", len(weightedFrequentRegularPatterns))
+            obj.savePatterns(oFile)
 
-        obj.save(oFile)
+            Df = obj.getPatternInDataFrame()
 
-        Df = obj.getPatternInDataFrame()
+            memUSS = obj.getMemoryUSS()
 
-        memUSS = obj.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
 
-        print("Total Memory in USS:", memUSS)
+            memRSS = obj.getMemoryRSS()
 
-        memRSS = obj.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
 
-        print("Total Memory in RSS", memRSS)
+            run = obj.getRuntime()
 
-        run = obj.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
 
-        print("Total ExecutionTime in seconds:", run)
+    **Credits:**
 
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """
 

@@ -1,17 +1,53 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.stablePeriodicFrequentPattern.basic import TSPIN as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.TSPIN(iFile, maxPer, maxLa, k)
+#
+#     obj.startMine()
+#
+#     stablePeriodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Periodic Frequent Patterns:", len(stablePeriodicFrequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.stablePeriodicFrequentPattern.topK import abstract as _ab
 
@@ -266,15 +302,19 @@ class _Tree(object):
 
 
 class TSPIN(_ab._stablePeriodicFrequentPatterns):
-    """ TSPIN is an algorithm to discover top stable periodic-frequent patterns in a transactional database.
+    """
+    Description:
+    -------------
+
+        TSPIN is an algorithm to discover top stable periodic-frequent patterns in a transactional database.
 
     Reference:
-    --------
+    -----------
         Fournier-Viger, P., Wang, Y., Yang, P. et al. TSPIN: mining top-k stable periodic patterns.
         Appl Intell 52, 6917–6938 (2022). https://doi.org/10.1007/s10489-020-02181-6
 
     Attributes:
-    ----------
+    ------------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -314,7 +354,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             To store the complete patterns
 
     Methods:
-    -------
+    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -340,51 +380,53 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         convert()
             to convert the user specified value
 
-        Executing the code on terminal:
-        -------
-        Format:
-        ------
-        python3 TSPIN.py <inputFile> <outputFile> <k> <maxPer> <maxLa>
 
-        Examples:
-        --------
-        python3 TSPIN.py sampleTDB.txt patterns.txt 7 0.4 0.6   (maxPer, maxLa and k will be considered in percentage of database
-        transactions)
 
-        python3 TSPIN.py sampleTDB.txt patterns.txt 3 4 6    (maxPer, maxLa and k will be considered in support count or frequency)
+    **Methods to execute code on terminal**
 
-        Sample run of importing the code:
-        -------------------
+            Format:
+                      >>>   python3 TSPIN.py <inputFile> <outputFile> <maxPer> <maxLa>
+            Example:
+                      >>>  python3 TSPIN.py sampleTDB.txt patterns.txt 0.3 0.4 0.6
 
-            from PAMI.stablePeriodicFrequentPattern.basic import TSPIN as alg
+            .. note:: maxPer, maxLa and k will be considered in percentage of database transactions
 
-            obj = alg.TSPIN(iFile, k, maxPer, maxLa)
 
-            obj.startMine()
 
-            stablePeriodicFrequentPatterns = obj.getPatterns()
+    **Importing this algorithm into a python program**
 
-            print("Total number of Top-K Stable Periodic Patterns:", len(stablePeriodicFrequentPatterns))
+    .. code-block:: python
 
-            obj.save(oFile)
+                from PAMI.stablePeriodicFrequentPattern.basic import TSPIN as alg
 
-            Df = obj.getPatternsAsDataFrame()
+                obj = alg.TSPIN(iFile, maxPer, maxLa, k)
 
-            memUSS = obj.getMemoryUSS()
+                obj.startMine()
 
-            print("Total Memory in USS:", memUSS)
+                stablePeriodicFrequentPatterns = obj.getPatterns()
 
-            memRSS = obj.getMemoryRSS()
+                print("Total number of Periodic Frequent Patterns:", len(stablePeriodicFrequentPatterns))
 
-            print("Total Memory in RSS", memRSS)
+                obj.savePatterns(oFile)
 
-            run = obj.getRuntime()
+                Df = obj.getPatternsAsDataFrame()
 
-            print("Total ExecutionTime in seconds:", run)
+                memUSS = obj.getMemoryUSS()
 
-        Credits:
-        -------
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+                print("Total Memory in USS:", memUSS)
+
+                memRSS = obj.getMemoryRSS()
+
+                print("Total Memory in RSS", memRSS)
+
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+
 
     """
     _startTime = float()

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.DF2DB.sparseDF2DBPlus &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.extras.DF2DB.sparseDF2DBPlus &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -71,30 +71,24 @@
 
 <div class="viewcode-block" id="sparseDF2DBPlus"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus">[docs]</a><span class="k">class</span> <span class="nc">sparseDF2DBPlus</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This class create Data Base from DataFrame.</span>
+<span class="sd">            :Description: This class create Data Base from DataFrame.</span>
 
-<span class="sd">    Attribute:</span>
-<span class="sd">    ----------</span>
-<span class="sd">    inputDF : pandas.DataFrame</span>
-<span class="sd">        It is sparse DataFrame</span>
-<span class="sd">    thresholdConditionDF : pandas.DataFrame</span>
-<span class="sd">            It has threshold value and condition each item.</span>
-<span class="sd">    df : pandas.DataFrame</span>
-<span class="sd">        It is data frame to create data base.</span>
-<span class="sd">    outputFile : str</span>
-<span class="sd">        Creation data base output to this outputFile.</span>
+<span class="sd">            :param inputDF: dataframe :</span>
+<span class="sd">                It is dense DataFrame</span>
+<span class="sd">            :param condition: str :</span>
+<span class="sd">                It is condition to judge the value in dataframe</span>
+<span class="sd">            :param thresholdValue: int or float :</span>
+<span class="sd">                User defined value.</span>
+<span class="sd">            :param tids: list :</span>
+<span class="sd">                It is tids list.</span>
+<span class="sd">            :param items: list :</span>
+<span class="sd">                Store the items list</span>
+<span class="sd">            :param outputFile: str  :</span>
+<span class="sd">                Creation data base output to this outputFile.</span>
 
-<span class="sd">    Methods:</span>
-<span class="sd">    --------</span>
-<span class="sd">    createDB(outputFile)</span>
-<span class="sd">        Create transactional data base from dataFrame</span>
-<span class="sd">    createTDB(outputFile)</span>
-<span class="sd">        Create temporal dataBase from dataFrame</span>
-<span class="sd">    createUDB(outputFile)</span>
-<span class="sd">        Create utility data base from dataFrame</span>
-<span class="sd">    getFileName()</span>
-<span class="sd">        Return outputFileName.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputDF</span><span class="p">,</span> <span class="n">thresholdConditionDF</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span> <span class="o">=</span> <span class="n">inputDF</span>
@@ -167,7 +161,7 @@
 
 <div class="viewcode-block" id="sparseDF2DBPlus.getFileName"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus.getFileName">[docs]</a>    <span class="k">def</span> <span class="nf">getFileName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        return outputFile name</span>
+
 
 <span class="sd">        :return: outputFile name</span>
 <span class="sd">        &quot;&quot;&quot;</span>

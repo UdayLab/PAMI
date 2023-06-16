@@ -1,17 +1,51 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.periodicFrequentPattern.basic import PPGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.PPGrowth(iFile, minSup, maxPer)
+#
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.partialPeriodicPattern.timeSeries import abstract as _ab
 
@@ -263,16 +297,19 @@ class _Tree(object):
 
 
 class PPGrowth(_ab._partialPeriodicPatterns):
-    """ PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
+    """
+    Description:
+    ------------
+        PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
     Reference:
-    --------
+    -----------
         C. Saideep, R. Uday Kiran, K. Zettsu, P. Fournier-Viger, M. Kitsuregawa and P. Krishna Reddy,
         "Discovering Periodic Patterns in Irregular Time Series," 2019 International Conference on Data Mining Workshops (ICDMW), 2019,
         pp. 1020-1028, doi: 10.1109/ICDMW.2019.00147.
 
     Attributes:
-    ----------
+    -----------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -312,7 +349,7 @@ class PPGrowth(_ab._partialPeriodicPatterns):
             To store the complete patterns
 
     Methods:
-    -------
+    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -338,51 +375,51 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         convert()
             to convert the user specified value
 
-        Executing the code on terminal:
-        -------
+    Executing the code on terminal:
+    --------------------------------
         Format:
-        ------
-        python3 PPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+        -----------
+           >>> python3 PPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
         Examples:
-        --------
-        python3 PPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4   (minSup and maxPer will be considered in percentage of database
+        ----------
+           >>> python3 PPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4   (minSup and maxPer will be considered in percentage of database
         transactions)
 
-        python3 PPGrowth.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)
+           >>> python3 PPGrowth.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)
 
-        Sample run of importing the code:
-        -------------------
+    Sample run of importing the code:
+    ----------------------------------
 
-            from PAMI.periodicFrequentPattern.basic import PPGrowth as alg
+        from PAMI.periodicFrequentPattern.basic import PPGrowth as alg
 
-            obj = alg.PPGrowth(iFile, minSup, maxPer)
+        obj = alg.PPGrowth(iFile, minSup, maxPer)
 
-            obj.startMine()
+        obj.startMine()
 
-            periodicFrequentPatterns = obj.getPatterns()
+        periodicFrequentPatterns = obj.getPatterns()
 
-            print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+        print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-            obj.save(oFile)
+        obj.save(oFile)
 
-            Df = obj.getPatternsAsDataFrame()
+        Df = obj.getPatternsAsDataFrame()
 
-            memUSS = obj.getMemoryUSS()
+        memUSS = obj.getMemoryUSS()
 
-            print("Total Memory in USS:", memUSS)
+        print("Total Memory in USS:", memUSS)
 
-            memRSS = obj.getMemoryRSS()
+        memRSS = obj.getMemoryRSS()
 
-            print("Total Memory in RSS", memRSS)
+        print("Total Memory in RSS", memRSS)
 
-            run = obj.getRuntime()
+        run = obj.getRuntime()
 
-            print("Total ExecutionTime in seconds:", run)
+        print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+    Credits:
+    -------
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
     _startTime = float()

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.DF2DB.DF2DB &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.extras.DF2DB.DF2DB &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -72,27 +72,19 @@
 
 <div class="viewcode-block" id="DF2DB"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.DF2DB.DF2DB">[docs]</a><span class="k">class</span> <span class="nc">DF2DB</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This class create database from DataFrame. Threshold values and conditions are defined to all item.</span>
+<span class="sd">        :Description: This class create database from DataFrame. Threshold values and conditions are defined to all item.</span>
 
-<span class="sd">        Attribute:</span>
-<span class="sd">        ----------</span>
-<span class="sd">        inputDF : pandas.DataFrame</span>
-<span class="sd">            It is sparse or dense DataFrame</span>
-<span class="sd">        thresholdValue : int or float</span>
-<span class="sd">            It is threshold value of all item</span>
-<span class="sd">        condition : str</span>
-<span class="sd">            It is condition of all item</span>
-<span class="sd">        DFtype : str</span>
-<span class="sd">            It is DataFrame type. It should be sparse or dense. Default DF is sparse.</span>
 
-<span class="sd">        Nethods:</span>
-<span class="sd">        --------</span>
-<span class="sd">        getDB(outputFile)</span>
-<span class="sd">            Create transactional database from DataFrame and store into outputFile</span>
-<span class="sd">        getTDB(outputFile)</span>
-<span class="sd">            Create temporal database from DataFrame and store into outputFile</span>
-<span class="sd">        getUDB(outputFile)</span>
-<span class="sd">            Create utility database from DataFrame and store into outputFile</span>
+<span class="sd">        :param inputDF: DataFrame :</span>
+<span class="sd">             It is sparse or dense DataFrame</span>
+<span class="sd">        :param thresholdValue: int or float :</span>
+<span class="sd">             It is threshold value of all item</span>
+<span class="sd">        :param condition: str :</span>
+<span class="sd">             It is condition of all item</span>
+<span class="sd">        :param DFtype: str :</span>
+<span class="sd">             It is DataFrame type. It should be sparse or dense. Default DF is sparse.</span>
+
+
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputDF</span><span class="p">,</span> <span class="n">thresholdValue</span><span class="p">,</span> <span class="n">condition</span><span class="p">,</span> <span class="n">DFtype</span><span class="o">=</span><span class="s1">&#39;sparse&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span> <span class="o">=</span> <span class="n">inputDF</span>
@@ -109,8 +101,10 @@
 <div class="viewcode-block" id="DF2DB.getTransactional"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.DF2DB.DF2DB.getTransactional">[docs]</a>    <span class="k">def</span> <span class="nf">getTransactional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        create transactional database and return outputFileName</span>
+
 <span class="sd">        :param outputFile: file name or path to store database</span>
 <span class="sd">        :type outputFile: str</span>
+
 <span class="sd">        :return: outputFile name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">DF2DB</span><span class="o">.</span><span class="n">createTransactional</span><span class="p">(</span><span class="n">outputFile</span><span class="p">)</span>
@@ -119,8 +113,10 @@
 <div class="viewcode-block" id="DF2DB.getTemporal"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.DF2DB.DF2DB.getTemporal">[docs]</a>    <span class="k">def</span> <span class="nf">getTemporal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        create temporal database and return outputFile name</span>
+
 <span class="sd">        :param outputFile: file name or path to store database</span>
 <span class="sd">        :type outputFile: str</span>
+
 <span class="sd">        :return: outputFile name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">DF2DB</span><span class="o">.</span><span class="n">createTemporal</span><span class="p">(</span><span class="n">outputFile</span><span class="p">)</span>
@@ -129,8 +125,10 @@
 <div class="viewcode-block" id="DF2DB.getUtility"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.DF2DB.DF2DB.getUtility">[docs]</a>    <span class="k">def</span> <span class="nf">getUtility</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        create utility database and return outputFile name</span>
+
 <span class="sd">        :param outputFile:  file name or path to store database</span>
 <span class="sd">        :type outputFile: str</span>
+
 <span class="sd">        :return: outputFile name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">DF2DB</span><span class="o">.</span><span class="n">createUtility</span><span class="p">(</span><span class="n">outputFile</span><span class="p">)</span>

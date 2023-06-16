@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.frequentSpatialPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.frequentSpatialPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,6 +128,20 @@
 <dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentSpatialPattern.basic.FSPGrowth.</span></span><span class="sig-name descname"><span class="pre">FSPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_spatialFrequentPatterns</span></code></p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Given a transactional database and a spatial (or neighborhood) file, FSPM aims to discover all of those patterns
+that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints</p>
+</div></blockquote>
+</section>
+<section id="reference">
+<h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Rage, Uday &amp; Fournier Viger, Philippe &amp; Zettsu, Koji &amp; Toyoda, Masashi &amp; Kitsuregawa, Masaru. (2020).
+Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.</p>
+</div></blockquote>
+</section>
 <section id="attributes">
 <h3>Attributes:<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
 <blockquote>
@@ -152,125 +166,84 @@
 </dd>
 </dl>
 </div></blockquote>
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.startMine" title="Permalink to this definition"></a></dt>
-<dd><p>This function starts pattern mining.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getPatterns" title="Permalink to this definition"></a></dt>
-<dd><p>Complete set of patterns will be retrieved with this function</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.save" title="Permalink to this definition"></a></dt>
-<dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getPatternsInDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsInDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getPatternsInDataFrame" title="Permalink to this definition"></a></dt>
-<dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getMemoryUSS" title="Permalink to this definition"></a></dt>
-<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
-<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getRuntime" title="Permalink to this definition"></a></dt>
-<dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getNeighbour">
-<span class="sig-name descname"><span class="pre">getNeighbour</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getNeighbour" title="Permalink to this definition"></a></dt>
-<dd><p>This function changes string to tuple(neighbourhood).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getFrequentItems">
-<span class="sig-name descname"><span class="pre">getFrequentItems</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getFrequentItems" title="Permalink to this definition"></a></dt>
-<dd><p>This function create frequent items from database.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.genCondTransaction">
-<span class="sig-name descname"><span class="pre">genCondTransaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.genCondTransaction" title="Permalink to this definition"></a></dt>
-<dd><p>This function generates conditional transaction for processing on each workers.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getPartitionId">
-<span class="sig-name descname"><span class="pre">getPartitionId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getPartitionId" title="Permalink to this definition"></a></dt>
-<dd><p>This function generates partition id</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.mapNeighbourToNumber">
-<span class="sig-name descname"><span class="pre">mapNeighbourToNumber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neighbour</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.mapNeighbourToNumber" title="Permalink to this definition"></a></dt>
-<dd><p>This function maps neighbourhood to number.
+</section>
+<section id="methods">
+<h3>Methods:<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>startMine()</dt><dd><p>This function starts pattern mining.</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsInDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getNeighbour(string)</dt><dd><p>This function changes string to tuple(neighbourhood).</p>
+</dd>
+<dt>getFrequentItems(database)</dt><dd><p>This function create frequent items from database.</p>
+</dd>
+<dt>genCondTransaction(transaction, rank)</dt><dd><p>This function generates conditional transaction for processing on each workers.</p>
+</dd>
+<dt>getPartitionId(item)</dt><dd><p>This function generates partition id</p>
+</dd>
+<dt>mapNeighbourToNumber(neighbour, rank)</dt><dd><p>This function maps neighbourhood to number.
 Because in this program, each item is mapped to number based on fpList so that it can be distributed.
 So the contents of neighbourhood must also be mapped to a number.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.createFPTree">
-<span class="sig-name descname"><span class="pre">createFPTree</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.createFPTree" title="Permalink to this definition"></a></dt>
-<dd><p>This function creates FPTree.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getAllFrequentPatterns">
-<span class="sig-name descname"><span class="pre">getAllFrequentPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndata</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getAllFrequentPatterns" title="Permalink to this definition"></a></dt>
-<dd><p>This function generates all frequent patterns</p>
-</dd></dl>
-
-</section>
-<section id="executing-the-code-on-terminal">
-<h3>Executing the code on terminal :<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><p>python3 FSPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbourFile&gt; &lt;minSup&gt;</p>
 </dd>
-<dt>Examples:</dt><dd><p>python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
-python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)</p>
-<blockquote>
-<div><p>(it considers &quot; &quot; as separator)</p>
-</div></blockquote>
-<p>python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 ','  (it will consider &quot;,&quot; as a separator)</p>
+<dt>createFPTree()</dt><dd><p>This function creates FPTree.</p>
+</dd>
+<dt>getAllFrequentPatterns(data, fpList, ndata)</dt><dd><p>This function generates all frequent patterns</p>
 </dd>
 </dl>
 </div></blockquote>
 </section>
+<section id="executing-the-code-on-terminal">
+<h3>Executing the code on terminal :<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Format:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">FSPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">neighbourFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">FSPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.5</span> <span class="p">(</span><span class="n">minSup</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">percentage</span> <span class="n">of</span> <span class="n">database</span> <span class="n">transactions</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
 <section id="sample-run-of-importing-the-code">
 <h3>Sample run of importing the code :<a class="headerlink" href="#sample-run-of-importing-the-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.frequentSpatialPattern.basic import FSPGrowth as alg
-obj = alg.FSPGrowth(&quot;sampleTDB.txt&quot;, &quot;sampleN.txt&quot;, 5)
-obj.startMine()
-spatialFrequentPatterns = obj.getPatterns()
-print(&quot;Total number of Spatial Frequent Patterns:&quot;, len(spatialFrequentPatterns))
-obj.save(&quot;outFile&quot;)
-memUSS = obj.getMemoryUSS()
-print(&quot;Total Memory in USS:&quot;, memUSS)
-memRSS = obj.getMemoryRSS()
-print(&quot;Total Memory in RSS&quot;, memRSS)
-run = obj.getRuntime()
-print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.frequentSpatialPattern.basic</span> <span class="kn">import</span> <span class="n">FSPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">FSPGrowth</span><span class="p">(</span><span class="s2">&quot;sampleTDB.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;sampleN.txt&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">spatialFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">spatialFrequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;outFile&quot;</span><span class="p">)</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="credits">
 <h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>
@@ -278,24 +251,24 @@ print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
 <div><p>The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getMemoryRSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
 :return: returning RSS memory consumed by the mining process
 :rtype: float</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getMemoryUSS" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
 :return: returning USS memory consumed by the mining process
 :rtype: float</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getPatterns" title="Permalink to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process
 :return: returning frequent patterns
 :rtype: dict</p>
@@ -310,8 +283,8 @@ print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.getRuntime" title="Permalink to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process
 :return: returning total amount of runtime taken by the mining process
 :rtype: float</p>
@@ -324,16 +297,16 @@ print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.save" title="Permalink to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to a output file
 :param oFile: name of the output file
 :type oFile: file</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="id5">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/FSPGrowth.html#FSPGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.FSPGrowth.FSPGrowth.startMine" title="Permalink to this definition"></a></dt>
 <dd><p>start pattern mining from here</p>
 </dd></dl>
 
@@ -347,16 +320,23 @@ print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
 <dt class="sig sig-object py" id="PAMI.frequentSpatialPattern.basic.SpatialECLAT.SpatialECLAT">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentSpatialPattern.basic.SpatialECLAT.</span></span><span class="sig-name descname"><span class="pre">SpatialECLAT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentSpatialPattern/basic/SpatialECLAT.html#SpatialECLAT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentSpatialPattern.basic.SpatialECLAT.SpatialECLAT" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_spatialFrequentPatterns</span></code></p>
+<section id="id1">
+<h3>Description:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
 Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
 scalable version of the Apriori algorithm.</p>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3>Reference:<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>...</p>
+<div><p>Rage, Uday &amp; Fournier Viger, Philippe &amp; Zettsu, Koji &amp; Toyoda, Masashi &amp; Kitsuregawa, Masaru. (2020).
+Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.</p>
 </div></blockquote>
-</div></blockquote>
-<section id="id6">
-<h3>Attributes :<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+</section>
+<section id="id3">
+<h3>Attributes :<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
@@ -385,8 +365,8 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 </dl>
 </div></blockquote>
 </section>
-<section id="methods">
-<h3>Methods :<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<section id="id4">
+<h3>Methods :<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -422,41 +402,49 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 </dl>
 </div></blockquote>
 </section>
+<section id="id5">
+<h3>Executing the code on terminal :<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Format:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">SpatialECLAT</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">neighbourFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">SpatialECLAT</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.5</span> <span class="p">(</span><span class="n">minSup</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">percentage</span> <span class="n">of</span> <span class="n">database</span> <span class="n">transactions</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="id6">
+<h3>Sample run of importing the code :<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.frequentSpatialPattern.basic</span> <span class="kn">import</span> <span class="n">SpatialECLAT</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">SpatialECLAT</span><span class="p">(</span><span class="s2">&quot;sampleTDB.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;sampleN.txt&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">spatialFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">spatialFrequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;outFile&quot;</span><span class="p">)</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="id7">
-<h3>Executing the code on terminal :<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><p>python3 SpatialECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbourFile&gt; &lt;minSup&gt;</p>
-</dd>
-<dt>Examples:</dt><dd><p>python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)</p>
-<dl class="simple">
-<dt>python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)</dt><dd><p>(it considers &quot; &quot; as separator)</p>
-</dd>
-</dl>
-<p>python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 3 ','  (it will consider &quot;,&quot; as a separator)</p>
-</dd>
-</dl>
-</div></blockquote>
-</section>
-<section id="id8">
-<h3>Sample run of importing the code :<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.frequentSpatialPattern.basic import SpatialECLAT as alg</p>
-<p>obj = alg.SpatialECLAT(&quot;sampleTDB.txt&quot;, &quot;sampleN.txt&quot;, 5)</p>
-<p>obj.startMine()</p>
-<p>spatialFrequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Spatial Frequent Patterns:&quot;, len(spatialFrequentPatterns))</p>
-<p>obj.save(&quot;outFile&quot;)</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
-</section>
-<section id="id9">
-<h3>Credits:<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<h3>Credits:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>

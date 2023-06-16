@@ -1,33 +1,22 @@
+import pandas as pd
+
 class denseDF2DB:
     """
-        This class create Data Base from DataFrame.
+        :Description: This class create Data Base from DataFrame.
 
-        Attribute:
-        ----------
-        inputDF : pandas.DataFrame
+        :param inputDF: dataframe :
             It is dense DataFrame
-        condition : str
+        :param condition: str :
             It is condition to judge the value in dataframe
-        thresholdValue : int or float:
+        :param thresholdValue: int or float :
             User defined value.
-        tids : list
+        :param tids: list :
             It is tids list.
-        items : list
+        :param items: list :
             Store the items list
-        outputFile : str
+        :param outputFile: str  :
             Creation data base output to this outputFile.
-
-        Methods:
-        --------
-        createDB(outputFile)
-            Create transactional data base from dataFrame
-        createTDB(outputFile)
-            Create temporal dataBase from dataFrame
-        createUDB(outputFile)
-            Create utility database from dataFrame
-        getFileName()
-            Return outputFileName.
-        """
+    """
 
     def __init__(self, inputDF, condition, thresholdValue):
         self.inputDF = inputDF
@@ -36,18 +25,18 @@ class denseDF2DB:
         self.tids = []
         self.items = []
         self.outputFile = ' '
-        self.inputDF = self.inputDF.set_index('tid', drop=True)
-        self.items = list(self.inputDF.columns.values)
-
+        self.items = list(self.inputDF.columns.values)[1:]
+        self.inputDF = self.inputDF.set_index('tid')
         self.tids = list(self.inputDF.index)
 
 
     def createTransactional(self, outputFile):
         """
-        Create transactional data base
+         :Description: Create transactional data base
 
-        :param outputFile: Write transactional data base into outputFile
-        :type outputFile: str
+         :param outputFile: str :
+              Write transactional data base into outputFile
+
         """
 
         self.outputFile = outputFile
@@ -58,7 +47,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -71,7 +60,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -84,7 +73,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -97,7 +86,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -109,7 +98,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -121,7 +110,7 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{transaction}')
                     else:
@@ -134,10 +123,11 @@ class denseDF2DB:
 
     def createTemporal(self, outputFile):
         """
-        Create temporal data base
+         :Description: Create temporal data base
 
-        :param outputFile: Write temporal data base into outputFile
-        :type outputFile: str
+         :param outputFile: str :
+                 Write temporal data base into outputFile
+
         """
 
         self.outputFile = outputFile
@@ -148,10 +138,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
+                        f.write(f',{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -162,10 +152,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
+                        f.write(f',{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -176,10 +166,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
+                        f.write(f',{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -190,10 +180,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
+                        f.write(f',{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -203,10 +193,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
+                        f.write(f',{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -216,10 +206,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f'\t{item}')
+                            f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f'\t{transaction}')
+                        f.write(f',{transaction}')
                     else:
                         continue
                     f.write('\n')
@@ -229,10 +219,11 @@ class denseDF2DB:
 
     def createUtility(self, outputFile):
         """
-        Create the utility data base.
+         :Description: Create the utility data base.
 
-        :param outputFile: Write utility data base into outputFile
-        :type outputFile: str
+         :param outputFile:  str :
+                     Write utility data base into outputFile
+
         """
 
         self.outputFile = outputFile
@@ -250,14 +241,15 @@ class denseDF2DB:
 
     def getFileName(self):
         """
-        return outputFile name
-
         :return: outputFile name
         """
 
         return self.outputFile
 
 
-    
-#obj = denseDF2DB(dataset, '>=', 5)
-#obj.createDB('soramame_transactional.txt')
+if __name__ == '__main__':
+    DF = createDenseDF('denseDF.csv')
+    obj = denseDF2DB(DF.getDF(), '>=', 2)
+    obj.createDB('testTransactional.csv')
+    transactionalDB = obj.getFileName()
+    print(transactionalDB)

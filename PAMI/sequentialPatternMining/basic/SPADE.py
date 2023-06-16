@@ -1,18 +1,53 @@
 
-#  Copyright (C)  2023 Rage Uday Kiran
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     import PAMI.frequentPattern.basic.SPADE as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     obj = alg.SPADE(iFile, minSup)
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 
 from PAMI.sequentialPatternMining.basic import abstract as _ab
 
@@ -20,15 +55,19 @@ _ab._sys.setrecursionlimit(10000)
 
 class SPADE(_ab._sequentialPatterns):
     """
+    Description:
+    -------------
         SPADE is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
         This program employs SPADE property (or downward closure property) to  reduce the search space effectively.
         This algorithm employs breadth-first search technique when 1-2 length patterns and depth-first serch when above 3 length patterns to find the complete set of frequent patterns in a
         transactional database.
-        Reference:
-        ----------
+
+    Reference:
+    ----------
             Mohammed J. Zaki. 2001. SPADE: An Efficient Algorithm for Mining Frequent Sequences. Mach. Learn. 42, 1-2 (January 2001), 31-60. DOI=10.1023/A:1007652502315 http://dx.doi.org/10.1023/A:1007652502315
-        Attributes:
-        ----------
+
+    Attributes:
+    ----------
             iFile : str
                 Input file name or path of the input file
             oFile : str
@@ -58,8 +97,8 @@ class SPADE(_ab._sequentialPatterns):
             _xLenDatabaseSame : dict
                 To store the datas in same sequence separated by sequence, rownumber, length.
 
-        Methods:
-        -------
+    Methods:
+    -------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -78,35 +117,49 @@ class SPADE(_ab._sequentialPatterns):
                 Generates frequent patterns from the candidate patterns
             frequentToCandidate(frequentList, length)
                 Generates candidate patterns from the frequent patterns
+    **Methods to execute code on terminal**
 
-
-        Executing the code on terminal:
-        -------------------------------
             Format:
-            ------
-                python3 SPADE.py <inputFile> <outputFile> <minSup>
-            Examples:
-            ---------
-                python3 SPADE.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
-                python3 SPADE.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
-        Sample run of the importing code:
-        ---------------------------------
+                      >>>  python3 SPADE.py <inputFile> <outputFile> <minSup>
+            Example:
+                      >>>  python3 SPADE.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+
+
+
+    **Importing this algorithm into a python program**
+
+        .. code-block:: python
+
             import PAMI.frequentPattern.basic.SPADE as alg
+
             obj = alg.SPADE(iFile, minSup)
+
             obj.startMine()
+
             frequentPatterns = obj.getPatterns()
+
             print("Total number of Frequent Patterns:", len(frequentPatterns))
+
             obj.savePatterns(oFile)
+
             Df = obj.getPatternInDataFrame()
+
             memUSS = obj.getMemoryUSS()
+
             print("Total Memory in USS:", memUSS)
+
             memRSS = obj.getMemoryRSS()
+
             print("Total Memory in RSS", memRSS)
+
             run = obj.getRuntime()
+
             print("Total ExecutionTime in seconds:", run)
-        Credits:
-        --------
-            The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.
+
+    **Credits:**
+
+              The complete program was written by Suzuki Shota under the supervision of Professor Rage  Uday Kiran.
+
     """
 
     _minSup = float()

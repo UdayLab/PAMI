@@ -1,33 +1,71 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     import PAMI.periodicFrequentPattern.kPFPMiner as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.kPFPMiner(iFile, k)
+#
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of top-k Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 
 from PAMI.periodicFrequentPattern.topk.kPFPMiner import abstract as _ab
 
 
 class kPFPMiner(_ab._periodicFrequentPatterns):
     """
-        Top - K is and algorithm to discover top periodic-frequent patterns in a temporal database.
+        Description:
+        ------------
+
+            Top - K is and algorithm to discover top periodic-frequent patterns in a temporal database.
 
         Reference:
-        ----------
+        -----------
             Likhitha, P., Ravikumar, P., Kiran, R.U., Watanobe, Y. (2022).
             Discovering Top-k Periodic-Frequent Patterns in Very Large Temporal Databases. Big Data Analytics.
             BDA 2022. Lecture Notes in Computer Science, vol 13773. Springer, Cham. https://doi.org/10.1007/978-3-031-24094-2_14
 
         Attributes:
-        ----------
+        -----------
             iFile : str
                 Input file name or path of the input file
             k: int
@@ -49,7 +87,7 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
                 To store the total amount of RSS memory consumed by the program
 
         Methods:
-        -------
+        ---------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -78,15 +116,16 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
 
             Format:
             ------
-            python3 kPFPMiner.py <inputFile> <outputFile> <k>
+            >>> python3 kPFPMiner.py <inputFile> <outputFile> <k>
 
             Examples:
             ---------
-            python3 kPFPMiner.py sampleDB.txt patterns.txt 10
+            >>> python3 kPFPMiner.py sampleDB.txt patterns.txt 10
 
 
         Sample run of the importing code:
         ---------------------------------
+        .. code-block:: python
 
             import PAMI.periodicFrequentPattern.kPFPMiner as alg
 

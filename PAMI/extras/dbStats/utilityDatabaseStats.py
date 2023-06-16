@@ -6,51 +6,19 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class utilityDatabaseStats:
     """
-    utilityDatabaseStats is class to get stats of database.
+           :Description:  utilityDatabaseStats is class to get stats of database.
 
-        Attributes:
-        ----------
-        inputFile : file
-            input file path
-        database : dict
-            store time stamp and its transaction
-        lengthList : list
-            store length of all transaction
-        utility : dict
-            store utility each item
-        sep : str
-            separator in file. Default is tab space.
 
-        Methods:
-        -------
-        run()
-            execute readDatabase function
-        readDatabase()
-            read database from input file
-        getDatabaseSize()
-            get the size of database
-        getMinimumTransactionLength()
-            get the minimum transaction length
-        getAverageTransactionLength()
-            get the average transaction length. It is sum of all transaction length divided by database length.
-        getMaximumTransactionLength()
-            get the maximum transaction length
-        getStandardDeviationTransactionLength()
-            get the standard deviation of transaction length
-        getSortedListOfItemFrequencies()
-            get sorted list of item frequencies
-        getSortedListOfTransactionLength()
-            get sorted list of transaction length
-        save(data, outputFile)
-            store data into outputFile
-        getMinimumUtility()
-            get the minimum utility
-        getAverageUtility()
-            get the average utility
-        getMaximumUtility()
-            get the maximum utility
-        getSortedUtilityValuesOfItem()
-            get sorted utility values each item
+           :param inputFile: file :
+               input file path
+           :param database: dict :
+               store time stamp and its transaction
+           :param lengthList: list :
+               store size of all transaction
+           :param  utility : dict
+               store utility each item
+           :param sep: str
+               separator in file. Default is tab space.
     """
     def __init__(self, inputFile, sep='\t'):
         """

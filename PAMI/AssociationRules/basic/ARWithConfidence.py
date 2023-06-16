@@ -50,7 +50,8 @@ class Confidence:
 
 class ARWithConfidence:
     """
-    temporalDatabaseStats is class to get stats of database.
+        temporalDatabaseStats is class to get stats of database.
+        
         Attributes:
         ----------
         frequentPattern : list or dict
@@ -59,6 +60,7 @@ class ARWithConfidence:
             str
         threshold: condition to satisfy
             int
+            
         Methods:
         -------
         startMine()

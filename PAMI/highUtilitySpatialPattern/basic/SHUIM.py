@@ -1,3 +1,49 @@
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.highUtilitySpatialPattern.basic import SHUIM as alg
+#
+#     obj=alg.SHUIM("input.txt","Neighbours.txt",35)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Spatial high utility Patterns:", len(frequentPatterns))
+#
+#     obj.save("output")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
 from functools import cmp_to_key as _cmpToKey
 
@@ -207,11 +253,15 @@ class _Dataset:
 
 class SHUIM(_ab._utilityPatterns):
     """
-      Spatial High Utility itemSet Mining (SHUIM) aims to discover all itemSets in a spatioTemporal database
+    Description:
+    -------------
+       Spatial High Utility itemSet Mining (SHUIM) aims to discover all itemSets in a spatioTemporal database
        that satisfy the user-specified minimum utility and maximum distance constraints
     Reference:
-    ---------
-        https://doi.org/10.1007/978-3-030-37188-3_17
+    ----------
+        Rage, Uday & Veena, Pamalla & Penugonda, Ravikumar & Raj, Bathala & Dao, Minh & Zettsu, Koji & Bommisetti, Sai. 
+        (2023). HDSHUI-miner: a novel algorithm for discovering spatial high-utility itemsets in high-dimensional 
+        spatiotemporal databases. Applied Intelligence. 53. 1-26. 10.1007/s10489-022-04436-w.
 
     Attributes:
     -----------
@@ -252,7 +302,7 @@ class SHUIM(_ab._utilityPatterns):
             keep items that subtreeUtility grater than minUtil
 
     Methods :
-    -------
+    ----------
         startMine()
                 Mining process will start from here
         getPatterns()
@@ -289,14 +339,19 @@ class SHUIM(_ab._utilityPatterns):
              A method to scan the database using utility bin array to calculate the pmus                   
 
     Executing the code on terminal :
-    -------
-        Format: python3 SHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
-        Examples: python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
-                  python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
+    ---------------------------------
+        Format:
+        --------
+             >>> python3 SHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
+        Examples:
+        ---------
+             >>> python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
+             >>> python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
 
     Sample run of importing the code:
-    -------------------------------
-        
+    ----------------------------------
+    .. code-block:: python
+         
         from PAMI.highUtilitySpatialPattern.basic import SHUIM as alg
 
         obj=alg.SHUIM("input.txt","Neighbours.txt",35)
@@ -323,7 +378,7 @@ class SHUIM(_ab._utilityPatterns):
 
     Credits:
     -------
-            The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.
+         The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.
     """
     _highUtilityItemSets = []
     _candidateCount = 0

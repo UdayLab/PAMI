@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.periodicFrequentPattern.topk.kPFPMiner package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.periodicFrequentPattern.topk.kPFPMiner package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -132,7 +132,12 @@
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.topk.kPFPMiner.kPFPMiner.kPFPMiner">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicFrequentPattern.topk.kPFPMiner.kPFPMiner.</span></span><span class="sig-name descname"><span class="pre">kPFPMiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicFrequentPattern/topk/kPFPMiner/kPFPMiner.html#kPFPMiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicFrequentPattern.topk.kPFPMiner.kPFPMiner.kPFPMiner" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_periodicFrequentPatterns</span></code></p>
-<p>Top - K is and algorithm to discover top periodic-frequent patterns in a temporal database.</p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Top - K is and algorithm to discover top periodic-frequent patterns in a temporal database.</p>
+</div></blockquote>
+</section>
 <section id="reference">
 <h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
 <blockquote>
@@ -199,27 +204,43 @@ However, the users can override their default separator.</p>
 <section id="executing-the-code-on-terminal">
 <h3>Executing the code on terminal:<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><p>python3 kPFPMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;k&gt;</p>
-<p>python3 kPFPMiner.py sampleDB.txt patterns.txt 10</p>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">kPFPMiner</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">k</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">kPFPMiner</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">10</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
 <section id="sample-run-of-the-importing-code">
 <h3>Sample run of the importing code:<a class="headerlink" href="#sample-run-of-the-importing-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>import PAMI.periodicFrequentPattern.kPFPMiner as alg</p>
-<p>obj = alg.kPFPMiner(iFile, k)</p>
-<p>obj.startMine()</p>
-<p>periodicFrequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of top-k Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</p>
-<p>obj.save(oFile)</p>
-<p>Df = obj.getPatternInDataFrame()</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime()</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.periodicFrequentPattern.kPFPMiner</span> <span class="k">as</span> <span class="nn">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">kPFPMiner</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">periodicFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of top-k Periodic Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">periodicFrequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="credits">
 <h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>

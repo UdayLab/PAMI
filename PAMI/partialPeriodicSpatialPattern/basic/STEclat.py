@@ -1,19 +1,71 @@
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     import PAMI.partialPeriodicSpatialPattern.STEclat as alg
+#
+#     obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 3, 4)
+#
+#     obj.startMine()
+#
+#     partialPeriodicSpatialPatterns = obj.getPatterns()
+#
+#     print("Total number of Periodic Spatial Frequent Patterns:", len(partialPeriodicSpatialPatterns))
+#
+#     obj.save("outFile")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
+
 from PAMI.partialPeriodicSpatialPattern.basic import abstract as _ab
 
 
 class STEclat(_ab._partialPeriodicSpatialPatterns):
     """
+    Description:
+    ------------
+       PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
-    ...
+
 
     Reference:
-    ---------
+    -----------
         R. Uday Kiran, C. Saideep, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy,
         "Discovering Partial Periodic Spatial Patterns in Spatiotemporal Databases," 2019 IEEE International
         Conference on Big Data (Big Data), 2019, pp. 233-238, doi: 10.1109/BigData47090.2019.9005693.
 
-    Attributes :
-    ----------
+    Attributes:
+    ------------
             iFile : str
                 Input file name or path of the input file
             nFile: str:
@@ -45,8 +97,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
                 To store the total amount of RSS memory consumed by the program
             Database : list
                 To store the complete set of transactions available in the input database/file
-    Methods :
-    -------
+    Methods:
+    ---------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -75,18 +127,19 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     Executing the code on terminal :
     ------------------------------
         Format:
-            python3 STEclat.py <inputFile> <outputFile> <neighbourFile>  <minPS>  <maxIAT> 
+            >>> python3 STEclat.py <inputFile> <outputFile> <neighbourFile>  <minPS>  <maxIAT>
         Examples:
-            python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 0.2 0.5 (maxIAT & minPS will be considered in percentage of database transactions)
+            >>> python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 0.2 0.5 (maxIAT & minPS will be considered in percentage of database transactions)
 
-            python3 STEclat.py sampleTDB.txt output.txt sampleN.txt  5 3 ( maxIAT & minPS will be considered in support count or frequency)
+            >>> python3 STEclat.py sampleTDB.txt output.txt sampleN.txt  5 3 ( maxIAT & minPS will be considered in support count or frequency)
                                                                 (it considers "\t" as separator)
 
-            python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 3 2 ',' (it will consider "," as a separator)
+            >>> python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 3 2 ',' (it will consider "," as a separator)
 
     Sample run of importing the code :
     -------------------------------
-
+    .. code-block:: python
+    
         import PAMI.partialPeriodicSpatialPattern.STEclat as alg
 
         obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 3, 4)

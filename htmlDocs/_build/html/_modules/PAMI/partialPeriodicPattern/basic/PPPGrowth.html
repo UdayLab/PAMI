@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.partialPeriodicPattern.basic.PPPGrowth &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.partialPeriodicPattern.basic.PPPGrowth &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -313,16 +313,21 @@
 
 
 <div class="viewcode-block" id="PPPGrowth"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.basic.html#PAMI.partialPeriodicPattern.basic.PPPGrowth.PPPGrowth">[docs]</a><span class="k">class</span> <span class="nc">PPPGrowth</span><span class="p">(</span><span class="n">_abstract</span><span class="o">.</span><span class="n">_partialPeriodicPatterns</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; 3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    ----------------------</span>
+<span class="sd">        3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.</span>
 
-<span class="sd">        Reference : Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM &#39;17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017</span>
+<span class="sd">    Reference:</span>
+<span class="sd">    -----------</span>
+<span class="sd">        Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM &#39;17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017</span>
 <span class="sd">        Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535</span>
 
 <span class="sd">    Parameters:</span>
 <span class="sd">    ----------</span>
-<span class="sd">        self.iFile : file</span>
+<span class="sd">        iFile : file</span>
 <span class="sd">            Name of the Input file or path of the input file</span>
-<span class="sd">        self. oFile : file</span>
+<span class="sd">        oFile : file</span>
 <span class="sd">            Name of the output file or path of the output file</span>
 <span class="sd">        periodicSupport: float or int or str</span>
 <span class="sd">            The user can specify periodicSupport either in count or proportion of database size.</span>
@@ -337,13 +342,13 @@
 <span class="sd">        sep : str</span>
 <span class="sd">            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.</span>
 <span class="sd">            However, the users can override their default separator.</span>
-<span class="sd">        self.memoryUSS : float</span>
+<span class="sd">        memoryUSS : float</span>
 <span class="sd">            To store the total amount of USS memory consumed by the program</span>
-<span class="sd">        self.memoryRSS : float</span>
+<span class="sd">        memoryRSS : float</span>
 <span class="sd">            To store the total amount of RSS memory consumed by the program</span>
-<span class="sd">        self.startTime:float</span>
+<span class="sd">        startTime:float</span>
 <span class="sd">            To record the start time of the mining process</span>
-<span class="sd">        self.endTime:float</span>
+<span class="sd">        endTime:float</span>
 <span class="sd">            To record the completion time of the mining process</span>
 <span class="sd">        Database : list</span>
 <span class="sd">            To store the transactions of a database in list</span>
@@ -385,14 +390,22 @@
 <span class="sd">        startMine()</span>
 <span class="sd">            main program to mine the partial periodic patterns</span>
 
-<span class="sd">        Format: python3 PPPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;periodicSupport&gt; &lt;period&gt;</span>
+<span class="sd">    Executing the code on terminal:</span>
+<span class="sd">    -----------------------------------</span>
+<span class="sd">        Format:</span>
+<span class="sd">        --------</span>
+<span class="sd">           &gt;&gt;&gt; python3 PPPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;periodicSupport&gt; &lt;period&gt;</span>
+<span class="sd">    </span>
+<span class="sd">        Examples:</span>
+<span class="sd">        --------</span>
+<span class="sd">           &gt;&gt;&gt; python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)</span>
 
-<span class="sd">        Examples: python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)</span>
+<span class="sd">           &gt;&gt;&gt; python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)</span>
 
-<span class="sd">                  python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)</span>
+<span class="sd">    Sample run of the importing code:</span>
+<span class="sd">    -----------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
 
-<span class="sd">        Sample run of the importing code:</span>
-<span class="sd">        -----------</span>
 <span class="sd">        from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg</span>
 
 <span class="sd">        obj = alg.PPPGrowth(iFile, periodicSupport, period)</span>
@@ -420,11 +433,11 @@
 <span class="sd">        print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 
-<span class="sd">        Credits:</span>
-<span class="sd">        -------</span>
-<span class="sd">        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n</span>
+<span class="sd">    Credits:</span>
+<span class="sd">    -----------------</span>
+<span class="sd">    The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_periodicSupport</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
     <span class="n">_period</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
     <span class="n">_startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.frequentSpatialPattern.basic.SpatialECLAT &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.frequentSpatialPattern.basic.SpatialECLAT &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -71,15 +71,20 @@
 
 
 <div class="viewcode-block" id="SpatialECLAT"><a class="viewcode-back" href="../../../../PAMI.frequentSpatialPattern.basic.html#PAMI.frequentSpatialPattern.basic.SpatialECLAT.SpatialECLAT">[docs]</a><span class="k">class</span> <span class="nc">SpatialECLAT</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_spatialFrequentPatterns</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    --------------</span>
 <span class="sd">        Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up</span>
 <span class="sd">        Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and</span>
 <span class="sd">        scalable version of the Apriori algorithm.</span>
 
-<span class="sd">            ...</span>
+<span class="sd">    Reference:</span>
+<span class="sd">    -----------</span>
+<span class="sd">        Rage, Uday &amp; Fournier Viger, Philippe &amp; Zettsu, Koji &amp; Toyoda, Masashi &amp; Kitsuregawa, Masaru. (2020).</span>
+<span class="sd">        Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.</span>
 
 <span class="sd">    Attributes :</span>
-<span class="sd">    ----------</span>
+<span class="sd">    ---------------</span>
 <span class="sd">        iFile : str</span>
 <span class="sd">            Input file name or path of the input file</span>
 <span class="sd">        nFile: str</span>
@@ -105,7 +110,7 @@
 <span class="sd">            To store the complete set of transactions available in the input database/file</span>
 
 <span class="sd">    Methods :</span>
-<span class="sd">    -------</span>
+<span class="sd">    ------------</span>
 <span class="sd">        startMine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
@@ -138,21 +143,19 @@
 <span class="sd">            A function to map items to their neighbours</span>
 
 <span class="sd">    Executing the code on terminal :</span>
-<span class="sd">    ------------------------------</span>
-<span class="sd">        Format: </span>
-<span class="sd">            python3 SpatialECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbourFile&gt; &lt;minSup&gt;</span>
+<span class="sd">    ----------------------------------</span>
+<span class="sd">        Format:</span>
+
+<span class="sd">            &gt;&gt;&gt; python3 SpatialECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbourFile&gt; &lt;minSup&gt;</span>
 <span class="sd">            </span>
 <span class="sd">        Examples:</span>
-<span class="sd">            python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)</span>
-<span class="sd">            </span>
-<span class="sd">            python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 3 (minSup will be considered in support count or frequency)</span>
-<span class="sd">                                                                (it considers &quot;\t&quot; as separator)</span>
-<span class="sd">                    </span>
-<span class="sd">            python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 3 &#39;,&#39;  (it will consider &quot;,&quot; as a separator)</span>
 
+<span class="sd">            &gt;&gt;&gt; python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)</span>
+<span class="sd">            </span>
 <span class="sd">    Sample run of importing the code :</span>
-<span class="sd">    -------------------------------</span>
-<span class="sd">        </span>
+<span class="sd">    -----------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+
 <span class="sd">        from PAMI.frequentSpatialPattern.basic import SpatialECLAT as alg</span>
 <span class="sd">        </span>
 <span class="sd">        obj = alg.SpatialECLAT(&quot;sampleTDB.txt&quot;, &quot;sampleN.txt&quot;, 5)</span>
@@ -179,7 +182,7 @@
 
 
 <span class="sd">    Credits:</span>
-<span class="sd">    -------</span>
+<span class="sd">    ---------</span>
 <span class="sd">        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

@@ -1,19 +1,45 @@
 
-#  Copyright (C)  2021 Rage Uday Kiran
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     from cudaAlgorithms import gPFMinerBit
+#
+#     obj = gPFMinerBit.gPFMinerBit("data.txt", 2, 3)
+#
+#     obj.run()
+#
+#     print(obj.getPatterns())
+#
+#     print(obj.getRuntime())
+#
+#     print(obj.getMemoryRSS())
+#
+#     print(obj.getMemoryUSS())
+#
+#     print(obj.getGPUMemory())
+#
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 
 import os
@@ -22,137 +48,168 @@ import csv
 import time
 import psutil
 import numpy as np
-import pycuda.autoinit
-import pycuda.driver as cuda
-from pycuda.compiler import SourceModule
-
-supportAndPeriod = SourceModule(r"""
-    
-__global__ void supportAndPeriod(unsigned long long int *bitArray, // containing transactions
-                                unsigned long long int *support, // for support
-                                unsigned long long int *period, // for period
-                                unsigned long long int *thingsToCompare, // for things to compare
-                                unsigned long long int *thingsToCompareIndex, // for things to compare index
-                                unsigned long long int numberOfThingsToCompare, // for number of things to compare
-                                unsigned long long int numberOfBits, // for number of bits
-                                unsigned long long int numberOfElements, // for number of elements
-                                unsigned long long int maxPeriod, // for max period
-                                unsigned long long int maxTimeStamp){
-        
-        unsigned long long int threadIDX = blockIdx.x * blockDim.x + threadIdx.x;
-
-        if (threadIDX > numberOfThingsToCompare-2) return;
-
-        unsigned long long int holder = 0;
-        unsigned long long int supportCounter = 0;
-        unsigned long long int periodCounter = 0;
-        unsigned long long int numbersCounter = 0;
-        short int bitRepresentation[64];
-        short int index = numberOfBits - 1;
-
-        for(int i = 0; i < numberOfElements; i++){
-            // intersection
-            holder = bitArray[thingsToCompare[thingsToCompareIndex[threadIDX]] * numberOfElements + i];
-            for (int j = thingsToCompareIndex[threadIDX]+1; j < thingsToCompareIndex[threadIDX + 1]; j++){
-                holder = holder & bitArray[thingsToCompare[j] * numberOfElements + i];
-            }
-
-            // empty bitRepresentation
-            for (int j = 0; j < 64; j++){
-                bitRepresentation[j] = 0;
-            }
-
-            // conversion to bit representation
-            index = numberOfBits - 1;
-            while (holder > 0){
-                bitRepresentation[index] = holder % 2;
-                holder = holder / 2;
-                index--;
-            }
-
-            // counting period
-            for (int j = 0; j < numberOfBits; j++){
-                periodCounter++;
-                numbersCounter++;
-                if (periodCounter > maxPeriod){
-                    period[threadIDX] = periodCounter;
-                    support[threadIDX] = supportCounter;
-                    return;
-                }
-                if (bitRepresentation[j] == 1){
-                    supportCounter++;
-                    if (periodCounter > period[threadIDX]) period[threadIDX] = periodCounter;
-                    periodCounter = 0;
-                }
-                if (numbersCounter == maxTimeStamp){
-                    support[threadIDX] = supportCounter;
-                    period[threadIDX] = periodCounter;
-                    return;
-                }
-            }
-
-        }
-        support[threadIDX] = supportCounter;
-        period[threadIDX] = periodCounter;
-        return;
-
-    }
-
-"""
-                                )
+# import pycuda.autoinit
+# import pycuda.driver as cuda
+# from pycuda.compiler import SourceModule
+#
+# supportAndPeriod = SourceModule(r"""
+#
+# __global__ void supportAndPeriod(unsigned long long int *bitArray, // containing transactions
+#                                 unsigned long long int *support, // for support
+#                                 unsigned long long int *period, // for period
+#                                 unsigned long long int *thingsToCompare, // for things to compare
+#                                 unsigned long long int *thingsToCompareIndex, // for things to compare index
+#                                 unsigned long long int numberOfThingsToCompare, // for number of things to compare
+#                                 unsigned long long int numberOfBits, // for number of bits
+#                                 unsigned long long int numberOfElements, // for number of elements
+#                                 unsigned long long int maxPeriod, // for max period
+#                                 unsigned long long int maxTimeStamp){
+#
+#         unsigned long long int threadIDX = blockIdx.x * blockDim.x + threadIdx.x;
+#
+#         if (threadIDX > numberOfThingsToCompare-2) return;
+#
+#         unsigned long long int holder = 0;
+#         unsigned long long int supportCounter = 0;
+#         unsigned long long int periodCounter = 0;
+#         unsigned long long int numbersCounter = 0;
+#         short int bitRepresentation[64];
+#         short int index = numberOfBits - 1;
+#
+#         for(int i = 0; i < numberOfElements; i++){
+#             // intersection
+#             holder = bitArray[thingsToCompare[thingsToCompareIndex[threadIDX]] * numberOfElements + i];
+#             for (int j = thingsToCompareIndex[threadIDX]+1; j < thingsToCompareIndex[threadIDX + 1]; j++){
+#                 holder = holder & bitArray[thingsToCompare[j] * numberOfElements + i];
+#             }
+#
+#             // empty bitRepresentation
+#             for (int j = 0; j < 64; j++){
+#                 bitRepresentation[j] = 0;
+#             }
+#
+#             // conversion to bit representation
+#             index = numberOfBits - 1;
+#             while (holder > 0){
+#                 bitRepresentation[index] = holder % 2;
+#                 holder = holder / 2;
+#                 index--;
+#             }
+#
+#             // counting period
+#             for (int j = 0; j < numberOfBits; j++){
+#                 periodCounter++;
+#                 numbersCounter++;
+#                 if (periodCounter > maxPeriod){
+#                     period[threadIDX] = periodCounter;
+#                     support[threadIDX] = supportCounter;
+#                     return;
+#                 }
+#                 if (bitRepresentation[j] == 1){
+#                     supportCounter++;
+#                     if (periodCounter > period[threadIDX]) period[threadIDX] = periodCounter;
+#                     periodCounter = 0;
+#                 }
+#                 if (numbersCounter == maxTimeStamp){
+#                     support[threadIDX] = supportCounter;
+#                     period[threadIDX] = periodCounter;
+#                     return;
+#                 }
+#             }
+#
+#         }
+#         support[threadIDX] = supportCounter;
+#         period[threadIDX] = periodCounter;
+#         return;
+#
+#     }
+#
+# """
+#                                 )
 
 
 class gPFMinerBit:
 
-    """ ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
-    This algorithm applies ECLAT as well as calculates periodicity to find patterns in a temporal database.
-    This program employs downward closure property to  reduce the search space effectively.
-    This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
-    temporal database.
+    """
+    Description:
+    ------------
+
+        ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+        This algorithm applies ECLAT as well as calculates periodicity to find patterns in a temporal database.
+        This program employs downward closure property to  reduce the search space effectively.
+        This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
+        temporal database.
 
     Attributes:
-        filePath (str): path of the file
-        minSup (int): minimum support
-        maxPeriod (int): maximum period
-        sep (str, optional): separator. Defaults to "\t".
-        Patterns (dict, optional): dictionary of the patterns. Defaults to {}.
-        maxTimeStamp (int, optional): maximum timestamp. Defaults to 0.
-        __time (int, optional): time taken to execute the algorithm. Defaults to 0.
-        __memRSS (int, optional): memory used by the program. Defaults to 0.
-        __memUSS (int, optional): memory used by the program. Defaults to 0.
-        __GPU_MEM (int, optional): GPU memory used by the program. Defaults to 0.
-        __baseGPUMem (int, optional): base GPU memory used by the program. Defaults to 0.
+    ------------
+        filePath : str
+             path of the file
 
-    Methods:
-        __readFile(): Read the file and return the data in a dictionary
-        __getMaxPeriod(): Get the maximum period of the patterns
-        __generateBitArray(): Generate the bit array
-        getRuntime(): Get the runtime of the algorithm
-        getMemoryRSS(): Get the memory used by the program
-        getMemoryUSS(): Get the memory used by the program
-        getGPUMemory(): Get the GPU memory used by the program
-        getPatterns(): Get the patterns
+        minSup : int
+             minimum support
 
-    Example:
-        >>> from cudaAlgorithms import gPFMinerBit
-        >>> obj = gPFMinerBit.gPFMinerBit("data.txt", 2, 3)
-        >>> obj.run()
-        >>> print(obj.getPatterns())
-        >>> print(obj.getRuntime())
-        >>> print(obj.getMemoryRSS())
-        >>> print(obj.getMemoryUSS())
-        >>> print(obj.getGPUMemory())
+        maxPeriod : (int)
+             maximum period
 
-        Running from the command line:
-        $ python3 gPFMinerBit.py data.txt 2 3 output.txt
+        sep : str, optional
+         separator
+
+        Patterns : dict, optional
+            dictionary of the patterns. Defaults to {}.
+
+        maxTimeStamp : int, optional
+           maximum timestamp. Defaults to 0.
+
+        __time : int, optional
+           time taken to execute the algorithm. Defaults to 0.
+
+        __memRSS : int, optional
+           memory used by the program. Defaults to 0.
+
+        __memUSS : int, optional
+           memory used by the program. Defaults to 0.
+
+        __GPU_MEM : int, optional
+           GPU memory used by the program. Defaults to 0.
+
+        __baseGPUMem : int, optional
+           base GPU memory used by the program. Defaults to 0.
+
+
+
+    **Importing this algorithm into a python program**
+    ------------------------------------------------------------
+    .. code-block:: python
+
+         from cudaAlgorithms import gPFMinerBit
+
+         obj = gPFMinerBit.gPFMinerBit("data.txt", 2, 3)
+
+         obj.run()
+
+         print(obj.getPatterns())
+
+         print(obj.getRuntime())
+
+         print(obj.getMemoryRSS())
+
+         print(obj.getMemoryUSS())
+
+         print(obj.getGPUMemory())
+
+    Running from the command line:
+    ------------------------------------------------------------
+
+    >>> python3 gPFMinerBit.py data.txt 2 3 output.txt
         
 
-    Created by:
+    Credits:
+    ------------
         This program is created by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
         
     """
 
-    supportAndPeriod = supportAndPeriod.get_function("supportAndPeriod")
+    # supportAndPeriod = supportAndPeriod.get_function("supportAndPeriod")
 
     def __init__(self, filePath, minSup, maxPeriod, sep="\t"):
         self.filePath = filePath
@@ -165,6 +222,24 @@ class gPFMinerBit:
         self.__memUSS = 0
         self.__GPU_MEM = 0
         self.__baseGPUMem = 0
+        """
+         Methods:
+        ------------
+        __readFile(): Read the file and return the data in a dictionary
+
+        __getMaxPeriod(): Get the maximum period of the patterns
+
+        __generateBitArray(): Generate the bit array
+
+        getRuntime(): Get the runtime of the algorithm
+
+        getMemoryRSS(): Get the memory used by the program
+
+        getMemoryUSS(): Get the memory used by the program
+
+        getGPUMemory(): Get the GPU memory used by the program
+
+        getPatterns(): Get the patterns"""
 
     def __readFile(self):
         """

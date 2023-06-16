@@ -1,11 +1,64 @@
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     import PAMI.geoReferencedPeridicFrequentPattern.GPFPMiner as alg
+#
+#     obj = alg.GPFPMiner("sampleTDB.txt", "sampleN.txt", 5, 3)
+#
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of Geo Referenced Periodic-Frequent Patterns:", len(Patterns))
+#
+#     obj.save("outFile")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 from  PAMI.geoReferencedPeriodicFrequentPattern.basic import abstract as _ab
 
 
 class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
     """ 
+    Description:
+    ------------
         GPFPMiner is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
         Lattice Traversal to mine the geo referenced peridoic frequent patterns.
-            ...
+        
+    Reference:
+    -----------
+    
+          
     Attributes :
     ----------
             iFile : str
@@ -40,7 +93,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
             Database : list
                 To store the complete set of transactions available in the input database/file
     Methods :
-    -------
+    ---------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -66,20 +119,19 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
              mapNeighbours(file):
                 A function to map items to their neighbours
     Executing the code on terminal :
-    ------------------------------
+    ---------------------------------
         Format:
-            python3 GPFPMiner.py <inputFile> <outputFile> <neighbourFile> <minSup> <maxPer>
+        --------
+            >>> python3 GPFPMiner.py <inputFile> <outputFile> <neighbourFile> <minSup> <maxPer>
         Examples:
-            python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3 (minSup & maxPer will be considered in percentage of database transactions)
+        ---------
+            >>> python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3 (minSup & maxPer will be considered in percentage of database transactions)
 
-            python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 5 3 (minSup & maxPer will be considered in support count or frequency)
-                                                                (it considers "\t" as separator)
-
-            python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 5 3 ',' (it will consider "," as a separator)
-
+           
     Sample run of importing the code :
-    -------------------------------
-
+    ------------------------------------
+    .. code-block:: python
+    
         import PAMI.geoReferencedPeridicFrequentPattern.GPFPMiner as alg
 
         obj = alg.GPFPMiner("sampleTDB.txt", "sampleN.txt", 5, 3)

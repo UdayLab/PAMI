@@ -1,32 +1,57 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database.
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#      Copyright (C)  2021 Rage Uday Kiran
+#             from PAMI.correlatedSpatialPattern.basic import CSPGrowth as alg
+#
+#             obj = alg.CSPGrowth(iFile, frequentPatternsFile, measure, threshold)
+#
+#             obj.startMine()
+#
+#             Rules = obj.getPatterns()
+#
+#             print("Total number of  Patterns:", len(Patterns))
+#
+#             obj.savePatterns(oFile)
+#
+#             Df = obj.getPatternsAsDataFrame()
+#
+#             memUSS = obj.getMemoryUSS()
+#
+#             print("Total Memory in USS:", memUSS)
+#
+#             memRSS = obj.getMemoryRSS()
+#
+#             print("Total Memory in RSS", memRSS)
+#
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
 
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.correlatedPattern.basic import abstract as _ab
 
@@ -211,20 +236,25 @@ class _Tree:
 
 class CPGrowth(_ab._correlatedPatterns):
     """
-        CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database.
-        it is based on traditional FPGrowth Algorithm,This algorithm uses breadth-first search technique to find the
-        correlated Frequent patterns in transactional database.
+    :Description: CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database. It is based on traditional Fpgrowth Algorithm,This algorithm uses breadth-first search technique to find the correlated Frequent patterns in transactional database.
 
-    Reference :
-    ----------
-        Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
-    
-    Attributes :
-    ----------
-        iFile : file
-            Name of the Input file to mine complete set of frequent patterns
-        oFile : file
-            Name of the output file to store complete set of frequent patterns
+    :Reference: Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+    :param minAllConf: str : Name of Neighbourhood file name
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
+
+
+
+    :Attributes:
+
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -254,79 +284,50 @@ class CPGrowth(_ab._correlatedPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-    Methods :
-    -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemSets(fileName)
-            Scans the dataset or dataframes and stores in list format
-        saveAllCombination(tempBuffer,s,position,prefix,prefixLength)
-            Forms all the combinations between prefix and tempBuffer lists with support(s)
-        frequentPatternGrowthGenerate(frequentPatternTree,prefix,port)
-            Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
-            mapSupport represents the 1-length items with their respective support
-        creatingItemSets(iFileName)
-            Method to Storing the complete transactions of the database file in a database variable
-        saveItemSet(prefix, prefixLength, support)
-            To save the frequent patterns mined form frequentPatternTree
 
-    Executing the code on terminal :
-    ------------------------------
-        Format:
-                python3 CPGrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
-        Examples:
-                python3 CPGrowth.py inp.txt output.txt 4.0 0.3   (minSup will be considered in percentage of database transactions)
+    **Methods to execute code on terminal**
+    ----------------------------------------
 
-                python3 CPGrowth.py  patterns.txt 4  0.3   (minSup will be considered in support count or frequency)
-                                                                (it will consider '\t' as separator)
+            Format:
+                      >>> python3 CSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup> <minAllConf> <sep>
+            Example:
+                      >>>  python3 CSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2
 
-                python3 CPGrowth.py sampleDB.txt patterns.txt 0.23 0.2  ,
-                                                                (it will consider ',' as separator)
+                     .. note:: minSup will be considered in percentage of database transactions
 
-    Sample run of the importing code :
-    ---------------------------------
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------------------------------
+    .. code-block:: python
 
-        from PAMI.correlatedPattern.basic import CPGrowth as alg
+            from PAMI.correlatedSpatialPattern.basic import CSPGrowth as alg
 
-        obj = alg.CPGrowth(iFile, minSup, minAllConf)
+            obj = alg.CSPGrowth(iFile, frequentPatternsFile, measure, threshold)
 
-        obj.startMine()
+            obj.startMine()
 
-        correlatedPatterns = obj.getPatterns()
+            Rules = obj.getPatterns()
 
-        print("Total number of correlated frequent Patterns:", len(correlatedPatterns))
+            print("Total number of  Patterns:", len(Patterns))
 
-        obj.save(oFile)
+            obj.savePatterns(oFile)
 
-        Df = obj.getPatternInDf()
+            Df = obj.getPatternsAsDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    --------
-        The complete program was written by B.Sai Chitra  under the supervision of Professor Rage Uday Kiran.
+    **Credits:**
+    ----------------------------------------
+             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
 
         """
 

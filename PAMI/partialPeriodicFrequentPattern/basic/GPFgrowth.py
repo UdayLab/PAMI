@@ -1,3 +1,55 @@
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
+#
+#     obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)
+#
+#     obj.startMine()
+#
+#     partialPeriodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDf()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 import sys
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
@@ -444,15 +496,17 @@ class PFgrowth:
 
 class GPFgrowth(partialPeriodicPatterns):
     """
-    GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
+    Description:
+    ------------
+        GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
     
     Reference:
-    ---------
-    R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
-    Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, https://doi.org/10.1016/j.jss.2016.11.035.
-    ...
+    -----------
+        R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
+        Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, https://doi.org/10.1016/j.jss.2016.11.035.
+
     Attributes:
-    ----------
+    ------------
         inputFile : file
             Name of the input file to mine complete set of frequent pattern
         minSup : float
@@ -471,7 +525,7 @@ class GPFgrowth(partialPeriodicPatterns):
             storing the total amount of RSS memory consumed by the program
 
     Methods:
-    -------
+    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -487,15 +541,19 @@ class GPFgrowth(partialPeriodicPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Format:
-    ------
-        python3 GPFgrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
+    Executing code on Terminal:
+    ------------------------------
+        Format:
+        --------
+            >>> python3 GPFgrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
 
         Examples:
-            python3 GPFgrowth.py sampleDB.txt patterns.txt 10 10 0.5
+        ---------
+            >>> python3 GPFgrowth.py sampleDB.txt patterns.txt 10 10 0.5
 
     Sample run of the importing code:
-    ------------
+    ---------------------------------
+    .. code-block:: python
 
         from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
 
@@ -522,6 +580,12 @@ class GPFgrowth(partialPeriodicPatterns):
         run = obj.getRuntime()
 
         print("Total ExecutionTime in seconds:", run)
+
+    Credits:
+    ---------
+            The complete program was written by Nakamura  under the supervision of Professor Rage Uday Kiran.
+
+
     """
     _partialPeriodicPatterns__iFile = ' '
     _partialPeriodicPatterns__oFile = ' '

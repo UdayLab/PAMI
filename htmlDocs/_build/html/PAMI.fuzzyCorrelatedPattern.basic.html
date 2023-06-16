@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.fuzzyCorrelatedPattern.basic package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.fuzzyCorrelatedPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -150,10 +150,20 @@
 <dt class="sig sig-object py" id="PAMI.fuzzyCorrelatedPattern.basic.FCPGrowth.FCPGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.fuzzyCorrelatedPattern.basic.FCPGrowth.</span></span><span class="sig-name descname"><span class="pre">FCPGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minAllConf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyCorrelatedPattern/basic/FCPGrowth.html#FCPGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyCorrelatedPattern.basic.FCPGrowth.FCPGrowth" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_corelatedFuzzyFrequentPatterns</span></code></p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>FCPGrowth is the algorithm to discover Correlated Fuzzy-frequent patterns in a transactional database.
 it is based on traditional fuzzy frequent pattern mining.</p>
 </div></blockquote>
+</section>
+<section id="reference">
+<h3>Reference:<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
+<blockquote>
+<div><p>Lin, N.P., &amp; Chueh, H. (2007). Fuzzy correlation rules mining.
+<a class="reference external" href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.416.6053&amp;rep=rep1&amp;type=pdf">https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.416.6053&amp;rep=rep1&amp;type=pdf</a></p>
+</div></blockquote>
+</section>
 <section id="id1">
 <h3>Attributes :<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <blockquote>
@@ -229,36 +239,43 @@ it is based on traditional fuzzy frequent pattern mining.</p>
 <section id="executing-the-code-on-terminal">
 <h3>Executing the code on terminal :<a class="headerlink" href="#executing-the-code-on-terminal" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><dl>
-<dt>Format:</dt><dd><p>python3 FCPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;minAllConf&gt; &lt;sep&gt;</p>
-</dd>
-<dt>Examples:</dt><dd><p>python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2 (minSup will be considered in support count or frequency)</p>
-<dl class="simple">
-<dt>python3 FCPGrowth.py sampleTDB.txt output.txt 0.25 0.2 (minSup and maxPer will be considered in percentage of database)</dt><dd><p>(it will consider separator as &quot;   &quot;)</p>
-</dd>
-<dt>python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2 ,</dt><dd><p>(it will consider separator as ',')</p>
-</dd>
-</dl>
-</dd>
-</dl>
+<div><p>Format:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">FCPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minAllConf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">FCPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="mi">2</span> <span class="mf">0.2</span> <span class="p">(</span><span class="n">minSup</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">support</span> <span class="n">count</span> <span class="ow">or</span> <span class="n">frequency</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
 </section>
 <section id="sample-run-of-importing-the-code">
 <h3>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>from PAMI.fuzzyCorrelatedPattern.basic import FCPGrowth as alg</p>
-<p>obj = alg.FCPGrowth(&quot;input.txt&quot;,2,0.4)</p>
-<p>obj.startTimeMine()</p>
-<p>correlatedFuzzyFrequentPatterns = obj.getPatterns()</p>
-<p>print(&quot;Total number of Correlated Fuzzy Frequent Patterns:&quot;, len(correlatedFuzzyFrequentPatterns))</p>
-<p>obj.save(&quot;output&quot;)</p>
-<p>memUSS = obj.getMemoryUSS()</p>
-<p>print(&quot;Total Memory in USS:&quot;, memUSS)</p>
-<p>memRSS = obj.getMemoryRSS()</p>
-<p>print(&quot;Total Memory in RSS&quot;, memRSS)</p>
-<p>run = obj.getRuntime</p>
-<p>print(&quot;Total ExecutionTime in seconds:&quot;, run)</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.fuzzyCorrelatedPattern.basic</span> <span class="kn">import</span> <span class="n">FCPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">FCPGrowth</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startTimeMine</span><span class="p">()</span>
+
+<span class="n">correlatedFuzzyFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Correlated Fuzzy Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">correlatedFuzzyFrequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">)</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="credits">
 <h3>Credits:<a class="headerlink" href="#credits" title="Permalink to this heading"></a></h3>

@@ -1,17 +1,52 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.weightedUncertainFrequentPattern.basic import WFIM as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.WFIM(iFile, wFile, expSup, expWSup)
+#
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of  Patterns:", len(Patterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.weightedUncertainFrequentPattern.basic import abstract as _ab
 
@@ -254,16 +289,18 @@ class _Tree(object):
 
 class WUFIM(_ab._weightedFrequentPatterns):
     """
+    Description:
+    -------------
         It is one of the algorithm to discover weighted frequent patterns in a uncertain transactional database
         using PUF-Tree.
 
     Reference:
-    --------
+    ------------
         Efficient Mining of Weighted Frequent Itemsets in Uncertain Databases, In book: Machine Learning and Data Mining in Pattern Recognition
         Chun-Wei Jerry Lin, Wensheng Gan, Philippe Fournier Viger, Tzung-Pei Hong
 
     Attributes:
-    ----------
+    ------------
         iFile : file
             Name of the Input file or path of the input file
         wFile : file
@@ -299,7 +336,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         finalPatterns : dict
             To store the complete patterns
     Methods:
-    -------
+    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -326,20 +363,23 @@ class WUFIM(_ab._weightedFrequentPatterns):
             to convert the user specified value
         startMine()
             Mining process will start from this function
-    Executing the code on terminal:
-    -------
+
+    **Methods to execute code on terminal**
+
         Format:
-        ------
-        python3 WUFIM.py <inputFile> <outputFile> <weightFile> <expSup> <expWeSup>
-        Examples:
-        --------
-        python3 WUFIM.py sampleTDB.txt patterns.txt weightFile.txt 1.4 1.5    (minSup  will be considered in support count or frequency)
+                  >>>  python3 WUFIM.py <inputFile> <outputFile> <minSup>
+        Example:
+                  >>>  python3 WUFIM.py sampleTDB.txt patterns.txt 3
 
-    Sample run of importing the code:
-    -------------------
-        from PAMI.weightedUncertainFrequentPattern.basic import WUFIM as alg
+                 .. note:: minSup  will be considered in support count or frequency
 
-        obj = alg.WUFIM(iFile, wFile, expSup, expWSup)
+    **Importing this algorithm into a python program**
+
+.. code-block:: python
+
+        from PAMI.weightedUncertainFrequentPattern.basic import WFIM as alg
+
+        obj = alg.WFIM(iFile, wFile, expSup, expWSup)
 
         obj.startMine()
 
@@ -347,7 +387,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
         print("Total number of  Patterns:", len(Patterns))
 
-        obj.save(oFile)
+        obj.savePatterns(oFile)
 
         Df = obj.getPatternsAsDataFrame()
 
@@ -362,10 +402,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         run = obj.getRuntime()
 
         print("Total ExecutionTime in seconds:", run)
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-    """
+   """
     _startTime = float()
     _endTime = float()
     _minSup = str()

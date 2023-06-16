@@ -1,30 +1,53 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.highUtilityFrequentPatterns.basic import HUFIM as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     ob j =alg.HUFIM("input.txt", 35, 20)
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     obj.startMine()
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     Patterns = obj.getPatterns()
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     print("Total number of high utility frequent Patterns:", len(Patterns))
+#
+#     obj.save("output")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 
 from PAMI.highUtilityFrequentPatterns.basic import abstract as _ab
 
@@ -277,11 +300,13 @@ class _Dataset:
 
 class HUFIM(_ab._utilityPatterns):
     """
-    HUFIM (High Utility Frequent Itemset Miner) algorithm helps us to mine High Utility Frequent ItemSets (HUFIs) from transactional databases.
+    Description:
+    -------------
+        HUFIM (High Utility Frequent Itemset Miner) algorithm helps us to mine High Utility Frequent ItemSets (HUFIs) from transactional databases.
 
 
     Reference:
-    ---------
+    -----------
         Kiran, R.U., Reddy, T.Y., Fournier-Viger, P., Toyoda, M., Reddy, P.K., & Kitsuregawa, M. (2019).
         Efficiently Finding High Utility-Frequent Itemsets Using Cutoff and Suffix Utility. PAKDD 2019.
         DOI: 10.1007/978-3-030-16145-3_15
@@ -328,7 +353,7 @@ class HUFIM(_ab._utilityPatterns):
             list of items that needs to be explored
 
     Methods :
-    -------
+    ----------
         startMine()
                 Mining process will start from here
         getPatterns()
@@ -361,17 +386,20 @@ class HUFIM(_ab._utilityPatterns):
              A method to calculate local utility values for single itemSets
 
     Executing the code on terminal :
-    -------
+    ---------------------------------
         Format:
-            python3 HUFIM.py <inputFile> <outputFile> <minUtil> <sep>
+        ---------
+             >>>  python3 HUFIM.py <inputFile> <outputFile> <minUtil> <sep>
         Examples:
-            python3 HUFIM.py sampleTDB.txt output.txt 35 20 (it will consider "\t" as separator)
+        ---------
+            >>>  python3 HUFIM.py sampleTDB.txt output.txt 35 20 (it will consider "\t" as separator)
 
-            python3 HUFIM.py sampleTDB.txt output.txt 35 20 , (it will consider "," as separator)
+            >>>  python3 HUFIM.py sampleTDB.txt output.txt 35 20 , (it will consider "," as separator)
 
     Sample run of importing the code:
     -------------------------------
-        
+    .. code-block:: python
+
         from PAMI.highUtilityFrequentPatterns.basic import HUFIM as alg
 
         obj=alg.HUFIM("input.txt", 35, 20)
@@ -397,7 +425,7 @@ class HUFIM(_ab._utilityPatterns):
         print("Total ExecutionTime in seconds:", run)
    
     Credits:
-    -------
+    ---------
         The complete program was written by pradeep pallikila under the supervision of Professor Rage Uday Kiran.
      
     """

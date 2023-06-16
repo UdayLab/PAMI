@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras package &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.extras package &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -96,7 +96,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PAMI-PAttern MIning</a>
+          <a href="index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -145,7 +145,7 @@
 <li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.createTDB">PAMI.extras.DF2DB.createTDB module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB"><code class="docutils literal notranslate"><span class="pre">createTDB</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.createTDB"><code class="docutils literal notranslate"><span class="pre">createTDB.createTDB()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.save"><code class="docutils literal notranslate"><span class="pre">createTDB.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.savePatterns"><code class="docutils literal notranslate"><span class="pre">createTDB.savePatterns()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -524,11 +524,53 @@
 <dd></dd></dl>
 
 </section>
-<section id="pami-extras-plotpointonmap-module">
-<h2>PAMI.extras.plotPointOnMap module<a class="headerlink" href="#pami-extras-plotpointonmap-module" title="Permalink to this heading"></a></h2>
+<section id="module-PAMI.extras.plotPointOnMap">
+<span id="pami-extras-plotpointonmap-module"></span><h2>PAMI.extras.plotPointOnMap module<a class="headerlink" href="#module-PAMI.extras.plotPointOnMap" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap.plotPointOnMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.plotPointOnMap.</span></span><span class="sig-name descname"><span class="pre">plotPointOnMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputPatterns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap.html#plotPointOnMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap.plotPointOnMap" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap.plotPointOnMap.convertPOINT">
+<span class="sig-name descname"><span class="pre">convertPOINT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patterns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap.html#plotPointOnMap.convertPOINT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap.plotPointOnMap.convertPOINT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap.plotPointOnMap.findTopKPatterns">
+<span class="sig-name descname"><span class="pre">findTopKPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap.html#plotPointOnMap.findTopKPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap.plotPointOnMap.findTopKPatterns" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap.plotPointOnMap.plotPointInMap">
+<span class="sig-name descname"><span class="pre">plotPointInMap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap.html#plotPointOnMap.plotPointInMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap.plotPointOnMap.plotPointInMap" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="pami-extras-plotpointonmap-dump-module">
-<h2>PAMI.extras.plotPointOnMap_dump module<a class="headerlink" href="#pami-extras-plotpointonmap-dump-module" title="Permalink to this heading"></a></h2>
+<section id="module-PAMI.extras.plotPointOnMap_dump">
+<span id="pami-extras-plotpointonmap-dump-module"></span><h2>PAMI.extras.plotPointOnMap_dump module<a class="headerlink" href="#module-PAMI.extras.plotPointOnMap_dump" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap_dump.plotPointOnMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.plotPointOnMap_dump.</span></span><span class="sig-name descname"><span class="pre">plotPointOnMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputPatterns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap_dump.html#plotPointOnMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap_dump.plotPointOnMap" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap_dump.plotPointOnMap.convertPOINT">
+<span class="sig-name descname"><span class="pre">convertPOINT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patterns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap_dump.html#plotPointOnMap.convertPOINT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap_dump.plotPointOnMap.convertPOINT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap_dump.plotPointOnMap.findTopKPatterns">
+<span class="sig-name descname"><span class="pre">findTopKPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap_dump.html#plotPointOnMap.findTopKPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap_dump.plotPointOnMap.findTopKPatterns" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap_dump.plotPointOnMap.plotPointInMap">
+<span class="sig-name descname"><span class="pre">plotPointInMap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap_dump.html#plotPointOnMap.plotPointInMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap_dump.plotPointOnMap.plotPointInMap" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-PAMI.extras.scatterPlotSpatialPoints">
 <span id="pami-extras-scatterplotspatialpoints-module"></span><h2>PAMI.extras.scatterPlotSpatialPoints module<a class="headerlink" href="#module-PAMI.extras.scatterPlotSpatialPoints" title="Permalink to this heading"></a></h2>

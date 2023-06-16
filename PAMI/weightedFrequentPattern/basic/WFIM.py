@@ -1,17 +1,51 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.weightFrequentPattern.basic import WFIM as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.WFIM(iFile, wFile, minSup, minWeight)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getmemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.weightedFrequentPattern.basic import abstract as _fp
 
@@ -196,16 +230,18 @@ class _Tree:
 
 class WFIM(_fp._weightedFrequentPatterns):
     """
+    Description:
+    -------------
        WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.
        It stores the database in compressed fp-tree decreasing the memory usage and extracts the
        patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
     Reference :
-    ---------
+    -----------
            U. Yun and J. J. Leggett, “Wfim: weighted frequent itemset mining with a weight range and a minimum weight,”
            in Proceedings of the 2005 SIAM International Conference on Data Mining. SIAM, 2005, pp. 636–640.
            https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76
     Attributes :
-    ----------
+    ------------
         iFile : file
             Input file name or path of the input file
         minSup: float or int or str
@@ -242,7 +278,7 @@ class WFIM(_fp._weightedFrequentPatterns):
         finalPatterns : dict
             it represents to store the patterns
     Methods :
-    -------
+    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -261,48 +297,50 @@ class WFIM(_fp._weightedFrequentPatterns):
             Scans the dataset or dataframes and stores in list format
         frequentOneItem()
             Extracts the one-frequent patterns from transactions
-    Executing the code on terminal:
-    -------
+    Methods to execute code on terminal
+    ------------------------------------
         Format:
-        -------
-            python3 WFIM.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
-        Examples:
-        ---------
-            python3 WFIM.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4  (minSup will be considered in times of minSup and count of database transactions)
+                  >>>  python3 WFIM.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
+        Example:
+                  >>>  python3 WFIM.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4
 
-            python3 WFIM.py sampleTDB.txt weightFile.txt output.txt 3 1.2 ',' (it will consider "," as a separator)
+                 .. note:: minSup and maxPer will be considered in support count or frequency
 
-    Sample run of the importing code:
-    -----------
-        from PAMI.weightFrequentPattern.basic import WFIM as alg
+    **Importing this algorithm into a python program**
+    --------------------------------------------------
+    .. code-block:: python
 
-        obj = alg.WFIM(iFile, wFile, minSup, minWeight)
+            from PAMI.weightFrequentPattern.basic import WFIM as alg
 
-        obj.startMine()
+            obj = alg.WFIM(iFile, wFile, minSup, minWeight)
 
-        Patterns = obj.getPatterns()
+            obj.startMine()
 
-        print("Total number of Weighted Frequent Patterns:", len(Patterns))
+            frequentPatterns = obj.getPatterns()
 
-        obj.save(oFile)
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        Df = obj.getPatternInDataFrame()
+            obj.savePatterns(oFile)
 
-        memUSS = obj.getMemoryUSS()
+            Df = obj.getPatternsAsDataFrame()
 
-        print("Total Memory in USS:", memUSS)
+            memUSS = obj.getmemoryUSS()
 
-        memRSS = obj.getMemoryRSS()
+            print("Total Memory in USS:", memUSS)
 
-        print("Total Memory in RSS", memRSS)
+            memRSS = obj.getMemoryRSS()
 
-        run = obj.getRuntime()
+            print("Total Memory in RSS", memRSS)
 
-        print("Total ExecutionTime in seconds:", run)
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-        """
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+
+  """
 
     __startTime = float()
     __endTime = float()

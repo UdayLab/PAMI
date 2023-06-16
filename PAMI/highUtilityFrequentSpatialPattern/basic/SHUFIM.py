@@ -1,3 +1,53 @@
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#
+#         from PAMI.highUtilityFrequentSpatialPattern.basic import SHUFIM as alg
+#
+#         obj=alg.SHUFIM("input.txt","Neighbours.txt",35,20)
+#
+#         obj.startMine()
+#
+#         patterns = obj.getPatterns()
+#
+#         print("Total number of Spatial high utility frequent Patterns:", len(patterns))
+#
+#         obj.save("output")
+#
+#         memUSS = obj.getMemoryUSS()
+#
+#         print("Total Memory in USS:", memUSS)
+#
+#         memRSS = obj.getMemoryRSS()
+#
+#         print("Total Memory in RSS", memRSS)
+#
+#         run = obj.getRuntime()
+#
+#         print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
+
 from PAMI.highUtilityFrequentSpatialPattern.basic import abstract as _ab
 from functools import cmp_to_key as _comToKey
 
@@ -266,10 +316,12 @@ class _Dataset:
 
 class SHUFIM(_ab._utilityPatterns):
     """
-      Spatial High Utility Frequent ItemSet Mining (SHUFIM) aims to discover all itemSets in a spatioTemporal database
+    Description:
+    -------------
+       Spatial High Utility Frequent ItemSet Mining (SHUFIM) aims to discover all itemSets in a spatioTemporal database
        that satisfy the user-specified minimum utility, minimum support and maximum distance constraints
     Reference:
-    ---------
+    -----------
         10.1007/978-3-030-37188-3_17
 
     Attributes:
@@ -314,7 +366,7 @@ class SHUFIM(_ab._utilityPatterns):
             keep items that subtreeUtility grater than minUtil
 
     Methods :
-    -------
+    ---------
         startMine()
                 Mining process will start from here
         getPatterns()
@@ -351,14 +403,18 @@ class SHUFIM(_ab._utilityPatterns):
              A method to scan the database using utility bin array to calculate the pmus
 
     Executing the code on terminal :
-    -------
-        Format: python3 SHUFIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <minSup> <sep>
-        Examples: python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20 (it will consider "\t" as separator)
-                  python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20 , (it will consider "," as separator)
+    -------------------------------------
+        Format:
+        ------
+          >>> python3 SHUFIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <minSup> <sep>
+        Examples:
+        ------
+          >>> python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20 (it will consider "\t" as separator)
 
     Sample run of importing the code:
-    -------------------------------
-        
+    -------------------------------------
+    .. code-block:: python
+
         from PAMI.highUtilityFrequentSpatialPattern.basic import SHUFIM as alg
 
         obj=alg.SHUFIM("input.txt","Neighbours.txt",35,20)
@@ -384,8 +440,10 @@ class SHUFIM(_ab._utilityPatterns):
         print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    -------
+    ---------
+
             The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.
+
     """
     _candidateCount = 0
     _utilityBinArrayLU = {}

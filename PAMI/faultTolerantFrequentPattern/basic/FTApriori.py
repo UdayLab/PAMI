@@ -1,119 +1,142 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# FT-Apriori is one of the fundamental algorithm to discover fault tolerant frequent patterns in a transactional database.
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+# **Importing this algorithm into a python program**
+# ----------------------------------------------------------------
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     from PAMI.uncertainCorrelatedPattern.basic import CFFI as alg
+#
+#     obj = alg.CFFI("input.txt", 2, 0.4)
+#
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of Correlated Fuzzy Frequent Patterns:", len(Patterns))
+#
+#     obj.savePatterns("outputFile")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
 
 class FTApriori(_ab._faultTolerantFrequentPatterns):
     """
-        FT-Apriori is one of the fundamental algorithm to discover fault tolerant frequent patterns in a transactional database.
-        This program employs apriori property (or downward closure property) to  reduce the search space effectively.
+    
+    :Description:   FT-Apriori is one of the fundamental algorithm to discover fault tolerant frequent patterns in a transactional database.
+                    This program employs apriori property (or downward closure property) to  reduce the search space effectively.
 
-        Reference:
-        ----------
-            Pei, Jian & Tung, Anthony & Han, Jiawei. (2001). Fault-Tolerant Frequent Pattern Mining: Problems and Challenges.
+    :Reference:       Pei, Jian & Tung, Anthony & Han, Jiawei. (2001). Fault-Tolerant Frequent Pattern Mining: Problems and Challenges.
 
-
-        Attributes:
-        ----------
-                iFile : str
-                    Input file name or path of the input file
-                oFile : str
-                    Name of the output file or the path of output file
-                minSup: float or int or str
+    :param  iFile: str :
+           Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: float or int or str :
                     The user can specify minSup either in count or proportion of database size.
                     If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
                     Otherwise, it will be treated as float.
                     Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-                sep : str
-                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-                    However, the users can override their default separator.
-                startTime:float
-                    To record the start time of the mining process
-                endTime:float
-                    To record the completion time of the mining process
-                finalPatterns: dict
-                    Storing the complete set of patterns in a dictionary variable
-                memoryUSS : float
-                    To store the total amount of USS memory consumed by the program
-                memoryRSS : float
-                    To store the total amount of RSS memory consumed by the program
-                Database : list
-                    To store the transactions of a database in list
+    :param  itemSup: int or float :
+                    Frequency of an item
+    :param minLength: int :
+                    minimum length of a pattern
+    :param faultTolerance: int
 
-            Methods:
-            -------
-                startMine()
-                    Mining process will start from here
-                getPatterns()
-                    Complete set of patterns will be retrieved with this function
-                save(oFile)
-                    Complete set of frequent patterns will be loaded in to a output file
-                getPatternsAsDataFrame()
-                    Complete set of frequent patterns will be loaded in to a dataframe
-                getMemoryUSS()
-                    Total amount of USS memory consumed by the mining process will be retrieved from this function
-                getMemoryRSS()
-                    Total amount of RSS memory consumed by the mining process will be retrieved from this function
-                getRuntime()
-                    Total amount of runtime taken by the mining process will be retrieved from this function
-                candidateToFrequent(candidateList)
-                    Generates frequent patterns from the candidate patterns
-                frequentToCandidate(frequentList, length)
-                    Generates candidate patterns from the frequent patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
 
-            Executing the code on terminal:
-            -------------------------------
+    :Attributes:
 
-                Format:
-                ------
-                    python3 FTApriori.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
+        startTime : float
+          To record the start time of the mining process
 
-                Examples:
-                ---------
-                    python3 FTApriori.py sampleDB.txt patterns.txt 10.0 3.0 3 1  (minSup will be considered in times of minSup and count of database transactions)
+        endTime : float
+          To record the completion time of the mining process
 
-                    python3 FTApriori.py sampleDB.txt patterns.txt 10  3 2 1    (minSup will be considered in support count or frequency)
+        finalPatterns : dict
+          Storing the complete set of patterns in a dictionary variable
 
+        memoryUSS : float
+          To store the total amount of USS memory consumed by the program
 
-            Sample run of the importing code:
-            ---------------------------------
+        memoryRSS : float
+          To store the total amount of RSS memory consumed by the program
 
-                import PAMI.faultTolerantFrequentPattern.basic.FTApriori as alg
-
-                obj = alg.FTApriori(iFile, minSup, itemSup, minLength, faultTolerance)
-
-                obj.startMine()
-
-                faultTolerantFrequentPatterns = obj.getPatterns()
-
-                print("Total number of Fault Tolerant Frequent Patterns:", len(faultTolerantFrequentPatterns))
-
-                obj.save(oFile)
-
-                Df = obj.getPatternInDataFrame()
-
-                print("Total Memory in USS:", obj.getMemoryUSS())
-
-                print("Total Memory in RSS", obj.getMemoryRSS())
-
-                print("Total ExecutionTime in seconds:", obj.getRuntime())
-
-            Credits:
-            --------
-                The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+        Database : list
+          To store the transactions of a database in list
+    
+        
+    **Methods to execute code on terminal**
+    ---------------------------------------
+    
+            Format:
+                      >>>    python3 FTApriori.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
+            Example:
+                      >>>    python3 FTApriori.py sampleDB.txt patterns.txt 10.0 3.0 3 1
+    
+            .. note:: minSup will be considered in times of minSup and count of database transactions
+    
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------------------
+    .. code-block:: python
+    
+            from PAMI.uncertainCorrelatedPattern.basic import CFFI as alg
+    
+            obj = alg.CFFI("input.txt", 2, 0.4)
+    
+            obj.startMine()
+    
+            Patterns = obj.getPatterns()
+    
+            print("Total number of Correlated Fuzzy Frequent Patterns:",  len(Patterns))
+    
+            obj.savePatterns("outputFile")
+    
+            memUSS = obj.getMemoryUSS()
+    
+            print("Total Memory in USS:",  memUSS)
+    
+            memRSS = obj.getMemoryRSS()
+    
+            print("Total Memory in RSS",  memRSS)
+    
+            run = obj.getRuntime
+    
+            print("Total ExecutionTime in seconds:",  run)
+    
+    **Credits:**
+    ----------------
+             The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
 
         """
 

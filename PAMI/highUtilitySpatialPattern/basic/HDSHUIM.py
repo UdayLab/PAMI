@@ -1,3 +1,51 @@
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     from PAMI.highUtilityFrequentSpatialPattern.basic import HDSHUIM as alg
+#
+#     obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
+#
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of Spatial High-Utility Patterns:", len(Patterns))
+#
+#     obj.save("output")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
 
 
@@ -87,12 +135,19 @@ class _Pair:
 
 class HDSHUIM(_ab._utilityPatterns):
     """
+    Description:
+    ------------
         Spatial High Utility ItemSet Mining (SHUIM) [3] is an important model in data
         mining with many real-world applications. It involves finding all spatially interesting itemSets having high value 
         in a quantitative spatio temporal database.
+    Reference:
+    ----------
+        P. Pallikila et al., "Discovering Top-k Spatial High Utility Itemsets in Very Large Quantitative Spatiotemporal 
+        databases," 2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 4925-4935,
+        doi: 10.1109/BigData52589.2021.9671912.
 
     Attributes :
-    ----------
+    --------------
         iFile : str
             Name of the input file to mine complete set of frequent patterns
         oFile : str
@@ -118,7 +173,7 @@ class HDSHUIM(_ab._utilityPatterns):
         mapOfPMU: map
             a map to keep track of Probable Maximum utility(PMU) of each item
     Methods :
-    -------
+    ----------
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -146,18 +201,21 @@ class HDSHUIM(_ab._utilityPatterns):
 
 
     Executing the code on terminal :
-    -------
+    --------------------------------
         Format:
-            python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil>
+        -------
+            >>> python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil>
 
-            python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
+            >>> python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
         Examples:
-            python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be "\t" in both input and neighbourhood file)
+        ---------
+            >>> python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be "\t" in both input and neighbourhood file)
 
-            python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be "," in both input and neighbourhood file)
+            >>> python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be "," in both input and neighbourhood file)
 
     Sample run of importing the code:
-    -------------------------------
+    -----------------------------------
+    .. code-block:: python
         
         from PAMI.highUtilityFrequentSpatialPattern.basic import HDSHUIM as alg
 
@@ -184,7 +242,7 @@ class HDSHUIM(_ab._utilityPatterns):
         print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    -------
+    ----------
         The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
             
     """

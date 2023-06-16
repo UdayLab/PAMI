@@ -1,20 +1,59 @@
+# **Importing this algorithm into a python program**
+# --------------------------------------------------
+#
+#     from PAMI.frequentPattern.basic import FPGrowth as alg
+#
+#     obj = alg.FPGrowth(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
+
+
+
+
+
+
+
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
-
-#  Copyright (C)  2021 Rage Uday Kiran
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _fp
 
 _minSup = str()
@@ -212,14 +251,16 @@ class _Tree:
 
 class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     """
+    Description:
+    ------------
        FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
        It stores the database in compressed fp-tree decreasing the memory usage and extracts the
        patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
 
     Reference :
     ---------
-           Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
-           Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
+       Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
+       Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
 
     Attributes :
     ----------
@@ -276,23 +317,20 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
             Extracts the one-frequent patterns from transactions
 
     Executing the code on terminal:
-    -------
+    -------------------------------
         Format:
         -------
-            python3 FPGrowth.py <inputFile> <outputFile> <minSup>
+            >>> python3 FPGrowth.py <inputFile> <outputFile> <minSup>
 
         Examples:
         ---------
-            python3 FPGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+            >>> python3 FPGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
-            python3 FPGrowth.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency) (it will consider "\t" as a separator)
-
-            python3 FPGrowth.py sampleTDB.txt output.txt sampleN.txt 3 ',' (it will consider "," as a separator)
 
 
     Sample run of the importing code:
-    -----------
-
+    -----------------------------------
+    .. code-block:: python
 
         from PAMI.frequentPattern.basic import FPGrowth as alg
 
@@ -321,7 +359,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    -------
+    --------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """

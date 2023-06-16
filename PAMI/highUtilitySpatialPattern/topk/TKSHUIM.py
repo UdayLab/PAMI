@@ -1,3 +1,50 @@
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#    from PAMI.highUtilitySpatialPattern.topk import TKSHUIM as alg
+#
+#     obj=alg.TKSHUIM("input.txt","Neighbours.txt",35)
+#
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     obj.save("output")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 from PAMI.highUtilitySpatialPattern.topk.abstract import *
 from functools import cmp_to_key
 import heapq
@@ -206,11 +253,15 @@ class Dataset:
 
 class TKSHUIM(utilityPatterns):
     """
-      Top K Spatial High Utility ItemSet Mining (TKSHUIM) aims to discover Top-K Spatial High Utility Itemsets
-      (TKSHUIs) in a spatioTemporal database
+    Description:
+    ------------
+       Top K Spatial High Utility ItemSet Mining (TKSHUIM) aims to discover Top-K Spatial High Utility Itemsets
+       (TKSHUIs) in a spatioTemporal database
     Reference:
     ---------
-
+       P. Pallikila et al., "Discovering Top-k Spatial High Utility Itemsets in Very Large Quantitative Spatiotemporal 
+       databases," 2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 4925-4935, 
+       doi: 10.1109/BigData52589.2021.9671912.
 
     Attributes:
     -----------
@@ -248,7 +299,7 @@ class TKSHUIM(utilityPatterns):
             keep items that subtreeUtility grater than minUtil
 
     Methods :
-    -------
+    ------------
         startMine()
                 Mining process will start from here
         getPatterns()
@@ -292,6 +343,7 @@ class TKSHUIM(utilityPatterns):
 
     Sample run of importing the code:
     -------------------------------
+    .. code-block:: python
         
         from PAMI.highUtilitySpatialPattern.topk import TKSHUIM as alg
 
@@ -316,7 +368,7 @@ class TKSHUIM(utilityPatterns):
         print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    -------
+    ----------
             The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.
     """
     candidateCount = 0

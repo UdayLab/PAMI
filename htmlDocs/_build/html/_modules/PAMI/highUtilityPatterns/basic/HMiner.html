@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.highUtilityPatterns.basic.HMiner &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.highUtilityPatterns.basic.HMiner &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -153,7 +153,14 @@
 
 <div class="viewcode-block" id="HMiner"><a class="viewcode-back" href="../../../../PAMI.highUtilityPatterns.basic.html#PAMI.highUtilityPatterns.basic.HMiner.HMiner">[docs]</a><span class="k">class</span> <span class="nc">HMiner</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_utilityPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Description:</span>
+<span class="sd">    -------------</span>
+
 <span class="sd">        High Utility itemSet Mining (HMIER) is an importent algorithm to miner High utility items from the database.</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">    ------------</span>
+
 <span class="sd">    Attributes:</span>
 <span class="sd">    ----------</span>
 <span class="sd">        iFile : file</span>
@@ -202,16 +209,21 @@
 <span class="sd">            A method to updates vales for duplicates</span>
 <span class="sd">        construcCUL(x, culs, st, minUtil, length, exnighbors)</span>
 <span class="sd">            A method to construct CUL&#39;s database</span>
+
 <span class="sd">    Executing the code on terminal :</span>
-<span class="sd">    -------</span>
+<span class="sd">    -----------------------------------</span>
 <span class="sd">        Format:</span>
-<span class="sd">            python3 HMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minUtil&gt;</span>
-<span class="sd">            python3 HMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minUtil&gt; &lt;separator&gt;</span>
+<span class="sd">        -------</span>
+<span class="sd">            &gt;&gt;&gt; python3 HMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minUtil&gt;</span>
+
 <span class="sd">        Examples:</span>
-<span class="sd">            python3 HMiner.py sampleTDB.txt output.txt 35 (separator will be &quot;\t&quot;)</span>
-<span class="sd">            python3 HMiner.py sampleTDB.txt output.txt 35 ,  (separator will be &quot;,&quot; in input file)</span>
+<span class="sd">        -------</span>
+
+<span class="sd">            &gt;&gt;&gt; python3 HMiner.py sampleTDB.txt output.txt 35 (separator will be &quot;\t&quot;)</span>
+
 <span class="sd">    Sample run of importing the code:</span>
-<span class="sd">    -------------------------------</span>
+<span class="sd">    --------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
 
 <span class="sd">        from PAMI.highUtilityPatterns.basic import HMiner as alg</span>
 <span class="sd">        </span>

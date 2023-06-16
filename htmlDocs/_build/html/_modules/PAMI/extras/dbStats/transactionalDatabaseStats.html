@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.dbStats.transactionalDatabaseStats &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.extras.dbStats.transactionalDatabaseStats &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -77,46 +77,19 @@
 
 <div class="viewcode-block" id="transactionalDatabaseStats"><a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats">[docs]</a><span class="k">class</span> <span class="nc">transactionalDatabaseStats</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    transactionalDatabaseStats is class to get stats of database.</span>
+<span class="sd">        :Description:  transactionalDatabaseStats is class to get stats of database.</span>
 
-<span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
-<span class="sd">        inputFile : file</span>
+
+<span class="sd">        :param inputFile: file :</span>
 <span class="sd">            input file path</span>
-<span class="sd">        database : dict</span>
+<span class="sd">        :param database: dict :</span>
 <span class="sd">            store time stamp and its transaction</span>
-<span class="sd">        lengthList : list</span>
-<span class="sd">            store length of all transaction</span>
-<span class="sd">        sep : str</span>
+<span class="sd">        :param lengthList: list :</span>
+<span class="sd">            store size of all transaction</span>
+<span class="sd">        :param sep: str</span>
 <span class="sd">            separator in file. Default is tab space.</span>
 
-<span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
-<span class="sd">        run()</span>
-<span class="sd">            execute readDatabase function</span>
-<span class="sd">        readDatabase()</span>
-<span class="sd">            read database from input file</span>
-<span class="sd">        getDatabaseSize()</span>
-<span class="sd">            get the size of database</span>
-<span class="sd">        getMinimumTransactionLength()</span>
-<span class="sd">            get the minimum transaction length</span>
-<span class="sd">        getAverageTransactionLength()</span>
-<span class="sd">            get the average transaction length. It is sum of all transaction length divided by database length.</span>
-<span class="sd">        getMaximumTransactionLength()</span>
-<span class="sd">            get the maximum transaction length</span>
-<span class="sd">        getStandardDeviationTransactionLength()</span>
-<span class="sd">            get the standard deviation of transaction length</span>
-<span class="sd">        getVarianceTransactionLength()</span>
-<span class="sd">            get the variance of transaction length</span>
-<span class="sd">        getSparsity()</span>
-<span class="sd">            get the sparsity of database</span>
-<span class="sd">        getSortedListOfItemFrequencies()</span>
-<span class="sd">            get sorted list of item frequencies</span>
-<span class="sd">        getSortedListOfTransactionLength()</span>
-<span class="sd">            get sorted list of transaction length</span>
-<span class="sd">        save(data, outputFile)</span>
-<span class="sd">            store data into outputFile</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">           &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputFile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

@@ -1,3 +1,55 @@
+
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg
+#
+#     obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)
+#
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of Stable Periodic Frequent Patterns:", len(Patterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
+
 from PAMI.stablePeriodicFrequentPattern.basic import abstract as _ab
 
 _minSup = int()
@@ -195,20 +247,23 @@ class _Tree:
                     yield q
             self.removeNode(i)
 
-class SPPGrowth(_ab._stablePeriodicFrequentPatterns):
-    """ Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
-         maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
-          greater than maximum lability.
+class SPPGrowth():
+    """
+    Description:
+    --------------
+    Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
+    maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
+    greater than maximum lability.
 
-        Reference:
-        --------
-            Dao, H.N. et al. (2022). Towards Efficient Discovery of Stable Periodic Patterns in Big Columnar Temporal Databases.
-            In: Fujita, H., Fournier-Viger, P., Ali, M., Wang, Y. (eds) Advances and Trends in Artificial Intelligence.
-            Theory and Practices in Artificial Intelligence. IEA/AIE 2022. Lecture Notes in Computer Science(), vol 13343. Springer, Cham.
-            https://doi.org/10.1007/978-3-031-08530-7_70
+    Reference:
+    -----------
+    Dao, H.N. et al. (2022). Towards Efficient Discovery of Stable Periodic Patterns in Big Columnar Temporal Databases.
+    In: Fujita, H., Fournier-Viger, P., Ali, M., Wang, Y. (eds) Advances and Trends in Artificial Intelligence.
+    Theory and Practices in Artificial Intelligence. IEA/AIE 2022. Lecture Notes in Computer Science(), vol 13343. Springer, Cham.
+    https://doi.org/10.1007/978-3-031-08530-7_70
 
-        Attributes:
-        ----------
+    Attributes:
+    ----------
             iFile : file
                 Name of the Input file or path of the input file
             oFile : file
@@ -252,78 +307,76 @@ class SPPGrowth(_ab._stablePeriodicFrequentPatterns):
             finalPatterns : dict
                 To store the complete patterns
 
-        Methods:
-        -------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            save(oFile)
-                Complete set of periodic-frequent patterns will be loaded in to a output file
-            getPatternsAsDataFrame()
-                Complete set of periodic-frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            creatingItemSets(fileName)
-                Scans the dataset and stores in a list format
-            PeriodicFrequentOneItem()
-                Extracts the one-periodic-frequent patterns from database
-            updateDatabases()
-                Update the database by removing aperiodic items and sort the Database by item decreased support
-            buildTree()
-                After updating the Database, remaining items will be added into the tree by setting root node as null
-            convert()
-                to convert the user specified value
+    Methods:
+    -------
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        save(oFile)
+            Complete set of periodic-frequent patterns will be loaded in to a output file
+        getPatternsAsDataFrame()
+            Complete set of periodic-frequent patterns will be loaded in to a dataframe
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+        creatingItemSets(fileName)
+            Scans the dataset and stores in a list format
+        PeriodicFrequentOneItem()
+            Extracts the one-periodic-frequent patterns from database
+        updateDatabases()
+            Update the database by removing aperiodic items and sort the Database by item decreased support
+        buildTree()
+            After updating the Database, remaining items will be added into the tree by setting root node as null
+        convert()
+            to convert the user specified value
 
-            Executing the code on terminal:
-            -------
+
+    **Methods to execute code on terminal**
+
             Format:
-            ------
-            python3 SPPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
+                      >>>   python3 SPPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
+            Example:
+                      >>>  python3 SPPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 0.3
 
-            Examples:
-            --------
-            python3 SPPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 0.3  (constraints will be considered in percentage of database
-            transactions)
+            .. note:: constraints will be considered in percentage of database transactions
 
-            python3 SPPGrowth.py sampleTDB.txt patterns.txt 3 4 3    (constraints will be considered in support count or frequency)
+    **Importing this algorithm into a python program**
 
-            Sample run of importing the code:
-            -------------------
+    .. code-block:: python
 
-                from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg
+            from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg
 
-                obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)
+            obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)
 
-                obj.startMine()
+            obj.startMine()
 
-                Patterns = obj.getPatterns()
+            Patterns = obj.getPatterns()
 
-                print("Total number of Stable Periodic Frequent Patterns:", len(Patterns))
+            print("Total number of Stable Periodic Frequent Patterns:", len(Patterns))
 
-                obj.save(oFile)
+            obj.save(oFile)
 
-                Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-                memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-                print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-                memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-                print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-                run = obj.getRuntime()
+            run = obj.getRuntime()
 
-                print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-            Credits:
-            -------
-                The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+    **Credits:**
+
+             The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
 
         """
     _startTime = float()

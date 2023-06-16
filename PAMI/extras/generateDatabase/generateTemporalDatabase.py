@@ -4,10 +4,12 @@ import os
 
 class generateTemporalDatabase:
     """
-    generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input
+    Description:
+    -------------
+        generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input
 
-        Attributes:
-        -----------
+    Attributes:
+    -----------
         numOfTransactions: int
             number of transactions
         maxNumOfItem: int
@@ -23,8 +25,8 @@ class generateTemporalDatabase:
         typeOfFile: str
             specify database or dataframe to get corresponding output
 
-        Methods:
-        ---------
+    Methods:
+    ---------
         getFileName():
             returns filename
         createTemporalFile():

@@ -8,10 +8,10 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class uncertainTemporalDatabaseStats:
     """
-    temporalDatabaseStats is class to get stats of database.
+        :Description: temporalDatabaseStats is class to get stats of database.
 
         Attributes:
-        ----------
+        -----------
         inputFile : file
             input file path
         database : dict
@@ -26,7 +26,7 @@ class uncertainTemporalDatabaseStats:
             separator in file. Default is tab space.
 
         Methods:
-        -------
+        --------
         run()
             execute readDatabase function
         readDatabase()

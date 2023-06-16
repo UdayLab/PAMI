@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.periodicFrequentPattern.topk.kPFPMiner.kPFPMiner &mdash; PAMI-PAttern MIning 2023.03.01 documentation</title>
+  <title>PAMI.periodicFrequentPattern.topk.kPFPMiner.kPFPMiner &mdash; PAMI 2023.03.01 documentation</title>
       <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
           
           
           <a href="../../../../../index.html" class="icon icon-home">
-            PAMI-PAttern MIning
+            PAMI
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
@@ -48,7 +48,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../../index.html">PAMI-PAttern MIning</a>
+          <a href="../../../../../index.html">PAMI</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -87,16 +87,19 @@
 
 <div class="viewcode-block" id="kPFPMiner"><a class="viewcode-back" href="../../../../../PAMI.periodicFrequentPattern.topk.kPFPMiner.html#PAMI.periodicFrequentPattern.topk.kPFPMiner.kPFPMiner.kPFPMiner">[docs]</a><span class="k">class</span> <span class="nc">kPFPMiner</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_periodicFrequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Top - K is and algorithm to discover top periodic-frequent patterns in a temporal database.</span>
+<span class="sd">        Description:</span>
+<span class="sd">        ------------</span>
+
+<span class="sd">            Top - K is and algorithm to discover top periodic-frequent patterns in a temporal database.</span>
 
 <span class="sd">        Reference:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        -----------</span>
 <span class="sd">            Likhitha, P., Ravikumar, P., Kiran, R.U., Watanobe, Y. (2022).</span>
 <span class="sd">            Discovering Top-k Periodic-Frequent Patterns in Very Large Temporal Databases. Big Data Analytics.</span>
 <span class="sd">            BDA 2022. Lecture Notes in Computer Science, vol 13773. Springer, Cham. https://doi.org/10.1007/978-3-031-24094-2_14</span>
 
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        -----------</span>
 <span class="sd">            iFile : str</span>
 <span class="sd">                Input file name or path of the input file</span>
 <span class="sd">            k: int</span>
@@ -118,7 +121,7 @@
 <span class="sd">                To store the total amount of RSS memory consumed by the program</span>
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">            startMine()</span>
 <span class="sd">                Mining process will start from here</span>
 <span class="sd">            getPatterns()</span>
@@ -147,16 +150,17 @@
 
 <span class="sd">            Format:</span>
 <span class="sd">            ------</span>
-<span class="sd">            python3 kPFPMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;k&gt;</span>
+<span class="sd">            &gt;&gt;&gt; python3 kPFPMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;k&gt;</span>
 
 <span class="sd">            Examples:</span>
 <span class="sd">            ---------</span>
-<span class="sd">            python3 kPFPMiner.py sampleDB.txt patterns.txt 10</span>
+<span class="sd">            &gt;&gt;&gt; python3 kPFPMiner.py sampleDB.txt patterns.txt 10</span>
 
 
 <span class="sd">        Sample run of the importing code:</span>
 <span class="sd">        ---------------------------------</span>
-
+<span class="sd">        .. code-block:: python</span>
+<span class="sd">        </span>
 <span class="sd">            import PAMI.periodicFrequentPattern.kPFPMiner as alg</span>
 
 <span class="sd">            obj = alg.kPFPMiner(iFile, k)</span>

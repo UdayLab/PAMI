@@ -1,70 +1,97 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset. This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#  **Importing this algorithm into a python program**
+#  --------------------------------------------------------------
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#             from PAMI.frequentPattern.closed import closed as alg
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#             obj = alg.Closed(iFile, minSup)
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#             obj.startMine()
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#             frequentPatterns = obj.getPatterns()
+#
+#             print("Total number of Closed Frequent Patterns:", len(frequentPatterns))
+#
+#             obj.savePatterns(oFile)
+#
+#             Df = obj.getPatternsAsDataFrame()
+#
+#             memUSS = obj.getMemoryUSS()
+#
+#             print("Total Memory in USS:", memUSS)
+#
+#             memRSS = obj.getMemoryRSS()
+#
+#             print("Total Memory in RSS", memRSS)
+#
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 
 from PAMI.frequentPattern.closed import abstract as _ab
 
 
 class CHARM(_ab._frequentPatterns):
-    """ CHARM is an algorithm to discover closed frequent patterns in a transactional database.
-        Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset.
-        This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
-        transactional database.
-        
-        Reference:
-        ----------
-            Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
+    """
+    :Description: CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset. This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
+
+
+    :Reference:   Mohammed J. Zaki and Ching-Jui Hsiao, CHARM: An Efficient Algorithm for Closed Itemset Mining,
             Proceedings of the 2002 SIAM, SDM. 2002, 457-473, https://doi.org/10.1137/1.9781611972726.27
 
-    Attributes:
-    ----------
-        iFile : file
-            Name of the Input file or path of the input file
-        oFile : file
-            Name of the output file or path of the output file
-        minSup: float or int or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        sep : str
-            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-            However, the users can override their default separator.
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
+
+    :Attributes:
+
+        startTime : float
+          To record the start time of the mining process
+
+        endTime : float
+          To record the completion time of the mining process
+
+        finalPatterns : dict
+          Storing the complete set of patterns in a dictionary variable
+
         memoryUSS : float
-            To store the total amount of USS memory consumed by the program
+          To store the total amount of USS memory consumed by the program
+
         memoryRSS : float
-            To store the total amount of RSS memory consumed by the program
-        startTime: float
-            To record the start time of the mining process
-        endTime: float
-            To record the completion time of the mining process
+          To store the total amount of RSS memory consumed by the program
+
         Database : list
-            To store the transactions of a database in list
+          To store the transactions of a database in list
+
         mapSupport : Dictionary
             To maintain the information of item and their frequency
         lno : int
@@ -80,68 +107,54 @@ class CHARM(_ab._frequentPatterns):
         hashing : dict
             stores the patterns with their support to check for the closed property
 
-    Methods:
-    -------
-        startMine()
-            Mining process will start from here
-        getPatterns()
-            Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
-        getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a dataframe
-        getMemoryUSS()
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
-        getMemoryRSS()
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
-        getRuntime()
-            Total amount of runtime taken by the mining process will be retrieved from this function
-        creatingItemsets()
-            Stores the frequent patterns with their timestamps from the dataset
-        
-        
-    Executing the code on terminal:
-    -------
-        Format: python3 CHARM.py <inputFile> <outputFile> <minSup>
 
-        Examples:
+    **Methods to execute code on terminal**
+    --------------------------------------------------------------
 
-        python3 CHARM.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+            Format:
+                      >>> python3 CHARM.py <inputFile> <outputFile> <minSup>
 
-        python3 CHARM.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+            Example:
+                      >>> python3 CHARM.py sampleDB.txt patterns.txt 10.0
 
-    Sample run of the importing code:
-    --------------
+            .. note:: minSup will be considered in percentage of database transactions
 
-        from PAMI.frequentPattern.closed import closed as alg
 
-        obj = alg.Closed(iFile, minSup)
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------------
+    .. code-block:: python
 
-        obj.startMine()
+            from PAMI.frequentPattern.closed import closed as alg
 
-        frequentPatterns = obj.getPatterns()
+            obj = alg.Closed(iFile, minSup)
 
-        print("Total number of Closed Frequent Patterns:", len(frequentPatterns))
+            obj.startMine()
 
-        obj.save(oFile)
+            frequentPatterns = obj.getPatterns()
 
-        Df = obj.getPatternsAsDataFrame()
+            print("Total number of Closed Frequent Patterns:", len(frequentPatterns))
 
-        memUSS = obj.getMemoryUSS()
+            obj.savePatterns(oFile)
 
-        print("Total Memory in USS:", memUSS)
+            Df = obj.getPatternsAsDataFrame()
 
-        memRSS = obj.getMemoryRSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in USS:", memUSS)
 
-        run = obj.getRuntime()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total Memory in RSS", memRSS)
 
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+
+    **Credits:**
+    -------------------------------
+
+                 The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """
 

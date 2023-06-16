@@ -1,17 +1,53 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.relativeHighUtilityPatterns.basic import RHUIM as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.RHUIM("input.txt", 35, 20)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getmemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 
 from PAMI.relativeHighUtilityPatterns.basic import abstract as _ab
@@ -251,10 +287,14 @@ class _Dataset:
 
 class RHUIM(_ab._utilityPatterns):
     """
-    RHUIM algorithm helps us to mine Relative High Utility itemSets from transactional databases.
+
+    Description:
+    --------------
+
+        RHUIM algorithm helps us to mine Relative High Utility itemSets from transactional databases.
     
     Reference:
-    ---------
+    ----------
         R. U. Kiran, P. Pallikila, J. M. Luna, P. Fournier-Viger, M. Toyoda and P. K. Reddy,
         "Discovering Relative High Utility Itemsets in Very Large Transactional Databases Using Null-Invariant Measure,"
         2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 252-262,
@@ -330,45 +370,49 @@ class RHUIM(_ab._utilityPatterns):
         useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)
              A method to calculate local utility values for single itemSets
 
-    Executing the code on terminal :
-    -------
-        Format:
-            python3 RHUIM.py <inputFile> <outputFile> <minUtil> <sep>
-        Examples:
-            python3 RHUIM.py sampleTDB.txt output.txt 35 20 (it will consider "\t" as separator)
 
-            python3 RHUIM.py sampleTDB.txt output.txt 35 20 , (it will consider "," as separator)
+    **Methods to execute code on terminal**
 
-    Sample run of importing the code:
-    -------------------------------
-        
-        from PAMI.relativeHighUtilityPatterns.basic import RHUIM as alg
+            Format:
+                      >>> python3 RHUIM.py <inputFile> <outputFile> <minUtil> <sep>
+            Example:
+                      >>>  python3 RHUIM.py sampleTDB.txt output.txt 35 20
 
-        obj=alg.RHUIM("input.txt", 35, 20)
 
-        obj.startMine()
+    **Importing this algorithm into a python program**
 
-        Patterns = obj.getPatterns()
+    .. code-block:: python
 
-        print("Total number of relative high utility Patterns:", len(Patterns))
+            from PAMI.relativeHighUtilityPatterns.basic import RHUIM as alg
 
-        obj.save("output")
+            obj=alg.RHUIM("input.txt", 35, 20)
 
-        memUSS = obj.getMemoryUSS()
+            obj.startMine()
 
-        print("Total Memory in USS:", memUSS)
+            frequentPatterns = obj.getPatterns()
 
-        memRSS = obj.getMemoryRSS()
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        print("Total Memory in RSS", memRSS)
+            obj.savePatterns(oFile)
 
-        run = obj.getRuntime()
+            Df = obj.getPatternsAsDataFrame()
 
-        print("Total ExecutionTime in seconds:", run)
-   
-    Credits:
-    -------
-        The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.
+            memUSS = obj.getmemoryUSS()
+
+            print("Total Memory in USS:", memUSS)
+
+            memRSS = obj.getMemoryRSS()
+
+            print("Total Memory in RSS", memRSS)
+
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+    **Credits:**
+
+             The complete program was written by  Pradeep Pallikila  under the supervision of Professor Rage Uday Kiran.
+
+
      
     """
 

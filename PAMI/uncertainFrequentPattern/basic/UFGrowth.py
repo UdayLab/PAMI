@@ -1,17 +1,51 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.uncertainFrequentPattern.basic import UFGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.UFGrowth(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getmemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 
@@ -214,14 +248,16 @@ class _Tree(object):
 
 class UFGrowth(_ab._frequentPatterns):
     """
+    Description:
+    -------------
         It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
         using PUF-Tree.
     Reference:
-    --------
+    -----------
         Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
         Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
     Attributes:
-    ----------
+    -----------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -255,7 +291,7 @@ class UFGrowth(_ab._frequentPatterns):
         finalPatterns : dict
             To store the complete patterns
     Methods:
-    -------
+    --------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -282,32 +318,50 @@ class UFGrowth(_ab._frequentPatterns):
             to convert the user specified value
         startMine()
             Mining process will start from this function
-    Executing the code on terminal:
-    -------
-        Format:
-        ------
-        python3 PUFGrowth.py <inputFile> <outputFile> <minSup>
-        Examples:
-        --------
-        python3 PUFGrowth.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
-    Sample run of importing the code:
-    -------------------
-        from PAMI.uncertainFrequentPattern.basic import puf as alg
-        obj = alg.PUFGrowth(iFile, minSup)
-        obj.startMine()
-        Patterns = obj.getPatterns()
-        print("Total number of  Patterns:", len(Patterns))
-        obj.save(oFile)
-        Df = obj.getPatternsAsDataFrame()
-        memUSS = obj.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = obj.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = obj.getRuntime()
-        print("Total ExecutionTime in seconds:", run)
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+
+    **Methods to execute code on terminal**
+
+            Format:
+                      >>>  python3 PUFGrowth.py <inputFile> <outputFile> <minSup>
+            Example:
+                      >>>  python3 PUFGrowth.py sampleTDB.txt patterns.txt 3
+
+            .. note:: minSup  will be considered in support count or frequency
+
+    **Importing this algorithm into a python program**
+
+    .. code-block:: python
+
+            from PAMI.uncertainFrequentPattern.basic import UFGrowth as alg
+
+            obj = alg.UFGrowth(iFile, minSup)
+
+            obj.startMine()
+
+            frequentPatterns = obj.getPatterns()
+
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+            obj.savePatterns(oFile)
+
+            Df = obj.getPatternsAsDataFrame()
+
+            memUSS = obj.getmemoryUSS()
+
+            print("Total Memory in USS:", memUSS)
+
+            memRSS = obj.getMemoryRSS()
+
+            print("Total Memory in RSS", memRSS)
+
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+
+             The complete program was written by P.Likhitha under the supervision of Professor Rage Uday Kiran.
+
     """
     _startTime = float()
     _endTime = float()

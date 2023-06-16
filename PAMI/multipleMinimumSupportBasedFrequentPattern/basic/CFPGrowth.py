@@ -1,17 +1,53 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowth as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.CFPGrowth(iFile, mIS)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
 
 from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _fp
 
@@ -214,6 +250,9 @@ class _Tree:
 
 class CFPGrowth(_fp._frequentPatterns):
     """
+    Description:
+    ------------------
+
        CFPGrowth is one of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.
 
     Reference :
@@ -253,7 +292,7 @@ class CFPGrowth(_fp._frequentPatterns):
             it represents to store the patterns
 
     Methods :
-    -------
+    ----------------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -274,22 +313,22 @@ class CFPGrowth(_fp._frequentPatterns):
             Extracts the one-frequent patterns from transactions
 
     Executing the code on terminal:
-    -------
+    ----------------------------------
         Format:
         -------
-            python3 CFPGrowth.py <inputFile> <outputFile>
+            >>> python3 CFPGrowth.py <inputFile> <outputFile>
 
         Examples:
         ---------
-            python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
+            >>> python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
 
-            python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
+            >>> python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
 
-            python3 CFPGrowth.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider "," as a separator)
+            >>> python3 CFPGrowth.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider "," as a separator)
 
 
     Sample run of the importing code:
-    -----------
+    --------------------------------------
 
 
         from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowth as alg
@@ -322,7 +361,7 @@ class CFPGrowth(_fp._frequentPatterns):
     -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
-        """
+    """
 
     __startTime = float()
     __endTime = float()

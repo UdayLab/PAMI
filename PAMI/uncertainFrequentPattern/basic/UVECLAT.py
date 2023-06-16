@@ -1,17 +1,52 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.uncertainFrequentPattern.basic import UVECLAT as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.UVEclat(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getmemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 import operator as _operator
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
@@ -40,16 +75,18 @@ class _Item:
 
 class UVEclat(_ab._frequentPatterns):
     """
+    Description:
+    -------------
         It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
         using PUF-Tree.
     Reference:
-    --------
+    ----------
     Carson Kai-Sang Leung, Lijing Sun: "Equivalence class transformation based mining of frequent itemsets from uncertain data",
     SAC '11: Proceedings of the 2011 ACM Symposium on Applied ComputingMarch, 2011, Pages 983–984,
     https://doi.org/10.1145/1982185.1982399
 
     Attributes:
-    ----------
+    ------------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -83,7 +120,7 @@ class UVEclat(_ab._frequentPatterns):
         finalPatterns : dict
             To store the complete patterns
     Methods:
-    -------
+    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -103,46 +140,51 @@ class UVEclat(_ab._frequentPatterns):
         frequentOneItem()
             Extracts the one-length frequent patterns from database
 
-    Executing the code on terminal:
-    -------
-        Format:
-        ------
-        python3 uveclat.py <inputFile> <outputFile> <minSup>
-        Examples:
-        --------
-        python3 uveclat.py sampleTDB.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
 
-    Sample run of importing the code:
-    -------------------
-        from PAMI.uncertainFrequentPattern.basic import uveclat as alg
+    **Methods to execute code on terminal**
 
-        obj = alg.UVEclat(iFile, minSup)
+            Format:
+                      >>> python3 uveclat.py <inputFile> <outputFile> <minSup>
+            Example:
+                      >>>  python3 uveclat.py sampleTDB.txt patterns.txt 3
 
-        obj.startMine()
+            .. note:: minSup  will be considered in support count or frequency
 
-        Patterns = obj.getPatterns()
+    **Importing this algorithm into a python program**
 
-        print("Total number of  Patterns:", len(Patterns))
+    .. code-block:: python
 
-        obj.storePatternsInFile(oFile)
+            from PAMI.uncertainFrequentPattern.basic import UVECLAT as alg
 
-        Df = obj.getPatternsInDataFrame()
+            obj = alg.UVEclat(iFile, minSup)
 
-        memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            obj.startMine()
 
-        memRSS = obj.getMemoryRSS()
+            frequentPatterns = obj.getPatterns()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        run = obj.getRuntime()
+            obj.savePatterns(oFile)
 
-        print("Total ExecutionTime in seconds:", run)
+            Df = obj.getPatternsAsDataFrame()
 
-    Credits:
-    -------
-        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
+            memUSS = obj.getmemoryUSS()
+
+            print("Total Memory in USS:", memUSS)
+
+            memRSS = obj.getMemoryRSS()
+
+            print("Total Memory in RSS", memRSS)
+
+            run = obj.getRuntime()
+
+            print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+
+         The complete program was written by   P.Likhitha    under the supervision of Professor Rage Uday Kiran.
+
     """
     _startTime = float()
     _endTime = float()

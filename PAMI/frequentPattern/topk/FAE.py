@@ -1,121 +1,143 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
+
+# Top - K is and algorithm to discover top frequent patterns in a transactional database.
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+# **Importing this algorithm into a python program**
+# ---------------------------------------------------------
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#         import PAMI.frequentPattern.topK.FAE as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#         obj = alg.FAE(iFile, K)
+#
+#         obj.startMine()
+#
+#         topKFrequentPatterns = obj.getPatterns()
+#
+#         print("Total number of Frequent Patterns:", len(topKFrequentPatterns))
+#
+#         obj.save(oFile)
+#
+#         Df = obj.getPatternInDataFrame()
+#
+#         memUSS = obj.getMemoryUSS()
+#
+#         print("Total Memory in USS:", memUSS)
+#
+#         memRSS = obj.getMemoryRSS()
+#
+#         print("Total Memory in RSS", memRSS)
+#
+#         run = obj.getRuntime()
+#
+#         print("Total ExecutionTime in seconds:", run)
+
+#
+#
+#
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 from PAMI.frequentPattern.topk import abstract as _ab
 
 
 class FAE(_ab._frequentPatterns):
     """
-        Top - K is and algorithm to discover top frequent patterns in a transactional database.
-
-        Reference:
-        ----------
-            Zhi-Hong Deng, Guo-Dong Fang: Mining Top-Rank-K Frequent Patterns: DOI: 10.1109/ICMLC.2007.4370261 · Source: IEEE Xplore
-            https://ieeexplore.ieee.org/document/4370261
-
-        Attributes:
-        ----------
-            iFile : str
-                Input file name or path of the input file
-            k: int
-                User specified counte of top frequent patterns
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-                However, the users can override their default separator.
-            oFile : str
-                Name of the output file or the path of the output file
-            startTime:float
-                To record the start time of the mining process
-            endTime:float
-                To record the completion time of the mining process
-            finalPatterns: dict
-                Storing the complete set of patterns in a dictionary variable
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-
-        Methods:
-        -------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            save(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
-            getPatternsAsDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            creatingItemSets()
-                Scans the dataset or dataframes and stores in list format
-            frequentOneItem()
-                Generates one frequent patterns
-            eclatGeneration(candidateList)
-                It will generate the combinations of frequent items
-            generateFrequentPatterns(tidList)
-                It will generate the combinations of frequent items from a list of items
-
-        Executing the code on terminal:
-        -------------------------------
-
-            Format:
-            ------
-                python3 FAE.py <inputFile> <outputFile> <K>
-
-            Examples:
-            ---------
-                python3 FAE.py sampleDB.txt patterns.txt 10
+    :Description: Top - K is and algorithm to discover top frequent patterns in a transactional database.
 
 
-        Sample run of the importing code:
-        ---------------------------------
+    :Reference:   Zhi-Hong Deng, Guo-Dong Fang: Mining Top-Rank-K Frequent Patterns: DOI: 10.1109/ICMLC.2007.4370261 · Source: IEEE Xplore
+                  https://ieeexplore.ieee.org/document/4370261
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  k: int :
+                    User specified count of top frequent patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-            import PAMI.frequentPattern.topK.FAE as alg
 
-            obj = alg.FAE(iFile, K)
 
-            obj.startMine()
+    :Attributes:
 
-            topKFrequentPatterns = obj.getPatterns()
+        startTime : float
+          To record the start time of the mining process
 
-            print("Total number of Frequent Patterns:", len(topKFrequentPatterns))
+        endTime : float
+          To record the completion time of the mining process
 
-            obj.save(oFile)
+        finalPatterns : dict
+          Storing the complete set of patterns in a dictionary variable
 
-            Df = obj.getPatternInDataFrame()
+        memoryUSS : float
+          To store the total amount of USS memory consumed by the program
 
-            memUSS = obj.getMemoryUSS()
+        memoryRSS : float
+          To store the total amount of RSS memory consumed by the program
 
-            print("Total Memory in USS:", memUSS)
+        finalPatterns : dict
+            it represents to store the patterns
 
-            memRSS = obj.getMemoryRSS()
 
-            print("Total Memory in RSS", memRSS)
+    **Methods to execute code on terminal**
+    ----------------------------------------
 
-            run = obj.getRuntime()
+        Format:
 
-            print("Total ExecutionTime in seconds:", run)
+           >>> python3 FAE.py <inputFile> <outputFile> <K>
 
-        Credits:
-        --------
-            The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+        Examples:
+
+           >>> python3 FAE.py sampleDB.txt patterns.txt 10
+
+
+    **Importing this algorithm into a python program**
+    ---------------------------------------------------------
+    .. code-block:: python
+
+        import PAMI.frequentPattern.topK.FAE as alg
+
+        obj = alg.FAE(iFile, K)
+
+        obj.startMine()
+
+        topKFrequentPatterns = obj.getPatterns()
+
+        print("Total number of Frequent Patterns:", len(topKFrequentPatterns))
+
+        obj.save(oFile)
+
+        Df = obj.getPatternInDataFrame()
+
+        memUSS = obj.getMemoryUSS()
+
+        print("Total Memory in USS:", memUSS)
+
+        memRSS = obj.getMemoryRSS()
+
+        print("Total Memory in RSS", memRSS)
+
+        run = obj.getRuntime()
+
+        print("Total ExecutionTime in seconds:", run)
+
+    Credits:
+    --------
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
 

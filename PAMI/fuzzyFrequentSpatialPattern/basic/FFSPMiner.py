@@ -1,30 +1,52 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#     .. code-block:: python
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#         from PAMI.fuzzyFrequentSpatialPattern import FFSPMiner as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#         obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#         obj.startMine()
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#         fuzzySpatialFrequentPatterns = obj.getPatterns()
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#         print("Total number of fuzzy frequent spatial patterns:", len(fuzzySpatialFrequentPatterns))
+#
+#         obj.save("outputFile")
+#
+#         memUSS = obj.getMemoryUSS()
+#
+#         print("Total Memory in USS:", memUSS)
+#
+#         memRSS = obj.getMemoryRSS()
+#
+#         print("Total Memory in RSS", memRSS)
+#
+#         run = obj.getRuntime()
+#
+#         print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.fuzzyFrequentSpatialPattern.basic import abstract as _ab
 
@@ -110,18 +132,20 @@ class _Pair:
 
 class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     """
+    Description:
+    -------------
         Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
         which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
-         techniques to reduce the search space.
+        techniques to reduce the search space.
 
     Reference:
-    ---------
+    -------------
         Reference: P. Veena, B. S. Chithra, R. U. Kiran, S. Agarwal and K. Zettsu, "Discovering Fuzzy Frequent
         Spatial Patterns in Large Quantitative Spatiotemporal databases," 2021 IEEE International Conference on Fuzzy Systems
         (FUZZ-IEEE), 2021, pp. 1-8, doi: 10.1109/FUZZ45933.2021.9494594.
 
     Attributes :
-    ----------
+    --------------
         iFile : file
             Name of the input file to mine complete set of fuzzy spatial frequent patterns
         oFile : file
@@ -155,7 +179,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         itemBuffer list
             to keep track of items in buffer
     Methods :
-    -------
+    -----------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -184,19 +208,18 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             To Store the patten
 
     Executing the code on terminal :
-    -------
+    -----------------------------------
         Format:
-            python3 FFSPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
+
+            >>> python3 FFSPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
         Examples:
-            python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
 
-            python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 0.3 (minSup and maxPer will be considered in percentage of database)
-                                                            (will consider "\t" as separator in both input and neighbourhood files)
+            >>> python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
 
-            python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3 ,
-                                                              (will consider "," as separator in both input and neighbourhood files)
+
     Sample run of importing the code:
-    -------------------------------
+    -----------------------------------
+    .. code-block:: python
 
         from PAMI.fuzzyFrequentSpatialPattern import FFSPMiner as alg
 
@@ -223,7 +246,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    -------
+    ---------
             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
 
