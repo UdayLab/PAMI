@@ -3,7 +3,7 @@
  
 Chapter 1: Introduction
 
-   1. [About PAMI: Motivation and the people who supported](./aboutPAMI.html)
+   1. [About PAMI: Motivation and the supporting people](./aboutPAMI.html)
    2. [Maintenance of PAMI library](./installation.html)
    3. [Organization of algorithms in PAMI](./organization.html)
 
@@ -12,8 +12,9 @@ Chapter 2: Preparation of various datasets (or databases)
    2. [Temporal database](./temporalDatabase.html)
    3. [Utility database](./utilityDatabase.html)
    4. [Uncertain database](./uncertainDatabases.md)
-   5. [Geo-referenced database](./spatialDatabase.html)
-   6. [Neighborhood database (to be written)](./neighborhoodDatabase.html)
+   5. [Location/spatial database](./locationDatabase.md)
+   6. [Neighborhood database](./neighborhoodDatabase.html)
+   7. [Geo-referenced database](./spatialDatabase.html)
 
 Chapter 3: Converting dataframes to databases
 

@@ -4,24 +4,6 @@
 ### Description
 A geo-referenced database represents the data gathered by a set of fixed sensors observing a particular phenomenon over a time period. It is a combination of __spatial database__ and __transactional/temporal/utility database__.
 
-### Location/Spatial database
-A spatial database is a collection of spatial objects (or items), such as pixels, points, lines, and polygons. 
-
-#### Format of a spatial database
-   
-         item : spatialInformation (pixel, point, line, polygon)
-
-#### An example
-   A hypothetical spatial database containing the spatial items _a_ to _f_  is
-
- Item |  Spatial information 
-  --- | -----
-  a   | Point(0 0)
-  b   | Point(0 1)
-  c   | Point(1 0)
-  d   | Point(0 2)
-  e   | Point(4 0)
-  f   | Point(5 1)
 
 ### Types of Geo-referenced databases
 1. Geo-referenced transactional databases

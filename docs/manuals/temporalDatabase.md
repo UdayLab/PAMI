@@ -5,12 +5,12 @@
 ### Description
  A temporal database is a collection of transactions ordered by their timestamp. A sample temporal database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:
    
-   TID |  Timestamp | Transactions 
-     --- | ----- | ---
-     1  | 1  | a, b, c
-     2  | 2 | d, e
-     3  | 5 | a, e, f
-     4  | 5 | d, f, g  
+   TID | Timestamp | Transactions 
+     --- |-----------| ---
+     1  | 1         | a, b, c
+     2  | 2         | d, e
+     3  | 4         | a, e, f
+     4  | 7         | d, f, g  
 
 ### Rules to create a temporal database
 
@@ -27,10 +27,10 @@
 
     timestamp<sep>item1<sep>item2<sep>...<sep>itemN
 
-# An example
+### An example
     1   a   b   c
     2   d   e
-    5   a   e   f
-    5   d   f   g
+    4   a   e   f
+    7   d   f   g
 
 
