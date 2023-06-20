@@ -1,4 +1,4 @@
-       ![PyPI](https://img.shields.io/pypi/v/PAMI)
+![PyPI](https://img.shields.io/pypi/v/PAMI)
 ![AppVeyor](https://img.shields.io/appveyor/build/udayRage/PAMI)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/PAMI)
 ![GitHub all releases](https://img.shields.io/github/downloads/udayRage/PAMI/total)
