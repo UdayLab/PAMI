@@ -50,10 +50,6 @@ __copyright__ = """
 
 
 
-
-
-
-from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _fp
 
 _minSup = str()
