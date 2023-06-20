@@ -48,84 +48,84 @@ import csv
 import time
 import psutil
 import numpy as np
-# import pycuda.autoinit
-# import pycuda.driver as cuda
-# from pycuda.compiler import SourceModule
-#
-# supportAndPeriod = SourceModule(r"""
-#
-# __global__ void supportAndPeriod(unsigned long long int *bitArray, // containing transactions
-#                                 unsigned long long int *support, // for support
-#                                 unsigned long long int *period, // for period
-#                                 unsigned long long int *thingsToCompare, // for things to compare
-#                                 unsigned long long int *thingsToCompareIndex, // for things to compare index
-#                                 unsigned long long int numberOfThingsToCompare, // for number of things to compare
-#                                 unsigned long long int numberOfBits, // for number of bits
-#                                 unsigned long long int numberOfElements, // for number of elements
-#                                 unsigned long long int maxPeriod, // for max period
-#                                 unsigned long long int maxTimeStamp){
-#
-#         unsigned long long int threadIDX = blockIdx.x * blockDim.x + threadIdx.x;
-#
-#         if (threadIDX > numberOfThingsToCompare-2) return;
-#
-#         unsigned long long int holder = 0;
-#         unsigned long long int supportCounter = 0;
-#         unsigned long long int periodCounter = 0;
-#         unsigned long long int numbersCounter = 0;
-#         short int bitRepresentation[64];
-#         short int index = numberOfBits - 1;
-#
-#         for(int i = 0; i < numberOfElements; i++){
-#             // intersection
-#             holder = bitArray[thingsToCompare[thingsToCompareIndex[threadIDX]] * numberOfElements + i];
-#             for (int j = thingsToCompareIndex[threadIDX]+1; j < thingsToCompareIndex[threadIDX + 1]; j++){
-#                 holder = holder & bitArray[thingsToCompare[j] * numberOfElements + i];
-#             }
-#
-#             // empty bitRepresentation
-#             for (int j = 0; j < 64; j++){
-#                 bitRepresentation[j] = 0;
-#             }
-#
-#             // conversion to bit representation
-#             index = numberOfBits - 1;
-#             while (holder > 0){
-#                 bitRepresentation[index] = holder % 2;
-#                 holder = holder / 2;
-#                 index--;
-#             }
-#
-#             // counting period
-#             for (int j = 0; j < numberOfBits; j++){
-#                 periodCounter++;
-#                 numbersCounter++;
-#                 if (periodCounter > maxPeriod){
-#                     period[threadIDX] = periodCounter;
-#                     support[threadIDX] = supportCounter;
-#                     return;
-#                 }
-#                 if (bitRepresentation[j] == 1){
-#                     supportCounter++;
-#                     if (periodCounter > period[threadIDX]) period[threadIDX] = periodCounter;
-#                     periodCounter = 0;
-#                 }
-#                 if (numbersCounter == maxTimeStamp){
-#                     support[threadIDX] = supportCounter;
-#                     period[threadIDX] = periodCounter;
-#                     return;
-#                 }
-#             }
-#
-#         }
-#         support[threadIDX] = supportCounter;
-#         period[threadIDX] = periodCounter;
-#         return;
-#
-#     }
-#
-# """
-#                                 )
+import pycuda.autoinit
+import pycuda.driver as cuda
+from pycuda.compiler import SourceModule
+
+supportAndPeriod = SourceModule(r"""
+
+__global__ void supportAndPeriod(unsigned long long int *bitArray, // containing transactions
+                                unsigned long long int *support, // for support
+                                unsigned long long int *period, // for period
+                                unsigned long long int *thingsToCompare, // for things to compare
+                                unsigned long long int *thingsToCompareIndex, // for things to compare index
+                                unsigned long long int numberOfThingsToCompare, // for number of things to compare
+                                unsigned long long int numberOfBits, // for number of bits
+                                unsigned long long int numberOfElements, // for number of elements
+                                unsigned long long int maxPeriod, // for max period
+                                unsigned long long int maxTimeStamp){
+
+        unsigned long long int threadIDX = blockIdx.x * blockDim.x + threadIdx.x;
+
+        if (threadIDX > numberOfThingsToCompare-2) return;
+
+        unsigned long long int holder = 0;
+        unsigned long long int supportCounter = 0;
+        unsigned long long int periodCounter = 0;
+        unsigned long long int numbersCounter = 0;
+        short int bitRepresentation[64];
+        short int index = numberOfBits - 1;
+
+        for(int i = 0; i < numberOfElements; i++){
+            // intersection
+            holder = bitArray[thingsToCompare[thingsToCompareIndex[threadIDX]] * numberOfElements + i];
+            for (int j = thingsToCompareIndex[threadIDX]+1; j < thingsToCompareIndex[threadIDX + 1]; j++){
+                holder = holder & bitArray[thingsToCompare[j] * numberOfElements + i];
+            }
+
+            // empty bitRepresentation
+            for (int j = 0; j < 64; j++){
+                bitRepresentation[j] = 0;
+            }
+
+            // conversion to bit representation
+            index = numberOfBits - 1;
+            while (holder > 0){
+                bitRepresentation[index] = holder % 2;
+                holder = holder / 2;
+                index--;
+            }
+
+            // counting period
+            for (int j = 0; j < numberOfBits; j++){
+                periodCounter++;
+                numbersCounter++;
+                if (periodCounter > maxPeriod){
+                    period[threadIDX] = periodCounter;
+                    support[threadIDX] = supportCounter;
+                    return;
+                }
+                if (bitRepresentation[j] == 1){
+                    supportCounter++;
+                    if (periodCounter > period[threadIDX]) period[threadIDX] = periodCounter;
+                    periodCounter = 0;
+                }
+                if (numbersCounter == maxTimeStamp){
+                    support[threadIDX] = supportCounter;
+                    period[threadIDX] = periodCounter;
+                    return;
+                }
+            }
+
+        }
+        support[threadIDX] = supportCounter;
+        period[threadIDX] = periodCounter;
+        return;
+
+    }
+
+"""
+                                )
 
 
 class gPFMinerBit:
