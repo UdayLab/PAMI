@@ -297,6 +297,8 @@ Total number of algorithms: 83
 
 ## 2. Mining Streams
    __coming soon__    
- 
+
+## 3. Mining Graphs
+__coming soon__   
      
      
