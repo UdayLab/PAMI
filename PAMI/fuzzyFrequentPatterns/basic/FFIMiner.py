@@ -211,10 +211,10 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
     --------------------------------
         Format:
 
-            >>> python3 FFIMinerMiner.py <inputFile> <outputFile> <minSup> <separator>
+            >>> python3 FFIMiner.py <inputFile> <outputFile> <minSup> <separator>
         Examples:
 
-            >>> python3  FFIMinerMiner.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
+            >>> python3  FFIMiner.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
 
 
     Sample run of importing the code:
