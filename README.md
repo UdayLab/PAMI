@@ -29,7 +29,7 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
   
  # Recent versions  
 
-- Version 2023.06.20: 
+- Version 2023.06.20: Fuzzy Partial Periodic, Periodic Patterns in High Utility, Code Documentation, help() function Update 
 - Version 2023.03.01: prefixSpan and SPADE   
 
 Total number of algorithms: 83
