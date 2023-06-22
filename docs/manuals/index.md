@@ -15,6 +15,7 @@ Chapter 2: Preparation of various datasets (or databases)
    5. [Location/spatial database](./locationDatabase.md)
    6. [Neighborhood database](./neighborhoodDatabase.html)
    7. [Geo-referenced database](./spatialDatabase.html)
+   8. [Multiple timeseries data](./timeSeries.html)
 
 Chapter 3: Converting dataframes to databases
 
