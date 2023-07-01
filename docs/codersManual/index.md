@@ -14,7 +14,7 @@ Chapter 2: Writing Algorithms
 
 1. [Location to place an algorithm in PAMI](locationOfAlgorithm.html)
 2. [Creation of Abstract class](abstractClassCreation.html)
-3. [Coding an algorithm (under development)](algorithmCoding.html)
+3. [Coding an algorithm](algorithmCoding.html)
 4. [Profiling/Code optimization (under development)](profiling.html)
 5. [Testing procedure an algorithm (under development)](testingAlgorithmProcedure.html)
 
