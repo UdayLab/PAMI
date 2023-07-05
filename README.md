@@ -1,7 +1,5 @@
 ![PyPI](https://img.shields.io/pypi/v/PAMI)
-![AppVeyor](https://img.shields.io/appveyor/build/UdayLab/PAMI)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/PAMI)
-![GitHub all releases](https://img.shields.io/github/downloads/UdayLab/PAMI/total)
 [![GitHub license](https://img.shields.io/github/license/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/blob/main/LICENSE)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/PAMI)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/PAMI)
