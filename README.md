@@ -9,6 +9,11 @@
 [![GitHub issues](https://img.shields.io/github/issues/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/issues)
 [![GitHub forks](https://img.shields.io/github/forks/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/network)
 [![GitHub stars](https://img.shields.io/github/stars/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/stargazers)
+[![Downloads](https://static.pepy.tech/badge/pami)](https://pepy.tech/project/pami)
+[![Downloads](https://static.pepy.tech/badge/pami/month)](https://pepy.tech/project/pami)
+[![Downloads](https://static.pepy.tech/badge/pami/week)](https://pepy.tech/project/pami)
+
+[Click here for more information](https://pepy.tech/project/pami)
 
 
 # Introduction
