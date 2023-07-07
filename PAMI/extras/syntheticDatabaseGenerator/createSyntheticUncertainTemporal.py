@@ -19,7 +19,7 @@ class createSyntheticUncertainTemporal:
 
         Methods:
         --------
-        createUncertainTemporallDatabase(outputFile)
+        createUncertainTemporalDatabase(outputFile)
             Create temporal database from DataFrame and store into outputFile
 
         Credits:
@@ -30,10 +30,10 @@ class createSyntheticUncertainTemporal:
 
     """
     
-    def __init__(self, transactions, items, avgTransaction):
-        self._transactions = transactions
+    def __init__(self, totalTransactions, items, avgTransaction):
+        self._totalTransactions = totalTransactions
         self._items = items
-        self._avgTransaction = avgTransaction
+        self._avgTransactionLength = avgTransactionLength
     
     def createUncertainTemporalDatabase(self, outputFile):
         """
@@ -44,8 +44,8 @@ class createSyntheticUncertainTemporal:
         """
         writer = open(outputFile, 'w+')
         count = 1
-        for i in range(self._transactions):
-            length = _rd.randint(1, self._avgTransaction + 20)
+        for i in range(self._totalTransactions):
+            length = _rd.randint(1, self._avgTransactionLength + 20)
             st = str(count) + '\t'
             st1 = str()
             for i in range(length):
