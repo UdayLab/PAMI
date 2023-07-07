@@ -4,22 +4,22 @@ import sys as _sys
 
 class createSyntheticGeoreferentialUncertainTransaction:
     """
-        This class create synthetic geo-referential uncertain transaction database. 
+        This class is to create synthetic geo-referential uncertain transaction database. 
 
         Attribute:
         ----------
-        transactions : pandas.DataFrame
+        totalTransactions : int
             No of transactions
-        items : int or float
+        noOfItems : int 
             No of items
-        avgTransaction : str
+        avgTransactionLength : int
             The length of average transaction
         outputFile: str
             Name of the output file.
 
         Methods:
         --------
-        getGeoreferentialuncertainTransactionDatabase(outputFile)
+        createGeoreferentialuncertainTransactionDatabase(outputFile)
             Create geo-referential transactional database store into outputFile
 
         Credits:
@@ -33,9 +33,9 @@ class createSyntheticGeoreferentialUncertainTransaction:
     """
     
     def __init__(self, transactions, items, avgTransaction):
-        self._transactions = transactions
-        self._items = items
-        self._avgTransaction = avgTransaction
+        self._totalTransactions = transactions
+        self._noOfItems = items
+        self._avgTransactionLength = avgTransaction
     
     def createGeoreferentialUncertainTransactionalDatabase(self, outputFile):
         """
@@ -46,15 +46,15 @@ class createSyntheticGeoreferentialUncertainTransaction:
         """
         writer = open(outputFile, 'w+')
         items = []
-        for i in range(self._items):
-            lat = _rd.randint(1, self._items)
-            lon = _rd.randint(1, self._items)
+        for i in range(self._noOfItems):
+            lat = _rd.randint(1, self._noOfItems)
+            lon = _rd.randint(1, self._noOfItems)
             if lat == lon:
-                lon = _rd.randint(1, self._items)
+                lon = _rd.randint(1, self._noOfItems)
             stt = '(' + str(lat) + ' ' + str(lon) + ')'
             items.append(stt)
-        for i in range(self._transactions):
-            length = _rd.randint(1, self._avgTransaction + 20)
+        for i in range(self._totalTransactions):
+            length = _rd.randint(1, self._avgTransactionLength + 20)
             st = str()
             st1 = str()
             for i in range(length):
