@@ -6,7 +6,7 @@ class createSyntheticUncertainTransaction:
 
         Attribute:
         ----------
-        transactions : pandas.DataFrame
+        no of transactions : int
             No of transactions
         items : int or float
             No of items
