@@ -52,7 +52,7 @@ __copyright__ = """
 # from PAMI.frequentPattern.cuda import abstract as _ab
 import abstract as _ab
 
-class cuEclat(_ab._frequentPatterns):
+class cuApriori(_ab._frequentPatterns):
     """
     :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
@@ -373,9 +373,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = cuEclat(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = cuApriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = cuEclat(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = cuApriori(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
@@ -386,8 +386,8 @@ if __name__ == "__main__":
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 
-    _ap = cuEclat("/home/tarun/PAMI/PAMI/frequentPattern/cuda/test.txt", 2, " ")
-    _ap = cuEclat("/home/tarun/Transactional_T10I4D100K.csv", 450, "\t")
+    _ap = cuApriori("/home/tarun/PAMI/PAMI/frequentPattern/cuda/test.txt", 2, " ")
+    _ap = cuApriori("/home/tarun/Transactional_T10I4D100K.csv", 450, "\t")
     _ap.startMine()
     print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
     print("Total Memory in USS:", _ap.getMemoryUSS())

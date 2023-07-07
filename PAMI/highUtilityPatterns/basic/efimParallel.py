@@ -19,8 +19,31 @@ import time
 import psutil
 from joblib import Parallel, delayed
 
-class efim:
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
+
+from PAMI.highUtilityPatterns.basic import abstract as _ab
+
+class efimParallel(_ab._utilityPatterns):
     """
+    Description:
+    -----------
     EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
     Reference:
@@ -56,8 +79,9 @@ class efim:
 
     """
 
-    def __init__(self, inputFile, minUtil, sep = '\t', threads = 1):
-        self.inputFile = inputFile
+    def __init__(self, iFile, minUtil, sep="\t", threads=1):
+        super().__init__(iFile, minUtil, sep)
+        self.inputFile = iFile
         self.minUtil = minUtil
         self.sep = sep
         self.Patterns = {}
@@ -65,7 +89,19 @@ class efim:
         self.threads = threads
 
     # Read input file
-    def read_file(self):
+    def _read_file(self):
+        """
+        Read the input file and return the filtered transactions, primary items, and secondary items.
+
+        Returns:
+        -------
+            filtered_transactions (dict): A dictionary containing the filtered transactions.
+            primary (set): A set containing the primary items.
+            secondary (set): A set containing the secondary items.
+        
+        """
+
+
         file_data = []
         twu = {}
 
@@ -137,7 +173,21 @@ class efim:
         return filtered_transactions, primary, secondary
     
 
-    def binarySearch(self, arr, item):
+    def _binarySearch(self, arr, item):
+        """
+        Do a binary search on the given array to find the given item.
+
+        Attributes:
+        ----------
+            arr (list): The array to search in.
+            item (int): The item to search for.
+
+        Returns:
+        -------
+            mid (int): The index of the item if found, -1 otherwise.
+
+        """
+
         low = 0
         high = len(arr) - 1
         mid = 0
@@ -153,7 +203,26 @@ class efim:
 
         return -1
 
-    def project(self, beta, file_data, secondary):
+    def _project(self, beta, file_data, secondary):
+        """
+        Project the given beta itemset on the given database.
+
+        Attributes:
+        ----------
+            beta (list): The beta itemset to project.
+            file_data (dict): The database to project on.
+            secondary (set): The set of secondary items.
+
+        Returns:
+        -------
+            projected_db (dict): The projected database.
+            local_utils (dict): The local utilities of the projected database.
+            subtree_utils (dict): The subtree utilities of the projected database.
+            utility (int): The utility of the projected database.
+
+        """
+
+
         projected_db = {}
         local_utils = {}
         subtree_utils = {}
@@ -167,7 +236,7 @@ class efim:
         start = time.time()
 
         for v in temp:
-            index = self.binarySearch(v[0], item)
+            index = self._binarySearch(v[0], item)
 
             curr = v[1][index] + v[2]
             utility += curr
@@ -211,21 +280,32 @@ class efim:
         return beta, projected_db, nsecondary, nprimary, utility
     
 
-    def search(self, collections):
+    def _search(self, collections):
+
+        """
+        Search for frequent patterns in the given collections.
+
+        Attributes:
+        ----------
+            collections (list): The collections to search in.
+
+
+        """
 
         if (self.threads > 1):
             with Parallel(n_jobs=self.threads) as parallel:
                 while len(collections) > 0:
-                    print("Collections:", len(collections), "Patterns:", len(self.Patterns))
                     new_collections = []
 
                     # print("Num of tasks:", sum(len(collections[i][2]) for i in range(len(collections))))
-                    results = parallel(delayed(self.project)(collections[i][0] + [collections[i][2][j]], collections[i][1], collections[i][3]) for i in range(len(collections)) for j in range(len(collections[i][2])))
+                    results = parallel(delayed(self._project)(collections[i][0] + [collections[i][2][j]], collections[i][1], collections[i][3]) for i in range(len(collections)) for j in range(len(collections[i][2])))
 
                     for i in range(len(results)):
                         beta, projected_db, secondary, primary, utility = results[i]
                         if utility >= self.minUtil:
-                            self.Patterns[tuple(beta)] = utility
+                            pattern = "\t".join([self.rename[x] for x in beta])
+                            # self.Patterns[tuple(beta)] = utility
+                            self.Patterns[pattern] = utility
                         if len(primary) > 0:
                             new_collections.append([beta, projected_db, primary, secondary])
                     
@@ -233,13 +313,14 @@ class efim:
 
         else:
             while len(collections) > 0:
-                print("Collections:", len(collections), "Patterns:", len(self.Patterns))
                 new_collections = []
                 for i in range(len(collections)):
                     for j in range(len(collections[i][2])):
-                        beta, projected_db, secondary, primary, utility = self.project(collections[i][0] + [collections[i][2][j]], collections[i][1], collections[i][3])
+                        beta, projected_db, secondary, primary, utility = self._project(collections[i][0] + [collections[i][2][j]], collections[i][1], collections[i][3])
                         if utility >= self.minUtil:
-                            self.Patterns[tuple(beta)] = utility
+                            pattern = "\t".join([self.rename[x] for x in beta])
+                            # self.Patterns[tuple(beta)] = utility
+                            self.Patterns[pattern] = utility
                         if len(primary) > 0:
                             new_collections.append([beta, projected_db, primary, secondary])
 
@@ -259,12 +340,11 @@ class efim:
 
         self.start = time.time()
 
-        fileData, primary, secondary = self.read_file()
-        print("time to read file: " + str(time.time() - self.start))
+        fileData, primary, secondary = self._read_file()
 
         collection = [[[], fileData, primary, secondary]]
 
-        self.search(collection)
+        self._search(collection)
 
         self.memoryRSS = ps.memory_info().rss
         self.memoryUSS = ps.memory_full_info().uss
@@ -272,22 +352,31 @@ class efim:
         end = time.time()
         self.runtime = end - self.start
 
-    def savePatterns(self, outputFile):
+    def save(self, outFile):
+        """Complete set of frequent patterns will be loaded in to a output file
+
+        :param outFile: name of the output file
+        :type outFile: file
         """
-        Save the patterns discovered by the algorithm to an output file.
+        self.oFile = outFile
+        writer = open(self.oFile, 'w+')
+        for x, y in self._finalPatterns.items():
+            patternsAndSupport = x.strip() + ":" + str(y)
+            writer.write("%s \n" % patternsAndSupport)
+    
+    def getPatternsAsDataFrame(self):
+        """Storing final patterns in a dataframe
 
-        Args:
-            outputFile (str): The output file path.
+        :return: returning patterns in a dataframe
+        :rtype: pd.DataFrame
+            """
+        dataFrame = {}
+        data = []
+        for a, b in self._finalPatterns.items():
+            data.append([a.replace('\t', ' '), b])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Utility'])
 
-        Returns:
-            None
-        """
-
-        with open(outputFile, 'w') as f:
-            for key, value in self.Patterns.items():
-                key = [self.rename[x] for x in key]
-                joined = " ".join(key) + " #UTIL: " + str(value) + "\n"
-                f.write(joined)
+        return dataFrame
 
     def getPatterns(self):
         """
@@ -335,25 +424,48 @@ class efim:
 
 if __name__ == "__main__":
 
-    inputFile = 'EFIM/accidents_utility_spmf.txt'
-    minUtil = 28000000
+    # inputFile = 'EFIM/accidents_utility_spmf.txt'
+    # minUtil = 28000000
 
-    # inputFile = 'EFIM/chainstore.txt'
-    # minUtil = 2500000
+    # # inputFile = 'EFIM/chainstore.txt'
+    # # minUtil = 2500000
 
-    # inputFile = 'test.txt'
-    # minUtil = 5
+    # # inputFile = 'test.txt'
+    # # minUtil = 5
 
-    # inputFile = "EFIM/BMS_utility_spmf.txt"
-    # minUtil = 2025000
+    # # inputFile = "EFIM/BMS_utility_spmf.txt"
+    # # minUtil = 2025000
 
-    # inputFile = "EFIM/Utility_pumsb.csv"
-    # minUtil = 7500000
+    # # inputFile = "EFIM/Utility_pumsb.csv"
+    # # minUtil = 7500000
 
-    sep = " "
-    f = efim(inputFile, minUtil, sep, 1)
-    f.startMine()
-    print("# of patterns: " + str(len(f.getPatterns())))
-    print("Time taken: " + str(f.getRuntime()))
-    f.savePatterns("mine.txt")
+    # sep = " "
+    # f = efimParallel(inputFile, minUtil, sep, 1)
+    # f.startMine()
+    # print("# of patterns: " + str(len(f.getPatterns())))
+    # print("Time taken: " + str(f.getRuntime()))
+    # f.savePatterns("mine.txt")
+
+
+    _ap = str()
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:    #includes separator
+            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
+            _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]))
+        _ap.startMine()
+        print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS",  _ap.getMemoryRSS())
+        print("Total ExecutionTime in seconds:", _ap.getRuntime())
+    else:
+        _ap = efimParallel('/Users/likhitha/Downloads/Utility_T10I4D100K.csv', 50000, '\t')
+        _ap.startMine()
+        print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
+        _ap.save('/Users/likhitha/Downloads/UPGrowth_output.txt')
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
+        print("Error! The number of input parameters do not match the total number of parameters provided")
 
