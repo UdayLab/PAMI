@@ -10,7 +10,7 @@ class createSyntheticUncertainTemporal:
         ----------
         totalTransactions : int
             Total no of transactions
-        items : int 
+        noOfItems : int 
             No of items
         avgTransactionLength : int
             The length of average transaction
@@ -33,7 +33,7 @@ class createSyntheticUncertainTemporal:
     def __init__(self, totalTransactions, items, avgTransaction):
         self._totalTransactions = totalTransactions
         self._items = items
-        self._avgTransactionLength = avgTransactionLength
+        self._avgTransactionLength = avgTransaction
     
     def createUncertainTemporalDatabase(self, outputFile):
         """
@@ -49,7 +49,7 @@ class createSyntheticUncertainTemporal:
             st = str(count) + '\t'
             st1 = str()
             for i in range(length):
-                item = _rd.randint(1, self._items)
+                item = _rd.randint(1, self._noOfItems)
                 probability = _rd.uniform(0, 1)
                 st = st + str(item) + '\t'
                 st1 = st1 + str(probability) + '\t'
