@@ -8,11 +8,11 @@ class createSyntheticUncertainTemporal:
 
         Attribute:
         ----------
-        transactions : pandas.DataFrame
-            No of transactions
-        items : int or float
+        totalTransactions : int
+            Total no of transactions
+        items : int 
             No of items
-        avgTransaction : str
+        avgTransactionLength : int
             The length of average transaction
         outputFile: str
             Name of the output file.
