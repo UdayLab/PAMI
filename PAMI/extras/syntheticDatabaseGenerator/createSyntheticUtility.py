@@ -8,7 +8,7 @@ class createSyntheticUtility:
 
         Attribute:
         ----------
-        transactions : pandas.DataFrame
+        transactions : int
             No of transactions
         items : int or float
             No of items
