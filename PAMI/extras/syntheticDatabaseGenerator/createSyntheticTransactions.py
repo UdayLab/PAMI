@@ -6,19 +6,19 @@ class createSyntheticTransaction:
 
         Attribute:
         ----------
-        transactions : int
+        totalTransactions : int
             No of transactions
-        items : int or float
+        items : int
             No of items
-        avgTransaction : str
+        avgTransactionLength : int
             The length of average transaction
         outputFile: str
             Name of the output file.
 
         Methods:
         --------
-        getTransactionalDatabase(outputFile)
-            Create transactional database from DataFrame and store into outputFile
+        createTransactionalDatabase(outputFile)
+            Create transactional database and store into outputFile
 
         Credits:
         ---------
@@ -28,8 +28,8 @@ class createSyntheticTransaction:
 
     """
     
-    def __init__(self, transactions, items, avgTransaction):
-        self._transactions = transactions
+    def __init__(self, totalTransactions, items, avgTransaction):
+        self._totalTransactions = totalTransactions
         self._items = items
         self._avgTransaction = avgTransaction
     
@@ -41,7 +41,7 @@ class createSyntheticTransaction:
         :return: outputFile name
         """
         writer = open(outputFile, 'w+')
-        for i in range(self._transactions):
+        for i in range(self._totalTransactions):
             length = _rd.randint(1, self._avgTransaction + 20)
             st = str()
             for i in range(length):
