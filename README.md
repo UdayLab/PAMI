@@ -18,9 +18,9 @@
 PAttern MIning (PAMI) is a Python library containing several algorithms to discover user interest-based patterns in transactional/temporal/geo-referential/sequence databases across multiple computing platforms.
 
 
-1. User manual https://udayrage.github.io/PAMI/manuals/index.html
+1. User manual https://udaylab.github.io/PAMI/manuals/index.html
 
-2. Coders manual https://udayrage.github.io/PAMI/codersManual/index.html
+2. Coders manual https://udaylab.github.io/PAMI/codersManual/index.html
 
 3. Code documentation [PAMI documentation](https://raw.githack.com/UdayLab/PAMI/main/htmlDocs/_build/html/index.html)
 
@@ -32,6 +32,7 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
   
  # Recent versions  
 
+- Version 2023.07.07: New algorithms: cuApriroi, cuAprioriBit, cuEclat, cuEclatBit, gPPMiner, cuGPFMiner, FPStream, HUPMS, SHUPGrowth New codes to generate synthetic databases
 - Version 2023.06.20: Fuzzy Partial Periodic, Periodic Patterns in High Utility, Code Documentation, help() function Update 
 - Version 2023.03.01: prefixSpan and SPADE   
 
@@ -51,10 +52,10 @@ Total number of algorithms: 83
   
        pip uninstall pami 
        
-# Algorithms and Tutorials 
+# Tutorials 
 
-## 1. Discovering Interesting Patterns in Transactional Databases 
-
+## 1. Mining Databases
+### Transactional databases
 1. Frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                            | Closed                                                                                                                                                                                                           | Maximal                                                                                                                   | Top-k                                                                                                                                                                                                  | CUDA           | pyspark                                                                                                                                                                                                                                               |
@@ -89,7 +90,7 @@ Total number of algorithms: 83
 | CP-growth++ [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPlus/CPGrowthPuls-st.md)                                                                                              -[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPlus/CPGrowthPlus-ad.md)|
 
 
-## 1. Discovering Interesting Patterns in Temporal Databases 
+### Temporal databases
 
 
 1. Periodic-frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicFrequentPatternMining.html)
@@ -139,7 +140,7 @@ Total number of algorithms: 83
 | SPP-growth [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-ad%20.md)| TSPIN  |
 | SPP-ECLAT  [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPEclat/SPPECLAT-st-2.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPEclat/SPPECLAT-ad%20.md) |  |
 
-## 3. Discovering Interesting Patterns in Geo-referencial Databases 
+### Geo-referenced (or spatiotemporal) databases
 
 1. Frequent spatial pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentSpatialPatternMining.html)
 
@@ -167,7 +168,7 @@ Total number of algorithms: 83
 | RPgrowth [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/recurring/RPGrowth-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/recurring/RPGrowth-ad.md)|
 
 
-## 4. Discovering Interesting Patterns in Utility Databases 
+### Utility databases
 
 1. High utility pattern mining:   [Sample](https://udayrage.github.io/PAMI/highUtilityPatternMining.html)
 
@@ -225,8 +226,7 @@ Total number of algorithms: 83
 |-------------|
 | SSWFPGrowth |
 
-## 5. Discovering Interesting Patterns in Fuzzy Databases
-
+### Fuzzy databases
 1. Fuzzy Frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/fuzzyFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                   |
@@ -261,7 +261,7 @@ Total number of algorithms: 83
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | FPFP-Miner [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-st.pdf)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-ad.pdf) |
 
-## 6. Discovering Interesting Patterns in Uncertain Databases 
+### Uncertain databases
 
 
 1. Uncertain frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainFrequentPatternMining.html)
@@ -287,7 +287,7 @@ Total number of algorithms: 83
 |-------|
 | WUFIM [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/weightedUncertain/WUFIM-st.md)|
 
-## 7. Discovering Interesting Patterns in Transactional Databases 
+### Sequence databases
 
 1. Sequence frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/blob/main/docs/weightedSpatialFrequentPattern.html)
     
@@ -296,14 +296,15 @@ Total number of algorithms: 83
 | SPADE [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/SPADE/Spade-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/SPADE/Spade-ad.md)|
 | prefixSpan [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/prefixSpan/PrifixSpan-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/prefixSpan/PrifixSpan-ad.md)|
 
-## 8. Discovering Interesting Patterns in Timeseries Databases 
 
-IEEE FUZZ 2023 paper and its related papers.
+2, Geo-referenced Frequent Sequence Pattern
+### Timeseries databases
 
-## 9. Discovering Interesting Patterns in Data Streams
+
+## 2. Mining Streams
    __coming soon__    
 
-## 10. Discovering Interesting Patterns in Graphs 
+## 3. Mining Graphs
 __coming soon__   
      
      

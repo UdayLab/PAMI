@@ -236,7 +236,7 @@ class _Tree:
 
 class CPGrowth(_ab._correlatedPatterns):
     """
-    :Description: CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database. It is based on traditional Fpgrowth Algorithm,This algorithm uses breadth-first search technique to find the correlated Frequent patterns in transactional database.
+    :Description: CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database. It is based on the traditional Fpgrowth Algorithm, this algorithm uses breadth-first search technique to find the correlated Frequent patterns in transactional database.
 
     :Reference: Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
     :param  iFile: str :
