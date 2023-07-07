@@ -51,10 +51,10 @@ Total number of algorithms: 83
   
        pip uninstall pami 
        
-# Tutorials 
+# Algorithms and Tutorials 
 
-## 1. Mining Databases
-### Transactional databases
+## 1. Discovering Interesting Patterns in Transactional Databases 
+
 1. Frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                            | Closed                                                                                                                                                                                                           | Maximal                                                                                                                   | Top-k                                                                                                                                                                                                  | CUDA           | pyspark                                                                                                                                                                                                                                               |
@@ -89,7 +89,7 @@ Total number of algorithms: 83
 | CP-growth++ [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPlus/CPGrowthPuls-st.md)                                                                                              -[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/correlatedPattern/CPGrowthPlus/CPGrowthPlus-ad.md)|
 
 
-### Temporal databases
+## 1. Discovering Interesting Patterns in Temporal Databases 
 
 
 1. Periodic-frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicFrequentPatternMining.html)
@@ -139,7 +139,7 @@ Total number of algorithms: 83
 | SPP-growth [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPGrowth/SPPGrowth-ad%20.md)| TSPIN  |
 | SPP-ECLAT  [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPEclat/SPPECLAT-st-2.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/stablePeriodicFrequentPatterns/SPPEclat/SPPECLAT-ad%20.md) |  |
 
-### Geo-referenced (or spatiotemporal) databases
+## 3. Discovering Interesting Patterns in Geo-referencial Databases 
 
 1. Frequent spatial pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentSpatialPatternMining.html)
 
@@ -167,7 +167,7 @@ Total number of algorithms: 83
 | RPgrowth [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/recurring/RPGrowth-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/periodicFrequentPatterns/recurring/RPGrowth-ad.md)|
 
 
-### Utility databases
+## 4. Discovering Interesting Patterns in Utility Databases 
 
 1. High utility pattern mining:   [Sample](https://udayrage.github.io/PAMI/highUtilityPatternMining.html)
 
@@ -225,7 +225,8 @@ Total number of algorithms: 83
 |-------------|
 | SSWFPGrowth |
 
-### Fuzzy databases
+## 5. Discovering Interesting Patterns in Fuzzy Databases
+
 1. Fuzzy Frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/fuzzyFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                   |
@@ -260,7 +261,7 @@ Total number of algorithms: 83
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | FPFP-Miner [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-st.pdf)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/fuzzyPeriodicFrequentPattern/FPFPMiner-ad.pdf) |
 
-### Uncertain databases
+## 6. Discovering Interesting Patterns in Uncertain Databases 
 
 
 1. Uncertain frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainFrequentPatternMining.html)
@@ -286,7 +287,7 @@ Total number of algorithms: 83
 |-------|
 | WUFIM [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/weightedUncertain/WUFIM-st.md)|
 
-### Sequence databases
+## 7. Discovering Interesting Patterns in Transactional Databases 
 
 1. Sequence frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/blob/main/docs/weightedSpatialFrequentPattern.html)
     
@@ -295,13 +296,14 @@ Total number of algorithms: 83
 | SPADE [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/SPADE/Spade-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/SPADE/Spade-ad.md)|
 | prefixSpan [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/prefixSpan/PrifixSpan-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/sequencePatternMining/basic/prefixSpan/PrifixSpan-ad.md)|
 
-### Timeseries databases
+## 8. Discovering Interesting Patterns in Timeseries Databases 
 
+IEEE FUZZ 2023 paper and its related papers.
 
-## 2. Mining Streams
+## 9. Discovering Interesting Patterns in Data Streams
    __coming soon__    
 
-## 3. Mining Graphs
+## 10. Discovering Interesting Patterns in Graphs 
 __coming soon__   
      
      
