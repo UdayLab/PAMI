@@ -1,35 +1,4 @@
 
-# **Importing this algorithm into a python program**
-# --------------------------------------------------------
-#
-#     from PAMI.periodicFrequentPattern.basic import PFECLAT as alg
-#
-#     obj = alg.cuGPFMiner("../basic/sampleTDB.txt", "2", "5")
-#
-#     obj.startMine()
-#
-#     periodicFrequentPatterns = obj.getPatterns()
-#
-#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
-#
-#     obj.savePatterns("patterns")
-#
-#     Df = obj.getPatternsAsDataFrame()
-#
-#     memUSS = obj.getMemoryUSS()
-#
-#     print("Total Memory in USS:", memUSS)
-#
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
-#
-
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -51,16 +20,15 @@ __copyright__ = """
 
 import abstract as _ab
 
-class cuGPFMiner(_ab._periodicFrequentPatterns):
+class cuGPPMiner(_ab._partialPeriodicPatterns):
     """
     Description:
     -------------
-        gPFMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
+        gPPMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
 
     Reference:
     -----------
-        Sreepada, Tarun, et al. "A Novel GPU-Accelerated Algorithm to Discover Periodic-Frequent Patterns in Temporal Databases." 
-        2022 IEEE International Conference on Big Data (Big Data). IEEE, 2022.
+        N/A
 
     Attributes:
     -----------
@@ -91,20 +59,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
             To record the completion time of the mining process
         Database : list
             To store the transactions of a database in list
-        mapSupport : Dictionary
-            To maintain the information of item and their frequency
-        lno : int
-            it represents the total no of transactions
-        tree : class
-            it represents the Tree class
-        itemSetCount : int
-            it represents the total no of patterns
-        finalPatterns : dict
-            it represents to store the patterns
-        tidList : dict
-            stores the timestamps of an item
-        hashing : dict
-            stores the patterns with their support to check for the closed property
+
 
     Methods:
     ---------
@@ -123,14 +78,14 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
 
-            
+
 
     **Methods to execute code on terminal**
 
             Format:
-                        >>>  python3 PFECLAT.py <inputFile> <outputFile> <minSup>
+                        >>>  python3 gPPMiner.py <inputFile> <outputFile> <minSup>
             Example:
-                        >>>   python3 PFECLAT.py sampleDB.txt patterns.txt 10.0
+                        >>>   python3 gPPMiner.py sampleDB.txt patterns.txt 10.0
 
             .. note:: minSup will be considered in percentage of database transactions
 
@@ -139,9 +94,9 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
     .. code-block:: python
 
-                from PAMI.periodicFrequentPattern.basic import PFECLAT as alg
+                from PAMI.periodicFrequentPattern.basic import gPPMiner as alg
 
-                obj = alg.PFECLAT("../basic/sampleTDB.txt", "2", "5")
+                obj = alg.gPPMiner("../basic/sampleTDB.txt", "2", "5")
 
                 obj.startMine()
 
@@ -171,31 +126,31 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
 
         """
-    
+
+    _startTime = float()
+    _endTime = float()
+    _finalPatterns = {}
     _iFile = " "
     _oFile = " "
     _sep = " "
-    _dbSize = None
-    _Database = None
-    _minSup = str()
-    _maxPer = str()
-    _tidSet = set()
-    _finalPatterns = {}
-    _startTime = None
-    _endTime = None
     _memoryUSS = float()
     _memoryRSS = float()
+    _mapSupport = {}
+    _itemsetCount = 0
+    _writer = None
+    _periodicSupport = str()
+    _period = str()
 
 
     supportAndPeriod = _ab._cp.RawKernel('''
-                  
+
     #define uint32_t unsigned int
-    
+
     extern "C" __global__
     void supportAndPeriod(
         uint32_t *bitValues, uint32_t arraySize,
         uint32_t *candidates, uint32_t numberOfKeys, uint32_t keySize,
-        uint32_t *support, uint32_t *period,
+        uint32_t *period,
         uint32_t maxPeriod, uint32_t maxTimeStamp
         )
     {
@@ -204,19 +159,20 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
         uint32_t intersection = 0;
 
-        uint32_t supportCount = 0;
         uint32_t periodCount = 0;
         uint32_t traversed = 0;
 
         uint32_t bitRepr[32];
-        uint32_t bitRepIndex = 0;
+        uint32_t bitRepIndex = 31;
+
+        int flag = 0;
 
 
         for (uint32_t i = 0; i < arraySize; i++)
         {
             intersection = 0xFFFFFFFF;
             for (uint32_t j = tid * keySize; j < (tid + 1) * keySize; j++)
-            { 
+            {
                 intersection = intersection & bitValues[candidates[j] * arraySize + i];
             }
 
@@ -232,36 +188,36 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
             {
                 bitRepr[bitRepIndex] = intersection % 2;
                 intersection = intersection / 2;
-                bitRepIndex--;   
+                bitRepIndex--;
             }
 
             for (uint32_t j = 0; j < 32; j++)
             {
                 periodCount++;
                 traversed++;
-                if (periodCount > maxPeriod)
-                {
-                    period[tid] = periodCount;
-                    support[tid] = supportCount;
-                    return;
-                }
                 if (bitRepr[j] == 1)
                 {
-                    supportCount++;
-                    if (periodCount > period[tid]) period[tid] = periodCount;
+                    if (flag == 0) {
+                      flag++;
+                    }
+                    else{
+                      if (periodCount <= maxPeriod) 
+                      {
+                        period[tid]++;
+                      }
+                    }
                     periodCount = 0;
+
                 }
                 if (traversed == maxTimeStamp + 1)
                 {
-                    support[tid] = supportCount;
-                    if (periodCount > period[tid]) period[tid] = periodCount;
                     return;
                 }
             }
         }
 
     }
-    
+
     ''', 'supportAndPeriod')
 
     def _convert(self, value):
@@ -334,7 +290,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
                 else:
                     ArraysAndItems[j].append(tid)
                 maxTID = max(maxTID, tid)
-        
+
         self._maxTS = maxTID
 
         newArraysAndItems = {}
@@ -345,37 +301,35 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         self._rename = {}
         number = 0
 
-
         for k,v in ArraysAndItems.items():
-            if len(v) >= self._minSup:
-                nv = v.copy()
-                nv.append(maxTID)
-                nv.append(0)
-                nv = _ab._cp.array(nv, dtype=_ab._np.uint32)
-                nv = _ab._cp.sort(nv)
-                differences = _ab._cp.diff(nv)
-                maxDiff = _ab._cp.max(differences)
-                if maxDiff <= self._maxPer:
-                    # print(k, len(v), v, nv, differences, maxDiff)
-                    self._finalPatterns["\t".join(k)] = [len(v), maxDiff]
-                    # newArraysAndItems[k] = _ab._np.array(v, dtype=_ab._np.uint32)
-                    bitRep = _ab._np.zeros(arraySize, dtype=_ab._np.uint32)
-                    for i in range(len(v)):
-                        bitRep[v[i] // 32] |= 1 << 31 - (v[i] % 32)
-                    # print(k,v, end = " ")
-                    # for i in range(len(bitRep)):
-                    #     print(_ab._np.binary_repr(bitRep[i], width=32), end = " ")
-                    # print()
-                    newArraysAndItems[tuple([number])] = bitRep
-                    self._rename[number] = str(k[0])
-                    number += 1
-
+            nv = v.copy()
+            nv = _ab._cp.array(nv, dtype=_ab._np.uint32)
+            nv = _ab._cp.sort(nv)
+            differences = _ab._cp.diff(nv)
+            # maxDiff = _ab._cp.max(differences)
+            perSup = _ab._cp.count_nonzero(differences <= self._period).get()
+            if perSup >= self._periodicSupport:
+                # print(k, len(v), v, nv, differences, maxDiff)
+                self._finalPatterns["\t".join(k)] = perSup
+                # newArraysAndItems[k] = _ab._np.array(v, dtype=_ab._np.uint32)
+                bitRep = _ab._np.zeros(arraySize, dtype=_ab._np.uint32)
+                for i in range(len(v)):
+                    bitRep[v[i] // 32] |= 1 << 31 - (v[i] % 32)
+                # print(k,v, end = " ")
+                # for i in range(len(bitRep)):
+                #     print(_ab._np.binary_repr(bitRep[i], width=32), end = " ")
+                # print()
+                newArraysAndItems[tuple([number])] = bitRep
+                self._rename[number] = str(k[0])
+                number += 1
         return newArraysAndItems
-    
-    
+
 
     def startMine(self):
         self._startTime = _ab._time.time()
+
+        self._period = self._convert(self._period)
+        self._periodicSupport = self._convert(self._periodicSupport)
         self._finalPatterns = {}
         ArraysAndItems = self._creatingOneItemSets()
         candidates = list(ArraysAndItems.keys())
@@ -388,6 +342,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         # print(type(candidates[0]))
 
         while len(candidates) > 0:
+            print("Number of Candidates:", len(candidates))
             newKeys = []
             for i in range(len(candidates)):
                 for j in range(i+1, len(candidates)):
@@ -409,39 +364,35 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
             # newKeys = _ab._cp.flatten(newKeys)
             newKeys = _ab._cp.reshape(newKeys, (numberOfKeys * keySize,))
 
-            support = _ab._cp.zeros(numberOfKeys, dtype=_ab._cp.uint32)
             period = _ab._cp.zeros(numberOfKeys, dtype=_ab._cp.uint32)
 
             self.supportAndPeriod((numberOfKeys//32 + 1,), (32,),
                                     (
                                         values, self.arraySize,
                                         newKeys, numberOfKeys, keySize,
-                                        support, period,
-                                        self._maxPer, self._maxTS
+                                        period,
+                                        self._period, self._maxTS
                                     )
             )
 
             newKeys = _ab._cp.reshape(newKeys, (numberOfKeys, keySize))
             newKeys = _ab._cp.asnumpy(newKeys)
-            support = support.get()
             period = period.get()
 
             newCandidates = []
             for i in range(len(newKeys)):
                 # print(newKeys[i], support[i], period[i])
-                if support[i] >= self._minSup and period[i] <= self._maxPer:
+                if period[i] >= self._periodicSupport:
                     newCandidates.append(list(newKeys[i]))
                     rename = [self._rename[j] for j in newKeys[i]]
                     rename = "\t".join(rename)
-                    self._finalPatterns[rename] = [support[i], period[i]]
+                    self._finalPatterns[rename] = period[i]
 
             # print()
 
             # print(newCandidates)
 
             candidates = newCandidates
-            
-
 
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -449,7 +400,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         self._memoryUSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
+        print("Periodic-Frequent patterns were generated successfully using gPPMiner algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -504,7 +455,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         for x, y in self._finalPatterns.items():
             # print(x,y)
             # print(type(x), type(y))
-            s1 = x.replace(' ', '\t') + ":" + str(y[0]) + ":" + str(y[1])
+            s1 = x.replace(' ', '\t') + ":" + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
@@ -519,33 +470,21 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:",  self.getRuntime())
-                    
+        print("Total ExecutionTime in s:",  self.getRuntime())
+
 
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = cuGPFMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = cuGPPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = cuGPFMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = cuGPPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
+        print("Total ExecutionTime in s:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-
-    _ap = cuGPFMiner("/home/tarun/Temporal_T10I4D100K.csv", 50, 10000, "\t")
-    # _ap = cuGPFMiner("/home/tarun/PAMI/PAMI/periodicFrequentPattern/cuda/test.txt", 1, 10, " ")
-
-    _ap.startMine()
-    print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
-    _ap.save("tarun.txt")
-    print("Total Memory in USS:", _ap.getMemoryUSS())
-    print("Total Memory in RSS", _ap.getMemoryRSS())
-    print("Total ExecutionTime in ms:", _ap.getRuntime())
-
