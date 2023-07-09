@@ -8,7 +8,7 @@ class createSyntheticTransaction:
         ----------
         totalTransactions : int
             No of transactions
-        items : int
+        noOfItems : int
             No of items
         avgTransactionLength : int
             The length of average transaction
@@ -28,10 +28,10 @@ class createSyntheticTransaction:
 
     """
     
-    def __init__(self, totalTransactions, items, avgTransaction):
+    def __init__(self, totalTransactions, items, avgTransactionLength):
         self._totalTransactions = totalTransactions
-        self._items = items
-        self._avgTransaction = avgTransaction
+        self._noOfItems = items
+        self._avgTransactionLength = avgTransactionLength
     
     def createTransactionalDatabase(self, outputFile):
         """
@@ -42,10 +42,10 @@ class createSyntheticTransaction:
         """
         writer = open(outputFile, 'w+')
         for i in range(self._totalTransactions):
-            length = _rd.randint(1, self._avgTransaction + 20)
+            length = _rd.randint(1, self._avgTransactionLength + 20)
             st = str()
             for i in range(length):
-                item = _rd.randint(1, self._items)
+                item = _rd.randint(1, self._noOfItems)
                 st = st + str(item) + '\t'
             writer.write("%s \n" % st)
             

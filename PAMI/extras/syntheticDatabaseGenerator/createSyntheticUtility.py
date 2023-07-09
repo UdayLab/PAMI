@@ -8,18 +8,20 @@ class createSyntheticUtility:
 
         Attribute:
         ----------
-        transactions : int
+        totalTransactions : int
             No of transactions
-        items : int or float
+        noOfItems : int 
             No of items
-        avgTransaction : str
+        maxUtilRange: int
+            Maximum utility range
+        avgTransactionLength : int
             The length of average transaction
         outputFile: str
             Name of the output file.
 
         Nethods:
         --------
-        getUtilitylDatabase(outputFile)
+        createUtilitylDatabase(outputFile)
             Create utility database from DataFrame and store into outputFile
 
         Credits:
@@ -29,10 +31,10 @@ class createSyntheticUtility:
     """
     
     def __init__(self, transactions, items, maxUtilRange, avgTransaction):
-        self._transactions = transactions
-        self._items = items
-        self._maxUtilrange = maxUtilRange
-        self._avgTransaction = avgTransaction
+        self._totalTransactions = transactions
+        self._noOfItems = items
+        self._maxUtilRange = maxUtilRange
+        self._avgTransactionLength = avgTransaction
     
     def createUtilityDatabase(self, outputFile):
         """
@@ -42,14 +44,14 @@ class createSyntheticUtility:
         :return: outputFile name
         """
         writer = open(outputFile, 'w+')
-        for i in range(self._transactions):
-            length = _rd.randint(1, self._avgTransaction + 20)
+        for i in range(self._totalTransactions):
+            length = _rd.randint(1, self._avgTransactionLength + 20)
             st = str()
             st1 = str()
             su = []
             for i in range(length):
-                item = _rd.randint(1, self._items)
-                utility = _rd.randint(1, self._maxUtilrange) 
+                item = _rd.randint(1, self._noOfItems)
+                utility = _rd.randint(1, self._maxUtilRange) 
                 st = st + str(item) + '\t'
                 su.append(utility)
                 st1 = st1 + str(utility) + '\t'
