@@ -1,7 +1,74 @@
+# Association rule mining finds interesting associations and relationships among large sets of data items
+#
+# **Importing this algorithm into a python program**
+# -----------------------------------------------------------
+#
+#
+#           from PAMI.AssociationRules.basic import aprioriAlgorithm as alg
+#           obj = alg.aprioriAlgorithm(iFile, frequentPatternsFile, threshold, sep)
+#           obj.startMine()
+#           Rules = obj.getPattern()
+#           print("Total number of Patterns:", len(Patterns))
+#           obj.savePatterns(oFile)
+#           Df = obj.getPatternsAsDataFrame()
+#           memUSS = obj.getMemoryUSS()
+#           print("Total memory in USS", memUSS)
+#           memRSS = obj.getMemoryRSS()
+#           print("Total memory in RSS", memRSS)
+#           run = obj.getRuntime()
+#           print("Total ExecutionTime in seconds", run)
+
+
+__copyright__ = """
+Copyright (c) 2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran 
+
+"""
+
 from PAMI.AssociationRules.basic import abstract as _ab
 
 
 class Confidence:
+    """
+    A class used to represent the confidence of frequentPattern
+
+
+    Attributes :
+    ----------------
+        frequentPatterns : list
+                storing the frequent patterns in a list
+        singleItems : list
+                storing the list of unique items
+        threshold : int
+                set an integer as threshold value
+        finalPatterns : dic
+                storing the obtained patterns in a dic
+
+    Methods :
+    --------------
+        _generation(str1, str2)
+            concat the items in a list by indexing and returns modified parameters
+        _generaeWithConfidence(lhs, rhs)
+            Calculate the min confidence of lhs and rhs and
+            returns the finalFrequentPattern by comparing the
+            confidence values with threshold value
+        run()
+            returns modified parameters by concat
+
+"""
 
     def __init__(self, patterns, singleItems, threshold):
         """
@@ -51,19 +118,70 @@ class Confidence:
 class ARWithConfidence:
     """
         temporalDatabaseStats is class to get stats of database.
-        
+
         Attributes:
-        ----------
-        frequentPattern : list or dict
-            list
-        measure: condition to calculate the strength of rule
-            str
-        threshold: condition to satisfy
-            int
-            
+        --------------
+        iFile : str
+            stores path of the file
+        threshold : int
+            set a condition by integer value
+        finalPatterns : {}
+            stores the patterns in a dictionary
+        sep :
+            differentiate the items by using separator
+
         Methods:
-        -------
+        ------------
+        _readPatterns()
+            read the data in file and covert data into list
         startMine()
+            run all methods
+        getMemoryUSS()
+            returns total USS memory consumed
+        getMemoryRSS()
+            returns the total RSS memory consumed
+        getRuntime()
+            returns the total time taken to complete the process
+        getPatternsAsDataFrame()
+            converting the data into dataframe
+        save()
+            saving the file
+        getPatterns()
+            returns the finalPatterns
+        printResults()
+            returns the total no of rules, memory, time consumed
+
+
+    **Methods to execute code on terminal**
+    ----------------------------------------
+            Format:
+                >>> python3 ARWithConfidence.py <inputFile> <outputFile>  <minSup> <sep>
+            Example:
+                >>>  python3 ARWithConfidence.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2
+                     .. note:: minSup will be considered in percentage of database transactions
+
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------------------------------
+    .. code-block:: python
+
+            from PAMI.AssociationRules.basic import aprioriAlgorithm as alg
+            obj = alg.aprioriAlgorithm(iFile, frequentPatternsFile, threshold, sep)
+            obj.startMine()
+            Rules = obj.getPatterns()
+            print("Total number of  Patterns:", len(Patterns))
+            obj.savePatterns(oFile)
+            Df = obj.getPatternsAsDataFrame()
+            memUSS = obj.getMemoryUSS()
+            print("Total Memory in USS:", memUSS)
+            memRSS = obj.getMemoryRSS()
+            print("Total Memory in RSS", memRSS)
+            run = obj.getRuntime()
+            print("Total ExecutionTime in seconds:", run)
+
+    **Credits:**
+    ----------------------------------------
+            The complete program was written by ****** under the supervision of Professor Rage Uday Kiran.
+
     """
 
     def __init__(self, iFile, threshold, sep):
@@ -188,7 +306,7 @@ class ARWithConfidence:
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def getPatterns(self):
         print("Total number of Association Rules:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
