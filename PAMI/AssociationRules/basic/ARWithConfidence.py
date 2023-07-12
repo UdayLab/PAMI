@@ -311,7 +311,9 @@ class ARWithConfidence:
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:", self.getRuntime())
-
+"""
+    From here the main function starts
+"""
 
 if __name__ == "__main__":
     _ap = str()
