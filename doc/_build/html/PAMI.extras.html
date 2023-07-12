@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.extras package &mdash; Python 12.7.2023 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.extras.DF2DB package" href="PAMI.extras.DF2DB.html" />
+    <link rel="prev" title="PAMI.coveragePatterns.basic package" href="PAMI.coveragePatterns.basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePatterns.html">PAMI.coveragePatterns package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentSpatialPattern.html">PAMI.frequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPatterns.html">PAMI.fuzzyFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentSpatialPattern.html">PAMI.fuzzyFrequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzySpatialPeriodicFrequentPattern.html">PAMI.fuzzySpatialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedFrequentPattern.html">PAMI.geoReferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPatterns.html">PAMI.highUtilityFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentSpatialPattern.html">PAMI.highUtilityFrequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatterns.html">PAMI.highUtilityPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicSpatialPattern.html">PAMI.partialPeriodicSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPatterns.html">PAMI.relativeFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPatterns.html">PAMI.relativeHighUtilityPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.streams.html">PAMI.streams package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+      <li class="breadcrumb-item active">PAMI.extras package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.extras.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-extras-package">
+<h1>PAMI.extras package<a class="headerlink" href="#pami-extras-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.DF2DB.html">PAMI.extras.DF2DB package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#pami-extras-df2db-df2db-module">PAMI.extras.DF2DB.DF2DB module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.DF2DBPlus">PAMI.extras.DF2DB.DF2DBPlus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.createTDB">PAMI.extras.DF2DB.createTDB module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#pami-extras-df2db-densedf2db-module">PAMI.extras.DF2DB.denseDF2DB module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.denseDF2DBPlus">PAMI.extras.DF2DB.denseDF2DBPlus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.denseDF2DB_dump">PAMI.extras.DF2DB.denseDF2DB_dump module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.sparseDF2DB">PAMI.extras.DF2DB.sparseDF2DB module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.sparseDF2DBPlus">PAMI.extras.DF2DB.sparseDF2DBPlus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.calculateMISValues.html">PAMI.extras.calculateMISValues package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#module-PAMI.extras.calculateMISValues.usingBeta">PAMI.extras.calculateMISValues.usingBeta module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#module-PAMI.extras.calculateMISValues.usingSD">PAMI.extras.calculateMISValues.usingSD module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#module-PAMI.extras.calculateMISValues">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.dbStats.html">PAMI.extras.dbStats package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.fuzzyDatabaseStats">PAMI.extras.dbStats.fuzzyDatabaseStats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.temporalDatabaseStats">PAMI.extras.dbStats.temporalDatabaseStats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.transactionalDatabaseStats">PAMI.extras.dbStats.transactionalDatabaseStats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.uncertainTemporalDatabaseStats">PAMI.extras.dbStats.uncertainTemporalDatabaseStats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.uncertainTransactionalDatabaseStats">PAMI.extras.dbStats.uncertainTransactionalDatabaseStats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.utilityDatabaseStats">PAMI.extras.dbStats.utilityDatabaseStats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html">PAMI.extras.fuzzyTransformation package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation.abstract">PAMI.extras.fuzzyTransformation.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation.temporalToFuzzy">PAMI.extras.fuzzyTransformation.temporalToFuzzy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation.transactionalToFuzzyTimeSeries">PAMI.extras.fuzzyTransformation.transactionalToFuzzyTimeSeries module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#pami-extras-fuzzytransformation-utilitytofuzzy-module">PAMI.extras.fuzzyTransformation.utilityToFuzzy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.generateDatabase.html">PAMI.extras.generateDatabase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase.generateSpatioTemporalDatabase">PAMI.extras.generateDatabase.generateSpatioTemporalDatabase module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase.generateTemporalDatabase">PAMI.extras.generateDatabase.generateTemporalDatabase module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase.generateTransactionalDatabase">PAMI.extras.generateDatabase.generateTransactionalDatabase module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.graph.html">PAMI.extras.graph package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.dataFrameInToFigures">PAMI.extras.graph.dataFrameInToFigures module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.generateLatexFileFromDataFrame">PAMI.extras.graph.generateLatexFileFromDataFrame module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.plotLineGraphFromDictionary">PAMI.extras.graph.plotLineGraphFromDictionary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.plotLineGraphsFromDataFrame">PAMI.extras.graph.plotLineGraphsFromDataFrame module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.visualizePatterns">PAMI.extras.graph.visualizePatterns module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.image2Database.html">PAMI.extras.image2Database package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.image2Database.html#module-PAMI.extras.image2Database">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.imageProcessing.html">PAMI.extras.imageProcessing package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.imageProcessing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.imageProcessing.html#module-PAMI.extras.imageProcessing.imagery2Databases">PAMI.extras.imageProcessing.imagery2Databases module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.imageProcessing.html#module-PAMI.extras.imageProcessing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.neighbours.html">PAMI.extras.neighbours package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.neighbours.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.neighbours.html#module-PAMI.extras.neighbours.findNeighboursUsingEuclidean">PAMI.extras.neighbours.findNeighboursUsingEuclidean module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.neighbours.html#module-PAMI.extras.neighbours">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html">PAMI.extras.syntheticDatabaseGenerator package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#module-PAMI.extras.syntheticDatabaseGenerator.createSyntheticGeoreferentialTemporal">PAMI.extras.syntheticDatabaseGenerator.createSyntheticGeoreferentialTemporal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#module-PAMI.extras.syntheticDatabaseGenerator.createSyntheticGeoreferentialTransactions">PAMI.extras.syntheticDatabaseGenerator.createSyntheticGeoreferentialTransactions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#module-PAMI.extras.syntheticDatabaseGenerator.createSyntheticGeoreferentialUncertainTransaction">PAMI.extras.syntheticDatabaseGenerator.createSyntheticGeoreferentialUncertainTransaction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#module-PAMI.extras.syntheticDatabaseGenerator.createSyntheticTemporal">PAMI.extras.syntheticDatabaseGenerator.createSyntheticTemporal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#module-PAMI.extras.syntheticDatabaseGenerator.createSyntheticTransactions">PAMI.extras.syntheticDatabaseGenerator.createSyntheticTransactions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#module-PAMI.extras.syntheticDatabaseGenerator.createSyntheticUncertainTemporal">PAMI.extras.syntheticDatabaseGenerator.createSyntheticUncertainTemporal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#module-PAMI.extras.syntheticDatabaseGenerator.createSyntheticUncertainTransactions">PAMI.extras.syntheticDatabaseGenerator.createSyntheticUncertainTransactions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#module-PAMI.extras.syntheticDatabaseGenerator.createSyntheticUtility">PAMI.extras.syntheticDatabaseGenerator.createSyntheticUtility module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.syntheticDatabaseGenerator.html#module-PAMI.extras.syntheticDatabaseGenerator">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-PAMI.extras.generateLatexGraphFile">
+<span id="pami-extras-generatelatexgraphfile-module"></span><h2>PAMI.extras.generateLatexGraphFile module<a class="headerlink" href="#module-PAMI.extras.generateLatexGraphFile" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="PAMI.extras.generateLatexGraphFile.generateLatexCode">
+<span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateLatexGraphFile.</span></span><span class="sig-name descname"><span class="pre">generateLatexCode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/generateLatexGraphFile.html#generateLatexCode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateLatexGraphFile.generateLatexCode" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="pami-extras-plotpointonmap-module">
+<h2>PAMI.extras.plotPointOnMap module<a class="headerlink" href="#pami-extras-plotpointonmap-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="pami-extras-plotpointonmap-dump-module">
+<h2>PAMI.extras.plotPointOnMap_dump module<a class="headerlink" href="#pami-extras-plotpointonmap-dump-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-PAMI.extras.scatterPlotSpatialPoints">
+<span id="pami-extras-scatterplotspatialpoints-module"></span><h2>PAMI.extras.scatterPlotSpatialPoints module<a class="headerlink" href="#module-PAMI.extras.scatterPlotSpatialPoints" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.scatterPlotSpatialPoints.</span></span><span class="sig-name descname"><span class="pre">scatterPlotSpatialPoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/scatterPlotSpatialPoints.html#scatterPlotSpatialPoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints.scatterPlotSpatialPoints">
+<span class="sig-name descname"><span class="pre">scatterPlotSpatialPoints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/scatterPlotSpatialPoints.html#scatterPlotSpatialPoints.scatterPlotSpatialPoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints.scatterPlotSpatialPoints" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.topKPatterns">
+<span id="pami-extras-topkpatterns-module"></span><h2>PAMI.extras.topKPatterns module<a class="headerlink" href="#module-PAMI.extras.topKPatterns" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.topKPatterns.topKPatterns">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.topKPatterns.</span></span><span class="sig-name descname"><span class="pre">topKPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/topKPatterns.html#topKPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.topKPatterns.topKPatterns" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>find top k length patterns in input file.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>inputFile<span class="classifier">str</span></dt><dd><p>input file name or path</p>
+</dd>
+<dt>k<span class="classifier">int</span></dt><dd><p>rank of pattern length. default is 10</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>separator which separate patterns in input file. default is tab space</p>
+</dd>
+</dl>
+</div></blockquote>
+<blockquote>
+<div><dl class="simple">
+<dt>getTopKPatterns()</dt><dd><p>return top k patterns as dict</p>
+</dd>
+<dt>storeTopKPatterns(outputFile)</dt><dd><p>store top k patterns into output file.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.topKPatterns.topKPatterns.getTopKPatterns">
+<span class="sig-name descname"><span class="pre">getTopKPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/topKPatterns.html#topKPatterns.getTopKPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.topKPatterns.topKPatterns.getTopKPatterns" title="Permalink to this definition"></a></dt>
+<dd><p>get top k length patterns. user can defined k value.
+:return: top k length patterns as dictionary. top k patterns = {patternId: pattern}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.topKPatterns.topKPatterns.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/topKPatterns.html#topKPatterns.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.topKPatterns.topKPatterns.save" title="Permalink to this definition"></a></dt>
+<dd><p>store top k length patterns into file. user can defined k value.
+:param outputFile: output file name or path
+:type outputFile: str</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.uncertaindb_convert">
+<span id="pami-extras-uncertaindb-convert-module"></span><h2>PAMI.extras.uncertaindb_convert module<a class="headerlink" href="#module-PAMI.extras.uncertaindb_convert" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.uncertaindb_convert.predictedClass2Transaction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.uncertaindb_convert.</span></span><span class="sig-name descname"><span class="pre">predictedClass2Transaction</span></span><a class="reference internal" href="_modules/PAMI/extras/uncertaindb_convert.html#predictedClass2Transaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.uncertaindb_convert.predictedClass2Transaction" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.uncertaindb_convert.predictedClass2Transaction.getBinaryTransaction">
+<span class="sig-name descname"><span class="pre">getBinaryTransaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minThreshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/uncertaindb_convert.html#predictedClass2Transaction.getBinaryTransaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.uncertaindb_convert.predictedClass2Transaction.getBinaryTransaction" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.extras" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.coveragePatterns.basic.html" class="btn btn-neutral float-left" title="PAMI.coveragePatterns.basic package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.extras.DF2DB.html" class="btn btn-neutral float-right" title="PAMI.extras.DF2DB package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, YYYY.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
