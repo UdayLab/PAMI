@@ -9,23 +9,25 @@ from pycuda.compiler import SourceModule
 
 supportAndPeriod = SourceModule(r"""
     
-__global__ void supportAndPeriod(unsigned long long int *bitArray, // containing transactions
-                                unsigned long long int *period, // for period
-                                unsigned long long int *thingsToCompare, // for things to compare
-                                unsigned long long int *thingsToCompareIndex, // for things to compare index
-                                unsigned long long int numberOfThingsToCompare, // for number of things to compare
-                                unsigned long long int numberOfBits, // for number of bits
-                                unsigned long long int numberOfElements, // for number of elements
-                                unsigned long long int maxPeriod, // for max period
-                                unsigned long long int maxTimeStamp){
+#define uint64_t unsigned long long int
+
+__global__ void supportAndPeriod(uint64_t *bitArray, // containing transactions
+                                uint64_t *period, // for period
+                                uint64_t *thingsToCompare, // for things to compare
+                                uint64_t *thingsToCompareIndex, // for things to compare index
+                                uint64_t numberOfThingsToCompare, // for number of things to compare
+                                uint64_t numberOfBits, // for number of bits
+                                uint64_t numberOfElements, // for number of elements
+                                uint64_t maxPeriod, // for max period
+                                uint64_t maxTimeStamp){
         
-        unsigned long long int threadIDX = blockIdx.x * blockDim.x + threadIdx.x;
+        uint64_t threadIDX = blockIdx.x * blockDim.x + threadIdx.x;
 
         if (threadIDX > numberOfThingsToCompare-2) return;
 
-        unsigned long long int holder = 0;
-        unsigned long long int periodCounter = 0;
-        unsigned long long int numbersCounter = 0;
+        uint64_t holder = 0;
+        uint64_t periodCounter = 0;
+        uint64_t numbersCounter = 0;
         short int bitRepresentation[64];
         short int index = numberOfBits - 1;
 
