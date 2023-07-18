@@ -3,7 +3,7 @@ from PAMI.AssociationRules.basic import abstract as _ab
 
 class Confidence:
 
-    def __init__(self, patterns, singleItems, threshold):
+    def __init__(self, patterns, singleItems, minConf):
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -11,31 +11,31 @@ class Confidence:
         """
         self._frequentPatterns = patterns
         self._singleItems = singleItems
-        self._threshold = threshold
+        self._minConf = minConf
         self._finalPatterns = {}
 
     def _generation(self, prefix, suffix):
         if len(suffix) == 1:
-            conf = self._generaeWithConfidence(prefix, suffix[0])
+            conf = self._generateWithConfidence(prefix, suffix[0])
         for i in range(len(suffix)):
             suffix1 = suffix[:i] + suffix[i + 1:]
             prefix1 = prefix + ' ' + suffix[i]
             for j in range(i + 1, len(suffix)):
-                self._generaeWithConfidence(prefix + ' ' + suffix[i], suffix[j])
+                self._generateWithConfidence(prefix + ' ' + suffix[i], suffix[j])
                 # self._generation(prefix+ ' ' +suffix[i], suffix[i+1:])
             self._generation(prefix1, suffix1)
 
-    def _generaeWithConfidence(self, lhs, rhs):
+    def _generateWithConfidence(self, lhs, rhs):
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) == None:
             return 0
         minimum = self._frequentPatterns[s]
         conflhs = minimum / self._frequentPatterns[lhs]
         confrhs = minimum / self._frequentPatterns[rhs]
-        if conflhs >= self._threshold:
+        if conflhs >= self._minConf:
             s1 = lhs + '->' + rhs
             self._finalPatterns[s1] = conflhs
-        if confrhs >= self._threshold:
+        if confrhs >= self._minConf:
             s1 = rhs + '->' + lhs
             self._finalPatterns[s1] = confrhs
 
@@ -44,7 +44,7 @@ class Confidence:
             suffix = self._singleItems[:i] + self._singleItems[i + 1:]
             prefix = self._singleItems[i]
             for j in range(i + 1, len(self._singleItems)):
-                self._generaeWithConfidence(self._singleItems[i], self._singleItems[j])
+                self._generateWithConfidence(self._singleItems[i], self._singleItems[j])
             self._generation(prefix, suffix)
 
 
@@ -121,7 +121,7 @@ class ARWithConfidence:
     def startMine(self):
         self._startTime = _ab._time.time()
         k = self._readPatterns()
-        a = Confidence(self._frequentPatterns, k, self._threshold)
+        a = Confidence(self._frequentPatterns, k, self._minConf)
         a.run()
         self._finalPatterns = a._finalPatterns
         self._endTime = _ab._time.time()
@@ -209,8 +209,8 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = ARWithConfidence('patterns.txt', 0.8, '\t')
-        _ap.startMine()
-        _ap.save('output.txt')
-        _ap.printResults()
+        # _ap = ARWithConfidence('patterns.txt', 0.8, '\t')
+        # _ap.startMine()
+        # _ap.save('output.txt')
+        # _ap.printResults()
         print("Error! The number of input parameters do not match the total number of parameters provided")

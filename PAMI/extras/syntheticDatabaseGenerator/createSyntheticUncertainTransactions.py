@@ -10,7 +10,7 @@ class createSyntheticUncertainTransaction:
         ----------
         totalTransactions : int
             No of transactions
-        items : int 
+        noOfItems : int 
             No of items
         avgTransactionLength : str
             The length of average transaction

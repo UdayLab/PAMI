@@ -8,19 +8,19 @@ class createSyntheticGeoreferentialTransaction:
 
         Attribute:
         ----------
-        transactions : pandas.DataFrame
+        totalTransactions : int
             No of transactions
-        items : int or float
+        items : int 
             No of items
-        avgTransaction : str
+        avgTransactionLength : str
             The length of average transaction
         outputFile: str
             Name of the output file.
 
         Methods:
         --------
-        getGeoreferentialTransactionDatabase(outputFile)
-            Create geo-referential transactional database store into outputFile
+        createGeoreferentialTransactionDatabase(outputFile)
+            Create geo-referential transactional database and store into outputFile
 
 
         Credits:
@@ -30,9 +30,9 @@ class createSyntheticGeoreferentialTransaction:
     """
     
     def __init__(self, transactions, items, avgTransaction):
-        self._transactions = transactions
-        self._items = items
-        self._avgTransaction = avgTransaction
+        self._totalTransactions = transactions
+        self._noOfItems = items
+        self._avgTransactionLength = avgTransaction
     
     def createGeoreferentialTransactionalDatabase(self, outputFile):
         """
@@ -43,15 +43,15 @@ class createSyntheticGeoreferentialTransaction:
         """
         writer = open(outputFile, 'w+')
         items = []
-        for i in range(self._items):
-            lat = _rd.randint(1, self._items)
-            lon = _rd.randint(1, self._items)
+        for i in range(self._noOfItems):
+            lat = _rd.randint(1, self._noOfItems)
+            lon = _rd.randint(1, self._noOfItems)
             if lat == lon:
-                lon = _rd.randint(1, self._items)
+                lon = _rd.randint(1, self._noOfItems)
             stt = '(' + str(lat) + ' ' + str(lon) + ')'
             items.append(stt)
-        for i in range(self._transactions):
-            length = _rd.randint(1, self._avgTransaction + 20)
+        for i in range(self._totalTransactions):
+            length = _rd.randint(1, self._avgTransactionLength + 20)
             st = str()
             for i in range(length):
                 rd = _rd.randint(0, len(items) - 1)

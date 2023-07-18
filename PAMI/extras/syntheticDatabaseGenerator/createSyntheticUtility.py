@@ -14,7 +14,7 @@ class createSyntheticUtility:
             No of items
         maxUtilRange: int
             Maximum utility range
-        avgTransactionLength : str
+        avgTransactionLength : int
             The length of average transaction
         outputFile: str
             Name of the output file.
