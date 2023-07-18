@@ -91,7 +91,7 @@ class _AssociationRules(_ABC):
 
     """
 
-    def __init__(self, iFile, threshold, sep="\t"):
+    def __init__(self, iFile, minConf, sep="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame
