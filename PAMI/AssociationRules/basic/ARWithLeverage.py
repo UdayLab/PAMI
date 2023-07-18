@@ -3,7 +3,7 @@ from PAMI.AssociationRules.basic import abstract as _ab
 
 class Leverage:
 
-    def __init__(self, patterns, singleItems, threshold):
+    def __init__(self, patterns, singleItems, minConf):
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -11,7 +11,7 @@ class Leverage:
         """
         self._frequentPatterns = patterns
         self._singleItems = singleItems
-        self._threshold = threshold
+        self._minConf = minConf
         self._finalPatterns = {}
 
     def _generation(self, prefix, suffix):
@@ -33,10 +33,10 @@ class Leverage:
         confrhs = minimum / self._frequentPatterns[rhs]
         liftlhs = conflhs - self._frequentPatterns[rhs] * self._frequentPatterns[lhs]
         rightrhs = confrhs - self._frequentPatterns[lhs] * self._frequentPatterns[rhs]
-        if liftlhs >= self._threshold:
+        if liftlhs >= self._minConf:
             s1 = lhs + '->' + rhs
             self._finalPatterns[s1] = conflhs
-        if rightrhs >= self._threshold:
+        if rightrhs >= self._minConf:
             s1 = rhs + '->' + lhs
             self._finalPatterns[s1] = confrhs
 
@@ -67,14 +67,14 @@ class ARWithLeverage:
         startMine()
     """
 
-    def __init__(self, iFile, threshold, sep):
+    def __init__(self, iFile, minConf, sep):
         """
         :param inputFile: input file name or path
         :type inputFile: str
         :param sep:
         """
         self._iFile = iFile
-        self._threshold = threshold
+        self._minConf = minConf
         self._finalPatterns = {}
         self._sep = sep
 
@@ -122,7 +122,7 @@ class ARWithLeverage:
     def startMine(self):
         self._startTime = _ab._time.time()
         k = self._readPatterns()
-        a = Leverage(self._frequentPatterns, k, self._threshold)
+        a = Leverage(self._frequentPatterns, k, self._minConf)
         a.run()
         self._finalPatterns = a._finalPatterns
         self._endTime = _ab._time.time()
@@ -210,10 +210,10 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = ARWithLeverage('patterns.txt', 0.8, '\t')
-        _ap.startMine()
-        _ap.save('output.txt')
-        _ap.printResults()
+        # _ap = ARWithLeverage('patterns.txt', 0.8, '\t')
+        # _ap.startMine()
+        # _ap.save('output.txt')
+        # _ap.printResults()
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 
