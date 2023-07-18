@@ -106,7 +106,7 @@ class _AssociationRules(_ABC):
 
         self._iFile = iFile
         self._sep = sep
-        self._threshold = threshold
+        self._minConf = minConf
         self._finalPatterns = {}
         self._oFile = str()
         self._memoryUSS = float()
