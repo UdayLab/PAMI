@@ -2,6 +2,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/PAMI)
 [![GitHub license](https://img.shields.io/github/license/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/blob/main/LICENSE)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/PAMI)
+[![Documentation Status](https://readthedocs.org/projects/pami-1/badge/?version=latest)](https://pami-1.readthedocs.io/en/latest/?badge=latest)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/PAMI)
 ![PyPI - Status](https://img.shields.io/pypi/status/PAMI)
 [![GitHub issues](https://img.shields.io/github/issues/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/issues)
@@ -22,13 +23,13 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 2. Coders manual https://udaylab.github.io/PAMI/codersManual/index.html
 
-3. Code documentation [PAMI documentation](https://raw.githack.com/UdayLab/PAMI/main/htmlDocs/_build/html/index.html)
+3. Code documentation https://pami-1.readthedocs.io 
 
-3. Datasets   https://u-aizu.ac.jp/~udayrage/datasets.html
+4. Datasets   https://u-aizu.ac.jp/~udayrage/datasets.html
 
-4. Discussions on PAMI usage https://github.com/UdayLab/PAMI/discussions
+5. Discussions on PAMI usage https://github.com/UdayLab/PAMI/discussions
 
-5. Report issues https://github.com/UdayLab/PAMI/issues
+6. Report issues https://github.com/UdayLab/PAMI/issues
   
  # Recent versions  
 
