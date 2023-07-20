@@ -7,5 +7,4 @@ validators==0.20.0
 urllib3==2.0.3
 pillow==10.0.0
 numpy==1.25.1
-pycuda==2022.2.2
 cupy==12.1.0

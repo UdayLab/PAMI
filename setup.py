@@ -26,7 +26,7 @@ setuptools.setup(
         'numpy',
     ],
     extras_require={
-        'gpu':  ['cupy'],
+        'gpu':  ['cupy', 'pycuda'],
         'spark': ['pyspark'],
     },
     classifiers=[
