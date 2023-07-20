@@ -1,74 +1,91 @@
-# Association rule mining finds interesting associations and relationships among large sets of data items
+# Association rule mining is a data mining technique that involves discovering interesting relationships or patterns among items in large datasets. By analyzing transactional data, it identifies associations between items based on their co-occurrence and frequency of occurrence.
 #
 # **Importing this algorithm into a python program**
 # -----------------------------------------------------------
 #
 #
-#           from PAMI.AssociationRules.basic import aprioriAlgorithm as alg
-#           obj = alg.aprioriAlgorithm(iFile, frequentPatternsFile, threshold, sep)
+#           from PAMI.AssociationRules.basic import ARWithConfidence as alg
+#
+#           obj = alg.ARWithConfidence(iFile, minconf, seperator)
+#
 #           obj.startMine()
-#           Rules = obj.getPattern()
-#           print("Total number of Patterns:", len(Patterns))
-#           obj.savePatterns(oFile)
+#
+#           associationRules= obj.getPatterns()
+#
+#           print("Total number of Association Rules:", len(associationRules))
+#
+#           obj.save(oFile)
+#
 #           Df = obj.getPatternsAsDataFrame()
+#
 #           memUSS = obj.getMemoryUSS()
+#
 #           print("Total memory in USS", memUSS)
+#
 #           memRSS = obj.getMemoryRSS()
+#
 #           print("Total memory in RSS", memRSS)
+#
 #           run = obj.getRuntime()
-#           print("Total ExecutionTime in seconds", run)
+#
+#           print("Total ExecutionTime in milliseconds", run)
+
+
+
 
 
 __copyright__ = """
-Copyright (c) 2021 Rage Uday Kiran
+ Copyright (C) 2021 Rage Uday Kiran
+      
+      
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 3 of the License, or
+      (at your option) any later version.
 
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
 
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
-
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran 
+      You should have received a copy of the GNU General Public License
+      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+      Copyright (C)  2021 Rage Uday Kiran
 
 """
 
 from PAMI.AssociationRules.basic import abstract as _ab
 
-
 class Confidence:
     """
-    A class used to represent the confidence of frequentPattern
+    The Confidence class used to represent the extraction of finalPatterns
 
 
     Attributes :
-    ----------------
-        frequentPatterns : list
-                storing the frequent patterns in a list
+    ----------
+        frequentPatterns : dict
+                Dictionary storing frequent patterns and their support values.
         singleItems : list
-                storing the list of unique items
-        threshold : int
-                set an integer as threshold value
-        finalPatterns : dic
-                storing the obtained patterns in a dic
+                single items present in the dataset are stored in list.
+        minconf : float
+                User specifies a value for minimum confidence.
+        finalPatterns : dict
+                Dictionary to store the generated association rules with their corresponding confidence values.
 
     Methods :
-    --------------
-        _generation(str1, str2)
-            concat the items in a list by indexing and returns modified parameters
-        _generaeWithConfidence(lhs, rhs)
-            Calculate the min confidence of lhs and rhs and
-            returns the finalFrequentPattern by comparing the
-            confidence values with threshold value
-        run()
-            returns modified parameters by concat
+    -------
 
-"""
+        _generation(str, list):
+            Recursive method that generates candidate association rules by combining items in the patterns.
+
+        _generaeWithConfidence(str, str):
+            Calculates the confidence values for a given pair of left-hand side (lhs) and right-hand side (rhs) items and stores the association rules if they meet the threshold.
+
+        run():
+            Initiates the rule generation process by iterating through single items and calling the _generation method.
+
+
+    """
 
     def __init__(self, patterns, singleItems, threshold):
         """
@@ -117,70 +134,96 @@ class Confidence:
 
 class ARWithConfidence:
     """
-        temporalDatabaseStats is class to get stats of database.
+    :Description: Association rule mining is a data mining technique that involves discovering interesting relationships or patterns among items in large datasets. By analyzing transactional data, it identifies associations between items based on their co-occurrence and frequency of occurrence.
 
-        Attributes:
-        --------------
-        iFile : str
-            stores path of the file
-        threshold : int
-            set a condition by integer value
-        finalPatterns : {}
-            stores the patterns in a dictionary
-        sep :
-            differentiate the items by using separator
+    :Reference:
+    :param    iFile: str :
+              Input file name or path, or pandas DataFrame containing frequent patterns.
+    :param    minconf: float :
+              The user can specify minimum confidence value and this value act as condition for patterns.
+    :param    sep: str :
+              This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param    oFile: str :
+              Name of the output file to store complete set of frequent patterns.
 
-        Methods:
-        ------------
+
+    :Attributes:
+
+        iFile: str or DataFrame
+            Input file name or path.
+        minconf: float
+            User specifeid minimum confidence value.
+        finalPatterns: dict
+            Dictionary to store the final generated association rules with their corresponding confidence values.
+        sep: str
+            Separator character for parsing input data.
+
+
+    :Methods:
+
         _readPatterns()
-            read the data in file and covert data into list
+            Reads the frequent patterns from the input file or DataFrame, stores them in _frequentPatterns, and returns the list of single items.
         startMine()
-            run all methods
+            Starts the association rule mining process.
         getMemoryUSS()
-            returns total USS memory consumed
+            Returns the total amount of USS memory consumed by the mining process.
         getMemoryRSS()
-            returns the total RSS memory consumed
+            Returns the total amount of RSS memory consumed by the mining process.
         getRuntime()
-            returns the total time taken to complete the process
-        getPatternsAsDataFrame()
-            converting the data into dataframe
-        save()
-            saving the file
+            Calculates and returns the total runtime taken by the mining process.
+        getPatternsAsDataFrame():
+            Stores the final frequent patterns in a pandas DataFrame and returns it.
+        save(oFile)
+            Saves the complete set of frequent patterns to the specified output file.
         getPatterns()
-            returns the finalPatterns
+            Returns the set of frequent as a dictionary.
         printResults()
-            returns the total no of rules, memory, time consumed
+            Prints the statistics of the mining process, including the total number of association rules, memory usage, and execution time.
 
 
     **Methods to execute code on terminal**
     ----------------------------------------
+
             Format:
-                >>> python3 ARWithConfidence.py <inputFile> <outputFile>  <minSup> <sep>
+                      >>> python3 ARWithConfidence.py <inputFile> <outputFile>  <minconf> <sep>
             Example:
-                >>>  python3 ARWithConfidence.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2
-                     .. note:: minSup will be considered in percentage of database transactions
+                      >>>  python3 ARWithConfidence.py sampleTDB.txt output.txt 50 "\t"
+
+                     .. note:: minconf value will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.AssociationRules.basic import aprioriAlgorithm as alg
-            obj = alg.aprioriAlgorithm(iFile, frequentPatternsFile, threshold, sep)
+            from PAMI.AssociationRules.basic import ARWithConfidence as alg
+
+            obj = alg.ARWithConfidence(iFile, minconf, seperator)
+
             obj.startMine()
-            Rules = obj.getPatterns()
-            print("Total number of  Patterns:", len(Patterns))
-            obj.savePatterns(oFile)
+
+            associationRules = obj.getPatterns()
+
+            print("Total number of Association Rules:", len(associationRules))
+
+            obj.save(oFile)
+
             Df = obj.getPatternsAsDataFrame()
+
             memUSS = obj.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
+
+            print("Total memory in USS", memUSS)
+
             memRSS = obj.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
+
+            print("Total memory in RSS", memRSS)
+
             run = obj.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
+
+            print("Total ExecutionTime in milliseconds", run)
 
     **Credits:**
     ----------------------------------------
-            The complete program was written by ****** under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by Palla Likhitha under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -237,6 +280,10 @@ class ARWithConfidence:
         return k
 
     def startMine(self):
+        """
+        main method to start
+
+        """
         self._startTime = _ab._time.time()
         k = self._readPatterns()
         a = Confidence(self._frequentPatterns, k, self._threshold)
@@ -307,6 +354,10 @@ class ARWithConfidence:
         return self._finalPatterns
 
     def getPatterns(self):
+        """ Function returns the number of Association Rules, Memory in USS, RSS and Execution Time
+        :return: returing length of frequent patterns
+        :rtype: int or float
+        """
         print("Total number of Association Rules:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
