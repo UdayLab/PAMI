@@ -10,9 +10,8 @@ In this tutorial, we will discuss the first approach to find High Utility patter
 
 #### Step 1: Import the HMiner algorithm
 
-
 ```python
-from PAMI.highUtilityPatterns.basic import HMiner  as alg
+from PAMI.highUtilityPattern.basic import HMiner  as alg
 ```
 
 #### Step 2: Specify the following input parameters

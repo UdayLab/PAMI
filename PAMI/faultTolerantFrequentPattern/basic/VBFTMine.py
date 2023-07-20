@@ -9,9 +9,9 @@
 #
 # obj.startMine()
 #
-# faultTolerantFrequentPatterns = obj.getPatterns()
+# faultTolerantFrequentPattern = obj.getPatterns()
 #
-# print("Total number of Fault Tolerant Frequent Patterns:", len(faultTolerantFrequentPatterns))
+# print("Total number of Fault Tolerant Frequent Patterns:", len(faultTolerantFrequentPattern))
 #
 # obj.save(oFile)
 #
@@ -116,9 +116,9 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
         obj.startMine()
 
-        faultTolerantFrequentPatterns = obj.getPatterns()
+        faultTolerantFrequentPattern = obj.getPatterns()
 
-        print("Total number of Fault Tolerant Frequent Patterns:", len(faultTolerantFrequentPatterns))
+        print("Total number of Fault Tolerant Frequent Patterns:", len(faultTolerantFrequentPattern))
 
         obj.save(oFile)
 

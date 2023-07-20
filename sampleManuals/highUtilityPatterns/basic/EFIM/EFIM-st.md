@@ -10,9 +10,8 @@ In this tutorial, we will discuss the first approach to find High Utility patter
 
 #### Step 1: Import the EFIM algorithm
 
-
 ```python
-from PAMI.highUtilityPatterns.basic import EFIM  as alg
+from PAMI.highUtilityPattern.basic import EFIM  as alg
 ```
 
 #### Step 2: Specify the following input parameters

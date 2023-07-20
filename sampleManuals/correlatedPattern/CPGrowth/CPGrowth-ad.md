@@ -12,9 +12,8 @@ In this tutorial, we will discuss the second approach to find Correlated Pattern
 
 #### Step 1: Import the CPGrowth algorithm and pandas data frame
 
-
 ```python
-from PAMI.correlatedPattern.basic import CPGrowth  as alg
+from PAMI.correlatedPattern.basic import CPGrowth as alg
 import pandas as pd
 ```
 

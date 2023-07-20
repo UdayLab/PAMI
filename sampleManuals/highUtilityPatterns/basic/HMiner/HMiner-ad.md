@@ -10,9 +10,8 @@ In this tutorial, we will discuss the second approach to find High Utility patte
 
 #### Step 1: Import the HMiner algorithm and pandas data frame
 
-
 ```python
-from PAMI.highUtilityPatterns.basic import HMiner  as alg
+from PAMI.highUtilityPattern.basic import HMiner  as alg
 import pandas as pd
 ```
 

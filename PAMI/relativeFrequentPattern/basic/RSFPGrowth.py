@@ -1,35 +1,33 @@
-# CPGrowthPlus is one of the efficient algorithm to discover Correlated frequent patterns in a transactional database.
-#
-#  **Importing this algorithm into a python program**
-#   -----------------------------------------------
-#
-#                 from PAMI.coveragePattern.basic import CPPG as alg
-#
-#                 obj = alg.CPPG(iFile, minRF, minCS, maxOR)
-#
-#                 obj.startMine()
-#
-#                 coveragePattern = obj.getPatterns()
-#
-#                 print("Total number of coverage Patterns:", len(coveragePattern))
-#
-#                 obj.save(oFile)
-#
-#                 Df = obj.getPatternsAsDataFrame()
-#
-#                 memUSS = obj.getMemoryUSS()
-#
-#                 print("Total Memory in USS:", memUSS)
-#
-#                 memRSS = obj.getMemoryRSS()
-#
-#                 print("Total Memory in RSS", memRSS)
-#
-#                 run = obj.getRuntime()
-#
-#                 print("Total ExecutionTime in seconds:", run)
 
-
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
+#
+#     obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.savePatterns(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getmemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
 
 
 __copyright__ = """
@@ -48,17 +46,17 @@ __copyright__ = """
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
      Copyright (C)  2021 Rage Uday Kiran
+
 """
 
-from PAMI.correlatedPattern.basic import abstract as _ab
-
+from PAMI.relativeFrequentPattern.basic import abstract as _ab
 
 
 class _Node:
     """
-        A class used to represent the node of frequentPatternTree
+        A class used to represent the node of frequentPatterntree
 
-    Attributes :
+    Attributes:
     ----------
         itemId: int
             storing item of a node
@@ -71,11 +69,11 @@ class _Node:
         nodeLink : node
             Points to the node with same itemId
 
-    Methods :
+    Methods:
     -------
 
         getChild(itemName)
-            returns the node with same itemName from frequentPatternTree
+            returns the node with same itemName from frequentPatterntree
     """
 
     def __init__(self):
@@ -86,13 +84,12 @@ class _Node:
         self.nodeLink = None
 
     def getChild(self, itemName):
-        """
-        Retrieving the child from the tree
+        """ Retrieving the child from the tree
 
             :param itemName: name of the child
             :type itemName: list
             :return: returns the node with same itemName from frequentPatternTree
-            :rtype: list
+            :rtype: None or Node
 
         """
         for i in self.child:
@@ -105,7 +102,7 @@ class _Tree:
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-    Attributes :
+    Attributes:
     ----------
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
@@ -116,7 +113,7 @@ class _Tree:
         root : Node
             representing the root Node in a tree
 
-    Methods :
+    Methods:
     -------
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
@@ -137,8 +134,7 @@ class _Tree:
         self.root = _Node()
 
     def addTransaction(self, transaction):
-        """
-        Adding a transaction into a tree
+        """adding transaction into tree
 
         :param transaction: it represents the one transactions in database
         :type transaction: list
@@ -160,8 +156,7 @@ class _Tree:
                 current = child
 
     def fixNodeLinks(self, item, newNode):
-        """
-        Fixing node link for the newNode that inserted into frequentPatternTree
+        """Fixing node link for the newNode that inserted into frequentPatternTree
 
         :param item: it represents the item of newNode
         :type item: int
@@ -177,9 +172,7 @@ class _Tree:
             self.mapItemNodes[item] = newNode
 
     def printTree(self, root):
-        """
-
-        Print the details of Node in frequentPatternTree
+        """Print the details of Node in frequentPatternTree
 
         :param root: it represents the Node in frequentPatternTree
         :type root: Node
@@ -194,37 +187,31 @@ class _Tree:
                 print(i.itemId, i.counter, i.parent.itemId)
                 self.printTree(i)
 
-    def createHeaderList(self, mapSupport, minSup):
-        """
+    def createHeaderList(self, __mapSupport, minSup):
+        """To create the headerList
 
-        To create the headerList
-
-        :param mapSupport: it represents the items with their supports
-        :type mapSupport: dictionary
+        :param __mapSupport: it represents the items with their supports
+        :type __mapSupport: dictionary
         :param minSup: it represents the minSup
         :param minSup: float
-
         """
         # the frequentPatternTree always maintains the header table to start the mining from leaf nodes
         t1 = []
-        for x, y in mapSupport.items():
+        for x, y in __mapSupport.items():
             if y >= minSup:
                 t1.append(x)
-        itemSetBuffer = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        self.headerList = [i for i in t1 if i in itemSetBuffer]
+        __itemSetBuffer = [k for k, v in sorted(__mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        self.headerList = [i for i in t1 if i in __itemSetBuffer]
 
-    def addPrefixPath(self, prefix, mapSupportBeta, minSup):
-        """
-
-        To construct the conditional tree with prefix paths of a node in frequentPatternTree
+    def addPrefixPath(self, prefix, __mapSupportBeta, minSup):
+        """To construct the conditional tree with prefix paths of a node in frequentPatternTree
 
         :param prefix: it represents the prefix items of a Node
         :type prefix: list
-        :param mapSupportBeta: it represents the items with their supports
-        :param mapSupportBeta: dictionary
+        :param __mapSupportBeta: it represents the items with their supports
+        :param __mapSupportBeta: dictionary
         :param minSup: to check the item meets with minSup
         :param minSup: float
-
         """
         # this method is used to add prefix paths in conditional trees of frequentPatternTree
         pathCount = prefix[0].counter
@@ -232,7 +219,7 @@ class _Tree:
         prefix.reverse()
         for i in range(0, len(prefix) - 1):
             pathItem = prefix[i]
-            if mapSupportBeta.get(pathItem.itemId) >= minSup:
+            if __mapSupportBeta.get(pathItem.itemId) >= minSup:
                 child = current.getChild(pathItem.itemId)
                 if not child:
                     newNode = _Node()
@@ -247,31 +234,24 @@ class _Tree:
                     current = child
 
 
-class CPGrowthPlus(_ab._correlatedPatterns):
-    """ 
-    :Description:    CPGrowthPlus is one of the efficient algorithm to discover Correlated frequent patterns in a transactional database.
-                     Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that
-                     have support within specified interval.
+class RSFPGrowth(_ab._frequentPatterns):
+    """
+    Description:
+    -------------
 
-    :Reference:
-        Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals.
-        In: Liddle S.W., Schewe KD., Tjoa A.M., Zhou X. (eds) Database and Expert Systems Applications. DEXA 2012. Lecture Notes in Computer Science, vol 7446. Springer, Berlin, Heidelberg.
-        https://doi.org/10.1007/978-3-642-32600-4_18
+        Algorithm to find all items with relative support from given dataset
 
-    :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
-    :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-    :param  minAllConf: str :
-                   Name of Neighbourhood file name
-    :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    Reference:
+    -----------
+        'Towards Efficient Discovery of Frequent Patterns with Relative Support' R. Uday Kiran and
+               Masaru Kitsuregawa, http://comad.in/comad2012/pdf/kiran.pdf
 
-
-    :Attributes:
-
+    Attributes:
+    -------------
+        iFile : file
+            Name of the Input file to mine complete set of frequent patterns
+        oFile : file
+            Name of the output file to store complete set of frequent patterns
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -282,8 +262,8 @@ class CPGrowthPlus(_ab._correlatedPatterns):
             To record the completion time of the mining process
         minSup : float
             The user given minSup
-        minAllConf: float
-            The user given minimum all confidence Ratio (should be in range of 0 to 1)
+        minRS : float
+            The user given minRS
         Database : list
             To store the transactions of a database in list
         mapSupport : Dictionary
@@ -301,91 +281,119 @@ class CPGrowthPlus(_ab._correlatedPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
+    Methods:
+    --------
+        startMine()
+            Mining process will start from here
+        getFrequentPatterns()
+            Complete set of patterns will be retrieved with this function
+        save(oFile)
+            Complete set of frequent patterns will be loaded in to a output file
+        getPatternsAsDataFrame()
+            Complete set of frequent patterns will be loaded in to a dataframe
+        getmemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+        check(line)
+            To check the delimiter used in the user input file
+        creatingItemSets(fileName)
+            Scans the dataset or dataframes and stores in list format
+        frequentOneItem()
+            Extracts the one-frequent patterns from transactions
+        saveAllCombination(tempBuffer,s,position,prefix,prefixLength)
+            Forms all the combinations between prefix and tempBuffer lists with support(s)
+        saveItemSet(pattern,support)
+            Stores all the frequent patterns with their respective support
+        frequentPatternGrowthGenerate(frequentPatternTree,prefix,port)
+            Mining the frequent patterns by forming conditional frequentPatternTrees to particular prefix item.
+            __mapSupport represents the 1-length items with their respective support
+
+
     **Methods to execute code on terminal**
-    ---------------------------------------
 
             Format:
-                      >>>  python3 CPPG.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
-
+                      >>>  python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRatio>
             Example:
-                      >>>   python3 CPPG.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 ','
+                      >>>  python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2
 
+            .. note:: maxPer and minPS will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
-    -----------------------------------------------------------------
 
     .. code-block:: python
 
-                from PAMI.coveragePattern.basic import CPPG as alg
+            from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
 
-                obj = alg.CPPG(iFile, minRF, minCS, maxOR)
+            obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
 
-                obj.startMine()
+            obj.startMine()
 
-                coveragePattern = obj.getPatterns()
+            frequentPatterns = obj.getPatterns()
 
-                print("Total number of coverage Patterns:", len(coveragePattern))
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-                obj.save(oFile)
+            obj.savePatterns(oFile)
 
-                Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-                memUSS = obj.getMemoryUSS()
+            memUSS = obj.getmemoryUSS()
 
-                print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-                memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-                print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-                run = obj.getRuntime()
+            run = obj.getRuntime()
 
-                print("Total ExecutionTime in seconds:", run)
-
+            print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-    -------------
 
-             The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+             The complete program was written by   Sai Chitra.B   under the supervision of Professor Rage Uday Kiran.
 
         """
 
-    _startTime = float()
-    _endTime = float()
+    __startTime = float()
+    __endTime = float()
     _minSup = str()
-    _finalPatterns = {}
+    _minRS = float()
+    __finalPatterns = {}
     _iFile = " "
     _oFile = " "
-    _minAllConf = 0.0
-    _memoryUSS = float()
-    _memoryRSS = float()
-    _Database = []
-    _mapSupport = {}
-    _lno = 0
-    _tree = str()
-    _itemSetBuffer = None
-    _fpNodeTempBuffer = []
-    _itemSetCount = 0
-    _maxPatternLength = 1000
-    _sep = "\t"
+    _sep = " "
+    __memoryUSS = float()
+    __memoryRSS = float()
+    __Database = []
+    __mapSupport = {}
+    __lno = 0
+    __tree = _Tree()
+    __itemSetBuffer = None
+    __fpNodeTempBuffer = []
+    __itemSetCount = 0
+    __maxPatternLength = 1000
 
-    def __init__(self, iFile, minSup, minAllConf, sep="\t"):
-        super().__init__(iFile, minSup, minAllConf, sep)
+    def __init__(self, iFile, __minSup, __minRS, sep='\t'):
+        super().__init__(iFile, __minSup, __minRS, sep)
+        self.__finalPatterns = {}
 
-    def _creatingItemSets(self):
+    def __creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
+            Storing the complete transactions of the __Database/input file in a __Database variable
 
 
             """
-        self._Database = []
+        self.__Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
                 print("its empty..")
             i = self._iFile.columns.values.tolist()
             if 'Transactions' in i:
-                self._Database = self._iFile['Transactions'].tolist()
+                self.__Database = self._iFile['Transactions'].tolist()
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
@@ -394,7 +402,7 @@ class CPGrowthPlus(_ab._correlatedPatterns):
                     line = line.decode("utf-8")
                     temp = [i.rstrip() for i in line.split(self._sep)]
                     temp = [x for x in temp if x]
-                    self._Database.append(temp)
+                    self.__Database.append(temp)
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:
@@ -402,27 +410,25 @@ class CPGrowthPlus(_ab._correlatedPatterns):
                             line.strip()
                             temp = [i.rstrip() for i in line.split(self._sep)]
                             temp = [x for x in temp if x]
-                            self._Database.append(temp)
+                            self.__Database.append(temp)
                 except IOError:
                     print("File Not Found")
                     quit()
 
-    def _frequentOneItem(self):
-        """
-        Generating One frequent items sets
+    def __frequentOneItem(self):
+        """Generating One frequent items sets
 
         """
-        self._mapSupport = {}
-        for i in self._Database:
+        self.__mapSupport = {}
+        for i in self.__Database:
             for j in i:
-                if j not in self._mapSupport:
-                    self._mapSupport[j] = 1
+                if j not in self.__mapSupport:
+                    self.__mapSupport[j] = 1
                 else:
-                    self._mapSupport[j] += 1
+                    self.__mapSupport[j] += 1
 
-    def _saveItemSet(self, prefix, prefixLength, support, ratio):
-        """
-        To save the frequent patterns mined form frequentPatternTree
+    def __saveItemSet(self, prefix, prefixLength, support, ratio):
+        """To save the frequent patterns mined form frequentPatternTree
 
         :param prefix: the frequent pattern
         :type prefix: list
@@ -435,12 +441,11 @@ class CPGrowthPlus(_ab._correlatedPatterns):
         sample = []
         for i in range(prefixLength):
             sample.append(prefix[i])
-        self._itemSetCount += 1
-        self._finalPatterns[tuple(sample)] = [support, ratio]
+        self.__itemSetCount += 1
+        self.__finalPatterns[tuple(sample)] = str(support) + " : " + str(ratio)
 
-    def _saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength):
-        """
-        Generating all the combinations for items in single branch in frequentPatternTree
+    def __saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength):
+        """Generating all the combinations for items in single branch in frequentPatternTree
 
         :param tempBuffer: items in a list
         :type tempBuffer: list
@@ -451,7 +456,7 @@ class CPGrowthPlus(_ab._correlatedPatterns):
         :type prefix: list
         :param prefixLength: the length of prefix
         :type prefixLength: int
-        
+
         """
         max1 = 1 << position
         for i in range(1, max1):
@@ -461,13 +466,12 @@ class CPGrowthPlus(_ab._correlatedPatterns):
                 if isSet > 0:
                     prefix.insert(newPrefixLength, tempBuffer[j].itemId)
                     newPrefixLength += 1
-            ratio = s/self._mapSupport[self._getMaxItem(prefix, newPrefixLength)]
-            if ratio >= self._minAllConf:
-                self._saveItemSet(prefix, newPrefixLength, s, ratio)
+            ratio = s / self.__mapSupport[self.__getMinItem(prefix, newPrefixLength)]
+            if ratio >= self._minRS:
+                self.__saveItemSet(prefix, newPrefixLength, s, ratio)
 
-    def _frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength, mapSupport, minConf):
-        """
-        Mining the fp tree
+    def __frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength, __mapSupport, minConf):
+        """Mining the fp tree
 
         :param frequentPatternTree: it represents the frequentPatternTree
         :type frequentPatternTree: class Tree
@@ -475,8 +479,8 @@ class CPGrowthPlus(_ab._correlatedPatterns):
         :type prefix: list
         :param param prefixLength: the length of prefix
         :type prefixLength: int
-        :param mapSupport : it represents the support of item
-        :type mapSupport : dictionary
+        :param __mapSupport : it represents the support of item
+        :type __mapSupport : dictionary
         """
         singlePath = True
         position = 0
@@ -489,153 +493,153 @@ class CPGrowthPlus(_ab._correlatedPatterns):
                 if len(currentNode.child) > 1:
                     singlePath = False
                     break
-                self._fpNodeTempBuffer.insert(position, currentNode)
+                self.__fpNodeTempBuffer.insert(position, currentNode)
                 s = currentNode.counter
                 position += 1
                 if len(currentNode.child) == 0:
                     break
                 currentNode = currentNode.child[0]
         if singlePath is True:
-            self._saveAllCombinations(self._fpNodeTempBuffer, s, position, prefix, prefixLength)
+            self.__saveAllCombinations(self.__fpNodeTempBuffer, s, position, prefix, prefixLength)
         else:
             for i in reversed(frequentPatternTree.headerList):
                 item = i
-                support = mapSupport[i]
-                low = max(int(_ab._math.floor(mapSupport[i]*self._minAllConf)), self._minSup)
-                high = max(int(_ab._math.floor(mapSupport[i]/minConf)), self._minSup)
-                betaSupport = support              
+                support = __mapSupport[i]
+                CminSup = max(self._minSup, support * self._minRS)
+                betaSupport = support
                 prefix.insert(prefixLength, item)
-                max1 = self._getMaxItem(prefix, prefixLength)
-                if self._mapSupport[max1] < self._mapSupport[item]:
+                max1 = self.__getMinItem(prefix, prefixLength)
+                if self.__mapSupport[max1] > self.__mapSupport[item]:
                     max1 = item
-                ratio = support / self._mapSupport[max1]
-                if ratio >= self._minAllConf:
-                    self._saveItemSet(prefix, prefixLength + 1, betaSupport, ratio)
-                if prefixLength + 1 < self._maxPatternLength:
+                ratio = support / self.__mapSupport[max1]
+                if ratio >= self._minRS:
+                    self.__saveItemSet(prefix, prefixLength + 1, betaSupport, ratio)
+                if prefixLength + 1 < self.__maxPatternLength:
                     prefixPaths = []
                     path = frequentPatternTree.mapItemNodes.get(item)
-                    mapSupportBeta = {}
+                    __mapSupportBeta = {}
                     while path is not None:
                         if path.parent.itemId != -1:
                             prefixPath = [path]
                             pathCount = path.counter
                             parent1 = path.parent
-                            if mapSupport.get(parent1.itemId) >= low and mapSupport.get(parent1.itemId) <= high:
+                            if __mapSupport.get(parent1.itemId) >= CminSup:
                                 while parent1.itemId != -1:
-                                    allconf = int(support/max(mapSupport.get(parent1.itemId), support))
-                                    if mapSupport.get(parent1.itemId) >= allconf:
+                                    mins = CminSup
+                                    if __mapSupport.get(parent1.itemId) >= mins:
                                         prefixPath.append(parent1)
-                                        if mapSupportBeta.get(parent1.itemId) is None:
-                                            mapSupportBeta[parent1.itemId] = pathCount
+                                        if __mapSupportBeta.get(parent1.itemId) is None:
+                                            __mapSupportBeta[parent1.itemId] = pathCount
                                         else:
-                                            mapSupportBeta[parent1.itemId] = mapSupportBeta[parent1.itemId] + pathCount
+                                            __mapSupportBeta[parent1.itemId] = __mapSupportBeta[
+                                                                                   parent1.itemId] + pathCount
                                         parent1 = parent1.parent
                                     else:
                                         break
                                 prefixPaths.append(prefixPath)
                         path = path.nodeLink
-                    treeBeta = _Tree()
+                    __treeBeta = _Tree()
                     for k in prefixPaths:
-                        treeBeta.addPrefixPath(k, mapSupportBeta, self._minSup)
-                    if len(treeBeta.root.child) > 0:
-                        treeBeta.createHeaderList(mapSupportBeta, self._minSup)
-                        self._frequentPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta, minConf)
+                        __treeBeta.addPrefixPath(k, __mapSupportBeta, self._minSup)
+                    if len(__treeBeta.root.child) > 0:
+                        __treeBeta.createHeaderList(__mapSupportBeta, self._minSup)
+                        self.__frequentPatternGrowthGenerate(__treeBeta, prefix, prefixLength + 1, __mapSupportBeta,
+                                                           minConf)
 
-    def _convert(self, value):
+    def __convert(self, value):
         """
-        to convert the type of user specified minSup value
-        :param value: user specified minSup value
+        to convert the type of user specified __minSup value
+        :param value: user specified __minSup value
         :return: converted type
         """
         if type(value) is int:
             value = int(value)
         if type(value) is float:
-            value = (len(self._Database) * value)
+            value = (len(self.__Database) * value)
         if type(value) is str:
             if '.' in value:
-                value = (len(self._Database) * value)
+                value = float(value)
+                value = (len(self.__Database) * value)
             else:
                 value = int(value)
         return value
 
     def startMine(self):
         """
-        main program to start the operation
-
+            main program to start the operation
         """
 
-        self._startTime = _ab._time.time()
+        self.__startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:
             raise Exception("Please enter the Minimum Support")
-        self._creatingItemSets()
-        self._finalPatterns = {}
-        self._tree = _Tree()
-        self._minSup = self._convert(self._minSup)
-        self._frequentOneItem()
-        self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
-        _itemSetBuffer = [k for k, v in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
-        for i in self._Database:
-            _transaction = []
+        self.__creatingItemSets()
+        self._minSup = self.__convert(self._minSup)
+        self._minRS = float(self._minRS)
+        self.__frequentOneItem()
+        self.__finalPatterns = {}
+        self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self._minSup}
+        __itemSetBuffer = [k for k, v in sorted(self.__mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        for i in self.__Database:
+            transaction = []
             for j in i:
-                if j in _itemSetBuffer:
-                    _transaction.append(j)
-            _transaction.sort(key=lambda val: self._mapSupport[val], reverse=True)
-            self._tree.addTransaction(_transaction)
-        self._tree.createHeaderList(self._mapSupport, self._minSup)
-        if len(self._tree.headerList) > 0:
-            self._itemSetBuffer = []
-            self._frequentPatternGrowthGenerate(self._tree, self._itemSetBuffer, 0, self._mapSupport, self._minAllConf)
-        print("Correlated Frequent patterns were generated successfully using CorrelatedPatternGrowth algorithm")
-        self._endTime = _ab._time.time()
+                if j in __itemSetBuffer:
+                    transaction.append(j)
+            transaction.sort(key=lambda val: self.__mapSupport[val], reverse=True)
+            self.__tree.addTransaction(transaction)
+        self.__tree.createHeaderList(self.__mapSupport, self._minSup)
+        if len(self.__tree.headerList) > 0:
+            self.__itemSetBuffer = []
+            self.__frequentPatternGrowthGenerate(self.__tree, self.__itemSetBuffer, 0, self.__mapSupport, self._minRS)
+        print("Relative support frequent patterns were generated successfully using RSFPGrowth algorithm")
+        self.__endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
-        self._memoryRSS = float()
-        self._memoryUSS = float()
-        self._memoryUSS = process.memory_full_info().uss
-        self._memoryRSS = process.memory_info().rss
+        self.__memoryRSS = float()
+        self.__memoryUSS = float()
+        self.__memoryUSS = process.memory_full_info().uss
+        self.__memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
-        """
-        Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
 
-        return self._memoryUSS
+        return self.__memoryUSS
 
     def getMemoryRSS(self):
-        """
-        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
 
-        return self._memoryRSS
+        return self.__memoryRSS
 
-    def _getMaxItem(self, prefix, prefixLength):
-        maxItem = prefix[0]
-        for i in range(prefixLength):
-            if self._mapSupport[maxItem] < self._mapSupport[prefix[i]]:
-                maxItem = prefix[i]
-        return maxItem
-    
-    def getRuntime(self):
+    def __getMinItem(self, prefix, prefixLength):
         """
-        Calculating the total amount of runtime taken by the mining process
+            returns the minItem from prefix
+        """
+        minItem = prefix[0]
+        for i in range(prefixLength):
+            if self.__mapSupport[minItem] > self.__mapSupport[prefix[i]]:
+                minItem = prefix[i]
+        return minItem
+
+    def getRuntime(self):
+        """Calculating the total amount of runtime taken by the mining process
 
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
 
-        return self._endTime - self._startTime
+        return self.__endTime - self.__startTime
 
     def getPatternsAsDataFrame(self):
-        """
-        Storing final frequent patterns in a dataframe
+        """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -643,41 +647,46 @@ class CPGrowthPlus(_ab._correlatedPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self._finalPatterns.items():
-            pat = " "
+        for a, b in self.__finalPatterns.items():
+            pattern = str()
             for i in a:
-                pat += str(i) + " "
-            data.append([pat, b[0], b[1]])
-            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Confidence'])
+                pattern = pattern + i + " "
+            data.append([pattern, b])
+            dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
     def save(self, outFile):
-        """
-        Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
         :type outFile: file
         """
-        self._oFile = outFile
-        writer = open(self._oFile, 'w+')
-        for x, y in self._finalPatterns.items():
+        self.__oFile = outFile
+        writer = open(self.__oFile, 'w+')
+        for x, y in self.__finalPatterns.items():
             pattern = str()
             for i in x:
                 pattern = pattern + i + "\t"
-            s1 = str(pattern.strip()) + ":" + str(y[0]) + ":" + str(y[1])
+            s1 = pattern.strip() + ": " + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """
-        Function to send the set of frequent patterns after completion of the mining process
+        """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
         """
-        return self._finalPatterns
+        res = dict()
+        for x, y in self.__finalPatterns.items():
+            pattern = str()
+            for i in x:
+                pattern = pattern + i + "\t"
+            s1 = str(y)
+            res[pattern] = s1
+        return res
 
     def printResults(self):
-        print("Total number of Correlated Patterns:", len(self.getPatterns()))
+        print("Total number of Relative Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:",  self.getRuntime())
@@ -687,15 +696,14 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = CPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
+            _ap = RSFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = CPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
+            _ap = RSFPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
-        _correlatedPatterns = _ap.getPatterns()
-        print("Total number of Correlated-Frequent Patterns:", len(_ap.getPatterns()))
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in seconds:", _ap.getRuntime())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

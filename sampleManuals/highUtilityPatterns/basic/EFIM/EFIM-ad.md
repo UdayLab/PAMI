@@ -10,9 +10,8 @@ In this tutorial, we will discuss the second approach to find High Utility patte
 
 #### Step 1: Import the EFIM algorithm and pandas data frame
 
-
 ```python
-from PAMI.highUtilityPatterns.basic import EFIM  as alg
+from PAMI.highUtilityPattern.basic import EFIM  as alg
 import pandas as pd
 ```
 

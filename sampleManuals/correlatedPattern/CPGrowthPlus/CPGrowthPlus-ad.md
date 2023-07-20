@@ -10,9 +10,8 @@ In this tutorial, we will discuss the first approach to find correlated patterns
 
 #### Step 1: Import the CPGrowthPlus algorithm and pandas data frame
 
-
 ```python
-from PAMI.correlatedPattern.basic import CPGrowthPlus  as alg
+from PAMI.correlatedPattern.basic import CPGrowthPlus as alg
 import pandas as pd
 ```
 
