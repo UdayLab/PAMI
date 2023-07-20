@@ -13,13 +13,13 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from PAMI.sequentialSpatialPatternMining.basic import abstract as _ab
+from PAMI.georeferencedFrequentSequencePattern.basic import abstract as _ab
 import sys
 
 sys.setrecursionlimit(10000)
 
 
-class Spade(_ab._sequentialSpatialPatterns):
+class GFSP_Miner(_ab._sequentialSpatialPatterns):
     """
         Spade is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
         This program employs Spade property (or downward closure property) to  reduce the search space effectively.
