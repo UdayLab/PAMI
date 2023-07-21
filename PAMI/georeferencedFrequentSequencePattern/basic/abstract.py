@@ -41,7 +41,7 @@ from urllib.request import urlopen as _urlopen
 from collections import OrderedDict as _OrderedDict
 
 
-class _sequentialSpatialPatterns(_ABC):
+class _sequentialPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
     Attributes :
