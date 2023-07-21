@@ -19,10 +19,10 @@ import sys
 sys.setrecursionlimit(10000)
 
 
-class Spade(_ab._sequentialSpatialPatterns):
+class GFSPm(_ab._sequentialSpatialPatterns):
     """
-        Spade is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
-        This program employs Spade property (or downward closure property) to  reduce the search space effectively.
+        GFSPm is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+        This program employs GFSPm property (or downward closure property) to  reduce the search space effectively.
         This algorithm employs breadth-first search technique when 1-2 length patterns and depth-first serch when above 3 length patterns to find the complete set of frequent patterns in a
         transactional database.
         Reference:
@@ -87,15 +87,15 @@ class Spade(_ab._sequentialSpatialPatterns):
         -------------------------------
             Format:
             ------
-                python3 Spade.py <inputFile> <outputFile> <minSup>
+                python3 GFSPm.py <inputFile> <outputFile> <minSup>
             Examples:
             ---------
-                python3 Spade.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
-                python3 Spade.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+                python3 GFSPm.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+                python3 GFSPm.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
         Sample run of the importing code:
         ---------------------------------
-            import PAMI.frequentPattern.basic.Spade as alg
-            obj = alg.Spade(iFile, minSup)
+            import PAMI.frequentPattern.basic.GFSPm as alg
+            obj = alg.GFSPm(iFile, minSup)
             obj.startMine()
             frequentPatterns = obj.getPatterns()
             print("Total number of Frequent Patterns:", len(frequentPatterns))
@@ -931,9 +931,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = Spade(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = GFSPm(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = Spade(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = GFSPm(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
@@ -945,7 +945,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = Spade('retail.txt', "file3.txt", 87, ' ')
+        _ap = GFSPm('retail.txt', "file3.txt", 87, ' ')
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         _memUSS = _ap.getMemoryUSS()
