@@ -29,7 +29,7 @@ import math as _math
 
 
 class _correlatedPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+    """ This abstract base class defines the variables and methods that every correlated pattern mining algorithm must
         employ in PAMI
 
 
@@ -54,7 +54,7 @@ class _correlatedPatterns(_ABC):
         finalPatterns: dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
-            Name of the output file to store complete set of frequent patterns
+            Name of the output file to store complete set of correlated patterns
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -114,13 +114,13 @@ class _correlatedPatterns(_ABC):
 
     @_abstractmethod
     def getPatterns(self):
-        """Complete set of frequent patterns generated will be retrieved from this function"""
+        """Complete set of correlated patterns generated will be retrieved from this function"""
 
         pass
 
     @_abstractmethod
     def save(self, oFile):
-        """Complete set of frequent patterns will be saved in to an output file from this function
+        """Complete set of correlated patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
         :type oFile: file
@@ -130,7 +130,7 @@ class _correlatedPatterns(_ABC):
 
     @_abstractmethod
     def getPatternsAsDataFrame(self):
-        """Complete set of frequent patterns will be loaded in to data frame from this function"""
+        """Complete set of correlated patterns will be loaded in to data frame from this function"""
 
         pass
 

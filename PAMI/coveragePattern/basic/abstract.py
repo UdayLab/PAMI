@@ -29,7 +29,7 @@ from urllib.request import urlopen as _urlopen
 
 
 class _coveragePatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
+    """ This abstract base class defines the variables and methods that every coverage pattern mining algorithm must
         employ in PAMI
 
        Attributes
@@ -54,14 +54,14 @@ class _coveragePatterns(_ABC):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
-        startTime:float
+        startTime: float
             To record the start time of the algorithm
-        endTime:float
+        endTime: float
             To record the completion time of the algorithm
         finalPatterns: dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
-            Name of the output file to store complete set of periodic-frequent patterns
+            Name of the output file to store complete set of coverage patterns
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
@@ -74,9 +74,9 @@ class _coveragePatterns(_ABC):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
+            Complete set of coverage patterns will be loaded in to a output file
         getPatternsAsDataFrame()
-            Complete set of periodic-frequent patterns will be loaded in to data frame
+            Complete set of coverage patterns will be loaded in to data frame
         getMemoryUSS()
             Total amount of USS memory consumed by the program will be retrieved from this function
         getMemoryRSS()
@@ -85,20 +85,21 @@ class _coveragePatterns(_ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minRF, minCS, maxOR, sep = '\t'):
+    def __init__(self, iFile, minRF, minCS, maxOR, sep='\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param minSup: The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+        :param minRF: The user can specify minimum relative frequency either in count or proportion of database size.
+            If the program detects the data type of minRF is integer, then it treats minRF is expressed in count.
             Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        :type minSup: int or float or str
-        :param maxPer: The user can specify maxPer either in count or proportion of database size.
+            Example: minRF=10 will be treated as integer, while minRF=10.0 will be treated as float
+        :type minRF: int or float or str
+        :param minCS: The user can specify minimum coverage support either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        :type maxPer: int or float or str
+        :param maxOR: The user can specify maximum overlap ratio either in count or proportion of database size.
+        :type maxOR: int or float or str
         :param sep: separator used in user specified input file
         :type sep: str
         """
@@ -123,13 +124,13 @@ class _coveragePatterns(_ABC):
 
     @_abstractmethod
     def getPatterns(self):
-        """Complete set of periodic-frequent patterns generated will be retrieved from this function"""
+        """Complete set of coverage patterns generated will be retrieved from this function"""
 
         pass
 
     @_abstractmethod
     def save(self, oFile):
-        """Complete set of periodic-frequent patterns will be saved in to an output file from this function
+        """Complete set of coverage patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
         :type oFile: file
@@ -139,7 +140,7 @@ class _coveragePatterns(_ABC):
 
     @_abstractmethod
     def getPatternsAsDataFrame(self):
-        """Complete set of periodic-frequent patterns will be loaded in to data frame from this function"""
+        """Complete set of coverage patterns will be loaded in to data frame from this function"""
 
         pass
 

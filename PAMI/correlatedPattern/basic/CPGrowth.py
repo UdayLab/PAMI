@@ -1,12 +1,12 @@
-# CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database.
+# CPGrowth is one of the fundamental algorithm to discover correlated patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#             from PAMI.correlatedSpatialPattern.basic import CSPGrowth as alg
+#             from PAMI.correlatedPattern.basic import CPGrowth as alg
 #
-#             obj = alg.CSPGrowth(iFile, frequentPatternsFile, measure, threshold)
+#             obj = alg.CPGrowth(iFile, minSup, minAllConf, sep)
 #
 #             obj.startMine()
 #
@@ -57,7 +57,7 @@ from PAMI.correlatedPattern.basic import abstract as _ab
 
 class _Node:
     """
-    A class used to represent the node of frequentPatternTree
+    A class used to represent the node of correlatedPatternTree
 
 
     Attributes :
@@ -77,7 +77,7 @@ class _Node:
     -------
 
         getChild(itemName)
-            returns the node with same itemName from frequentPatternTree
+            returns the node with same itemName from correlatedPatternTree
     """
 
     def __init__(self):
@@ -96,7 +96,7 @@ class _Node:
 
 class _Tree:
     """
-        A class used to represent the frequentPatternGrowth tree structure
+        A class used to represent the correlatedPatternGrowth tree structure
 
     Attributes :
     ----------
@@ -115,11 +115,11 @@ class _Tree:
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
         addTransaction(transaction)
-            creating transaction as a branch in frequentPatternTree
+            creating transaction as a branch in correlatedPatternTree
         fixNodeLinks(item,newNode)
             To create the link for nodes with same item
         printTree(Node)
-            gives the details of node in frequentPatternGrowth tree
+            gives the details of node in correlatedPatternGrowth tree
         addPrefixPath(prefix,port,minSup)
            It takes the items in prefix pattern whose support is >=minSup and construct a subtree
     """
@@ -134,7 +134,7 @@ class _Tree:
         """
         adding transaction into tree
 
-        :param transaction : it represents the one transactions in database
+        :param transaction : it represents a single transaction in a database
         :type transaction : list
         """
 
@@ -154,11 +154,11 @@ class _Tree:
 
     def fixNodeLinks(self, item, newNode):
         """
-        Fixing node link for the newNode that inserted into frequentPatternTree
+        Fixing node link for the newNode that inserted into correlatedPatternTree
 
         :param item: it represents the item of newNode
         :type item : int
-        :param newNode : it represents the newNode that inserted in frequentPatternTree
+        :param newNode : it represents the newNode that inserted in correlatedPatternTree
         :type newNode : Node
 
         """
@@ -171,12 +171,11 @@ class _Tree:
 
     def printTree(self, root):
         """
-        This method is to find the details of parent,children,support of Node
+        This method is to find the details of parent, children, and support of a Node
 
-        :param root: it represents the Node in frequentPatternTree
+        :param root: it represents the Node in correlatedPatternTree
         :type root: Node
 
-        
         """
 
         if root.child is None:
@@ -205,7 +204,7 @@ class _Tree:
 
     def addPrefixPath(self, prefix, mapSupportBeta, minSup):
         """
-        To construct the conditional tree with prefix paths of a node in frequentPatternTree
+        To construct the conditional tree with prefix paths of a node in correlatedPatternTree
 
         :param prefix : it represents the prefix items of a Node
         :type prefix : list
@@ -236,18 +235,24 @@ class _Tree:
 
 class CPGrowth(_ab._correlatedPatterns):
     """
-    :Description: CPGrowth is one of the fundamental algorithm to discover correlated frequent patterns in a transactional database. It is based on the traditional Fpgrowth Algorithm, this algorithm uses breadth-first search technique to find the correlated Frequent patterns in transactional database.
+    :Description: CPGrowth is one of the fundamental algorithm to discover correlated  patterns in a
+    transactional database. It is based on the traditional FP-Growth algorithm. This algorithm uses depth-first
+    search technique to find all correlated patterns in a transactional database.
 
     :Reference: Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
+
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
+                   Name of the Input file to mine complete set of correlated patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of correlated patterns
     :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-    :param minAllConf: str : Name of Neighbourhood file name
+                   The user can specify minSup either in count or proportion of database size. If the program detects
+                   the data type of minSup is integer, then it treats minSup is expressed in count.
+    :param minAllConf: float :
+                    The user can specify minAllConf values within the range (0, 1).
     :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+                   This variable is used to distinguish items from one another in a transaction. The default seperator
+                   is tab space. However, the users can override their default separator.
 
 
 
@@ -289,9 +294,9 @@ class CPGrowth(_ab._correlatedPatterns):
     ----------------------------------------
 
             Format:
-                      >>> python3 CSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup> <minAllConf> <sep>
+                      >>> python3 CPGrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
             Example:
-                      >>>  python3 CSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.25 0.2
+                      >>>  python3 CPGrowth.py sampleTDB.txt output.txt 0.25 0.2
 
                      .. note:: minSup will be considered in percentage of database transactions
 
@@ -299,19 +304,19 @@ class CPGrowth(_ab._correlatedPatterns):
     --------------------------------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.correlatedSpatialPattern.basic import CSPGrowth as alg
+            from PAMI.correlatedPattern.basic import CPGrowth as alg
 
-            obj = alg.CSPGrowth(iFile, frequentPatternsFile, measure, threshold)
+            obj = alg.CPGrowth(iFile, minSup, minAllConf,sep)
 
             obj.startMine()
 
-            Rules = obj.getPatterns()
+            patterns = obj.getPatterns()
 
-            print("Total number of  Patterns:", len(Patterns))
+            print("Total number of  Patterns:", len(patterns))
 
             obj.savePatterns(oFile)
 
-            Df = obj.getPatternsAsDataFrame()
+            df = obj.getPatternsAsDataFrame()
 
             memUSS = obj.getMemoryUSS()
 
@@ -405,9 +410,9 @@ class CPGrowth(_ab._correlatedPatterns):
                 maximums = self._mapSupport.get(i)
         return s / maximums
 
-    def _frequentOneItem(self):
-        """Generating One frequent items sets
-
+    def _correlatedOneItem(self):
+        """
+            Generating One correlated itemsets
         """
         self._mapSupport = {}
         for i in self._Database:
@@ -418,15 +423,16 @@ class CPGrowth(_ab._correlatedPatterns):
                     self._mapSupport[j] += 1
 
     def _saveItemSet(self, prefix, prefixLength, support):
-        """To save the frequent patterns mined form frequentPatternTree
+        """
+        To save the correlated patterns mined form correlatedPatternTree
 
-        :param prefix: the frequent pattern
+        :param prefix: the correlated pattern
         :type prefix: list
-        :param prefixLength : the length of a frequent pattern
+        :param prefixLength : the length of a correlated pattern
         :type prefixLength : int
         :param support: the support of a pattern
         :type support :  int
-        :The frequent patterns are update into global variable finalPatterns
+        :The correlated patterns were stored in a global variable finalPatterns
         """
         allconf = self._getRatio(prefix, prefixLength, support)
         if allconf < self._minAllConf:
@@ -456,7 +462,7 @@ class CPGrowth(_ab._correlatedPatterns):
         return value
 
     def _saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength):
-        """Generating all the combinations for items in single branch in frequentPatternTree
+        """Generating all the combinations for items in single branch in correlatedPatternTree
 
         :param tempBuffer: items in a list
         :type tempBuffer: list
@@ -479,16 +485,16 @@ class CPGrowth(_ab._correlatedPatterns):
                     newPrefixLength += 1
             self._saveItemSet(prefix, newPrefixLength, s)
 
-    def _frequentPatternGrowthGenerate(self, frequentPatternTree, prefix, prefixLength, mapSupport):
+    def _correlatedPatternGrowthGenerate(self, correlatedPatternTree, prefix, prefixLength, mapSupport):
         """
 
         Mining the fp tree
 
-        :param frequentPatternTree: it represents the frequentPatternTree
-        :type frequentPatternTree: class Tree
+        :param correlatedPatternTree: it represents the correlatedPatternTree
+        :type correlatedPatternTree: class Tree
         :param prefix : it represents a empty list and store the patterns that are mined
         :type prefix : list
-        :param param prefixLength : the length of prefix
+        :param prefixLength : the length of prefix
         :type prefixLength :int
         :param mapSupport : it represents the support of item
         :type mapSupport : dictionary
@@ -498,10 +504,10 @@ class CPGrowth(_ab._correlatedPatterns):
         singlePath = True
         position = 0
         s = 0
-        if len(frequentPatternTree.root.child) > 1:
+        if len(correlatedPatternTree.root.child) > 1:
             singlePath = False
         else:
-            currentNode = frequentPatternTree.root.child[0]
+            currentNode = correlatedPatternTree.root.child[0]
             while True:
                 if len(currentNode.child) > 1:
                     singlePath = False
@@ -515,7 +521,7 @@ class CPGrowth(_ab._correlatedPatterns):
         if singlePath is True:
             self._saveAllCombinations(self._fpNodeTempBuffer, s, position, prefix, prefixLength)
         else:
-            for i in reversed(frequentPatternTree.headerList):
+            for i in reversed(correlatedPatternTree.headerList):
                 item = i
                 support = mapSupport[i]
                 betaSupport = support
@@ -523,7 +529,7 @@ class CPGrowth(_ab._correlatedPatterns):
                 self._saveItemSet(prefix, prefixLength + 1, betaSupport)
                 if prefixLength + 1 < self._maxPatternLength:
                     prefixPaths = []
-                    path = frequentPatternTree.mapItemNodes.get(item)
+                    path = correlatedPatternTree.mapItemNodes.get(item)
                     mapSupportBeta = {}
                     while path is not None:
                         if path.parent.itemId != -1:
@@ -545,7 +551,7 @@ class CPGrowth(_ab._correlatedPatterns):
                         treeBeta.addPrefixPath(k, mapSupportBeta, self._minSup)
                     if len(treeBeta.root.child) > 0:
                         treeBeta.createHeaderList(mapSupportBeta, self._minSup)
-                        self._frequentPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta)
+                        self._correlatedPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta)
     
     def startMine(self):
         """
@@ -559,7 +565,7 @@ class CPGrowth(_ab._correlatedPatterns):
         self._minSup = self._convert(self._minSup)
         self._tree = _Tree()
         self._finalPatterns = {}
-        self._frequentOneItem()
+        self._correlatedOneItem()
         self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
         _itemSetBuffer = [k for k, v in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
         for i in self._Database:
@@ -572,8 +578,8 @@ class CPGrowth(_ab._correlatedPatterns):
         self._tree.createHeaderList(self._mapSupport, self._minSup)
         if len(self._tree.headerList) > 0:
             self._itemSetBuffer = []
-            self._frequentPatternGrowthGenerate(self._tree, self._itemSetBuffer, 0, self._mapSupport)
-        print("Correlated Frequent patterns were generated successfully using CorrelatedPatternGrowth algorithm")
+            self._correlatedPatternGrowthGenerate(self._tree, self._itemSetBuffer, 0, self._mapSupport)
+        print("Correlated patterns were generated successfully using CPGrowth algorithm")
         self._endTime = _ab._time.time()
         self._memoryUSS = float()
         self._memoryRSS = float()
@@ -615,9 +621,9 @@ class CPGrowth(_ab._correlatedPatterns):
     def getPatternsAsDataFrame(self):
         """
 
-        Storing final frequent patterns in a dataframe
+        Storing final correlated patterns in a dataframe
 
-        :return: returning frequent patterns in a dataframe
+        :return: returning correlated patterns in a dataframe
         :rtype: pd.DataFrame
         """
 
@@ -633,7 +639,7 @@ class CPGrowth(_ab._correlatedPatterns):
 
     def save(self, outFile):
         """
-        Complete set of frequent patterns will be loaded in to a output file
+        Complete set of correlated patterns will be saved into an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -649,9 +655,9 @@ class CPGrowth(_ab._correlatedPatterns):
 
     def getPatterns(self):
         """
-        Function to send the set of frequent patterns after completion of the mining process
+        Function to send the set of correlated patterns after completion of the mining process
 
-        :return: returning frequent patterns
+        :return: returning correlated patterns
         :rtype: dict
         """
         return self._finalPatterns
