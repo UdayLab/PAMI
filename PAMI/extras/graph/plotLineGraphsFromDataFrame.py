@@ -7,14 +7,14 @@ class plotGraphsFromDataFrame():
 
         self._dataFrame = dataFrame
 
-    def plotGraphsFromDataFrame(self):
-        self._dataFrame.plot(x='minSup', y='patterns', kind='line')
+    def plotGraphsFromDataFrame(self, x_axis_column='minSup'):
+        self._dataFrame.plot(x=x_axis_column, y='patterns', kind='line')
         plt.show()
         print('Graph for No Of Patterns is successfully generated!')
-        self._dataFrame.plot(x='minSup', y='runtime', kind='line')
+        self._dataFrame.plot(x=x_axis_column, y='runtime', kind='line')
         plt.show()
         print('Graph for Runtime taken is successfully generated!')
-        self._dataFrame.plot(x='minSup', y='memory', kind='line')
+        self._dataFrame.plot(x=x_axis_column, y='memory', kind='line')
         plt.show()
         print('Graph for memory consumption is successfully generated!')
 
