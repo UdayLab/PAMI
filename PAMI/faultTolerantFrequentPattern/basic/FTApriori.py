@@ -271,7 +271,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                 # support, items = self._Count(j)
                 # print(support, items)
                 res = self._countItemSupport(j)
-                print(j, res)
+                #print(j, res)
                 if len(j) >= self._minLength and res >= self._minSup:
                     self._finalPatterns[tuple(j)] = res
 
