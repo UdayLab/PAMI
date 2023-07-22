@@ -11,7 +11,7 @@ In this tutorial, we will discuss the first approach to find Correlated Patterns
 #### Step 1: Import the CPGrowth algorithm
 
 ```python
-from PAMI.correlatedPattern.basic import CPGrowth as alg
+from PAMI.correlatedPattern.basic import CoMine as alg
 ```
 
 #### Step 2: Specify the following input parameters

@@ -241,11 +241,9 @@ class _Tree:
                     current = child
 
 
-class CPGrowthPlus(_ab._correlatedPatterns):
+class CoMinePlus(_ab._correlatedPatterns):
     """ 
-    :Description:    CPGrowthPlus is one of the efficient algorithm to discover correlated patterns in a transactional database.
-                     Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that
-                     have support within specified interval.
+    :Description:    CoMinePlus is one of the efficient algorithm to discover correlated patterns in a transactional database. Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that have support within specified interval.
 
     :Reference:
         Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals.
@@ -299,10 +297,10 @@ class CPGrowthPlus(_ab._correlatedPatterns):
     ---------------------------------------
 
             Format:
-                      >>>  python3 CPGrowthPlus.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+                      >>>  python3 CoMinePlus.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
 
             Example:
-                      >>>   python3 CPGrowthPlus.py sampleTDB.txt patterns.txt 0.4 0.5 ','
+                      >>>   python3 CoMinePlus.py sampleTDB.txt patterns.txt 0.4 0.5 ','
 
 
 
@@ -311,9 +309,9 @@ class CPGrowthPlus(_ab._correlatedPatterns):
 
     .. code-block:: python
 
-                from PAMI.correlatedPattern.basic import CPGrowthPlus as alg
+                from PAMI.correlatedPattern.basic import CoMinePlus as alg
 
-                obj = alg.CPGrowthPlus(iFile, minSup, minAllConf, sep)
+                obj = alg.CoMinePlus(iFile, minSup, minAllConf, sep)
 
                 obj.startMine()
 
@@ -679,9 +677,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = CPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
+            _ap = CoMinePlus(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = CPGrowthPlus(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
+            _ap = CoMinePlus(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
         _correlatedPatterns = _ap.getPatterns()
         print("Total number of Correlated-Frequent Patterns:", len(_ap.getPatterns()))

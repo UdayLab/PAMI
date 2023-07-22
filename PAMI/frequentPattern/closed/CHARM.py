@@ -4,9 +4,9 @@
 #  --------------------------------------------------------------
 #
 #
-#             from PAMI.frequentPattern.closed import closed as alg
+#             from PAMI.frequentPattern.closed import CHARM as alg
 #
-#             obj = alg.Closed(iFile, minSup)
+#             obj = alg.CHARM(iFile, minSup)
 #
 #             obj.startMine()
 #
@@ -124,9 +124,9 @@ class CHARM(_ab._frequentPatterns):
     --------------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.frequentPattern.closed import closed as alg
+            from PAMI.frequentPattern.closed import CHARM as alg
 
-            obj = alg.Closed(iFile, minSup)
+            obj = alg.CHARM(iFile, minSup)
 
             obj.startMine()
 
@@ -352,7 +352,6 @@ class CHARM(_ab._frequentPatterns):
             :param tidSets: timestamps of the items in the argument itemSets
 
             :type tidSets: list
-
 
         """
         if len(itemSets) == 1:

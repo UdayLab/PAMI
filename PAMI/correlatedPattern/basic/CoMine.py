@@ -1,12 +1,12 @@
-# CPGrowth is one of the fundamental algorithm to discover correlated patterns in a transactional database.
+# CoMine is one of the fundamental algorithm to discover correlated patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#             from PAMI.correlatedPattern.basic import CPGrowth as alg
+#             from PAMI.correlatedPattern.basic import CoMine as alg
 #
-#             obj = alg.CPGrowth(iFile, minSup, minAllConf, sep)
+#             obj = alg.CoMine(iFile, minSup, minAllConf, sep)
 #
 #             obj.startMine()
 #
@@ -233,11 +233,9 @@ class _Tree:
                     current = child
 
 
-class CPGrowth(_ab._correlatedPatterns):
+class CoMine(_ab._correlatedPatterns):
     """
-    :Description: CPGrowth is one of the fundamental algorithm to discover correlated  patterns in a
-    transactional database. It is based on the traditional FP-Growth algorithm. This algorithm uses depth-first
-    search technique to find all correlated patterns in a transactional database.
+    :Description: CoMine is one of the fundamental algorithm to discover correlated  patterns in a transactional database. It is based on the traditional FP-Growth algorithm. This algorithm uses depth-first search technique to find all correlated patterns in a transactional database.
 
     :Reference: Lee, Y.K., Kim, W.Y., Cao, D., Han, J. (2003). CoMine: efficient mining of correlated patterns. In ICDM (pp. 581–584).
 
@@ -246,16 +244,11 @@ class CPGrowth(_ab._correlatedPatterns):
     :param  oFile: str :
                    Name of the output file to store complete set of correlated patterns
     :param  minSup: int or float or str :
-                   The user can specify minSup either in count or proportion of database size. If the program detects
-                   the data type of minSup is integer, then it treats minSup is expressed in count.
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
     :param minAllConf: float :
                     The user can specify minAllConf values within the range (0, 1).
     :param  sep: str :
-                   This variable is used to distinguish items from one another in a transaction. The default seperator
-                   is tab space. However, the users can override their default separator.
-
-
-
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
 
     :Attributes:
@@ -294,9 +287,9 @@ class CPGrowth(_ab._correlatedPatterns):
     ----------------------------------------
 
             Format:
-                      >>> python3 CPGrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+                      >>> python3 CoMine.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
             Example:
-                      >>>  python3 CPGrowth.py sampleTDB.txt output.txt 0.25 0.2
+                      >>>  python3 CoMine.py sampleTDB.txt output.txt 0.25 0.2
 
                      .. note:: minSup will be considered in percentage of database transactions
 
@@ -304,9 +297,9 @@ class CPGrowth(_ab._correlatedPatterns):
     --------------------------------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.correlatedPattern.basic import CPGrowth as alg
+            from PAMI.correlatedPattern.basic import CoMine as alg
 
-            obj = alg.CPGrowth(iFile, minSup, minAllConf,sep)
+            obj = alg.CoMine(iFile, minSup, minAllConf,sep)
 
             obj.startMine()
 
@@ -579,7 +572,7 @@ class CPGrowth(_ab._correlatedPatterns):
         if len(self._tree.headerList) > 0:
             self._itemSetBuffer = []
             self._correlatedPatternGrowthGenerate(self._tree, self._itemSetBuffer, 0, self._mapSupport)
-        print("Correlated patterns were generated successfully using CPGrowth algorithm")
+        print("Correlated patterns were generated successfully using CoMine algorithm")
         self._endTime = _ab._time.time()
         self._memoryUSS = float()
         self._memoryRSS = float()
@@ -672,9 +665,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = CPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
+            _ap = CoMine(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]), _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = CPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
+            _ap = CoMine(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
         print("Total number of Correlated-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])

@@ -112,7 +112,7 @@ __Example:__ python3 `CPGrowth.py` `inputFile.txt` `outputFile.txt` `3` `0.4` `'
 * Run the below sample code by making necessary changes
 
 ```python
-import PAMI.correlatedPattern.basic.CPGrowth as alg
+import PAMI.correlatedPattern.basic.CoMine as alg
 
 iFile = 'sampleTransactionalDatabase.txt'  # specify the input transactional database
 minSup = 4  # specify the minSupvalue

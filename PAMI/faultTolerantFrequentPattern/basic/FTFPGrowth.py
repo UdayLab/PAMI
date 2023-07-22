@@ -1,15 +1,17 @@
+# FTFPGrowth algorithm aims to discover all fault-tolerant frequent patterns that may exist in a transactional database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------
 #
-#     from PAMI.frequentPattern.basic import FPGrowth as alg
+#     from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
 #
-#     obj = alg.FPGrowth(iFile, minSup)
+#     obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
 #
 #     obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#     faultTolerantFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#     print("Total number of fault-tolerant frequent patterns:", len(faultTolerantFrequentPatterns))
 #
 #     obj.save(oFile)
 #
@@ -328,15 +330,15 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     -----------------------------------
     .. code-block:: python
 
-        from PAMI.frequentPattern.basic import FPGrowth as alg
+        from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
 
-        obj = alg.FPGrowth(iFile, minSup)
+        obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
 
         obj.startMine()
 
-        frequentPatterns = obj.getPatterns()
+        patterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Frequent Patterns:", len(patterns))
 
         obj.save(oFile)
 

@@ -31,10 +31,6 @@
 #
 #
 
-
-#
-#
-#
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
