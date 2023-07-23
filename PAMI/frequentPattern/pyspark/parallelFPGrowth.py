@@ -13,7 +13,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternInDataFrame()
 #
@@ -56,6 +56,7 @@ __copyright__ = """
 from collections import defaultdict
 from PAMI.frequentPattern.pyspark import abstract as _ab
 from operator import add
+from pyspark import SparkConf as _SparkConf, SparkContext as _SparkContext
 
 
 class Node:
@@ -210,7 +211,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
     
                     print("Total number of Frequent Patterns:", len(frequentPatterns))
     
-                    obj.savePatterns(oFile)
+                    obj.save(oFile)
     
                     Df = obj.getPatternInDataFrame()
     
@@ -258,8 +259,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
         self._startTime = _ab._time.time()
 
-        conf = SparkConf().setAppName("Parallel FPGrowth").setMaster("local[*]")
-        sc = SparkContext(conf=conf)
+        conf = _SparkConf().setAppName("Parallel FPGrowth").setMaster("local[*]")
+        sc = _SparkContext(conf=conf)
 
         rdd = sc.textFile(self._iFile, self._numPartitions)\
             .map(lambda x: x.rstrip().split('\t'))\
@@ -405,7 +406,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
@@ -430,6 +431,13 @@ class parallelFPGrowth(_ab._frequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+
+    def printResults(self):
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
+
 
     def _convert(self, value):
         """
@@ -461,7 +469,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _finalPatterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_finalPatterns))
-        # _ap.savePatterns(_ab._sys.argv[2])
+        # _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
