@@ -2,7 +2,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.geoReferenceFrequentPattern.basic import GFPGrowth as alg
+#     from PAMI.uncertainGeoreferenceFrequentPattern.basic import GFPGrowth as alg
 #
 #     obj = alg.GFPGrowth(iFile, nFile, minSup)
 #
@@ -49,7 +49,7 @@ __copyright__ = """
 """
 
 # from geoReferencedFrequentPatterns import abstract as _ab
-from PAMI.geoReferencedFrequentPaterns import abstract as _ab
+from PAMI.uncertainGeoreferencedFrequentPattern import abstract as _ab
 # import abstract as _ab
 
 _minSup = str()
@@ -304,6 +304,10 @@ class GFPGrowth(_ab._frequentPatterns):
         using GFP-Tree.
     Reference:
     -----------
+         Palla Likhitha,Pamalla Veena, Rage, Uday Kiran, Koji Zettsu (2023).
+         "Discovering Geo-referenced Frequent Patterns in Uncertain Geo-referenced
+         Transactional Databases".  PAKDD 2023.
+         https://doi.org/10.1007/978-3-031-33380-4_3
         
     Attributes:
     ----------
@@ -380,7 +384,7 @@ class GFPGrowth(_ab._frequentPatterns):
     -----------------------------------
      .. code-block:: python
 
-        from PAMI.geoReferenceFrequentPattern.basic import GFPGrowth as alg
+        from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
 
         obj = alg.GFPGrowth(iFile, nFile, minSup)
 
