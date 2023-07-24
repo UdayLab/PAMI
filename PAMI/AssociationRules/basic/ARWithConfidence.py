@@ -52,7 +52,7 @@ __copyright__ = """
 from PAMI.AssociationRules.basic import abstract as _ab
 
 
-class Confidence:
+class _Confidence:
     """
     :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
@@ -171,7 +171,7 @@ class ARWithConfidence:
      ----------------------------------------------------
 
             Format:
-                      >>> python3 ARWithConfidence.py <inputFile> <outputFile> <miConf> <sep>
+                      >>> python3 ARWithConfidence.py <inputFile> <outputFile> <minConf> <sep>
 
             Example:
                       >>>  python3 ARWithConfidence.py sampleDB.txt patterns.txt 10.0 ' '
@@ -291,7 +291,7 @@ class ARWithConfidence:
         """
         self._startTime = _ab._time.time()
         k = self._readPatterns()
-        a = Confidence(self._frequentPatterns, k, self._minConf)
+        a = _Confidence(self._frequentPatterns, k, self._minConf)
         a.run()
         self._finalPatterns = a._finalPatterns
         self._endTime = _ab._time.time()
