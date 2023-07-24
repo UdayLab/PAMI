@@ -41,7 +41,7 @@ from urllib.request import urlopen as _urlopen
 from collections import OrderedDict as _OrderedDict
 
 
-class _sequentialPatterns(_ABC):
+class _GeorefarencedFequentialPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
     Attributes :
@@ -86,6 +86,7 @@ class _sequentialPatterns(_ABC):
             This function outputs the total amount of RSS memory consumed by a mining algorithm
         getRuntime()
             This function outputs the total runtime of a mining algorithm
+
     """
 
     def __init__(self, iFile, nFile, minSup, sep="\t"):

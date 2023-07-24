@@ -19,21 +19,25 @@ import sys
 sys.setrecursionlimit(10000)
 
 
-class GFSPm(_ab._sequentialPatterns):
+class GFSPminer(_ab._GeorefarencedFequentialPatterns):
     """
-        GFSPm is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
-        This program employs GFSPm property (or downward closure property) to  reduce the search space effectively.
+        GFSPminer is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+        This program employs GFSPminer property (or downward closure property) to  reduce the search space effectively.
         This algorithm employs breadth-first search technique when 1-2 length patterns and depth-first serch when above 3 length patterns to find the complete set of frequent patterns in a
         transactional database.
+
         Reference:
         ----------
-            Mohammed J. Zaki. 2001. SPADE: An Efficient Algorithm for Mining Frequent Sequences. Mach. Learn. 42, 1-2 (January 2001), 31-60. DOI=10.1023/A:1007652502315 http://dx.doi.org/10.1023/A:1007652502315
+            Suzuki Shota and Rage Uday kiran: towards efficient discovery of spatially interesting patterns in geo-referenced sequential databases: To be appeared in SSDBM 2023:
+
         Attributes:
         ----------
             iFile : str
                 Input file name or path of the input file
             oFile : str
                 Name of the output file or the path of output file
+            nFile: str
+                Neighbourhood file name
             minSup: float or int or str
                 The user can specify minSup either in count or proportion of database size.
                 If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -60,6 +64,8 @@ class GFSPm(_ab._sequentialPatterns):
                 To store the datas in same sequence separated by sequence, rownumber, length.
             _NeighboursMap : dict
                 To store the neighbors
+            _failPatterns:dict
+                To store the failed patterns
 
         Methods:
         -------
@@ -67,7 +73,7 @@ class GFSPm(_ab._sequentialPatterns):
                 Mining process will start from here
             getPatterns()
                 Complete set of patterns will be retrieved with this function
-            savePatterns(oFile)
+            save(oFile)
                 Complete set of frequent patterns will be loaded in to a output file
             getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
@@ -77,36 +83,46 @@ class GFSPm(_ab._sequentialPatterns):
                 Total amount of RSS memory consumed by the mining process will be retrieved from this function
             getRuntime()
                 Total amount of runtime taken by the mining process will be retrieved from this function
-            candidateToFrequent(candidateList)
-                Generates frequent patterns from the candidate patterns
-            frequentToCandidate(frequentList, length)
-                Generates candidate patterns from the frequent patterns
+            Prune(startLine)
+                check the subsequence from sequence(stratline)
+            make1LenDatabase()
+                find 1 lenghth frequent pattern from database
+            make2LenDatabase()
+                find 1 lenghth frequent pattern by convine two 1 len patterns
+            makexLenData(x)
+                find x-1 lenghth frequent pattern by convine two x len patterns
+            makexLenDatabase(rowLen, bs, latestWord)
+                To make "rowLen" length frequent patterns from pattern which latest word is in same seq  by joining "rowLen"-1 length pattrens by depth-first search technique  and update xlenDatabase to seqential database
+
+
 
 
         Executing the code on terminal:
         -------------------------------
             Format:
             ------
-                python3 GFSPm.py <inputFile> <outputFile> <minSup>
+                python3 GFSPminer.py <inputFile> <neighborFile> <minSup> (<separator>)
             Examples:
             ---------
-                python3 GFSPm.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
-                python3 GFSPm.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+                python3 GFSPminer.py sampleDB.txt sampleNeighbor.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+                python3 GFSPminer.py sampleDB.txt sampleNeighbor.txt 0.4   (minSup will beconsidered in percentage of database transactions)
         Sample run of the importing code:
         ---------------------------------
-            import PAMI.frequentPattern.basic.GFSPm as alg
-            obj = alg.GFSPm(iFile, minSup)
-            obj.startMine()
-            frequentPatterns = obj.getPatterns()
-            print("Total number of Frequent Patterns:", len(frequentPatterns))
-            obj.savePatterns(oFile)
-            Df = obj.getPatternInDataFrame()
-            memUSS = obj.getMemoryUSS()
-            print("Total Memory in USS:", memUSS)
-            memRSS = obj.getMemoryRSS()
-            print("Total Memory in RSS", memRSS)
-            run = obj.getRuntime()
-            print("Total ExecutionTime in seconds:", run)
+            # Input Example
+             import GFSPm as gf
+
+             _ap = gf.GFSPminer('inputFile',"neighborFile",minSup,"separator")
+             _ap.startMine()
+             _Patterns = _ap.getPatterns()
+             _memUSS = _ap.getMemoryUSS()
+             print("Total Memory in USS:", _memUSS)
+             _memRSS = _ap.getMemoryRSS()
+             print("Total Memory in RSS", _memRSS)
+             _run = _ap.getRuntime()
+             print("Total ExecutionTime in ms:", _run)
+             print("Total number of Frequent Patterns:", len(_Patterns))
+             print("Error! The number of input parameters do not match the total number of parameters provided")
+             _ap.save("priOut3.txt")
         Credits:
         --------
             The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.
@@ -453,7 +469,21 @@ class GFSPm(_ab._sequentialPatterns):
                         self.makeSame2(rowLen, bs, latestWord, latestWord2)
 
     def makeSame(self, rowLen, bs, latestWord, latestWord2):
+        """
+        to check the pattern is frequent or not (ex a-bc from a-c and a-b )
+        Args:
+            rowLen: int
+                how long patterns(ex 1)
+            bs: list
+                prefix of patterns(ex [a])
+            latestWord: str
+                latest word to convine(ex b)
+            latestWord2: str
+                laterst word to convine(ex c)
 
+        Returns:
+
+        """
         if len(self._xLenDatabase[rowLen][bs][latestWord].keys()) <= len(
                 self._xLenDatabase[rowLen][bs][latestWord2].keys()):
             nextSame = {}
@@ -510,8 +540,20 @@ class GFSPm(_ab._sequentialPatterns):
 
     def makeFaster(self, rowLen, bs, latestWord, latestWord2):
         """
-        To search patterns like a-a-b from a-a a-b
-        """
+                to check the pattern is frequent or not (ex a-b-c from a-c a-b)
+                Args:
+                    rowLen: int
+                        how long patterns(ex 1)
+                    bs: list
+                        prefix of patterns(ex [a])
+                    latestWord: str
+                        latest word to convine(ex b)
+                    latestWord2: str
+                        laterst word to convine(ex c)
+
+                Returns:
+
+                """
         if len(self._xLenDatabase[rowLen][bs][latestWord].keys()) <= len(
                 self._xLenDatabase[rowLen][bs][latestWord2].keys()):
             next = {}
@@ -567,8 +609,21 @@ class GFSPm(_ab._sequentialPatterns):
 
     def makeLater(self, rowLen, bs, latestWord, latestWord2):
         """
-        To search patterns like ab-a from a-a ab
+                        to check the pattern is frequent or not (ex ac-b from a-b ac)
+                        Args:
+                            rowLen: int
+                                how long patterns(ex 1)
+                            bs: list
+                                prefix of patterns(ex [a])
+                            latestWord: str
+                                latest word to convine(ex b)
+                            latestWord2: str
+                                laterst word to convine(ex c)
+
+                        Returns:
+
         """
+
         if len(self._xLenDatabase[rowLen][bs][latestWord].keys()) <= len(
                 self._xLenDatabase[rowLen][bs][latestWord2].keys()):
             next2 = {}
@@ -626,8 +681,20 @@ class GFSPm(_ab._sequentialPatterns):
 
     def makeSame2(self, rowLen, bs, latestWord, latestWord2):
         """
-        To search patterns like a-ab from aa ab
-        """
+                                to check the pattern is frequent or not (ex a-bc from a-c ab)
+                                Args:
+                                    rowLen: int
+                                        how long patterns(ex 1)
+                                    bs: list
+                                        prefix of patterns(ex [a])
+                                    latestWord: str
+                                        latest word to convine(ex b)
+                                    latestWord2: str
+                                        laterst word to convine(ex c)
+
+                                Returns:
+
+                """
         if len(self._xLenDatabase[rowLen][bs][latestWord].keys()) <= len(
                 self._xLenDatabaseSame[rowLen][bs][latestWord2].keys()):
             next = {}
@@ -682,8 +749,20 @@ class GFSPm(_ab._sequentialPatterns):
 
     def makeSame3(self, rowLen, bs, latestWord, latestWord2):
         """
-        To search patterns like abc from ab ac
-        """
+                                to check the pattern is frequent or not (ex abc from ac ab)
+                                Args:
+                                    rowLen: int
+                                        how long patterns(ex 1)
+                                    bs: list
+                                        prefix of patterns(ex [a])
+                                    latestWord: str
+                                        latest word to convine(ex b)
+                                    latestWord2: str
+                                        laterst word to convine(ex c)
+
+                                Returns:
+
+                """
         if len(self._xLenDatabaseSame[rowLen][bs][latestWord].keys()) <= len(
                 self._xLenDatabaseSame[rowLen][bs][latestWord2].keys()):
             next = {}
@@ -808,7 +887,7 @@ class GFSPm(_ab._sequentialPatterns):
                                        bs : previous pattern without latest one
                                        latestword : latest word of one previous pattern
                                        latestword2 : latest word of the other previous pattern
-                """
+        """
 
         bs = list(bs)
         x = 1
@@ -836,7 +915,7 @@ class GFSPm(_ab._sequentialPatterns):
                                        bs : previous pattern without latest one
                                        latestword : latest word of one previous pattern
                                        latestword2 : latest word of other previous pattern
-                """
+        """
 
         x = list(sorted({latestWord, latestWord2}))
         x2 = x.pop()
@@ -931,9 +1010,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = GFSPm(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = GFSPminer(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = GFSPm(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = GFSPminer(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
@@ -945,7 +1024,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = GFSPm('retail.txt', "file3.txt", 87, ' ')
+        _ap = GFSPminer('retail.txt', "file3.txt", 87, ' ')
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         _memUSS = _ap.getMemoryUSS()
