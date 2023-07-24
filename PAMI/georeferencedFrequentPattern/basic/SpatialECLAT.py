@@ -1,7 +1,7 @@
 #  **Importing this algorithm into a python program**
 #  ---------------------------------------------------
 #
-#     from PAMI.frequentSpatialPattern.basic import SpatialECLAT as alg
+#     from PAMI.georeferencedFrequentPattern.basic import SpatialECLAT as alg
 #
 #     obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
 #
@@ -45,7 +45,7 @@ __copyright__ = """
 
 """
 
-from PAMI.frequentSpatialPattern.basic import abstract as _ab
+from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
 
 
 class SpatialECLAT(_ab._spatialFrequentPatterns):
@@ -134,7 +134,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
     -----------------------------------
     .. code-block:: python
 
-        from PAMI.frequentSpatialPattern.basic import SpatialECLAT as alg
+        from PAMI.georeferencedFrequentPattern.basic import SpatialECLAT as alg
         
         obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
 
