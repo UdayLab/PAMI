@@ -2,7 +2,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#         from PAMI.frequentSpatialPattern.basic import FSPGrowth as alg
+#         from PAMI.georeferencedFrequentPattern.basic import FSPGrowth as alg
 #
 #         obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
 #
@@ -46,7 +46,7 @@ __copyright__ = """
 """
 
 
-from PAMI.frequentSpatialPattern.basic import abstract as _ab
+from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
 
 
 class _Node:
@@ -295,7 +295,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     -----------------------------------
     .. code-block:: python
 
-        from PAMI.frequentSpatialPattern.basic import FSPGrowth as alg
+        from PAMI.georeferencedFrequentPattern.basic import FSPGrowth as alg
 
         obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
 
