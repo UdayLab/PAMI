@@ -54,8 +54,6 @@ from PAMI.AssociationRules.basic import abstract as _ab
 
 class _Confidence:
     """
-    :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
-
 
     :param  patterns: dict :
                    Dictionary containing patterns and its support value.
