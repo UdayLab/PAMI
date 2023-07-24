@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='pami',
-    version='2023.07.22es(),
+    version='2023.07.22.3',
     url='https://github.com/udayLab/PAMI',
     license='GPLv3',
     install_requires=[            # All necessary packages utilized by our PAMI software
@@ -22,6 +22,8 @@ setuptools.setup(
     extras_require={
         'gpu':  ['cupy', 'pycuda'],
         'spark': ['pyspark'],
+        'dev': ['twine', 'setuptools', 'build'],
+        'all': ['cupy', 'pycuda', 'pyspark', 'twine', 'setuptools', 'build']
     },
     classifiers=[
         'Development Status :: 4 - Beta',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
