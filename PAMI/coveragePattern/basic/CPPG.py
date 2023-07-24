@@ -447,9 +447,4 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = CPPG('sample.txt', 0.4, 0.7, 0.5, ' ')
-        _ap.startMine()
-        print("Total number of Coverage Patterns:", len(_ap.getPatterns()))
-        _ap.save('output.txt')
-        _ap.printResults()
         print("Error! The number of input parameters do not match the total number of parameters provided")
