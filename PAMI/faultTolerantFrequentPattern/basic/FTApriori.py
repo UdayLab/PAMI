@@ -246,21 +246,10 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     def _countItemSupport(self, itemset):
         tids = {}
         res = True
-        # for i in itemset:
-        #     for k in transactions:
-        #         if i in k:
-        #             if i not in tids:
-        #                 tids[i] = 1
-        #             else:
-        #                 tids[i] += 1
         count = 0
         for x in self._Database:
-            print(x, itemset, set(x) & set(itemset), abs(len(itemset) - len(set(x) & set(itemset))))
             if abs(len(itemset) - len(set(x) & set(itemset))) <= self._faultTolerance:
                 count += 1
-        # for x, y in tids.items():
-        #     if y < self._itemSup:
-        #         res = False
         return count
 
     def _getFaultPatterns(self):
@@ -268,10 +257,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         for i in range(0, len(l) + 1):
             c = _ab._itertools.combinations(l, i)
             for j in c:
-                # support, items = self._Count(j)
-                # print(support, items)
                 res = self._countItemSupport(j)
-                #print(j, res)
                 if len(j) >= self._minLength and res >= self._minSup:
                     self._finalPatterns[tuple(j)] = res
 
@@ -392,8 +378,4 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = FTApriori('/Users/Likhitha/Downloads/fault/sample4.txt', 5, 3, 2, 1, ' ')
-        _ap.startMine()
-        _ap.printResults()
-        print(_ap.getPatternsAsDataFrame())
         print("Error! The number of input parameters do not match the total number of parameters provided")
