@@ -1,13 +1,80 @@
+#  This code uses "confidence" metric to extract the association rules from given frequent patterns.
+#
+#
+# **Importing this algorithm into a python program**
+# ----------------------------------------------------
+#
+#     import PAMI.AssociationRules.basic import ARWithConfidence as alg
+#
+#     obj = alg.ARWithConfidence(iFile, minConf)
+#
+#     obj.startMine()
+#
+#     associationRules = obj.getPatterns()
+#
+#     print("Total number of Association Rules:", len(associationRules))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 from PAMI.AssociationRules.basic import abstract as _ab
 
 
 class Confidence:
+    """
+    :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+
+
+    :param  patterns: dict :
+                   Dictionary containing patterns and its support value.
+    :param  singleItems: list :
+                   List containing all the single frequent items.
+    :param  minConf: int :
+                   Minimum confidence to mine all the satisfying association rules.
+
+
+    """
 
     def __init__(self, patterns, singleItems, minConf):
         """
-        :param inputFile: input file name or path
-        :type inputFile: str
-        :param sep:
+        :param patterns: given frequent patterns
+        :type inputFile: dict
+        :param singleItems: one-length frequent patterns
+        :type singleItems: list
+        :param minConf: minimum confidence
+        :type minConf: float
         """
         self._frequentPatterns = patterns
         self._singleItems = singleItems
@@ -15,6 +82,14 @@ class Confidence:
         self._finalPatterns = {}
 
     def _generation(self, prefix, suffix):
+        """
+        To generate the combinations all association rules.
+
+        :param prefix: the prefix of association rule.
+        :type prefix: str
+        :param suffix: the suffix of association rule.
+        :type suffix: str
+        """
         if len(suffix) == 1:
             conf = self._generateWithConfidence(prefix, suffix[0])
         for i in range(len(suffix)):
@@ -26,6 +101,13 @@ class Confidence:
             self._generation(prefix1, suffix1)
 
     def _generateWithConfidence(self, lhs, rhs):
+        """
+        To find association rules satisfying user-specified minConf
+        :param lhs: the prefix of association rule.
+        :type lhs: str
+        :param rhs: the suffix of association rule.
+        :type rhs: str
+        """
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) == None:
             return 0
@@ -40,6 +122,9 @@ class Confidence:
             self._finalPatterns[s1] = confrhs
 
     def run(self):
+        """
+        To generate the combinations all association rules.
+        """
         for i in range(len(self._singleItems)):
             suffix = self._singleItems[:i] + self._singleItems[i + 1:]
             prefix = self._singleItems[i]
@@ -50,34 +135,116 @@ class Confidence:
 
 class ARWithConfidence:
     """
-        temporalDatabaseStats is class to get stats of database.
+        :Description: Association Rules are derived from frequent patterns using "confidence" metric.
+
+        :Reference:
+
+        :param iFile: str or df :
+                    Name of the Input file to mine the association rules
+
+        :param minConf: float
+                    The user can specify the minConf in float
+        :par sep: str :
+                    This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However the users can override their default seperator.
         
-        Attributes:
-        ----------
-        frequentPattern : list or dict
-            list
-        measure: condition to calculate the strength of rule
-            str
-        threshold: condition to satisfy
-            int
+        
+        :Attributes:
+
+
+            startTime : float
+                To record the start time of the mining process
+
+            endTime : float
+                To record the completion time of the mining process
+
+            finalPatterns : dict
+              Storing the complete set of patterns in a dictionary variable
+
+            memoryUSS : float
+                To store the total amount of USS memory consumed by the program
+
+            memoryRSS : float
+                To store the total amount of RSS memory consumed by the program
+
+
+     **Methods to execute code on terminal**
+     ----------------------------------------------------
+
+            Format:
+                      >>> python3 ARWithConfidence.py <inputFile> <outputFile> <miConf> <sep>
+
+            Example:
+                      >>>  python3 ARWithConfidence.py sampleDB.txt patterns.txt 10.0 ' '
+
+            .. note:: minConf will be considered only in 0 to 1.
+
+    
+    
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------
+
+    .. code-block:: python
+
+             import PAMI.AssociationRules.basic import ARWithConfidence as alg
+
+             obj = alg.ARWithConfidence(iFile, minConf)
+
+             obj.startMine()
+
+             associationRules = obj.getPatterns()
+
+             print("Total number of Association Rules:", len(associationRules))
+
+             obj.save(oFile)
+
+             Df = obj.getPatternInDataFrame()
+
+             memUSS = obj.getMemoryUSS()
+
+             print("Total Memory in USS:", memUSS)
+
+             memRSS = obj.getMemoryRSS()
+
+             print("Total Memory in RSS", memRSS)
+
+             run = obj.getRuntime()
+
+             print("Total ExecutionTime in seconds:", run)
             
-        Methods:
-        -------
-        startMine()
+    **Credits:**
+    -------------
+
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
     """
 
-    def __init__(self, iFile, threshold, sep):
+    _minConf = float()
+    _startTime = float()
+    _endTime = float()
+    _iFile = " "
+    _oFile = " "
+    _Sep = " "
+    _memoryUSS = float()
+    _memoryRSS = float()
+    _frequentPatterns = {}
+
+    def __init__(self, iFile, minConf, sep):
         """
         :param inputFile: input file name or path
         :type inputFile: str
-        :param sep:
+        :param minConf: minimum confidence
+        :type minConf: float
+        :param sep: Delimiter of input file
+        :type sep: str
         """
         self._iFile = iFile
-        self._threshold = threshold
+        self._minConf = minConf
         self._finalPatterns = {}
         self._sep = sep
 
     def _readPatterns(self):
+        """
+            Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
+        """
         self._frequentPatterns = {}
         k = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -119,6 +286,9 @@ class ARWithConfidence:
         return k
 
     def startMine(self):
+        """
+        Association rule mining process will start from here
+        """
         self._startTime = _ab._time.time()
         k = self._readPatterns()
         a = Confidence(self._frequentPatterns, k, self._minConf)
