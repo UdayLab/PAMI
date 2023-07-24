@@ -5,13 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='pami',
-    version='2023.07.21',
-    author='Rage Uday Kiran',
-    author_email='uday.rage@gmail.com',
-    description='This software is being developed at the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
-    packages=setuptools.find_packages(),
+    version='2023.07.22es(),
     url='https://github.com/udayLab/PAMI',
     license='GPLv3',
     install_requires=[            # All necessary packages utilized by our PAMI software
