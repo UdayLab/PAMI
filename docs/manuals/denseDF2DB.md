@@ -26,7 +26,7 @@ import pandas as pd
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
 db = pro.denseDF2DB(inputDF=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a transactional database file
-db.createTransactionalDatabase(outputFile='/home/userName/transactionalDB.txt')
+db.createTransactional(outputFile='/home/userName/transactionalDB.txt')
 # Getting the fileName of the transactional database
 print('The output file is saved at ' + db.getFileName())
 
@@ -53,7 +53,7 @@ import pandas as pd
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
 db = pro.denseDF2DB(inputDF=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a temporal database file
-db.createTemporalDatabase(outputFile='/home/userName/temporalDB.txt')
+db.createTemporal(outputFile='/home/userName/temporalDB.txt')
 # Getting the fileName of the temporal database
 print('The output file is saved at ' + db.getFileName())
 
@@ -79,7 +79,7 @@ import pandas as pd
 # Objective: convert the above dataframe into a utility database with items whose value is greater than or equal 1.
 db = pro.denseDF2DB(inputDF=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a utility database file
-db.createUtilityDatabase(outputFile='/home/userName/utilityDB.txt')
+db.createUtility(outputFile='/home/userName/utilityDB.txt')
 # Getting the fileName of the utility database
 print('The output file is saved at ' + db.getFileName())
 
