@@ -172,7 +172,7 @@ class ARWithConfidence:
                       >>> python3 ARWithConfidence.py <inputFile> <outputFile> <minConf> <sep>
 
             Example:
-                      >>>  python3 ARWithConfidence.py sampleDB.txt patterns.txt 10.0 ' '
+                      >>>  python3 ARWithConfidence.py sampleDB.txt patterns.txt 0.5 ' '
 
             .. note:: minConf will be considered only in 0 to 1.
 
@@ -377,8 +377,4 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        # _ap = ARWithConfidence('patterns.txt', 0.8, '\t')
-        # _ap.startMine()
-        # _ap.save('output.txt')
-        # _ap.printResults()
         print("Error! The number of input parameters do not match the total number of parameters provided")
