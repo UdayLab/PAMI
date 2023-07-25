@@ -80,7 +80,8 @@ class _Leverage:
         self._finalPatterns = {}
 
     def _generation(self, prefix, suffix):
-         """
+        """
+
         To generate the combinations all association rules.
 
         :param prefix: the prefix of association rule.
@@ -88,6 +89,8 @@ class _Leverage:
         :param suffix: the suffix of association rule.
         :type suffix: str
         """
+
+
         if len(suffix) == 1:
             conf = self._generateWithLeverage(prefix, suffix[0])
         for i in range(len(suffix)):
@@ -109,16 +112,16 @@ class _Leverage:
         if self._frequentPatterns.get(s) == None:
             return 0
         minimum = self._frequentPatterns[s]
-        conflhs = minimum / self._frequentPatterns[lhs]
-        confrhs = minimum / self._frequentPatterns[rhs]
-        liftlhs = conflhs - self._frequentPatterns[rhs] * self._frequentPatterns[lhs]
-        rightrhs = confrhs - self._frequentPatterns[lhs] * self._frequentPatterns[rhs]
-        if liftlhs >= self._minConf:
+        conf_lhs = minimum / self._frequentPatterns[lhs]
+        conf_rhs = minimum / self._frequentPatterns[rhs]
+        lift_lhs = conf_lhs - self._frequentPatterns[rhs] * self._frequentPatterns[lhs]
+        right_rhs = conf_rhs - self._frequentPatterns[lhs] * self._frequentPatterns[rhs]
+        if lift_lhs >= self._minConf:
             s1 = lhs + '->' + rhs
-            self._finalPatterns[s1] = conflhs
-        if rightrhs >= self._minConf:
+            self._finalPatterns[s1] = conf_lhs
+        if right_rhs >= self._minConf:
             s1 = rhs + '->' + lhs
-            self._finalPatterns[s1] = confrhs
+            self._finalPatterns[s1] = conf_rhs
 
     def run(self):
         """
@@ -144,7 +147,7 @@ class ARWithLeverage:
         :param minConf: float
                     The user can specify the minConf in float
         :par sep: str :
-                    This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However the users can override their default seperator.
+                    This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
         
         
         :Attributes:
@@ -228,6 +231,9 @@ class ARWithLeverage:
         self._sep = sep
 
     def _readPatterns(self):
+        """
+                To read patterns  of leverage.
+        """
         self._frequentPatterns = {}
         k = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -269,6 +275,9 @@ class ARWithLeverage:
         return k
 
     def startMine(self):
+        """
+                Association rule mining process will start from here
+        """
         self._startTime = _ab._time.time()
         k = self._readPatterns()
         a = _Leverage(self._frequentPatterns, k, self._minConf)
@@ -321,8 +330,8 @@ class ARWithLeverage:
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
-        :param outFile: name of the output file
+        """Complete set of frequent patterns will be loaded in to an output file
+        :param outFile: name of the outputfile
         :type outFile: file
         """
         self._oFile = outFile
@@ -339,6 +348,8 @@ class ARWithLeverage:
         return self._finalPatterns
 
     def printResults(self):
+        """ Function to send the result after completion of the mining process
+        """
         print("Total number of Association Rules:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
@@ -349,7 +360,7 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = ARWithLeverage(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
+            _ap = ARWithLeverage(_ab._sys.argv[1], float(_ab._sys.argv[3]), _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = ARWithLeverage(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
