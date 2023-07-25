@@ -142,16 +142,16 @@ class Apriori(_ab._frequentPatterns):
 
     """
 
-    _minSup = float()
-    _startTime = float()
-    _endTime = float()
-    _finalPatterns = {}
-    _iFile = " "
-    _oFile = " "
-    _sep = " "
-    _memoryUSS = float()
-    _memoryRSS = float()
-    _Database = []
+    self._minSup = float()
+    self._startTime = float()
+    self._endTime = float()
+    self._finalPatterns = {}
+    self._iFile = " "
+    self._oFile = " "
+    self._sep = " "
+    self._memoryUSS = float()
+    self._memoryRSS = float()
+    self._Database = []
 
     def _creatingItemSets(self):
         """
