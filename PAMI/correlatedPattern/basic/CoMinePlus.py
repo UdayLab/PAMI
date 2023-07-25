@@ -363,6 +363,16 @@ class CoMinePlus(_ab._correlatedPatterns):
     _sep = "\t"
 
     def __init__(self, iFile, minSup, minAllConf, sep="\t"):
+        """
+        param iFile:
+        type iFile:
+        param minSup:
+        type minSup:
+        param minAllConf:
+        type minAllConf:
+        param sep: delimiter of input file
+        type sep : str
+        """
         super().__init__(iFile, minSup, minAllConf, sep)
 
     def _creatingItemSets(self):
@@ -432,7 +442,7 @@ class CoMinePlus(_ab._correlatedPatterns):
         """
         Generating all the combinations for items in single branch in correlatedPatternTree
 
-        :param tempBuffer: items in a list
+        :param tempBuffer: items in a single branch
         :type tempBuffer: list
         :param s: support at leaf node of a branch
         :param position: the length of a tempBuffer
@@ -461,7 +471,7 @@ class CoMinePlus(_ab._correlatedPatterns):
 
         :param correlatedPatternTree: it represents the correlatedPatternTree
         :type correlatedPatternTree: class Tree
-        :param prefix: it represents a empty list and store the patterns that are mined
+        :param prefix: it represents an empty list and store the patterns that are mined
         :type prefix: list
         :param param prefixLength: the length of prefix
         :type prefixLength: int
@@ -512,8 +522,8 @@ class CoMinePlus(_ab._correlatedPatterns):
                             parent1 = path.parent
                             if mapSupport.get(parent1.itemId) >= low and mapSupport.get(parent1.itemId) <= high:
                                 while parent1.itemId != -1:
-                                    allconf = int(support/max(mapSupport.get(parent1.itemId), support))
-                                    if mapSupport.get(parent1.itemId) >= allconf:
+                                    all_conf = int(support/max(mapSupport.get(parent1.itemId), support))
+                                    if mapSupport.get(parent1.itemId) >= all_conf:
                                         prefixPath.append(parent1)
                                         if mapSupportBeta.get(parent1.itemId) is None:
                                             mapSupportBeta[parent1.itemId] = pathCount
@@ -643,9 +653,9 @@ class CoMinePlus(_ab._correlatedPatterns):
 
     def save(self, outFile):
         """
-        Complete set of correlated patterns will be loaded in to a output file
+        Complete set of correlated patterns will be loaded in to an output file
 
-        :param outFile: name of the output file
+        :param outFile: name of the outputfile
         :type outFile: file
         """
         self._oFile = outFile
