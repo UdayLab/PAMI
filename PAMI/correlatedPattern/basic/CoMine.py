@@ -14,7 +14,7 @@
 #
 #             print("Total number of  Patterns:", len(Patterns))
 #
-#             obj.savePatterns(oFile)
+#             obj.save(oFile)
 #
 #             Df = obj.getPatternsAsDataFrame()
 #
@@ -88,6 +88,12 @@ class _Node:
         self.nodeLink = None
 
     def getChild(self, id1):
+        """
+
+        Param id1: give item id as input
+        type id1:
+
+        """
         for i in self.child:
             if i.itemId == id1:
                 return i
@@ -349,6 +355,14 @@ class CoMine(_ab._correlatedPatterns):
     _sep = "\t"
 
     def __init__(self, iFile, minSup, minAllConf, sep="\t"):
+        """param iFile: give the input file
+           type iFile: str or DataFrame or url
+           param minSup: minimum support
+           type minSup:   int or float
+           param sep: Delimiter of input file
+           type sep: str
+        """
+
         super().__init__(iFile, minSup, minAllConf, sep)
 
     def _creatingItemSets(self):
@@ -405,7 +419,7 @@ class CoMine(_ab._correlatedPatterns):
 
     def _correlatedOneItem(self):
         """
-            Generating One correlated itemsets
+            Generating One correlated item
         """
         self._mapSupport = {}
         for i in self._Database:
@@ -427,14 +441,14 @@ class CoMine(_ab._correlatedPatterns):
         :type support :  int
         :The correlated patterns were stored in a global variable finalPatterns
         """
-        allconf = self._getRatio(prefix, prefixLength, support)
-        if allconf < self._minAllConf:
+        all_conf = self._getRatio(prefix, prefixLength, support)
+        if all_conf < self._minAllConf:
             return
         l = []
         for i in range(prefixLength):
             l.append(prefix[i])
         self._itemSetCount += 1
-        self._finalPatterns[tuple(l)] = [support, allconf]
+        self._finalPatterns[tuple(l)] = [support, all_conf]
     
     def _convert(self, value):
         """
@@ -457,7 +471,7 @@ class CoMine(_ab._correlatedPatterns):
     def _saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength):
         """Generating all the combinations for items in single branch in correlatedPatternTree
 
-        :param tempBuffer: items in a list
+        :param tempBuffer: items in a single branch
         :type tempBuffer: list
         :param s : support at leaf node of a branch
         :param position : the length of a tempBuffer
@@ -485,7 +499,7 @@ class CoMine(_ab._correlatedPatterns):
 
         :param correlatedPatternTree: it represents the correlatedPatternTree
         :type correlatedPatternTree: class Tree
-        :param prefix : it represents a empty list and store the patterns that are mined
+        :param prefix : it represents an empty list and store the patterns that are mined
         :type prefix : list
         :param prefixLength : the length of prefix
         :type prefixLength :int
@@ -634,7 +648,7 @@ class CoMine(_ab._correlatedPatterns):
         """
         Complete set of correlated patterns will be saved into an output file
 
-        :param outFile: name of the output file
+        :param outFile: name of the outputfile
         :type outFile: file
         """
         self._oFile = outFile
@@ -656,6 +670,11 @@ class CoMine(_ab._correlatedPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """
+
+        function to print the result after completing the process
+
+        """
         print("Total number of Correlated Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

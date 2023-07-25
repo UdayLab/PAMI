@@ -61,7 +61,7 @@ class CMine(_ab._coveragePatterns):
                    Coverage patterns for efficient banner advertisement placement. WWW (Companion Volume) 2011: 131-132
                    https://dl.acm.org/doi/10.1145/1963192.1963259
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
+                   Name of the Input file to mine complete set of frequent pattern's
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
     :param  minRF: float:
@@ -226,15 +226,15 @@ class CMine(_ab._coveragePatterns):
         coverageTidData = dict(sorted(coverageTidData.items(), reverse=True, key=lambda x: len(x[1])))
         return coverageTidData
 
-    def tidToBitset(self,itemset):
+    def tidToBitset(self,item_set):
         """
         This function converts tid list to bitset.
-        :param itemset:
+        :param item_set:
         :return:
         """
         bitset = {}
 
-        for k,v in itemset.items():
+        for k,v in item_set.items():
             bitset[k] = 0b1
             bitset[k] = (bitset[k] << int(v[0])) | 0b1
             for i in range(1,len(v)):
@@ -251,7 +251,7 @@ class CMine(_ab._coveragePatterns):
         :return:
         """
         # variables to store coverage item set and
-        itemset = prefix[0]
+        item_set = prefix[0]
 
         # Get the length of tidData
         length = len(tidData)
@@ -261,10 +261,10 @@ class CMine(_ab._coveragePatterns):
             andCount = bin(tid).count("1") - 1
             orCount = bin(tid1).count("1") - 1
             if orCount/len(self._Database) >= self._minCS and andCount / len(str(prefix[1])) <= self._maxOR:
-                coverageItemset = itemset + '\t' + tidData[i][0]
+                coverageItem_set = item_set + '\t' + tidData[i][0]
                 if orCount / len(self._Database) >= self._minRF:
-                    self._finalPatterns[coverageItemset] = andCount
-                self.genPatterns((coverageItemset,tid),tidData[i+1:length])
+                    self._finalPatterns[coverageItem_set] = andCount
+                self.genPatterns((coverageItem_set,tid),tidData[i+1:length])
 
     def generateAllPatterns(self,coverageItems):
         """
@@ -339,8 +339,8 @@ class CMine(_ab._coveragePatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of coverage patterns will be loaded in to a output file
-        :param outFile: name of the output file
+        """Complete set of coverage patterns will be loaded in to an output file
+        :param outFile: name of the outputfile
         :type outFile: file
         """
         self._oFile = outFile
@@ -357,6 +357,9 @@ class CMine(_ab._coveragePatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """
+         This function is used to print the result
+        """
         print("Total number of Coverage Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
