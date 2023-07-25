@@ -14,7 +14,7 @@
 #
 #             print("Total number of  Patterns:", len(Patterns))
 #
-#             obj.savePatterns(oFile)
+#             obj.save(oFile)
 #
 #             Df = obj.getPatternsAsDataFrame()
 #
@@ -356,9 +356,9 @@ class CoMine(_ab._correlatedPatterns):
 
     def __init__(self, iFile, minSup, minAllConf, sep="\t"):
         """param iFile: give the input file
-           type iFile:
+           type iFile: str or DataFrame or url
            param minSup: minimum support
-           type minSup: float
+           type minSup:   int or float
            param sep: Delimiter of input file
            type sep: str
         """

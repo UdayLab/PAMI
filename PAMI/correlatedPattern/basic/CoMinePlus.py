@@ -364,12 +364,12 @@ class CoMinePlus(_ab._correlatedPatterns):
 
     def __init__(self, iFile, minSup, minAllConf, sep="\t"):
         """
-        param iFile:
-        type iFile:
-        param minSup:
-        type minSup:
-        param minAllConf:
-        type minAllConf:
+        param iFile: input file name
+        type iFile: str or DataFrame or url
+        param minSup: user-specified minimum support
+        type minSup: int or float
+        param minAllConf: user-specified minimum all confidence
+        type minAllConf: float
         param sep: delimiter of input file
         type sep : str
         """
@@ -677,6 +677,9 @@ class CoMinePlus(_ab._correlatedPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """
+        function to print the result after completing the process
+        """
         print("Total number of Correlated Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

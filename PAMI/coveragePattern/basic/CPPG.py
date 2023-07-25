@@ -1,4 +1,4 @@
-# CPPG  algorithm discovers coverage patterns in a transactional database.
+# CPPG algorithm discovers coverage patterns in a transactional database.
 #
 #
 # **Importing this algorithm into a python program**
@@ -67,7 +67,7 @@ class CPPG(_ab._coveragePatterns):
                     https://link.springer.com/article/10.1007/s10844-014-0318-3
 
     :param  iFile: str :
-           Name of the Input file to mine complete set of frequent patterns
+           Name of the Input file to mine complete set of frequent pattern's
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
     :param  minRF: float:
@@ -298,7 +298,7 @@ class CPPG(_ab._coveragePatterns):
     def _savePeriodic(self, itemSet):
         """ To convert the ranks of items in to their original item names
 
-            :param itemSet: frequent pattern
+            :param itemSet: frequent patterns
             :return: frequent pattern with original item names
         """
         t1 = str()
@@ -407,9 +407,9 @@ class CPPG(_ab._coveragePatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
 
-        :param outFile: name of the output file
+        :param outFile: name of the outputfile
         :type outFile: file
         """
         self._oFile = outFile
