@@ -91,7 +91,7 @@ class _Node:
         """
             Retrieving the child from the tree
 
-            :param node: ChildrenNode
+            :param node: Child Node
             :type node: Node
             :return: Updates the children nodes and parent nodes
 
