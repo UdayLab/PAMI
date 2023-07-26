@@ -1,30 +1,41 @@
-#  Copyright (C)  2021 Rage Uday Kiran
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.fuzzySpatialPeriodicFrequentPattern import FGPFPMiner as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     obj.startMine()
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     print("Total number of fuzzy frequent spatial patterns:", len(obj.getPatterns()))
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj.save("outputFile")
+#
+#     print("Total Memory in USS:", obj.getMemoryUSS())
+#
+#     print("Total Memory in RSS", obj.getMemoryRSS())
+#
+#     print("Total ExecutionTime in seconds:", obj.getRuntime())
+#
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 import pandas as pd
 import plotly.express as px
 import PAMI.fuzzySpatialPeriodicFrequentPattern.basic.abstract as _ab
@@ -38,7 +49,7 @@ class _FFList:
          item: int
              the item name
          sumIUtil: float
-             the sum of utilities of an fuzzy item in database
+             the sum of utilities of a fuzzy item in database
          sumRUtil: float
              the sum of resting values of a fuzzy item in database
          elements: list
@@ -61,8 +72,8 @@ class _FFList:
     def addElement(self, element):
         """
             A Method that add a new element to FFList
-            :param element: an element to be add to FFList
-            :pram type: Element
+            :param element: an element to be added to FFList
+            :param type: Element
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -84,9 +95,9 @@ class _Element:
         tid : int
             keep tact of transaction id
         iUtils: float
-            the utility of an fuzzy item in the transaction
+            the utility of a fuzzy item in the transaction
         rUtils : float
-            the neighbourhood resting value of an fuzzy item in the transaction
+            the neighbourhood resting value of a fuzzy item in the transaction
     """
 
     def __init__(self, tid, iUtil, rUtil):
@@ -288,6 +299,10 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             quit()
 
     def _creatingItemSets(self):
+        """
+        Storing the complete transactions of the database/input file in a database variable
+
+        """
         self._transactionsDB, self._fuzzyValuesDB = [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -370,6 +385,10 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     quit()
 
     def _Regions(self, quantity):
+        """
+        param quantity:
+        type quantity:
+        """
 
         self._list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
@@ -435,8 +454,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         del recent_occur
         """
             Using Maximum Scalar Cardinality Value strategy to narrow down search space and generate candidate fuzzy periodic-frequent items. 
-            Step1. Identify the regional representative (region with max support). This is the representative that will be tested to see if its greater than given minsup
-            Step2. prune out all items whose regional support is less than the given minsup
+            Step1. Identify the regional representative (region with max support). This is the representative that will be tested to see if its greater than given minSup
+            Step2. prune out all items whose regional support is less than the given minSup
             Step3. At the end, sort the list of stored Candidate Frequent-Periodic Patterns in ascending order
         """
 
@@ -630,8 +649,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             :type prefix: list
             :param prefixLen: length of prefix
             :type prefixLen: int
-            :param item: the last item
-            :type item: int
+            :param _FFListObject: the last item
+            :type _FFListObject: int
             :param sumIUtil: sum of utility of itemSet
             :type sumIUtil: float
         """
@@ -668,7 +687,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         return self._finalPeriodicPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -680,6 +699,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Spatial Fuzzy Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
