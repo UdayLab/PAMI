@@ -59,9 +59,9 @@ class Apriori(_ab._frequentPatterns):
             In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of frequent patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent pattern's
+                   Name of the output file to store complete set of frequent patterns
     :param  minSup: int :
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
     :param  sep: str :

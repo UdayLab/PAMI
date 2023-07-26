@@ -61,7 +61,7 @@ class ECLATbitset(_ab._frequentPatterns):
             372-390 (2000), https://ieeexplore.ieee.org/document/846291
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of frequent patterns
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
     :param  minSup: int or float or str :
