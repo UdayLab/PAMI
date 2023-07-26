@@ -427,6 +427,9 @@ class CPPG(_ab._coveragePatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """
+           Function used to print the result
+        """
         print("Total number of Coverage Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

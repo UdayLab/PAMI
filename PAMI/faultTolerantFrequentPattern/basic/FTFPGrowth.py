@@ -91,7 +91,7 @@ class _Node:
         """
             Retrieving the child from the tree
 
-            :param node: Children node
+            :param node: ChildrenNode
             :type node: Node
             :return: Updates the children nodes and parent nodes
 
@@ -134,7 +134,7 @@ class _Tree:
     def addTransaction(self, transaction, count):
         """adding transaction into tree
 
-        :param transaction: it represents the one transactions in database
+        :param transaction: it represents the one transaction in database
 
         :type transaction: list
 
@@ -253,7 +253,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     ------------
        FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
        It stores the database in compressed fp-tree decreasing the memory usage and extracts the
-       patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+       patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
     Reference :
     ---------
@@ -300,7 +300,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
+            Complete set of frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -596,7 +596,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 

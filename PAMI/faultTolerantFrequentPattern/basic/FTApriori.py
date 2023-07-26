@@ -14,7 +14,7 @@
 #
 #     print("Total number of fault-tolerant frequent patterns:", len(patterns))
 #
-#     obj.savePatterns("outputFile")
+#     obj.save("outputFile")
 #
 #     memUSS = obj.getMemoryUSS()
 #
@@ -218,6 +218,10 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         return value
 
     def _Count(self, k):
+        """
+        param k: list of items
+        type k: list
+        """
         count = 0
         items = []
         k = list(k)
@@ -263,7 +267,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
     def startMine(self):
         """
-            Fault-tolerent frequent pattern mining process will start from here
+            Fault-tolerant frequent pattern mining process will start from here
         """
         self._Database = []
         self._startTime = _ab._time.time()
@@ -332,7 +336,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -357,6 +361,8 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ this is function is used to print the result
+        """
         print("Total number of Fault-Tolerant Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

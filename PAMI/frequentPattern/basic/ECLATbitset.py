@@ -61,7 +61,7 @@ class ECLATbitset(_ab._frequentPatterns):
             372-390 (2000), https://ieeexplore.ieee.org/document/846291
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
+                   Name of the Input file to mine complete set of frequent pattern's
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
     :param  minSup: int or float or str :
@@ -340,8 +340,8 @@ class ECLATbitset(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
-        :param outFile: name of the output file
+        """Complete set of frequent patterns will be loaded in to an output file
+        :param outFile: name of the outputfile
         :type outFile: file
         """
         self._oFile = outFile

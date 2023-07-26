@@ -62,7 +62,7 @@ class ECLATDiffset(_ab._frequentPatterns):
             August 2003 Pages 326–335 https://doi.org/10.1145/956750.956788
             
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
+                   Name of the Input file to mine complete set of frequent pattern's
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
     :param  minSup: int or float or str :
