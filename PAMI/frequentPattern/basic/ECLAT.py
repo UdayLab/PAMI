@@ -13,7 +13,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternInDataFrame()
 #
@@ -343,6 +343,9 @@ class ECLAT(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """Function used to print the results
+
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
