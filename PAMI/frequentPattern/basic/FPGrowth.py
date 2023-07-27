@@ -132,7 +132,7 @@ class _Tree:
         self.summaries = {}
         self.info = {}
 
-    def addTransaction(self, transaction, count):
+    def addTransaction(self, transaction, count) -> List[set]:
         """adding transaction into tree
 
         :param transaction: it represents the one transaction in database
@@ -160,7 +160,7 @@ class _Tree:
                 currentNode = currentNode.children[transaction[i]]
                 currentNode.freq += count
 
-    def getFinalConditionalPatterns(self, alpha):
+    def getFinalConditionalPatterns(self, alpha) -> List[set]:
         """
         generates the conditional patterns for a node
 
@@ -189,7 +189,7 @@ class _Tree:
         return finalPatterns, finalFreq, info
 
     @staticmethod
-    def getConditionalTransactions(ConditionalPatterns, conditionalFreq):
+    def getConditionalTransactions(ConditionalPatterns, conditionalFreq) -> List[set]:
         """
         To calculate the frequency of items in conditional patterns and sorting the patterns
         Parameters
@@ -222,7 +222,7 @@ class _Tree:
             count += 1
         return pat, freq, up_dict
 
-    def generatePatterns(self, prefix):
+    def generatePatterns(self, prefix) -> List[set]:
         """
         To generate the frequent patterns
         Parameters
@@ -364,7 +364,7 @@ class FPGrowth(_fp._frequentPatterns):
     def __init__(self, iFile, minSup, sep='\t'):
         super().__init__(iFile, minSup, sep)
 
-    def __creatingItemSets(self):
+    def __creatingItemSets(self) -> List[set]:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -400,7 +400,7 @@ class FPGrowth(_fp._frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def __convert(self, value):
+    def __convert(self, value) -> Union[int, float]:
         """
         to convert the type of user specified minSup value
 
@@ -437,7 +437,7 @@ class FPGrowth(_fp._frequentPatterns):
         self.__rank = dict([(index, item) for (item, index) in enumerate(genList)])
         return genList
 
-    def __updateTransactions(self, itemSet):
+    def __updateTransactions(self, itemSet) -> List[set]:
         """
         Updates the items in transactions with rank of items according to their support
 
@@ -532,7 +532,7 @@ class FPGrowth(_fp._frequentPatterns):
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -542,7 +542,7 @@ class FPGrowth(_fp._frequentPatterns):
 
         return self.__memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -552,7 +552,7 @@ class FPGrowth(_fp._frequentPatterns):
 
         return self.__memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -563,7 +563,7 @@ class FPGrowth(_fp._frequentPatterns):
 
         return self.__endTime - self.__startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -591,7 +591,7 @@ class FPGrowth(_fp._frequentPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, int]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
