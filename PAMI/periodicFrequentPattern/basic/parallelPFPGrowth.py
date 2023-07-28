@@ -453,6 +453,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     __rank = {}
     __rankDup = {}
     _numTrans = str()
+    __tarunpat = {}
 
     def __init__(self, iFile, minSup, maxPer, numWorker, sep='\t'):
         super().__init__(iFile, minSup, maxPer, numWorker, sep)
@@ -554,6 +555,17 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
                                                                      partId_bonsai[0]))
         frequentItemsets = itemsets.map(
             lambda ranks_count: ([self._perFreqItems[z] for z in ranks_count[0]], ranks_count[1]))
+        
+        
+        ### TARUN MODIFICATION ###
+        frequentItemsets_list = frequentItemsets.collect()
+
+        for itemset, count in frequentItemsets_list:
+            string = "\t".join([str(x) for x in itemset])
+            self.__tarunpat[string] = count
+        ##########################
+
+        
         return frequentItemsets
 
     def genCondTransactions(self, tid, basket, rank, nPartitions):
@@ -630,7 +642,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         self._numTrans = sc.broadcast(data.count())
         self._perFreqItems = self.getFrequentItems(data)
         freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
-        self.__finalPatterns = freqItemsets.count()
+        self.__finalPatterns = self.__tarunpat
         sc.stop()
         self.__endTime = _ab._time.time()
         self.__memoryUSS = float()
@@ -680,7 +692,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         dataframe = {}
         data = []
-        for a, b in self.__finalPatterns.items():
+        for a, b in self.__tarunpat.items():
             data.append([a.replace('\t', ' '), b])
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
@@ -694,7 +706,9 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
-        for x, y in self.__finalPatterns.items():
+        # print(self.getFrequentItems())
+        for x, y in self.__tarunpat.items():
+            # print(x,y)
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
@@ -705,10 +719,10 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         :rtype: dict
         """
-        return self.__finalPatterns
+        return self.__tarunpat
 
     def printResults(self):
-        print("Total number of Frequent Patterns:", self.getPatterns())
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:", self.getRuntime())
@@ -729,7 +743,7 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = parallelPFPGrowth('Temporal_T10I4D100K.csv', 100, 5000, 5, '\t')
+        _ap = parallelPFPGrowth('Temporal_T10I4D100K.csv', 500, 5000, 5, '\t')
         _ap.startMine()
         # print("Total number of Frequent Patterns:", len( _ab.getPatterns()))
         # _ap.save(_ab._sys.argv[2])
