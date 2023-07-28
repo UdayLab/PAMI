@@ -13,7 +13,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns("patterns")
+#     obj.save("patterns")
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -593,7 +593,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
     @staticmethod
     def _buildTree(data, info):
         """
-        creating the root node as null in fp-tree and and adding all transactions into tree.
+        creating the root node as null in fp-tree and adding all transactions into tree.
         :param data: updated transactions
         :param info: rank of items in transactions
         :return: fp-tree
@@ -720,7 +720,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -742,6 +742,10 @@ class MaxFPGrowth(_ab._frequentPatterns):
         return self._finalPatterns
     
     def printResults(self):
+        """
+         this function is used to print the results
+
+        """
         print('Total number of Maximal Frequent Patterns: ' + str(self.getPatterns()))
         print('Runtime: ' + str(self.getRuntime()))
         print('Memory (RSS): ' + str(self.getMemoryRSS()))

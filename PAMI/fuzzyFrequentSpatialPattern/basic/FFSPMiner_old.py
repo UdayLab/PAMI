@@ -1,30 +1,50 @@
-#  Copyright (C)  2021 Rage Uday Kiran
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#     .. code-block:: python
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#         from PAMI.fuzzyFrequentSpatialPattern import FFSPMiner as alg
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#         obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#         obj.startMine()
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#         fuzzySpatialFrequentPatterns = obj.getPatterns()
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#         print("Total number of fuzzy frequent spatial patterns:", len(fuzzySpatialFrequentPatterns))
+#
+#         obj.save("outputFile")
+#
+#         memUSS = obj.getMemoryUSS()
+#
+#         print("Total Memory in USS:", memUSS)
+#
+#         memRSS = obj.getMemoryRSS()
+#
+#         print("Total Memory in RSS", memRSS)
+#
+#         run = obj.getRuntime()
+#
+#         print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.fuzzyFrequentSpatialPattern.basic import abstract as _ab
 
@@ -38,7 +58,7 @@ class _FFList:
          item: int
              the item name
          sumIUtil: float
-             the sum of utilities of an fuzzy item in database
+             the sum of utilities of a fuzzy item in database
          sumRUtil: float
              the sum of resting values of a fuzzy item in database
          elements: list
@@ -63,8 +83,8 @@ class _FFList:
         """
             A Method that add a new element to FFList
 
-            :param element: an element to be add to FFList
-            :pram type: Element
+            :param element: an element to be added to FFList
+            :param type: Element
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -87,9 +107,9 @@ class _Element:
         tid : int
             keep tact of transaction id
         iUtils: float
-            the utility of an fuzzy item in the transaction
+            the utility of a fuzzy item in the transaction
         rUtils : float
-            the neighbourhood resting value of an fuzzy item in the transaction
+            the neighbourhood resting value of a fuzzy item in the transaction
     """
 
     def __init__(self, tid, iUtil, rUtil):
@@ -223,9 +243,9 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     Executing the code on terminal :
     -------
         Format:
-            python3 FFSPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
+            >>> python3 FFSPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
         Examples:
-            python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
+           >>>  python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
 
             python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 0.3 (minSup and maxPer will be considered in percentage of database)
                                                             (will consider "\t" as separator in both input and neighbourhood files)
@@ -323,6 +343,10 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         return value
 
     def _creatingItemSets(self):
+        """
+                    Storing the complete transactions of the database/input file in a database variable
+
+        """
         self._transactions, self._fuzzyValues = [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -662,7 +686,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         return self._finalPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -674,6 +698,8 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Spatial Fuzzy Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

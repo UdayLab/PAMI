@@ -60,7 +60,7 @@ class _FFList:
          item: int
              the item name
          sumIUtil: float
-             the sum of utilities of an fuzzy item in database
+             the sum of utilities of a fuzzy item in database
          sumRUtil: float
              the sum of resting values of a fuzzy item in database
          elements: list
@@ -85,8 +85,8 @@ class _FFList:
         """
             A Method that add a new element to FFList
 
-            :param element: an element to be add to FFList
-            :pram type: Element
+            :param element: an element to be added to FFList
+            :param type: Element
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -109,9 +109,9 @@ class _Element:
         tid : int
             keep tact of transaction id
         iUtils: float
-            the utility of an fuzzy item in the transaction
+            the utility of a fuzzy item in the transaction
         rUtils : float
-            the neighbourhood resting value of an fuzzy item in the transaction
+            the neighbourhood resting value of a fuzzy item in the transaction
     """
 
     def __init__(self, tid, iUtil, rUtil):
@@ -211,10 +211,10 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     -----------------------------------
         Format:
 
-            >>> python3 FFSPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
+            >>> python3 FFSPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
         Examples:
 
-            >>> python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
+            >>> python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 3  (minSup will be considered in support count or frequency)
 
 
     Sample run of importing the code:
@@ -305,6 +305,10 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         return value
 
     def _creatingItemSets(self):
+        """
+          Storing the complete transactions of the database/input file in a database variable
+
+        """
         self._transactions, self._fuzzyValues = [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -611,7 +615,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         return self._finalPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -623,6 +627,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
+        """ this function is used to print the results"""
         print("Total number of Spatial Fuzzy Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
