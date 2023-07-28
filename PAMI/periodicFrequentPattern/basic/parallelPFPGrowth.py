@@ -455,7 +455,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     _numTrans = str()
 
     def __init__(self, iFile, minSup, maxPer, numWorker, sep='\t'):
-        super().__init__(iFile, minSup, maxPer, numWorker, sep)
+        super().__init__(iFile, minSup, maxPer, sep)
+        self._numWorker = numWorker
 
     def func1(self, ps1, tid):
         """
