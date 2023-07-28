@@ -14,7 +14,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternInDataFrame()
 #
@@ -153,7 +153,7 @@ class Apriori(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> List[set]:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -191,7 +191,7 @@ class Apriori(_ab._frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _convert(self, value):
+    def _convert(self, value) -> Union[int, float]:
         """
         To convert the user specified minSup value
 
@@ -211,7 +211,7 @@ class Apriori(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    def _candidateToFrequent(self, candidateList):
+    def _candidateToFrequent(self, candidateList) -> Dict[frozenset, int]:
         """Generates frequent patterns from the candidate patterns
 
         :param candidateList: Candidate patterns will be given as input
@@ -234,7 +234,7 @@ class Apriori(_ab._frequentPatterns):
         return candidateToFrequentList
 
     @staticmethod
-    def _frequentToCandidate(frequentList, length):
+    def _frequentToCandidate(frequentList, length) -> List[set]:
         """Generates candidate patterns from the frequent patterns
 
         :param frequentList: set of all frequent patterns to generate candidate patterns of each of size is length
@@ -286,7 +286,7 @@ class Apriori(_ab._frequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using Apriori algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -296,7 +296,7 @@ class Apriori(_ab._frequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -306,7 +306,7 @@ class Apriori(_ab._frequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -316,7 +316,7 @@ class Apriori(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -333,7 +333,7 @@ class Apriori(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -345,7 +345,7 @@ class Apriori(_ab._frequentPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, int]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -355,6 +355,10 @@ class Apriori(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """
+        this function is used to print the result
+
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

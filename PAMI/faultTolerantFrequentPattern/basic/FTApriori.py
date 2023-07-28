@@ -1,20 +1,20 @@
-# FT-Apriori is one of the fundamental algorithm to discover fault tolerant frequent patterns in a transactional database.
+# FTApriori is one of the fundamental algorithm to discover fault-tolerant frequent patterns in a transactional database.
 #
 #
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------------------
 #
-#     from PAMI.uncertainCorrelatedPattern.basic import CFFI as alg
+#     from PAMI.faultTolerantFrequentPattern.basic import FTApriori as alg
 #
-#     obj = alg.CFFI("input.txt", 2, 0.4)
+#     obj = alg.FTApriori(inputFile,minSup,itemSup,minLength,faultTolerance)
 #
 #     obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#     patterns = obj.getPatterns()
 #
-#     print("Total number of Correlated Fuzzy Frequent Patterns:", len(Patterns))
+#     print("Total number of fault-tolerant frequent patterns:", len(patterns))
 #
-#     obj.savePatterns("outputFile")
+#     obj.save("outputFile")
 #
 #     memUSS = obj.getMemoryUSS()
 #
@@ -48,27 +48,33 @@ __copyright__ = """
 
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
 
+
 class FTApriori(_ab._faultTolerantFrequentPatterns):
     """
     
-    :Description:   FT-Apriori is one of the fundamental algorithm to discover fault tolerant frequent patterns in a transactional database.
+    :Description:   FT-Apriori is one of the fundamental algorithm to discover fault-tolerant frequent patterns in a transactional database.
                     This program employs apriori property (or downward closure property) to  reduce the search space effectively.
 
     :Reference:       Pei, Jian & Tung, Anthony & Han, Jiawei. (2001). Fault-Tolerant Frequent Pattern Mining: Problems and Challenges.
 
     :param  iFile: str :
            Name of the Input file to mine complete set of frequent patterns
+
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
+
     :param  minSup: float or int or str :
                     The user can specify minSup either in count or proportion of database size.
                     If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
                     Otherwise, it will be treated as float.
                     Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+
     :param  itemSup: int or float :
                     Frequency of an item
+
     :param minLength: int :
                     minimum length of a pattern
+
     :param faultTolerance: int
 
     :param  sep: str :
@@ -110,15 +116,15 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     ----------------------------------------------------------------
     .. code-block:: python
     
-            from PAMI.uncertainCorrelatedPattern.basic import CFFI as alg
+            from PAMI.faultTolerantFrequentPattern.basic import FTApriori as alg
     
-            obj = alg.CFFI("input.txt", 2, 0.4)
+            obj = alg.FTApriori(inputFile,minSup,itemSup,minLength,faultTolerance)
     
             obj.startMine()
     
-            Patterns = obj.getPatterns()
+            patterns = obj.getPatterns()
     
-            print("Total number of Correlated Fuzzy Frequent Patterns:",  len(Patterns))
+            print("Total number of fault-tolerant frequent patterns:",  len(patterns))
     
             obj.savePatterns("outputFile")
     
@@ -158,8 +164,6 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
-
-
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -214,6 +218,10 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         return value
 
     def _Count(self, k):
+        """
+        param k: list of items
+        type k: list
+        """
         count = 0
         items = []
         k = list(k)
@@ -237,43 +245,29 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                     self._mapSupport[i] = 1
                 else:
                     self._mapSupport[i] += 1
-        self._mapSupport = {k:v for k, v in self._mapSupport.items() if v >= self._itemSup}
+        self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._itemSup}
 
     def _countItemSupport(self, itemset):
         tids = {}
         res = True
-        # for i in itemset:
-        #     for k in transactions:
-        #         if i in k:
-        #             if i not in tids:
-        #                 tids[i] = 1
-        #             else:
-        #                 tids[i] += 1
         count = 0
         for x in self._Database:
-            print(x, itemset, set(x) & set(itemset), abs(len(itemset) - len(set(x) & set(itemset))))
             if abs(len(itemset) - len(set(x) & set(itemset))) <= self._faultTolerance:
                 count += 1
-        # for x, y in tids.items():
-        #     if y < self._itemSup:
-        #         res = False
         return count
 
     def _getFaultPatterns(self):
         l = [k for k, v in self._mapSupport.items()]
-        for i in range(0, len(l)+1):
+        for i in range(0, len(l) + 1):
             c = _ab._itertools.combinations(l, i)
             for j in c:
-                #support, items = self._Count(j)
-                #print(support, items)
                 res = self._countItemSupport(j)
-                print(j, res)
                 if len(j) >= self._minLength and res >= self._minSup:
                     self._finalPatterns[tuple(j)] = res
 
     def startMine(self):
         """
-            Frequent pattern mining process will start from here
+            Fault-tolerant frequent pattern mining process will start from here
         """
         self._Database = []
         self._startTime = _ab._time.time()
@@ -283,27 +277,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         self._minLength = int(self._minLength)
         self._faultTolerance = int(self._faultTolerance)
         self._oneLengthFrequentItems()
-        #l = [k for k, v in self._mapSupport.items()]
-        # for i in range(len(l)):
-        #     for j in range(i + 1, len(l)):
-        #         x, y = l[i], l[j]
-        #         li = [x, y]
-        #         count = 0
-        #         tids = {x: 0, y: 0}
-        #         for k in self._Database:
-        #             if x in k and y in k:
-        #                 count += 1
-        #             if x in k and y not in k:
-        #                 count += 1
-        #             if x not in k and y in k:
-        #                 count += 1
-        #         # re = True
-        #         # for x, y in tids.items():
-        #         #     if y < self._itemSup:
-        #         #         re = False
-        #         print(li, count)
-        #     if len(li) > self._faultTolerance:
-        #         self._finalPatterns[tuple(li)] = count
+
         self._getFaultPatterns()
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -362,7 +336,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -387,6 +361,8 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ this is function is used to print the result
+        """
         print("Total number of Fault-Tolerant Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
@@ -397,8 +373,8 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 7 or len(_ab._sys.argv) == 8:
         if len(_ab._sys.argv) == 8:
-            _ap = FTApriori(_ab._sys.argv[1], _ab._sys.argv[3],  _ab._sys.argv[4],
-                            _ab._sys.argv[5], _ab._sys.argv[6], _ab._sys.argv[7],)
+            _ap = FTApriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4],
+                            _ab._sys.argv[5], _ab._sys.argv[6], _ab._sys.argv[7], )
         if len(_ab._sys.argv) == 7:
             _ap = FTApriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5], _ab._sys.argv[6])
         _ap.startMine()
@@ -408,8 +384,4 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = FTApriori('/Users/Likhitha/Downloads/fault/sample4.txt', 5, 3, 2, 1, ' ')
-        _ap.startMine()
-        _ap.printResults()
-        print(_ap.getPatternsAsDataFrame())
         print("Error! The number of input parameters do not match the total number of parameters provided")

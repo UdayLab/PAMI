@@ -1,30 +1,60 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# Sample run of importing the code:
+#     -------------------------------
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#         from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner as alg
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#         obj =alg.FPFPMiner("input.txt",2,3)
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#         obj.startMine()
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#         periodicFrequentPatterns = obj.getPatterns()
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#         print("Total number of Fuzzy Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#         obj.save("output.txt")
+#
+#         memUSS = obj.getMemoryUSS()
+#
+#         print("Total Memory in USS:", memUSS)
+#
+#         memRSS = obj.getMemoryRSS()
+#
+#         print("Total Memory in RSS", memRSS)
+#
+#         run = obj.getRuntime()
+#
+#         print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """(Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+)"""
+
 
 from PAMI.fuzzyPeriodicFrequentPattern.basic import abstract as _ab
 
@@ -38,13 +68,13 @@ class _FFList:
         item: int
             the item name
         sumLUtil: float
-            the sum of utilities of an fuzzy item in database
+            the sum of utilities of a fuzzy item in database
         sumRUtil: float
             the sum of resting values of a fuzzy item in database
         elements: list
             list of elements contain tid,Utility and resting values of element in each transaction
         maxPeriod: int
-            it represent the max period of a item
+            it represents the max period of a item
 
     Methods:
     -------
@@ -67,8 +97,8 @@ class _FFList:
         """
             A Method that add a new element to FFList
 
-            :param element: an element to be add to FFList
-            :pram type: Element
+            :param element: an element to be added to FFList
+            :param type: Element
         """
         self.sumLUtil += element.lUtils
         self.sumRUtil += element.rUtils
@@ -92,9 +122,9 @@ class _Element:
         tid : int
             keep tact of transaction id
         lUtils: float
-            the utility of an fuzzy item in the transaction
+            the utility of a fuzzy item in the transaction
         rUtils : float
-            the resting value of an fuzzy item in the transaction
+            the resting value of a fuzzy item in the transaction
         period: int
             represent the period of the element
     """
@@ -231,11 +261,11 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
     -------
         Format:
         ------
-            python3 FPFPMiner_old.py <inputFile> <outputFile> <minSup> <maxPer> <sep>
+            >>> python3 FPFPMiner_old.py <inputFile> <outputFile> <minSup> <maxPer> <sep>
 
         Examples:
         ------
-            python3  FPFPMiner_old.py sampleTDB.txt output.txt 2 3 (minSup and maxPer will be considered in support count or frequency)
+            >>> python3  FPFPMiner_old.py sampleTDB.txt output.txt 2 3 (minSup and maxPer will be considered in support count or frequency)
 
             python3  FPFPMiner_old.py sampleTDB.txt output.txt 0.25 0.3 (minSup and maxPer will be considered in percentage of database)
                                         (will consider "\t" as separator)
@@ -337,6 +367,10 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         return value
 
     def _creatingItemSets(self):
+        """
+          Storing the complete transactions of the database/input file in a database variable
+
+        """
         data, self._transactions, self._fuzzyValues, ts = [], [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -641,7 +675,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         return self._finalPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -653,6 +687,8 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
+        """ this function is used to print the results
+         """
         print("Total number of Fuzzy Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

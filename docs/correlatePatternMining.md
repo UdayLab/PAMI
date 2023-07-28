@@ -111,20 +111,19 @@ __Example:__ python3 `CPGrowth.py` `inputFile.txt` `outputFile.txt` `3` `0.4` `'
 - Install the PAMI package from the PYPI repository by executing the following command:   **pip3 install PAMI**
 * Run the below sample code by making necessary changes
 
-
 ```python
-import PAMI.correlatedPattern.basic.CPGrowth as alg 
+import PAMI.correlatedPattern.basic.CoMine as alg
 
-iFile = 'sampleTransactionalDatabase.txt'  #specify the input transactional database
-minSup = 4  #specify the minSupvalue
-minAllConf = 0.7    #specify the minAllConf value
-seperator = ' ' #specify the seperator. Default seperator is tab space.
-oFile = 'correlatedPatterns.txt'   #specify the output file name<
+iFile = 'sampleTransactionalDatabase.txt'  # specify the input transactional database
+minSup = 4  # specify the minSupvalue
+minAllConf = 0.7  # specify the minAllConf value
+seperator = ' '  # specify the seperator. Default seperator is tab space.
+oFile = 'correlatedPattern.txt'  # specify the output file name<
 
-obj = alg.CPGrowth(iFile, minSup, minAllConf, seperator) #initialize the algorithm
-obj.startMine()                       #start the mining process
-obj.save(oFile)               #store the patterns in file
-df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe
+obj = alg.CPGrowth(iFile, minSup, minAllConf, seperator)  # initialize the algorithm
+obj.startMine()  # start the mining process
+obj.save(oFile)  # store the patterns in file
+df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe
 obj.printResults()     
 ```
 

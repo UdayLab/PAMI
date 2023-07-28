@@ -1,5 +1,4 @@
 # Parallel Apriori is an algorithm to discover frequent patterns in a transactional database. This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
-
 #
 #
 #  **Importing this algorithm into a python program**
@@ -15,7 +14,7 @@
 #
 #         print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#         obj.savePatterns(oFile)
+#         obj.save(oFile)
 #
 #         Df = obj.getPatternInDataFrame()
 #
@@ -30,7 +29,6 @@
 #         run = obj.getRuntime()
 #
 #         print("Total ExecutionTime in seconds:", run)
-
 #
 #
 #
@@ -143,8 +141,7 @@ class parallelApriori(_ab._frequentPatterns):
     
     **Credits:**
     -----------------------------------------
-    
-             The complete program was written by Yudai Masu  under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by Yudai Masu  under the supervision of Professor Rage Uday Kiran.
 
 
     """
@@ -203,7 +200,7 @@ class parallelApriori(_ab._frequentPatterns):
 
     def savePatterns(self, outFile):
         """
-        Complete set of frequent patterns will be loaded in to a output file
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """

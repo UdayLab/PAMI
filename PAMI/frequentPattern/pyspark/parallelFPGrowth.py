@@ -1,4 +1,4 @@
-# Parallel FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+# Parallel FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
 #
 #  **Importing this algorithm into a python program**
 # ----------------------------------------------------
@@ -13,7 +13,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternInDataFrame()
 #
@@ -56,6 +56,7 @@ __copyright__ = """
 from collections import defaultdict
 from PAMI.frequentPattern.pyspark import abstract as _ab
 from operator import add
+from pyspark import SparkConf as _SparkConf, SparkContext as _SparkContext
 
 
 class Node:
@@ -149,7 +150,7 @@ class Tree:
 class parallelFPGrowth(_ab._frequentPatterns):
     """
 
-    :Description: Parallel FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+    :Description: Parallel FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
     :Reference: Li, Haoyuan et al. “Pfp: parallel fp-growth for query recommendation.” ACM Conference on Recommender Systems (2008).
 
@@ -210,7 +211,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
     
                     print("Total number of Frequent Patterns:", len(frequentPatterns))
     
-                    obj.savePatterns(oFile)
+                    obj.save(oFile)
     
                     Df = obj.getPatternInDataFrame()
     
@@ -258,8 +259,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
         self._startTime = _ab._time.time()
 
-        conf = SparkConf().setAppName("Parallel FPGrowth").setMaster("local[*]")
-        sc = SparkContext(conf=conf)
+        conf = _SparkConf().setAppName("Parallel FPGrowth").setMaster("local[*]")
+        sc = _SparkContext(conf=conf)
 
         rdd = sc.textFile(self._iFile, self._numPartitions)\
             .map(lambda x: x.rstrip().split('\t'))\
@@ -405,9 +406,9 @@ class parallelFPGrowth(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """
-        Complete set of frequent patterns will be loaded in to a output file
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -430,6 +431,15 @@ class parallelFPGrowth(_ab._frequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+
+    def printResults(self):
+        """ this function is used to print the results
+        """
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
+
 
     def _convert(self, value):
         """
@@ -461,7 +471,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _finalPatterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_finalPatterns))
-        # _ap.savePatterns(_ab._sys.argv[2])
+        # _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()

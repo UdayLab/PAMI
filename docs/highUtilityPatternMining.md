@@ -130,9 +130,8 @@ __Example:__ python3 `EFIM.py` `inputFile.txt` `outputFile.txt` $20$ &nbsp; `' '
 - Install the PAMI package from the PYPI repository by executing the following command:   **pip3 install PAMI**
 * Run the below sample code by making necessary changes
 
-
 ```python
-import PAMI.highUtilityPatterns.basic.EFIM as alg 
+import PAMI.highUtilityPattern.basic.EFIM as alg 
 
 iFile = 'sampleUtility.txt'  #specify the input utility database <
 minUtil = 20                #specify the minSupvalue

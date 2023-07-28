@@ -37,7 +37,7 @@ class _FFList:
          item: int
              the item name
          sumIUtil: float
-             the sum of utilities of an fuzzy item in database
+             the sum of utilities of a fuzzy item in database
          sumRUtil: float
              the sum of resting values of a fuzzy item in database
          elements: list
@@ -63,8 +63,8 @@ class _FFList:
         """
             A Method that add a new element to FFList
 
-            :param element: an element to be add to FFList
-            :pram type: Element
+            :param element: an element to be added to FFList
+            :param type: Element
         """
         self.sumIUtil += element.IUtils
         self.sumRUtil += element.RUtils
@@ -80,9 +80,9 @@ class Element:
         tid : int
             keep tact of transaction id
         IUtils: float
-            the utility of an fuzzy item in the transaction
+            the utility of a fuzzy item in the transaction
         RUtil : float
-            the neighbourhood resting value of an fuzzy item in the transaction
+            the neighbourhood resting value of a fuzzy item in the transaction
     """
 
     def __init__(self, tid, IUtil, RUtil):
@@ -166,6 +166,10 @@ class _Regions:
 
 
 class _Pair:
+    """
+            A class to store item and it's quantity together
+        """
+
     def __init__(self):
         """
             A Class to Store item and its quantity together
@@ -376,6 +380,10 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         return value
     
     def _creatingItemSets(self):
+        """
+          Storing the complete transactions of the database/input file in a database variable
+
+        """
         self._transactions, self._fuzzyValues = [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -655,7 +663,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -667,6 +675,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
+        """ this function is used to print the result"""
         print("Total number of Fuzzy Correlated Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
