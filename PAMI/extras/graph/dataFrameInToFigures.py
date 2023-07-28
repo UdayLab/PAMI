@@ -7,14 +7,10 @@ class dataFrameInToFigures():
 
         self._dataFrame = dataFrame
 
-    def plotGraphsFromDataFrame(self):
-        fig = _px.line(self._dataFrame, x='minSup', y='patterns', color='algorithm')
+    def plotGraphsFromDataFrame(self,xColumn='minSup',yColumn='patterns',lineLabels='algorithm'):
+        fig = _px.line(self._dataFrame, x=xColumn, y=yColumn, color=lineLabels)
         fig.show()
-        fig = _px.line(self._dataFrame, x='minSup', y='runtime', color='algorithm')
-        fig.show()
-        fig = _px.line(self._dataFrame, x='minSup', y='memory', color='algorithm')
-        fig.show()
-        print('Successfully completed the graphs generation from DataFrame')
+
 
 
 
