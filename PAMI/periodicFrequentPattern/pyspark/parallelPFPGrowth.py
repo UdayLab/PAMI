@@ -28,6 +28,7 @@
 #
 #     print("Total ExecutionTime in seconds:", run)
 
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -47,8 +48,8 @@ __copyright__ = """
 
 """
 
-from PAMI.periodicFrequentPattern.basic import abstract as _ab
-from pyspark import SparkContext, SparkConf
+# from PAMI.periodicFrequentPattern.basic
+import abstract as _ab
 
 _maxPer = float()
 _minSup = float()
@@ -455,8 +456,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     _numTrans = str()
 
     def __init__(self, iFile, minSup, maxPer, numWorker, sep='\t'):
-        super().__init__(iFile, minSup, maxPer, sep)
-        self._numWorker = numWorker
+        super().__init__(iFile, minSup, maxPer, numWorker, sep)
 
     def func1(self, ps1, tid):
         """
