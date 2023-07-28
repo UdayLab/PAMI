@@ -342,7 +342,7 @@ class ECLAT(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """Function used to print the results
 
         """
