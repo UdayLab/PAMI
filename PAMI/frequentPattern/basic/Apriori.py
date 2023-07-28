@@ -354,7 +354,7 @@ class Apriori(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """
         this function is used to print the result
 
