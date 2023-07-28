@@ -35,11 +35,12 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 - ✅ Well-tested and production ready
 - 🔋 High optimized to our best-effort, light-weight, and energy efficient
-- 👀 Ample examples on using algorithms at [./notebooks](https://github.com/UdayLab/PAMI/tree/main/notebooks) folder
-- 🤖 Works in-cohesion with existing AI libraries, such as TensorFlow, PyTorch, and sklearn. 
+- 👀 Proper code documentation
+- 🍼 Ample examples on using various algorithms at [./notebooks](https://github.com/UdayLab/PAMI/tree/main/notebooks) folder
+- 🤖 Works with AI libraries such as TensorFlow, PyTorch, and sklearn. 
 - ⚡️ Supports Cuda and PySpark 
 - 🖥️ Operating System Independence
-- 💾 Knowledge discovery in static data and streams
+- 🔬 Knowledge discovery in static data and streams
 - 🐎 Snappy
 - 🐻 Ease of use
 
