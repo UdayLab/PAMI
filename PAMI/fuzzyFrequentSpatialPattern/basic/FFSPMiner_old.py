@@ -344,7 +344,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _creatingItemSets(self):
         """
-                    Storing the complete transactions of the database/input file in a database variable
+          Storing the complete transactions of the database/input file in a database variable
 
         """
         self._transactions, self._fuzzyValues = [], []

@@ -1,4 +1,4 @@
-# Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+# cuAprioriBit is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 #
 #
 # **Importing this algorithm into a python program**
@@ -48,13 +48,13 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
 # from PAMI.frequentPattern.cuda import abstract as _ab
 import abstract as _ab
 
+
 class cuAprioriBit(_ab._frequentPatterns):
     """
-    :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+    :Description: cuAprioriBit is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
     :Reference:  Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
             In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
@@ -119,7 +119,7 @@ class cuAprioriBit(_ab._frequentPatterns):
 
              print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-             obj.savePatterns(oFile)
+             obj.save(oFile)
 
              Df = obj.getPatternInDataFrame()
 
@@ -142,7 +142,6 @@ class cuAprioriBit(_ab._frequentPatterns):
              The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
     """
-
 
     _minSup = float()
     _startTime = float()
@@ -172,10 +171,6 @@ class cuAprioriBit(_ab._frequentPatterns):
     }
 
     ''', 'sumKernel')
-
-
-
-
 
     def _creatingItemSets(self):
         """
@@ -234,7 +229,7 @@ class cuAprioriBit(_ab._frequentPatterns):
             else:
                 value = int(value)
         return value
-    
+
     def arraysAndItems(self):
         ArraysAndItems = {}
 
@@ -248,18 +243,17 @@ class cuAprioriBit(_ab._frequentPatterns):
 
         newArraysAndItems = {}
 
-        for k,v in ArraysAndItems.items():
+        for k, v in ArraysAndItems.items():
             ArraysAndItems[k] = _ab._np.array(v, dtype=_ab._np.uint32)
             if len(v) >= self._minSup:
                 self._finalPatterns[k] = len(v)
                 newArraysAndItems[k] = ArraysAndItems[k]
 
         return newArraysAndItems
-    
+
     def createBitRepresentation(self, ArraysAndItems):
         bitRep = {}
         arraySize = len(self._Database) // 32 + 1 if len(self._Database) % 32 != 0 else len(self._Database) // 32
-
 
         for k, v in ArraysAndItems.items():
             bitRep[k] = _ab._np.zeros(arraySize, dtype=_ab._np.uint32)
@@ -271,7 +265,6 @@ class cuAprioriBit(_ab._frequentPatterns):
 
         return bitRep
 
-    
     def startMine(self):
         """
             Frequent pattern mining process will start from here
@@ -291,10 +284,11 @@ class cuAprioriBit(_ab._frequentPatterns):
             for i in range(len(ArraysAndItems)):
                 # print(i, "/", len(ArraysAndItems), end="\r")
                 iList = list(keys[i])
-                for j in range(i+1, len(ArraysAndItems)):   
+                for j in range(i + 1, len(ArraysAndItems)):
                     unionData = _ab._cp.bitwise_and(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]])
                     sum = _ab._cp.zeros(1, dtype=_ab._np.uint32)
-                    self._sumKernel((len(unionData) // 32 + 1,), (32,), (unionData, sum, _ab._cp.uint32(len(unionData))))
+                    self._sumKernel((len(unionData) // 32 + 1,), (32,),
+                                    (unionData, sum, _ab._cp.uint32(len(unionData))))
                     sum = sum[0]
                     jList = list(keys[j])
                     union = tuple(sorted(set(iList + jList)))
@@ -312,7 +306,6 @@ class cuAprioriBit(_ab._frequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using cuAprioriBit algorithm ")
-            
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -383,11 +376,13 @@ class cuAprioriBit(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """this function is used to print the result"""
+        """this function is used to print the result
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:", self.getRuntime())
+
 
 
 if __name__ == "__main__":
@@ -406,10 +401,4 @@ if __name__ == "__main__":
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
-    _ap = cuAprioriBit("/home/tarun/Transactional_T10I4D100K.csv", 450, "\t")
-    _ap.startMine()
-    print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-    _ap.save(_ab._sys.argv[2])
-    print("Total Memory in USS:", _ap.getMemoryUSS())
-    print("Total Memory in RSS", _ap.getMemoryRSS())
-    print("Total ExecutionTime in s:", _ap.getRuntime())
+

@@ -167,8 +167,8 @@ class _Regions:
 
 class _Pair:
     """
-            A class to store item and it's quantity together
-        """
+         A class to store item and it's quantity together
+    """
 
     def __init__(self):
         """

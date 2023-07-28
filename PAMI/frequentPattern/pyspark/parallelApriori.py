@@ -122,7 +122,7 @@ class parallelApriori(_ab._frequentPatterns):
     
                 print("Total number of Frequent Patterns:", len(frequentPatterns))
     
-                obj.savePatterns(oFile)
+                obj.save(oFile)
     
                 Df = obj.getPatternInDataFrame()
     
@@ -161,6 +161,40 @@ class parallelApriori(_ab._frequentPatterns):
     def __init__(self, iFile, minSup, numWorkers, sep='\t'):
         super().__init__(iFile, minSup, int(numWorkers), sep)
 
+    def _creatingItemSets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self._Database = []
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            if self._iFile.empty:
+                print("its empty..")
+            i = self._iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                self._Database = self._iFile['Transactions'].tolist()
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    temp = [i.rstrip() for i in line.split(self._sep)]
+                    temp = [x for x in temp if x]
+                    self._Database.append(temp)
+            else:
+                try:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self._sep)]
+                            temp = [x for x in temp if x]
+                            #print(line)
+                            self._Database.append(temp)
+                except IOError:
+                    print("File Not Found")
+                    quit()
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process

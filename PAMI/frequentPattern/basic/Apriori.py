@@ -118,7 +118,7 @@ class Apriori(_ab._frequentPatterns):
 
              print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-             obj.savePatterns(oFile)
+             obj.save(oFile)
 
              Df = obj.getPatternInDataFrame()
 

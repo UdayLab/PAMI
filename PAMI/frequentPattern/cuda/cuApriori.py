@@ -1,4 +1,4 @@
-# Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+# cuApriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 #
 #
 # **Importing this algorithm into a python program**
@@ -49,12 +49,12 @@ __copyright__ = """
 """
 
 
-# from PAMI.frequentPattern.cuda import abstract as _ab
-import abstract as _ab
+from PAMI.frequentPattern.cuda import abstract as _ab
+# import abstract as _ab
 
 class cuApriori(_ab._frequentPatterns):
     """
-    :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+    :Description: cuApriori is one of the fundamental algorithm to discover frequent patterns using Cuda in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
     :Reference:  Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
             In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
@@ -119,7 +119,7 @@ class cuApriori(_ab._frequentPatterns):
 
              print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-             obj.savePatterns(oFile)
+             obj.save(oFile)
 
              Df = obj.getPatternInDataFrame()
 
@@ -144,8 +144,6 @@ class cuApriori(_ab._frequentPatterns):
     """
 
     _ab._cp.cuda.Device(0).use()
-
-
 
     _minSup = float()
     _startTime = float()
@@ -175,7 +173,6 @@ class cuApriori(_ab._frequentPatterns):
     }
 
     ''', 'sumKernel')
-
 
     def _creatingItemSets(self):
         """
@@ -234,7 +231,7 @@ class cuApriori(_ab._frequentPatterns):
             else:
                 value = int(value)
         return value
-    
+
     def arraysAndItems(self):
         ArraysAndItems = {}
 
@@ -248,7 +245,7 @@ class cuApriori(_ab._frequentPatterns):
 
         newArraysAndItems = {}
 
-        for k,v in ArraysAndItems.items():
+        for k, v in ArraysAndItems.items():
             ArraysAndItems[k] = _ab._cp.array(v, dtype=_ab._np.uint32)
             if len(v) >= self._minSup:
                 self._finalPatterns[k] = len(v)
@@ -256,7 +253,6 @@ class cuApriori(_ab._frequentPatterns):
 
         return newArraysAndItems
 
-    
     def startMine(self):
         """
             Frequent pattern mining process will start from here
@@ -275,10 +271,11 @@ class cuApriori(_ab._frequentPatterns):
             for i in range(len(ArraysAndItems)):
                 # print(i, "/", len(ArraysAndItems), end="\r")
                 iList = list(keys[i])
-                for j in range(i+1, len(ArraysAndItems)):
+                for j in range(i + 1, len(ArraysAndItems)):
                     jList = list(keys[j])
                     union = tuple(sorted(set(iList + jList)))
-                    intersect = _ab._cp.intersect1d(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]], assume_unique=True)
+                    intersect = _ab._cp.intersect1d(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]],
+                                                    assume_unique=True)
                     if len(intersect) >= self._minSup and union not in self._finalPatterns:
                         newArraysAndItems[union] = intersect
                         self._finalPatterns[union] = len(intersect)
@@ -292,7 +289,6 @@ class cuApriori(_ab._frequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using cuApriori algorithm ")
-            
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -371,7 +367,6 @@ class cuApriori(_ab._frequentPatterns):
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in s:", self.getRuntime())
 
-
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
@@ -389,11 +384,5 @@ if __name__ == "__main__":
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 
-    _ap = cuApriori("/home/tarun/PAMI/PAMI/frequentPattern/cuda/test.txt", 2, " ")
-    _ap = cuApriori("/home/tarun/Transactional_T10I4D100K.csv", 450, "\t")
-    _ap.startMine()
-    print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-    print("Total Memory in USS:", _ap.getMemoryUSS())
-    print("Total Memory in RSS", _ap.getMemoryRSS())
-    print("Total ExecutionTime in s:", _ap.getRuntime())
+
 
