@@ -47,7 +47,7 @@ __copyright__ = """
 
 """
 
-from PAMI.periodicFrequentPattern.basic import abstract as _ab
+from PAMI.periodicFrequentPattern.pyspark import abstract as _ab
 from pyspark import SparkContext, SparkConf
 
 _maxPer = float()
