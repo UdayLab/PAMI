@@ -48,8 +48,7 @@ __copyright__ = """
 
 """
 
-# from PAMI.periodicFrequentPattern.basic
-import abstract as _ab
+from PAMI.periodicFrequentPattern.pyspark import abstract as _ab
 
 _maxPer = float()
 _minSup = float()
