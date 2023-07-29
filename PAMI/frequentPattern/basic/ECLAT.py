@@ -150,7 +150,7 @@ class ECLAT(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    def _creatingItemSets(self) -> List[set]:
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -183,7 +183,7 @@ class ECLAT(_ab._frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _getUniqueItemList(self) -> List[set]:
+    def _getUniqueItemList(self):
         """
         Generating one frequent patterns
         """
@@ -204,7 +204,7 @@ class ECLAT(_ab._frequentPatterns):
         uniqueItem.sort()
         return uniqueItem
 
-    def _generateFrequentPatterns(self, candidateFrequent) -> Dict[frozenset, int]:
+    def _generateFrequentPatterns(self, candidateFrequent):
         """It will generate the combinations of frequent items
 
         :param candidateFrequent :it represents the items with their respective transaction identifiers
@@ -233,7 +233,7 @@ class ECLAT(_ab._frequentPatterns):
         if len(new_freqList) > 0:
                 self._generateFrequentPatterns(new_freqList)
 
-    def _convert(self, value): -> Union[int, float]:
+    def _convert(self, value):
         """
         To convert the user specified minSup value
 
@@ -305,7 +305,7 @@ class ECLAT(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self) -> DataFrame:
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -333,7 +333,7 @@ class ECLAT(_ab._frequentPatterns):
             patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getPatterns(self) -> Dict[str, int]:
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns

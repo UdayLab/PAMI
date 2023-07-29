@@ -153,7 +153,7 @@ class Apriori(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    def _creatingItemSets(self) -> List[set]:
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -191,7 +191,7 @@ class Apriori(_ab._frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _convert(self, value) -> Union[int, float]:
+    def _convert(self, value):
         """
         To convert the user specified minSup value
 
@@ -211,7 +211,7 @@ class Apriori(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    def _candidateToFrequent(self, candidateList) -> Dict[frozenset, int]:
+    def _candidateToFrequent(self, candidateList):
         """Generates frequent patterns from the candidate patterns
 
         :param candidateList: Candidate patterns will be given as input
@@ -234,7 +234,7 @@ class Apriori(_ab._frequentPatterns):
         return candidateToFrequentList
 
     @staticmethod
-    def _frequentToCandidate(frequentList, length) -> List[set]:
+    def _frequentToCandidate(frequentList, length):
         """Generates candidate patterns from the frequent patterns
 
         :param frequentList: set of all frequent patterns to generate candidate patterns of each of size is length
@@ -316,7 +316,7 @@ class Apriori(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self) -> DataFrame:
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -345,7 +345,7 @@ class Apriori(_ab._frequentPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self) -> Dict[str, int]:
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
