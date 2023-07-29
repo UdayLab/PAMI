@@ -364,7 +364,7 @@ Total number of algorithms: 83
 
 | Basic          |
 |----------------|
-| PositionMining |
+| PositionMining <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/contiguousFrequentPattern/basic/PositionMining.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>|
 
 ## 4. Mining Graphs
 __coming soon__   
