@@ -47,7 +47,7 @@ __copyright__ = """
 
 """
 
-from PAMI.partialPeriodicPattern.timeSeries import abstract as _ab
+from PAMI.partialPeriodicPatternInMultipleTimeSeries import abstract as _ab
 
 
 
