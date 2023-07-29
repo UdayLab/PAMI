@@ -2,7 +2,7 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.contigousFrequentPattern.basic import PositionMining as alg
+#     from PAMI.contiguousFrequentPattern.basic import PositionMining as alg
 #
 #     obj =alg.PositionMining(minsup=5,data="Data.csv")
 #

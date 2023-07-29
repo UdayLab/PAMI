@@ -358,8 +358,15 @@ Total number of algorithms: 83
  | HUPMS |
 
 
+## 3. Contiguous Character Sequences (E.g., DNA, Genome, and Game sequences)
 
-## 3. Mining Graphs
+1. Contiguous Frequent Patterns
+
+| Basic          |
+|----------------|
+| PositionMining |
+
+## 4. Mining Graphs
 __coming soon__   
      
      
