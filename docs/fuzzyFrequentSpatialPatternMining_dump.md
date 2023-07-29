@@ -155,7 +155,7 @@ __Example:__ python3 `FFSPMiner.py` `inputFile.txt` `outputFile.txt` `neighbourF
 * Run the below sample code by making necessary changes
 
 ```python
-import PAMI.fuzzyFrequentSpatialPattern.basic.FFSPMiner_old as alg
+import PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner_old as alg
 
 iFile = 'fuzzyTransactionalDatabase.txt'  # specify the input fuzzy database 
 minSup = 4  # specify the minSup value 

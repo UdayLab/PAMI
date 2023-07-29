@@ -48,7 +48,7 @@ __copyright__ = """
 
 """
 
-from PAMI.fuzzyFrequentSpatialPattern.basic import abstract as _ab
+from PAMI.fuzzyGeoreferencedFrequentPattern.basic import abstract as _ab
 
 
 class _FFList:

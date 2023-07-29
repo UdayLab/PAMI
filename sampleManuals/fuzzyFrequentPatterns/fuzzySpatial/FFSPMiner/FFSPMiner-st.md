@@ -12,7 +12,7 @@ In this tutorial, we will discuss the first approach to find Fuzzy Frequent Spat
 #### Step 1: Import the FFSPMiner algorithm
 
 ```python
-from PAMI.fuzzyFrequentSpatialPattern.basic import FFSPMiner_old  as alg
+from PAMI.fuzzyGeoreferencedFrequentPattern.basic import FFSPMiner_old as alg
 ```
 
 #### Step 2: Specify the following input parameters
