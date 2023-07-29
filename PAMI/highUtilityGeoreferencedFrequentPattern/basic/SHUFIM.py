@@ -4,7 +4,7 @@
 #
 #
 #
-#         from PAMI.highUtilityFrequentSpatialPattern.basic import SHUFIM as alg
+#         from PAMI.highUtilityGeoreferencedFrequentPattern.basic import SHUFIM as alg
 #
 #         obj=alg.SHUFIM("input.txt","Neighbours.txt",35,20)
 #
@@ -48,7 +48,7 @@ __copyright__ = """
 """
 
 
-from PAMI.highUtilityFrequentSpatialPattern.basic import abstract as _ab
+from PAMI.highUtilityGeoreferencedFrequentPattern.basic import abstract as _ab
 from functools import cmp_to_key as _comToKey
 
 class _Transaction:
@@ -415,7 +415,7 @@ class SHUFIM(_ab._utilityPatterns):
     -------------------------------------
     .. code-block:: python
 
-        from PAMI.highUtilityFrequentSpatialPattern.basic import SHUFIM as alg
+        from PAMI.highUtilityGeoreferencedFrequentPattern.basic import SHUFIM as alg
 
         obj=alg.SHUFIM("input.txt","Neighbours.txt",35,20)
 

@@ -2,7 +2,7 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.highUtilityFrequentSpatialPattern.basic import HDSHUIM as alg
+#     from PAMI.highUtilityGeoreferencedFrequentPattern.basic import HDSHUIM as alg
 #
 #     obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 #
@@ -217,7 +217,7 @@ class HDSHUIM(_ab._utilityPatterns):
     -----------------------------------
     .. code-block:: python
         
-        from PAMI.highUtilityFrequentSpatialPattern.basic import HDSHUIM as alg
+        from PAMI.highUtilityGeoreferencedFrequentPattern.basic import HDSHUIM as alg
 
         obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 

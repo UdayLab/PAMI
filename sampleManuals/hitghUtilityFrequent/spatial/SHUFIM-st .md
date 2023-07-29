@@ -10,9 +10,8 @@ In this tutorial, we will discuss two approaches to find High Utility Frequent S
 
 #### Step 1: Import the SHUFIM algorithm
 
-
 ```python
-from PAMI.highUtilityFrequentSpatialPattern.basic import SHUFIM as alg
+from PAMI.highUtilityGeoreferencedFrequentPattern.basic import SHUFIM as alg
 ```
 
 #### Step 2: Specify the following input parameters
