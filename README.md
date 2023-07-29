@@ -172,7 +172,7 @@ Total number of algorithms: 83
 
 ### Geo-referenced (or spatiotemporal) databases
 
-1. Frequent spatial pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentSpatialPatternMining.html)
+1. Geo-referenced Frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentSpatialPatternMining.html)
 
 | Basic                                                                                                                                                                                                                               |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
