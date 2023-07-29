@@ -105,18 +105,20 @@ Total number of algorithms: 83
 | CoMine <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/correlatedPattern/basic/CoMine.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>       |
 | CoMine++ <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/correlatedPattern/basic/CoMinePuls.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-5. Fault-tolerant pattern mining (under development)
+5. Fault-tolerant frequent pattern mining (under development)
 
 | Basic                                                                                                                                                                                                                                                             |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | FTApriori <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/faultTolerantFrequentPatterns/basic/FTApriori.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
+| FTFPGrowth (under development)                                                                                                                                                                                                                                    |
 
 6. Coverage pattern mining (under development)
 
-|Basic|
-|-----|
-|CMine |
-|CMine++|
+| Basic                                                                                                                                                                                                                                             |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CMine <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/coveragePattern/basic/CMine.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>       |
+| CMine++ <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/coveragePattern/basic/CMinePlus.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
+
 ### Temporal databases
 
 
