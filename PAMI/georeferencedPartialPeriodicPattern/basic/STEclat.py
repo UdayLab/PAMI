@@ -2,7 +2,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     import PAMI.partialPeriodicSpatialPattern.STEclat as alg
+#     import PAMI.georeferencedPartialPeriodicPattern.STEclat as alg
 #
 #     obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 3, 4)
 #
@@ -47,7 +47,7 @@ __copyright__ = """
 """
 
 
-from PAMI.partialPeriodicSpatialPattern.basic import abstract as _ab
+from PAMI.georeferencedPartialPeriodicPattern.basic import abstract as _ab
 
 
 class STEclat(_ab._partialPeriodicSpatialPatterns):
@@ -140,7 +140,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     -------------------------------
     .. code-block:: python
     
-        import PAMI.partialPeriodicSpatialPattern.STEclat as alg
+        import PAMI.georeferencedPartialPeriodicPattern.STEclat as alg
 
         obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 3, 4)
 

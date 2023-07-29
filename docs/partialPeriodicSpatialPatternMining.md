@@ -133,7 +133,7 @@ __Example:__ python3 `STECLAT.py` `inputFile.txt` `outputFile.txt` `neighbourFil
 * Run the below sample code by making necessary changes
 
 ```python
-import PAMI.partialPeriodicSpatialPattern.basic.STEclat as alg
+import PAMI.georeferencedPartialPeriodicPattern.basic.STEclat as alg
 
 iFile = 'sampleTemporalDatabase.txt'  # specify the input transactional database <br>
 nFile = 'sampleNeighbourFile.txt'  # specify the input transactional database <br>

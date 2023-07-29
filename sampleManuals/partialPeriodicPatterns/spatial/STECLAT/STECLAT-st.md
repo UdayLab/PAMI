@@ -10,9 +10,8 @@ In this tutorial, we will discuss the first approach to find Geo-Referenced Part
 
 #### Step 1: Import the STECLAT algorithm
 
-
 ```python
-from PAMI.partialPeriodicSpatialPattern.basic import STEclat  as alg
+from PAMI.georeferencedPartialPeriodicPattern.basic import STEclat as alg
 ```
 
 #### Step 2: Specify the following input parameters
