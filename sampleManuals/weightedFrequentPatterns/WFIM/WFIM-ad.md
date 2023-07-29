@@ -35,7 +35,7 @@ result = pd.DataFrame(columns=['algorithm', 'minSup', 'patterns', 'runtime', 'me
 
 
 ```python
-algorithm = 'WFIM'  #specify the algorithm name
+algorithm = 'basic'  #specify the algorithm name
 for minSupCount in minimumSupportCountList:
     obj = alg.WFIM(inputFile, wFile=weightFile, minSup=minSupCount, minWeight=minWeight, sep=seperator)
     obj.startMine()

@@ -4,7 +4,7 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.stablePeriodicFrequentPattern.basic import SPPECLAT as alg
+#     from PAMI.stablePeriodicFrequentPattern.basic import basic as alg
 #
 #     obj = alg.PFPECLAT("../basic/sampleTDB.txt", 5, 3, 3)
 #
@@ -141,10 +141,10 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
     **Methods to execute code on terminal**
 
             Format:
-                      >>>   python3 SPPECLAT.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
+                      >>>   python3 basic.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
 
             Example:
-                      >>>    python3 SPPECLAT.py sampleDB.txt patterns.txt 10.0 4.0 2.0
+                      >>>    python3 basic.py sampleDB.txt patterns.txt 10.0 4.0 2.0
 
             .. note:: constraints will be considered in percentage of database transactions
 
@@ -152,7 +152,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
     .. code-block:: python
 
-                    from PAMI.stablePeriodicFrequentPattern.basic import SPPECLAT as alg
+                    from PAMI.stablePeriodicFrequentPattern.basic import basic as alg
 
                     obj = alg.PFPECLAT("../basic/sampleTDB.txt", 5, 3, 3)
 
@@ -334,7 +334,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Stable Periodic Frequent patterns were generated successfully using SPPECLAT algorithm ")
+        print("Stable Periodic Frequent patterns were generated successfully using basic algorithm ")
 
 
     def getRuntime(self):

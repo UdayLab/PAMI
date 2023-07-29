@@ -404,7 +404,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
     Description:
     -------------
 
-        UPFPGrowth Plus is  to discover periodic-frequent patterns in a uncertain temporal database.
+        basic Plus is  to discover periodic-frequent patterns in a uncertain temporal database.
 
     Reference:
     ------------
