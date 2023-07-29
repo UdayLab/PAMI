@@ -1,4 +1,4 @@
-# Parallel FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+# Parallel FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
 #
 #  **Importing this algorithm into a python program**
 # ----------------------------------------------------
@@ -150,7 +150,7 @@ class Tree:
 class parallelFPGrowth(_ab._frequentPatterns):
     """
 
-    :Description: Parallel FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+    :Description: Parallel FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database. It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
     :Reference: Li, Haoyuan et al. “Pfp: parallel fp-growth for query recommendation.” ACM Conference on Recommender Systems (2008).
 
@@ -408,7 +408,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
     def save(self, outFile):
         """
-        Complete set of frequent patterns will be loaded in to a output file
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -433,6 +433,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

@@ -158,24 +158,6 @@ class cuEclat(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    _sumKernel = _ab._cp.RawKernel(r'''
-
-    #define uint32_t unsigned int
-
-    extern "C" __global__
-
-    void sumKernel(uint32_t *d_a, uint32_t *sum, uint32_t numElements)
-    {
-        uint32_t i = blockDim.x * blockIdx.x + threadIdx.x;
-        if (i < numElements)
-        {  
-            atomicAdd(&sum[0], __popc(d_a[i]));
-        }
-        return;    
-    }
-
-    ''', 'sumKernel')
-
 
     def _creatingItemSets(self):
         """
@@ -235,7 +217,13 @@ class cuEclat(_ab._frequentPatterns):
                 value = int(value)
         return value
     
-    def arraysAndItems(self):
+    def _arraysAndItems(self):
+        """ 
+        Convert the items into arrays for cupy and store them in a dictionary variable
+
+        :return: dictionary variable
+        
+        """
         ArraysAndItems = {}
 
         for i in range(len(self._Database)):
@@ -266,7 +254,7 @@ class cuEclat(_ab._frequentPatterns):
         self._creatingItemSets()
         self._minSup = self._convert(self._minSup)
 
-        ArraysAndItems = self.arraysAndItems()
+        ArraysAndItems = self._arraysAndItems()
 
         while len(ArraysAndItems) > 0:
             # print("Total number of ArraysAndItems:", len(ArraysAndItems))
@@ -346,7 +334,7 @@ class cuEclat(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -368,6 +356,8 @@ class cuEclat(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

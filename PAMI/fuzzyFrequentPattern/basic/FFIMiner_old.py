@@ -1,4 +1,48 @@
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.fuzzyFrequentPattern import FFIMiner as alg
+#
+#     obj = alg.FFIMiner("input.txt", 2)
+#
+#     obj.startMine()
+#
+#     fuzzyFrequentPattern = obj.getPatterns()
+#
+#     print("Total number of Fuzzy Frequent Patterns:", len(fuzzyFrequentPattern))
+#
+#     obj.save("outputFile")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
 
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 from PAMI.fuzzyFrequentPattern.basic import abstract as _ab
 
 
@@ -11,7 +55,7 @@ class _FFList:
          item: int
              the item name
          sumIUtil: float
-             the sum of utilities of an fuzzy item in database
+             the sum of utilities of a fuzzy item in database
          sumRUtil: float
              the sum of resting values of a fuzzy item in database
          elements: list
@@ -36,8 +80,8 @@ class _FFList:
         """
             A Method that add a new element to FFList
 
-            :param element: an element to be add to FFList
-            :pram type: Element
+            :param element: an element to be added to FFList
+            :param type: Element
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -60,9 +104,9 @@ class _Element:
             tid : int
                 keep tact of transaction id
             iUtils: float
-                the utility of an fuzzy item in the transaction
+                the utility of a fuzzy item in the transaction
             rUtils : float
-                the  resting value of an fuzzy item in the transaction
+                the  resting value of a fuzzy item in the transaction
     """
 
     def __init__(self, tid, iUtil, rUtil):
@@ -333,6 +377,10 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             quit()
 
     def _creatingItemsets(self):
+        """
+         Storing the complete transactions of the database/input file in a database variable
+
+        """
         self._transactions, self._fuzzyValues, self._Database = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -373,6 +421,9 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                     quit()
 
     def _Regions(self, quantity):
+        """ param quantity:
+            type quantity:
+        """
         self.list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
             self.list[0] = 1
@@ -626,7 +677,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         return self._finalPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -638,6 +689,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Fuzzy Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

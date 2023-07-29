@@ -150,7 +150,7 @@ class ECLAT(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> List[set]:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -183,7 +183,7 @@ class ECLAT(_ab._frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _getUniqueItemList(self):
+    def _getUniqueItemList(self) -> List[set]:
         """
         Generating one frequent patterns
         """
@@ -204,7 +204,7 @@ class ECLAT(_ab._frequentPatterns):
         uniqueItem.sort()
         return uniqueItem
 
-    def _generateFrequentPatterns(self, candidateFrequent):
+    def _generateFrequentPatterns(self, candidateFrequent) -> Dict[frozenset, int]:
         """It will generate the combinations of frequent items
 
         :param candidateFrequent :it represents the items with their respective transaction identifiers
@@ -233,7 +233,7 @@ class ECLAT(_ab._frequentPatterns):
         if len(new_freqList) > 0:
                 self._generateFrequentPatterns(new_freqList)
 
-    def _convert(self, value):
+    def _convert(self, value): -> Union[int, float]:
         """
         To convert the user specified minSup value
 
@@ -275,7 +275,7 @@ class ECLAT(_ab._frequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using ECLAT algorithm")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -285,7 +285,7 @@ class ECLAT(_ab._frequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -295,7 +295,7 @@ class ECLAT(_ab._frequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -305,7 +305,7 @@ class ECLAT(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -333,7 +333,7 @@ class ECLAT(_ab._frequentPatterns):
             patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, int]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns

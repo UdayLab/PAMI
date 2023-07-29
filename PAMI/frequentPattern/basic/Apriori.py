@@ -367,14 +367,14 @@ class Apriori(_ab._frequentPatterns):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
-        if len(_ab._sys.argv) == 5:
-            _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        if len(_ab._sys.argv) == 4:
-            _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3])
+    if len(_ap._sys.argv) == 4 or len(_ap._sys.argv) == 5:
+        if len(_ap._sys.argv) == 5:
+            _ap = Apriori(_ap._sys.argv[1], _ap._sys.argv[3], _ap._sys.argv[4])
+        if len(_ap._sys.argv) == 4:
+            _ap = Apriori(_ap._sys.argv[1], _ap._sys.argv[3])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save(_ab._sys.argv[2])
+        _ap.save(_ap._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())

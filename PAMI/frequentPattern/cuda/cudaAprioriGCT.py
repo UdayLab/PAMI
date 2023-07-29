@@ -1,6 +1,36 @@
+# Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 #
 #
+# **Importing this algorithm into a python program**
+# ----------------------------------------------------
 #
+#     import PAMI.frequentPattern.cuda.cuAprioriBit as alg
+#
+#     obj = alg.cuAprioriBit(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -31,6 +61,96 @@ import psutil
 
 
 class cudaAprioriGCT:
+    """
+        :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+
+        :Reference:  Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
+                In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
+
+        :param  iFile: str :
+                       Name of the Input file to mine complete set of frequent patterns
+        :param  oFile: str :
+                       Name of the output file to store complete set of frequent patterns
+        :param  minSup: int :
+                       The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+        :param  sep: str :
+                       This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
+
+        :Attributes:
+
+            startTime : float
+              To record the start time of the mining process
+
+            endTime : float
+              To record the completion time of the mining process
+
+            finalPatterns : dict
+              Storing the complete set of patterns in a dictionary variable
+
+            memoryUSS : float
+              To store the total amount of USS memory consumed by the program
+
+            memoryRSS : float
+              To store the total amount of RSS memory consumed by the program
+
+            Database : list
+              To store the transactions of a database in list
+
+
+
+        **Methods to execute code on terminal**
+        ----------------------------------------------------
+
+                Format:
+                          >>> python3 cudaAprioriGCT.py <inputFile> <outputFile> <minSup>
+
+                Example:
+                          >>>  python3 cudaAprioriGCT.py sampleDB.txt patterns.txt 10.0
+
+                .. note:: minSup will be considered in percentage of database transactions
+
+
+        **Importing this algorithm into a python program**
+        ----------------------------------------------------
+
+        .. code-block:: python
+
+                 import PAMI.frequentPattern.cuda.cuAprioriBit as alg
+
+                 obj = alg.cuAprioriBit(iFile, minSup)
+
+                 obj.startMine()
+
+                 frequentPatterns = obj.getPatterns()
+
+                 print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+                 obj.savePatterns(oFile)
+
+                 Df = obj.getPatternInDataFrame()
+
+                 memUSS = obj.getMemoryUSS()
+
+                 print("Total Memory in USS:", memUSS)
+
+                 memRSS = obj.getMemoryRSS()
+
+                 print("Total Memory in RSS", memRSS)
+
+                 run = obj.getRuntime()
+
+                 print("Total ExecutionTime in seconds:", run)
+
+
+        **Credits:**
+        -------------
+
+                 The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
+
+        """
+
     __time = 0
     __memRSS = 0
     __memUSS = 0
@@ -49,6 +169,12 @@ class cudaAprioriGCT:
         self.__memUSS = 0
 
     def read_data(self, data_path, sep):
+        """
+        param data_path:
+        type data_path:
+        param sep:
+        type sep:
+        """
         data = []
         if not os.path.isfile(data_path):
             raise ValueError('Invalid data path.' + data_path)
@@ -61,12 +187,23 @@ class cudaAprioriGCT:
         return data, lineNo
 
     def write_result(self, result, result_path):
+        """
+        param result:
+        type result:
+        param result_path:
+        type result_path:
+        """
         file = open(result_path, 'w')
         for itemset, support in result.items():
             file.write(str(itemset) + ' : ' + str(support) + '\n')
         file.close()
 
     def compute_vertical_bitvector_data(self, data):
+        """
+        param data:
+        type data:
+
+        """
         #---build item to idx mapping---#
         idx = 0
         item2idx = {}
@@ -85,24 +222,52 @@ class cudaAprioriGCT:
         return vb_data, idx2item
 
     def getTime(self):
+        """Calculating the total amount of time taken by the mining process
+        :return: returning total amount of runtime taken by the mining process
+        :rtype: float
+         """
         return self.__time
 
     def getMEMORYRSS(self):
+        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
+                    :return: returning RSS memory consumed by the mining process
+
+                    :rtype: float
+        """
+
+
         return self.__memRSS
 
     def getMEMORYUSS(self):
+        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+
+                        :return: returning USS memory consumed by the mining process
+
+                        :rtype: float
+                        """
         return self.__memUSS
 
     def getGPUMemory(self):
+
         return self.__GPU_MEM
 
     def getPatterns(self):
+        """ Function to send the set of frequent patterns after completion of the mining process
+
+                        :return: returning frequent patterns
+
+                        :rtype: dict
+                        """
         return self.Patterns
 
     def get_numberOfPatterns(self):
         return len(self.Patterns)
 
     def startMine(self):
+        """
+            Frequent pattern mining process will start from here
+        """
         startTime = time.time()
         basePattern = {}
         final = {}
@@ -150,6 +315,8 @@ class cudaAprioriGCT:
         self.__GPU_MEM = vb_data.nbytes
 
     def printStats(self):
+        """ this function is used to print the results
+        """
         print("Total number of Coverage Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
