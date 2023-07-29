@@ -2,7 +2,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.fuzzySpatialPeriodicFrequentPattern import FGPFPMiner as alg
+#     from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
 #
 #     obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
 #
@@ -38,7 +38,7 @@ __copyright__ = """
 """
 import pandas as pd
 import plotly.express as px
-import PAMI.fuzzySpatialPeriodicFrequentPattern.basic.abstract as _ab
+import PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.abstract as _ab
 
 
 class _FFList:
@@ -195,7 +195,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                                                               (will consider "," as separator in both input and neighbourhood files)
     Sample run of importing the code:
     -------------------------------
-        from PAMI.fuzzySpatialPeriodicFrequentPattern import FGPFPMiner as alg
+        from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
         obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
         obj.startMine()
         print("Total number of fuzzy frequent spatial patterns:", len(obj.getPatterns()))

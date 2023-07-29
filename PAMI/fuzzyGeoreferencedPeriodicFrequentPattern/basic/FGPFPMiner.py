@@ -2,7 +2,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.fuzzySpatialPeriodicFrequentPattern import FGPFPMiner as alg
+#     from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
 #
 #     obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
 #
@@ -39,7 +39,7 @@ __copyright__ = """
 """
 
 
-import PAMI.fuzzySpatialPeriodicFrequentPattern.basic.abstract as _ab
+import PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.abstract as _ab
 
 
 class _FFList:
@@ -203,7 +203,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     --------------------------------------
     .. code-block:: python
     
-        from PAMI.fuzzySpatialPeriodicFrequentPattern import FGPFPMiner as alg
+        from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
         
         obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
         
