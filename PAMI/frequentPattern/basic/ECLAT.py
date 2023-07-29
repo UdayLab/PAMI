@@ -47,6 +47,7 @@ __copyright__ = """
 """
 
 from PAMI.frequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class ECLAT(_ab._frequentPatterns):
