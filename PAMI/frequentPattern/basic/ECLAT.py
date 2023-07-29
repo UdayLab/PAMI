@@ -150,7 +150,7 @@ class ECLAT(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -183,7 +183,7 @@ class ECLAT(_ab._frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _getUniqueItemList(self):
+    def _getUniqueItemList(self) -> List[str]:
         """
         Generating one frequent patterns
         """
@@ -204,7 +204,7 @@ class ECLAT(_ab._frequentPatterns):
         uniqueItem.sort()
         return uniqueItem
 
-    def _generateFrequentPatterns(self, candidateFrequent):
+    def _generateFrequentPatterns(self, candidateFrequent) -> Dict[str, List[set]]:
         """It will generate the combinations of frequent items
 
         :param candidateFrequent :it represents the items with their respective transaction identifiers
@@ -233,7 +233,7 @@ class ECLAT(_ab._frequentPatterns):
         if len(new_freqList) > 0:
                 self._generateFrequentPatterns(new_freqList)
 
-    def _convert(self, value):
+    def _convert(self, value) -> Union[int, float]:
         """
         To convert the user specified minSup value
 
@@ -253,7 +253,7 @@ class ECLAT(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    def startMine(self):
+    def startMine(self) -> None:
         """Frequent pattern mining process will start from here"""
 
         self._startTime = _ab._time.time()
@@ -305,7 +305,7 @@ class ECLAT(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -320,7 +320,7 @@ class ECLAT(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -333,7 +333,7 @@ class ECLAT(_ab._frequentPatterns):
             patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, int]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -342,7 +342,7 @@ class ECLAT(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """Function used to print the results
 
         """
