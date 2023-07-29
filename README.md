@@ -225,17 +225,17 @@ Total number of algorithms: 83
 
 4. High utility spatial pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtilitySpatialPatternMining.html)
 
-| Basic  | topk    |
-|--------|---------|
-| HDSHIM [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/highUtilityPatterns/spatial/HDSHUIM/HDSHUIM-st%20-2.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/highUtilityPatterns/spatial/HDSHUIM/HDSHUIM-ad.md)| TKSHUIM |
-| SHUIM  [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/highUtilityPatterns/spatial/SHUM/SHUIM-st.md)|
+| Basic                                                                                                                                                                                                                                           | topk    |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| HDSHIM <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/highUtilitySpatialPattern/basic/HDSHUIM.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | TKSHUIM |
+| SHUIM  <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/highUtilitySpatialPattern/basic/SHUIM.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>                                                                                                                           |
 
 
 5. Relative High utility pattern mining: [Sample](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/mainManuals/relativeUtility.html)
 
-| Basic |
-|-------|
-| RHUIM [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/highUtilityPatterns/relative/RHUIM-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/highUtilityPatterns/relative/RHUIM-ad.md)| 
+| Basic                                                                                                  |
+|--------------------------------------------------------------------------------------------------------|
+| RHUIM https://github.com/UdayLab/PAMI/blob/main/notebooks/relativeHighUtilityPattern/basic/RHUIM.ipynb | 
 
 
 6. Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentPattern.html)
