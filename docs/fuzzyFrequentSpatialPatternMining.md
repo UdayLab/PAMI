@@ -180,7 +180,7 @@ obj.printResults()                      #Print the statistics of mining process
 
 ```python
 !cat fuzzySpatialPatterns.txt
-#format: fuzzyFrequentSpatialPattern:support
+#format: fuzzyGeoreferencedFrequentPattern:support
 ```
 
     b.M : 1.23 

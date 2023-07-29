@@ -4,7 +4,7 @@
 # --------------------------------------------------------
 #     .. code-block:: python
 #
-#         from PAMI.fuzzyFrequentSpatialPattern import FFSPMiner as alg
+#         from PAMI.fuzzyGeoreferencedFrequentPattern import FFSPMiner as alg
 #
 #         obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
 #
@@ -221,7 +221,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     -----------------------------------
     .. code-block:: python
 
-        from PAMI.fuzzyFrequentSpatialPattern import FFSPMiner as alg
+        from PAMI.fuzzyGeoreferencedFrequentPattern import FFSPMiner as alg
 
         obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
 
