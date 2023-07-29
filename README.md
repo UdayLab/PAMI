@@ -225,16 +225,16 @@ Total number of algorithms: 83
 
 6. Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentPattern.html)
 
-| Basic |
-|-------|
-| WFIM  [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/WFIM/WFIM-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/WFIM/WFIM-ad.md)|
+| Basic                                                                                                                                                                                                                                               |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| WFIM  <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/weightedFrequentPatterns/basic/WFIM.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
 7. Weighted frequent regular pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentRegularPatterns.html)
 
-| Basic     |
-|-----------|
-| WFRIMiner [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/WFRIM/WFRI-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/WFRIM/WFRI.md)|
+| Basic                                                                                                                                                                                                                                                          |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| WFRIMiner <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/weightedFrequentRegularPatterns/basic/WFRI.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
 8. Weighted frequent neighbourhood pattern mining: [Sample](https://github.com/UdayLab/PAMI/blob/main/docs/weightedSpatialFrequentPattern.html)
@@ -292,17 +292,17 @@ Total number of algorithms: 83
 
 2. Uncertain periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainPeriodicFrequentPatternMining.html)
 
-| Basic       |
-|-------------|
-| UPFP-growth [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/uncertainPeriodicFrequent/basic/UPFPGrowth/UPFPGrowth-st.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/uncertainPeriodicFrequent/basic/UPFPGrowth/UPFPGrowth-ad.md) |
-| UPFP-growth++ [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/uncertainPeriodicFrequent/basic/UPFPGrowthPlus/UPFPGrowthPlus-st-2.md)-[Adv](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/uncertainPeriodicFrequent/basic/UPFPGrowthPlus/UPFPGrowthPlus-ad.md)|
+| Basic                                                                                                                                                                                                                                                                          |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| UPFP-growth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/uncertainPeriodicFrequentPatterns/basic/UPFPGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>       |
+| UPFP-growth++ <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/uncertainPeriodicFrequentPatterns/basic/UPFPGrowthPlus.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
 3. Uncertain Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedUncertainFrequentPatterns.html)
 
-| Basic |
-|-------|
-| WUFIM [Basic](https://github.com/UdayLab/PAMI/blob/main/sampleManuals/weightedFrequentPatterns/weightedUncertain/WUFIM-st.md)|
+| Basic                                                                                                                                                                                                                                                 |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| WUFIM <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/uncertainWeightedFrequent/basic/WUFIM.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 ### Sequence databases
 
