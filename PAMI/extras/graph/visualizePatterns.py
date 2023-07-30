@@ -68,5 +68,5 @@ class visualizePatterns():
         
 if __name__ == "__main__":
     _ap = str()
-    _ap = visualizePatterns(_ab._sys.argv[1], _ab._sys.argv[2])
+    _ap = visualizePatterns(sys.argv[1], sys.argv[2])
     _ap.visualize()
