@@ -243,7 +243,7 @@ class FSpanMining:
         self.frequent={}
         pdbs={i:[] for i in l1}
         for candidate in l1:
-            for seq in data:
+            for seq in self.data:
                 for j in range(len(seq[1])-1):
                     if(seq[1][j]==candidate):
                         pdbs[seq[1][j]].append(seq[1][j+1:])
@@ -254,7 +254,7 @@ class FSpanMining:
             discarded=[]
             next_db=[]
             self.mine_pdb(candidate,tree,pdbs)
-        
+        process = _ab._psutil.Process(_ab._os.getpid())
         self._endTime = _ab._time.time()
         self._memoryUSS = float()
         self._memoryRSS = float()
