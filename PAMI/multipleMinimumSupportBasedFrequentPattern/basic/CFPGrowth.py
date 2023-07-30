@@ -2,9 +2,9 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowth as alg
+#     from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import basic as alg
 #
-#     obj = alg.CFPGrowth(iFile, mIS)
+#     obj = alg.basic(iFile, mIS)
 #
 #     obj.startMine()
 #
@@ -253,7 +253,7 @@ class CFPGrowth(_fp._frequentPatterns):
     Description:
     ------------------
 
-       CFPGrowth is one of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.
+       basic is one of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.
 
     Reference :
     ---------
@@ -316,24 +316,24 @@ class CFPGrowth(_fp._frequentPatterns):
     ----------------------------------
         Format:
         -------
-            >>> python3 CFPGrowth.py <inputFile> <outputFile>
+            >>> python3 basic.py <inputFile> <outputFile>
 
         Examples:
         ---------
-            >>> python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
+            >>> python3 basic.py sampleDB.txt patterns.txt MISFile.txt
 
-            >>> python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
+            >>> python3 basic.py sampleDB.txt patterns.txt MISFile.txt
 
-            >>> python3 CFPGrowth.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider "," as a separator)
+            >>> python3 basic.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider "," as a separator)
 
 
     Sample run of the importing code:
     --------------------------------------
 
 
-        from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowth as alg
+        from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import basic as alg
 
-        obj = alg.CFPGrowth(iFile, mIS)
+        obj = alg.basic(iFile, mIS)
 
         obj.startMine()
 
@@ -587,7 +587,7 @@ class CFPGrowth(_fp._frequentPatterns):
         for k in patterns:
             s = self.__savePeriodic(k[0])
             self.__finalPatterns[str(s)] = k[1]
-        print("Frequent patterns were generated successfully using CFPGrowth algorithm")
+        print("Frequent patterns were generated successfully using basic algorithm")
         self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
         self.__memoryRSS = float()

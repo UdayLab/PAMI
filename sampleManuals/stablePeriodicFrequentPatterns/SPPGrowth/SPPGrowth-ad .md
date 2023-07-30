@@ -36,7 +36,7 @@ result = pd.DataFrame(columns=['algorithm', 'minSup', 'maxPer', 'maxLa', 'patter
 
 
 ```python
-algorithm = 'SPPGrowth'  #specify the algorithm name
+algorithm = 'topk'  #specify the algorithm name
 for minSupCount in minimumSupportCountList:
     obj = alg.SPPGrowth('temporal_T10I4D100K.csv', minSup=minSupCount,maxPer=maxmunPeriodCount, maxLa=maxLaValue,  sep=seperator)
     obj.startMine()

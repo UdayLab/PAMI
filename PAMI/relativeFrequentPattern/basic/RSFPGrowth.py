@@ -3,7 +3,7 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
+#     from PAMI.relativeFrequentPattern import RSFPGrowth as alg
 #
 #     obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
 #
@@ -13,7 +13,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -326,7 +326,7 @@ class RSFPGrowth(_ab._frequentPatterns):
 
     .. code-block:: python
 
-            from PAMI.frequentPatternUsingOtherMeasures import RSFPGrowth as alg
+            from PAMI.relativeFrequentPattern import RSFPGrowth as alg
 
             obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
 
@@ -336,7 +336,7 @@ class RSFPGrowth(_ab._frequentPatterns):
 
             print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternsAsDataFrame()
 
@@ -377,8 +377,8 @@ class RSFPGrowth(_ab._frequentPatterns):
     __itemSetCount = 0
     __maxPatternLength = 1000
 
-    def __init__(self, iFile, __minSup, __minRS, sep='\t'):
-        super().__init__(iFile, __minSup, __minRS, sep)
+    def __init__(self, iFile, minSup, minRS, sep='\t'):
+        super().__init__(iFile, minSup, minRS, sep)
         self.__finalPatterns = {}
 
     def __creatingItemSets(self):

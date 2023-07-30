@@ -399,7 +399,7 @@ class SPPGrowth():
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Stable Periodic Frequent patterns were generated successfully using SPPGrowth algorithm ")
+        print("Stable Periodic Frequent patterns were generated successfully using topk algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -482,8 +482,8 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        '''ap = SPPGrowth('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_retail.csv', 0.001, 0.005, 0.004)
-        #ap = SPPGrowth('/Users/likhitha/Downloads/contextPrefixSpan.txt', 3, 6, 2, ' ')
+        '''ap = topk('https://www.u-aizu.ac.jp/~udayrage/datasets/temporalDatabases/temporal_retail.csv', 0.001, 0.005, 0.004)
+        #ap = topk('/Users/likhitha/Downloads/contextPrefixSpan.txt', 3, 6, 2, ' ')
         ap.startMine()
         Patterns = ap.getPatterns()
         print("Total number of Frequent Patterns:", len(Patterns))

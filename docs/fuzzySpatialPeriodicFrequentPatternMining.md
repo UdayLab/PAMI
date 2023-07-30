@@ -148,23 +148,21 @@ __Example:__ python3 `FGPFPMiner.py` `inputFile.txt` `outputFile.txt` `neighbour
 - Install the PAMI package from the PYPI repository by executing the following command:   **pip3 install PAMI**
 * Run the below sample code by making necessary changes
 
-
-
 ```python
-import PAMI.fuzzySpatialPeriodicFrequentPattern.basic.FGPFPMiner as alg 
+import PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.FGPFPMiner as alg
 
-iFile = 'sampleFuzzyTemporal.txt'  #specify the input utility database <br>
-minSup = 0.8                       #specify the minSupvalue <br>
+iFile = 'sampleFuzzyTemporal.txt'  # specify the input utility database <br>
+minSup = 0.8  # specify the minSupvalue <br>
 maxPer = 4
-seperator = ' ' 
-oFile = 'fuzzySpatialPeriodicFrequentPatterns.txt'   #specify the output file name<br>
-nFile = 'sampleNeighbourFile.txt'      #specify the neighbour file of database <br>
+seperator = ' '
+oFile = 'fuzzySpatialPeriodicFrequentPatterns.txt'  # specify the output file name<br>
+nFile = 'sampleNeighbourFile.txt'  # specify the neighbour file of database <br>
 
-obj = alg.FGPFPMiner(iFile, nFile, minSup,maxPer, seperator) #initialize the algorithm <br>
-obj.startMine()                       #start the mining process <br>
-obj.save(oFile)               #store the patterns in file <br>
-df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe <br>
-obj.printResults()                      #Print the statistics of mining process
+obj = alg.FGPFPMiner(iFile, nFile, minSup, maxPer, seperator)  # initialize the algorithm <br>
+obj.startMine()  # start the mining process <br>
+obj.save(oFile)  # store the patterns in file <br>
+df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe <br>
+obj.printResults()  # Print the statistics of mining process
 ```
 
     Total number of Spatial Fuzzy Periodic-Frequent Patterns: 5
@@ -177,7 +175,7 @@ obj.printResults()                      #Print the statistics of mining process
 ```python
 !cat fuzzySpatialPeriodicFrequentPatterns.txt
 
-#format: fuzzySpatialPeriodicFrequentPattern:support
+#format: fuzzyGeoreferencedPeriodicFrequentPattern:support
 ```
 
     e.H:0.8 

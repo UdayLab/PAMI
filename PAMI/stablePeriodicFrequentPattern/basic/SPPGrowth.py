@@ -4,9 +4,9 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg
+#     from PAMI.stablePeriodicFrequentPattern.basic import topk as alg
 #
-#     obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)
+#     obj = alg.topk(iFile, minSup, maxPer, maxLa)
 #
 #     obj.startMine()
 #
@@ -338,9 +338,9 @@ class SPPGrowth():
     **Methods to execute code on terminal**
 
             Format:
-                      >>>   python3 SPPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
+                      >>>   python3 topk.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
             Example:
-                      >>>  python3 SPPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 0.3
+                      >>>  python3 topk.py sampleTDB.txt patterns.txt 0.3 0.4 0.3
 
             .. note:: constraints will be considered in percentage of database transactions
 
@@ -348,9 +348,9 @@ class SPPGrowth():
 
     .. code-block:: python
 
-            from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg
+            from PAMI.stablePeriodicFrequentPattern.basic import topk as alg
 
-            obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)
+            obj = alg.topk(iFile, minSup, maxPer, maxLa)
 
             obj.startMine()
 
@@ -581,7 +581,7 @@ class SPPGrowth():
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Stable Periodic Frequent patterns were generated successfully using SPPGrowth algorithm ")
+        print("Stable Periodic Frequent patterns were generated successfully using topk algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

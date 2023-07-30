@@ -232,7 +232,7 @@ class parallelApriori(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
@@ -251,6 +251,15 @@ class parallelApriori(_ab._frequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+    
+    def printResults(self):
+        """
+        This method prints all the statistics
+        """
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
     @staticmethod
     def _Mapper(transaction, candidateItemsets):
@@ -394,5 +403,4 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
 

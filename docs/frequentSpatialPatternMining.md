@@ -139,21 +139,20 @@ foo@bar:  python3 algorithmName.py inputFile outputFile neighbourFile minSup sep
 - Install the PAMI package from the PYPI repository by executing the following command:   **pip3 install PAMI**
 * Run the below sample code by making necessary changes
 
-
 ```python
-import PAMI.frequentSpatialPattern.basic.FSPGrowth as alg 
+import PAMI.frequentSpatialPattern.basic.FSPGrowth as alg
 
-iFile = 'sampleTransactionalDatabase.txt'  #specify the input transactional database 
-nFile = 'sampleNeighbourFile.txt'  #specify the neighbour file name
-minSup = 5                       #specify the minSup value
-seperator = ' ' #specify the seperator. Default seperator is tab space. 
-oFile = 'frequentSpatialPatterns.txt'   #specify the output file name
+iFile = 'sampleTransactionalDatabase.txt'  # specify the input transactional database 
+nFile = 'sampleNeighbourFile.txt'  # specify the neighbour file name
+minSup = 5  # specify the minSup value
+seperator = ' '  # specify the seperator. Default seperator is tab space. 
+oFile = 'frequentSpatialPatterns.txt'  # specify the output file name
 
-obj = alg.FSPGrowth(iFile, nFile, minSup, seperator) #initialize the algorithm 
-obj.startMine()                       #start the mining process 
-df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
-obj.save(oFile)               #store the patterns in file 
-obj.printResults()                      #Print the statistics of mining process
+obj = alg.FSPGrowth(iFile, nFile, minSup, seperator)  # initialize the algorithm 
+obj.startMine()  # start the mining process 
+df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe 
+obj.save(oFile)  # store the patterns in file 
+obj.printResults()  # Print the statistics of mining process
 ```
 
     10 7
