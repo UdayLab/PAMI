@@ -374,18 +374,7 @@ class temporalDatabaseStats:
 
 
 if __name__ == '__main__':
-#     data = {'ts': [1, 1, 3, 4, 5, 6, 7],
-
-#             'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
-#                              ['a', 'd', 'g', 'k'],
-
-#                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
-
-#     data = pd.DataFrame.from_dict(data)
-#     obj = temporalDatabaseStats('tem', ',')
-    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-
-    obj = temporalDatabaseStats('Temporal_T10I4D100K.csv', '\t')
+    obj = temporalDatabaseStats(sys.argv[1], sys.argv[2])
     obj.run()
     obj.printStats()
     obj.plotGraphs()
