@@ -70,8 +70,7 @@ Total number of algorithms: 83
        
 # Tutorials 
 
-## 1. Mining Databases
-### Transactional databases
+### 1. Mining interesting patterns from transactional databases
 1. Frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                      | Closed                                                                                                                                                                                                                                       | Maximal                                                                                                                                                                                                                                                     | Top-k                                                                                                                                                                                                                                  | CUDA           | pyspark                                                                                                                                                                                                                                                             |
@@ -119,7 +118,7 @@ Total number of algorithms: 83
 | CMine <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/coveragePattern/basic/CMine.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>       |
 | CMine++ <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/coveragePattern/basic/CMinePlus.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-### Temporal databases
+### 2. Mining interesting patterns from temporal databases
 
 
 1. Periodic-frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicFrequentPatternMining.html)
@@ -176,7 +175,7 @@ Total number of algorithms: 83
 | RPgrowth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/recurringPatterns/basic/RPGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
-### Geo-referenced (or spatiotemporal) databases
+### 3. Mining interesting patterns from Geo-referenced (or spatiotemporal) databases
 
 1. Geo-referenced frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentSpatialPatternMining.html)
 
@@ -200,7 +199,7 @@ Total number of algorithms: 83
 | STECLAT <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/georeferencedPeriodicFrequentPattern/basic/STECLAT.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
-### Utility databases
+### 4. Mining interesting patterns from Utility (or non-binary) databases
 
 1. High utility pattern mining:   [Sample](https://udayrage.github.io/PAMI/highUtilityPatternMining.html)
 
@@ -258,7 +257,7 @@ Total number of algorithms: 83
 |-------------|
 | SSWFPGrowth |
 
-### Fuzzy databases
+### 5. Mining interesting patterns from fuzzy transactional/temporal/geo-referenced databases
 1. Fuzzy Frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/fuzzyFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                   |
@@ -293,7 +292,7 @@ Total number of algorithms: 83
 |----------------------------------|
 | FGPFP-Miner (under development) <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/fuzzyGeoreferencedPeriodicFrequentPattern/basic/FGPFP_miner.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-### Uncertain databases
+### 6. Mining interesting patterns from uncertain transactional/temporal/geo-referenced databases
 
 
 1. Uncertain frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainFrequentPatternMining.html)
@@ -319,7 +318,7 @@ Total number of algorithms: 83
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | WUFIM <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/uncertainWeightedFrequent/basic/WUFIM.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-### Sequence databases
+### 7. Mining interesting patterns from sequence databases
 
 1. Sequence frequent pattern mining: [Sample](https://github.com/UdayLab/PAMI/blob/main/docs/weightedSpatialFrequentPattern.html)
     
@@ -335,7 +334,7 @@ Total number of algorithms: 83
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | GFSP-Miner (under development)<a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/georeferencedFrequentSequencePattern/basic/GFSP_miner.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-### Multiple Timeseries databases
+### 8. Mining interesting patterns from multiple timeseries databases
 
 1. Partial periodic pattern mining (under development)
 
@@ -343,13 +342,13 @@ Total number of algorithms: 83
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | PP-Growth (under development) <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/partialPeriodicPatternInMultipleTimeSeries/basic/PPGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-## 2. Mining Streams
+## 9. Mining interesting patterns from Streams
 
 1. Frequent pattern mining
 
-|Basic|
-|-----|
- |to be written|
+| Basic         |
+|---------------|
+ | to be written |
 
 2. High utility pattern mining
 
@@ -358,13 +357,13 @@ Total number of algorithms: 83
  | HUPMS |
 
 
-## 3. Contiguous Character Sequences (E.g., DNA, Genome, and Game sequences)
+## 10. Mining interesting patterns from contiguous character sequences (E.g., DNA, Genome, and Game sequences)
 
 1. Contiguous Frequent Patterns
 
-| Basic          |
-|----------------|
-| PositionMining <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/contiguousFrequentPattern/basic/PositionMining.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>|
+| Basic                                                                                                                                                                                                                                                                   |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PositionMining <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/contiguousFrequentPattern/basic/PositionMining.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 ## 4. Mining Graphs
 __coming soon__   
