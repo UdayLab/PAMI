@@ -198,7 +198,7 @@ class parallelECLAT(_ab._frequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
@@ -209,6 +209,15 @@ class parallelECLAT(_ab._frequentPatterns):
         for x, y in self._finalPatterns.items():
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
+            
+    def printResults(self):
+        """
+        This method prints all the statistics
+        """
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
     def getPatterns(self):
         """
