@@ -10,9 +10,8 @@ In this tutorial, we will discuss the second approach to find High Utility Frequ
 
 #### Step 1: Import the HUFIM algorithm and pandas data frame
 
-
 ```python
-from PAMI.highUtilityFrequentPatterns.basic import HUFIM  as alg
+from PAMI.highUtilityFrequentPattern.basic import HUFIM as alg
 import pandas as pd
 ```
 

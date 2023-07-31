@@ -29,7 +29,7 @@ result = pd.DataFrame(columns=['algorithm', 'minSup', 'patterns', 'runtime', 'me
 
 
 ```python
-algorithm = 'UPFPGrowth'  #specify the algorithm name
+algorithm = 'basic'  #specify the algorithm name
 for minSupCount in minimumSupportCountList:
     obj = alg.UPFPGrowth(inputFile, minSup=minSupCount, maxPer=maxPer, sep=seperator)
     obj.startMine()

@@ -12,7 +12,7 @@ In this tutorial, we will discuss the first approach to find frequent patterns i
 #### Step 1: Import the FFIMiner algorithm
 
 ```python
-from PAMI.fuzzyFrequentPatterns.basic import FFIMiner_old  as alg
+from PAMI.fuzzyFrequentPattern.basic import FFIMiner_old as alg
 ```
 
 #### Step 2: Specify the following input parameters

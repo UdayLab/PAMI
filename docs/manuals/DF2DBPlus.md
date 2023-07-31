@@ -106,7 +106,7 @@ A sample program to convert a dataframe into a utility database and use it in a 
 
  ```Python
    from PAMI.extras.DF2DB import sparseDF2DB as pro
-from PAMI.highUtilityPatterns.basic import EFIM as alg
+from PAMI.highUtilityPattern.basic import EFIM as alg
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.

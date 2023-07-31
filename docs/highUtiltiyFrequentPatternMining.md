@@ -131,21 +131,20 @@ __Example:__ python3 `HUFIM.py` `inputFile.txt` `outputFile.txt` $20$ &nbsp; $5$
 - Install the PAMI package from the PYPI repository by executing the following command:   **pip3 install PAMI**
 * Run the below sample code by making necessary changes
 
-
 ```python
-import PAMI.highUtilityFrequentPatterns.basic.HUFIM as alg 
+import PAMI.highUtilityFrequentPattern.basic.HUFIM as alg
 
-iFile = 'sampleUtility.txt'  #specify the input transactional database 
-minUtil = 25                #specify the minUtil value 
-minSup = 5                  #specify the minSup value 
-seperator = ' '            #specify the seperator. Default seperator is tab space. 
-oFile = 'utilityfrequentPatterns.txt'   #specify the output file name
+iFile = 'sampleUtility.txt'  # specify the input transactional database 
+minUtil = 25  # specify the minUtil value 
+minSup = 5  # specify the minSup value 
+seperator = ' '  # specify the seperator. Default seperator is tab space. 
+oFile = 'utilityfrequentPatterns.txt'  # specify the output file name
 
-obj = alg.HUFIM(iFile, minUtil, minSup, seperator) #initialize the algorithm 
-obj.startMine()                       #start the mining process 
-obj.save(oFile)               #store the patterns in file 
-df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
-obj.printResults()                      #Print the statistics of mining process
+obj = alg.HUFIM(iFile, minUtil, minSup, seperator)  # initialize the algorithm 
+obj.startMine()  # start the mining process 
+obj.save(oFile)  # store the patterns in file 
+df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe 
+obj.printResults()  # Print the statistics of mining process
 ```
 
     High Utility Frequent patterns were generated successfully using HUFIM algorithm

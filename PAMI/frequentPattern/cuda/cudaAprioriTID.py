@@ -1,6 +1,36 @@
+# Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 #
 #
+# **Importing this algorithm into a python program**
+# ----------------------------------------------------
 #
+#     import PAMI.frequentPattern.cuda.cuAprioriBit as alg
+#
+#     obj = alg.cuAprioriBit(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -60,6 +90,96 @@ deviceIntersection = SourceModule("""
 
 
 class cudaAprioriTID:
+    """
+    :Description: Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+
+    :Reference:  Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
+            In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
+
+    :Attributes:
+
+        startTime : float
+          To record the start time of the mining process
+
+        endTime : float
+          To record the completion time of the mining process
+
+        finalPatterns : dict
+          Storing the complete set of patterns in a dictionary variable
+
+        memoryUSS : float
+          To store the total amount of USS memory consumed by the program
+
+        memoryRSS : float
+          To store the total amount of RSS memory consumed by the program
+
+        Database : list
+          To store the transactions of a database in list
+
+
+
+    **Methods to execute code on terminal**
+    ----------------------------------------------------
+
+            Format:
+                      >>> python3 cudaAprioriTID.py <inputFile> <outputFile> <minSup>
+
+            Example:
+                      >>>  python3 cudaAprioriTID.py sampleDB.txt patterns.txt 10.0
+
+            .. note:: minSup will be considered in percentage of database transactions
+
+
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------
+
+    .. code-block:: python
+
+             import PAMI.frequentPattern.cuda.cuAprioriBit as alg
+
+             obj = alg.cuAprioriBit(iFile, minSup)
+
+             obj.startMine()
+
+             frequentPatterns = obj.getPatterns()
+
+             print("Total number of Frequent Patterns:", len(frequentPatterns))
+
+             obj.savePatterns(oFile)
+
+             Df = obj.getPatternInDataFrame()
+
+             memUSS = obj.getMemoryUSS()
+
+             print("Total Memory in USS:", memUSS)
+
+             memRSS = obj.getMemoryRSS()
+
+             print("Total Memory in RSS", memRSS)
+
+             run = obj.getRuntime()
+
+             print("Total ExecutionTime in seconds:", run)
+
+
+    **Credits:**
+    -------------
+
+             The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
+
+    """
+
     __time = 0
     __memRSS = 0
     __memUSS = 0
@@ -107,24 +227,52 @@ class cudaAprioriTID:
         return dictionary, lineNumber
 
     def get_time(self):
+        """Calculating the total amount of time taken by the mining process
+
+                :return: returning total amount of runtime taken by the mining process
+
+                :rtype: float
+                """
+
         return self.__time
 
     def get_memRSS(self):
+        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
+                :return: returning RSS memory consumed by the mining process
+
+                :rtype: float
+                """
         return self.__memRSS
 
     def get_memUSS(self):
+        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+
+                :return: returning USS memory consumed by the mining process
+
+                :rtype: float
+                """
         return self.__memUSS
 
     def get_GPU_MEM(self):
         return self.__GPU_MEM
 
     def get_Patterns(self):
+        """ Function to send the set of frequent patterns after completion of the mining process
+
+                :return: returning frequent patterns
+
+                :rtype: dict
+                """
         return self.Patterns
 
     def get_numberOfPatterns(self):
         return len(self.Patterns)
 
     def startMine(self):
+        """
+                   Frequent pattern mining process will start from here
+               """
         dev_Intersection = deviceIntersection.get_function("intersection")
         startTime = time.time()
         final = {}

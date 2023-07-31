@@ -1,15 +1,17 @@
+# FTFPGrowth algorithm aims to discover all fault-tolerant frequent patterns that may exist in a transactional database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------
 #
-#     from PAMI.frequentPattern.basic import FPGrowth as alg
+#     from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
 #
-#     obj = alg.FPGrowth(iFile, minSup)
+#     obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
 #
 #     obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#     faultTolerantFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#     print("Total number of fault-tolerant frequent patterns:", len(faultTolerantFrequentPatterns))
 #
 #     obj.save(oFile)
 #
@@ -89,7 +91,7 @@ class _Node:
         """
             Retrieving the child from the tree
 
-            :param node: Children node
+            :param node: Child Node
             :type node: Node
             :return: Updates the children nodes and parent nodes
 
@@ -132,7 +134,7 @@ class _Tree:
     def addTransaction(self, transaction, count):
         """adding transaction into tree
 
-        :param transaction: it represents the one transactions in database
+        :param transaction: it represents the one transaction in database
 
         :type transaction: list
 
@@ -251,7 +253,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     ------------
        FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
        It stores the database in compressed fp-tree decreasing the memory usage and extracts the
-       patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+       patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
     Reference :
     ---------
@@ -298,7 +300,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
+            Complete set of frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -328,15 +330,15 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     -----------------------------------
     .. code-block:: python
 
-        from PAMI.frequentPattern.basic import FPGrowth as alg
+        from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
 
-        obj = alg.FPGrowth(iFile, minSup)
+        obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
 
         obj.startMine()
 
-        frequentPatterns = obj.getPatterns()
+        patterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+        print("Total number of Frequent Patterns:", len(patterns))
 
         obj.save(oFile)
 
@@ -594,7 +596,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 

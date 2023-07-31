@@ -10,9 +10,8 @@ In this tutorial, we will discuss the second approach to find Relative High Util
 
 #### Step 1: Import the RHUIM algorithm and pandas data frame
 
-
 ```python
-from PAMI.relativeHighUtilityPatterns.basic import RHUIM as alg
+from PAMI.relativeHighUtilityPattern.basic import RHUIM as alg
 import pandas as pd
 ```
 

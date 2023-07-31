@@ -59,7 +59,7 @@ obj.save(outputFile)      # store the generated patterns in a file
 1. Copy and paste the below code in a python file, say testPAMI.py
 
    ```Python
-   from PAMI.highUtilityPatterns.basic import EFIM as alg
+   from PAMI.highUtilityPattern.basic import EFIM as alg
   
    inputFile = '/home/userName/utility_T10I4D100K.csv' 
    outputFile = '/home/userName/utilityPatterns.txt'

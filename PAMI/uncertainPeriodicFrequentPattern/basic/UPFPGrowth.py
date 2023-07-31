@@ -2,9 +2,9 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowth as alg
+#     from PAMI.uncertainPeriodicFrequentPattern import basic as alg
 #
-#     obj = alg.UPFPGrowth(iFile, minSup, maxPer)
+#     obj = alg.basic(iFile, minSup, maxPer)
 #
 #     obj.startMine()
 #
@@ -376,7 +376,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
     Description:
     -------------
 
-        UPFPGrowth is  to discover periodic-frequent patterns in a uncertain temporal database.
+        basic is  to discover periodic-frequent patterns in a uncertain temporal database.
 
     Reference:
     ---------------
@@ -458,20 +458,20 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         Format:
         -------
 
-           >>> python3 UPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+           >>> python3 basic.py <inputFile> <outputFile> <minSup> <maxPer>
 
         Examples:
         ------------------------
-           >>> python3 UPFPGrowth.py sampleTDB.txt patterns.txt 0.3 4     (minSup and maxPer will be considered in support count or frequency)
+           >>> python3 basic.py sampleTDB.txt patterns.txt 0.3 4     (minSup and maxPer will be considered in support count or frequency)
 
     **Importing this algorithm into a python program**
     -----------------------------------------------------------------
 
     .. code-block:: python
 
-        from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowth as alg
+        from PAMI.uncertainPeriodicFrequentPattern import basic as alg
 
-        obj = alg.UPFPGrowth(iFile, minSup, maxPer)
+        obj = alg.basic(iFile, minSup, maxPer)
 
         obj.startMine()
 

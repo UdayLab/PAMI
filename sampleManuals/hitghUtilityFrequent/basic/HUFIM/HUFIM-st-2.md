@@ -10,9 +10,8 @@ In this tutorial, we will discuss the first approach to find High Utility Freque
 
 #### Step 1: Import the HUFIM algorithm
 
-
 ```python
-from PAMI.highUtilityFrequentPatterns.basic import HUFIM  as alg
+from PAMI.highUtilityFrequentPattern.basic import HUFIM as alg
 ```
 
 #### Step 2: Specify the following input parameters

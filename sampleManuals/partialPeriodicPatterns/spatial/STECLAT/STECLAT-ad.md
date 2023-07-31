@@ -10,9 +10,8 @@ In this tutorial, we will discuss the second approach to find Spatial Partial Pe
 
 #### Step 1: Import the STECLAT algorithm and pandas data frame
 
-
 ```python
-from PAMI.partialPeriodicSpatialPattern.basic import STEclat as alg
+from PAMI.georeferencedPartialPeriodicPattern.basic import STEclat as alg
 import pandas as pd
 ```
 

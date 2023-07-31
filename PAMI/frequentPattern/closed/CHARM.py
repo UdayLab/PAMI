@@ -1,12 +1,12 @@
-# CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset. This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
+# CHARM is an algorithm to discover closed frequent patterns in a transactional database. Closed frequent patterns are patterns if there exists no superset that has the same support count as this original itemset . This algorithm employs depth-first search technique to find the complete set of closed frequent patterns in a
 #
 #  **Importing this algorithm into a python program**
 #  --------------------------------------------------------------
 #
 #
-#             from PAMI.frequentPattern.closed import closed as alg
+#             from PAMI.frequentPattern.closed import CHARM as alg
 #
-#             obj = alg.Closed(iFile, minSup)
+#             obj = alg.CHARM(iFile, minSup)
 #
 #             obj.startMine()
 #
@@ -124,9 +124,9 @@ class CHARM(_ab._frequentPatterns):
     --------------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.frequentPattern.closed import closed as alg
+            from PAMI.frequentPattern.closed import CHARM as alg
 
-            obj = alg.Closed(iFile, minSup)
+            obj = alg.CHARM(iFile, minSup)
 
             obj.startMine()
 
@@ -353,7 +353,6 @@ class CHARM(_ab._frequentPatterns):
 
             :type tidSets: list
 
-
         """
         if len(itemSets) == 1:
             i = itemSets[0]
@@ -505,7 +504,7 @@ class CHARM(_ab._frequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -528,6 +527,8 @@ class CHARM(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Closed Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

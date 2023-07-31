@@ -1,20 +1,96 @@
+#  This code uses "leverage" metric to extract the association rules from given frequent patterns.
+#
+#
+# **Importing this algorithm into a python program**
+# ----------------------------------------------------
+#
+#     import PAMI.AssociationRules.basic import ARWithLeverage as alg
+#
+#     obj = alg.ARWithLeverage(iFile, minConf)
+#
+#     obj.startMine()
+#
+#     associationRules = obj.getPatterns()
+#
+#     print("Total number of Association Rules:", len(associationRules))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 from PAMI.AssociationRules.basic import abstract as _ab
 
 
-class Leverage:
+class _Leverage:
 
-    def __init__(self, patterns, singleItems, threshold):
+    """
+    :param  patterns: dict :
+                   Dictionary containing patterns and its support value.
+    :param  singleItems: list :
+                   List containing all the single frequent items.
+    :param  minConf: int :
+                   Minimum confidence to mine all the satisfying association rules.
+
+
+    """
+
+    def __init__(self, patterns, singleItems, minConf):
         """
-        :param inputFile: input file name or path
-        :type inputFile: str
-        :param sep:
+        :param patterns: given frequent patterns
+        :type inputFile: dict
+        :param singleItems: one-length frequent patterns
+        :type singleItems: list
+        :param minConf: minimum confidence
+        :type minConf: float
         """
         self._frequentPatterns = patterns
         self._singleItems = singleItems
-        self._threshold = threshold
+        self._minConf = minConf
         self._finalPatterns = {}
 
     def _generation(self, prefix, suffix):
+        """
+
+        To generate the combinations all association rules.
+
+        :param prefix: the prefix of association rule.
+        :type prefix: str
+        :param suffix: the suffix of association rule.
+        :type suffix: str
+        """
+
+
         if len(suffix) == 1:
             conf = self._generateWithLeverage(prefix, suffix[0])
         for i in range(len(suffix)):
@@ -25,22 +101,32 @@ class Leverage:
             self._generation(prefix1, suffix1)
 
     def _generateWithLeverage(self, lhs, rhs):
+        """
+        To find association rules satisfying user-specified minConf
+        :param lhs: the prefix of association rule.
+        :type lhs: str
+        :param rhs: the suffix of association rule.
+        :type rhs: str
+        """
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) == None:
             return 0
         minimum = self._frequentPatterns[s]
-        conflhs = minimum / self._frequentPatterns[lhs]
-        confrhs = minimum / self._frequentPatterns[rhs]
-        liftlhs = conflhs - self._frequentPatterns[rhs] * self._frequentPatterns[lhs]
-        rightrhs = confrhs - self._frequentPatterns[lhs] * self._frequentPatterns[rhs]
-        if liftlhs >= self._threshold:
+        conf_lhs = minimum / self._frequentPatterns[lhs]
+        conf_rhs = minimum / self._frequentPatterns[rhs]
+        lift_lhs = conf_lhs - self._frequentPatterns[rhs] * self._frequentPatterns[lhs]
+        right_rhs = conf_rhs - self._frequentPatterns[lhs] * self._frequentPatterns[rhs]
+        if lift_lhs >= self._minConf:
             s1 = lhs + '->' + rhs
-            self._finalPatterns[s1] = conflhs
-        if rightrhs >= self._threshold:
+            self._finalPatterns[s1] = conf_lhs
+        if right_rhs >= self._minConf:
             s1 = rhs + '->' + lhs
-            self._finalPatterns[s1] = confrhs
+            self._finalPatterns[s1] = conf_rhs
 
     def run(self):
+        """
+        To generate the combinations all association rules.
+        """
         for i in range(len(self._singleItems)):
             suffix = self._singleItems[:i] + self._singleItems[i + 1:]
             prefix = self._singleItems[i]
@@ -51,34 +137,103 @@ class Leverage:
 
 class ARWithLeverage:
     """
-        Association Rules.
+       :Description: Association Rules are derived from frequent patterns using "leverage" metric.
+
+        :Reference:
+
+        :param iFile: str or df :
+                    Name of the Input file to mine the association rules
+
+        :param minConf: float
+                    The user can specify the minConf in float
+        :par sep: str :
+                    This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
+        
+        
+        :Attributes:
 
 
-        Attributes:
-        ----------
-        frequentPattern : list or dict
-            list
-        measure: condition to calculate the strength of rule
-            str
-        threshold: condition to satisfy
-            int
-        Methods:
-        -------
-        startMine()
+            startTime : float
+                To record the start time of the mining process
+
+            endTime : float
+                To record the completion time of the mining process
+
+            finalPatterns : dict
+              Storing the complete set of patterns in a dictionary variable
+
+            memoryUSS : float
+                To store the total amount of USS memory consumed by the program
+
+            memoryRSS : float
+                To store the total amount of RSS memory consumed by the program
+
+
+     **Methods to execute code on terminal**
+     ----------------------------------------------------
+
+            Format:
+                      >>> python3 ARWithLeverage.py <inputFile> <outputFile> <minConf> <sep>
+
+            Example:
+                      >>>  python3 ARWithLeverage.py sampleDB.txt patterns.txt 10.0 ' '
+
+            .. note:: minConf will be considered only in 0 to 1.
+
+    
+    
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------
+
+    .. code-block:: python
+
+             import PAMI.AssociationRules.basic import ARWithLeverage as alg
+
+             obj = alg.ARWithLeverage(iFile, minConf)
+
+             obj.startMine()
+
+             associationRules = obj.getPatterns()
+
+             print("Total number of Association Rules:", len(associationRules))
+
+             obj.save(oFile)
+
+             Df = obj.getPatternInDataFrame()
+
+             memUSS = obj.getMemoryUSS()
+
+             print("Total Memory in USS:", memUSS)
+
+             memRSS = obj.getMemoryRSS()
+
+             print("Total Memory in RSS", memRSS)
+
+             run = obj.getRuntime()
+
+             print("Total ExecutionTime in seconds:", run)
+            
+    **Credits:**
+    -------------
+
+             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
     """
 
-    def __init__(self, iFile, threshold, sep):
+    def __init__(self, iFile, minConf, sep):
         """
         :param inputFile: input file name or path
         :type inputFile: str
         :param sep:
         """
         self._iFile = iFile
-        self._threshold = threshold
+        self._minConf = minConf
         self._finalPatterns = {}
         self._sep = sep
 
     def _readPatterns(self):
+        """
+                To read patterns  of leverage.
+        """
         self._frequentPatterns = {}
         k = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -120,9 +275,12 @@ class ARWithLeverage:
         return k
 
     def startMine(self):
+        """
+                Association rule mining process will start from here
+        """
         self._startTime = _ab._time.time()
         k = self._readPatterns()
-        a = Leverage(self._frequentPatterns, k, self._threshold)
+        a = _Leverage(self._frequentPatterns, k, self._minConf)
         a.run()
         self._finalPatterns = a._finalPatterns
         self._endTime = _ab._time.time()
@@ -172,8 +330,8 @@ class ARWithLeverage:
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
-        :param outFile: name of the output file
+        """Complete set of frequent patterns will be loaded in to an output file
+        :param outFile: name of the outputfile
         :type outFile: file
         """
         self._oFile = outFile
@@ -190,6 +348,8 @@ class ARWithLeverage:
         return self._finalPatterns
 
     def printResults(self):
+        """ Function to send the result after completion of the mining process
+        """
         print("Total number of Association Rules:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
@@ -200,7 +360,7 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = ARWithLeverage(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
+            _ap = ARWithLeverage(_ab._sys.argv[1], float(_ab._sys.argv[3]), _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
             _ap = ARWithLeverage(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
@@ -210,10 +370,6 @@ if __name__ == "__main__":
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
-        _ap = ARWithLeverage('patterns.txt', 0.8, '\t')
-        _ap.startMine()
-        _ap.save('output.txt')
-        _ap.printResults()
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 

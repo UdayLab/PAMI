@@ -14,7 +14,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternInDataFrame()
 #
@@ -200,7 +200,7 @@ class parallelECLAT(_ab._frequentPatterns):
 
     def savePatterns(self, outFile):
         """
-        Complete set of frequent patterns will be loaded in to a output file
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -219,6 +219,13 @@ class parallelECLAT(_ab._frequentPatterns):
         return self._finalPatterns
 
     def _genPatterns(self, suffix, pattern, data):
+        """ param suffix:
+            return:
+            param pattern:
+            return:
+            param data:
+            type:
+        """
         freqPatterns = {}
         index = data.index(suffix)
         for i in range(index + 1, len(data)):

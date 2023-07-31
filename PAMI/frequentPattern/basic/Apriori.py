@@ -14,7 +14,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternInDataFrame()
 #
@@ -286,7 +286,7 @@ class Apriori(_ab._frequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Frequent patterns were generated successfully using Apriori algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -296,7 +296,7 @@ class Apriori(_ab._frequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -306,7 +306,7 @@ class Apriori(_ab._frequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -333,7 +333,7 @@ class Apriori(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -355,6 +355,10 @@ class Apriori(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """
+        this function is used to print the result
+
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
@@ -363,14 +367,14 @@ class Apriori(_ab._frequentPatterns):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
-        if len(_ab._sys.argv) == 5:
-            _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
-        if len(_ab._sys.argv) == 4:
-            _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3])
+    if len(_ap._sys.argv) == 4 or len(_ap._sys.argv) == 5:
+        if len(_ap._sys.argv) == 5:
+            _ap = Apriori(_ap._sys.argv[1], _ap._sys.argv[3], _ap._sys.argv[4])
+        if len(_ap._sys.argv) == 4:
+            _ap = Apriori(_ap._sys.argv[1], _ap._sys.argv[3])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save(_ab._sys.argv[2])
+        _ap.save(_ap._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())
         print("Total ExecutionTime in ms:", _ap.getRuntime())

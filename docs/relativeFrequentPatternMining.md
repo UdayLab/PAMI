@@ -111,21 +111,20 @@ __Example:__  python3 `RSFPGrowth.py` `inputFile.txt` `outputFile.txt` `4` `0.7`
 - Install the PAMI package from the PYPI repository by executing the following command:   **pip3 install PAMI**
 * Run the below sample code by making necessary changes
 
-
 ```python
-import PAMI.relativeFrequentPatterns.basic.RSFPGrowth as alg 
+import PAMI.relativeFrequentPattern.basic.RSFPGrowth as alg
 
-iFile = 'sampleTransactionalDatabase.txt'  #specify the input transactional database 
-minSup = 5                     #specify the minSupvalue 
-minRS = 0.6                 #specify the minimum relative support  
-seperator = ' '                 #specify the seperator. Default seperator is tab space. 
-oFile = 'frequentPatterns.txt'   #specify the output file name
+iFile = 'sampleTransactionalDatabase.txt'  # specify the input transactional database 
+minSup = 5  # specify the minSupvalue 
+minRS = 0.6  # specify the minimum relative support  
+seperator = ' '  # specify the seperator. Default seperator is tab space. 
+oFile = 'frequentPatterns.txt'  # specify the output file name
 
-obj = alg.RSFPGrowth(iFile, minSup, minRS, seperator) #initialize the algorithm 
-obj.startMine()                       #start the mining process 
-obj.save(oFile)               #store the patterns in file 
-df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
-obj.printResults()                      #Print the results of mining process
+obj = alg.RSFPGrowth(iFile, minSup, minRS, seperator)  # initialize the algorithm 
+obj.startMine()  # start the mining process 
+obj.save(oFile)  # store the patterns in file 
+df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe 
+obj.printResults()  # Print the results of mining process
 ```
 
     Relative support frequent patterns were generated successfully using RSFPGrowth algorithm

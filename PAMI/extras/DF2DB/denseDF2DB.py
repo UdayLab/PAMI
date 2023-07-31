@@ -52,7 +52,7 @@ class denseDF2DB:
         with open(outputFile, 'w') as f:
              if self.condition not in condition_operator:
                 print('Condition error')
-            else:
+             else:
                 for tid in self.tids:
                     transaction = [item for item in self.items if condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
                     if len(transaction) > 1:
@@ -60,7 +60,7 @@ class denseDF2DB:
                         for item in transaction[1:]:
                             f.write(f'\t{item}')
                     elif len(transaction) == 1:
-                        f.write(f'{transaction}')
+                        f.write(f'{transaction[0]}')
                     else:
                         continue
                     f.write('\n')
@@ -90,7 +90,7 @@ class denseDF2DB:
                             f.write(f',{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f',{transaction}')
+                        f.write(f',{transaction[0]}')
                     else:
                         continue
                     f.write('\n')

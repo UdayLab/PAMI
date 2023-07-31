@@ -114,7 +114,7 @@ __Example:__ python3 `FFIMiner.py` `inputFile.txt` `outputFile.txt` `5` &nbsp; `
 * Run the below sample code by making necessary changes
 
 ```python
-import PAMI.fuzzyFrequentPatterns.basic.FFIMiner_old as alg
+import PAMI.fuzzyFrequentPattern.basic.FFIMiner_old as alg
 
 iFile = 'fuzzyTransactionalDatabase.txt'  # specify the input utility database 
 minSup = 4  # specify the minSupvalue 

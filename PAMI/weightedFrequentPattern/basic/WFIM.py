@@ -2,9 +2,9 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.weightFrequentPattern.basic import WFIM as alg
+#     from PAMI.weightFrequentPattern.basic import basic as alg
 #
-#     obj = alg.WFIM(iFile, wFile, minSup, minWeight)
+#     obj = alg.basic(iFile, wFile, minSup, minWeight)
 #
 #     obj.startMine()
 #
@@ -300,9 +300,9 @@ class WFIM(_fp._weightedFrequentPatterns):
     Methods to execute code on terminal
     ------------------------------------
         Format:
-                  >>>  python3 WFIM.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
+                  >>>  python3 basic.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
         Example:
-                  >>>  python3 WFIM.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4
+                  >>>  python3 basic.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4
 
                  .. note:: minSup and maxPer will be considered in support count or frequency
 
@@ -310,9 +310,9 @@ class WFIM(_fp._weightedFrequentPatterns):
     --------------------------------------------------
     .. code-block:: python
 
-            from PAMI.weightFrequentPattern.basic import WFIM as alg
+            from PAMI.weightFrequentPattern.basic import basic as alg
 
-            obj = alg.WFIM(iFile, wFile, minSup, minWeight)
+            obj = alg.basic(iFile, wFile, minSup, minWeight)
 
             obj.startMine()
 
@@ -554,7 +554,7 @@ class WFIM(_fp._weightedFrequentPatterns):
         for k in patterns:
             s = self.__savePeriodic(k[0])
             self.__finalPatterns[str(s)] = k[1]
-        print("Weighted Frequent patterns were generated successfully using WFIM algorithm")
+        print("Weighted Frequent patterns were generated successfully using basic algorithm")
         self.__endTime = _fp._time.time()
         self.__memoryUSS = float()
         self.__memoryRSS = float()

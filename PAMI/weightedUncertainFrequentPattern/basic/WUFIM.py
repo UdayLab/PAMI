@@ -2,9 +2,9 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.weightedUncertainFrequentPattern.basic import WFIM as alg
+#     from PAMI.weightedUncertainFrequentPattern.basic import basic as alg
 #
-#     obj = alg.WFIM(iFile, wFile, expSup, expWSup)
+#     obj = alg.basic(iFile, wFile, expSup, expWSup)
 #
 #     obj.startMine()
 #
@@ -367,9 +367,9 @@ class WUFIM(_ab._weightedFrequentPatterns):
     **Methods to execute code on terminal**
 
         Format:
-                  >>>  python3 WUFIM.py <inputFile> <outputFile> <minSup>
+                  >>>  python3 basic.py <inputFile> <outputFile> <minSup>
         Example:
-                  >>>  python3 WUFIM.py sampleTDB.txt patterns.txt 3
+                  >>>  python3 basic.py sampleTDB.txt patterns.txt 3
 
                  .. note:: minSup  will be considered in support count or frequency
 
@@ -377,9 +377,9 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
 .. code-block:: python
 
-        from PAMI.weightedUncertainFrequentPattern.basic import WFIM as alg
+        from PAMI.weightedUncertainFrequentPattern.basic import basic as alg
 
-        obj = alg.WFIM(iFile, wFile, expSup, expWSup)
+        obj = alg.basic(iFile, wFile, expSup, expWSup)
 
         obj.startMine()
 
@@ -663,7 +663,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         Tree1 = self._buildTree(self.Database1, info)
         Tree1.generatePatterns([])
         self._removeFalsePositives()
-        print("Weighted Frequent patterns were generated  successfully using WUFIM algorithm")
+        print("Weighted Frequent patterns were generated  successfully using basic algorithm")
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
