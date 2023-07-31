@@ -344,7 +344,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
     def make2LenDatabase(self):
         """
                 To make 2 length frequent patterns by jioning two one length patterns by breadth-first search technique  and update xlenDatabase to seqential database
-                """
+        """
         self._xLenDatabase = {}
         keyList = [i for i in self._Database.keys()]
         nextDatabase = {i: {} for i in self._Database.keys()}
@@ -716,7 +716,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
                                 Returns:
 
-                """
+        """
         if len(self._xLenDatabase[rowLen][bs][latestWord].keys()) <= len(
                 self._xLenDatabaseSame[rowLen][bs][latestWord2].keys()):
             next = {}
@@ -784,7 +784,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
                                 Returns:
 
-                """
+        """
         if len(self._xLenDatabaseSame[rowLen][bs][latestWord].keys()) <= len(
                 self._xLenDatabaseSame[rowLen][bs][latestWord2].keys()):
             next = {}
