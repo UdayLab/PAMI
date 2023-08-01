@@ -227,12 +227,12 @@ class sequentialDatabaseStats():
         """
         return max(self.seqLengthList)
 
-    def getStandardDeviationSubsequenceLength(self):
+    def getStandardDeviationSequenceLength(self):
         """
-        get the standard deviation subsequence length
-        :return: standard deviation subsequence length
+        get the standard deviation sequence length
+        :return: standard deviation sequence length
         """
-        return statistics.pstdev(self.subSeqLengthList)
+        return statistics.pstdev(self.seqLengthList)
 
     def getVarianceSequenceLength(self):
         """
@@ -355,13 +355,13 @@ class sequentialDatabaseStats():
         print(f'Minimum Sequence Size : {self.getMinimumSequenceLength()}')
         print(f'Average Sequence Size : {self.getAverageSubsequencePerSequenceLength()}')
         print(f'Maximum Sequence Size : {self.getMaximumSequenceLength()}')
-        print(f'Standard Deviation Sequence Size : {self.getSequencialLengthDistribution()}')
+        print(f'Standard Deviation Sequence Size : {self.getStandardDeviationSequenceLength()}')
         print(f'Variance in Sequence Sizes : {self.getVarianceSequenceLength()}')
         print(f'Sequence size (total no of subsequence) : {self.getSequenceSize()}')
         print(f'Minimum subSequence Size : {self.getMinimumSubsequenceLength()}')
         print(f'Average subSequence Size : {self.getAverageItemPerSubsequenceLength()}')
         print(f'Maximum subSequence Size : {self.getMaximumSubsequenceLength()}')
-        print(f'Standard Deviation Sequence Size : {self.getSubsequencialLengthDistribution()}')
+        print(f'Standard Deviation Sequence Size : {self.getStandardDeviationSubsequenceLength()}')
         print(f'Variance in Sequence Sizes : {self.getVarianceSubsequenceLength()}')
 
     def plotGraphs(self):
