@@ -73,6 +73,7 @@ class temporalDatabaseStats:
         self.timeStampCount = {}
         self.periodList = []
         self.sep = sep
+        self.periods = {}
 
     def run(self):
         self.readDatabase()
@@ -126,18 +127,17 @@ class temporalDatabaseStats:
         for ts in timeStampList:
             self.periodList.append(int(ts) - preTimeStamp)
             preTimeStamp = ts
-
-        # for line in self.Database:
-        #     numberOfTransaction += 1
-        #     self.database[numberOfTransaction] = line[1:]
-        #     self.timeStampCount[int(line[0])] = self.timeStampCount.get(int(line[0]), 0)
-        #     self.timeStampCount[int(line[0])] += 1
-        # self.lengthList = [len(s) for s in self.database.values()]
-        # timeStampList = sorted(list(self.timeStampCount.keys()))
-        # preTimeStamp = 0
-        # for ts in timeStampList:
-        #     self.periodList.append(int(ts)-preTimeStamp)
-        #     preTimeStamp = ts
+            
+        for x, y in self.database.items():
+            for i in y:
+                if i not in self.periods:
+                    self.periods[i] = [x, x]
+                else:
+                    self.periods[i][0] = max(self.periods[i][0], x - self.periods[i][1])
+                    self.periods[i][1] = x
+        for key in self.periods:
+            self.periods[key][0] = max(self.periods[key][0], abs(len(self.database) - self.periods[key][1]))
+        self.periods = {k: v[0] for k, v in self.periods.items()}
 
     def getDatabaseSize(self):
         """
@@ -251,6 +251,19 @@ class temporalDatabaseStats:
             va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i-1]})
             rangeFrequencies[va] = values[i]
         return rangeFrequencies
+    
+    def getPeriodsInRange(self):
+        fre = {k: v for k, v in sorted(self.periods.items(), key=lambda x: x[1])}
+        rangePeriods = {}
+        maximum = max([i for i in fre.values()])
+        values = [int(i*maximum/6) for i in range(1,6)]
+        #print(maximum)
+        va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
+        rangePeriods[va] = values[0]
+        for i in range(1,len(values)):
+            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i-1]})
+            rangePeriods[va] = values[i]
+        return rangePeriods
 
     def getTransanctionalLengthDistribution(self):
         """
@@ -275,27 +288,48 @@ class temporalDatabaseStats:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
 
-    def getMinimumPeriod(self):
+    def getMinimumInterArrivalPeriod(self):
         """
-        get the minimum period
-        :return: minimum period
+        get the minimum inter arrival period
+        :return: minimum inter arrival period
         """
         return min(self.periodList)
 
-    def getAveragePeriod(self):
+    def getAverageInterArrivalPeriod(self):
         """
-        get the average period. It is sum of all period divided by number of period.
-        :return: average period
+        get the average inter arrival period. It is sum of all period divided by number of period.
+        :return: average inter arrival period
         """
         totalPeriod = sum(self.periodList)
         return totalPeriod / len(self.periodList)
 
-    def getMaximumPeriod(self):
+    def getMaximumInterArrivalPeriod(self):
         """
-        get the maximum period
-        :return: maximum period
+        get the maximum inter arrival period
+        :return: maximum inter arrival period
         """
         return max(self.periodList)
+    
+    def getMinimumPeriodOfItem(self):
+        """
+        get the minimum period of the item
+        :return: minimum period
+        """
+        return min([i for i in self.periods.values()])
+    
+    def getAveragePeriodOfItem(self):
+        """
+        get the average period of the item
+        :return: average period
+        """
+        return sum([i for i in self.periods.values()]) / len(self.periods)
+    
+    def getMaximumPeriodOfItem(self):
+        """
+        get the maximum period of the item
+        :return: maximum period
+        """
+        return max([i for i in self.periods.values()])
 
     def getStandardDeviationPeriod(self):
         """
@@ -318,9 +352,12 @@ class temporalDatabaseStats:
         print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
         print(f'Average Transaction Size : {self.getAverageTransactionLength()}')
         print(f'Maximum Transaction Size : {self.getMaximumTransactionLength()}')
-        print(f'Minimum period : {self.getMinimumPeriod()}')
-        print(f'Average period : {self.getAveragePeriod()}')
-        print(f'Maximum period : {self.getMaximumPeriod()}')
+        print(f'Minimum Inter Arrival Period : {self.getMinimumInterArrivalPeriod()}')
+        print(f'Average Inter Arrival Period : {self.getAverageInterArrivalPeriod()}')
+        print(f'Maximum Inter Arrival Period : {self.getMaximumInterArrivalPeriod()}')
+        print(f'Minimum periodicity : {self.getMinimumPeriodOfItem()}')
+        print(f'Average periodicity : {self.getAveragePeriodOfItem()}')
+        print(f'Maximum periodicicty : {self.getMaximumPeriodOfItem()}')
         print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
         print(f'Variance : {self.getVarianceTransactionLength()}')
         print(f'Sparsity : {self.getSparsity()}')
@@ -328,47 +365,16 @@ class temporalDatabaseStats:
     def plotGraphs(self):
         itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
+        itemPeriods = self.getPeriodsInRange()
         #numberOfTransactionPerTimeStamp = self.getNumberOfTransactionsPerTimestamp()
-        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'Frequency', 'no of items', 'frequency')
+        plt.plotLineGraphFromDictionary(itemFrequencies, 80, 'Frequency', 'no of items', 'frequency')
+        #plt.plotLineGraphFromDictionary(itemPeriods, 50, 'Periodicity', 'no of items', 'periodicity')
         plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
         #plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)
 
 
 if __name__ == '__main__':
-    data = {'ts': [1, 1, 3, 4, 5, 6, 7],
-
-            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
-                             ['a', 'd', 'g', 'k'],
-
-                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
-
-    data = pd.DataFrame.from_dict(data)
-    obj = temporalDatabaseStats('spatiotemporal_T20I6D100K.txt', ',')
-    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-
+    obj = temporalDatabaseStats(sys.argv[1], sys.argv[2])
     obj.run()
     obj.printStats()
     obj.plotGraphs()
-    '''print(f'Database size : {obj.getDatabaseSize()}')
-    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
-    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
-    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
-    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-    print(f'Variance : {obj.getVarianceTransactionLength()}')
-    print(f'Sparsity : {obj.getSparsity()}')
-    print(f'Number of items : {obj.getTotalNumberOfItems()}')
-    print(f'Minimum period : {obj.getMinimumPeriod()}')
-    print(f'Average period : {obj.getAveragePeriod()}')
-    print(f'Maximum period : {obj.getMaximumPeriod()}')
-    itemFrequencies = obj.getSortedListOfItemFrequencies()
-    transactionLength = obj.getTransanctionalLengthDistribution()
-    numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
-    # obj.save(itemFrequencies, 'itemFrequency.csv')
-    # obj.save(transactionLength, 'transactionSize.csv')
-    # obj.save(numberOfTransactionPerTimeStamp, 'numberOfTransaction.csv')
-    plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
-    plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
-    plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)'''
-
-
-
