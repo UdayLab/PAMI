@@ -7,12 +7,16 @@ class visualizePatterns():
         self.file = file
         self.topk = topk
 
-    def visualize(self):
+    def visualize(self,markerSize=20,zoom=3,width=1500, height=1000):
         """
         Visualize points produced by pattern miner.
     
         :param file: String for file name
         :param top: visualize topk patterns
+        :param markerSize: int
+        :param zoom: int
+        :param file: int
+        :param file: int
         """
     
         long = []
@@ -29,7 +33,10 @@ class visualizePatterns():
         lines = list(dict(sorted(lines.items(), key=lambda x:x[1])[-self.topk:]).keys())
 
         start = 1
+
+        print("Number \t Pattern")
         for line in lines:
+            print(start + "\t" + line)
             start += 1
             if start % 3 == 0:
                 R += 20
@@ -62,8 +69,9 @@ class visualizePatterns():
                 color.append("#" + RHex + GHex + BHex)
         df = pd.DataFrame({"lon": long, "lat": lat, "freq": name, "col": color})
     
-        fig = px.scatter_mapbox(df, lat="lon", lon="lat", hover_name="freq", color="col", zoom=3, height=300)
+        fig = px.scatter_mapbox(df, lat="lon", lon="lat", hover_name="freq", color="col", zoom=zoom, width=width, height=height)
         fig.update_layout(mapbox_style="open-street-map")
+        fig.update_traces({'marker': {'size': markerSize}})
         fig.show()
         
 if __name__ == "__main__":
