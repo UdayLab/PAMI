@@ -36,7 +36,7 @@ class visualizePatterns():
 
         print("Number \t Pattern")
         for line in lines:
-            print(start + "\t" + line)
+
             start += 1
             if start % 3 == 0:
                 R += 20
