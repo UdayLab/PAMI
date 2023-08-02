@@ -1,5 +1,6 @@
 import plotly.express as px
 import pandas as pd
+import sys
 
 class visualizePatterns():
     
@@ -58,6 +59,7 @@ class visualizePatterns():
             freq = line[-1]
             freq = "Frequency: " + freq.strip()
             line = line[:-1]
+            print(start + "\t" + line[0])
             points = line[0].split("\t")
             points = [x for x in points if x != ""]
             points = [x.strip("Point()") for x in points]

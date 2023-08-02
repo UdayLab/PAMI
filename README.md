@@ -81,14 +81,14 @@ Total number of algorithms: 83
 | ECLAT-bitSet <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/frequentPattern/basic/ECLATbitset.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>   |                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                        |                |                                                                                                                                                                                                                                                                     |
 | ECLAT-diffset <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/frequentPattern/basic/ECLATDiffset.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                        |                |
 
-2. Relative frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/relativeFrequentPatternMining.html)
+2. Relative frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/relativeFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                          |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | RSFP-growth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/relativeFrequentPattern/basic/RSFPGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
-3. Frequent pattern with multiple minimum support: [Sample](https://udayrage.github.io/PAMI/multipleMinSupFrequentPatternMining.html)
+3. Frequent pattern with multiple minimum support: [Sample](https://udaylab.github.io/PAMI/multipleMinSupFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                                     |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -97,7 +97,7 @@ Total number of algorithms: 83
 
 
 
-4. Correlated pattern mining: [Sample](https://udayrage.github.io/PAMI/correlatePatternMining.html)
+4. Correlated pattern mining: [Sample](https://udaylab.github.io/PAMI/correlatePatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                 |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -121,7 +121,7 @@ Total number of algorithms: 83
 ### 2. Mining interesting patterns from temporal databases
 
 
-1. Periodic-frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicFrequentPatternMining.html)
+1. Periodic-frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/periodicFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                              | Closed                                                                                                                                                                                                                                                  | Maximal                                                                                                                                                                                                                                                           | Top-K                                                                                                                                                                                                                                                      |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -131,7 +131,7 @@ Total number of algorithms: 83
 | PFP-ECLAT <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/periodicFrequentPattern/basic/PFECLAT.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>           |                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                   |
  | PFPM-Compliments <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/periodicFrequentPattern/basic/PFPMC.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>     |                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                   |
 
-2. Local periodic pattern mining: [Sample](https://udayrage.github.io/PAMI/localPeriodicPatternMining.html)
+2. Local periodic pattern mining: [Sample](https://udaylab.github.io/PAMI/localPeriodicPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                                             |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -139,14 +139,14 @@ Total number of algorithms: 83
 | LPPMBreadth (under development) <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/localPeriodicPattern/basic/LPPM_breadth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 | LPPMDepth   (under development) <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/localPeriodicPattern/basic/LPPM_depth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>   |
 
-3. Partial periodic-frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/partialPeriodicFrequentPattern.html)
+3. Partial periodic-frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/partialPeriodicFrequentPattern.html)
 
 | Basic                                                                                                                                                                                                                                                               |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | GPF-growth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/partialPeriodicFrequentPattern/basic/GPFgrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 | PPF-DFS <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/partialPeriodicFrequentPattern/basic/PPF_DFS.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>      |
 
-4. Partial periodic pattern mining: [Sample](https://udayrage.github.io/PAMI/partialPeriodicPatternMining.html)
+4. Partial periodic pattern mining: [Sample](https://udaylab.github.io/PAMI/partialPeriodicPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                           | Closed                                                                                                                                                                                                                                                    | Maximal                                                                                                                                                                                                                                                           | topK                                                                                                                                                                                                                                                                | CUDA                                                                                                                                                                                                                                                                            |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -155,20 +155,20 @@ Total number of algorithms: 83
 | G3P-Growth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/partialPeriodicPattern/basic/GThreePGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |                                                                                                                                                                                                                                                           |                                                                                                                                                                                                                                                                   |                                                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                 |
 
 
-5. Periodic correlated pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicCorrelatedPatternMining.html)
+5. Periodic correlated pattern mining: [Sample](https://udaylab.github.io/PAMI/periodicCorrelatedPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                            |
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | EPCP-growth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/periodicCorrelatedPattern/basic/EPCPGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-6. Stable periodic pattern mining: [Sample](https://udayrage.github.io/PAMI/stablePeriodicPatterns.html)
+6. Stable periodic pattern mining: [Sample](https://udaylab.github.io/PAMI/stablePeriodicPatterns.html)
 
 | Basic                                                                                                                                                                                                                                                           | TopK  |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
 | SPP-growth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/stablePeriodicPatterns/basic/SPPGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | TSPIN <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/stablePeriodicPatterns/topk/TSPIN.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>|
 | SPP-ECLAT <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/stablePeriodicPatterns/basic/SPPECLAT.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>   |       |
 
-7. Recurring pattern mining: [Sample](https://udayrage.github.io/PAMI/RecurringPatterns.html)
+7. Recurring pattern mining: [Sample](https://udaylab.github.io/PAMI/RecurringPatterns.html)
 
 | Basic                                                                                                                                                                                                                                               |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -177,14 +177,14 @@ Total number of algorithms: 83
 
 ### 3. Mining interesting patterns from Geo-referenced (or spatiotemporal) databases
 
-1. Geo-referenced frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/frequentSpatialPatternMining.html)
+1. Geo-referenced frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/frequentSpatialPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                                   |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | spatialECLAT  <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/georeferencedFrequentPattern/basic/SpatialECLAT.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 | FSP-growth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/georeferencedFrequentPattern/basic/FSPGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>       |
 
-2. Geo-referenced periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/periodicFrequentSpatial.html)
+2. Geo-referenced periodic frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/periodicFrequentSpatial.html)
 
 | Basic                                                                                                                                                                                                                                                                    |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -192,7 +192,7 @@ Total number of algorithms: 83
 | PFS-ECLAT <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/georeferencedPeriodicFrequentPattern/basic/PFS_ECLAT.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 | ST-ECLAT <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/georeferencedPeriodicFrequentPattern/basic/STECLAT.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>    |
 
-3. Geo-referenced partial periodic pattern mining:[Sample](https://udayrage.github.io/PAMI/partialPeriodicSpatialPatternMining.html)
+3. Geo-referenced partial periodic pattern mining:[Sample](https://udaylab.github.io/PAMI/partialPeriodicSpatialPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                                |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -201,7 +201,7 @@ Total number of algorithms: 83
 
 ### 4. Mining interesting patterns from Utility (or non-binary) databases
 
-1. High utility pattern mining:   [Sample](https://udayrage.github.io/PAMI/highUtilityPatternMining.html)
+1. High utility pattern mining:   [Sample](https://udaylab.github.io/PAMI/highUtilityPatternMining.html)
 
 | Basic    |
 |----------|
@@ -209,20 +209,20 @@ Total number of algorithms: 83
 | HMiner <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/highUtilityPattern/basic/HMiner.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 | UPGrowth <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/highUtilityPattern/basic/UPGrowth.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>|
 
-2. High utility frequent pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtiltiyFrequentPatternMining.html)
+2. High utility frequent pattern mining:  [Sample](https://udaylab.github.io/PAMI/highUtiltiyFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                   |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | HUFIM <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/highUtilityFrequentPatterns/basic/HUFIM.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
-3. High utility geo-referenced frequent pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtilitySpatialPatternMining.html)
+3. High utility geo-referenced frequent pattern mining:  [Sample](https://udaylab.github.io/PAMI/highUtilitySpatialPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                                 |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | SHUFIM <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/highUtilityGeoreferencedFrequentPattern/basic/SHUFIM.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
-4. High utility spatial pattern mining:  [Sample](https://udayrage.github.io/PAMI/highUtilitySpatialPatternMining.html)
+4. High utility spatial pattern mining:  [Sample](https://udaylab.github.io/PAMI/highUtilitySpatialPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                    | topk                                                                                                                                                                                                                                                     |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -237,14 +237,14 @@ Total number of algorithms: 83
 | RHUIM <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/relativeHighUtilityPattern/basic/RHUIM.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> | 
 
 
-6. Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentPattern.html)
+6. Weighted frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/weightedFrequentPattern.html)
 
 | Basic                                                                                                                                                                                                                                               |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | WFIM  <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/weightedFrequentPatterns/basic/WFIM.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
-7. Weighted frequent regular pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedFrequentRegularPatterns.html)
+7. Weighted frequent regular pattern mining: [Sample](https://udaylab.github.io/PAMI/weightedFrequentRegularPatterns.html)
 
 | Basic                                                                                                                                                                                                                                                          |
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -267,7 +267,7 @@ Total number of algorithms: 83
 
 
 
-2. Fuzzy correlated pattern mining: [Sample](https://udayrage.github.io/PAMI/fuzzyCorrelatedPatternMining.html)
+2. Fuzzy correlated pattern mining: [Sample](https://udaylab.github.io/PAMI/fuzzyCorrelatedPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                       |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -295,7 +295,7 @@ Total number of algorithms: 83
 ### 6. Mining interesting patterns from uncertain transactional/temporal/geo-referenced databases
 
 
-1. Uncertain frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainFrequentPatternMining.html)
+1. Uncertain frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/uncertainFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                   | top-k |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
@@ -304,7 +304,7 @@ Total number of algorithms: 83
 | TubeS  <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/uncertainFrequentPatterns/basic/TubeS.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>  |       | 
 | UVEclat                                                                                                                                                                                                                                                 |       |
 
-2. Uncertain periodic frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/uncertainPeriodicFrequentPatternMining.html)
+2. Uncertain periodic frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/uncertainPeriodicFrequentPatternMining.html)
 
 | Basic                                                                                                                                                                                                                                                                          |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -312,7 +312,7 @@ Total number of algorithms: 83
 | UPFP-growth++ <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/uncertainPeriodicFrequentPatterns/basic/UPFPGrowthPlus.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
-3. Uncertain Weighted frequent pattern mining: [Sample](https://udayrage.github.io/PAMI/weightedUncertainFrequentPatterns.html)
+3. Uncertain Weighted frequent pattern mining: [Sample](https://udaylab.github.io/PAMI/weightedUncertainFrequentPatterns.html)
 
 | Basic                                                                                                                                                                                                                                                 |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
