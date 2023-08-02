@@ -85,10 +85,12 @@ class PositionMining:
 
     """
 
-    def __init__(self,minsup,datapath):
+    def __init__(self,minsup,datapath,maxPatternlength=100):
         self.min_sup=minsup
         self.datapath=datapath
-    
+        self.maxPatternlength=maxPatternlength
+        self.readData()
+
 
     def readData(self):
         df=pd.read_csv(self.datapath)
@@ -99,6 +101,26 @@ class PositionMining:
         # for i in range(1,len(vals)):
         #     self.seq_prefixes[vals[i]]
         self.data=vals
+
+    def changeSupport(self,sup):
+        self.min_sup=sup
+    
+
+    def getDatasetStats(self):
+        print("-----------------------------------------------------------------------")
+        print("Total Sequences in dataset : ",len(self.data))
+        avg_len=0
+        lens=[]
+        for i in range(len(self.data)):
+            avg_len+=(len(self.data[i][1]))
+            lens.append(len(self.data[i][1]))
+        avg_len=avg_len/len(self.data)
+        print("Avg length of each sequence : ",avg_len)
+        print("Standard deviation of sequnece lengths : ",np.std(lens))
+        print("Max sequence lengths : ",max(lens))
+        print("Min of Sequence lengths : ",min(lens))
+        print("-----------------------------------------------------------------------")
+
 
     def getfreqs(self):
         """Initial scan of database where frequent length 1 candidates will be mined
@@ -272,8 +294,7 @@ class PositionMining:
         """
         # pass
         self._startTime = _ab._time.time()
-        self.table={i:{} for i in range(1,6)}
-        self.readData()
+        self.table={i:{} for i in range(1,self.maxPatternlength)}
 
         self.getfreqs()
         temp=self.symbol_freq
