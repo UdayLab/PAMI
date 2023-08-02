@@ -31,8 +31,8 @@ class plotLineGraphFromDictionary:
         """
         end = int(len(data) * end / 100)
         start = int(len(data) * start / 100)
-        x = tuple(data.keys())[start:numberOfGraphToPlot]
-        y = tuple(data.values())[start:numberOfGraphToPlot]
+        x = tuple(data.keys())[start:end]
+        y = tuple(data.values())[start:end]
         fig, ax = plt.subplots()
         ax.plot(x, y)
         ax.set_title(title)
