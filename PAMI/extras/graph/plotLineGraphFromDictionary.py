@@ -29,7 +29,8 @@ class plotLineGraphFromDictionary:
         :param ylabel: ylabel of grapth
         :type ylabel: str
         """
-        numberOfGraphToPlot = int(len(data) * end / 100)
+        end = int(len(data) * end / 100)
+        start = int(len(data) * start / 100)
         x = tuple(data.keys())[start:numberOfGraphToPlot]
         y = tuple(data.values())[start:numberOfGraphToPlot]
         fig, ax = plt.subplots()
