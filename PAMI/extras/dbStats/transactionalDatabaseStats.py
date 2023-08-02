@@ -31,6 +31,7 @@ class transactionalDatabaseStats:
         self.lengthList = []
         self.sep = sep
         self.database = {}
+        self.itemFrequencies = {}
 
     def run(self):
         self.readDatabase()
@@ -179,7 +180,8 @@ class transactionalDatabaseStats:
             for item in self.database[tid]:
                 itemFrequencies[item] = itemFrequencies.get(item, 0)
                 itemFrequencies[item] += 1
-        return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
+        self.itemFrequencies = {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
+        return self.itemFrequencies
     
     def getFrequenciesInRange(self):
         fre = self.getSortedListOfItemFrequencies()
@@ -227,9 +229,9 @@ class transactionalDatabaseStats:
         print(f'Sparsity : {self.getSparsity()}')
   
     def plotGraphs(self):
-        itemFrequencies = self.getFrequenciesInRange()
+        # itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
-        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 0, 'Frequency', 'No of items', 'frequency')
+        plt.plotLineGraphFromDictionary(self.itemFrequencies, 100, 0, 'Frequency', 'No of items', 'frequency')
         plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length', 'frequency')
 
 
