@@ -865,6 +865,8 @@ class HUFIM(_ab._utilityPatterns):
         return self._endTime-self._startTime
     
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of High Utility Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
