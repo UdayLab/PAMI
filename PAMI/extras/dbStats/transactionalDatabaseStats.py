@@ -31,6 +31,7 @@ class transactionalDatabaseStats:
         self.lengthList = []
         self.sep = sep
         self.database = {}
+        self.itemFrequencies = {}
 
     def run(self):
         self.readDatabase()
@@ -179,7 +180,8 @@ class transactionalDatabaseStats:
             for item in self.database[tid]:
                 itemFrequencies[item] = itemFrequencies.get(item, 0)
                 itemFrequencies[item] += 1
-        return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
+        self.itemFrequencies = {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
+        return self.itemFrequencies
     
     def getFrequenciesInRange(self):
         fre = self.getSortedListOfItemFrequencies()
@@ -227,10 +229,10 @@ class transactionalDatabaseStats:
         print(f'Sparsity : {self.getSparsity()}')
   
     def plotGraphs(self):
-        itemFrequencies = self.getFrequenciesInRange()
+        # itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
-        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'Frequency', 'No of items', 'frequency')
-        plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+        plt.plotLineGraphFromDictionary(self.itemFrequencies, 100, 0, 'Frequency', 'No of items', 'frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length', 'frequency')
 
 
 if __name__ == '__main__':
@@ -242,10 +244,9 @@ if __name__ == '__main__':
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
     # data = pd.DataFrame.from_dict('transactional_T10I4D100K.csv')
-    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-
-    # obj = transactionalDatabaseStats(data)
-    obj = transactionalDatabaseStats('transactional_BMS1.txt', ',')
+    import pandas as pd
+    # obj = transactionalDatabaseStats('transactional_BMS1.txt', ',')
+    obj = transactionalDatabaseStats(pd.DataFrame(data))
     obj.run()
     obj.printStats()
     obj.plotGraphs()

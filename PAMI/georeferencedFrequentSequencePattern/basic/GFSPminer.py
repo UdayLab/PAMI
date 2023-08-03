@@ -93,6 +93,28 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                 find x-1 lenghth frequent pattern by convine two x len patterns
             makexLenDatabase(rowLen, bs, latestWord)
                 To make "rowLen" length frequent patterns from pattern which latest word is in same seq  by joining "rowLen"-1 length pattrens by depth-first search technique  and update xlenDatabase to seqential database
+            makeSame(rowLen, bs, latestWord, latestWord2):
+                    to check the pattern is frequent or not (ex a-bc from a-c and a-b )
+            makeFaster(rowLen, bs, latestWord, latestWord2):
+                    to check the pattern is frequent or not (ex a-b-c from a-c a-b)
+            makeLater(rowLen, bs, latestWord, latestWord2):
+                    to check the pattern is frequent or not (ex ac-b from a-b ac)
+            makeSame2(rowLen, bs, latestWord, latestWord2):
+                    to check the pattern is frequent or not (ex a-bc from a-c ab)
+            makeSame3(rowLen, bs, latestWord, latestWord2):
+                    to check the pattern is frequent or not (ex abc from ac ab)
+            makexLenDatabaseSame(rowLen, bs, latestWord):
+                    To make 3 or more length frequent patterns from pattern which latest word is in different seq  by depth-first search technique  and update xlenDatabase to seqential database
+            makeNextRow(bs, latestWord, latestWord2):
+                       To make pattern row when two patterns have latest word in different sequence
+            makeNextRowSame(bs, latestWord, latestWord2):
+                        To make pattern row when one pattern have latestword1 in different sequence and other(latestword2) in same
+            makeNextRowSame2(bs, latestWord, latestWord2):
+                        To make pattern row when two patterns have latest word in same sequence
+            makeNextRowSame3(bs, latestWord, latestWord2):
+                  To make pattern row when two patterns have latest word in different sequence and both latest word is in same sequence
+
+
 
 
 
@@ -322,7 +344,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
     def make2LenDatabase(self):
         """
                 To make 2 length frequent patterns by jioning two one length patterns by breadth-first search technique  and update xlenDatabase to seqential database
-                """
+        """
         self._xLenDatabase = {}
         keyList = [i for i in self._Database.keys()]
         nextDatabase = {i: {} for i in self._Database.keys()}
@@ -694,7 +716,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
                                 Returns:
 
-                """
+        """
         if len(self._xLenDatabase[rowLen][bs][latestWord].keys()) <= len(
                 self._xLenDatabaseSame[rowLen][bs][latestWord2].keys()):
             next = {}
@@ -762,7 +784,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
                                 Returns:
 
-                """
+        """
         if len(self._xLenDatabaseSame[rowLen][bs][latestWord].keys()) <= len(
                 self._xLenDatabaseSame[rowLen][bs][latestWord2].keys()):
             next = {}
