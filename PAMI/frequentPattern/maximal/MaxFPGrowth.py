@@ -476,7 +476,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
 
             print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            obj.savePatterns("patterns")
+            obj.save("patterns")
 
             Df = obj.getPatternsAsDataFrame()
 

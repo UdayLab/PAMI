@@ -238,6 +238,16 @@ class ECLATDiffset(_ab._frequentPatterns):
         return uniqueItem
 
     def _runDeclat(self, candidateList):
+        """It will generate the combinations of frequent items
+
+                :param candidateList :it represents the items with their respective transaction identifiers
+
+                :type candidateList: list
+
+                :return: returning transaction dictionary
+
+                :rtype: dict
+                """
 
         newList = []
         for i in range(0, len(candidateList)):
@@ -355,6 +365,8 @@ class ECLATDiffset(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

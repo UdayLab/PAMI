@@ -1,4 +1,4 @@
-# Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+# cudaAprioriTID is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 #
 #
 # **Importing this algorithm into a python program**
@@ -50,13 +50,13 @@ __copyright__ = """
 
 
 
-
+import abstract as _ab
 
 import os
 import csv
 import time
 import numpy as np
-import pycuda.gpuarray as gpuarray
+import pycuda.gpuarray as _gpuarray
 import pycuda.autoinit
 import psutil
 import pycuda.driver as cuda
@@ -156,7 +156,7 @@ class cudaAprioriTID:
 
              print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-             obj.savePatterns(oFile)
+             obj.save(oFile)
 
              Df = obj.getPatternInDataFrame()
 
@@ -185,8 +185,9 @@ class cudaAprioriTID:
     __memUSS = 0
     __GPU_MEM = 0
     filePath = ""
-    sep = ""
-    minSup = 0
+    _iFile = " "
+    _sep = ""
+    _minSup = 0
     Patterns = {}
 
     def __init__(self, filePath, sep, minSup):
@@ -197,8 +198,74 @@ class cudaAprioriTID:
         self.__memRSS = 0
         self.__memUSS = 0
 
-    def _readFile(self, fileName, separator):
+    def _creatingItemSets(self):
         """
+            Storing the complete transactions of the database/input file in a database variable
+
+
+        """
+        self._Database = {}
+        lineNumber = 1
+        if isinstance(self._iFile, _ab._pd.DataFrame):
+            temp = []
+            if self._iFile.empty:
+                print("its empty..")
+            i = self._iFile.columns.values.tolist()
+            if 'Transactions' in i:
+                temp = self._iFile['Transactions'].tolist()
+
+            for k in temp:
+                self._Database.append(set(k))
+        if isinstance(self._iFile, str):
+            if _ab._validators.url(self._iFile):
+                data = _ab._urlopen(self._iFile)
+                for line in data:
+                    line.strip()
+                    line = line.decode("utf-8")
+                    for i in range(len(line)):
+                        if line[i] in self._Database:
+                            self._Database[i].append(lineNumber)
+                        else:
+                            self._Database[i] = [lineNumber]
+                    lineNumber += 1
+
+                    temp = [i.rstrip() for i in line.split(self._sep)]
+                    temp = [x for x in temp if x]
+                    self._Database.append(set(temp))
+            else:
+                try:
+                    with open(self._iFile, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self._sep)]
+                            temp = [x for x in temp if x]
+                            self._Database.append(set(temp))
+                except IOError:
+                    print("File Not Found")
+                    quit()
+
+    def _convert(self, value):
+        """
+        to convert the type of user specified minSup value
+
+        :param value: user specified minSup value
+
+        :return: converted type
+        """
+        if type(value) is int:
+            value = int(value)
+        if type(value) is float:
+            value = (len(self._Database) * value)
+        if type(value) is str:
+            if '.' in value:
+                value = float(value)
+                value = (len(self._Database) * value)
+            else:
+                value = int(value)
+        return value
+
+    """def _readFile(self, fileName, separator):
+        
         Reads a file and stores the data in a dictionary
 
         Args:
@@ -207,7 +274,7 @@ class cudaAprioriTID:
 
         Returns:
             dictionary: dictionary
-        """
+        
         file = open(fileName, 'r')
         dictionary = {}
         lineNumber = 1
@@ -225,8 +292,8 @@ class cudaAprioriTID:
         dictionary = dict(
             sorted(dictionary.items(), key=lambda x: len(x[1]), reverse=True))
         return dictionary, lineNumber
-
-    def get_time(self):
+        """
+    def getRuntime(self):
         """Calculating the total amount of time taken by the mining process
 
                 :return: returning total amount of runtime taken by the mining process
@@ -236,7 +303,7 @@ class cudaAprioriTID:
 
         return self.__time
 
-    def get_memRSS(self):
+    def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
                 :return: returning RSS memory consumed by the mining process
@@ -245,7 +312,7 @@ class cudaAprioriTID:
                 """
         return self.__memRSS
 
-    def get_memUSS(self):
+    def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
                 :return: returning USS memory consumed by the mining process
@@ -254,16 +321,20 @@ class cudaAprioriTID:
                 """
         return self.__memUSS
 
-    def get_GPU_MEM(self):
+    def getGPUMemory(self):
+        """
+           To calculate the total memory consumed by GPU
+           :return: return GPU memory
+           :rtype: int
+        """
+
         return self.__GPU_MEM
 
-    def get_Patterns(self):
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
-
-                :return: returning frequent patterns
-
-                :rtype: dict
-                """
+               :return: returning frequent patterns
+               :rtype: dict
+        """
         return self.Patterns
 
     def get_numberOfPatterns(self):
@@ -277,11 +348,12 @@ class cudaAprioriTID:
         startTime = time.time()
         final = {}
 
-        data, lineNo = self._readFile(self.filePath, self.sep)
-        if self.minSup < 1:
-            self.minSup = int(lineNo * self.minSup)
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        minSup = self._minSup
 
-        data = dict(filter(lambda x: len(x[1]) >= self.minSup, data.items()))
+
+        data = dict(filter(lambda x: len(x[1]) >= self.minSup, self._Database()))
         for key, value in data.items():
             final[key] = len(value)
 
@@ -386,13 +458,20 @@ class cudaAprioriTID:
 
 
 if __name__ == "__main__":
-    filePath = "datasets\\transactional_T10I4D100K.csv"
-    sep = "\t"
-    support = 500
-    cudaAprioriTID = cudaAprioriTID(filePath, sep, support)
-    cudaAprioriTID.startMine()
-    print("Time: ", cudaAprioriTID.get_time())
-    print("Memory RSS: ", cudaAprioriTID.get_memRSS())
-    print("Memory USS: ", cudaAprioriTID.get_memUSS())
-    print("GPU MEM: ", cudaAprioriTID.get_GPU_MEM())
-    print("Patterns: ", cudaAprioriTID.get_numberOfPatterns())
+    _ap = str()
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:
+            _ap = cudaAprioriTID(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            _ap = cudaAprioriTID(_ab._sys.argv[1], _ab._sys.argv[3])
+        _ap.startMine()
+        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
+        _ap.save(_ab._sys.argv[2])
+        print("Total Memory in USS:", _ap.getMemoryUSS())
+        print("Total Memory in RSS", _ap.getMemoryRSS())
+        print("GPU MEM: ", _ap.getGPUMemory())
+        print("Total ExecutionTime in ms:", _ap.getRuntime())
+    else:
+        print("Error! The number of input parameters do not match the total number of parameters provided")
+
+

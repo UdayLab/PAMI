@@ -126,7 +126,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     
             print("Total number of fault-tolerant frequent patterns:",  len(patterns))
     
-            obj.savePatterns("outputFile")
+            obj.save("outputFile")
     
             memUSS = obj.getMemoryUSS()
     
@@ -248,6 +248,18 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._itemSup}
 
     def _countItemSupport(self, itemset):
+        """
+
+        This function is used to count the  itemSupport
+        Parameters:
+        ----------
+            itemSet: frequent itemSet that generated
+
+        Returns:
+        -------
+            patterns with original item names.
+
+        """
         tids = {}
         res = True
         count = 0

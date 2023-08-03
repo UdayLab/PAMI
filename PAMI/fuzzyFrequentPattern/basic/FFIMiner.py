@@ -407,7 +407,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                     element = _Element(tid, pair.quantity, remainingUtility)
                     FFListOfItem.addElement(element)
             tid += 1
-        self._FSFIMining(self._itemSetBuffer, 0, listOfffilist, self._minSup)
+        self._FFIMining(self._itemSetBuffer, 0, listOfffilist, self._minSup)
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -415,7 +415,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def _FSFIMining(self, prefix, prefixLen, FSFIM, minSup):
+    def _FFIMining(self, prefix, prefixLen, FSFIM, minSup):
         """Generates ffi from prefix
 
         :param prefix: the prefix patterns of ffi
@@ -425,7 +425,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         :param FSFIM: the Fuzzy list of prefix itemSets
         :type FSFIM: list
         :param minSup: the minimum support of
-        :type minSup:int
+        :type minSup: int or flaot
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
@@ -438,7 +438,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                     exULs.append(self._construct(X, Y))
                     self._joinsCnt += 1
                 self._itemSetBuffer.insert(prefixLen, X.item)
-                self._FSFIMining(self._itemSetBuffer, prefixLen + 1, exULs, minSup)
+                self._FFIMining(self._itemSetBuffer, prefixLen + 1, exULs, minSup)
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

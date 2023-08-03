@@ -73,8 +73,8 @@ class _frequentPatterns(_ABC):
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         :type minSup: int or float or str
-        :param numWorkers: The user can specify numWorkers as the number of cores which are used.
-        :type numWorkers: int
+        :param numPartitions: The user can specify numWorkers as the number of cores which are used.
+        :type numPartitions: int
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
         """

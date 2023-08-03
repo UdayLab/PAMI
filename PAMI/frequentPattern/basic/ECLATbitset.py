@@ -118,7 +118,7 @@ class ECLATbitset(_ab._frequentPatterns):
 
                 print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-                obj.savePatterns(oFile)
+                obj.save(oFile)
 
                 Df = obj.getPatternInDataFrame()
 
@@ -228,8 +228,15 @@ class ECLATbitset(_ab._frequentPatterns):
     def tidToBitset(self,itemset):
         """
         This function converts tid list to bitset.
-        :param itemset:
-        :return:
+
+        Parameters:
+        ----------
+            itemSet: frequent itemset that generated
+
+        Returns:
+        -------
+            patterns with original item names.
+
         """
         bitset = {}
 

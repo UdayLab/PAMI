@@ -1,4 +1,4 @@
-# Parallel Eclat is an algorithm to discover frequent patterns in a transactional database. This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
+# ParallelEclat is an algorithm to discover frequent patterns in a transactional database. This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
 #
 # **Importing this algorithm into a python program**
 #  ----------------------------------------------------
@@ -48,19 +48,17 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
-
-
-
-# from pyspark import SparkConf, SparkContext
+from pyspark import SparkConf, SparkContext
 # import abstract as _ab
 from PAMI.frequentPattern.pyspark import abstract as _ab
+from abc import ABC as _ABC, abstractmethod as _abstractmethod
 
 
 class parallelECLAT(_ab._frequentPatterns):
     """
 
-    :Description: Parallel Eclat is an algorithm to discover frequent patterns in a transactional database. This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
+    :Description: ParallelEclat is an algorithm to discover frequent patterns in a transactional database.
+     This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
 
     :Reference:
 
@@ -96,50 +94,50 @@ class parallelECLAT(_ab._frequentPatterns):
         lno : int
                 the number of transactions
 
-    
+
     **Methods to execute code on terminal**
     ----------------------------------------------------
-    
+
             Format:
                       >>> python3 parallelECLAT.py <inputFile> <outputFile> <minSup> <numWorkers>
-    
+
             Example:
                       >>> python3 parallelECLAT.py sampleDB.txt patterns.txt 10.0 3
-    
+
             .. note:: minSup will be considered in percentage of database transactions
-    
-    
+
+
     **Importing this algorithm into a python program**
     ----------------------------------------------------
     .. code-block:: python
-    
+
                 import PAMI.frequentPattern.pyspark.parallelECLAT as alg
-    
+
                 obj = alg.parallelECLAT(iFile, minSup, numWorkers)
-    
+
                 obj.startMine()
-    
+
                 frequentPatterns = obj.getPatterns()
-    
+
                 print("Total number of Frequent Patterns:", len(frequentPatterns))
-    
-                obj.savePatterns(oFile)
-    
+
+                obj.save(oFile)
+
                 Df = obj.getPatternInDataFrame()
-    
+
                 memUSS = obj.getMemoryUSS()
-    
+
                 print("Total Memory in USS:", memUSS)
-    
+
                 memRSS = obj.getMemoryRSS()
-    
+
                 print("Total Memory in RSS", memRSS)
-    
+
                 run = obj.getRuntime()
-    
+
                 print("Total ExecutionTime in seconds:", run)
-    
-    
+
+
     **Credits:**
     ----------------------------------------------------
              The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
@@ -158,7 +156,7 @@ class parallelECLAT(_ab._frequentPatterns):
     _memoryRSS = float()
     _lno = int()
 
-    def __init__(self, iFile, minSup, numWorkers, sep='\t'):
+    def __init__(self, iFile, minSup, numWorkers, sep="\t"):
         super().__init__(iFile, minSup, int(numWorkers), sep)
 
     def getMemoryUSS(self):
@@ -228,7 +226,8 @@ class parallelECLAT(_ab._frequentPatterns):
         return self._finalPatterns
 
     def _genPatterns(self, suffix, pattern, data):
-        """ param suffix:
+        """ This function is used to generate patterns
+            param suffix:
             return:
             param pattern:
             return:
@@ -244,6 +243,14 @@ class parallelECLAT(_ab._frequentPatterns):
                 freqPatterns[freqPattern] = len(tid)
                 freqPatterns.update(self._genPatterns(data[i], (freqPattern, tid), data))
         return freqPatterns
+
+    def printResults(self):
+        """ this function is used to print the results
+        """
+        print("Total number of Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:", self.getRuntime())
 
     def _convert(self, value):
         """
@@ -282,25 +289,24 @@ class parallelECLAT(_ab._frequentPatterns):
         self._minSup = self._convert(self._minSup)
 
         frequentItems = None
-        if 'transactional' in self._iFile:
-            frequentItems = data.zipWithIndex() \
-                .flatMap(lambda x: [(str(item), x[1]) for item in x[0]]) \
-                .groupByKey() \
-                .filter(lambda x: len(x[1]) >= self._minSup) \
-                .sortBy(lambda x: len(x[1])) \
-                .mapValues(set) \
-                .persist()
-            data.unpersist()
-        elif 'temporal' in self._iFile:
-            frequentItems = data.flatMap(lambda trans: [(str(item), trans[0]) for item in trans[1:]]) \
-                .groupByKey() \
-                .filter(lambda x: len(x[1]) >= self._minSup) \
-                .mapValues(set) \
-                .persist()
-            data.unpersist()
-        else:
-            pass
-            # print("may be not able to process the input file")
+        frequentItems = data.zipWithIndex() \
+            .flatMap(lambda x: [(str(item), x[1]) for item in x[0]]) \
+            .groupByKey() \
+            .filter(lambda x: len(x[1]) >= self._minSup) \
+            .sortBy(lambda x: len(x[1])) \
+            .mapValues(set) \
+            .persist()
+        data.unpersist()
+        # elif 'temporal' in self._iFile:
+        #     frequentItems = data.flatMap(lambda trans: [(str(item), trans[0]) for item in trans[1:]]) \
+        #         .groupByKey() \
+        #         .filter(lambda x: len(x[1]) >= self._minSup) \
+        #         .mapValues(set) \
+        #         .persist()
+        #     data.unpersist()
+        # else:
+        #     pass
+        #     # print("may be not able to process the input file")
 
         freqItems = dict(frequentItems.collect())
         # print(len(freqItems))
@@ -329,7 +335,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _finalPatterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_finalPatterns))
-        # _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
