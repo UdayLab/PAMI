@@ -244,8 +244,9 @@ if __name__ == '__main__':
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
     # data = pd.DataFrame.from_dict('transactional_T10I4D100K.csv')
+    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
     import pandas as pd
-    # obj = transactionalDatabaseStats('transactional_BMS1.txt', ',')
+    # obj = transactionalDatabaseStats(data)
     obj = transactionalDatabaseStats(pd.DataFrame(data))
     obj.run()
     obj.printStats()
