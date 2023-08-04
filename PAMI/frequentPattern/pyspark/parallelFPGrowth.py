@@ -461,6 +461,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
             print("minSup is not correct")
         return value
 
+
 if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:

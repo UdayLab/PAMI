@@ -1,4 +1,4 @@
-# ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+# cuECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 #
 #
 # **Importing this algorithm into a python program**
@@ -14,7 +14,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternInDataFrame()
 #
@@ -119,7 +119,7 @@ class cuEclat(_ab._frequentPatterns):
 
              print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-             obj.savePatterns(oFile)
+             obj.save(oFile)
 
              Df = obj.getPatternInDataFrame()
 
@@ -381,11 +381,5 @@ if __name__ == "__main__":
         print("Error! The number of input parameters do not match the total number of parameters provided")
 
 
-    _ap = cuEclat("/home/tarun/PAMI/PAMI/frequentPattern/cuda/test.txt", 2, " ")
-    _ap = cuEclat("/home/tarun/Transactional_T10I4D100K.csv", 450, "\t")
-    _ap.startMine()
-    print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-    print("Total Memory in USS:", _ap.getMemoryUSS())
-    print("Total Memory in RSS", _ap.getMemoryRSS())
-    print("Total ExecutionTime in s:", _ap.getRuntime())
+
 

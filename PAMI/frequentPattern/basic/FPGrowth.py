@@ -601,6 +601,8 @@ class FPGrowth(_fp._frequentPatterns):
         return self.__finalPatterns
     
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

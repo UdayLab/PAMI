@@ -1,7 +1,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.fuzzyFrequentPattern import FFIMiner as alg
+#     from PAMI.fuzzyFrequentPattern import FFIMiner_old as alg
 #
 #     obj = alg.FFIMiner("input.txt", 2)
 #

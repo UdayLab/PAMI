@@ -99,7 +99,7 @@ class _FFList:
             A Method that add a new element to FFList
 
             :param element: an element to be added to FFList
-            :param type: Element
+            :type element: Element
         """
         self.sumLUtil += element.lUtils
         self.sumRUtil += element.rUtils
@@ -158,8 +158,9 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
 
     Reference:
     -----------
-        Lin, N.P., & Chueh, H. (2007). Fuzzy correlation rules mining.
-        https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.416.6053&rep=rep1&type=pdf
+       R. U. Kiran et al., "Discovering Fuzzy Periodic-Frequent Patterns in Quantitative Temporal Databases,"
+        2020 IEEE International Conference on Fuzzy Systems (FUZZ-IEEE), Glasgow, UK, 2020, pp.
+        1-8, doi: 10.1109/FUZZ48607.2020.9177579.
 
     Attributes:
     ----------
@@ -278,7 +279,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
     """
     _startTime = float()
     _endTime = float()
-    _minSup = str()
+    _minSup = float()
     _maxPer = float()
     _finalPatterns = {}
     _iFile = " "
@@ -410,6 +411,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         listOfFFIList = []
         mapItemsToFFLIST = {}
         # self._minSup = self._convert(self._minSup)
+        self._minSup = float(self._minSup)
         self._maxPer = self._convert(self._maxPer)
         for item1 in self._mapItemSum.keys():
             item = item1
@@ -455,7 +457,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                             curPer = tid - lastTid
                             element = _Element(tid, pair.quantity, remainingUtility, curPer)
                     FFListOfItem.addElement(element)
-        self._FSFIMining(self._itemSetBuffer, 0, listOfFFIList, self._minSup)
+        self._FPFPMining(self._itemSetBuffer, 0, listOfFFIList)
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -463,7 +465,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def _FSFIMining(self, prefix, prefixLen, fsFim, minSup):
+    def _FPFPMining(self, prefix, prefixLen, fsFim):
 
         """Generates FPFP from prefix
 
@@ -473,21 +475,19 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         :type prefixLen: int
         :param fsFim: the Fuzzy list of prefix itemSets
         :type fsFim: list
-        :param minSup: the minimum support of
-        :type minSup:int
         """
         for i in range(0, len(fsFim)):
             X = fsFim[i]
-            if X.sumLUtil >= minSup and X.maxPeriod <= self._maxPer:
+            if X.sumLUtil >= self._minSup and X.maxPeriod <= self._maxPer:
                 self._WriteOut(prefix, prefixLen, X.item, X.sumLUtil, X.maxPeriod)
-            if X.sumRUtil >= minSup:
+            if X.sumRUtil >= self._minSup:
                 exULs = []
                 for j in range(i + 1, len(fsFim)):
                     Y = fsFim[j]
                     exULs.append(self._construct(X, Y))
                     self._joinsCnt += 1
                 self._itemSetBuffer.insert(prefixLen, X.item)
-                self._FSFIMining(self._itemSetBuffer, prefixLen + 1, exULs, minSup, )
+                self._FPFPMining(self._itemSetBuffer, prefixLen + 1, exULs)
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

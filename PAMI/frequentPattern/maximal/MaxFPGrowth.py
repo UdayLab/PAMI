@@ -31,6 +31,7 @@
 #
 #
 
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -280,7 +281,7 @@ class _Tree(object):
                 for pat in range(len(condPatterns)):
                     conditional_tree.addConditionalTransaction(condPatterns[pat], tids[pat])
                 if len(condPatterns) >= 1:
-                    conditional_tree.generatePatterns(pattern, patterns)
+                    conditional_tree.generatePatterns(pattern, patterns, maximalTree)
                 else:
                     maximalTree.addTransaction(pattern)
                     patterns[tuple(pattern)] = self.info[i]
@@ -590,10 +591,10 @@ class MaxFPGrowth(_ab._frequentPatterns):
                 list1.append(list2)
         return list1
 
-    @staticmethod
-    def _buildTree(data, info):
+
+    def _buildTree(self, data, info):
         """
-        creating the root node as null in fp-tree and adding all transactions into tree.
+        creating the root node as null in fp-tree and and adding all transactions into tree.
         :param data: updated transactions
         :param info: rank of items in transactions
         :return: fp-tree
@@ -658,8 +659,8 @@ class MaxFPGrowth(_ab._frequentPatterns):
         patterns = {}
         self._finalPatterns = {}
         self._maximalTree = _MPTree()
-        Tree = self._buildTree(updatedTransactions, info, self._maximalTree)
-        Tree.generatePatterns([], patterns)
+        Tree = self._buildTree(updatedTransactions, info)
+        Tree.generatePatterns([], patterns, self._maximalTree)
         for x, y in patterns.items():
             pattern = str()
             x = self._convertItems(x)
@@ -720,7 +721,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
 
@@ -742,10 +743,6 @@ class MaxFPGrowth(_ab._frequentPatterns):
         return self._finalPatterns
     
     def printResults(self):
-        """
-         this function is used to print the results
-
-        """
         print('Total number of Maximal Frequent Patterns: ' + str(self.getPatterns()))
         print('Runtime: ' + str(self.getRuntime()))
         print('Memory (RSS): ' + str(self.getMemoryRSS()))

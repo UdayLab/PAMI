@@ -28,10 +28,14 @@ import validators as _validators
 import cupy as _cp
 import numpy as _np
 from urllib.request import urlopen as _urlopen
+import pycuda.gpuarray as _gpuarray
+import pycuda.autoinit
+import pycuda.driver as _cuda
+from pycuda.compiler import _SourceModule
 
 
-class _periodicFrequentPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
+class _frequentPatterns(_ABC):
+    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
     Attributes:
@@ -43,11 +47,6 @@ class _periodicFrequentPatterns(_ABC):
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: int or float or str
-            The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
@@ -82,7 +81,7 @@ class _periodicFrequentPatterns(_ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minSup, maxPer, sep = '\t'):
+    def __init__(self, iFile, minSup, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -91,18 +90,12 @@ class _periodicFrequentPatterns(_ABC):
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
         :type minSup: int or float or str
-        :param maxPer: The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-            Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        :type maxPer: int or float or str
         :param sep: separator used in user specified input file
         :type sep: str
         """
 
         self._iFile = iFile
         self._minSup = minSup
-        self._maxPer = maxPer
         self._sep = sep
         self._finalPatterns = {}
         self._startTime = float()

@@ -14,6 +14,8 @@ Chapter 2: Preparation of various datasets (or databases)
    4. [Uncertain database (to be written)](./manuals/uncertainDatabases.md)
    5. [Geo-referenced database](./manuals/spatialDatabase.html)
    6. [Neighborhood database (to be written)](./manuals/neighborhoodDatabase.html)
+   7. [Sequential database (to be written)](./manuals/sequentialDatabase.html)
+   8. [Character sequence databases(to be written)](./manuals/characterSequentialDatabase.html)
 
 Chapter 3: Converting dataframes to databases
 
