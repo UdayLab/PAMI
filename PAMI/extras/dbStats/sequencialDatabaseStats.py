@@ -13,7 +13,15 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""
+import statistics
+import validators
+from urllib.request import urlopen
+import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+import sys
+
+
+class sequentialDatabaseStats():
+    """
         sequentialDatabaseStats is to get stats of database like avarage, minimun, maximum  and so on.
 
         Reference:
@@ -95,30 +103,7 @@
         Credits:
         --------
             The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.
-"""
-
-import statistics
-import validators
-from urllib.request import urlopen
-import PAMI.extras.graph.plotLineGraphFromDictionary as plt
-import sys
-class sequentialDatabaseStats():
     """
-           :Description:  sequentialDatabaseStats is class to get stats of database.
-
-
-           :param inputFile: file :
-               input file path
-           :param database: dict :
-               store time stamp and its ()separated by subsequence)
-           :param seqLengthList: list :
-               store size of all sequence
-           :param subSeqLengthList: list :
-               store size of all subsequence
-           :param sep: str
-               separator in file. Default is tab space.
-
-              """
 
     def __init__(self, inputFile, sep='\t'):
         """
@@ -342,7 +327,8 @@ class sequentialDatabaseStats():
                 transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
-
+    def run(self):
+        self.readDatabase()
 
     def printStats(self):
         """
@@ -384,7 +370,7 @@ if __name__ == '__main__':
             _ap=sequentialDatabaseStats(sys.argv[1],sys.argv[2])
         if len(sys.argv) == 2:
             _ap = sequentialDatabaseStats(sys.argv[1])
-        _ap.readDatabase()
+        _ap.run()
         _ap.printStats()
         _ap.plotGraphs()
     else:
