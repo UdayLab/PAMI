@@ -50,6 +50,7 @@ __copyright__ = """
 
 
 from PAMI.AssociationRules.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class _Confidence:
@@ -65,7 +66,7 @@ class _Confidence:
 
     """
 
-    def __init__(self, patterns, singleItems, minConf):
+    def __init__(self, patterns, singleItems, minConf) -> None:
         """
         :param patterns: given frequent patterns
         :type patterns: dict
@@ -79,7 +80,7 @@ class _Confidence:
         self._minConf = minConf
         self._finalPatterns = {}
 
-    def _generation(self, prefix, suffix):
+    def _generation(self, prefix, suffix) -> None:
         """
         To generate the combinations all association rules.
 
@@ -98,7 +99,7 @@ class _Confidence:
                 # self._generation(prefix+ ' ' +suffix[i], suffix[i+1:])
             self._generation(prefix1, suffix1)
 
-    def _generateWithConfidence(self, lhs, rhs):
+    def _generateWithConfidence(self, lhs, rhs) -> None:
         """
         To find association rules satisfying user-specified minConf
         :param lhs: the prefix of association rule.
@@ -119,7 +120,7 @@ class _Confidence:
             s1 = rhs + '->' + lhs
             self._finalPatterns[s1] = conf_rhs
 
-    def run(self):
+    def run(self) -> None:
         """
         To generate the combinations all association rules.
         """
@@ -225,7 +226,7 @@ class ARWithConfidence:
     _memoryRSS = float()
     _frequentPatterns = {}
 
-    def __init__(self, iFile, minConf, sep):
+    def __init__(self, iFile, minConf, sep) -> None:
         """
         :param iFile: input file name or path
         :type iFile: str
@@ -239,7 +240,7 @@ class ARWithConfidence:
         self._finalPatterns = {}
         self._sep = sep
 
-    def _readPatterns(self):
+    def _readPatterns(self) -> list:
         """
             Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
         """
@@ -283,7 +284,8 @@ class ARWithConfidence:
                     quit()
         return k
 
-    def startMine(self):
+    def startMine(self) -> None:
+
         """
         Association rule mining process will start from here
         """
@@ -300,7 +302,7 @@ class ARWithConfidence:
         self._memoryRSS = process.memory_info().rss
         print("Association rules successfully  generated from frequent patterns ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -308,7 +310,7 @@ class ARWithConfidence:
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -316,7 +318,7 @@ class ARWithConfidence:
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -324,7 +326,7 @@ class ARWithConfidence:
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -338,7 +340,7 @@ class ARWithConfidence:
         # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the outputfile
         :type outFile: file
@@ -349,14 +351,14 @@ class ARWithConfidence:
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ Function to send the result after completion of the mining process
         """
         print("Total number of Association Rules:", len(self.getPatterns()))
