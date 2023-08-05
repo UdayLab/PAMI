@@ -1,8 +1,9 @@
 from PAMI.AssociationRules.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 class Lift:
 
-    def __init__(self, patterns, singleItems, threshold):
+    def __init__(self, patterns, singleItems, threshold) -> None:
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -13,7 +14,7 @@ class Lift:
         self._threshold = threshold
         self._finalPatterns = {}
 
-    def _generation(self, prefix, suffix):
+    def _generation(self, prefix, suffix) -> None:
         if len(suffix) == 1:
             self._generateWithLift(prefix, suffix[0])
         for i in range(len(suffix)):
@@ -24,7 +25,7 @@ class Lift:
                 # self._generation(prefix+ ' ' +suffix[i], suffix[i+1:])
             self._generation(prefix1, suffix1)
 
-    def _generateWithLift(self, lhs, rhs):
+    def _generateWithLift(self, lhs, rhs) -> float:
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) == None:
             return 0
@@ -40,7 +41,7 @@ class Lift:
             s1 = rhs + '->' + lhs
             self._finalPatterns[s1] = confrhs
 
-    def run(self):
+    def run(self) -> None:
         for i in range(len(self._singleItems)):
             suffix = self._singleItems[:i] + self._singleItems[i + 1:]
             prefix = self._singleItems[i]
@@ -65,7 +66,7 @@ class ARWithLift:
         startMine()
     """
 
-    def __init__(self, iFile, threshold, sep):
+    def __init__(self, iFile, threshold, sep) -> None:
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -76,7 +77,7 @@ class ARWithLift:
         self._finalPatterns = {}
         self._sep = sep
 
-    def _readPatterns(self):
+    def _readPatterns(self) -> list:
         self._frequentPatterns = {}
         k = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -117,7 +118,7 @@ class ARWithLift:
                     quit()
         return k
 
-    def startMine(self):
+    def startMine(self) -> None:
         self._startTime = _ab._time.time()
         k = self._readPatterns()
         a = Lift(self._frequentPatterns, k, self._threshold)
@@ -131,7 +132,7 @@ class ARWithLift:
         self._memoryRSS = process.memory_info().rss
         print("Association rules successfully  generated from frequent patterns ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -139,7 +140,7 @@ class ARWithLift:
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -147,7 +148,7 @@ class ARWithLift:
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -155,7 +156,7 @@ class ARWithLift:
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -169,7 +170,7 @@ class ARWithLift:
         # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile) -> None:
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
@@ -180,14 +181,14 @@ class ARWithLift:
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Association Rules:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
