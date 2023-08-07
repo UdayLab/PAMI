@@ -87,10 +87,10 @@ class denseDF2DB:
                     if len(transaction) > 1:
                         f.write(f'{tid}')
                         for item in transaction:
-                            f.write(f',{item}')
+                            f.write(f'\t{item}')
                     elif len(transaction) == 1:
                         f.write(f'{tid}')
-                        f.write(f',{transaction[0]}')
+                        f.write(f'\t{transaction[0]}')
                     else:
                         continue
                     f.write('\n')
