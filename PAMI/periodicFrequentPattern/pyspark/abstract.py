@@ -58,7 +58,7 @@ class _periodicFrequentPatterns(_ABC):
 
 
 
-    def __init__(self, iFile, minSup, maxPer, numWorkers, sep='\t'):
+    def __init__(self, iFile, minSup, maxPer, numWorkers=1, sep='\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame

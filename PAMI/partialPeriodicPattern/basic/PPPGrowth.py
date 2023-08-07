@@ -6,7 +6,7 @@
 #
 #         from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg
 #
-#         obj = alg.PPPGrowth(iFile, periodicSupport, period)
+#         obj = alg.PPPGrowth(iFile, minPS, period)
 #
 #         obj.startMine()
 #
@@ -58,7 +58,7 @@ import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
 
-_periodicSupport = float()
+_minPS = float()
 _period = float()
 _lno = int()
 
@@ -238,7 +238,7 @@ class _Tree(object):
                 :param conditionalTimeStamps : represents the timestamps of conditional patterns of a node
                 :type conditionalTimeStamps : list
         """
-        global _periodicSupport, _period
+        global _minPS, _period
         patterns = []
         timeStamps = []
         data1 = {}
@@ -251,7 +251,7 @@ class _Tree(object):
         updatedDictionary = {}
         for m in data1:
             updatedDictionary[m] = self._getPeriodicSupport(data1[m])
-        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v >= _periodicSupport}
+        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v >= _minPS}
         count = 0
         for p in conditionalPatterns:
             p1 = [v for v in p if v in updatedDictionary]
@@ -300,11 +300,11 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        periodicSupport: float or int or str
-            The user can specify periodicSupport either in count or proportion of database size.
-            If the program detects the data type of periodicSupport is integer, then it treats periodicSupport is expressed in count.
+        minPS: float or int or str
+            The user can specify minPS either in count or proportion of database size.
+            If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
-            Example: periodicSupport=10 will be treated as integer, while periodicSupport=10.0 will be treated as float
+            Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
         period: float or int or str
             The user can specify period either in count or proportion of database size.
             If the program detects the data type of period is integer, then it treats period is expressed in count.
@@ -365,11 +365,11 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
     -----------------------------------
         Format:
         --------
-           >>> python3 PPPGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
+           >>> python3 PPPGrowth.py <inputFile> <outputFile> <minPS> <period>
     
         Examples:
         --------
-           >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)
+           >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (minPS and period will be considered in percentage of database transactions)
 
            >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
 
@@ -379,7 +379,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
 
         from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg
 
-        obj = alg.PPPGrowth(iFile, periodicSupport, period)
+        obj = alg.PPPGrowth(iFile, minPS, period)
 
         obj.startMine()
 
@@ -409,7 +409,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
     The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
-    _periodicSupport = float()
+    _minPS = float()
     _period = float()
     _startTime = float()
     _endTime = float()
@@ -475,7 +475,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
                     """
         data = {}
         self._period = self._convert(self._period)
-        self._periodicSupport = self._convert(self._periodicSupport)
+        self._minPS = self._convert(self._minPS)
         for tr in self._Database:
             for i in range(1, len(tr)):
                 if tr[i] not in data:
@@ -486,7 +486,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
                         data[tr[i]][0] += 1
                     data[tr[i]][1] = int(tr[0])
                     data[tr[i]][2] += 1
-        data = {k: v[0] for k, v in data.items() if v[0] >= self._periodicSupport}
+        data = {k: v[0] for k, v in data.items() if v[0] >= self._minPS}
         pfList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
         self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
         return data, pfList
@@ -562,15 +562,15 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
                    Main method where the patterns are mined by constructing tree.
 
                """
-        global _periodicSupport, _period, _lno
+        global _minPS, _period, _lno
         self._startTime = _abstract._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self._periodicSupport is None:
+        if self._minPS is None:
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
         generatedItems, pfList = self._partialPeriodicOneItem()
-        _periodicSupport, _period, _lno = self._periodicSupport, self._period, len(self._Database)
+        _minPS, _period, _lno = self._minPS, self._period, len(self._Database)
         updatedTransactions = self._updateTransactions(generatedItems)
         for x, y in self._rank.items():
             self._rankdup[y] = x

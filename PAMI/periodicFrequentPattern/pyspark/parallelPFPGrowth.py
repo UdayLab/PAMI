@@ -624,6 +624,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         """
         self.__startTime = _ab._time.time()
+
         APP_NAME = "parallelPFPGrowth"
         conf = _ab.SparkConf().setAppName(APP_NAME)
         # conf = conf.setMaster("local[*]")

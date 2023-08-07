@@ -4,7 +4,7 @@
 #
 #         from PAMI.partialPeriodicPattern.pyspark import 4PGrowth as alg
 #
-#         obj = alg.parallel3PGrowth(iFile, periodicSupport, period)
+#         obj = alg.parallel3PGrowth(iFile, minPS, period,numWorkers)
 #
 #         obj.startMine()
 #
@@ -50,7 +50,7 @@ __copyright__ = """
 
 """
 
-from PAMI.partialPeriodicPattern.pyspark import abstract as _abstract
+from PAMI.partialPeriodicPattern.pyspark import abstract as _ab
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
@@ -376,7 +376,7 @@ class Tree(object):
                         yield li_m
             self.remove_node(j)
 
-class parallel3PGrowth(_abstract._partialPeriodicPatterns):
+class parallel3PGrowth(_ab._partialPeriodicPatterns):
     """
     Description:
     ----------------------
@@ -540,20 +540,20 @@ class parallel3PGrowth(_abstract._partialPeriodicPatterns):
         
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self._periodicSupport is None:
-            raise Exception("Please enter the Minimum Support")
+        if self._minPS is None:
+            raise Exception("Please enter the Minimum Period-Support")
             
         self._period = self._convert(self._period)
-        self._periodicSupport = self._convert(self._periodicSupport)
-        minPS = self._periodicSupport
+        self._minPS = self._convert(self._minPS)
+        minPS = self._minPS
         period = self._period
 
         
-        APP_NAME = "PppPGrowth"
+        APP_NAME = "4PGrowth"
         conf = SparkConf().setAppName(APP_NAME)
-        sc  = SparkContext(conf=conf)
+        sc  = SparkContext(conf=conf).getOrCreate()
 
-        self._startTime = _abstract._time.time()
+        self._startTime = _ab._time.time()
         
         data = sc.textFile(self._iFile,self.numPartitions).map(lambda x: [y for y in x.strip().split(self._sep)])
         # self.numPartitions = data.getNumPartitions()
@@ -561,7 +561,7 @@ class parallel3PGrowth(_abstract._partialPeriodicPatterns):
         freqItems,RecItems = self.getFrequentItems(data)
         # print(RecItems)
 
-        trans = self.getFrequentItemsets(data,freqItems,self._period,self._periodicSupport, dict(RecItems))
+        trans = self.getFrequentItemsets(data,freqItems,self._period,self._minPS, dict(RecItems))
         a = trans.collect()
         
         # print(type(a))
@@ -573,12 +573,12 @@ class parallel3PGrowth(_abstract._partialPeriodicPatterns):
         # print(self._finalPatterns)
         #     print(k,":",v)
         # trans.saveAsTextFile('temp')
-        self._endTime = _abstract._time.time()
+        self._endTime = _ab._time.time()
         sc.stop()
         
         # self._creatingItemSets()
         # generatedItems, pfList = self._partialPeriodicOneItem()
-        # _periodicSupport, _period, _lno = self._periodicSupport, self._period, len(self._Database)
+        # _minPS, _period, _lno = self._minPS, self._period, len(self._Database)
         # updatedTransactions = self._updateTransactions(generatedItems)
         # for x, y in self._rank.items():
         #     self._rankdup[y] = x
@@ -589,7 +589,7 @@ class parallel3PGrowth(_abstract._partialPeriodicPatterns):
         # for i in patterns:
         #     s = self._savePeriodic(i[0])
         #     self._finalPatterns[s] = i[1]
-        process = _abstract._psutil.Process(_abstract._os.getpid())
+        process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
@@ -727,7 +727,7 @@ class parallel3PGrowth(_abstract._partialPeriodicPatterns):
         # t1 = time.time()
         singleItems = data.flatMap(lambda x: [(y,[int(x[0])]) for y in x[1:]])
         RecItems=singleItems.reduceByKey(lambda x,y: x + y)\
-        .map(lambda c :(c[0],self.getPF(c[1]))).filter(lambda c: c[1]>=self._periodicSupport).collect()
+        .map(lambda c :(c[0],self.getPF(c[1]))).filter(lambda c: c[1]>=self._minPS).collect()
         # RecItems=itemsWtTids.filter(lambda c : getPF(c[1])>=minPS)
         RecItemSorted=[x for (x,y) in sorted(RecItems,key=lambda x : -x[1])]
         # t2 = time.time()
@@ -861,7 +861,7 @@ class parallel3PGrowth(_abstract._partialPeriodicPatterns):
         for a, b in self._finalPatterns.items():
             # print(a,b)
             data.append([a.replace('\t', ' '), b])
-            dataFrame = _abstract._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
+            dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'minPS'])
         return dataFrame
 
     def save(self, outFile):

@@ -4,7 +4,7 @@
 #
 #     from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg
 #
-#     obj = alg.PPP_ECLAT(iFile, periodicSupport, period)
+#     obj = alg.PPP_ECLAT(iFile, minPS, period)
 #
 #     obj.startMine()
 #
@@ -70,11 +70,11 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
             Name of the Input file or path of the input file
         self. oFile : file
             Name of the output file or path of the output file
-        periodicSupport: float or int or str
-            The user can specify periodicSupport either in count or proportion of database size.
-            If the program detects the data type of periodicSupport is integer, then it treats periodicSupport is expressed in count.
+        minPS: float or int or str
+            The user can specify minPS either in count or proportion of database size.
+            If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
-            Example: periodicSupport=10 will be treated as integer, while periodicSupport=10.0 will be treated as float
+            Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
         period: float or int or str
             The user can specify period either in count or proportion of database size.
             If the program detects the data type of period is integer, then it treats period is expressed in count.
@@ -132,13 +132,13 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
         Format:
         -----------
-           >>> python3 PPP_ECLAT.py <inputFile> <outputFile> <periodicSupport> <period>
+           >>> python3 PPP_ECLAT.py <inputFile> <outputFile> <minPS> <period>
 
         Examples:
         -----------
-           >>> python3 PPP_ECLAT.py sampleDB.txt patterns.txt 0.3 0.4   (periodicSupport and period will be considered in percentage of database transactions)
+           >>> python3 PPP_ECLAT.py sampleDB.txt patterns.txt 0.3 0.4   (minPS and period will be considered in percentage of database transactions)
 
-           >>> python3 threePEeclat.py sampleDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)
+           >>> python3 threePEeclat.py sampleDB.txt patterns.txt 3 4     (minPS and period will be considered in support count or frequency)
 
 
     Sample run of importing the code:
@@ -147,7 +147,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
         from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg
 
-        obj = alg.PPP_ECLAT(iFile, periodicSupport,period)
+        obj = alg.PPP_ECLAT(iFile, minPS,period)
 
         obj.startMine()
 
@@ -190,7 +190,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
     _mapSupport = {}
     _itemsetCount = 0
     _writer = None
-    _periodicSupport = str()
+    _minPS = str()
     _period = str()
     _tidList = {}
     _lno = 0
@@ -294,8 +294,8 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
                         self._mapSupport[si][0] += 1
                     self._mapSupport[si][1] = n
                     self._tidList[si].append(n)
-        self._periodicSupport = self._convert(self._periodicSupport)
-        self._mapSupport = {k: v[0] for k, v in self._mapSupport.items() if v[0] >= self._periodicSupport}
+        self._minPS = self._convert(self._minPS)
+        self._mapSupport = {k: v[0] for k, v in self._mapSupport.items() if v[0] >= self._minPS}
         plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
         return plist
 
@@ -322,7 +322,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         else:
             prefix = prefix + suffix
         val = self._getPeriodicSupport(tidSetX)
-        if val >= self._periodicSupport:
+        if val >= self._minPS:
             sample = str()
             for i in prefix:
                 sample = sample + i + "\t"
@@ -365,7 +365,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetX).intersection(tidSetJ))
                 val = self._getPeriodicSupport(y)
-                if val >= self._periodicSupport:
+                if val >= self._minPS:
                     classItemSets.append(itemJ)
                     classTidSets.append(y)
             newprefix = list(set(itemSetX)) + prefix
@@ -393,7 +393,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
                 tidSetJ = self._tidList[itemJ]
                 y1 = list(set(tidSetX).intersection(tidSetJ))
                 val = self._getPeriodicSupport(y1)
-                if val >= self._periodicSupport:
+                if val >= self._minPS:
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             self._Generation(itemSetX, itemSets, tidSets)

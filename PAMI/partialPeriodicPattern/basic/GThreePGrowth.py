@@ -5,7 +5,7 @@
 #
 #     from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg
 #
-#     obj = alg.PPPGrowth(iFile, periodicSupport, period)
+#     obj = alg.PPPGrowth(iFile, minPS, period)
 #
 #     obj.startMine()
 #
@@ -54,7 +54,7 @@ import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
 
-_periodicSupport = float()
+_minPS = float()
 _period = float()
 _relativePS = float()
 _frequentList = {}
@@ -241,7 +241,7 @@ class _Tree(object):
                 :param conditionalTimeStamps : represents the timestamps of conditional patterns of a node
                 :type conditionalTimeStamps : list
         """
-        global _periodicSupport, _period
+        global _minPS, _period
         patterns = []
         timeStamps = []
         data1 = {}
@@ -254,7 +254,7 @@ class _Tree(object):
         updatedDictionary = {}
         for m in data1:
             updatedDictionary[m] = self._getPeriodicSupport(data1[m], temp + [m])
-        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v[0] >= _periodicSupport}
+        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v[0] >= _minPS}
         count = 0
         for p in conditionalPatterns:
             p1 = [v for v in p if v in updatedDictionary]
@@ -271,11 +271,11 @@ class _Tree(object):
                 :param prefix : forms the combination of items
                 :type prefix : list
                         """
-        global _periodicSupport, _relativePS
+        global _minPS, _relativePS
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
-            if self.info[i][0] >= _periodicSupport and self.info[i][1] >= _relativePS:
+            if self.info[i][0] >= _minPS and self.info[i][1] >= _relativePS:
                 yield pattern, self.info[i]
                 patterns, timeStamps, info = self._getConditionalPatterns(i, pattern)
                 conditionalTree = _Tree()
@@ -305,11 +305,11 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
             Name of the Input file or path of the input file
         self. oFile : file
             Name of the output file or path of the output file
-        periodicSupport: float or int or str
-            The user can specify periodicSupport either in count or proportion of database size.
-            If the program detects the data type of periodicSupport is integer, then it treats periodicSupport is expressed in count.
+        minPS: float or int or str
+            The user can specify minPS either in count or proportion of database size.
+            If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
-            Example: periodicSupport=10 will be treated as integer, while periodicSupport=10.0 will be treated as float
+            Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
         period: float or int or str
             The user can specify period either in count or proportion of database size.
             If the program detects the data type of period is integer, then it treats period is expressed in count.
@@ -371,11 +371,11 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
 
         Format:
         -----------
-          >>> python3 PPPGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
+          >>> python3 PPPGrowth.py <inputFile> <outputFile> <minPS> <period>
 
         Examples:
         -----------
-          >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)
+          >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (minPS and period will be considered in percentage of database transactions)
 
           >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
 
@@ -385,7 +385,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
 
         from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg
 
-        obj = alg.PPPGrowth(iFile, periodicSupport, period)
+        obj = alg.PPPGrowth(iFile, minPS, period)
 
         obj.startMine()
 
@@ -415,7 +415,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
     The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
-    _periodicSupport = float()
+    _minPS = float()
     _period = float()
     _relativePS = {}
     _startTime = float()
@@ -485,7 +485,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         global _frequentList
         data = {}
         self._period = self._convert(self._period)
-        self._periodicSupport = self._convert(self._periodicSupport)
+        self._minPS = self._convert(self._minPS)
         self._relativePS = float(self._relativePS)
         for tr in self._Database:
             for i in range(1, len(tr)):
@@ -497,7 +497,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                         data[tr[i]][0] += 1
                     data[tr[i]][1] = int(tr[0])
                     data[tr[i]][2] += 1
-        data = {k: [v[0], 1, v[2]] for k, v in data.items() if v[0] >= self._periodicSupport}
+        data = {k: [v[0], 1, v[2]] for k, v in data.items() if v[0] >= self._minPS}
         print(len(data))
         pfList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
         self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
@@ -579,17 +579,17 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                    Main method where the patterns are mined by constructing tree.
 
                """
-        global _periodicSupport, _period, _relativePS, _lno
+        global _minPS, _period, _relativePS, _lno
         self._startTime = float()
         self._startTime = _abstract._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self._periodicSupport is None:
+        if self._minPS is None:
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
         generatedItems, pfList = self._partialPeriodicOneItem()
-        _periodicSupport, _period, _relativePS, _lno = self._periodicSupport, self._period, self._relativePS, len(self._Database)
-        # print(_periodicSupport, _period, _relativePS)
+        _minPS, _period, _relativePS, _lno = self._minPS, self._period, self._relativePS, len(self._Database)
+        # print(_minPS, _period, _relativePS)
         updatedTransactions = self._updateTransactions(generatedItems)
         for x, y in self._rank.items():
             self._rankdup[y] = x
@@ -733,7 +733,7 @@ import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
 
-_periodicSupport = float()
+_minPS = float()
 _period = float()
 _relativePS = float()
 _frequentList = {}
@@ -922,7 +922,7 @@ class _Tree(object):
                 :param conditionalTimeStamps : represents the timestamps of conditional patterns of a node
                 :type conditionalTimeStamps : list
         """
-        global _periodicSupport, _period
+        global _minPS, _period
         patterns = []
         timeStamps = []
         data1 = {}
@@ -935,7 +935,7 @@ class _Tree(object):
         updatedDictionary = {}
         for m in data1:
             updatedDictionary[m] = self._getPeriodicSupport(data1[m], temp + [m])
-        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v[0] >= _periodicSupport}
+        updatedDictionary = {k: v for k, v in updatedDictionary.items() if v[0] >= _minPS}
         count = 0
         for p in conditionalPatterns:
             p1 = [v for v in p if v in updatedDictionary]
@@ -952,11 +952,11 @@ class _Tree(object):
                 :param prefix : forms the combination of items
                 :type prefix : list
                         """
-        global _periodicSupport, _relativePS
+        global _minPS, _relativePS
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
-            if self.info[i][0] >= _periodicSupport and self.info[i][1] >= _relativePS:
+            if self.info[i][0] >= _minPS and self.info[i][1] >= _relativePS:
                 yield pattern, self.info[i]
                 patterns, timeStamps, info = self._getConditionalPatterns(i, pattern)
                 conditionalTree = _Tree()
@@ -981,11 +981,11 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
             Name of the Input file or path of the input file
         self. oFile : file
             Name of the output file or path of the output file
-        periodicSupport: float or int or str
-            The user can specify periodicSupport either in count or proportion of database size.
-            If the program detects the data type of periodicSupport is integer, then it treats periodicSupport is expressed in count.
+        minPS: float or int or str
+            The user can specify minPS either in count or proportion of database size.
+            If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
-            Example: periodicSupport=10 will be treated as integer, while periodicSupport=10.0 will be treated as float
+            Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
         period: float or int or str
             The user can specify period either in count or proportion of database size.
             If the program detects the data type of period is integer, then it treats period is expressed in count.
@@ -1042,17 +1042,17 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         startMine()
             main program to mine the partial periodic patterns
 
-        Format: python3 PPPGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
+        Format: python3 PPPGrowth.py <inputFile> <outputFile> <minPS> <period>
 
-        Examples: python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)
+        Examples: python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (minPS and period will be considered in percentage of database transactions)
 
-                  python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
+                  python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodic Support and period will be considered in count)
 
         Sample run of the importing code:
         -----------
         from PAMI.periodicFrequentPattern.basic import PPPGrowth as alg
 
-        obj = alg.PPPGrowth(iFile, periodicSupport, period)
+        obj = alg.PPPGrowth(iFile, minPS, period)
 
         obj.startMine()
 
@@ -1082,7 +1082,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
-    _periodicSupport = float()
+    _minPS = float()
     _period = float()
     _relativePS = {}
     _startTime = float()
@@ -1152,7 +1152,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         global _frequentList
         data = {}
         self._period = self._convert(self._period)
-        self._periodicSupport = self._convert(self._periodicSupport)
+        self._minPS = self._convert(self._minPS)
         self._relativePS = self._convert(self._relativePS)
         for tr in self._Database:
             for i in range(1, len(tr)):
@@ -1166,7 +1166,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                     data[tr[i]][2] += 1
         for x, y in data.items():
             data[x][0] = data[x][0]/abs(self._lno - 1)
-        data = {k: [v[0], 1, v[2]] for k, v in data.items() if v[0] >= self._periodicSupport}
+        data = {k: [v[0], 1, v[2]] for k, v in data.items() if v[0] >= self._minPS}
         #print(data)
         pfList = [k for k, v in sorted(data.items(), key=lambda x: x[1], reverse=True)]
         self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
@@ -1248,16 +1248,16 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                    Main method where the patterns are mined by constructing tree.
 
                """
-        global _periodicSupport, _period, _relativePS, _lno
+        global _minPS, _period, _relativePS, _lno
         self._startTime = _abstract._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
-        if self._periodicSupport is None:
+        if self._minPS is None:
             raise Exception("Please enter the Minimum Support")
         self._creatingItemSets()
         generatedItems, pfList = self._partialPeriodicOneItem()
-        _periodicSupport, _period, _relativePS, _lno = self._periodicSupport, self._period, self._relativePS, len(self._Database)
-        print(_periodicSupport, _period, _relativePS)
+        _minPS, _period, _relativePS, _lno = self._minPS, self._period, self._relativePS, len(self._Database)
+        print(_minPS, _period, _relativePS)
         updatedTransactions = self._updateTransactions(generatedItems)
         for x, y in self._rank.items():
             self._rankdup[y] = x
