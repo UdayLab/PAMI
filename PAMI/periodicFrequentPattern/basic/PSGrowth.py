@@ -826,7 +826,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
         for i in patterns:
             sample = str()
             for k in i[0]:
-                sample = sample + k + " "
+                sample = sample + k + "\t"
             self._finalPatterns[sample] = i[1]
         self._endTime = _ab._time.time()
         self._memoryUSS = float()
