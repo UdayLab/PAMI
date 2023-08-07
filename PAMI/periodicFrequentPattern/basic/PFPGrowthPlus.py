@@ -533,7 +533,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         """
         t1 = str()
         for i in itemSet:
-            t1 = t1 + self._rankedUp[i] + " "
+            t1 = t1 + self._rankedUp[i] + "\t"
         return t1
 
     def _convert(self, value):
