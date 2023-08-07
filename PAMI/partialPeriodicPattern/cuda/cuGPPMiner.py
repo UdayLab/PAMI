@@ -36,11 +36,11 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup: int or float or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+        minPS: int or float or str
+            The user can specify minPS either in count or proportion of database size.
+            If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
         maxPer: int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
@@ -83,11 +83,11 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
     **Methods to execute code on terminal**
 
             Format:
-                        >>>  python3 gPPMiner.py <inputFile> <outputFile> <minSup>
+                        >>>  python3 gPPMiner.py <inputFile> <outputFile> <minPS>
             Example:
                         >>>   python3 gPPMiner.py sampleDB.txt patterns.txt 10.0
 
-            .. note:: minSup will be considered in percentage of database transactions
+            .. note:: minPS will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**

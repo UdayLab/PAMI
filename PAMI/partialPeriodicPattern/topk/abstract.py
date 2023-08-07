@@ -37,10 +37,10 @@ class partialPeriodicPatterns(ABC):
         iFile : str
             Input file name or path of the input file
         k: int or float or str
-            The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            The user can specify minPS either in count or proportion of database size.
+            If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
-            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+            Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
         periodicity: int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
@@ -84,10 +84,10 @@ class partialPeriodicPatterns(ABC):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param k: The user can specify minSup either in count or proportion of database size.
-            If the program detects the data type of minSup is integer, then it treats k is expressed in count.
+        :param k: The user can specify minPS either in count or proportion of database size.
+            If the program detects the data type of minPS is integer, then it treats k is expressed in count.
             Otherwise, it will be treated as float.
-            Example: k=10 will be treated as integer, while minSup=10.0 will be treated as float
+            Example: k=10 will be treated as integer, while minPS=10.0 will be treated as float
         :type k: int or float or str
         :param periodicity: The user can specify periodicity either in count or proportion of database size.
             If the program detects the data type of periodicity is integer, then it treats periodicity is expressed in count.
@@ -116,8 +116,8 @@ class partialPeriodicPatterns(ABC):
         pass
 
     @abstractmethod
-    def _minSup(self):
-        """Variable to store the user-specified minimum support value"""
+    def _minPS(self):
+        """Variable to store the user-specified minimum period-support value"""
 
         pass
 

@@ -450,7 +450,7 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         endTime:float
             To record the completion time of the mining process
         periodicSupport : int/float
-            The user given minimum support
+            The user given minimum period-support
         period : int/float
             The user given maximum period
         Database : list

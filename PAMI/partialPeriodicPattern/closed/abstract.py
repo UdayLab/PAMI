@@ -20,8 +20,8 @@ class _partialPeriodicPatterns(_ABC):
     ----------
         iFile : str
             Input file name or path of the input file
-        minSup: float
-            UserSpecified minimum support value. It has to be given in terms of count of total number of transactions
+        minPS: float
+            UserSpecified minimum period-support value. It has to be given in terms of count of total number of transactions
             in the input database/file
         startTime:float
             To record the start time of the algorithm
@@ -57,9 +57,9 @@ class _partialPeriodicPatterns(_ABC):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param minSup: UserSpecified minimum support value. It has to be given in terms of count of total number of
+        :param minPS: UserSpecified minimum period-support value. It has to be given in terms of count of total number of
         transactions in the input database/file
-        :type minSup: float
+        :type minPS: float
         """
 
         self._iFile = iFile
@@ -81,7 +81,7 @@ class _partialPeriodicPatterns(_ABC):
 
     @abstractmethod
     def periodicSupport(self):
-        """Variable to store the user-specified minimum support value"""
+        """Variable to store the user-specified minimum period-support value"""
 
         pass
 

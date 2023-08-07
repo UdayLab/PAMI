@@ -63,7 +63,7 @@ class _partialPeriodicPatterns(_ABC):
         :type iFile: str
         :param minPS: UserSpecified minimum period-support value. It has to be given in terms of count of total number of
         transactions in the input database/file
-        :type minSup: float
+        :type minPS: float
         """
 
         self._iFile = iFile
@@ -86,7 +86,7 @@ class _partialPeriodicPatterns(_ABC):
 
     @abstractmethod
     def minPS(self):
-        """Variable to store the user-specified minimum support value"""
+        """Variable to store the user-specified minimum period-support value"""
 
         pass
         
