@@ -347,7 +347,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
                     union_supp = self._dbSize - len(union_DiffSet)
                     period = self._getPeriodic(union_DiffSet)
                     if union_supp >= self._minSup and period <= self._maxPer:
-                        newKey = item1 + " " + i2_list[-1]
+                        newKey = item1 + "\t" + i2_list[-1]
                         self._finalPatterns[newKey] = [union_supp, period, union_DiffSet]
                         new_freqList.append(newKey)
                 else:
