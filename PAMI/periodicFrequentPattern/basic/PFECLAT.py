@@ -310,7 +310,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                     sup = len(_value)
                     per = self._getPeriodic(_value)
                     if sup >= self._minSup and per <= self._maxPer:
-                        newItem = prefixItem + " " + itemSet[-1]
+                        newItem = prefixItem + "\t" + itemSet[-1]
                         self._finalPatterns[newItem] = [sup, per, _value]
                         newCandidates.append(newItem)
 
