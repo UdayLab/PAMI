@@ -59,11 +59,11 @@ from urllib.request import urlopen as _urlopen
 import sys as _sys
 
 
-class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
+class k3PMiner(_abstract.partialPeriodicPatterns):
     """
     Description:
     -------------
-        Top - K is and algorithm to discover top partial periodic patterns in a temporal  database.
+        k3PMiner is and algorithm to discover top - k partial periodic patterns in a temporal  database.
 
     Reference:
     ----------
@@ -121,20 +121,20 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
 
         Format:
         ------
-            >>> python3 FAE.py <inputFile> <outputFile> <k> <periodicity>
+            >>> python3 k3PMiner.py <inputFile> <outputFile> <k> <period>
 
         Examples:
         ---------
-            >>> python3 FAE.py sampleDB.txt patterns.txt 10 3
+            >>> python3 k3PMiner.py sampleDB.txt patterns.txt 10 3
 
 
     Sample run of the importing code:
     ---------------------------------
     .. code-block:: python
 
-            import PAMI.partialPeriodicPattern.topk.Topk_PPPGrowth as alg
+            import PAMI.partialPeriodicPattern.topk.k3PMiner as alg
 
-            obj = alg.Topk_PPPGrowth(iFile, k, periodicity)
+            obj = alg.Topk_PPPGrowth(iFile, k, period)
 
             obj.startMine()
 
@@ -167,7 +167,7 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
     _startTime = float()
     _endTime = float()
     _k = int()
-    _periodicity = " "
+    _period = " "
     _finalPatterns = {}
     _iFile = " "
     _oFile = " "
@@ -247,7 +247,7 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
 
         self._mapSupport = {}
         self._tidList = {}
-        self._periodicity = self._convert(self._periodicity)
+        self._period = self._convert(self._period)
         self._k = int(self._convert(self._k))
         for line in self._Database:
             n = int(line[0])
@@ -259,13 +259,13 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
                 else:
                     self._mapSupport[si][0] += 1
                     period = abs(n - self._mapSupport[si][2])
-                    if period <= self._periodicity:
+                    if period <= self._period:
                         self._mapSupport[si][1] += 1
                     self._mapSupport[si][2] = n
                     self._tidList[si].append(n)
         for x, y in self._mapSupport.items():
             period = abs(self._lno - self._mapSupport[x][2])
-            if period <= self._periodicity:
+            if period <= self._period:
                 self._mapSupport[x][1] += 1
         self._mapSupport = {k: v[1] for k, v in self._mapSupport.items()}
         plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[0], reverse=True)]
@@ -277,7 +277,7 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
                 break
             else:
                 self._finalPatterns[i] = self._mapSupport[i]
-        print(len(self._finalPatterns),  self._k, self._periodicity)
+        #print(len(self._finalPatterns),  self._k, self._periodicity)
         self._minimum = min([self._finalPatterns[i] for i in self._finalPatterns.keys()])
         plist = list(self._finalPatterns.keys())
         return plist
@@ -292,7 +292,7 @@ class Topk_PPPGrowth(_abstract.partialPeriodicPatterns):
         sup = 0
         for j in range(len(timeStamps) - 1):
             per = abs(timeStamps[j + 1] - timeStamps[j])
-            if per <= self._periodicity:
+            if per <= self._period:
                 sup += 1
         return sup
 
