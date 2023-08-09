@@ -41,11 +41,11 @@ class partialPeriodicPatterns(ABC):
             If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
             Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
-        periodicity: int or float or str
-            The user can specify maxPer either in count or proportion of database size.
-            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+        period: int or float or str
+            The user can specify period either in count or proportion of database size.
+            If the program detects the data type of period is integer, then it treats period is expressed in count.
             Otherwise, it will be treated as float.
-            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+            Example: period=10 will be treated as integer, while period=10.0 will be treated as float
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
@@ -80,7 +80,7 @@ class partialPeriodicPatterns(ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, k, periodicity, sep = '\t'):
+    def __init__(self, iFile, k, period, sep = '\t'):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -89,18 +89,18 @@ class partialPeriodicPatterns(ABC):
             Otherwise, it will be treated as float.
             Example: k=10 will be treated as integer, while minPS=10.0 will be treated as float
         :type k: int or float or str
-        :param periodicity: The user can specify periodicity either in count or proportion of database size.
-            If the program detects the data type of periodicity is integer, then it treats periodicity is expressed in count.
+        :param period: The user can specify period either in count or proportion of database size.
+            If the program detects the data type of period is integer, then it treats period is expressed in count.
             Otherwise, it will be treated as float.
-            Example: periodicity=10 will be treated as integer, while periodicity=10.0 will be treated as float
-        :type periodicity: int or float or str
+            Example: period=10 will be treated as integer, while period=10.0 will be treated as float
+        :type period: int or float or str
         :param sep: separator used in user specified input file
         :type sep: str
         """
 
         self._iFile = iFile
         self._k = k
-        self._periodicity = periodicity
+        self._period = periodicity
         self._sep = sep
         self._oFile = str()
         self._finalPatterns = {}
@@ -109,64 +109,6 @@ class partialPeriodicPatterns(ABC):
         self._startTime = float()
         self._endTime = float()
 
-    '''@abstractmethod
-    def _iFile(self):
-        """Variable to store the input file path/file name"""
-
-        pass
-
-    @abstractmethod
-    def _minPS(self):
-        """Variable to store the user-specified minimum period-support value"""
-
-        pass
-
-    @abstractmethod
-    def _maxPer(self):
-        """Variable to store the user specified maximum periodicity value"""
-
-        pass
-
-    def _sep(self):
-        """Variable to store the separator in input file"""
-
-        pass
-
-    @abstractmethod
-    def startTime(self):
-        """Variable to store the start time of the mining process"""
-
-        pass
-
-    @abstractmethod
-    def endTime(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryUSS(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryRSS(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def finalPatterns(self):
-        """Variable to store the complete set of patterns in a dictionary"""
-
-        pass
-
-    @abstractmethod
-    def oFile(self):
-        """Variable to store the name of the output file to store the complete set of periodic-frequent patterns"""
-
-        pass'''
 
     @abstractmethod
     def startMine(self):
