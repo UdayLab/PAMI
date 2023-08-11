@@ -775,7 +775,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         self._periodic = {}
         root.generatePatterns([], self._periodic)
         self._removeFalsePositives()
-        print("Periodic Frequent patterns were generated successfully using Periodic-TubeP algorithm")
+        print("Periodic Frequent patterns were generated successfully using UPFP-Growth++ algorithm")
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
