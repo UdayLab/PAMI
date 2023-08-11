@@ -94,9 +94,44 @@ class denseDF2DB:
                     else:
                         continue
                     f.write('\n')
-
             
+    def createMultipleTimeSeries(self, interval, outputFile):
+        """
+         :Description: Create the multiple time series data base.
 
+         :param outputFile:  str :
+                     Write multiple time series data base into outputFile
+
+        """
+        self.outputFile = outputFile
+        writer = open(self.outputFile, 'w+')
+        #ith open(self.outputFile, 'w+') as f:
+        count = 0
+        tids = []
+        items= []
+        values = []
+        for tid in self.tids:
+            count += 1
+            transaction = [item for item in self.items if condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+            for i in transaction:
+                tids.append(count)
+                items.append(i)
+                values.append(self.inputDF.at[tid, i])
+            if count == interval:
+                if len(values) > 0:
+                    s1, s, ss = str(), str(), str()
+                    for j in range(len(tids)):
+                        s1 = s1 + str(tids[j]) + '\t'
+                    for j in range(len(items)):
+                        s = s + items[j] + '\t'
+                    for j in range(len(values)):
+                        ss = ss + str(values[j]) + '\t'
+                
+                s2 = s1 + ':' + s + ':' + ss
+                writer.write("%s\n" %s2)
+                tids, items, values = [], [], []
+                count = 0
+        
     def createUtility(self, outputFile):
         """
          :Description: Create the utility data base.
@@ -128,8 +163,7 @@ class denseDF2DB:
 
 
 if __name__ == '__main__':
-    DF = createDenseDF('denseDF.csv')
-    obj = denseDF2DB(DF.getDF(), '>=', 2)
-    obj.createDB('testTransactional.csv')
+    obj = denseDF2DB(sys.argv[1], sys.argv[2], sys.argv[3])
+    obj.createDB(sys.argv[4])
     transactionalDB = obj.getFileName()
     print(transactionalDB)
