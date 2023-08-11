@@ -78,9 +78,18 @@ class _Item:
 
 
 def printTree(root):
+    """
+    To print the tree with nodes with item name, probability, timestamps, and second probability respectively.
+    ...
+    Attributes:
+    ----------
+       :param root: Node
+       :return: print all Tree with nodes with items, probability, parent item, timestamps, second probability respcectively.
+    """
     for x, y in root.children.items():
         print(x, y.item, y.probability, y.parent.item, y.tids, y.secondProbability)
         printTree(y)
+
 
 class _Node(object):
     """
@@ -295,6 +304,7 @@ class _Tree(object):
 
     def getPeriodAndSupport(self, support, TimeStamps):
         """
+        To calculate the periodicity of given timestamps
 
         Parameters
         ----------
@@ -409,7 +419,10 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
     Reference:
     ------------
 
-
+          Palla Likhitha, Rage Veena,Rage Uday Kiran, Koji Zettsu, Masashi Toyoda, Philippe Fournier-Viger, (2023). 
+          UPFP-growth++: An Efficient Algorithm to Find Periodic-Frequent Patterns in Uncertain Temporal Databases. 
+          ICONIP 2022. Communications in Computer and Information Science, vol 1792. Springer, Singapore.
+          https://doi.org/10.1007/978-981-99-1642-9_16
 
     Attributes:
     ----------
@@ -862,15 +875,4 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        ap = UPFPGrowthPlus('/Users/likhitha/Downloads/uncertainTemporal_T10I4D100K.csv', 500, 5000, '\t')
-        ap.startMine()
-        Patterns = ap.getPatterns()
-        print("Total number of Patterns:", len(Patterns))
-        ap.save('/Users/Likhitha/Downloads/uncertain/output.txt')
-        memUSS = ap.getMemoryUSS()
-        print("Total Memory in USS:", memUSS)
-        memRSS = ap.getMemoryRSS()
-        print("Total Memory in RSS", memRSS)
-        run = ap.getRuntime()
-        print("Total ExecutionTime in ms:", run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
