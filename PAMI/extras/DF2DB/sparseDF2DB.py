@@ -21,7 +21,7 @@ class sparseDF2DB:
             """
 
 
-    def __init__(self, inputDF, condition: str, thresholdValue: float):
+    def __init__(self, inputDF, condition: str, thresholdValue: float) -> None:
         self.inputDF = inputDF
         self.condition = condition
         self.thresholdValue = thresholdValue
