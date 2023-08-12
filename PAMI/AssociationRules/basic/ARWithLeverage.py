@@ -50,6 +50,7 @@ __copyright__ = """
 
 
 from PAMI.AssociationRules.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class _Leverage:
