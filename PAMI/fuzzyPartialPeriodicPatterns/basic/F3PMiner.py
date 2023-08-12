@@ -63,7 +63,7 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from PAMI.FuzzyPartialPeriodicPatterns.basic import abstract as _ab
+from PAMI.fuzzyPartialPeriodicPatterns.basic import abstract as _ab
 
 
 class _FFList:
