@@ -1,0 +1,6 @@
+0 10 G G
+11 15 g M
+16 35 m UF4SG
+36 50 uf4sg UH
+51 70 uh VUH
+71 100 vuh H
