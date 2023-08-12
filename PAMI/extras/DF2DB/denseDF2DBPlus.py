@@ -20,7 +20,7 @@ class denseDF2DBPlus:
 
         """
 
-    def __init__(self, inputDF, thresholdConditionDF):
+    def __init__(self, inputDF, thresholdConditionDF) -> None:
         self.inputDF = inputDF.T
         self.thresholdConditionDF = thresholdConditionDF
         self.tids = []
@@ -31,7 +31,7 @@ class denseDF2DBPlus:
         self.df = pd.merge(self.inputDF, self.thresholdConditionDF, left_index=True, right_index=True)
 
 
-    def createTransactional(self, outputFile):
+    def createTransactional(self, outputFile: str) -> None:
         """
         Create transactional data base
 
@@ -61,7 +61,7 @@ class denseDF2DBPlus:
 
 
 
-    def createTemporal(self, outputFile):
+    def createTemporal(self, outputFile: str) -> None:
         """
         Create temporal data base
 
@@ -90,7 +90,7 @@ class denseDF2DBPlus:
                     continue
                 f.write('\n')
 
-    def createUtility(self, outputFile):
+    def createUtility(self, outputFile: str) -> None:
         """
         Create the utility data base.
 
@@ -111,7 +111,7 @@ class denseDF2DBPlus:
                     f.write(f'\t{df.at[item]}')
                 f.write('\n')
 
-    def getFileName(self):
+    def getFileName(self) -> str:
         """
 
 
