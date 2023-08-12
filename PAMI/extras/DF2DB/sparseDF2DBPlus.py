@@ -21,7 +21,7 @@ class sparseDF2DBPlus:
             """
 
 
-    def __init__(self, inputDF, thresholdConditionDF):
+    def __init__(self, inputDF, thresholdConditionDF) -> None:
         self.inputDF = inputDF
         self.thresholdConditionDF = thresholdConditionDF
         self.outputFile = ''
@@ -33,7 +33,7 @@ class sparseDF2DBPlus:
         self.df = self.df.drop(columns=['value', 'threshold', 'condition'])
         self.df = self.df.groupby(level=0)['item'].apply(list)
 
-    def createTransactional(self, outputFile):
+    def createTransactional(self, outputFile: str) -> None:
         """
         Create transactional data base
 
@@ -49,7 +49,7 @@ class sparseDF2DBPlus:
                     f.write(f',{item}')
                 f.write('\n')
 
-    def createTemporal(self, outputFile):
+    def createTemporal(self, outputFile: str) -> None:
         """
         Create temporal data base
 
@@ -65,7 +65,7 @@ class sparseDF2DBPlus:
                     f.write(f',{item}')
                 f.write('\n')
 
-    def createUtility(self, outputFile):
+    def createUtility(self, outputFile: str) -> None:
         """
         Create the utility data base.
 
@@ -90,7 +90,7 @@ class sparseDF2DBPlus:
                 f.write('\n')
 
 
-    def getFileName(self):
+    def getFileName(self) -> str:
         """
 
 
