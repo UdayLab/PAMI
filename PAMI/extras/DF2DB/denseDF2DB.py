@@ -1,5 +1,7 @@
 import pandas as pd
 import operator
+import sys
+from typing import List, Union
 
 condition_operator = {
     '<': operator.lt,
@@ -28,7 +30,7 @@ class denseDF2DB:
             Creation data base output to this outputFile.
     """
 
-    def __init__(self, inputDF, condition, thresholdValue):
+    def __init__(self, inputDF, condition: str, thresholdValue: Union[int, float]) -> None:
         self.inputDF = inputDF
         self.condition = condition
         self.thresholdValue = thresholdValue
@@ -39,7 +41,7 @@ class denseDF2DB:
         self.tids = list(self.inputDF.index)
 
 
-    def createTransactional(self, outputFile):
+    def createTransactional(self, outputFile: str) -> None:
         """
          :Description: Create transactional data base
 
@@ -68,7 +70,7 @@ class denseDF2DB:
 
 
 
-    def createTemporal(self, outputFile):
+    def createTemporal(self, outputFile: str) -> None:
         """
          :Description: Create temporal data base
 
@@ -95,7 +97,7 @@ class denseDF2DB:
                         continue
                     f.write('\n')
             
-    def createMultipleTimeSeries(self, interval, outputFile):
+    def createMultipleTimeSeries(self, interval: int, outputFile: str) -> None:
         """
          :Description: Create the multiple time series data base.
 
@@ -132,7 +134,7 @@ class denseDF2DB:
                 tids, items, values = [], [], []
                 count = 0
         
-    def createUtility(self, outputFile):
+    def createUtility(self, outputFile: str) -> None:
         """
          :Description: Create the utility data base.
 
@@ -154,7 +156,7 @@ class denseDF2DB:
                     f.write(f'\t{df.at[item]}')
                 f.write('\n')
 
-    def getFileName(self):
+    def getFileName(self) -> str:
         """
         :return: outputFile name
         """
