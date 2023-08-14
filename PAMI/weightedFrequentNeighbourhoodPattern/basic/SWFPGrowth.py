@@ -420,7 +420,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
             print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternsAsDataFrame()
 

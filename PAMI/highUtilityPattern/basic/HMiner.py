@@ -57,9 +57,9 @@ class _Element:
         ts : int
             keep tact of transaction id
         nu : int
-            non closed itemSet utility
+            non-closed itemSet utility
         nru : int
-             non closed remaining utility
+             non-closed remaining utility
         pu : int
             prefix utility
         ppos: int
@@ -260,7 +260,7 @@ class HMiner(_ab._utilityPatterns):
 
     def _HMiner(self, o1, o2):
         """
-            A method to sort  list of huis in TWU asending order
+            A method to sort  list of huis in TWU ascending order
         """
         compare = self._mapOfTWU[o1.item] - self._mapOfTWU[o2.item]
         if compare == 0:
@@ -408,7 +408,7 @@ class HMiner(_ab._utilityPatterns):
             A method to find all high utility itemSets
             Attributes:
             -----------
-            :parm prefix: it represent all items in prefix
+            :parm prefix: it represents all items in prefix
             :type prefix :list
             :parm uList:projectd Utility list
             :type uList: list
@@ -591,9 +591,9 @@ class HMiner(_ab._utilityPatterns):
          A method to save itemSets
          Attributes:
         -----------
-        :parm prefix: it represent all items in prefix
+        :parm prefix: it represents all items in prefix
         :type prefix :list
-        :pram prefixLen: length of prefix
+        :parm prefixLen: length of prefix
         :type prefixLen:int
         :parm item:item
         :type item: int
@@ -628,7 +628,7 @@ class HMiner(_ab._utilityPatterns):
         return self._finalPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """

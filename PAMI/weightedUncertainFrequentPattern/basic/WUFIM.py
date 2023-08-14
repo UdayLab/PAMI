@@ -643,7 +643,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
                 self._finalPatterns[sample] = y
 
     def startMine(self):
-        """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
+        """Main method where the patterns are mined by constructing tree and remove the false patterns
             by counting the original support of a patterns
         """
         global _expSup, _expWSup, _weights, _finalPatterns
@@ -712,7 +712,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
