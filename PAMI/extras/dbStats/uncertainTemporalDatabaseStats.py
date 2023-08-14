@@ -3,6 +3,7 @@ import pandas as pd
 import validators
 import numpy as np
 from urllib.request import urlopen
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 
@@ -59,7 +60,7 @@ class uncertainTemporalDatabaseStats:
             get number of transactions per time stamp. This time stamp range is 1 to max period.
     """
 
-    def __init__(self, inputFile, sep='\t'):
+    def __init__(self, inputFile: str, sep: str='\t') -> None:
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -72,10 +73,10 @@ class uncertainTemporalDatabaseStats:
         self.periodList = []
         self.sep = sep
 
-    def run(self):
+    def run(self) -> None:
         self.readDatabase()
 
-    def readDatabase(self):
+    def readDatabase(self) -> None:
         """
         read database from input file and store into database and size of each transaction.
         And store the period between transactions as list
@@ -137,21 +138,21 @@ class uncertainTemporalDatabaseStats:
         #     self.periodList.append(int(ts)-preTimeStamp)
         #     preTimeStamp = ts
 
-    def getDatabaseSize(self):
+    def getDatabaseSize(self) -> int:
         """
         get the size of database
         :return: data base size
         """
         return len(self.database)
 
-    def getMinimumTransactionLength(self):
+    def getMinimumTransactionLength(self) -> int:
         """
         get the minimum transaction length
         :return: minimum transaction length
         """
         return min(self.lengthList)
 
-    def getAverageTransactionLength(self):
+    def getAverageTransactionLength(self) -> float:
         """
         get the average transaction length. It is sum of all transaction length divided by database length.
         :return: average transaction length
@@ -159,28 +160,28 @@ class uncertainTemporalDatabaseStats:
         totalLength = sum(self.lengthList)
         return totalLength / len(self.database)
 
-    def getMaximumTransactionLength(self):
+    def getMaximumTransactionLength(self) -> int:
         """
         get the maximum transaction length
         :return: maximum transaction length
         """
         return max(self.lengthList)
 
-    def getStandardDeviationTransactionLength(self):
+    def getStandardDeviationTransactionLength(self) -> float:
         """
         get the standard deviation transaction length
         :return: standard deviation transaction length
         """
         return statistics.pstdev(self.lengthList)
 
-    def getVarianceTransactionLength(self):
+    def getVarianceTransactionLength(self) -> float:
         """
         get the variance transaction length
         :return: variance transaction length
         """
         return statistics.variance(self.lengthList)
 
-    def convertDataIntoMatrix(self):
+    def convertDataIntoMatrix(self) -> np.ndarray:
         singleItems = self.getSortedListOfItemFrequencies()
         itemsets = {}
         for tid in self.database:
@@ -199,7 +200,7 @@ class uncertainTemporalDatabaseStats:
         an_array = np.array(data)
         return an_array
 
-    def getSparsity(self):
+    def getSparsity(self) -> float:
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
@@ -208,7 +209,7 @@ class uncertainTemporalDatabaseStats:
         n_zeros = np.count_nonzero(big_array == 0)
         return (n_zeros / big_array.size)
 
-    def getDensity(self):
+    def getDensity(self) -> float:
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
@@ -217,14 +218,14 @@ class uncertainTemporalDatabaseStats:
         n_zeros = np.count_nonzero(big_array == 1)
         return (1.0 - n_zeros / big_array.size)
 
-    def getTotalNumberOfItems(self):
+    def getTotalNumberOfItems(self) -> int:
         """
         get the number of items in database.
         :return: number of items
         """
         return len(self.getSortedListOfItemFrequencies())
 
-    def getSortedListOfItemFrequencies(self):
+    def getSortedListOfItemFrequencies(self) -> dict:
         """
         get sorted list of item frequencies
         :return: item frequencies
@@ -236,7 +237,7 @@ class uncertainTemporalDatabaseStats:
                 itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
     
-    def getFrequenciesInRange(self):
+    def getFrequenciesInRange(self) -> dict:
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}
         maximum = max([i for i in fre.values()])
@@ -250,7 +251,7 @@ class uncertainTemporalDatabaseStats:
             rangeFrequencies[va] = values[i]
         return rangeFrequencies
 
-    def getTransanctionalLengthDistribution(self):
+    def getTransanctionalLengthDistribution(self) -> dict:
         """
         get transaction length
         :return: transaction length
@@ -261,7 +262,7 @@ class uncertainTemporalDatabaseStats:
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
-    def save(self, data, outputFile):
+    def save(self, data: dict, outputFile: str) -> None:
         """
         store data into outputFile
         :param data: input data
@@ -273,14 +274,14 @@ class uncertainTemporalDatabaseStats:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
 
-    def getMinimumPeriod(self):
+    def getMinimumPeriod(self) -> int:
         """
         get the minimum period
         :return: minimum period
         """
         return min(self.periodList)
 
-    def getAveragePeriod(self):
+    def getAveragePeriod(self) -> float:
         """
         get the average period. It is sum of all period divided by number of period.
         :return: average period
@@ -288,21 +289,21 @@ class uncertainTemporalDatabaseStats:
         totalPeriod = sum(self.periodList)
         return totalPeriod / len(self.periodList)
 
-    def getMaximumPeriod(self):
+    def getMaximumPeriod(self) -> int:
         """
         get the maximum period
         :return: maximum period
         """
         return max(self.periodList)
 
-    def getStandardDeviationPeriod(self):
+    def getStandardDeviationPeriod(self) -> float:
         """
         get the standard deviation period
         :return: standard deviation period
         """
         return statistics.pstdev(self.periodList)
 
-    def getNumberOfTransactionsPerTimestamp(self):
+    def getNumberOfTransactionsPerTimestamp(self) -> dict:
         """
         get number of transactions per time stamp
         :return: number of transactions per time stamp as dict
@@ -310,7 +311,7 @@ class uncertainTemporalDatabaseStats:
         maxTS = max(list(self.timeStampCount.keys()))
         return {ts: self.timeStampCount.get(ts, 0) for ts in range(1, maxTS + 1)}
    
-    def printStats(self):
+    def printStats(self) -> None:
         print(f'Database size : {self.getDatabaseSize()}')
         print(f'Number of items : {self.getTotalNumberOfItems()}')
         print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
@@ -323,7 +324,7 @@ class uncertainTemporalDatabaseStats:
         print(f'Variance : {self.getVarianceTransactionLength()}')
         print(f'Sparsity : {self.getSparsity()}')
   
-    def plotGraphs(self):
+    def plotGraphs(self) -> None:
         itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
         #numberOfTransactionPerTimeStamp = self.getNumberOfTransactionsPerTimestamp()
