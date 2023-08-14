@@ -17,7 +17,7 @@ class DF2DB:
 
 
         """
-    def __init__(self, inputDF, thresholdValue, condition, DFtype='sparse'):
+    def __init__(self, inputDF, thresholdValue, condition, DFtype='sparse') -> None:
         self.inputDF = inputDF
         self.thresholdValue = thresholdValue
         self.condition = condition
@@ -29,7 +29,7 @@ class DF2DB:
         else:
             raise Exception('DF type should be sparse or dense')
 
-    def getTransactional(self, outputFile):
+    def getTransactional(self, outputFile) -> str:
         """
         create transactional database and return outputFileName
 
@@ -41,7 +41,7 @@ class DF2DB:
         self.DF2DB.createTransactional(outputFile)
         return self.DF2DB.getFileName()
 
-    def getTemporal(self, outputFile):
+    def getTemporal(self, outputFile) -> str:
         """
         create temporal database and return outputFile name
 
@@ -53,7 +53,7 @@ class DF2DB:
         self.DF2DB.createTemporal(outputFile)
         return self.DF2DB.getFileName()
 
-    def getUtility(self, outputFile):
+    def getUtility(self, outputFile) -> str:
         """
         create utility database and return outputFile name
 
