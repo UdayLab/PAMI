@@ -21,7 +21,7 @@ class sparseDF2DB:
             """
 
 
-    def __init__(self, inputDF, condition, thresholdValue):
+    def __init__(self, inputDF, condition: str, thresholdValue: float) -> None:
         self.inputDF = inputDF
         self.condition = condition
         self.thresholdValue = thresholdValue
@@ -39,7 +39,7 @@ class sparseDF2DB:
         self.df = self.df.drop(columns='value')
         self.df = self.df.groupby('tid')['item'].apply(list)
 
-    def createTransactional(self, outputFile):
+    def createTransactional(self, outputFile: str) -> None:
         """
         Create transactional data base
 
@@ -55,7 +55,7 @@ class sparseDF2DB:
                     f.write(f',{item}')
                 f.write('\n')
 
-    def createTemporal(self, outputFile):
+    def createTemporal(self, outputFile: str) -> None:
         """
         Create temporal data base
 
@@ -71,7 +71,7 @@ class sparseDF2DB:
                     f.write(f',{item}')
                 f.write('\n')
 
-    def createUtility(self, outputFile):
+    def createUtility(self, outputFile: str) -> None:
         """
         Create the utility data base.
 
@@ -95,7 +95,7 @@ class sparseDF2DB:
                     f.write(f'\t{value}')
                 f.write('\n')
 
-    def getFileName(self):
+    def getFileName(self) -> str:
         """
 
         :return: outputFile name
