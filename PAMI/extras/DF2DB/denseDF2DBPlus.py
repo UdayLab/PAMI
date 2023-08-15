@@ -1,3 +1,47 @@
+# denseDF2DBPlus in this code the dense dataframe is converting databases into different transactional, temporal, utility types.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.frequentPattern.basic import FPGrowth as fp
+#
+#     obj = fp.denseDF2DBPlus(idf, ">=", 16)
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+#
+#
+#
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import pandas as pd
 
 class denseDF2DBPlus:
@@ -15,7 +59,47 @@ class denseDF2DBPlus:
         :param items: list :
             Store the items list
         :param outputFile: str  :
-            Creation data base output to this outputFile.
+            Creation database output to this outputFile.
+
+
+        :Attributes:
+
+        startTime : float
+          To record the start time of the mining process
+
+        endTime : float
+          To record the completion time of the mining process
+
+        memoryUSS : float
+          To store the total amount of USS memory consumed by the program
+
+        memoryRSS : float
+          To store the total amount of RSS memory consumed by the program
+
+
+
+        **Importing this algorithm into a python program**
+        --------------------------------------------------------
+        .. code-block:: python
+
+                    from PAMI.frequentPattern.basic import FPGrowth as fp
+
+                    obj = fp.denseDF2DBPlus(iDdf, ">=", 16)
+
+                    memUSS = obj.getMemoryUSS()
+
+                    print("Total Memory in USS:", memUSS)
+
+                    memRSS = obj.getMemoryRSS()
+
+                    print("Total Memory in RSS", memRSS)
+
+                    run = obj.getRuntime()
+
+                    print("Total ExecutionTime in seconds:", run)
+
+
+
 
 
         """

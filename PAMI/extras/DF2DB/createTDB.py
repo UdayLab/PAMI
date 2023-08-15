@@ -5,7 +5,7 @@
 #
 #     from PAMI.frequentPattern.basic import FPGrowth as fp
 #
-#     obj = fp.createTDB(idf, ">=")
+#     obj = fp.createTDB(idf, ">=", 16)
 #
 #     obj.save(oFile)
 #

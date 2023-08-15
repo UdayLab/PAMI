@@ -5,7 +5,7 @@
 # --------------------------------------------------------
 #
 #     from PAMI.extras.DF2DB.denseDF2DB import db
-#     obj = db.DF2DB(idf, ">=" )
+#     obj = db.DF2DB(idf, ">=", 16 )
 
 #     memUSS = obj.getMemoryUSS()
 #
@@ -79,7 +79,7 @@ class DF2DB:
 
                     from PAMI.extras.DF2DB.denseDF2DB import db
 
-                    obj = db.DF2DB(idf, ">=" )
+                    obj = db.DF2DB(idf, ">=", 16)
 
                     memUSS = obj.getMemoryUSS()
 
