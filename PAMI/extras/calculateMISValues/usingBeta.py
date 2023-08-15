@@ -5,19 +5,19 @@ from urllib.request import urlopen as _urlopen
 
 class usingBeta():
 
-    _iFile: str = ' '
-    _beta: int = int()
-    _sep: str = str()
-    _threshold: int = int()
-    _finalPatterns: dict = {}
+    _iFile = ' '
+    _beta = int()
+    _sep = str()
+    _threshold = int()
+    _finalPatterns = {}
 
-    def __init__(self, iFile: str, beta: int, threshold: int, sep: str):
+    def __init__(self, iFile, beta, threshold, sep):
         self._iFile = iFile
         self._beta = beta
         self._threshold = threshold
         self._sep = sep
 
-    def _creatingItemSets(self) -> None:
+    def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
         """
@@ -50,7 +50,7 @@ class usingBeta():
                 except IOError:
                     print("File Not Found")
 
-    def _creatingFrequentItems(self) -> tuple:
+    def _creatingFrequentItems(self):
         """
         This function creates frequent items from _database.
         :return: frequentTidData that stores frequent items and their tid list.
@@ -68,7 +68,7 @@ class usingBeta():
         frequentTidData = {k: len(v) * self._beta for k, v in tidData.items()}
         return mini, frequentTidData
 
-    def caculateMIS(self) -> None:
+    def caculateMIS(self):
         self._creatingItemSets()
         mini, frequentItems = self._creatingFrequentItems()
         for x, y in frequentItems.items():
@@ -77,7 +77,7 @@ class usingBeta():
             else:
                 self._finalPatterns[x] = y
 
-    def getPatternsAsDataFrame(self) -> _pd.DataFrame:
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -90,7 +90,7 @@ class usingBeta():
             dataFrame = _pd.DataFrame(data, columns=['Items', 'MIS'])
         return dataFrame
 
-    def save(self, outFile: str) -> None:
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
