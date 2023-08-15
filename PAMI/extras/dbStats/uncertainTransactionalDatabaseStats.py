@@ -3,6 +3,7 @@ import pandas as pd
 import validators
 import numpy as np
 from urllib.request import urlopen
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class uncertainTransactionalDatabaseStats:
@@ -49,7 +50,7 @@ class uncertainTransactionalDatabaseStats:
             store data into outputFile
     """
 
-    def __init__(self, inputFile, sep='\t'):
+    def __init__(self, inputFile: str, sep: str='\t') -> None:
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -59,10 +60,10 @@ class uncertainTransactionalDatabaseStats:
         self.sep = sep
         self.database = {}
 
-    def run(self):
+    def run(self) -> None:
         self.readDatabase()
 
-    def readDatabase(self):
+    def readDatabase(self) -> None:
         """
         read database from input file and store into database and size of each transaction.
         """
@@ -101,28 +102,28 @@ class uncertainTransactionalDatabaseStats:
                     quit()
         self.lengthList = [len(s) for s in self.database.values()]
 
-    def getDatabaseSize(self):
+    def getDatabaseSize(self) -> int:
         """
         get the size of database
         :return: data base size
         """
         return len(self.database)
 
-    def getTotalNumberOfItems(self):
+    def getTotalNumberOfItems(self) -> int:
         """
         get the number of items in database.
         :return: number of items
         """
         return len(self.getSortedListOfItemFrequencies())
 
-    def getMinimumTransactionLength(self):
+    def getMinimumTransactionLength(self) -> int:
         """
         get the minimum transaction length
         :return: minimum transaction length
         """
         return min(self.lengthList)
 
-    def getAverageTransactionLength(self):
+    def getAverageTransactionLength(self) -> float:
         """
         get the average transaction length. It is sum of all transaction length divided by database length.
         :return: average transaction length
@@ -130,35 +131,35 @@ class uncertainTransactionalDatabaseStats:
         totalLength = sum(self.lengthList)
         return totalLength / len(self.database)
 
-    def getMaximumTransactionLength(self):
+    def getMaximumTransactionLength(self) -> int:
         """
         get the maximum transaction length
         :return: maximum transaction length
         """
         return max(self.lengthList)
 
-    def getStandardDeviationTransactionLength(self):
+    def getStandardDeviationTransactionLength(self) -> float:
         """
         get the standard deviation transaction length
         :return: standard deviation transaction length
         """
         return statistics.pstdev(self.lengthList)
 
-    def getVarianceTransactionLength(self):
+    def getVarianceTransactionLength(self) -> float:
         """
         get the variance transaction length
         :return: variance transaction length
         """
         return statistics.variance(self.lengthList)
 
-    def getNumberOfItems(self):
+    def getNumberOfItems(self) -> int:
         """
         get the number of items in database.
         :return: number of items
         """
         return len(self.getSortedListOfItemFrequencies())
 
-    def convertDataIntoMatrix(self):
+    def convertDataIntoMatrix(self) -> np.ndarray:
         singleItems = self.getSortedListOfItemFrequencies()
         # big_array = np.zeros((self.getDatabaseSize(), len(self.getSortedListOfItemFrequencies())))
         itemsets = {}
@@ -179,7 +180,7 @@ class uncertainTransactionalDatabaseStats:
         an_array = np.array(data)
         return an_array
 
-    def getSparsity(self):
+    def getSparsity(self) -> float:
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
@@ -188,7 +189,7 @@ class uncertainTransactionalDatabaseStats:
         n_zeros = np.count_nonzero(big_array == 0)
         return (n_zeros / big_array.size)
 
-    def getDensity(self):
+    def getDensity(self) -> float:
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
@@ -197,7 +198,7 @@ class uncertainTransactionalDatabaseStats:
         n_zeros = np.count_nonzero(big_array != 0)
         return (n_zeros / big_array.size)
 
-    def getSortedListOfItemFrequencies(self):
+    def getSortedListOfItemFrequencies(self) -> dict:
         """
         get sorted list of item frequencies
         :return: item frequencies
@@ -209,7 +210,7 @@ class uncertainTransactionalDatabaseStats:
                 itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
 
-    def getFrequenciesInRange(self):
+    def getFrequenciesInRange(self) -> dict:
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}
         maximum = max([i for i in fre.values()])
@@ -221,7 +222,7 @@ class uncertainTransactionalDatabaseStats:
             rangeFrequencies[va] = values[i]
         return rangeFrequencies
 
-    def getTransanctionalLengthDistribution(self):
+    def getTransanctionalLengthDistribution(self) -> dict:
         """
         get transaction length
         :return: transaction length
@@ -232,7 +233,7 @@ class uncertainTransactionalDatabaseStats:
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
-    def save(self, data, outputFile):
+    def save(self, data: dict, outputFile: str) -> None:
         """
         store data into outputFile
         :param data: input data
@@ -244,7 +245,7 @@ class uncertainTransactionalDatabaseStats:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
 
-    def printStats(self):
+    def printStats(self) -> None:
         print(f'Database size (total no of transactions) : {self.getDatabaseSize()}')
         print(f'Number of items : {self.getNumberOfItems()}')
         print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
@@ -254,7 +255,7 @@ class uncertainTransactionalDatabaseStats:
         print(f'Variance in Transaction Sizes : {self.getVarianceTransactionLength()}')
         print(f'Sparsity : {self.getSparsity()}')
 
-    def plotGraphs(self):
+    def plotGraphs(self) -> None:
         itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
         plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'Frequency', 'No of items', 'frequency')
