@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def csvParquet(csv_file, sep, inputType, outputType):
+def csvParquet(csv_file: str, sep: str, inputType: str, outputType: str) -> None:
     inputTypes = ["temporal", "utility"]
     outputTypes = ["sparse", "dense"]
 
@@ -131,7 +131,7 @@ def csvParquet(csv_file, sep, inputType, outputType):
                 f.write("%s->%s\n"%(key,conversion[key]))
 
 
-def parquetFormat(file, sep, inputType, outputType):
+def parquetFormat(file: str, sep: str, inputType: str, outputType: str) -> None:
     inputTypes = ["temporal", "utility"]
     outputTypes = ["sparse", "dense"]
 
