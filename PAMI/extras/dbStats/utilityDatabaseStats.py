@@ -2,6 +2,7 @@ import statistics
 import validators
 from urllib.request import urlopen
 import pandas as pd
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class utilityDatabaseStats:
@@ -20,7 +21,7 @@ class utilityDatabaseStats:
            :param sep: str
                separator in file. Default is tab space.
     """
-    def __init__(self, inputFile, sep='\t'):
+    def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str='\t') -> None:
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -31,10 +32,10 @@ class utilityDatabaseStats:
         self.utility = {}
         self.sep = sep
 
-    def run(self):
+    def run(self) -> None:
         self.readDatabase()
 
-    def creatingItemSets(self):
+    def creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -78,7 +79,7 @@ class utilityDatabaseStats:
                     print("File Not Found")
                     quit()
 
-    def readDatabase(self):
+    def readDatabase(self) -> None:
         """
         read database from input file and store into database and size of each transaction.
         """
@@ -95,28 +96,28 @@ class utilityDatabaseStats:
         self.lengthList = [len(s) for s in self.database.values()]
         self.utility = {k: v for k, v in sorted(self.utility.items(), key=lambda x:x[1], reverse=True)}
 
-    def getDatabaseSize(self):
+    def getDatabaseSize(self) -> int:
         """
         get the size of database
         :return: data base size
         """
         return len(self.database)
 
-    def getTotalNumberOfItems(self):
+    def getTotalNumberOfItems(self) -> int:
         """
         get the number of items in database.
         :return: number of items
         """
         return len(self.getSortedListOfItemFrequencies())
 
-    def getMinimumTransactionLength(self):
+    def getMinimumTransactionLength(self) -> int:
         """
         get the minimum transaction length
         :return: minimum transaction length
         """
         return min(self.lengthList)
 
-    def getAverageTransactionLength(self):
+    def getAverageTransactionLength(self) -> float:
         """
         get the average transaction length. It is sum of all transaction length divided by database length.
         :return: average transaction length
@@ -124,35 +125,35 @@ class utilityDatabaseStats:
         totalLength = sum(self.lengthList)
         return totalLength / len(self.database)
 
-    def getMaximumTransactionLength(self):
+    def getMaximumTransactionLength(self) -> int:
         """
         get the maximum transaction length
         :return: maximum transaction length
         """
         return max(self.lengthList)
 
-    def getStandardDeviationTransactionLength(self):
+    def getStandardDeviationTransactionLength(self) -> float:
         """
         get the standard deviation transaction length
         :return: standard deviation transaction length
         """
         return statistics.pstdev(self.lengthList)
 
-    def getVarianceTransactionLength(self):
+    def getVarianceTransactionLength(self) -> float:
         """
         get the variance transaction length
         :return: variance transaction length
         """
         return statistics.variance(self.lengthList)
 
-    def getNumberOfItems(self):
+    def getNumberOfItems(self) -> int:
         """
         get the number of items in database.
         :return: number of items
         """
         return len(self.getSortedListOfItemFrequencies())
 
-    def getSparsity(self):
+    def getSparsity(self) -> float:
         # percentage of 0 dense dataframe
         """
         get the sparsity of database
@@ -161,7 +162,7 @@ class utilityDatabaseStats:
         matrixSize = self.getDatabaseSize()*len(self.getSortedListOfItemFrequencies())
         return (matrixSize - sum(self.getSortedListOfItemFrequencies().values())) / matrixSize
 
-    def getSortedListOfItemFrequencies(self):
+    def getSortedListOfItemFrequencies(self) -> dict:
         """
         get sorted list of item frequencies
         :return: item frequencies
@@ -173,7 +174,7 @@ class utilityDatabaseStats:
                 itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
     
-    def getFrequenciesInRange(self):
+    def getFrequenciesInRange(self) -> dict:
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}
         maximum = max([i for i in fre.values()])
@@ -187,7 +188,7 @@ class utilityDatabaseStats:
             rangeFrequencies[va] = values[i]
         return rangeFrequencies
 
-    def getTransanctionalLengthDistribution(self):
+    def getTransanctionalLengthDistribution(self) -> dict:
         """
         get transaction length
         :return: transaction length
@@ -198,7 +199,7 @@ class utilityDatabaseStats:
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x:x[0])}
 
-    def save(self, data, outputFile):
+    def save(self, data, outputFile) -> None:
         """
         store data into outputFile
         :param data: input data
@@ -210,42 +211,42 @@ class utilityDatabaseStats:
             for key, value in data.items():
                 f.write(f'{key}\t{value}\n')
 
-    def getTotalUtility(self):
+    def getTotalUtility(self) -> int:
         """
         get sum of utility
         :return: total utility
         """
         return sum(list(self.utility.values()))
 
-    def getMinimumUtility(self):
+    def getMinimumUtility(self) -> int:
         """
         get the minimum utility
         :return: minimum utility
         """
         return min(list(self.utility.values()))
 
-    def getAverageUtility(self):
+    def getAverageUtility(self) -> float:
         """
         get the average utility
         :return: average utility
         """
         return sum(list(self.utility.values())) / len(self.utility)
 
-    def getMaximumUtility(self):
+    def getMaximumUtility(self) -> int:
         """
         get the maximum utility
         :return: maximum utility
         """
         return max(list(self.utility.values()))
 
-    def getSortedUtilityValuesOfItem(self):
+    def getSortedUtilityValuesOfItem(self) -> dict:
         """
         get sorted utility value each item. key is item and value is utility of item
         :return: sorted dictionary utility value of item
         """
         return self.utility
     
-    def printStats(self):
+    def printStats(self) -> None:
         print(f'Database size : {self.getDatabaseSize()}')
         print(f'Number of items : {self.getTotalNumberOfItems()}')
         print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
@@ -259,7 +260,7 @@ class utilityDatabaseStats:
         print(f'Sparsity : {self.getSparsity()}')
         
     
-    def plotGraphs(self):
+    def plotGraphs(self) -> None:
         
         itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
