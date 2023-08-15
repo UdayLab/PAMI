@@ -18,6 +18,7 @@ import validators
 from urllib.request import urlopen
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 import sys
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class sequentialDatabaseStats():
@@ -105,7 +106,7 @@ class sequentialDatabaseStats():
             The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.
     """
 
-    def __init__(self, inputFile, sep='\t'):
+    def __init__(self, inputFile: str, sep: str='\t') -> None:
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -116,7 +117,7 @@ class sequentialDatabaseStats():
         self.sep = sep
         self.database = {}
 
-    def readDatabase(self):
+    def readDatabase(self) -> None:
         """
                 read sequential database from input file and store into database and size of each sequence and subsequences.
         """
@@ -166,28 +167,28 @@ class sequentialDatabaseStats():
                             self.database[rowNum] = seq
 
 
-    def getDatabaseSize(self):
+    def getDatabaseSize(self) -> int:
         """
         get the size of database
         :return: database size
         """
         return len(self.database)
 
-    def getTotalNumberOfItems(self):
+    def getTotalNumberOfItems(self) -> int:
         """
         get the number of items in database.
         :return: number of items
         """
         return len(self.getSortedListOfItemFrequencies())
 
-    def getMinimumSequenceLength(self):
+    def getMinimumSequenceLength(self) -> int:
         """
         get the minimum sequence length
         :return: minimum sequence length
         """
         return min(self.seqLengthList)
 
-    def getAverageSubsequencePerSequenceLength(self):
+    def getAverageSubsequencePerSequenceLength(self) -> float:
         """
         get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.
         :return: average subsequence length per sequence length
@@ -195,7 +196,7 @@ class sequentialDatabaseStats():
         totalLength = sum(self.seqLengthList)
         return totalLength / len(self.database)
 
-    def getAverageItemPerSubsequenceLength(self):
+    def getAverageItemPerSubsequenceLength(self) -> float:
 
         """
         get the average Item length per subsequence. It is sum of all item length divided by subsequence length.
@@ -205,42 +206,42 @@ class sequentialDatabaseStats():
         totalLength = sum(list(map(sum,self.subSeqLengthList)))
         return totalLength / sum(self.seqLengthList)
 
-    def getMaximumSequenceLength(self):
+    def getMaximumSequenceLength(self) -> int:
         """
         get the maximum sequence length
         :return: maximum sequence length
         """
         return max(self.seqLengthList)
 
-    def getStandardDeviationSequenceLength(self):
+    def getStandardDeviationSequenceLength(self) -> float:
         """
         get the standard deviation sequence length
         :return: standard deviation sequence length
         """
         return statistics.pstdev(self.seqLengthList)
 
-    def getVarianceSequenceLength(self):
+    def getVarianceSequenceLength(self) -> float:
         """
         get the variance Sequence length
         :return: variance Sequence length
         """
         return statistics.variance(self.seqLengthList)
 
-    def getSequenceSize(self):
+    def getSequenceSize(self) -> int:
         """
         get the size of sequence
         :return: sequence size
         """
         return sum(self.seqLengthList)
 
-    def getMinimumSubsequenceLength(self):
+    def getMinimumSubsequenceLength(self) -> int:
         """
         get the minimum subsequence length
         :return: minimum subsequence length
         """
         return min(list(map(min,self.subSeqLengthList)))
 
-    def getAverageItemPerSequenceLength(self):
+    def getAverageItemPerSequenceLength(self) -> float:
         """
         get the average item length per sequence. It is sum of all item length divided by sequence length.
         :return: average item length per sequence
@@ -248,14 +249,14 @@ class sequentialDatabaseStats():
         totalLength = sum(list(map(sum,self.subSeqLengthList)))
         return totalLength / len(self.database)
 
-    def getMaximumSubsequenceLength(self):
+    def getMaximumSubsequenceLength(self) -> int:
         """
         get the maximum subsequence length
         :return: maximum subsequence length
         """
         return max(list(map(max,self.subSeqLengthList)))
 
-    def getStandardDeviationSubsequenceLength(self):
+    def getStandardDeviationSubsequenceLength(self) -> float:
         """
         get the standard deviation subsequence length
         :return: standard deviation subsequence length
@@ -265,7 +266,7 @@ class sequentialDatabaseStats():
             allList=allList+i
         return statistics.pstdev(allList)
 
-    def getVarianceSubsequenceLength(self):
+    def getVarianceSubsequenceLength(self) -> float:
         """
         get the variance subSequence length
         :return: variance subSequence length
@@ -275,7 +276,7 @@ class sequentialDatabaseStats():
             allList = allList + i
         return statistics.variance(allList)
 
-    def getSortedListOfItemFrequencies(self):
+    def getSortedListOfItemFrequencies(self) -> Dict[str, int]:
         """
         get sorted list of item frequencies
         :return: item frequencies
@@ -288,7 +289,7 @@ class sequentialDatabaseStats():
                     itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
 
-    def getFrequenciesInRange(self):
+    def getFrequenciesInRange(self) -> Dict[int, int]:
         """
                 get sorted list of item frequencies in some range
                 :return: item separated by its frequencies
@@ -304,7 +305,7 @@ class sequentialDatabaseStats():
             rangeFrequencies[values[i]] = va
         return rangeFrequencies
 
-    def getSequencialLengthDistribution(self):
+    def getSequencialLengthDistribution(self) -> Dict[int, int]:
         """
         get Sequence length Distribution
         :return: Sequence length
@@ -315,7 +316,7 @@ class sequentialDatabaseStats():
             transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
-    def getSubsequencialLengthDistribution(self):
+    def getSubsequencialLengthDistribution(self) -> Dict[int, int]:
         """
         get subSequence length distribution
         :return: subSequence length
@@ -327,10 +328,10 @@ class sequentialDatabaseStats():
                 transactionLength[length] += 1
         return {k: v for k, v in sorted(transactionLength.items(), key=lambda x: x[0])}
 
-    def run(self):
+    def run(self) -> None:
         self.readDatabase()
 
-    def printStats(self):
+    def printStats(self) -> None:
         """
         to print the all status of sequence database
         Returns:
@@ -350,7 +351,7 @@ class sequentialDatabaseStats():
         print(f'Standard Deviation Sequence Size : {self.getStandardDeviationSubsequenceLength()}')
         print(f'Variance in Sequence Sizes : {self.getVarianceSubsequenceLength()}')
 
-    def plotGraphs(self):
+    def plotGraphs(self) -> None:
         """
         to plot the  distribution about items, subsequences in sequence and items in subsequence
         Returns:
