@@ -363,7 +363,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
+            Complete set of frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -720,7 +720,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 

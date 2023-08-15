@@ -261,9 +261,9 @@ class _Dataset:
             -----------
             :param items: represent a single line of database
             :type items: list
-            :param utilities: represent a utilities of items
+            :param utilities: represent the utilities of items
             :type utilities: list
-            :param utilitySum: represent a the utilitySum
+            :param utilitySum: represent  the utilitySum
             :type items: int
             :return : Transaction
             :rtype: Transaction
@@ -640,7 +640,7 @@ class HUFIM(_ab._utilityPatterns):
             -----------
             :param transactionsPe: transactions the projected database for P U {e}
             :type transactionsPe: list or Dataset
-            :param j:he position of j in the list of promising items
+            :param j:the position of j in the list of promising items
             :type j:int
             :param itemsToKeep :the list of promising items
             :type itemsToKeep: list or Dataset
@@ -710,7 +710,7 @@ class HUFIM(_ab._utilityPatterns):
 
     def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
         """
-        Scan the initial database to calculate the subtree utility of each items using a utility-bin array
+        Scan the initial database to calculate the subtree utility of each item using a utility-bin array
 
         Attributes:
         ----------
@@ -827,7 +827,7 @@ class HUFIM(_ab._utilityPatterns):
         return self._finalPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -865,6 +865,8 @@ class HUFIM(_ab._utilityPatterns):
         return self._endTime-self._startTime
     
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of High Utility Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

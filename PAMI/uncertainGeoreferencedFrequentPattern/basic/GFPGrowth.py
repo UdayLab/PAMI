@@ -2,7 +2,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.uncertainGeoreferenceFrequentPattern.basic import GFPGrowth as alg
+#     from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
 #
 #     obj = alg.GFPGrowth(iFile, nFile, minSup)
 #
@@ -12,7 +12,7 @@
 #
 #     print("Total number of  Patterns:", len(Patterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -394,7 +394,7 @@ class GFPGrowth(_ab._frequentPatterns):
 
         print("Total number of  Patterns:", len(Patterns))
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternsAsDataFrame()
 
@@ -656,7 +656,7 @@ class GFPGrowth(_ab._frequentPatterns):
                 self._finalPatterns[sample] = y
 
     def startMine(self):
-        """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
+        """Main method where the patterns are mined by constructing tree and remove the false patterns
             by counting the original support of a patterns
         """
         global minSup
@@ -717,8 +717,8 @@ class GFPGrowth(_ab._frequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+    def save(self, outFile):
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """

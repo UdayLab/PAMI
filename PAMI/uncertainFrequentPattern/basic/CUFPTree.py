@@ -12,7 +12,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -383,7 +383,7 @@ class CUFPTree(_ab._frequentPatterns):
 
             print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternsAsDataFrame()
 
@@ -596,7 +596,7 @@ class CUFPTree(_ab._frequentPatterns):
                 self._finalPatterns[sample] = y
 
     def startMine(self):
-        """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
+        """Main method where the patterns are mined by constructing tree and remove the false patterns
             by counting the original support of a patterns
         """
         global minSup
@@ -657,7 +657,7 @@ class CUFPTree(_ab._frequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """

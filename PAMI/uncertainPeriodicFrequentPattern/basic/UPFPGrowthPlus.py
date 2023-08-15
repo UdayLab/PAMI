@@ -178,7 +178,7 @@ class _Tree(object):
         """
             adding transaction into tree
 
-            :param transaction : it represents the one transactions in database
+            :param transaction : it represents the one transaction in database
 
             :type transaction : list
 
@@ -229,7 +229,7 @@ class _Tree(object):
         """
             constructing conditional tree from prefixPaths
 
-            :param transaction : it represents the one transactions in database
+            :param transaction : it represents the one transaction in database
 
             :type transaction : list
 
@@ -647,7 +647,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         """it takes the transactions and support of each item and construct the main tree with setting root
                             node as null
 
-            :param data : it represents the one transactions in database
+            :param data : it represents the one transaction in database
 
             :type data : list
 
@@ -756,7 +756,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         #print("Total false patterns generated:", len(self._periodic) - count)
 
     def startMine(self):
-        """Main method where the patterns are mined by constructing tree and remove the remove the false patterns
+        """Main method where the patterns are mined by constructing tree and remove the false patterns
                            by counting the original support of a patterns
 
 
@@ -829,7 +829,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 

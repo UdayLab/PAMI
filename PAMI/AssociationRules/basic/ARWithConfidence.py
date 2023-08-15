@@ -48,9 +48,9 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
 from PAMI.AssociationRules.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+
 
 class _Confidence:
     """
@@ -144,8 +144,8 @@ class ARWithConfidence:
                     The user can specify the minConf in float
         :par sep: str :
                     This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
-        
-        
+
+
         :Attributes:
 
 
@@ -176,8 +176,8 @@ class ARWithConfidence:
 
             .. note:: minConf will be considered only in 0 to 1.
 
-    
-    
+
+
     **Importing this algorithm into a python program**
     ----------------------------------------------------
 
@@ -208,7 +208,7 @@ class ARWithConfidence:
              run = obj.getRuntime()
 
              print("Total ExecutionTime in seconds:", run)
-            
+
     **Credits:**
     -------------
 

@@ -580,7 +580,7 @@ class EFIM(_ab._utilityPatterns):
             -----------
             :param transactionsPe: transactions the projected database for P U {e}
             :type transactionsPe: list
-            :param j:he position of j in the list of promising items
+            :param j:the position of j in the list of promising items
             :type j:int
             :param itemsToKeep :the list of promising items
             :type itemsToKeep: list
@@ -648,7 +648,7 @@ class EFIM(_ab._utilityPatterns):
 
     def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
         """
-        Scan the initial database to calculate the subtree utility of each items using a utility-bin array
+        Scan the initial database to calculate the subtree utility of each item using a utility-bin array
 
         Attributes:
         ----------
@@ -762,7 +762,7 @@ class EFIM(_ab._utilityPatterns):
         return self._finalPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
