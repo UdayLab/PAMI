@@ -3,7 +3,7 @@ from PAMI.extras.fuzzyTransformation import abstract as _ab
 
 class transactionalToFuzzy(_ab._convert):
 
-    def __init__(self, iFile, fuzFile, oFile, sep='\t'):
+    def __init__(self, iFile: str, fuzFile: str, oFile: str, sep: str='\t'):
         self._iFile = iFile
         self._fuzFile = fuzFile
         self._oFile = oFile
@@ -19,7 +19,7 @@ class transactionalToFuzzy(_ab._convert):
         self._tsDB = []
         self._fuzzyRegionReferenceMap = {}
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         self._transactionsDB, self._fuzzyValuesDB, self._tsDB = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -59,7 +59,7 @@ class transactionalToFuzzy(_ab._convert):
                     print("File Not Found")
                     quit()
 
-    def _fuzzyMembershipFunc(self):
+    def _fuzzyMembershipFunc(self) -> None:
 
         try:
             with open(self._fuzFile, 'r', encoding='utf-8') as f:
@@ -82,7 +82,7 @@ class transactionalToFuzzy(_ab._convert):
             print("File Not Found")
             quit()
 
-    def _Regions(self, quantity):
+    def _Regions(self, quantity: int) -> None:
         self._list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
             self._list[0] = 1
@@ -98,7 +98,7 @@ class transactionalToFuzzy(_ab._convert):
                     self._list[self._LabelKey[self._RegionsLabel[i][1]]] = float((quantity - self._RegionsCal[i][0]) / base)
             return
 
-    def startConvert(self):
+    def startConvert(self) -> None:
         _writer = open(self._oFile, 'w+')
         self._creatingItemSets()
         self._fuzzyMembershipFunc()

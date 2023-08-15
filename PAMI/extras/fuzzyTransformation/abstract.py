@@ -91,7 +91,7 @@ class _convert(_ABC):
 
     """
 
-    def __init__(self, iFile, fuzFile, oFile, sep="\t"):
+    def __init__(self, iFile: str, fuzFile: str, oFile: str, sep: str="\t"):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame
@@ -110,7 +110,7 @@ class _convert(_ABC):
         self._oFile = str()
 
     @_abstractmethod
-    def startConvert(self):
+    def startConvert(self) -> None:
         """Code for the mining process will start from this function"""
 
         pass

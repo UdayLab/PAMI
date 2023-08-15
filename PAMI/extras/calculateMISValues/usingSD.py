@@ -6,18 +6,18 @@ from urllib.request import urlopen as _urlopen
 
 class usingBeta():
 
-    _iFile = ' '
-    _sd = int()
-    _sep = str()
-    _threshold = int()
-    _finalPatterns = {}
+    _iFile: str = ' '
+    _sd: int = int()
+    _sep: str = str()
+    _threshold: int = int()
+    _finalPatterns: dict = {}
 
-    def __init__(self, iFile, threshold, sep):
+    def __init__(self, iFile: str, threshold: int, sep: str):
         self._iFile = iFile
         self._threshold = threshold
         self._sep = sep
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
         """
@@ -50,7 +50,7 @@ class usingBeta():
                 except IOError:
                     print("File Not Found")
 
-    def _creatingFrequentItems(self):
+    def _creatingFrequentItems(self) -> tuple:
         """
         This function creates frequent items from _database.
         :return: frequentTidData that stores frequent items and their tid list.
@@ -69,7 +69,7 @@ class usingBeta():
         frequentTidData = {k: len(v) - sd for k, v in tidData.items()}
         return mini, frequentTidData
 
-    def caculateMIS(self):
+    def caculateMIS(self) -> None:
         self._creatingItemSets()
         mini, frequentItems = self._creatingFrequentItems()
         for x, y in frequentItems.items():
@@ -78,7 +78,7 @@ class usingBeta():
             else:
                 self._finalPatterns[x] = y
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _pd.DataFrame:
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -91,7 +91,7 @@ class usingBeta():
             dataFrame = _pd.DataFrame(data, columns=['Items', 'MIS'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
