@@ -4,20 +4,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB.denseDF2DB import db
-#     obj = db.DF2DB(idf, ">=", 16 )
-
-#     memUSS = obj.getMemoryUSS()
+#     from PAMI.extras.DF2DB.DF2DB import db
 #
-#     print("Total Memory in USS:", memUSS)
+#     obj = db.DF2DB(idf, ">=", 16, "sparse/dense")
 #
-#     memRSS = obj.getMemoryRSS()
+#     obj.getTransactional("outputFileName") # To create transactional database
 #
-#     print("Total Memory in RSS", memRSS)
+#     obj.getTemporal("outputFileName") # To create temporal database
 #
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
+#     obj.getUtility("outputFileName") # To create utility database
 #
 #
 #
@@ -77,23 +72,15 @@ class DF2DB:
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.DF2DB.denseDF2DB import db
+                    from PAMI.extras.DF2DB.DF2DB import db
 
-                    obj = db.DF2DB(idf, ">=", 16)
+                    obj = db.DF2DB(idf, ">=", 16, "sparse/dense")
 
-                    memUSS = obj.getMemoryUSS()
+                    obj.getTransactional("outputFileName") # To create transactional database
 
-                    print("Total Memory in USS:", memUSS)
+                    obj.getTemporal("outputFileName") # To create temporal database
 
-                    memRSS = obj.getMemoryRSS()
-
-                    print("Total Memory in RSS", memRSS)
-
-                    run = obj.getRuntime()
-
-                    print("Total ExecutionTime in seconds:", run)
-
-
+                    obj.getUtility("outputFileName") # To create utility database
 
 
         """
