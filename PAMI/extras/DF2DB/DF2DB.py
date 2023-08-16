@@ -4,7 +4,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB.DF2DB import db
+#     from PAMI.extras.DF2DB import DF2DB as db
 #
 #     obj = db.DF2DB(idf, ">=", 16, "sparse/dense")
 #
@@ -13,8 +13,6 @@
 #     obj.getTemporal("outputFileName") # To create temporal database
 #
 #     obj.getUtility("outputFileName") # To create utility database
-#
-#
 #
 
 
@@ -53,27 +51,11 @@ class DF2DB:
              It is DataFrame type. It should be sparse or dense. Default DF is sparse.
 
 
-        :Attributes:
-
-        startTime : float
-          To record the start time of the mining process
-
-        endTime : float
-          To record the completion time of the mining process
-
-        memoryUSS : float
-          To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
-
-
-
         **Importing this algorithm into a python program**
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.DF2DB.DF2DB import db
+                    from PAMI.extras.DF2DB import DF2DB as db
 
                     obj = db.DF2DB(idf, ">=", 16, "sparse/dense")
 
@@ -137,6 +119,8 @@ class DF2DB:
         return self.DF2DB.getFileName()
 
 
-
+if __name__='__main__':
+    obj = DF2DB(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    obj.getTransactional(sys.argv[5])
 
 
