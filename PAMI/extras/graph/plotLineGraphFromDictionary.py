@@ -14,7 +14,7 @@ class plotLineGraphFromDictionary:
     plotLineGraph()
         draw line graph of input data. input data's key is x and value is y.
     """
-    def __init__(self, data, end=100, start=0, title='', xlabel='', ylabel=''):
+    def __init__(self, data: dict, end: int=100, start: int=0, title: str='', xlabel: str='', ylabel: str='') -> None:
 
         """
         draw line graph. Plot the input data key as x and value as y
