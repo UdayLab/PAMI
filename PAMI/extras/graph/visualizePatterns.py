@@ -4,11 +4,11 @@ import sys
 
 class visualizePatterns():
     
-    def __init__(self, file, topk):
+    def __init__(self, file: str, topk: int) -> None:
         self.file = file
         self.topk = topk
 
-    def visualize(self,markerSize=20,zoom=3,width=1500, height=1000):
+    def visualize(self,markerSize: int=20,zoom: int=3,width: int=1500, height: int=1000) -> None:
         """
         Visualize points produced by pattern miner.
     
