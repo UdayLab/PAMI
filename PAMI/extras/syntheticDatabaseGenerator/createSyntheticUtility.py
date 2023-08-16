@@ -30,13 +30,13 @@ class createSyntheticUtility:
 
     """
     
-    def __init__(self, transactions, items, maxUtilRange, avgTransaction):
+    def __init__(self, transactions: int, items: int, maxUtilRange: int, avgTransaction: int) -> None:
         self._totalTransactions = transactions
         self._noOfItems = items
         self._maxUtilRange = maxUtilRange
         self._avgTransactionLength = avgTransaction
     
-    def createUtilityDatabase(self, outputFile):
+    def createUtilityDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
         :param outputFile: file name or path to store database
