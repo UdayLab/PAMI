@@ -3,11 +3,11 @@ import pandas as _pd
 
 class plotGraphsFromDataFrame():
 
-    def __init__(self, dataFrame):
+    def __init__(self, dataFrame: _pd.DataFrame) -> None:
 
         self._dataFrame = dataFrame
 
-    def plotGraphsFromDataFrame(self):
+    def plotGraphsFromDataFrame(self) -> None:
         self._dataFrame.plot(x='minSup', y='patterns', kind='line')
         plt.show()
         print('Graph for No Of Patterns is successfully generated!')
