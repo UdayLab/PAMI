@@ -1,4 +1,4 @@
-# DF2DB in this code dataframe is converting databases into different transactional, temporal, Utility types.
+# DF2DB in this code dataframe is converting databases into sparse or dense transactional, temporal, Utility.
 #
 #
 # **Importing this algorithm into a python program**
@@ -40,6 +40,7 @@ from PAMI.extras.DF2DB.sparseDF2DB import db
 class DF2DB:
     """
         :Description:  This class will create database for given DataFrame based on Threshold values and conditions are defined in the class.
+                       Converts Dataframe into sparse or dense dataframes.
 
 
         :param inputDF: DataFrame :
