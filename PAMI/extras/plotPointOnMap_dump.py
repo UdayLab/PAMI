@@ -4,12 +4,12 @@ import re
 
 class plotPointOnMap:
 
-    def __init__(self, inputPatterns, k=10, sep='\t'):
+    def __init__(self, inputPatterns: str, k: int=10, sep: str='\t'):
         self.inputPatterns = inputPatterns
         self.k = k
         self.sep = sep
 
-    def findTopKPatterns(self):
+    def findTopKPatterns(self) -> List[List[str]]: 
         Database = []
         if isinstance(self.inputPatterns, pd.DataFrame):
             patterns = []
@@ -37,7 +37,7 @@ class plotPointOnMap:
         # return {patternId: patterns[patternId - 1] for patternId in range(1, int(self.k) + 1)}
         return patterns[:self.k]
 
-    def convertPOINT(self, patterns):
+    def convertPOINT(self, patterns: List[List[str]]) -> pd.DataFrame:
         locations = pd.DataFrame(columns=['patternId', 'latitude', 'longitude'])
         patternId = 1
         for pattern in patterns:
@@ -52,7 +52,7 @@ class plotPointOnMap:
 
 
 
-    def plotPointInMap(self):
+    def plotPointInMap(self) -> folium.Map:
         topKPatterns = self.findTopKPatterns()
         df = self.convertPOINT(topKPatterns)
         mmap = folium.Map(location=[35.39, 139.44], zoom_start=5)
@@ -72,6 +72,6 @@ class plotPointOnMap:
         return mmap
 
 if __name__ == '__main__':
-    obj = plotPointInMap('/Users/nakamura0803/medicalDataAnalytics/test/disease/pattern_8842163_0.8.txt')
+    obj = plotPointOnMap('/Users/nakamura0803/medicalDataAnalytics/test/disease/pattern_8842163_0.8.txt')
     mmap = obj.plotPointInMap()
-    mmap
+    mmap.save('map.html')
