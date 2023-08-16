@@ -3,11 +3,11 @@ import pandas as _pd
 
 class dataFrameInToFigures():
 
-    def __init__(self, dataFrame):
+    def __init__(self, dataFrame: _pd.DataFrame) -> None:
 
         self._dataFrame = dataFrame
 
-    def plotGraphsFromDataFrame(self,xColumn='minSup',yColumn='patterns',lineLabels='algorithm'):
+    def plotGraphsFromDataFrame(self,xColumn: str='minSup',yColumn: str='patterns',lineLabels: str='algorithm') -> None:
         fig = _px.line(self._dataFrame, x=xColumn, y=yColumn, color=lineLabels)
         fig.show()
 
