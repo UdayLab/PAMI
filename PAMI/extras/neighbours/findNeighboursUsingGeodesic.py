@@ -27,7 +27,7 @@ class createNeighborhoodFileUsingGeodesicDistance:
             This function returns output file name.
     """
 
-    def __init__(self,iFile,oFile,maxDistace, seperator='\t'):
+    def __init__(self,iFile: str,oFile: str,maxDistace: float, seperator='\t'):
         self.iFile = iFile
         self.oFile = oFile
         self.maxDistace = maxDistace
