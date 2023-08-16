@@ -1,4 +1,5 @@
 import random as rand
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas
 
 class spatioTemporalDatabaseGenerator:
@@ -8,15 +9,15 @@ class spatioTemporalDatabaseGenerator:
     alreadyAdded = set()
     outFileName=""
 
-    def createPoint(self,xmin,xmax,ymin,ymax):
+    def createPoint(self,xmin: int,xmax: int,ymin: int,ymax: int) -> Tuple[int, int]:
         x = rand.randint(xmin, xmax)
         y = rand.randint(ymin, ymax)
         coordinate = tuple([x, y])
         return coordinate
 
-    def __init__(self,xmin,xmax,ymin,ymax,maxTimeStamp,numberOfItems, itemChanceLow,
-                 itemChanceHigh, timeStampChanceLow,
-                 timeStampChanceHigh):
+    def __init__(self,xmin: int,xmax: int,ymin: int,ymax: int,maxTimeStamp: int,numberOfItems: int, itemChanceLow: float,
+                 itemChanceHigh: float, timeStampChanceLow: float,
+                 timeStampChanceHigh: float) -> None:
         coinFlip = [True, False]
         timeStamp = 1
         self.timeStampList = list()
@@ -48,7 +49,7 @@ class spatioTemporalDatabaseGenerator:
 
 
 
-    def saveAsFile(self, outFileName="", sep="\t"):
+    def saveAsFile(self, outFileName="", sep="\t") -> None:
         if outFileName != "":
             self.outFileName = outFileName
 

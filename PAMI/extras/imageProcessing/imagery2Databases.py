@@ -2,7 +2,7 @@ import pandas as pd
 # creating transactional database by applying threshold
 class createDatabase:
      #pass the list of detected objects and specify the minimum probability score an object must maintain.
-    def __init__(self,detected_objects,threshold):
+    def __init__(self,detected_objects: list,threshold: float):
         #initialize data frame to store objects
         self.dataframe = pd.DataFrame(columns = ['objects'])
         self.threshold = threshold
@@ -36,12 +36,12 @@ class createDatabase:
             self.itemSupport.append(self.supports)
             self.dataframe.loc[self.dataframe.shape[0], 'objects'] = dataDic.keys()
 
-    def getDataFrame(self):
+    def getDataFrame(self) -> pd.DataFrame:
         return self.dataframe
     #This function will save the list of objects found in each image as a transactional database.
 
     # creating transactional database
-    def saveAsTransactionalDB(self,outputFile,sep):
+    def saveAsTransactionalDB(self,outputFile: str,sep: str) -> None:
         writeFile = open(outputFile,'w')
         for i in range(len(self.itemList)):
             if self.itemList[i]:
@@ -50,7 +50,7 @@ class createDatabase:
         writeFile.close()
     
     # creating temporal database
-    def saveAsTemporalDB(self,outputFile,sep):
+    def saveAsTemporalDB(self,outputFile: str,sep: str):
         writeFile = open(outputFile, 'w')
        
         for i in range(len(self.itemList)):
@@ -62,7 +62,7 @@ class createDatabase:
      
     # creating utility transactional database
 
-    def saveAsUtilityTransactionalDB(self, outputFile, sep):
+    def saveAsUtilityTransactionalDB(self, outputFile: str, sep: str) -> None:
          writeFile = open(outputFile, 'w')
          for i in range(len(self.itemList)):
              if self.itemList[i]:
@@ -73,7 +73,7 @@ class createDatabase:
   
     # creating utility temporal database
 
-    def saveAsUtilityTemporalDB(self,outputFile,sep):
+    def saveAsUtilityTemporalDB(self,outputFile: str,sep: str) -> None:
         writeFile = open(outputFile, 'w')
         for i in range(len(self.itemList)):
             if self.itemList[i]:
@@ -84,7 +84,7 @@ class createDatabase:
     
     # creating uncertain transactional database
 
-    def saveAsUncertainTransactionalDB(self, outputFile, sep):
+    def saveAsUncertainTransactionalDB(self, outputFile: str, sep: str) -> None:
              writeFile = open(outputFile, 'w')
              for i in range(len(self.itemList)):
                  if self.itemList[i]:
@@ -94,7 +94,7 @@ class createDatabase:
              writeFile.close()
     # creating uncertain Temporal database
 
-    def saveAsUncertainTemporalDB(self, outputFile, sep):
+    def saveAsUncertainTemporalDB(self, outputFile: str, sep: str) -> None:
              writeFile = open(outputFile, 'w')
              for i in range(len(self.itemList)):
                  if self.itemList[i]:

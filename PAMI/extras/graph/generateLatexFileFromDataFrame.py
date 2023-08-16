@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def generateLatexCode(result):
+def generateLatexCode(result: pd.DataFrame) -> None:
 
     titles = result.columns.tolist()
     titles.remove("minSup")
