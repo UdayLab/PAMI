@@ -3,26 +3,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.frequentPattern.basic import FPGrowth as fp
+#     from PAMI.extras.DF2DB import DF2DBPlus as dfdbp
 #
-#     obj = fp.DF2DBPlus(idf, ">=", 16)
+#     obj = dfdbp.DF2DBPlus(idf, ">=", 16)
 #
-#     obj.save(oFile)
+#     obj.getTransactional("outputFileName") # To create a transactional database
 #
-#     Df = obj.getPatternInDataFrame()
+#     obj.getTDB("outputFileName")   # To create a temporal database
 #
-#     memUSS = obj.getMemoryUSS()
-#
-#     print("Total Memory in USS:", memUSS)
-#
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
-#
+#     obj.getUDB("outputFileName")    # To craete a utility database
 #
 #
 __copyright__ = """
@@ -59,43 +48,21 @@ class DF2DBPlus:
             :param DFtype: str :
                  It is DataFrame type. It should be sparse or dense. Default DF is sparse.
 
-            :Attributes:
-
-            startTime : float
-               To record the start time of the mining process
-
-            endTime : float
-               To record the completion time of the mining process
-
-            memoryUSS : float
-               To store the total amount of USS memory consumed by the program
-
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-
 
 
         **Importing this algorithm into a python program**
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.frequentPattern.basic import FPGrowth as fp
+                     from PAMI.extras.DF2DB import DF2DBPlus as dfdbp
+                     
+                     obj = dfdbp.DF2DBPlus(idf, ">=", 16)
 
-                    obj = fp.DF2DBPlus(iDdf, ">=", 16)
+                     obj.getTransactional("outputFileName") # To create a transactional database
 
-                    memUSS = obj.getMemoryUSS()
-
-                    print("Total Memory in USS:", memUSS)
-
-                    memRSS = obj.getMemoryRSS()
-
-                    print("Total Memory in RSS", memRSS)
-
-                    run = obj.getRuntime()
-
-                    print("Total ExecutionTime in seconds:", run)
-
-
+                     obj.getTDB("outputFileName")   # To create a temporal database
+                     
+                     obj.getUDB("outputFileName")    # To craete a utility database
 
     """
 
