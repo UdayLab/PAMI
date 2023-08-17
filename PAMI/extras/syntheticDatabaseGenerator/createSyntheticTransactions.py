@@ -28,12 +28,12 @@ class createSyntheticTransaction:
 
     """
     
-    def __init__(self, totalTransactions, items, avgTransactionLength):
+    def __init__(self, totalTransactions: int, items: int, avgTransactionLength: int) -> None:
         self._totalTransactions = totalTransactions
         self._noOfItems = items
         self._avgTransactionLength = avgTransactionLength
     
-    def createTransactionalDatabase(self, outputFile):
+    def createTransactionalDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
         :param outputFile: file name or path to store database

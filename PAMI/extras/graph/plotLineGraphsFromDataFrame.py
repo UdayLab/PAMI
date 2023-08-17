@@ -1,64 +1,13 @@
-#  plotLineGraphsFromDataFrame is a code used to convert the DataFrame into plotLineGraphs.
-#
-#    **Importing this algorithm into a python program**
-#    --------------------------------------------------------
-#
-#     from PAMI.extras.graph import plotLineGraphsFromDataFrame as fig
-#
-#     obj = fig.plotLineGraphsFromDataFrame(idf)
-#
-#     obj.save()
-#
-#
-
-__copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
-
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
-
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
 import matplotlib.pyplot as plt
 import pandas as _pd
 
 class plotGraphsFromDataFrame():
-    """
 
-        :Description:
-                plotLineGraphsFromDataFrame is a code used to convert the DataFrame into plotLineGraphs.
-
-        :param  dataFrame: int or float :
-                Name of the Input dataFrame.
-
-
-
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
-
-        from PAMI.extras.graph import plotLineGraphsFromDataFrame as fig
-
-        obj = fig.plotLineGraphsFromDataFrame(idf)
-
-        obj.save(oFile)
-
-
-    """
-
-    def __init__(self, dataFrame: _pd.DataFrame) -> None:
+    def __init__(self, dataFrame):
 
         self._dataFrame = dataFrame
 
-    def plotGraphsFromDataFrame(self) -> None:
+    def plotGraphsFromDataFrame(self):
         self._dataFrame.plot(x='minSup', y='patterns', kind='line')
         plt.show()
         print('Graph for No Of Patterns is successfully generated!')
