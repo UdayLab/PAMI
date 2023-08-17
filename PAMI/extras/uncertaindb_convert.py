@@ -1,5 +1,5 @@
 class predictedClass2Transaction:
-    def getBinaryTransaction(self,predicted_classes,minThreshold=0.8):
+    def getBinaryTransaction(self,predicted_classes: list,minThreshold: float =0.8) -> dict:
         self.predictions_dict ={}
         for name, p, box in predicted_classes:
             if p > minThreshold :
