@@ -1,6 +1,41 @@
+# generateTemporalDatabase is a code used to convert the database into Temporal database.
+#
+#   **Importing this algorithm into a python program**
+#    --------------------------------------------------------
+#
+#     from PAMI.extras.generateDatabase import generateTemporalDatabase as db
+#
+#     obj = db.generateTemporalDatabase(100, 10, 6, oFile, %, "\t")
+#
+#     obj.save()
+#
+#     obj.getFileName("outputFileName") # to create a file
+#
+#     obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
+#
+#     obj.createTemporalFile("outputFileName") # to get outputfile
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import random
 import pandas as pd
 import os
+import sys
 
 class generateTemporalDatabase:
     """
@@ -13,7 +48,7 @@ class generateTemporalDatabase:
         numOfTransactions: int
             number of transactions
         maxNumOfItem: int
-            highest value an item can be
+            maximum value an item can be
         maxNumOfItemsPerTransaction: int
             maximum number of items a transaction can be
         outputFile: str
@@ -33,6 +68,23 @@ class generateTemporalDatabase:
             creates temporal database file or dataframe
         getDatabaseAsDataFrame:
             returns dataframe
+
+     **Importing this algorithm into a python program**
+    --------------------------------------------------------
+     .. code-block:: python
+
+     from PAMI.extras.generateDatabase import generateTemporalDatabase as db
+
+     obj = db.generateTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)
+
+     obj.save()
+
+     obj.getFileName("outputFileName") # to create a file
+
+     obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
+
+     obj.createTemporalFile("outputFileName") # to get outputfile
+
     """
     def __init__(self, numOfTransactions, maxNumOfItems, maxNumOfItemsPerTransaction, outputFile, percentage=50,
                  sep='\t', typeOfFile="Database"):
@@ -184,3 +236,7 @@ if __name__ == '__main__':
     temporalDB.createTemporalFile()
 
     print(temporalDB.getDatabaseAsDataFrame())
+
+    obj = generateTemporalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    obj.createTemporalFile(sys.argv[5])
+
