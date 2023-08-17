@@ -1,17 +1,17 @@
 import matplotlib.pyplot as _plt
 import pandas as _pd
-import validators as _validators
 from urllib.request import urlopen as _urlopen
+from typing import Dict, List
 
 
 class scatterPlotSpatialPoints:
 
-    def __init__(self, iFile, sep = '\t'):
+    def __init__(self, iFile: str, sep: str = '\t') ->None:
 
         self._iFile = iFile
         self._sep = sep
 
-    def _scanningPoints(self):
+    def _scanningPoints(self) -> Dict[str, str]:
 
         points = {}
         if isinstance(self._iFile, _pd.DataFrame):
@@ -27,7 +27,7 @@ class scatterPlotSpatialPoints:
                 points[x[i]] = y[i]
 
         if isinstance(self._iFile, str):
-            if _validators.url(self._iFile):
+            if self._iFile.startswith(('http:', 'https:')):
                 data = _urlopen(self._iFile)
                 for line in data:
                     line = line.strip()
@@ -48,7 +48,7 @@ class scatterPlotSpatialPoints:
                     quit()
         return points
 
-    def scatterPlotSpatialPoints(self):
+    def scatterPlotSpatialPoints(self) -> None:
         points = self._scanningPoints()
         keys = [i for i in points.keys()]
         values = [i for i in points.values()]
