@@ -36,7 +36,7 @@ class convertMultipleTSIntoFuzzy():
         Description: Converting multiple time series into fuzzy
     """
 
-    def __init__(self, iFile,  FuzFile):
+    def __init__(self, iFile: str,  FuzFile: str) -> None:
         #super().__init__(iFile, nFile, FuzFile, minSup, maxPer, sep)
         self._iFile = iFile
         self._FuzFile = FuzFile
@@ -46,7 +46,7 @@ class convertMultipleTSIntoFuzzy():
         self._LabelKeyOne = {}
         self._fuzzyRegionReferenceMap = {}
 
-    def _fuzzyMembershipFunc(self):
+    def _fuzzyMembershipFunc(self) -> None:
     
         try:
             with open(self._FuzFile, 'r', encoding='utf-8') as f:
@@ -72,7 +72,7 @@ class convertMultipleTSIntoFuzzy():
             print("File Not Found")
             quit()
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         self._transactionsDB, self._fuzzyValuesDB, self._timeEvents = [], [], []
         try:
             with open(self._iFile, 'r', encoding='utf-8') as f:
@@ -92,7 +92,7 @@ class convertMultipleTSIntoFuzzy():
             print("File Not Found")
             quit()
 
-    def _Regions(self, quantity):
+    def _Regions(self, quantity: float) -> None:
 
         self.list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
@@ -114,7 +114,7 @@ class convertMultipleTSIntoFuzzy():
                                 (quantity - self._RegionsCal[i][0]) / base)
             return
        
-    def save(self, outputFile):
+    def save(self, outputFile: str) -> None:
         self.startMine()
         writer = open(outputFile, 'w+')
         for line in range(len(self._transactionsDB)):
@@ -143,7 +143,7 @@ class convertMultipleTSIntoFuzzy():
             writer.write("%s\n" %s2)
 
 
-    def startMine(self):
+    def startMine(self) -> None:
         """ Frequent pattern mining process will start from here
         """
         
