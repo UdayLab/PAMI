@@ -69,7 +69,7 @@ class generateTransactionalDatabase:
 
 
     """
-    def __init__(self, numOfTransactions, maxNumOfDistinctItems, numOfItemsPerTransaction, outFileName, sep='\t'):
+    def __init__(self, numOfTransactions: int, maxNumOfDistinctItems: int, numOfItemsPerTransaction: int, outFileName: str, sep: str='\t') -> None:
         """
 
         :param numOfTransactions: number of transactions
@@ -121,7 +121,7 @@ class generateTransactionalDatabase:
 
 
 
-    def getFileName(self):
+    def getFileName(self) -> str:
         """
         return output file name
         :return: output file name

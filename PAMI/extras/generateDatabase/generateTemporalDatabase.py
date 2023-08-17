@@ -34,6 +34,7 @@ __copyright__ = """
 
 import random
 import pandas as pd
+from typing import Tuple, List, Union
 import os
 import sys
 
@@ -86,8 +87,8 @@ class generateTemporalDatabase:
      obj.createTemporalFile("outputFileName") # to get outputfile
 
     """
-    def __init__(self, numOfTransactions, maxNumOfItems, maxNumOfItemsPerTransaction, outputFile, percentage=50,
-                 sep='\t', typeOfFile="Database"):
+    def __init__(self, numOfTransactions: int, maxNumOfItems: int, maxNumOfItemsPerTransaction: int, outputFile: str, percentage: int=50,
+                 sep: str='\t', typeOfFile: str="Database") -> None:
         """
 
         :param numOfTransactions: number of transactions
@@ -114,14 +115,14 @@ class generateTemporalDatabase:
         self.sep = sep
         self.typeOfFile = typeOfFile.lower()
 
-    def getFileName(self):
+    def getFileName(self) -> str:
         """
         return filename
         :return:
         """
         return self.outputFile
 
-    def getDatabaseAsDataFrame(self):
+    def getDatabaseAsDataFrame(self) -> pd.DataFrame:
         """
         return dataframe
         return: pd.dataframe
@@ -129,7 +130,7 @@ class generateTemporalDatabase:
         return self.df
 
 
-    def createTemporalFile(self):
+    def createTemporalFile(self) -> None:
         """
         create Temporal database or dataframe depending on input
         :return:
