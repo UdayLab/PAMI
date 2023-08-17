@@ -30,12 +30,12 @@ class createSyntheticUncertainTemporal:
 
     """
     
-    def __init__(self, totalTransactions, items, avgTransaction):
+    def __init__(self, totalTransactions: int, items: int, avgTransaction: int) -> None:
         self._totalTransactions = totalTransactions
-        self._items = items
+        self._noOfItems = items
         self._avgTransactionLength = avgTransaction
     
-    def createUncertainTemporalDatabase(self, outputFile):
+    def createUncertainTemporalDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
         :param outputFile: file name or path to store database
