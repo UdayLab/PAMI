@@ -3,26 +3,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.frequentPattern.basic import FPGrowth as fp
+#     from PAMI.extras.DF2DB import DF2DBPlus as df
 #
-#     obj = fp.DF2DBPlus(idf, ">=", 16)
+#     obj = df.DF2DBPlus(idf, ">=", 16)
 #
-#     obj.save(oFile)
+#     obj.getTransactional("outputFileName") # To create a transactional database
 #
-#     Df = obj.getPatternInDataFrame()
+#     obj.getTDB("outputFileName")   # To create a temporal database
 #
-#     memUSS = obj.getMemoryUSS()
-#
-#     print("Total Memory in USS:", memUSS)
-#
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
-#
+#     obj.getUDB("outputFileName")    # To craete a utility database
 #
 #
 __copyright__ = """
@@ -44,6 +33,7 @@ __copyright__ = """
 
 from PAMI.extras.DF2DB.denseDF2DBPlus import *
 from PAMI.extras.DF2DB.sparseDF2DBPlus import *
+import sys
 
 
 class DF2DBPlus:
@@ -54,24 +44,9 @@ class DF2DBPlus:
                  It is sparse or dense DataFrame
             :param thresholdConditionDF: pandas.DataFrame :
                 It is DataFrame to contain threshold values and condition each item
-            :param condition: str :
-                 It is condition of all item
+
             :param DFtype: str :
                  It is DataFrame type. It should be sparse or dense. Default DF is sparse.
-
-            :Attributes:
-
-            startTime : float
-               To record the start time of the mining process
-
-            endTime : float
-               To record the completion time of the mining process
-
-            memoryUSS : float
-               To store the total amount of USS memory consumed by the program
-
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
 
 
 
@@ -79,26 +54,17 @@ class DF2DBPlus:
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.frequentPattern.basic import FPGrowth as fp
+        from PAMI.extras.DF2DB import DF2DBPlus as df
 
-                    obj = fp.DF2DBPlus(iDdf, ">=", 16)
+        obj = df.DF2DBPlus(idf, ">=", 16)
 
-                    memUSS = obj.getMemoryUSS()
+        obj.getTransactional("outputFileName") # To create a transactional database
 
-                    print("Total Memory in USS:", memUSS)
+        obj.getTDB("outputFileName")   # To create a temporal database
 
-                    memRSS = obj.getMemoryRSS()
-
-                    print("Total Memory in RSS", memRSS)
-
-                    run = obj.getRuntime()
-
-                    print("Total ExecutionTime in seconds:", run)
-
-
+        obj.getUDB("outputFileName")    # To craete a utility database
 
     """
-
 
     def __init__(self, inputDF, thresholdConditionDF, DFtype='sparse') -> None:
         self.inputDF = inputDF
@@ -146,3 +112,7 @@ class DF2DBPlus:
         """
         self.DF2DB.createUtility(outputFile)
         return self.DF2DB.getFileName()
+
+if __name__== '__main__':
+    obj = DF2DBPlus(sys.argv[1], sys.argv[2], sys.argv[3])
+    obj.getTransactional(sys.argv[4])

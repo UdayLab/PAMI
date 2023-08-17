@@ -1,17 +1,71 @@
+#  visualizePatterns is a code used to visualize the Patterns.
+#
+#    **Importing this algorithm into a python program**
+#    --------------------------------------------------------
+#
+#     from PAMI.extras.graph import visualizePatterns as fig
+#
+#     obj = fig.visualizePatterns(ifile, topk)
+#
+#     obj.save()
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import plotly.express as px
 import pandas as pd
 import sys
 
+
 class visualizePatterns():
-    
-    def __init__(self, file, topk):
+    """
+
+            :Description:
+                    visualizeFuzzyPatterns is a code used to visualize the FuzzyPatterns
+
+            :param file: str:
+                    Name of the Input file can be given here.
+            :param topk: int:
+                     Input value can be given here according to size of the data.
+
+                **Importing this algorithm into a python program**
+                --------------------------------------------------------
+                .. code-block:: python
+
+                from PAMI.extras.graph import visualizePatterns as fig
+
+                obj = fig.visualizePatterns(iFile, topk)
+
+
+                obj.save(oFile)
+
+
+            """
+
+    def __init__(self, file: str, topk: int) -> None:
         self.file = file
         self.topk = topk
 
-    def visualize(self,markerSize=20,zoom=3,width=1500, height=1000):
+    def visualize(self, markerSize: int = 20, zoom: int = 3, width: int = 1500, height: int = 1000) -> None:
         """
         Visualize points produced by pattern miner.
-    
+
         :param file: String for file name
         :param top: visualize topk patterns
         :param markerSize: int
@@ -19,19 +73,19 @@ class visualizePatterns():
         :param file: int
         :param file: int
         """
-    
+
         long = []
         lat = []
         name = []
         color = []
         R = G = B = 0
-    
+
         lines = {}
         with open(self.file, "r") as f:
             for line in f:
                 lines[line] = len(line)
-            
-        lines = list(dict(sorted(lines.items(), key=lambda x:x[1])[-self.topk:]).keys())
+
+        lines = list(dict(sorted(lines.items(), key=lambda x: x[1])[-self.topk:]).keys())
 
         start = 1
 
@@ -70,12 +124,14 @@ class visualizePatterns():
                 name.append(freq)
                 color.append("#" + RHex + GHex + BHex)
         df = pd.DataFrame({"lon": long, "lat": lat, "freq": name, "col": color})
-    
-        fig = px.scatter_mapbox(df, lat="lon", lon="lat", hover_name="freq", color="col", zoom=zoom, width=width, height=height)
+
+        fig = px.scatter_mapbox(df, lat="lon", lon="lat", hover_name="freq", color="col", zoom=zoom, width=width,
+                                height=height)
         fig.update_layout(mapbox_style="open-street-map")
         fig.update_traces({'marker': {'size': markerSize}})
         fig.show()
-        
+
+
 if __name__ == "__main__":
     _ap = str()
     _ap = visualizePatterns(sys.argv[1], sys.argv[2])

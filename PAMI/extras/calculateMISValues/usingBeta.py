@@ -1,34 +1,17 @@
-# usingBeta is one of the fundamental algorithm to discover transactions in a database. It also stores the frequent patterns in the database.
+# usingBeta is used to discover transactions in a database. It also stores the frequent patterns in the database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.frequentPattern.basic import FPGrowth as alg
+#     from PAMI.extras.calculateMISValues import usingBeta as db
 #
-#     obj = alg.usingBeta(iFile, minSup)
+#     obj = db.usingBeta(iFile, 16, "\t")
 #
-#     frequentPatterns = obj.getPatterns()
-#
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#     obj.getPatternsAsDataFrame("outputFileName") # To create patterns as dataframes
 #
 #     obj.save(oFile)
-#
-#     Df = obj.getPatternInDataFrame()
-#
-#     memUSS = obj.getMemoryUSS()
-#
-#     print("Total Memory in USS:", memUSS)
-#
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
-#
-#
-#
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -54,98 +37,36 @@ from urllib.request import urlopen as _urlopen
 class usingBeta():
     """
 
-        :Description: usingBeta is one of the fundamental algorithm to discover transactions in a database. It also stores the frequent patterns in the database.
+        :Description: usingBeta is used to discover transactions in a database. It also stores the frequent patterns in the database.
 
         :param  iFile: str :
-                       Name of the Input file to mine complete set of frequent patterns
-        :param  oFile: str :
+                       Name of the Input file to get the patterns as DataFrame
+        :param  beta: str :
                        Name of the output file to store complete set of frequent patterns
-        :param  minSup: int or float or str :
-                       The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+        :param  threshold: int :
+                       The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.
         :param  sep: str :
                        This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-
-
-
-        :Attributes:
-
-            startTime : float
-              To record the start time of the mining process
-
-            endTime : float
-              To record the completion time of the mining process
-
-            finalPatterns : dict
-              Storing the complete set of patterns in a dictionary variable
-
-            memoryUSS : float
-              To store the total amount of USS memory consumed by the program
-
-            memoryRSS : float
-              To store the total amount of RSS memory consumed by the program
-
-            Database : list
-              To store the transactions of a database in list
-
-            mapSupport : Dictionary
-                To maintain the information of item and their frequency
-
-            finalPatterns : dict
-                it represents to store the patterns
-
-
-        **Methods to execute code on terminal**
-        --------------------------------------------------------
-            Format:
-                      >>> python3 usingBeta.py <inputFile> <outputFile> <minSup>
-
-            Example:
-                      >>> python3 usingBeta.py sampleDB.txt patterns.txt 10.0
-
-            .. note:: minSup will be considered in percentage of database transactions
-
 
         **Importing this algorithm into a python program**
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.frequentPattern.basic import FPGrowth as alg
+                    from PAMI.extras.calculateMISValues import usingBeta as db
 
-                    obj = alg.usingBeta(iFile, minSup)
+                    obj = db.usingBeta(iFile, 16, "\t")
 
-                    frequentPatterns = obj.getPatterns()
-
-                    print("Total number of Frequent Patterns:", len(frequentPatterns))
+                    obj.getPatterns("outputFileName") # To create frequentpatterns in DataFrame
 
                     obj.save(oFile)
 
-                    Df = obj.getPatternInDataFrame()
-
-                    memUSS = obj.getMemoryUSS()
-
-                    print("Total Memory in USS:", memUSS)
-
-                    memRSS = obj.getMemoryRSS()
-
-                    print("Total Memory in RSS", memRSS)
-
-                    run = obj.getRuntime()
-
-                    print("Total ExecutionTime in seconds:", run)
-
-            """
+    """
 
     _iFile: str = ' '
     _beta: int = int()
     _sep: str = str()
     _threshold: int = int()
     _finalPatterns: dict = {}
-    __memoryUSS = float()
-    __memoryRSS = float()
-    __startTime = float()
-    __endTime = float()
-    _Database = []
-    _mapSupport = {}
 
     def __init__(self, iFile: str, beta: int, threshold: int, sep: str):
         self._iFile = iFile
@@ -225,39 +146,9 @@ class usingBeta():
             data.append([a, b])
             dataFrame = _pd.DataFrame(data, columns=['Items', 'MIS'])
         return dataFrame
-    def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
-        :return: returning USS memory consumed by the mining process
-
-        :rtype: float
-        """
-
-        return self.__memoryUSS
-
-    def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
-        :return: returning RSS memory consumed by the mining process
-
-        :rtype: float
-        """
-
-        return self.__memoryRSS
-
-    def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
-
-        :return: returning total amount of runtime taken by the mining process
-
-        :rtype: float
-        """
-
-        return self.__endTime - self.__startTime
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -267,24 +158,9 @@ class usingBeta():
             patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
 
-        :return: returning frequent patterns
-
-        :rtype: dict
-        """
-        return self._finalPatterns
-
-    def printResults(self):
-        """ this function is used to print the results
-        """
-        print("Total number of Frequent Patterns:", len(self.getPatterns()))
-        print("Total Memory in USS:", self.getMemoryUSS())
-        print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:", self.getRuntime())
 
     if __name__ == '__main__':
-        cd = usingBeta("sample.txt", 0.5, 10, ' ')
+        cd = usingBeta(_sys.argv[1],_sys.argv[2],_sys.argv[3],_sys.argv[4])
         cd.caculateMIS()
-        cd.save('output.txt')
+        cd.save(_sys.argv[5])

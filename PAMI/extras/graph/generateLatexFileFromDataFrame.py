@@ -1,7 +1,64 @@
+# generateLatexFileFromDatFrame is a code used to convert the dataframe into LatexFile.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#     from PAMI.extras.graph import generateLatexFileFromDatFrame as fig
+#
+#     obj = fig.generateLatexFileFromDatFrame(idf )
+#
+#     obj.save()
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import pandas as pd
 
+class generateLatexFileFromDataFrame():
+    """
 
-def generateLatexCode(result):
+    :Description:
+            generateLatexFileFromDataFrame is a code used to convert the dataframe into LatexFile.
+
+    :param  DataFrame: int or float :
+            Name of the Input dataFrame.
+
+
+
+        **Importing this algorithm into a python program**
+        --------------------------------------------------------
+        .. code-block:: python
+
+        from PAMI.extras.graph import generateLatexFileFromDatFrame as fig
+
+        obj = fig.generateLatexFileFromDatFrame(idf )
+
+
+        obj.save(oFile)
+
+
+    """
+    def __init__(self, DataFrame: pd.DataFrame) -> None:
+
+        self._dataFrame = DataFrame
+
+
+def generateLatexCode(result: pd.DataFrame) -> None:
 
     titles = result.columns.tolist()
     titles.remove("minSup")

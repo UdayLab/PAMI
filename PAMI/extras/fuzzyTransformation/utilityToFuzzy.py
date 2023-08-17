@@ -1,7 +1,69 @@
+# utilityToFuzzy is a code used to convert the transactional database into Fuzzy transactional database.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
+#
+#     obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
+#
+#     obj.save()
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import abstract as _ab
 
 
 class utilityToFuzzy(_ab._convert):
+    """
+
+            :Description:
+                    utilityToFuzzy is a code used to convert the transactional database into Fuzzy transactional database.
+
+            :param  iFile: str :
+                    Name of the Input file to mine complete set of frequent patterns
+            :param  oFile: str :
+                    Name of the output file to store complete set of frequent patterns
+            :param  fuzFile: str :
+                   Name of the FuzFile to process set of data.
+            :param  sep: str :
+                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
+
+            **Importing this algorithm into a python program**
+            --------------------------------------------------------
+            .. code-block:: python
+
+            from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
+
+            obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
+
+            obj.save(oFile)
+
+
+    """
+
+    _iFile: str = ' '
+    _fuzFile: str = ' '
+    _oFile: str = ' '
 
     def __init__(self, iFile: str, fuzFile: str, oFile: str, sep: str='\t'):
         self._iFile = iFile

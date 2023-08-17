@@ -1,3 +1,36 @@
+# utilityDatabaseStats is a code used to get stats of the database.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.dbStats import utilityDatabaseStats as db
+#
+#     obj = db.utilityDatabaseStats(iFile, "\t")
+#
+#     obj.save(oFile)
+#
+#     obj.run()
+#
+#     obj.printStats()
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+import sys
 import statistics
 import validators
 from urllib.request import urlopen
@@ -12,15 +45,25 @@ class utilityDatabaseStats:
 
            :param inputFile: file :
                input file path
-           :param database: dict :
-               store time stamp and its transaction
-           :param lengthList: list :
-               store size of all transaction
-           :param  utility : dict
-               store utility each item
            :param sep: str
                separator in file. Default is tab space.
+
+            **Importing this algorithm into a python program**
+            --------------------------------------------------------
+            .. code-block:: python
+
+           from PAMI.extras.dbStats import utilityDatabaseStats as db
+
+           obj = db.utilityDatabaseStats(iFile, "\t" )
+
+           obj.save(oFile)
+
+           obj.run()
+
+          obj.printStats()
+
     """
+
     def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str='\t') -> None:
         """
         :param inputFile: input file name or path
@@ -281,7 +324,7 @@ if __name__ == '__main__':
     
 
     #obj = utilityDatabaseStats(data)
-    obj = utilityDatabaseStats('utility_T20I6D100K.txt', sep=' ')
+    obj = utilityDatabaseStats(sys.argv[1], sys.argv[2])
     obj.run()
     obj.printStats()
     obj.plotGraphs()
