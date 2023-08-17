@@ -32,12 +32,12 @@ class createSyntheticGeoreferentialUncertainTransaction:
 
     """
     
-    def __init__(self, transactions, items, avgTransaction):
+    def __init__(self, transactions: int, items: int, avgTransaction: int) -> None:
         self._totalTransactions = transactions
         self._noOfItems = items
         self._avgTransactionLength = avgTransaction
     
-    def createGeoreferentialUncertainTransactionalDatabase(self, outputFile):
+    def createGeoreferentialUncertainTransactionalDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
         :param outputFile: file name or path to store database
