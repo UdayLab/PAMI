@@ -1,4 +1,4 @@
-# imagery2Dtabases is a code used to creating transactional database by applying threshold
+# imagery2Databases is a code used to creating transactional database by applying threshold
 #
 #  **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -29,6 +29,7 @@ __copyright__ = """
 """
 
 import pandas as pd
+import sys
 
 
 # creating transactional database by applying threshold
@@ -36,7 +37,7 @@ class createDatabase:
     """
 
                 :Description:
-                        imagery2Dtabases is a code used to creating transactional database by applying threshold
+                        imagery2Databases is a code used to creating transactional database by applying threshold
 
                 :param  detected_objects: list :
                         List data to be processed
@@ -160,3 +161,7 @@ class createDatabase:
                 writeLine2 = sep.join(map(str, self.probabilityValuesList[i]))
                 writeFile.write(str(i) + str(sep) + writeLine + ":1:" + writeLine2 + '\n')
         writeFile.close()
+
+if __name__ == '__main__':
+    obj = createDatabase(sys.argv[1], sys.argv[2])
+    obj.saveAsUncertainTemporalDB(sys.argv[3])
