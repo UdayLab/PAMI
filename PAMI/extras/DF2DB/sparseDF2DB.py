@@ -9,6 +9,13 @@
 #
 #     obj.save(oFile)
 #
+#     obj.createTransactional("outputFileName") # To create transactional database
+#
+#     obj.createTemporal("outputFileName") # To create temporal database
+#
+#     obj.createUtility("outputFileName") # To create utility database
+#
+#     obj.getFileName("outputFileName") # To get file name of the database
 #
 #
 #
@@ -54,7 +61,13 @@ class sparseDF2DB:
 
         obj.save(oFile)
 
+        obj.createTransactional("outputFileName") # To create transactional database
 
+        obj.createTemporal("outputFileName") # To create temporal database
+
+        obj.createUtility("outputFileName") # To create utility database
+
+        obj.getFileName("outputFileName") # To get file name of the database
 
     """
 

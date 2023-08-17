@@ -9,6 +9,15 @@
 #
 #     obj.save(oFile)
 #
+#     obj.createTransactional("outputFileName") # To create transactional database
+#
+#     obj.createTemporal("outputFileName") # To create temporal database
+#
+#     obj.createUtility("outputFileName") # To create utility database
+#
+#     obj.getFileName("outputFileName") # To get file name of the database
+
+#
 #
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -48,6 +57,16 @@ class sparseDF2DBPlus:
         obj = db.sparseDF2DBPlus(iDdf, ">=", 16)
 
         obj.save(oFile)
+
+        obj.createTransactional("outputFileName") # To create transactional database
+
+        obj.createTemporal("outputFileName") # To create temporal database
+
+        obj.createUtility("outputFileName") # To create utility database
+
+         obj.getFileName("outputFileName") # To get file name of the database
+
+
 
          """
 

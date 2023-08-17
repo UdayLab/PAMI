@@ -9,6 +9,14 @@
 #
 #     obj.save(oFile)
 #
+#     obj.createTransactional("outputFileName") # To create transactional database
+#
+#     obj.createTemporal("outputFileName") # To create temporal database
+#
+#     obj.createUtility("outputFileName") # To create utility database
+#
+#     obj.getFileName("outputFileName") # To get file name of the database
+#
 #
 #
 __copyright__ = """
@@ -51,7 +59,16 @@ class denseDF2DBPlus:
 
         obj.save(oFile)
 
-        """
+        obj.createTransactional("outputFileName") # To create transactional database
+
+        obj.createTemporal("outputFileName") # To create temporal database
+
+        obj.createUtility("outputFileName") # To create utility database
+
+        obj.getFileName("outputFileName") # To get file name of the database
+
+
+    """
 
     def __init__(self, inputDF, thresholdConditionDF) -> None:
         self.inputDF = inputDF.T

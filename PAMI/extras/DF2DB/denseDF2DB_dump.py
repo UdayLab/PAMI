@@ -9,6 +9,14 @@
 #
 #     obj.save(oFile)
 #
+#     obj.createTransactional("outputFileName") # To create transactional database
+#
+#     obj.createTemporal("outputFileName") # To create temporal database
+#
+#     obj.createUtility("outputFileName") # To create utility database
+#
+#     obj.getFileName("outputFileName") # To get file name of the database
+#
 #
 #
 __copyright__ = """
@@ -45,11 +53,20 @@ class denseDF2DB():
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.DF2DB import denseDF2DB_dump as db
+        from PAMI.extras.DF2DB import denseDF2DB_dump as db
 
-                    obj = db.denseDF2DB_dump(iDdf, ">=", 16)
+        obj = db.denseDF2DB_dump(iDdf, ">=", 16)
 
-                    obj.save(oFile)
+        obj.save(oFile)
+
+        obj.createTransactional("outputFileName") # To create transactional database
+
+        obj.createTemporal("outputFileName") # To create temporal database
+
+        obj.createUtility("outputFileName") # To create utility database
+
+        obj.getFileName("outputFileName") # To get file name of the database
+
     """
 
     def __init__(self, inputDF, condition: str, thresholdValue: float) -> None:

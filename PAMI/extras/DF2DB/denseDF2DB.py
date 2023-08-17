@@ -9,8 +9,15 @@
 #
 #     obj.save(oFile)
 #
+#     obj.createTransactional("outputFileName") # To create transactional database
 #
+#     obj.createTemporal("outputFileName") # To create temporal database
 #
+#     obj.createMultipleTimeSeries("outputFileName") # To create Mutliple TimeSeries database
+#
+#     obj.createUtility("outputFileName") # To create utility database
+#
+#     obj.getFileName("outputFileName") # To get file name of the database
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -64,6 +71,17 @@ class denseDF2DB:
         obj = db.denseDF2DB(iDdf, ">=", 16 )
 
         obj.save(oFile)
+
+        obj.createTransactional("outputFileName") # To create transactional database
+
+        obj.createTemporal("outputFileName") # To create temporal database
+
+        obj.createMultipleTimeSeries("outputFileName") # To create Mutliple TimeSeries database
+
+        obj.createUtility("outputFileName") # To create utility database
+
+        obj.getFileName("outputFileName") # To get file name of the database
+
 
     """
 
