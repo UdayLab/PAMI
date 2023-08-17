@@ -251,7 +251,21 @@ class denseDF2DB:
 
 
 if __name__ == '__main__':
-    obj = denseDF2DB(sys.argv[1], sys.argv[2], sys.argv[3])
-    obj.createDB(sys.argv[4])
-    transactionalDB = obj.getFileName()
-    print(transactionalDB)
+    if len(sys.argv) < 5:
+        print("Usage: python script.py input_file condition threshold output_file")
+    else:
+        input_file = sys.argv[1]
+        condition = sys.argv[2]
+        threshold = float(sys.argv[3])  # Convert to float
+        output_file = sys.argv[4]
+
+        try:
+            inputDF = pd.read_csv(input_file, index_col=0)  # Assuming input is a CSV file
+            obj = denseDF2DB(inputDF, condition, threshold)
+            obj.createTransactional(output_file)
+            transactionalDB = obj.getFileName()
+            print(f"Transactional database created and saved in '{transactionalDB}'")
+        except FileNotFoundError:
+            print("Error: Input file not found.")
+        except ValueError:
+            print("Error: Invalid threshold value. Please provide a valid number.")
