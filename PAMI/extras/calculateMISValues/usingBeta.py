@@ -52,13 +52,11 @@ class usingBeta():
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.calculateMISValues import usingBeta as db
+        from PAMI.extras.calculateMISValues import usingBeta as db
 
-                    obj = db.usingBeta(iFile, 16, "\t")
+        obj = db.usingBeta(iFile, 16, "\t")
 
-                    obj.getPatterns("outputFileName") # To create frequentpatterns in DataFrame
-
-                    obj.save(oFile)
+        obj.save(oFile)
 
     """
 

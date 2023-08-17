@@ -5,20 +5,10 @@
 # --------------------------------------------------------
 #
 #     from PAMI.extras.DF2DB.denseDF2DB import db
+#
 #     obj = db.DF2DB(idf, ">=", 16 )
-
-#     memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
-#
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
-#
+#     obj.save(oFile)
 #
 #
 

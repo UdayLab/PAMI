@@ -51,11 +51,11 @@ class usingBeta():
             --------------------------------------------------------
             .. code-block:: python
 
-                        from PAMI.extras.calculateMISValues import usingSD as db
+            from PAMI.extras.calculateMISValues import usingSD as db
 
-                        obj = db.usingSD(iFile, 16, "\t")
+            obj = db.usingSD(iFile, 16, "\t")
 
-                        obj.getPatterns("outputFileName") # To create patterns in dataframe
+            obj.getPatterns("outputFileName") # To create patterns in dataframe
 
                         obj.save(oFile)
 
