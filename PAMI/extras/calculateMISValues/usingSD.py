@@ -57,7 +57,7 @@ class usingBeta():
 
             obj.getPatterns("outputFileName") # To create patterns in dataframe
 
-                        obj.save(oFile)
+            obj.save(oFile)
 
 
     """
