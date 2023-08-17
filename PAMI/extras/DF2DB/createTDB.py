@@ -1,30 +1,16 @@
-#createTDB in this code  we will create transactional Database.
+# createTDB in this code  we will create transactional Database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.frequentPattern.basic import FPGrowth as fp
+#     from PAMI.extras.DF2DB import createTDB as ct
 #
-#     obj = fp.createTDB(idf, ">=", 16)
+#     obj = ct.createTDB(idf, ">=", 16)
 #
 #     obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
-#
-#     memUSS = obj.getMemoryUSS()
-#
-#     print("Total Memory in USS:", memUSS)
-#
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
-#
-#
-#
+
+import sys
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -44,7 +30,6 @@ __copyright__ = """
 """
 
 import pandas as pd
-from PAMI.frequentPattern.basic import FPGrowth as fp
 
 
 class createTDB:
@@ -55,26 +40,9 @@ class createTDB:
 
     :type df: list
 
-
     :param threshold : It is the threshold value of all item.
 
     :type threshold: int or float
-
-
-
-     :Attributes:
-
-        startTime : float
-          To record the start time of the mining process
-
-        endTime : float
-          To record the completion time of the mining process
-
-        memoryUSS : float
-          To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
 
 
 
@@ -143,68 +111,9 @@ class createTDB:
             for j in x:
                 s = s + j + " "
             writer.write("%s \n" % s)
-    def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
-        :return: returning USS memory consumed by the mining process
-
-        :rtype: float
-        """
-
-        return self.__memoryUSS
-
-    def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
-        :return: returning RSS memory consumed by the mining process
-
-        :rtype: float
-        """
-
-        return self.__memoryRSS
-
-    def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-           :return: returning total amount of runtime taken by the mining process
-
-        :rtype: float
-        """
-
-        return self.__endTime - self.__startTime
-
-
-    def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
-
-            :return: returning frequent patterns
-
-             :rtype: dict
-        """
-        return self.__finalPatterns
-
-
-    def printResults(self):
-        """
-          this function is used to print the results
-        """
-        print("Total number of Frequent Patterns:", len(self.getPatterns()))
-        print("Total Memory in USS:", self.getMemoryUSS())
-        print("Total Memory in RSS", self.getMemoryRSS())
-        print("Total ExecutionTime in ms:", self.getRuntime())
 
 
 if __name__ == '__main__':
-    a = createTDB('DataFrame', "1204150")
+    a = createTDB(sys.argv[1], sys.argv[3])
     a.createTDB()
-    a.save('output.txt')
-    ap = fp.FPGrowth('output.txt', 500, ' ')
-    ap.startMine()
-    Patterns = ap.getPatterns()
-    print("Total number of Frequent Patterns:", len(Patterns))
-    ap.save('fpoutput.txt')
-    memUSS = ap.getMemoryUSS()
-    print("Total Memory in USS:", memUSS)
-    memRSS = ap.getMemoryRSS()
-    print("Total Memory in RSS", memRSS)
-    run = ap.getRuntime()
-    print("Total ExecutionTime in ms:", run)
+    a.save(sys.argv[2])
