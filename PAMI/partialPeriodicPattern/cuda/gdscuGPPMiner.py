@@ -19,8 +19,10 @@ __copyright__ = """
 """
 
 import abstract as _ab
+import cupy as cp
+import cudf
 
-class cuGPPMiner(_ab._partialPeriodicPatterns):
+class gdscuGPPMiner(_ab._partialPeriodicPatterns):
     """
     Description:
     -------------
@@ -242,87 +244,43 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
     def _creatingOneItemSets(self):
         """Storing the complete transactions of the database/input file in a database variable
         """
-        plist = []
-        Database = []
-        if isinstance(self._iFile, _ab._pd.DataFrame):
-            ts, data = [], []
-            if self._iFile.empty:
-                print("its empty..")
-            i = self._iFile.columns.values.tolist()
-            if 'TS' in i:
-                ts = self._iFile['TS'].tolist()
-            if 'Transactions' in i:
-                data = self._iFile['Transactions'].tolist()
-            for i in range(len(data)):
-                tr = [ts[i][0]]
-                tr = tr + data[i]
-                Database.append(tr)
-        if isinstance(self._iFile, str):
-            if _ab._validators.url(self._iFile):
-                data = _ab._urlopen(self._iFile)
-                for line in data:
-                    line.strip()
-                    line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
-                    Database.append(temp)
-            else:
-                try:
-                    with open(self._iFile, 'r', encoding='utf-8') as f:
-                        for line in f:
-                            line.strip()
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
-                            Database.append(temp)
-                except IOError:
-                    print("File Not Found")
-                    quit()
+        df = cudf.read_parquet(self._iFile)
 
-        ArraysAndItems = {}
+        data = df.to_cupy()
+        data = cp.ravel(data)
 
-        maxTID = 0
-        for i in range(len(Database)):
-            tid = int(Database[i][0])
-            for j in Database[i][1:]:
-                j = tuple([j])
-                if j not in ArraysAndItems:
-                    ArraysAndItems[j] = [tid]
-                else:
-                    ArraysAndItems[j].append(tid)
-                maxTID = max(maxTID, tid)
+        keys = cp.array([x for x in range(len(df.index))], dtype = cp.uint32)
+        numberOfKeys = len(keys)
+        period = cp.zeros(numberOfKeys, dtype = cp.uint32)
+        arrSize = len(df.columns)
+        self._maxTS = arrSize  * 32
+        maxTS = self._maxTS
 
-        self._maxTS = maxTID
+        self.arraySize = arrSize
 
-        newArraysAndItems = {}
 
-        arraySize = maxTID // 32 + 1
-        self.arraySize = arraySize
+        self.supportAndPeriod((numberOfKeys//32 + 1,), (32,),
+                                    (
+                                        data, arrSize,
+                                        keys, numberOfKeys, 1,
+                                        period,
+                                        self._period, maxTS
+                                    )
+        )
+        period = period.get()
+        keys = keys.get()
 
-        self._rename = {}
-        number = 0
+        newKeys = []
 
-        for k,v in ArraysAndItems.items():
-            nv = v.copy()
-            nv = _ab._cp.array(nv, dtype=_ab._np.uint32)
-            nv = _ab._cp.sort(nv)
-            differences = _ab._cp.diff(nv)
-            # maxDiff = _ab._cp.max(differences)
-            perSup = _ab._cp.count_nonzero(differences <= self._period).get()
-            if perSup >= self._periodicSupport:
-                # print(k, len(v), v, nv, differences, maxDiff)
-                self._finalPatterns["\t".join(k)] = perSup
-                # newArraysAndItems[k] = _ab._np.array(v, dtype=_ab._np.uint32)
-                bitRep = _ab._np.zeros(arraySize, dtype=_ab._np.uint32)
-                for i in range(len(v)):
-                    bitRep[v[i] // 32] |= 1 << 31 - (v[i] % 32)
-                # print(k,v, end = " ")
-                # for i in range(len(bitRep)):
-                #     print(_ab._np.binary_repr(bitRep[i], width=32), end = " ")
-                # print()
-                newArraysAndItems[tuple([number])] = bitRep
-                self._rename[number] = str(k[0])
-                number += 1
-        return newArraysAndItems
+        for i in range(len(keys)):
+            if period[i] >= self._periodicSupport:
+                newKeys.append(keys[i])
+                self._finalPatterns[str(keys[i])] = period[i]
+
+        # candidates = newKeys
+        candidates = [list([x]) for x in newKeys]
+    
+        return candidates, data
 
 
     def startMine(self):
@@ -331,12 +289,12 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
         self._period = self._convert(self._period)
         self._periodicSupport = self._convert(self._periodicSupport)
         self._finalPatterns = {}
-        ArraysAndItems = self._creatingOneItemSets()
-        candidates = list(ArraysAndItems.keys())
-        candidates = [list(i) for i in candidates]
-        values = list(ArraysAndItems.values())
+        candidates, values = self._creatingOneItemSets()
+        # candidates = list(ArraysAndItems.keys())
+        # candidates = [list(i) for i in candidates]
+        # values = list(ArraysAndItems.values())
 
-        values = _ab._cp.array(values)
+        # values = _ab._cp.array(values)
         # print(values)
 
         # print(type(candidates[0]))
@@ -366,6 +324,7 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
 
             period = _ab._cp.zeros(numberOfKeys, dtype=_ab._cp.uint32)
 
+
             self.supportAndPeriod((numberOfKeys//32 + 1,), (32,),
                                     (
                                         values, self.arraySize,
@@ -384,7 +343,7 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
                 # print(newKeys[i], support[i], period[i])
                 if period[i] >= self._periodicSupport:
                     newCandidates.append(list(newKeys[i]))
-                    rename = [self._rename[j] for j in newKeys[i]]
+                    rename = [str(j) for j in newKeys[i]]
                     rename = "\t".join(rename)
                     self._finalPatterns[rename] = period[i]
 
@@ -477,9 +436,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
-            _ap = cuGPPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+            _ap = gdscuGPPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         if len(_ab._sys.argv) == 5:
-            _ap = cuGPPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = gdscuGPPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
         print("Total number of Periodic-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
