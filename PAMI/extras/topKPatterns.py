@@ -19,12 +19,12 @@ class topKPatterns:
             store top k patterns into output file.
 
     """
-    def __init__(self, inputFile, k=10, sep='\t'):
+    def __init__(self, inputFile: str, k: int=10, sep: str='\t') -> None:
         self.inputFile = inputFile
         self.k = k
         self.sep = sep
 
-    def getTopKPatterns(self):
+    def getTopKPatterns(self) -> dict:
         """
         get top k length patterns. user can defined k value.
         :return: top k length patterns as dictionary. top k patterns = {patternId: pattern}
@@ -34,7 +34,7 @@ class topKPatterns:
         patterns = sorted(patterns, key=lambda x: len(x[0]), reverse=True)
         return {patternId: patterns[patternId - 1] for patternId in range(1, int(self.k)+1)}
 
-    def save(self, outputFile):
+    def save(self, outputFile: str) -> None:
         """
         store top k length patterns into file. user can defined k value.
         :param outputFile: output file name or path
