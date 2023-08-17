@@ -25,7 +25,7 @@ class createNeighborhoodFileUsingEuclideanDistance:
             This function returns output file name.
     """
 
-    def __init__(self,iFile,oFile,maxEucledianDistace, seperator='\t'):
+    def __init__(self,iFile: str,oFile: str,maxEucledianDistace: int, seperator='\t'):
         self.iFile = iFile
         self.oFile = oFile
         self.maxEucledianDistace = maxEucledianDistace
@@ -66,10 +66,9 @@ class createNeighborhoodFileUsingEuclideanDistance:
                 f.write("\n")
 
 
-    def getFileName(self):
+    def getFileName(self) -> str:
         return self.oFile
 
 if __name__ == "__main__":
     createNeighborhoodFileUsingEuclideanDistance('/Users/Likhitha/Downloads/Nighbours_gen/temp_roads.txt', '/Users/Likhitha/Downloads/Nighbours_gen/road_points.txt',
                                                  10, ',')
-

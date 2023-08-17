@@ -38,9 +38,9 @@ class utilityToFuzzy(_ab._convert):
                     utilityToFuzzy is a code used to convert the transactional database into Fuzzy transactional database.
 
             :param  iFile: str :
-                    Name of the Input file to mine complete set of frequent patterns
+                    Name of the Input file
             :param  oFile: str :
-                    Name of the output file to store complete set of frequent patterns
+                    Name of the output file
             :param  fuzFile: str :
                    Name of the FuzFile to process set of data.
             :param  sep: str :
