@@ -7,7 +7,7 @@
 #
 #     obj = db.temporalToFuzzy(iFile, FuzFile, oFile, "\t" )
 #
-#     obj.save(oFile)
+#     obj.startConvert()
 #
 #
 #
@@ -56,7 +56,7 @@ class temporallToFuzzy(_ab._convert):
 
                 obj = db.temporalToFuzzy(iFile, FuzFile, oFile, "\t" )
 
-                obj.save(oFile)
+                obj.startConvert()
 
     """
 
