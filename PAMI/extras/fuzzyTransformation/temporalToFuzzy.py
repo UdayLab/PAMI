@@ -206,9 +206,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = temporalToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = temporalToFuzzy(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4])
         if len(_ab._sys.argv) == 4:
-            _ap = temporalToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3])
+            _ap = temporalToFuzzy(_ab._sys.argv[1], _ab._sys.argv[2],  _ab._sys.argv[3])
         _ap.startConvert()
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
