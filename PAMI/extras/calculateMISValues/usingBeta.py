@@ -1,9 +1,64 @@
+# This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.calculateMISValues import usingBeta as db
+#
+#     obj = db.usingBeta(iFile, 16, "\t")
+#
+#     obj.getPatternsAsDataFrame("outputFileName") # To create patterns as dataframes
+#
+#     obj.save(oFile)
+
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 import sys as _sys
 import pandas as _pd
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 
 class usingBeta():
+    """
+
+        :Description: This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.
+        
+        :param  iFile: str :
+                       Name of the Input file to get the patterns as DataFrame
+        :param  beta: str :
+                       Name of the output file to store complete set of frequent patterns
+        :param  threshold: int :
+                       The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.
+        :param  sep: str :
+                       This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+        **Importing this algorithm into a python program**
+        --------------------------------------------------------
+        .. code-block:: python
+
+        from PAMI.extras.calculateMISValues import usingBeta as db
+
+        obj = db.usingBeta(iFile, 16, "\t")
+
+        obj.save(oFile)
+
+    """
 
     _iFile: str = ' '
     _beta: int = int()
@@ -60,26 +115,26 @@ class usingBeta():
         for transaction in self._Database:
             self._lno = self._lno + 1
             for item in transaction:
-                if item not in tidData:
-                    tidData[item] = [self._lno]
-                else:
-                    tidData[item].append(self._lno)
+                    if item not in tidData:
+                        tidData[item] = [self._lno]
+                    else:
+                        tidData[item].append(self._lno)
         mini = min([len(k) for k in tidData.values()])
         frequentTidData = {k: len(v) * self._beta for k, v in tidData.items()}
         return mini, frequentTidData
 
     def caculateMIS(self) -> None:
-        self._creatingItemSets()
-        mini, frequentItems = self._creatingFrequentItems()
-        for x, y in frequentItems.items():
-            if y < self._threshold:
-                self._finalPatterns[x] = mini
-            else:
-                self._finalPatterns[x] = y
+            self._creatingItemSets()
+            mini, frequentItems = self._creatingFrequentItems()
+            for x, y in frequentItems.items():
+                if y < self._threshold:
+                    self._finalPatterns[x] = mini
+                else:
+                    self._finalPatterns[x] = y
 
-    def getPatternsAsDataFrame(self) -> _pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
-        :return: returning frequent patterns in a dataframe
+    def getMISDataFrame(self) -> _pd.DataFrame:
+        """Storing items and its respective minimum support in a dataframe
+        :return: returning items and its respective minimum support in a dataframe
         :rtype: pd.DataFrame
         """
 
@@ -91,7 +146,7 @@ class usingBeta():
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of items and its respective minimum support values will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -101,7 +156,9 @@ class usingBeta():
             patternsAndSupport = x + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-if __name__ == '__main__':
-    cd = usingBeta("sample.txt", 0.5, 10, ' ')
-    cd.caculateMIS()
-    cd.save('output.txt')
+
+
+    if __name__ == '__main__':
+        cd = usingBeta(_sys.argv[1],_sys.argv[2],_sys.argv[3],_sys.argv[4])
+        cd.caculateMIS()
+        cd.save(_sys.argv[5])

@@ -34,6 +34,7 @@ __copyright__ = """
 """
 from PAMI.extras.DF2DB.denseDF2DB import db
 from PAMI.extras.DF2DB.sparseDF2DB import db
+import sys
 
 class DF2DB:
     """
@@ -119,8 +120,6 @@ class DF2DB:
         return self.DF2DB.getFileName()
 
 
-if __name__='__main__':
+if __name__ == '__main__':
     obj = DF2DB(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
     obj.getTransactional(sys.argv[5])
-
-

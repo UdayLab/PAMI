@@ -1,7 +1,69 @@
+# utilityToFuzzy is a code used to convert the utility database into Fuzzy transactional database.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
+#
+#     obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
+#
+#     obj.startConvert()
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import abstract as _ab
 
 
 class utilityToFuzzy(_ab._convert):
+    """
+
+            :Description:
+                    utilityToFuzzy is a code used to convert the utility database into Fuzzy transactional database.
+
+            :param  iFile: str :
+                    Name of the Input file
+            :param  oFile: str :
+                    Name of the output file
+            :param  fuzFile: str :
+                   Name of the FuzFile to process set of data.
+            :param  sep: str :
+                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
+
+            **Importing this algorithm into a python program**
+            --------------------------------------------------------
+            .. code-block:: python
+
+            from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
+
+            obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
+
+            obj.startConvert()
+
+
+    """
+
+    _iFile: str = ' '
+    _fuzFile: str = ' '
+    _oFile: str = ' '
 
     def __init__(self, iFile: str, fuzFile: str, oFile: str, sep: str='\t'):
         self._iFile = iFile
@@ -20,6 +82,9 @@ class utilityToFuzzy(_ab._convert):
         self._fuzzyRegionReferenceMap = {}
 
     def _creatingItemSets(self) -> None:
+        """
+           To process the input file and store the timestamps, items, and their values as lists respectively.
+        """
         self._transactionsDB, self._fuzzyValuesDB, self._tsDB = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -58,7 +123,9 @@ class utilityToFuzzy(_ab._convert):
                     quit()
 
     def _fuzzyMembershipFunc(self) -> None:
-
+        """
+           The Fuzzy file is processed and labels created according the boundaries specified in input file.
+        """
         try:
             with open(self._fuzFile, 'r', encoding='utf-8') as f:
                 count = 0
@@ -81,6 +148,15 @@ class utilityToFuzzy(_ab._convert):
             quit()
 
     def _Regions(self, quantity: int) -> None:
+         """
+         calculate the labelled region of input "quantity"
+     
+         :param quantity: represents the quantity of item
+     
+         :type quantity: int
+     
+         :return: None
+         """
         self._list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
             self._list[0] = 1
@@ -97,6 +173,9 @@ class utilityToFuzzy(_ab._convert):
             return
 
     def startConvert(self) -> None:
+         """
+             Main method to convert the temporal database into fuzzy database.
+         """
         _writer = open(self._oFile, 'w+')
         self._creatingItemSets()
         self._fuzzyMembershipFunc()
@@ -123,13 +202,11 @@ class utilityToFuzzy(_ab._convert):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
-        if len(_ab._sys.argv) == 6:
-            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3])
         _ap.startConvert()
     else:
-        _ap = utilityToFuzzy('https://u-aizu.ac.jp/~udayrage/datasets/utilityDatabases/Utility_T10I4D100K.csv', 'fuzFile.txt', 'output.txt', ' ')
-        _ap.startConvert()
         print("Error! The number of input parameters do not match the total number of parameters provided")

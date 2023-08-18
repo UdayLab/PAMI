@@ -1,7 +1,61 @@
+# plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.
+#
+#  **Importing this algorithm into a python program**
+#  --------------------------------------------------------
+#
+#     from PAMI.extras.graph import plotLineGraphsFromDataFrame as plt
+#
+#     obj = plt.plotLineGraphsFromDictionary(idf)
+#
+#     obj.save()
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import matplotlib.pyplot as plt
 import pandas as _pd
+import sys
 
 class plotGraphsFromDataFrame():
+    """
+        plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.
+
+        Attributes:
+        ----------
+        :param dataFrame : DataFrame
+            store input data as DataFrame
+
+        Methods:
+        -------
+        plotLineGraphFromDatFrame()
+            draw line graph of input data. input data's key is x and value is y.
+
+            **Importing this algorithm into a python program**
+            --------------------------------------------------------
+            .. code-block:: python
+
+            from PAMI.extras.graph import plotLineGraphsFromDataframe as plt
+
+            obj = plt.plotLineGraphsFromDataFrame(idf)
+
+            obj.save()
+        """
 
     def __init__(self, dataFrame: _pd.DataFrame) -> None:
 
@@ -39,3 +93,5 @@ if __name__ == '__main__':
     dataFrame = _pd.DataFrame(data)
     ab = plotGraphsFromDataFrame(dataFrame)
     ab.plotGraphsFromDataFrame()
+    obj = plotGraphsFromDataFrame(sys.argv[1])
+    obj.plotGraphsFromDataFrame(sys.argv[2])

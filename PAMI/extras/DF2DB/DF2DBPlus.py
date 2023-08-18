@@ -11,7 +11,7 @@
 #
 #     obj.getTDB("outputFileName")   # To create a temporal database
 #
-#     obj.getUDB("outputFileName")    # To craete a utility database
+#     obj.getUDB("outputFileName")    # To create a utility database
 #
 #
 __copyright__ = """
@@ -33,6 +33,7 @@ __copyright__ = """
 
 from PAMI.extras.DF2DB.denseDF2DBPlus import *
 from PAMI.extras.DF2DB.sparseDF2DBPlus import *
+import sys
 
 
 class DF2DBPlus:
@@ -55,17 +56,16 @@ class DF2DBPlus:
         .. code-block:: python
 
                      from PAMI.extras.DF2DB import DF2DBPlus as dfdbp
-                     
+
                      obj = dfdbp.DF2DBPlus(idf, ">=", 16)
 
                      obj.getTransactional("outputFileName") # To create a transactional database
 
                      obj.getTDB("outputFileName")   # To create a temporal database
-                     
+
                      obj.getUDB("outputFileName")    # To craete a utility database
 
     """
-
 
     def __init__(self, inputDF, thresholdConditionDF, DFtype='sparse') -> None:
         self.inputDF = inputDF
@@ -113,3 +113,6 @@ class DF2DBPlus:
         """
         self.DF2DB.createUtility(outputFile)
         return self.DF2DB.getFileName()
+if __name__ == '__main__':
+    obj = DF2DBPlus(sys.argv[1], sys.argv[2], sys.argv[3])
+    obj.getTransactional(sys.argv[4])
