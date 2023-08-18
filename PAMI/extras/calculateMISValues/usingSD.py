@@ -1,3 +1,34 @@
+# usingSD is used to discover transactions in a database. It also stores the frequent patterns in the database.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.calculateMISValues import usingSD as db
+#
+#     obj = db.usingSD(iFile, 16, "\t")
+#
+#     obj.getPatterns("outputFileName") # To create patterns as dataframes
+#
+#     obj.save(oFile)
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 import sys as _sys
 import pandas as _pd
 import validators as _validators
@@ -5,12 +36,38 @@ import statistics as _statistics
 from urllib.request import urlopen as _urlopen
 
 class usingBeta():
+    """
+
+            :Description: usingSD is used to discover transactions in a database. It also stores the frequent patterns in the database.
+
+            :param  iFile: str :
+                           Name of the Input file to mine complete set of frequent patterns
+            :param  threshold: int :
+                           The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.
+            :param  sep: str :
+                           This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+            **Importing this algorithm into a python program**
+            --------------------------------------------------------
+            .. code-block:: python
+
+            from PAMI.extras.calculateMISValues import usingSD as db
+
+            obj = db.usingSD(iFile, 16, "\t")
+
+            obj.getPatterns("outputFileName") # To create patterns in dataframe
+
+            obj.save(oFile)
+
+
+    """
 
     _iFile: str = ' '
     _sd: int = int()
     _sep: str = str()
     _threshold: int = int()
     _finalPatterns: dict = {}
+
 
     def __init__(self, iFile: str, threshold: int, sep: str):
         self._iFile = iFile
@@ -92,7 +149,7 @@ class usingBeta():
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -103,6 +160,6 @@ class usingBeta():
             writer.write("%s \n" % patternsAndSupport)
 
 if __name__ == '__main__':
-    cd = usingBeta("sample.txt", 10, ' ')
+    cd = usingSD(_sys.argv[1],_sys.argv[2],_sys.argv[3])
     cd.caculateMIS()
-    cd.save('output.txt')
+    cd.save(_sys.argv[4])

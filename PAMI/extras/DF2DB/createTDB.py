@@ -1,4 +1,4 @@
-#createTDB in this code  we will create transactional Database.
+# createTDB in this code  we will create transactional Database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -9,9 +9,9 @@
 #
 #     obj.save(oFile)
 #
+#
 
 import sys
-
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -40,7 +40,7 @@ class createTDB:
     :param df: It represents the dataframe
 
     :type df: list
-    
+
     :param threshold : It is the threshold value of all item.
 
     :type threshold: int or float
@@ -112,6 +112,7 @@ class createTDB:
             for j in x:
                 s = s + j + " "
             writer.write("%s \n" % s)
+
 
 if __name__ == '__main__':
     a = createTDB(sys.argv[1], sys.argv[3])

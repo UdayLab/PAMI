@@ -1,17 +1,36 @@
-#  Copyright (C)  2023 Rage Uday Kiran
+# sequentialDatabaseStats is to get stats of database like avarage, minimun, maximum  and so on
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.extras.dbStats import sequentialDatabaseStats as db
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = db.sequentialDatabaseStats(iFile, "\t")
+#
+#     obj.save(oFile)
+#
+#     obj.run()
+#
+#     obj.printStats()
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 import statistics
 import validators
@@ -25,18 +44,10 @@ class sequentialDatabaseStats():
     """
         sequentialDatabaseStats is to get stats of database like avarage, minimun, maximum  and so on.
 
-        Reference:
-        ----------
-
+       Attributes:
         ----------
             :param inputFile: file :
                input file path
-           :param database: dict :
-               store time stamp and its ()separated by subsequence)
-           :param seqLengthList: list :
-               store size of all sequence
-           :param subSeqLengthList: list :
-               store size of all subsequence
            :param sep: str
                separator in file. Default is tab space.
 
@@ -84,6 +95,21 @@ class sequentialDatabaseStats():
                 to print the all status of sequence database
             plotGraphs(self):
                 to plot the  distribution about items, subsequences in sequence and items in subsequence
+
+            **Importing this algorithm into a python program**
+        --------------------------------------------------------
+        .. code-block:: python
+
+                    from PAMI.extras.dbStats import sequentialDatabaseStats as db
+
+                    obj = db.sequentialDatabaseStats(iFile, "\t")
+
+                    obj.save(oFile)
+
+                    obj.run()
+
+                    obj.printStats()
+
 
         Executing the code on terminal:
         -------------------------------

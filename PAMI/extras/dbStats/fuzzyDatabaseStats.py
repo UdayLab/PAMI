@@ -1,3 +1,37 @@
+# fuzzyDatabaseStats is class to get stats of fuzzyDatabase.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.dbStats import FuzzyDatabaseStats as db
+#
+#     obj = db.fuzzyDatabaseStats(iFile, "\t")
+#
+#     obj.save(oFile)
+#
+#     obj.run()
+#
+#     obj.printStats()
+#
+#
+#
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+import sys
 import statistics
 import validators
 from urllib.request import urlopen
@@ -6,18 +40,10 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class fuzzyDatabaseStats:
     """
-        :Description: UtilityDatabaseStats is class to get stats of database.
-        
-        Attributes:
-        -----------
+        :Description: fuzzyDatabaseStats is class to get stats of fuzzyDatabase.
+
         inputFile : file
             input file path
-        database : dict
-            store time stamp and its transaction
-        lengthList : list
-            store length of all transaction
-        utility : dict
-            store utility each item
         sep : str
             separator in file. Default is tab space.
             
@@ -51,6 +77,23 @@ class fuzzyDatabaseStats:
             get the maximum utility
         getSortedUtilityValuesOfItem()
             get sorted utility values each item
+
+        **Importing this algorithm into a python program**
+        --------------------------------------------------------
+        .. code-block:: python
+
+                    from PAMI.extras.dbStats import FuzzyDatabaseStats as db
+
+                    obj = db.fuzzyDatabaseStats(iFile, "\t")
+
+                    obj.save(oFile)
+
+                    obj.run()
+
+                    obj.printStats()
+
+
+
     """
     def __init__(self, inputFile: str, sep: str='\t'):
         """
@@ -310,26 +353,27 @@ if __name__ == '__main__':
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
     #obj = utilityDatabaseStats(data)
-    obj = fuzzyDatabaseStats('fuzzy_T20I6D100K.txt', sep=' ')
+    obj = fuzzyDatabaseStats(sys.argv[1], sys.argv[2])
     obj.run()
     obj.printStats()
     obj.plotGraphs()
-    '''print(f'Database size : {obj.getDatabaseSize()}')
-    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
-    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
-    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
-    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-    print(f'Variance : {obj.getVarianceTransactionLength()}')
-    print(f'Sparsity : {obj.getSparsity()}')
-    print(f'Number of items : {obj.getTotalNumberOfItems()}')
-    print(f'Minimum utility : {obj.getMinimumUtility()}')
-    print(f'Average utility : {obj.getAverageUtility()}')
-    print(f'Maximum utility : {obj.getMaximumUtility()}')
-    print(f'sorted utility value each item : {obj.getSortedUtilityValuesOfItem()}')
-    itemFrequencies = obj.getSortedListOfItemFrequencies()
-    transactionLength = obj.getTransanctionalLengthDistribution()
-    numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
-    plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
-    plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
-    plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)'''
+
+    """
+        print(f'Database size : {obj.getDatabaseSize()}')
+        print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
+        print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
+        print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
+        print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
+        print(f'Variance : {obj.getVarianceTransactionLength()}')
+        print(f'Sparsity : {obj.getSparsity()}')
+        print(f'Number of items : {obj.getTotalNumberOfItems()}')
+        print(f'Minimum utility : {obj.getMinimumUtility()}')
+        print(f'Average utility : {obj.getAverageUtility()}')
+        print(f'Maximum utility : {obj.getMaximumUtility()}')
+        print(f'sorted utility value each item : {obj.getSortedUtilityValuesOfItem()}')itemFrequencies = obj.getSortedListOfItemFrequencies()
+        transactionLength = obj.getTransanctionalLengthDistribution()
+        numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
+        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+        plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)"""
 

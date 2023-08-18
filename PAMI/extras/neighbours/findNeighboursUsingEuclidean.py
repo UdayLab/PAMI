@@ -1,3 +1,33 @@
+# findNeighboursUsingEuclidean is a code used to create a neighbourhood file using Euclidean distance.
+#
+#  **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.neighbours import findNeighboursUsingEuclidean as db
+#
+#     obj = db.findNeighboursUsingGeodesic(iFile, oFile, 10, "\t")
+#
+#     obj.save()
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import sys
 import re
 from math import sqrt
@@ -8,14 +38,16 @@ class createNeighborhoodFileUsingEuclideanDistance:
 
     Attribute:
     ----------
-        iFile : file
+        :param iFile : file
             Input file name or path of the input file
-        oFile : file
+        :param oFile : file
             Output file name or path pf the output file
-        maxEucledianDistace : int
-            The user can specify maxEucledianDistace.
+        :param maxEuclideanDistance : int
+            The user can specify maxEuclideanDistance.
             This program find pairs of values whose Euclidean distance is less than or equal to maxEucledianDistace
             and store the pairs.
+        :param  seperator: str :
+                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     Methods:
     -------
@@ -23,12 +55,23 @@ class createNeighborhoodFileUsingEuclideanDistance:
             find and store the pairs of values whose Euclidean distance is less than or equal to maxEucledianDistace.
         getFileName()
             This function returns output file name.
+
+       **Importing this algorithm into a python program**
+        --------------------------------------------------------
+
+        .. code-block:: python
+
+        from PAMI.extras.neighbours import findNeighboursUsingEuclidean as db
+
+         obj = db.findNeighboursUsingEuclidean(iFile, oFile, 10, "\t")
+
+         obj.save()
     """
 
-    def __init__(self,iFile: str,oFile: str,maxEucledianDistace: int, seperator='\t'):
+    def __init__(self,iFile: str,oFile: str,maxEucledianDistance: int, seperator='\t'):
         self.iFile = iFile
         self.oFile = oFile
-        self.maxEucledianDistace = maxEucledianDistace
+        self.maxEucledianDistance = maxEucledianDistance
 
         coordinates = []
         result = {}
@@ -52,7 +95,7 @@ class createNeighborhoodFileUsingEuclideanDistance:
                     ansY = y2-y1
                     dist = abs(pow(ansX,2) - pow(ansY,2))
                     norm = sqrt(dist)
-                    if norm <= float(self.maxEucledianDistace):
+                    if norm <= float(self.maxEucledianDistance):
                         result[tuple(firstCoordinate)] = result.get(tuple(firstCoordinate),[])
                         result[tuple(firstCoordinate)].append(secondCoordinate)
 
@@ -70,6 +113,4 @@ class createNeighborhoodFileUsingEuclideanDistance:
         return self.oFile
 
 if __name__ == "__main__":
-    createNeighborhoodFileUsingEuclideanDistance('/Users/Likhitha/Downloads/Nighbours_gen/temp_roads.txt', '/Users/Likhitha/Downloads/Nighbours_gen/road_points.txt',
-                                                 10, ',')
-
+    obj = createNeighborhoodFileUsingEuclideanDistance(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

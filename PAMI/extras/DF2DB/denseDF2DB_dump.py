@@ -3,25 +3,19 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.frequentPattern.basic import FPGrowth as fp
+#     from PAMI.extras.DF2DB import denseDF2DB_dump as db
 #
-#     obj = fp.denseDF2DB_dump(idf, ">=", 16)
+#     obj = db.denseDF2DB_dump(idf, ">=", 16)
 #
 #     obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#     obj.createTransactional("outputFileName") # To create transactional database
 #
-#     memUSS = obj.getMemoryUSS()
+#     obj.createTemporal("outputFileName") # To create temporal database
 #
-#     print("Total Memory in USS:", memUSS)
+#     obj.createUtility("outputFileName") # To create utility database
 #
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
+#     obj.getFileName("outputFileName") # To get file name of the database
 #
 #
 #
@@ -43,8 +37,8 @@ __copyright__ = """
 """
 
 import pandas as pd
-
-class denseDF2DB:
+import sys
+class denseDF2DB():
     """
         :Description: This class create Data Base from DataFrame.
 
@@ -54,49 +48,24 @@ class denseDF2DB:
             It is condition to judge the value in dataframe
         :param thresholdValue: int or float :
             User defined value.
-        :param tids: list :
-            It is tids list.
-        :param items: list :
-            Store the items list
-        :param outputFile: str  :
-            Creation database output to this outputFile.
-
-        :Attributes:
-
-        startTime : float
-          To record the start time of the mining process
-
-        endTime : float
-          To record the completion time of the mining process
-
-        memoryUSS : float
-          To store the total amount of USS memory consumed by the program
-
-        memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
-
-
 
         **Importing this algorithm into a python program**
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.frequentPattern.basic import FPGrowth as fp
+        from PAMI.extras.DF2DB import denseDF2DB_dump as db
 
-                    obj = fp.denseDF2DB_dump(iDdf, ">=", 16)
+        obj = db.denseDF2DB_dump(iDdf, ">=", 16)
 
-                    memUSS = obj.getMemoryUSS()
+        obj.save(oFile)
 
-                    print("Total Memory in USS:", memUSS)
+        obj.createTransactional("outputFileName") # To create transactional database
 
-                    memRSS = obj.getMemoryRSS()
+        obj.createTemporal("outputFileName") # To create temporal database
 
-                    print("Total Memory in RSS", memRSS)
+        obj.createUtility("outputFileName") # To create utility database
 
-                    run = obj.getRuntime()
-
-                    print("Total ExecutionTime in seconds:", run)
-
+        obj.getFileName("outputFileName") # To get file name of the database
 
     """
 
@@ -332,8 +301,8 @@ class denseDF2DB:
 
 
 if __name__ == '__main__':
-    DF = createDenseDF('denseDF.csv')
-    obj = denseDF2DB(DF.getDF(), '>=', 2)
-    obj.createDB('testTransactional.csv')
-    transactionalDB = obj.getFileName()
-    print(transactionalDB)
+
+
+    obj = denseDF2DB(sys.argv[1], sys.argv[2])
+    obj.getFileName(sys.argv[3])
+

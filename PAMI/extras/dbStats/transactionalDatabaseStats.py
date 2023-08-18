@@ -1,3 +1,36 @@
+# transactinalDatabaseStats is a class used to get stats of database.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.dbStats import transactionalDatabaseStats as db
+#
+#     obj = db.transactionalDatabaseStats(iFile, "\t")
+#
+#     obj.save(oFile)
+#
+#     obj.run()
+#
+#     obj.printStats()
+#
+#
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+import sys
 import statistics
 import pandas as pd
 import validators
@@ -11,17 +44,59 @@ class transactionalDatabaseStats:
     """
         :Description:  transactionalDatabaseStats is class to get stats of database.
 
-
         :param inputFile: file :
             input file path
-        :param database: dict :
-            store time stamp and its transaction
-        :param lengthList: list :
-            store size of all transaction
         :param sep: str
             separator in file. Default is tab space.
 
-           """
+        Methods:
+        -------
+        run()
+            execute readDatabase function
+        readDatabase()
+            read database from input file
+        getDatabaseSize()
+            get the size of database
+        getMinimumTransactionLength()
+            get the minimum transaction length
+        getAverageTransactionLength()
+            get the average transaction length. It is sum of all transaction length divided by database length.
+        getMaximumTransactionLength()
+            get the maximum transaction length
+        getStandardDeviationTransactionLength()
+            get the standard deviation of transaction length
+        getSortedListOfItemFrequencies()
+            get sorted list of item frequencies
+        getSortedListOfTransactionLength()
+            get sorted list of transaction length
+        save(data, outputFile)
+            store data into outputFile
+        getMinimumPeriod()
+            get the minimum period
+        getAveragePeriod()
+            get the average period
+        getMaximumPeriod()
+            get the maximum period
+        getStandardDeviationPeriod()
+            get the standard deviation period
+        getNumberOfTransactionsPerTimestamp()
+            get number of transactions per time stamp. This time stamp range is 1 to max period.
+
+        **Importing this algorithm into a python program**
+        --------------------------------------------------------
+        .. code-block:: python
+
+                    from PAMI.extras.dbStats import transactionalDatabaseStats as db
+
+                    obj = db.transactionalDatabaseStats(iFile, "\t")
+
+                    obj.save(oFile)
+
+                    obj.run()
+
+                    obj.printStats()
+
+    """
 
     def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str='\t') -> None:
         """
@@ -248,6 +323,7 @@ if __name__ == '__main__':
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
     import pandas as pd
     # obj = transactionalDatabaseStats(data)
+    obj = transactionalDatabaseStats(sys.argv[1], sys.argv[2])
     obj = transactionalDatabaseStats(pd.DataFrame(data))
     obj.run()
     obj.printStats()

@@ -3,25 +3,19 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.frequentPattern.basic import FPGrowth as fp
+#     from PAMI.extras.DF2DB import sparseDF2DB as db
 #
-#     obj = fp.sparseDF2DB(idf, ">=", 16)
+#     obj = db.sparseDF2DB(idf, ">=", 16)
 #
 #     obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#     obj.createTransactional("outputFileName") # To create transactional database
 #
-#     memUSS = obj.getMemoryUSS()
+#     obj.createTemporal("outputFileName") # To create temporal database
 #
-#     print("Total Memory in USS:", memUSS)
+#     obj.createUtility("outputFileName") # To create utility database
 #
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
+#     obj.getFileName("outputFileName") # To get file name of the database
 #
 #
 #
@@ -42,6 +36,7 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import pandas as pd
+import sys
 
 class sparseDF2DB:
     """
@@ -53,26 +48,6 @@ class sparseDF2DB:
                 It is condition to judge the value in dataframe
             :param thresholdValue: int or float :
                 User defined value.
-            :param tids: list :
-                It is tids list.
-            :param items: list :
-                Store the items list
-            :param outputFile: str  :
-                Creation data base output to this outputFile.
-
-            :Attributes:
-
-            startTime : float
-               To record the start time of the mining process
-
-            endTime : float
-               To record the completion time of the mining process
-
-            memoryUSS : float
-               To store the total amount of USS memory consumed by the program
-
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
 
 
 
@@ -80,25 +55,19 @@ class sparseDF2DB:
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.frequentPattern.basic import FPGrowth as fp
+        from PAMI.extras.DF2DB import sparseDF2DB as db
 
-                    obj = fp.sparseDF2DB(iDdf, ">=", 16)
+        obj = db.sparseDF2DB(iDdf, ">=", 16)
 
-                    memUSS = obj.getMemoryUSS()
+        obj.save(oFile)
 
-                    print("Total Memory in USS:", memUSS)
+        obj.createTransactional("outputFileName") # To create transactional database
 
-                    memRSS = obj.getMemoryRSS()
+        obj.createTemporal("outputFileName") # To create temporal database
 
-                    print("Total Memory in RSS", memRSS)
+        obj.createUtility("outputFileName") # To create utility database
 
-                    run = obj.getRuntime()
-
-                    print("Total ExecutionTime in seconds:", run)
-
-
-
-
+        obj.getFileName("outputFileName") # To get file name of the database
 
     """
 
@@ -185,9 +154,7 @@ class sparseDF2DB:
         return self.outputFile
 
 if __name__ == '__main__':
-    DF = createSparseDF('sparseDF.csv')
-    obj = sparseDF2DB(DF.getDF(), '>=', 2)
-    obj.createDB('testTransactional.csv')
-    transactionalDB = obj.getFileName()
-    print(transactionalDB)
+
+    obj = sparseDF2DB(sys.argv[1], sys.argv[2])
+    obj.getFileName(sys.argv[3])
 

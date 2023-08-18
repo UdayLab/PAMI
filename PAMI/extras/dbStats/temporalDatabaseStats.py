@@ -1,3 +1,36 @@
+# temporalDatabaseStats is a class used to get stats of database.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.dbStats import temporalDatabaseStats as db
+#
+#     obj = db.temporalDatabaseStats(iFile, "\t")
+#
+#     obj.save(oFile)
+#
+#     obj.run()
+#
+#     obj.printStats()
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+import sys
 import statistics
 import pandas as pd
 import validators
@@ -13,19 +46,10 @@ class temporalDatabaseStats:
         -------------
             temporalDatabaseStats is class to get stats of database.
 
-        Attributes:
-        ----------
-        inputFile : file
+        :param inputFile : file
             input file path
-        database : dict
-            store time stamp and its transaction
-        lengthList : list
-            store size of all transaction
-        timeStampCount : dict
-            number of transactions per time stamp
-        periodList : list
-            all period list in the database
-        sep : str
+
+        :param sep : str
             separator in file. Default is tab space.
 
         Methods:
@@ -60,6 +84,21 @@ class temporalDatabaseStats:
             get the standard deviation period
         getNumberOfTransactionsPerTimestamp()
             get number of transactions per time stamp. This time stamp range is 1 to max period.
+
+        **Importing this algorithm into a python program**
+        --------------------------------------------------------
+        .. code-block:: python
+
+                    from PAMI.extras.dbStats import temporalDatabaseStats as db
+
+                    obj = db.temporalDatabaseStats(iFile, "\t")
+
+                    obj.save(oFile)
+
+                    obj.run()
+
+                    obj.printStats()
+
     """
 
     def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str='\t') -> None:
