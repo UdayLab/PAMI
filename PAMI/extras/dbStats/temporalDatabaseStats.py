@@ -797,7 +797,7 @@ if __name__ == '__main__':
     input_file = sys.argv[1]
     separator = sys.argv[2]
 
-    obj = TemporalDatabaseStats(input_file, separator)
+    obj = temporalDatabaseStats(input_file, separator)
     obj.run()
     
     # Check if there are transactions in the database before proceeding
