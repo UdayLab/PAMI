@@ -7,12 +7,11 @@
 #
 #     obj = db.fuzzyDatabaseStats(iFile, "\t")
 #
-#     obj.save(oFile)
-#
 #     obj.run()
 #
 #     obj.printStats()
 #
+#      obj.save(oFile)
 #
 #
 __copyright__ = """
@@ -86,11 +85,11 @@ class fuzzyDatabaseStats:
 
                     obj = db.fuzzyDatabaseStats(iFile, "\t")
 
-                    obj.save(oFile)
-
                     obj.run()
 
                     obj.printStats()
+
+                    obj.save(oFile)
 
 
 
