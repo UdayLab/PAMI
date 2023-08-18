@@ -33,7 +33,7 @@ __copyright__ = """
 from PAMI.extras.fuzzyTransformation import abstract as _ab
 
 
-class temporallToFuzzy(_ab._convert):
+class temporalToFuzzy(_ab._convert):
     """
 
                 :Description:
