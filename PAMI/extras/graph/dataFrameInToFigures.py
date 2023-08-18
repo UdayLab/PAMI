@@ -57,14 +57,14 @@ class dataFrameInToFigures():
     def __init__(self, dataFrame: _pd.DataFrame) -> None:
         self._dataFrame = dataFrame
 
-    def plotGraphsFromDataFrame(self,xColumn: str='minSup',yColumn: str='patterns',lineLabels: str='algorithm') -> None:
+    def plotGraphsFromDataFrame(self) -> None:
         """
            To plot graphs from given dataframe
         """
-        fig = _px.line(self._dataFrame, x=xColumn, y=yColumn, color=lineLabels)
+        fig = _px.line(self._dataFrame, x=self._dataFrame.iloc[:, 1] , y=self._dataFrame.iloc[:, 2], color=self._dataFrame.iloc[:, 0], labels={'x':'minSup', 'y':'patterns'})
         fig.show()
 
 
 if __name__ == '__main__':
-    ab = dataFrameInToFigures(sys.argv[1])
+    ab = dataFrameInToFigures(result)
     ab.plotGraphsFromDataFrame()
