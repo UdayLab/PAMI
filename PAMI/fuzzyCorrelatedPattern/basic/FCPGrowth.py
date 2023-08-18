@@ -26,6 +26,7 @@
 #
 #     print("Total ExecutionTime in seconds:", run)
 from PAMI.fuzzyCorrelatedPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class _FFList:
@@ -85,7 +86,7 @@ class Element:
             the neighbourhood resting value of a fuzzy item in the transaction
     """
 
-    def __init__(self, tid, IUtil, RUtil):
+    def __init__(self, tid: int, IUtil: float, RUtil: float) -> None:
         self.tid = tid
         self.IUtils = IUtil
         self.RUtils = RUtil
@@ -105,7 +106,7 @@ class _Regions:
                 high region values
         """
 
-    def __init__(self, item, quantity, regionsNumber, mapOfRegions):
+    def __init__(self, item: str, quantity: int, regionsNumber: int, mapOfRegions: Dict) -> None:
         self.low = 0
         self.middle = 0
         self.high = 0
@@ -170,7 +171,7 @@ class _Pair:
          A class to store item and it's quantity together
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
             A Class to Store item and its quantity together
         """
@@ -310,7 +311,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    def __init__(self, iFile, minSup, minAllConf, sep="\t"):
+    def __init__(self, iFile: str, minSup: int, minAllConf: float, sep: str="\t") -> None:
         super().__init__(iFile, minSup, minAllConf, sep)
         self._temp = {}
         self._mapItemRegionSum = {}
@@ -328,7 +329,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         self._transactions = []
         self._fuzzyValues = []
 
-    def _compareItems(self, o1, o2):
+    def _compareItems(self, o1: _FFList, o2: _FFList) -> int:
         """
             A Function that sort all FFI-list in ascending order of Support
         """
@@ -338,7 +339,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         else:
             return compare
 
-    def _findElementWithTID(self, uList, tid):
+    def _findElementWithTID(self, uList: _FFList, tid: int) -> Element:
         """
         To find element with same tid as given
         :param uList: fuzzyList
@@ -361,7 +362,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                 return List[mid]
         return None
 
-    def _convert(self, value):
+    def _convert(self, value: Union[int, float, str]) -> float:
         """
         To convert the given user specified value
         :param value: user specified value
@@ -379,7 +380,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                 value = int(value)
         return value
     
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
           Storing the complete transactions of the database/input file in a database variable
 
@@ -421,7 +422,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def startMine(self):
+    def startMine(self) -> None:
         """ 
             Frequent pattern mining process will startTime from here
         """
@@ -525,7 +526,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Fuzzy Correlated Patterns Successfully generated using FCPGrowth algorithms")
 
-    def _FSFIMining(self, prefix, prefixLen, FSFIM, minSup):
+    def _FSFIMining(self, prefix: List[_FFList], prefixLen: int, FSFIM: List[_FFList], minSup: float) -> None:
         """
             Generates FFSI from prefix
 
@@ -553,7 +554,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                 self._itemSetBuffer.insert(prefixLen, X)
                 self._FSFIMining(self._itemSetBuffer, prefixLen + 1, exULs, minSup)
 
-    def _construct(self, px, py):
+    def _construct(self, px: _FFList, py: _FFList) -> _FFList:
         """
             A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
 
@@ -573,7 +574,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             pxyUL.addElement(eXY)
         return pxyUL
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -582,7 +583,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -590,7 +591,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
        """
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -599,7 +600,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
        """
         return self._endTime - self._startTime
 
-    def _getRatio(self, prefix, prefixLen, item):
+    def _getRatio(self, prefix: List[_FFList], prefixLen: int, item: _FFList) -> float:
         """Method to calculate the ration of itemSet
             :param prefix: prefix of itemSet
             :type prefix: list
@@ -620,7 +621,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             res = self._mapItemRegionSum[(item.item, item.region)]
         return item.sumIUtil / res
 
-    def _WriteOut(self, prefix, prefixLen, item, ratio):
+    def _WriteOut(self, prefix: List[_FFList], prefixLen: int, item: _FFList, ratio: float) -> None:
         """
             To Store the patten
             :param prefix: prefix of itemSet
@@ -640,7 +641,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         #res1 = str(item.sumIUtil) + " : " + str(ratio) + "\n"
         self._finalPatterns[res] = [item.sumIUtil, ratio]
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, List[float]]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -648,7 +649,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         """
         return self._finalPatterns
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -662,7 +663,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Confidence'])
         return dataframe
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -674,7 +675,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             patternsAndSupport = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ this function is used to print the result"""
         print("Total number of Fuzzy Correlated Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
