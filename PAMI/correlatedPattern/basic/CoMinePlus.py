@@ -48,6 +48,8 @@ __copyright__ = """
 """
 
 from PAMI.correlatedPattern.basic import abstract as _ab
+import pandas as _pd
+from typing import List, Dict, Tuple, Set, Union, Any, Optional, Generator
 
 
 class _Node:
@@ -74,14 +76,15 @@ class _Node:
             returns the node with same itemName from correlatedPatternTree
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
+
         self.itemId = -1
         self.counter = 1
         self.parent = None
         self.child = []
         self.nodeLink = None
 
-    def getChild(self, itemName):
+    def getChild(self, itemName: int) -> Union['_Node', None]:
         """
         Retrieving the child from the tree
 
@@ -126,13 +129,13 @@ class _Tree:
            It takes the items in prefix pattern whose support is >=minSup and construct a subtree
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.headerList = []
         self.mapItemNodes = {}
         self.mapItemLastNodes = {}
         self.root = _Node()
 
-    def addTransaction(self, transaction):
+    def addTransaction(self, transaction: List[int]) -> None:
         """
         Adding a transaction into a tree
 
@@ -155,7 +158,7 @@ class _Tree:
                 child.counter += 1
                 current = child
 
-    def fixNodeLinks(self, item, newNode):
+    def fixNodeLinks(self, item: int, newNode: _Node) -> None:
         """
         Fixing node link for the newNode that inserted into correlatedPatternTree
 
@@ -172,7 +175,7 @@ class _Tree:
         if item not in self.mapItemNodes.keys():
             self.mapItemNodes[item] = newNode
 
-    def printTree(self, root):
+    def printTree(self, root: _Node) -> None:
         """
 
         Print the details of Node in correlatedPatternTree
@@ -189,7 +192,7 @@ class _Tree:
                 print(i.itemId, i.counter, i.parent.itemId)
                 self.printTree(i)
 
-    def createHeaderList(self, mapSupport, minSup):
+    def createHeaderList(self, mapSupport: Dict[int, int], minSup: int) -> None:
         """
         To create the headerList
 
@@ -207,7 +210,7 @@ class _Tree:
         itemSetBuffer = [k for k, v in sorted(mapSupport.items(), key=lambda val: val[1], reverse=True)]
         self.headerList = [i for i in t1 if i in itemSetBuffer]
 
-    def addPrefixPath(self, prefix, mapSupportBeta, minSup):
+    def addPrefixPath(self, prefix: List[_Node], mapSupportBeta: Dict[int, int], minSup: int) -> None:
         """
 
         To construct the conditional tree with prefix paths of a node in correlatedPatternTree
@@ -362,7 +365,7 @@ class CoMinePlus(_ab._correlatedPatterns):
     _maxPatternLength = 1000
     _sep = "\t"
 
-    def __init__(self, iFile, minSup, minAllConf, sep="\t"):
+    def __init__(self, iFile: Union[str, _pd.DataFrame], minSup: Union[int, float, str], minAllConf: str, sep: str="\t") -> None:
         """
         param iFile: input file name
         type iFile: str or DataFrame or url
@@ -375,7 +378,7 @@ class CoMinePlus(_ab._correlatedPatterns):
         """
         super().__init__(iFile, minSup, minAllConf, sep)
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
         """
@@ -407,7 +410,7 @@ class CoMinePlus(_ab._correlatedPatterns):
                     print("File Not Found")
                     quit()
 
-    def _correlatedOneItem(self):
+    def _correlatedOneItem(self) -> None:
         """
         Generating One correlated items sets
 
@@ -420,7 +423,7 @@ class CoMinePlus(_ab._correlatedPatterns):
                 else:
                     self._mapSupport[j] += 1
 
-    def _saveItemSet(self, prefix, prefixLength, support, ratio):
+    def _saveItemSet(self, prefix: List[_Node], prefixLength: int, support: int, ratio: float) -> None:
         """
         To save the correlated patterns mined form correlatedPatternTree
 
@@ -438,7 +441,7 @@ class CoMinePlus(_ab._correlatedPatterns):
         self._itemSetCount += 1
         self._finalPatterns[tuple(sample)] = [support, ratio]
 
-    def _saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength):
+    def _saveAllCombinations(self, tempBuffer: List[_Node], s: int, position: int, prefix: List[_Node], prefixLength: int) -> None:
         """
         Generating all the combinations for items in single branch in correlatedPatternTree
 
@@ -465,7 +468,7 @@ class CoMinePlus(_ab._correlatedPatterns):
             if ratio >= self._minAllConf:
                 self._saveItemSet(prefix, newPrefixLength, s, ratio)
 
-    def _correlatedPatternGrowthGenerate(self, correlatedPatternTree, prefix, prefixLength, mapSupport, minConf):
+    def _correlatedPatternGrowthGenerate(self, correlatedPatternTree: _Tree, prefix: List[_Node], prefixLength: int, mapSupport: Dict[int, int], minConf: float)  -> None:
         """
         Mining the fp tree
 
@@ -541,7 +544,7 @@ class CoMinePlus(_ab._correlatedPatterns):
                         treeBeta.createHeaderList(mapSupportBeta, self._minSup)
                         self._correlatedPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta, minConf)
 
-    def _convert(self, value):
+    def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         to convert the type of user specified minSup value
         :param value: user specified minSup value
@@ -558,7 +561,7 @@ class CoMinePlus(_ab._correlatedPatterns):
                 value = int(value)
         return value
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
         main program to start the operation
 
@@ -595,7 +598,7 @@ class CoMinePlus(_ab._correlatedPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
@@ -605,7 +608,7 @@ class CoMinePlus(_ab._correlatedPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
@@ -615,14 +618,14 @@ class CoMinePlus(_ab._correlatedPatterns):
 
         return self._memoryRSS
 
-    def _getMaxItem(self, prefix, prefixLength):
+    def _getMaxItem(self, prefix: List[_Node], prefixLength: int) -> int:
         maxItem = prefix[0]
         for i in range(prefixLength):
             if self._mapSupport[maxItem] < self._mapSupport[prefix[i]]:
                 maxItem = prefix[i]
         return maxItem
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """
         Calculating the total amount of runtime taken by the mining process
 
@@ -633,7 +636,7 @@ class CoMinePlus(_ab._correlatedPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _pd.DataFrame:
         """
         Storing final correlated patterns in a dataframe
 
@@ -651,7 +654,7 @@ class CoMinePlus(_ab._correlatedPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Confidence'])
         return dataframe
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """
         Complete set of correlated patterns will be loaded in to an output file
 
@@ -667,7 +670,7 @@ class CoMinePlus(_ab._correlatedPatterns):
             s1 = str(pattern.strip()) + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[Tuple[str], List[Union[int, float]]]:
         """
         Function to send the set of correlated patterns after completion of the mining process
 
@@ -676,7 +679,7 @@ class CoMinePlus(_ab._correlatedPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """
         function to print the result after completing the process
         """
