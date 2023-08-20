@@ -32,7 +32,6 @@ __copyright__ = """
 """
 import sys
 import statistics
-import validators
 from urllib.request import urlopen
 import pandas as pd
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
@@ -98,7 +97,7 @@ class utilityDatabaseStats:
                 self.utilityValues = self.inputFile['Utility'].tolist()
 
         if isinstance(self.inputFile, str):
-            if validators.url(self.inputFile):
+            if self.inputFile.startswith("http://") or self.inputFile.startswith("https://"):
                 data = urlopen(self.inputFile)
                 for line in data:
                     line.strip()
@@ -312,22 +311,22 @@ class utilityDatabaseStats:
 
 
 if __name__ == '__main__':
-    data = {'ts': [1, 1, 3, 4, 5, 6, 7],
+    if len(sys.argv) != 3:
+        print("Usage: python script.py <input_file> <separator>")
+        sys.exit(1)
 
-            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
-                             ['a', 'd', 'g', 'k'],
+    input_file = sys.argv[1]
+    separator = sys.argv[2]
 
-                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
-
-    data = pd.DataFrame.from_dict(data)
-    #import PAMI.extras.dbStats.utilityDatabaseStats as uds
-    
-
-    #obj = utilityDatabaseStats(data)
-    obj = utilityDatabaseStats(sys.argv[1], sys.argv[2])
+    obj = utilityDatabaseStats(input_file, separator)
     obj.run()
-    obj.printStats()
-    obj.plotGraphs()
+    
+    # Check if there are transactions in the database before proceeding
+    if obj.getDatabaseSize() > 0:
+        obj.printStats()
+        obj.plotGraphs()
+    else:
+        print("No data found in the database.")
     '''print(f'Database size : {obj.getDatabaseSize()}')
     print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
     print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
