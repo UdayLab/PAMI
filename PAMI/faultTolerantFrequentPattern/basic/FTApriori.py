@@ -47,6 +47,8 @@ __copyright__ = """
 """
 
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class FTApriori(_ab._faultTolerantFrequentPatterns):
@@ -161,7 +163,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     _Database = []
     _mapSupport = {}
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
         """
@@ -197,7 +199,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the user specified minSup value
 
@@ -217,7 +219,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                 value = int(value)
         return value
 
-    def _Count(self, k):
+    def _Count(self, k) -> Tuple[int, List[List[str]]]:
         """
         param k: list of items
         type k: list
@@ -237,7 +239,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         items = list(set(map(tuple, items)))
         return len(items), items
 
-    def _oneLengthFrequentItems(self):
+    def _oneLengthFrequentItems(self) -> None:
         self._mapSupport = {}
         for li in self._Database:
             for i in li:
@@ -247,7 +249,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                     self._mapSupport[i] += 1
         self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._itemSup}
 
-    def _countItemSupport(self, itemset):
+    def _countItemSupport(self, itemset) -> int:
         """
 
         This function is used to count the  itemSupport
@@ -268,7 +270,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                 count += 1
         return count
 
-    def _getFaultPatterns(self):
+    def _getFaultPatterns(self) -> None:
         l = [k for k, v in self._mapSupport.items()]
         for i in range(0, len(l) + 1):
             c = _ab._itertools.combinations(l, i)
@@ -277,7 +279,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
                 if len(j) >= self._minLength and res >= self._minSup:
                     self._finalPatterns[tuple(j)] = res
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
             Fault-tolerant frequent pattern mining process will start from here
         """
@@ -299,7 +301,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Fault-Tolerant Frequent patterns were generated successfully using FTApriori algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -309,7 +311,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -319,7 +321,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -329,7 +331,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -347,7 +349,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -363,7 +365,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
             s1 = s.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[Tuple[str, ...], int]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -372,7 +374,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ this is function is used to print the result
         """
         print("Total number of Fault-Tolerant Frequent Patterns:", len(self.getPatterns()))
