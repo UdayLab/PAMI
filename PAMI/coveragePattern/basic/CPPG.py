@@ -50,6 +50,8 @@ __copyright__ = """
 """
 
 from PAMI.coveragePattern.basic import abstract as _ab
+import pandas as pd
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 _maxPer = float()
@@ -167,7 +169,7 @@ class CPPG(_ab._coveragePatterns):
     _rankedUp = {}
     _lno = 0
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -210,7 +212,7 @@ class CPPG(_ab._coveragePatterns):
                     quit()
 
 
-    def _coverageOneItem(self):
+    def _coverageOneItem(self) -> Tuple[Dict[str, List[int]], List[str]]:
         """ Calculates the support of each item in the database and assign ranks to the items
             by decreasing support and returns the frequent items list
 
@@ -229,7 +231,7 @@ class CPPG(_ab._coveragePatterns):
         pfList = [i for i in sorted(data, key=lambda k: len(data[k]), reverse=True)]
         return data, pfList
 
-    def _updateDatabases(self, dict1):
+    def _updateDatabases(self, dict1: Dict[str, List[str]]) -> List[List[str]]:
         """ Remove the items which are not frequent from database and updates the database with rank of items
 
             :param dict1: frequent items with support
@@ -245,7 +247,7 @@ class CPPG(_ab._coveragePatterns):
             list2.append([i for i in dict1 if i in list1])
         return list2
 
-    def _buildProjectedDatabase(self, data, info):
+    def _buildProjectedDatabase(self, data: List[List[str]], info: List[str]) -> Dict[str, List[List[str]]]:
         """ To construct the projected database for each prefix
         """
         proData = {}
@@ -264,7 +266,7 @@ class CPPG(_ab._coveragePatterns):
             print(x, y)
         return proData
 
-    def _generateFrequentPatterns(self,  uniqueItems):
+    def _generateFrequentPatterns(self,  uniqueItems: List[str]) -> None:
         """It will generate the combinations of frequent items
 
         :param uniqueItems :it represents the items with their respective transaction identifiers
@@ -295,7 +297,7 @@ class CPPG(_ab._coveragePatterns):
         if len(new_freqList) > 0:
             self._generateFrequentPatterns(new_freqList)
 
-    def _savePeriodic(self, itemSet):
+    def _savePeriodic(self, itemSet: List[str]) -> str:
         """ To convert the ranks of items in to their original item names
 
             :param itemSet: frequent patterns
@@ -306,7 +308,7 @@ class CPPG(_ab._coveragePatterns):
             t1 = t1 + self._rankedUp[i] + "\t"
         return t1
 
-    def _convert(self, value):
+    def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         To convert the given user specified value
 
@@ -325,7 +327,7 @@ class CPPG(_ab._coveragePatterns):
                 value = int(value)
         return value
 
-    def startMine(self):
+    def startMine(self) -> None:
         """ Mining process will start from this function
         """
 
@@ -364,7 +366,7 @@ class CPPG(_ab._coveragePatterns):
         self._memoryRSS = process.memory_info().rss
         print("Coverage patterns were generated successfully using CPPG algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -373,7 +375,7 @@ class CPPG(_ab._coveragePatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -382,7 +384,7 @@ class CPPG(_ab._coveragePatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -392,7 +394,7 @@ class CPPG(_ab._coveragePatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
@@ -406,7 +408,7 @@ class CPPG(_ab._coveragePatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of periodic-frequent patterns will be loaded in to an output file
 
         :param outFile: name of the outputfile
@@ -418,7 +420,7 @@ class CPPG(_ab._coveragePatterns):
             s1 = x.strip() + ":" + str(len(y))
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, List[int]]:
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
@@ -426,7 +428,7 @@ class CPPG(_ab._coveragePatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """
            Function used to print the result
         """
