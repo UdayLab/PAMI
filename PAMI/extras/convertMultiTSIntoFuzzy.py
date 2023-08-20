@@ -1,30 +1,33 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# convertMultiTSIntoFuzzy is a code used to convert the multiple time series into fuzzy
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     from PAMI.extras.syntheticDatabaseGenerator import convertMultiTSIntoFuzzy as fuz
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     obj = fuz.convertMultiTSIntoFuzzy(iFile, FuzFile)
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#     obj.save()
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+#     obj.startMine()
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 import time
 from statistics import stdev
 import sys
@@ -34,7 +37,27 @@ import plotly.express as px
 class convertMultipleTSIntoFuzzy():
     """
         Description: Converting multiple time series into fuzzy
+
+        :param  iFile: str :
+                    Name of the Input file
+        :param  FuzFile: str :
+                    Name of the FuzFile to process set of data.
+
+            **Importing this algorithm into a python program**
+            --------------------------------------------------------
+            .. code-block:: python
+
+            from PAMI.extras.syntheticDatabaseGenerator import convertMultiTSIntoFuzzy as fuz
+
+            obj = fuz.convertMultiTSIntoFuzzy(iFile, FuzFile)
+
+            obj.save()
+
+            obj.startMine()
+
+
     """
+
 
     def __init__(self, iFile: str,  FuzFile: str) -> None:
         #super().__init__(iFile, nFile, FuzFile, minSup, maxPer, sep)

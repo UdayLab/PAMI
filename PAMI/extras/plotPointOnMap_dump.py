@@ -1,10 +1,59 @@
+# plotPointOnMap_dump is used to take the input patterns and plot the points on map.
+#
+#     **Importing this algorithm into a python program**
+#     --------------------------------------------------------
+#
+#     from PAMI.extras.syntheticDatabaseGenerator import plotPointOnMap_dump as plt
+#
+#     obj = plt.plotPointOnMap_dump(" ", 10, "\t")
+#
+#     obj.save()
+#
+#
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 import folium
 import pandas as pd
 from typing import Dict, List
 import re
 
 class plotPointOnMap:
+    """
+                Description: plotPointOnMap is used to take the input patterns and plot the points on map
 
+                :param  inputPatterns: str :
+                            Name of the Input file
+                :param  k: str :
+                            Name of the FuzFile to process set of data.
+                :param  sep: str :
+                        This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+                **Importing this algorithm into a python program**
+                --------------------------------------------------------
+                .. code-block:: python
+
+                from PAMI.extras.syntheticDatabaseGenerator import plotPointOnMap as plt
+
+                obj = plt.plotPointOnMap(" ", 10, "\t")
+
+                obj.save()
+
+    """
     def __init__(self, inputPatterns: str, k: int=10, sep: str='\t'):
         self.inputPatterns = inputPatterns
         self.k = k

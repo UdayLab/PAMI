@@ -1,6 +1,38 @@
+# topKPatterns is used to find top k length patterns in input file.
+#
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.extras.syntheticDatabaseGenerator import topKPatterns as tK
+#
+#     obj = tK.topKPatterns(" ", 10, "\t")
+#
+#     obj.save()
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
+
 class topKPatterns:
     """
-    find top k length patterns in input file.
+    Description:
+        find top k length patterns in input file.
 
     Attributes:
     -----------
@@ -18,6 +50,15 @@ class topKPatterns:
         storeTopKPatterns(outputFile)
             store top k patterns into output file.
 
+        **Importing this algorithm into a python program**
+        --------------------------------------------------------
+        .. code-block:: python
+
+        from PAMI.extras.syntheticDatabaseGenerator import topKPatterns as plt
+
+        obj = plt.scatterPlotSpatialPoints(" ", 10, "\t" )
+
+        obj.save()
     """
     def __init__(self, inputFile: str, k: int=10, sep: str='\t') -> None:
         self.inputFile = inputFile
