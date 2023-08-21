@@ -1,4 +1,4 @@
-# utilityToFuzzy is a code used to convert the transactional database into Fuzzy transactional database.
+# utilityToFuzzy is a code used to convert the utility database into Fuzzy transactional database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -7,7 +7,7 @@
 #
 #     obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
 #
-#     obj.save()
+#     obj.startConvert()
 #
 #
 
@@ -35,7 +35,7 @@ class utilityToFuzzy(_ab._convert):
     """
 
             :Description:
-                    utilityToFuzzy is a code used to convert the transactional database into Fuzzy transactional database.
+                    utilityToFuzzy is a code used to convert the utility database into Fuzzy transactional database.
 
             :param  iFile: str :
                     Name of the Input file
@@ -56,7 +56,7 @@ class utilityToFuzzy(_ab._convert):
 
             obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
 
-            obj.save(oFile)
+            obj.startConvert()
 
 
     """
@@ -82,6 +82,9 @@ class utilityToFuzzy(_ab._convert):
         self._fuzzyRegionReferenceMap = {}
 
     def _creatingItemSets(self) -> None:
+        """
+           To process the input file and store the timestamps, items, and their values as lists respectively.
+        """
         self._transactionsDB, self._fuzzyValuesDB, self._tsDB = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -120,7 +123,9 @@ class utilityToFuzzy(_ab._convert):
                     quit()
 
     def _fuzzyMembershipFunc(self) -> None:
-
+        """
+           The Fuzzy file is processed and labels created according the boundaries specified in input file.
+        """
         try:
             with open(self._fuzFile, 'r', encoding='utf-8') as f:
                 count = 0
@@ -143,6 +148,15 @@ class utilityToFuzzy(_ab._convert):
             quit()
 
     def _Regions(self, quantity: int) -> None:
+         """
+         calculate the labelled region of input "quantity"
+     
+         :param quantity: represents the quantity of item
+     
+         :type quantity: int
+     
+         :return: None
+         """
         self._list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
             self._list[0] = 1
@@ -159,6 +173,9 @@ class utilityToFuzzy(_ab._convert):
             return
 
     def startConvert(self) -> None:
+         """
+             Main method to convert the temporal database into fuzzy database.
+         """
         _writer = open(self._oFile, 'w+')
         self._creatingItemSets()
         self._fuzzyMembershipFunc()
@@ -185,13 +202,11 @@ class utilityToFuzzy(_ab._convert):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
-        if len(_ab._sys.argv) == 6:
-            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:
-            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            _ap = utilityToFuzzy(_ab._sys.argv[1], _ab._sys.argv[2], _ab._sys.argv[3])
         _ap.startConvert()
     else:
-        _ap = utilityToFuzzy('https://u-aizu.ac.jp/~udayrage/datasets/utilityDatabases/Utility_T10I4D100K.csv', 'fuzFile.txt', 'output.txt', ' ')
-        _ap.startConvert()
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -1,4 +1,4 @@
-# usingSD is used to discover transactions in a database. It also stores the frequent patterns in the database.
+# This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -38,7 +38,7 @@ from urllib.request import urlopen as _urlopen
 class usingBeta():
     """
 
-            :Description: usingSD is used to discover transactions in a database. It also stores the frequent patterns in the database.
+            :Description: This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.
 
             :param  iFile: str :
                            Name of the Input file to mine complete set of frequent patterns
@@ -135,9 +135,9 @@ class usingBeta():
             else:
                 self._finalPatterns[x] = y
 
-    def getPatternsAsDataFrame(self) -> _pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
-        :return: returning frequent patterns in a dataframe
+    def getDataFrame(self) -> _pd.DataFrame:
+        """Storing Items and its respective calculated minimum support values in a dataframe
+        :return: returning Items and its respective calculated minimum support values in a dataframe
         :rtype: pd.DataFrame
         """
 
@@ -149,7 +149,7 @@ class usingBeta():
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
+        """Complete Items and its respective calculated minimum support values will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """

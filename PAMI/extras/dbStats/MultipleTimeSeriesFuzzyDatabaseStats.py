@@ -1,4 +1,4 @@
-# MultipleTimeSeriesFuzzyDatabaseStats is class to get stats of database.
+# MultipleTimeSeriesFuzzyDatabaseStats is class to get statistics of multiple time series fuzzy database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -7,13 +7,11 @@
 #
 #     obj = db.MultipleTimeSeriesDatabaseStats(iFile, "\t")
 #
-#     obj.save(oFile)
-#
 #     obj.run()
 #
 #     obj.printStats()
 #
-#
+#     obj.save(oFile)
 #
 #
 
@@ -45,7 +43,7 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class MultipleTimeSeriesFuzzyDatabaseStats:
     """
-        :Description:  MultipleTimeSeriesDatabaseStats is class to get stats of database.
+        :Description:  MultipleTimeSeriesDatabaseStats is class to get statistics of multiple time series fuzzy database.
 
         :param inputFile: file :
             input file path
@@ -60,6 +58,8 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
             read database from input file
         getDatabaseSize()
             get the size of database
+        getTotalNumberOfItems()
+            get the total number of items in a database
         getMinimumTransactionLength()
             get the minimum transaction length
         getAverageTransactionLength()
@@ -68,32 +68,35 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
             get the maximum transaction length
         getStandardDeviationTransactionLength()
             get the standard deviation of transaction length
+        convertDataIntoMatrix()
+            Convert the database into matrix form to calculate the sparsity and density of a database
+        getSparsity()
+            get sparsity value of database
+        getDensity()
+            get density value of database
         getSortedListOfItemFrequencies()
             get sorted list of item frequencies
         getSortedListOfTransactionLength()
             get sorted list of transaction length
         save(data, outputFile)
             store data into outputFile
-        getMinimumUtility()
-            get the minimum utility
-        getAverageUtility()
-            get the average utility
-        getMaximumUtility()
-            get the maximum utility
-        getSortedUtilityValuesOfItem()
-            get sorted utility values each item
+        printStats()
+            To print all the statistics of the database
+        plotGraphs()
+            To plot all the graphs of frequency disctribution of items and transaction length distribution in database
+   
 
         **Importing this algorithm into a python program**
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.dbStats import MultipleTimeSeriesFuzzyDatabaseStats as db
+                   from PAMI.extras.dbStats import MultipleTimeSeriesFuzzyDatabaseStats as db
 
-                    obj = db.MultipleTimeSeriesFuzzyDatabaseStats(iFile, "\t")
-
-                   obj.save(oFile)
+                   obj = db.MultipleTimeSeriesFuzzyDatabaseStats(iFile, "\t")
 
                    obj.run()
+
+                   obj.save(oFile)
 
                    obj.printStats()
 
