@@ -1,3 +1,5 @@
+# CFPGrowth is a basic code of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -129,7 +131,7 @@ class _Tree:
     def addTransaction(self, transaction, count):
         """adding transaction into tree
 
-        :param transaction: it represents the one transactions in database
+        :param transaction: it represents the one transaction in database
 
         :type transaction: list
 
@@ -298,7 +300,7 @@ class CFPGrowth(_fp._frequentPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
+            Complete set of frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -642,7 +644,7 @@ class CFPGrowth(_fp._frequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -664,6 +666,8 @@ class CFPGrowth(_fp._frequentPatterns):
         return self.__finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of  Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

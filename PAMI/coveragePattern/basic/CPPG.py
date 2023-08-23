@@ -4,31 +4,31 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------
 #
-#             from PAMI.coveragePattern.basic import CPPG as alg
+#         from PAMI.coveragePattern.basic import CPPG as alg
 #
-#             obj = alg.CPPG(iFile, minRF, minCS, maxOR)
+#         obj = alg.CPPG(iFile, minRF, minCS, maxOR)
 #
-#             obj.startMine()
+#         obj.startMine()
 #
-#             coveragePattern = obj.getPatterns()
+#         coveragePattern = obj.getPatterns()
 #
-#             print("Total number of coverage Patterns:", len(coveragePattern))
+#         print("Total number of coverage Patterns:", len(coveragePattern))
 #
-#             obj.save(oFile)
+#         obj.save(oFile)
 #
-#             Df = obj.getPatternsAsDataFrame()
+#         Df = obj.getPatternsAsDataFrame()
 #
-#             memUSS = obj.getMemoryUSS()
+#         memUSS = obj.getMemoryUSS()
 #
-#             print("Total Memory in USS:", memUSS)
+#         print("Total Memory in USS:", memUSS)
 #
-#             memRSS = obj.getMemoryRSS()
+#         memRSS = obj.getMemoryRSS()
 #
-#             print("Total Memory in RSS", memRSS)
+#         print("Total Memory in RSS", memRSS)
 #
-#             run = obj.getRuntime()
+#         run = obj.getRuntime()
 #
-#             print("Total ExecutionTime in seconds:", run)
+#         print("Total ExecutionTime in seconds:", run)
 
 
 
