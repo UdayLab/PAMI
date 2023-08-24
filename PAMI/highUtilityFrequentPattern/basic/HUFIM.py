@@ -50,6 +50,7 @@ __copyright__ = """
 
 
 from PAMI.highUtilityFrequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class _Transaction:
@@ -91,13 +92,13 @@ class _Transaction:
     prefixUtility = 0
     support = 1
 
-    def __init__(self, items, utilities, transactionUtility):
+    def __init__(self, items: List[int], utilities: List[int], transactionUtility: int) -> None:
         self.items = items
         self.utilities = utilities
         self.transactionUtility = transactionUtility
         self.support = 1
 
-    def projectTransaction(self, offsetE):
+    def projectTransaction(self, offsetE: int) -> _Transaction:
         """
             A method to create new Transaction from existing transaction starting from offsetE until the end
 
@@ -116,33 +117,33 @@ class _Transaction:
         new_transaction.offset = offsetE + 1
         return new_transaction
 
-    def getItems(self):
+    def getItems(self) -> List[int]:
         """
             A method to return items in transaction
         """
         return self.items
 
-    def getUtilities(self):
+    def getUtilities(self) -> List[int]:
         """
             A method to return utilities in transaction
         """
         return self.utilities
 
-    def getLastPosition(self):
+    def getLastPosition(self) -> int:
         """
             A method to return last position in a transaction
         """
 
         return len(self.items) - 1
 
-    def getSupport(self):
+    def getSupport(self) -> int:
         """
             A method to return support in a transaction
         """
 
         return self.support
 
-    def removeUnpromisingItems(self, oldNamesToNewNames):
+    def removeUnpromisingItems(self, oldNamesToNewNames: Dict[int, int]) -> None:
         """
             A method to remove items which are not present in the map passed to the function
 
@@ -163,7 +164,7 @@ class _Transaction:
         self.utilities = tempUtilities
         self.insertionSort()
 
-    def insertionSort(self):
+    def insertionSort(self) -> None:
         """
             A method to sort items in order
         """
@@ -203,14 +204,14 @@ class _Dataset:
     transactions = []
     maxItem = 0
     
-    def __init__(self, datasetPath, sep):
+    def __init__(self, datasetPath: Union[str, _ab._pd.DataFrame], sep: str) -> None:
         self.strToInt = {}
         self.intToStr = {}
         self.cnt = 1
         self.sep = sep
         self.createItemSets(datasetPath)
 
-    def createItemSets(self, datasetPath):
+    def createItemSets(self, datasetPath: List[str]) -> None:
         self.Database = []
         self.transactions = []
         if isinstance(datasetPath, _ab._pd.DataFrame):
@@ -253,7 +254,7 @@ class _Dataset:
                     print("File Not Found")
                     quit()
 
-    def createTransaction(self, items, utilities, utilitySum):
+    def createTransaction(self, items: List[str], utilities: List[str], utilitySum: int) -> _Transaction:
         """
             A method to create Transaction from dataset given
             
@@ -285,13 +286,13 @@ class _Dataset:
             utilities.append(int(utilityString[idx]))
         return _Transaction(items, utilities, transactionUtility)
 
-    def getMaxItem(self):
+    def getMaxItem(self) -> int:
         """
             A method to return name of largest item
         """
         return self.maxItem
 
-    def getTransactions(self):
+    def getTransactions(self) -> List[_Transaction]:
         """
             A method to return transactions from database
         """
@@ -456,10 +457,10 @@ class HUFIM(_ab._utilityPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
 
-    def __init__(self, iFile, minUtil, minSup, sep="\t"):
+    def __init__(self, iFile: str, minUtil: Union[int, float], minSup: Union[int, float], sep: str="\t") -> None:
         super().__init__(iFile, minUtil, minSup, sep)
 
-    def _convert(self, value):
+    def _convert(self, value) -> Union[int, float]:
         """
         To convert the given user specified value
 
@@ -479,7 +480,7 @@ class HUFIM(_ab._utilityPatterns):
         return value
 
 
-    def startMine(self):
+    def startMine(self) -> None:
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._dataset = []
@@ -534,7 +535,7 @@ class HUFIM(_ab._utilityPatterns):
         self._memoryRSS = process.memory_info().rss
         print("High Utility Frequent patterns were generated successfully using HUFIM algorithm")
 
-    def _backTrackingHUFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
+    def _backTrackingHUFIM(self, transactionsOfP: List[_Transaction], itemsToKeep: List[int], itemsToExplore: List[int], prefixLength: int) -> None:
         """
             A method to mine the HUFIs Recursively
 
@@ -632,7 +633,7 @@ class HUFIM(_ab._utilityPatterns):
                 if len(transactionsPe) != 0:
                     self._backTrackingHUFIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1)
 
-    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
+    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe: List[_Transaction], j: int, itemsToKeep: List[int]) -> None:
         """
             A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
 
@@ -661,7 +662,7 @@ class HUFIM(_ab._utilityPatterns):
                     self._utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
                 i -= 1
 
-    def _output(self, tempPosition, utility, support):
+    def _output(self, tempPosition: int, utility: int, support: int):
         """
          Method to print itemSets
 
@@ -682,7 +683,7 @@ class HUFIM(_ab._utilityPatterns):
                 s1 += "\t"
         self._finalPatterns[s1] = [utility, support]
 
-    def _isEqual(self, transaction1, transaction2):
+    def _isEqual(self, transaction1: _Transaction, transaction2: _Transaction) -> bool:
         """
          A method to Check if two transaction are identical
 
@@ -708,7 +709,7 @@ class HUFIM(_ab._utilityPatterns):
             position2 += 1
         return True
 
-    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset: _Dataset) -> None:
         """
         Scan the initial database to calculate the subtree utility of each item using a utility-bin array
 
@@ -730,7 +731,7 @@ class HUFIM(_ab._utilityPatterns):
                     self._utilityBinArraySU[item] = sumSU
                 i -= 1
 
-    def _sortDatabase(self, transactions):
+    def _sortDatabase(self, transactions: List[_Transaction]) -> None:
         """
             A Method to sort transaction
 
@@ -744,7 +745,7 @@ class HUFIM(_ab._utilityPatterns):
         compareItems = _ab._functools.cmp_to_key(self._sortTransaction)
         transactions.sort(key=compareItems)
 
-    def _sortTransaction(self, trans1, trans2):
+    def _sortTransaction(self, trans1: _Transaction, trans2: _Transaction) -> int:
         """
             A Method to sort transaction
 
@@ -786,7 +787,7 @@ class HUFIM(_ab._utilityPatterns):
                 pos2 -= 1
             return 0
 
-    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset: _Dataset) -> None:
         """
             A method to calculate local utility of single itemSets
             Attributes:
@@ -804,7 +805,7 @@ class HUFIM(_ab._utilityPatterns):
                 else:
                     self._utilityBinArrayLU[item] = transaction.transactionUtility
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final patterns in a dataframe
 
         :return: returning patterns in a dataframe
@@ -818,7 +819,7 @@ class HUFIM(_ab._utilityPatterns):
 
         return dataFrame
     
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, List[Union[int, float]]]:
         """ Function to send the set of patterns after completion of the mining process
 
         :return: returning patterns
@@ -826,7 +827,7 @@ class HUFIM(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -838,7 +839,7 @@ class HUFIM(_ab._utilityPatterns):
             patternsAndSupport = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -847,7 +848,7 @@ class HUFIM(_ab._utilityPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -855,7 +856,7 @@ class HUFIM(_ab._utilityPatterns):
        """
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -864,7 +865,7 @@ class HUFIM(_ab._utilityPatterns):
        """
         return self._endTime-self._startTime
     
-    def printResults(self):
+    def printResults(self) -> None:
         """ this function is used to print the results
         """
         print("Total number of High Utility Frequent Patterns:", len(self.getPatterns()))
