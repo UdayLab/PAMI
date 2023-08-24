@@ -1,8 +1,12 @@
+#  WFRIMiner is one of the fundamental algorithm to discover weighted frequent regular patterns in a transactional database.
+#  It stores the database in compressed WFRI-tree decreasing the memory usage and extracts the
+#  patterns from tree.It employs downward closure property to  reduce the search space effectively.
+#
+
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#
-#     from PAMI.weightedFrequentRegularpattern.basic import WFRIMiner as alg
+#     from PAMI.weightedFrequentRegularPattern.basic import WFRIMiner as alg
 #
 #     obj = alg.WFRIMiner(iFile, WS, regularity)
 #
@@ -12,7 +16,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(weightedFrequentRegularPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternInDataFrame()
 #
@@ -310,7 +314,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     """
        WFRIMiner is one of the fundamental algorithm to discover weighted frequent regular patterns in a transactional database.
        It stores the database in compressed WFRI-tree decreasing the memory usage and extracts the
-       patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+       patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
     Reference :
     ---------
@@ -401,7 +405,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
             print("Total number of Frequent Patterns:", len(weightedFrequentRegularPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternInDataFrame()
 
@@ -742,6 +746,8 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of  Weighted Frequent Regular Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
