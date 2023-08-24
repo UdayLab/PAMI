@@ -1,4 +1,4 @@
-# WUFIM is one of the algorithm to discover weighted frequent patterns in a uncertain transactional database
+# WUFIM is one of the algorithm to discover weighted frequent patterns in an uncertain transactional database
 #       using PUF-Tree.
 #
 #
