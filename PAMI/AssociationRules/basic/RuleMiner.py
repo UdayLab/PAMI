@@ -1,3 +1,53 @@
+#  This code uses "lift" metric to extract the association rules from given frequent patterns.
+#
+#
+# **Importing this algorithm into a python program**
+# ----------------------------------------------------
+#
+#     import PAMI.AssociationRules.basic import RuleMiner as alg
+#
+#     obj = alg.RuleMiner(iFile, measure, o.5, "\t")
+#
+#     obj.startMine()
+#
+#     associationRules = obj.getPatterns()
+#
+#     print("Total number of Association Rules:", len(associationRules))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from PAMI.AssociationRules.basic import abstract as _ab
 
 class Confidence:
@@ -6,7 +56,8 @@ class Confidence:
         """
         :param inputFile: input file name or path
         :type inputFile: str
-        :param sep:
+        :param sep: str
+        :type sep
         """
         self._frequentPatterns = patterns
         self._singleItems = singleItems
@@ -147,15 +198,83 @@ class Leverage:
 
 class RuleMiner:
     """
-    temporalDatabaseStats is class to get stats of database.
+        :Description:
+            temporalDatabaseStats is class to get stats of database.
+        :Reference:
+
+
+        :param inputFile: input file name or path
+             str
+        :param frequentPattern : list or dict
+            list
+        :param measure: condition to calculate the strength of rule
+            str
+        :param threshold: condition to satisfy
+            int
+        :param sep: str :
+            This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
         Attributes:
         ----------
-        frequentPattern : list or dict
-            list
-        measure: condition to calculate the strength of rule
-            str
-        threshold: condition to satisfy
-            int
+            startTime : float
+                To record the start time of the mining process
+
+            endTime : float
+                To record the completion time of the mining process
+
+            finalPatterns : dict
+              Storing the complete set of patterns in a dictionary variable
+
+            memoryUSS : float
+                To store the total amount of USS memory consumed by the program
+
+            memoryRSS : float
+                To store the total amount of RSS memory consumed by the program
+
+
+     **Methods to execute code on terminal**
+     ----------------------------------------------------
+
+            Format:
+                      >>> python3 RuleMiner.py <inputFile> <outputFile> <minConf> <sep>
+
+            Example:
+                      >>>  python3 RuleMiner.py sampleDB.txt patterns.txt 0.5 ' '
+
+            .. note:: minConf will be considered only in 0 to 1.
+
+
+
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------
+
+    .. code-block:: python
+
+             import PAMI.AssociationRules.basic import RuleMiner as alg
+
+             obj = alg.RuleMiner(iFile, measure, o.5, "\t")
+
+             obj.startMine()
+
+             associationRules = obj.getPatterns()
+
+             print("Total number of Association Rules:", len(associationRules))
+
+             obj.save(oFile)
+
+             Df = obj.getPatternInDataFrame()
+
+             memUSS = obj.getMemoryUSS()
+
+             print("Total Memory in USS:", memUSS)
+
+             memRSS = obj.getMemoryRSS()
+
+             print("Total Memory in RSS", memRSS)
+
+             run = obj.getRuntime()
+
+             print("Total ExecutionTime in seconds:", run)
+
         Methods:
         -------
         startMine()
