@@ -58,6 +58,7 @@ __copyright__ = """(Copyright (C)  2021 Rage Uday Kiran
 
 
 from PAMI.fuzzyPeriodicFrequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class _FFList:
@@ -87,14 +88,14 @@ class _FFList:
 
     """
 
-    def __init__(self, itemName):
+    def __init__(self, itemName: str) -> None:
         self.item = itemName
         self.sumLUtil = 0.0
         self.sumRUtil = 0.0
         self.elements = []
         self.maxPeriod = 0
 
-    def addElement(self, element):
+    def addElement(self, element) -> None:
         """
             A Method that add a new element to FFList
 
@@ -106,7 +107,7 @@ class _FFList:
         self.elements.append(element)
         self.maxPeriod = max(self.maxPeriod, element.period)
 
-    def printElement(self):
+    def printElement(self) -> None:
         """
             A Method to Print elements in the FFList
         """
@@ -130,7 +131,7 @@ class _Element:
             represent the period of the element
     """
 
-    def __init__(self, tid, iUtil, rUtil, period):
+    def __init__(self, tid: int, iUtil: float, rUtil: float, period: int) -> None:
         self.tid = tid
         self.lUtils = iUtil
         self.rUtils = rUtil
@@ -142,7 +143,7 @@ class _Pair:
         A class to store item name and quantity together.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.item = 0
         self.quantity = 0
 
@@ -292,7 +293,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
     _fuzzyValues = []
     _ts = []
 
-    def __init__(self, iFile, minSup, period, sep="\t"):
+    def __init__(self, iFile: Union[str, _ab._pd.DataFrame], minSup: Union[int, float], period: Union[int, float], sep: str="\t") -> None:
         super().__init__(iFile, minSup, period, sep)
         self._oFile = ""
         self._BufferSize = 200
@@ -307,7 +308,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         self._memoryRSS = float()
         self._dbLen = 0
 
-    def _compareItems(self, o1, o2):
+    def _compareItems(self, o1, o2) -> int:
         """
             A Function that sort all FFI-list in ascending order of Support
         """
@@ -317,7 +318,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         else:
             return compare
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the given user specified value
         :param value: user specified value
@@ -334,7 +335,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                 value = int(value)
         return value
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -385,7 +386,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
             Fuzzy periodic Frequent pattern mining process will start from here
         """
@@ -489,7 +490,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                 self._itemSetBuffer.insert(prefixLen, X.item)
                 self._FPFPMining(self._itemSetBuffer, prefixLen + 1, exULs)
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -498,7 +499,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -506,7 +507,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
        """
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -515,7 +516,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
        """
         return self._endTime - self._startTime
 
-    def _construct(self, px, py):
+    def _construct(self, px: _FFList, py: _FFList) -> _FFList:
         """
             A function to construct a new Fuzzy item set from 2 fuzzy itemSets
 
@@ -537,7 +538,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             prev = ex.tid
         return pxyUL
 
-    def _findElementWithTID(self, UList, tid):
+    def _findElementWithTID(self, UList, tid) -> _Element:
         """
             To find element with same tid as given
             :param UList: fuzzy list
@@ -560,7 +561,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                 return List[mid]
         return None
 
-    def _WriteOut(self, prefix, prefixLen, item, sumLUtil, period):
+    def _WriteOut(self, prefix: List[int], prefixLen: int, item: int, sumLUtil: float, period: int) -> None:
         """
             To Store the patten
             :param prefix: prefix of itemSet
@@ -582,7 +583,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         #res1 = str(sumLUtil) + " : " + str(period)
         self._finalPatterns[res] = [sumLUtil, period]
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -596,7 +597,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, str]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -604,7 +605,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         """
         return self._finalPatterns
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -616,7 +617,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             patternsAndSupport = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ this function is used to print the results
         """
         print("Total number of Fuzzy Periodic-Frequent Patterns:", len(self.getPatterns()))
