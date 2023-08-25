@@ -45,6 +45,7 @@ __copyright__ = """
 """
 
 from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 from functools import cmp_to_key as _cmpToKey
 
 
@@ -86,14 +87,14 @@ class _Transaction:
     offset = 0
     prefixUtility = 0
     
-    def __init__(self, items, utilities, transactionUtility, pmus=None):
+    def __init__(self, items: list, utilities: list, transactionUtility: int, pmus: list=None):
         self.items = items
         self.utilities = utilities
         self.transactionUtility = transactionUtility
         if pmus is not None:
             self.pmus = pmus
 
-    def projectTransaction(self, offsetE):
+    def projectTransaction(self, offsetE: int) -> '_Transaction':
         """
             A method to create new Transaction from existing till offsetE
 
@@ -111,32 +112,32 @@ class _Transaction:
         new_transaction.offset = offsetE + 1
         return new_transaction
 
-    def getItems(self):
+    def getItems(self) -> list:
         """
             A method to return items in transaction
         """
         return self.items
 
-    def getPmus(self):
+    def getPmus(self) -> list:
         """
             A method to return pmus in transaction
         """
         return self.pmus
 
-    def getUtilities(self):
+    def getUtilities(self) -> list:
         """
             A method to return utilities in transaction
         """
         return self.utilities
 
     # get the last position in this transaction
-    def getLastPosition(self):
+    def getLastPosition(self) -> int:
         """
             A method to return last position in a transaction
         """
         return len(self.items) - 1
 
-    def removeUnpromisingItems(self, oldNamesToNewNames):
+    def removeUnpromisingItems(self, oldNamesToNewNames: dict) -> None:
         """
             A method to remove items with low Utility than minUtil
             :param oldNamesToNewNames: A map represent old names to new names
@@ -154,7 +155,7 @@ class _Transaction:
         self.utilities = tempUtilities
         self.insertionSort()
 
-    def insertionSort(self):
+    def insertionSort(self) -> None:
         """
             A method to sort items in order
         """
@@ -194,7 +195,7 @@ class _Dataset:
     transactions = []
     maxItem = 0
     
-    def __init__(self, datasetpath, sep):
+    def __init__(self, datasetpath: str, sep: str) -> None:
         self.strToInt = {}
         self.intToStr = {}
         self.cnt = 1
@@ -206,7 +207,7 @@ class _Dataset:
                 self.transactions.append(self.createTransaction(line))
         f.close()
 
-    def createTransaction(self, line):
+    def createTransaction(self, line: str) -> '_Transaction':
         """
             A method to create Transaction from dataset given
             
@@ -238,13 +239,13 @@ class _Dataset:
             pmus.append(int(pmuString[idx]))
         return _Transaction(items, utilities, transactionUtility, pmus)
 
-    def getMaxItem(self):
+    def getMaxItem(self) -> int:
         """
             A method to return name of largest item
         """
         return self.maxItem
 
-    def getTransactions(self):
+    def getTransactions(self) -> list:
         """
             A method to return transactions from database
         """
@@ -404,10 +405,10 @@ class SHUIM(_ab._utilityPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
     
-    def __init__(self, iFile, nFile, minUtil, sep="\t"):
+    def __init__(self, iFile: str, nFile: str, minUtil: int, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minUtil, sep)
 
-    def startMine(self):
+    def startMine(self) -> None:
         self._startTime = _ab._time.time()
         self._patternCount = 0
         self._finalPatterns = {}
@@ -466,7 +467,7 @@ class SHUIM(_ab._utilityPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def _backtrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
+    def _backtrackingEFIM(self, transactionsOfP: list, itemsToKeep: list, itemsToExplore: list, prefixLength: int) -> None:
         """
             A method to mine the SHUIs Recursively
 
@@ -555,7 +556,7 @@ class SHUIM(_ab._utilityPatterns):
             if self._maxMemory < memory:
                 self._maxMemory = memory
 
-    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep, neighbourhoodList):
+    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe: list, j: int, itemsToKeep: list, neighbourhoodList: list) -> None:
         """
             A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
 
@@ -592,7 +593,7 @@ class SHUIM(_ab._utilityPatterns):
                     self._utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
                 i -= 1
 
-    def _calculateNeighbourIntersection(self, prefixLength):
+    def _calculateNeighbourIntersection(self, prefixLength: int) -> list:
         """
             A method to find common Neighbours
             Attributes:
@@ -612,7 +613,7 @@ class SHUIM(_ab._utilityPatterns):
                 finalIntersectionList.append(self._oldNamesToNewNames[item])
         return finalIntersectionList
     
-    def _output(self, tempPosition, utility):
+    def _output(self, tempPosition: int, utility: str) -> None:
         """
          A method save all high-utility itemSet to file or memory depending on what the user chose
 
@@ -631,7 +632,7 @@ class SHUIM(_ab._utilityPatterns):
                 s1 += "\t"
         self._finalPatterns[s1] = str(utility)
 
-    def _isEqual(self, transaction1, transaction2):
+    def _isEqual(self, transaction1: '_Transaction', transaction2: '_Transaction') -> bool:
         """
          A method to Check if two transaction are identical
 
@@ -658,7 +659,7 @@ class SHUIM(_ab._utilityPatterns):
             position2 += 1
         return True
     
-    def _intersection(self, lst1, lst2):
+    def _intersection(self, lst1: list, lst2: list) -> list:
         """
             A method that return the intersection of 2 list
             :param  lst1: items neighbour to item1
@@ -672,7 +673,7 @@ class SHUIM(_ab._utilityPatterns):
         lst3 = [value for value in lst1 if value in temp]
         return lst3
 
-    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset: '_Dataset') -> None:
         """
         Scan the initial database to calculate the subtree utility of each items using a utility-bin array
 
@@ -698,7 +699,7 @@ class SHUIM(_ab._utilityPatterns):
                     i += 1
                 self._utilityBinArraySU[item] += sumSu
 
-    def _sortDatabase(self, transactions):
+    def _sortDatabase(self, transactions: list) -> None:
         """
             A Method to sort transaction in the order of PMU
 
@@ -712,7 +713,7 @@ class SHUIM(_ab._utilityPatterns):
         cmp_items = _cmpToKey(self._sortTransaction)
         transactions.sort(key=cmp_items)
 
-    def _sortTransaction(self, trans1, trans2):
+    def _sortTransaction(self, trans1: '_Transaction', trans2: '_Transaction') -> int:
         """
             A Method to sort transaction in the order of PMU
 
@@ -754,7 +755,7 @@ class SHUIM(_ab._utilityPatterns):
                 pos2 -= 1
             return 0
 
-    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset: '_Dataset') -> None:
         """
             A method to scan the database using utility bin array to calculate the pmus
             Attributes:
@@ -770,7 +771,7 @@ class SHUIM(_ab._utilityPatterns):
                 else:
                     self._utilityBinArrayLU[item] = transaction.getPmus()[idx]
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final patterns in a dataframe
 
         :return: returning patterns in a dataframe
@@ -784,7 +785,7 @@ class SHUIM(_ab._utilityPatterns):
 
         return dataFrame
     
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of patterns after completion of the mining process
 
         :return: returning patterns
@@ -792,7 +793,7 @@ class SHUIM(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -804,7 +805,7 @@ class SHUIM(_ab._utilityPatterns):
             patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -813,7 +814,7 @@ class SHUIM(_ab._utilityPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -821,7 +822,7 @@ class SHUIM(_ab._utilityPatterns):
        """
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -830,7 +831,7 @@ class SHUIM(_ab._utilityPatterns):
        """
         return self._endTime-self._startTime
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Spatial High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
