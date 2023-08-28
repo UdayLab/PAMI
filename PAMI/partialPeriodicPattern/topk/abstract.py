@@ -100,7 +100,7 @@ class partialPeriodicPatterns(ABC):
 
         self._iFile = iFile
         self._k = k
-        self._period = periodicity
+        self._period = period
         self._sep = sep
         self._oFile = str()
         self._finalPatterns = {}
