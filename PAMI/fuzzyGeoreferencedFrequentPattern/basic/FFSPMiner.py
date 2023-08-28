@@ -49,6 +49,7 @@ __copyright__ = """
 """
 
 from PAMI.fuzzyGeoreferencedFrequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class _FFList:
@@ -75,13 +76,13 @@ class _FFList:
 
     """
 
-    def __init__(self, itemName):
+    def __init__(self, itemName: str) -> None:
         self.item = itemName
         self.sumIUtil = 0.0
         self.sumRUtil = 0.0
         self.elements = []
 
-    def addElement(self, element):
+    def addElement(self, element) -> None:
         """
             A Method that add a new element to FFList
 
@@ -92,7 +93,7 @@ class _FFList:
         self.sumRUtil += element.rUtils
         self.elements.append(element)
 
-    def printElement(self):
+    def printElement(self) -> None:
         """
             A Method to Print elements in the FFList
         """
@@ -114,7 +115,7 @@ class _Element:
             the neighbourhood resting value of a fuzzy item in the transaction
     """
 
-    def __init__(self, tid, iUtil, rUtil):
+    def __init__(self, tid: int, iUtil: float, rUtil: float) -> None:
         self.tid = tid
         self.iUtils = iUtil
         self.rUtils = rUtil
@@ -125,7 +126,7 @@ class _Pair:
         A class to store item and it's quantity together
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.item = 0
         self.quantity = 0
 
@@ -264,7 +265,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     _transactions = []
     _fuzzyValues = []
 
-    def __init__(self, iFile, nFile, minSup, sep="\t"):
+    def __init__(self, iFile: str, nFile: str, minSup: float, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minSup, sep)
         self._mapItemNeighbours = {}
         self._startTime = 0
@@ -277,7 +278,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._dbLen = 0
         self._itemsCnt = 0
 
-    def _compareItems(self, o1, o2):
+    def _compareItems(self, o1, o2) -> int:
         """
             A Function that sort all FFI-list in ascending order of Support
         """
@@ -287,7 +288,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         else:
             return compare
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the given user specified value
         :param value: user specified value
@@ -304,7 +305,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                 value = int(value)
         return value
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
           Storing the complete transactions of the database/input file in a database variable
 
@@ -348,7 +349,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _mapNeighbours(self):
+    def _mapNeighbours(self) -> None:
         self._mapItemNeighbours = {}
         if isinstance(self._nFile, _ab._pd.DataFrame):
             data, items = [], []
@@ -391,7 +392,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def startMine(self):
+    def startMine(self) -> None:
         """ Frequent pattern mining process will start from here
         """
         self._startTime = _ab._time.time()
@@ -455,7 +456,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def _FSFIMining(self, prefix, prefixLen, FSFIM, minSup, itemNeighbours):
+    def _FSFIMining(self, prefix: List, prefixLen: int, FSFIM: List, minSup: float, itemNeighbours: List):
         """Generates FFSPMiner from prefix
 
         :param prefix: the prefix patterns of FFSPMiner
@@ -484,7 +485,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                 self._itemSetBuffer.insert(prefixLen, X.item)
                 self._FSFIMining(self._itemSetBuffer, prefixLen + 1, exULs, minSup, newNeighbours)
 
-    def _Intersection(self, neighbourX, neighbourY):
+    def _Intersection(self, neighbourX: List, neighbourY: List) -> List:
         """
             A function to get common neighbours from 2 itemSets
             :param neighbourX: the set of neighbours of itemSet 1
@@ -502,7 +503,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                 result.append(neighbourX[i])
         return result
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -511,7 +512,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -519,7 +520,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
        """
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -528,7 +529,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
        """
         return self._endTime - self._startTime
 
-    def _construct(self, px, py):
+    def _construct(self, px: _FFList, py: _FFList) -> _FFList:
         """
             A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
 
@@ -548,7 +549,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             pxyUL.addElement(eXY)
         return pxyUL
 
-    def _findElementWithTID(self, uList, tid):
+    def _findElementWithTID(self, uList: _FFList, tid: int) -> _Element:
         """
             To find element with same tid as given
             :param uList:fuzzyList
@@ -571,7 +572,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                 return List[mid]
         return None
 
-    def _WriteOut(self, prefix, prefixLen, item, sumIUtil):
+    def _WriteOut(self, prefix: List, prefixLen: int, item: int, sumIUtil: float) -> None:
         """
             To Store the patten
             :param prefix: prefix of itemSet
@@ -592,7 +593,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         res1 = str(sumIUtil)
         self._finalPatterns[res] = res1
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -606,7 +607,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, str]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -614,7 +615,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         return self._finalPatterns
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -626,7 +627,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             patternsAndSupport = x.strip() + " : " + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ this function is used to print the results"""
         print("Total number of Spatial Fuzzy Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

@@ -1,10 +1,10 @@
-
-
-
+# PPF_DFS is algorithm to mine the partial periodic frequent patterns.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg
+#     from PAMI.partialPeriodicFrequentPattern.basic import PPF_DFS as alg
 #
 #     obj = alg.PPF_DFS(iFile, minSup)
 #
@@ -77,7 +77,7 @@ class PPF_DFS(partialPeriodicPatterns):
         minPR : float
             user defined minPR
         tidlist : dict
-            it store tids each item
+            it stores tids each item
         last : int
             it represents last time stamp in database
         lno : int
@@ -110,9 +110,9 @@ class PPF_DFS(partialPeriodicPatterns):
         getPartialPeriodicPatterns()
             Complete set of patterns will be retrieved with this function
         save(ouputFile)
-            Complete set of frequent patterns will be loaded in to a ouput file
+            Complete set of frequent patterns will be loaded in to an ouput file
         getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a ouput file
+            Complete set of frequent patterns will be loaded in to an ouput file
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function
         getMemoryRSS()
@@ -377,11 +377,11 @@ class PPF_DFS(partialPeriodicPatterns):
 
     def __Generation(self, prefix, itemsets, tidsets):
         """
-        here equibalence class is followed amd checks fro the patterns generated for periodic frequent patterns.
+        here equibalence class is followed amd checks from the patterns generated for periodic frequent patterns.
         :param prefix: main equivalence prefix
         :type prefix: periodic-frequent item or pattern
-        :param itemsets: patterns which are items combined with prefix and satisfythe periodicity
-                        and frequent wthi their time stamps
+        :param itemsets: patterns which are items combined with prefix and satisfy the periodicity
+                        and frequent with their time stamps
         :type itemsets: list
         :param tidsets: time stamps of the items in the argument itemSets
         :type tidsets: list
@@ -491,7 +491,7 @@ class PPF_DFS(partialPeriodicPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -516,6 +516,8 @@ class PPF_DFS(partialPeriodicPatterns):
         return self._partialPeriodicPatterns__finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Partial Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

@@ -311,22 +311,28 @@ class utilityDatabaseStats:
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print("Usage: python script.py <input_file> <separator>")
-        sys.exit(1)
+  data = {'ts': [1, 1, 3, 4, 5, 6, 7],
 
-    input_file = sys.argv[1]
-    separator = sys.argv[2]
+            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
+                             ['a', 'd', 'g', 'k'],
 
-    obj = utilityDatabaseStats(input_file, separator)
-    obj.run()
-    
-    # Check if there are transactions in the database before proceeding
-    if obj.getDatabaseSize() > 0:
-        obj.printStats()
-        obj.plotGraphs()
-    else:
-        print("No data found in the database.")
+                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
+if len(sys.argv) != 3:
+    print("Usage: python script.py <input_file> <separator>")
+    sys.exit(1)
+
+input_file = sys.argv[1]
+separator = sys.argv[2]
+
+obj = utilityDatabaseStats('utility_T20I6D100K.txt', sep=' ')
+obj.run()
+
+# Check if there are transactions in the database before proceeding
+if obj.getDatabaseSize() > 0:
+    obj.printStats()
+    obj.plotGraphs()
+else:
+    print("No data found in the database.")
     '''print(f'Database size : {obj.getDatabaseSize()}')
     print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
     print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')

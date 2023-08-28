@@ -4,31 +4,31 @@
 # ----------------------------------------------------
 #     .. code-block:: python
 #
-#                 from PAMI.coveragePattern.basic import CMine as alg
+#      from PAMI.coveragePattern.basic import CMine as alg
 #
-#                 obj = alg.CMine(iFile, minRF, minCS, maxOR, seperator)
+#       obj = alg.CMine(iFile, minRF, minCS, maxOR, seperator)
 #
-#                 obj.startMine()
+#       obj.startMine()
 #
-#                 coveragePattern = obj.getPatterns()
+#       coveragePattern = obj.getPatterns()
 #
-#                 print("Total number of coverage Patterns:", len(coveragePattern))
+#       print("Total number of coverage Patterns:", len(coveragePattern))
 #
-#                 obj.save(oFile)
+#       obj.save(oFile)
 #
-#                 Df = obj.getPatternsAsDataFrame()
+#       Df = obj.getPatternsAsDataFrame()
 #
-#                 memUSS = obj.getMemoryUSS()
+#       memUSS = obj.getMemoryUSS()
 #
-#                 print("Total Memory in USS:", memUSS)
+#       print("Total Memory in USS:", memUSS)
 #
-#                 memRSS = obj.getMemoryRSS()
+#       memRSS = obj.getMemoryRSS()
 #
-#                 print("Total Memory in RSS", memRSS)
+#       print("Total Memory in RSS", memRSS)
 #
-#                 run = obj.getRuntime()
+#       run = obj.getRuntime()
 #
-#                 print("Total ExecutionTime in seconds:", run)
+#       print("Total ExecutionTime in seconds:", run)
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran

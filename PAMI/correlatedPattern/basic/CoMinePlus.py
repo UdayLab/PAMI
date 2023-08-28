@@ -3,31 +3,31 @@
 #  **Importing this algorithm into a python program**
 #   -----------------------------------------------
 #
-#                 from PAMI.correlatedPattern.basic import CPGrowthPlus as alg
+#            from PAMI.correlatedPattern.basic import CoMinePlus as alg
 #
-#                 obj = alg.CPGrowthPlus(iFile, minSup, minAllConf, sep)
+#            obj = alg.CoMinePlus(iFile, minSup, minAllConf, sep)
 #
-#                 obj.startMine()
+#            obj.startMine()
 #
-#                 correlatedPattern = obj.getPatterns()
+#            correlatedPattern = obj.getPatterns()
 #
-#                 print("Total number of correlated Patterns:", len(correlatedPattern))
+#            print("Total number of correlated Patterns:", len(correlatedPattern))
 #
-#                 obj.save(oFile)
+#            obj.save(oFile)
 #
-#                 Df = obj.getPatternsAsDataFrame()
+#            Df = obj.getPatternsAsDataFrame()
 #
-#                 memUSS = obj.getMemoryUSS()
+#            memUSS = obj.getMemoryUSS()
 #
-#                 print("Total Memory in USS:", memUSS)
+#            print("Total Memory in USS:", memUSS)
 #
-#                 memRSS = obj.getMemoryRSS()
+#            memRSS = obj.getMemoryRSS()
 #
-#                 print("Total Memory in RSS", memRSS)
+#            print("Total Memory in RSS", memRSS)
 #
-#                 run = obj.getRuntime()
+#            run = obj.getRuntime()
 #
-#                 print("Total ExecutionTime in seconds:", run)
+#            print("Total ExecutionTime in seconds:", run)
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran

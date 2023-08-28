@@ -1,5 +1,6 @@
-
-
+# GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -122,7 +123,7 @@ class Tree:
         createPrefixTree(path,timeStampList)
             create prefix tree by path
         createConditionalTree(PFList, minSup, maxPer, minPR, last)
-            create conditional tree. Its nodes are satissfy IP / (minSup+1) >= minPR
+            create conditional tree. Its nodes are satisfy IP / (minSup+1) >= minPR
 
     """
     def __init__(self):
@@ -135,7 +136,7 @@ class Tree:
         add transaction into tree
         :param transaction: it represents the one transactions in database
         :type transaction: list
-        :param tid: represets the timestamp of transaction
+        :param tid: represents the timestamp of transaction
         :type tid: list
         """
         current = self.root
@@ -213,8 +214,8 @@ class Tree:
 
     def createConditionalTree(self, PFList, minSup, maxPer, minPR, last):
         """
-        create conditional tree by pflist
-        :param PFList: it represent timasatamp each item
+        create conditional tree by PFlist
+        :param PFList: it represent timestamp each item
         :type PFList: dict
         :param minSup: it represents minSup
         :param maxPer: it represents maxPer
@@ -282,7 +283,7 @@ class generatePFListver2:
     Attributes:
     ----------
         inputFile : str
-            it is inpuy file name
+            it is input file name
         minSup : float
             user defined minimum support value
         maxPer : float
@@ -531,9 +532,9 @@ class GPFgrowth(partialPeriodicPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         storePatternsInFile(ouputFile)
-            Complete set of frequent patterns will be loaded in to a output file
+            Complete set of frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
-            Complete set of frequent patterns will be loaded in to a output file
+            Complete set of frequent patterns will be loaded in to an output file
         getMemoryUSS()
             Total amount of USS memory consumed by the mining process will be retrieved from this function
         getMemoryRSS()
@@ -721,7 +722,7 @@ class GPFgrowth(partialPeriodicPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -744,6 +745,8 @@ class GPFgrowth(partialPeriodicPatterns):
         return self._partialPeriodicPatterns__finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Partial Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
