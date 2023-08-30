@@ -1,3 +1,5 @@
+# UPFPGrowthPlus is used to discover periodic-frequent patterns in an uncertain temporal database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -84,7 +86,7 @@ def printTree(root):
     Attributes:
     ----------
        :param root: Node
-       :return: print all Tree with nodes with items, probability, parent item, timestamps, second probability respcectively.
+       :return: print all Tree with nodes with items, probability, parent item, timestamps, second probability respectively.
     """
     for x, y in root.children.items():
         print(x, y.item, y.probability, y.parent.item, y.tids, y.secondProbability)
@@ -814,7 +816,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """ Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
 
@@ -850,6 +852,8 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of  Uncertain Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

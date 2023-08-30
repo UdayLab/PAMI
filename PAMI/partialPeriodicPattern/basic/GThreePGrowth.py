@@ -1,5 +1,5 @@
-
-
+# GThreePGrowth is fundamental approach to mine the partial periodic patterns in temporal database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -652,7 +652,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -670,6 +670,14 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+    def printResults(self):
+        """ this function is used to print the results
+        """
+        print("Total number of  Weighted Uncertain Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 
 if __name__ == "__main__":

@@ -1,3 +1,6 @@
+# SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -16,7 +19,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -140,7 +143,7 @@ class _Tree:
     def addTransaction(self, transaction, count):
         """adding transaction into tree
 
-        :param transaction: it represents the one transactions in database
+        :param transaction: it represents the one transaction in database
 
         :type transaction: list
 
@@ -176,7 +179,7 @@ class _Tree:
     def addConditionalPattern(self, transaction, count):
         """adding transaction into tree
 
-        :param transaction: it represents the one transactions in database
+        :param transaction: it represents the one transaction in database
 
         :type transaction: list
 
@@ -210,6 +213,12 @@ class _Tree:
                 currentNode.weight += wei
 
     def printTree(self, root):
+        """ To print the details of tree
+
+            :param root: root node of the tree
+
+             :return: details of tree
+        """
         if len(root.children) == 0:
             return
         else:
@@ -367,7 +376,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
+            Complete set of frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -729,7 +738,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -751,6 +760,8 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         return self.__finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of  Weighted Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
