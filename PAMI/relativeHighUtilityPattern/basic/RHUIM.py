@@ -51,6 +51,7 @@ __copyright__ = """
 
 
 from PAMI.relativeHighUtilityPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class _Transaction:
@@ -87,12 +88,12 @@ class _Transaction:
     offset = 0
     prefixUtility = 0
 
-    def __init__(self, items, utilities, transactionUtility):
+    def __init__(self, items: list, utilities: list, transactionUtility: int) -> None:
         self.items = items
         self.utilities = utilities
         self.transactionUtility = transactionUtility
 
-    def projectTransaction(self, offsetE):
+    def projectTransaction(self, offsetE: int) -> '_Transaction':
         """
             A method to create new Transaction from existing transaction starting from offsetE until the end
 
@@ -110,26 +111,26 @@ class _Transaction:
         new_transaction.offset = offsetE + 1
         return new_transaction
 
-    def getItems(self):
+    def getItems(self) -> list:
         """
             A method to return items in transaction
         """
         return self.items
 
-    def getUtilities(self):
+    def getUtilities(self) -> list:
         """
             A method to return utilities in transaction
         """
         return self.utilities
 
-    def getLastPosition(self):
+    def getLastPosition(self) -> int:
         """
             A method to return last position in a transaction
         """
 
         return len(self.items) - 1
 
-    def removeUnpromisingItems(self, oldNamesToNewNames):
+    def removeUnpromisingItems(self, oldNamesToNewNames: dict) -> None:
         """
             A method to remove items which are not present in the map passed to the function
 
@@ -150,7 +151,7 @@ class _Transaction:
         self.utilities = tempUtilities
         self.insertionSort()
 
-    def insertionSort(self):
+    def insertionSort(self) -> None:
         """
             A method to sort items in order
         """
@@ -190,14 +191,14 @@ class _Dataset:
     transactions = []
     maxItem = 0
     
-    def __init__(self, datasetPath, sep):
+    def __init__(self, datasetPath: str, sep: str) -> None:
         self.strToInt = {}
         self.intToStr = {}
         self.cnt = 1
         self.sep = sep
         self.createItemSets(datasetPath)
 
-    def createItemSets(self, datasetPath):
+    def createItemSets(self, datasetPath: str) -> None:
         self.transactions = []
         itemsets, utilities, utilityValues = [], [], []
         if isinstance(datasetPath, _ab._pd.DataFrame):
@@ -240,7 +241,7 @@ class _Dataset:
                     print("File Not Found")
                     quit()
 
-    def createTransaction(self, itemSet, utilities, utilitySum):
+    def createTransaction(self, itemSet: list, utilities: list, utilitySum: int) -> _Transaction:
         """
             A method to create Transaction from dataset given
             
@@ -272,13 +273,13 @@ class _Dataset:
             utilities.append(int(utilityString[idx]))
         return _Transaction(items, utilities, transactionUtility)
 
-    def getMaxItem(self):
+    def getMaxItem(self) -> int:
         """
             A method to return name of largest item
         """
         return self.maxItem
 
-    def getTransactions(self):
+    def getTransactions(self) -> list:
         """
             A method to return transactions from database
         """
@@ -441,10 +442,10 @@ class RHUIM(_ab._utilityPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
 
-    def __init__(self, iFile, minUtil, minUR, sep="\t"):
+    def __init__(self, iFile: str, minUtil: int, minUR: float, sep: str="\t") -> None:
         super().__init__(iFile, minUtil, minUR, sep)
 
-    def startMine(self):
+    def startMine(self) -> None:
         self._startTime = _ab._time.time()
         self._dataset = _Dataset(self._iFile, self._sep)
         self._finalPatterns = {}
@@ -487,7 +488,7 @@ class RHUIM(_ab._utilityPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Relative High Utility patterns were generated successfully using RHUIM algorithm")
 
-    def _backTrackingRHUIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength, utilitySumP):
+    def _backTrackingRHUIM(self, transactionsOfP: list, itemsToKeep: list, itemsToExplore: list, prefixLength: int, utilitySumP: int) -> None:
         """
             A method to mine the RHUIs Recursively
 
@@ -575,7 +576,7 @@ class RHUIM(_ab._utilityPatterns):
                     newItemsToKeep.append(itemK)
             self._backTrackingRHUIM(transactionsPe, newItemsToKeep, newItemsToExplore, prefixLength + 1, utilitySumPe)
 
-    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep):
+    def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe: list, j: int, itemsToKeep: list) -> None:
         """
             A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
 
@@ -604,7 +605,7 @@ class RHUIM(_ab._utilityPatterns):
                     self._utilityBinArrayLU[item] += transaction.transactionUtility + transaction.prefixUtility
                 i -= 1
 
-    def _output(self, tempPosition, utility, utilityRatio):
+    def _output(self, tempPosition: int, utility: int, utilityRatio: float) -> None:
         """
          Method to print relative high utility itemSet
 
@@ -625,7 +626,7 @@ class RHUIM(_ab._utilityPatterns):
                 s1 += "\t"
         self._finalPatterns[s1] = [utility, utilityRatio]
 
-    def _isEqual(self, transaction1, transaction2):
+    def _isEqual(self, transaction1: _Transaction, transaction2: _Transaction) -> bool:
         """
          A method to Check if two transaction are identical
 
@@ -651,7 +652,7 @@ class RHUIM(_ab._utilityPatterns):
             position2 += 1
         return True
 
-    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset: _Dataset) -> None:
         """
         Scan the initial database to calculate the subtree utility of each items using a utility-bin array
 
@@ -674,7 +675,7 @@ class RHUIM(_ab._utilityPatterns):
                     self._utilityBinArraySU[item] = sumSU
                 i -= 1
 
-    def sortDatabase(self, transactions):
+    def sortDatabase(self, transactions: list) -> None:
         """
             A Method to sort transaction
 
@@ -688,7 +689,7 @@ class RHUIM(_ab._utilityPatterns):
         cmp_items = _ab._functools.cmp_to_key(self.sort_transaction)
         transactions.sort(key=cmp_items)
 
-    def sort_transaction(self, trans1, trans2):
+    def sort_transaction(self, trans1: _Transaction, trans2: _Transaction) -> int:
         """
             A Method to sort transaction
 
@@ -730,7 +731,7 @@ class RHUIM(_ab._utilityPatterns):
                 pos2 -= 1
             return 0
 
-    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
+    def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset: _Dataset) -> None:
         """
             A method to calculate local utility of single itemSets
             Attributes:
@@ -746,7 +747,7 @@ class RHUIM(_ab._utilityPatterns):
                 else:
                     self._utilityBinArrayLU[item] = transaction.transactionUtility
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final patterns in a dataframe
 
         :return: returning patterns in a dataframe
@@ -760,7 +761,7 @@ class RHUIM(_ab._utilityPatterns):
 
         return dataFrame
     
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of patterns after completion of the mining process
 
         :return: returning patterns
@@ -768,7 +769,7 @@ class RHUIM(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -780,7 +781,7 @@ class RHUIM(_ab._utilityPatterns):
             patternsAndSupport = x.strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % patternsAndSupport)
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -789,7 +790,7 @@ class RHUIM(_ab._utilityPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -797,7 +798,7 @@ class RHUIM(_ab._utilityPatterns):
        """
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -806,7 +807,7 @@ class RHUIM(_ab._utilityPatterns):
        """
         return self._endTime-self._startTime
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Relative Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

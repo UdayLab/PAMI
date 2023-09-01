@@ -53,7 +53,7 @@ __copyright__ = """
 """
 
 
-from PAMI.partialPeriodicPattern.topk import abstract as _abstract
+import abstract as _abstract
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
@@ -268,7 +268,9 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
             if period <= self._period:
                 self._mapSupport[x][1] += 1
         self._mapSupport = {k: v[1] for k, v in self._mapSupport.items()}
-        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[0], reverse=True)]
+        #print(self._mapSupport)
+        plist = [key for key, value in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        #print(plist)
         self._finalPatterns = {}
         for i in plist:
             if self._mapSupport[i] == 0:
@@ -278,7 +280,9 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
             else:
                 self._finalPatterns[i] = self._mapSupport[i]
         #print(len(self._finalPatterns),  self._k, self._periodicity)
+        #print(self._finalPatterns)
         self._minimum = min([self._finalPatterns[i] for i in self._finalPatterns.keys()])
+        #print(self._minimum)
         plist = list(self._finalPatterns.keys())
         return plist
 
@@ -316,24 +320,30 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
             prefix = suffix
         else:
             prefix = prefix + suffix
+        #print(prefix)
+        #print(self._minimum)
         val = self._getSupportAndPeriod(tidSetI)
         sample = str()
         for i in prefix:
             sample = sample + i + "\t"
         if len(self._finalPatterns) < self._k:
-            if val >= self._minimum:
+            if val > self._minimum:
                 self._finalPatterns[sample] = val
                 self._finalPatterns = {k: v for k, v in
                                        sorted(self._finalPatterns.items(), key=lambda item: item[1], reverse=True)}
                 self._minimum = min([self._finalPatterns[i] for i in self._finalPatterns.keys()])
+                #print(self._finalPatterns)
         else:
+            #print(prefix, val)
             for x, y in sorted(self._finalPatterns.items(), key=lambda x: x[1]):
                 if val > y:
+                    #print("yes")
                     del self._finalPatterns[x]
-                    self._finalPatterns[x] = y
+                    self._finalPatterns[sample] = val
                     self._finalPatterns = {k: v for k, v in
                                            sorted(self._finalPatterns.items(), key=lambda item: item[1], reverse=True)}
                     self._minimum = min([self._finalPatterns[i] for i in self._finalPatterns.keys()])
+                    #print(self._finalPatterns)
                     return
 
     def _Generation(self, prefix, itemSets, tidSets):
@@ -370,7 +380,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
                 tidSetJ = tidSets[j]
                 y = list(set(tidSetI).intersection(tidSetJ))
                 val = self._getSupportAndPeriod(y)
-                if val >= self._minimum:
+                if val > self._minimum:
                     classItemSets.append(itemJ)
                     classTidSets.append(y)
             newPrefix = list(set(itemSetX)) + prefix
@@ -400,7 +410,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
                 tidSetJ = self._tidList[itemJ]
                 y1 = list(set(tidSetI).intersection(tidSetJ))
                 val = self._getSupportAndPeriod(y1)
-                if val >= self._minimum:
+                if val > self._minimum:
                     itemSets.append(itemJ)
                     tidSets.append(y1)
             self._Generation(itemSetX, itemSets, tidSets)
@@ -490,9 +500,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(_sys.argv) == 5 or len(_sys.argv) == 6:
         if len(_sys.argv) == 6:
-            _ap = Topk_PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
+            _ap = k3PMiner(_sys.argv[1], _sys.argv[3], _sys.argv[4], _sys.argv[5])
         if len(_sys.argv) == 5:
-            _ap = Topk_PPPGrowth(_sys.argv[1], _sys.argv[3], _sys.argv[4])
+            _ap = k3PMiner(_sys.argv[1], _sys.argv[3], _sys.argv[4])
         _ap.startMine()
         print("Top K Partial Periodic Patterns:", len(_ap.getPatterns()))
         _ap.save(_sys.argv[2])

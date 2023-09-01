@@ -47,7 +47,7 @@ __copyright__ = """
 """
 
 from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
-
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 class _Element:
     """
@@ -67,7 +67,7 @@ class _Element:
             position of previous item in the list
     """
 
-    def __init__(self, ts, snu, remainingUtility, pu, prevPos):
+    def __init__(self, ts: int, snu: int, remainingUtility: int, pu: int, prevPos: int) -> None:
         self.ts = ts
         self.snu = snu
         self.remainingUtility = remainingUtility
@@ -103,7 +103,7 @@ class _CUList:
 
     """
 
-    def __init__(self, item):
+    def __init__(self, item: str) -> None:
         self.item = item
         self.sumSnu = 0
         self.sumRemainingUtility = 0
@@ -112,7 +112,7 @@ class _CUList:
         self.sumCpu = 0
         self.elements = []
 
-    def addElements(self, element):
+    def addElements(self, element: _Element) -> None:
         """
             A method to add new element to CUList
             :param element: element to be added to CUList
@@ -128,7 +128,7 @@ class _Pair:
         A class represent an item and its utility in a transaction
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.item = 0
         self.utility = 0
 
@@ -260,7 +260,7 @@ class HDSHUIM(_ab._utilityPatterns):
     _memoryRSS = float()
     _sep = "\t"
 
-    def __init__(self, iFile, nFile, minUtil, sep="\t"):
+    def __init__(self, iFile: str, nFile: str, minUtil: int, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minUtil, sep)
         self._startTime = 0
         self._endTime = 0
@@ -271,7 +271,7 @@ class HDSHUIM(_ab._utilityPatterns):
         self._neighbors = {}
         self._finalPatterns = {}
 
-    def _compareItems(self, o1, o2):
+    def _compareItems(self, o1: Any, o2: Any) -> int:
         """
             A method to sort  list of huis in pmu ascending order
         """
@@ -281,7 +281,7 @@ class HDSHUIM(_ab._utilityPatterns):
         else:
             return compare
 
-    def startMine(self):
+    def startMine(self) -> None:
         """main program to start the operation
         """
         minUtil = self._minUtil
@@ -400,7 +400,7 @@ class HDSHUIM(_ab._utilityPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def _ExploreSearchTree(self, prefix, uList, exNeighbours, minUtil):
+    def _ExploreSearchTree(self, prefix: List[str], uList: List[_CUList], exNeighbours: set, minUtil: int) -> None:
         """
             A method to find all high utility itemSets
 
@@ -438,7 +438,7 @@ class HDSHUIM(_ab._utilityPatterns):
                         continue
                     self._ExploreSearchTree(sortedPrefix, exULs, set1, minUtil)
 
-    def _constructCUL(self, x, compactUList, st, minUtil, length, exNeighbours):
+    def _constructCUL(self, x: _Element, compactUList: List[_CUList], st: int, minUtil: int, length: int, exNeighbours: set) -> List[_CUList]:
         """
             A method to construct CUL's database
 
@@ -536,7 +536,7 @@ class HDSHUIM(_ab._utilityPatterns):
                 filter_compactUList.append(exCul[j])
         return filter_compactUList
 
-    def _updateClosed(self, x, compactUList, st, exCul, newT, ex, eyTs, length):
+    def _updateClosed(self, x: _Element, compactUList: List[_CUList], st: int, exCul: List[_CUList], newT: List[int], ex: _Element, eyTs: List[int], length: int) -> None:
         """
             A method to update closed values
             Attributes:
@@ -566,7 +566,7 @@ class HDSHUIM(_ab._utilityPatterns):
             exCul[newT[j]].sumCpu += ex.snu
             remainingUtility = remainingUtility + eyy.snu - ex.pu
 
-    def _updateElement(self, z, compactUList, st, exCul, newT, ex, duPrevPos, eyTs):
+    def _updateElement(self, z: _Element, compactUList: List[_CUList], st: int, exCul: List[_CUList], newT: List[int], ex: _Element, duPrevPos: int, eyTs: List[int]) -> None:
         """
             A method to updates vales for duplicates
 
@@ -602,7 +602,7 @@ class HDSHUIM(_ab._utilityPatterns):
             remainingUtility = remainingUtility + eyy.snu - ex.pu
             pos = exCul[newT[j]].elements[pos].prevPos
 
-    def _saveItemSet(self, prefix, prefixLen, item, utility):
+    def _saveItemSet(self, prefix: List[str], prefixLen: int, item: str, utility: int) -> None:
         """
          A method to save itemSets
 
@@ -623,7 +623,7 @@ class HDSHUIM(_ab._utilityPatterns):
         res1 = str(utility)
         self._finalPatterns[res] = res1
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> Dict[str, str]:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -637,7 +637,7 @@ class HDSHUIM(_ab._utilityPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataFrame
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, str]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -645,7 +645,7 @@ class HDSHUIM(_ab._utilityPatterns):
         """
         return self._finalPatterns
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -657,7 +657,7 @@ class HDSHUIM(_ab._utilityPatterns):
             patternsAndSupport = x.strip() + ":" + str(y)
             writer.write("%s \n" % patternsAndSupport)
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -666,7 +666,7 @@ class HDSHUIM(_ab._utilityPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -674,7 +674,7 @@ class HDSHUIM(_ab._utilityPatterns):
        """
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -683,7 +683,7 @@ class HDSHUIM(_ab._utilityPatterns):
        """
         return self._endTime - self._startTime
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Spatial High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
