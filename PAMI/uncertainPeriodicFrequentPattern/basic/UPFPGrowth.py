@@ -1,4 +1,4 @@
-# UPFPGrowth is used to discover periodic-frequent patterns in a uncertain temporal database.
+# UPFPGrowth is used to discover periodic-frequent patterns in an uncertain temporal database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
