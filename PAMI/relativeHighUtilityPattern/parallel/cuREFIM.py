@@ -1,20 +1,54 @@
+# cuREFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
+#
+#     **Importing this algorithm into a python program**
+#     --------------------------------------------------------
+#
+#
+#     from PAMI.periodicFrequentPattern.parallel import cuREFIM as alg
+#
+#     obj = alg.cuREFIM(iFile, minUtil, ratio, '\t')
+#
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
 
 
-#  Copyright (C)  2021 Rage Uday Kiran
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
 
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 
 import os
@@ -140,6 +174,16 @@ class GPUEFIM:
 
     # Read input file
     def read_file(self):
+        """
+                Read the input file and return the filtered transactions, primary items, and secondary items.
+
+                Returns:
+                -------
+                    filtered_transactions (dict): A dictionary containing the filtered transactions.
+                    primary (set): A set containing the primary items.
+                    secondary (set): A set containing the secondary items.
+
+        """
         file_data = []
         twu = {}
 
@@ -240,6 +284,15 @@ class GPUEFIM:
         return primary, secondary
 
     def search(self, collection, depth):
+        """
+        Search for frequent patterns in the given collections.
+
+        Attributes:
+        ----------
+            collections (list): The collections to search in.
+
+
+        """
 
         storeAll = {}
 
@@ -417,6 +470,8 @@ class GPUEFIM:
 
     
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
