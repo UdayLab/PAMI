@@ -1,10 +1,11 @@
-# **Importing this algorithm into a python program**
-# --------------------------------------------------------
+#  ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
 #
+#     **Importing this algorithm into a python program**
+#     --------------------------------------------------------
 #
 #     from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
 #
-#     obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, noWorkers)
+#     obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
 #
 #     obj.startMine()
 #
@@ -12,7 +13,7 @@
 #
 #     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -411,7 +412,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
                 from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
 
-                obj = alg.parallelPFPGrowth(iFile, minSup, maxPer)
+                obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
 
                 obj.startMine()
 
@@ -419,7 +420,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
                 print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-                obj.savePatterns(oFile)
+                obj.save(oFile)
 
                 Df = obj.getPatternsAsDataFrame()
 
@@ -709,6 +710,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         return self.__finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Frequent Patterns:", self.getPatterns())
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

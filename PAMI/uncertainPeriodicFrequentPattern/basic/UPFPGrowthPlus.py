@@ -1,10 +1,10 @@
 # UPFPGrowthPlus is used to discover periodic-frequent patterns in an uncertain temporal database.
 #
-# **Importing this algorithm into a python program**
-# --------------------------------------------------------
+#    **Importing this algorithm into a python program**
+#    --------------------------------------------------------
 #
 #
-#     from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowthPlus as alg
+#     from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowthPlus as alg
 #
 #     obj = alg.UPFPGrowthPlus(iFile, minSup, maxPer)
 #

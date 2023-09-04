@@ -1,10 +1,10 @@
-# UPFPGrowth is used to discover periodic-frequent patterns in a uncertain temporal database.
+# UPFPGrowth is used to discover periodic-frequent patterns in an uncertain temporal database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#     from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowth as alg
+#     from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowth as alg
 #
 #     obj = alg.UPFPGrowth(iFile, minSup, maxPer)
 #
@@ -471,9 +471,9 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
     .. code-block:: python
 
-        from PAMI.uncertainPeriodicFrequentPattern import basic as alg
+        from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowth as alg
 
-        obj = alg.basic(iFile, minSup, maxPer)
+        obj = alg.UPFPGrowth(iFile, minSup, maxPer)
 
         obj.startMine()
 
@@ -790,7 +790,8 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """Calculating the total amount of runtime take
+        n by the mining process
 
         :return: returning total amount of runtime taken by the mining process
 
