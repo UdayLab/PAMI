@@ -1,6 +1,8 @@
+# TUFP is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database
+#         using CUP-Lists.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
-#
 #
 #     from PAMI.uncertainFrequentPattern.basic import TUFP as alg
 #
@@ -16,7 +18,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #

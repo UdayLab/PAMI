@@ -1,10 +1,13 @@
+# CUFPTree is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
+#         using CUFP-Tree
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #     from PAMI.uncertainFrequentPattern.basic import CUFPTree as alg
 #
 #     obj = alg.CUFPTree(iFile, minSup)
-#     v
 #
 #     obj.startMine()
 #
@@ -16,7 +19,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -27,8 +30,8 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
-
-
+#
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -387,7 +390,7 @@ class CUFPTree(_ab._frequentPatterns):
 
             Df = obj.getPatternsAsDataFrame()
 
-            memUSS = obj.getmemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
             print("Total Memory in USS:", memUSS)
 
@@ -611,7 +614,7 @@ class CUFPTree(_ab._frequentPatterns):
         Tree1 = self._buildTree(self.Database1, info)
         Tree1.generatePatterns([])
         self._removeFalsePositives()
-        print("Uncertain Frequent patterns were successfully generated using CUFP algorithm")
+        print("Uncertain Frequent patterns were successfully generated using CUFPTree algorithm")
         self._endTime = _ab._time.time()
         process = _ab._psutil.Process(_ab._os.getpid())
         self._memoryUSS = float()
@@ -675,6 +678,8 @@ class CUFPTree(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
