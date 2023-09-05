@@ -1,23 +1,35 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+#  parallelRHUIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
+#    **Importing this algorithm into a python program**
+#    --------------------------------------------------------
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#     from PAMI.periodicFrequentPattern.parallel import parallelRHUIM as alg
+#
+#     obj = alg.parallelRHUIM(iFile, minUtil, ratio, '\t')
+#
+#     obj.startMine()
+#
+#     periodicFrequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
 
-import os
-import mmap
-import time
-import psutil
-from joblib import Parallel, delayed
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -37,6 +49,12 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 
 """
+
+import os
+import mmap
+import time
+import psutil
+from joblib import Parallel, delayed
 
 from PAMI.relativeHighUtilityPattern.basic import abstract as _ab
 
@@ -380,7 +398,7 @@ class efimParallel(_ab._utilityPatterns):
         self.runtime = end - self.start
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -443,6 +461,8 @@ class efimParallel(_ab._utilityPatterns):
 
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

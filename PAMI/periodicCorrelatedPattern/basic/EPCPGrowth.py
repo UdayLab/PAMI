@@ -56,6 +56,8 @@ __copyright__ = """
 import sys
 
 from PAMI.periodicCorrelatedPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
+import pandas as pd
 
 _maxPer = float()
 _minAllConf = float()
@@ -86,7 +88,7 @@ class _Node(object):
                 Storing the children to their respective parent nodes
         """
 
-    def __init__(self, item, children):
+    def __init__(self, item, children) -> None:
         """ Initializing the Node class
 
         :param item: Storing the item of a node
@@ -100,7 +102,7 @@ class _Node(object):
         self.parent = None
         self.timeStamps = []
 
-    def addChild(self, node):
+    def addChild(self, node) -> None:
         """ To add the children to a node
 
             :param node: parent node in the tree
@@ -140,12 +142,12 @@ class _Tree(object):
 
         """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
-    def addTransaction(self, transaction, tid):
+    def addTransaction(self, transaction, tid) -> None:
         """     Adding a transaction into tree
 
                 :param transaction: To represent the complete database
@@ -169,7 +171,7 @@ class _Tree(object):
                 currentNode = currentNode.children[transaction[i]]
         currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def getConditionalPatterns(self, alpha, pattern):
+    def getConditionalPatterns(self, alpha, pattern) -> tuple:
         """Generates all the conditional patterns of a respective node
 
             :param alpha: To represent a Node in the tree
@@ -192,7 +194,7 @@ class _Tree(object):
         return finalPatterns, finalSets, info
 
     @staticmethod
-    def generateTimeStamps(node):
+    def generateTimeStamps(node) -> list:
         """To get the timestamps of a node
 
         :param node: A node in the tree
@@ -202,7 +204,7 @@ class _Tree(object):
         finalTimeStamps = node.timeStamps
         return finalTimeStamps
 
-    def removeNode(self, nodeValue):
+    def removeNode(self, nodeValue) -> None:
         """ Removing the node from tree
 
             :param nodeValue: To represent a node in the tree
@@ -214,7 +216,7 @@ class _Tree(object):
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
             del i.parent.children[nodeValue]
 
-    def getTimeStamps(self, alpha):
+    def getTimeStamps(self, alpha) -> list:
         """ To get all the timestamps of the nodes which share same item name
 
             :param alpha: Node in a tree
@@ -226,7 +228,7 @@ class _Tree(object):
         return temporary
 
     @staticmethod
-    def getSupportAndPeriod(timeStamps, pattern):
+    def getSupportAndPeriod(timeStamps, pattern) -> list:
         """To calculate the periodicity and support
 
         :param timeStamps: Timestamps of an item set
@@ -256,7 +258,7 @@ class _Tree(object):
         #print(pattern, timeStamps, l, l1, sup, max(per), conf, perConf)
         return [sup, max(per), conf, perConf]
 
-    def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps, pattern):
+    def conditionalDatabases(self, conditionalPatterns: list, conditionalTimeStamps: list, pattern) -> tuple:
         """ It generates the conditional patterns with periodic-frequent items
 
             :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
@@ -291,7 +293,7 @@ class _Tree(object):
             count += 1
         return pat, timeStamps, updatedDictionary
 
-    def generatePatterns(self, prefix):
+    def generatePatterns(self, prefix: list) -> Generator:
         """ Generates the patterns
 
             :param prefix: Forms the combination of items
@@ -469,7 +471,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
     _rankedUp = {}
     _lno = 0
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -512,7 +514,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
                     quit()
 
 
-    def _periodicFrequentOneItem(self):
+    def _periodicFrequentOneItem(self) -> tuple:
         """ Calculates the support of each item in the database and assign ranks to the items
             by decreasing support and returns the frequent items list
 
@@ -537,7 +539,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
             _frequentList[y] = data[x]
         return data, pfList
 
-    def _updateDatabases(self, dict1):
+    def _updateDatabases(self, dict1) -> list:
         """ Remove the items which are not frequent from database and updates the database with rank of items
 
             :param dict1: frequent items with support
@@ -558,7 +560,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return list1
 
     @staticmethod
-    def _buildTree(data, info):
+    def _buildTree(data, info) -> _Tree:
         """ It takes the database and support of an each item and construct the main tree by setting root node as a null
 
             :param data: it represents the one Databases in database
@@ -575,7 +577,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
             rootNode.addTransaction(data[i][1:], set1)
         return rootNode
 
-    def _savePeriodic(self, itemSet):
+    def _savePeriodic(self, itemSet) -> str:
         """ To convert the ranks of items in to their original item names
 
             :param itemSet: frequent pattern
@@ -586,7 +588,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
             t1 = t1 + self._rankedUp[i] + "\t"
         return t1
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the given user specified value
 
@@ -605,7 +607,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
                 value = int(value)
         return value
 
-    def startMine(self):
+    def startMine(self) -> None:
         """ Mining process will start from this function
         """
 
@@ -643,7 +645,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Correlated Periodic-Frequent patterns were generated successfully using EPCPGrowth algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -652,7 +654,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -661,7 +663,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -671,7 +673,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
@@ -685,7 +687,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity', 'allConf', 'maxPerAllConf'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -697,7 +699,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
             s1 = x.strip() + ":" + str(y[0]) + ":" + str(y[1]) + ":" + str(y[2]) + ":" + str(y[3])
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
@@ -705,7 +707,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         """
         return self._finalPatterns
     
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Correlated Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

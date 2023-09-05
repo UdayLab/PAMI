@@ -1,10 +1,12 @@
+# UPFPGrowth is used to discover periodic-frequent patterns in an uncertain temporal database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#     from PAMI.uncertainPeriodicFrequentPattern import basic as alg
+#     from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowth as alg
 #
-#     obj = alg.basic(iFile, minSup, maxPer)
+#     obj = alg.UPFPGrowth(iFile, minSup, maxPer)
 #
 #     obj.startMine()
 #
@@ -469,9 +471,9 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
     .. code-block:: python
 
-        from PAMI.uncertainPeriodicFrequentPattern import basic as alg
+        from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowth as alg
 
-        obj = alg.basic(iFile, minSup, maxPer)
+        obj = alg.UPFPGrowth(iFile, minSup, maxPer)
 
         obj.startMine()
 
@@ -788,7 +790,8 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """Calculating the total amount of runtime take
+        n by the mining process
 
         :return: returning total amount of runtime taken by the mining process
 
@@ -798,7 +801,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """ Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
 
@@ -813,7 +816,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """ Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -835,6 +838,8 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of  Uncertain Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

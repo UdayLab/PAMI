@@ -812,7 +812,7 @@ class PSGrowth(_ab._periodicFrequentPatterns):
             Mining process will start from this function
         """
         global _minSup, _maxPer, _lno, _pfList
-        self.startTime = _ab._time.time()
+        self._startTime = _ab._time.time()
         if self._iFile is None:
             raise Exception("Please enter the file path or file name:")
         if self._minSup is None:

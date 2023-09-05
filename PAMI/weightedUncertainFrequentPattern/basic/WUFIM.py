@@ -1,3 +1,7 @@
+# WUFIM is one of the algorithm to discover weighted frequent patterns in an uncertain transactional database
+#       using PUF-Tree.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -12,7 +16,7 @@
 #
 #     print("Total number of  Patterns:", len(Patterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -375,7 +379,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     **Importing this algorithm into a python program**
 
-.. code-block:: python
+    .. code-block:: python
 
         from PAMI.weightedUncertainFrequentPattern.basic import basic as alg
 
@@ -387,7 +391,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
         print("Total number of  Patterns:", len(Patterns))
 
-        obj.savePatterns(oFile)
+        obj.save(oFile)
 
         Df = obj.getPatternsAsDataFrame()
 
@@ -733,6 +737,8 @@ class WUFIM(_ab._weightedFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of  Weighted Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

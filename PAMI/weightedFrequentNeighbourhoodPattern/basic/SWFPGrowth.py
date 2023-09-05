@@ -1,3 +1,6 @@
+# SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -16,7 +19,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -49,6 +52,7 @@ __copyright__ = """
 """
 
 from PAMI.weightedFrequentNeighbourhoodPattern.basic import abstract as _fp
+from typing import List, Dict, Tuple, Set, Union, Any, Generator, Iterable
 
 _minWS = str()
 _weights = {}
@@ -59,7 +63,7 @@ _fp._sys.setrecursionlimit(20000)
 
 
 class _WeightedItem:
-    def __init__(self, item, weight):
+    def __init__(self, item: str, weight: float) -> None:
         self.item = item
         self.weight = weight
 
@@ -87,14 +91,14 @@ class _Node:
 
     """
 
-    def __init__(self, item, children):
+    def __init__(self, item: str, children: Dict[str, '_Node']) -> None:
         self.itemId = item
         self.counter = 1
         self.weight = 0
         self.parent = None
         self.children = children
 
-    def addChild(self, node):
+    def addChild(self, node: '_Node') -> None:
         """
             Retrieving the child from the tree
 
@@ -132,15 +136,15 @@ class _Tree:
             generating the patterns from fp-tree
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
-    def addTransaction(self, transaction, count):
+    def addTransaction(self, transaction: List[_WeightedItem], count: int) -> None:
         """adding transaction into tree
 
-        :param transaction: it represents the one transactions in database
+        :param transaction: it represents the one transaction in database
 
         :type transaction: list
 
@@ -173,10 +177,10 @@ class _Tree:
                 currentNode.freq += count
                 currentNode.weight += wei
 
-    def addConditionalPattern(self, transaction, count):
+    def addConditionalPattern(self, transaction: List[_WeightedItem], count: int) -> None:
         """adding transaction into tree
 
-        :param transaction: it represents the one transactions in database
+        :param transaction: it represents the one transaction in database
 
         :type transaction: list
 
@@ -209,7 +213,13 @@ class _Tree:
                 currentNode.freq += count
                 currentNode.weight += wei
 
-    def printTree(self, root):
+    def printTree(self, root: _Node) -> None:
+        """ To print the details of tree
+
+            :param root: root node of the tree
+
+             :return: details of tree
+        """
         if len(root.children) == 0:
             return
         else:
@@ -218,7 +228,7 @@ class _Tree:
                 self.printTree(y)
 
 
-    def getFinalConditionalPatterns(self, alpha):
+    def getFinalConditionalPatterns(self, alpha: int) -> Tuple[List[List[_Node]], List[float], Dict[int, float]]:
         """
         generates the conditional patterns for a node
 
@@ -249,7 +259,7 @@ class _Tree:
         return finalPatterns, finalFreq, info
 
     @staticmethod
-    def getConditionalTransactions(ConditionalPatterns, conditionalFreq):
+    def getConditionalTransactions(ConditionalPatterns: List[List[_Node]], conditionalFreq: List[float]) -> Tuple[List[List[_Node]], List[float], Dict[int, float]]:
         """
         To calculate the frequency of items in conditional patterns and sorting the patterns
         Parameters
@@ -283,7 +293,7 @@ class _Tree:
         up_dict = {_rank[k]: v for k, v in up_dict.items()}
         return pat, freq, up_dict
 
-    def generatePatterns(self, prefix):
+    def generatePatterns(self, prefix: List[int]) -> Iterable[Tuple[List[int], float]]:
         """
         To generate the frequent patterns
         Parameters
@@ -367,7 +377,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of frequent patterns will be loaded in to a output file
+            Complete set of frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -459,10 +469,10 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     __rank = {}
     __rankDup = {}
 
-    def __init__(self, iFile, nFile, minWS, sep='\t'):
+    def __init__(self, iFile: Union[str, _fp._pd.DataFrame], nFile: Union[str, _fp._pd.DataFrame], minWS: Union[int, float, str], sep='\t') -> None:
         super().__init__(iFile, nFile, minWS, sep)
 
-    def __creatingItemSets(self):
+    def __creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -502,7 +512,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
                     print("File Not Found")
                     quit()
 
-    def _scanNeighbours(self):
+    def _scanNeighbours(self) -> None:
         self._neighbourList = {}
         if isinstance(self._nFile, _fp._pd.DataFrame):
             data, items = [], []
@@ -537,7 +547,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
                     print("File Not Found2")
                     quit()
 
-    def __convert(self, value):
+    def __convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         to convert the type of user specified minWS value
 
@@ -557,7 +567,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
                 value = int(value)
         return value
 
-    def __frequentOneItem(self):
+    def __frequentOneItem(self) -> List[str]:
         """
         Generating One frequent items sets
 
@@ -578,7 +588,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         self.__rank = dict([(index, item) for (item, index) in enumerate(genList)])
         return genList
 
-    def __updateTransactions(self, itemSet):
+    def __updateTransactions(self, itemSet: List[str]) -> List[List[_WeightedItem]]:
         """
         Updates the items in transactions with rank of items according to their support
 
@@ -605,7 +615,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         return list1
 
     @staticmethod
-    def __buildTree(transactions, info):
+    def __buildTree(transactions: List[List[_WeightedItem]], info: Dict[int, float]) -> _Tree:
         """
         Builds the tree with updated transactions
         Parameters:
@@ -624,7 +634,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
             rootNode.addTransaction(transactions[i], 1)
         return rootNode
 
-    def __savePeriodic(self, itemSet):
+    def __savePeriodic(self, itemSet: List[str]) -> str:
         """
         The duplication items and their ranks
         Parameters:
@@ -641,7 +651,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
             temp = temp + self.__rankDup[i] + "\t"
         return temp
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
             main program to start the operation
 
@@ -682,7 +692,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -692,7 +702,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
         return self.__memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -702,7 +712,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
         return self.__memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -713,7 +723,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
         return self.__endTime - self.__startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _fp._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -728,8 +738,8 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+    def save(self, outFile: str) -> None:
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -741,7 +751,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, float]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -750,7 +760,9 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         """
         return self.__finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of  Weighted Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
