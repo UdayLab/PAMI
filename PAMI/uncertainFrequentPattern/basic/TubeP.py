@@ -1,3 +1,6 @@
+# TubeP is one of the fastest algorithm to discover frequent patterns in an uncertain transactional database.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -15,7 +18,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -26,8 +29,8 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
-
-
+#
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -101,11 +104,18 @@ class _Node(object):
         self.parent = None
 
     def addChild(self, node):
+        """ This function is used to add a child
+        """
         self.children[node.item] = node
         node.parent = self
 
 
 def printTree(root):
+    """
+    To print the tree with root node through recursion
+        :param root: root node of  tree
+        :return: details of tree
+    """
     for x, y in root.children.items():
         print(x, y.item, y.probability, y.parent.item, y.tids, y.maxPrefixProbability)
         printTree(y)
@@ -147,7 +157,7 @@ class _Tree(object):
 
     def addTransaction(self, transaction):
         """adding transaction into tree
-                :param transaction : it represents the one transactions in database
+                :param transaction : it represents the one transaction in database
                 :type transaction : list
                         """
         currentNode = self.root
@@ -190,7 +200,7 @@ class _Tree(object):
 
     def addConditionalTransaction(self, transaction, sup, second):
         """constructing conditional tree from prefixPaths
-            :param transaction: it represents the one transactions in database
+            :param transaction: it represents the one transaction in database
             :type transaction: list
             :param sup: support of prefixPath taken at last child of the path
             :type sup: int
@@ -516,7 +526,7 @@ class TubeP(_fp._frequentPatterns):
     def _buildTree(self, data, info):
         """it takes the transactions and support of each item and construct the main tree with setting root
                     node as null
-            :param data : it represents the one transactions in database
+            :param data : it represents the one transaction in database
             :type data : list
             :param info : it represents the support of each item
             :type info : dictionary
@@ -687,6 +697,8 @@ class TubeP(_fp._frequentPatterns):
         return len(self._finalPatterns)
 
     def printResults(self):
+        """ This Function is used to print the results
+        """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
