@@ -135,7 +135,7 @@ class Tree:
     def addTransaction(self, transaction, tid):
         """
         add transaction into tree
-            :param transaction: it represents the one transactions in database
+            :param transaction: it represents the one transaction in database
             :type transaction: list
             :param tid: represents the timestamp of transaction
             :type tid: list or int
@@ -293,7 +293,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
             getLocalPeriodicPatterns()
                 return local periodic patterns and its PTL
             save(oFile)
-                Complete set of local periodic patterns will be loaded in to a output file.
+                Complete set of local periodic patterns will be loaded in to an output file.
             getPatternsAsDataFrame()
                 Complete set of local periodic patterns will be loaded in to a dataframe.
 
@@ -655,9 +655,9 @@ class LPPGrowth(_ab._localPeriodicPatterns):
     def __calculatePTLbit(self, tsList):
         """
         Calculate PTL from input tsList as bit vector.
-        :param tsList: It is tsList which store time stamp as bit vector.
-        :type tsList: list
-        :return: PTL
+          :param tsList: It is tsList which store time stamp as bit vector.
+          :type tsList: list
+          :return: PTL
         """
         tsList = list(bin(tsList))
         tsList = tsList[2:]
@@ -783,10 +783,10 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of local periodic patterns will be loaded in to a output file
+        """Complete set of local periodic patterns will be loaded in to an output file
 
-        :param outFile: name of the output file
-        :type outFile: file
+           :param outFile: name of the output file
+           :type outFile: file
         """
         self._localPeriodicPatterns__oFile = outFile
         writer = open(self._localPeriodicPatterns__oFile, 'w+')

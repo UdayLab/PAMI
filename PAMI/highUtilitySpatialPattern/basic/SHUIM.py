@@ -247,7 +247,7 @@ class _Dataset:
 
     def getMaxItem(self) -> int:
         """
-            A method to return name of largest item
+            A method to return name of the largest item
         """
         return self.maxItem
 
@@ -567,13 +567,13 @@ class SHUIM(_ab._utilityPatterns):
 
     def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe: List[_Transaction], j: int, itemsToKeep: List[int], neighbourhoodList: List[int]) -> None:
         """
-            A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
+            A method to  calculate the subtree utility and local utility of all items that can extend itemSet P U {e}
 
             Attributes:
             -----------
             :param transactionsPe: transactions the projected database for P U {e}
             :type transactionsPe: list
-            :param j:he position of j in the list of promising items
+            :param j:the position of j in the list of promising items
             :type j:int
             :param itemsToKeep :the list of promising items
             :type itemsToKeep: list
@@ -684,7 +684,7 @@ class SHUIM(_ab._utilityPatterns):
 
     def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset: _Dataset) -> None:
         """
-        Scan the initial database to calculate the subtree utility of each items using a utility-bin array
+        Scan the initial database to calculate the subtree utility of each item using a utility-bin array
 
         Attributes:
         ----------
@@ -803,7 +803,7 @@ class SHUIM(_ab._utilityPatterns):
         return self._finalPatterns
 
     def save(self, outFile: str) -> None:
-        """Complete set of patterns will be loaded in to a output file
+        """Complete set of patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -857,7 +857,7 @@ if __name__ == '__main__':
         if len(_ab._sys.argv) == 5:
             _ap = SHUIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]))
         _ap.startMine()
-        print("Total number of Spatial High Utility Patterns:", len( _ap.getPatterns()))
+        print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
         print("Total Memory in RSS", _ap.getMemoryRSS())

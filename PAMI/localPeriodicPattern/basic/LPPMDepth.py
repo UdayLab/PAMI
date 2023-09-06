@@ -122,7 +122,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         getLocalPeriodicPatterns()
             return local periodic patterns and its PTL
         save(oFile)
-            Complete set of local periodic patterns will be loaded in to a output file.
+            Complete set of local periodic patterns will be loaded in to an output file.
         getPatternsAsDataFrame()
             Complete set of local periodic patterns will be loaded in to a dataframe.
 
@@ -478,7 +478,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of local periodic patterns will be loaded in to a output file
+        """Complete set of local periodic patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
