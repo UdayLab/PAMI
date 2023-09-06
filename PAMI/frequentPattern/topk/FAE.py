@@ -1,5 +1,3 @@
-
-
 # Top - K is and algorithm to discover top frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**

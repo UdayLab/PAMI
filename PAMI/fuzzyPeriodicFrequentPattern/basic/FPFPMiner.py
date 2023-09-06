@@ -1,4 +1,7 @@
-
+# Fuzzy Periodic Frequent Pattern Miner is desired to find all fuzzy periodic frequent patterns which is
+# on-trivial and challenging problem to its huge search space.we are using efficient pruning
+# techniques to reduce the search space.
+#
 # Sample run of importing the code:
 #     -------------------------------
 #

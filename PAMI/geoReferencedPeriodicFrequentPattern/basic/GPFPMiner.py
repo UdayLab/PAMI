@@ -1,3 +1,6 @@
+# GPFPMiner is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
+# Lattice Traversal to mine the geo referenced peridoic frequent patterns.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -25,6 +28,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -182,7 +186,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
     def _creatingItemSets(self):
         """Storing the complete transactions of the database/input file in a database variable
 
-            """
+        """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             data, ts = [], []
@@ -300,6 +304,17 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
             self._finalPatterns[tuple(prefix)] = val
 
     def _Generation(self, prefix, itemSets, tidSets):
+        """Generates the patterns that satisfy the periodic frequent property.
+
+            :param prefix: the prefix of a pattern
+            :type prefix: list or None
+            :param itemSets: the item sets of a patterns
+            :type itemSets: list
+            :param tidSets: the timestamp of a patterns
+            :type tidSets: list
+
+
+        """
         if len(itemSets) == 1:
             i = itemSets[0]
             tidI = tidSets[0]
@@ -488,6 +503,8 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         return self._finalPatterns
     
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Spatial Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

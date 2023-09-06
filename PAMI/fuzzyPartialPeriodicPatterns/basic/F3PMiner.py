@@ -99,8 +99,8 @@ class _FFList:
         """
             A Method that add a new element to FFList
 
-            :param element: an element to be add to FFList
-            :pram type: Element
+            :param element: an element to be added to FFList
+            :param type: Element
         """
         self.sumIUtil += element.iUtils
         self.elements.append(element)
@@ -319,6 +319,10 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         return value
 
     def _creatingItemsets(self):
+        """
+           Storing the complete transactions of the database/input file in a database variable
+
+        """
         self._transactions, self._fuzzyValues, self._Database, self._ts = [], [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -578,6 +582,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Fuzzy Partial Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

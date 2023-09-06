@@ -217,6 +217,9 @@ class utilityDatabaseStats:
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
     
     def getFrequenciesInRange(self) -> dict:
+        """ This function is used to get the Frequencies in range
+            :return: Frequencies In Range
+        """
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}
         maximum = max([i for i in fre.values()])
@@ -289,6 +292,8 @@ class utilityDatabaseStats:
         return self.utility
     
     def printStats(self) -> None:
+        """ This function is used to print the results
+        """
         print(f'Database size : {self.getDatabaseSize()}')
         print(f'Number of items : {self.getTotalNumberOfItems()}')
         print(f'Minimum Transaction Size : {self.getMinimumTransactionLength()}')
