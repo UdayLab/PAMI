@@ -1,4 +1,4 @@
-#  This code uses "lift" metric to extract the association rules from given frequent patterns.
+#   RuleMiner is a temporalDatabaseStats is class to get stats of database.
 #
 #
 # **Importing this algorithm into a python program**
@@ -65,6 +65,14 @@ class Confidence:
         self._finalPatterns = {}
         
     def _generation(self, prefix, suffix):
+        """
+        To generate the combinations all association rules.
+
+        :param prefix: the prefix of association rule.
+        :type prefix: str
+        :param suffix: the suffix of association rule.
+        :type suffix: str
+        """
         if len(suffix) == 1:
             conf = self._generaeWithConfidence(prefix, suffix[0])
         for i in range(len(suffix)):
@@ -76,6 +84,13 @@ class Confidence:
             self._generation(prefix1, suffix1)
             
     def _generaeWithConfidence(self, lhs, rhs):
+        """
+        To find association rules satisfying user-specified minConf
+        :param lhs: the prefix of association rule.
+        :type lhs: str
+        :param rhs: the suffix of association rule.
+        :type rhs: str
+        """
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) == None:
             return 0
@@ -90,6 +105,9 @@ class Confidence:
             self._finalPatterns[s1] = confrhs
             
     def run(self):
+        """
+        To generate the combinations all association rules.
+        """
         for i in range(len(self._singleItems)):
             suffix = self._singleItems[:i] + self._singleItems[i+1:]
             prefix = self._singleItems[i]
@@ -113,6 +131,14 @@ class Lift:
         self._finalPatterns = {}
         
     def _generation(self, prefix, suffix):
+        """
+        To generate the combinations all association rules.
+
+        :param prefix: the prefix of association rule.
+        :type prefix: str
+        :param suffix: the suffix of association rule.
+        :type suffix: str
+        """
         if len(suffix) == 1:
             self._generateWithLift(prefix, suffix[0])
         for i in range(len(suffix)):
@@ -124,6 +150,13 @@ class Lift:
             self._generation(prefix1, suffix1)
             
     def _generateWithLift(self, lhs, rhs):
+        """
+        To find association rules satisfying user-specified minConf
+        :param lhs: the prefix of association rule.
+        :type lhs: str
+        :param rhs: the suffix of association rule.
+        :type rhs: str
+        """
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) == None:
             return 0
@@ -140,6 +173,9 @@ class Lift:
             self._finalPatterns[s1] = confrhs
             
     def run(self):
+        """
+        To generate the combinations all association rules.
+        """
         for i in range(len(self._singleItems)):
             suffix = self._singleItems[:i] + self._singleItems[i+1:]
             prefix = self._singleItems[i]
@@ -163,6 +199,14 @@ class Leverage:
         self._finalPatterns = {}
         
     def _generation(self, prefix, suffix):
+        """
+        To generate the combinations all association rules.
+
+        :param prefix: the prefix of association rule.
+        :type prefix: str
+        :param suffix: the suffix of association rule.
+        :type suffix: str
+        """
         if len(suffix) == 1:
             conf = self._generateWithLeverage(prefix, suffix[0])
         for i in range(len(suffix)):
@@ -173,6 +217,13 @@ class Leverage:
             self._generation(prefix1, suffix1)
             
     def _generateWithLeverage(self, lhs, rhs):
+        """
+        To find association rules satisfying user-specified minConf
+        :param lhs: the prefix of association rule.
+        :type lhs: str
+        :param rhs: the suffix of association rule.
+        :type rhs: str
+        """
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) == None:
             return 0
@@ -189,6 +240,9 @@ class Leverage:
             self._finalPatterns[s1] = confrhs
             
     def run(self):
+        """
+        To generate the combinations all association rules.
+        """
         for i in range(len(self._singleItems)):
             suffix = self._singleItems[:i] + self._singleItems[i+1:]
             prefix = self._singleItems[i]
@@ -293,6 +347,9 @@ class RuleMiner:
         self._sep = sep
     
     def _readPatterns(self):
+        """
+            Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
+        """
         self._frequentPatterns = {}
         k = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -334,6 +391,9 @@ class RuleMiner:
         return k
 
     def startMine(self):
+        """
+        Association rule mining process will start from here
+        """
         self._startTime = _ab._time.time()
         k = self._readPatterns()
         if self._measure == 'confidence':
@@ -413,6 +473,8 @@ class RuleMiner:
         return self._finalPatterns
 
     def printResults(self):
+        """ Function to send the result after completion of the mining process
+        """
         print("Total number of Association Rules:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
