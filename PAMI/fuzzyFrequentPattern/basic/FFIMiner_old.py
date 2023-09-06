@@ -1,3 +1,6 @@
+# Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
+# to its huge search space.we are using efficient pruning techniques to reduce the search space.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -24,6 +27,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -164,6 +168,8 @@ class _Pair:
 
 class FFIMiner(_ab._fuzzyFrequentPattenrs):
     """
+    Description:
+    -----------
         Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
         to its huge search space.we are using efficient pruning techniques to reduce the search space.
     Reference :

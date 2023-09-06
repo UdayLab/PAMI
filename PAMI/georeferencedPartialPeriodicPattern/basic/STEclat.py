@@ -1,4 +1,5 @@
-
+# PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -305,6 +306,17 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
             self._finalPatterns[tuple(prefix)] = val
 
     def _Generation(self, prefix, itemSets, tidSets):
+        """Generates the patterns that satisfy the periodic frequent property.
+
+            :param prefix: the prefix of a pattern
+            :type prefix: list or None
+            :param itemSets: the item sets of a patterns
+            :type itemSets: list
+            :param tidSets: the timestamp of a patterns
+            :type tidSets: list
+
+
+        """
         if len(itemSets) == 1:
             i = itemSets[0]
             tidi = tidSets[0]
@@ -332,7 +344,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
 
     def _getNeighbourItems(self, keySet):
         """
-            A function to get Neighbours of a item
+            A function to get Neighbours of an item
             :param keySet:itemSet
             :type keySet:str or tuple
             :return: set of common neighbours
@@ -465,7 +477,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -486,6 +498,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of  Spatial Partial Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

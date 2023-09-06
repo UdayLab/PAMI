@@ -1,3 +1,6 @@
+# Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
+# which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
+# techniques to reduce the search space.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -124,7 +127,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     
         Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
         which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
-         techniques to reduce the search space.
+        techniques to reduce the search space.
          
     Reference:
     -----------
@@ -285,7 +288,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _creatingItemSets(self):
         """
-                    Storing the complete transactions of the database/input file in a database variable
+           Storing the complete transactions of the database/input file in a database variable
 
         """
         self._transactionsDB, self._fuzzyValuesDB, self._ts = [], [], []
@@ -328,6 +331,9 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     quit()
 
     def _mapNeighbours(self):
+        """
+            A function to map items to their Neighbours
+        """
         self._mapItemNeighbours = {}
         if isinstance(self._nFile, _ab._pd.DataFrame):
             data, items = [], []

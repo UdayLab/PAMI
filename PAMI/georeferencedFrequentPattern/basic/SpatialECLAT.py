@@ -1,3 +1,7 @@
+#  SpatialEclat is an Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
+#  Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
+#  scalable version of the Apriori algorithm.
+#
 #  **Importing this algorithm into a python program**
 #  ---------------------------------------------------
 #
@@ -482,6 +486,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

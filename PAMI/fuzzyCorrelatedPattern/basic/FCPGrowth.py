@@ -1,3 +1,5 @@
+#  FCPGrowth is the algorithm to discover Correlated Fuzzy-frequent patterns in a transactional database.
+#  it is based on traditional fuzzy frequent pattern mining.
 #
 # **Importing this algorithm into a python program**
 # -----------------------------------
@@ -25,6 +27,8 @@
 #     run = obj.getRuntime
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
+#
 from PAMI.fuzzyCorrelatedPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
@@ -534,10 +538,10 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         :type prefix: len
         :param prefixLen: the length of prefix
         :type prefixLen: int
-           :param FSFIM: the Fuzzy list of prefix itemSets
-           :type FSFIM: list
-           :param minSup: the minimum support of 
-           :type minSup:int
+        :param FSFIM: the Fuzzy list of prefix itemSets
+        :type FSFIM: list
+        :param minSup: the minimum support of
+        :type minSup:int
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
