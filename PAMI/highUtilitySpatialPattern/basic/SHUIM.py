@@ -1,3 +1,6 @@
+# Spatial High Utility itemSet Mining (SHUIM) aims to discover all itemSets in a spatioTemporal database
+# that satisfy the user-specified minimum utility and maximum distance constraints
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -24,6 +27,8 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -410,6 +415,9 @@ class SHUIM(_ab._utilityPatterns):
         super().__init__(iFile, nFile, minUtil, sep)
 
     def startMine(self) -> None:
+        """
+           main program to start the operation
+        """
         self._startTime = _ab._time.time()
         self._patternCount = 0
         self._finalPatterns = {}
@@ -833,6 +841,8 @@ class SHUIM(_ab._utilityPatterns):
         return self._endTime-self._startTime
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Spatial High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

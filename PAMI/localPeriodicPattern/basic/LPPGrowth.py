@@ -1,5 +1,10 @@
-
-
+# Local Periodic Patterns, which are patterns (sets of events) that have a periodic behavior in some non predefined
+# time-intervals. A pattern is said to be a local periodic pattern if it appears regularly and continuously in some
+# time-intervals. The maxSoPer (maximal period of spillovers) measure allows detecting time-intervals of variable
+# lengths where a pattern is continuously periodic, while the minDur (minimal duration) measure ensures that those
+# time-intervals have a minimum duration.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -28,6 +33,9 @@
 #     runtime = obj.getRuntime()
 #
 #     print(f'Total execution time in seconds: {runtime})
+#
+#
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -801,6 +809,8 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         return self._localPeriodicPatterns__finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Local Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

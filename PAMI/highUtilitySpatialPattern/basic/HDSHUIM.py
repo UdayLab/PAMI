@@ -1,8 +1,12 @@
+# Spatial High Utility ItemSet Mining (SHUIM) [3] is an important model in data
+# mining with many real-world applications. It involves finding all spatially interesting itemSets having high value
+# in a quantitative spatio temporal database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#     from PAMI.highUtilityGeoreferencedFrequentPattern.basic import HDSHUIM as alg
+#     from PAMI.highUtilitySpatialPattern.basic import HDSHUIM as alg
 #
 #     obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 #
@@ -684,6 +688,8 @@ class HDSHUIM(_ab._utilityPatterns):
         return self._endTime - self._startTime
 
     def printResults(self) -> None:
+        """ This funtion is used to print the results
+        """
         print("Total number of Spatial High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
