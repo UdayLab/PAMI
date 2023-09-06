@@ -57,7 +57,7 @@ class _partialPeriodicPatterns(_ABC):
             Total amount of runtime taken by the program will be retrieved from this function
     """
 
-    def __init__(self, iFile, minPS, period, relativePS, sep='\t'):
+    def __init__(self, iFile: str, minPS: Union[int, float, str], period: Union[int, float, str], relativePS: bool, sep: str='\t') -> None:
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
@@ -79,19 +79,19 @@ class _partialPeriodicPatterns(_ABC):
         self._memoryRSS = float()
 
     @_abstractmethod
-    def startMine(self):
+    def startMine(self) -> None:
         """Code for the mining process will start from this function"""
 
         pass
 
     @_abstractmethod
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """Complete set of frequent patterns generated will be retrieved from this function"""
 
         pass
 
     @_abstractmethod
-    def save(self, oFile):
+    def save(self, oFile) -> None:
         """Complete set of frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
@@ -101,24 +101,24 @@ class _partialPeriodicPatterns(_ABC):
         pass
 
     @_abstractmethod
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _pd.DataFrame:
         """Complete set of frequent patterns will be loaded in to data frame from this function"""
 
         pass
 
     @_abstractmethod
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the program will be retrieved from this function"""
 
         pass
 
     @_abstractmethod
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the program will be retrieved from this function"""
         pass
 
     @_abstractmethod
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Total amount of runtime taken by the program will be retrieved from this function"""
 
         pass
