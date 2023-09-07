@@ -53,6 +53,7 @@ __copyright__ = """
 from itertools import groupby as _groupby
 from operator import itemgetter as _itemgetter
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class PFPMC(_ab._periodicFrequentPatterns):
@@ -195,13 +196,13 @@ class PFPMC(_ab._periodicFrequentPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
 
-    def _getPeriodic(self, tids: set):
+    def _getPeriodic(self, tids: set) -> int:
         tids = list(tids)
         tids.sort()
         temp = self._maxPer + 1
         if self._lastTid in tids:
             tids.remove(self._lastTid)
-        diffs = []
+            diffs = []
         for k, g in _groupby(enumerate(tids), lambda ix: ix[0] - ix[1]):
             diffs.append(len(list(map(_itemgetter(1), g))))
         if len(diffs) < 1:
@@ -249,7 +250,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
         return period'''
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the given user specified value
 
@@ -268,7 +269,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
-    def _creatingOneItemSets(self):
+    def _creatingOneItemSets(self) -> list:
         """Storing the complete transactions of the database/input file in a database variable
         """
         plist = []
@@ -333,7 +334,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
                 self._finalPatterns[item] = [sup, per, diff]
         return candidates
 
-    def _generateDiffsetEclat(self, candidates):
+    def _generateDiffsetEclat(self, candidates: list) -> None:
         new_freqList = []
         for i in range(0, len(candidates)):
             item1 = candidates[i]
@@ -356,7 +357,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         if len(new_freqList) > 0:
             self._generateDiffsetEclat(new_freqList)
 
-    def startMine(self):
+    def startMine(self) -> None:
         # print(f"Optimized {type(self).__name__}")
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
@@ -370,7 +371,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Periodic-Frequent patterns were generated successfully using PFPDiffset ECLAT algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -379,7 +380,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -388,7 +389,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -398,7 +399,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
@@ -412,7 +413,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -425,7 +426,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
             #s1 = x.replace(' ', '\t') + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
@@ -433,7 +434,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
