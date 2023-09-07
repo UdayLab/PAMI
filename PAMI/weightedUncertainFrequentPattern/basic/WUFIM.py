@@ -1,5 +1,5 @@
 # WUFIM is one of the algorithm to discover weighted frequent patterns in an uncertain transactional database
-#       using PUF-Tree.
+# using PUF-Tree.
 #
 #
 # **Importing this algorithm into a python program**
@@ -105,6 +105,12 @@ class _Node(object):
         self.parent = None
 
     def addChild(self, node):
+        """
+            Retrieving the child from the tree
+            :param node: Children node
+            :type node: Node
+            :return: Updates the children nodes and parent nodes
+        """
         self.children[node.item] = node
         node.parent = self
 
@@ -737,7 +743,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ this function is used to print the results
+        """ This function is used to print the results
         """
         print("Total number of  Weighted Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

@@ -1,18 +1,54 @@
+# SPAM is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+# This program employs SPAM property (or downward closure property) to  reduce the search space effectively.
+#  This algorithm employs breadth-first search technique  to find the complete set of frequent patterns in a sequential database.
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     import PAMI.frequentPattern.basic.SPAM as alg
+#
+#     obj = alg.SPAM(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternInDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
 
-#  Copyright (C)  2022 Rage Uday Kiran
-#
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
-#
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
-#
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 from PAMI.sequentialPatternMining.basic import abstract as _ab
 import sys
@@ -64,7 +100,7 @@ class SPAM(_ab._sequentialPatterns):
             _convert(value):
                 To convert the user specified minSup value
             make2BitDatabase():
-                To make 1 length frequent patterns by breadth-first search technique   and update Database to seqential database
+                To make 1 length frequent patterns by breadth-first search technique   and update Database to sequential database
             DfsPruning(items,sStep,iStep):
                 the main algorithm of spam. This can search sstep and istep items and find next patterns, its sstep, and its istep. And call this function again by using them. Recursion until there are no more items available for exploration.
             Sstep(s):
@@ -100,7 +136,7 @@ class SPAM(_ab._sequentialPatterns):
                 python3 SPAM.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
         Sample run of the importing code:
         ---------------------------------
-            import PAMI.seqentialFrequentPattern.basic.SPAM as alg
+            import PAMI.sequentialFrequentPattern.basic.SPAM as alg
             obj = alg.SPAM(iFile, minSup)
             obj.startMine()
             frequentPatterns = obj.getPatterns()
@@ -210,7 +246,7 @@ class SPAM(_ab._sequentialPatterns):
 
     def make2BitDatabase(self):
         """
-        To make 1 length frequent patterns by breadth-first search technique   and update Database to seqential database
+        To make 1 length frequent patterns by breadth-first search technique   and update Database to sequential database
         """
         self._maxSeqLen=max([len(i) for i in self._Database])
         lineNumber=0
@@ -293,7 +329,7 @@ class SPAM(_ab._sequentialPatterns):
 
     def Sstep(self,s):
         """
-        To convert bit to ssteo bit.The first time you get 1, you set it to 0 and subsequent ones to 1.(like 010101=>001111, 00001001=>00000111)
+        To convert bit to Sstep bit.The first time you get 1, you set it to 0 and subsequent ones to 1.(like 010101=>001111, 00001001=>00000111)
         Args:
             s:list
                 to store each bit sequence
@@ -410,7 +446,7 @@ class SPAM(_ab._sequentialPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -428,6 +464,8 @@ class SPAM(_ab._sequentialPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ this function is used to print the results
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

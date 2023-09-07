@@ -1,3 +1,53 @@
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#
+#     from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowthDump as alg
+#
+#     obj = alg.SPPGrowthDump(iFile, minSup, maxPer, maxLa)
+#
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of Stable Periodic Frequent Patterns:", len(Patterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternsAsDataFrame()
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+#
+#
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 from urllib.request import urlopen
 import validators
 import pandas as pd
@@ -17,7 +67,6 @@ class _Node:
 
     def __init__(self, item, children):
         """ Initializing the Node class
-
         :param item: Storing the item of a node
         :type item: int or None
         :param children: To maintain the children of a node
@@ -31,8 +80,7 @@ class _Node:
 
     def addChild(self, node):
         """ To add the children to a node
-
-            :param node: parent node in the tree
+              :param node: parent node in the tree
         """
 
         self.children[node.item] = node
@@ -46,7 +94,6 @@ class _Tree:
 
     def addTransaction(self, transaction, tid):
         """     Adding a transaction into tree
-
                 :param transaction: To represent the complete database
                 :type transaction: list
                 :param tid: To represent the timestamp of a database
@@ -70,7 +117,6 @@ class _Tree:
 
     def getConditionalPatterns(self, alpha):
         """Generates all the conditional patterns of a respective node
-
             :param alpha: To represent a Node in the tree
             :type alpha: Node
             :return: A tuple consisting of finalPatterns, conditional pattern base and information
@@ -93,7 +139,6 @@ class _Tree:
     @staticmethod
     def generateTimeStamps(node):
         """To get the timestamps of a node
-
         :param node: A node in the tree
         :return: Timestamps of a node
         """
@@ -103,7 +148,6 @@ class _Tree:
 
     def removeNode(self, nodeValue):
         """ Removing the node from tree
-
             :param nodeValue: To represent a node in the tree
             :type nodeValue: node
             :return: Tree with their nodes updated with timestamps
@@ -115,7 +159,6 @@ class _Tree:
 
     def getTimeStamps(self, alpha):
         """ To get all the timestamps of the nodes which share same item name
-
             :param alpha: Node in a tree
             :return: Timestamps of a  node
         """
@@ -127,7 +170,6 @@ class _Tree:
     @staticmethod
     def getSupportAndPeriod(timeStamps):
         """To calculate the periodicity and support
-
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
         """
@@ -143,7 +185,6 @@ class _Tree:
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps):
         """ It generates the conditional patterns with periodic-frequent items
-
             :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
             :type conditionalPatterns: list
             :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
@@ -177,7 +218,6 @@ class _Tree:
 
     def generatePatterns(self, prefix):
         """ Generates the patterns
-
             :param prefix: Forms the combination of items
             :type prefix: list
             :returns: yields patterns with their support and periodicity
@@ -298,7 +338,6 @@ class SPPGrowth():
 
     def _updateDatabases(self, dict1):
         """ Remove the items which are not frequent from database and updates the database with rank of items
-
             :param dict1: frequent items with support
             :type dict1: dictionary
             :return: Sorted and updated transactions
@@ -318,9 +357,8 @@ class SPPGrowth():
 
     @staticmethod
     def _buildTree(data, info):
-        """ It takes the database and support of an each item and construct the main tree by setting root node as a null
-
-            :param data: it represents the one Databases in database
+        """ It takes the database and support of each item and construct the main tree by setting root node as a null
+            :param data: it represents the one Database in database
             :type data: list
             :param info: it represents the support of each item
             :type info: dictionary
@@ -336,7 +374,6 @@ class SPPGrowth():
 
     def _savePeriodic(self, itemSet):
         """ To convert the ranks of items in to their original item names
-
             :param itemSet: frequent pattern
             :return: frequent pattern with original item names
         """
@@ -348,7 +385,6 @@ class SPPGrowth():
     def _convert(self, value):
         """
         To convert the given user specified value
-
         :param value: user specified value
         :return: converted value
         """
@@ -444,8 +480,7 @@ class SPPGrowth():
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
-
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """

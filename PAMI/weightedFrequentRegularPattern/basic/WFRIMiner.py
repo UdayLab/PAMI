@@ -87,11 +87,10 @@ class _Node:
 
     def __init__(self, item, children):
         """ Initializing the Node class
-
-        :param item: Storing the item of a node
-        :type item: int or None
-        :param children: To maintain the children of a node
-        :type children: dict
+         :param item: Storing the item of a node
+         :type item: int or None
+         :param children: To maintain the children of a node
+         :type children: dict
         """
 
         self.item = item
@@ -100,9 +99,11 @@ class _Node:
         self.timeStamps = []
 
     def addChild(self, node):
-        """ To add the children to a node
-
-            :param node: parent node in the tree
+        """
+            Retrieving the child from the tree
+            :param node: Children node
+            :type node: Node
+            :return: Updates the children nodes and parent nodes
         """
 
         self.children[node.item] = node
@@ -141,7 +142,6 @@ class _Tree:
 
     def addTransaction(self, transaction, tid):
         """     Adding a transaction into tree
-
                 :param transaction: To represent the complete database
                 :type transaction: list
                 :param tid: To represent the timestamp of a database
@@ -165,7 +165,6 @@ class _Tree:
 
     def getConditionalPatterns(self, alpha, pattern):
         """Generates all the conditional patterns of a respective node
-
             :param alpha: To represent a Node in the tree
             :type alpha: Node
             :param pattern: prefix of the pattern
@@ -190,9 +189,8 @@ class _Tree:
     @staticmethod
     def generateTimeStamps(node):
         """To get the timestamps of a node
-
-        :param node: A node in the tree
-        :return: Timestamps of a node
+            :param node: A node in the tree
+            :return: Timestamps of a node
         """
 
         finalTimeStamps = node.timeStamps
@@ -200,10 +198,9 @@ class _Tree:
 
     def removeNode(self, nodeValue):
         """ Removing the node from tree
-
-            :param nodeValue: To represent a node in the tree
-            :type nodeValue: node
-            :return: Tree with their nodes updated with timestamps
+             :param nodeValue: To represent a node in the tree
+             :type nodeValue: node
+             :return: Tree with their nodes updated with timestamps
         """
 
         for i in self.summaries[nodeValue]:
@@ -212,7 +209,6 @@ class _Tree:
 
     def getTimeStamps(self, alpha):
         """ To get all the timestamps of the nodes which share same item name
-
             :param alpha: Node in a tree
             :return: Timestamps of a  node
         """
@@ -224,12 +220,11 @@ class _Tree:
     @staticmethod
     def getSupportAndPeriod(timeStamps, pattern):
         """To calculate the periodicity and support
-
-        :param timeStamps: Timestamps of an item set
-        :type timeStamps: list
-        :param pattern: pattern to evaluate the weighted frequent regular or not
-        :type pattern: list
-        :return: support, periodicity
+            :param timeStamps: Timestamps of an item set
+            :type timeStamps: list
+            :param pattern: pattern to evaluate the weighted frequent regular or not
+            :type pattern: list
+            :return: support, periodicity
         """
 
         global _WS, _regularity, _lno, _weights
@@ -252,7 +247,6 @@ class _Tree:
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps, pattern):
         """ It generates the conditional patterns with periodic-frequent items
-
             :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
             :type conditionalPatterns: list
             :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
@@ -288,7 +282,6 @@ class _Tree:
 
     def generatePatterns(self, prefix):
         """ Generates the patterns
-
             :param prefix: Forms the combination of items
             :type prefix: list
             :returns: yields patterns with their support and periodicity
@@ -522,10 +515,8 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     def _convert(self, value):
         """
         to convert the type of user specified minSup value
-
-        :param value: user specified minSup value
-
-        :return: converted type
+           :param value: user specified minSup value
+           :return: converted type
         """
         if type(value) is int:
             value = int(value)
@@ -725,10 +716,8 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
     def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to an output file
-
-        :param outFile: name of the output file
-
-        :type outFile: file
+             :param outFile: name of the output file
+             :type outFile: file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -746,7 +735,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ this function is used to print the results
+        """ This function is used to print the results
         """
         print("Total number of  Weighted Frequent Regular Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
