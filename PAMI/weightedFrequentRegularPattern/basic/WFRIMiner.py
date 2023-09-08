@@ -733,7 +733,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """ this function is used to print the results
+        """ This function is used to print the results
         """
         print("Total number of  Weighted Frequent Regular Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
