@@ -53,6 +53,7 @@ __copyright__ = """
 """
 
 from PAMI.weightedFrequentRegularPattern.basic import abstract as _fp
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 _WS = str()
 _regularity = str()
@@ -85,7 +86,7 @@ class _Node:
 
     """
 
-    def __init__(self, item, children):
+    def __init__(self, item: int, children: dict) -> None:
         """ Initializing the Node class
 
         :param item: Storing the item of a node
@@ -99,7 +100,7 @@ class _Node:
         self.parent = None
         self.timeStamps = []
 
-    def addChild(self, node):
+    def addChild(self, node) -> None:
         """ To add the children to a node
 
             :param node: parent node in the tree
@@ -134,12 +135,12 @@ class _Tree:
             generating the patterns from fp-tree
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
-    def addTransaction(self, transaction, tid):
+    def addTransaction(self, transaction: list, tid: list) -> None:
         """     Adding a transaction into tree
 
                 :param transaction: To represent the complete database
@@ -163,7 +164,7 @@ class _Tree:
                 currentNode = currentNode.children[transaction[i]]
         currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def getConditionalPatterns(self, alpha, pattern):
+    def getConditionalPatterns(self, alpha, pattern) -> tuple:
         """Generates all the conditional patterns of a respective node
 
             :param alpha: To represent a Node in the tree
@@ -188,7 +189,7 @@ class _Tree:
         return finalPatterns, finalSets, info
 
     @staticmethod
-    def generateTimeStamps(node):
+    def generateTimeStamps(node) -> list:
         """To get the timestamps of a node
 
         :param node: A node in the tree
@@ -198,7 +199,7 @@ class _Tree:
         finalTimeStamps = node.timeStamps
         return finalTimeStamps
 
-    def removeNode(self, nodeValue):
+    def removeNode(self, nodeValue) -> None:
         """ Removing the node from tree
 
             :param nodeValue: To represent a node in the tree
@@ -210,7 +211,7 @@ class _Tree:
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
             del i.parent.children[nodeValue]
 
-    def getTimeStamps(self, alpha):
+    def getTimeStamps(self, alpha) -> list:
         """ To get all the timestamps of the nodes which share same item name
 
             :param alpha: Node in a tree
@@ -222,7 +223,7 @@ class _Tree:
         return temporary
 
     @staticmethod
-    def getSupportAndPeriod(timeStamps, pattern):
+    def getSupportAndPeriod(timeStamps: list, pattern: list) -> list:
         """To calculate the periodicity and support
 
         :param timeStamps: Timestamps of an item set
@@ -250,7 +251,7 @@ class _Tree:
             return [0, 0]
         return [sup, max(per), wf]
 
-    def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps, pattern):
+    def conditionalDatabases(self, conditionalPatterns: list, conditionalTimeStamps: list, pattern: list) -> tuple:
         """ It generates the conditional patterns with periodic-frequent items
 
             :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
@@ -286,7 +287,7 @@ class _Tree:
             count += 1
         return pat, timeStamps, updatedDictionary
 
-    def generatePatterns(self, prefix):
+    def generatePatterns(self, prefix: list) -> None:
         """ Generates the patterns
 
             :param prefix: Forms the combination of items
@@ -446,10 +447,10 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     _rank = {}
     _rankDup = {}
 
-    def __init__(self, iFile, _wFile, WS, regularity, sep='\t'):
+    def __init__(self, iFile, _wFile, WS, regularity, sep='\t') -> None:
         super().__init__(iFile, _wFile, WS, regularity, sep)
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -519,7 +520,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
                     print("File Not Found")
                     quit()
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         to convert the type of user specified minSup value
 
@@ -539,7 +540,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
                 value = int(value)
         return value
 
-    def _frequentOneItem(self):
+    def _frequentOneItem(self) -> List[str]:
         """
         Generating One frequent items sets
 
@@ -576,7 +577,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             _weights[y] = self._weight[x]
         return genList
 
-    def _updateTransactions(self, itemSet):
+    def _updateTransactions(self, itemSet) -> List[List[int]]:
         """
         Updates the items in transactions with rank of items according to their support
 
@@ -604,7 +605,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         return list1
 
     @staticmethod
-    def _buildTree(transactions, info):
+    def _buildTree(transactions, info) -> _Tree:
         """
         Builds the tree with updated transactions
         Parameters:
@@ -624,7 +625,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             rootNode.addTransaction(transactions[i][1:], set1)
         return rootNode
 
-    def _savePeriodic(self, itemSet):
+    def _savePeriodic(self, itemSet) -> str:
         """
         The duplication items and their ranks
         Parameters:
@@ -641,7 +642,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             temp = temp + self._rankDup[i] + "\t"
         return temp
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
             main program to start the operation
 
@@ -677,7 +678,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -687,7 +688,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -697,7 +698,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -708,7 +709,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _fp._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -723,7 +724,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -736,7 +737,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, float]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -745,7 +746,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ this function is used to print the results
         """
         print("Total number of  Weighted Frequent Regular Patterns:", len(self.getPatterns()))
