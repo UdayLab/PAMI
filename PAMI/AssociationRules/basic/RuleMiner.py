@@ -1,4 +1,4 @@
-#   RuleMiner is a temporalDatabaseStats is class to get stats of database.
+#   RuleMiner code is used to extract the association rules from given frequent patterns.
 #
 #
 # **Importing this algorithm into a python program**
@@ -253,7 +253,7 @@ class Leverage:
 class RuleMiner:
     """
         :Description:
-            temporalDatabaseStats is class to get stats of database.
+            RuleMiner code is used to extract the association rules from given frequent patterns
         :Reference:
 
 
