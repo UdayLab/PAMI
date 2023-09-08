@@ -1,3 +1,5 @@
+# STEclat is one of the fundamental algorithm to discover geo refereneced partial periodic-frequent patterns in a transactional database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -53,7 +55,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     """
     Description:
     ------------
-       STEclat is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
+       STEclat is one of the fundamental algorithm to discover georefereneced partial periodic-frequent patterns in a transactional database.
 
 
 
