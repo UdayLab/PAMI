@@ -68,7 +68,7 @@ class createNeighborhoodFileUsingEuclideanDistance:
          obj.save()
     """
 
-    def __init__(self,iFile: str,oFile: str,maxEucledianDistance: int, seperator='\t'):
+    def __init__(self,iFile: str,oFile: str,maxEucledianDistance: int, seperator='\t') -> None:
         self.iFile = iFile
         self.oFile = oFile
         self.maxEucledianDistance = maxEucledianDistance
