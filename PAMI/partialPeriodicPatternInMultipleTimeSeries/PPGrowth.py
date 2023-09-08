@@ -1,5 +1,5 @@
-
-
+# PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -92,8 +92,7 @@ class _Node(object):
 
     def addChild(self, node):
         """ To add the children to a node
-
-            :param node: parent node in the tree
+              :param node: parent node in the tree
         """
 
         self.children[node.item] = node
@@ -137,7 +136,6 @@ class _Tree(object):
 
     def addTransaction(self, transaction, tid):
         """     Adding a transaction into tree
-
                 :param transaction: To represent the complete database
                 :type transaction: list
                 :param tid: To represent the timestamp of a database
@@ -161,7 +159,6 @@ class _Tree(object):
 
     def getConditionalPatterns(self, alpha):
         """Generates all the conditional patterns of a respective node
-
             :param alpha: To represent a Node in the tree
             :type alpha: Node
             :return: A tuple consisting of finalPatterns, conditional pattern base and information
@@ -184,7 +181,6 @@ class _Tree(object):
     @staticmethod
     def generateTimeStamps(node):
         """To get the timestamps of a node
-
         :param node: A node in the tree
         :return: Timestamps of a node
         """
@@ -194,7 +190,6 @@ class _Tree(object):
 
     def removeNode(self, nodeValue):
         """ Removing the node from tree
-
             :param nodeValue: To represent a node in the tree
             :type nodeValue: node
             :return: Tree with their nodes updated with timestamps
@@ -206,7 +201,6 @@ class _Tree(object):
 
     def getTimeStamps(self, alpha):
         """ To get all the timestamps of the nodes which share same item name
-
             :param alpha: Node in a tree
             :return: Timestamps of a  node
         """
@@ -218,7 +212,6 @@ class _Tree(object):
     @staticmethod
     def getSupportAndPeriod(timeStamps):
         """To calculate the periodicity and support
-
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
         """
@@ -241,7 +234,6 @@ class _Tree(object):
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps):
         """ It generates the conditional patterns with periodic-frequent items
-
             :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
             :type conditionalPatterns: list
             :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
@@ -275,7 +267,6 @@ class _Tree(object):
 
     def generatePatterns(self, prefix):
         """ Generates the patterns
-
             :param prefix: Forms the combination of items
             :type prefix: list
             :returns: yields patterns with their support and periodicity
@@ -440,8 +431,6 @@ class PPGrowth(_ab._partialPeriodicPatterns):
     def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
-
-
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -506,7 +495,6 @@ class PPGrowth(_ab._partialPeriodicPatterns):
 
     def _updateDatabases(self, dict1):
         """ Remove the items which are not frequent from database and updates the database with rank of items
-
             :param dict1: frequent items with support
             :type dict1: dictionary
             :return: Sorted and updated transactions
@@ -527,7 +515,6 @@ class PPGrowth(_ab._partialPeriodicPatterns):
     @staticmethod
     def _buildTree(data, info):
         """ It takes the database and support of an each item and construct the main tree by setting root node as a null
-
             :param data: it represents the one Databases in database
             :type data: list
             :param info: it represents the support of each item
@@ -544,7 +531,6 @@ class PPGrowth(_ab._partialPeriodicPatterns):
 
     def _savePeriodic(self, itemSet,change):
         """ To convert the ranks of items in to their original item names
-
             :param itemSet: frequent pattern
             :return: frequent pattern with original item names
         """
@@ -556,7 +542,6 @@ class PPGrowth(_ab._partialPeriodicPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
-
         :param value: user specified value
         :return: converted value
         """
@@ -573,6 +558,9 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         return value
 
     def _convertNumber(self):
+        """
+        To convert the given number
+        """
         changeDic={}
         rechangeDic={}
         newDatabase=[]
@@ -690,6 +678,8 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Partial Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

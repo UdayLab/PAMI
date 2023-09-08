@@ -55,7 +55,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     """
     Description:
     ------------
-       PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
+       STEclat is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
 
 
