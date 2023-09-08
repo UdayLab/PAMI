@@ -50,6 +50,7 @@ __copyright__ = """
 
 
 from PAMI.partialPeriodicPattern.basic import Gabstract as _abstract
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
@@ -81,13 +82,13 @@ class _Node(object):
         storing the children to their respective parent nodes
     """
 
-    def __init__(self, item, children):
+    def __init__(self, item: int, children: list)-> None:
         self.item = item
         self.children = children
         self.parent = None
         self.timeStamps = []
 
-    def addChild(self, node):
+    def addChild(self, node) -> None:
         self.children[node.item] = node
         node.parent = self
 
@@ -124,12 +125,12 @@ class _Tree(object):
 
             """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
-    def _addTransaction(self, transaction, tid):
+    def _addTransaction(self, transaction: list, tid: list) -> None:
         """
                 adding transaction into tree
 
@@ -152,7 +153,7 @@ class _Tree(object):
                 currentNode = currentNode.children[transaction[i]]
         currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def _getConditionalPatterns(self, alpha, pattern):
+    def _getConditionalPatterns(self, alpha, pattern) -> Tuple[list, list, dict]:
         """
             generates all the conditional patterns of respective node
 
@@ -174,11 +175,11 @@ class _Tree(object):
         finalPatterns, finalSets, info = self._conditionalTransactions(finalPatterns, finalSets, pattern)
         return finalPatterns, finalSets, info
 
-    def _generateTimeStamps(self, node):
+    def _generateTimeStamps(self, node) -> list:
         finalTs = node.timeStamps
         return finalTs
 
-    def _removeNode(self, nodeValue):
+    def _removeNode(self, nodeValue) -> None:
         """
             removing the node from tree
 
@@ -189,7 +190,7 @@ class _Tree(object):
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
             del i.parent.children[nodeValue]
 
-    def _getTimeStamps(self, alpha):
+    def _getTimeStamps(self, alpha) -> list:
         """
         Returns the timeStamps of a node
 
@@ -207,7 +208,7 @@ class _Tree(object):
             temporary += i.timeStamps
         return temporary
 
-    def _getPeriodicSupport(self, timeStamps, pattern):
+    def _getPeriodicSupport(self, timeStamps, pattern) -> List[float]:
         """
             calculates the support and periodicity with list of timestamps
 
@@ -232,7 +233,7 @@ class _Tree(object):
         rs = per/abs(min(l) - 1)
         return [per, rs]
 
-    def _conditionalTransactions(self, conditionalPatterns, conditionalTimeStamps, temp):
+    def _conditionalTransactions(self, conditionalPatterns, conditionalTimeStamps, temp) -> Tuple[list, list, dict]:
         """ It generates the conditional patterns with periodic frequent items
 
                 :param conditionalPatterns : conditional_patterns generated from condition_pattern method for
@@ -265,7 +266,7 @@ class _Tree(object):
             count += 1
         return patterns, timeStamps, updatedDictionary
 
-    def _generatePatterns(self, prefix):
+    def _generatePatterns(self, prefix) -> Generator[Tuple[list, dict], None, None]:
         """generates the patterns
 
                 :param prefix : forms the combination of items
@@ -431,7 +432,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
     _rankdup = {}
     _lno = 0
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -476,7 +477,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                     print("File Not Found")
                     quit()
 
-    def _partialPeriodicOneItem(self):
+    def _partialPeriodicOneItem(self) -> Tuple[dict, List[str]]:
         """
                     calculates the support of each item in the dataset and assign the ranks to the items
                     by decreasing support and returns the frequent items list
@@ -505,7 +506,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
             _frequentList[y] = data[x][2]
         return data, pfList
 
-    def _updateTransactions(self, dict1):
+    def _updateTransactions(self, dict1) -> List[list]:
         """remove the items which are not frequent from transactions and updates the transactions with rank of items
 
                     :param dict1 : frequent items with support
@@ -524,7 +525,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                 list1.append(list2)
         return list1
 
-    def _buildTree(self, data, info):
+    def _buildTree(self, data, info) -> str:
         """it takes the transactions and support of each item and construct the main tree with setting root
                             node as null
 
@@ -541,7 +542,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
             rootNode._addTransaction(data[i][1:], set1)
         return rootNode
 
-    def _savePeriodic(self, itemset):
+    def _savePeriodic(self, itemset) -> str:
         """
         To convert the pattern with its original item name
         :param itemset: partial periodic pattern
@@ -552,7 +553,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
             temp = temp + self._rankdup[i] + " "
         return temp
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the given user specified value
 
@@ -574,7 +575,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
                 value = int(value)
         return value
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
                    Main method where the patterns are mined by constructing tree.
 
@@ -609,7 +610,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Partial Periodic Patterns were generated successfully using Generalized 3PGrowth algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -618,7 +619,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -627,7 +628,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -651,7 +652,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
             dataFrame = _abstract._pd.DataFrame(data, columns=['Patterns', 'periodicSupport'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str):
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -670,7 +671,7 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
         :rtype: dict
         """
         return self._finalPatterns
-    def printResults(self):
+    def printResults(self) -> None:
         """ this function is used to print the results
         """
         print("Total number of  Weighted Uncertain Frequent Patterns:", len(self.getPatterns()))
