@@ -464,7 +464,7 @@ class SPAM(_ab._sequentialPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ this function is used to print the results
+        """ This function is used to print the results
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
