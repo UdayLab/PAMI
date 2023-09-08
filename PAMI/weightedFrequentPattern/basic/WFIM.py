@@ -1,3 +1,7 @@
+# WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.
+# It stores the database in compressed fp-tree decreasing the memory usage and extracts the
+# patterns from tree.It employs downward closure property to  reduce the search space effectively.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -16,7 +20,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -125,7 +129,7 @@ class _Tree:
 
     def addTransaction(self, transaction: List[str], count: int) -> None:
         """adding transaction into tree
-        :param transaction: it represents the one transactions in database
+        :param transaction: it represents the one transaction in database
         :type transaction: list
         :param count: frequency of item
         :type count: int
@@ -620,6 +624,8 @@ class WFIM(_fp._weightedFrequentPatterns):
         return self.__finalPatterns
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of  Weighted Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

@@ -91,9 +91,9 @@ class transactionalToFuzzy(_ab._convert):
         self._fuzzyRegionReferenceMap = {}
 
     def _creatingItemSets(self) -> None:
-      """
-     To process the input file and store the timestamps, items, and their values as lists respectively.
-     """
+        """
+          To process the input file and store the timestamps, items, and their values as lists respectively.
+        """
         self._transactionsDB, self._fuzzyValuesDB, self._tsDB = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:

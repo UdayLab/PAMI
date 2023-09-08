@@ -1,5 +1,10 @@
-
-
+# Local Periodic Patterns, which are patterns (sets of events) that have a periodic behavior in some non predefined
+# time-intervals. A pattern is said to be a local periodic pattern if it appears regularly and continuously in some
+# time-intervals. The maxSoPer (maximal period of spillovers) measure allows detecting time-intervals of variable
+# lengths where a pattern is continuously periodic, while the minDur (minimal duration) measure ensures that those
+# time-intervals have a minimum duration.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -28,6 +33,9 @@
 #     runtime = obj.getRuntime()
 #
 #     print(f'Total execution time in seconds: {runtime})
+#
+#
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -47,6 +55,7 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 
 """
+
 
 
 from PAMI.localPeriodicPattern.basic import abstract as _ab
@@ -84,6 +93,7 @@ class Node:
 
     def getChild(self, item: int) -> 'Node':
         """
+        This function is used to get child node from the parent node
         :param item:
         :return: if node have node of item, then return it. if node don't have return []
         """
@@ -127,7 +137,7 @@ class Tree:
     def addTransaction(self, transaction: List[int], tid: int) -> None:
         """
         add transaction into tree
-            :param transaction: it represents the one transactions in database
+            :param transaction: it represents the one transaction in database
             :type transaction: list
             :param tid: represents the timestamp of transaction
             :type tid: list or int
@@ -285,7 +295,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
             getLocalPeriodicPatterns()
                 return local periodic patterns and its PTL
             save(oFile)
-                Complete set of local periodic patterns will be loaded in to a output file.
+                Complete set of local periodic patterns will be loaded in to an output file.
             getPatternsAsDataFrame()
                 Complete set of local periodic patterns will be loaded in to a dataframe.
 
@@ -356,8 +366,6 @@ class LPPGrowth(_ab._localPeriodicPatterns):
     def __creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
-
-
         """
         self.__Database = []
         if isinstance(self._localPeriodicPatterns__iFile, _ab._pd.DataFrame):
@@ -557,12 +565,12 @@ class LPPGrowth(_ab._localPeriodicPatterns):
     def __patternGrowth(self, tree: 'Tree', prefix: List[int], prefixPFList: Dict[Any, Any]) -> None:
         """
         Create prefix tree and prefixPFList. Store finalPatterns and its PTL.
-        :param tree: The root node of prefix tree.
-        :type tree: Node or Tree
-        :param prefix: Prefix item list.
-        :type prefix: list
-        :param prefixPFList: tsList of prefix patterns.
-        :type prefixPFList: dict or list
+          :param tree: The root node of prefix tree.
+          :type tree: Node or Tree
+          :param prefix: Prefix item list.
+          :type prefix: list
+          :param prefixPFList: tsList of prefix patterns.
+          :type prefixPFList: dict or list
         """
         items = list(prefixPFList)
         if not prefix:
@@ -615,9 +623,9 @@ class LPPGrowth(_ab._localPeriodicPatterns):
     def __calculatePTL(self, tsList: List[int]) -> set:
         """
         Calculate PTL from input tsList as integer list/
-        :param tsList: It is tsList which store time stamp as integer.
-        :type tsList: list
-        :return: PTL
+          :param tsList: It is tsList which store time stamp as integer.
+          :type tsList: list
+          :return: PTL
         """
         start = -1
         PTL = set()
@@ -646,10 +654,10 @@ class LPPGrowth(_ab._localPeriodicPatterns):
 
     def __calculatePTLbit(self, tsList: List[int]) -> set:
         """
-        Calculate PTL from input tsList as bit vector.
-        :param tsList: It is tsList which store time stamp as bit vector.
-        :type tsList: list
-        :return: PTL
+           Calculate PTL from input tsList as bit vector.
+            :param tsList: It is tsList which store time stamp as bit vector.
+            :type tsList: list
+            :return: PTL
         """
         tsList = list(bin(tsList))
         tsList = tsList[2:]
@@ -775,10 +783,9 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of local periodic patterns will be loaded in to a output file
-
-        :param outFile: name of the output file
-        :type outFile: file
+        """Complete set of local periodic patterns will be loaded in to an output file
+           :param outFile: name of the output file
+           :type outFile: file
         """
         self._localPeriodicPatterns__oFile = outFile
         writer = open(self._localPeriodicPatterns__oFile, 'w+')
@@ -801,6 +808,8 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         return self._localPeriodicPatterns__finalPatterns
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Local Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

@@ -88,7 +88,6 @@ class _Node:
 
     def __init__(self, item: int, children: dict) -> None:
         """ Initializing the Node class
-
         :param item: Storing the item of a node
         :type item: int or None
         :param children: To maintain the children of a node
@@ -102,8 +101,7 @@ class _Node:
 
     def addChild(self, node) -> None:
         """ To add the children to a node
-
-            :param node: parent node in the tree
+             :param node: parent node in the tree
         """
 
         self.children[node.item] = node
@@ -142,7 +140,6 @@ class _Tree:
 
     def addTransaction(self, transaction: list, tid: list) -> None:
         """     Adding a transaction into tree
-
                 :param transaction: To represent the complete database
                 :type transaction: list
                 :param tid: To represent the timestamp of a database
@@ -166,7 +163,6 @@ class _Tree:
 
     def getConditionalPatterns(self, alpha, pattern) -> tuple:
         """Generates all the conditional patterns of a respective node
-
             :param alpha: To represent a Node in the tree
             :type alpha: Node
             :param pattern: prefix of the pattern
@@ -191,7 +187,6 @@ class _Tree:
     @staticmethod
     def generateTimeStamps(node) -> list:
         """To get the timestamps of a node
-
         :param node: A node in the tree
         :return: Timestamps of a node
         """
@@ -201,7 +196,6 @@ class _Tree:
 
     def removeNode(self, nodeValue) -> None:
         """ Removing the node from tree
-
             :param nodeValue: To represent a node in the tree
             :type nodeValue: node
             :return: Tree with their nodes updated with timestamps
@@ -213,7 +207,6 @@ class _Tree:
 
     def getTimeStamps(self, alpha) -> list:
         """ To get all the timestamps of the nodes which share same item name
-
             :param alpha: Node in a tree
             :return: Timestamps of a  node
         """
@@ -225,7 +218,6 @@ class _Tree:
     @staticmethod
     def getSupportAndPeriod(timeStamps: list, pattern: list) -> list:
         """To calculate the periodicity and support
-
         :param timeStamps: Timestamps of an item set
         :type timeStamps: list
         :param pattern: pattern to evaluate the weighted frequent regular or not
@@ -253,7 +245,6 @@ class _Tree:
 
     def conditionalDatabases(self, conditionalPatterns: list, conditionalTimeStamps: list, pattern: list) -> tuple:
         """ It generates the conditional patterns with periodic-frequent items
-
             :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
             :type conditionalPatterns: list
             :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
@@ -289,7 +280,6 @@ class _Tree:
 
     def generatePatterns(self, prefix: list) -> None:
         """ Generates the patterns
-
             :param prefix: Forms the combination of items
             :type prefix: list
             :returns: yields patterns with their support and periodicity
@@ -523,10 +513,8 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     def _convert(self, value) -> float:
         """
         to convert the type of user specified minSup value
-
-        :param value: user specified minSup value
-
-        :return: converted type
+           :param value: user specified minSup value
+           :return: converted type
         """
         if type(value) is int:
             value = int(value)
@@ -726,10 +714,8 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
     def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
-
-        :param outFile: name of the output file
-
-        :type outFile: file
+            :param outFile: name of the output file
+            :type outFile: file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

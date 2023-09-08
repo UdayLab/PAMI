@@ -1,4 +1,5 @@
-
+# RHUIM algorithm helps us to mine Relative High Utility itemSets from transactional databases.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -17,7 +18,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -28,6 +29,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
 
 
 __copyright__ = """
@@ -199,6 +201,9 @@ class _Dataset:
         self.createItemSets(datasetPath)
 
     def createItemSets(self, datasetPath: str) -> None:
+        """
+            Storing the complete transactions of the database/input file in a database variable
+        """
         self.transactions = []
         itemsets, utilities, utilityValues = [], [], []
         if isinstance(datasetPath, _ab._pd.DataFrame):
@@ -275,7 +280,7 @@ class _Dataset:
 
     def getMaxItem(self) -> int:
         """
-            A method to return name of largest item
+            A method to return name of the largest item
         """
         return self.maxItem
 
@@ -446,6 +451,8 @@ class RHUIM(_ab._utilityPatterns):
         super().__init__(iFile, minUtil, minUR, sep)
 
     def startMine(self) -> None:
+        """ Mining process will start from this function
+        """
         self._startTime = _ab._time.time()
         self._dataset = _Dataset(self._iFile, self._sep)
         self._finalPatterns = {}
@@ -578,13 +585,13 @@ class RHUIM(_ab._utilityPatterns):
 
     def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe: list, j: int, itemsToKeep: list) -> None:
         """
-            A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
+            A method to  calculate the subtree utility and local utility of all items that can extend itemSet P U {e}
 
             Attributes:
             -----------
             :param transactionsPe: transactions the projected database for P U {e}
             :type transactionsPe: list or Dataset
-            :param j:he position of j in the list of promising items
+            :param j: the position of j in the list of promising items
             :type j:int
             :param itemsToKeep :the list of promising items
             :type itemsToKeep: list or Dataset
@@ -654,7 +661,7 @@ class RHUIM(_ab._utilityPatterns):
 
     def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset: _Dataset) -> None:
         """
-        Scan the initial database to calculate the subtree utility of each items using a utility-bin array
+        Scan the initial database to calculate the subtree utility of each item using a utility-bin array
 
         Attributes:
         ----------
@@ -770,8 +777,7 @@ class RHUIM(_ab._utilityPatterns):
         return self._finalPatterns
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to a output file
-
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -808,6 +814,8 @@ class RHUIM(_ab._utilityPatterns):
         return self._endTime-self._startTime
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Relative Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

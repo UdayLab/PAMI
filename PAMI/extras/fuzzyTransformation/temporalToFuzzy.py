@@ -82,9 +82,9 @@ class temporalToFuzzy(_ab._convert):
         self._fuzzyRegionReferenceMap = {}
 
     def _creatingItemSets(self) -> None:
-     """
-     To process the input file and store the timestamps, items, and their values as lists respectively.
-     """
+        """
+          To process the input file and store the timestamps, items, and their values as lists respectively.
+        """
         self._transactionsDB, self._fuzzyValuesDB, self._tsDB = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -150,15 +150,15 @@ class temporalToFuzzy(_ab._convert):
             quit()
 
     def _Regions(self, quantity: int) -> None:
-     """
-     calculate the labelled region of input "quantity"
-     
-     :param quantity: represents the quantity of item
-     
-     :type quantity: int
-     
-     :return: None
-     """
+        """
+        calculate the labelled region of input "quantity"
+
+        :param quantity: represents the quantity of item
+
+        :type quantity: int
+
+         :return: None
+        """
         self._list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
             self._list[0] = 1
@@ -175,9 +175,9 @@ class temporalToFuzzy(_ab._convert):
             return
 
     def startConvert(self) -> None:
-     """
+        """
         Main method to convert the temporal database into fuzzy database.
-     """
+        """
         _writer = open(self._oFile, 'w+')
         self._creatingItemSets()
         self._fuzzyMembershipFunc()

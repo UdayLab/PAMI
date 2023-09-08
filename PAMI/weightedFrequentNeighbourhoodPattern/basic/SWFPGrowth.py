@@ -15,7 +15,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -30,6 +30,8 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
+#
 
 
 __copyright__ = """
@@ -63,6 +65,15 @@ _fp._sys.setrecursionlimit(20000)
 
 
 class _WeightedItem:
+    """ A class used to represent the weight of the item
+    Attributes:
+    ----------
+        item: str
+            storing item of the frequent pattern
+        weight: float
+            stores the weight of the item
+
+    """
     def __init__(self, item: str, weight: float) -> None:
         self.item = item
         self.weight = weight
@@ -101,7 +112,6 @@ class _Node:
     def addChild(self, node: '_Node') -> None:
         """
             Retrieving the child from the tree
-
             :param node: Children node
             :type node: Node
             :return: Updates the children nodes and parent nodes
@@ -143,14 +153,10 @@ class _Tree:
 
     def addTransaction(self, transaction: List[_WeightedItem], count: int) -> None:
         """adding transaction into tree
-
-        :param transaction: it represents the one transaction in database
-
-        :type transaction: list
-
-        :param count: frequency of item
-
-        :type count: int
+          :param transaction: it represents the one transaction in database
+          :type transaction: list
+          :param count: frequency of item
+          :type count: int
         """
 
         # This method takes transaction as input and returns the tree
@@ -179,14 +185,10 @@ class _Tree:
 
     def addConditionalPattern(self, transaction: List[_WeightedItem], count: int) -> None:
         """adding transaction into tree
-
-        :param transaction: it represents the one transaction in database
-
-        :type transaction: list
-
-        :param count: frequency of item
-
-        :type count: int
+            :param transaction: it represents the one transaction in database
+            :type transaction: list
+            :param count: frequency of item
+            :type count: int
         """
 
         # This method takes transaction as input and returns the tree
@@ -215,8 +217,7 @@ class _Tree:
 
     def printTree(self, root: _Node) -> None:
         """ To print the details of tree
-
-            :param root: root node of the tree
+             :param root: root node of the tree
 
              :return: details of tree
         """
@@ -476,7 +477,6 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         """
             Storing the complete transactions of the database/input file in a database variable
 
-
         """
         self._Database = []
         if isinstance(self._iFile, _fp._pd.DataFrame):
@@ -550,10 +550,8 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     def __convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         to convert the type of user specified minWS value
-
-        :param value: user specified minWS value
-
-        :return: converted type
+          :param value: user specified minWS value
+          :return: converted type
         """
         if type(value) is int:
             value = int(value)
@@ -740,10 +738,8 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
     def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
-
-        :param outFile: name of the output file
-
-        :type outFile: file
+             :param outFile: name of the output file
+             :type outFile: file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

@@ -1,12 +1,14 @@
-
-
+# Stable periodic pattern mining aims to discover all interesting patterns in a temporal database using three constraints minimum support,
+# maximum period and maximum liability, that have support no less than the user-specified minimum support  constraint and liability no
+# greater than maximum liability.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
 #     from PAMI.stablePeriodicFrequentPattern.basic import basic as alg
 #
-#     obj = alg.PFPECLAT("../basic/sampleTDB.txt", 5, 3, 3)
+#     obj = alg.SPPEclat("../basic/sampleTDB.txt", 5, 3, 3)
 #
 #     obj.startMine()
 #
@@ -29,6 +31,8 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
+#
 
 
 __copyright__ = """
@@ -120,7 +124,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
+            Complete set of periodic-frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
             Complete set of periodic-frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -208,6 +212,9 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         self._sep = sep
 
     def _creatingItemsets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+        """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -258,7 +265,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
     def _createSPPList(self):
         """
-            to convert the the single length stable periodic patterns
+            to convert the single length stable periodic patterns
         """
         tidLast = {}
         la = {}
@@ -303,7 +310,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
                     self._Generation(GPPFList[i+1:], CP1)
 
     def _calculateLa(self, tsList):
-        """ To calculate the lability of a patterns based on its timestamps"""
+        """ To calculate the liability of a patterns based on its timestamps"""
         previous = 0
         la = 0
         tsList = sorted(tsList)
@@ -362,8 +369,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         return self._memoryUSS
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
-
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -396,6 +402,8 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         return self._memoryRSS
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Stable Periodic  Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
