@@ -50,6 +50,7 @@ __copyright__ = """
 """
 
 from PAMI.localPeriodicPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class LPPMDepth(_ab._localPeriodicPatterns):
@@ -182,7 +183,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
     _localPeriodicPatterns__sep = ' '
     __Database = []
 
-    def __creatingItemSets(self):
+    def __creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -219,7 +220,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
                     print("File Not Found")
                     quit()
 
-    def __createTSlist(self):
+    def __createTSlist(self) -> None:
         """
         Create tsList as bit vector from temporal data.
         """
@@ -244,7 +245,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         self._localPeriodicPatterns__maxSoPer = self.__convert(self._localPeriodicPatterns__maxSoPer)
         self._localPeriodicPatterns__minDur = self.__convert(self._localPeriodicPatterns__minDur)
 
-    def __generateLPP(self):
+    def __generateLPP(self) -> None:
         """
         Generate local periodic items from bit vector tsList.
         When finish generating local periodic items, execute mining depth first search.
@@ -315,7 +316,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         # I = set(I)
         self.__LPPMDepthSearch(I)
 
-    def __calculatePTL(self, tsList):
+    def __calculatePTL(self, tsList: int) -> Set[Tuple[int, int]]:
         """
         calculate PTL from tslist as bit vector.
         :param tsList: it is one item's tslist which is used bit vector.
@@ -362,7 +363,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
                 PTL.add((start, tsPre))
         return PTL
 
-    def __LPPMDepthSearch(self, extensionsOfP):
+    def __LPPMDepthSearch(self, extensionsOfP: List[Union[Tuple[str, ...], str]]) -> None:
         """
         Mining n-length local periodic pattens from n-1-length patterns by depth first search.
         :param extensionsOfP: it is n-1 length patterns list
@@ -389,7 +390,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
             if extensionsOfPx:
                 self.__LPPMDepthSearch(list(extensionsOfPx))
 
-    def __convert(self, value):
+    def __convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         to convert the type of user specified minSup value
         :param value: user specified minSup value
@@ -408,7 +409,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         return value
 
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
         Mining process start from here. This function calls createTSlist and generateLPP.
         """
@@ -427,7 +428,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         self._localPeriodicPatterns__memoryUSS = process.memory_full_info().uss
         self._localPeriodicPatterns__memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -436,7 +437,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
 
         return self._localPeriodicPatterns__memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -445,7 +446,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
 
         return self._localPeriodicPatterns__memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -454,7 +455,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
 
         return self._localPeriodicPatterns__endTime - self._localPeriodicPatterns__startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """Storing final local periodic patterns in a dataframe
 
         :return: returning local periodic patterns in a dataframe
@@ -471,7 +472,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'PTL'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of local periodic patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -489,7 +490,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
             patternsAndPTL = pat.strip()
             writer.write("%s \n" % patternsAndPTL)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[Union[Tuple[str, ...], str], Set[Tuple[int, int]]]:
         """ Function to send the set of local periodic patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -497,7 +498,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         """
         return self._localPeriodicPatterns__finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Local Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
