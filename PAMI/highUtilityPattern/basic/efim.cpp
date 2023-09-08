@@ -1,4 +1,3 @@
-
 #include <tuple>
 #include <time.h>
 #include <vector>
