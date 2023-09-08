@@ -194,7 +194,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
     _memoryUSS = float()
     _memoryRSS = float()
 
-    def _getPeriodic(self, tids: set):
+    def _getPeriodic(self, tids: set) -> int:
         tidList = list(tids)
         tidList.sort()
         tidList.append(self._dbSize)
@@ -207,7 +207,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             cur = tid
         return per
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the given user specified value
 
@@ -226,7 +226,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
-    def _creatingOneItemSets(self):
+    def _creatingOneItemSets(self) -> list:
         """Storing the complete transactions of the database/input file in a database variable
         """
         plist = []
@@ -297,7 +297,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
                 self._finalPatterns[item] = [sup, per, tids]
         return candidates
     
-    def _generateEclat(self, candidates):
+    def _generateEclat(self, candidates: list) -> None:
         newCandidates = []
         for i in range(0, len(candidates)):
             prefixItem = candidates[i]
@@ -317,7 +317,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         if len(newCandidates) > 0:
             self._generateEclat(newCandidates)
     
-    def startMine(self):
+    def startMine(self) -> None:
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         frequentSets = self._creatingOneItemSets()
@@ -330,7 +330,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -339,7 +339,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -348,7 +348,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -358,7 +358,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
@@ -372,7 +372,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataframe
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -385,7 +385,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             #s1 = x.replace(' ', '\t') + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
@@ -393,7 +393,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
