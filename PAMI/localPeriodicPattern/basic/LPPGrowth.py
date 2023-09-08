@@ -50,7 +50,7 @@ __copyright__ = """
 
 
 from PAMI.localPeriodicPattern.basic import abstract as _ab
-
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 class Node:
     """
@@ -75,14 +75,14 @@ class Node:
             storing the children to their respective parent nodes
     """
     
-    def __init__(self):
+    def __init__(self) -> None:
         self.item = -1
         self.parent = None
         self.child = []
         self.nodeLink = None
         self.tidList = set()
 
-    def getChild(self, item):
+    def getChild(self, item: int) -> 'Node':
         """
         :param item:
         :return: if node have node of item, then return it. if node don't have return []
@@ -119,12 +119,12 @@ class Tree:
                 create prefix tree by path
 
     """
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = Node()
         self.nodeLinks = {}
         self.firstNodeLink = {}
 
-    def addTransaction(self, transaction, tid):
+    def addTransaction(self, transaction: List[int], tid: int) -> None:
         """
         add transaction into tree
             :param transaction: it represents the one transactions in database
@@ -146,7 +146,7 @@ class Tree:
                 current = child
             current.tidList.add(tid)
 
-    def fixNodeLinks(self, item, newNode):
+    def fixNodeLinks(self, item: int, newNode: 'Node') -> None:
         """
         fix node link
             :param item: it represents item name of newNode
@@ -161,7 +161,7 @@ class Tree:
         if item not in self.firstNodeLink:
             self.firstNodeLink[item] = newNode
 
-    def deleteNode(self, item):
+    def deleteNode(self, item: int) -> None:
         """
         delete the node from tree
             :param item: it represents the item name of node
@@ -183,7 +183,7 @@ class Tree:
             for child in deleteNode.child:
                 child.parent = parentNode
 
-    def createPrefixTree(self, path, tidList):
+    def createPrefixTree(self, path: List[int], tidList: List[int]) -> None:
         """
         create prefix tree by path
             :param path: it represents path to root from prefix node
@@ -353,7 +353,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
     _localPeriodicPatterns__sep = ' '
     __Database = []
 
-    def __creatingItemSets(self):
+    def __creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -390,7 +390,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
                     print("File Not Found")
                     quit()
 
-    def __createLPPlist(self):
+    def __createLPPlist(self) -> None:
         """
         Create Local Periodic Pattern list from temporal data.
         """
@@ -439,7 +439,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
                         start[item] = -1
                         LPPList[item] = set()
 
-    def __createTSList(self):
+    def __createTSList(self) -> None:
         """
         Create tsList as bit vector from temporal data.
         """
@@ -474,7 +474,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         self._localPeriodicPatterns__maxSoPer = self.__convert(self._localPeriodicPatterns__maxSoPer)
         self._localPeriodicPatterns__minDur = self.__convert(self._localPeriodicPatterns__minDur)
 
-    def __generateLPP(self):
+    def __generateLPP(self) -> None:
         """
         Generate local periodic items from bit vector tsList.
         """
@@ -539,7 +539,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         self.__PTL = {k: v for k, v in PTL.items() if len(v) > 0}
         self.__items = list(self.__PTL.keys())
 
-    def __createLPPTree(self):
+    def __createLPPTree(self) -> None:
         """
         Create transaction tree of local periodic item from input data.
         """
@@ -554,7 +554,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
             #     transaction = sorted(tempTransaction, key=lambda x: len(self.__PTL[x]), reverse=True)
             #     self.__root.addTransaction(transaction, tid)
 
-    def __patternGrowth(self, tree, prefix, prefixPFList):
+    def __patternGrowth(self, tree: 'Tree', prefix: List[int], prefixPFList: Dict[Any, Any]) -> None:
         """
         Create prefix tree and prefixPFList. Store finalPatterns and its PTL.
         :param tree: The root node of prefix tree.
@@ -612,7 +612,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
             if PFList:
                 self.__patternGrowth(prefixTree, prefixCopy, PFList)
 
-    def __calculatePTL(self, tsList):
+    def __calculatePTL(self, tsList: List[int]) -> set:
         """
         Calculate PTL from input tsList as integer list/
         :param tsList: It is tsList which store time stamp as integer.
@@ -644,7 +644,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
                 PTL.add((start, self.__tsMax))
         return PTL
 
-    def __calculatePTLbit(self, tsList):
+    def __calculatePTLbit(self, tsList: List[int]) -> set:
         """
         Calculate PTL from input tsList as bit vector.
         :param tsList: It is tsList which store time stamp as bit vector.
@@ -691,7 +691,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
                 PTL.add((start, tsPre))
         return PTL
 
-    def __convert(self, value):
+    def __convert(self, value: Any) -> float:
         """
         to convert the type of user specified minSup value
         :param value: user specified minSup value
@@ -709,7 +709,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
                 value = int(value)
         return value
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
         Mining process start from here.
         """
@@ -730,7 +730,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         self._localPeriodicPatterns__memoryUSS = process.memory_full_info().uss
         self._localPeriodicPatterns__memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -739,7 +739,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
 
         return self._localPeriodicPatterns__memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -748,7 +748,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
 
         return self._localPeriodicPatterns__memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
@@ -757,7 +757,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
 
         return self._localPeriodicPatterns__endTime - self._localPeriodicPatterns__startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> '_ab._pd.DataFrame':
         """Storing final local periodic patterns in a dataframe
 
         :return: returning local periodic patterns in a dataframe
@@ -774,7 +774,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'PTL'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of local periodic patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -792,7 +792,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
             patternsAndPTL = pat.strip()
             writer.write("%s \n" % patternsAndPTL)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict:
         """ Function to send the set of local periodic patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -800,7 +800,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         """
         return self._localPeriodicPatterns__finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Local Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
