@@ -1,5 +1,5 @@
 # CUFPTree is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
-#         using CUFP-Tree
+# using CUFP-Tree
 #
 #
 # **Importing this algorithm into a python program**

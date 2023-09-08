@@ -1,5 +1,5 @@
 # PUFGrowth is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
-#         using PUF-Tree.
+#  using PUF-Tree.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------

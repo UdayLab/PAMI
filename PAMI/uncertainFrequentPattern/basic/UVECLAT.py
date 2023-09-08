@@ -1,5 +1,5 @@
-# UVEclat is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
-#         using PUF-Tree.
+# UVEclat is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database
+# using PUF-Tree.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -80,7 +80,7 @@ class UVEclat(_ab._frequentPatterns):
     """
     Description:
     -------------
-        It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
+        It is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database
         using PUF-Tree.
     Reference:
     ----------
