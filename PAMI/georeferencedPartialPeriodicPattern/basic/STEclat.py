@@ -1,5 +1,3 @@
-# PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
-#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
