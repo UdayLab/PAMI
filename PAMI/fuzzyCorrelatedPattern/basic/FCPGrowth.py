@@ -53,14 +53,14 @@ class _FFList:
 
     """
 
-    def __init__(self, itemName, region):
+    def __init__(self, itemName: str, region: str) -> None:
         self.item = itemName
         self.region = region
         self.sumIUtil = 0.0
         self.sumRUtil = 0.0
         self.elements = []
 
-    def addElement(self, element):
+    def addElement(self, element: 'Element') -> None:
         """
             A Method that add a new element to FFList
 
