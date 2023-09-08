@@ -1,3 +1,6 @@
+# UFGrowth is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
+# using PUF-Tree.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -16,7 +19,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -648,6 +651,8 @@ class UFGrowth(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

@@ -1,6 +1,9 @@
-
-
-
+# SPADE is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+# This program employs SPADE property (or downward closure property) to  reduce the search space effectively.
+# This algorithm employs breadth-first search technique when 1-2 length patterns and depth-first search when above 3 length patterns to find the complete set of frequent patterns in a
+# transactional database.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -14,7 +17,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternInDataFrame()
 #
@@ -104,7 +107,7 @@ class SPADE(_ab._sequentialPatterns):
             getPatterns()
                 Complete set of patterns will be retrieved with this function
             savePatterns(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
+                Complete set of frequent patterns will be loaded in to an output file
             getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
             getMemoryUSS()
@@ -140,7 +143,7 @@ class SPADE(_ab._sequentialPatterns):
 
             print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-            obj.savePatterns(oFile)
+            obj.save(oFile)
 
             Df = obj.getPatternInDataFrame()
 
@@ -254,7 +257,7 @@ class SPADE(_ab._sequentialPatterns):
 
     def make1LenDatabase(self):
         """
-        To make 1 length frequent patterns by breadth-first search technique   and update Database to seqential database
+        To make 1 length frequent patterns by breadth-first search technique   and update Database to sequential database
         """
 
         idDatabase={}
@@ -297,7 +300,7 @@ class SPADE(_ab._sequentialPatterns):
 
     def make2LenDatabase(self):
         """
-                To make 2 length frequent patterns by jioning two one length patterns by breadth-first search technique  and update xlenDatabase to seqential database
+                To make 2 length frequent patterns by joining two one length patterns by breadth-first search technique  and update xlen Database to sequential database
                 """
         self._xLenDatabase = {}
         keyList=[i for i in self._Database.keys()]
@@ -366,7 +369,7 @@ class SPADE(_ab._sequentialPatterns):
     def make3LenDatabase(self):
         """
                         To call each 2 length patterns to make 3 length frequent patterns depth-first search technique
-                        """
+        """
         for i in self._xLenDatabase[2].keys():
             for k in self._xLenDatabase[2][i].keys():
                 self.makexLenDatabase(2,i,k)
@@ -376,11 +379,10 @@ class SPADE(_ab._sequentialPatterns):
 
     def makexLenDatabase(self, rowLen, bs, latestWord):
                 """
-                     To make "rowLen" length frequent patterns from pattern which latest word is in same seq  by joining "rowLen"-1 length pattrens by depth-first search technique  and update xlenDatabase to seqential database
-                     :param
-                        rowLen: row length of patterns
-                        bs : patterns without latest one
-                        latestword : latest word of patterns
+                     To make "rowLen" length frequent patterns from pattern which the latest word is in same seq  by joining "rowLen"-1 length patterns by depth-first search technique  and update xlenDatabase to sequential database
+                     :param rowLen: row length of patterns
+                     :param bs : patterns without the latest one
+                     :param latestWord : latest word of patterns
                 """
                 if rowLen+1 not in self._xLenDatabase:
                     self._xLenDatabase[rowLen+1]={}
@@ -533,11 +535,10 @@ class SPADE(_ab._sequentialPatterns):
 
     def makexLenDatabaseSame(self, rowLen, bs, latestWord):
         """
-                     To make 3 or more length frequent patterns from pattern which latest word is in different seq  by depth-first search technique  and update xlenDatabase to seqential database
-                     :param
-                        rowLen: row length of previous patterns
-                        bs : previous patterns without latest one
-                        latestword : latest word of previous patterns
+                     To make 3 or more length frequent patterns from pattern which the latest word is in different seq  by depth-first search technique  and update xlenDatabase to sequential database
+                     :param rowLen: row length of previous patterns
+                     :param bs : previous patterns without the latest one
+                     :param latestWord : latest word of previous patterns
                                         """
         if rowLen + 1 not in self._xLenDatabase:
             self._xLenDatabase[rowLen + 1] = {}
@@ -626,11 +627,10 @@ class SPADE(_ab._sequentialPatterns):
 
     def makeNextRow(self,bs, latestWord, latestWord2):
         """
-            To make pattern row when two patterns have latest word in different sequence
-                            :param
-                               bs : previous pattern without latest one
-                               latestword : latest word of one previous pattern
-                               latestword2 : latest word of other previous pattern
+            To make pattern row when two patterns have the latest word in different sequence
+                    :param bs : previous pattern without the latest one
+                    :param latestWord : latest word of one previous pattern
+                    :param latestWord2 : latest word of other previous pattern
         """
 
         bs=bs+(-1,latestWord)
@@ -639,11 +639,10 @@ class SPADE(_ab._sequentialPatterns):
 
     def makeNextRowSame(self,bs, latestWord, latestWord2):
         """
-                    To make pattern row when one pattern have latestword1 in different sequence and other(latestword2) in same
-                                    :param
-                                       bs : previous pattern without latest one
-                                       latestword : latest word of one previous pattern in same sequence
-                                       latestword2 : latest word of other previous pattern in different sequence
+                    To make pattern row when one pattern have the latestWord1 in different sequence and other(latestWord2) in same
+                            :param bs : previous pattern without the latest one
+                            :param latestWord : latest word of one previous pattern in same sequence
+                            :param latestWord2 : latest word of other previous pattern in different sequence
         """
 
         bs=list(bs)
@@ -666,12 +665,11 @@ class SPADE(_ab._sequentialPatterns):
 
     def makeNextRowSame2(self,bs, latestWord, latestWord2):
         """
-                    To make pattern row when two patterns have latest word in same sequence
-                                    :param
-                                       bs : previous pattern without latest one
-                                       latestword : latest word of one previous pattern
-                                       latestword2 : latest word of the other previous pattern
-                """
+              To make pattern row when two patterns have the latest word in same sequence
+                            :param bs : previous pattern without the latest one
+                            :param latestWord : latest word of one previous pattern
+                            :param latestWord2 : latest word of the other previous pattern
+        """
 
         bs = list(bs)
         x = 1
@@ -695,11 +693,10 @@ class SPADE(_ab._sequentialPatterns):
 
     def makeNextRowSame3(self, bs, latestWord, latestWord2):
         """
-                    To make pattern row when two patterns have latest word in different sequence and both latest word is in same sequence
-                                    :param
-                                       bs : previous pattern without latest one
-                                       latestword : latest word of one previous pattern
-                                       latestword2 : latest word of other previous pattern
+            To make pattern row when two patterns have the latest word in different sequence and both latest word is in same sequence
+                        :param bs : previous pattern without the latest one
+                        :param latestWord : latest word of one previous pattern
+                        :param latestWord2 : latest word of other previous pattern
                 """
 
         x = list(sorted({latestWord, latestWord2}))
@@ -765,7 +762,7 @@ class SPADE(_ab._sequentialPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -783,6 +780,8 @@ class SPADE(_ab._sequentialPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to prnt the results
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

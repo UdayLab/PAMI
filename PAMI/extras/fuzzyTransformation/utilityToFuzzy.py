@@ -148,7 +148,7 @@ class utilityToFuzzy(_ab._convert):
             quit()
 
     def _Regions(self, quantity: int) -> None:
-         """
+        """
          calculate the labelled region of input "quantity"
      
          :param quantity: represents the quantity of item
@@ -173,9 +173,9 @@ class utilityToFuzzy(_ab._convert):
             return
 
     def startConvert(self) -> None:
-         """
+        """
              Main method to convert the temporal database into fuzzy database.
-         """
+        """
         _writer = open(self._oFile, 'w+')
         self._creatingItemSets()
         self._fuzzyMembershipFunc()

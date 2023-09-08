@@ -1,8 +1,8 @@
-
+# Spatial High Utility Frequent ItemSet Mining (SHUFIM) aims to discover all itemSets in a spatioTemporal database
+# that satisfy the user-specified minimum utility, minimum support and maximum distance constraints
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
-#
-#
 #
 #         from PAMI.highUtilityGeoreferencedFrequentPattern.basic import SHUFIM as alg
 #
@@ -219,6 +219,9 @@ class _Dataset:
         self.createItemSets(datasetPath)
 
     def createItemSets(self, datasetPath):
+        """
+           Storing the complete transactions of the database/input file in a database variable
+        """
         if isinstance(datasetPath, _ab._pd.DataFrame):
             utilities, data, utilitySum, pmuString = [], [], [], []
             if datasetPath.empty:
@@ -494,6 +497,8 @@ class SHUFIM(_ab._utilityPatterns):
         return value
 
     def startMine(self):
+        """ High Utility Frequent Pattern mining start here
+         """
         self._startTime = _ab._time.time()
         self._patternCount = 0
         self._finalPatterns = {}
@@ -947,6 +952,8 @@ class SHUFIM(_ab._utilityPatterns):
         return self._endTime-self._startTime
     
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Spatial High Utility Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

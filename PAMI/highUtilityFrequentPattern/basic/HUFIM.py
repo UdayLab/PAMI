@@ -1,4 +1,5 @@
-
+# HUFIM (High Utility Frequent Itemset Miner) algorithm helps us to mine High Utility Frequent ItemSets (HUFIs) from transactional databases.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -212,6 +213,9 @@ class _Dataset:
         self.createItemSets(datasetPath)
 
     def createItemSets(self, datasetPath: List[str]) -> None:
+        """
+           Storing the complete transactions of the database/input file in a database variable
+        """
         self.Database = []
         self.transactions = []
         if isinstance(datasetPath, _ab._pd.DataFrame):
@@ -481,6 +485,8 @@ class HUFIM(_ab._utilityPatterns):
 
 
     def startMine(self) -> None:
+        """ High Utility Frequent Pattern mining start here
+         """
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         self._dataset = []

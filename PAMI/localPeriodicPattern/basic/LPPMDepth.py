@@ -1,5 +1,9 @@
-
-
+# Local Periodic Patterns, which are patterns (sets of events) that have a periodic behavior in some non predefined
+# time-intervals. A pattern is said to be a local periodic pattern if it appears regularly and continuously in some
+# time-intervals. The maxSoPer (maximal period of spillovers) measure allows detecting time-intervals of variable
+# lengths where a pattern is continuously periodic, while the minDur (minimal duration) measure ensures that those
+# time-intervals have a minimum duration.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -117,7 +121,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         getLocalPeriodicPatterns()
             return local periodic patterns and its PTL
         save(oFile)
-            Complete set of local periodic patterns will be loaded in to a output file.
+            Complete set of local periodic patterns will be loaded in to an output file.
         getPatternsAsDataFrame()
             Complete set of local periodic patterns will be loaded in to a dataframe.
 
@@ -318,10 +322,10 @@ class LPPMDepth(_ab._localPeriodicPatterns):
 
     def __calculatePTL(self, tsList: int) -> Set[Tuple[int, int]]:
         """
-        calculate PTL from tslist as bit vector.
-        :param tsList: it is one item's tslist which is used bit vector.
-        :type tsList: int
-        :return: it is PTL of input item.
+         calculate PTL from tsList as bit vector.
+           :param tsList: it is one item's tsList which is used bit vector.
+           :type tsList: int
+           :return: it is PTL of input item.
         """
         tsList = list(bin(tsList))
         tsList = tsList[2:]
@@ -473,8 +477,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of local periodic patterns will be loaded in to a output file
-
+        """Complete set of local periodic patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -499,6 +502,8 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         return self._localPeriodicPatterns__finalPatterns
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Local Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

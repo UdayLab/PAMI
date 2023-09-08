@@ -1,6 +1,7 @@
+# TubeS is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
-#
 #
 #     from PAMI.uncertainFrequentPattern.basic import TubeS as alg
 #
@@ -16,7 +17,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -101,6 +102,8 @@ class _Node(object):
         self.parent = None
 
     def addChild(self, node):
+        """ This function is used to add child
+        """
         self.children[node.item] = node
         node.parent = self
 
@@ -432,7 +435,7 @@ class TubeS(_fp._frequentPatterns):
 
             Df = obj.getPatternsAsDataFrame()
 
-            memUSS = obj.getmemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
             print("Total Memory in USS:", memUSS)
 
@@ -712,6 +715,8 @@ class TubeS(_fp._frequentPatterns):
         return len(self._finalPatterns)
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

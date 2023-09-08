@@ -1,4 +1,6 @@
-
+# FSPGrowth is a transactional database and a spatial (or neighborhood) file, FSPM aims to discover all of those patterns
+# that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -412,7 +414,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     def _getFrequentItems(self) -> None:
         """
-        Create frequent items and self.fpList from self.database
+        Create frequent items and self.fpList from self.Database
         """
         oneFrequentItem = {}
         for transaction in self._Database:
@@ -422,6 +424,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         self._fpList = list(dict(sorted(oneFrequentItem.items(), key=lambda x: x[1], reverse=True)))
 
     def _createFPTree(self) -> _Tree:
+        """ create FP Tree and self.fpList from self.Database"""
         FPTree = _Tree()
         for transaction in self._Database:
             FPTree.createTree(transaction, 1)
@@ -533,6 +536,8 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

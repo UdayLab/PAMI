@@ -1,5 +1,5 @@
-
-
+# EPCPGrowth is an algorithm to discover periodic-Correlated patterns in a temporal database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -29,8 +29,8 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
-
-
+#
+#
 
 
 __copyright__ = """
@@ -90,7 +90,6 @@ class _Node(object):
 
     def __init__(self, item, children) -> None:
         """ Initializing the Node class
-
         :param item: Storing the item of a node
         :type item: int or None
         :param children: To maintain the children of a node
@@ -104,7 +103,6 @@ class _Node(object):
 
     def addChild(self, node) -> None:
         """ To add the children to a node
-
             :param node: parent node in the tree
         """
 
@@ -149,7 +147,6 @@ class _Tree(object):
 
     def addTransaction(self, transaction, tid) -> None:
         """     Adding a transaction into tree
-
                 :param transaction: To represent the complete database
                 :type transaction: list
                 :param tid: To represent the timestamp of a database
@@ -173,7 +170,6 @@ class _Tree(object):
 
     def getConditionalPatterns(self, alpha, pattern) -> tuple:
         """Generates all the conditional patterns of a respective node
-
             :param alpha: To represent a Node in the tree
             :type alpha: Node
             :return: A tuple consisting of finalPatterns, conditional pattern base and information
@@ -196,7 +192,6 @@ class _Tree(object):
     @staticmethod
     def generateTimeStamps(node) -> list:
         """To get the timestamps of a node
-
         :param node: A node in the tree
         :return: Timestamps of a node
         """
@@ -206,7 +201,6 @@ class _Tree(object):
 
     def removeNode(self, nodeValue) -> None:
         """ Removing the node from tree
-
             :param nodeValue: To represent a node in the tree
             :type nodeValue: node
             :return: Tree with their nodes updated with timestamps
@@ -218,7 +212,6 @@ class _Tree(object):
 
     def getTimeStamps(self, alpha) -> list:
         """ To get all the timestamps of the nodes which share same item name
-
             :param alpha: Node in a tree
             :return: Timestamps of a  node
         """
@@ -230,7 +223,6 @@ class _Tree(object):
     @staticmethod
     def getSupportAndPeriod(timeStamps, pattern) -> list:
         """To calculate the periodicity and support
-
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
         """
@@ -260,7 +252,6 @@ class _Tree(object):
 
     def conditionalDatabases(self, conditionalPatterns: list, conditionalTimeStamps: list, pattern) -> tuple:
         """ It generates the conditional patterns with periodic-frequent items
-
             :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
             :type conditionalPatterns: list
             :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
@@ -295,7 +286,6 @@ class _Tree(object):
 
     def generatePatterns(self, prefix: list) -> Generator:
         """ Generates the patterns
-
             :param prefix: Forms the combination of items
             :type prefix: list
             :returns: yields patterns with their support and periodicity
@@ -322,7 +312,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
     """
     Description:
     ------------
-        EPCPGrowth is an algorithm to discover periodic-Correlaterd patterns in a temporal database.
+        EPCPGrowth is an algorithm to discover periodic-Correlated patterns in a temporal database.
 
     Reference:
     ----------
@@ -474,8 +464,6 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
     def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
-
-
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -541,7 +529,6 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
     def _updateDatabases(self, dict1) -> list:
         """ Remove the items which are not frequent from database and updates the database with rank of items
-
             :param dict1: frequent items with support
             :type dict1: dictionary
             :return: Sorted and updated transactions
@@ -561,9 +548,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
     @staticmethod
     def _buildTree(data, info) -> _Tree:
-        """ It takes the database and support of an each item and construct the main tree by setting root node as a null
-
-            :param data: it represents the one Databases in database
+        """ It takes the database and support of each item and construct the main tree by setting root node as a null
+            :param data: it represents the one Database in database
             :type data: list
             :param info: it represents the support of each item
             :type info: dictionary
@@ -579,7 +565,6 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
     def _savePeriodic(self, itemSet) -> str:
         """ To convert the ranks of items in to their original item names
-
             :param itemSet: frequent pattern
             :return: frequent pattern with original item names
         """
@@ -591,7 +576,6 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
     def _convert(self, value) -> float:
         """
         To convert the given user specified value
-
         :param value: user specified value
         :return: converted value
         """
@@ -688,8 +672,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
-
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -708,6 +691,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return self._finalPatterns
     
     def printResults(self) -> None:
+        """ This function is used to print thr results
+        """
         print("Total number of Correlated Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

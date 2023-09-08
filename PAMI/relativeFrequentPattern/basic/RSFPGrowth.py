@@ -1,7 +1,7 @@
-
+# RSFPGrowth algorithm is used to find all items with relative support from given dataset
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
-#
 #
 #     from PAMI.relativeFrequentPattern import RSFPGrowth as alg
 #
@@ -17,7 +17,7 @@
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getmemoryUSS()
+#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -28,6 +28,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
 
 
 __copyright__ = """
@@ -55,7 +56,7 @@ import pandas as pd
 
 class _Node:
     """
-        A class used to represent the node of frequentPatterntree
+        A class used to represent the node of frequent Pattern tree
 
     Attributes:
     ----------
@@ -74,7 +75,7 @@ class _Node:
     -------
 
         getChild(itemName)
-            returns the node with same itemName from frequentPatterntree
+            returns the node with same itemName from frequent Pattern tree
     """
 
     def __init__(self) -> None:
@@ -86,7 +87,6 @@ class _Node:
 
     def getChild(self, itemName: int) -> Union[None, '_Node']:
         """ Retrieving the child from the tree
-
             :param itemName: name of the child
             :type itemName: list
             :return: returns the node with same itemName from frequentPatternTree
@@ -136,8 +136,7 @@ class _Tree:
 
     def addTransaction(self, transaction: List[int]) -> None:
         """adding transaction into tree
-
-        :param transaction: it represents the one transactions in database
+        :param transaction: it represents the one transaction in database
         :type transaction: list
         """
 
@@ -158,7 +157,6 @@ class _Tree:
 
     def fixNodeLinks(self, item: int, newNode: '_Node') -> None:
         """Fixing node link for the newNode that inserted into frequentPatternTree
-
         :param item: it represents the item of newNode
         :type item: int
         :param newNode: it represents the newNode that inserted in frequentPatternTree
@@ -174,7 +172,6 @@ class _Tree:
 
     def printTree(self, root: '_Node') -> None:
         """Print the details of Node in frequentPatternTree
-
         :param root: it represents the Node in frequentPatternTree
         :type root: Node
 
@@ -190,7 +187,6 @@ class _Tree:
 
     def createHeaderList(self, __mapSupport: Dict[int, int], minSup: float) -> None:
         """To create the headerList
-
         :param __mapSupport: it represents the items with their supports
         :type __mapSupport: dictionary
         :param minSup: it represents the minSup
@@ -206,7 +202,6 @@ class _Tree:
 
     def addPrefixPath(self, prefix: List['_Node'], __mapSupportBeta: Dict[int, int], minSup: float) -> None:
         """To construct the conditional tree with prefix paths of a node in frequentPatternTree
-
         :param prefix: it represents the prefix items of a Node
         :type prefix: list
         :param __mapSupportBeta: it represents the items with their supports
@@ -430,7 +425,6 @@ class RSFPGrowth(_ab._frequentPatterns):
 
     def __saveItemSet(self, prefix: List[int], prefixLength: int, support: int, ratio: float) -> None:
         """To save the frequent patterns mined form frequentPatternTree
-
         :param prefix: the frequent pattern
         :type prefix: list
         :param prefixLength: the length of a frequent pattern
@@ -447,7 +441,6 @@ class RSFPGrowth(_ab._frequentPatterns):
 
     def __saveAllCombinations(self, tempBuffer: List['_Node'], s: int, position: int, prefix: List[int], prefixLength: int) -> None:
         """Generating all the combinations for items in single branch in frequentPatternTree
-
         :param tempBuffer: items in a list
         :type tempBuffer: list
         :param s: support at leaf node of a branch
@@ -473,12 +466,11 @@ class RSFPGrowth(_ab._frequentPatterns):
 
     def __frequentPatternGrowthGenerate(self, frequentPatternTree: '_Tree', prefix: List[int], prefixLength: int, __mapSupport: Dict[int, int], minConf: float) -> None:
         """Mining the fp tree
-
         :param frequentPatternTree: it represents the frequentPatternTree
         :type frequentPatternTree: class Tree
-        :param prefix: it represents a empty list and store the patterns that are mined
+        :param prefix: it represents an empty list and store the patterns that are mined
         :type prefix: list
-        :param param prefixLength: the length of prefix
+        :param prefixLength: the length of prefix
         :type prefixLength: int
         :param __mapSupport : it represents the support of item
         :type __mapSupport : dictionary
@@ -657,8 +649,7 @@ class RSFPGrowth(_ab._frequentPatterns):
         return dataframe
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to a output file
-
+        """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -687,6 +678,8 @@ class RSFPGrowth(_ab._frequentPatterns):
         return res
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Relative Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

@@ -1,8 +1,12 @@
+# Spatial High Utility ItemSet Mining (SHUIM) [3] is an important model in data
+# mining with many real-world applications. It involves finding all spatially interesting itemSets having high value
+# in a quantitative spatio-temporal database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#     from PAMI.highUtilityGeoreferencedFrequentPattern.basic import HDSHUIM as alg
+#     from PAMI.highUtilitySpatialPattern.basic import HDSHUIM as alg
 #
 #     obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 #
@@ -58,9 +62,9 @@ class _Element:
         ts : int
             keep tact of transaction id
         snu : int
-            Spatial non closed itemSet utility
+            Spatial non-closed itemSet utility
         remainingUtility : int
-            Spatial non closed remaining utility
+            Spatial non-closed remaining utility
         pu : int
             prefix utility
         prevPos: int
@@ -406,7 +410,7 @@ class HDSHUIM(_ab._utilityPatterns):
 
             Attributes:
             -----------
-            :parm prefix: it represent all items in prefix
+            :parm prefix: it represents all items in prefix
             :type prefix :list
             :parm uList:projected Utility list
             :type uList: list
@@ -608,7 +612,7 @@ class HDSHUIM(_ab._utilityPatterns):
 
          Attributes:
         -----------
-        :parm prefix: it represent all items in prefix
+        :parm prefix: it represents all items in prefix
         :type prefix :list
         :parm item:item
         :type item: int
@@ -646,7 +650,7 @@ class HDSHUIM(_ab._utilityPatterns):
         return self._finalPatterns
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -684,6 +688,8 @@ class HDSHUIM(_ab._utilityPatterns):
         return self._endTime - self._startTime
 
     def printResults(self) -> None:
+        """ This funtion is used to print the results
+        """
         print("Total number of Spatial High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
