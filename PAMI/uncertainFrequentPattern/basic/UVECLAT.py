@@ -53,6 +53,7 @@ __copyright__ = """
 
 import operator as _operator
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 _minSup = float()
@@ -71,7 +72,7 @@ class _Item:
             Represent the existential probability(likelihood presence) of an item
     """
 
-    def __init__(self, item, probability):
+    def __init__(self, item: int, probability: float) -> None:
         self.item = item
         self.probability = probability
 
@@ -202,7 +203,7 @@ class UVEclat(_ab._frequentPatterns):
     _tidList = {}
     _rank = {}
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Scans the dataset
         """
@@ -259,7 +260,7 @@ class UVEclat(_ab._frequentPatterns):
                 except IOError:
                     print("File Not Found")
 
-    def _frequentOneItem(self):
+    def _frequentOneItem(self) -> List[str]:
         """takes the self.Database and calculates the support of each item in the dataset and assign the
             ranks to the items by decreasing support and returns the frequent items list
         """
@@ -280,7 +281,7 @@ class UVEclat(_ab._frequentPatterns):
         return list(plist.keys())
 
     @staticmethod
-    def _check(i, x):
+    def _check(i: list, x: list) -> int:
         """To check the presence of item or pattern in transaction
                 :param x: it represents the pattern
                 :type x : list
@@ -299,7 +300,7 @@ class UVEclat(_ab._frequentPatterns):
         return 1
 
     @staticmethod
-    def _convert(value):
+    def _convert(value) -> Union[int, float]:
         """
         To convert the type of user specified minSup value
             :param value: user specified minSup value
@@ -316,7 +317,7 @@ class UVEclat(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    def _removeFalsePositives(self):
+    def _removeFalsePositives(self) -> None:
         """
             To remove the false positive patterns generated in frequent patterns
             :return: patterns with accurate probability
@@ -346,7 +347,7 @@ class UVEclat(_ab._frequentPatterns):
                 self._finalPatterns[sample] = y
 
     @staticmethod
-    def _Intersection(tidSetx, tidSetY):
+    def _Intersection(tidSetx: dict, tidSetY: dict) -> Dict[int, float]:
         """
         This function is used to find the intersection
             :param tidSetx: the timestamp of a patterns
@@ -365,7 +366,7 @@ class UVEclat(_ab._frequentPatterns):
                     tidDict.update({x: y * y1})
         return tidDict
 
-    def _calculateExpSup(self, tidList):
+    def _calculateExpSup(self, tidList: List) -> float:
         """
         This function is used to calculate support of tidList
         :param tidList: timestamp of a list
@@ -374,7 +375,7 @@ class UVEclat(_ab._frequentPatterns):
         """
         return sum(tidList.values())
 
-    def _save(self, prefix, suffix, tidSetI):
+    def _save(self, prefix: list, suffix: list, tidSetI: dict) -> None:
         """Saves the patterns that satisfy the periodic frequent property.
             :param prefix: the prefix of a pattern
             :type prefix: list
@@ -392,7 +393,7 @@ class UVEclat(_ab._frequentPatterns):
         val = self._calculateExpSup(tidSetI)
         _finalPatterns[tuple(prefix)] = val
 
-    def _Generation(self, prefix, itemSets, tidSets):
+    def _Generation(self, prefix, itemSets: list, tidSets: list) -> None:
         """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
             :param prefix:  main equivalence prefix
             :type prefix: periodic-frequent item or pattern
@@ -426,7 +427,7 @@ class UVEclat(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
-    def startMine(self):
+    def startMine(self) -> None:
         """Main method where the patterns are mined by constructing tree and remove the false patterns
             by counting the original support of a patterns
         """
@@ -460,7 +461,7 @@ class UVEclat(_ab._frequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -468,7 +469,7 @@ class UVEclat(_ab._frequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -476,7 +477,7 @@ class UVEclat(_ab._frequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -484,7 +485,7 @@ class UVEclat(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -497,7 +498,7 @@ class UVEclat(_ab._frequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def save(self, oFile):
+    def save(self, oFile) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
         :param oFile: name of the output file
         :type oFile: file
@@ -508,14 +509,14 @@ class UVEclat(_ab._frequentPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, float]:
         """ Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ This function is used to print the results
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
