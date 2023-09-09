@@ -51,6 +51,8 @@ __copyright__ = """
 
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
+import pandas as pd
 
 _minSup = float()
 _finalPatterns = {}
@@ -70,7 +72,7 @@ class _Item:
             Represent the existential probability(likelihood presence) of an item
     """
 
-    def __init__(self, item, probability):
+    def __init__(self, item, probability) -> None:
         self.item = item
         self.probability = probability
 
@@ -210,7 +212,7 @@ class TUFP(_ab._frequentPatterns):
     _topk = {}
     _minimum = 9999
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Scans the dataset
         """
@@ -267,7 +269,7 @@ class TUFP(_ab._frequentPatterns):
                 except IOError:
                     print("File Not Found")
 
-    def _frequentOneItem(self):
+    def _frequentOneItem(self) -> List[str]:
         """takes the self.Database and calculates the support of each item in the dataset and assign the
             ranks to the items by decreasing support and returns the frequent items list
 
@@ -298,7 +300,7 @@ class TUFP(_ab._frequentPatterns):
         return plist
 
     @staticmethod
-    def _convert(value):
+    def _convert(value: Union[int, float, str]) -> Union[int, float]:
         """
         To convert the type of user specified minSup value
 
@@ -317,7 +319,7 @@ class TUFP(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    def _save(self, prefix, suffix, tidSetI):
+    def _save(self, prefix: List[str], suffix: List[str], tidSetI: Dict[int, float]) -> None:
         """Saves the patterns that satisfy the periodic frequent property.
 
             :param prefix: the prefix of a pattern
@@ -351,7 +353,7 @@ class TUFP(_ab._frequentPatterns):
         #print(self.finalPatterns, self.minimum, self.minSup)
 
 
-    def _Generation(self, prefix, itemSets, tidSets):
+    def _Generation(self, prefix: List[str], itemSets: List[str], tidSets: List[Dict[int, float]]) -> None:
         """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
 
             :param prefix:  main equivalence prefix
@@ -392,7 +394,7 @@ class TUFP(_ab._frequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             #self.save(prefix, list(set(itemSetX)), tidSetI)
 
-    def startMine(self):
+    def startMine(self) -> None:
         """Main method where the patterns are mined by constructing tree and remove the false patterns
             by counting the original support of a patterns
 
@@ -426,7 +428,7 @@ class TUFP(_ab._frequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -436,7 +438,7 @@ class TUFP(_ab._frequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -446,7 +448,7 @@ class TUFP(_ab._frequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -457,7 +459,7 @@ class TUFP(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -472,7 +474,7 @@ class TUFP(_ab._frequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -485,7 +487,7 @@ class TUFP(_ab._frequentPatterns):
             s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, float]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -494,7 +496,7 @@ class TUFP(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ This function is used to print the results
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
