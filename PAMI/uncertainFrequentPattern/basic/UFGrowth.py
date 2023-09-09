@@ -51,6 +51,7 @@ __copyright__ = """
 """
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 _minSup = str()
 _ab._sys.setrecursionlimit(20000)
@@ -69,7 +70,7 @@ class _Item:
             Represent the existential probability(likelihood presence) of an item
     """
 
-    def __init__(self, item, probability):
+    def __init__(self, item: int, probability: float) -> None:
         self.item = item
         self.probability = probability
 
@@ -94,7 +95,7 @@ class _Node(object):
             storing the children to their respective parent nodes
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.itemId = -1
         self.counter = 0
         self.probability = 0
@@ -139,13 +140,13 @@ class _Tree(object):
             starts from the root node of the tree and mines the frequent patterns
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.headerList = []
         self.mapItemNodes = {}
         self.mapItemLastNodes = {}
         self.root = _Node()
 
-    def fixNodeLinks(self, item, newNode):
+    def fixNodeLinks(self, item, newNode) -> None:
         if item in self.mapItemLastNodes.keys():
             lastNode = self.mapItemLastNodes[item]
             lastNode.nodeLink = newNode
@@ -153,7 +154,7 @@ class _Tree(object):
         if item not in self.mapItemNodes.keys():
             self.mapItemNodes[item] = newNode
 
-    def addTransaction(self, transaction):
+    def addTransaction(self, transaction) -> int:
         y = 0
         current = self.root
         for i in transaction:
@@ -184,7 +185,7 @@ class _Tree(object):
                     current = newNode
         return y
 
-    def printTree(self, root):
+    def printTree(self, root) -> None:
         if root.child is []:
             return
         else:
@@ -192,14 +193,14 @@ class _Tree(object):
                 print(i.itemid, i.counter)
                 self.printTree(i)
 
-    def update(self, mapSup, u1):
+    def update(self, mapSup, u1) -> List[str]:
         t1 = []
         for i in mapSup:
             if i in u1:
                 t1.append(i)
         return t1
 
-    def createHeaderList(self, mapSupport, min_sup):
+    def createHeaderList(self, mapSupport, min_sup) -> None:
         t1 = []
         for x, y in mapSupport.items():
             if y >= min_sup:
@@ -207,7 +208,7 @@ class _Tree(object):
         mapSup = [k for k, v in sorted(mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.headerList = self.update(mapSup, t1)
 
-    def addPrefixPath(self, prefix, mapSupportBeta, min_sup):
+    def addPrefixPath(self, prefix, mapSupportBeta, min_sup) -> int:
         q = 0
         pathCount = prefix[0].counter
         current = self.root
@@ -388,10 +389,10 @@ class UFGrowth(_ab._frequentPatterns):
     _fpnode = 0
     _conditionalnodes = 0
 
-    def __init__(self, iFile, minSup, sep='\t'):
+    def __init__(self, iFile, minSup: float, sep: str='\t') -> None:
         super().__init__(iFile, minSup, sep)
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Scans the uncertain transactional dataset
         """
@@ -448,7 +449,7 @@ class UFGrowth(_ab._frequentPatterns):
                 except IOError:
                     print("File Not Found")
 
-    def _frequentOneItem(self):
+    def _frequentOneItem(self) -> Tuple[Dict[str, float], List[str]]:
         """takes the self.Database and calculates the support of each item in the dataset and assign the
             ranks to the items by decreasing support and returns the frequent items list
                 :param self.Database : it represents the one self.Database in database
@@ -467,7 +468,7 @@ class UFGrowth(_ab._frequentPatterns):
         self.rank = dict([(index, item) for (item, index) in enumerate(plist)])
         return mapSupport, plist
 
-    def _ufgrowth(self, tree, prefix, prefixLength, prefixSupport, mapSupport):
+    def _ufgrowth(self, tree: _Tree, prefix: List[int], prefixLength: int, prefixSupport: float, mapSupport: Dict[str, float]) -> None:
         if prefixLength == self._maxPatternLength:
             return
         singlePath = True
@@ -525,7 +526,7 @@ class UFGrowth(_ab._frequentPatterns):
                         # print(treeBeta.headerList)
                         self._ufgrowth(treeBeta, prefix, prefixLength + 1, betaSupport, mapSupportBeta)
 
-    def _saveItemset(self, prefix, prefixLength, support):
+    def _saveItemset(self, prefix: List[int], prefixLength: int, support: float) -> None:
         l = []
         for i in range(prefixLength):
             l.append(prefix[i])
@@ -534,7 +535,7 @@ class UFGrowth(_ab._frequentPatterns):
         s = '\t'.join(l)
         self._finalPatterns[s] = support
 
-    def _saveAllcombinations(self, TempBuffer, s, position, prefix, prefixLength):
+    def _saveAllcombinations(self, TempBuffer: List[_Node], s: float, position: int, prefix: List[int], prefixLength: int) -> None:
         # support=0
         max1 = 1 << position
         for i in range(1, max1):
@@ -547,7 +548,7 @@ class UFGrowth(_ab._frequentPatterns):
                     support = TempBuffer[j].counter
             self._saveItemset(prefix, newprefixLength, s)
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the type of user specified minSup value
             :param value: user specified minSup value
@@ -564,7 +565,7 @@ class UFGrowth(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    def startMine(self):
+    def startMine(self) -> float:
         """Main method where the patterns are mined by constructing tree and remove the false patterns
             by counting the original support of a patterns
         """
@@ -595,7 +596,7 @@ class UFGrowth(_ab._frequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -603,7 +604,7 @@ class UFGrowth(_ab._frequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -611,7 +612,7 @@ class UFGrowth(_ab._frequentPatterns):
 
         return self.memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -619,7 +620,7 @@ class UFGrowth(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -632,7 +633,7 @@ class UFGrowth(_ab._frequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
@@ -643,14 +644,14 @@ class UFGrowth(_ab._frequentPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, float]:
         """ Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ This function is used to print the results
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
