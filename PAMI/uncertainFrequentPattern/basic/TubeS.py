@@ -51,6 +51,7 @@ __copyright__ = """
 """
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _fp
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 _minSup = float()
 _fp._sys.setrecursionlimit(20000)
@@ -69,7 +70,7 @@ class _Item:
             Represent the existential probability(likelihood presence) of an item
     """
 
-    def __init__(self, item, probability):
+    def __init__(self, item: int, probability: float) -> None:
         self.item = item
         self.probability = probability
 
@@ -94,21 +95,21 @@ class _Node(object):
                     storing the children to their respective parent nodes
             """
 
-    def __init__(self, item, children):
+    def __init__(self, item: int, children: list) -> None:
         self.item = item
         self.probability = 1
         self.secondProbability = 1
         self.children = children
         self.parent = None
 
-    def addChild(self, node):
+    def addChild(self, node) -> None:
         """ This function is used to add child
         """
         self.children[node.item] = node
         node.parent = self
 
 
-def Second(transaction, i):
+def Second(transaction, i) -> int:
     """
     To calculate the second probability of a node in transaction
         :param transaction: transaction in a database
@@ -124,7 +125,7 @@ def Second(transaction, i):
     return l2 * l2
 
 
-def printTree(root):
+def printTree(root) -> None:
     """
     To print the tree with root node through recursion
         :param root: root node of  tree
@@ -164,12 +165,12 @@ class _Tree(object):
             starts from the root node of the tree and mines the frequent patterns
             """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
-    def addTransaction(self, transaction):
+    def addTransaction(self, transaction: list) -> None:
         """adding transaction into tree
             :param transaction : it represents the one transactions in database
             :type transaction : list
@@ -214,7 +215,7 @@ class _Tree(object):
                     nn = max(temp) * transaction[i].probability
                     currentNode.probability += round(nn, 2)
 
-    def addConditionalTransaction(self, transaction, sup, second):
+    def addConditionalTransaction(self, transaction: list, sup: int, second: float) -> None:
         """constructing conditional tree from prefixPaths
             :param transaction : it represents the one transactions in database
             :type transaction : list
@@ -244,7 +245,7 @@ class _Tree(object):
                 currentNode.secondProbability = max(currentNode.secondProbability, second)
                 currentNode.probability += sup
 
-    def conditionalPatterns(self, alpha):
+    def conditionalPatterns(self, alpha) -> Tuple[List[List[str]], List[float], Dict[str, float], List[float]]:
         """generates all the conditional patterns of respective node
             :param alpha : it represents the Node in tree
             :type alpha : _Node
@@ -267,7 +268,7 @@ class _Tree(object):
         finalPatterns, support, info = self.conditionalTransactions(finalPatterns, sup)
         return finalPatterns, support, info, second
 
-    def conditionalTransactions(self, condPatterns, support):
+    def conditionalTransactions(self, condPatterns: list, support: list) -> Tuple[List[List[str]], List[float], Dict[str, float]]:
         """ It generates the conditional patterns with frequent items
             :param condPatterns : conditional patterns generated from conditionalPatterns() method for respective node
             :type condPatterns : list
@@ -296,7 +297,7 @@ class _Tree(object):
             count += 1
         return pat, sup, updatedDict
 
-    def removeNode(self, nodeValue):
+    def removeNode(self, nodeValue) -> None:
         """removing the node from tree
             :param nodeValue : it represents the node in tree
             :type nodeValue : node
@@ -304,7 +305,7 @@ class _Tree(object):
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
 
-    def generatePatterns(self, prefix):
+    def generatePatterns(self, prefix: list) -> None:
         """generates the patterns
             :param prefix : forms the combination of items
             :type prefix : list
@@ -463,9 +464,9 @@ class TubeS(_fp._frequentPatterns):
     _Database = []
     _rank = {}
     _lno = 0
-    def __init__(self, iFile, minSup, sep='\t'):
+    def __init__(self, iFile, minSup, sep='\t') -> None:
         super().__init__(iFile, minSup, sep)
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
         Scans the databases and stores the transactions into Database variable
         """
@@ -524,7 +525,7 @@ class TubeS(_fp._frequentPatterns):
                 except IOError:
                     print("File Not Found")
 
-    def _frequentOneItem(self):
+    def _frequentOneItem(self) -> Tuple[Dict[str, float], List[str]]:
         """takes the transactions and calculates the support of each item in the dataset and assign the
                     ranks to the items by decreasing support and returns the frequent items list
         """
@@ -541,7 +542,7 @@ class TubeS(_fp._frequentPatterns):
         self._rank = dict([(index, item) for (item, index) in enumerate(plist)])
         return mapSupport, plist
 
-    def _buildTree(self, data, info):
+    def _buildTree(self, data: list, info) -> '_Tree':
         """it takes the transactions and support of each item and construct the main tree with setting root
                     node as null
             :param data : it represents the one transactions in database
@@ -555,7 +556,7 @@ class TubeS(_fp._frequentPatterns):
             rootNode.addTransaction(data[i])
         return rootNode
 
-    def updateTransactions(self, dict1):
+    def updateTransactions(self, dict1) -> List[List[_Item]]:
         """remove the items which are not frequent from transactions and updates the transactions with rank of items
                 :param dict1 : frequent items with support
                 :type dict1 : dictionary
@@ -573,7 +574,7 @@ class TubeS(_fp._frequentPatterns):
                 list1.append(list2)
         return list1
 
-    def _Check(self, i, x):
+    def _Check(self, i: list, x: list) -> int:
         """To check the presence of item or pattern in transaction
             :param x: it represents the pattern
             :type x : list
@@ -589,7 +590,7 @@ class TubeS(_fp._frequentPatterns):
                 return 0
         return 1
 
-    def _convert(self, value):
+    def _convert(self, value) -> Union[int, float]:
         """
             To convert the type of user specified minSup value
                 :param value: user specified minSup value
@@ -606,7 +607,7 @@ class TubeS(_fp._frequentPatterns):
                 value = int(value)
         return value
 
-    def _removeFalsePositives(self):
+    def _removeFalsePositives(self) -> None:
         """
         To remove the false positive patterns generated in frequent patterns
         :return: patterns with accurate probability
@@ -635,7 +636,7 @@ class TubeS(_fp._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
-    def startMine(self):
+    def startMine(self) -> None:
         """Main method where the patterns are mined by constructing tree and remove the false patterns
                            by counting the original support of a patterns
         """
@@ -659,7 +660,7 @@ class TubeS(_fp._frequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -667,7 +668,7 @@ class TubeS(_fp._frequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -675,7 +676,7 @@ class TubeS(_fp._frequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -683,7 +684,7 @@ class TubeS(_fp._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -696,7 +697,7 @@ class TubeS(_fp._frequentPatterns):
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
@@ -707,14 +708,14 @@ class TubeS(_fp._frequentPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> int:
         """ Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return len(self._finalPatterns)
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ This function is used to print the results
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
