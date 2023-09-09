@@ -53,6 +53,7 @@ __copyright__ = """
 
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 _minSup = str()
 _ab._sys.setrecursionlimit(20000)
@@ -71,7 +72,7 @@ class _Item:
             Represent the existential probability(likelihood presence) of an item
     """
 
-    def __init__(self, item, probability):
+    def __init__(self, item, probability) -> None:
         self.item = item
         self.probability = probability
 
@@ -96,13 +97,13 @@ class _Node(object):
             storing the children to their respective parent nodes
     """
 
-    def __init__(self, item, children):
+    def __init__(self, item, children) -> None:
         self.item = item
         self.probability = 1
         self.children = children
         self.parent = None
 
-    def addChild(self, node):
+    def addChild(self, node) -> None:
         """ This function is used to add a child
         """
         self.children[node.item] = node
@@ -138,12 +139,12 @@ class _Tree(object):
             starts from the root node of the tree and mines the frequent patterns
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
-    def addTransaction(self, transaction):
+    def addTransaction(self, transaction) -> None:
         """adding transaction into tree
             :param transaction : it represents the one self.Database in database
             :type transaction : list
@@ -180,7 +181,7 @@ class _Tree(object):
                 else:
                     currentNode.probability += max(lp) * transaction[i].probability
 
-    def addConditionalPattern(self, transaction, sup):
+    def addConditionalPattern(self, transaction, sup) -> None:
         """constructing conditional tree from prefixPaths
             :param transaction : it represents the one self.Database in database
             :type transaction : list
@@ -204,7 +205,7 @@ class _Tree(object):
                 currentNode = currentNode.children[transaction[i]]
                 currentNode.probability += sup
 
-    def conditionalPatterns(self, alpha):
+    def conditionalPatterns(self, alpha) -> Tuple[List, List, dict]:
         """generates all the conditional patterns of respective node
             :param alpha : it represents the Node in tree
             :type alpha : _Node
@@ -226,7 +227,7 @@ class _Tree(object):
         finalPatterns, support, info = self.conditionalTransactions(finalPatterns, sup)
         return finalPatterns, support, info
 
-    def removeNode(self, nodeValue):
+    def removeNode(self, nodeValue) -> None:
         """removing the node from tree
             :param nodeValue : it represents the node in tree
             :type nodeValue : node
@@ -235,7 +236,7 @@ class _Tree(object):
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
 
-    def conditionalTransactions(self, condPatterns, support):
+    def conditionalTransactions(self, condPatterns, support) -> Tuple[List, List, dict]:
         """ It generates the conditional patterns with frequent items
                 :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
                 :type condPatterns : list
@@ -265,7 +266,7 @@ class _Tree(object):
                 count += 1
         return pat, sup, updatedDict
 
-    def generatePatterns(self, prefix):
+    def generatePatterns(self, prefix) -> None:
         """generates the patterns
             :param prefix : forms the combination of items
             :type prefix : list
@@ -418,10 +419,10 @@ class PUFGrowth(_ab._frequentPatterns):
     _Database = []
     _rank = {}
 
-    def __init__(self, iFile, minSup, sep='\t'):
+    def __init__(self, iFile, minSup, sep='\t') -> None:
         super().__init__(iFile, minSup, sep)
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Scans the uncertain transactional dataset
         """
@@ -479,7 +480,7 @@ class PUFGrowth(_ab._frequentPatterns):
                 except IOError:
                     print("File Not Found")
 
-    def _frequentOneItem(self):
+    def _frequentOneItem(self) -> Tuple[dict, List]:
         """takes the self.Database and calculates the support of each item in the dataset and assign the
             ranks to the items by decreasing support and returns the frequent items list
                 :param self.Database : it represents the one self.Database in database
@@ -499,7 +500,7 @@ class PUFGrowth(_ab._frequentPatterns):
         return mapSupport, plist
 
     @staticmethod
-    def _buildTree(data, info):
+    def _buildTree(data, info) -> '_Tree':
         """it takes the self.Database and support of each item and construct the main tree with setting root
             node as null
                 :param data : it represents the one self.Database in database
@@ -514,7 +515,7 @@ class PUFGrowth(_ab._frequentPatterns):
             rootNode.addTransaction(data[i])
         return rootNode
 
-    def _updateTransactions(self, dict1):
+    def _updateTransactions(self, dict1) -> List:
         """remove the items which are not frequent from self.Database and updates the self.Database with rank of items
             :param dict1 : frequent items with support
             :type dict1 : dictionary
@@ -534,7 +535,7 @@ class PUFGrowth(_ab._frequentPatterns):
         return list1
 
     @staticmethod
-    def _check(i, x):
+    def _check(i, x) -> int:
         """To check the presence of item or pattern in transaction
                 :param x: it represents the pattern
                 :type x : list
@@ -552,7 +553,7 @@ class PUFGrowth(_ab._frequentPatterns):
                 return 0
         return 1
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the type of user specified minSup value
             :param value: user specified minSup value
@@ -569,7 +570,7 @@ class PUFGrowth(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    def _removeFalsePositives(self):
+    def _removeFalsePositives(self) -> None:
         """
             To remove the false positive patterns generated in frequent patterns
             :return: patterns with accurate probability
@@ -598,7 +599,7 @@ class PUFGrowth(_ab._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
-    def startMine(self):
+    def startMine(self) -> None:
         """Main method where the patterns are mined by constructing tree and remove the false patterns
             by counting the original support of a patterns
         """
@@ -622,7 +623,7 @@ class PUFGrowth(_ab._frequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -630,7 +631,7 @@ class PUFGrowth(_ab._frequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -638,7 +639,7 @@ class PUFGrowth(_ab._frequentPatterns):
 
         return self.memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -646,7 +647,7 @@ class PUFGrowth(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -659,7 +660,7 @@ class PUFGrowth(_ab._frequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:  
         """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
@@ -670,14 +671,14 @@ class PUFGrowth(_ab._frequentPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """ This function is used to print the results
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
