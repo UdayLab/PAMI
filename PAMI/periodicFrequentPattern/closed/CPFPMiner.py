@@ -51,6 +51,7 @@ __copyright__ = """
 
 
 from PAMI.periodicFrequentPattern.closed import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class CPFPMiner(_ab._periodicFrequentPatterns):
@@ -182,11 +183,11 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     _tidList = {}
     _lno = 0
 
-    def __init__(self, iFile, minSup, maxPer, sep='\t'):
+    def __init__(self, iFile, minSup, maxPer, sep='\t') -> None:
         super().__init__(iFile, minSup, maxPer, sep)
         self._finalPatterns = {}
     
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the given user specified value
 
@@ -206,7 +207,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
-    def _scanDatabase(self):
+    def _scanDatabase(self) -> list:
         """
         To scan the database and extracts the 1-length periodic-frequent items
         Returns:
@@ -280,7 +281,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         periodicFrequentItems = [key for key, value in sorted(periodicFrequentItems.items(), key=lambda x: x[1])]
         return periodicFrequentItems
 
-    def _calculate(self, tidSet):
+    def _calculate(self, tidSet) -> int:
         """
         To calculate the weight if pattern based on the respective timeStamps
         Parameters
@@ -298,7 +299,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
             hashcode = abs(0 - hashcode)
         return hashcode % self._tableSize
 
-    def _contains(self, itemSet, val, hashcode):
+    def _contains(self, itemSet, val, hashcode) -> bool:
         """
         To check if the key(hashcode) is in dictionary(hashing) variable
         Parameters:
@@ -319,7 +320,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
                 return True
         return False
 
-    def _getPeriodAndSupport(self, timeStamps):
+    def _getPeriodAndSupport(self, timeStamps) -> list:
         """
         Calculates the periodicity and support of timeStamps
         Parameters:
@@ -343,7 +344,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         per = max(per, self._lno - cur)
         return [sup, per]
 
-    def _save(self, prefix, suffix, tidSetX):
+    def _save(self, prefix, suffix, tidSetX) -> None:
         """
         Saves the generated pattern which satisfies the closed property
         Parameters:
@@ -377,7 +378,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
             else:
                 self._hashing[hashcode][tuple(prefix)] = val
 
-    def _processEquivalenceClass(self, prefix, itemSets, tidSets):
+    def _processEquivalenceClass(self, prefix, itemSets, tidSets) -> None:
         """
         Parameters:
         ----------
@@ -445,7 +446,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
                 self._processEquivalenceClass(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetX)
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
         Mining process will start from here
         """
@@ -493,7 +494,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Closed periodic frequent patterns were generated successfully using CPFPMiner algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
             :return: returning USS memory consumed by the mining process
@@ -503,7 +504,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
             :return: returning RSS memory consumed by the mining process
@@ -513,7 +514,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
             :return: returning total amount of runtime taken by the mining process
@@ -523,7 +524,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
             :return: returning frequent patterns in a dataframe
@@ -538,7 +539,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to a output file
 
             :param outFile: name of the output file
@@ -551,7 +552,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
             s1 = x.replace(' ', '\t').strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of frequent patterns after completion of the mining process
 
             :return: returning frequent patterns
@@ -560,7 +561,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Closed Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
