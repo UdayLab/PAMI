@@ -1,17 +1,55 @@
-#  Copyright (C)  2021 Rage Uday Kiran
+# High-utility pattern mining over data stream is one of the challenging problems in data stream mining.
+# HUPMS is an algorithm that discovers high-utility patterns from data streams without rebuilding the tree.
+# It stores the database of the current window in form of HUSTree and adjusts the tree based on upcoming
+# transactions removing the oldest batch.
 #
-#      This program is free software: you can redistribute it and/or modify
-#      it under the terms of the GNU General Public License as published by
-#      the Free Software Foundation, either version 3 of the License, or
-#      (at your option) any later version.
 #
-#      This program is distributed in the hope that it will be useful,
-#      but WITHOUT ANY WARRANTY; without even the implied warranty of
-#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#      GNU General Public License for more details.
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#      You should have received a copy of the GNU General Public License
-#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+#     from PAMI.highUtilitySpatialPattern.basic import HUPMS as alg
+#
+#     obj=alg.HUPMS("input.txt","Neighbours.txt",35)
+#
+#     obj.startMine()
+#
+#     Patterns = obj.getPatterns()
+#
+#     print("Total number of Spatial High-Utility Patterns:", len(Patterns))
+#
+#     obj.save("output")
+#
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+
+__copyright__ = """
+ Copyright (C)  2021 Rage Uday Kiran
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
+"""
 
 import abstract as _hus
 import pandas as pd
@@ -577,7 +615,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
             Parameters
             ----------
                 root : _Node
-                    pointer to the root node of the sub-tree
+                    pointer to the root node of the subtree
         """
         
         if(root is None):
@@ -780,10 +818,9 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def printTree(self, root, level = 0):
         """
-            Prints the tree in a readable format.
-
-            :param root: CPSTreeNode object for the root of the tree
-            :param level: Current level of the root node
+        Prints the tree in a readable format.
+        :param root: CPSTreeNode object for the root of the tree
+        :param level: Current level of the root node
         """
 
         print('  ' * level, level, root.itemName, root.utility, root.parent.itemName if root.parent else None )
@@ -863,7 +900,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def save(self):
         """
-        Complete set of frequent patterns will be loaded in to a output file
+        Complete set of frequent patterns will be loaded in to an output file
         """
         print("Output file name", self._oFile)
         writer = open(self._oFile, 'w+')

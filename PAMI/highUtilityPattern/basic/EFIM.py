@@ -1,4 +1,6 @@
-
+# EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -274,7 +276,7 @@ class _Dataset:
 
     def getMaxItem(self) -> int:
         """
-            A method to return name of largest item
+            A method to return name of the largest item
         """
         return self.maxItem
 
@@ -454,6 +456,12 @@ class EFIM(_ab._utilityPatterns):
         self._memoryRSS = float()
 
     def startMine(self) -> None:
+        """
+        Start the EFIM algorithm.
+
+        Returns:
+            None
+        """
         self._startTime = _ab._time.time()
         self._dataset = _Dataset(self._iFile, self._sep)
         self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
@@ -575,7 +583,7 @@ class EFIM(_ab._utilityPatterns):
 
     def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe: list, j: int, itemsToKeep: list) -> None:
         """
-            A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
+            A method to  calculate the subtree utility and local utility of all items that can extend itemSet P U {e}
 
             Attributes:
             -----------
@@ -764,7 +772,6 @@ class EFIM(_ab._utilityPatterns):
 
     def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
-
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -801,6 +808,8 @@ class EFIM(_ab._utilityPatterns):
         return self._endTime-self._startTime
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

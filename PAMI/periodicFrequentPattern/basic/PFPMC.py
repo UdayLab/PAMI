@@ -1,5 +1,5 @@
-
-
+# PFPMC is the fundamental approach to mine the periodic-frequent patterns.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -14,7 +14,7 @@
 #
 #     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.savePatterns("patterns")
+#     obj.save("patterns")
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -61,7 +61,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
     Description:
     ------------
 
-     EclatDiffset PFP is the fundamental approach to mine the periodic-frequent patterns.
+     PFPMC is the fundamental approach to mine the periodic-frequent patterns.
 
     Reference:
     --------------
@@ -118,7 +118,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
+            Complete set of periodic-frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
             Complete set of periodic-frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -159,7 +159,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
                 print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-                obj.savePatterns("patterns")
+                obj.save("patterns")
 
                 Df = obj.getPatternsAsDataFrame()
 
@@ -197,6 +197,10 @@ class PFPMC(_ab._periodicFrequentPatterns):
     _memoryRSS = float()
 
     def _getPeriodic(self, tids: set) -> int:
+        """To get  Periodic frequent patterns
+                :param tids: represents the timestamp of a transaction
+                :type tids: set
+        """
         tids = list(tids)
         tids.sort()
         temp = self._maxPer + 1
@@ -253,7 +257,6 @@ class PFPMC(_ab._periodicFrequentPatterns):
     def _convert(self, value) -> float:
         """
         To convert the given user specified value
-
         :param value: user specified value
         :return: converted value
         """
@@ -358,6 +361,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
             self._generateDiffsetEclat(new_freqList)
 
     def startMine(self) -> None:
+        """ Mining process will start from this function
+        """
         # print(f"Optimized {type(self).__name__}")
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
@@ -414,8 +419,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
         return dataframe
 
     def save(self, outFile: str) -> None:
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
-
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -435,6 +439,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

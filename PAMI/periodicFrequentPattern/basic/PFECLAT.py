@@ -1,6 +1,6 @@
-
-
-
+# PFECLAT is the fundamental approach to mine the periodic-frequent patterns.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -14,7 +14,7 @@
 #
 #     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.savePatterns("patterns")
+#     obj.save("patterns")
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -58,7 +58,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
     """
     Description:
     -------------
-        EclatPFP is the fundamental approach to mine the periodic-frequent patterns.
+        PFECLAT is the fundamental approach to mine the periodic-frequent patterns.
 
     Reference:
     -----------
@@ -157,7 +157,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
                 print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-                obj.savePatterns("patterns")
+                obj.save("patterns")
 
                 Df = obj.getPatternsAsDataFrame()
 
@@ -298,6 +298,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         return candidates
     
     def _generateEclat(self, candidates: list) -> None:
+
         newCandidates = []
         for i in range(0, len(candidates)):
             prefixItem = candidates[i]
@@ -318,6 +319,8 @@ class PFECLAT(_ab._periodicFrequentPatterns):
             self._generateEclat(newCandidates)
     
     def startMine(self) -> None:
+        """ Mining process will start from this function
+        """
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         frequentSets = self._creatingOneItemSets()
@@ -394,6 +397,8 @@ class PFECLAT(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

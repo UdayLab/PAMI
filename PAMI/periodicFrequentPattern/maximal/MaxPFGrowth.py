@@ -1,6 +1,8 @@
-
-
-
+# MaxPF-Growth is one of the fundamental algorithm to discover maximal periodic-frequent
+# patterns in a temporal database.
+#
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -91,7 +93,6 @@ class _Node(object):
     def addChild(self, node):
         """
         To add the children details to the parent node children list
-
         :param node: children node
 
         :return: adding to parent node children
@@ -139,9 +140,7 @@ class _Tree(object):
     def addTransaction(self, transaction, tid):
         """
         adding transaction into database
-
         :param transaction: transactions in a database
-
         :param tid: timestamp of the transaction in database
 
         :return: pftree
@@ -163,7 +162,6 @@ class _Tree(object):
     def getConditionalPatterns(self, alpha):
         """
         to get the conditional patterns of a node
-
         :param alpha: node in the tree
 
         :return: conditional patterns of a node
@@ -186,7 +184,6 @@ class _Tree(object):
     def removeNode(self, nodeValue):
         """
         removes the leaf node by pushing its timestamps to parent node
-
         :param nodeValue: node of a tree
 
         """
@@ -198,7 +195,6 @@ class _Tree(object):
     def getTimeStamps(self, alpha):
         """
         to get all the timestamps related to a node in tree
-
         :param alpha: node of a tree
 
         :return: timestamps of a node
@@ -211,7 +207,6 @@ class _Tree(object):
     def generatePatterns(self, prefix, patterns, maximalTree):
         """
             To generate the maximal periodic frequent patterns
-
             :param prefix: an empty list of itemSet to form the combinations
 
             :return: maximal periodic frequent patterns
@@ -608,7 +603,6 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
     def _updateDatabases(self, dict1):
         """ Remove the items which are not frequent from Databases and updates the Databases with rank of items
-
             :param dict1: frequent items with support
             :type dict1: dictionary
             :rtype: sorted and updated transactions
@@ -629,8 +623,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
     @staticmethod
     def _buildTree(data, info):
         """ it takes the Databases and support of each item and construct the main tree with setting root node as null
-
-            :param data: it represents the one Databases in database
+            :param data: it represents the one Database in database
             :type data: list
             :param info: it represents the support of each item
             :type info: dictionary
@@ -658,7 +651,6 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
-
         :param value: user specified value
         :return: converted value
         """
@@ -757,8 +749,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
-
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -777,6 +768,8 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Maximal Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

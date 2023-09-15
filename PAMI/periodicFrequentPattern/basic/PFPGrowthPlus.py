@@ -1,10 +1,11 @@
-
-
+# PFPGrowthPlus is fundamental and improved version of PFPGrowth algorithm to discover periodic-frequent patterns in temporal database.
+# It uses greedy approach to discover effectively
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#     from PAMI.periodicFrequentPattern.basic import PFPGorwthPlus as alg
+#     from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
 #
 #     obj = alg.PFPGrowthPlus("../basic/sampleTDB.txt", "2", "6")
 #
@@ -132,8 +133,7 @@ class _Tree(object):
     def addTransaction(self, transaction, tid) -> None:
         """
         adding transaction into tree
-
-                :param transaction : it represents the one transactions in database
+                :param transaction : it represents the one transaction in database
                 :type transaction : list
                 :param tid : represents the timestamp of transaction
                 :type tid : list
@@ -154,9 +154,8 @@ class _Tree(object):
 
     def getConditionalPatterns(self, alpha) -> Tuple[List[List], List[List], Dict]:
         """generates all the conditional patterns of respective node
-
-                    :param alpha : it represents the Node in tree
-                    :type alpha : Node
+              :param alpha : it represents the Node in tree
+              :type alpha : Node
         """
         finalPatterns = []
         finalSets = []
@@ -180,15 +179,20 @@ class _Tree(object):
 
     def removeNode(self, nodeValue):
         """removing the node from tree
-
-                        :param nodeValue : it represents the node in tree
-                        :type nodeValue : node
-                        """
+        :param nodeValue : it represents the node in tree
+        type nodeValue : node
+        """
         for i in self.summaries[nodeValue]:
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
             del i.parent.children[nodeValue]
 
     def getTimeStamps(self, alpha):
+        """
+        to get all the timestamps related to a node in tree
+        :param alpha: node of a tree
+
+        :return: timestamps of a node
+        """
         temporary = []
         for i in self.summaries[alpha]:
             temporary += i.timeStamps
@@ -198,12 +202,9 @@ class _Tree(object):
     def getSupportAndPeriod(timeStamps):
         """
                    calculates the support and periodicity with list of timestamps
-
                    :param timeStamps : timestamps of a pattern
                    :type timeStamps : list
-
-
-                           """
+        """
         global _maxPer, _lno
         timeStamps.sort()
         cur = 0
@@ -220,7 +221,6 @@ class _Tree(object):
 
     def conditionalTransactions(self, conditionalPatterns, conditionalTimeStamps):
         """ It generates the conditional patterns with periodic frequent items
-
                 :param conditionalPatterns : conditionalPatterns generated from conditionalPattern method for
                                     respective node
                 :type conditionalPatterns : list
@@ -253,10 +253,9 @@ class _Tree(object):
 
     def generatePatterns(self, prefix):
         """generates the patterns
-
-                :param prefix : forms the combination of items
-                :type prefix : list
-                """
+        :param prefix : forms the combination of items
+        :type prefix : list
+        """
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
             pattern = prefix[:]
             pattern.append(i)
@@ -492,7 +491,6 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     def _updateTransactions(self, dict1) -> List:  
         """remove the items which are not frequent from transactions and updates the transactions with rank of items
-
             :param dict1 : frequent items with support
             :type dict1 : dictionary
             """
@@ -513,12 +511,11 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
     def _buildTree(data, info) -> _Tree:
         """it takes the transactions and support of each item and construct the main tree with setting root
                     node as null
-
-                        :param data : it represents the one transactions in database
-                        :type data : list
-                        :param info : it represents the support of each item
-                        :type info : dictionary
-                        """
+                    :param data : it represents the one transaction in database
+                    :type data : list
+                    :param info : it represents the support of each item
+                    :type info : dictionary
+        """
         rootNode = _Tree()
         rootNode.info = info.copy()
         for i in range(len(data)):
@@ -540,7 +537,6 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
     def _convert(self, value) -> Union[int, float]:
         """
         To convert the given user specified value
-
         :param value: user specified value
         :return: converted value
         """
@@ -633,8 +629,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         return dataframe
 
     def save(self, outFile: str) -> None:
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
-
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -654,6 +649,8 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

@@ -1,6 +1,8 @@
-
-
-
+# Max3p-Growth algorithm IS to discover maximal periodic-frequent patterns in a temporal database.
+# It extract the partial periodic patterns from 3p-tree and checks for the maximal property and stores
+# all the maximal patterns in max3p-tree and extracts the maximal periodic patterns.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -801,6 +803,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of  Maximal Partial Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

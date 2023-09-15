@@ -1,8 +1,9 @@
-
+# cuGPFMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.periodicFrequentPattern.basic import PFECLAT as alg
+#     from PAMI.periodicFrequentPattern.basic import cuGPFMiner as alg
 #
 #     obj = alg.cuGPFMiner("../basic/sampleTDB.txt", "2", "5")
 #
@@ -12,7 +13,7 @@
 #
 #     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.savePatterns("patterns")
+#     obj.save("patterns")
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -55,7 +56,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
     """
     Description:
     -------------
-        gPFMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
+        cuGPFMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
 
     Reference:
     -----------
@@ -113,7 +114,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         getPatterns()
             Complete set of patterns will be retrieved with this function
         save(oFile)
-            Complete set of periodic-frequent patterns will be loaded in to a output file
+            Complete set of periodic-frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
             Complete set of periodic-frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -139,9 +140,9 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
     .. code-block:: python
 
-                from PAMI.periodicFrequentPattern.basic import PFECLAT as alg
+                from PAMI.periodicFrequentPattern.basic import cuGPFMiner as alg
 
-                obj = alg.PFECLAT("../basic/sampleTDB.txt", "2", "5")
+                obj = alg.cuGPFMiner("../basic/sampleTDB.txt", "2", "5")
 
                 obj.startMine()
 
@@ -149,7 +150,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
                 print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-                obj.savePatterns("patterns")
+                obj.save("patterns")
 
                 Df = obj.getPatternsAsDataFrame()
 
@@ -267,7 +268,6 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
-
         :param value: user specified value
         :return: converted value
         """
@@ -375,6 +375,10 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
     
 
     def startMine(self):
+        """
+            Mining process will start from here
+        """
+
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
         ArraysAndItems = self._creatingOneItemSets()
@@ -449,7 +453,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         self._memoryUSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
-        print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
+        print("Periodic-Frequent patterns were generated successfully using cuGPFMiner algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -494,8 +498,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
-
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -516,6 +519,8 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
