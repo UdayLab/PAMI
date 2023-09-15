@@ -53,6 +53,7 @@ __copyright__ = """
 
 
 from PAMI.periodicFrequentPattern.maximal import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 #global maximalTree
 _minSup = float()
@@ -82,13 +83,13 @@ class _Node(object):
             addChild(itemName)
                 storing the children to their respective parent nodes
     """
-    def __init__(self, item, children):
+    def __init__(self, item: int, children: list) -> None:
         self.item = item
         self.children = children
         self.parent = None
         self.timeStamps = []
 
-    def addChild(self, node):
+    def addChild(self, node) -> None:
         """
         To add the children details to the parent node children list
 
@@ -130,13 +131,13 @@ class _Tree(object):
             generatePatterns(Node)
                 starts from the root node of the tree and mines the frequent patterns
     """
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
         #self.maximalTree = _MPTree()
 
-    def addTransaction(self, transaction, tid):
+    def addTransaction(self, transaction: List[Any], tid: List[int]) -> None:
         """
         adding transaction into database
 
@@ -160,7 +161,7 @@ class _Tree(object):
                 currentNode = currentNode.children[transaction[i]]
         currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def getConditionalPatterns(self, alpha):
+    def getConditionalPatterns(self, alpha: Any) -> Tuple[List[List[Any]], List[List[int]], Dict[Any, List[int]]]:
         """
         to get the conditional patterns of a node
 
@@ -183,7 +184,7 @@ class _Tree(object):
         finalPatterns, finalSets, info = _conditionalTransactions(finalPatterns, finalSets)
         return finalPatterns, finalSets, info
 
-    def removeNode(self, nodeValue):
+    def removeNode(self, nodeValue: Any) -> None:
         """
         removes the leaf node by pushing its timestamps to parent node
 
@@ -195,7 +196,7 @@ class _Tree(object):
             del i.parent.children[nodeValue]
             i = None
 
-    def getTimeStamps(self, alpha):
+    def getTimeStamps(self, alpha: Any) -> List[int]:
         """
         to get all the timestamps related to a node in tree
 
@@ -208,7 +209,7 @@ class _Tree(object):
             temp += i.timeStamps
         return temp
 
-    def generatePatterns(self, prefix, patterns, maximalTree):
+    def generatePatterns(self, prefix: List[Any], patterns: Dict[Tuple[Any], Tuple[int, int]], maximalTree: Any) -> None:
         """
             To generate the maximal periodic frequent patterns
 
@@ -257,11 +258,11 @@ class _MNode(object):
             addChild(itemName)
                 storing the children to their respective parent nodes
     """
-    def __init__(self, item, children):
+    def __init__(self, item: Any, children: Dict[Any, Any]) -> None:
         self.item = item
         self.children = children
 
-    def addChild(self, node):
+    def addChild(self, node: Any) -> None:
         """
         To add the children details to parent node children variable
 
@@ -293,11 +294,11 @@ class _MPTree(object):
             checkerSub(itemSet)
                 to check of subset of itemSet is present in tree
     """
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = _MNode(None, {})
         self.summaries = {}
 
-    def addTransaction(self, transaction):
+    def addTransaction(self, transaction: List[Any]) -> None:
         """
         to add the transaction in maximal tree
         :param transaction: resultant periodic frequent pattern
@@ -317,7 +318,7 @@ class _MPTree(object):
             else:
                 currentNode = currentNode.children[transaction[i]]
 
-    def checkerSub(self, items):
+    def checkerSub(self, items: List[Any]) -> int:
         """
         To check subset present of items in the maximal tree
         :param items: the pattern to check for subsets
@@ -345,7 +346,7 @@ class _MPTree(object):
 #maximalTree = _MPTree()
 
 
-def _getPeriodAndSupport(timeStamps):
+def _getPeriodAndSupport(timeStamps: List[int]) -> List[Union[int, float]]:
     """
     To calculate the periodicity and support of a pattern with their respective timeStamps
     :param timeStamps: timeStamps
@@ -365,7 +366,7 @@ def _getPeriodAndSupport(timeStamps):
     return [sup, per]
 
 
-def _conditionalTransactions(condPatterns, condTimeStamps):
+def _conditionalTransactions(condPatterns: List[List[int]], condTimeStamps: List[List[int]]) -> Tuple[List[List[int]], List[List[int]], Dict[int, Tuple[int, float]]]:
     """
     To calculate the timestamps of conditional items in conditional patterns
     :param condPatterns: conditional patterns of node
@@ -541,10 +542,10 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
     _patterns = {}
     _maximalTree = str()
 
-    def __init__(self, iFile, minSup, maxPer, sep='\t'):
+    def __init__(self, iFile: Any, minSup Union[int, float, str], maxPer Union[int, float, str], sep: str='\t') -> None:
         super().__init__(iFile, minSup, maxPer, sep)
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """ Storing the complete Databases of the database/input file in a database variable
             :rtype: storing transactions into Database variable
         """
@@ -582,7 +583,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _periodicFrequentOneItem(self):
+    def _periodicFrequentOneItem(self) -> Dict[Any, List[Union[int, float]]]:
         """
             calculates the support of each item in the dataset and assign the ranks to the items
             by decreasing support and returns the frequent items list
@@ -606,7 +607,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
         return data
 
-    def _updateDatabases(self, dict1):
+    def _updateDatabases(self, dict1: Dict[Any, List[Union[int, float]]]) -> List[List[Union[int, float]]]:
         """ Remove the items which are not frequent from Databases and updates the Databases with rank of items
 
             :param dict1: frequent items with support
@@ -627,7 +628,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         return list1
 
     @staticmethod
-    def _buildTree(data, info):
+    def _buildTree(data: List[List[Union[int, float]]], info: Dict[Any, List[Union[int, float]]]) -> Any:
         """ it takes the Databases and support of each item and construct the main tree with setting root node as null
 
             :param data: it represents the one Databases in database
@@ -644,7 +645,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
             rootNode.addTransaction(data[i][1:], set1)
         return rootNode
 
-    def _savePeriodic(self, itemSet):
+    def _savePeriodic(self, itemSet: List[Any]) -> List[Any]:
         """
         To convert the ranks of items in to their original item names
         :param itemSet: frequent pattern
@@ -655,7 +656,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
             t1.append(self._rankedUp[i])
         return t1
 
-    def _convert(self, value):
+    def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         To convert the given user specified value
 
@@ -674,7 +675,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
-    def startMine(self):
+    def startMine(self) -> None:
         """ Mining process will start from this function
         """
 
@@ -714,7 +715,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         self._memoryRSS = _process.memory_info().rss
         print("Maximal Periodic Frequent patterns were generated successfully using MAX-PFPGrowth algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -723,7 +724,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -732,7 +733,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -742,7 +743,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
@@ -756,7 +757,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile: str) -> None:
         """Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -768,7 +769,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
             s1 = x.replace(' ', '\t').strip() + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, Tuple[int, int]]:
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
@@ -776,7 +777,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         print("Total number of Maximal Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
