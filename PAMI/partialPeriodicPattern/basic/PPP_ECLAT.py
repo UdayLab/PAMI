@@ -440,7 +440,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self) -> _pd.DataFrame:
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
