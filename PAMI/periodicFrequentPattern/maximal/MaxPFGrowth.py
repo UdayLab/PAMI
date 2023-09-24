@@ -542,7 +542,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
     _patterns = {}
     _maximalTree = str()
 
-    def __init__(self, iFile: Any, minSup Union[int, float, str], maxPer Union[int, float, str], sep: str='\t') -> None:
+    def __init__(self, iFile: Any, minSup: Union[int, float, str], maxPer: Union[int, float, str], sep: str='\t') -> None:
         super().__init__(iFile, minSup, maxPer, sep)
 
     def _creatingItemSets(self) -> None:
