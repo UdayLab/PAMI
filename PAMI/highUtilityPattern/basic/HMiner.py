@@ -271,7 +271,7 @@ class HMiner(_ab._utilityPatterns):
 
     def _creteItemsets(self):
         """
-
+            Storing the complete transactions of the database/input file in a database variable
         """
         self._transactions, self._utilities, self._utilitySum = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):

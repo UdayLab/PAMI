@@ -201,6 +201,12 @@ class _Dataset:
         self.createItemsets(datasetPath)
 
     def createItemsets(self, datasetPath: Union[str, _ab._pd.DataFrame]) -> None:
+        """
+            Storing the complete transactions of the database/input file in a database variable
+            : param datasetPath: It represents the peth for the dataset
+            : type datasetPath: str
+            : return: None
+        """
         self.Database = []
         if isinstance(datasetPath, _ab._pd.DataFrame):
             utilities, data, transactionUtility = [], [], []

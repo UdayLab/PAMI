@@ -233,6 +233,9 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         return per
 
     def _creatingItemSets(self) -> None:
+        """
+            Storing the complete transactions of the database/input file in a database variable
+        """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             data, tids = [], []

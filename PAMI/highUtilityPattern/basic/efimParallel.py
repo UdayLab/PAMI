@@ -115,9 +115,6 @@ class efimParallel(_ab._utilityPatterns):
     """
 
     def __init__(self, iFile, minUtil, sep="\t", threads=1):
-        """
-
-        """
         super().__init__(iFile, minUtil, sep)
         self.inputFile = iFile
         self.minUtil = minUtil

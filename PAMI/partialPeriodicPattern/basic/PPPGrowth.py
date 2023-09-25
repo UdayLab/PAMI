@@ -1,4 +1,4 @@
-# 3pgrowth is fundamental approach to mine the partial periodic patterns in temporal database.
+# PPPGrowth is fundamental approach to mine the partial periodic patterns in temporal database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------

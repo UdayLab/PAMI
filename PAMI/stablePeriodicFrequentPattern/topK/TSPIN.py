@@ -1,3 +1,5 @@
+# TSPIN is an algorithm to discover top stable periodic-frequent patterns in a transactional database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -50,6 +52,7 @@ __copyright__ = """
 """
 
 from PAMI.stablePeriodicFrequentPattern.topK import abstract as _ab
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 _maxPer = float()
@@ -80,7 +83,7 @@ class _Node(object):
                 Storing the children to their respective parent nodes
         """
 
-    def __init__(self, item, children):
+    def __init__(self, item, children) -> None:
         """ Initializing the Node class
 
         :param item: Storing the item of a node
@@ -94,7 +97,7 @@ class _Node(object):
         self.parent = None
         self.timeStamps = []
 
-    def addChild(self, node):
+    def addChild(self, node) -> None:
         """ To add the children to a node
 
             :param node: parent node in the tree
@@ -134,12 +137,12 @@ class _Tree(object):
 
         """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
-    def addTransaction(self, transaction, tid):
+    def addTransaction(self, transaction, tid) -> None:
         """     Adding a transaction into tree
 
                 :param transaction: To represent the complete database
@@ -163,7 +166,7 @@ class _Tree(object):
                 currentNode = currentNode.children[transaction[i]]
         currentNode.timeStamps = currentNode.timeStamps + tid
 
-    def getConditionalPatterns(self, alpha):
+    def getConditionalPatterns(self, alpha) -> None:
         """Generates all the conditional patterns of a respective node
 
             :param alpha: To represent a Node in the tree
@@ -186,7 +189,7 @@ class _Tree(object):
         return finalPatterns, finalSets, info
 
     @staticmethod
-    def generateTimeStamps(node):
+    def generateTimeStamps(node) -> list:
         """To get the timestamps of a node
 
         :param node: A node in the tree
@@ -196,7 +199,7 @@ class _Tree(object):
         finalTimeStamps = node.timeStamps
         return finalTimeStamps
 
-    def removeNode(self, nodeValue):
+    def removeNode(self, nodeValue) -> None:
         """ Removing the node from tree
 
             :param nodeValue: To represent a node in the tree
@@ -208,7 +211,7 @@ class _Tree(object):
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
             del i.parent.children[nodeValue]
 
-    def getTimeStamps(self, alpha):
+    def getTimeStamps(self, alpha) -> list:
         """ To get all the timestamps of the nodes which share same item name
 
             :param alpha: Node in a tree
@@ -220,7 +223,7 @@ class _Tree(object):
         return temporary
 
     @staticmethod
-    def getSupportAndPeriod(timeStamps):
+    def getSupportAndPeriod(timeStamps) -> tuple:
         """To calculate the periodicity and support
 
         :param timeStamps: Timestamps of an item set
@@ -237,7 +240,7 @@ class _Tree(object):
         la = max(0, la + _last - previous - _maxPer)
         return len(timeStamps), la
 
-    def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps):
+    def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps) -> tuple:
         """ It generates the conditional patterns with periodic-frequent items
 
             :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
@@ -271,7 +274,7 @@ class _Tree(object):
             count += 1
         return pat, timeStamps, updatedDictionary
 
-    def generatePatterns(self, minSup, prefix, Qk):
+    def generatePatterns(self, minSup, prefix, Qk) -> None:
         """ Generates the patterns
 
             :param prefix: Forms the combination of items
@@ -446,7 +449,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
     _rankedUp = {}
     _lno = 0
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -491,7 +494,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
                     quit()
 
 
-    def _periodicFrequentOneItem(self):
+    def _periodicFrequentOneItem(self) -> Tuple[Dict[str, List[int]], List[str]]:
         """ Calculates the support of each item in the database and assign ranks to the items
             by decreasing support and returns the frequent items list
 
@@ -522,7 +525,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         self._rank = dict([(index, item) for (item, index) in enumerate(pfList)])
         return data, pfList
 
-    def _updateDatabases(self, dict1):
+    def _updateDatabases(self, dict1: Dict[str, List[int]]) -> List[List[int]]:
         """ Remove the items which are not frequent from database and updates the database with rank of items
 
             :param dict1: frequent items with support
@@ -543,10 +546,10 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return list1
 
     @staticmethod
-    def _buildTree(data, info):
-        """ It takes the database and support of an each item and construct the main tree by setting root node as a null
+    def _buildTree(data: List[List[int]], info: Dict[int, List[int]]) -> _Tree:
+        """ It takes the database and support of each item and construct the main tree by setting root node as a null
 
-            :param data: it represents the one Databases in database
+            :param data: it represents the one Database in database
             :type data: list
             :param info: it represents the support of each item
             :type info: dictionary
@@ -560,7 +563,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             rootNode.addTransaction(data[i][1:], set1)
         return rootNode
 
-    def _savePeriodic(self, itemSet):
+    def _savePeriodic(self, itemSet: List[str]) -> str:
         """ To convert the ranks of items in to their original item names
 
             :param itemSet: frequent pattern
@@ -571,7 +574,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             t1 = t1 + self._rankedUp[i] + " "
         return t1
 
-    def _convert(self, value):
+    def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         To convert the given user specified value
 
@@ -590,7 +593,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
                 value = int(value)
         return value
 
-    def startMine(self):
+    def startMine(self) -> None:
         """ Mining process will start from this function
         """
 
@@ -627,7 +630,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Top-K Stable Periodic patterns were generated successfully using TSPIN algorithm ")
 
-    def getMemoryUSS(self):
+    def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -636,7 +639,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self):
+    def getMemoryRSS(self) -> float:
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -645,7 +648,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self):
+    def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -655,7 +658,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
@@ -669,8 +672,8 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             dataFrame = _ab._pd.DataFrame(data, columns=['Patterns', 'Support', 'Periodicity'])
         return dataFrame
 
-    def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
+    def save(self, outFile: str) -> None:
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -681,13 +684,22 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             s1 = x + ":" + str(y[0]) + ":" + str(y[1])
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> dict:
         """ Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
+
+    def printResults(self) -> None:
+        """ This function is used to print the results
+        """
+        print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 
 if __name__ == "__main__":
@@ -723,5 +735,3 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-

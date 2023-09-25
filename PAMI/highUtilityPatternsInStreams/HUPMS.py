@@ -889,7 +889,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def printResults(self):
         """
-            Prints the stats of the mining process
+            Prints the results of the mining process
 
         """
         print("Total number of Windows Processed:", len(self.getPatterns()))

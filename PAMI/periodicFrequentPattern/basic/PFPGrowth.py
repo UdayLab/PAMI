@@ -14,7 +14,7 @@
 #
 #     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#     obj.save(oFile)
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -393,7 +393,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
 
                 print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-                obj.savePatterns(oFile)
+                obj.save(oFile)
 
                 Df = obj.getPatternsAsDataFrame()
 

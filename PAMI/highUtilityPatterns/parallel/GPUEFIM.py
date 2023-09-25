@@ -172,6 +172,17 @@ class GPUEFIM:
 
     # Read input file
     def read_file(self):
+        """
+        Read the input file and return the filtered transactions, primary items, and secondary items.
+
+        Returns:
+        -------
+            filtered_transactions (dict): A dictionary containing the filtered transactions.
+            primary (set): A set containing the primary items.
+            secondary (set): A set containing the secondary items.
+
+        """
+
         file_data = []
         twu = {}
 
@@ -272,6 +283,15 @@ class GPUEFIM:
         return primary, secondary
 
     def search(self, collection, depth):
+        """
+        Search for frequent patterns in the given collections.
+
+        Attributes:
+        ----------
+            collections (list): The collections to search in.
+
+
+        """
         while len(collection) > 0:
             candidates = []
             secondaryReference = []
@@ -357,7 +377,7 @@ class GPUEFIM:
             collection = newCollections
 
 
-    def savePatterns(self, outputFile):
+    def save(self, outputFile):
         """Complete set of frequent patterns will be loaded in to an output file
         :param outputFile: name of the output file
         :type outputFile: file
@@ -465,7 +485,7 @@ if __name__ == "__main__":
     sep = " "
     f = GPUEFIM(inputFile, minUtil, sep)
     f.startMine()
-    f.savePatterns("output.txt")
+    f.save("output.txt")
     print("# of patterns: " + str(len(f.getPatterns())))
     print("Time taken: " + str(f.getRuntime()))
 
