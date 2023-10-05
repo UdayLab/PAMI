@@ -1,13 +1,13 @@
-
-
-
+# k3PMiner is and algorithm to discover top - k partial periodic patterns in a temporal  database.
+#
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 
 #
-#     import PAMI.partialPeriodicPattern.topk.Topk_PPPGrowth as alg
+#     import PAMI.partialPeriodicPattern.topk.k3PMiner as alg
 #
-#     obj = alg.Topk_PPPGrowth(iFile, k, periodicity)
+#     obj = alg.k3PMiner(iFile, k, periodicity)
 #
 #     obj.startMine()
 #
@@ -468,7 +468,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -490,6 +490,8 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Top K Partial Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

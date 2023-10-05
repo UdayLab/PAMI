@@ -1,4 +1,5 @@
-
+#  High Utility itemSet Mining (HMinER) is an important algorithm to miner High utility items from the database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -111,7 +112,7 @@ class _CUList:
     def addElements(self, element):
         """
             A method to add new element to CUList
-            :param element: element to be addeed to CUList
+            :param element: element to be added to CUList
             :type element: Element
         """
         self.sumnu += element.nu
@@ -269,6 +270,9 @@ class HMiner(_ab._utilityPatterns):
             return compare
 
     def _creteItemsets(self):
+        """
+            Storing the complete transactions of the database/input file in a database variable
+        """
         self._transactions, self._utilities, self._utilitySum = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -410,7 +414,7 @@ class HMiner(_ab._utilityPatterns):
             -----------
             :parm prefix: it represents all items in prefix
             :type prefix :list
-            :parm uList:projectd Utility list
+            :parm uList:projected Utility list
             :type uList: list
             :parm minutil:user minUtil
             :type minutil:int
@@ -661,6 +665,8 @@ class HMiner(_ab._utilityPatterns):
         return self._endTime - self._startTime
     
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
@@ -672,7 +678,7 @@ if __name__ == "__main__":
     if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
         if len(_ab._sys.argv) == 5:  # includes separator
             _ap = HMiner(_ab._sys.argv[1], int(_ab._sys.argv[3]), _ab._sys.argv[4])
-        if len(_ab._sys.argv) == 4:  # to consider "\t" as aseparator
+        if len(_ab._sys.argv) == 4:  # to consider "\t" as a separator
             _ap = HMiner(_ab._sys.argv[1], int(_ab._sys.argv[3]))
         _ap.startMine()
         print("Total number of huis:", len(_ap.getPatterns()))

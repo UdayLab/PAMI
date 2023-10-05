@@ -1,5 +1,6 @@
-
-
+#  CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.
+#  It uses depth-first search.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -14,7 +15,7 @@
 #
 #     print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.savePatterns("patterns")
+#     obj.save("patterns")
 #
 #     Df = obj.getPatternsAsDataFrame()
 #
@@ -105,7 +106,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
             getPatterns()
                 Complete set of patterns will be retrieved with this function
             save(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
+                Complete set of frequent patterns will be loaded in to an output file
             getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
             getMemoryUSS()
@@ -140,7 +141,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         
                     print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
         
-                    obj.savePatterns("patterns")
+                    obj.save("patterns")
         
                     Df = obj.getPatternsAsDataFrame()
         
@@ -189,7 +190,6 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
-
         :param value: user specified value
 
         :return: converted value
@@ -539,11 +539,9 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
-
-            :param outFile: name of the output file
-
-            :type outFile: file
+        """Complete set of frequent patterns will be loaded in to an output file
+           :param outFile: name of the output file
+           :type outFile: file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -561,6 +559,8 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Closed Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

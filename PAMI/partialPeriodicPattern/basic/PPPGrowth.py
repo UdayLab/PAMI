@@ -1,5 +1,5 @@
-
-
+# PPPGrowth is fundamental approach to mine the partial periodic patterns in temporal database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -178,6 +178,11 @@ class _Tree(object):
         return finalPatterns, finalSets, info
 
     def _generateTimeStamps(self, node: '_Node') -> List:
+        """generates the Time Stamps
+
+                :param node : it represents the node in tree
+                :type node : list
+                        """
         finalTs = node.timeStamps
         return finalTs
 
@@ -473,7 +478,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
                     calculates the support of each item in the dataset and assign the ranks to the items
                     by decreasing support and returns the frequent items list
 
-                    """
+        """
         data = {}
         self._period = self._convert(self._period)
         self._minPS = self._convert(self._minPS)
@@ -562,7 +567,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         """
                    Main method where the patterns are mined by constructing tree.
 
-               """
+        """
         global _minPS, _period, _lno
         self._startTime = _abstract._time.time()
         if self._iFile is None:
@@ -653,6 +658,8 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         return self._finalPatterns
 
     def printResults(self) -> None:
+        """ This function is used to print the results
+        """
         print("Total number of Partial Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

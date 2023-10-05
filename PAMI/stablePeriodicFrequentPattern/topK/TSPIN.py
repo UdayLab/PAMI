@@ -1,3 +1,5 @@
+# TSPIN is an algorithm to discover top stable periodic-frequent patterns in a transactional database.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -545,9 +547,9 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
     @staticmethod
     def _buildTree(data: List[List[int]], info: Dict[int, List[int]]) -> _Tree:
-        """ It takes the database and support of an each item and construct the main tree by setting root node as a null
+        """ It takes the database and support of each item and construct the main tree by setting root node as a null
 
-            :param data: it represents the one Databases in database
+            :param data: it represents the one Database in database
             :type data: list
             :param info: it represents the support of each item
             :type info: dictionary
@@ -671,7 +673,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
+        """Complete set of periodic-frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -689,6 +691,15 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         :rtype: dict
         """
         return self._finalPatterns
+
+    def printResults(self) -> None:
+        """ This function is used to print the results
+        """
+        print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
+
 
 
 if __name__ == "__main__":
@@ -724,5 +735,3 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
         print("Error! The number of input parameters do not match the total number of parameters provided")
-
-
