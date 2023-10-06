@@ -4,7 +4,7 @@ plotly==5.15.0
 matplotlib==3.7.2
 Resource==0.2.1
 validators==0.20.0
-urllib3==2.0.3
+urllib3==2.0.6
 pillow==10.0.0
 numpy==1.25.1
 cupy==12.1.0
