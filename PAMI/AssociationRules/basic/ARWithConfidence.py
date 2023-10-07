@@ -1,34 +1,37 @@
 #  This code uses "confidence" metric to extract the association rules from given frequent patterns.
 #
-#
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#     import PAMI.AssociationRules.basic import ARWithConfidence as alg
 #
-#     obj = alg.ARWithConfidence(iFile, minConf)
+#             import PAMI.AssociationRules.basic import ARWithConfidence as alg
 #
-#     obj.startMine()
+#             obj = alg.ARWithConfidence(iFile, minConf)
 #
-#     associationRules = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of Association Rules:", len(associationRules))
+#             associationRules = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of Association Rules:", len(associationRules))
 #
-#     Df = obj.getPatternInDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternInDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
 
 
 __copyright__ = """
@@ -46,6 +49,8 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+     
 """
 
 from PAMI.AssociationRules.basic import abstract as _ab
@@ -133,86 +138,85 @@ class _Confidence:
 
 class ARWithConfidence:
     """
-        :Description: Association Rules are derived from frequent patterns using "confidence" metric.
+    :Description: Association Rules are derived from frequent patterns using "confidence" metric.
 
-        :Reference:
+    :Reference:
 
-        :param iFile: str or df :
-                    Name of the Input file to mine the association rules
+    :param  iFile: str or df :
+                Name of the Input file to mine the association rules
 
-        :param minConf: float
-                    The user can specify the minConf in float
-        :par sep: str :
+    :param  minConf: float :
+                        The user can specify the minConf in float
+    :par  sep: str :
                     This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
 
 
-        :Attributes:
+    :Attributes:
 
 
-            startTime : float
-                To record the start time of the mining process
+        startTime : float
+            To record the start time of the mining process
 
-            endTime : float
-                To record the completion time of the mining process
+        endTime : float
+            To record the completion time of the mining process
 
-            finalPatterns : dict
-              Storing the complete set of patterns in a dictionary variable
+        finalPatterns : dict
+            Storing the complete set of patterns in a dictionary variable
 
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
 
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
 
 
-     **Methods to execute code on terminal**
-     ----------------------------------------------------
+    **Methods to execute code on terminal**
+    ----------------------------------------------------
 
             Format:
                       >>> python3 ARWithConfidence.py <inputFile> <outputFile> <minConf> <sep>
-
             Example:
                      >>>  python3 ARWithConfidence.py sampleDB.txt patterns.txt 0.5 ' '
 
-            .. note:: minConf will be considered only in 0 to 1.
 
+                     .. note:: minConf will be considered only in 0 to 1.
 
 
     **Importing this algorithm into a python program**
     ----------------------------------------------------
-
     .. code-block:: python
 
-             import PAMI.AssociationRules.basic import ARWithConfidence as alg
+            import PAMI.AssociationRules.basic import ARWithConfidence as alg
 
-             obj = alg.ARWithConfidence(iFile, minConf)
+            obj = alg.ARWithConfidence(iFile, minConf)
 
-             obj.startMine()
+            obj.startMine()
 
-             associationRules = obj.getPatterns()
+            associationRules = obj.getPatterns()
 
-             print("Total number of Association Rules:", len(associationRules))
+            print("Total number of Association Rules:", len(associationRules))
 
-             obj.save(oFile)
+            obj.save(oFile)
 
-             Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-             memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-             print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-             memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-             print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-             run = obj.getRuntime()
+            run = obj.getRuntime()
 
-             print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-    -------------
+    --------------------------------------------
 
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+
     """
 
     _minConf = float()

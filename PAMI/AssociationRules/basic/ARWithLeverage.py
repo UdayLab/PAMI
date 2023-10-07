@@ -138,40 +138,39 @@ class _Leverage:
 
 class ARWithLeverage:
     """
-       :Description: Association Rules are derived from frequent patterns using "leverage" metric.
+    :Description: Association Rules are derived from frequent patterns using "leverage" metric.
 
-        :Reference:
+    :Reference:
 
-        :param iFile: str or df :
-                    Name of the Input file to mine the association rules
-
-        :param minConf: float
-                    The user can specify the minConf in float
-        :par sep: str :
-                    This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
+    :param iFile: str or df :
+         Name of the Input file to mine the association rules
+    :param minConf: float
+         The user can specify the minConf in float
+    :par sep: str :
+         This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
         
         
-        :Attributes:
+    :Attributes:
 
 
-            startTime : float
-                To record the start time of the mining process
+        startTime : float
+            To record the start time of the mining process
 
-            endTime : float
-                To record the completion time of the mining process
+        endTime : float
+            To record the completion time of the mining process
 
-            finalPatterns : dict
-              Storing the complete set of patterns in a dictionary variable
+        finalPatterns : dict
+           Storing the complete set of patterns in a dictionary variable
 
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
 
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
 
 
-     **Methods to execute code on terminal**
-     ----------------------------------------------------
+    **Methods to execute code on terminal**
+    ----------------------------------------------------
 
             Format:
                       >>> python3 ARWithLeverage.py <inputFile> <outputFile> <minConf> <sep>
@@ -179,45 +178,45 @@ class ARWithLeverage:
             Example:
                       >>>  python3 ARWithLeverage.py sampleDB.txt patterns.txt 10.0 ' '
 
-            .. note:: minConf will be considered only in 0 to 1.
+                      .. note:: minConf will be considered only in 0 to 1.
 
     
     
     **Importing this algorithm into a python program**
     ----------------------------------------------------
-
     .. code-block:: python
 
-             import PAMI.AssociationRules.basic import ARWithLeverage as alg
+            import PAMI.AssociationRules.basic import ARWithLeverage as alg
 
-             obj = alg.ARWithLeverage(iFile, minConf)
+            obj = alg.ARWithLeverage(iFile, minConf)
 
-             obj.startMine()
+            obj.startMine()
 
-             associationRules = obj.getPatterns()
+            associationRules = obj.getPatterns()
 
-             print("Total number of Association Rules:", len(associationRules))
+            print("Total number of Association Rules:", len(associationRules))
 
-             obj.save(oFile)
+            obj.save(oFile)
 
-             Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-             memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-             print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-             memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-             print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-             run = obj.getRuntime()
+            run = obj.getRuntime()
 
-             print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
             
     **Credits:**
-    -------------
+    --------------------
 
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+
     """
 
     def __init__(self, iFile, minConf, sep) -> None:

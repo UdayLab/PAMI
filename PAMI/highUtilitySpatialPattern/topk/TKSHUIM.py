@@ -1,30 +1,38 @@
+# Top K Spatial High Utility ItemSet Mining (TKSHUIM) aims to discover Top-K Spatial High Utility Itemsets
+# (TKSHUIs) in a spatioTemporal database
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#    from PAMI.highUtilitySpatialPattern.topk import TKSHUIM as alg
+#             from PAMI.highUtilitySpatialPattern.topk import TKSHUIM as alg
 #
-#     obj=alg.TKSHUIM("input.txt","Neighbours.txt",35)
+#             obj=alg.TKSHUIM("input.txt","Neighbours.txt",35)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     obj.save("output")
+#             print("Total number of  Patterns:", len(Patterns))
 #
-#     memUSS = obj.getMemoryUSS()
+#             obj.save("output")
 #
-#     print("Total Memory in USS:", memUSS)
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memRSS = obj.getMemoryRSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     run = obj.getRuntime()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total Memory in RSS", memRSS)
 #
+#             run = obj.getRuntime()
 #
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -240,7 +248,7 @@ class Dataset:
 
     def getMaxItem(self):
         """
-            A method to return name of largest item
+            A method to return name of the largest item
         """
         return self.maxItem
 
@@ -262,6 +270,14 @@ class TKSHUIM(utilityPatterns):
        P. Pallikila et al., "Discovering Top-k Spatial High Utility Itemsets in Very Large Quantitative Spatiotemporal 
        databases," 2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 4925-4935, 
        doi: 10.1109/BigData52589.2021.9671912.
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  k: int :
+                    User specified count of top frequent patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     Attributes:
     -----------
@@ -397,6 +413,9 @@ class TKSHUIM(utilityPatterns):
         super().__init__(iFile, nFile, k, sep)
 
     def startMine(self):
+        """
+            Main function of the program.
+        """
         self.startTime = time.time()
         self.finalPatterns = {}
         self.dataset = Dataset(self.iFile, self.sep)
@@ -553,7 +572,7 @@ class TKSHUIM(utilityPatterns):
             -----------
             :param transactionsPe: transactions the projected database for P U {e}
             :type transactionsPe: list
-            :param j:he position of j in the list of promising items
+            :param j:the position of j in the list of promising items
             :type j:int
             :param itemsToKeep :the list of promising items
             :type itemsToKeep: list
@@ -663,7 +682,7 @@ class TKSHUIM(utilityPatterns):
 
     def useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
         """
-        Scan the initial database to calculate the subtree utility of each items using a utility-bin array
+        Scan the initial database to calculate the subtree utility of each item using a utility-bin array
 
         Attributes:
         ----------
@@ -813,7 +832,7 @@ class TKSHUIM(utilityPatterns):
         return self.finalPatterns
 
     def save(self, outFile):
-        """Complete set of patterns will be loaded in to a output file
+        """Complete set of patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -851,6 +870,8 @@ class TKSHUIM(utilityPatterns):
         return self.endTime-self.startTime
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Top K Spatial  High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
