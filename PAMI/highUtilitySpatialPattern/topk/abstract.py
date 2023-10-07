@@ -38,7 +38,6 @@ import os
 import os.path
 import psutil
 import sys
-import validators
 from urllib.request import urlopen
 
 
