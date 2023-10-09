@@ -1,34 +1,34 @@
-#   RuleMiner code is used to extract the association rules from given frequent patterns.
+# RuleMiner code is used to extract the association rules from given frequent patterns.
 #
 #
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#     import PAMI.AssociationRules.basic import RuleMiner as alg
+#             import PAMI.AssociationRules.basic import RuleMiner as alg
 #
-#     obj = alg.RuleMiner(iFile, measure, o.5, "\t")
+#             obj = alg.RuleMiner(iFile, measure, o.5, "\t")
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     associationRules = obj.getPatterns()
+#            associationRules = obj.getPatterns()
 #
-#     print("Total number of Association Rules:", len(associationRules))
+#            print("Total number of Association Rules:", len(associationRules))
 #
-#     obj.save(oFile)
+#            obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#            Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#            memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#            print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#            memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#            print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#            run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#            print("Total ExecutionTime in seconds:", run)
 #
 
 __copyright__ = """
@@ -257,16 +257,17 @@ class RuleMiner:
         :Reference:
 
 
-        :param inputFile: input file name or path
-             str
-        :param frequentPattern : list or dict
-            list
-        :param measure: condition to calculate the strength of rule
-            str
-        :param threshold: condition to satisfy
-            int
-        :param sep: str :
+        :param  inputFile: str:
+             input file name or path
+        :param  frequentPattern: list or dict :
+             frequent patterns are stored in the form of list or dictionary
+        :param  measure: str :
+            condition to calculate the strength of rule
+        :param  threshold: int :
+            condition to satisfy
+        :param  sep: str :
             This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
+
         Attributes:
         ----------
             startTime : float
@@ -285,49 +286,48 @@ class RuleMiner:
                 To store the total amount of RSS memory consumed by the program
 
 
-     **Methods to execute code on terminal**
-     ----------------------------------------------------
+        **Methods to execute code on terminal**
+        ----------------------------------------------------
 
-            Format:
+                Format:
                       >>> python3 RuleMiner.py <inputFile> <outputFile> <minConf> <sep>
 
-            Example:
+                Example:
                       >>>  python3 RuleMiner.py sampleDB.txt patterns.txt 0.5 ' '
 
-            .. note:: minConf will be considered only in 0 to 1.
+                      .. note:: minConf will be considered only in 0 to 1.
 
 
 
-    **Importing this algorithm into a python program**
-    ----------------------------------------------------
+        **Importing this algorithm into a python program**
+        ----------------------------------------------------
+        .. code-block:: python
 
-    .. code-block:: python
+                import PAMI.AssociationRules.basic import RuleMiner as alg
 
-             import PAMI.AssociationRules.basic import RuleMiner as alg
+                obj = alg.RuleMiner(iFile, measure, o.5, "\t")
 
-             obj = alg.RuleMiner(iFile, measure, o.5, "\t")
+                obj.startMine()
 
-             obj.startMine()
+                associationRules = obj.getPatterns()
 
-             associationRules = obj.getPatterns()
+                print("Total number of Association Rules:", len(associationRules))
 
-             print("Total number of Association Rules:", len(associationRules))
+                obj.save(oFile)
 
-             obj.save(oFile)
+                Df = obj.getPatternInDataFrame()
 
-             Df = obj.getPatternInDataFrame()
+                memUSS = obj.getMemoryUSS()
 
-             memUSS = obj.getMemoryUSS()
+                print("Total Memory in USS:", memUSS)
 
-             print("Total Memory in USS:", memUSS)
+                memRSS = obj.getMemoryRSS()
 
-             memRSS = obj.getMemoryRSS()
+                print("Total Memory in RSS", memRSS)
 
-             print("Total Memory in RSS", memRSS)
+                run = obj.getRuntime()
 
-             run = obj.getRuntime()
-
-             print("Total ExecutionTime in seconds:", run)
+                print("Total ExecutionTime in seconds:", run)
 
         Methods:
         -------

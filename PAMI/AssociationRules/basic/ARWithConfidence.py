@@ -147,7 +147,7 @@ class ARWithConfidence:
 
     :param  minConf: float :
                         The user can specify the minConf in float
-    :par  sep: str :
+    :param  sep: str :
                     This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
 
 
