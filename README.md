@@ -372,11 +372,11 @@ __coming soon__
 
 ## 11. sequentialPatternMining
 
-|              Basic                   |
-             1. SPADE
-          | to be written |
+  |   Basic       |
+  1. SPADE
+  | to be written |
 
-              2. SPAM
-          | to be written |
+  2. SPAM
+  | to be written |
 
      
