@@ -374,6 +374,7 @@ __coming soon__
 
  
   | Basic         |   
+  |---------------|
    |  1. SPADE     |
   
   | to be written |
@@ -382,5 +383,6 @@ __coming soon__
   |3. SPAM         |
 
   | to be written |
+  
   
      
