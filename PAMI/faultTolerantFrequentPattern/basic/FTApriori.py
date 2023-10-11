@@ -1,32 +1,35 @@
 # FTApriori is one of the fundamental algorithm to discover fault-tolerant frequent patterns in a transactional database.
 #
-#
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------------------
 #
-#     from PAMI.faultTolerantFrequentPattern.basic import FTApriori as alg
 #
-#     obj = alg.FTApriori(inputFile,minSup,itemSup,minLength,faultTolerance)
+#             from PAMI.faultTolerantFrequentPattern.basic import FTApriori as alg
 #
-#     obj.startMine()
+#             obj = alg.FTApriori(inputFile,minSup,itemSup,minLength,faultTolerance)
 #
-#     patterns = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of fault-tolerant frequent patterns:", len(patterns))
+#             patterns = obj.getPatterns()
 #
-#     obj.save("outputFile")
+#             print("Total number of fault-tolerant frequent patterns:", len(patterns))
 #
-#     memUSS = obj.getMemoryUSS()
+#             obj.save("outputFile")
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime
+#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
 
 
 __copyright__ = """
@@ -44,6 +47,8 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+     
 """
 
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
@@ -57,26 +62,21 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     :Description:   FT-Apriori is one of the fundamental algorithm to discover fault-tolerant frequent patterns in a transactional database.
                     This program employs apriori property (or downward closure property) to  reduce the search space effectively.
 
-    :Reference:       Pei, Jian & Tung, Anthony & Han, Jiawei. (2001). Fault-Tolerant Frequent Pattern Mining: Problems and Challenges.
+    :Reference:    Pei, Jian & Tung, Anthony & Han, Jiawei. (2001). Fault-Tolerant Frequent Pattern Mining: Problems and Challenges.
 
     :param  iFile: str :
-           Name of the Input file to mine complete set of frequent patterns
-
+                   Name of the Input file to mine complete set of frequent patterns
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
-
     :param  minSup: float or int or str :
                     The user can specify minSup either in count or proportion of database size.
                     If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
                     Otherwise, it will be treated as float.
                     Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-
     :param  itemSup: int or float :
                     Frequency of an item
-
     :param minLength: int :
-                    minimum length of a pattern
-
+                     minimum length of a pattern
     :param faultTolerance: int
 
     :param  sep: str :
@@ -84,6 +84,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
 
     :Attributes:
+
 
         startTime : float
           To record the start time of the mining process
@@ -146,7 +147,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     ----------------
              The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
 
-        """
+    """
 
     _minSup = float()
     _itemSup = float()

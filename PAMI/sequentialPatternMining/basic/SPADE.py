@@ -7,13 +7,13 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     import PAMI.frequentPattern.basic.SPADE as alg
+#     import PAMI.sequentialPatternMining.basic.SPADE as alg
 #
 #     obj = alg.SPADE(iFile, minSup)
 #
 #     obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#     sequentialPatternMining = obj.getPatterns()
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
@@ -133,13 +133,13 @@ class SPADE(_ab._sequentialPatterns):
 
         .. code-block:: python
 
-            import PAMI.frequentPattern.basic.SPADE as alg
+            import PAMI.sequentialPatternMining.basic.SPADE as alg
 
             obj = alg.SPADE(iFile, minSup)
 
             obj.startMine()
 
-            frequentPatterns = obj.getPatterns()
+            sequentialPatternMining = obj.getPatterns()
 
             print("Total number of Frequent Patterns:", len(frequentPatterns))
 

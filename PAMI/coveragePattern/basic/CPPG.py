@@ -1,34 +1,36 @@
 # CPPG algorithm discovers coverage patterns in a transactional database.
 #
-#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------
 #
-#         from PAMI.coveragePattern.basic import CPPG as alg
 #
-#         obj = alg.CPPG(iFile, minRF, minCS, maxOR)
+#             from PAMI.coveragePattern.basic import CPPG as alg
 #
-#         obj.startMine()
+#             obj = alg.CPPG(iFile, minRF, minCS, maxOR)
 #
-#         coveragePattern = obj.getPatterns()
+#             obj.startMine()
 #
-#         print("Total number of coverage Patterns:", len(coveragePattern))
+#             coveragePattern = obj.getPatterns()
 #
-#         obj.save(oFile)
+#             print("Total number of coverage Patterns:", len(coveragePattern))
 #
-#         Df = obj.getPatternsAsDataFrame()
+#             obj.save(oFile)
 #
-#         memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#         print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#         memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#         print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#         run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#         print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+
+
 
 
 
@@ -47,6 +49,8 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+     
 """
 
 from PAMI.coveragePattern.basic import abstract as _ab
@@ -69,7 +73,7 @@ class CPPG(_ab._coveragePatterns):
                     https://link.springer.com/article/10.1007/s10844-014-0318-3
 
     :param  iFile: str :
-           Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of frequent pattern's
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
     :param  minRF: float:
@@ -149,7 +153,6 @@ class CPPG(_ab._coveragePatterns):
 
     **Credits:**
     -------------------------
-
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """

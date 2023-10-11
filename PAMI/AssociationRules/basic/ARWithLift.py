@@ -149,23 +149,22 @@ class ARWithLift:
         
         
     :Attributes:
-    ------------
 
 
         startTime : float
-                To record the start time of the mining process
+            To record the start time of the mining process
 
         endTime : float
-                To record the completion time of the mining process
+            To record the completion time of the mining process
 
         finalPatterns : dict
-              Storing the complete set of patterns in a dictionary variable
+            Storing the complete set of patterns in a dictionary variable
 
         memoryUSS : float
-                To store the total amount of USS memory consumed by the program
+            To store the total amount of USS memory consumed by the program
 
         memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+            To store the total amount of RSS memory consumed by the program
 
 
     **Methods to execute code on terminal**

@@ -10,26 +10,28 @@
 #
 #             obj.startMine()
 #
-#            associationRules = obj.getPatterns()
+#             associationRules = obj.getPatterns()
 #
-#            print("Total number of Association Rules:", len(associationRules))
+#             print("Total number of Association Rules:", len(associationRules))
 #
-#            obj.save(oFile)
+#             obj.save(oFile)
 #
-#            Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#            memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#            print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#            memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#            print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#            run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#            print("Total ExecutionTime in seconds:", run)
-#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -51,6 +53,8 @@ __copyright__ = """
 from PAMI.AssociationRules.basic import abstract as _ab
 
 class Confidence:
+    """ Association Rules are derived from frequent patterns using "confidence" metric.
+    """
     
     def __init__(self, patterns, singleItems, threshold):
         """
@@ -118,6 +122,8 @@ class Confidence:
     
     
 class Lift:
+    """ Association Rules are derived from frequent patterns using "lift" metric.
+    """
     
     def __init__(self, patterns, singleItems, threshold):
         """
@@ -186,6 +192,8 @@ class Lift:
     
     
 class Leverage:
+    """ Association Rules are derived from frequent patterns using "leverage" metric.
+    """
     
     def __init__(self, patterns, singleItems, threshold):
         """
@@ -252,24 +260,25 @@ class Leverage:
 
 class RuleMiner:
     """
-        :Description:
-            RuleMiner code is used to extract the association rules from given frequent patterns
-        :Reference:
+    :Description: RuleMiner code is used to extract the association rules from given frequent patterns
+
+    :Reference:
 
 
-        :param  inputFile: str:
-             input file name or path
-        :param  frequentPattern: list or dict :
-             frequent patterns are stored in the form of list or dictionary
-        :param  measure: str :
-            condition to calculate the strength of rule
-        :param  threshold: int :
-            condition to satisfy
-        :param  sep: str :
+    :param  inputFile: str :
+                       input file name or path
+    :param  frequentPattern: list or dict :
+                             frequent patterns are stored in the form of list or dictionary
+    :param  measure: str :
+                     condition to calculate the strength of rule
+    :param  threshold: int :
+                       condition to satisfy
+    :param  sep: str :
             This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
 
-        Attributes:
-        ----------
+    Attributes:
+
+
             startTime : float
                 To record the start time of the mining process
 
@@ -286,8 +295,8 @@ class RuleMiner:
                 To store the total amount of RSS memory consumed by the program
 
 
-        **Methods to execute code on terminal**
-        ----------------------------------------------------
+    **Methods to execute code on terminal**
+    ----------------------------------------------------
 
                 Format:
                       >>> python3 RuleMiner.py <inputFile> <outputFile> <minConf> <sep>
@@ -299,9 +308,9 @@ class RuleMiner:
 
 
 
-        **Importing this algorithm into a python program**
-        ----------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------
+    .. code-block:: python
 
                 import PAMI.AssociationRules.basic import RuleMiner as alg
 

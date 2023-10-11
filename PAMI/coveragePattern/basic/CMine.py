@@ -2,33 +2,37 @@
 #
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
-#     .. code-block:: python
 #
-#      from PAMI.coveragePattern.basic import CMine as alg
 #
-#       obj = alg.CMine(iFile, minRF, minCS, maxOR, seperator)
+#             from PAMI.coveragePattern.basic import CMine as alg
 #
-#       obj.startMine()
+#             obj = alg.CMine(iFile, minRF, minCS, maxOR, seperator)
 #
-#       coveragePattern = obj.getPatterns()
+#             obj.startMine()
 #
-#       print("Total number of coverage Patterns:", len(coveragePattern))
+#             coveragePattern = obj.getPatterns()
 #
-#       obj.save(oFile)
+#             print("Total number of coverage Patterns:", len(coveragePattern))
 #
-#       Df = obj.getPatternsAsDataFrame()
+#             obj.save(oFile)
 #
-#       memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#       print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#       memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#       print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#       run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#       print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -45,6 +49,8 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+     
 """
 
 
@@ -78,22 +84,22 @@ class CMine(_ab._coveragePatterns):
     :Attributes:
 
         startTime : float
-          To record the start time of the mining process
+            To record the start time of the mining process
 
         endTime : float
-          To record the completion time of the mining process
+            To record the completion time of the mining process
 
         finalPatterns : dict
-          Storing the complete set of patterns in a dictionary variable
+            Storing the complete set of patterns in a dictionary variable
 
         memoryUSS : float
-          To store the total amount of USS memory consumed by the program
+            To store the total amount of USS memory consumed by the program
 
         memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
+            To store the total amount of RSS memory consumed by the program
 
         Database : list
-          To store the transactions of a database in list
+            To store the transactions of a database in list
 
 
     **Methods to execute code on terminal**
