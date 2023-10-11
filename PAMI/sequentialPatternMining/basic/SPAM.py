@@ -5,13 +5,13 @@
 # --------------------------------------------------------
 #
 #
-#     import PAMI.frequentPattern.basic.SPAM as alg
+#     import PAMI.sequentialPatternMining.basic.SPAM as alg
 #
 #     obj = alg.SPAM(iFile, minSup)
 #
 #     obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#     sequentialPatternMining = obj.getPatterns()
 #
 #     print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
@@ -136,10 +136,10 @@ class SPAM(_ab._sequentialPatterns):
                 python3 SPAM.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
         Sample run of the importing code:
         ---------------------------------
-            import PAMI.sequentialFrequentPattern.basic.SPAM as alg
+            import PAMI.sequentialPatternMining.basic.SPAM as alg
             obj = alg.SPAM(iFile, minSup)
             obj.startMine()
-            frequentPatterns = obj.getPatterns()
+            sequentialPatternMining = obj.getPatterns()
             print("Total number of Frequent Patterns:", len(frequentPatterns))
             obj.savePatterns(oFile)
             Df = obj.getPatternInDataFrame()

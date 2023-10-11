@@ -3,31 +3,33 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------
 #
-#     from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
 #
-#     obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
+#             from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
 #
-#     obj.startMine()
+#             obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
 #
-#     faultTolerantFrequentPatterns = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of fault-tolerant frequent patterns:", len(faultTolerantFrequentPatterns))
+#             faultTolerantFrequentPatterns = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of fault-tolerant frequent patterns:", len(faultTolerantFrequentPatterns))
 #
-#     Df = obj.getPatternInDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternInDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+
 
 
 __copyright__ = """
@@ -45,10 +47,9 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+     
 """
-
-
-
 
 
 
@@ -252,33 +253,36 @@ class _Tree:
 class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     """
     Description:
-    ------------
+
        FPGrowth is one of the fundamental algorithm to discover frequent patterns in a transactional database.
        It stores the database in compressed fp-tree decreasing the memory usage and extracts the
        patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
     Reference :
-    ---------
+
        Han, J., Pei, J., Yin, Y. et al. Mining Frequent Patterns without Candidate Generation: A Frequent-Pattern
        Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
 
-    Attributes :
-    ----------
-        iFile : file
+    :param iFile: file :
             Input file name or path of the input file
-        minSup: float or int or str
+    :param minSup: float or int or str :
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        sep : str
+    :param sep : str :
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
-        oFile : file
+    :param oFile : file :
             Name of the output file or the path of the output file
-        startTime:float
+
+
+    Attributes :
+
+
+        startTime: float :
             To record the start time of the mining process
-        endTime:float
+        endTime: float :
             To record the completion time of the mining process
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
