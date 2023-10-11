@@ -377,7 +377,6 @@ __coming soon__
   |---------------|
   |  1. SPADE     |
   | to be written |
-  |---------------|
   |  2. SPAM      |
   | to be written |
   
