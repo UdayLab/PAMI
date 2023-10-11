@@ -375,13 +375,10 @@ __coming soon__
  
   | Basic         |   
   |---------------|
-   |  1. SPADE     |
-  
+  |  1. SPADE     |
   | to be written |
-  
   |---------------|
-  |3. SPAM         |
-
+  |  2. SPAM      |
   | to be written |
   
   
