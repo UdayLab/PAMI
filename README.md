@@ -369,5 +369,19 @@ Total number of algorithms: 83
 
 ## 4. Mining Graphs
 __coming soon__   
-     
+
+## 11. sequentialPatternMining
+
+1. SPADE
+
+| Basic         |
+|---------------|
+| to be written |
+
+2. SPAM
+   
+| Basic         |
+|---------------|
+| to be written |
+
      
