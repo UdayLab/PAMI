@@ -1,34 +1,34 @@
-#  This code uses "leverage" metric to extract the association rules from given frequent patterns.
-#
+# This code uses "leverage" metric to extract the association rules from given frequent patterns.
 #
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#     import PAMI.AssociationRules.basic import ARWithLeverage as alg
 #
-#     obj = alg.ARWithLeverage(iFile, minConf)
+#             import PAMI.AssociationRules.basic import ARWithLeverage as alg
 #
-#     obj.startMine()
+#             obj = alg.ARWithLeverage(iFile, minConf)
 #
-#     associationRules = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of Association Rules:", len(associationRules))
+#             associationRules = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of Association Rules:", len(associationRules))
 #
-#     Df = obj.getPatternInDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternInDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
 
 
 __copyright__ = """

@@ -6,31 +6,31 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.weightFrequentPattern.basic import basic as alg
+#             from PAMI.weightFrequentPattern.basic import basic as alg
 #
-#     obj = alg.basic(iFile, wFile, minSup, minWeight)
+#             obj = alg.basic(iFile, wFile, minSup, minWeight)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#             obj.savePatterns(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -236,18 +236,15 @@ class _Tree:
 
 class WFIM(_fp._weightedFrequentPatterns):
     """
-    Description:
-    -------------
+    :Description:
        WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.
        It stores the database in compressed fp-tree decreasing the memory usage and extracts the
        patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
-    Reference :
-    -----------
+    :Reference :
            U. Yun and J. J. Leggett, “Wfim: weighted frequent itemset mining with a weight range and a minimum weight,”
            in Proceedings of the 2005 SIAM International Conference on Data Mining. SIAM, 2005, pp. 636–640.
            https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76
-    Attributes :
-    ------------
+    :Attributes :
         iFile : file
             Input file name or path of the input file
         minSup: float or int or str
@@ -343,10 +340,10 @@ class WFIM(_fp._weightedFrequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    ----------------------
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
-  """
+        """
 
     __startTime = float()
     __endTime = float()
