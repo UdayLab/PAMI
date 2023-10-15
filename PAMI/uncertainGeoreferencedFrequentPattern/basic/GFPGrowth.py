@@ -1,33 +1,35 @@
-
+# GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database
+# using GFP-Tree.
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
+#             from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
 #
-#     obj = alg.GFPGrowth(iFile, nFile, minSup)
+#             obj = alg.GFPGrowth(iFile, nFile, minSup)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of  Patterns:", len(Patterns))
+#             print("Total number of  Patterns:", len(Patterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
-#
+#             print("Total ExecutionTime in seconds:", run)
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -298,19 +300,16 @@ class _Tree(object):
 
 class GFPGrowth(_ab._frequentPatterns):
     """
-    Description:
-    ------------
+    :Description:
         GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database
         using GFP-Tree.
-    Reference:
-    -----------
+    :Reference:
          Palla Likhitha,Pamalla Veena, Rage, Uday Kiran, Koji Zettsu (2023).
          "Discovering Geo-referenced Frequent Patterns in Uncertain Geo-referenced
          Transactional Databases".  PAKDD 2023.
          https://doi.org/10.1007/978-3-031-33380-4_3
         
-    Attributes:
-    ----------
+    :Attributes:
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -413,7 +412,7 @@ class GFPGrowth(_ab._frequentPatterns):
     Credits:
     -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
-    """
+        """
     _startTime = float()
     _endTime = float()
     _minSup = str()

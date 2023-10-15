@@ -4,31 +4,31 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowth as alg
+#             from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowth as alg
 #
-#     obj = alg.UPFPGrowth(iFile, minSup, maxPer)
+#             obj = alg.UPFPGrowth(iFile, minSup, maxPer)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 
 
 
@@ -376,21 +376,18 @@ class _Tree(object):
 
 class UPFPGrowth(_ab._periodicFrequentPatterns):
     """
-    Description:
-    -------------
+    :Description:
 
         basic is  to discover periodic-frequent patterns in a uncertain temporal database.
 
-    Reference:
-    ---------------
+    :Reference:
             Uday Kiran, R., Likhitha, P., Dao, MS., Zettsu, K., Zhang, J. (2021).
             Discovering Periodic-Frequent Patterns in Uncertain Temporal Databases. In:
             Mantoro, T., Lee, M., Ayu, M.A., Wong, K.W., Hidayanto, A.N. (eds) Neural Information Processing.
             ICONIP 2021. Communications in Computer and Information Science, vol 1516. Springer, Cham.
             https://doi.org/10.1007/978-3-030-92307-5_83
 
-    Attributes:
-    -----------------
+    :Attributes:
             iFile : file
                 Name of the Input file or path of the input file
             oFile : file
@@ -472,37 +469,37 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
     .. code-block:: python
 
-        from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowth as alg
+            from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowth as alg
 
-        obj = alg.UPFPGrowth(iFile, minSup, maxPer)
+            obj = alg.UPFPGrowth(iFile, minSup, maxPer)
 
-        obj.startMine()
+            obj.startMine()
 
-        periodicFrequentPatterns = obj.getPatterns()
+            periodicFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+            print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    -------
+    ------------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
-    """
+        """
     _rank = {}
     _startTime = float()
     _endTime = float()

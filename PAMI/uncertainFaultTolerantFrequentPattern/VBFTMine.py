@@ -3,25 +3,31 @@
 # **Importing this algorithm into a python program**
 # ---------------------------------------------------
 #
-# import PAMI.uncertainFaultTolerantFrequentPattern.basic.VBFTMine as alg
+#             import PAMI.uncertainFaultTolerantFrequentPattern.basic.VBFTMine as alg
 #
-# obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)
+#             obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)
 #
-# obj.startMine()
+#             obj.startMine()
 #
-# faultTolerantFrequentPattern = obj.getPatterns()
+#             faultTolerantFrequentPattern = obj.getPatterns()
 #
-# print("Total number of Fault Tolerant Frequent Patterns:", len(faultTolerantFrequentPattern))
+#             print("Total number of Fault Tolerant Frequent Patterns:", len(faultTolerantFrequentPattern))
 #
-# obj.save(oFile)
+#             obj.save(oFile)
 #
-# Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-# print("Total Memory in USS:", obj.getMemoryUSS())
+#             memUSS = obj.getMemoryUSS()
 #
-# print("Total Memory in RSS", obj.getMemoryRSS())
+#             print("Total Memory in USS:", memUSS)
 #
-# print("Total ExecutionTime in seconds:", obj.getRuntime())
+#             memRSS = obj.getMemoryRSS()
+#
+#             print("Total Memory in RSS", memRSS)
+#
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -389,6 +395,8 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
+        """ This function is used to print the results
+        """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

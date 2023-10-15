@@ -2,35 +2,35 @@
 #  It stores the database in compressed WFRI-tree decreasing the memory usage and extracts the
 #  patterns from tree.It employs downward closure property to  reduce the search space effectively.
 #
-
+#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.weightedFrequentRegularPattern.basic import WFRIMiner as alg
+#             from PAMI.weightedFrequentRegularPattern.basic import WFRIMiner as alg
 #
-#     obj = alg.WFRIMiner(iFile, WS, regularity)
+#             obj = alg.WFRIMiner(iFile, WS, regularity)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     weightedFrequentRegularPatterns = obj.getPatterns()
+#             weightedFrequentRegularPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(weightedFrequentRegularPatterns))
+#              print("Total number of Frequent Patterns:", len(weightedFrequentRegularPatterns))
 #
-#     obj.save(oFile)
+#              obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#              Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#              memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#              print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#              memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#              print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#              run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#              print("Total ExecutionTime in seconds:", run)
 
 
 __copyright__ = """
@@ -303,18 +303,18 @@ class _Tree:
 
 class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     """
+    :Description:
        WFRIMiner is one of the fundamental algorithm to discover weighted frequent regular patterns in a transactional database.
        It stores the database in compressed WFRI-tree decreasing the memory usage and extracts the
        patterns from tree.It employs downward closure property to  reduce the search space effectively.
 
-    Reference :
-    ---------
+    :Reference:
            K. Klangwisan and K. Amphawan, "Mining weighted-frequent-regular itemsets from transactional database,"
            2017 9th International Conference on Knowledge and Smart Technology (KST), 2017, pp. 66-71,
            doi: 10.1109/KST.2017.7886090.
 
-    Attributes :
-    ----------
+    :Attributes:
+
         iFile : file
             Input file name or path of the input file
         WS: float or int or str
@@ -352,7 +352,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             it represents to store the patterns
 
     Methods :
-    -------
+    --------------------------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -383,7 +383,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
                      .. note:: WS & regularity will be considered in support count or frequency
 
     **Importing this algorithm into a python program**
-
+    ----------------------------------------------------------------------------------
     .. code-block:: python
 
             from PAMI.weightedFrequentRegularpattern.basic import WFRIMiner as alg
@@ -413,7 +413,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    -----------------------------------------------
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """

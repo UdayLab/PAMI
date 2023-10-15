@@ -1,37 +1,34 @@
 # SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.
 #
-#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#     from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
+#             from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
 #
-#     obj = alg.SWFPGrowth(iFile, wFile, nFile, minSup, minWeight, seperator)
+#             obj = alg.SWFPGrowth(iFile, wFile, nFile, minSup, minWeight, seperator)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
-#
-#
+#             print("Total ExecutionTime in seconds:", run)
 
 
 __copyright__ = """
@@ -323,18 +320,15 @@ class _Tree:
 
 class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     """
-    Description:
-    -------------
+    :Description:
        SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.
 
-    Reference :
-    ------------
+    :Reference:
         R. Uday Kiran, P. P. C. Reddy, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy,
         "Discovering Spatial Weighted Frequent Itemsets in Spatiotemporal Databases," 2019 International
         Conference on Data Mining Workshops (ICDMW), 2019, pp. 987-996, doi: 10.1109/ICDMW.2019.00143.
 
-    Attributes :
-    ------------
+    :Attributes:
         iFile : file
             Input file name or path of the input file
         minWS: float or int or str
@@ -418,7 +412,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
                      .. note:: minSup will be considered in support count or frequency
 
     **Importing this algorithm into a python program**
-
+    ----------------------------------------------------------------
     .. code-block:: python
 
             from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
@@ -447,7 +441,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
             print("Total ExecutionTime in seconds:", run)
     **Credits:**
-
+    ---------------------------
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
         """

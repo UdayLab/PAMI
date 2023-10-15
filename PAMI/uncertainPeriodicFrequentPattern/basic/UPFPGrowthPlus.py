@@ -413,13 +413,11 @@ class _Tree(object):
 
 class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
     """
-    Description:
-    -------------
+    :Description:
 
         basic Plus is  to discover periodic-frequent patterns in a uncertain temporal database.
 
-    Reference:
-    ------------
+    :Reference:
 
           Palla Likhitha, Rage Veena,Rage Uday Kiran, Koji Zettsu, Masashi Toyoda, Philippe Fournier-Viger, (2023). 
           UPFP-growth++: An Efficient Algorithm to Find Periodic-Frequent Patterns in Uncertain Temporal Databases. 
@@ -427,7 +425,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
           https://doi.org/10.1007/978-981-99-1642-9_16
 
     Attributes:
-    ----------
+
         iFile: file
             Name of the Input file or path of input file
         oFile: file
@@ -506,37 +504,37 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     .. code-block:: python
 
-        from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowthPlus as alg
+            from PAMI.uncertainPeriodicFrequentPattern import UPFPGrowthPlus as alg
 
-        obj = alg.UPFPGrowthPlus(iFile, minSup, maxPer)
+            obj = alg.UPFPGrowthPlus(iFile, minSup, maxPer)
 
-        obj.startMine()
+            obj.startMine()
 
-        periodicFrequentPatterns = obj.getPatterns()
+            periodicFrequentPatterns = obj.getPatterns()
 
-        print("Total number of uncertain Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+            print("Total number of uncertain Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
     Credits:
     -----------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
-    """
+        """
     _startTime = float()
     _endTime = float()
     _minSup = float()
