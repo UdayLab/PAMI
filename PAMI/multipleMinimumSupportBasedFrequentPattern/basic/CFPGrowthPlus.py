@@ -531,13 +531,11 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         self._getMISValues()
         itemSet = self.__frequentOneItem()
         updatedTransactions = self.__updateTransactions(itemSet)
-        print("Updating Transactions completed")
         for x, y in self.__rank.items():
             MIS[y] = self._MISValues[x]
             self.__rankDup[y] = x
         info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
         __Tree = self.__buildTree(updatedTransactions, info)
-        print("building trees completed")
         patterns = __Tree.generatePatterns([])
         self.__finalPatterns = {}
         for k in patterns:
