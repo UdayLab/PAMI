@@ -126,7 +126,7 @@ class usingSD():
         frequentTidData = {k: len(v) - sd for k, v in tidData.items()}
         return mini, frequentTidData
 
-    def caculateMIS(self) -> None:
+    def calculateMIS(self) -> None:
         self._creatingItemSets()
         mini, frequentItems = self._creatingFrequentItems()
         for x, y in frequentItems.items():
@@ -161,5 +161,5 @@ class usingSD():
 
 if __name__ == '__main__':
     cd = usingSD(_sys.argv[1],_sys.argv[2],_sys.argv[3])
-    cd.caculateMIS()
+    cd.calculateMIS()
     cd.save(_sys.argv[4])

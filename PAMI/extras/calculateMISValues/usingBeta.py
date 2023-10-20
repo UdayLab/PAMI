@@ -124,7 +124,7 @@ class usingBeta():
         frequentTidData = {k: len(v) * self._beta for k, v in tidData.items()}
         return frequentTidData
 
-    def caculateMIS(self) -> None:
+    def calculateMIS(self) -> None:
             self._creatingItemSets()
             frequentItems = self._creatingFrequentItems()
             for x, y in frequentItems.items():
@@ -162,5 +162,5 @@ class usingBeta():
 
 if __name__ == '__main__':
   cd = usingBeta(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
-  cd.caculateMIS()
+  cd.calculateMIS()
   cd.save(sys.argv[2])
