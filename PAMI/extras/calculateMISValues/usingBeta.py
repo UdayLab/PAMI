@@ -54,7 +54,7 @@ class usingBeta():
 
         from PAMI.extras.calculateMISValues import usingBeta as db
 
-        obj = db.usingBeta(iFile, 16, "\t")
+        obj = db.usingBeta(iFile, 3, 16, "\t")
 
         obj.save(oFile)
 
@@ -71,6 +71,7 @@ class usingBeta():
         self._beta = beta
         self._threshold = threshold
         self._sep = sep
+        self._lno = 0
 
     def _creatingItemSets(self) -> None:
         """
@@ -119,16 +120,17 @@ class usingBeta():
                         tidData[item] = [self._lno]
                     else:
                         tidData[item].append(self._lno)
-        mini = min([len(k) for k in tidData.values()])
+        #mini = min([len(k) for k in tidData.values()])
         frequentTidData = {k: len(v) * self._beta for k, v in tidData.items()}
-        return mini, frequentTidData
+        return frequentTidData
 
     def caculateMIS(self) -> None:
             self._creatingItemSets()
-            mini, frequentItems = self._creatingFrequentItems()
+            frequentItems = self._creatingFrequentItems()
             for x, y in frequentItems.items():
+              #self._finalPatterns[x] = min([y, self._threshold])
                 if y < self._threshold:
-                    self._finalPatterns[x] = mini
+                    self._finalPatterns[x] = self._threshold
                 else:
                     self._finalPatterns[x] = y
 
@@ -153,12 +155,12 @@ class usingBeta():
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            patternsAndSupport = x + ":" + str(y)
+            patternsAndSupport = x + "\t" + str(int(y))
             writer.write("%s \n" % patternsAndSupport)
 
 
 
-    if __name__ == '__main__':
-        cd = usingBeta(_sys.argv[1],_sys.argv[2],_sys.argv[3],_sys.argv[4])
-        cd.caculateMIS()
-        cd.save(_sys.argv[5])
+if __name__ == '__main__':
+  cd = usingBeta(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+  cd.caculateMIS()
+  cd.save(sys.argv[2])
