@@ -595,7 +595,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def savePatterns(self, outFile):
+    def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
@@ -616,6 +616,14 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         :rtype: dict
         """
         return self.__finalPatterns
+
+    def printResults(self) -> None:
+        """ this function is used to print the results
+        """
+        print("Total number of  Frequent Patterns:", len(self.getPatterns()))
+        print("Total Memory in USS:", self.getMemoryUSS())
+        print("Total Memory in RSS", self.getMemoryRSS())
+        print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
 if __name__ == "__main__":
