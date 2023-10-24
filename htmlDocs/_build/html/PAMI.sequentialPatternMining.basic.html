@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ENGLISH" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.sequentialPatternMining.basic package &mdash; PAMI 2023.10.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.sequentialPatternMining.closed package" href="PAMI.sequentialPatternMining.closed.html" />
+    <link rel="prev" title="PAMI.sequentialPatternMining package" href="PAMI.sequentialPatternMining.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePatterns.html">PAMI.coveragePatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentSpatialPattern.html">PAMI.frequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPatterns.html">PAMI.fuzzyFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentSpatialPattern.html">PAMI.fuzzyFrequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzySpatialPeriodicFrequentPattern.html">PAMI.fuzzySpatialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedFrequentPattern.html">PAMI.geoReferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPatterns.html">PAMI.highUtilityFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentSpatialPattern.html">PAMI.highUtilityFrequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatterns.html">PAMI.highUtilityPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicSpatialPattern.html">PAMI.partialPeriodicSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPatterns.html">PAMI.relativeFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPatterns.html">PAMI.relativeHighUtilityPatterns package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+      <li class="breadcrumb-item active">PAMI.sequentialPatternMining.basic package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.sequentialPatternMining.basic.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-sequentialpatternmining-basic-package">
+<h1>PAMI.sequentialPatternMining.basic package<a class="headerlink" href="#pami-sequentialpatternmining-basic-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.sequentialPatternMining.basic.SPADE">
+<span id="pami-sequentialpatternmining-basic-spade-module"></span><h2>PAMI.sequentialPatternMining.basic.SPADE module<a class="headerlink" href="#module-PAMI.sequentialPatternMining.basic.SPADE" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.sequentialPatternMining.basic.SPADE.</span></span><span class="sig-name descname"><span class="pre">SPADE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_sequentialPatterns</span></code></p>
+<section id="description">
+<h3>Description:<a class="headerlink" href="#description" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>SPADE is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+This program employs SPADE property (or downward closure property) to  reduce the search space effectively.
+This algorithm employs breadth-first search technique when 1-2 length patterns and depth-first serch when above 3 length patterns to find the complete set of frequent patterns in a
+transactional database.</p>
+</div></blockquote>
+</section>
+<section id="reference">
+<h3>Reference:<a class="headerlink" href="#reference" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Mohammed J. Zaki. 2001. SPADE: An Efficient Algorithm for Mining Frequent Sequences. Mach. Learn. 42, 1-2 (January 2001), 31-60. DOI=10.1023/A:1007652502315 http://dx.doi.org/10.1023/A:1007652502315</p>
+</div></blockquote>
+</section>
+<section id="attributes">
+<h3>Attributes:<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">str</span></dt><dd><p>Name of the output file or the path of output file</p>
+</dd>
+<dt>minSup: float or int or str</dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or     .
+However, the users can override their default separator.</p>
+</dd>
+<dt>startTime:float</dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime:float</dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>finalPatterns: dict</dt><dd><p>Storing the complete set of patterns in a dictionary variable</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>_xLenDatabase: dict</dt><dd><p>To store the datas in different sequence separated by sequence, rownumber, length.</p>
+</dd>
+<dt>_xLenDatabaseSame<span class="classifier">dict</span></dt><dd><p>To store the datas in same sequence separated by sequence, rownumber, length.</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="methods">
+<h3>Methods:<a class="headerlink" href="#methods" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>savePatterns(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>candidateToFrequent(candidateList)</dt><dd><p>Generates frequent patterns from the candidate patterns</p>
+</dd>
+<dt>frequentToCandidate(frequentList, length)</dt><dd><p>Generates candidate patterns from the frequent patterns</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Methods to execute code on terminal</strong></p>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">SPADE</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">SPADE</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span>   <span class="p">(</span><span class="n">minSup</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">times</span> <span class="n">of</span> <span class="n">minSup</span> <span class="ow">and</span> <span class="n">count</span> <span class="n">of</span> <span class="n">database</span> <span class="n">transactions</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.sequentialPatternMining.basic.SPADE</span> <span class="k">as</span> <span class="nn">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">SPADE</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">sequentialPatternMining</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Credits:</strong></p>
+<blockquote>
+<div><p>The complete program was written by Suzuki Shota under the supervision of Professor Rage  Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
+:return: returning RSS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
+:return: returning USS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process
+:return: returning frequent patterns
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe
+:return: returning frequent patterns in a dataframe
+:rtype: pd.DataFrame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process
+:return: returning total amount of runtime taken by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.make1LenDatabase">
+<span class="sig-name descname"><span class="pre">make1LenDatabase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.make1LenDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.make1LenDatabase" title="Link to this definition"></a></dt>
+<dd><p>To make 1 length frequent patterns by breadth-first search technique   and update Database to sequential database</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.make2LenDatabase">
+<span class="sig-name descname"><span class="pre">make2LenDatabase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.make2LenDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.make2LenDatabase" title="Link to this definition"></a></dt>
+<dd><p>To make 2 length frequent patterns by joining two one length patterns by breadth-first search technique  and update xlen Database to sequential database</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.make3LenDatabase">
+<span class="sig-name descname"><span class="pre">make3LenDatabase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.make3LenDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.make3LenDatabase" title="Link to this definition"></a></dt>
+<dd><p>To call each 2 length patterns to make 3 length frequent patterns depth-first search technique</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRow">
+<span class="sig-name descname"><span class="pre">makeNextRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makeNextRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRow" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>To make pattern row when two patterns have the latest word in different sequence</dt><dd><p>:param bs : previous pattern without the latest one
+:param latestWord : latest word of one previous pattern
+:param latestWord2 : latest word of other previous pattern</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame">
+<span class="sig-name descname"><span class="pre">makeNextRowSame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makeNextRowSame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>To make pattern row when one pattern have the latestWord1 in different sequence and other(latestWord2) in same</dt><dd><p>:param bs : previous pattern without the latest one
+:param latestWord : latest word of one previous pattern in same sequence
+:param latestWord2 : latest word of other previous pattern in different sequence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame2">
+<span class="sig-name descname"><span class="pre">makeNextRowSame2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makeNextRowSame2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame2" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>To make pattern row when two patterns have the latest word in same sequence</dt><dd><p>:param bs : previous pattern without the latest one
+:param latestWord : latest word of one previous pattern
+:param latestWord2 : latest word of the other previous pattern</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame3">
+<span class="sig-name descname"><span class="pre">makeNextRowSame3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makeNextRowSame3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame3" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>To make pattern row when two patterns have the latest word in different sequence and both latest word is in same sequence</dt><dd><p>:param bs : previous pattern without the latest one
+:param latestWord : latest word of one previous pattern
+:param latestWord2 : latest word of other previous pattern</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makexLenDatabase">
+<span class="sig-name descname"><span class="pre">makexLenDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rowLen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makexLenDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makexLenDatabase" title="Link to this definition"></a></dt>
+<dd><p>To make &quot;rowLen&quot; length frequent patterns from pattern which the latest word is in same seq  by joining &quot;rowLen&quot;-1 length patterns by depth-first search technique  and update xlenDatabase to sequential database
+:param rowLen: row length of patterns
+:param bs : patterns without the latest one
+:param latestWord : latest word of patterns</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makexLenDatabaseSame">
+<span class="sig-name descname"><span class="pre">makexLenDatabaseSame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rowLen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makexLenDatabaseSame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makexLenDatabaseSame" title="Link to this definition"></a></dt>
+<dd><p>To make 3 or more length frequent patterns from pattern which the latest word is in different seq  by depth-first search technique  and update xlenDatabase to sequential database
+:param rowLen: row length of previous patterns
+:param bs : previous patterns without the latest one
+:param latestWord : latest word of previous patterns</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to prnt the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file
+:param outFile: name of the output file
+:type outFile: file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.startMine" title="Link to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.sequentialPatternMining.basic.abstract">
+<span id="pami-sequentialpatternmining-basic-abstract-module"></span><h2>PAMI.sequentialPatternMining.basic.abstract module<a class="headerlink" href="#module-PAMI.sequentialPatternMining.basic.abstract" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.sequentialPatternMining.basic.prefixSpan">
+<span id="pami-sequentialpatternmining-basic-prefixspan-module"></span><h2>PAMI.sequentialPatternMining.basic.prefixSpan module<a class="headerlink" href="#module-PAMI.sequentialPatternMining.basic.prefixSpan" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.sequentialPatternMining.basic.prefixSpan.</span></span><span class="sig-name descname"><span class="pre">prefixSpan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_sequentialPatterns</span></code></p>
+<section id="id1">
+<h3>Description:<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+This program employs Prefix Span property (or downward closure property) to  reduce the search space effectively.
+This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
+transactional database.</p>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3>Reference:<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<blockquote>
+<div><ol class="upperalpha simple" start="10">
+<li><p>Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal, M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach. IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="id3">
+<h3>Attributes:<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">str</span></dt><dd><p>Name of the output file or the path of output file</p>
+</dd>
+<dt>minSup: float or int or str</dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator.</p>
+</dd>
+<dt>startTime:float</dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime:float</dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>finalPatterns: dict</dt><dd><p>Storing the complete set of patterns in a dictionary variable</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="id4">
+<h3>Methods:<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>savePatterns(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>candidateToFrequent(candidateList)</dt><dd><p>Generates frequent patterns from the candidate patterns</p>
+</dd>
+<dt>frequentToCandidate(frequentList, length)</dt><dd><p>Generates candidate patterns from the frequent patterns</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Methods to execute code on terminal</strong></p>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">prefixSpan</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">prefixSpan</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span>   <span class="p">(</span><span class="n">minSup</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">times</span> <span class="n">of</span> <span class="n">minSup</span> <span class="ow">and</span> <span class="n">count</span> <span class="n">of</span> <span class="n">database</span> <span class="n">transactions</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">prefixSpan</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">10</span>     <span class="p">(</span><span class="n">minSup</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">support</span> <span class="n">count</span> <span class="ow">or</span> <span class="n">frequency</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Importing this algorithm into a python program</strong></p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.prefixSpan</span> <span class="k">as</span> <span class="nn">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">prefixSpan</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Credits:</strong></p>
+<blockquote>
+<div><p>The complete program was written by Suzuki Shota under the supervision of Professor Rage  Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
+:return: returning RSS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
+:return: returning USS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process
+:return: returning frequent patterns
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe
+:return: returning frequent patterns in a dataframe
+:rtype: pd.DataFrame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process
+:return: returning total amount of runtime taken by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getSameSeq">
+<span class="sig-name descname"><span class="pre">getSameSeq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startrow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.getSameSeq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getSameSeq" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>To get words in the latest sequence</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>startrow</strong> -- the patterns get before</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNext">
+<span class="sig-name descname"><span class="pre">makeNext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sepDatabase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startrow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.makeNext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNext" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>To get next pattern by adding head word to next sequence of startrow</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sepDatabase</strong> -- dict
+what words and rows startrow have to add it</p></li>
+<li><p><strong>startrow</strong> -- the patterns get before</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNextSame">
+<span class="sig-name descname"><span class="pre">makeNextSame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sepDatabase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startrow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.makeNextSame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNextSame" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>To get next pattern by adding head word to the latest sequence of startrow</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sepDatabase</strong> -- dict
+what words and rows startrow have to add it</p></li>
+<li><p><strong>startrow</strong> -- the patterns get before</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseFirst">
+<span class="sig-name descname"><span class="pre">makeSeqDatabaseFirst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.makeSeqDatabaseFirst"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseFirst" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>To make 1 length sequence dataset list which start from same word. It was stored only 1 from 1 line.</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param database<span class="colon">:</span></dt>
+<dd class="field-odd"><p>To store the transactions of a database in list</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseSame">
+<span class="sig-name descname"><span class="pre">makeSeqDatabaseSame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startrow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.makeSeqDatabaseSame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseSame" title="Link to this definition"></a></dt>
+<dd><p>To make sequence dataset list which start from same word(head). It was stored only 1 from 1 line.
+And it separated by having head in the latest sequence of startrow or not.
+:param database:</p>
+<blockquote>
+<div><p>To store the transactions of a database in list</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>startrow</strong> -- list
+the patterns get before</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSupDatabase">
+<span class="sig-name descname"><span class="pre">makeSupDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.makeSupDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSupDatabase" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>To delete not frequent words without words in the latest sequence</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>database</strong> -- list
+database of lines having same startrow and head word</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>:param head:list</dt><dd><p>words in the latest sequence</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>changed database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file
+:param outFile: name of the output file
+:type outFile: file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.serchSame">
+<span class="sig-name descname"><span class="pre">serchSame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startrow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">give</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.serchSame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.serchSame" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>To get 2 or more length patterns in same sequence.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>database</strong> -- list
+To store the transactions of a database in list which have same startrow and head word</p></li>
+<li><p><strong>startrow</strong> -- list
+the patterns get before</p></li>
+<li><p><strong>give</strong> -- list
+the word in the latest sequence of startrow</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.startMine" title="Link to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.sequentialPatternMining.basic">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.sequentialPatternMining.basic" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.sequentialPatternMining.html" class="btn btn-neutral float-left" title="PAMI.sequentialPatternMining package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.sequentialPatternMining.closed.html" class="btn btn-neutral float-right" title="PAMI.sequentialPatternMining.closed package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, RAGE UDAY KIRAN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
