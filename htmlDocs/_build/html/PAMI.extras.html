@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ENGLISH" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.extras package &mdash; PAMI 2023.10.23 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.extras.DF2DB package" href="PAMI.extras.DF2DB.html" />
+    <link rel="prev" title="PAMI.coveragePatterns.basic package" href="PAMI.coveragePatterns.basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePatterns.html">PAMI.coveragePatterns package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentSpatialPattern.html">PAMI.frequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPatterns.html">PAMI.fuzzyFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentSpatialPattern.html">PAMI.fuzzyFrequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzySpatialPeriodicFrequentPattern.html">PAMI.fuzzySpatialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedFrequentPattern.html">PAMI.geoReferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPatterns.html">PAMI.highUtilityFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentSpatialPattern.html">PAMI.highUtilityFrequentSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatterns.html">PAMI.highUtilityPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicSpatialPattern.html">PAMI.partialPeriodicSpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPatterns.html">PAMI.relativeFrequentPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPatterns.html">PAMI.relativeHighUtilityPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+      <li class="breadcrumb-item active">PAMI.extras package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.extras.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-extras-package">
+<h1>PAMI.extras package<a class="headerlink" href="#pami-extras-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.DF2DB.html">PAMI.extras.DF2DB package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#pami-extras-df2db-df2db-module">PAMI.extras.DF2DB.DF2DB module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.DF2DBPlus">PAMI.extras.DF2DB.DF2DBPlus module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus"><code class="docutils literal notranslate"><span class="pre">DF2DBPlus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus.getTDB"><code class="docutils literal notranslate"><span class="pre">DF2DBPlus.getTDB()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus.getTransactional"><code class="docutils literal notranslate"><span class="pre">DF2DBPlus.getTransactional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.DF2DBPlus.DF2DBPlus.getUDB"><code class="docutils literal notranslate"><span class="pre">DF2DBPlus.getUDB()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.createTDB">PAMI.extras.DF2DB.createTDB module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB"><code class="docutils literal notranslate"><span class="pre">createTDB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.createTDB"><code class="docutils literal notranslate"><span class="pre">createTDB.createTDB()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.save"><code class="docutils literal notranslate"><span class="pre">createTDB.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.denseDF2DB">PAMI.extras.DF2DB.denseDF2DB module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB"><code class="docutils literal notranslate"><span class="pre">denseDF2DB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createMultipleTimeSeries"><code class="docutils literal notranslate"><span class="pre">denseDF2DB.createMultipleTimeSeries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createTemporal"><code class="docutils literal notranslate"><span class="pre">denseDF2DB.createTemporal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createTransactional"><code class="docutils literal notranslate"><span class="pre">denseDF2DB.createTransactional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.createUtility"><code class="docutils literal notranslate"><span class="pre">denseDF2DB.createUtility()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DB.denseDF2DB.getFileName"><code class="docutils literal notranslate"><span class="pre">denseDF2DB.getFileName()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.denseDF2DBPlus">PAMI.extras.DF2DB.denseDF2DBPlus module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DBPlus.denseDF2DBPlus"><code class="docutils literal notranslate"><span class="pre">denseDF2DBPlus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DBPlus.denseDF2DBPlus.createTemporal"><code class="docutils literal notranslate"><span class="pre">denseDF2DBPlus.createTemporal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DBPlus.denseDF2DBPlus.createTransactional"><code class="docutils literal notranslate"><span class="pre">denseDF2DBPlus.createTransactional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DBPlus.denseDF2DBPlus.createUtility"><code class="docutils literal notranslate"><span class="pre">denseDF2DBPlus.createUtility()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.denseDF2DBPlus.denseDF2DBPlus.getFileName"><code class="docutils literal notranslate"><span class="pre">denseDF2DBPlus.getFileName()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.sparseDF2DB">PAMI.extras.DF2DB.sparseDF2DB module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB"><code class="docutils literal notranslate"><span class="pre">sparseDF2DB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createTemporal"><code class="docutils literal notranslate"><span class="pre">sparseDF2DB.createTemporal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createTransactional"><code class="docutils literal notranslate"><span class="pre">sparseDF2DB.createTransactional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createUtility"><code class="docutils literal notranslate"><span class="pre">sparseDF2DB.createUtility()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.getFileName"><code class="docutils literal notranslate"><span class="pre">sparseDF2DB.getFileName()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB.sparseDF2DBPlus">PAMI.extras.DF2DB.sparseDF2DBPlus module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus"><code class="docutils literal notranslate"><span class="pre">sparseDF2DBPlus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus.createTemporal"><code class="docutils literal notranslate"><span class="pre">sparseDF2DBPlus.createTemporal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus.createTransactional"><code class="docutils literal notranslate"><span class="pre">sparseDF2DBPlus.createTransactional()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus.createUtility"><code class="docutils literal notranslate"><span class="pre">sparseDF2DBPlus.createUtility()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DBPlus.sparseDF2DBPlus.getFileName"><code class="docutils literal notranslate"><span class="pre">sparseDF2DBPlus.getFileName()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.DF2DB.html#module-PAMI.extras.DF2DB">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.calculateMISValues.html">PAMI.extras.calculateMISValues package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#module-PAMI.extras.calculateMISValues.usingBeta">PAMI.extras.calculateMISValues.usingBeta module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingBeta.usingBeta"><code class="docutils literal notranslate"><span class="pre">usingBeta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingBeta.usingBeta.calculateMIS"><code class="docutils literal notranslate"><span class="pre">usingBeta.calculateMIS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingBeta.usingBeta.getMISDataFrame"><code class="docutils literal notranslate"><span class="pre">usingBeta.getMISDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingBeta.usingBeta.save"><code class="docutils literal notranslate"><span class="pre">usingBeta.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#module-PAMI.extras.calculateMISValues.usingSD">PAMI.extras.calculateMISValues.usingSD module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD"><code class="docutils literal notranslate"><span class="pre">usingSD</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD.calculateMIS"><code class="docutils literal notranslate"><span class="pre">usingSD.calculateMIS()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD.getDataFrame"><code class="docutils literal notranslate"><span class="pre">usingSD.getDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#PAMI.extras.calculateMISValues.usingSD.usingSD.save"><code class="docutils literal notranslate"><span class="pre">usingSD.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.calculateMISValues.html#module-PAMI.extras.calculateMISValues">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.dbStats.html">PAMI.extras.dbStats package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.fuzzyDatabaseStats">PAMI.extras.dbStats.fuzzyDatabaseStats module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.creatingItemSets"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.creatingItemSets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getAverageTransactionLength"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getAverageTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getAverageUtility"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getAverageUtility()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getDatabaseSize"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getDatabaseSize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getFrequenciesInRange"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getFrequenciesInRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMaximumTransactionLength"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getMaximumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMaximumUtility"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getMaximumUtility()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMinimumTransactionLength"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getMinimumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMinimumUtility"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getMinimumUtility()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getNumberOfItems"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getNumberOfItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getSortedListOfItemFrequencies"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getSortedListOfItemFrequencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getSortedUtilityValuesOfItem"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getSortedUtilityValuesOfItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getSparsity"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getSparsity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getStandardDeviationTransactionLength"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getStandardDeviationTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getTotalNumberOfItems"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getTotalNumberOfItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getTotalUtility"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getTotalUtility()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getTransanctionalLengthDistribution"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getTransanctionalLengthDistribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getVarianceTransactionLength"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.getVarianceTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.plotGraphs"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.plotGraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.printStats"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.printStats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.readDatabase"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.readDatabase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.run"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.save"><code class="docutils literal notranslate"><span class="pre">fuzzyDatabaseStats.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.temporalDatabaseStats">PAMI.extras.dbStats.temporalDatabaseStats module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.convertDataIntoMatrix"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.convertDataIntoMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getAverageInterArrivalPeriod"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getAverageInterArrivalPeriod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getAveragePeriodOfItem"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getAveragePeriodOfItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getAverageTransactionLength"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getAverageTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getDatabaseSize"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getDatabaseSize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getDensity"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getDensity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getFrequenciesInRange"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getFrequenciesInRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getMaximumInterArrivalPeriod"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getMaximumInterArrivalPeriod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getMaximumPeriodOfItem"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getMaximumPeriodOfItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getMaximumTransactionLength"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getMaximumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getMinimumInterArrivalPeriod"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getMinimumInterArrivalPeriod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getMinimumPeriodOfItem"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getMinimumPeriodOfItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getMinimumTransactionLength"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getMinimumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getNumberOfTransactionsPerTimestamp"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getNumberOfTransactionsPerTimestamp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getPeriodsInRange"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getPeriodsInRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getSortedListOfItemFrequencies"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getSortedListOfItemFrequencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getSparsity"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getSparsity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getStandardDeviationPeriod"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getStandardDeviationPeriod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getStandardDeviationTransactionLength"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getStandardDeviationTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getTotalNumberOfItems"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getTotalNumberOfItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getTransanctionalLengthDistribution"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getTransanctionalLengthDistribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.getVarianceTransactionLength"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.getVarianceTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.plotGraphs"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.plotGraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.printStats"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.printStats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.readDatabase"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.readDatabase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.run"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.temporalDatabaseStats.temporalDatabaseStats.save"><code class="docutils literal notranslate"><span class="pre">temporalDatabaseStats.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.transactionalDatabaseStats">PAMI.extras.dbStats.transactionalDatabaseStats module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.convertDataIntoMatrix"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.convertDataIntoMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getAverageTransactionLength"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getAverageTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getDatabaseSize"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getDatabaseSize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getDensity"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getDensity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getFrequenciesInRange"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getFrequenciesInRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getMaximumTransactionLength"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getMaximumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getMinimumTransactionLength"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getMinimumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getNumberOfItems"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getNumberOfItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getSortedListOfItemFrequencies"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getSortedListOfItemFrequencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getSparsity"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getSparsity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getStandardDeviationTransactionLength"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getStandardDeviationTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getTotalNumberOfItems"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getTotalNumberOfItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getTransanctionalLengthDistribution"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getTransanctionalLengthDistribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getVarianceTransactionLength"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.getVarianceTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.plotGraphs"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.plotGraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.printStats"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.printStats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.readDatabase"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.readDatabase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.run"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.save"><code class="docutils literal notranslate"><span class="pre">transactionalDatabaseStats.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.uncertainTemporalDatabaseStats">PAMI.extras.dbStats.uncertainTemporalDatabaseStats module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.convertDataIntoMatrix"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.convertDataIntoMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getAveragePeriod"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getAveragePeriod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getAverageTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getAverageTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getDatabaseSize"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getDatabaseSize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getDensity"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getDensity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getFrequenciesInRange"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getFrequenciesInRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getMaximumPeriod"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getMaximumPeriod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getMaximumTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getMaximumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getMinimumPeriod"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getMinimumPeriod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getMinimumTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getMinimumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getNumberOfTransactionsPerTimestamp"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getNumberOfTransactionsPerTimestamp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getSortedListOfItemFrequencies"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getSortedListOfItemFrequencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getSparsity"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getSparsity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getStandardDeviationPeriod"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getStandardDeviationPeriod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getStandardDeviationTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getStandardDeviationTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getTotalNumberOfItems"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getTotalNumberOfItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getTransanctionalLengthDistribution"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getTransanctionalLengthDistribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getVarianceTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.getVarianceTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.plotGraphs"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.plotGraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.printStats"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.printStats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.readDatabase"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.readDatabase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.run"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.save"><code class="docutils literal notranslate"><span class="pre">uncertainTemporalDatabaseStats.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats.uncertainTransactionalDatabaseStats">PAMI.extras.dbStats.uncertainTransactionalDatabaseStats module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.convertDataIntoMatrix"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.convertDataIntoMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getAverageTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getAverageTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getDatabaseSize"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getDatabaseSize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getDensity"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getDensity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getFrequenciesInRange"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getFrequenciesInRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getMaximumTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getMaximumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getMinimumTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getMinimumTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getNumberOfItems"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getNumberOfItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getSortedListOfItemFrequencies"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getSortedListOfItemFrequencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getSparsity"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getSparsity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getStandardDeviationTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getStandardDeviationTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getTotalNumberOfItems"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getTotalNumberOfItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getTransanctionalLengthDistribution"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getTransanctionalLengthDistribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.getVarianceTransactionLength"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.getVarianceTransactionLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.plotGraphs"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.plotGraphs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.printStats"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.printStats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.readDatabase"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.readDatabase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.run"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTransactionalDatabaseStats.uncertainTransactionalDatabaseStats.save"><code class="docutils literal notranslate"><span class="pre">uncertainTransactionalDatabaseStats.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#pami-extras-dbstats-utilitydatabasestats-module">PAMI.extras.dbStats.utilityDatabaseStats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.dbStats.html#module-PAMI.extras.dbStats">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html">PAMI.extras.fuzzyTransformation package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation.abstract">PAMI.extras.fuzzyTransformation.abstract module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation.temporalToFuzzy">PAMI.extras.fuzzyTransformation.temporalToFuzzy module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#PAMI.extras.fuzzyTransformation.temporalToFuzzy.temporalToFuzzy"><code class="docutils literal notranslate"><span class="pre">temporalToFuzzy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#PAMI.extras.fuzzyTransformation.temporalToFuzzy.temporalToFuzzy.startConvert"><code class="docutils literal notranslate"><span class="pre">temporalToFuzzy.startConvert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#pami-extras-fuzzytransformation-transactionaltofuzzytimeseries-module">PAMI.extras.fuzzyTransformation.transactionalToFuzzyTimeSeries module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#pami-extras-fuzzytransformation-utilitytofuzzy-module">PAMI.extras.fuzzyTransformation.utilityToFuzzy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.fuzzyTransformation.html#module-PAMI.extras.fuzzyTransformation">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.generateDatabase.html">PAMI.extras.generateDatabase package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase.generateSpatioTemporalDatabase">PAMI.extras.generateDatabase.generateSpatioTemporalDatabase module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator"><code class="docutils literal notranslate"><span class="pre">spatioTemporalDatabaseGenerator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.alreadyAdded"><code class="docutils literal notranslate"><span class="pre">spatioTemporalDatabaseGenerator.alreadyAdded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.coinFlip"><code class="docutils literal notranslate"><span class="pre">spatioTemporalDatabaseGenerator.coinFlip</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.createPoint"><code class="docutils literal notranslate"><span class="pre">spatioTemporalDatabaseGenerator.createPoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.items"><code class="docutils literal notranslate"><span class="pre">spatioTemporalDatabaseGenerator.items</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.outFileName"><code class="docutils literal notranslate"><span class="pre">spatioTemporalDatabaseGenerator.outFileName</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.saveAsFile"><code class="docutils literal notranslate"><span class="pre">spatioTemporalDatabaseGenerator.saveAsFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateSpatioTemporalDatabase.spatioTemporalDatabaseGenerator.timestamp"><code class="docutils literal notranslate"><span class="pre">spatioTemporalDatabaseGenerator.timestamp</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase.generateTemporalDatabase">PAMI.extras.generateDatabase.generateTemporalDatabase module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase"><code class="docutils literal notranslate"><span class="pre">generateTemporalDatabase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.createTemporalFile"><code class="docutils literal notranslate"><span class="pre">generateTemporalDatabase.createTemporalFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.getDatabaseAsDataFrame"><code class="docutils literal notranslate"><span class="pre">generateTemporalDatabase.getDatabaseAsDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateTemporalDatabase.generateTemporalDatabase.getFileName"><code class="docutils literal notranslate"><span class="pre">generateTemporalDatabase.getFileName()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase.generateTransactionalDatabase">PAMI.extras.generateDatabase.generateTransactionalDatabase module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase"><code class="docutils literal notranslate"><span class="pre">generateTransactionalDatabase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.generateDatabase.html#PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase.getFileName"><code class="docutils literal notranslate"><span class="pre">generateTransactionalDatabase.getFileName()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.generateDatabase.html#module-PAMI.extras.generateDatabase">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.graph.html">PAMI.extras.graph package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.dataFrameInToFigures">PAMI.extras.graph.dataFrameInToFigures module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.graph.html#PAMI.extras.graph.dataFrameInToFigures.dataFrameInToFigures"><code class="docutils literal notranslate"><span class="pre">dataFrameInToFigures</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#PAMI.extras.graph.dataFrameInToFigures.dataFrameInToFigures.plotGraphsFromDataFrame"><code class="docutils literal notranslate"><span class="pre">dataFrameInToFigures.plotGraphsFromDataFrame()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.generateLatexFileFromDataFrame">PAMI.extras.graph.generateLatexFileFromDataFrame module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.graph.html#PAMI.extras.graph.generateLatexFileFromDataFrame.generateLatexCode"><code class="docutils literal notranslate"><span class="pre">generateLatexCode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.graph.html#PAMI.extras.graph.generateLatexFileFromDataFrame.generateLatexFileFromDataFrame"><code class="docutils literal notranslate"><span class="pre">generateLatexFileFromDataFrame</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.plotLineGraphFromDictionary">PAMI.extras.graph.plotLineGraphFromDictionary module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.graph.html#PAMI.extras.graph.plotLineGraphFromDictionary.plotLineGraphFromDictionary"><code class="docutils literal notranslate"><span class="pre">plotLineGraphFromDictionary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.plotLineGraphsFromDataFrame">PAMI.extras.graph.plotLineGraphsFromDataFrame module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.graph.html#PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame"><code class="docutils literal notranslate"><span class="pre">plotGraphsFromDataFrame</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame.plotGraphsFromDataFrame"><code class="docutils literal notranslate"><span class="pre">plotGraphsFromDataFrame.plotGraphsFromDataFrame()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph.visualizePatterns">PAMI.extras.graph.visualizePatterns module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.graph.html#PAMI.extras.graph.visualizePatterns.visualizePatterns"><code class="docutils literal notranslate"><span class="pre">visualizePatterns</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.graph.html#PAMI.extras.graph.visualizePatterns.visualizePatterns.visualize"><code class="docutils literal notranslate"><span class="pre">visualizePatterns.visualize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.graph.html#module-PAMI.extras.graph">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.image2Database.html">PAMI.extras.image2Database package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.image2Database.html#module-PAMI.extras.image2Database">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.imageProcessing.html">PAMI.extras.imageProcessing package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.imageProcessing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.imageProcessing.html#module-PAMI.extras.imageProcessing.imagery2Databases">PAMI.extras.imageProcessing.imagery2Databases module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.imageProcessing.html#PAMI.extras.imageProcessing.imagery2Databases.createDatabase"><code class="docutils literal notranslate"><span class="pre">createDatabase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#PAMI.extras.imageProcessing.imagery2Databases.createDatabase.getDataFrame"><code class="docutils literal notranslate"><span class="pre">createDatabase.getDataFrame()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#PAMI.extras.imageProcessing.imagery2Databases.createDatabase.saveAsTemporalDB"><code class="docutils literal notranslate"><span class="pre">createDatabase.saveAsTemporalDB()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#PAMI.extras.imageProcessing.imagery2Databases.createDatabase.saveAsTransactionalDB"><code class="docutils literal notranslate"><span class="pre">createDatabase.saveAsTransactionalDB()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#PAMI.extras.imageProcessing.imagery2Databases.createDatabase.saveAsUncertainTemporalDB"><code class="docutils literal notranslate"><span class="pre">createDatabase.saveAsUncertainTemporalDB()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#PAMI.extras.imageProcessing.imagery2Databases.createDatabase.saveAsUncertainTransactionalDB"><code class="docutils literal notranslate"><span class="pre">createDatabase.saveAsUncertainTransactionalDB()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#PAMI.extras.imageProcessing.imagery2Databases.createDatabase.saveAsUtilityTemporalDB"><code class="docutils literal notranslate"><span class="pre">createDatabase.saveAsUtilityTemporalDB()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.imageProcessing.html#PAMI.extras.imageProcessing.imagery2Databases.createDatabase.saveAsUtilityTransactionalDB"><code class="docutils literal notranslate"><span class="pre">createDatabase.saveAsUtilityTransactionalDB()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.imageProcessing.html#module-PAMI.extras.imageProcessing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PAMI.extras.neighbours.html">PAMI.extras.neighbours package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.neighbours.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.neighbours.html#module-PAMI.extras.neighbours.findNeighboursUsingEuclidean">PAMI.extras.neighbours.findNeighboursUsingEuclidean module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.extras.neighbours.html#PAMI.extras.neighbours.findNeighboursUsingEuclidean.createNeighborhoodFileUsingEuclideanDistance"><code class="docutils literal notranslate"><span class="pre">createNeighborhoodFileUsingEuclideanDistance</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.neighbours.html#PAMI.extras.neighbours.findNeighboursUsingEuclidean.createNeighborhoodFileUsingEuclideanDistance.getFileName"><code class="docutils literal notranslate"><span class="pre">createNeighborhoodFileUsingEuclideanDistance.getFileName()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PAMI.extras.neighbours.html#module-PAMI.extras.neighbours">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.extras.generateLatexGraphFile">
+<span id="pami-extras-generatelatexgraphfile-module"></span><h2>PAMI.extras.generateLatexGraphFile module<a class="headerlink" href="#module-PAMI.extras.generateLatexGraphFile" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="PAMI.extras.generateLatexGraphFile.generateLatexCode">
+<span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateLatexGraphFile.</span></span><span class="sig-name descname"><span class="pre">generateLatexCode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/generateLatexGraphFile.html#generateLatexCode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateLatexGraphFile.generateLatexCode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.generateLatexGraphFile.generateLatexGraphFile">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.generateLatexGraphFile.</span></span><span class="sig-name descname"><span class="pre">generateLatexGraphFile</span></span><a class="reference internal" href="_modules/PAMI/extras/generateLatexGraphFile.html#generateLatexGraphFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.generateLatexGraphFile.generateLatexGraphFile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>generateLatexGraphFile is used to convert the given data into LatexGraphFile.</p>
+</dd>
+</dl>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>from PAMI.extras.syntheticDatabaseGenerator import generateLatexGraphFile as fuz</p>
+<p>obj = fuz.generateLatexGraphFile(idf)</p>
+<p>obj.save()</p>
+</section>
+</dd></dl>
+
+</section>
+<section id="pami-extras-plotpointonmap-module">
+<h2>PAMI.extras.plotPointOnMap module<a class="headerlink" href="#pami-extras-plotpointonmap-module" title="Link to this heading"></a></h2>
+</section>
+<section id="pami-extras-plotpointonmap-dump-module">
+<h2>PAMI.extras.plotPointOnMap_dump module<a class="headerlink" href="#pami-extras-plotpointonmap-dump-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.extras.scatterPlotSpatialPoints">
+<span id="pami-extras-scatterplotspatialpoints-module"></span><h2>PAMI.extras.scatterPlotSpatialPoints module<a class="headerlink" href="#module-PAMI.extras.scatterPlotSpatialPoints" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.scatterPlotSpatialPoints.</span></span><span class="sig-name descname"><span class="pre">scatterPlotSpatialPoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/scatterPlotSpatialPoints.html#scatterPlotSpatialPoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scatterPlotSpatialPoints is used to convert the given data and plot the points.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>iFile</strong> -- str :
+Name of the Input file</p></li>
+<li><p><strong>sep</strong> -- str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+</dl>
+<section id="id1">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>from PAMI.extras.syntheticDatabaseGenerator import scatterPlotSpatialPoints as plt</p>
+<p>obj = plt.scatterPlotSpatialPoints(iFile, &quot; &quot; )</p>
+<p>obj.save(oFile)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints.scatterPlotSpatialPoints">
+<span class="sig-name descname"><span class="pre">scatterPlotSpatialPoints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/scatterPlotSpatialPoints.html#scatterPlotSpatialPoints.scatterPlotSpatialPoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints.scatterPlotSpatialPoints" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.topKPatterns">
+<span id="pami-extras-topkpatterns-module"></span><h2>PAMI.extras.topKPatterns module<a class="headerlink" href="#module-PAMI.extras.topKPatterns" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.topKPatterns.topKPatterns">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.topKPatterns.</span></span><span class="sig-name descname"><span class="pre">topKPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/topKPatterns.html#topKPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.topKPatterns.topKPatterns" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>find top k length patterns in input file.</p>
+</dd>
+</dl>
+<section id="attributes">
+<h3>Attributes:<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>inputFile<span class="classifier">str</span></dt><dd><p>input file name or path</p>
+</dd>
+<dt>k<span class="classifier">int</span></dt><dd><p>rank of pattern length. default is 10</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>separator which separate patterns in input file. default is tab space</p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="methods">
+<h3>Methods:<a class="headerlink" href="#methods" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl class="simple">
+<dt>getTopKPatterns()</dt><dd><p>return top k patterns as dict</p>
+</dd>
+<dt>storeTopKPatterns(outputFile)</dt><dd><p>store top k patterns into output file.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>from PAMI.extras.syntheticDatabaseGenerator import topKPatterns as plt</p>
+<p>obj = plt.scatterPlotSpatialPoints(&quot; &quot;, 10, &quot;   &quot; )</p>
+<p>obj.save()</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.topKPatterns.topKPatterns.getTopKPatterns">
+<span class="sig-name descname"><span class="pre">getTopKPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/topKPatterns.html#topKPatterns.getTopKPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.topKPatterns.topKPatterns.getTopKPatterns" title="Link to this definition"></a></dt>
+<dd><p>get top k length patterns. user can defined k value.
+:return: top k length patterns as dictionary. top k patterns = {patternId: pattern}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.topKPatterns.topKPatterns.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/topKPatterns.html#topKPatterns.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.topKPatterns.topKPatterns.save" title="Link to this definition"></a></dt>
+<dd><p>store top k length patterns into file. user can defined k value.
+:param outputFile: output file name or path
+:type outputFile: str</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras.uncertaindb_convert">
+<span id="pami-extras-uncertaindb-convert-module"></span><h2>PAMI.extras.uncertaindb_convert module<a class="headerlink" href="#module-PAMI.extras.uncertaindb_convert" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.uncertaindb_convert.predictedClass2Transaction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.uncertaindb_convert.</span></span><span class="sig-name descname"><span class="pre">predictedClass2Transaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted_classes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minThreshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/uncertaindb_convert.html#predictedClass2Transaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.uncertaindb_convert.predictedClass2Transaction" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This is used to convert the given database and predict classes.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>predicted_classes</strong> -- list:
+It is dense DataFrame</p></li>
+<li><p><strong>minThreshold</strong> -- int or float :
+minimum threshold User defined value.</p></li>
+</ul>
+</dd>
+</dl>
+<section id="id2">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>from PAMI.extras.syntheticDatabaseGenerator import uncertaindb_convert as un</p>
+<p>obj = un.uncertaindb_convert(predicted_classes, 0.8)</p>
+<p>obj.save(oFile)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.uncertaindb_convert.predictedClass2Transaction.getBinaryTransaction">
+<span class="sig-name descname"><span class="pre">getBinaryTransaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted_classes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minThreshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.8</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/uncertaindb_convert.html#predictedClass2Transaction.getBinaryTransaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.uncertaindb_convert.predictedClass2Transaction.getBinaryTransaction" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.extras">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.extras" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.coveragePatterns.basic.html" class="btn btn-neutral float-left" title="PAMI.coveragePatterns.basic package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.extras.DF2DB.html" class="btn btn-neutral float-right" title="PAMI.extras.DF2DB package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, RAGE UDAY KIRAN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
