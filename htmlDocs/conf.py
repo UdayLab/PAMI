@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'PAMI'
 copyright = '2023, RAGE UDAY KIRAN'
 author = 'RAGE UDAY KIRAN'
-release = '2023.03.01'
+release = '2023.10.23'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
