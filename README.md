@@ -375,7 +375,7 @@ __coming soon__
  
   | Basic         |   
   |---------------|
-  |  1. SPADE     |
+  |  1. SPADE    <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/sequencePatternMining/basic/SPADE.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In      Colab"/> </a>  |
   | to be written |
   |  2. SPAM      |
   | to be written |
