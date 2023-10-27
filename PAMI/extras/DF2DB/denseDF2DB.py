@@ -95,6 +95,7 @@ class denseDF2DB:
         self.outputFile = ' '
         self.items = list(self.inputDF.columns.values)
         self.tids = list(self.inputDF.index)
+        self.tids = [i=i+1 for i in self.tids]
 
 
     def createTransactional(self, outputFile: str) -> None:
