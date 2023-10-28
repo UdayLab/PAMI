@@ -51,8 +51,8 @@ __copyright__ = """
 """
 
 # from geoReferencedFrequentPatterns import abstract as _ab
-from PAMI.uncertainGeoreferencedFrequentPattern.basic import abstract as _ab
-# import abstract as _ab
+#from PAMI.uncertainGeoreferencedFrequentPattern.basic import abstract as _ab
+import abstract as _ab
 
 _minSup = str()
 _neighbourList = {}
@@ -453,32 +453,31 @@ class GFPGrowth(_ab._frequentPatterns):
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
-                for line in data:
-                    line.strip()
-                    line = line.decode("utf-8")
-                    temp = [i.rstrip() for i in line.split(self._sep)]
-                    temp = [x for x in temp if x]
+                for line in f:
+                    temp1 = line.strip()
+                    temp1 = temp1.split(':')
+                    temp = [i.rstrip() for i in temp1[0].split(self._sep)]
+                    uncertain = [float(i.rstrip()) for i in temp1[1].split(self._sep)]
                     tr = []
-                    for i in temp:
-                        i1 = i.index('(')
-                        i2 = i.index(')')
-                        item = i[0:i1]
-                        probability = float(i[i1 + 1:i2])
+                    for i in range(len(temp)):
+                        item = temp[i]
+                        probability = uncertain[i]
                         product = _Item(item, probability)
                         tr.append(product)
-                    self._Database.append(temp)
+                    self._Database.append(tr)
             else:
                 try:
                     with open(self._iFile, 'r') as f:
                         for line in f:
-                            temp = [i.rstrip() for i in line.split(self._sep)]
-                            temp = [x for x in temp if x]
+                            temp1 = line.strip()
+                            temp1 = temp1.split(':')
+                            #temp1[0], temp1[1] = [i for i in temp1[0] if i], [i for i in temp1[1] if i]
+                            temp = [i.rstrip() for i in temp1[0].split(self._sep) if i]
+                            uncertain = [float(i.rstrip()) for i in temp1[1].split(self._sep) if i]
                             tr = []
-                            for i in temp[1:]:
-                                i1 = i.index('(')
-                                i2 = i.index(')')
-                                item = i[0:i1]
-                                probability = float(i[i1 + 1:i2])
+                            for i in range(len(temp)):
+                                item = temp[i]
+                                probability = uncertain[i]
                                 product = _Item(item, probability)
                                 tr.append(product)
                             self._Database.append(tr)
@@ -651,7 +650,7 @@ class GFPGrowth(_ab._frequentPatterns):
             if y >= self._minSup:
                 sample = str()
                 for i in x:
-                    sample = sample + i + " "
+                    sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
     def startMine(self):
@@ -736,7 +735,7 @@ class GFPGrowth(_ab._frequentPatterns):
     
     def printResults(self):
         print("Total number of Patterns:", len(self.getPatterns()))
-        self.savePatterns("patterns.txt")
+        self.save("patterns.txt")
         memUSS = self.getMemoryUSS()
         print("Total Memory in USS:", memUSS)
         memRSS = self.getMemoryRSS()
@@ -755,7 +754,7 @@ if __name__ == "__main__":
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))
-        _ap.savePatterns(_ab._sys.argv[2])
+        _ap.save(_ab._sys.argv[2])
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)
         _memRSS = _ap.getMemoryRSS()
