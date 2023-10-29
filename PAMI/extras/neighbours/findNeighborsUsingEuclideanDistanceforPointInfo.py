@@ -88,7 +88,7 @@ class createNeighborhoodFileUsingEuclideanDistance:
         for i in self.uniqueItems:
             i = i.strip("Point()")
             coordinates.append(i.rstrip().split())
-        print("Total number of unique coordinates in the given file: "len(coordinates))
+        #print("Total number of unique coordinates in the given file: "len(coordinates))
         for i in range(len(coordinates)):
             for j in range(len(coordinates)):
                 if i != j:
