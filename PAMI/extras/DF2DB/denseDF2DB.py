@@ -189,6 +189,33 @@ class denseDF2DB:
                 writer.write("%s\n" %s2)
                 tids, items, values = [], [], []
                 count = 0
+
+    def createUncertrainTransactional(self, outputFile: str) -> None:
+        self.outputFile = outputFile
+        with open(outputFile, 'w') as f:
+             if self.condition not in condition_operator:
+                print('Condition error')
+             else:
+                for tid in self.tids:
+                    transaction = [item for item in self.items if condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+                    uncertain = [self.inputDF.at[tid, item] for item in self.items if condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+                    if len(transaction) > 1:
+                        f.write(f'{transaction[0]}')
+                        for item in transaction[1:]:
+                            f.write(f'\t{item}')
+                        f.write(f':')
+                        for value in uncertain:
+                            tt = 0.1 + 0.036 * abs(25-value)
+                            tt = round(tt, 2)
+                            f.write(f'\t{tt}')
+                    elif len(transaction) == 1:
+                        f.write(f'{transaction[0]}')
+                        tt = 0.1 + 0.036 * abs(25-uncertain[0])
+                        tt = round(tt, 2)
+                        f.write(f':{tt}')
+                    else:
+                        continue
+                    f.write('\n')
         
     def createUtility(self, outputFile: str) -> None:
         """
