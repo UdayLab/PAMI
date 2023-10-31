@@ -3,7 +3,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.syntheticDatabaseGenerator import uncertaindb_convert as un
+#     from PAMI.extras.syntheticDataGenerator import uncertaindb_convert as un
 #
 #     obj = un.predictedClass2Transaction(predicted_classes, 0.8)
 #
@@ -44,7 +44,7 @@ class predictedClass2Transaction:
             --------------------------------------------------------
             .. code-block:: python
 
-            from PAMI.extras.syntheticDatabaseGenerator import uncertaindb_convert as un
+            from PAMI.extras.syntheticDataGenerator import uncertaindb_convert as un
 
             obj = un.uncertaindb_convert(predicted_classes, 0.8)
 

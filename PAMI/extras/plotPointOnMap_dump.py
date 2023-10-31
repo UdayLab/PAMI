@@ -3,7 +3,7 @@
 #     **Importing this algorithm into a python program**
 #     --------------------------------------------------------
 #
-#     from PAMI.extras.syntheticDatabaseGenerator import plotPointOnMap_dump as plt
+#     from PAMI.extras.syntheticDataGenerator import plotPointOnMap_dump as plt
 #
 #     obj = plt.plotPointOnMap_dump(" ", 10, "\t")
 #
@@ -47,7 +47,7 @@ class plotPointOnMap:
                 --------------------------------------------------------
                 .. code-block:: python
 
-                from PAMI.extras.syntheticDatabaseGenerator import plotPointOnMap as plt
+                from PAMI.extras.syntheticDataGenerator import plotPointOnMap as plt
 
                 obj = plt.plotPointOnMap(" ", 10, "\t")
 

@@ -3,7 +3,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.syntheticDatabaseGenerator import convertMultiTSIntoFuzzy as fuz
+#     from PAMI.extras.syntheticDataGenerator import convertMultiTSIntoFuzzy as fuz
 #
 #     obj = fuz.convertMultiTSIntoFuzzy(iFile, FuzFile)
 #
@@ -47,7 +47,7 @@ class convertMultipleTSIntoFuzzy():
             --------------------------------------------------------
             .. code-block:: python
 
-            from PAMI.extras.syntheticDatabaseGenerator import convertMultiTSIntoFuzzy as fuz
+            from PAMI.extras.syntheticDataGenerator import convertMultiTSIntoFuzzy as fuz
 
             obj = fuz.convertMultiTSIntoFuzzy(iFile, FuzFile)
 

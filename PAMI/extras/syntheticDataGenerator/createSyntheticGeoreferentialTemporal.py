@@ -2,7 +2,7 @@ import random as _rd
 import sys as _sys
 
 
-class createSyntheticGeoreferentialTemporal:
+class createGeoreferentialTemporalDatabase:
     """
         This class create synthetic geo-referential temporal database. 
 

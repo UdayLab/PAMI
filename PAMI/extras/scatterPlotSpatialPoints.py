@@ -3,7 +3,7 @@
 #   **Importing this algorithm into a python program**
 #   --------------------------------------------------------
 #
-#   from PAMI.extras.syntheticDatabaseGenerator import scatterPlotSpatialPoints as plt
+#   from PAMI.extras.syntheticDataGenerator import scatterPlotSpatialPoints as plt
 #
 #   obj = plt.scatterPlotSpatialPoints(iFile, "\t")
 #
@@ -50,7 +50,7 @@ class scatterPlotSpatialPoints:
             --------------------------------------------------------
             .. code-block:: python
 
-            from PAMI.extras.syntheticDatabaseGenerator import scatterPlotSpatialPoints as plt
+            from PAMI.extras.syntheticDataGenerator import scatterPlotSpatialPoints as plt
 
             obj = plt.scatterPlotSpatialPoints(iFile, "\t" )
 
