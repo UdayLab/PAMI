@@ -42,6 +42,6 @@ if __name__ == "__main__":
         maxUtilRange = int(_sys.argv[3])
         avgTransaction = int(_sys.argv[4])
         _ap = createSyntheticUtility(transactions, items, maxUtilRange, avgTransaction)
-        _ap.createUtilityDatabase("T10_util.txt")
+        _ap.createUtilityDatabase("utility_database.txt")
 else:
     print("Error! The number of input parameters does not match the total number of parameters provided")
