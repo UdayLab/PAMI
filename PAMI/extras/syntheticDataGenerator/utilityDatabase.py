@@ -1,7 +1,7 @@
 import random as _rd
 import sys as _sys
 
-class createSyntheticUtility:
+class utilityDatabase:
     
     def __init__(self, transactions: int, items: int, maxUtilRange: int, avgTransaction: int) -> None:
         self._totalTransactions = transactions
