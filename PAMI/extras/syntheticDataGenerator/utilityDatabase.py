@@ -10,7 +10,7 @@ class createSyntheticUtility:
         self._avgTransactionLength = avgTransaction
         self._data = []
 
-    def generate_data(self) -> None:
+    def generate(self) -> None:
         for _ in range(self._totalTransactions):
             length = _rd.randint(1, self._avgTransactionLength + 20)
             transaction = []
@@ -32,7 +32,7 @@ class createSyntheticUtility:
                 writer.write(f"{utility_str}\n")
 
     def createUtilityDatabase(self, outputFile: str) -> None:
-        self.generate_data()
+        self.generate()
         self.save_to_csv(outputFile)
 
 if __name__ == "__main__":
