@@ -29,7 +29,7 @@ class georeferentialTemporalDatabase:
         df = pd.DataFrame(data)
         df.to_csv(output_file, index=False)
 
-    def createGeoreferentialTemporalDatabase(self, outputFile: str) -> None:
+    def GeoreferentialTemporalDatabase(self, outputFile: str) -> None:
         self.generate_data()
         self.save_to_csv(outputFile)
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
         transactions = int(_sys.argv[1])
         items = int(_sys.argv[2])
         avgTransaction = int(_sys.argv[3])
-        _ap = createGeoreferentialTemporalDatabase(transactions, items, avgTransaction)
+        _ap = GeoreferentialTemporalDatabase(transactions, items, avgTransaction)
         _ap.createGeoreferentialTemporalDatabase("geo_temp.txt")
     else:
         print("Error! Please provide all three command-line arguments.")
