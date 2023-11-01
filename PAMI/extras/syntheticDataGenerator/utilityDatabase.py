@@ -31,7 +31,7 @@ class utilityDatabase:
                 writer.write(f"{transaction_str}:{total_utility}:\n")
                 writer.write(f"{utility_str}\n")
 
-    def createUtilityDatabase(self, outputFile: str) -> None:
+    def utilityDatabase(self, outputFile: str) -> None:
         self.generate()
         self.save_to_csv(outputFile)
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
         items = int(_sys.argv[2])
         maxUtilRange = int(_sys.argv[3])
         avgTransaction = int(_sys.argv[4])
-        _ap = createSyntheticUtility(transactions, items, maxUtilRange, avgTransaction)
-        _ap.createUtilityDatabase("utility_database.txt")
+        _ap = utilityDatabase(transactions, items, maxUtilRange, avgTransaction)
+        _ap.utilityDatabase("utility_database.txt")
 else:
     print("Error! The number of input parameters does not match the total number of parameters provided")
