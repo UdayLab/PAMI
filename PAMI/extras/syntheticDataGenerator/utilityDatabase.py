@@ -23,7 +23,7 @@ class createSyntheticUtility:
             total_utility = sum(utilities)
             self._data.append((transaction, utilities, total_utility))
 
-    def save_to_csv(self, output_file: str) -> None:
+    def save(self, output_file: str) -> None:
         with open(output_file, 'w') as writer:
             for transaction, utilities, total_utility in self._data:
                 transaction_str = '\t'.join(map(str, transaction))
@@ -36,7 +36,12 @@ class createSyntheticUtility:
         self.save_to_csv(outputFile)
 
 if __name__ == "__main__":
-    _ap = createSyntheticUtility(100000, 870, 100, 10)
-    _ap.createUtilityDatabase("T10_util.txt")
+    if len(_sys.argv) == 5:
+        transactions = int(_sys.argv[1])
+        items = int(_sys.argv[2])
+        maxUtilRange = int(_sys.argv[3])
+        avgTransaction = int(_sys.argv[4])
+        _ap = createSyntheticUtility(transactions, items, maxUtilRange, avgTransaction)
+        _ap.createUtilityDatabase("T10_util.txt")
 else:
     print("Error! The number of input parameters does not match the total number of parameters provided")
