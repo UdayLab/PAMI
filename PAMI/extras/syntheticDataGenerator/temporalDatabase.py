@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-class TemporalDataGenerator:
+class TemporalDatabase:
     def __init__(self, transaction_size, num_of_items, avg_transaction_length):
         self.transaction_size = transaction_size
         self.num_of_items = num_of_items
@@ -20,6 +20,6 @@ class TemporalDataGenerator:
         df.to_csv(output_file, sep='\t', index=False)
 
 if __name__ == "__main__":
-    data_generator = TemporalDataGenerator(10, 10, 5)
+    data_generator = TemporalDatabase(10, 10, 5)
     data_generator.generate()
-    data_generator.save("temporal_test.csv")
+    data_generator.save("temporal_Database.csv")
