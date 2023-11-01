@@ -332,7 +332,7 @@ class CMine(_ab._coveragePatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self) -> _pd.DataFrame:
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final coverage patterns in a dataframe
         :return: returning coverage patterns in a dataframe
         :rtype: pd.DataFrame
