@@ -34,8 +34,8 @@ import sys
 import statistics
 from urllib.request import urlopen
 import pandas as pd
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
-import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+from typing import Union
+
 
 class utilityDatabaseStats:
     """
@@ -311,51 +311,28 @@ class utilityDatabaseStats:
         
         itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
-        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'Frequency', 'no of items', 'frequency')
-        plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
+        plt.plotLineGraphFromDictionary(itemFrequencies, 100, 0, 'Frequency', 'no of items', 'frequency')
+        plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length', 'frequency')
 
 
 if __name__ == '__main__':
-  data = {'ts': [1, 1, 3, 4, 5, 6, 7],
+
+    data = {'ts': [1, 1, 3, 4, 5, 6, 7],
 
             'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
                              ['a', 'd', 'g', 'k'],
 
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
-if len(sys.argv) != 3:
-    print("Usage: python script.py <input_file> <separator>")
-    sys.exit(1)
-
-input_file = sys.argv[1]
-separator = sys.argv[2]
-
-obj = utilityDatabaseStats('utility_T20I6D100K.txt', sep=' ')
-obj.run()
-
-# Check if there are transactions in the database before proceeding
-if obj.getDatabaseSize() > 0:
-    obj.printStats()
-    obj.plotGraphs()
-else:
-    print("No data found in the database.")
-    '''print(f'Database size : {obj.getDatabaseSize()}')
-    print(f'Minimum Transaction Size : {obj.getMinimumTransactionLength()}')
-    print(f'Average Transaction Size : {obj.getAverageTransactionLength()}')
-    print(f'Maximum Transaction Size : {obj.getMaximumTransactionLength()}')
-    print(f'Standard Deviation Transaction Size : {obj.getStandardDeviationTransactionLength()}')
-    print(f'Variance : {obj.getVarianceTransactionLength()}')
-    print(f'Sparsity : {obj.getSparsity()}')
-    print(f'Number of items : {obj.getTotalNumberOfItems()}')
-    print(f'Minimum utility : {obj.getMinimumUtility()}')
-    print(f'Average utility : {obj.getAverageUtility()}')
-    print(f'Maximum utility : {obj.getMaximumUtility()}')
-    print(f'sorted utility value each item : {obj.getSortedUtilityValuesOfItem()}')
-    itemFrequencies = obj.getSortedListOfItemFrequencies()
-    transactionLength = obj.getTransanctionalLengthDistribution()
-    numberOfTransactionPerTimeStamp = obj.getNumberOfTransactionsPerTimestamp()
-    plt.plotLineGraphFromDictionary(itemFrequencies, 100, 'itemFrequencies', 'item rank', 'frequency')
-    plt.plotLineGraphFromDictionary(transactionLength, 100, 'transaction length', 'transaction length', 'frequency')
-    plt.plotLineGraphFromDictionary(numberOfTransactionPerTimeStamp, 100)'''
-
-
+    import PAMI.extras.graph.plotLineGraphFromDictionary as plt
+    if len(sys.argv) < 3:
+        print("Please provide two arguments.")
+    else:
+        obj = utilityDatabaseStats(sys.argv[1], sys.argv[2])
+        obj1 = utilityDatabaseStats(pd.DataFrame(data))
+        obj1.run()
+        if obj1.getDatabaseSize() > 0:
+            obj1.printStats()
+            obj1.plotGraphs()
+        else:
+            print("No data found in the database.")
 
