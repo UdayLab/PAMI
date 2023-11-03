@@ -50,7 +50,7 @@ __copyright__ = """
 
 
 from PAMI.partialPeriodicPattern.basic import Gabstract as _abstract
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from typing import List, Tuple, Generator
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
@@ -372,13 +372,13 @@ class GThreePGrowth(_abstract._partialPeriodicPatterns):
 
         Format:
         -----------
-          >>> python3 PPPGrowth.py <inputFile> <outputFile> <minPS> <period>
+          >>> python3 GThreePGrowth.py <inputFile> <outputFile> <minPS> <period>
 
         Examples:
         -----------
-          >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (minPS and period will be considered in percentage of database transactions)
+          >>> python3 GThreePGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (minPS and period will be considered in percentage of database transactions)
 
-          >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
+          >>> python3 GThreePGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
 
     Sample run of the importing code:
     --------------------------------------------
