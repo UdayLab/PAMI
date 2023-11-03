@@ -52,8 +52,7 @@ __copyright__ = """
 
 """
 
-
-import abstract as _abstract
+from PAMI.partialPeriodicPattern.topk import abstract as _abstract
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
@@ -121,7 +120,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
         Format:
         ------
-            >>> python3 k3PMiner.py <inputFile> <outputFile> <k> <period>
+            >>> python3 k3PMiner.py <iFile> <oFile> <k> <period>
 
         Examples:
         ---------
