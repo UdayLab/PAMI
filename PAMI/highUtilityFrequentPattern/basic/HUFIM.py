@@ -51,7 +51,7 @@ __copyright__ = """
 
 
 from PAMI.highUtilityFrequentPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from typing import List, Dict, Union
 
 
 class _Transaction:
@@ -99,7 +99,7 @@ class _Transaction:
         self.transactionUtility = transactionUtility
         self.support = 1
 
-    def projectTransaction(self, offsetE: int) -> _Transaction:
+    def projectTransaction(self, offsetE: int) -> '_Transaction':
         """
             A method to create new Transaction from existing transaction starting from offsetE until the end
 
