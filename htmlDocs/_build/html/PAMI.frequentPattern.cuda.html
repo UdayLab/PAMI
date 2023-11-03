@@ -4,16 +4,18 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.frequentPattern.cuda package &mdash; PAMI 2023.03.01 documentation</title>
+  <title>PAMI.frequentPattern.cuda package &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -118,244 +120,21 @@
            <div itemprop="articleBody">
              
   <section id="pami-frequentpattern-cuda-package">
-<h1>PAMI.frequentPattern.cuda package<a class="headerlink" href="#pami-frequentpattern-cuda-package" title="Permalink to this heading"></a></h1>
+<h1>PAMI.frequentPattern.cuda package<a class="headerlink" href="#pami-frequentpattern-cuda-package" title="Link to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="module-PAMI.frequentPattern.cuda.cudaAprioriGCT">
-<span id="pami-frequentpattern-cuda-cudaapriorigct-module"></span><h2>PAMI.frequentPattern.cuda.cudaAprioriGCT module<a class="headerlink" href="#module-PAMI.frequentPattern.cuda.cudaAprioriGCT" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.cuda.cudaAprioriGCT.</span></span><span class="sig-name descname"><span class="pre">cudaAprioriGCT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.Patterns">
-<span class="sig-name descname"><span class="pre">Patterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.Patterns" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.compute_vertical_bitvector_data">
-<span class="sig-name descname"><span class="pre">compute_vertical_bitvector_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.compute_vertical_bitvector_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.compute_vertical_bitvector_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.filePath">
-<span class="sig-name descname"><span class="pre">filePath</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.filePath" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getGPUMemory">
-<span class="sig-name descname"><span class="pre">getGPUMemory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getGPUMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getGPUMemory" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getMEMORYRSS">
-<span class="sig-name descname"><span class="pre">getMEMORYRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getMEMORYRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getMEMORYRSS" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getMEMORYUSS">
-<span class="sig-name descname"><span class="pre">getMEMORYUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getMEMORYUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getMEMORYUSS" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getPatterns" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getTime">
-<span class="sig-name descname"><span class="pre">getTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getTime" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.get_numberOfPatterns">
-<span class="sig-name descname"><span class="pre">get_numberOfPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.get_numberOfPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.get_numberOfPatterns" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.minSup">
-<span class="sig-name descname"><span class="pre">minSup</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.minSup" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.printStats">
-<span class="sig-name descname"><span class="pre">printStats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.printStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.printStats" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.read_data">
-<span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.read_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.read_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.sep">
-<span class="sig-name descname"><span class="pre">sep</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.sep" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.startMine" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.write_result">
-<span class="sig-name descname"><span class="pre">write_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.write_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.write_result" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="pami-frequentpattern-cuda-cudaapriorigct-module">
+<h2>PAMI.frequentPattern.cuda.cudaAprioriGCT module<a class="headerlink" href="#pami-frequentpattern-cuda-cudaapriorigct-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-PAMI.frequentPattern.cuda.cudaAprioriTID">
-<span id="pami-frequentpattern-cuda-cudaaprioritid-module"></span><h2>PAMI.frequentPattern.cuda.cudaAprioriTID module<a class="headerlink" href="#module-PAMI.frequentPattern.cuda.cudaAprioriTID" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.cuda.cudaAprioriTID.</span></span><span class="sig-name descname"><span class="pre">cudaAprioriTID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriTID.html#cudaAprioriTID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.Patterns">
-<span class="sig-name descname"><span class="pre">Patterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.Patterns" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.filePath">
-<span class="sig-name descname"><span class="pre">filePath</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.filePath" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_GPU_MEM">
-<span class="sig-name descname"><span class="pre">get_GPU_MEM</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriTID.html#cudaAprioriTID.get_GPU_MEM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_GPU_MEM" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_Patterns">
-<span class="sig-name descname"><span class="pre">get_Patterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriTID.html#cudaAprioriTID.get_Patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_Patterns" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_memRSS">
-<span class="sig-name descname"><span class="pre">get_memRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriTID.html#cudaAprioriTID.get_memRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_memRSS" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_memUSS">
-<span class="sig-name descname"><span class="pre">get_memUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriTID.html#cudaAprioriTID.get_memUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_memUSS" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_numberOfPatterns">
-<span class="sig-name descname"><span class="pre">get_numberOfPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriTID.html#cudaAprioriTID.get_numberOfPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_numberOfPatterns" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_time">
-<span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriTID.html#cudaAprioriTID.get_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.get_time" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.minSup">
-<span class="sig-name descname"><span class="pre">minSup</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.minSup" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.sep">
-<span class="sig-name descname"><span class="pre">sep</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.sep" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriTID.html#cudaAprioriTID.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriTID.cudaAprioriTID.startMine" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="pami-frequentpattern-cuda-cudaaprioritid-module">
+<h2>PAMI.frequentPattern.cuda.cudaAprioriTID module<a class="headerlink" href="#pami-frequentpattern-cuda-cudaaprioritid-module" title="Link to this heading"></a></h2>
 </section>
-<section id="module-PAMI.frequentPattern.cuda.cudaEclatGCT">
-<span id="pami-frequentpattern-cuda-cudaeclatgct-module"></span><h2>PAMI.frequentPattern.cuda.cudaEclatGCT module<a class="headerlink" href="#module-PAMI.frequentPattern.cuda.cudaEclatGCT" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.cuda.cudaEclatGCT.</span></span><span class="sig-name descname"><span class="pre">cudaEclatGCT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.Patterns">
-<span class="sig-name descname"><span class="pre">Patterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.Patterns" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.compute_vertical_bitvector_data">
-<span class="sig-name descname"><span class="pre">compute_vertical_bitvector_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.compute_vertical_bitvector_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.compute_vertical_bitvector_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.eclat">
-<span class="sig-name descname"><span class="pre">eclat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basePattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vb_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx2item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item2idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.eclat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.eclat" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.filePath">
-<span class="sig-name descname"><span class="pre">filePath</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.filePath" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_GPU_MEM">
-<span class="sig-name descname"><span class="pre">get_GPU_MEM</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.get_GPU_MEM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_GPU_MEM" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_Patterns">
-<span class="sig-name descname"><span class="pre">get_Patterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.get_Patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_Patterns" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_memRSS">
-<span class="sig-name descname"><span class="pre">get_memRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.get_memRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_memRSS" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_memUSS">
-<span class="sig-name descname"><span class="pre">get_memUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.get_memUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_memUSS" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_numberOfPatterns">
-<span class="sig-name descname"><span class="pre">get_numberOfPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.get_numberOfPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_numberOfPatterns" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_time">
-<span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.get_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_time" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.minSup">
-<span class="sig-name descname"><span class="pre">minSup</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.minSup" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.read_data">
-<span class="sig-name descname"><span class="pre">read_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.read_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.read_data" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.sep">
-<span class="sig-name descname"><span class="pre">sep</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.sep" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.startMine" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.write_result">
-<span class="sig-name descname"><span class="pre">write_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.write_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.write_result" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<section id="pami-frequentpattern-cuda-cudaeclatgct-module">
+<h2>PAMI.frequentPattern.cuda.cudaEclatGCT module<a class="headerlink" href="#pami-frequentpattern-cuda-cudaeclatgct-module" title="Link to this heading"></a></h2>
 </section>
 <section id="module-PAMI.frequentPattern.cuda">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.frequentPattern.cuda" title="Permalink to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.frequentPattern.cuda" title="Link to this heading"></a></h2>
 </section>
 </section>
 

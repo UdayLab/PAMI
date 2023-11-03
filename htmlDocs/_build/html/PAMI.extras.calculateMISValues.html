@@ -4,16 +4,18 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.calculateMISValues package &mdash; PAMI 2023.03.01 documentation</title>
+  <title>PAMI.extras.calculateMISValues package &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -118,72 +120,123 @@
            <div itemprop="articleBody">
              
   <section id="pami-extras-calculatemisvalues-package">
-<h1>PAMI.extras.calculateMISValues package<a class="headerlink" href="#pami-extras-calculatemisvalues-package" title="Permalink to this heading"></a></h1>
+<h1>PAMI.extras.calculateMISValues package<a class="headerlink" href="#pami-extras-calculatemisvalues-package" title="Link to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
 <section id="module-PAMI.extras.calculateMISValues.usingBeta">
-<span id="pami-extras-calculatemisvalues-usingbeta-module"></span><h2>PAMI.extras.calculateMISValues.usingBeta module<a class="headerlink" href="#module-PAMI.extras.calculateMISValues.usingBeta" title="Permalink to this heading"></a></h2>
+<span id="pami-extras-calculatemisvalues-usingbeta-module"></span><h2>PAMI.extras.calculateMISValues.usingBeta module<a class="headerlink" href="#module-PAMI.extras.calculateMISValues.usingBeta" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingBeta.usingBeta">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.calculateMISValues.usingBeta.</span></span><span class="sig-name descname"><span class="pre">usingBeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingBeta.html#usingBeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingBeta.usingBeta" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.calculateMISValues.usingBeta.</span></span><span class="sig-name descname"><span class="pre">usingBeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingBeta.html#usingBeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingBeta.usingBeta" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>iFile</strong> -- str :
+Name of the Input file to get the patterns as DataFrame</p></li>
+<li><p><strong>beta</strong> -- str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>threshold</strong> -- int :
+The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.</p></li>
+<li><p><strong>sep</strong> -- str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+</dl>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>from PAMI.extras.calculateMISValues import usingBeta as db</p>
+<p>obj = db.usingBeta(iFile, 3, 16, &quot;      &quot;)</p>
+<p>obj.save(oFile)</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingBeta.usingBeta.caculateMIS">
-<span class="sig-name descname"><span class="pre">caculateMIS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingBeta.html#usingBeta.caculateMIS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingBeta.usingBeta.caculateMIS" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingBeta.usingBeta.calculateMIS">
+<span class="sig-name descname"><span class="pre">calculateMIS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingBeta.html#usingBeta.calculateMIS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingBeta.usingBeta.calculateMIS" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingBeta.usingBeta.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingBeta.html#usingBeta.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingBeta.usingBeta.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
-<dd><p>Storing final frequent patterns in a dataframe
-:return: returning frequent patterns in a dataframe
+<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingBeta.usingBeta.getMISDataFrame">
+<span class="sig-name descname"><span class="pre">getMISDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingBeta.html#usingBeta.getMISDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingBeta.usingBeta.getMISDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing items and its respective minimum support in a dataframe
+:return: returning items and its respective minimum support in a dataframe
 :rtype: pd.DataFrame</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingBeta.usingBeta.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingBeta.html#usingBeta.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingBeta.usingBeta.save" title="Permalink to this definition"></a></dt>
-<dd><p>Complete set of frequent patterns will be loaded in to a output file
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingBeta.html#usingBeta.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingBeta.usingBeta.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of items and its respective minimum support values will be loaded in to an output file
 :param outFile: name of the output file
 :type outFile: file</p>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.extras.calculateMISValues.usingSD">
-<span id="pami-extras-calculatemisvalues-usingsd-module"></span><h2>PAMI.extras.calculateMISValues.usingSD module<a class="headerlink" href="#module-PAMI.extras.calculateMISValues.usingSD" title="Permalink to this heading"></a></h2>
+<span id="pami-extras-calculatemisvalues-usingsd-module"></span><h2>PAMI.extras.calculateMISValues.usingSD module<a class="headerlink" href="#module-PAMI.extras.calculateMISValues.usingSD" title="Link to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingSD.usingBeta">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.calculateMISValues.usingSD.</span></span><span class="sig-name descname"><span class="pre">usingBeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingSD.html#usingBeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingSD.usingBeta" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingSD.usingSD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.calculateMISValues.usingSD.</span></span><span class="sig-name descname"><span class="pre">usingSD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingSD.html#usingSD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingSD.usingSD" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>iFile</strong> -- str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>threshold</strong> -- int :
+The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.</p></li>
+<li><p><strong>sep</strong> -- str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+</dl>
+<section id="id1">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>from PAMI.extras.calculateMISValues import usingSD as db</p>
+<p>obj = db.usingSD(iFile, 16, &quot;       &quot;)</p>
+<p>obj.getPatterns(&quot;outputFileName&quot;) # To create patterns in dataframe</p>
+<p>obj.save(oFile)</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingSD.usingBeta.caculateMIS">
-<span class="sig-name descname"><span class="pre">caculateMIS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingSD.html#usingBeta.caculateMIS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingSD.usingBeta.caculateMIS" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingSD.usingSD.calculateMIS">
+<span class="sig-name descname"><span class="pre">calculateMIS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingSD.html#usingSD.calculateMIS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingSD.usingSD.calculateMIS" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingSD.usingBeta.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingSD.html#usingBeta.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingSD.usingBeta.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
-<dd><p>Storing final frequent patterns in a dataframe
-:return: returning frequent patterns in a dataframe
+<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingSD.usingSD.getDataFrame">
+<span class="sig-name descname"><span class="pre">getDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingSD.html#usingSD.getDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingSD.usingSD.getDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing Items and its respective calculated minimum support values in a dataframe
+:return: returning Items and its respective calculated minimum support values in a dataframe
 :rtype: pd.DataFrame</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingSD.usingBeta.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingSD.html#usingBeta.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingSD.usingBeta.save" title="Permalink to this definition"></a></dt>
-<dd><p>Complete set of frequent patterns will be loaded in to a output file
+<dt class="sig sig-object py" id="PAMI.extras.calculateMISValues.usingSD.usingSD.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/calculateMISValues/usingSD.html#usingSD.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.calculateMISValues.usingSD.usingSD.save" title="Link to this definition"></a></dt>
+<dd><p>Complete Items and its respective calculated minimum support values will be loaded in to an output file
 :param outFile: name of the output file
 :type outFile: file</p>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 </section>
 <section id="module-PAMI.extras.calculateMISValues">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.extras.calculateMISValues" title="Permalink to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.extras.calculateMISValues" title="Link to this heading"></a></h2>
 </section>
 </section>
 

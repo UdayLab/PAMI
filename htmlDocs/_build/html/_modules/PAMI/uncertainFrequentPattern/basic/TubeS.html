@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.uncertainFrequentPattern.basic.TubeS &mdash; PAMI 2023.03.01 documentation</title>
+  <title>PAMI.uncertainFrequentPattern.basic.TubeS &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-        <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -67,21 +69,57 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.uncertainFrequentPattern.basic.TubeS</h1><div class="highlight"><pre>
-<span></span><span class="c1">#  Copyright (C)  2021 Rage Uday Kiran</span>
+<span></span><span class="c1"># TubeS is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.</span>
 <span class="c1">#</span>
-<span class="c1">#      This program is free software: you can redistribute it and/or modify</span>
-<span class="c1">#      it under the terms of the GNU General Public License as published by</span>
-<span class="c1">#      the Free Software Foundation,  either version 3 of the License,  or</span>
-<span class="c1">#      (at your option) any later version.</span>
+<span class="c1"># **Importing this algorithm into a python program**</span>
+<span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#      This program is distributed in the hope that it will be useful,</span>
-<span class="c1">#      but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-<span class="c1">#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-<span class="c1">#      GNU General Public License for more details.</span>
+<span class="c1">#     from PAMI.uncertainFrequentPattern.basic import TubeS as alg</span>
 <span class="c1">#</span>
-<span class="c1">#      You should have received a copy of the GNU General Public License</span>
-<span class="c1">#      along with this program.  If not,  see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#     obj = alg.TubeS(iFile, minSup)</span>
+<span class="c1">#</span>
+<span class="c1">#     obj.startMine()</span>
+<span class="c1">#</span>
+<span class="c1">#     frequentPatterns = obj.getPatterns()</span>
+<span class="c1">#</span>
+<span class="c1">#     print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</span>
+<span class="c1">#</span>
+<span class="c1">#     obj.save(oFile)</span>
+<span class="c1">#</span>
+<span class="c1">#     Df = obj.getPatternsAsDataFrame()</span>
+<span class="c1">#</span>
+<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#</span>
+<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#</span>
+<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#</span>
+<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#</span>
+<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#</span>
+<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">     Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_fp</span>
 
@@ -135,11 +173,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">addChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; This function is used to add child</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
         <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
 
 
-<div class="viewcode-block" id="Second"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.Second">[docs]</a><span class="k">def</span> <span class="nf">Second</span><span class="p">(</span><span class="n">transaction</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<div class="viewcode-block" id="Second">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.Second">[docs]</a>
+<span class="k">def</span> <span class="nf">Second</span><span class="p">(</span><span class="n">transaction</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    To calculate the second probability of a node in transaction</span>
 <span class="sd">        :param transaction: transaction in a database</span>
@@ -155,7 +197,10 @@
     <span class="k">return</span> <span class="n">l2</span> <span class="o">*</span> <span class="n">l2</span></div>
 
 
-<div class="viewcode-block" id="printTree"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.printTree">[docs]</a><span class="k">def</span> <span class="nf">printTree</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+
+<div class="viewcode-block" id="printTree">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.printTree">[docs]</a>
+<span class="k">def</span> <span class="nf">printTree</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    To print the tree with root node through recursion</span>
 <span class="sd">        :param root: root node of  tree</span>
@@ -164,6 +209,7 @@
     <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">item</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">probability</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">item</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">tids</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">secondProbability</span><span class="p">)</span>
         <span class="n">printTree</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></div>
+
 
 
 <span class="k">class</span> <span class="nc">_Tree</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -368,7 +414,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">removeNode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="TubeS"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS">[docs]</a><span class="k">class</span> <span class="nc">TubeS</span><span class="p">(</span><span class="n">_fp</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="TubeS">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS">[docs]</a>
+<span class="k">class</span> <span class="nc">TubeS</span><span class="p">(</span><span class="n">_fp</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Description:</span>
 <span class="sd">    -------------</span>
@@ -462,11 +510,11 @@
 
 <span class="sd">            print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</span>
 
-<span class="sd">            obj.savePatterns(oFile)</span>
+<span class="sd">            obj.save(oFile)</span>
 
 <span class="sd">            Df = obj.getPatternsAsDataFrame()</span>
 
-<span class="sd">            memUSS = obj.getmemoryUSS()</span>
+<span class="sd">            memUSS = obj.getMemoryUSS()</span>
 
 <span class="sd">            print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 
@@ -586,7 +634,9 @@
             <span class="n">rootNode</span><span class="o">.</span><span class="n">addTransaction</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">rootNode</span>
 
-<div class="viewcode-block" id="TubeS.updateTransactions"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.updateTransactions">[docs]</a>    <span class="k">def</span> <span class="nf">updateTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict1</span><span class="p">):</span>
+<div class="viewcode-block" id="TubeS.updateTransactions">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.updateTransactions">[docs]</a>
+    <span class="k">def</span> <span class="nf">updateTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict1</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;remove the items which are not frequent from transactions and updates the transactions with rank of items</span>
 <span class="sd">                :param dict1 : frequent items with support</span>
 <span class="sd">                :type dict1 : dictionary</span>
@@ -603,6 +653,7 @@
                 <span class="n">list2</span> <span class="o">=</span> <span class="n">basket</span>
                 <span class="n">list1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">list1</span></div>
+
 
     <span class="k">def</span> <span class="nf">_Check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;To check the presence of item or pattern in transaction</span>
@@ -666,8 +717,10 @@
                     <span class="n">sample</span> <span class="o">=</span> <span class="n">sample</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">sample</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
 
-<div class="viewcode-block" id="TubeS.startMine"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.startMine">[docs]</a>    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main method where the patterns are mined by constructing tree and remove the remove the false patterns</span>
+<div class="viewcode-block" id="TubeS.startMine">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.startMine">[docs]</a>
+    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main method where the patterns are mined by constructing tree and remove the false patterns</span>
 <span class="sd">                           by counting the original support of a patterns</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_minSup</span>
@@ -690,7 +743,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
 
-<div class="viewcode-block" id="TubeS.getMemoryUSS"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TubeS.getMemoryUSS">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryUSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning USS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
@@ -698,7 +754,10 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-<div class="viewcode-block" id="TubeS.getMemoryRSS"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TubeS.getMemoryRSS">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryRSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
@@ -706,7 +765,10 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-<div class="viewcode-block" id="TubeS.getRuntime"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TubeS.getRuntime">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getRuntime">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
 <span class="sd">        :rtype: float</span>
@@ -714,7 +776,10 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
 
-<div class="viewcode-block" id="TubeS.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TubeS.getPatternsAsDataFrame">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatternsAsDataFrame">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final frequent patterns in a dataframe</span>
 <span class="sd">        :return: returning frequent patterns in a dataframe</span>
 <span class="sd">        :rtype: pd.DataFrame</span>
@@ -727,8 +792,11 @@
             <span class="n">dataframe</span> <span class="o">=</span> <span class="n">_fp</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataframe</span></div>
 
-<div class="viewcode-block" id="TubeS.save"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns will be loaded in to a output file</span>
+
+<div class="viewcode-block" id="TubeS.save">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns will be loaded in to an output file</span>
 <span class="sd">        :param outFile: name of the output file</span>
 <span class="sd">        :type outFile: file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -738,18 +806,28 @@
             <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TubeS.getPatterns"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TubeS.getPatterns">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatterns">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of frequent patterns after completion of the mining process</span>
 <span class="sd">        :return: returning frequent patterns</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TubeS.printResults"><a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TubeS.printResults">
+<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.printResults">[docs]</a>
+    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; This function is used to print the results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of  Uncertain Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span>  <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
+</div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

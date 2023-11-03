@@ -3,7 +3,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.syntheticDatabaseGenerator import generateLatexGraphFile as fuz
+#     from PAMI.extras.syntheticDataGenerator import generateLatexGraphFile as fuz
 #
 #     obj = fuz.generateLatexGraphFile(idf)
 #
@@ -38,7 +38,7 @@ class generateLatexGraphFile():
         --------------------------------------------------------
         .. code-block:: python
 
-        from PAMI.extras.syntheticDatabaseGenerator import generateLatexGraphFile as fuz
+        from PAMI.extras.syntheticDataGenerator import generateLatexGraphFile as fuz
 
         obj = fuz.generateLatexGraphFile(idf)
 

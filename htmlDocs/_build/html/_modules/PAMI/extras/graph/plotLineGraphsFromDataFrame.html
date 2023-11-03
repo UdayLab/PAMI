@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.graph.plotLineGraphsFromDataFrame &mdash; PAMI 2023.03.01 documentation</title>
+  <title>PAMI.extras.graph.plotLineGraphsFromDataFrame &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-        <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -67,16 +69,74 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.extras.graph.plotLineGraphsFromDataFrame</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span></span><span class="c1"># plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.</span>
+<span class="c1">#</span>
+<span class="c1">#  **Importing this algorithm into a python program**</span>
+<span class="c1">#  --------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1">#     from PAMI.extras.graph import plotLineGraphsFromDataFrame as plt</span>
+<span class="c1">#</span>
+<span class="c1">#     obj = plt.plotLineGraphsFromDictionary(idf)</span>
+<span class="c1">#</span>
+<span class="c1">#     obj.save()</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">_pd</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-<div class="viewcode-block" id="plotGraphsFromDataFrame"><a class="viewcode-back" href="../../../../PAMI.extras.graph.html#PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame">[docs]</a><span class="k">class</span> <span class="nc">plotGraphsFromDataFrame</span><span class="p">():</span>
+<div class="viewcode-block" id="plotGraphsFromDataFrame">
+<a class="viewcode-back" href="../../../../PAMI.extras.graph.html#PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame">[docs]</a>
+<span class="k">class</span> <span class="nc">plotGraphsFromDataFrame</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataFrame</span><span class="p">):</span>
+<span class="sd">        Attributes:</span>
+<span class="sd">        ----------</span>
+<span class="sd">        :param dataFrame : DataFrame</span>
+<span class="sd">            store input data as DataFrame</span>
+
+<span class="sd">        Methods:</span>
+<span class="sd">        -------</span>
+<span class="sd">        plotLineGraphFromDatFrame()</span>
+<span class="sd">            draw line graph of input data. input data&#39;s key is x and value is y.</span>
+
+<span class="sd">            **Importing this algorithm into a python program**</span>
+<span class="sd">            --------------------------------------------------------</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">            from PAMI.extras.graph import plotLineGraphsFromDataframe as plt</span>
+
+<span class="sd">            obj = plt.plotLineGraphsFromDataFrame(idf)</span>
+
+<span class="sd">            obj.save()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataFrame</span><span class="p">:</span> <span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_dataFrame</span> <span class="o">=</span> <span class="n">dataFrame</span>
 
-<div class="viewcode-block" id="plotGraphsFromDataFrame.plotGraphsFromDataFrame"><a class="viewcode-back" href="../../../../PAMI.extras.graph.html#PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame.plotGraphsFromDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">plotGraphsFromDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="plotGraphsFromDataFrame.plotGraphsFromDataFrame">
+<a class="viewcode-back" href="../../../../PAMI.extras.graph.html#PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame.plotGraphsFromDataFrame">[docs]</a>
+    <span class="k">def</span> <span class="nf">plotGraphsFromDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dataFrame</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;minSup&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;patterns&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Graph for No Of Patterns is successfully generated!&#39;</span><span class="p">)</span>
@@ -85,7 +145,9 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Graph for Runtime taken is successfully generated!&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dataFrame</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;minSup&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;memory&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Graph for memory consumption is successfully generated!&#39;</span><span class="p">)</span></div></div>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Graph for memory consumption is successfully generated!&#39;</span><span class="p">)</span></div>
+</div>
+
 
 
 
@@ -108,6 +170,8 @@
     <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">ab</span> <span class="o">=</span> <span class="n">plotGraphsFromDataFrame</span><span class="p">(</span><span class="n">dataFrame</span><span class="p">)</span>
     <span class="n">ab</span><span class="o">.</span><span class="n">plotGraphsFromDataFrame</span><span class="p">()</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">plotGraphsFromDataFrame</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">plotGraphsFromDataFrame</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 
            </div>

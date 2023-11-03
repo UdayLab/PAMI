@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.DF2DB.createTDB &mdash; PAMI 2023.03.01 documentation</title>
+  <title>PAMI.extras.DF2DB.createTDB &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-        <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -67,11 +69,87 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.extras.DF2DB.createTDB</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">PAMI.frequentPattern.basic</span> <span class="kn">import</span> <span class="n">FPGrowth</span> <span class="k">as</span> <span class="n">fp</span>
+<span></span><span class="c1"># createTDB in this code  we will create transactional Database.</span>
+<span class="c1">#</span>
+<span class="c1"># **Importing this algorithm into a python program**</span>
+<span class="c1"># --------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1">#     from PAMI.extras.DF2DB import createTDB as ct</span>
+<span class="c1">#</span>
+<span class="c1">#     obj = ct.createTDB(idf, &quot;&gt;=&quot;, 16)</span>
+<span class="c1">#</span>
+<span class="c1">#     obj.save(oFile)</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
-<div class="viewcode-block" id="createTDB"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB">[docs]</a><span class="k">class</span> <span class="nc">createTDB</span><span class="p">:</span>
+<div class="viewcode-block" id="createTDB">
+<a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB">[docs]</a>
+<span class="k">class</span> <span class="nc">createTDB</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :Description: This class will create Transactional database.</span>
+
+<span class="sd">    :param df: It represents the dataframe</span>
+
+<span class="sd">    :type df: list</span>
+
+<span class="sd">    :param threshold : It is the threshold value of all item.</span>
+
+<span class="sd">    :type threshold: int or float</span>
+
+
+
+<span class="sd">        **Importing this algorithm into a python program**</span>
+<span class="sd">        --------------------------------------------------------</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">                    from PAMI.frequentPattern.basic import FPGrowth as fp</span>
+
+<span class="sd">                    obj = fp.createTDB(idf, &quot;&gt;=&quot; )</span>
+
+<span class="sd">                    memUSS = obj.getMemoryUSS()</span>
+
+<span class="sd">                    print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+
+<span class="sd">                    memRSS = obj.getMemoryRSS()</span>
+
+<span class="sd">                    print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
+<span class="sd">                    run = obj.getRuntime()</span>
+
+<span class="sd">                    print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
+
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="n">__startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">__endTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">__memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">__memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">__Database</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">__finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_df</span> <span class="o">=</span> <span class="n">df</span>
@@ -79,9 +157,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_updatedItems</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="createTDB.createTDB"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.createTDB">[docs]</a>    <span class="k">def</span> <span class="nf">createTDB</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="createTDB.createTDB">
+<a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.createTDB">[docs]</a>
+    <span class="k">def</span> <span class="nf">createTDB</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            :Description: Create transactional data base</span>
+<span class="sd">            :Description:  To Create transactional database</span>
 
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -92,9 +172,12 @@
             <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_updatedItems</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_threshold</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="createTDB.savePatterns"><a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.savePatterns">[docs]</a>    <span class="k">def</span> <span class="nf">savePatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+
+<div class="viewcode-block" id="createTDB.save">
+<a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.createTDB.createTDB.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Complete set of frequent patterns will be loaded in to a output file</span>
+<span class="sd">            Complete set of frequent patterns will be loaded in to an output file</span>
 
 <span class="sd">            :param outFile: name of the output file</span>
 
@@ -106,26 +189,15 @@
             <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
                 <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
-            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s</span><span class="p">)</span></div></div>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s</span><span class="p">)</span></div>
+</div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">createTDB</span><span class="p">(</span><span class="s1">&#39;DataFrame&#39;</span><span class="p">,</span> <span class="s2">&quot;1204150&quot;</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">createTDB</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
     <span class="n">a</span><span class="o">.</span><span class="n">createTDB</span><span class="p">()</span>
-    <span class="n">a</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="s1">&#39;output.txt&#39;</span><span class="p">)</span>
-    <span class="n">ap</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">FPGrowth</span><span class="p">(</span><span class="s1">&#39;output.txt&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
-    <span class="n">ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
-    <span class="n">Patterns</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Patterns</span><span class="p">))</span>
-    <span class="n">ap</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="s1">&#39;fpoutput.txt&#39;</span><span class="p">)</span>
-    <span class="n">memUSS</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
-    <span class="n">memRSS</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
-    <span class="n">run</span> <span class="o">=</span> <span class="n">ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
-
-
+    <span class="n">a</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 </pre></div>
 
            </div>

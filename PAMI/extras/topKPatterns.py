@@ -3,7 +3,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.syntheticDatabaseGenerator import topKPatterns as tK
+#     from PAMI.extras.syntheticDataGenerator import topKPatterns as tK
 #
 #     obj = tK.topKPatterns(" ", 10, "\t")
 #
@@ -54,7 +54,7 @@ class topKPatterns:
         --------------------------------------------------------
         .. code-block:: python
 
-        from PAMI.extras.syntheticDatabaseGenerator import topKPatterns as plt
+        from PAMI.extras.syntheticDataGenerator import topKPatterns as plt
 
         obj = plt.scatterPlotSpatialPoints(" ", 10, "\t" )
 

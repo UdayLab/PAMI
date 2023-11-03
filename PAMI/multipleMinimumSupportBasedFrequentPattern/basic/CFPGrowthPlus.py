@@ -1,57 +1,19 @@
-# CFPGrowthPlus is one of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.
+#  Copyright (C)  2021 Rage Uday Kiran
 #
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation, either version 3 of the License, or
+#      (at your option) any later version.
 #
-# **Importing this algorithm into a python program**
-# --------------------------------------------------------
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
 #
-#     from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowthPlus as alg
-#
-#     obj = alg.CFPGrowthPlus(iFile, mIS)
-#
-#     obj.startMine()
-#
-#     frequentPatterns = obj.getPatterns()
-#
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
-#
-#     obj.save(oFile)
-#
-#     Df = obj.getPatternInDataFrame()
-#
-#     memUSS = obj.getMemoryUSS()
-#
-#     print("Total Memory in USS:", memUSS)
-#
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
-
-
-__copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
-
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
-
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
-
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
-
-"""
+#      You should have received a copy of the GNU General Public License
+#      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _fp
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 _fp._sys.setrecursionlimit(20000)
 MIS = {}
@@ -79,13 +41,13 @@ class _Node:
 
     """
 
-    def __init__(self, item: str, children: Dict[str, '_Node']) -> None:
+    def __init__(self, item, children):
         self.itemId = item
         self.counter = 1
         self.parent = None
         self.children = children
 
-    def addChild(self, node: '_Node') -> None:
+    def addChild(self, node):
         """
             Retrieving the child from the tree
 
@@ -123,15 +85,15 @@ class _Tree:
             generating the patterns from fp-tree
     """
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.root = _Node(None, {})
         self.summaries = {}
         self.info = {}
 
-    def addTransaction(self, transaction: List[str], count: int) -> None:
+    def addTransaction(self, transaction, count):
         """adding transaction into tree
 
-        :param transaction: it represents the one transaction in database
+        :param transaction: it represents the one transactions in database
 
         :type transaction: list
 
@@ -156,7 +118,7 @@ class _Tree:
                 currentNode = currentNode.children[transaction[i]]
                 currentNode.freq += count
 
-    def getFinalConditionalPatterns(self, alpha: str) -> Tuple[List[List[str]], List[int], Dict[str, int]]:
+    def getFinalConditionalPatterns(self, alpha, support):
         """
         generates the conditional patterns for a node
 
@@ -181,11 +143,11 @@ class _Tree:
                 set2.reverse()
                 finalPatterns.append(set2)
                 finalFreq.append(set1)
-        finalPatterns, finalFreq, info = self.getConditionalTransactions(finalPatterns, finalFreq)
+        finalPatterns, finalFreq, info = self.getConditionalTransactions(finalPatterns, finalFreq, support)
         return finalPatterns, finalFreq, info
 
     @staticmethod
-    def getConditionalTransactions(ConditionalPatterns: List[List[str]], conditionalFreq: List[int]) -> Tuple[List[List[str]], List[int], Dict[str, int]]:
+    def getConditionalTransactions(ConditionalPatterns, conditionalFreq, support):
         """
         To calculate the frequency of items in conditional patterns and sorting the patterns
         Parameters
@@ -197,7 +159,7 @@ class _Tree:
         -------
             conditional patterns and frequency of each item in transactions
         """
-        global _minSup
+        #global _minSup
         pat = []
         freq = []
         data1 = {}
@@ -207,8 +169,8 @@ class _Tree:
                     data1[j] += conditionalFreq[i]
                 else:
                     data1[j] = conditionalFreq[i]
-        #up_dict = {k: v for k, v in data1.items() if v >= _minSup}
-        up_dict = data1.copy()
+        up_dict = {k: v for k, v in data1.items() if v >= support}
+        #up_dict = data1.copy()
         count = 0
         for p in ConditionalPatterns:
             p1 = [v for v in p if v in up_dict]
@@ -219,7 +181,7 @@ class _Tree:
             count += 1
         return pat, freq, up_dict
 
-    def generatePatterns(self, prefix: List[str]) -> Generator[Tuple[List[str], int], None, None]:
+    def generatePatterns(self, prefix):
         """
         To generate the frequent patterns
         Parameters
@@ -231,16 +193,13 @@ class _Tree:
         Frequent patterns that are extracted from fp-tree
 
         """
-        global MIS
+        global minMIS
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
             pattern.append(i)
-            sup = []
-            for j in pattern:
-                sup.append(MIS[j])
-            if self.info[i] >= min(sup):
-                yield pattern, self.info[i]
-            patterns, freq, info = self.getFinalConditionalPatterns(i)
+            if self.info[i] >= minMIS:
+              yield pattern, self.info[i]
+            patterns, freq, info = self.getFinalConditionalPatterns(i, self.info[i])
             conditionalTree = _Tree()
             conditionalTree.info = info.copy()
             for pat in range(len(patterns)):
@@ -249,22 +208,20 @@ class _Tree:
                 for q in conditionalTree.generatePatterns(pattern):
                     yield q
 
+minMIS = 0
 
 class CFPGrowthPlus(_fp._frequentPatterns):
     """
 
-    Description:
-    ------------
-       CFPGrowthPlus is one of the fundamental algorithm to discover frequent patterns based on multiple minimum support in a transactional database.
 
-    Reference:
-    ---------------
+    Reference :
+    ---------
         R. Uday Kiran P. Krishna Reddy Novel techniques to reduce search space in multiple minimum supports-based frequent
         pattern mining algorithms. 11-20 2011 EDBT https://doi.org/10.1145/1951365.1951370
 
 
-    Attributes:
-    -------------
+    Attributes :
+    ----------
         iFile : file
             Input file name or path of the input file
         MIS: file or dictionary
@@ -294,13 +251,13 @@ class CFPGrowthPlus(_fp._frequentPatterns):
             it represents to store the patterns
 
     Methods :
-    ----------
+    -------
         startMine()
             Mining process will start from here
         getPatterns()
             Complete set of patterns will be retrieved with this function
-        save(oFile)
-            Complete set of frequent patterns will be loaded in to an output file
+        savePatterns(oFile)
+            Complete set of frequent patterns will be loaded in to a output file
         getPatternsAsDataFrame()
             Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -315,23 +272,23 @@ class CFPGrowthPlus(_fp._frequentPatterns):
             Extracts the one-frequent patterns from transactions
 
     Executing the code on terminal:
-    -------------------------------
+    -------
         Format:
         -------
-            >>> python3 CFPGrowthPlus.py <inputFile> <outputFile> <minSup>
+            python3 CFPGrowthPlus.py <inputFile> <outputFile> <minSup>
 
         Examples:
         ---------
-            >>> python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MIS
+            python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MIS
 
-            >>> python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MIS
+            python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MIS
 
-            >>> python3 CFPGrowthPlus.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider "," as a separator)
+            python3 CFPGrowthPlus.py sampleTDB.txt output.txt sampleN.txt MIS ',' (it will consider "," as a separator)
 
 
     Sample run of the importing code:
-    --------------------------------------
-    .. code-block:: python
+    -----------
+
 
         from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import CFPGrowthPlus as alg
 
@@ -343,7 +300,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
         print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        obj.save(oFile)
+        obj.savePatterns(oFile)
 
         Df = obj.getPatternInDataFrame()
 
@@ -360,7 +317,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
     Credits:
-    ---------
+    -------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
         """
@@ -381,10 +338,10 @@ class CFPGrowthPlus(_fp._frequentPatterns):
     __rank = {}
     __rankDup = {}
 
-    def __init__(self, iFile: str, MIS: str, sep: str='\t'):
+    def __init__(self, iFile, MIS, sep='\t'):
         super().__init__(iFile, MIS, sep)
 
-    def __creatingItemSets(self) -> None:
+    def __creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -420,7 +377,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _getMISValues(self) -> None:
+    def _getMISValues(self):
         """
             Storing the Minimum supports given by the user for each item in the database
 
@@ -460,7 +417,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def __convert(self, value) -> int:
+    def __convert(self, value):
         """
         to convert the type of user specified minSup value
 
@@ -480,11 +437,12 @@ class CFPGrowthPlus(_fp._frequentPatterns):
                 value = int(value)
         return value
 
-    def __frequentOneItem(self) -> List[str]:
+    def __frequentOneItem(self):
         """
         Generating One frequent items sets
 
         """
+        global minMIS
         self.__mapSupport = {}
         for tr in self.__Database:
             for i in range(1, len(tr)):
@@ -493,11 +451,12 @@ class CFPGrowthPlus(_fp._frequentPatterns):
                 else:
                     self.__mapSupport[tr[i]] += 1
         self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= min(self._MISValues.values())}
+        minMIS = min(self._MISValues.values())
         genList = [k for k, v in sorted(self.__mapSupport.items(), key=lambda x: x[1], reverse=True)]
         self.__rank = dict([(index, item) for (item, index) in enumerate(genList)])
         return genList
 
-    def __updateTransactions(self, itemSet) -> List[List[int]]:
+    def __updateTransactions(self, itemSet):
         """
         Updates the items in transactions with rank of items according to their support
 
@@ -523,7 +482,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         return list1
 
     @staticmethod
-    def __buildTree(transactions, info) -> _Tree:
+    def __buildTree(transactions, info):
         """
         Builds the tree with updated transactions
         Parameters:
@@ -542,7 +501,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
             rootNode.addTransaction(transactions[i], 1)
         return rootNode
 
-    def __savePeriodic(self, itemSet) -> str:
+    def __savePeriodic(self, itemSet):
         """
         The duplication items and their ranks
         Parameters:
@@ -556,10 +515,10 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         """
         temp = str()
         for i in itemSet:
-            temp = temp + self.__rankDup[i] + "\t"
+            temp = temp + self.__rankDup[i] + " "
         return temp
 
-    def startMine(self) -> None:
+    def startMine(self):
         """
             main program to start the operation
 
@@ -590,7 +549,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
 
-    def getMemoryUSS(self) -> float:
+    def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
@@ -600,7 +559,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
         return self.__memoryUSS
 
-    def getMemoryRSS(self) -> float:
+    def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
@@ -610,7 +569,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
         return self.__memoryRSS
 
-    def getRuntime(self) -> float:
+    def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
 
@@ -621,7 +580,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
         return self.__endTime - self.__startTime
 
-    def getPatternsAsDataFrame(self) -> _fp._pd.DataFrame:
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -632,12 +591,12 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         dataframe = {}
         data = []
         for a, b in self.__finalPatterns.items():
-            data.append([a.replace('\t', ' '), b])
+            data.append([a, b])
             dataframe = _fp._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
+    def save(self, outFile):
+        """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
 
@@ -646,10 +605,10 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self.__finalPatterns.items():
-            s1 = x.strip() + ":" + str(y)
+            s1 = x + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self) -> Dict[str, int]:
+    def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -667,7 +626,6 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         print("Total ExecutionTime in ms:",  self.getRuntime())
 
 
-
 if __name__ == "__main__":
     _ap = str()
     if len(_fp._sys.argv) == 4 or len(_fp._sys.argv) == 5:
@@ -676,10 +634,14 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 4:
             _ap = CFPGrowthPlus(_fp._sys.argv[1], _fp._sys.argv[3])
         _ap.startMine()
-        print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save(_fp._sys.argv[2])
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in ms:", _ap.getRuntime())
+        _Patterns = _ap.getPatterns()
+        print("Total number of Frequent Patterns:", len(_Patterns))
+        _ap.savePatterns(_fp._sys.argv[2])
+        _memUSS = _ap.getMemoryUSS()
+        print("Total Memory in USS:", _memUSS)
+        _memRSS = _ap.getMemoryRSS()
+        print("Total Memory in RSS", _memRSS)
+        _run = _ap.getRuntime()
+        print("Total ExecutionTime in ms:", _run)
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")

@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.graph.generateLatexFileFromDataFrame &mdash; PAMI 2023.03.01 documentation</title>
+  <title>PAMI.extras.graph.generateLatexFileFromDataFrame &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-        <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -67,21 +69,74 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.extras.graph.generateLatexFileFromDataFrame</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span></span><span class="c1"># from PAMI.extras.graph import generateLatexFileFromDataFrame as gdf</span>
+<span class="c1"># gdf.generateLatexCode(result)</span>
+<span class="c1"># generateLatexFileFromDatFrame is used to convert the given dataframe into LatexFile.</span>
+<span class="c1">#</span>
+<span class="c1"># **Importing this algorithm into a python program**</span>
+<span class="c1"># --------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1">#     from PAMI.extras.graph import generateLatexFileFromDatFrame as fig</span>
+<span class="c1">#</span>
+<span class="c1">#     obj = fig.generateLatexFileFromDatFrame(idf)</span>
+<span class="c1">#</span>
+<span class="c1">#     obj.save()</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<div class="viewcode-block" id="generateLatexFileFromDataFrame">
+<a class="viewcode-back" href="../../../../PAMI.extras.graph.html#PAMI.extras.graph.generateLatexFileFromDataFrame.generateLatexFileFromDataFrame">[docs]</a>
+<span class="k">class</span> <span class="nc">generateLatexFileFromDataFrame</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :Description:</span>
+<span class="sd">            generateLatexFileFromDatFrame is used to convert the given dataframe into LatexFile.</span>
+
+<span class="sd">    **Importing this algorithm into a python program**</span>
+<span class="sd">    --------------------------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">    from PAMI.extras.graph import generateLatexFileFromDatFrame as fig</span>
+
+<span class="sd">    obj = fig.generateLatexFileFromDatFrame(idf)</span>
+
+<span class="sd">    obj.save()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="generateLatexCode"><a class="viewcode-back" href="../../../../PAMI.extras.graph.html#PAMI.extras.graph.generateLatexFileFromDataFrame.generateLatexCode">[docs]</a><span class="k">def</span> <span class="nf">generateLatexCode</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
-
+<div class="viewcode-block" id="generateLatexCode">
+<a class="viewcode-back" href="../../../../PAMI.extras.graph.html#PAMI.extras.graph.generateLatexFileFromDataFrame.generateLatexCode">[docs]</a>
+<span class="k">def</span> <span class="nf">generateLatexCode</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">titles</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    <span class="n">titles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;minSup&quot;</span><span class="p">)</span>
-    <span class="n">titles</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;algorithm&quot;</span><span class="p">)</span>
+    <span class="c1">#titles.remove(&quot;minSup&quot;)</span>
+    <span class="c1">#titles.remove(&quot;algorithm&quot;)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">titles</span><span class="p">)):</span>
-        <span class="n">legendary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">result</span><span class="p">[[</span><span class="s1">&#39;algorithm&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+        <span class="n">legendary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
         <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">]</span>
-        <span class="n">xaxis</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;minSup&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">xaxis</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">yaxis</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">algo</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;algorithm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">x_label</span> <span class="o">=</span> <span class="s2">&quot;minSup&quot;</span>
+        <span class="n">algo</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">x_label</span> <span class="o">=</span> <span class="n">titles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="n">latexwriter</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span> <span class="o">+</span> <span class="s2">&quot;Latexfile.tex&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
         <span class="n">latexwriter</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -98,6 +153,7 @@
             <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">legendary</span><span class="p">)):</span>
                 <span class="n">latexwriter</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">end</span><span class="si">{axis}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Latex files generated successfully&quot;</span><span class="p">)</span></div>
+
     <span class="c1">#data1 = pd.DataFrame(data)</span>
     <span class="c1">#generateLatexCode(data1)</span>
 
@@ -108,23 +164,21 @@
             <span class="c1">#&#39;Age&#39;: [27, 24, 22, 32],</span>
             <span class="c1">#&#39;Address&#39;: [0, 1, 2, 3],</span>
             <span class="c1">#&#39;Qualification&#39;: [8, 9, 10, 11]}</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;algorithm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;FGPFPMiner&#39;</span><span class="p">,</span><span class="s1">&#39;FGPFPMiner&#39;</span><span class="p">,</span><span class="s1">&#39;FGPFPMiner&#39;</span><span class="p">,</span><span class="s1">&#39;FGPFPMiner&#39;</span><span class="p">,</span><span class="s1">&#39;FGPFPMiner&#39;</span><span class="p">,</span><span class="s1">&#39;FGPFPMiner&#39;</span><span class="p">,</span><span class="s1">&#39;FGPFPMiner&#39;</span>
-        <span class="p">,</span><span class="s1">&#39;Naive algorithm&#39;</span><span class="p">,</span><span class="s1">&#39;Naive algorithm&#39;</span><span class="p">,</span><span class="s1">&#39;Naive algorithm&#39;</span><span class="p">,</span><span class="s1">&#39;Naive algorithm&#39;</span><span class="p">,</span><span class="s1">&#39;Naive algorithm&#39;</span><span class="p">,</span><span class="s1">&#39;Naive algorithm&#39;</span>
-        <span class="p">,</span><span class="s1">&#39;Naive algorithm&#39;</span><span class="p">,</span> <span class="p">],</span>
-            <span class="s1">&#39;minSup&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1200</span><span class="p">,</span><span class="mi">1400</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">400</span><span class="p">,</span><span class="mi">600</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1200</span><span class="p">,</span><span class="mi">1400</span><span class="p">],</span>
-            <span class="s1">&#39;patterns&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25510</span><span class="p">,</span><span class="mi">5826</span><span class="p">,</span><span class="mi">2305</span><span class="p">,</span><span class="mi">1163</span><span class="p">,</span><span class="mi">657</span><span class="p">,</span><span class="mi">407</span><span class="p">,</span><span class="mi">266</span><span class="p">,</span><span class="mi">101938</span><span class="p">,</span><span class="mi">16183</span><span class="p">,</span><span class="mi">5027</span><span class="p">,</span><span class="mi">2091</span><span class="p">,</span><span class="mi">1044</span><span class="p">,</span><span class="mi">574</span><span class="p">,</span><span class="mi">335</span><span class="p">],</span>
-            <span class="s1">&#39;runtime&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1077.7172002792358</span><span class="p">,</span><span class="mf">298.6219701766968</span><span class="p">,</span><span class="mf">186.86728835105896</span><span class="p">,</span><span class="mf">126.96730422973633</span>
-                <span class="p">,</span><span class="mf">77.39371657371521</span><span class="p">,</span><span class="mf">64.73982691764832</span><span class="p">,</span><span class="mf">46.879486083984375</span><span class="p">,</span><span class="mf">13175.030002832413</span><span class="p">,</span><span class="mf">1821.2089745998383</span>
-                <span class="p">,</span><span class="mf">964.6961390972137</span><span class="p">,</span><span class="mf">637.1588702201843</span><span class="p">,</span><span class="mf">350.71105194091797</span><span class="p">,</span><span class="mf">275.9953947067261</span><span class="p">,</span><span class="mf">195.6615695953369</span><span class="p">],</span>
-            <span class="s1">&#39;memoryRSS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">164634624</span><span class="p">,</span><span class="mi">159494144</span><span class="p">,</span><span class="mi">157622272</span><span class="p">,</span><span class="mi">156184576</span><span class="p">,</span><span class="mi">153698304</span><span class="p">,</span><span class="mi">150597632</span><span class="p">,</span><span class="mi">149381120</span><span class="p">,</span><span class="mi">228220928</span><span class="p">,</span><span class="mi">192770048</span>
-                <span class="p">,</span><span class="mi">185114624</span><span class="p">,</span><span class="mi">182939648</span><span class="p">,</span><span class="mi">178253824</span><span class="p">,</span><span class="mi">176115712</span><span class="p">,</span><span class="mi">171659264</span><span class="p">],</span>
-            <span class="s1">&#39;memoryUSS&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">144310272</span><span class="p">,</span><span class="mi">139104256</span><span class="p">,</span><span class="mi">137232384</span><span class="p">,</span><span class="mi">135794688</span><span class="p">,</span><span class="mi">133300224</span><span class="p">,</span><span class="mi">130195456</span><span class="p">,</span><span class="mi">128978944</span><span class="p">,</span>
-                        <span class="mi">203337728</span><span class="p">,</span><span class="mi">172376064</span><span class="p">,</span><span class="mi">164720640</span><span class="p">,</span><span class="mi">162545664</span><span class="p">,</span><span class="mi">157859840</span><span class="p">,</span><span class="mi">155721728</span><span class="p">,</span><span class="mi">151265280</span><span class="p">]</span>
-            <span class="p">}</span>
+    <span class="c1"># data = {&#39;algorithm&#39;: [&#39;FGPFPMiner&#39;,&#39;FGPFPMiner&#39;,&#39;FGPFPMiner&#39;,&#39;FGPFPMiner&#39;,&#39;FGPFPMiner&#39;,&#39;FGPFPMiner&#39;,&#39;FGPFPMiner&#39;</span>
+    <span class="c1">#     ,&#39;Naive algorithm&#39;,&#39;Naive algorithm&#39;,&#39;Naive algorithm&#39;,&#39;Naive algorithm&#39;,&#39;Naive algorithm&#39;,&#39;Naive algorithm&#39;</span>
+    <span class="c1">#     ,&#39;Naive algorithm&#39;, ],</span>
+    <span class="c1">#         &#39;minSup&#39;: [200,400,600,800,1000,1200,1400,200,400,600,800,1000,1200,1400],</span>
+    <span class="c1">#         &#39;patterns&#39;: [25510,5826,2305,1163,657,407,266,101938,16183,5027,2091,1044,574,335],</span>
+    <span class="c1">#         &#39;runtime&#39;: [1077.7172002792358,298.6219701766968,186.86728835105896,126.96730422973633</span>
+    <span class="c1">#             ,77.39371657371521,64.73982691764832,46.879486083984375,13175.030002832413,1821.2089745998383</span>
+    <span class="c1">#             ,964.6961390972137,637.1588702201843,350.71105194091797,275.9953947067261,195.6615695953369],</span>
+    <span class="c1">#         &#39;memoryRSS&#39;: [164634624,159494144,157622272,156184576,153698304,150597632,149381120,228220928,192770048</span>
+    <span class="c1">#             ,185114624,182939648,178253824,176115712,171659264],</span>
+    <span class="c1">#         &#39;memoryUSS&#39;: [144310272,139104256,137232384,135794688,133300224,130195456,128978944,</span>
+    <span class="c1">#                     203337728,172376064,164720640,162545664,157859840,155721728,151265280]</span>
+    <span class="c1">#         }</span>
 
-    <span class="n">data1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="c1">#print(data1)</span>
-    <span class="c1">#print(data1[&#39;Name&#39;].values.tolist())</span>
+    <span class="n">data1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
     <span class="n">generateLatexCode</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span>
 </pre></div>
 

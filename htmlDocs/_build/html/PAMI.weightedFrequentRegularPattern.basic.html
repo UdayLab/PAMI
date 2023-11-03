@@ -4,16 +4,18 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.weightedFrequentRegularPattern.basic package &mdash; PAMI 2023.03.01 documentation</title>
+  <title>PAMI.weightedFrequentRegularPattern.basic package &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -118,33 +120,29 @@
            <div itemprop="articleBody">
              
   <section id="pami-weightedfrequentregularpattern-basic-package">
-<h1>PAMI.weightedFrequentRegularPattern.basic package<a class="headerlink" href="#pami-weightedfrequentregularpattern-basic-package" title="Permalink to this heading"></a></h1>
+<h1>PAMI.weightedFrequentRegularPattern.basic package<a class="headerlink" href="#pami-weightedfrequentregularpattern-basic-package" title="Link to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
 <section id="module-PAMI.weightedFrequentRegularPattern.basic.WFRIMiner">
-<span id="pami-weightedfrequentregularpattern-basic-wfriminer-module"></span><h2>PAMI.weightedFrequentRegularPattern.basic.WFRIMiner module<a class="headerlink" href="#module-PAMI.weightedFrequentRegularPattern.basic.WFRIMiner" title="Permalink to this heading"></a></h2>
+<span id="pami-weightedfrequentregularpattern-basic-wfriminer-module"></span><h2>PAMI.weightedFrequentRegularPattern.basic.WFRIMiner module<a class="headerlink" href="#module-PAMI.weightedFrequentRegularPattern.basic.WFRIMiner" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.</span></span><span class="sig-name descname"><span class="pre">WFRIMiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_wFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regularity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.</span></span><span class="sig-name descname"><span class="pre">WFRIMiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_wFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regularity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_weightedFrequentRegularPatterns</span></code></p>
-<blockquote>
-<div><p>WFRIMiner is one of the fundamental algorithm to discover weighted frequent regular patterns in a transactional database.
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>WFRIMiner is one of the fundamental algorithm to discover weighted frequent regular patterns in a transactional database.
 It stores the database in compressed WFRI-tree decreasing the memory usage and extracts the
-patterns from tree.It employs employs downward closure property to  reduce the search space effectively.</p>
-</div></blockquote>
-<section id="reference">
-<h3>Reference :<a class="headerlink" href="#reference" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><p>K. Klangwisan and K. Amphawan, &quot;Mining weighted-frequent-regular itemsets from transactional database,&quot;
+patterns from tree.It employs downward closure property to  reduce the search space effectively.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>K. Klangwisan and K. Amphawan, &quot;Mining weighted-frequent-regular itemsets from transactional database,&quot;
 2017 9th International Conference on Knowledge and Smart Technology (KST), 2017, pp. 66-71,
 doi: 10.1109/KST.2017.7886090.</p>
-</div></blockquote>
-</section>
-<section id="attributes">
-<h3>Attributes :<a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h3>
-<blockquote>
-<div><dl class="simple">
+</dd>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Input file name or path of the input file</p>
 </dd>
 <dt>WS: float or int or str</dt><dd><p>The user can specify WS either in count or proportion of database size.
@@ -181,17 +179,17 @@ However, the users can override their default separator.</p>
 <dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>it represents to store the patterns</p>
 </dd>
 </dl>
-</div></blockquote>
-</section>
+</dd>
+</dl>
 <section id="methods">
-<h3>Methods :<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<h3>Methods :<a class="headerlink" href="#methods" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
 </dd>
-<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 </dd>
 <dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
 </dd>
@@ -224,7 +222,9 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>Importing this algorithm into a python program</strong></p>
+</section>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.weightedFrequentRegularpattern.basic</span> <span class="kn">import</span> <span class="n">WFRIMiner</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">WFRIMiner</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">WS</span><span class="p">,</span> <span class="n">regularity</span><span class="p">)</span>
@@ -235,7 +235,7 @@ However, the users can override their default separator.</p>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">weightedFrequentRegularPatterns</span><span class="p">))</span>
 
-<span class="n">obj</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
 
 <span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
 
@@ -252,13 +252,15 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Credits:</strong></p>
+</section>
+<section id="credits">
+<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getMemoryRSS">
-<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getMemoryRSS" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getMemoryRSS" title="Link to this definition"></a></dt>
 <dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -272,7 +274,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getMemoryUSS">
-<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getMemoryUSS" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getMemoryUSS" title="Link to this definition"></a></dt>
 <dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -286,7 +288,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getPatterns">
-<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getPatterns" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getPatterns" title="Link to this definition"></a></dt>
 <dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -300,7 +302,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getPatternsAsDataFrame">
-<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
 <dd><p>Storing final frequent patterns in a dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -314,7 +316,7 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getRuntime">
-<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getRuntime" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.getRuntime" title="Link to this definition"></a></dt>
 <dd><p>Calculating the total amount of runtime taken by the mining process</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -328,24 +330,21 @@ However, the users can override their default separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.printResults">
-<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.printResults" title="Permalink to this definition"></a></dt>
-<dd><p>To print all the results of execution</p>
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.save" title="Permalink to this definition"></a></dt>
-<dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>outFile</strong> (<em>file</em>) -- name of the output file</p>
-</dd>
-</dl>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file
+:param outFile: name of the output file
+:type outFile: file</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.startMine">
-<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.startMine" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/weightedFrequentRegularPattern/basic/WFRIMiner.html#WFRIMiner.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.weightedFrequentRegularPattern.basic.WFRIMiner.WFRIMiner.startMine" title="Link to this definition"></a></dt>
 <dd><p>main program to start the operation</p>
 </dd></dl>
 
@@ -354,10 +353,10 @@ However, the users can override their default separator.</p>
 
 </section>
 <section id="module-PAMI.weightedFrequentRegularPattern.basic.abstract">
-<span id="pami-weightedfrequentregularpattern-basic-abstract-module"></span><h2>PAMI.weightedFrequentRegularPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.weightedFrequentRegularPattern.basic.abstract" title="Permalink to this heading"></a></h2>
+<span id="pami-weightedfrequentregularpattern-basic-abstract-module"></span><h2>PAMI.weightedFrequentRegularPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.weightedFrequentRegularPattern.basic.abstract" title="Link to this heading"></a></h2>
 </section>
 <section id="module-PAMI.weightedFrequentRegularPattern.basic">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.weightedFrequentRegularPattern.basic" title="Permalink to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.weightedFrequentRegularPattern.basic" title="Link to this heading"></a></h2>
 </section>
 </section>
 

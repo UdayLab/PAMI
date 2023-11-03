@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.partialPeriodicPattern.topk.abstract &mdash; PAMI 2023.03.01 documentation</title>
+  <title>PAMI.partialPeriodicPattern.topk.abstract &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-        <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/sphinx_highlight.js"></script>
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=b82fbb2b"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -97,7 +99,9 @@
 <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span> <span class="k">as</span> <span class="n">_urlopen</span>
 
 
-<div class="viewcode-block" id="partialPeriodicPatterns"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns">[docs]</a><span class="k">class</span> <span class="nc">partialPeriodicPatterns</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="partialPeriodicPatterns">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns">[docs]</a>
+<span class="k">class</span> <span class="nc">partialPeriodicPatterns</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must</span>
 <span class="sd">        employ in PAMI</span>
 
@@ -106,15 +110,15 @@
 <span class="sd">        iFile : str</span>
 <span class="sd">            Input file name or path of the input file</span>
 <span class="sd">        k: int or float or str</span>
-<span class="sd">            The user can specify minSup either in count or proportion of database size.</span>
-<span class="sd">            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
+<span class="sd">            The user can specify minPS either in count or proportion of database size.</span>
+<span class="sd">            If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.</span>
 <span class="sd">            Otherwise, it will be treated as float.</span>
-<span class="sd">            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</span>
-<span class="sd">        periodicity: int or float or str</span>
-<span class="sd">            The user can specify maxPer either in count or proportion of database size.</span>
-<span class="sd">            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
+<span class="sd">            Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float</span>
+<span class="sd">        period: int or float or str</span>
+<span class="sd">            The user can specify period either in count or proportion of database size.</span>
+<span class="sd">            If the program detects the data type of period is integer, then it treats period is expressed in count.</span>
 <span class="sd">            Otherwise, it will be treated as float.</span>
-<span class="sd">            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float</span>
+<span class="sd">            Example: period=10 will be treated as integer, while period=10.0 will be treated as float</span>
 <span class="sd">        sep : str</span>
 <span class="sd">            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.</span>
 <span class="sd">            However, the users can override their default separator.</span>
@@ -149,27 +153,27 @@
 <span class="sd">            Total amount of runtime taken by the program will be retrieved from this function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">periodicity</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param iFile: Input file name or path of the input file</span>
 <span class="sd">        :type iFile: str</span>
-<span class="sd">        :param k: The user can specify minSup either in count or proportion of database size.</span>
-<span class="sd">            If the program detects the data type of minSup is integer, then it treats k is expressed in count.</span>
+<span class="sd">        :param k: The user can specify minPS either in count or proportion of database size.</span>
+<span class="sd">            If the program detects the data type of minPS is integer, then it treats k is expressed in count.</span>
 <span class="sd">            Otherwise, it will be treated as float.</span>
-<span class="sd">            Example: k=10 will be treated as integer, while minSup=10.0 will be treated as float</span>
+<span class="sd">            Example: k=10 will be treated as integer, while minPS=10.0 will be treated as float</span>
 <span class="sd">        :type k: int or float or str</span>
-<span class="sd">        :param periodicity: The user can specify periodicity either in count or proportion of database size.</span>
-<span class="sd">            If the program detects the data type of periodicity is integer, then it treats periodicity is expressed in count.</span>
+<span class="sd">        :param period: The user can specify period either in count or proportion of database size.</span>
+<span class="sd">            If the program detects the data type of period is integer, then it treats period is expressed in count.</span>
 <span class="sd">            Otherwise, it will be treated as float.</span>
-<span class="sd">            Example: periodicity=10 will be treated as integer, while periodicity=10.0 will be treated as float</span>
-<span class="sd">        :type periodicity: int or float or str</span>
+<span class="sd">            Example: period=10 will be treated as integer, while period=10.0 will be treated as float</span>
+<span class="sd">        :type period: int or float or str</span>
 <span class="sd">        :param sep: separator used in user specified input file</span>
 <span class="sd">        :type sep: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span> <span class="o">=</span> <span class="n">iFile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_k</span> <span class="o">=</span> <span class="n">k</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_periodicity</span> <span class="o">=</span> <span class="n">periodicity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_period</span> <span class="o">=</span> <span class="n">period</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span> <span class="o">=</span> <span class="n">sep</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
@@ -178,78 +182,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
 
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;@abstractmethod</span>
-<span class="sd">    def _iFile(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the input file path/file name&quot;&quot;&quot;</span>
 
-<span class="sd">        pass</span>
-
-<span class="sd">    @abstractmethod</span>
-<span class="sd">    def _minSup(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the user-specified minimum support value&quot;&quot;&quot;</span>
-
-<span class="sd">        pass</span>
-
-<span class="sd">    @abstractmethod</span>
-<span class="sd">    def _maxPer(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the user specified maximum periodicity value&quot;&quot;&quot;</span>
-
-<span class="sd">        pass</span>
-
-<span class="sd">    def _sep(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the separator in input file&quot;&quot;&quot;</span>
-
-<span class="sd">        pass</span>
-
-<span class="sd">    @abstractmethod</span>
-<span class="sd">    def startTime(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the start time of the mining process&quot;&quot;&quot;</span>
-
-<span class="sd">        pass</span>
-
-<span class="sd">    @abstractmethod</span>
-<span class="sd">    def endTime(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the end time of the complete program&quot;&quot;&quot;</span>
-
-<span class="sd">        pass</span>
-
-<span class="sd">    @abstractmethod</span>
-<span class="sd">    def memoryUSS(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the end time of the complete program&quot;&quot;&quot;</span>
-
-<span class="sd">        pass</span>
-
-<span class="sd">    @abstractmethod</span>
-<span class="sd">    def memoryRSS(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the end time of the complete program&quot;&quot;&quot;</span>
-
-<span class="sd">        pass</span>
-
-<span class="sd">    @abstractmethod</span>
-<span class="sd">    def finalPatterns(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the complete set of patterns in a dictionary&quot;&quot;&quot;</span>
-
-<span class="sd">        pass</span>
-
-<span class="sd">    @abstractmethod</span>
-<span class="sd">    def oFile(self):</span>
-<span class="sd">        &quot;&quot;&quot;Variable to store the name of the output file to store the complete set of periodic-frequent patterns&quot;&quot;&quot;</span>
-
-<span class="sd">        pass&#39;&#39;&#39;</span>
-
-<div class="viewcode-block" id="partialPeriodicPatterns.startMine"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.startMine">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="partialPeriodicPatterns.startMine">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.startMine">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Code for the mining process will start from this function&quot;&quot;&quot;</span>
 
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="partialPeriodicPatterns.getPatterns"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getPatterns">[docs]</a>    <span class="nd">@abstractmethod</span>
+
+<div class="viewcode-block" id="partialPeriodicPatterns.getPatterns">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getPatterns">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of periodic-frequent patterns generated will be retrieved from this function&quot;&quot;&quot;</span>
 
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="partialPeriodicPatterns.save"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.save">[docs]</a>    <span class="nd">@abstractmethod</span>
+
+<div class="viewcode-block" id="partialPeriodicPatterns.save">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.save">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of periodic-frequent patterns will be saved in to an output file from this function</span>
 
@@ -259,34 +213,51 @@
 
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="partialPeriodicPatterns.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getPatternsAsDataFrame">[docs]</a>    <span class="nd">@abstractmethod</span>
+
+<div class="viewcode-block" id="partialPeriodicPatterns.getPatternsAsDataFrame">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getPatternsAsDataFrame">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of periodic-frequent patterns will be loaded in to data frame from this function&quot;&quot;&quot;</span>
 
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="partialPeriodicPatterns.getMemoryUSS"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getMemoryUSS">[docs]</a>    <span class="nd">@abstractmethod</span>
+
+<div class="viewcode-block" id="partialPeriodicPatterns.getMemoryUSS">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getMemoryUSS">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the program will be retrieved from this function&quot;&quot;&quot;</span>
 
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="partialPeriodicPatterns.getMemoryRSS"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getMemoryRSS">[docs]</a>    <span class="nd">@abstractmethod</span>
+
+<div class="viewcode-block" id="partialPeriodicPatterns.getMemoryRSS">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getMemoryRSS">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the program will be retrieved from this function&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="partialPeriodicPatterns.getRuntime"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getRuntime">[docs]</a>    <span class="nd">@abstractmethod</span>
+
+<div class="viewcode-block" id="partialPeriodicPatterns.getRuntime">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.getRuntime">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of runtime taken by the program will be retrieved from this function&quot;&quot;&quot;</span>
 
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="partialPeriodicPatterns.printResults"><a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.printResults">[docs]</a>    <span class="nd">@abstractmethod</span>
+
+<div class="viewcode-block" id="partialPeriodicPatterns.printResults">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.topk.html#PAMI.partialPeriodicPattern.topk.abstract.partialPeriodicPatterns.printResults">[docs]</a>
+    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; To print all the results of execution&quot;&quot;&quot;</span>
 
-        <span class="k">pass</span></div></div>
+        <span class="k">pass</span></div>
+</div>
+
 </pre></div>
 
            </div>
