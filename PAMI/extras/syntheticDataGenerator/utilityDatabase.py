@@ -15,7 +15,7 @@ class UtilityDataGenerator:
         self.minExternalUtilityValue = minimumExternalUtilityValue
         self.maxExternalUtilityValue = maximumExternalUtilityValue
         self.entries = []
-        self.ExternalUtilityData = self.GenerateExternalUtilityData()
+        self.ExternalUtilityData = self.generateExternalUtilityData()
 
     def generateExternalUtilityData(self):
         items = range(1, self.numberOfItems + 1)
@@ -44,7 +44,7 @@ class UtilityDataGenerator:
         df = pd.DataFrame(data)
         df.to_csv(fileName, sep='\t', index=False)
 
-    def saveitemsexternalutilityvalues(self, fileName):
+    def saveItemsExternalUtilityValues(self, fileName):
         items = random.sample(range(1, self.numberOfItems + 1), self.numberOfItems)
         data = {'Item': [f'item{item}' for item in items],
                 'External Utility Value': list(self.ExternalUtilityData.values())}
@@ -88,13 +88,13 @@ class UtilityDataGenerator:
 
 if __name__ == "__main__":
     data_generator = UtilityDataGenerator(100000, 2000, 10, 1, 100, 1, 10)
-    data_generator.Generate()
-    data_generator.Save("utility_data-6.csv")
-    data_generator.SaveItemsInternalUtilityValues("items_internal_utility.csv")
-    data_generator.Saveitemsexternalutilityvalues("items_external_utility.csv")
-    utility_data = data_generator.GetUtilityData()
-    InternalUtilityData = data_generator.GetInternalUtilityData()
-    ExternalUtilityData = data_generator.GetExternalUtilityData()
+    data_generator.generate()
+    data_generator.save("utility_data-6.csv")
+    data_generator.saveItemsInternalUtilityValues("items_internal_utility.csv")
+    data_generator.saveitemsexternalutilityvalues("items_external_utility.csv")
+    utility_data = data_generator.getUtilityData()
+    InternalUtilityData = data_generator.getInternalUtilityData()
+    ExternalUtilityData = data_generator.getExternalUtilityData()
 
     for _ in range(10):  # Print pairs for demonstration, adjust the range as needed
-        data_generator.GenerateAndPrintItemPairs()
+        data_generator.generateAndPrintItemPairs()
