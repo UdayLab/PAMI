@@ -17,12 +17,12 @@ class UtilityDataGenerator:
         self.entries = []
         self.ExternalUtilityData = self.GenerateExternalUtilityData()
 
-    def GenerateExternalUtilityData(self):
+    def generateExternalUtilityData(self):
         items = range(1, self.numberOfItems + 1)
         ExternalUtilityData = {f'item{item}': random.randint(100, 900) for item in items}
         return ExternalUtilityData
 
-    def Generate(self):
+    def generate(self):
         for entry_id in range(1, self.databaseSize + 1):
             entry_length = np.random.randint(1, self.averageLengthOfTransaction * 2)
             entry = np.random.randint(self.minInternalUtilityValue, self.maxInternalUtilityValue + 1,
@@ -30,13 +30,13 @@ class UtilityDataGenerator:
             entry_sum = entry.sum()
             self.entries.append((entry, entry_sum))
 
-    def Save(self, fileName):
+    def save(self, fileName):
         with open(fileName, 'w') as file:
             for idx, (entry, entry_sum) in enumerate(self.entries, start=1):
                 entry_str = '\t'.join(map(str, entry))
                 file.write(f'{idx}\t{entry_str}\t{entry_sum}\n')
 
-    def SaveItemsInternalUtilityValues(self, fileName):
+    def saveItemsInternalUtilityValues(self, fileName):
         items = random.sample(range(1, self.numberOfItems + 1), self.numberOfItems)
         internal_utility_data = [np.random.randint(self.minInternalUtilityValue, self.maxInternalUtilityValue + 1) for _
                                  in items]
@@ -44,21 +44,21 @@ class UtilityDataGenerator:
         df = pd.DataFrame(data)
         df.to_csv(fileName, sep='\t', index=False)
 
-    def Saveitemsexternalutilityvalues(self, fileName):
+    def saveitemsexternalutilityvalues(self, fileName):
         items = random.sample(range(1, self.numberOfItems + 1), self.numberOfItems)
         data = {'Item': [f'item{item}' for item in items],
                 'External Utility Value': list(self.ExternalUtilityData.values())}
         df = pd.DataFrame(data)
         df.to_csv(fileName, sep='\t', index=False)
 
-    def GetUtilityData(self):
+    def getUtilityData(self):
         data = {'Entry ID': range(1, len(self.entries) + 1),
                 'Entries': [entry for entry, _ in self.entries],
                 'Sum': [entry_sum for _, entry_sum in self.entries]}
         df = pd.DataFrame(data)
         return df
 
-    def GetInternalUtilityData(self):
+    def getInternalUtilityData(self):
         items = random.sample(range(1, self.numberOfItems + 1), self.numberOfItems)
         InternalUtilityData = [np.random.randint(self.minInternalUtilityValue, self.maxInternalUtilityValue + 1) for _
                                  in items]
@@ -66,14 +66,14 @@ class UtilityDataGenerator:
         df = pd.DataFrame(data)
         return df
 
-    def GetExternalUtilityData(self):
+    def getExternalUtilityData(self):
         items = random.sample(range(1, self.numberOfItems + 1), self.numberOfItems)
         data = {'Item': [f'item{item}' for item in items],
                 'External Utility Value': list(self.ExternalUtilityData.values())}
         df = pd.DataFrame(data)
         return df
 
-    def GenerateAndPrintItemPairs(self):
+    def generateAndPrintItemPairs(self):
         items = random.sample(range(1, self.numberOfItems + 1), 2)
         item1_id = f'item{items[0]}'
         item2_id = f'item{items[1]}'
