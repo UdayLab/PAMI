@@ -438,7 +438,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             self._Database[i] = [item for item in self._Database[i] if item in self._fpList]
             self._Database[i].sort(key=lambda value: self._fpList.index(value))
 
-    def _convert(self, value, float, str):
+    def _convert(self, value):
         """
         To convert the given user specified value
         :param value: user specified value
