@@ -49,7 +49,7 @@ __copyright__ = """
 
 
 from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator, Callable
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class _Node:
