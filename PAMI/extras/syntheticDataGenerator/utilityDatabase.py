@@ -3,7 +3,7 @@ import pandas as pd
 import random
 
 
-class UtilityDataGenerator:
+class utilityDataGenerator:
     def __init__(self, databaseSize, numberOfItems, averageLengthOfTransaction,
                  minimumInternalUtilityValue, maximumInternalUtilityValue,
                  minimumExternalUtilityValue, maximumExternalUtilityValue):
@@ -19,8 +19,8 @@ class UtilityDataGenerator:
 
     def generateExternalUtilityData(self):
         items = range(1, self.numberOfItems + 1)
-        ExternalUtilityData = {f'item{item}': random.randint(100, 900) for item in items}
-        return ExternalUtilityData
+        return {f'item{item}': random.randint(self.minExternalUtilityValue, self.maxExternalUtilityValue) for item in items}
+
 
     def generate(self):
         for entry_id in range(1, self.databaseSize + 1):
@@ -87,7 +87,7 @@ class UtilityDataGenerator:
 
 
 if __name__ == "__main__":
-    data_generator = UtilityDataGenerator(100000, 2000, 10, 1, 100, 1, 10)
+    data_generator = utilityDataGenerator(100000, 2000, 10, 1, 100, 1, 10)
     data_generator.generate()
     data_generator.save("utility_data-6.csv")
     data_generator.saveItemsInternalUtilityValues("items_internal_utility.csv")
