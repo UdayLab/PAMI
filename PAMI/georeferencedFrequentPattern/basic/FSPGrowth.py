@@ -67,7 +67,7 @@ class _Node:
             To maintain the prefix of node
     """
 
-    def __init__(self, item: int, count: int, children: Dict[int, '_Node']) -> None:
+    def __init__(self, item, count, children):
         self.item = item
         self.count = count
         self.children = children
@@ -101,11 +101,11 @@ class _Tree:
             Mining yourself
     """
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.root = _Node(None, 0, {})
         self.nodeLink = _ab._OrderedDict()
 
-    def createTree(self, transaction: List[int], count: int) -> '_Tree':
+    def createTree(self, transaction, count):
         """
         Create tree or add transaction into yourself.
         :param transaction: list
@@ -123,7 +123,7 @@ class _Tree:
             current = current.children[item]
         return self
 
-    def linkNode(self, node: _Node) -> None:
+    def linkNode(self, node):
         """
         Maintain link of node by adding node to nodeLink
         :param node: Node
@@ -135,7 +135,7 @@ class _Tree:
             self.nodeLink[node.item] = []
             self.nodeLink[node.item].append(node)
 
-    def createCPB(self, item: int, neighbour: Dict[int, List[int]]) -> '_Tree':
+    def createCPB(self, item, neighbour) :
         """
         Create conditional pattern base based on item and neighbour
         :param item: int
@@ -150,7 +150,7 @@ class _Tree:
             pTree.createTree(node.prefix, node.count)
         return pTree
 
-    def mergeTree(self, tree: '_Tree', fpList: List[int]) -> '_Tree':
+    def mergeTree(self, tree, fpList):
         """
         Merge tree into yourself
         :param tree: Tree
@@ -162,7 +162,7 @@ class _Tree:
             self.createTree(transaction, 1)
         return self
 
-    def createTransactions(self, fpList: List[int]) -> List[List[int]]:
+    def createTransactions(self, fpList):
         """
         Create transactions that configure yourself
         :param fpList: list
@@ -182,7 +182,7 @@ class _Tree:
                         current.count -= node.count
         return transactions
 
-    def getPattern(self, item: int, suffixItem: str, minSup: int, neighbour: Dict[int, List[int]]) -> List[Tuple[str, int]]:
+    def getPattern(self, item, suffixItem, minSup, neighbour):
         """
         Get frequent patterns based on suffixItem
         :param item: int
@@ -205,7 +205,7 @@ class _Tree:
             frequentPatterns.extend(pTree.getPattern(i, pattern, minSup, neighbour))
         return frequentPatterns
 
-    def mining(self, minSup: Callable[[int], bool] = lambda x: True, neighbourhood: Optional[Dict[int, List[int]]] = None) -> List[Tuple[str, int]]:
+    def mining(self, minSup, neighbourhood: [Dict[int, List[int]]] = None):
         """
         Pattern mining on your own
         :param minSup: int
@@ -342,7 +342,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     _neighbourList = {}
     _fpList = []
 
-    def _readDatabase(self) -> None:
+    def _readDatabase(self):
         """
         Read input file and neighborhood file
         """
@@ -412,7 +412,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
                     print("File Not Found2")
                     quit()
 
-    def _getFrequentItems(self) -> None:
+    def _getFrequentItems(self):
         """
         Create frequent items and self.fpList from self.Database
         """
@@ -423,14 +423,14 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         self._finalPatterns = {key: value for key, value in oneFrequentItem.items() if value >= self._minSup}
         self._fpList = list(dict(sorted(oneFrequentItem.items(), key=lambda x: x[1], reverse=True)))
 
-    def _createFPTree(self) -> _Tree:
+    def _createFPTree(self):
         """ create FP Tree and self.fpList from self.Database"""
         FPTree = _Tree()
         for transaction in self._Database:
             FPTree.createTree(transaction, 1)
         return FPTree
 
-    def _sortTransaction(self) -> None:
+    def _sortTransaction(self):
         """
         Sort each transaction of self.Database based on self.fpList
         """
@@ -438,7 +438,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             self._Database[i] = [item for item in self._Database[i] if item in self._fpList]
             self._Database[i].sort(key=lambda value: self._fpList.index(value))
 
-    def _convert(self, value: int, float, str) -> Union[int, float]:
+    def _convert(self, value, float, str):
         """
         To convert the given user specified value
         :param value: user specified value
@@ -456,7 +456,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
                 value = int(value)
         return value
 
-    def startMine(self) -> None:
+    def startMine(self):
         """
         start pattern mining from here
         """
@@ -477,7 +477,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
         print("Frequent Spatial Patterns successfully generated using FSPGrowth")
 
-    def getMemoryUSS(self) -> float:
+    def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -485,7 +485,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
         return self._memoryUSS
 
-    def getMemoryRSS(self) -> float:
+    def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -493,7 +493,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
         return self._memoryRSS
 
-    def getRuntime(self) -> float:
+    def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -501,7 +501,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
+    def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -514,7 +514,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             dataframe = _ab._pd.DataFrame(data, columns=['Patterns', 'Support'])
         return dataframe
 
-    def save(self, oFile) -> None:
+    def save(self, oFile):
         """
         Complete set of frequent patterns will be loaded in to a output file
         :param oFile: name of the output file
@@ -526,7 +526,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self) -> Dict[str, int]:
+    def getPatterns(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
@@ -535,7 +535,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
         return self._finalPatterns
 
-    def printResults(self) -> None:
+    def printResults(self):
         """ This function is used to print the results
         """
         print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
