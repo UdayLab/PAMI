@@ -59,29 +59,39 @@ Total number of algorithms: 83
   1. Installing basic pami package (recommended)
 
 
-       pip install pami
+        pip install pami
+
 
   2. Installing pami package in a GPU machine that supports CUDA
 
 
-       pip install 'pami[gpu]'
+        pip install 'pami[gpu]'
+
 
   3. Installing pami package in a distributed network environment supporting Spark]
 
 
-       pip install 'pami[spark]'
+        pip install 'pami[spark]'
   
+
   Updation
+
   
-       pip install --upgrade pami
+        pip install --upgrade pami
   
+
   Uninstallation
+
   
-       pip uninstall pami 
+        pip uninstall pami 
        
+
   Displaying the pami information 
 
-       pip show pami
+
+        pip show pami
+
+
 ***
 
 # Tutorials 
