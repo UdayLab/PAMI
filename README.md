@@ -54,7 +54,7 @@ Total number of algorithms: 83
 
 # Maintenance
 
-  Installation
+  __Installation__
   
   1. Installing basic pami package (recommended)
 
@@ -74,19 +74,19 @@ Total number of algorithms: 83
          pip install 'pami[spark]'
   
 
-  Updation
+  __Updating__
 
   
         pip install --upgrade pami
   
 
-  Uninstallation
+  __Uninstallation__
 
   
         pip uninstall pami 
        
 
-  Displaying the pami information 
+  __Information__ 
 
 
         pip show pami
