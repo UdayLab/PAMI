@@ -68,7 +68,7 @@ Total number of algorithms: 83
          pip install 'pami[gpu]'
 
 
-  3. Installing pami package in a distributed network environment supporting Spark]
+  3. Installing pami package in a distributed network environment supporting Spark
 
 
          pip install 'pami[spark]'
