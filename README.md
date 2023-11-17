@@ -74,7 +74,7 @@ Total number of algorithms: 83
          pip install 'pami[spark]'
   
 
-  __Upgrading__
+  __Upgradation__
 
   
         pip install --upgrade pami
