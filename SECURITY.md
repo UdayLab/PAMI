@@ -2,20 +2,18 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Python versions supported by our library: 
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version | Supported           |
+|---------|---------------------|
+| 3.11.x  | :white_check_mark:  |
+| 3.10.x  | :white_check_mark:  |
+| 3.9.x   | :white_check_mark:  |
+| 3.8.x   | :white_check_mark:  |
+| 3.7.x   | :white_check_mark:  |
+| 3.6.x   | :white_check_mark:  |
+| <= 3.5  | :x:                 |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+If you find any vulnerability in our software, please report it in "GitHub issues."
