@@ -50,7 +50,7 @@ __copyright__ = """
 """
 
 from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator, Optional
+from typing import List, Dict, Tuple, Set, Union, Any, Generator, Optional, TypeVar
 from functools import cmp_to_key as _cmpToKey
 import pandas as pd
 
@@ -92,6 +92,7 @@ class _Transaction:
     """
     offset = 0
     prefixUtility = 0
+    Self = TypeVar("Self", bound="_Transaction")
     
     def __init__(self, items: List[int], utilities: List[int], transactionUtility: int, pmus: Optional[List[int]]=None) -> None:
         self.items = items
@@ -100,7 +101,7 @@ class _Transaction:
         if pmus is not None:
             self.pmus = pmus
 
-    def projectTransaction(self, offsetE: int) -> _Transaction:
+    def projectTransaction(self, offsetE: int) -> Self:
         """
             A method to create new Transaction from existing till offsetE
 
