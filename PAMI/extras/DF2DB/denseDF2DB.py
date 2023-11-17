@@ -9,13 +9,13 @@
 #
 #     obj.save(oFile)
 #
-#     obj.createTransactional("outputFileName") # To create transactional database
+#     obj.convert2TransactionalDatabase("outputFileName") # To create transactional database
 #
-#     obj.createTemporal("outputFileName") # To create temporal database
+#     obj.convert2TemporalDatabase("outputFileName") # To create temporal database
 #
-#     obj.createMultipleTimeSeries("outputFileName") # To create Mutliple TimeSeries database
+#     obj.convert2MultipleTimeSeries("outputFileName") # To create Mutliple TimeSeries database
 #
-#     obj.createUtility("outputFileName") # To create utility database
+#     obj.convert2UtilityDatabase("outputFileName") # To create utility database
 #
 #     obj.getFileName("outputFileName") # To get file name of the database
 
@@ -70,15 +70,13 @@ class denseDF2DB:
 
         obj = db.denseDF2DB(iDdf, ">=", 16 )
 
-        obj.save(oFile)
+        obj.convert2TransactionalDatabase("outputFileName") # To create transactional database
 
-        obj.createTransactional("outputFileName") # To create transactional database
+        obj.convert2TemporalDatabase("outputFileName") # To create temporal database
 
-        obj.createTemporal("outputFileName") # To create temporal database
+        obj.convert2MultipleTimeSeries("outputFileName") # To create Mutliple TimeSeries database
 
-        obj.createMultipleTimeSeries("outputFileName") # To create Mutliple TimeSeries database
-
-        obj.createUtility("outputFileName") # To create utility database
+        obj.convert2UtilityDatabase("outputFileName") # To create utility database
 
         obj.getFileName("outputFileName") # To get file name of the database
 
@@ -97,7 +95,7 @@ class denseDF2DB:
         self.tids = list(self.inputDF.index)
 
 
-    def convertTransactionalDatabase(self, outputFile: str) -> None:
+    def convert2TransactionalDatabase(self, outputFile: str) -> None:
         """
          :Description: Create transactional data base
 
@@ -126,7 +124,7 @@ class denseDF2DB:
 
 
 
-    def convertTemporalDatabase(self, outputFile: str) -> None:
+    def convert2TemporalDatabase(self, outputFile: str) -> None:
         """
          :Description: Create temporal data base
 
@@ -153,7 +151,7 @@ class denseDF2DB:
                         continue
                     f.write('\n')
             
-    def convertMultipleTimeSeries(self, interval: int, outputFile: str) -> None:
+    def convert2MultipleTimeSeries(self, interval: int, outputFile: str) -> None:
         """
          :Description: Create the multiple time series data base.
 
@@ -190,7 +188,7 @@ class denseDF2DB:
                 tids, items, values = [], [], []
                 count = 0
 
-    def convertUncertrainTransactional(self, outputFile: str) -> None:
+    def convert2UncertrainTransactional(self, outputFile: str) -> None:
         self.outputFile = outputFile
         with open(outputFile, 'w') as f:
              if self.condition not in condition_operator:
@@ -217,7 +215,7 @@ class denseDF2DB:
                         continue
                     f.write('\n')
         
-    def convertUtilityDatabase(self, outputFile: str) -> None:
+    def convert2UtilityDatabase(self, outputFile: str) -> None:
         """
          :Description: Create the utility database.
 
@@ -249,6 +247,6 @@ class denseDF2DB:
 
 if __name__ == '__main__':
     obj = denseDF2DB(sys.argv[1], sys.argv[2], sys.argv[3])
-    obj.convertTransactionalDatabase(sys.argv[4])
+    obj.convert2TransactionalDatabase(sys.argv[4])
     transactionalDB = obj.getFileName()
     print(transactionalDB)
