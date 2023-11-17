@@ -222,6 +222,7 @@ class _Dataset:
         """
            Storing the complete transactions of the database/input file in a database variable
         """
+        pmuString = None
         if isinstance(datasetPath, _ab._pd.DataFrame):
             utilities, data, utilitySum, pmuString = [], [], [], []
             if datasetPath.empty:
@@ -248,8 +249,9 @@ class _Dataset:
                     itemsString = [x for x in itemsString if x]
                     utilityString = trans_list[2].strip().split(self.sep)
                     utilityString = [x for x in utilityString if x]
-                    pmuString = trans_list[3].strip().split(self.sep)
-                    pmuString = [x for x in pmuString if x]
+                    if len(trans_list) == 4:
+                        pmuString = trans_list[3].strip().split(self.sep)
+                        pmuString = [x for x in pmuString if x]
                     self.transactions.append(self.createTransaction(itemsString, utilityString, transactionUtility, pmuString))
             else:
                 try:
@@ -261,8 +263,9 @@ class _Dataset:
                             itemsString = [x for x in itemsString if x]
                             utilityString = trans_list[2].strip().split(self.sep)
                             utilityString = [x for x in utilityString if x]
-                            pmuString = trans_list[3].strip().split(self.sep)
-                            pmuString = [x for x in pmuString if x]
+                            if len(trans_list) == 4:
+                                pmuString = trans_list[3].strip().split(self.sep)
+                                pmuString = [x for x in pmuString if x]
                             self.transactions.append(
                                 self.createTransaction(itemsString, utilityString, transactionUtility, pmuString))
                 except IOError:
@@ -301,7 +304,10 @@ class _Dataset:
                 self.maxItem = itemInt
             items.append(itemInt)
             utilities.append(int(utilityString[idx]))
-            pmus.append(int(pmuString[idx]))
+            if pmuString != None:
+                pmus.append(int(pmuString[idx]))
+        if pmuString == None:
+            pmus = None
         return _Transaction(items, utilities, transactionUtility, pmus)
 
     def getMaxItem(self):
@@ -886,10 +892,18 @@ class SHUFIM(_ab._utilityPatterns):
             for idx, item in enumerate(transaction.getItems()):
                 self._singleItemSetsSupport[item] += 1
                 self._singleItemSetsUtility[item] += transaction.getUtilities()[idx]
+                pmu = transaction.getUtilities()[idx]
+                if item in self._Neighbours:
+                    neighbors = self._Neighbours[item]
+                    for idx, item in enumerate(transaction.getItems()):
+                        if item in neighbors:
+                            pmu += transaction.getUtilities()[idx]
                 if item in self._utilityBinArrayLU:
-                    self._utilityBinArrayLU[item] += transaction.getPmus()[idx]
+                    # self._utilityBinArrayLU[item] += transaction.getPmus()[idx]
+                    self._utilityBinArrayLU[item] += pmu
                 else:
-                    self._utilityBinArrayLU[item] = transaction.getPmus()[idx]
+                    # self._utilityBinArrayLU[item] = transaction.getPmus()[idx]
+                    self._utilityBinArrayLU[item] = pmu
 
     def getPatternsAsDataFrame(self):
         """Storing final patterns in a dataframe
@@ -959,19 +973,32 @@ class SHUFIM(_ab._utilityPatterns):
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in seconds:", self.getRuntime())
 
+def main():
+    inputFile = '/home/nakamura/workspace/labwork/PAMI/PAMI/highUtilityGeoreferencedFrequentPattern/basic/mushroom_utility_spmf.txt'
+    neighborFile = '/home/nakamura/workspace/labwork/PAMI/PAMI/highUtilityGeoreferencedFrequentPattern/basic/mushroom_utility_spmf.txt'
+
+    minUtilCount = 10000
+    minSup = 100
+    seperator = ' '  
+    obj = SHUFIM(iFile=inputFile, nFile=neighborFile, minUtil=minUtilCount, minSup=minSup, sep=seperator)    #initialize
+    obj.startMine()   
+    obj.printResults()
+    print(obj.getPatterns())
+
 
 if __name__ == '__main__':
-    _ap = str()
-    if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
-        if len(_ab._sys.argv) == 7:
-            _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5], _ab._sys.argv[6])
-        if len(_ab._sys.argv) == 6:
-            _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5])
-        _ap.startMine()
-        print("Total number of Spatial High Utility Frequent Patterns:", len(_ap.getPatterns()))
-        _ap.save(_ab._sys.argv[2])
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS", _ap.getMemoryRSS())
-        print("Total ExecutionTime in seconds:", _ap.getRuntime())
-    else:
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+    main()
+    # _ap = str()
+    # if len(_ab._sys.argv) == 6 or len(_ab._sys.argv) == 7:
+    #     if len(_ab._sys.argv) == 7:
+    #         _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5], _ab._sys.argv[6])
+    #     if len(_ab._sys.argv) == 6:
+    #         _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5])
+    #     _ap.startMine()
+    #     print("Total number of Spatial High Utility Frequent Patterns:", len(_ap.getPatterns()))
+    #     _ap.save(_ab._sys.argv[2])
+    #     print("Total Memory in USS:", _ap.getMemoryUSS())
+    #     print("Total Memory in RSS", _ap.getMemoryRSS())
+    #     print("Total ExecutionTime in seconds:", _ap.getRuntime())
+    # else:
+    #     print("Error! The number of input parameters do not match the total number of parameters provided")
