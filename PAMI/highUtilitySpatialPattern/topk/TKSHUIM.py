@@ -229,7 +229,8 @@ class Dataset:
         transactionUtility = int(trans_list[1])
         itemsString = trans_list[0].strip().split(self.sep)
         utilityString = trans_list[2].strip().split(self.sep)
-        pmuString = trans_list[3].strip().split(self.sep)
+        if (len(trans_list) == 4):
+            pmuString = trans_list[3].strip().split(self.sep)
         items = []
         utilities = []
         pmus = []
@@ -243,7 +244,8 @@ class Dataset:
                 self.maxItem = item_int
             items.append(item_int)
             utilities.append(int(utilityString[idx]))
-            pmus.append(int(pmuString[idx]))
+            if (len(trans_list) == 4):
+                pmus.append(int(pmuString[idx]))
         return Transaction(items, utilities, transactionUtility, pmus)
 
     def getMaxItem(self):
@@ -495,6 +497,8 @@ class TKSHUIM(utilityPatterns):
             initialMemory = psutil.virtual_memory()[3]
             transactionsPe = []
             utilityPe = 0
+            if len(transactionsOfP) == 0:
+                break 
             previousTransaction = transactionsOfP[0]
             consecutiveMergeCount = 0
             for transaction in transactionsOfP:
@@ -774,10 +778,18 @@ class TKSHUIM(utilityPatterns):
         utilityMatrix = defaultdict(lambda: defaultdict(int))
         for transaction in dataset.getTransactions():
             for idx, item in enumerate(transaction.getItems()):
+                pmu = transaction.getUtilities()[idx]
+                if item in self.Neighbours:
+                    neighbors = self.Neighbours[item]
+                    for idx, item in enumerate(transaction.getItems()):
+                        if item in neighbors:
+                            pmu += transaction.getUtilities()[idx]
                 if item in self.utilityBinArrayLU:
-                    self.utilityBinArrayLU[item] += transaction.getPmus()[idx]
+                    # self.utilityBinArrayLU[item] += transaction.getPmus()[idx]
+                    self.utilityBinArrayLU[item] += pmu
                 else:
-                    self.utilityBinArrayLU[item] = transaction.getPmus()[idx]
+                    # self.utilityBinArrayLU[item] = transaction.getPmus()[idx]
+                    self.utilityBinArrayLU[item] = pmu
                 utilityMatrix[item][item] += transaction.getUtilities()[idx]
                 if item in self.Neighbours:
                     neighbors = self.Neighbours[item]
@@ -877,26 +889,37 @@ class TKSHUIM(utilityPatterns):
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in seconds:", self.getRuntime())
 
+def main():
+    inputFile = 'mushroom_utility_spmf.txt'
+    neighborFile = 'mushroom_neighbourhood.txt' #Users can also specify this constraint between 0 to 1.
+    k = 1000
+    seperator = ' ' 
+    obj = TKSHUIM(iFile=inputFile, nFile=neighborFile, k=k,  sep=seperator)    #initialize
+    obj.startMine()   
+    obj.printResults()
+    print(obj.getPatterns())
+
 if __name__ == '__main__':
-    _ap = str()
-    if len(sys.argv) == 5 or len(sys.argv) == 6:
-        if len(sys.argv) == 6:
-            _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])
-        if len(sys.argv) == 5:
-            _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))
-        _ap.startMine()
-        print("Top K Spatial  High Utility Patterns:", len(_ap.getPatterns()))
-        _ap.save(sys.argv[2])
-        print("Total Memory in USS:", _ap.getMemoryUSS())
-        print("Total Memory in RSS",  _ap.getMemoryRSS())
-        print("Total ExecutionTime in seconds:", _ap.getRuntime())
-    else:
-        for i in [1000, 5000]:
-            _ap = TKSHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt',
-                    '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
-            _ap.startMine()
-            print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
-            print("Total Memory in USS:", _ap.getMemoryUSS())
-            print("Total Memory in RSS", _ap.getMemoryRSS())
-            print("Total ExecutionTime in seconds:", _ap.getRuntime())
-        print("Error! The number of input parameters do not match the total number of parameters provided")
+    main()
+    # _ap = str()
+    # if len(sys.argv) == 5 or len(sys.argv) == 6:
+    #     if len(sys.argv) == 6:
+    #         _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])
+    #     if len(sys.argv) == 5:
+    #         _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))
+    #     _ap.startMine()
+    #     print("Top K Spatial  High Utility Patterns:", len(_ap.getPatterns()))
+    #     _ap.save(sys.argv[2])
+    #     print("Total Memory in USS:", _ap.getMemoryUSS())
+    #     print("Total Memory in RSS",  _ap.getMemoryRSS())
+    #     print("Total ExecutionTime in seconds:", _ap.getRuntime())
+    # else:
+    #     for i in [1000, 5000]:
+    #         _ap = TKSHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt',
+    #                 '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
+    #         _ap.startMine()
+    #         print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
+    #         print("Total Memory in USS:", _ap.getMemoryUSS())
+    #         print("Total Memory in RSS", _ap.getMemoryRSS())
+    #         print("Total ExecutionTime in seconds:", _ap.getRuntime())
+    #     print("Error! The number of input parameters do not match the total number of parameters provided")
