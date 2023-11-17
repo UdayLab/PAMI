@@ -339,7 +339,8 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
-            return int(o1.item) - int(o2.item)
+            # return int(o1.item) - int(o2.item)
+            return 1
         else:
             return compare
 
@@ -407,9 +408,9 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                     line = line.split("\n")[0]
                     parts = line.split(":")
                     parts[0] = parts[0].strip()
-                    parts[2] = parts[2].strip()
+                    parts[1] = parts[1].strip()
                     items = parts[0].split(self._sep)
-                    quantities = parts[2].split(self._sep)
+                    quantities = parts[1].split(self._sep)
                     self._transactions.append([x for x in items])
                     self._fuzzyValues.append([x for x in quantities])
             else:
@@ -419,7 +420,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                             line = line.split("\n")[0]
                             parts = line.split(":")
                             items = parts[0].split()
-                            quantities = parts[2].split()
+                            quantities = parts[1].split()
                             self._transactions.append([x for x in items])
                             self._fuzzyValues.append([x for x in quantities])
                 except IOError:
@@ -437,7 +438,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             quantities = self._fuzzyValues[tr]
             for i in range(0, len(items)):
                 item = items[i]
-                regions = _Regions(item, int(quantities[i]), 3, self._mapItemRegionSum)
+                regions = _Regions(item, float(quantities[i]), 3, self._mapItemRegionSum)
                 if item in self._mapItemsLowSum.keys():
                     low = self._mapItemsLowSum[item]
                     low += regions.low
@@ -492,7 +493,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
             for i in range(0, len(items)):
                 pair = _Pair()
                 pair.item = items[i]
-                regions = _Regions(pair.item, int(quantities[i]), 3, self._temp)
+                regions = _Regions(pair.item, float(quantities[i]), 3, self._temp)
                 item = pair.item
                 if self._mapItemSum[item] >= self._minSup:
                     if self._mapItemRegions[pair.item] == "L":
@@ -686,8 +687,19 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         print("Total Memory in RSS", self.getMemoryRSS())
         print("Total ExecutionTime in ms:",  self.getRuntime())
 
+def main():
+    inputFile = 'https://u-aizu.ac.jp/~udayrage/datasets/fuzzyDatabases/Fuzzy_T10I4D100K.csv'
+
+    minimumSupportCount=1200  #Users can also specify this constraint between 0 to 1.
+    ratioExample=0.8
+    seperator='\t' 
+
+    obj = FCPGrowth(inputFile, minimumSupportCount,ratioExample,seperator)    #initialize
+    obj.startMine()       
+
 
 if __name__ == "__main__":
+    main()
     _ap = str()
     if len(_ab._sys.argv) == 5 or len(_ab._sys.argv) == 6:
         if len(_ab._sys.argv) == 6:
