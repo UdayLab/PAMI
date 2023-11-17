@@ -20,7 +20,7 @@ The steps to convert a dataframe into a transactional database is as follows:
 #### Sample code
 
  ```Python
-from PAMI.extras.DF2DB import denseDF2DB as pro 
+from PAMI.extras.DF2DB import denseDF2DB as pro
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
@@ -45,9 +45,10 @@ in a dataframe.  The steps to convert a dataframe into a temporal database is as
 
 1. Call 'createTemporal(outputFileName)' method to store the dataframe as a temporal database.
 
-#### Sample code 
+#### Sample code
+
  ```Python
-from PAMI.extras.DF2DB import denseDF2DB as pro 
+from PAMI.extras.DF2DB import denseDF2DB as pro
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
@@ -72,8 +73,9 @@ each row of a dataframe.  The steps to convert a dataframe into a utility databa
 1. Call 'createUtility(outputFileName)' method to store the dataframe as a temporal database.
 
 #### Sample code
+
  ```Python
-from PAMI.extras.DF2DB import denseDF2DB as pro 
+from PAMI.extras.DF2DB import denseDF2DB as pro
 import pandas as pd
 
 # Objective: convert the above dataframe into a utility database with items whose value is greater than or equal 1.
