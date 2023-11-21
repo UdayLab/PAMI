@@ -51,7 +51,6 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 
 """
-
 from PAMI.sequentialPatternMining.basic import abstract as _ab
 import copy
 _ab._sys.setrecursionlimit(10000)
@@ -207,20 +206,19 @@ class prefixSpan(_ab._sequentialPatterns):
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split('-1')]
+                            temp = [i.rstrip() for i in line.split('":"')]
                             temp = [x for x in temp if x ]
-                            temp.pop()
 
                             seq = []
                             for i in temp:
                                 if len(i)>1:
                                    for i in list(sorted(set(i.split()))):
                                        seq.append(i)
-                                   seq.append(-1)
+                                   seq.append(":")
 
                                 else:
                                     seq.append(i)
-                                    seq.append(-1)
+                                    seq.append(":")
                             self._Database.append(seq)
 
 
@@ -258,9 +256,9 @@ class prefixSpan(_ab._sequentialPatterns):
 
             if len(sepDatabase[head])>=self._minSup:
                 if newrow!=[]:
-                    newrow.append(-1)
+                    newrow.append(":")
                 newrow.append(head)
-                newrow.append(-1)
+                newrow.append(":")
                 if str(newrow) not in self._finalPatterns:
                     self._finalPatterns[str(newrow)]=len(sepDatabase[head])
                     give = []
@@ -307,7 +305,7 @@ class prefixSpan(_ab._sequentialPatterns):
                 for i in line:
                     if supDatabase[i]>=self._minSup or i in head:
                         if len(newLine)>1:
-                            if (newLine[-1]!=-1 or i!=-1):
+                            if (newLine[-1]!=":" or i!=":"):
                                 newLine.append(i)
                         else:
                             newLine.append(i)
@@ -328,10 +326,10 @@ class prefixSpan(_ab._sequentialPatterns):
             if len(sepDatabase[head])>=self._minSup:
                 newrow = startrow.copy()
                 newrow.append(head)
-                newrow.append(-1)
+                newrow.append(":")
                 if str(newrow) not in self._finalPatterns.keys():
                     self._finalPatterns[str(newrow)]=len(sepDatabase[head])
-                    if -1 in startrow:
+                    if ":" in startrow:
                         give = self.getSameSeq(startrow)
                     else:
                         give = startrow.copy()
@@ -341,7 +339,7 @@ class prefixSpan(_ab._sequentialPatterns):
                     self.makeSeqDatabaseSame(sepDatabase[head], newrow)
                 elif len(sepDatabase[head])>self._finalPatterns[str(newrow)]:
                     self._finalPatterns[str(newrow)] = len(sepDatabase[head])
-                    if -1 in startrow:
+                    if ":" in startrow:
                         give = self.getSameSeq(startrow)
                     else:
                         give = startrow.copy()
@@ -369,7 +367,7 @@ class prefixSpan(_ab._sequentialPatterns):
         for line in database:
             alreadyInLine=[]
             for data in range(len(line)):
-                if line[data] not in alreadyInLine and line[data]!=-1:
+                if line[data] not in alreadyInLine and line[data]!=":":
                     if line[data] not in seqDatabase.keys():
                         seqDatabase[line[data]]=[]
                         seqDatabase[line[data]].append(line[data+1:])
@@ -398,7 +396,7 @@ class prefixSpan(_ab._sequentialPatterns):
             addLine=0
             i=0
             if len(line)>1:
-                while line[i]!=-1:
+                while line[i]!=":":
                     if line[i]==startrow[-1]:
                         sepDatabaseSame[startrow[-1]].append(line[i+1:])
                         addLine=1
@@ -407,7 +405,7 @@ class prefixSpan(_ab._sequentialPatterns):
                 if addLine!=1:
                     ok=[]
                     while i <len(line):
-                        if line[i]==-1:
+                        if line[i]==":":
                             ok=[]
                         elif line[i]==startrow[-1]:
                             ok.append("sk1")
@@ -419,7 +417,7 @@ class prefixSpan(_ab._sequentialPatterns):
                             break
                         i+=1
         startrow2=[startrow[0]]
-        startrow.append(-1)
+        startrow.append(":")
         if str(startrow) not in self._finalPatterns.keys():
                 self.makeNextSame(sepDatabaseSame,startrow2)
         elif self._finalPatterns[str(startrow)]<len(sepDatabaseSame[startrow[-2]]):
@@ -435,7 +433,7 @@ class prefixSpan(_ab._sequentialPatterns):
         """
         give = []
         newrow = startrow.copy()
-        while newrow[-1] != -1:
+        while newrow[-1] != ":":
             y = newrow.pop()
             give.append(y)
         return give
@@ -457,9 +455,9 @@ class prefixSpan(_ab._sequentialPatterns):
             if len(line)>1:
                 alreadyInLine=[]
                 i = 0
-                while line[i] != -1:
+                while line[i] != ":":
                         if line[i] not in seqDatabaseSame:
-                            if -1 in startrow:
+                            if ":" in startrow:
                                 give=self.getSameSeq(startrow)
                             else:
                                 give=startrow.copy()
@@ -469,7 +467,7 @@ class prefixSpan(_ab._sequentialPatterns):
                         i += 1
                 same=0
                 while len(line)>i:
-                    if line[i]!=-1:
+                    if line[i]!=":":
                         if line[i] not in alreadyInLine:
                             if line[i] not in seqDatabase:
                                 seqDatabase[line[i]]=[]
@@ -479,7 +477,7 @@ class prefixSpan(_ab._sequentialPatterns):
                             same=1
 
                         elif same==1 and line[i] not in seqDatabaseSame:
-                            if -1 in startrow:
+                            if ":" in startrow:
                                 give=self.getSameSeq(startrow)
                             else:
                                 give=startrow.copy()
@@ -598,7 +596,7 @@ if __name__ == "__main__":
         _run = _ap.getRuntime()
         print("Total ExecutionTime in ms:", _run)
     else:
-        _ap = prefixSpan('retail.txt',833, ' ')
+        _ap = prefixSpan('retail.txt',1000, ' ')
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         _memUSS = _ap.getMemoryUSS()
@@ -609,4 +607,4 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _run)
         print("Total number of Frequent Patterns:", len(_Patterns))
         print("Error! The number of input parameters do not match the total number of parameters provided")
-        _ap.savePatterns("priOut2.txt")
+        _ap.save("priOut2.txt")

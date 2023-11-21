@@ -82,33 +82,36 @@ class DenseDF2DB:
 
     """
 
-    def __init__(self, inputDF, condition: str, thresholdValue: Union[int, float]) -> None:
+    def __init__(self, inputDF) -> None:
         self.inputDF = inputDF
-        self.condition = condition
-        self.thresholdValue = thresholdValue
         self.tids = []
         self.items = []
         self.outputFile = ' '
         self.items = list(self.inputDF.columns.values)
         self.tids = list(self.inputDF.index)
 
-    def convert2TransactionalDatabase(self, outputFile: str) -> None:
+    def convert2TransactionalDatabase(self, outputFile: str, condition: str, thresholdValue: Union[int, float]) -> None:
         """
          :Description: Create transactional data base
 
          :param outputFile: str :
               Write transactional data base into outputFile
 
+         :param condition: str :
+            It is condition to judge the value in dataframe
+         :param thresholdValue: int or float :
+            User defined value.
+
         """
 
         self.outputFile = outputFile
         with open(outputFile, 'w') as f:
-            if self.condition not in condition_operator:
+            if condition not in condition_operator:
                 print('Condition error')
             else:
                 for tid in self.tids:
                     transaction = [item for item in self.items if
-                                   condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+                                   condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
@@ -119,23 +122,27 @@ class DenseDF2DB:
                         continue
                     f.write('\n')
 
-    def convert2TemporalDatabase(self, outputFile: str) -> None:
+    def convert2TemporalDatabase(self, outputFile: str, condition: str, thresholdValue: Union[int, float]) -> None:
         """
          :Description: Create temporal data base
 
          :param outputFile: str :
                  Write temporal data base into outputFile
+         :param condition: str :
+            It is condition to judge the value in dataframe
+         :param thresholdValue: int or float :
+            User defined value.
 
         """
 
         self.outputFile = outputFile
         with open(outputFile, 'w') as f:
-            if self.condition not in condition_operator:
+            if condition not in condition_operator:
                 print('Condition error')
             else:
                 for tid in self.tids:
                     transaction = [item for item in self.items if
-                                   condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+                                   condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
                     if len(transaction) > 1:
                         f.write(f'{tid + 1}')
                         for item in transaction:
@@ -147,7 +154,8 @@ class DenseDF2DB:
                         continue
                     f.write('\n')
 
-    def convert2MultipleTimeSeries(self, interval: int, outputFile: str) -> None:
+    def convert2MultipleTimeSeries(self, interval: int, outputFile: str, condition: str,
+                                   thresholdValue: Union[int, float]) -> None:
         """
          :Description: Create the multiple time series database.
 
@@ -156,6 +164,10 @@ class DenseDF2DB:
 
         :param interval: int:
                     Breaks the given timeseries into intervals.
+        :param condition: str :
+            It is condition to judge the value in dataframe
+        :param thresholdValue: int or float :
+            User defined value.
 
         """
         self.outputFile = outputFile
@@ -168,7 +180,7 @@ class DenseDF2DB:
         for tid in self.tids:
             count += 1
             transaction = [item for item in self.items if
-                           condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+                           condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
             for i in transaction:
                 tids.append(count)
                 items.append(i)
@@ -189,17 +201,18 @@ class DenseDF2DB:
                 tids, items, values = [], [], []
                 count = 0
 
-    def convert2UncertainTransactional(self, outputFile: str) -> None:
+    def convert2UncertainTransactional(self, outputFile: str, condition: str,
+                                       thresholdValue: Union[int, float]) -> None:
         self.outputFile = outputFile
         with open(outputFile, 'w') as f:
-            if self.condition not in condition_operator:
+            if condition not in condition_operator:
                 print('Condition error')
             else:
                 for tid in self.tids:
                     transaction = [item for item in self.items if
-                                   condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+                                   condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
                     uncertain = [self.inputDF.at[tid, item] for item in self.items if
-                                 condition_operator[self.condition](self.inputDF.at[tid, item], self.thresholdValue)]
+                                 condition_operator[condition](self.inputDF.at[tid, item], thresholdValue)]
                     if len(transaction) > 1:
                         f.write(f'{transaction[0]}')
                         for item in transaction[1:]:
@@ -225,6 +238,7 @@ class DenseDF2DB:
          :param outputFile:  str :
                      Write utility database into outputFile
 
+
         """
 
         self.outputFile = outputFile
@@ -247,7 +261,7 @@ class DenseDF2DB:
 
         return self.outputFile
 
-#Dataframes do not run from a terminal
+# Dataframes do not run from a terminal
 
 # if __name__ == '__main__':
 #     obj = denseDF2DB(sys.argv[1], sys.argv[2], sys.argv[3])
