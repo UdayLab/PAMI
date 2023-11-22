@@ -91,7 +91,7 @@ if __name__ == "__main__":
     data_generator.generate()
     data_generator.save("utility_data-6.csv")
     data_generator.saveItemsInternalUtilityValues("items_internal_utility.csv")
-    data_generator.saveitemsexternalutilityvalues("items_external_utility.csv")
+    data_generator.saveItemsExternalUtilityValues("items_external_utility.csv")
     utility_data = data_generator.getUtilityData()
     InternalUtilityData = data_generator.getInternalUtilityData()
     ExternalUtilityData = data_generator.getExternalUtilityData()
