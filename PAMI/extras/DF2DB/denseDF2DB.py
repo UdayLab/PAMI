@@ -245,11 +245,12 @@ class DenseDF2DB:
         with open(self.outputFile, 'w') as f:
             for tid in self.tids:
                 df = self.inputDF.loc[tid].dropna()
-                f.write(f'{df.index[0] + 1}')
+                f.write(f'{df.index[0]}')
                 for item in df.index[1:]:
                     f.write(f'\t{item}')
                 f.write(f':{df.sum()}:')
-                f.write(f'{df.at[df.index[0]] + 1}')
+                f.write(f'{df.at[df.index[0]]}')
+
                 for item in df.index[1:]:
                     f.write(f'\t{df.at[item]}')
                 f.write('\n')
