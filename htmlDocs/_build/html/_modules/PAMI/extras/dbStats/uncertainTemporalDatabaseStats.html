@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.dbStats.uncertainTemporalDatabaseStats &mdash; PAMI 2023.10.23 documentation</title>
+  <title>PAMI.extras.dbStats.UncertainTemporalDatabase &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -59,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">PAMI.extras.dbStats.uncertainTemporalDatabaseStats</li>
+      <li class="breadcrumb-item active">PAMI.extras.dbStats.UncertainTemporalDatabase</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -68,15 +68,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for PAMI.extras.dbStats.uncertainTemporalDatabaseStats</h1><div class="highlight"><pre>
-<span></span><span class="c1"># uncertainTemporalDatabaseStats is a class used to get stats of database.</span>
+  <h1>Source code for PAMI.extras.dbStats.UncertainTemporalDatabase</h1><div class="highlight"><pre>
+<span></span><span class="c1"># UncertainTemporalDatabase is a class used to get stats of database.</span>
 <span class="c1">#</span>
 <span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#     from PAMI.extras.dbStats import uncertainTemporalDatabaseStats as db</span>
+<span class="c1">#     from PAMI.extras.dbStats import UncertainTemporalDatabase as db</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = db.uncertainTemporalDatabaseStats(iFile, &quot;\t&quot;)</span>
+<span class="c1">#     obj = db.UncertainTemporalDatabase(iFile, &quot;\t&quot;)</span>
 <span class="c1">#</span>
 <span class="c1">#     obj.save(oFile)</span>
 <span class="c1">#</span>
@@ -110,9 +110,9 @@
 <span class="kn">import</span> <span class="nn">PAMI.extras.graph.plotLineGraphFromDictionary</span> <span class="k">as</span> <span class="nn">plt</span>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats">[docs]</a>
-<span class="k">class</span> <span class="nc">uncertainTemporalDatabaseStats</span><span class="p">:</span>
+<div class="viewcode-block" id="UncertainTemporalDatabase">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase">[docs]</a>
+<span class="k">class</span> <span class="nc">UncertainTemporalDatabase</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :Description: UncertainTemporalDatabaseStats is class to get stats of database.</span>
 
@@ -160,9 +160,9 @@
 <span class="sd">        --------------------------------------------------------</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">                    from PAMI.extras.dbStats import uncertainTemporalDatabaseStats as db</span>
+<span class="sd">                    from PAMI.extras.dbStats import UncertainTemporalDatabase as db</span>
 
-<span class="sd">                    obj = db.uncertainTemporalDatabaseStats(iFile, &quot;\t&quot;)</span>
+<span class="sd">                    obj = db.UncertainTemporalDatabase(iFile, &quot;\t&quot;)</span>
 
 <span class="sd">                    obj.save(oFile)</span>
 
@@ -185,14 +185,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">periodList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span>
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.run">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.run">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.run">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.run">[docs]</a>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">readDatabase</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.readDatabase">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.readDatabase">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.readDatabase">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.readDatabase">[docs]</a>
     <span class="k">def</span> <span class="nf">readDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        read database from input file and store into database and size of each transaction.</span>
@@ -256,8 +256,8 @@
         <span class="c1">#     self.periodList.append(int(ts)-preTimeStamp)</span>
         <span class="c1">#     preTimeStamp = ts</span>
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getDatabaseSize">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getDatabaseSize">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getDatabaseSize">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getDatabaseSize">[docs]</a>
     <span class="k">def</span> <span class="nf">getDatabaseSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the size of database</span>
@@ -266,8 +266,8 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getMinimumTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getMinimumTransactionLength">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getMinimumTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getMinimumTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getMinimumTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the minimum transaction length</span>
@@ -276,8 +276,8 @@
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lengthList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getAverageTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getAverageTransactionLength">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getAverageTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getAverageTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getAverageTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the average transaction length. It is sum of all transaction length divided by database length.</span>
@@ -287,8 +287,8 @@
         <span class="k">return</span> <span class="n">totalLength</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getMaximumTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getMaximumTransactionLength">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getMaximumTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getMaximumTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getMaximumTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the maximum transaction length</span>
@@ -297,8 +297,8 @@
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lengthList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getStandardDeviationTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getStandardDeviationTransactionLength">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getStandardDeviationTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getStandardDeviationTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getStandardDeviationTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the standard deviation transaction length</span>
@@ -307,8 +307,8 @@
         <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">pstdev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lengthList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getVarianceTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getVarianceTransactionLength">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getVarianceTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getVarianceTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getVarianceTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the variance transaction length</span>
@@ -317,8 +317,8 @@
         <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">variance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lengthList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.convertDataIntoMatrix">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.convertDataIntoMatrix">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.convertDataIntoMatrix">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.convertDataIntoMatrix">[docs]</a>
     <span class="k">def</span> <span class="nf">convertDataIntoMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="n">singleItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">()</span>
         <span class="n">itemsets</span> <span class="o">=</span> <span class="p">{}</span>
@@ -339,8 +339,8 @@
         <span class="k">return</span> <span class="n">an_array</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getSparsity">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getSparsity">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getSparsity">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getSparsity">[docs]</a>
     <span class="k">def</span> <span class="nf">getSparsity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the sparsity of database. sparsity is percentage of 0 of database.</span>
@@ -351,8 +351,8 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">n_zeros</span> <span class="o">/</span> <span class="n">big_array</span><span class="o">.</span><span class="n">size</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getDensity">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getDensity">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getDensity">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getDensity">[docs]</a>
     <span class="k">def</span> <span class="nf">getDensity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the sparsity of database. sparsity is percentage of 0 of database.</span>
@@ -363,8 +363,8 @@
         <span class="k">return</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">n_zeros</span> <span class="o">/</span> <span class="n">big_array</span><span class="o">.</span><span class="n">size</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getTotalNumberOfItems">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getTotalNumberOfItems">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getTotalNumberOfItems">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getTotalNumberOfItems">[docs]</a>
     <span class="k">def</span> <span class="nf">getTotalNumberOfItems</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the number of items in database.</span>
@@ -373,8 +373,8 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getSortedListOfItemFrequencies">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getSortedListOfItemFrequencies">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getSortedListOfItemFrequencies">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getSortedListOfItemFrequencies">[docs]</a>
     <span class="k">def</span> <span class="nf">getSortedListOfItemFrequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get sorted list of item frequencies</span>
@@ -388,8 +388,8 @@
         <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">itemFrequencies</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span></div>
 
     
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getFrequenciesInRange">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getFrequenciesInRange">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getFrequenciesInRange">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getFrequenciesInRange">[docs]</a>
     <span class="k">def</span> <span class="nf">getFrequenciesInRange</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="n">fre</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">()</span>
         <span class="n">rangeFrequencies</span> <span class="o">=</span> <span class="p">{}</span>
@@ -405,8 +405,8 @@
         <span class="k">return</span> <span class="n">rangeFrequencies</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getTransanctionalLengthDistribution">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getTransanctionalLengthDistribution">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getTransanctionalLengthDistribution">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getTransanctionalLengthDistribution">[docs]</a>
     <span class="k">def</span> <span class="nf">getTransanctionalLengthDistribution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get transaction length</span>
@@ -419,8 +419,8 @@
         <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">transactionLength</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])}</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.save">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.save">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.save">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        store data into outputFile</span>
@@ -434,8 +434,8 @@
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getMinimumPeriod">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getMinimumPeriod">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getMinimumPeriod">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getMinimumPeriod">[docs]</a>
     <span class="k">def</span> <span class="nf">getMinimumPeriod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the minimum period</span>
@@ -444,8 +444,8 @@
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">periodList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getAveragePeriod">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getAveragePeriod">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getAveragePeriod">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getAveragePeriod">[docs]</a>
     <span class="k">def</span> <span class="nf">getAveragePeriod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the average period. It is sum of all period divided by number of period.</span>
@@ -455,8 +455,8 @@
         <span class="k">return</span> <span class="n">totalPeriod</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">periodList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getMaximumPeriod">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getMaximumPeriod">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getMaximumPeriod">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getMaximumPeriod">[docs]</a>
     <span class="k">def</span> <span class="nf">getMaximumPeriod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the maximum period</span>
@@ -465,8 +465,8 @@
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">periodList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getStandardDeviationPeriod">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getStandardDeviationPeriod">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getStandardDeviationPeriod">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getStandardDeviationPeriod">[docs]</a>
     <span class="k">def</span> <span class="nf">getStandardDeviationPeriod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the standard deviation period</span>
@@ -475,8 +475,8 @@
         <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">pstdev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">periodList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.getNumberOfTransactionsPerTimestamp">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.getNumberOfTransactionsPerTimestamp">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.getNumberOfTransactionsPerTimestamp">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.getNumberOfTransactionsPerTimestamp">[docs]</a>
     <span class="k">def</span> <span class="nf">getNumberOfTransactionsPerTimestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get number of transactions per time stamp</span>
@@ -486,8 +486,8 @@
         <span class="k">return</span> <span class="p">{</span><span class="n">ts</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeStampCount</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxTS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span></div>
 
    
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.printStats">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.printStats">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.printStats">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.printStats">[docs]</a>
     <span class="k">def</span> <span class="nf">printStats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Database size : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getDatabaseSize</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of items : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getTotalNumberOfItems</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -502,8 +502,8 @@
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Sparsity : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">getSparsity</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
   
-<div class="viewcode-block" id="uncertainTemporalDatabaseStats.plotGraphs">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.uncertainTemporalDatabaseStats.uncertainTemporalDatabaseStats.plotGraphs">[docs]</a>
+<div class="viewcode-block" id="UncertainTemporalDatabase.plotGraphs">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.UncertainTemporalDatabase.UncertainTemporalDatabase.plotGraphs">[docs]</a>
     <span class="k">def</span> <span class="nf">plotGraphs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">itemFrequencies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFrequenciesInRange</span><span class="p">()</span>
         <span class="n">transactionLength</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTransanctionalLengthDistribution</span><span class="p">()</span>
@@ -524,7 +524,7 @@
                              <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">]]}</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">uncertainTemporalDatabaseStats</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">UncertainTemporalDatabase</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
     <span class="kn">import</span> <span class="nn">PAMI.extras.graph.plotLineGraphFromDictionary</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="n">obj</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
     <span class="n">obj</span><span class="o">.</span><span class="n">printStats</span><span class="p">()</span>

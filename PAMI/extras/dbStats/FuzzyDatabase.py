@@ -1,11 +1,11 @@
-# fuzzyDatabaseStats is class to get stats of fuzzyDatabase.
+# FuzzyDatabase is class to get stats of fuzzyDatabase.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #     from PAMI.extras.dbStats import FuzzyDatabaseStats as db
 #
-#     obj = db.fuzzyDatabaseStats(iFile, "\t")
+#     obj = db.FuzzyDatabase(iFile, "\t")
 #
 #     obj.run()
 #
@@ -37,9 +37,9 @@ from urllib.request import urlopen
 import pandas as pd
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
-class fuzzyDatabaseStats:
+class FuzzyDatabase:
     """
-        :Description: fuzzyDatabaseStats is class to get stats of fuzzyDatabase.
+        :Description: FuzzyDatabase is class to get stats of fuzzyDatabase.
 
         inputFile : file
             input file path
@@ -83,7 +83,7 @@ class fuzzyDatabaseStats:
 
                     from PAMI.extras.dbStats import FuzzyDatabaseStats as db
 
-                    obj = db.fuzzyDatabaseStats(iFile, "\t")
+                    obj = db.FuzzyDatabase(iFile, "\t")
 
                     obj.run()
 
@@ -352,7 +352,7 @@ if __name__ == '__main__':
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
     #obj = UtilityDatabase(data)
-    obj = fuzzyDatabaseStats(sys.argv[1], sys.argv[2])
+    obj = FuzzyDatabase(sys.argv[1], sys.argv[2])
     obj.run()
     obj.printStats()
     obj.plotGraphs()

@@ -1,11 +1,11 @@
-# uncertainTransactionalDatabaseStats is a class used to get stats of database.
+# UncertainTransactionalDatabase is a class used to get stats of database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import uncertainTransactionalDatabaseStats as db
+#     from PAMI.extras.dbStats import UncertainTransactionalDatabase as db
 #
-#     obj = db.uncertainTransactionalDatabaseStats(iFile, "\t")
+#     obj = db.UncertainTransactionalDatabase(iFile, "\t")
 #
 #     obj.save(oFile)
 #
@@ -38,11 +38,11 @@ from urllib.request import urlopen
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
-class uncertainTransactionalDatabaseStats:
+class UncertainTransactionalDatabase:
     """
         :Description:
          ------------
-         uncertainTransactionalDatabaseStats is class to get stats of database.
+         UncertainTransactionalDatabase is class to get stats of database.
 
         inputFile : file
             input file path
@@ -79,9 +79,9 @@ class uncertainTransactionalDatabaseStats:
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.dbStats import uncertainTransactionalDatabaseStats as db
+                    from PAMI.extras.dbStats import UncertainTransactionalDatabase as db
 
-                    obj = db.uncertainTransactionalDatabaseStats(iFile, "\t")
+                    obj = db.UncertainTransactionalDatabase(iFile, "\t")
 
                     obj.save(oFile)
 
@@ -305,7 +305,7 @@ class uncertainTransactionalDatabaseStats:
 
 if __name__ == '__main__':
 
-    obj = uncertainTransactionalDatabaseStats(sys.argv[1],sys.argv[2])
+    obj = UncertainTransactionalDatabase(sys.argv[1],sys.argv[2])
     obj.run()
     obj.printStats()
     obj.plotGraphs()
