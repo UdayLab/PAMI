@@ -100,6 +100,7 @@ class TemporalDatabase:
 
     """
 
+
     def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str='\t') -> None:
         """
         :param inputFile: input file name or path
