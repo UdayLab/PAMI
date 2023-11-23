@@ -32,8 +32,8 @@ __copyright__ = """
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from PAMI.extras.DF2DB.denseDF2DB import db
-from PAMI.extras.DF2DB.sparseDF2DB import db
+from PAMI.extras.DF2DB.denseDF2DB import *
+from PAMI.extras.DF2DB.sparseDF2DB import *
 import sys
 
 class DF2DB:
@@ -82,7 +82,7 @@ class DF2DB:
         else:
             raise Exception('DF type should be sparse or dense')
 
-    def getTransactional(self, outputFile) -> str:
+    def getTransactionalDatabase(self, outputFile) -> str:
         """
         create transactional database and return outputFileName
 
@@ -94,7 +94,7 @@ class DF2DB:
         self.DF2DB.createTransactional(outputFile)
         return self.DF2DB.getFileName()
 
-    def getTemporal(self, outputFile) -> str:
+    def getTemporalDatabase(self, outputFile) -> str:
         """
         create temporal database and return outputFile name
 
@@ -106,7 +106,7 @@ class DF2DB:
         self.DF2DB.createTemporal(outputFile)
         return self.DF2DB.getFileName()
 
-    def getUtility(self, outputFile) -> str:
+    def getUtilityDatabase(self, outputFile) -> str:
         """
         create utility database and return outputFile name
 
@@ -122,4 +122,4 @@ class DF2DB:
 
 if __name__ == '__main__':
     obj = DF2DB(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-    obj.getTransactional(sys.argv[5])
+    obj.getTransactionalDatabase(sys.argv[5])

@@ -11,7 +11,7 @@ import psutil as _psutil
 import sys as _sys
 import validators as _validators
 from urllib.request import urlopen as _urlopen
-
+from typing import Union
 
 class _partialPeriodicPatterns(_ABC):
     """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must

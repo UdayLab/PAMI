@@ -49,7 +49,7 @@ __copyright__ = """
 """
 
 from PAMI.frequentPattern.basic import abstract as _ab
-
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 class Apriori(_ab._frequentPatterns):
     """
@@ -153,7 +153,7 @@ class Apriori(_ab._frequentPatterns):
     _memoryRSS = float()
     _Database = []
 
-    def _creatingItemSets(self):
+    def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
 
@@ -191,7 +191,7 @@ class Apriori(_ab._frequentPatterns):
                     print("File Not Found")
                     quit()
 
-    def _convert(self, value):
+    def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         To convert the user specified minSup value
 
@@ -211,7 +211,7 @@ class Apriori(_ab._frequentPatterns):
                 value = int(value)
         return value
 
-    def _candidateToFrequent(self, candidateList):
+    def _candidateToFrequent(self, candidateList: List[set]) -> Dict[frozenset, int]:
         """Generates frequent patterns from the candidate patterns
 
         :param candidateList: Candidate patterns will be given as input
@@ -234,7 +234,7 @@ class Apriori(_ab._frequentPatterns):
         return candidateToFrequentList
 
     @staticmethod
-    def _frequentToCandidate(frequentList, length):
+    def _frequentToCandidate(frequentList: Dict[frozenset, int], length: int) -> List[set]:
         """Generates candidate patterns from the frequent patterns
 
         :param frequentList: set of all frequent patterns to generate candidate patterns of each of size is length
@@ -256,7 +256,7 @@ class Apriori(_ab._frequentPatterns):
             frequentToCandidateList.extend(nextList)
         return sorted(frequentToCandidateList)
 
-    def startMine(self):
+    def startMine(self) -> None:
         """
             Frequent pattern mining process will start from here
         """
@@ -316,7 +316,7 @@ class Apriori(_ab._frequentPatterns):
 
         return self._endTime - self._startTime
 
-    def getPatternsAsDataFrame(self):
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
@@ -332,7 +332,7 @@ class Apriori(_ab._frequentPatterns):
         # dataFrame = dataFrame.replace(r'\r+|\n+|\t+',' ', regex=True)
         return dataFrame
 
-    def save(self, outFile):
+    def save(self, outFile) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
@@ -345,7 +345,7 @@ class Apriori(_ab._frequentPatterns):
             s1 = x.strip() + ":" + str(y)
             writer.write("%s \n" % s1)
 
-    def getPatterns(self):
+    def getPatterns(self) -> Dict[str, int]:
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
@@ -354,7 +354,7 @@ class Apriori(_ab._frequentPatterns):
         """
         return self._finalPatterns
 
-    def printResults(self):
+    def printResults(self) -> None:
         """
         this function is used to print the result
 
@@ -367,11 +367,11 @@ class Apriori(_ab._frequentPatterns):
 
 if __name__ == "__main__":
     _ap = str()
-    if len(_ap._sys.argv) == 4 or len(_ap._sys.argv) == 5:
-        if len(_ap._sys.argv) == 5:
-            _ap = Apriori(_ap._sys.argv[1], _ap._sys.argv[3], _ap._sys.argv[4])
-        if len(_ap._sys.argv) == 4:
-            _ap = Apriori(_ap._sys.argv[1], _ap._sys.argv[3])
+    if len(_ab._sys.argv) == 4 or len(_ab._sys.argv) == 5:
+        if len(_ab._sys.argv) == 5:
+            _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
+        if len(_ab._sys.argv) == 4:
+            _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ap._sys.argv[2])

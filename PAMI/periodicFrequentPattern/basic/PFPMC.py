@@ -204,9 +204,9 @@ class PFPMC(_ab._periodicFrequentPatterns):
         tids = list(tids)
         tids.sort()
         temp = self._maxPer + 1
+        diffs = []
         if self._lastTid in tids:
             tids.remove(self._lastTid)
-            diffs = []
         for k, g in _groupby(enumerate(tids), lambda ix: ix[0] - ix[1]):
             diffs.append(len(list(map(_itemgetter(1), g))))
         if len(diffs) < 1:
