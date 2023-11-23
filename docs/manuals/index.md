@@ -21,7 +21,7 @@ Chapter 3: Converting dataframes to databases
 
    1. [Format of dense dataframe](./denseDataFrame.html) 
    2. [Format of sparse dataframe](./sparseDataFrame.html)
-   3. [Approaches to convert a dataframe into various database formats](./denseDF2DB.html)
+   3. [Approaches to convert a dataframe into various database formats](./DenseFormatDF2DB.html)
    4. [An advanced approach to convert a dataframe into a database](./DF2DBPlus.html)
 
 Chapter 4: Creation of very large synthetic databases

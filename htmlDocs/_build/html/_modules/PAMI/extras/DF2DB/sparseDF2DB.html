@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.DF2DB.sparseDF2DB &mdash; PAMI 2023.10.23 documentation</title>
+  <title>PAMI.extras.DF2DB.sparseFormatDF2DB &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -59,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">PAMI.extras.DF2DB.sparseDF2DB</li>
+      <li class="breadcrumb-item active">PAMI.extras.DF2DB.sparseFormatDF2DB</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -68,15 +68,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for PAMI.extras.DF2DB.sparseDF2DB</h1><div class="highlight"><pre>
-<span></span><span class="c1"># sparseDF2DB in this code the dense dataframe is converting databases into different transactional, temporal, utility types.</span>
+  <h1>Source code for PAMI.extras.DF2DB.sparseFormatDF2DB</h1><div class="highlight"><pre>
+<span></span><span class="c1"># sparseFormatDF2DB in this code the dense dataframe is converting databases into different transactional, temporal, utility types.</span>
 <span class="c1">#</span>
 <span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#     from PAMI.extras.DF2DB import sparseDF2DB as db</span>
+<span class="c1">#     from PAMI.extras.DF2DB import sparseFormatDF2DB as db</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = db.sparseDF2DB(idf, &quot;&gt;=&quot;, 16)</span>
+<span class="c1">#     obj = db.sparseFormatDF2DB(idf, &quot;&gt;=&quot;, 16)</span>
 <span class="c1">#</span>
 <span class="c1">#     obj.save(oFile)</span>
 <span class="c1">#</span>
@@ -109,9 +109,9 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<div class="viewcode-block" id="sparseDF2DB">
-<a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB">[docs]</a>
-<span class="k">class</span> <span class="nc">sparseDF2DB</span><span class="p">:</span>
+<div class="viewcode-block" id="sparseFormatDF2DB">
+<a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseFormatDF2DB.sparseFormatDF2DB">[docs]</a>
+<span class="k">class</span> <span class="nc">sparseFormatDF2DB</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            :Description:  This class create Data Base from DataFrame.</span>
 
@@ -128,9 +128,9 @@
 <span class="sd">        --------------------------------------------------------</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">        from PAMI.extras.DF2DB import sparseDF2DB as db</span>
+<span class="sd">        from PAMI.extras.DF2DB import sparseFormatDF2DB as db</span>
 
-<span class="sd">        obj = db.sparseDF2DB(iDdf, &quot;&gt;=&quot;, 16)</span>
+<span class="sd">        obj = db.sparseFormatDF2DB(iDdf, &quot;&gt;=&quot;, 16)</span>
 
 <span class="sd">        obj.save(oFile)</span>
 
@@ -163,8 +163,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tid&#39;</span><span class="p">)[</span><span class="s1">&#39;item&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
 
-<div class="viewcode-block" id="sparseDF2DB.createTransactional">
-<a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseDF2DB.sparseDF2DB.createTransactional">[docs]</a>
+<div class="viewcode-block" id="sparseFormatDF2DB.createTransactional">
+<a class="viewcode-back" href="../../../../PAMI.extras.DF2DB.html#PAMI.extras.DF2DB.sparseFormatDF2DB.sparseDF2DB.createTransactional">[docs]</a>
     <span class="k">def</span> <span class="nf">createTransactional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create transactional data base</span>

@@ -1,11 +1,11 @@
-# sparseDF2DB in this code the dense dataframe is converting databases into different transactional, temporal, utility types.
+# sparseFormatDF2DB in this code the dense dataframe is converting databases into different transactional, temporal, utility types.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB import sparseDF2DB as db
+#     from PAMI.extras.DF2DB import sparseFormatDF2DB as db
 #
-#     obj = db.sparseDF2DB(idf, ">=", 16)
+#     obj = db.sparseFormatDF2DB(idf, ">=", 16)
 #
 #     obj.save(oFile)
 #
@@ -38,7 +38,7 @@ __copyright__ = """
 import pandas as pd
 import sys
 
-class sparseDF2DB:
+class sparseFormatDF2DB:
     """
             :Description:  This class create Data Base from DataFrame.
 
@@ -55,9 +55,9 @@ class sparseDF2DB:
         --------------------------------------------------------
         .. code-block:: python
 
-        from PAMI.extras.DF2DB import sparseDF2DB as db
+        from PAMI.extras.DF2DB import sparseFormatDF2DB as db
 
-        obj = db.sparseDF2DB(iDdf, ">=", 16)
+        obj = db.sparseFormatDF2DB(iDdf, ">=", 16)
 
         obj.save(oFile)
 
@@ -155,6 +155,6 @@ class sparseDF2DB:
 
 if __name__ == '__main__':
 
-    obj = sparseDF2DB(sys.argv[1], sys.argv[2])
+    obj = sparseFormatDF2DB(sys.argv[1], sys.argv[2])
     obj.getFileName(sys.argv[3])
 

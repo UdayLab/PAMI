@@ -102,8 +102,8 @@
 <span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB.denseDF2DBPlus</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB.sparseDF2DBPlus</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB.DenseFormatDF2DBPlus</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PAMI.extras.DF2DB.sparseFormatDF2DBPlus</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 
@@ -145,9 +145,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">thresholdConditionDF</span> <span class="o">=</span> <span class="n">thresholdConditionDF</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">DFtype</span> <span class="o">=</span> <span class="n">DFtype</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">DFtype</span> <span class="o">==</span> <span class="s1">&#39;sparse&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">DF2DB</span> <span class="o">=</span> <span class="n">sparseDF2DBPlus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholdConditionDF</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">DF2DB</span> <span class="o">=</span> <span class="n">sparseFormatDF2DBPlus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholdConditionDF</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">DFtype</span> <span class="o">==</span> <span class="s1">&#39;dense&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">DF2DB</span> <span class="o">=</span> <span class="n">denseDF2DBPlus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholdConditionDF</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">DF2DB</span> <span class="o">=</span> <span class="n">DenseFormatDF2DBPlus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputDF</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thresholdConditionDF</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;DF type should be sparse or dense&#39;</span><span class="p">)</span>
 

@@ -40,7 +40,7 @@ The steps to convert a dataframe into a transactional database is as follows:
 A sample program to convert a dataframe into a transactional database and use it in a pattern mining algorithm, say FP-growth, is provided below
 
  ```Python
-from PAMI.extras.DF2DB import sparseDF2DB as pro
+from PAMI.extras.DF2DB import SparseFormatDF2DB as pro
 from PAMI.frequentPattern.basic import FPGrowth as alg
 import pandas as pd
 
@@ -74,7 +74,7 @@ in a dataframe.  The steps to convert a dataframe into a temporal database is as
 A sample program to convert a dataframe into a temporal database and use it in a pattern mining algorithm, say PFP-growth++, is provided below
 
  ```Python
-   from PAMI.extras.DF2DB import sparseDF2DB as pro
+   from PAMI.extras.DF2DB import SparseFormatDF2DB as pro
 from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
 import pandas as pd
 
@@ -105,7 +105,7 @@ each row of a dataframe.  The steps to convert a dataframe into a utility databa
 A sample program to convert a dataframe into a utility database and use it in a pattern mining algorithm, say EFIM, is provided below
 
  ```Python
-   from PAMI.extras.DF2DB import sparseDF2DB as pro
+   from PAMI.extras.DF2DB import SparseFormatDF2DB as pro
 from PAMI.highUtilityPattern.basic import EFIM as alg
 import pandas as pd
 

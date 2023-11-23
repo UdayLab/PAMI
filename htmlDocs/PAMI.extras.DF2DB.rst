@@ -28,34 +28,34 @@ PAMI.extras.DF2DB.createTDB module
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.DF2DB.denseDF2DB module
+PAMI.extras.DF2DB.DenseFormatDF2DB module
 -----------------------------------
 
-.. automodule:: PAMI.extras.DF2DB.denseDF2DB
+.. automodule:: PAMI.extras.DF2DB.DenseFormatDF2DB
    :members:
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.DF2DB.denseDF2DBPlus module
+PAMI.extras.DF2DB.DenseFormatDF2DBPlus module
 ---------------------------------------
 
-.. automodule:: PAMI.extras.DF2DB.denseDF2DBPlus
+.. automodule:: PAMI.extras.DF2DB.DenseFormatDF2DBPlus
    :members:
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.DF2DB.sparseDF2DB module
+PAMI.extras.DF2DB.sparseFormatDF2DB module
 ------------------------------------
 
-.. automodule:: PAMI.extras.DF2DB.sparseDF2DB
+.. automodule:: PAMI.extras.DF2DB.sparseFormatDF2DB
    :members:
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.DF2DB.sparseDF2DBPlus module
+PAMI.extras.DF2DB.sparseFormatDF2DBPlus module
 ----------------------------------------
 
-.. automodule:: PAMI.extras.DF2DB.sparseDF2DBPlus
+.. automodule:: PAMI.extras.DF2DB.sparseFormatDF2DBPlus
    :members:
    :undoc-members:
    :show-inheritance:

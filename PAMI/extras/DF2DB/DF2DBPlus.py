@@ -31,8 +31,8 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from PAMI.extras.DF2DB.denseDF2DBPlus import *
-from PAMI.extras.DF2DB.sparseDF2DBPlus import *
+from PAMI.extras.DF2DB.DenseFormatDF2DBPlus import *
+from PAMI.extras.DF2DB.sparseFormatDF2DBPlus import *
 import sys
 
 
@@ -72,9 +72,9 @@ class DF2DBPlus:
         self.thresholdConditionDF = thresholdConditionDF
         self.DFtype = DFtype.lower()
         if DFtype == 'sparse':
-            self.DF2DB = sparseDF2DBPlus(self.inputDF, self.thresholdConditionDF)
+            self.DF2DB = sparseFormatDF2DBPlus(self.inputDF, self.thresholdConditionDF)
         elif DFtype == 'dense':
-            self.DF2DB = denseDF2DBPlus(self.inputDF, self.thresholdConditionDF)
+            self.DF2DB = DenseFormatDF2DBPlus(self.inputDF, self.thresholdConditionDF)
         else:
             raise Exception('DF type should be sparse or dense')
 
