@@ -1,11 +1,11 @@
-# sequentialDatabaseStats is to get stats of database like avarage, minimun, maximum  and so on
+# SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import sequentialDatabaseStats as db
+#     from PAMI.extras.dbStats import SequentialDatabase as db
 #
-#     obj = db.sequentialDatabaseStats(iFile, "\t")
+#     obj = db.SequentialDatabase(iFile, "\t")
 #
 #     obj.save(oFile)
 #
@@ -40,9 +40,9 @@ import sys
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
-class sequentialDatabaseStats():
+class SequentialDatabase():
     """
-        sequentialDatabaseStats is to get stats of database like avarage, minimun, maximum  and so on.
+        SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on.
 
        Attributes:
         ----------
@@ -100,9 +100,9 @@ class sequentialDatabaseStats():
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.dbStats import sequentialDatabaseStats as db
+                    from PAMI.extras.dbStats import SequentialDatabase as db
 
-                    obj = db.sequentialDatabaseStats(iFile, "\t")
+                    obj = db.SequentialDatabase(iFile, "\t")
 
                     obj.save(oFile)
 
@@ -115,15 +115,15 @@ class sequentialDatabaseStats():
         -------------------------------
             Format:
             ------
-                python3 sequentialDatabaseStats.py <inputFile>
+                python3 SequentialDatabase.py <inputFile>
             Examples:
             ---------
-                python3 sequentialDatabaseStats.py sampleDB.txt
-                python3 sequentialDatabaseStats.py sampleDB.txt
+                python3 SequentialDatabase.py sampleDB.txt
+                python3 SequentialDatabase.py sampleDB.txt
         Sample run of the importing code:
         ---------------------------------
-            import PAMI.extra.DBstats.sequentialDatabaseStats as alg
-            _ap=alg.sequentialDatabaseStats(inputfile,sep)
+            import PAMI.extra.DBstats.SequentialDatabase as alg
+            _ap=alg.SequentialDatabase(inputfile,sep)
             _ap.readDatabase()
             _ap.printStats()
             _ap.plotGraphs()
@@ -394,9 +394,9 @@ if __name__ == '__main__':
     _ap=str()
     if len(sys.argv)==3 or len(sys.argv)==2:
         if len(sys.argv)==3:
-            _ap=sequentialDatabaseStats(sys.argv[1],sys.argv[2])
+            _ap=SequentialDatabase(sys.argv[1],sys.argv[2])
         if len(sys.argv) == 2:
-            _ap = sequentialDatabaseStats(sys.argv[1])
+            _ap = SequentialDatabase(sys.argv[1])
         _ap.run()
         _ap.printStats()
         _ap.plotGraphs()
