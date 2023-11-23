@@ -93,9 +93,10 @@ To understand about the database. The below code will give the detail about the 
 The below sample code prints the statistical details of a database.
 
 ```python
-import PAMI.extras.dbStats.fuzzyDatabaseStats as stats 
-obj = stats.fuzzyDatabaseStats('sampleInputFile.txt', ' ') 
-obj.run() 
+import PAMI.extras.dbStats.FuzzyDatabase as stats
+
+obj = stats.FuzzyDatabase('sampleInputFile.txt', ' ')
+obj.run()
 obj.printStats() 
 ```
 

@@ -63,11 +63,11 @@ The performance of a pattern mining algorithm primarily depends on the satistica
 
 The below sample code prints the statistical details of a database.
 
-
 ```python
-import PAMI.extras.dbStats.fuzzyDatabaseStats as stats  
-obj = stats.fuzzyDatabaseStats('fuzzyTransactionalDatabase.txt', ' ') 
-obj.run() 
+import PAMI.extras.dbStats.FuzzyDatabase as stats
+
+obj = stats.FuzzyDatabase('fuzzyTransactionalDatabase.txt', ' ')
+obj.run()
 obj.printStats() 
 ```
 

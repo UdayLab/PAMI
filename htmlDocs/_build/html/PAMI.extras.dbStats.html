@@ -124,15 +124,15 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="module-PAMI.extras.dbStats.fuzzyDatabaseStats">
-<span id="pami-extras-dbstats-fuzzydatabasestats-module"></span><h2>PAMI.extras.dbStats.fuzzyDatabaseStats module<a class="headerlink" href="#module-PAMI.extras.dbStats.fuzzyDatabaseStats" title="Link to this heading"></a></h2>
+<section id="module-PAMI.extras.dbStats.FuzzyDatabase">
+<span id="pami-extras-dbstats-fuzzydatabasestats-module"></span><h2>PAMI.extras.dbStats.FuzzyDatabase module<a class="headerlink" href="#module-PAMI.extras.dbStats.FuzzyDatabase" title="Link to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.dbStats.fuzzyDatabaseStats.</span></span><span class="sig-name descname"><span class="pre">fuzzyDatabaseStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.dbStats.FuzzyDatabase.</span></span><span class="sig-name descname"><span class="pre">FuzzyDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
-<dd class="field-odd"><p>fuzzyDatabaseStats is class to get stats of fuzzyDatabase.</p>
+<dd class="field-odd"><p>FuzzyDatabase is class to get stats of fuzzyDatabase.</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -178,7 +178,7 @@
 <h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.dbStats</span> <span class="kn">import</span> <span class="n">FuzzyDatabaseStats</span> <span class="k">as</span> <span class="n">db</span>
 
-<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">fuzzyDatabaseStats</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="s2">&quot;        &quot;</span><span class="p">)</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">FuzzyDatabase</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="s2">&quot;        &quot;</span><span class="p">)</span>
 
 <span class="n">obj</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
@@ -188,88 +188,88 @@
 </pre></div>
 </div>
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.creatingItemSets">
-<span class="sig-name descname"><span class="pre">creatingItemSets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.creatingItemSets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.creatingItemSets" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.creatingItemSets">
+<span class="sig-name descname"><span class="pre">creatingItemSets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.creatingItemSets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.creatingItemSets" title="Link to this definition"></a></dt>
 <dd><p>Storing the complete transactions of the database/input file in a database variable</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getAverageTransactionLength">
-<span class="sig-name descname"><span class="pre">getAverageTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getAverageTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getAverageTransactionLength" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getAverageTransactionLength">
+<span class="sig-name descname"><span class="pre">getAverageTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getAverageTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getAverageTransactionLength" title="Link to this definition"></a></dt>
 <dd><p>get the average transaction length. It is sum of all transaction length divided by database length.
 :return: average transaction length</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getAverageUtility">
-<span class="sig-name descname"><span class="pre">getAverageUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getAverageUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getAverageUtility" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getAverageUtility">
+<span class="sig-name descname"><span class="pre">getAverageUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getAverageUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getAverageUtility" title="Link to this definition"></a></dt>
 <dd><p>get the average utility
 :return: average utility</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getDatabaseSize">
-<span class="sig-name descname"><span class="pre">getDatabaseSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getDatabaseSize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getDatabaseSize" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getDatabaseSize">
+<span class="sig-name descname"><span class="pre">getDatabaseSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getDatabaseSize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getDatabaseSize" title="Link to this definition"></a></dt>
 <dd><p>get the size of database
 :return: data base size</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getFrequenciesInRange">
-<span class="sig-name descname"><span class="pre">getFrequenciesInRange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getFrequenciesInRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getFrequenciesInRange" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getFrequenciesInRange">
+<span class="sig-name descname"><span class="pre">getFrequenciesInRange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getFrequenciesInRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getFrequenciesInRange" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMaximumTransactionLength">
-<span class="sig-name descname"><span class="pre">getMaximumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getMaximumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMaximumTransactionLength" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getMaximumTransactionLength">
+<span class="sig-name descname"><span class="pre">getMaximumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getMaximumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getMaximumTransactionLength" title="Link to this definition"></a></dt>
 <dd><p>get the maximum transaction length
 :return: maximum transaction length</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMaximumUtility">
-<span class="sig-name descname"><span class="pre">getMaximumUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getMaximumUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMaximumUtility" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getMaximumUtility">
+<span class="sig-name descname"><span class="pre">getMaximumUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getMaximumUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getMaximumUtility" title="Link to this definition"></a></dt>
 <dd><p>get the maximum utility
 :return: maximum utility</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMinimumTransactionLength">
-<span class="sig-name descname"><span class="pre">getMinimumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getMinimumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMinimumTransactionLength" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getMinimumTransactionLength">
+<span class="sig-name descname"><span class="pre">getMinimumTransactionLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getMinimumTransactionLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getMinimumTransactionLength" title="Link to this definition"></a></dt>
 <dd><p>get the minimum transaction length
 :return: minimum transaction length</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMinimumUtility">
-<span class="sig-name descname"><span class="pre">getMinimumUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getMinimumUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getMinimumUtility" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getMinimumUtility">
+<span class="sig-name descname"><span class="pre">getMinimumUtility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getMinimumUtility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getMinimumUtility" title="Link to this definition"></a></dt>
 <dd><p>get the minimum utility
 :return: minimum utility</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getNumberOfItems">
-<span class="sig-name descname"><span class="pre">getNumberOfItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getNumberOfItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getNumberOfItems" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getNumberOfItems">
+<span class="sig-name descname"><span class="pre">getNumberOfItems</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getNumberOfItems"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getNumberOfItems" title="Link to this definition"></a></dt>
 <dd><p>get the number of items in database.
 :return: number of items</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getSortedListOfItemFrequencies">
-<span class="sig-name descname"><span class="pre">getSortedListOfItemFrequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getSortedListOfItemFrequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getSortedListOfItemFrequencies" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getSortedListOfItemFrequencies">
+<span class="sig-name descname"><span class="pre">getSortedListOfItemFrequencies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getSortedListOfItemFrequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getSortedListOfItemFrequencies" title="Link to this definition"></a></dt>
 <dd><p>get sorted list of item frequencies
 :return: item frequencies</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getSortedUtilityValuesOfItem">
-<span class="sig-name descname"><span class="pre">getSortedUtilityValuesOfItem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getSortedUtilityValuesOfItem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getSortedUtilityValuesOfItem" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getSortedUtilityValuesOfItem">
+<span class="sig-name descname"><span class="pre">getSortedUtilityValuesOfItem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#FuzzyDatabase.getSortedUtilityValuesOfItem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getSortedUtilityValuesOfItem" title="Link to this definition"></a></dt>
 <dd><p>get sorted utility value each item. key is item and value is utility of item
 :return: sorted dictionary utility value of item</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getSparsity">
+<dt class="sig sig-object py" id="PAMI.extras.dbStats.FuzzyDatabase.FuzzyDatabase.getSparsity">
 <span class="sig-name descname"><span class="pre">getSparsity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/extras/dbStats/fuzzyDatabaseStats.html#fuzzyDatabaseStats.getSparsity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.dbStats.fuzzyDatabaseStats.fuzzyDatabaseStats.getSparsity" title="Link to this definition"></a></dt>
 <dd><p>get the sparsity of database
 :return: database sparsity</p>
