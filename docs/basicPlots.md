@@ -22,11 +22,11 @@ Input parameters:
 
 ## Plots for a transactional database
 
-    import PAMI.extras.dbStats.transactionalDatabaseStats as tds
+    import PAMI.extras.dbStats.TransactionalDatabase as tds
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
             
-    obj = tds.transactionalDatabaseStats(inputFile)
-    # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+    obj = tds.TransactionalDatabase(inputFile)
+    # obj = tds.TransactionalDatabase(inputFile, sep=',')  #overrride default tab seperator
     obj.run()
           
     print(f'Database size : {obj.getDatabaseSize()}')

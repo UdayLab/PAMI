@@ -40,8 +40,8 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
    1. [Statistics of a transactional database](transactionalDatabaseStats.md)
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
         
-          from dbStats import transactionalDatabaseStats as tds
-          obj=tds.transactionalDatabaseStats(inputFile,sep)
+          from dbStats import TransactionalDatabase as tds
+          obj=tds.TransactionalDatabase(inputFile,sep)
           obj.run()
           
           #Getting basic stats of a database

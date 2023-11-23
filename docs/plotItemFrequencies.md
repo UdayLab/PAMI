@@ -79,7 +79,7 @@ get the statistical details of a database.
    
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
         
-            import PAMI.extras.dbStats.transactionalDatabaseStats as tds
+            import PAMI.extras.dbStats.TransactionalDatabase as tds
           
             print(f'Database size : {obj.getDatabaseSize()}')
             print(f'Total number of items : {obj.getTotalNumberOfItems()}')

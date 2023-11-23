@@ -20,10 +20,10 @@ PAMI.extras.dbStats.temporalDatabaseStats module
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.dbStats.transactionalDatabaseStats module
+PAMI.extras.dbStats.TransactionalDatabase module
 -----------------------------------------------------
 
-.. automodule:: PAMI.extras.dbStats.transactionalDatabaseStats
+.. automodule:: PAMI.extras.dbStats.TransactionalDatabase
    :members:
    :undoc-members:
    :show-inheritance:

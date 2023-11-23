@@ -79,10 +79,10 @@ get the statistical details of a database.
    
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
         
-            import PAMI.extras.dbStats.transactionalDatabaseStats as tds
+            import PAMI.extras.dbStats.TransactionalDatabase as tds
             
-            obj = tds.transactionalDatabaseStats(inputFile)
-            # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+            obj = tds.TransactionalDatabase(inputFile)
+            # obj = tds.TransactionalDatabase(inputFile, sep=',')  #overrride default tab seperator
             obj.run()
           
             print(f'Database size : {obj.getDatabaseSize()}')
@@ -171,8 +171,8 @@ get the statistical details of a database.
    
           import PAMI.extras.graph.plotLineGraphFromDictionary as plt
           
-          obj = tds.transactionalDatabaseStats(inputFile)
-          # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+          obj = tds.TransactionalDatabase(inputFile)
+          # obj = tds.TransactionalDatabase(inputFile, sep=',')  #overrride default tab seperator
           obj.run()
            
           plt.plotLineGraphFromDictionary(obj.getSortedListOfItemFrequencies(),percentageOfItemsToPlot,title,xLabel,yLabel) 
@@ -181,8 +181,8 @@ get the statistical details of a database.
    
           import PAMI.extras.graph.plotLineGraphFromDictionary as plt
           
-          obj = tds.transactionalDatabaseStats(inputFile)
-          # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+          obj = tds.TransactionalDatabase(inputFile)
+          # obj = tds.TransactionalDatabase(inputFile, sep=',')  #overrride default tab seperator
           obj.run()
            
           plt.plotLineGraphFromDictionary(obj.getTransanctionalLengthDistribution(),percentageOfItemsToPlot,title,xLabel,yLabel) 

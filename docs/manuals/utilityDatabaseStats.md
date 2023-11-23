@@ -11,17 +11,17 @@ Thus, it is important to know the statistical details of a database. PAMI provid
 get the statistical details of a database.   In this page, we provide the details of methods to get statistical details from 
 a transactional database. 
 
-### Executing transactionalDatabaseStats program
+### Executing TransactionalDatabase program
 
-The transactionalDatabaseStats.py program is located in PAMI.extras.dbStats folder. Thus, execute the below lines to run the program.
+The TransactionalDatabase.py program is located in PAMI.extras.dbStats folder. Thus, execute the below lines to run the program.
 
     #import the program
-    import PAMI.extras.dbStats.transactionalDatabaseStats as tds
+    import PAMI.extras.dbStats.TransactionalDatabase as tds
           
     
     #initialize the program
-    obj = tds.transactionalDatabaseStats(inputFile)
-    #obj = tds.transactionalDatabaseStats(inputFile,sep=',') #override default tab seperator
+    obj = tds.TransactionalDatabase(inputFile)
+    #obj = tds.TransactionalDatabase(inputFile,sep=',') #override default tab seperator
     #execute the program
     obj.run()
     

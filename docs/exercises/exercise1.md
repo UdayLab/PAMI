@@ -31,13 +31,13 @@ A sample code to create a synthetic database is as follows:
 
 ## Task 2: Understanding the characteristics of the database
 
- Statistical details of a transactional database can be obtained by calling `transactionalDatabaseStats` class in PAMI.extras.dbStats.
+ Statistical details of a transactional database can be obtained by calling `TransactionalDatabase` class in PAMI.extras.dbStats.
  These details also be visualized by calling `plotLineGraphFromDictionary` class in  PAMI.extras.graph.
 
-    import PAMI.extras.dbStats.transactionalDatabaseStats as stats
+    import PAMI.extras.dbStats.TransactionalDatabase as stats
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt 
             
-    obj = stats.transactionalDatabaseStats(inputFile) 
+    obj = stats.TransactionalDatabase(inputFile) 
     obj.run()
   
     print(f'Database size : {obj.getDatabaseSize()}')
@@ -60,7 +60,7 @@ A sample code to create a synthetic database is as follows:
     
     plt.plotLineGraphFromDictionary(obj.getTransanctionalLengthDistribution(),100,'distribution of transactions', 'transaction length', 'frequency') 
 
-[Click here](../transactionalDatabaseStats.html) to know more about `transactionalDatabaseStats` class.
+[Click here](../TransactionalDatabase.html) to know more about `TransactionalDatabase` class.
 
 [Click here](../basicPlots.html) to know more about `plotLineGraphFromDictionary` class.
 
