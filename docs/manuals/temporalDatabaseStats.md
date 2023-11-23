@@ -11,19 +11,20 @@ Thus, it is important to know the statistical details of a database. PAMI provid
 get the statistical details of a database.   In this page, we provide the details of methods to get statistical details from 
 a temporal database. 
 
-### Executing temporalDatabaseStats program
+### Executing TemporalDatabase program
 
-The temporalDatabaseStats.py program is located in PAMI.extras.dbStats folder. Thus, execute the below lines to run the program.
+The TemporalDatabase.py program is located in PAMI.extras.dbStats folder. Thus, execute the below lines to run the program.
+
 ```Python
-    #import the program
-    import PAMI.extras.dbStats.temporalDatabaseStats as tds
-          
-    inputFile ="fileName"
-    #initialize the program
-    obj = tds.temporalDatabaseStats(inputFile)
-    # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
-    #execute the program
-    obj.run()
+    # import the program
+import PAMI.extras.dbStats.TemporalDatabase as tds
+
+inputFile = "fileName"
+# initialize the program
+obj = tds.TemporalDatabase(inputFile)
+# obj = tds.TemporalDatabase(inputFile, sep=',')  #overrride default tab seperator
+# execute the program
+obj.run()
 ```
 Once the program is executed, users can call different methods to get the statistical details of a database. We now describe the available methods.
 
@@ -130,10 +131,10 @@ Once the program is executed, users can call different methods to get the statis
     
 ## Sample code 
 ```Python
-    import PAMI.extras.dbStats.temporalDatabaseStats as tds
+    import PAMI.extras.dbStats.TemporalDatabase as tds
           
-    obj = tds.temporalDatabaseStats(inputFile)
-    # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+    obj = tds.TemporalDatabase(inputFile)
+    # obj = tds.TemporalDatabase(inputFile, sep=',')  #overrride default tab seperator
     obj.run()
     
     print(f'Database size : {obj.getDatabaseSize()}')

@@ -1,11 +1,11 @@
-# temporalDatabaseStats is a class used to get stats of database.
+# TemporalDatabase is a class used to get stats of database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import temporalDatabaseStats as db
+#     from PAMI.extras.dbStats import TemporalDatabase as db
 #
-#     obj = db.temporalDatabaseStats(iFile, "\t")
+#     obj = db.TemporalDatabase(iFile, "\t")
 #
 #     obj.save(oFile)
 #
@@ -39,11 +39,11 @@ from urllib.request import urlopen
 from typing import Dict, Union
 
 
-class temporalDatabaseStats:
+class TemporalDatabase:
     """
         Description:
         -------------
-            temporalDatabaseStats is class to get stats of database.
+            TemporalDatabase is class to get stats of database.
 
         :param inputFile : file
             input file path
@@ -88,9 +88,9 @@ class temporalDatabaseStats:
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.dbStats import temporalDatabaseStats as db
+                    from PAMI.extras.dbStats import TemporalDatabase as db
 
-                    obj = db.temporalDatabaseStats(iFile, "\t")
+                    obj = db.TemporalDatabase(iFile, "\t")
 
                     obj.save(oFile)
 
@@ -422,8 +422,8 @@ if __name__ == '__main__':
     if len(sys.argv) < 3:
         print("Please provide two arguments.")
     else:
-        obj = temporalDatabaseStats(sys.argv[1], sys.argv[2])
-        obj1 = temporalDatabaseStats(pd.DataFrame(data))
+        obj = TemporalDatabase(sys.argv[1], sys.argv[2])
+        obj1 = TemporalDatabase(pd.DataFrame(data))
         obj1.run()
         if obj1.getDatabaseSize() > 0:
             obj1.printStats()

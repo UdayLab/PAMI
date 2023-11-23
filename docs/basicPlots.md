@@ -50,11 +50,11 @@ Input parameters:
 
 ## Plots for a temporal database
 
-    import PAMI.extras.dbStats.temporalDatabaseStats as tds
+    import PAMI.extras.dbStats.TemporalDatabase as tds
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
           
-    obj = tds.temporalDatabaseStats(inputFile)
-    # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+    obj = tds.TemporalDatabase(inputFile)
+    # obj = tds.TemporalDatabase(inputFile, sep=',')  #overrride default tab seperator
     obj.run()
     
     print(f'Database size : {obj.getDatabaseSize()}')

@@ -99,10 +99,10 @@ get the statistical details of a database.
    
         This program outputs the statistical details of a temporal database. It will also output the distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
         
-            import PAMI.extras.dbStats.temporalDatabaseStats as tds
+            import PAMI.extras.dbStats.TemporalDatabase as tds
           
-            obj = tds.temporalDatabaseStats(inputFile)
-            # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+            obj = tds.TemporalDatabase(inputFile)
+            # obj = tds.TemporalDatabase(inputFile, sep=',')  #overrride default tab seperator
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')
