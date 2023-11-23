@@ -126,10 +126,10 @@ Once the program is executed, users can call different methods to get the statis
     
 ## Sample code 
 
-    import PAMI.extras.dbStats.utilityDatabaseStats as uds
+    import PAMI.extras.dbStats.UtilityDatabase as uds
             
-    obj = uds.utilityDatabaseStats(inputFile)
-    #obj = uds.utilityDatabaseStats(inputFile,sep=',') #override default tab separator
+    obj = uds.UtilityDatabase(inputFile)
+    #obj = uds.UtilityDatabase(inputFile,sep=',') #override default tab separator
     obj.run()
     print(f'Database size : {obj.getDatabaseSize()}')
     print(f'Total number of items : {obj.getTotalNumberOfItems()}')

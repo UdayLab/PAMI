@@ -1,11 +1,11 @@
-# utilityDatabaseStats is a code used to get stats of the database.
+# UtilityDatabase is a code used to get stats of the database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import utilityDatabaseStats as db
+#     from PAMI.extras.dbStats import UtilityDatabase as db
 #
-#     obj = db.utilityDatabaseStats(iFile, "\t")
+#     obj = db.UtilityDatabase(iFile, "\t")
 #
 #     obj.save(oFile)
 #
@@ -37,9 +37,9 @@ import pandas as pd
 from typing import Union
 
 
-class utilityDatabaseStats:
+class UtilityDatabase:
     """
-           :Description:  utilityDatabaseStats is class to get stats of database.
+           :Description:  UtilityDatabase is class to get stats of database.
 
 
            :param inputFile: file :
@@ -51,9 +51,9 @@ class utilityDatabaseStats:
             --------------------------------------------------------
             .. code-block:: python
 
-           from PAMI.extras.dbStats import utilityDatabaseStats as db
+           from PAMI.extras.dbStats import UtilityDatabase as db
 
-           obj = db.utilityDatabaseStats(iFile, "\t" )
+           obj = db.UtilityDatabase(iFile, "\t" )
 
            obj.save(oFile)
 
@@ -320,10 +320,10 @@ if __name__ == '__main__':
 
     try:
         if len(sys.argv) != 3:
-            raise ValueError("Missing some of the input parameters. Format: python utilityDatabaseStats.py <fileName> <seperator (optional)>")
+            raise ValueError("Missing some of the input parameters. Format: python UtilityDatabase.py <fileName> <seperator (optional)>")
 
         iFile, separator = sys.argv[1], sys.argv[2]
-        obj = utilityDatabaseStats(iFile, separator)
+        obj = UtilityDatabase(iFile, separator)
         obj.run()
         if obj.getDatabaseSize() > 0:
             obj.printStats()

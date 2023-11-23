@@ -203,10 +203,10 @@ derive the statistical details of a database.
    
         This program outputs the statistical details of a utility database. It will also output the distribution of items' frequencies, transactional lengths, and sum of utilities of all items in a database.
        
-            import PAMI.extras.dbStats.utilityDatabaseStats as uds
+            import PAMI.extras.dbStats.UtilityDatabase as uds
             
-            obj = uds.utilityDatabaseStats(inputFile)
-            #obj = uds.utilityDatabaseStats(inputFile,sep=',') #override default tab separator
+            obj = uds.UtilityDatabase(inputFile)
+            #obj = uds.UtilityDatabase(inputFile,sep=',') #override default tab separator
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')

@@ -348,10 +348,10 @@ if __name__ == '__main__':
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
     data = pd.DataFrame.from_dict(data)
-    #import PAMI.extras.dbStats.utilityDatabaseStats as uds
+    #import PAMI.extras.dbStats.UtilityDatabase as uds
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
-    #obj = utilityDatabaseStats(data)
+    #obj = UtilityDatabase(data)
     obj = fuzzyDatabaseStats(sys.argv[1], sys.argv[2])
     obj.run()
     obj.printStats()
