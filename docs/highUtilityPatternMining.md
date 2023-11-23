@@ -90,9 +90,10 @@ The performance of a pattern mining algorithm primarily depends on the satistica
 The below sample code prints the statistical details of a database.
 
 ```python 
-import PAMI.extras.dbStats.utilityDatabaseStats as stats 
-obj = stats.utilityDatabaseStats('sampleUtility.txt', ' ')
-obj.run() 
+import PAMI.extras.dbStats.UtilityDatabase as stats
+
+obj = stats.UtilityDatabase('sampleUtility.txt', ' ')
+obj.run()
 obj.printStats()
 ```
 

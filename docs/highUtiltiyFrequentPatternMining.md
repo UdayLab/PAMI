@@ -86,10 +86,12 @@ The performance of a pattern mining algorithm primarily depends on the satistica
 * Sparsity of database
 
 The sample code is provided below:
+
 ```python
-import PAMI.extras.dbStats.utilityDatabaseStats as stats 
-obj = stats.utilityDatabaseStats('sampleUtility.txt', ' ')
-obj.run() 
+import PAMI.extras.dbStats.UtilityDatabase as stats
+
+obj = stats.UtilityDatabase('sampleUtility.txt', ' ')
+obj.run()
 obj.printStats()
 ```
 

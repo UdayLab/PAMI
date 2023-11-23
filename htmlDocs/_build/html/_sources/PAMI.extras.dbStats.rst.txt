@@ -44,10 +44,10 @@ PAMI.extras.dbStats.uncertainTransactionalDatabaseStats module
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.dbStats.utilityDatabaseStats module
+PAMI.extras.dbStats.UtilityDatabase module
 -----------------------------------------------
 
-.. automodule:: PAMI.extras.dbStats.utilityDatabaseStats
+.. automodule:: PAMI.extras.dbStats.UtilityDatabase
    :members:
    :undoc-members:
    :show-inheritance:
