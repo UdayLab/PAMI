@@ -57,11 +57,10 @@ To understand about the database. The below code will give the detail about the 
 
 ### The sample code
 
-
 ```python
-import PAMI.extras.dbStats.temporalDatabaseStats as stats
- 
-obj = stats.temporalDatabaseStats('sampleTemporalDatabase.txt', ' ')
+import PAMI.extras.dbStats.TemporalDatabase as stats
+
+obj = stats.TemporalDatabase('sampleTemporalDatabase.txt', ' ')
 obj.run()
 obj.printStats() 
 ```

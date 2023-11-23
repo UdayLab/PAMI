@@ -12,18 +12,18 @@ PAMI.extras.dbStats.fuzzyDatabaseStats module
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.dbStats.temporalDatabaseStats module
+PAMI.extras.dbStats.TemporalDatabase module
 ------------------------------------------------
 
-.. automodule:: PAMI.extras.dbStats.temporalDatabaseStats
+.. automodule:: PAMI.extras.dbStats.TemporalDatabase
    :members:
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.dbStats.transactionalDatabaseStats module
+PAMI.extras.dbStats.TransactionalDatabase module
 -----------------------------------------------------
 
-.. automodule:: PAMI.extras.dbStats.transactionalDatabaseStats
+.. automodule:: PAMI.extras.dbStats.TransactionalDatabase
    :members:
    :undoc-members:
    :show-inheritance:

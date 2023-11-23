@@ -149,10 +149,10 @@ derive the statistical details of a database.
    
         This program outputs the statistical details of a transactional database. The details include distribution of items' frequencies and transactional lengths.
         
-            import PAMI.extras.dbStats.transactionalDatabaseStats as tds
+            import PAMI.extras.dbStats.TransactionalDatabase as tds
             
-            obj = tds.transactionalDatabaseStats(inputFile)
-            # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+            obj = tds.TransactionalDatabase(inputFile)
+            # obj = tds.TransactionalDatabase(inputFile, sep=',')  #overrride default tab seperator
             obj.run()
           
             print(f'Database size : {obj.getDatabaseSize()}')
@@ -173,10 +173,10 @@ derive the statistical details of a database.
    
         This program outputs the statistical details of a temporal database. The details include distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
         
-            import PAMI.extras.dbStats.temporalDatabaseStats as tds
+            import PAMI.extras.dbStats.TemporalDatabase as tds
           
-            obj = tds.temporalDatabaseStats(inputFile)
-            # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+            obj = tds.TemporalDatabase(inputFile)
+            # obj = tds.TemporalDatabase(inputFile, sep=',')  #overrride default tab seperator
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')
@@ -241,8 +241,8 @@ derive the statistical details of a database.
    
           import PAMI.extras.graph.plotLineGraphFromDictionary as plt
           
-          obj = tds.transactionalDatabaseStats(inputFile)
-          # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+          obj = tds.TransactionalDatabase(inputFile)
+          # obj = tds.TransactionalDatabase(inputFile, sep=',')  #overrride default tab seperator
           obj.run()
           
           import PAMI.extras.graph.plotLineGraphFromDictionary as plt   

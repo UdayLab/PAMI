@@ -61,8 +61,8 @@ The below sample code prints the statistical details of a database.
 
 
 ```python
-import PAMI.extras.dbStats.transactionalDatabaseStats as stats 
-obj = stats.transactionalDatabaseStats('WFIMSample.txt', ' ') 
+import PAMI.extras.dbStats.TransactionalDatabase as stats 
+obj = stats.TransactionalDatabase('WFIMSample.txt', ' ') 
 obj.run() 
 obj.printStats() 
 ```
