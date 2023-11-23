@@ -28,10 +28,10 @@ PAMI.extras.dbStats.TransactionalDatabase module
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.dbStats.uncertainTemporalDatabaseStats module
+PAMI.extras.dbStats.UncertainTemporalDatabase module
 ---------------------------------------------------------
 
-.. automodule:: PAMI.extras.dbStats.uncertainTemporalDatabaseStats
+.. automodule:: PAMI.extras.dbStats.UncertainTemporalDatabase
    :members:
    :undoc-members:
    :show-inheritance:

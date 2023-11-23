@@ -1,11 +1,11 @@
-# uncertainTemporalDatabaseStats is a class used to get stats of database.
+# UncertainTemporalDatabase is a class used to get stats of database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import uncertainTemporalDatabaseStats as db
+#     from PAMI.extras.dbStats import UncertainTemporalDatabase as db
 #
-#     obj = db.uncertainTemporalDatabaseStats(iFile, "\t")
+#     obj = db.UncertainTemporalDatabase(iFile, "\t")
 #
 #     obj.save(oFile)
 #
@@ -39,7 +39,7 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 
-class uncertainTemporalDatabaseStats:
+class UncertainTemporalDatabase:
     """
         :Description: UncertainTemporalDatabaseStats is class to get stats of database.
 
@@ -87,9 +87,9 @@ class uncertainTemporalDatabaseStats:
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.dbStats import uncertainTemporalDatabaseStats as db
+                    from PAMI.extras.dbStats import UncertainTemporalDatabase as db
 
-                    obj = db.uncertainTemporalDatabaseStats(iFile, "\t")
+                    obj = db.UncertainTemporalDatabase(iFile, "\t")
 
                     obj.save(oFile)
 
@@ -381,7 +381,7 @@ if __name__ == '__main__':
                              ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
 
     data = pd.DataFrame.from_dict(data)
-    obj = uncertainTemporalDatabaseStats(sys.argv[1], sys.argv[2])
+    obj = UncertainTemporalDatabase(sys.argv[1], sys.argv[2])
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
     obj.run()
     obj.printStats()
