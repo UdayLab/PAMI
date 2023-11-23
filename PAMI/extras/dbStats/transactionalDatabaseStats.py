@@ -1,11 +1,11 @@
-# transactinalDatabaseStats is a class used to get stats of database.
+# TransactinalDatabase is a class used to get stats of database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import transactionalDatabaseStats as db
+#     from PAMI.extras.dbStats import TransactionalDatabase as db
 #
-#     obj = db.transactionalDatabaseStats(iFile, "\t")
+#     obj = db.TransactionalDatabase(iFile, "\t")
 #
 #     obj.save(oFile)
 #
@@ -40,9 +40,9 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 
-class transactionalDatabaseStats:
+class TransactionalDatabase:
     """
-        :Description:  transactionalDatabaseStats is class to get stats of database.
+        :Description:  TransactionalDatabase is class to get stats of database.
 
         :param inputFile: file :
             input file path
@@ -86,9 +86,9 @@ class transactionalDatabaseStats:
         --------------------------------------------------------
         .. code-block:: python
 
-                    from PAMI.extras.dbStats import transactionalDatabaseStats as db
+                    from PAMI.extras.dbStats import TransactionalDatabase as db
 
-                    obj = db.transactionalDatabaseStats(iFile, "\t")
+                    obj = db.TransactionalDatabase(iFile, "\t")
 
                     obj.save(oFile)
 
@@ -322,12 +322,9 @@ if __name__ == '__main__':
     # data = pd.DataFrame.from_dict('transactional_T10I4D100K.csv')
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
     import pandas as pd
-    # obj = transactionalDatabaseStats(data)
-    obj = transactionalDatabaseStats(sys.argv[1], sys.argv[2])
-    obj = transactionalDatabaseStats(pd.DataFrame(data))
+    # obj = TransactionalDatabase(data)
+    obj = TransactionalDatabase(sys.argv[1], sys.argv[2])
+    obj = TransactionalDatabase(pd.DataFrame(data))
     obj.run()
     obj.printStats()
     obj.plotGraphs()
-
-
-
