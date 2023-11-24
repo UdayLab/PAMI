@@ -84,15 +84,15 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
       of the data in a data frame, we categorize them as a dense data frame and a sparse data frame. PAMI currently
 provides in-built procedures to convert these data frames into transactional and temporal databases.
 
-   1. [Format of dense dataframe]((DenseFormatDF2DB.html)) 
+   1. [Format of dense dataframe]((DenseFormatDF.html)) 
     
           tid/timestamp<sep>item1<sep>item2<sep>...<sep>itemN
 
-   2. [Format of sparse dataframe]((sparseFormatDF2DB.html)) 
+   2. [Format of sparse dataframe]((SparseFormatDF.html)) 
 
           tid/timestamp<sep>item<sep>value
 
-   3. [Basic approach to convert a dataframe into a database](DenseFormatDF2DB.html)
+   3. [Basic approach to convert a dataframe into a database](DenseFormatDF.html)
    
        This program creates a database by specifying a single condition and a threshold value for all items in a database.
    Code to convert a dataframe into a transactional database:

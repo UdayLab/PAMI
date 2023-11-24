@@ -86,15 +86,15 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
           
 6. [Converting dataframes to databases](dataFrameCoversio.html)
 
-   1. [Format of dense dataframe]((DenseFormatDF2DB.html)) 
+   1. [Format of dense dataframe]((DenseFormatDF.html)) 
     
           tid/timestamp<sep>item1<sep>item2<sep>...<sep>itemN
 
-   2. [Format of sparse dataframe]((sparseFormatDF2DB.html)) 
+   2. [Format of sparse dataframe]((SparseFormatDF.html)) 
 
           tid/timestamp<sep>item<sep>value
 
-   3. [Dataframe to database conversion](DenseFormatDF2DB.html)
+   3. [Dataframe to database conversion](DenseFormatDF.html)
    
        This program creates a database by specifying a single condition and a threshold value for all items in a database.
    Code to convert a dataframe into a transactional database:

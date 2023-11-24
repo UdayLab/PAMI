@@ -21,7 +21,7 @@ Chapter 3: Converting dataframes to databases
 
    1. [Format of dense dataframe](./denseDataFrame.html) 
    2. [Format of sparse dataframe](./sparseDataFrame.html)
-   3. [Approaches to convert a dataframe into various database formats](./DenseFormatDF2DB.html)
+   3. [Approaches to convert a dataframe into various database formats](./DenseFormatDF.html)
    4. [An advanced approach to convert a dataframe into a database](./DF2DBPlus.html)
 
 Chapter 4: Creation of very large synthetic databases
@@ -32,7 +32,7 @@ Chapter 4: Creation of very large synthetic databases
 
 Chapter 5: Printing, displaying, and saving the statistical details of a database
  
-   1. [Transactional databases](./transactionalDatabaseStats.html)      
+   1. [Transactional databases](./TransactionalDatabase.html)      
    2. [Temporal database (partially under development)](./temporalDatabaseStats.html)
    3. [Utility database (partially under development)](./utilityDatabaseStats.html)   
    4. [Uncertain database (under development)](./uncertainDatabaseStats.html)

@@ -22,14 +22,14 @@ An example of a dense dataframe generated from the customer purchase database is
 
 ### Converting a sparse dataframe into different database formats
 Currently, PAMI supports converting a dataframe into a transactional database, temporal database, ond a utility database.
-The users can avail this support by employing the methods available in **dataPreprocessign.sparseFormatDF2DB** class.  
+The users can avail this support by employing the methods available in **dataPreprocessign.SparseFormatDF** class.  
 We now present these three methods.
 
 #### Converting a dense dataframe into a transactional database
 A [transactional database](transactionalDatabase.html) represents a sparse and binary representation of items occurring in a dataframe. 
 The steps to convert a dataframe into a transactional database is as follows:
 
-1. Initialize the sparseFormatDF2DB class by passing the following three parameters: 
+1. Initialize the SparseFormatDF class by passing the following three parameters: 
    1. inputDataFrame  - the dataframe that needs to converted into a database
    1. thresholdValue  - this value will be used to convert a non-binary data frame into a binary database
    1. condition       - The condition that needs to employed on the threshold value. Currently, the users can specify 
@@ -40,12 +40,12 @@ The steps to convert a dataframe into a transactional database is as follows:
 A sample program to convert a dataframe into a transactional database and use it in a pattern mining algorithm, say FP-growth, is provided below
 
  ```Python
-from PAMI.extras.DF2DB import SparseFormatDF2DB as pro
+from PAMI.extras.DF2DB import SparseFormatDF as pro
 from PAMI.frequentPattern.basic import FPGrowth as alg
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-db = pro.sparseFormatDF2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+db = pro.SparseFormatDF(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a transactional database file
 db.createTransactional(outputFile='/home/userName/transactionalDB.txt')
 # Getting the fileName of the transactional database
@@ -63,7 +63,7 @@ patternsDF = obj.getPatternsAsDataFrame()
 A [temporal database](temporalDatabase.html) represents a sparse and binary representation of items occurring at a particular timestamp
 in a dataframe.  The steps to convert a dataframe into a temporal database is as follows:
 
-1. Initialize the sparseFormatDF2DB class by passing the following three parameters: 
+1. Initialize the SparseFormatDF class by passing the following three parameters: 
    1. inputDataFrame  - the dataframe that needs to converted into a database
    1. thresholdValue  - this value will be used to convert a non-binary data frame into a binary database
    1. condition       - The condition that needs to employed on the threshold value. Currently, the users can specify 
@@ -74,12 +74,12 @@ in a dataframe.  The steps to convert a dataframe into a temporal database is as
 A sample program to convert a dataframe into a temporal database and use it in a pattern mining algorithm, say PFP-growth++, is provided below
 
  ```Python
-   from PAMI.extras.DF2DB import SparseFormatDF2DB as pro
+   from PAMI.extras.DF2DB import SparseFormatDF as pro
 from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-db = pro.sparseFormatDF2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+db = pro.SparseFormatDF(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a transactional database file
 db.createTransactional(outputFile='/home/userName/temporalDB.txt')
 # Getting the fileName of the transactional database
@@ -94,7 +94,7 @@ patternsDF = obj.getPatternsAsDataFrame()
 A [utility database](utilityDatabase.html) represents a sparse and non-binary representation of items occurring in
 each row of a dataframe.  The steps to convert a dataframe into a utility database is as follows:
 
-1. Initialize the sparseFormatDF2DB class by passing the following three parameters: 
+1. Initialize the SparseFormatDF class by passing the following three parameters: 
    1. inputDataFrame  - the dataframe that needs to converted into a database
    1. thresholdValue  - this value will be used to convert a non-binary data frame into a binary database
    1. condition       - The condition that needs to employed on the threshold value. Currently, the users can specify 
@@ -105,12 +105,12 @@ each row of a dataframe.  The steps to convert a dataframe into a utility databa
 A sample program to convert a dataframe into a utility database and use it in a pattern mining algorithm, say EFIM, is provided below
 
  ```Python
-   from PAMI.extras.DF2DB import SparseFormatDF2DB as pro
+   from PAMI.extras.DF2DB import SparseFormatDF as pro
 from PAMI.highUtilityPattern.basic import EFIM as alg
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-db = pro.sparseFormatDF2DB(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+db = pro.SparseFormatDF(inputDataFrame=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a transactional database file
 db.createTransactional(outputFile='/home/userName/utilityDB.txt')
 # Getting the fileName of the transactional database

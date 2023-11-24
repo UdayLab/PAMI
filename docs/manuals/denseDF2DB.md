@@ -20,11 +20,11 @@ The steps to convert a dataframe into a transactional database is as follows:
 #### Sample code
 
  ```Python
-from PAMI.extras.DF2DB import DenseFormatDF2DB as pro
+from PAMI.extras.DF2DB import DenseFormatDF as pro
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-db = pro.DenseFormatDF2DB(inputDF=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+db = pro.DenseFormatDF(inputDF=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a transactional database file
 db.createTransactional(outputFile='/home/userName/transactionalDB.txt')
 # Getting the fileName of the transactional database
@@ -48,11 +48,11 @@ in a dataframe.  The steps to convert a dataframe into a temporal database is as
 #### Sample code
 
  ```Python
-from PAMI.extras.DF2DB import DenseFormatDF2DB as pro
+from PAMI.extras.DF2DB import DenseFormatDF as pro
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-db = pro.DenseFormatDF2DB(inputDF=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+db = pro.DenseFormatDF(inputDF=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a temporal database file
 db.createTemporal(outputFile='/home/userName/temporalDB.txt')
 # Getting the fileName of the temporal database
@@ -75,11 +75,11 @@ each row of a dataframe.  The steps to convert a dataframe into a utility databa
 #### Sample code
 
  ```Python
-from PAMI.extras.DF2DB import DenseFormatDF2DB as pro
+from PAMI.extras.DF2DB import DenseFormatDF as pro
 import pandas as pd
 
 # Objective: convert the above dataframe into a utility database with items whose value is greater than or equal 1.
-db = pro.DenseFormatDF2DB(inputDF=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
+db = pro.DenseFormatDF(inputDF=pd.DataFrame('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a utility database file
 db.createUtility(outputFile='/home/userName/utilityDB.txt')
 # Getting the fileName of the utility database

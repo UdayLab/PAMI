@@ -30,6 +30,7 @@ __copyright__ = """
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+
 import sys
 import statistics
 import pandas as pd
@@ -100,8 +101,7 @@ class TemporalDatabase:
 
     """
 
-
-    def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str='\t') -> None:
+    def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str = '\t') -> None:
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -167,7 +167,7 @@ class TemporalDatabase:
         for ts in timeStampList:
             self.periodList.append(int(ts) - preTimeStamp)
             preTimeStamp = ts
-            
+
         for x, y in self.database.items():
             for i in y:
                 if i not in self.periods:
@@ -277,31 +277,30 @@ class TemporalDatabase:
                 itemFrequencies[item] = itemFrequencies.get(item, 0)
                 itemFrequencies[item] += 1
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
-    
+
     def getFrequenciesInRange(self) -> Dict[int, int]:
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}
         maximum = max([i for i in fre.values()])
-        values = [int(i*maximum/6) for i in range(1,6)]
-        #print(maximum)
+        values = [int(i * maximum / 6) for i in range(1, 6)]
+        # print(maximum)
         va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
         rangeFrequencies[va] = values[0]
-        for i in range(1,len(values)):
-            
-            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i-1]})
+        for i in range(1, len(values)):
+            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i - 1]})
             rangeFrequencies[va] = values[i]
         return rangeFrequencies
-    
+
     def getPeriodsInRange(self) -> Dict[int, int]:
         fre = {k: v for k, v in sorted(self.periods.items(), key=lambda x: x[1])}
         rangePeriods = {}
         maximum = max([i for i in fre.values()])
-        values = [int(i*maximum/6) for i in range(1,6)]
-        #print(maximum)
+        values = [int(i * maximum / 6) for i in range(1, 6)]
+        # print(maximum)
         va = len({key: val for key, val in fre.items() if val > 0 and val < values[0]})
         rangePeriods[va] = values[0]
-        for i in range(1,len(values)):
-            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i-1]})
+        for i in range(1, len(values)):
+            va = len({key: val for key, val in fre.items() if val < values[i] and val > values[i - 1]})
             rangePeriods[va] = values[i]
         return rangePeriods
 
@@ -349,21 +348,21 @@ class TemporalDatabase:
         :return: maximum inter arrival period
         """
         return max(self.periodList)
-    
+
     def getMinimumPeriodOfItem(self) -> int:
         """
         get the minimum period of the item
         :return: minimum period
         """
         return min([i for i in self.periods.values()])
-    
+
     def getAveragePeriodOfItem(self) -> float:
         """
         get the average period of the item
         :return: average period
         """
         return sum([i for i in self.periods.values()]) / len(self.periods)
-    
+
     def getMaximumPeriodOfItem(self) -> int:
         """
         get the maximum period of the item
@@ -385,7 +384,7 @@ class TemporalDatabase:
         """
         maxTS = max(list(self.timeStampCount.keys()))
         return {ts: self.timeStampCount.get(ts, 0) for ts in range(1, maxTS + 1)}
-   
+
     def printStats(self) -> None:
         print(f'Database size : {self.getDatabaseSize()}')
         print(f'Number of items : {self.getTotalNumberOfItems()}')
@@ -401,13 +400,14 @@ class TemporalDatabase:
         print(f'Standard Deviation Transaction Size : {self.getStandardDeviationTransactionLength()}')
         print(f'Variance : {self.getVarianceTransactionLength()}')
         print(f'Sparsity : {self.getSparsity()}')
-  
+
     def plotGraphs(self) -> None:
         itemFrequencies = self.getFrequenciesInRange()
         transactionLength = self.getTransanctionalLengthDistribution()
         plt.plotLineGraphFromDictionary(itemFrequencies, 100, 0, 'Frequency', 'no of items', 'frequency')
         plt.plotLineGraphFromDictionary(transactionLength, 100, 0, 'transaction length', 'transaction length',
                                         'frequency')
+
 
 if __name__ == '__main__':
     data = {'tid': [1, 2, 3, 4, 5, 6, 7],

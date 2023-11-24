@@ -1,11 +1,11 @@
-# DenseFormatDF2DB_dump in this code the dense dataframe is converting databases into different transactional, temporal, utility types.
+# DenseFormatDF_dump in this code the dense dataframe is converting databases into different transactional, temporal, utility types.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB import DenseFormatDF2DB_dump as db
+#     from PAMI.extras.DF2DB import DenseFormatDF_dump as db
 #
-#     obj = db.DenseFormatDF2DB_dump(idf, ">=", 16)
+#     obj = db.DenseFormatDF_dump(idf, ">=", 16)
 #
 #     obj.save(oFile)
 #
@@ -38,7 +38,7 @@ __copyright__ = """
 
 import pandas as pd
 import sys
-class DenseFormatDF2DB():
+class DenseFormatDF():
     """
         :Description: This class create Data Base from DataFrame.
 
@@ -53,9 +53,9 @@ class DenseFormatDF2DB():
         --------------------------------------------------------
         .. code-block:: python
 
-        from PAMI.extras.DF2DB import DenseFormatDF2DB_dump as db
+        from PAMI.extras.DF2DB import DenseFormatDF_dump as db
 
-        obj = db.DenseFormatDF2DB_dump(iDdf, ">=", 16)
+        obj = db.DenseFormatDF_dump(iDdf, ">=", 16)
 
         obj.save(oFile)
 
@@ -303,6 +303,6 @@ class DenseFormatDF2DB():
 if __name__ == '__main__':
 
 
-    obj = DenseFormatDF2DB(sys.argv[1], sys.argv[2])
+    obj = DenseFormatDF(sys.argv[1], sys.argv[2])
     obj.getFileName(sys.argv[3])
 

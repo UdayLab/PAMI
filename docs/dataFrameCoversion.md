@@ -46,7 +46,7 @@ Key concepts in each link were briefly mentioned to save your valuable time. Cli
     Default separator used in PAMI is tab space. However, users can override the separator with their choice.
    
 1. [Converting Dataframes to Databases](df2db.html)
-   1. [Dense dataframe to database](DenseFormatDF2DB.html)
-   1. [Sparse dataframe to database](sparseFormatDF2DB.html)
+   1. [Dense dataframe to database](DenseFormatDF.html)
+   1. [Sparse dataframe to database](SparseFormatDF.html)
    1. [Spatiotemporal dataframe to databases](stDF2DB.html)
    

@@ -2,7 +2,7 @@
 
 ## Converting a sparse dataframe into different database formats
 Currently, PAMI supports converting a dataframe into a transactional database, temporal database, ond a utility database.
-The users can avail this support by employing the methods available in **dataPreprocessign.sparseFormatDF2DB** class.  
+The users can avail this support by employing the methods available in **dataPreprocessign.SparseFormatDF** class.  
 We now present these three methods.
 
 ### Sparse dataframe into a transactional database
@@ -10,7 +10,7 @@ We now present these three methods.
 A [transactional database](transactionalDatabase.html) represents a sparse and binary representation of items occurring in a dataframe. 
 The steps to convert a dataframe into a transactional database is as follows:
 
-1. Initialize the sparseFormatDF2DB class by passing the following three parameters: 
+1. Initialize the SparseFormatDF class by passing the following three parameters: 
    1. inputDataFrame  - the dataframe that needs to converted into a database
    1. thresholdValue  - this value will be used to convert a non-binary data frame into a binary database
    1. condition       - The condition that needs to employed on the threshold value. Currently, the users can specify 
@@ -21,11 +21,11 @@ The steps to convert a dataframe into a transactional database is as follows:
 #### Sample code
 
  ```Python
-from PAMI.extras.DF2DB import SparseFormatDF2DB as pro
+from PAMI.extras.DF2DB import SparseFormatDF as pro
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-db = pro.sparseFormatDF2DB(inputDF=pd.read_csv('mentionDataFrame'), thresholdValue=1, condition='>=')
+db = pro.SparseFormatDF(inputDF=pd.read_csv('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a transactional database file
 db.createTransactionalDatabase(outputFile='/home/userName/transactionalDB.txt')
 # Getting the fileName of the transactional database
@@ -39,7 +39,7 @@ print('The output file is saved at ' + db.getFileName())
 A [temporal database](temporalDatabase.html) represents a sparse and binary representation of items occurring at a particular timestamp
 in a dataframe.  The steps to convert a dataframe into a temporal database is as follows:
 
-1. Initialize the sparseFormatDF2DB class by passing the following three parameters: 
+1. Initialize the SparseFormatDF class by passing the following three parameters: 
    1. inputDataFrame  - the dataframe that needs to converted into a database
    1. thresholdValue  - this value will be used to convert a non-binary data frame into a binary database
    1. condition       - The condition that needs to employed on the threshold value. Currently, the users can specify 
@@ -50,12 +50,12 @@ in a dataframe.  The steps to convert a dataframe into a temporal database is as
 #### Sample code
 
  ```Python
-from PAMI.extras.DF2DB import SparseFormatDF2DB as pro
+from PAMI.extras.DF2DB import SparseFormatDF as pro
 from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
 import pandas as pd
 
 # Objective: convert the above dataframe into a transactional database with items whose value is greater than or equal 1.
-db = pro.sparseFormatDF2DB(inputDataFrame=pd.read_csv('mentionDataFrame'), thresholdValue=1, condition='>=')
+db = pro.SparseFormatDF(inputDataFrame=pd.read_csv('mentionDataFrame'), thresholdValue=1, condition='>=')
 # Convert and store the dataframe as a temporal database file
 db.createTemporalDatabase(outputFile='/home/userName/temporalDB.txt')
 # Getting the fileName of the temporal database
@@ -91,7 +91,7 @@ database is as follows:
 1.
 Initialize
 the
-sparseFormatDF2DB
+SparseFormatDF
 
 
 class by passing the following three parameters:
@@ -140,30 +140,29 @@ class by passing the following three parameters:
     six
     constraints: >, >=, <, <=, ==, and !=.
 
+    1.
+    Call
+    'createUtility(outputFileName)'
+    method
+    to
+    store
+    the
+    dataframe as a
+    temporal
+    database.
 
-1.
-Call
-'createUtility(outputFileName)'
-method
-to
-store
-the
-dataframe as a
-temporal
-database.
+    #### Sample code
 
-#### Sample code
+    ```Python
+    from PAMI.extras.DF2DB import SparseFormatDF as pro
+    from PAMI.highUtilityPattern.basic import EFIM as alg
+    import pandas as pd
 
-```Python
-from PAMI.extras.DF2DB import SparseFormatDF2DB as pro
-from PAMI.highUtilityPattern.basic import EFIM as alg
-import pandas as pd
-
-# Objective: convert the above dataframe into a utility database with items whose value is greater than or equal 1.
-db = pro.sparseFormatDF2DB(inputDataFrame=pd.read_csv('mentionDataFrame'), thresholdValue=1, condition='>=')
-# Convert and store the dataframe as a utility database file
-db.createUtilityDatabase(outputFile='/home/userName/utilityDB.txt')
-# Getting the fileName of the utility database
-print('The output file is saved at ' + db.getFileName())
+    # Objective: convert the above dataframe into a utility database with items whose value is greater than or equal 1.
+    db = pro.SparseFormatDF(inputDataFrame=pd.read_csv('mentionDataFrame'), thresholdValue=1, condition='>=')
+    # Convert and store the dataframe as a utility database file
+    db.createUtilityDatabase(outputFile='/home/userName/utilityDB.txt')
+    # Getting the fileName of the utility database
+    print('The output file is saved at ' + db.getFileName())
 
   ```
