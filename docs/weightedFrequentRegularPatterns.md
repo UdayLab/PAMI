@@ -67,11 +67,11 @@ To understand about the database. The below code will give the detail about the 
 
 The below sample code prints the statistical details of a database.
 
-
 ```python
-import PAMI.extras.dbStats.temporalDatabaseStats as stats 
-obj = stats.temporalDatabaseStats('WFRISample.txt', ' ') 
-obj.run() 
+import PAMI.extras.dbStats.TemporalDatabase as stats
+
+obj = stats.TemporalDatabase('WFRISample.txt', ' ')
+obj.run()
 obj.printStats() 
 ```
 

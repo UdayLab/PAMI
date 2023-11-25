@@ -22,11 +22,11 @@ Input parameters:
 
 ## Plots for a transactional database
 
-    import PAMI.extras.dbStats.transactionalDatabaseStats as tds
+    import PAMI.extras.dbStats.TransactionalDatabase as tds
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
             
-    obj = tds.transactionalDatabaseStats(inputFile)
-    # obj = tds.transactionalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+    obj = tds.TransactionalDatabase(inputFile)
+    # obj = tds.TransactionalDatabase(inputFile, sep=',')  #overrride default tab seperator
     obj.run()
           
     print(f'Database size : {obj.getDatabaseSize()}')
@@ -50,11 +50,11 @@ Input parameters:
 
 ## Plots for a temporal database
 
-    import PAMI.extras.dbStats.temporalDatabaseStats as tds
+    import PAMI.extras.dbStats.TemporalDatabase as tds
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
           
-    obj = tds.temporalDatabaseStats(inputFile)
-    # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+    obj = tds.TemporalDatabase(inputFile)
+    # obj = tds.TemporalDatabase(inputFile, sep=',')  #overrride default tab seperator
     obj.run()
     
     print(f'Database size : {obj.getDatabaseSize()}')
@@ -86,10 +86,10 @@ Input parameters:
 
 ## Plots for a utility database
 
-    import PAMI.extras.dbStats.utilityDatabaseStats as uds
+    import PAMI.extras.dbStats.UtilityDatabase as uds
             
-    obj = uds.utilityDatabaseStats(inputFile)
-    #obj = uds.utilityDatabaseStats(inputFile,sep=',') #override default tab separator
+    obj = uds.UtilityDatabase(inputFile)
+    #obj = uds.UtilityDatabase(inputFile,sep=',') #override default tab separator
     obj.run()
     
     print(f'Database size : {obj.getDatabaseSize()}')

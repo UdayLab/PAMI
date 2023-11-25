@@ -15,13 +15,13 @@ Chapter 2: Preparation of various datasets (or databases)
    5. [Geo-referenced database](./manuals/spatialDatabase.html)
    6. [Neighborhood database (to be written)](./manuals/neighborhoodDatabase.html)
    7. [Sequential database (to be written)](./manuals/sequentialDatabase.html)
-   8. [Character sequence databases(to be written)](./manuals/characterSequentialDatabase.html)
+   8. [Character sequence databases(to be written)](./manuals/charactersequentialDatabaseStats)
 
 Chapter 3: Converting dataframes to databases
 
-   1. [Format of dense dataframe](./manuals/denseDF2DB.html) 
-   2. [Format of sparse dataframe](./manuals/sparseDF2DB.html)
-   3. [Approaches to convert a dataframe into various database formats](./manuals/denseDF2DB.html)
+   1. [Format of dense dataframe](./manuals/DenseFormatDF.html) 
+   2. [Format of sparse dataframe](./manuals/SparseFormatDF.html)
+   3. [Approaches to convert a dataframe into various database formats](./manuals/DenseFormatDF.html)
    4. [An advanced approach to convert a dataframe into a database](./manuals/DF2DBPlus.html)
 
 Chapter 4: Creation of very large synthetic databases

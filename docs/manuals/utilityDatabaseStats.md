@@ -11,17 +11,17 @@ Thus, it is important to know the statistical details of a database. PAMI provid
 get the statistical details of a database.   In this page, we provide the details of methods to get statistical details from 
 a transactional database. 
 
-### Executing transactionalDatabaseStats program
+### Executing TransactionalDatabase program
 
-The transactionalDatabaseStats.py program is located in PAMI.extras.dbStats folder. Thus, execute the below lines to run the program.
+The TransactionalDatabase.py program is located in PAMI.extras.dbStats folder. Thus, execute the below lines to run the program.
 
     #import the program
-    import PAMI.extras.dbStats.transactionalDatabaseStats as tds
+    import PAMI.extras.dbStats.TransactionalDatabase as tds
           
     
     #initialize the program
-    obj = tds.transactionalDatabaseStats(inputFile)
-    #obj = tds.transactionalDatabaseStats(inputFile,sep=',') #override default tab seperator
+    obj = tds.TransactionalDatabase(inputFile)
+    #obj = tds.TransactionalDatabase(inputFile,sep=',') #override default tab seperator
     #execute the program
     obj.run()
     
@@ -126,10 +126,10 @@ Once the program is executed, users can call different methods to get the statis
     
 ## Sample code 
 
-    import PAMI.extras.dbStats.utilityDatabaseStats as uds
+    import PAMI.extras.dbStats.UtilityDatabase as uds
             
-    obj = uds.utilityDatabaseStats(inputFile)
-    #obj = uds.utilityDatabaseStats(inputFile,sep=',') #override default tab separator
+    obj = uds.UtilityDatabase(inputFile)
+    #obj = uds.UtilityDatabase(inputFile,sep=',') #override default tab separator
     obj.run()
     print(f'Database size : {obj.getDatabaseSize()}')
     print(f'Total number of items : {obj.getTotalNumberOfItems()}')

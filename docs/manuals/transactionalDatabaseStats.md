@@ -11,10 +11,10 @@ get the statistical details of a database.   In this page, we provide the detail
 a transactional database. 
 
 ## Class name
-The class to print the statistics of a transactional base is "_transactionalDatabaseStats_". This class is located at PAMI/extras/dbStats directory.
+The class to print the statistics of a transactional base is "_TransactionalDatabase_". This class is located at PAMI/extras/dbStats directory.
 One can import this class using the following syntax: 
 
-    import PAMI.extras.dbStats.transactionalDatabaseStats as stats
+    import PAMI.extras.dbStats.TransactionalDatabase as stats
 
 ##Methods
 
@@ -39,34 +39,34 @@ One can import this class using the following syntax:
 __Note:__ [Click here to download the transactional database](https://u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/Transactional_T10I4D100K.csv)
 
 ```Python
-#import the class file
-import PAMI.extras.dbStats.transactionalDatabaseStats as stats
+# import the class file
+import PAMI.extras.dbStats.TransactionalDatabase as stats
 
-#specify the file name
+# specify the file name
 inputFile = 'Transactional_T10I4D100K.csv'
 
-obj=stats.transactionalDatabaseStats(inputFile,sep='\t') 
-obj.run() 
+obj = stats.TransactionalDatabase(inputFile, sep='\t')
+obj.run()
 
-obj.printStats() 
+obj.printStats()
 obj.plotGraphs()
 ```
 
 ## Sample code  - 2: Printing individual statistics
 
 ```Python
-import PAMI.extras.dbStats.transactionalDatabaseStats as tds
-    
+import PAMI.extras.dbStats.TransactionalDatabase as tds
+
 inputFile = "<provide the name of a transactional database>"
 
-#initialize the program
-obj = tds.transactionalDatabaseStats(inputFile)
-#obj = tds.transactionalDatabaseStats(inputFile,sep='\t') #override default tab seperator
+# initialize the program
+obj = tds.TransactionalDatabase(inputFile)
+# obj = tds.TransactionalDatabase(inputFile,sep='\t') #override default tab seperator
 
-#execute the program
+# execute the program
 obj.run()
 
-#print the database statistics
+# print the database statistics
 print(f'Database size : {obj.getDatabaseSize()}')
 print(f'Total number of items : {obj.getTotalNumberOfItems()}')
 print(f'Database sparsity : {obj.getSparsity()}')

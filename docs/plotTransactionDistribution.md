@@ -79,7 +79,7 @@ get the statistical details of a database.
    
         This program outputs the statistical details of a transactional database. It will also output the distribution of items' frequencies and transactional lengths.
         
-            import PAMI.extras.dbStats.transactionalDatabaseStats as tds
+            import PAMI.extras.dbStats.TransactionalDatabase as tds
           
             print(f'Database size : {obj.getDatabaseSize()}')
             print(f'Total number of items : {obj.getTotalNumberOfItems()}')
@@ -99,10 +99,10 @@ get the statistical details of a database.
    
         This program outputs the statistical details of a temporal database. It will also output the distribution of items' frequencies, transactional lengths, and number of transactions occurring at each timestamp.
         
-            import PAMI.extras.dbStats.temporalDatabaseStats as tds
+            import PAMI.extras.dbStats.TemporalDatabase as tds
           
-            obj = tds.temporalDatabaseStats(inputFile)
-            # obj = tds.temporalDatabaseStats(inputFile, sep=',')  #overrride default tab seperator
+            obj = tds.TemporalDatabase(inputFile)
+            # obj = tds.TemporalDatabase(inputFile, sep=',')  #overrride default tab seperator
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')
@@ -129,10 +129,10 @@ get the statistical details of a database.
    
         This program outputs the statistical details of a utility database. It will also output the distribution of items' frequencies, transactional lengths, and sum of utilities of all items in a database.
        
-            import PAMI.extras.dbStats.utilityDatabaseStats as uds
+            import PAMI.extras.dbStats.UtilityDatabase as uds
             
-            obj = uds.utilityDatabaseStats(inputFile)
-            #obj = uds.utilityDatabaseStats(inputFile,sep=',') #override default tab separator
+            obj = uds.UtilityDatabase(inputFile)
+            #obj = uds.UtilityDatabase(inputFile,sep=',') #override default tab separator
             obj.run()
             
             print(f'Database size : {obj.getDatabaseSize()}')
@@ -164,15 +164,15 @@ get the statistical details of a database.
           
 7. [Converting dataframes to databases](dataFrameCoversio.html)
 
-   1. [Format of dense dataframe]((denseDF2DB.html)) 
+   1. [Format of dense dataframe]((DenseFormatDF.html)) 
     
           tid/timestamp<sep>item1<sep>item2<sep>...<sep>itemN
 
-   2. [Format of sparse dataframe]((sparseDF2DB.html)) 
+   2. [Format of sparse dataframe]((SparseFormatDF.html)) 
 
           tid/timestamp<sep>item<sep>value
 
-   3. [Dataframe to database conversion](denseDF2DB.html)
+   3. [Dataframe to database conversion](DenseFormatDF.html)
    
        This program creates a database by specifying a single condition and a threshold value for all items in a database.
    Code to convert a dataframe into a transactional database:

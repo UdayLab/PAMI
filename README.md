@@ -19,17 +19,19 @@
 PAttern MIning (PAMI) is a Python library containing several algorithms to discover user interest-based patterns in a wide-spectrum of datasets across multiple computing platforms. Useful links to utilize the services of this library were provided below:
 
 
-1. User manual https://udaylab.github.io/PAMI/manuals/index.html
+1. Youtube tutorial https://www.youtube.com/playlist?list=PLKP768gjVJmDer6MajaLbwtfC9ULVuaCZ
 
-2. Coders manual https://udaylab.github.io/PAMI/codersManual/index.html
+2. User manual https://udaylab.github.io/PAMI/manuals/index.html
 
-3. Code documentation https://pami-1.readthedocs.io 
+3. Coders manual https://udaylab.github.io/PAMI/codersManual/index.html
 
-4. Datasets   https://u-aizu.ac.jp/~udayrage/datasets.html
+4. Code documentation https://pami-1.readthedocs.io 
 
-5. Discussions on PAMI usage https://github.com/UdayLab/PAMI/discussions
+5. Datasets   https://u-aizu.ac.jp/~udayrage/datasets.html
 
-6. Report issues https://github.com/UdayLab/PAMI/issues
+6. Discussions on PAMI usage https://github.com/UdayLab/PAMI/discussions
+
+7. Report issues https://github.com/UdayLab/PAMI/issues
 
 # Features
 
@@ -352,7 +354,7 @@ Total number of algorithms: 83
 | Basic                                                                                                                                                                                                                                                       |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | SPADE <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/sequencePatternMining/basic/SPADE.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a>           |
-| PrefixSpan <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/sequencePatternMining/basic/PrifixSpan.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
+| PrefixSpan <a target="_blank" href="https://colab.research.google.com/github/UdayLab/PAMI/blob/main/notebooks/sequencePatternMining/basic/prefixSpan.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/> </a> |
 
 
 #### 7.2. Geo-referenced Frequent Sequence Pattern mining
