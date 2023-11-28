@@ -55,7 +55,7 @@ __copyright__ = """
 
 from PAMI.localPeriodicPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
-
+import pandas as pd
 
 class LPPMDepth(_ab._localPeriodicPatterns):
 
