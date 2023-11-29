@@ -559,7 +559,14 @@ class prefixSpan(_ab._sequentialPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            pattern=""
+            x=x.replace("[","")
+            x=x.replace("]","")
+            x=x.replace("'","")
+            for i in x.split(","):
+                
+                pattern=pattern+"\t"+str(i)
+            s1 = pattern  + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
