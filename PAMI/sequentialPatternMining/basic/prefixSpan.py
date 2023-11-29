@@ -206,7 +206,7 @@ class prefixSpan(_ab._sequentialPatterns):
                     with open(self._iFile, 'r', encoding='utf-8') as f:
                         for line in f:
                             line.strip()
-                            temp = [i.rstrip() for i in line.split('":"')]
+                            temp = [i.rstrip() for i in line.split(':')]
                             temp = [x for x in temp if x ]
 
                             seq = []
