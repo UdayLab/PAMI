@@ -53,6 +53,7 @@ __copyright__ = """
 """
 from PAMI.sequentialPatternMining.basic import abstract as _ab
 import copy
+import re
 _ab._sys.setrecursionlimit(10000)
 
 class prefixSpan(_ab._sequentialPatterns):
@@ -559,7 +560,12 @@ class prefixSpan(_ab._sequentialPatterns):
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
         for x, y in self._finalPatterns.items():
-            s1 = x + ":" + str(y)
+            pattern=""
+            x=re.sub("[\['\]]","",x)
+            for i in x.split(","):
+                
+                pattern=pattern+"\t"+str(i)
+            s1 = pattern  + str(y)
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
