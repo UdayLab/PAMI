@@ -75,6 +75,7 @@ class convertMultipleTSIntoFuzzy():
             with open(self._FuzFile, 'r', encoding='utf-8') as f:
                 count = 0
                 for line in f:
+                    line = line.strip()
                     line = line.split("\n")[0]
                     parts = line.split(" ")
                     lowerBound = parts[0].strip()
@@ -100,6 +101,7 @@ class convertMultipleTSIntoFuzzy():
         try:
             with open(self._iFile, 'r', encoding='utf-8') as f:
                 for line in f:
+                    line = line.strip()
                     line = line.split("\n")[0]
                     parts = line.split(":")
                     parts[0] = parts[0].strip()
@@ -108,9 +110,9 @@ class convertMultipleTSIntoFuzzy():
                     times = parts[0].split('\t')
                     items = parts[1].split('\t')
                     quantities = parts[2].split('\t')
-                    self._timeEvents.append([x for x in times])
-                    self._transactionsDB.append([x for x in items])
-                    self._fuzzyValuesDB.append([x for x in quantities])
+                    self._timeEvents.append([x for x in times if x])
+                    self._transactionsDB.append([x for x in items if x])
+                    self._fuzzyValuesDB.append([x for x in quantities if x])
         except IOError:
             print("File Not Found")
             quit()
