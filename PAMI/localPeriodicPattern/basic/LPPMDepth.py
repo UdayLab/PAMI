@@ -459,7 +459,7 @@ class LPPMDepth(_ab._localPeriodicPatterns):
 
         return self._localPeriodicPatterns__endTime - self._localPeriodicPatterns__startTime
 
-    def getPatternsAsDataFrame(self) -> pd.DataFrame:
+    def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """Storing final local periodic patterns in a dataframe
 
         :return: returning local periodic patterns in a dataframe

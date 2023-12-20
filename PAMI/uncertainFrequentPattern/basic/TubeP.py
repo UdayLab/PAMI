@@ -309,7 +309,7 @@ class _Tree(object):
                 if len(pattern) <= 2:
                     s += x.probability
                 elif len(pattern) >= 3:
-                    n = x.probability * pow(x.secondProbability, (x.k - 2))
+                    n = x.probability * pow(x.prefixProbability, (x.k - 2))
                     s += n
             _finalPatterns[tuple(pattern)] = self.info[i]
             if s >= _minSup:
