@@ -288,7 +288,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
-            return int(o1.item) - int(o2.item)
+            return 0
         else:
             return compare
 
@@ -335,8 +335,8 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                     parts[1] = parts[1].strip()
                     items = parts[0].split(self._sep)
                     quantities = parts[1].split(self._sep)
-                    self.transactions.append([x for x in items])
-                    self.fuzzyValues.append([float(x) for x in quantities])
+                    self._transactions.append([x for x in items])
+                    self._fuzzyValues.append([float(x) for x in quantities])
             else:
                 try:
                     with open(self._iFile, 'r', encoding='utf-8') as f:

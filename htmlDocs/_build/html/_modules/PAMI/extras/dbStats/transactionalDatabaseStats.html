@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAMI.extras.dbStats.transactionalDatabaseStats &mdash; PAMI 2023.10.23 documentation</title>
+  <title>PAMI.extras.dbStats.TransactionalDatabase &mdash; PAMI 2023.10.23 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -59,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">PAMI.extras.dbStats.transactionalDatabaseStats</li>
+      <li class="breadcrumb-item active">PAMI.extras.dbStats.TransactionalDatabase</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -68,15 +68,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for PAMI.extras.dbStats.transactionalDatabaseStats</h1><div class="highlight"><pre>
+  <h1>Source code for PAMI.extras.dbStats.TransactionalDatabase</h1><div class="highlight"><pre>
 <span></span><span class="c1"># transactinalDatabaseStats is a class used to get stats of database.</span>
 <span class="c1">#</span>
 <span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#     from PAMI.extras.dbStats import transactionalDatabaseStats as db</span>
+<span class="c1">#     from PAMI.extras.dbStats import TransactionalDatabase as db</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = db.transactionalDatabaseStats(iFile, &quot;\t&quot;)</span>
+<span class="c1">#     obj = db.TransactionalDatabase(iFile, &quot;\t&quot;)</span>
 <span class="c1">#</span>
 <span class="c1">#     obj.save(oFile)</span>
 <span class="c1">#</span>
@@ -111,11 +111,11 @@
 <span class="kn">import</span> <span class="nn">PAMI.extras.graph.plotLineGraphFromDictionary</span> <span class="k">as</span> <span class="nn">plt</span>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats">[docs]</a>
-<span class="k">class</span> <span class="nc">transactionalDatabaseStats</span><span class="p">:</span>
+<div class="viewcode-block" id="TransactionalDatabase">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase">[docs]</a>
+<span class="k">class</span> <span class="nc">TransactionalDatabase</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :Description:  transactionalDatabaseStats is class to get stats of database.</span>
+<span class="sd">        :Description:  TransactionalDatabase is class to get stats of database.</span>
 
 <span class="sd">        :param inputFile: file :</span>
 <span class="sd">            input file path</span>
@@ -159,9 +159,9 @@
 <span class="sd">        --------------------------------------------------------</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">                    from PAMI.extras.dbStats import transactionalDatabaseStats as db</span>
+<span class="sd">                    from PAMI.extras.dbStats import TransactionalDatabase as db</span>
 
-<span class="sd">                    obj = db.transactionalDatabaseStats(iFile, &quot;\t&quot;)</span>
+<span class="sd">                    obj = db.TransactionalDatabase(iFile, &quot;\t&quot;)</span>
 
 <span class="sd">                    obj.save(oFile)</span>
 
@@ -182,14 +182,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itemFrequencies</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="transactionalDatabaseStats.run">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.run">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.run">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.run">[docs]</a>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">readDatabase</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.readDatabase">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.readDatabase">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.readDatabase">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.readDatabase">[docs]</a>
     <span class="k">def</span> <span class="nf">readDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        read database from input file and store into database and size of each transaction.</span>
@@ -229,8 +229,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">lengthList</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.getDatabaseSize">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getDatabaseSize">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.getDatabaseSize">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.getDatabaseSize">[docs]</a>
     <span class="k">def</span> <span class="nf">getDatabaseSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the size of database</span>
@@ -239,8 +239,8 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.getTotalNumberOfItems">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getTotalNumberOfItems">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.getTotalNumberOfItems">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.getTotalNumberOfItems">[docs]</a>
     <span class="k">def</span> <span class="nf">getTotalNumberOfItems</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the number of items in database.</span>
@@ -249,8 +249,8 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.getMinimumTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getMinimumTransactionLength">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.getMinimumTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.getMinimumTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getMinimumTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the minimum transaction length</span>
@@ -259,8 +259,8 @@
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lengthList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.getAverageTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getAverageTransactionLength">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.getAverageTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.getAverageTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getAverageTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the average transaction length. It is sum of all transaction length divided by database length.</span>
@@ -270,8 +270,8 @@
         <span class="k">return</span> <span class="n">totalLength</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.getMaximumTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getMaximumTransactionLength">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.getMaximumTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.getMaximumTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getMaximumTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the maximum transaction length</span>
@@ -280,8 +280,8 @@
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lengthList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.getStandardDeviationTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getStandardDeviationTransactionLength">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.getStandardDeviationTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.getStandardDeviationTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getStandardDeviationTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the standard deviation transaction length</span>
@@ -290,8 +290,8 @@
         <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">pstdev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lengthList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.getVarianceTransactionLength">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getVarianceTransactionLength">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.getVarianceTransactionLength">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.getVarianceTransactionLength">[docs]</a>
     <span class="k">def</span> <span class="nf">getVarianceTransactionLength</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the variance transaction length</span>
@@ -300,8 +300,8 @@
         <span class="k">return</span> <span class="n">statistics</span><span class="o">.</span><span class="n">variance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lengthList</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.getNumberOfItems">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.getNumberOfItems">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.getNumberOfItems">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.TransactionalDatabase.getNumberOfItems">[docs]</a>
     <span class="k">def</span> <span class="nf">getNumberOfItems</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the number of items in database.</span>
@@ -310,8 +310,8 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="transactionalDatabaseStats.convertDataIntoMatrix">
-<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.transactionalDatabaseStats.transactionalDatabaseStats.convertDataIntoMatrix">[docs]</a>
+<div class="viewcode-block" id="TransactionalDatabase.convertDataIntoMatrix">
+<a class="viewcode-back" href="../../../../PAMI.extras.dbStats.html#PAMI.extras.dbStats.TransactionalDatabase.transactionalDatabaseStats.convertDataIntoMatrix">[docs]</a>
     <span class="k">def</span> <span class="nf">convertDataIntoMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="n">singleItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSortedListOfItemFrequencies</span><span class="p">()</span>
         <span class="c1"># big_array = np.zeros((self.getDatabaseSize(), len(self.getSortedListOfItemFrequencies())))</span>
