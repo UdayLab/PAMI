@@ -43,12 +43,12 @@ from urllib.request import urlopen as _urlopen
 
 
 class _utilityPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every relative high utility pattern mining algorithm must
-        employ in PAMI
+    """
+    :Description: This abstract base class defines the variables and methods that every relative high utility pattern mining algorithm must
+                  employ in PAMI
 
+    :Attributes:
 
-       Attributes
-        ----------
         iFile : str
             Input file name or path of the input file
         minUtil: integer 
@@ -71,8 +71,8 @@ class _utilityPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    :Methods:
+
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -115,65 +115,6 @@ class _utilityPatterns(_ABC):
         self._memoryUSS = float()
         self._memoryRSS = float()
 
-    '''@abstractmethod
-    def iFile(self):
-        """Variable to store the input file path/file name"""
-
-        pass
-
-    @abstractmethod
-    def minUtil(self):
-        """Variable to store the user-specified minimum utility value"""
-
-        pass
-
-    @abstractmethod
-    def minUR(self):
-        """Variable to store the user-specified minimum utility ratio value"""
-
-        pass
-
-    @abstractmethod
-    def sep(self):
-        """Variable to store the user-specified minimum support value"""
-
-        pass
-
-    @abstractmethod
-    def startTime(self):
-        """Variable to store the start time of the mining process"""
-
-        pass
-
-    @abstractmethod
-    def endTime(self):
-        """Variable to store the end time of the complete program"""
-
-        pass
-
-    @abstractmethod
-    def memoryUSS(self):
-        """Variable to store USS memory consumed by the program"""
-
-        pass
-
-    @abstractmethod
-    def memoryRSS(self):
-        """Variable to store RSS memory consumed by the program"""
-
-        pass
-
-    @abstractmethod
-    def finalPatterns(self):
-        """Variable to store the complete set of patterns in a dictionary"""
-
-        pass
-
-    @abstractmethod
-    def oFile(self):
-        """Variable to store the name of the output file to store the complete set of frequent patterns"""
-
-        pass'''
 
     @_abstractmethod
     def startMine(self):

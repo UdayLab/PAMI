@@ -8,8 +8,7 @@
 #     obj = plt.plotLineGraphFromDictionary(idict, 100, 0, " ")
 #
 #     obj.save()
-#
-#
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran

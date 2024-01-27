@@ -56,80 +56,72 @@ from PAMI.periodicFrequentPattern.closed import abstract as _ab
 
 class CPFPMiner(_ab._periodicFrequentPatterns):
     """ 
-        Description:
-        ------------
-         
-            CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.
-            It uses depth-first search.
+    :Description:   CPFPMiner algorithm is used to discover the closed periodic frequent patterns in temporal databases.
+                    It uses depth-first search.
 
-        Reference:
-        -------
-            P. Likhitha et al., "Discovering Closed Periodic-Frequent Patterns in Very Large Temporal Databases"
-            2020 IEEE International Conference on Big Data (Big Data), 2020, https://ieeexplore.ieee.org/document/9378215
+    :Reference:   P. Likhitha et al., "Discovering Closed Periodic-Frequent Patterns in Very Large Temporal Databases"
+                  2020 IEEE International Conference on Big Data (Big Data), 2020, https://ieeexplore.ieee.org/document/9378215
 
-      
-        Attributes:
-        ----------
-            iFile : str
-                Input file name or path of the input file
-            oFile : str
-                Name of the output file or path of the input file
-            minSup: int or float or str
-                The user can specify minSup either in count or proportion of database size.
-                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-            maxPer: int or float or str
-                The user can specify maxPer either in count or proportion of database size.
-                If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-                However, the users can override their default separator.
-            startTime:float
-                To record the start time of the mining process
-            endTime:float
-                To record the completion time of the mining process
-            finalPatterns: dict
-                Storing the complete set of patterns in a dictionary variable
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+    :Attributes:
 
-        Methods:
-        -------
+        iFile : str
+            Input file name or path of the input file
+        oFile : str
+            Name of the output file or path of the input file
+        minSup: int or float or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        maxPer: int or float or str
+            The user can specify maxPer either in count or proportion of database size.
+            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
+        startTime:float
+            To record the start time of the mining process
+        endTime:float
+            To record the completion time of the mining process
+        finalPatterns: dict
+            Storing the complete set of patterns in a dictionary variable
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
 
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            save(oFile)
-                Complete set of frequent patterns will be loaded in to an output file
-            getPatternsAsDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
+    :Methods:
 
-                
-        **Methods to execute code on terminal**
-        
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        save(oFile)
+            Complete set of frequent patterns will be loaded in to an output file
+        getPatternsAsDataFrame()
+            Complete set of frequent patterns will be loaded in to a dataframe
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+
+    **Methods to execute code on terminal**
+    --------------------------------------------
                 Format:
                           >>>  python3 CPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer>
                 Example:
                           >>>  python3 CPFPMiner.py sampleTDB.txt patterns.txt 0.3 0.4
         
-                .. note:: minSup will be considered in percentage of database transactions
+                          .. note:: minSup will be considered in percentage of database transactions
         
         
-        **Importing this algorithm into a python program**
-        
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    -------------------------------------------------------
+    .. code-block:: python
         
                     from PAMI.periodicFrequentPattern.closed import CPFPMiner as alg
         
@@ -157,12 +149,10 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         
                     print("Total ExecutionTime in seconds:", run)
         
-        **Credits:**
-        
-                 The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
-
-
-        """
+    **Credits:**
+    ------------------
+    The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
+    """
 
     _minSup = float()
     _maxPer = float()
@@ -190,8 +180,8 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
-        :param value: user specified value
 
+        :param value: user specified value
         :return: converted value
         """
         if type(value) is int:
@@ -209,9 +199,7 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def _scanDatabase(self):
         """
         To scan the database and extracts the 1-length periodic-frequent items
-        Returns:
-        -------
-        Returns the 1-length periodic-frequent items
+        :return:   Returns the 1-length periodic-frequent items
         """
         Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -283,13 +271,9 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def _calculate(self, tidSet):
         """
         To calculate the weight if pattern based on the respective timeStamps
-        Parameters
-        ----------
-        tidSet: timeStamps of the pattern
 
-        Returns
-        -------
-        the calculated weight of the timeStamps
+        :param tidSet: timeStamps of the pattern
+        :return: the calculated weight of the timeStamps
         """
         hashcode = 0
         for i in tidSet:
@@ -301,15 +285,12 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def _contains(self, itemSet, val, hashcode):
         """
         To check if the key(hashcode) is in dictionary(hashing) variable
-        Parameters:
-        ----------
-            itemSet: generated periodic-frequent itemSet
-            val: support and periodicity of itemSet
-            hashcode: the key generated in calculate() method for every itemSet
 
-        Returns
-        -------
-            true if itemSet with same support present in dictionary(hashing) or else returns false
+        :param itemSet: generated periodic-frequent itemSet
+        :param val: support and periodicity of itemSet
+        :param hashcode: the key generated in calculate() method for every itemSet
+
+        :return: true if itemSet with same support present in dictionary(hashing) or else returns false
         """
         if self._hashing.get(hashcode) is None:
             return False
@@ -322,13 +303,9 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def _getPeriodAndSupport(self, timeStamps):
         """
         Calculates the periodicity and support of timeStamps
-        Parameters:
-        ----------
-            timeStamps: timeStamps of itemSet
 
-        Returns:
-        -------
-            periodicity and support
+        :param timeStamps: timeStamps of itemSet
+        :return: periodicity and support
         """
         timeStamps.sort()
         cur = 0
@@ -347,13 +324,13 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         """
         Saves the generated pattern which satisfies the closed property
         Parameters:
-        ----------
+        -----------
             prefix: the prefix part of itemSet
             suffix: the suffix part of itemSet
             tidSetX: the timeStamps of the generated itemSet
 
         Returns:
-        -------
+        --------
             saves the closed periodic-frequent pattern
 
         """
@@ -379,15 +356,11 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
 
     def _processEquivalenceClass(self, prefix, itemSets, tidSets):
         """
-        Parameters:
-        ----------
-            prefix: Prefix class of an itemSet
-            itemSets: suffix items in periodicFrequentItems that satisfies the minSup condition
-            tidSets: timeStamps of items in itemSets respectively
 
-        Returns:
-        -------
-            closed periodic patterns with length more than 2
+        :param prefix: Prefix class of an itemSet
+        :param itemSets: suffix items in periodicFrequentItems that satisfies the minSup condition
+        :param tidSets: timeStamps of items in itemSets respectively
+        :return:  closed periodic patterns with length more than 2
         """
         if len(itemSets) == 1:
             i = itemSets[0]
@@ -494,11 +467,11 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         print("Closed periodic frequent patterns were generated successfully using CPFPMiner algorithm ")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
-            :return: returning USS memory consumed by the mining process
-
-            :rtype: float
+        :return: returning USS memory consumed by the mining process
+        :rtype: float
         """
 
         return self._memoryUSS
@@ -506,9 +479,8 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
-            :return: returning RSS memory consumed by the mining process
-
-            :rtype: float
+        :return: returning RSS memory consumed by the mining process
+        :rtype: float
         """
 
         return self._memoryRSS
@@ -516,9 +488,8 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-            :return: returning total amount of runtime taken by the mining process
-
-            :rtype: float
+        :return: returning total amount of runtime taken by the mining process
+        :rtype: float
         """
 
         return self._endTime - self._startTime
@@ -526,9 +497,8 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
-            :return: returning frequent patterns in a dataframe
-
-            :rtype: pd.DataFrame
+        :return: returning frequent patterns in a dataframe
+        :rtype: pd.DataFrame
         """
 
         dataFrame = {}
@@ -539,9 +509,11 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
-           :param outFile: name of the output file
-           :type outFile: file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
+        :param outFile: name of the output file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -552,14 +524,14 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
-            :return: returning frequent patterns
-
-            :rtype: dict
+        :return: returning frequent patterns
+        :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Closed Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

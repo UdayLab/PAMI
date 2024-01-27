@@ -1,4 +1,4 @@
-# TransactinalDatabase is a class used to get stats of database.
+# Transactional Database is a class used to get stats of database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -12,8 +12,9 @@
 #     obj.run()
 #
 #     obj.printStats()
-#
-#
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -50,7 +51,7 @@ class TransactionalDatabase:
             separator in file. Default is tab space.
 
         Methods:
-        -------
+        ---------
         run()
             execute readDatabase function
         readDatabase()
@@ -273,8 +274,8 @@ class TransactionalDatabase:
 
     def getTransanctionalLengthDistribution(self) -> dict:
         """
-        get transaction length
-        :return: transaction length
+        Get transaction length
+        :return: dict
         """
         transactionLength = {}
         for length in self.lengthList:

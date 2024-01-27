@@ -61,8 +61,8 @@ class _Node(object):
     """
         A class used to represent the node of frequentPatternTree
 
-        Attributes:
-        ----------
+        :Attributes:
+
             item : int or None
                 Storing item of a node
             timeStamps : list
@@ -72,8 +72,8 @@ class _Node(object):
             children : list
                 To maintain the children of a node
 
-        Methods:
-        -------
+        :Methods:
+
             addChild(itemName)
                 Storing the children to their respective parent nodes
         """
@@ -93,9 +93,10 @@ class _Node(object):
         self.timeStamps = []
 
     def addChild(self, node):
-        """ To add the children to a node
+        """
+        To add the children to a node
 
-            :param node: parent node in the tree
+        :param node: parent node in the tree
         """
 
         self.children[node.item] = node
@@ -106,8 +107,8 @@ class _Tree(object):
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-        Attributes:
-        ----------
+        :Attributes:
+
             root : Node
                 Represents the root node of the tree
             summaries : dictionary
@@ -115,9 +116,8 @@ class _Tree(object):
             info : dictionary
                 Stores the support of the items
 
+        :Methods:
 
-        Methods:
-        -------
             addTransactions(Database)
                 Creating transaction as a branch in Recurring PatternTree
             getConditionalPatterns(Node)
@@ -138,13 +138,14 @@ class _Tree(object):
         self.info = {}
 
     def addTransaction(self, transaction, tid):
-        """     Adding a transaction into tree
+        """
+        Adding a transaction into tree
 
-                :param transaction: To represent the complete database
-                :type transaction: list
-                :param tid: To represent the timestamp of a database
-                :type tid: list
-                :return: rp-tree
+        :param transaction: To represent the complete database
+        :type transaction: list
+        :param tid: To represent the timestamp of a database
+        :type tid: list
+        :return: rp-tree
         """
 
         currentNode = self.root
@@ -162,11 +163,12 @@ class _Tree(object):
         currentNode.timeStamps = currentNode.timeStamps + tid
 
     def getConditionalPatterns(self, alpha):
-        """Generates all the conditional patterns of a respective node
+        """
+        Generates all the conditional patterns of a respective node
 
-            :param alpha: To represent a Node in the tree
-            :type alpha: Node
-            :return: A tuple consisting of finalPatterns, conditional pattern base and information
+        :param alpha: To represent a Node in the tree
+        :type alpha: Node
+        :return: A tuple consisting of finalPatterns, conditional pattern base and information
         """
         finalPatterns = []
         finalSets = []
@@ -185,7 +187,8 @@ class _Tree(object):
 
     @staticmethod
     def generateTimeStamps(node):
-        """To get the timestamps of a node
+        """
+        To get the timestamps of a node
 
         :param node: A node in the tree
         :return: Timestamps of a node
@@ -195,11 +198,12 @@ class _Tree(object):
         return finalTimeStamps
 
     def removeNode(self, nodeValue):
-        """ Removing the node from tree
+        """
+        Removing the node from tree
 
-            :param nodeValue: To represent a node in the tree
-            :type nodeValue: node
-            :return: Tree with their nodes updated with timestamps
+        :param nodeValue: To represent a node in the tree
+        :type nodeValue: node
+        :return: Tree with their nodes updated with timestamps
         """
 
         for i in self.summaries[nodeValue]:
@@ -207,10 +211,11 @@ class _Tree(object):
             del i.parent.children[nodeValue]
 
     def getTimeStamps(self, alpha):
-        """ To get all the timestamps of the nodes which share same item name
+        """
+        To get all the timestamps of the nodes which share same item name
 
-            :param alpha: Node in a tree
-            :return: Timestamps of a  node
+        :param alpha: Node in a tree
+        :return: Timestamps of a  node
         """
         temporary = []
         for i in self.summaries[alpha]:
@@ -219,7 +224,8 @@ class _Tree(object):
 
     @staticmethod
     def getSupportAndPeriod(timeStamps):
-        """To calculate the recurrence and support
+        """
+        To calculate the recurrence and support
 
         :param timeStamps: Timestamps of an item set
         :return: recurring intervals with corresponding periodic support, summation of support of periodic intervals, support
@@ -255,13 +261,14 @@ class _Tree(object):
         return [recli, ps, len(timeStamps)]
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps):
-        """ It generates the conditional patterns with periodic-frequent items
+        """
+        It generates the conditional patterns with periodic-frequent items
 
-            :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
-            :type conditionalPatterns: list
-            :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
-            :type conditionalTimeStamps: list
-            :returns: Returns conditional transactions by removing non recurring items
+        :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
+        :type conditionalPatterns: list
+        :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
+        :type conditionalTimeStamps: list
+        :returns: Returns conditional transactions by removing non recurring items
         """
 
         global _maxPer, _minPS, _minRec
@@ -290,11 +297,12 @@ class _Tree(object):
         return pat, timeStamps, updatedDictionary
 
     def generatePatterns(self, prefix):
-        """ Generates the patterns
+        """
+        Generates the patterns
 
-            :param prefix: Forms the combination of items
-            :type prefix: list
-            :returns: yields patterns with their recurrence and support
+        :param prefix: Forms the combination of items
+        :type prefix: list
+        :returns: yields patterns with their recurrence and support
         """
         global _minRec
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[1], -x)):
@@ -315,32 +323,27 @@ class _Tree(object):
 
 class RPGrowth(_ab._recurringPatterns):
     """
-    Description:
-    -------------
+    :Description:   RPGrowth is one of the fundamental algorithm to discover recurring patterns in a transactional database.
 
-         RPGrowth is one of the fundamental algorithm to discover recurring patterns in a transactional database.
+    :Reference:
 
-    Reference:
-    ------------
+    :Attributes:
 
-
-    Attributes:
-    ----------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        maxPer: int or float or str
+        maxPer : int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        minPS: int or float or str
+        minPS : int or float or str
             The user can specify minPS either in count or proportion of database size.
             If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
             Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
-        minRec: int or float or str
+        minRec : int or float or str
             The user has to specify minRec in count.
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
@@ -349,9 +352,9 @@ class RPGrowth(_ab._recurringPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
         Database : list
             To store the transactions of a database in list
@@ -366,8 +369,8 @@ class RPGrowth(_ab._recurringPatterns):
         finalPatterns : dict
             To store the complete patterns
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -393,19 +396,18 @@ class RPGrowth(_ab._recurringPatterns):
         convert()
             to convert the user specified value
 
-
     **Methods to execute code on terminal**
-
+    -------------------------------------------
             Format:
                       >>>  python3 RPGrowth.py <inputFile> <outputFile> <maxPer> <minPS> <minRec>
+
             Example:
                       >>>  python3 RPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 2
 
-            .. note:: maxPer and minPS will be considered in percentage of database transactions
-
+                     .. note:: maxPer and minPS will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
-
+    --------------------------------------------------------
     .. code-block:: python
 
                 from PAMI.periodicFrequentPattern.recurring import RPGrowth as alg
@@ -433,8 +435,9 @@ class RPGrowth(_ab._recurringPatterns):
                 run = obj.getRuntime()
 
                 print("Total ExecutionTime in seconds:", run)
-    **Credits:**
 
+    **Credits:**
+    -------------
              The complete program was written by   C. Saideep  under the supervision of Professor Rage Uday Kiran.
 
     """
@@ -455,7 +458,8 @@ class RPGrowth(_ab._recurringPatterns):
     _lno = 0
 
     def _creatingItemSets(self):
-        """ Storing the complete values of the database/input file in a database variable
+        """
+        Storing the complete values of the database/input file in a database variable
         """
 
         self._Database = []
@@ -487,10 +491,11 @@ class RPGrowth(_ab._recurringPatterns):
                     quit()
 
     def _OneItems(self):
-        """ Calculates the maxRec and support of each item in the database and assign ranks to the items
-            by decreasing support and returns the RP-list
+        """
+        Calculates the maxRec and support of each item in the database and assign ranks to the items
+        by decreasing support and returns the RP-list
 
-            :returns: return the RP-list
+        :return: return the RP-list
         """
         #global rank
         data = {}
@@ -523,12 +528,13 @@ class RPGrowth(_ab._recurringPatterns):
         return data, genList
 
     def _updateDatabases(self, dict1):
-        """ Remove the items which does not  satisfy maxRec from database and updates the database with rank of items
+        """
+        Remove the items which does not  satisfy maxRec from database and updates the database with rank of items
 
-            :param dict1: Recurring items with support and recurrence
-            :type dict1: dictionary
-            :return: Sorted and updated transactions
-            """
+        :param dict1: Recurring items with support and recurrence
+        :type dict1: dictionary
+        :return: Sorted and updated transactions
+        """
         list1 = []
         for tr in self._Database:
             list2 = [int(tr[0])]
@@ -545,13 +551,14 @@ class RPGrowth(_ab._recurringPatterns):
 
     @staticmethod
     def _buildTree(data, info):
-        """ It takes the database and construct the main tree by setting root node as a null
+        """
+        It takes the database and construct the main tree by setting root node as a null
 
-            :param data: it represents the one items in database
-            :type data: list
-            :param info: it represents the support and recurrence of each item
-            :type info: dictionary
-            :return: returns root node of tree
+        :param data: it represents the one items in database
+        :type data: list
+        :param info: it represents the support and recurrence of each item
+        :type info: dictionary
+        :return: returns root node of tree
         """
 
         rootNode = _Tree()
@@ -562,10 +569,11 @@ class RPGrowth(_ab._recurringPatterns):
         return rootNode
 
     def _savePeriodic(self, itemSet):
-        """ To convert the ranks of items in to their original item names
+        """
+        To convert the ranks of items in to their original item names
 
-            :param itemSet: recurring pattern
-            :return: recurring pattern with original item names
+        :param itemSet: recurring pattern.
+        :return: recurring pattern with original item names
         """
         t1 = str()
         for i in itemSet:
@@ -592,7 +600,8 @@ class RPGrowth(_ab._recurringPatterns):
         return value
 
     def startMine(self):
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
 
         global _minPS, _minRec, _maxPer, _lno
@@ -624,7 +633,8 @@ class RPGrowth(_ab._recurringPatterns):
         print("Recurring patterns were generated successfully using RPGrowth algorithm ")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -633,7 +643,8 @@ class RPGrowth(_ab._recurringPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -642,8 +653,8 @@ class RPGrowth(_ab._recurringPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -652,7 +663,8 @@ class RPGrowth(_ab._recurringPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -674,9 +686,10 @@ class RPGrowth(_ab._recurringPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to a output file
 
-        :param outFile: name of the output file
+        :param outFile: name of the output file.
         :type outFile: file
         """
         self._oFile = outFile
@@ -694,7 +707,8 @@ class RPGrowth(_ab._recurringPatterns):
         writer.close()
 
     def getPatterns(self):
-        """ Function to send the set of periodic-frequent patterns after completion of the mining process
+        """
+        Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
         :rtype: dict

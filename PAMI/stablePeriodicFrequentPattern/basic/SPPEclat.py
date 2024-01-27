@@ -5,7 +5,6 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#
 #     from PAMI.stablePeriodicFrequentPattern.basic import basic as alg
 #
 #     obj = alg.SPPEclat("../basic/sampleTDB.txt", 5, 3, 3)
@@ -59,34 +58,30 @@ from PAMI.stablePeriodicFrequentPattern.basic import abstract as _ab
 
 class SPPEclat(_ab._stablePeriodicFrequentPatterns):
     """
-    Description:
-    -------------
-    Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
-    maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
-    greater than maximum lability.
+    :Description:   Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
+                    maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
+                    greater than maximum lability.
 
-    Reference:
-    ----------
-        Fournier-Viger, P., Yang, P., Lin, J. C.-W., Kiran, U. (2019). Discovering Stable Periodic-Frequent Patterns in Transactional Data. Proc.
-         32nd Intern. Conf. on Industrial, Engineering and Other Applications of Applied Intelligent Systems (IEA AIE 2019), Springer LNAI, pp. 230-244
+    :Reference:   Fournier-Viger, P., Yang, P., Lin, J. C.-W., Kiran, U. (2019). Discovering Stable Periodic-Frequent Patterns in Transactional Data. Proc.
+                  32nd Intern. Conf. on Industrial, Engineering and Other Applications of Applied Intelligent Systems (IEA AIE 2019), Springer LNAI, pp. 230-244
 
-    Attributes:
-    -----------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup: int or float or str
+        minSup : int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: int or float or str
+        maxPer : int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        maxLa: int or float or str
+        maxLa : int or float or str
             The user can specify maxLa either in count or proportion of database size.
             If the program detects the data type of maxLa is integer, then it treats maxLa is expressed in count.
             Otherwise, it will be treated as float.
@@ -117,8 +112,8 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         tidList : dict
             stores the timestamps of an item
 
-    Methods:
-    ---------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -143,17 +138,17 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
 
     **Methods to execute code on terminal**
-
+    -----------------------------------------
             Format:
                       >>>   python3 basic.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
 
             Example:
                       >>>    python3 basic.py sampleDB.txt patterns.txt 10.0 4.0 2.0
 
-            .. note:: constraints will be considered in percentage of database transactions
+                      .. note:: constraints will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
-
+    ---------------------------------------------------
     .. code-block:: python
 
                     from PAMI.stablePeriodicFrequentPattern.basic import basic as alg
@@ -183,7 +178,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
                     print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    --------------
              The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
 
        """
@@ -213,7 +208,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
     def _creatingItemsets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -248,6 +243,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
     def _convert(self, value):
         """
         to convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type
         """
@@ -265,7 +261,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
     def _createSPPList(self):
         """
-            to convert the single length stable periodic patterns
+        to convert the single length stable periodic patterns
         """
         tidLast = {}
         la = {}
@@ -355,8 +351,8 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
     def getPatterns(self):
         """ Function to return the set of stable periodic-frequent patterns after completion of the mining process
 
-                :return: returning stable periodic-frequent patterns
-                :rtype: dict
+        :return: returning stable periodic-frequent patterns
+        :rtype: dict
         """
         return self._finalPatterns
 
@@ -369,9 +365,11 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         return self._memoryUSS
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to an output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -380,7 +378,8 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatternsAsDataFrame(self):
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -402,7 +401,8 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         return self._memoryRSS
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Stable Periodic  Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

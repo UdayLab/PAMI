@@ -27,34 +27,35 @@ from urllib.request import urlopen as _urlopen
 
 
 class _recurringPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
-        employ in PAMI
+    """
+    :Description:   This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
+                    employ in PAMI
 
-       Attributes
-        ----------
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
         
-        maxPer: int or float or str
+        maxPer : int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        minPS: int or float or str
+        minPS : int or float or str
             The user can specify minPS either in count or proportion of database size.
             If the program detects the data type of minPS is integer, then it treats minPS is expressed in count.
             Otherwise, it will be treated as float.
             Example: minPS=10 will be treated as integer, while minPS=10.0 will be treated as float
-        minRec: int or float or str
+        minRec : int or float or str
             The user has to specify minRec in count.
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
-        startTime:float
+        startTime : float
             To record the start time of the algorithm
-        endTime:float
+        endTime : float
             To record the completion time of the algorithm
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
             Name of the output file to store complete set of periodic-frequent patterns
@@ -63,8 +64,8 @@ class _recurringPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -85,11 +86,11 @@ class _recurringPatterns(_ABC):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param minSup: The user can specify minSup either in count or proportion of database size.
+        :param minPS: The user can specify minPS either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        :type minSup: int or float or str
+        :type minPS: int or float or str
         :param maxPer: The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
@@ -128,7 +129,7 @@ class _recurringPatterns(_ABC):
         """Complete set of periodic-frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass

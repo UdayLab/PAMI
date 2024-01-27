@@ -1,36 +1,37 @@
-# WUFIM is one of the algorithm to discover weighted frequent patterns in an uncertain transactional database
-# using PUF-Tree.
-#
+# WUFIM is one of the algorithm to discover weighted frequent patterns in an uncertain transactional database using PUF-Tree.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #
-#     from PAMI.weightedUncertainFrequentPattern.basic import basic as alg
+#             from PAMI.weightedUncertainFrequentPattern.basic import basic as alg
 #
-#     obj = alg.basic(iFile, wFile, expSup, expWSup)
+#             obj = alg.basic(iFile, wFile, expSup, expWSup)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of  Patterns:", len(Patterns))
+#             print("Total number of  Patterns:", len(Patterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
 
 
 __copyright__ = """
@@ -47,13 +48,14 @@ __copyright__ = """
      GNU General Public License for more details.
 
      You should have received a copy of the GNU General Public License
-     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-     Copyright (C)  2021 Rage Uday Kiran
-
+     along with this program.  If not, see `<https://www.gnu.org/licenses/>`_.
+     
 """
 
+
+
+
 from PAMI.weightedUncertainFrequentPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas as pd
 
 _expSup = str()
@@ -61,16 +63,15 @@ _expWSup = str()
 _weights = {}
 _finalPatterns = {}
 _ab._sys.setrecursionlimit(20000)
-
-
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
-    ...
-    Attributes:
-    __________
+
+    :Attributes:
+
         item : int or word
             Represents the name of the item
+
         probability : float
             Represent the existential probability(likelihood presence) of an item
     """
@@ -83,9 +84,9 @@ class _Item:
 class _Node(object):
     """
     A class used to represent the node of frequentPatternTree
-        ...
-    Attributes:
-    ----------
+
+    :Attributes:
+
         item : int
             storing item of a node
         probability : int
@@ -94,8 +95,9 @@ class _Node(object):
             To maintain the parent of every node
         children : list
             To maintain the children of node
-    Methods:
-    -------
+
+    :Methods:
+
         addChild(itemName)
             storing the children to their respective parent nodes
     """
@@ -114,17 +116,18 @@ class _Node(object):
 class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
-    ...
-    Attributes:
-    ----------
+
+    :Attributes:
+
         root : Node
             Represents the root node of the tree
         summaries : dictionary
             storing the nodes with same item name
         info : dictionary
             stores the support of items
-    Methods:
-    -------
+
+    :Methods:
+
         addTransaction(transaction)
             creating transaction as a branch in frequentPatternTree
         addConditionalPattern(prefixPaths, supportOfItems)
@@ -132,12 +135,12 @@ class _Tree(object):
         conditionalPatterns(Node)
             generates the conditional patterns from tree for specific node
         conditionalTransactions(prefixPaths,Support)
-            takes the prefixPath of a node and support at child of the path and extract the frequent items from
-            prefixPaths and generates prefixPaths with items which are frequent
+            takes the prefixPath of a node and support at child of the path and extract the frequent items from prefixPaths and generates prefixPaths with items which are frequent
         remove(Node)
             removes the node from tree once after generating all the patterns respective to the node
         generatePatterns(Node)
             starts from the root node of the tree and mines the frequent patterns
+
     """
 
     def __init__(self) -> None:
@@ -146,11 +149,12 @@ class _Tree(object):
         self.info = {}
 
     def addTransaction(self, transaction) -> None:
-        """adding transaction into tree
-            :param transaction : it represents the one self.Database in database
-            :type transaction : list
         """
+        Adding transaction into tree
 
+        :param transaction : it represents the one self.Database in database
+        :type transaction : list
+        """
         currentNode = self.root
         for i in range(len(transaction)):
             if transaction[i].item not in currentNode.children:
@@ -183,13 +187,15 @@ class _Tree(object):
                     currentNode.probability += max(lp) * transaction[i].probability
 
     def addConditionalPattern(self, transaction, sup) -> None:
-        """constructing conditional tree from prefixPaths
-            :param transaction : it represents the one self.Database in database
-            :type transaction : list
-            :param sup : support of prefixPath taken at last child of the path
-            :type sup : int
         """
+        constructing conditional tree from prefixPaths
 
+        :param transaction : it represents the one self.Database in database
+        :type transaction : list
+        :param sup : support of prefixPath taken at last child of the path
+        :type sup : int
+
+        """
         # This method takes transaction, support and constructs the conditional tree
         currentNode = self.root
         for i in range(len(transaction)):
@@ -207,11 +213,13 @@ class _Tree(object):
                 currentNode.probability += sup
 
     def conditionalPatterns(self, alpha) -> tuple:
-        """generates all the conditional patterns of respective node
-            :param alpha : it represents the Node in tree
-            :type alpha : _Node
         """
+        generates all the conditional patterns of respective node
 
+        :param alpha : it represents the Node in tree
+        :type alpha : _Node
+
+        """
         # This method generates conditional patterns of node by traversing the tree
         finalPatterns = []
         sup = []
@@ -229,22 +237,26 @@ class _Tree(object):
         return finalPatterns, support, info
 
     def removeNode(self, nodeValue) -> None:
-        """removing the node from tree
-            :param nodeValue : it represents the node in tree
-            :type nodeValue : node
+
+        """
+        Removing the node from tree
+
+        :param nodeValue : it represents the node in tree
+        :type nodeValue : node
         """
 
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
 
     def conditionalTransactions(self, condPatterns, support) -> tuple:
-        """ It generates the conditional patterns with frequent items
-                :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
-                :type condPatterns : list
-                :support : the support of conditional pattern in tree
-                :support : int
         """
+        It generates the conditional patterns with frequent items
 
+        :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
+        :type condPatterns : list
+        :support : the support of conditional pattern in tree
+        :support : int
+        """
         global _expSup, _expWSup
         pat = []
         sup = []
@@ -268,9 +280,11 @@ class _Tree(object):
         return pat, sup, updatedDict
 
     def generatePatterns(self, prefix) -> None:
-        """generates the patterns
-            :param prefix : forms the combination of items
-            :type prefix : list
+        """
+        Generates the patterns
+
+        :param prefix : forms the combination of items
+        :type prefix : list
         """
 
         global _finalPatterns, _expSup, _expWSup, _weights
@@ -292,28 +306,21 @@ class _Tree(object):
                     conditionalTree.generatePatterns(pattern)
             self.removeNode(i)
 
-
 class WUFIM(_ab._weightedFrequentPatterns):
     """
-    Description:
-    -------------
-        It is one of the algorithm to discover weighted frequent patterns in a uncertain transactional database
-        using PUF-Tree.
+    :Description: It is one of the algorithm to discover weighted frequent patterns in a uncertain transactional database using PUF-Tree.
 
-    Reference:
-    ------------
-        Efficient Mining of Weighted Frequent Itemsets in Uncertain Databases, In book: Machine Learning and Data Mining in Pattern Recognition
-        Chun-Wei Jerry Lin, Wensheng Gan, Philippe Fournier Viger, Tzung-Pei Hong
+    :Reference: Efficient Mining of Weighted Frequent Itemsets in Uncertain Databases, In book: Machine Learning and Data Mining in Pattern Recognition Chun-Wei Jerry Lin, Wensheng Gan, Philippe Fournier Viger, Tzung-Pei Hong
 
-    Attributes:
-    ------------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         wFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup: float or int or str
+        minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -341,8 +348,9 @@ class WUFIM(_ab._weightedFrequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
-    Methods:
-    ---------
+
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -371,43 +379,44 @@ class WUFIM(_ab._weightedFrequentPatterns):
             Mining process will start from this function
 
     **Methods to execute code on terminal**
-
+    --------------------------------------------
         Format:
                   >>>  python3 basic.py <inputFile> <outputFile> <minSup>
+
         Example:
                   >>>  python3 basic.py sampleTDB.txt patterns.txt 3
 
                  .. note:: minSup  will be considered in support count or frequency
 
     **Importing this algorithm into a python program**
-
+    -----------------------------------------------------
     .. code-block:: python
 
-        from PAMI.weightedUncertainFrequentPattern.basic import basic as alg
+            from PAMI.weightedUncertainFrequentPattern.basic import basic as alg
 
-        obj = alg.basic(iFile, wFile, expSup, expWSup)
+            obj = alg.basic(iFile, wFile, expSup, expWSup)
 
-        obj.startMine()
+            obj.startMine()
 
-        Patterns = obj.getPatterns()
+            Patterns = obj.getPatterns()
 
-        print("Total number of  Patterns:", len(Patterns))
+            print("Total number of  Patterns:", len(Patterns))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
    """
     _startTime = float()
     _endTime = float()
@@ -429,7 +438,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Scans the uncertain transactional dataset
+        Scans the uncertain transactional dataset
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -489,7 +498,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     def _scanningWeights(self) -> None:
         """
-            Scans the uncertain transactional dataset
+        Scans the uncertain transactional dataset
         """
         self._weights = {}
         if isinstance(self._wFile, _ab._pd.DataFrame):
@@ -525,10 +534,11 @@ class WUFIM(_ab._weightedFrequentPatterns):
                     print("File Not Found")
 
     def _frequentOneItem(self) -> tuple:
-        """takes the self.Database and calculates the support of each item in the dataset and assign the
-            ranks to the items by decreasing support and returns the frequent items list
-                :param self.Database : it represents the one self.Database in database
-                :type self.Database : list
+        """
+        Takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+
+        :param self.Database : it represents the one self.Database in database
+        :type self.Database : list
         """
 
         mapSupport = {}
@@ -546,12 +556,12 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     @staticmethod
     def _buildTree(data, info) -> _Tree:
-        """it takes the self.Database and support of each item and construct the main tree with setting root
-            node as null
-                :param data : it represents the one self.Database in database
-                :type data : list
-                :param info : it represents the support of each item
-                :type info : dictionary
+        """
+        It takes the self.Database and support of each item and construct the main tree with setting root node as null
+        :param data : it represents the one self.Database in database
+        :type data : list
+        :param info : it represents the support of each item
+        :type info : dictionary
         """
 
         rootNode = _Tree()
@@ -561,11 +571,12 @@ class WUFIM(_ab._weightedFrequentPatterns):
         return rootNode
 
     def _updateTransactions(self, dict1) -> list:
-        """remove the items which are not frequent from self.Database and updates the self.Database with rank of items
-            :param dict1 : frequent items with support
-            :type dict1 : dictionary
         """
+        Remove the items which are not frequent from self.Database and updates the self.Database with rank of items
 
+        :param dict1 : frequent items with support
+        :type dict1 : dictionary
+        """
         list1 = []
         for tr in self._Database:
             list2 = []
@@ -581,11 +592,13 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     @staticmethod
     def _check(i, x) -> int:
-        """To check the presence of item or pattern in transaction
-                :param x: it represents the pattern
-                :type x : list
-                :param i : represents the uncertain self.Database
-                :type i : list
+        """
+        To check the presence of item or pattern in transaction
+
+        :param x: it represents the pattern
+        :type x : list
+        :param i : represents the uncertain self.Database
+        :type i : list
         """
 
         # This method taken a transaction as input and returns the tree
@@ -601,8 +614,9 @@ class WUFIM(_ab._weightedFrequentPatterns):
     def _convert(self, value) -> float:
         """
         To convert the type of user specified minSup value
-            :param value: user specified minSup value
-            :return: converted type minSup value
+
+        :param value: user specified minSup value
+        :return: converted type minSup value
         """
         if type(value) is int:
             value = int(value)
@@ -617,8 +631,9 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     def _removeFalsePositives(self) -> None:
         """
-            To remove the false positive patterns generated in frequent patterns
-            :return: patterns with accurate probability
+        To remove the false positive patterns generated in frequent patterns
+
+        :return: patterns with accurate probability
         """
         global _finalPatterns
         periods = {}
@@ -649,8 +664,8 @@ class WUFIM(_ab._weightedFrequentPatterns):
                 self._finalPatterns[sample] = y
 
     def startMine(self) -> None:
-        """Main method where the patterns are mined by constructing tree and remove the false patterns
-            by counting the original support of a patterns
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
         global _expSup, _expWSup, _weights, _finalPatterns
         self._startTime = _ab._time.time()
@@ -678,7 +693,8 @@ class WUFIM(_ab._weightedFrequentPatterns):
         self.memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -686,15 +702,16 @@ class WUFIM(_ab._weightedFrequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
-
         return self.memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -702,11 +719,11 @@ class WUFIM(_ab._weightedFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
-
         dataframe = {}
         data = []
         for a, b in self._finalPatterns.items():
@@ -718,9 +735,11 @@ class WUFIM(_ab._weightedFrequentPatterns):
         return dataframe
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
-        :param outFile: name of the output file
-        :type outFile: file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
+        :param outFile: Specify name of the output file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -732,14 +751,16 @@ class WUFIM(_ab._weightedFrequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> dict:
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of  Weighted Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

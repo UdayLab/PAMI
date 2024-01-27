@@ -38,16 +38,16 @@ class visualizePatterns():
 
                :Description:
                         visualizePatterns is used to visualize points produced by pattern miner .
-                Attributes:
-                ----------
+               Attributes:
+               ----------
                :param file : file
                     store input data as file
                :param topk : int
                     Takes the value int as input
 
-                    **Importing this algorithm into a python program**
-                    --------------------------------------------------------
-                    .. code-block:: python
+               **Importing this algorithm into a python program**
+               --------------------------------------------------------
+               .. code-block:: python
 
                     from PAMI.extras.graph import visualizePatterns as viz
 

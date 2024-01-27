@@ -168,8 +168,54 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dd></dl>
 
 </section>
-<section id="pami-extras-fuzzytransformation-transactionaltofuzzytimeseries-module">
-<h2>PAMI.extras.fuzzyTransformation.transactionalToFuzzyTimeSeries module<a class="headerlink" href="#pami-extras-fuzzytransformation-transactionaltofuzzytimeseries-module" title="Link to this heading"></a></h2>
+<section id="module-PAMI.extras.fuzzyTransformation.transactionalToFuzzy">
+<span id="pami-extras-fuzzytransformation-transactionaltofuzzy-module"></span><h2>PAMI.extras.fuzzyTransformation.transactionalToFuzzy module<a class="headerlink" href="#module-PAMI.extras.fuzzyTransformation.transactionalToFuzzy" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.extras.fuzzyTransformation.transactionalToFuzzy.transactionalToFuzzy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.fuzzyTransformation.transactionalToFuzzy.</span></span><span class="sig-name descname"><span class="pre">transactionalToFuzzy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fuzFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/fuzzyTransformation/transactionalToFuzzy.html#transactionalToFuzzy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.fuzzyTransformation.transactionalToFuzzy.transactionalToFuzzy" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_convert</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>transactionalToFuzzy is used to convert the transactional database into Fuzzy transactional database.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>iFile</strong> -- str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> -- str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>fuzFile</strong> -- str :
+Name of the FuzFile to process set of data.</p></li>
+<li><p><strong>sep</strong> -- str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<dl class="simple">
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>Storing the complete set of patterns in a dictionary variable</p>
+</dd>
+</dl>
+<section id="id1">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>from PAMI.extras.FuzzyTransformation import transactionalToFuzzy as db</p>
+<p>obj = db.transactionalToFuzzy(iFile, FuzFile, oFile, &quot;     &quot; )</p>
+<p>obj.startConvert()</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.extras.fuzzyTransformation.transactionalToFuzzy.transactionalToFuzzy.startConvert">
+<span class="sig-name descname"><span class="pre">startConvert</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/fuzzyTransformation/transactionalToFuzzy.html#transactionalToFuzzy.startConvert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.fuzzyTransformation.transactionalToFuzzy.transactionalToFuzzy.startConvert" title="Link to this definition"></a></dt>
+<dd><p>Main method to convert the temporal database into fuzzy database.</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
 </section>
 <section id="pami-extras-fuzzytransformation-utilitytofuzzy-module">
 <h2>PAMI.extras.fuzzyTransformation.utilityToFuzzy module<a class="headerlink" href="#pami-extras-fuzzytransformation-utilitytofuzzy-module" title="Link to this heading"></a></h2>

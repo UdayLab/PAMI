@@ -141,7 +141,7 @@
 
 
 <span class="sd">    Attributes:</span>
-<span class="sd">    ----------</span>
+<span class="sd">    ------------</span>
 <span class="sd">        iFile : file</span>
 <span class="sd">            Name of the Input file or path of the input file</span>
 <span class="sd">        oFile : file</span>
@@ -185,7 +185,7 @@
 <span class="sd">            stores the patterns with their support to check for the closed property</span>
 
 <span class="sd">    Methods:</span>
-<span class="sd">    -------</span>
+<span class="sd">    ---------</span>
 <span class="sd">        startMine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
@@ -209,6 +209,7 @@
 
 
 <span class="sd">    **Methods to execute code on terminal**</span>
+<span class="sd">    ------------------------------------------</span>
 
 <span class="sd">            Format:</span>
 <span class="sd">                      &gt;&gt;&gt;   python3 PFPMC.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
@@ -219,6 +220,7 @@
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
+<span class="sd">    ----------------------------------------------------</span>
 
 <span class="sd">    .. code-block:: python</span>
 
@@ -249,6 +251,7 @@
 <span class="sd">                print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 <span class="sd">    **Credits:**</span>
+<span class="sd">    ----------------</span>
 
 <span class="sd">             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</span>
 
@@ -277,55 +280,55 @@
         <span class="n">tids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span>
         <span class="n">tids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">diffs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lastTid</span> <span class="ow">in</span> <span class="n">tids</span><span class="p">:</span>
             <span class="n">tids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lastTid</span><span class="p">)</span>
-            <span class="n">diffs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">_groupby</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">tids</span><span class="p">),</span> <span class="k">lambda</span> <span class="n">ix</span><span class="p">:</span> <span class="n">ix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">ix</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
             <span class="n">diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">_itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">g</span><span class="p">))))</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">temp</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;def _getPeriodic(self, tids: set):</span>
+    <span class="k">def</span> <span class="nf">_getPeriodic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tids</span><span class="p">:</span> <span class="nb">set</span><span class="p">):</span>
 
-<span class="sd">        tids = list(tids)</span>
-<span class="sd">        tids.sort()</span>
-<span class="sd">        temp = self._maxPer + 1</span>
-<span class="sd">        if self._lastTid in tids:</span>
-<span class="sd">            tids.remove(self._lastTid)</span>
-<span class="sd">        diffs = []</span>
-<span class="sd">        # find the longest consecutive period</span>
+        <span class="n">tids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span>
+        <span class="n">tids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lastTid</span> <span class="ow">in</span> <span class="n">tids</span><span class="p">:</span>
+            <span class="n">tids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lastTid</span><span class="p">)</span>
+        <span class="n">diffs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># find the longest consecutive period</span>
 
-<span class="sd">        count = 0</span>
-<span class="sd">        for i in range(len(tids) - 1):</span>
-<span class="sd">            if tids[i + 1] == tids[i] + 1:</span>
-<span class="sd">                count += 1</span>
-<span class="sd">            else:</span>
-<span class="sd">                diffs.append(count)</span>
-<span class="sd">                count = 0</span>
-<span class="sd">        if len(diffs) &lt; 1:</span>
-<span class="sd">            return temp</span>
-<span class="sd">        return max(diffs) + 1&#39;&#39;&#39;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">tids</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">tids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">temp</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;def _getPeriodic(self, tids: set):</span>
-<span class="sd">        tids = list(tids)</span>
-<span class="sd">        tids.sort()</span>
-<span class="sd">        temp = self._maxPer + 1</span>
-<span class="sd">        if self._lastTid in tids:</span>
-<span class="sd">            tids.remove(self._lastTid)</span>
-<span class="sd">        diffs = []</span>
-<span class="sd">        tempPer = 0</span>
-<span class="sd">        period = 0</span>
-<span class="sd">        for i in range(len(tids) - 1):</span>
-<span class="sd">            if tids[i+1] - tids[i] == 1:</span>
-<span class="sd">                tempPer += 1</span>
-<span class="sd">            else:</span>
-<span class="sd">                period = max(period, tempPer + 1)</span>
-<span class="sd">                if period &gt; self._maxPer:</span>
-<span class="sd">                    return temp</span>
-<span class="sd">                tempPer = 0</span>
+    <span class="k">def</span> <span class="nf">_getPeriodic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tids</span><span class="p">:</span> <span class="nb">set</span><span class="p">):</span>
+        <span class="n">tids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span>
+        <span class="n">tids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lastTid</span> <span class="ow">in</span> <span class="n">tids</span><span class="p">:</span>
+            <span class="n">tids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lastTid</span><span class="p">)</span>
+        <span class="n">diffs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tempPer</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">period</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">tids</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">tempPer</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">period</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">tempPer</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">period</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">temp</span>
+                <span class="n">tempPer</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="sd">        return period&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">period</span>
 
     <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

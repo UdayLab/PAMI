@@ -55,17 +55,18 @@ class generateTransactionalDatabase:
         --------
         getFileName()
             get output filename
+
         **Importing this algorithm into a python program**
          --------------------------------------------------------
          .. code-block:: python
 
-         from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
+                from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
 
-         obj = db.generateTransactionalDatabase(100, 10, 6, 100, 0File, %, "\t")
+                obj = db.generateTransactionalDatabase(100, 10, 6, 100, 0File, %, "\t")
 
-         obj.save()
+                obj.save()
 
-        obj.getFileName("outputFileName") # to create a file
+                obj.getFileName("outputFileName") # to create a file
 
 
     """

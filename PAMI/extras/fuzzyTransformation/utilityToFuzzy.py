@@ -30,7 +30,6 @@ __copyright__ = """
 
 import abstract as _ab
 
-
 class utilityToFuzzy(_ab._convert):
     """
 
@@ -52,11 +51,11 @@ class utilityToFuzzy(_ab._convert):
             --------------------------------------------------------
             .. code-block:: python
 
-            from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
+                    from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
 
-            obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
+                    obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
 
-            obj.startConvert()
+                    obj.startConvert()
 
 
     """

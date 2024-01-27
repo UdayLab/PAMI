@@ -319,15 +319,17 @@ return: pd.dataframe</p>
 <dl>
 <dt>getFileName()</dt><dd><p>get output filename</p>
 </dd>
-<dt><strong>Importing this algorithm into a python program</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<dt><strong>Importing this algorithm into a python program</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.generateDatabase</span> <span class="kn">import</span> <span class="n">generateTransactionalDatabase</span> <span class="k">as</span> <span class="n">db</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">generateTransactionalDatabase</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="n">File</span><span class="p">,</span> <span class="o">%</span><span class="p">,</span> <span class="s2">&quot;     &quot;</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">getFileName</span><span class="p">(</span><span class="s2">&quot;outputFileName&quot;</span><span class="p">)</span> <span class="c1"># to create a file</span>
 </pre></div>
 </div>
-<p>from PAMI.extras.generateDatabase import generateTransactionalDatabase as db</p>
-<p>obj = db.generateTransactionalDatabase(100, 10, 6, 100, 0File, %, &quot;    &quot;)</p>
-<p>obj.save()</p>
 </dd>
 </dl>
-<p>obj.getFileName(&quot;outputFileName&quot;) # to create a file</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.generateDatabase.generateTransactionalDatabase.generateTransactionalDatabase.getFileName">

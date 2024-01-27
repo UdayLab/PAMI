@@ -1,5 +1,4 @@
-# UFGrowth is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
-# using PUF-Tree.
+# UFGrowth is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -60,9 +59,9 @@ _finalPatterns = {}
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
-    ...
-    Attributes:
-    __________
+
+    :Attributes:
+
         item : int or word
             Represents the name of the item
         probability : float
@@ -77,9 +76,9 @@ class _Item:
 class _Node(object):
     """
     A class used to represent the node of frequentPatternTree
-        ...
-    Attributes:
-    ----------
+
+    :Attributes:
+
         item : int
             storing item of a node
         probability : int
@@ -88,8 +87,8 @@ class _Node(object):
             To maintain the parent of every node
         children : list
             To maintain the children of node
-    Methods:
-    -------
+    :Methods:
+
         addChild(itemName)
             storing the children to their respective parent nodes
     """
@@ -113,17 +112,17 @@ class _Node(object):
 class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
-    ...
-    Attributes:
-    ----------
+
+    :Attributes:
+
         root : Node
             Represents the root node of the tree
         summaries : dictionary
             storing the nodes with same item name
         info : dictionary
             stores the support of items
-    Methods:
-    -------
+    :Methods:
+
         addTransaction(transaction)
             creating transaction as a branch in frequentPatternTree
         addConditionalPattern(prefixPaths, supportOfItems)
@@ -251,21 +250,19 @@ class _Tree(object):
 
 class UFGrowth(_ab._frequentPatterns):
     """
-    Description:
-    -------------
-        It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
-        using PUF-Tree.
-    Reference:
-    -----------
+    :Description: It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.
+
+    :Reference:
         Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
         Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
-    Attributes:
-    -----------
+
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup: float or int or str
+        minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -277,9 +274,9 @@ class UFGrowth(_ab._frequentPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
         Database : list
             To store the transactions of a database in list
@@ -293,8 +290,8 @@ class UFGrowth(_ab._frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
-    Methods:
-    --------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -323,16 +320,17 @@ class UFGrowth(_ab._frequentPatterns):
             Mining process will start from this function
 
     **Methods to execute code on terminal**
-
+    ----------------------------------------
             Format:
                       >>>  python3 PUFGrowth.py <inputFile> <outputFile> <minSup>
+
             Example:
                       >>>  python3 PUFGrowth.py sampleTDB.txt patterns.txt 3
 
-            .. note:: minSup  will be considered in support count or frequency
+                      .. note:: minSup  will be considered in support count or frequency
 
     **Importing this algorithm into a python program**
-
+    --------------------------------------------------------
     .. code-block:: python
 
             from PAMI.uncertainFrequentPattern.basic import UFGrowth as alg
@@ -362,7 +360,7 @@ class UFGrowth(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    -----------------
              The complete program was written by P.Likhitha under the supervision of Professor Rage Uday Kiran.
 
     """
@@ -393,7 +391,7 @@ class UFGrowth(_ab._frequentPatterns):
 
     def _creatingItemSets(self):
         """
-            Scans the uncertain transactional dataset
+        Scans the uncertain transactional dataset
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -449,10 +447,11 @@ class UFGrowth(_ab._frequentPatterns):
                     print("File Not Found")
 
     def _frequentOneItem(self):
-        """takes the self.Database and calculates the support of each item in the dataset and assign the
-            ranks to the items by decreasing support and returns the frequent items list
-                :param self.Database : it represents the one self.Database in database
-                :type self.Database : list
+        """
+        takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+
+        :param self.Database : it represents the one self.Database in database
+        :type self.Database : list
         """
 
         mapSupport = {}
@@ -550,8 +549,9 @@ class UFGrowth(_ab._frequentPatterns):
     def _convert(self, value):
         """
         To convert the type of user specified minSup value
-            :param value: user specified minSup value
-            :return: converted type minSup value
+
+        :param value: user specified minSup value
+        :return: converted type minSup value
         """
         if type(value) is int:
             value = int(value)
@@ -565,8 +565,8 @@ class UFGrowth(_ab._frequentPatterns):
         return value
 
     def startMine(self):
-        """Main method where the patterns are mined by constructing tree and remove the false patterns
-            by counting the original support of a patterns
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
         global minSup
         self._startTime = _ab._time.time()
@@ -596,7 +596,9 @@ class UFGrowth(_ab._frequentPatterns):
         self.memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -604,7 +606,9 @@ class UFGrowth(_ab._frequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -612,7 +616,9 @@ class UFGrowth(_ab._frequentPatterns):
         return self.memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -620,7 +626,9 @@ class UFGrowth(_ab._frequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -633,9 +641,11 @@ class UFGrowth(_ab._frequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -644,14 +654,17 @@ class UFGrowth(_ab._frequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

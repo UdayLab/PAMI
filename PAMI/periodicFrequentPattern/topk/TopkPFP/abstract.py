@@ -29,10 +29,11 @@ from urllib.request import urlopen as _urlopen
 
 
 class _periodicFrequentPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
-        employ in PAMI
-       Attributes
-        ----------
+    """
+    :Description:   This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
+                    employ in PAMI
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
         maxPer: int or float or str
@@ -57,8 +58,9 @@ class _periodicFrequentPatterns(_ABC):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        Methods
-        -------
+
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -79,8 +81,7 @@ class _periodicFrequentPatterns(_ABC):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param k: int
-        :type minSup: int or float or str
+        :param k: int or float
         :param maxPer: The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.

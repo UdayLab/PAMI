@@ -31,6 +31,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -65,9 +66,10 @@ _fp._sys.setrecursionlimit(20000)
 
 class _Node:
     """
-        A class used to represent the node of frequentPatternTree
-    Attributes:
-    ----------
+    A class used to represent the node of frequentPatternTree
+
+    :Attributes:
+
         itemId: int
             storing item of a node
         counter: int
@@ -76,8 +78,9 @@ class _Node:
             To maintain the parent of node
         children: list
             To maintain the children of node
-    Methods:
-    -------
+
+    :Methods:
+
         addChild(node)
             Updates the nodes children list and parent for the given node
     """
@@ -90,10 +93,11 @@ class _Node:
 
     def addChild(self, node: '_Node') -> None:
         """
-            Retrieving the child from the tree
-            :param node: Children node
-            :type node: Node
-            :return: Updates the children nodes and parent nodes
+        Retrieving the child from the tree
+
+        :param node: Children node
+        :type node: Node
+        :return: Updates the children nodes and parent nodes
         """
         self.children[node.itemId] = node
         node.parent = self
@@ -102,16 +106,18 @@ class _Node:
 class _Tree:
     """
     A class used to represent the frequentPatternGrowth tree structure
-    Attributes:
-    ----------
+
+    :Attributes:
+
         root : Node
             The first node of the tree set to Null.
         summaries : dictionary
             Stores the nodes itemId which shares same itemId
         info : dictionary
             frequency of items in the transactions
-    Methods:
-    -------
+
+    :Methods:
+
         addTransaction(transaction, freq)
             adding items of  transactions into the tree as nodes and freq is the count of nodes
         getFinalConditionalPatterns(node)
@@ -128,13 +134,14 @@ class _Tree:
         self.info = {}
 
     def addTransaction(self, transaction: List[str], count: int) -> None:
-        """adding transaction into tree
+        """
+        Adding transaction into tree
+
         :param transaction: it represents the one transaction in database
         :type transaction: list
         :param count: frequency of item
         :type count: int
         """
-
         # This method takes transaction as input and returns the tree
         currentNode = self.root
         for i in range(len(transaction)):
@@ -153,13 +160,10 @@ class _Tree:
 
     def getFinalConditionalPatterns(self, alpha: str) -> Tuple[List[List[str]], List[int], Dict[str, int]]:
         """
-        generates the conditional patterns for a node
-        Parameters:
-        ----------
-            alpha: node to generate conditional patterns
-        Returns
-        -------
-            returns conditional patterns, frequency of each item in conditional patterns
+        Generates the conditional patterns for a node
+
+        :param alpha: node to generate conditional patterns
+        :return: returns conditional patterns, frequency of each item in conditional patterns
         """
         finalPatterns = []
         finalFreq = []
@@ -180,13 +184,10 @@ class _Tree:
     def getConditionalTransactions(ConditionalPatterns: List[List[str]], conditionalFreq: List[int]) -> Tuple[List[List[str]], List[int], Dict[str, int]]:
         """
         To calculate the frequency of items in conditional patterns and sorting the patterns
-        Parameters
-        ----------
-        ConditionalPatterns: paths of a node
-        conditionalFreq: frequency of each item in the path
-        Returns
-        -------
-            conditional patterns and frequency of each item in transactions
+
+        :param ConditionalPatterns: paths of a node
+        :param conditionalFreq: frequency of each item in the path
+        :return: conditional patterns and frequency of each item in transactions
         """
         global _minSup, _miniWeight
         pat = []
@@ -212,12 +213,9 @@ class _Tree:
     def generatePatterns(self, prefix: List[str]) -> Generator[Tuple[List[str], int], None, None]:
         """
         To generate the frequent patterns
-        Parameters
-        ----------
-        prefix: an empty list
-        Returns
-        -------
-        Frequent patterns that are extracted from fp-tree
+
+        :param prefix: an empty list
+        :return: Frequent patterns that are extracted from fp-tree
         """
         global _miniWeight, _maxWeight, _minWeight, _minSup
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
@@ -237,14 +235,16 @@ class _Tree:
 class WFIM(_fp._weightedFrequentPatterns):
     """
     :Description:
-       WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.
-       It stores the database in compressed fp-tree decreasing the memory usage and extracts the
-       patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+       * WFMiner is one of the fundamental algorithm to discover weighted frequent patterns in a transactional database.
+       * It stores the database in compressed fp-tree decreasing the memory usage and extracts the patterns from tree.It employs employs downward closure property to  reduce the search space effectively.
+
     :Reference :
            U. Yun and J. J. Leggett, “Wfim: weighted frequent itemset mining with a weight range and a minimum weight,”
            in Proceedings of the 2005 SIAM International Conference on Data Mining. SIAM, 2005, pp. 636–640.
            https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76
+
     :Attributes :
+
         iFile : file
             Input file name or path of the input file
         minSup: float or int or str
@@ -280,8 +280,9 @@ class WFIM(_fp._weightedFrequentPatterns):
             it represents the Tree class
         finalPatterns : dict
             it represents to store the patterns
-    Methods :
-    ---------
+
+    :Methods :
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -300,17 +301,19 @@ class WFIM(_fp._weightedFrequentPatterns):
             Scans the dataset or dataframes and stores in list format
         frequentOneItem()
             Extracts the one-frequent patterns from transactions
-    Methods to execute code on terminal
-    ------------------------------------
+
+    **Methods to execute code on terminal**
+    ----------------------------------------
         Format:
                   >>>  python3 basic.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
+
         Example:
                   >>>  python3 basic.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4
 
                  .. note:: minSup and maxPer will be considered in support count or frequency
 
     **Importing this algorithm into a python program**
-    --------------------------------------------------
+    ---------------------------------------------------
     .. code-block:: python
 
             from PAMI.weightFrequentPattern.basic import basic as alg
@@ -366,7 +369,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def __creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.__Database = []
         if isinstance(self._iFile, _fp._pd.DataFrame):
@@ -401,7 +404,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def _scanningWeights(self) -> None:
         """
-            Storing the weights of the variables in input file in a weights variable
+        Storing the weights of the variables in input file in a weights variable
         """
         global _weights
         _weights = {}
@@ -442,7 +445,8 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def __convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
-        to convert the type of user specified minSup value
+        To convert the type of user specified minSup value.
+
         :param value: user specified minSup value
         :return: converted type
         """
@@ -480,10 +484,8 @@ class WFIM(_fp._weightedFrequentPatterns):
         Updates the items in transactions with rank of items according to their support
         :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
                     rank = {'a':0, 'b':1, 'c':2, 'd':3}
-        Parameters
-        ----------
-        itemSet: list of one-frequent items
-        -------
+
+        :param itemSet: list of one-frequent items
         """
         list1 = []
         for tr in self.__Database:
@@ -500,13 +502,10 @@ class WFIM(_fp._weightedFrequentPatterns):
     def __buildTree(transactions: List[List[int]], info: Dict[int, int]) -> '_Tree':
         """
         Builds the tree with updated transactions
-        Parameters:
-        ----------
-            transactions: updated transactions
-            info: support details of each item in transactions
-        Returns:
-        -------
-            transactions compressed in fp-tree
+
+        :param transactions: updated transactions
+        :param info: support details of each item in transactions.
+        :return: Transactions compressed in fp-tree
         """
         rootNode = _Tree()
         rootNode.info = info.copy()
@@ -517,12 +516,9 @@ class WFIM(_fp._weightedFrequentPatterns):
     def __savePeriodic(self, itemSet: List[int]) -> str:
         """
         The duplication items and their ranks
-        Parameters:
-        ----------
-            itemSet: frequent itemSet that generated
-        Returns:
-        -------
-            patterns with original item names.
+
+        :param itemSet: frequent itemSet that generated
+        :return: patterns with original item names.
         """
         temp = str()
         for i in itemSet:
@@ -531,7 +527,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
     def startMine(self) -> None:
         """
-            main program to start the operation
+        main program to start the operation
         """
         global _minSup, _minWeight, _miniWeight, _maxWeight, _weights
         self.__startTime = _fp._time.time()
@@ -566,7 +562,9 @@ class WFIM(_fp._weightedFrequentPatterns):
         self.__memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -574,7 +572,9 @@ class WFIM(_fp._weightedFrequentPatterns):
         return self.__memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function.
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -582,7 +582,9 @@ class WFIM(_fp._weightedFrequentPatterns):
         return self.__memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process.
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -590,7 +592,9 @@ class WFIM(_fp._weightedFrequentPatterns):
         return self.__endTime - self.__startTime
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe.
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -603,9 +607,11 @@ class WFIM(_fp._weightedFrequentPatterns):
         return dataframe
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file.
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -614,14 +620,17 @@ class WFIM(_fp._weightedFrequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> Dict[str, int]:
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process.
+
         :return: returning frequent patterns
         :rtype: dict
         """
         return self.__finalPatterns
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of  Weighted Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

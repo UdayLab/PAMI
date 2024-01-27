@@ -28,6 +28,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -56,9 +57,9 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
                    bitset representation.
                    This program employs apriori property (or downward closure property) to  reduce the search space effectively.
 
-    :Reference:         Koh, JL., Yo, PW. (2005). An Efficient Approach for Mining Fault-Tolerant Frequent Patterns Based on Bit Vector Representations.
-                        In: Zhou, L., Ooi, B.C., Meng, X. (eds) Database Systems for Advanced Applications. DASFAA 2005. Lecture Notes in Computer Science,
-                        vol 3453. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11408079_51
+    :Reference:   Koh, JL., Yo, PW. (2005). An Efficient Approach for Mining Fault-Tolerant Frequent Patterns Based on Bit Vector Representations.
+                  In: Zhou, L., Ooi, B.C., Meng, X. (eds) Database Systems for Advanced Applications. DASFAA 2005. Lecture Notes in Computer Science,
+                  vol 3453. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11408079_51
     :param  iFile: str :
            Name of the Input file to mine complete set of frequent patterns
     :param  oFile: str :
@@ -74,10 +75,8 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
                     minimum length of a pattern
     :param faultTolerance: int
 
-
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-
 
     :Attributes:
 
@@ -100,47 +99,44 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
           To store the transactions of a database in list
 
 
-    Executing the code on terminal:
-    -------------------------------
-
+    **Executing the code on terminal**:
+    ------------------------------------
         Format:
-        --------
             >>> python3 VBFTMine.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
 
         Examples:
-        ---------
             >>> python3 VBFTMine.py sampleDB.txt patterns.txt 10.0 3.0 3 1  (minSup will be considered in times of minSup and count of database transactions)
 
 
-    Sample run of the importing code:
-    ---------------------------------
+    **Sample run of the importing code**:
+    ------------------------------------
     .. code-block:: python
     
-        import PAMI.faultTolerantFrequentPattern.basic.VBFTMine as alg
+            import PAMI.faultTolerantFrequentPattern.basic.VBFTMine as alg
 
-        obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)
+            obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)
 
-        obj.startMine()
+            obj.startMine()
 
-        faultTolerantFrequentPattern = obj.getPatterns()
+            faultTolerantFrequentPattern = obj.getPatterns()
 
-        print("Total number of Fault Tolerant Frequent Patterns:", len(faultTolerantFrequentPattern))
+            print("Total number of Fault Tolerant Frequent Patterns:", len(faultTolerantFrequentPattern))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-        print("Total Memory in USS:", obj.getMemoryUSS())
+            print("Total Memory in USS:", obj.getMemoryUSS())
 
-        print("Total Memory in RSS", obj.getMemoryRSS())
+            print("Total Memory in RSS", obj.getMemoryRSS())
 
-        print("Total ExecutionTime in seconds:", obj.getRuntime())
+            print("Total ExecutionTime in seconds:", obj.getRuntime())
 
-    Credits:
-    --------
+    **Credits**:
+    ------------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
-        """
+    """
 
     _minSup = float()
     _itemSup = float()
@@ -160,9 +156,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -204,7 +198,6 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         To convert the user specified minSup value
 
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -285,7 +278,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     def startMine(self):
         """
-            Frequent pattern mining process will start from here
+        Frequent pattern mining process will start from here
         """
         self._Database = []
         self._startTime = _ab._time.time()
@@ -324,7 +317,6 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -334,7 +326,6 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -344,17 +335,16 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -370,10 +360,10 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-
         :type outFile: file
         """
         self._oFile = outFile
@@ -389,13 +379,13 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

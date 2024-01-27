@@ -57,27 +57,27 @@ _lno = int()
 
 class Node(object):
     """
-        A class used to represent the node of frequentPatternTree
+    A class used to represent the node of frequentPatternTree
 
-        Attributes:
-        ----------
-            item : int or None
-                Storing item of a node
-            timeStamps : list
-                To maintain the timestamps of a database at the end of the branch
-            parent : node
-                To maintain the parent of every node
-            children : list
-                To maintain the children of a node
-            count : int
-                To maintain the count of every node
+    :Attributes:
 
-        Methods:
-        -------
-            addChild(itemName)
-                Storing the children to their respective parent nodes
-            toString()
-                To print the node
+        item : int or None
+            Storing item of a node
+        timeStamps : list
+            To maintain the timestamps of a database at the end of the branch
+        parent : node
+            To maintain the parent of every node
+        children : list
+            To maintain the children of a node
+        count : int
+            To maintain the count of every node
+
+    :Methods:
+
+        addChild(itemName)
+            Storing the children to their respective parent nodes
+        toString()
+            To print the node
     """
 
     def __init__(self, item, count, children):
@@ -101,7 +101,6 @@ class Node(object):
         """ To print the node
 
         :param level: level of a node
-
         """
         if self.item == None:
             s = "Root("
@@ -121,7 +120,6 @@ class Node(object):
         """ To add the children to a node
 
         :param node: children of a node
-
         """
         self.children[node.item] = node
         node.parent = self
@@ -143,15 +141,15 @@ class PFPTree(object):
 
     A class used to represent the periodic frequent pattern tree
 
-    Attributes:
-    ----------
+    :Attributes:
+
         root : node
             To maintain the root of the tree
         summaries : dict
             To maintain the summary of the tree
 
-    Methods:
-    -------
+    :Methods:
+
         add(basket, tid, count)
             To add the basket to the tree
         getTransactions()
@@ -164,7 +162,6 @@ class PFPTree(object):
             To satisfy the periodicity constraint
         extract(minCount, maxPer, numTrans, isResponsible = lambda x:True)
             To extract the periodic frequent patterns
-
 
     """
 
@@ -182,7 +179,6 @@ class PFPTree(object):
         :param basket: basket of a database
         :param tid: timestamp of a database
         :param count: count of a node
-
         """
         curr = self.root
         curr.count += count
@@ -217,7 +213,6 @@ class PFPTree(object):
         To get the transactions of the tree
 
         :return: returning the transactions of the tree
-
         """
         return [x for x in self.root._getTransactions()]
 
@@ -226,7 +221,6 @@ class PFPTree(object):
         To merge the tree
 
         :param tree: tree of a database
-
         """
         for t in tree.getTransactions():
             self.add(t[0], t[1], t[2])
@@ -237,7 +231,6 @@ class PFPTree(object):
         To project the tree
 
         :param itemId: item of a node
-
         """
         newTree = PFPTree()
         summaryItem = self.summaries.get(itemId)
@@ -258,7 +251,6 @@ class PFPTree(object):
         :param tids: timestamps of a database
         :param maxPer: maximum periodicity
         :param numTrans: number of transactions
-
         """
 
         tids = list(tids)
@@ -279,7 +271,6 @@ class PFPTree(object):
         :param maxPer: maximum periodicity
         :param numTrans: number of transactions
         :param isResponsible: responsible node of a tree
-
         """
         for item in sorted(self.summaries, reverse=True):
             summary = self.summaries[item]
@@ -297,8 +288,8 @@ class Summary(object):
     """
     A class used to represent the summary of the tree
 
-    Attributes:
-    ----------
+    :Attributes:
+
         count : int
             To maintain the count of a node
         nodes : list
@@ -316,16 +307,12 @@ class Summary(object):
 
 class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     """
-    Description:
-    -------------
-        ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
+    :Description:   ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
 
-    Reference:
-    -----------
-        C. Saideep, R. Uday Kiran, Koji Zettsu, Cheng-Wei Wu, P. Krishna Reddy, Masashi Toyoda, Masaru Kitsuregawa: Parallel Mining of Partial Periodic Itemsets in Big Data. IEA/AIE 2020: 807-819
+    :Reference:   C. Saideep, R. Uday Kiran, Koji Zettsu, Cheng-Wei Wu, P. Krishna Reddy, Masashi Toyoda, Masaru Kitsuregawa: Parallel Mining of Partial Periodic Itemsets in Big Data. IEA/AIE 2020: 807-819
 
-    Attributes:
-    ----------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -366,8 +353,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         finalPatterns : dict
             To store the complete patterns
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -395,17 +382,18 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
 
     **Methods to execute code on terminal**
-
+    --------------------------------------------
             Format:
                       >>>  python3 parallelPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
+
             Example:
                       >>>  python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5
 
-            .. note:: minSup will be considered in percentage of database transactions
+                      .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
-
+    -----------------------------------------------------
     .. code-block:: python
 
                 from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
@@ -464,7 +452,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         :param ps1: set
         :param tid: timestamp of a database
-
         return: set
 
         """
@@ -476,9 +463,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         Union of two sets
 
-        :param ps1: set
+        :param ps1: set.
         :param ps2: set
-
         return: set
 
         """
@@ -492,10 +478,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         Calculate the periodicity of a transaction
 
         :param tids: timestamps of a database
-
         return: periodicity
-
-
         """
         # print(tids)
         z = sorted(tids)
@@ -515,9 +498,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         Get the frequent items from the database
 
         :param data: database
-
         return: frequent items
-
         """
         singleItems = data.flatMap(lambda x: [(x[i], x[0]) for i in range(1, len(x))])
         ps = set()
@@ -537,7 +518,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         :param data: database
         :param freqItems: frequent items
-
         return: frequent itemsets
 
         """
@@ -574,7 +554,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         :param basket: basket of a database
         :param rank: rank of a database
         :param nPartitions: number of partitions
-
         """
         filtered = [rank[int(x)] for x in basket if int(x) in rank.keys()]
         filtered = sorted(filtered)
@@ -592,7 +571,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         :param key: key of a database
         :param nPartitions: number of partitions
-
         return: partition id
 
         """
@@ -603,7 +581,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         to convert the type of user specified minSup value
 
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -654,7 +631,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -664,7 +640,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -673,9 +648,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
@@ -685,7 +658,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -700,8 +672,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -715,7 +686,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self.__tarunpat

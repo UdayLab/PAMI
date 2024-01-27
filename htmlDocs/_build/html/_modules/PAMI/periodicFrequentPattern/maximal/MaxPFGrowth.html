@@ -69,10 +69,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.periodicFrequentPattern.maximal.MaxPFGrowth</h1><div class="highlight"><pre>
-<span></span>
-
-
-<span class="c1"># **Importing this algorithm into a python program**</span>
+<span></span><span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#     from PAMI.periodicFrequentPattern.maximal import MaxPFGrowth as alg</span>
@@ -136,10 +133,8 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">     A class used to represent the node of frequentPatternTree</span>
 
-<span class="sd">        ...</span>
-
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        -----------</span>
 <span class="sd">            item : int</span>
 <span class="sd">                storing item of a node</span>
 <span class="sd">            timeStamps : list</span>
@@ -150,7 +145,7 @@
 <span class="sd">                To maintain the children of node</span>
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">            addChild(itemName)</span>
 <span class="sd">                storing the children to their respective parent nodes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -176,10 +171,8 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class used to represent the frequentPatternGrowth tree structure</span>
 
-<span class="sd">        ...</span>
-
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        ------------</span>
 <span class="sd">            root : Node</span>
 <span class="sd">                Represents the root node of the tree</span>
 <span class="sd">            summaries : dictionary</span>
@@ -189,7 +182,7 @@
 
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ----------</span>
 <span class="sd">            addTransaction(Database)</span>
 <span class="sd">                creating Database as a branch in frequentPatternTree</span>
 <span class="sd">            getConditionPatterns(Node)</span>
@@ -315,17 +308,15 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class used to represent the node of frequentPatternTree</span>
 
-<span class="sd">        ...</span>
-
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        ------------</span>
 <span class="sd">            item : int</span>
 <span class="sd">                storing item of a node</span>
 <span class="sd">            children : list</span>
 <span class="sd">                To maintain the children of node</span>
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">            addChild(itemName)</span>
 <span class="sd">                storing the children to their respective parent nodes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -349,17 +340,15 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class used to represent the node of frequentPatternTree</span>
 
-<span class="sd">        ...</span>
-
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        ------------</span>
 <span class="sd">            root : node</span>
 <span class="sd">                the root of a tree</span>
 <span class="sd">            summaries : dict</span>
 <span class="sd">                to store the items with same name into dictionary</span>
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">            addTransaction(itemSet)</span>
 <span class="sd">                the generated periodic-frequent pattern is added into maximal-tree</span>
 <span class="sd">            checkerSub(itemSet)</span>
@@ -478,13 +467,13 @@
 <span class="sd">            patterns in a temporal database.</span>
 
 <span class="sd">        Reference:</span>
-<span class="sd">        --------</span>
+<span class="sd">        -----------</span>
 <span class="sd">            R. Uday Kiran, Yutaka Watanobe, Bhaskar Chaudhury, Koji Zettsu, Masashi Toyoda, Masaru Kitsuregawa,</span>
 <span class="sd">            &quot;Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases&quot;,</span>
 <span class="sd">            IEEE 2020, https://ieeexplore.ieee.org/document/9260063</span>
 
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        ------------</span>
 <span class="sd">            iFile : file</span>
 <span class="sd">                Name of the Input file or path of the input file</span>
 <span class="sd">            oFile : file</span>
@@ -524,7 +513,7 @@
 <span class="sd">                it represents to store the patterns</span>
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">            startMine()</span>
 <span class="sd">                Mining process will start from here</span>
 <span class="sd">            getPatterns()</span>
@@ -557,7 +546,7 @@
 <span class="sd">            &gt;&gt;&gt; python3 maxpfrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
 
 <span class="sd">            Examples:</span>
-<span class="sd">            --------</span>
+<span class="sd">            ----------</span>
 <span class="sd">            &gt;&gt;&gt; python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4  (minSup will be considered in percentage of database</span>
 <span class="sd">            transactions)</span>
 <span class="sd">            &gt;&gt;&gt; python3 maxpfrowth.py sampleTDB.txt patterns.txt 3 4  (minSup will be considered in support count or frequency)</span>
@@ -594,7 +583,7 @@
 <span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 <span class="sd">        Credits:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>

@@ -456,7 +456,9 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>Methods to execute code on terminal</strong></p>
+</section>
+<section id="methods-to-execute-code-on-terminal">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl>
 <dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span>
@@ -473,7 +475,9 @@ However, the users can override their default separator.</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
 </div></blockquote>
-<p><strong>Importing this algorithm into a python program</strong></p>
+</section>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PFPGrowth</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PFPGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">)</span>
@@ -501,7 +505,9 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Credits:</strong></p>
+</section>
+<section id="credits">
+<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
@@ -927,7 +933,9 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>Methods to execute code on terminal</strong></p>
+</section>
+<section id="id13">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl>
 <dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span>  <span class="n">python3</span> <span class="n">PFPMC</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span>
@@ -944,7 +952,9 @@ However, the users can override their default separator.</p>
 <p>minSup and maxPer will be considered in percentage of database transactions</p>
 </div>
 </div></blockquote>
-<p><strong>Importing this algorithm into a python program</strong></p>
+</section>
+<section id="id14">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PFPMC</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PFPMC</span><span class="p">(</span><span class="s2">&quot;../basic/sampleTDB.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;5&quot;</span><span class="p">)</span>
@@ -972,7 +982,9 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Credits:</strong></p>
+</section>
+<section id="id15">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>
@@ -1077,8 +1089,8 @@ However, the users can override their default separator.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicFrequentPattern.basic.PSGrowth.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicFrequentPattern/basic/PSGrowth.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicFrequentPattern.basic.PSGrowth.Node" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class used to represent the node of frequentPatternTree</p>
-<section id="id13">
-<h3>Attributes:<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<section id="id16">
+<h3>Attributes:<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>item<span class="classifier">int</span></dt><dd><p>storing item of a node</p>
@@ -1118,22 +1130,22 @@ However, the users can override their default separator.</p>
 <dt class="sig sig-object py" id="PAMI.periodicFrequentPattern.basic.PSGrowth.PSGrowth">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.periodicFrequentPattern.basic.PSGrowth.</span></span><span class="sig-name descname"><span class="pre">PSGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxPer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/periodicFrequentPattern/basic/PSGrowth.html#PSGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.periodicFrequentPattern.basic.PSGrowth.PSGrowth" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_periodicFrequentPatterns</span></code></p>
-<section id="id14">
-<h3>Description:<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<section id="id17">
+<h3>Description:<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>PS-Growth is one of the fundamental algorithm to discover periodic-frequent patterns in a temporal database.</p>
 </div></blockquote>
 </section>
-<section id="id15">
-<h3>Reference :<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<section id="id18">
+<h3>Reference :<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>A. Anirudh, R. U. Kiran, P. K. Reddy and M. Kitsuregaway, &quot;Memory efficient mining of periodic-frequent
 patterns in transactional databases,&quot; 2016 IEEE Symposium Series on Computational Intelligence (SSCI),
 2016, pp. 1-8, <a class="reference external" href="https://doi.org/10.1109/SSCI.2016.7849926">https://doi.org/10.1109/SSCI.2016.7849926</a></p>
 </div></blockquote>
 </section>
-<section id="id16">
-<h3>Attributes:<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<section id="id19">
+<h3>Attributes:<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
@@ -1176,8 +1188,8 @@ However, the users can override their default separator.</p>
 </dl>
 </div></blockquote>
 </section>
-<section id="id17">
-<h3>Methods:<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<section id="id20">
+<h3>Methods:<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
@@ -1200,7 +1212,9 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>Methods to execute code on terminal</strong></p>
+</section>
+<section id="id21">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl>
 <dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PSGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span>
@@ -1217,7 +1231,9 @@ However, the users can override their default separator.</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
 </div></blockquote>
-<p><strong>Importing this algorithm into a python program</strong></p>
+</section>
+<section id="id22">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">PSGrowth</span> <span class="k">as</span> <span class="n">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PSGrowth</span><span class="p">(</span><span class="s2">&quot;../basic/sampleTDB.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;6&quot;</span><span class="p">)</span>
@@ -1245,7 +1261,9 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Credits:</strong></p>
+</section>
+<section id="id23">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
 </div></blockquote>

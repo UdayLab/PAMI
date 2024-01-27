@@ -1,11 +1,9 @@
 # Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
 # This program employs Prefix Span property (or downward closure property) to  reduce the search space effectively.
-# This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
-# transactional database.
+# This algorithm employs depth-first search technique to find the complete set of frequent patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
-#
 #
 #     import PAMI.frequentPattern.basic.prefixSpan as alg
 #
@@ -32,6 +30,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -49,8 +48,8 @@ __copyright__ = """
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
      Copyright (C)  2021 Rage Uday Kiran
-
 """
+
 from PAMI.sequentialPatternMining.basic import abstract as _ab
 import copy
 import re
@@ -58,27 +57,20 @@ _ab._sys.setrecursionlimit(10000)
 
 class prefixSpan(_ab._sequentialPatterns):
     """
+    :Description:
+        * Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+        * This program employs Prefix Span property (or downward closure property) to  reduce the search space effectively.
+        * This algorithm employs depth-first search technique to find the complete set of frequent patterns in a transactional database.
 
-    Description:
-    --------------
+    :Reference:   J. Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal, M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach. IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)
 
-        Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
-        This program employs Prefix Span property (or downward closure property) to  reduce the search space effectively.
-        This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
-        transactional database.
+    :Attributes:
 
-    Reference:
-    -------------
-
-       J. Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal, M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach. IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)
-
-    Attributes:
-    -------------
         iFile : str
             Input file name or path of the input file
         oFile : str
             Name of the output file or the path of output file
-        minSup: float or int or str
+        minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -86,11 +78,11 @@ class prefixSpan(_ab._sequentialPatterns):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
@@ -98,8 +90,9 @@ class prefixSpan(_ab._sequentialPatterns):
             To store the total amount of RSS memory consumed by the program
         Database : list
             To store the transactions of a database in list
-    Methods:
-    ---------
+
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -120,18 +113,17 @@ class prefixSpan(_ab._sequentialPatterns):
             Generates candidate patterns from the frequent patterns
 
     **Methods to execute code on terminal**
-
+    ------------------------------------------
             Format:
                       >>>  python3 prefixSpan.py <inputFile> <outputFile> <minSup>
-            Example:
-                      >>>  python3 prefixSpan.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
 
+            Example:
                       >>>  python3 prefixSpan.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
 
 
     **Importing this algorithm into a python program**
-
-        .. code-block:: python
+    -----------------------------------------------------
+    .. code-block:: python
 
             import PAMI.frequentPattern.basic.prefixSpan as alg
 
@@ -160,10 +152,9 @@ class prefixSpan(_ab._sequentialPatterns):
             print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
+    ---------------
 
               The complete program was written by Suzuki Shota under the supervision of Professor Rage  Uday Kiran.
-
-
     """
 
     _minSup = float()
@@ -179,7 +170,7 @@ class prefixSpan(_ab._sequentialPatterns):
     _sepDatabase={}
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
 
@@ -230,6 +221,7 @@ class prefixSpan(_ab._sequentialPatterns):
     def _convert(self, value):
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type
         """
@@ -246,9 +238,10 @@ class prefixSpan(_ab._sequentialPatterns):
         return value
     def makeNext(self,sepDatabase,startrow):
         """
-         To get next pattern by adding head word to next sequence of startrow
+        To get next pattern by adding head word to next sequence of startrow
+
         :param sepDatabase: dict
-            what words and rows startrow have to add it
+            what words and rows startrow have to add it.
         :param startrow:
             the patterns get before
         """
@@ -279,13 +272,13 @@ class prefixSpan(_ab._sequentialPatterns):
 
     def makeSupDatabase(self,database,head):
         """
-         To delete not frequent words without words in the latest sequence
+        To delete not frequent words without words in the latest sequence
+
         :param database: list
             database of lines having same startrow and head word
         :param head:list
          words in the latest sequence
         :return: changed database
-
         """
 
         supDatabase={}
@@ -317,6 +310,7 @@ class prefixSpan(_ab._sequentialPatterns):
     def makeNextSame(self,sepDatabase,startrow):
         """
          To get next pattern by adding head word to the latest sequence of startrow
+
         :param sepDatabase: dict
             what words and rows startrow have to add it
         :param startrow:
@@ -348,19 +342,12 @@ class prefixSpan(_ab._sequentialPatterns):
                     sepDatabase[head] = self.makeSupDatabase(sepDatabase[head], give)
                     newrow.pop()
                     self.makeSeqDatabaseSame(sepDatabase[head], newrow)
-
-
-
-
-
-
-
-
     def makeSeqDatabaseFirst(self,database):
         """
         To make 1 length sequence dataset list which start from same word. It was stored only 1 from 1 line.
-            :param database:
-                To store the transactions of a database in list
+
+        :param database:
+            To store the transactions of a database in list
         """
         startrow=[]
         seqDatabase={}
@@ -382,14 +369,14 @@ class prefixSpan(_ab._sequentialPatterns):
 
     def serchSame(self,database,startrow,give):
         """
-         To get 2 or more length patterns in same sequence.
+        To get 2 or more length patterns in same sequence.
+
         :param database: list
             To store the transactions of a database in list which have same startrow and head word
         :param startrow: list
             the patterns get before
         :param give: list
             the word in the latest sequence of startrow
-        :return:
         """
         sepDatabaseSame={}
         sepDatabaseSame[startrow[-1]]=[]
@@ -428,9 +415,8 @@ class prefixSpan(_ab._sequentialPatterns):
     def getSameSeq(self,startrow):
         """
          To get words in the latest sequence
-        :param startrow:
-         the patterns get before
-        :return:
+        :param startrow: the patterns get before
+
         """
         give = []
         newrow = startrow.copy()
@@ -439,17 +425,16 @@ class prefixSpan(_ab._sequentialPatterns):
             give.append(y)
         return give
 
-
     def makeSeqDatabaseSame(self,database,startrow):
         """
-            To make sequence dataset list which start from same word(head). It was stored only 1 from 1 line.
-            And it separated by having head in the latest sequence of startrow or not.
-            :param database:
-                    To store the transactions of a database in list
-            :param startrow: list
-                    the patterns get before
+        To make sequence dataset list which start from same word(head). It was stored only 1 from 1 line.
+        And it separated by having head in the latest sequence of startrow or not.
 
-            """
+        :param database:
+                To store the transactions of a database in list
+        :param startrow: the patterns get before
+
+        """
         seqDatabase={}
         seqDatabaseSame={}
         for line in database:
@@ -499,7 +484,7 @@ class prefixSpan(_ab._sequentialPatterns):
 
     def startMine(self):
         """
-            Frequent pattern mining process will start from here
+        Frequent pattern mining process will start from here
         """
         self._Database = []
         self._startTime = _ab._time.time()
@@ -516,7 +501,9 @@ class prefixSpan(_ab._sequentialPatterns):
         print("Frequent patterns were generated successfully using prefixSpan algorithm ")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -524,7 +511,9 @@ class prefixSpan(_ab._sequentialPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -532,7 +521,9 @@ class prefixSpan(_ab._sequentialPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -540,7 +531,9 @@ class prefixSpan(_ab._sequentialPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -553,9 +546,11 @@ class prefixSpan(_ab._sequentialPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -569,14 +564,17 @@ class prefixSpan(_ab._sequentialPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

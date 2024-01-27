@@ -14,16 +14,14 @@ from urllib.request import urlopen as _urlopen
 
 
 class _frequentPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-    employ in PAMI
+    """
+    :Description: This abstract base class defines the variables and methods that every frequent pattern mining algorithm must employ in PAMI
 
-    ...
+    :Attributes:
 
-    Attributes:
-    ----------
         iFile : str
             Input file name or path of the input file
-        minSup: float or int or str
+        minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -31,11 +29,11 @@ class _frequentPatterns(_ABC):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
-        startTime:float
+        startTime :float
             To record the start time of the algorithm
-        endTime:float
+        endTime : float
             To record the completion time of the algorithm
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
             Name of the output file to store complete set of frequent patterns
@@ -44,8 +42,8 @@ class _frequentPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -102,7 +100,7 @@ class _frequentPatterns(_ABC):
         """Complete set of frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass

@@ -328,7 +328,8 @@
         <span class="n">transactionUtility</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">trans_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">itemsString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
         <span class="n">utilityString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
-        <span class="n">pmuString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trans_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="n">pmuString</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
         <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">utilities</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">pmus</span> <span class="o">=</span> <span class="p">[]</span>
@@ -342,7 +343,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">maxItem</span> <span class="o">=</span> <span class="n">item_int</span>
             <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item_int</span><span class="p">)</span>
             <span class="n">utilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">utilityString</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
-            <span class="n">pmus</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pmuString</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trans_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">):</span>
+                <span class="n">pmus</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pmuString</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
         <span class="k">return</span> <span class="n">Transaction</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">utilities</span><span class="p">,</span> <span class="n">transactionUtility</span><span class="p">,</span> <span class="n">pmus</span><span class="p">)</span></div>
 
 
@@ -609,6 +611,8 @@
             <span class="n">initialMemory</span> <span class="o">=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span>
             <span class="n">transactionsPe</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">utilityPe</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transactionsOfP</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span> 
             <span class="n">previousTransaction</span> <span class="o">=</span> <span class="n">transactionsOfP</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">consecutiveMergeCount</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">transactionsOfP</span><span class="p">:</span>
@@ -915,10 +919,18 @@
         <span class="n">utilityMatrix</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">()):</span>
+                <span class="n">pmu</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Neighbours</span><span class="p">:</span>
+                    <span class="n">neighbors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Neighbours</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">()):</span>
+                        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
+                            <span class="n">pmu</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()[</span><span class="n">idx</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilityBinArrayLU</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getPmus</span><span class="p">()[</span><span class="n">idx</span><span class="p">]</span>
+                    <span class="c1"># self.utilityBinArrayLU[item] += transaction.getPmus()[idx]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pmu</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getPmus</span><span class="p">()[</span><span class="n">idx</span><span class="p">]</span>
+                    <span class="c1"># self.utilityBinArrayLU[item] = transaction.getPmus()[idx]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">pmu</span>
                 <span class="n">utilityMatrix</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">getUtilities</span><span class="p">()[</span><span class="n">idx</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Neighbours</span><span class="p">:</span>
                     <span class="n">neighbors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Neighbours</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
@@ -1044,29 +1056,43 @@
 </div>
 
 
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">inputFile</span> <span class="o">=</span> <span class="s1">&#39;mushroom_utility_spmf.txt&#39;</span>
+    <span class="n">neighborFile</span> <span class="o">=</span> <span class="s1">&#39;mushroom_neighbourhood.txt&#39;</span> <span class="c1">#Users can also specify this constraint between 0 to 1.</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">seperator</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> 
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">TKSHUIM</span><span class="p">(</span><span class="n">iFile</span><span class="o">=</span><span class="n">inputFile</span><span class="p">,</span> <span class="n">nFile</span><span class="o">=</span><span class="n">neighborFile</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>  <span class="n">sep</span><span class="o">=</span><span class="n">seperator</span><span class="p">)</span>    <span class="c1">#initialize</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>   
+    <span class="n">obj</span><span class="o">.</span><span class="n">printResults</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">())</span></div>
+
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">_ap</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
-            <span class="n">_ap</span> <span class="o">=</span> <span class="n">TKSHUIM</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
-            <span class="n">_ap</span> <span class="o">=</span> <span class="n">TKSHUIM</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
-        <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top K Spatial  High Utility Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
-        <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span>  <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">]:</span>
-            <span class="n">_ap</span> <span class="o">=</span> <span class="n">TKSHUIM</span><span class="p">(</span><span class="s1">&#39;/Users/Likhitha/Downloads/mushroom_main_2000.txt&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
-            <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial High Utility Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
+    <span class="n">main</span><span class="p">()</span>
+    <span class="c1"># _ap = str()</span>
+    <span class="c1"># if len(sys.argv) == 5 or len(sys.argv) == 6:</span>
+    <span class="c1">#     if len(sys.argv) == 6:</span>
+    <span class="c1">#         _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]), sys.argv[5])</span>
+    <span class="c1">#     if len(sys.argv) == 5:</span>
+    <span class="c1">#         _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))</span>
+    <span class="c1">#     _ap.startMine()</span>
+    <span class="c1">#     print(&quot;Top K Spatial  High Utility Patterns:&quot;, len(_ap.getPatterns()))</span>
+    <span class="c1">#     _ap.save(sys.argv[2])</span>
+    <span class="c1">#     print(&quot;Total Memory in USS:&quot;, _ap.getMemoryUSS())</span>
+    <span class="c1">#     print(&quot;Total Memory in RSS&quot;,  _ap.getMemoryRSS())</span>
+    <span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, _ap.getRuntime())</span>
+    <span class="c1"># else:</span>
+    <span class="c1">#     for i in [1000, 5000]:</span>
+    <span class="c1">#         _ap = TKSHUIM(&#39;/Users/Likhitha/Downloads/mushroom_main_2000.txt&#39;,</span>
+    <span class="c1">#                 &#39;/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt&#39;, i, &#39; &#39;)</span>
+    <span class="c1">#         _ap.startMine()</span>
+    <span class="c1">#         print(&quot;Total number of Spatial High Utility Patterns:&quot;, len(_ap.getPatterns()))</span>
+    <span class="c1">#         print(&quot;Total Memory in USS:&quot;, _ap.getMemoryUSS())</span>
+    <span class="c1">#         print(&quot;Total Memory in RSS&quot;, _ap.getMemoryRSS())</span>
+    <span class="c1">#         print(&quot;Total ExecutionTime in seconds:&quot;, _ap.getRuntime())</span>
+    <span class="c1">#     print(&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;)</span>
 </pre></div>
 
            </div>

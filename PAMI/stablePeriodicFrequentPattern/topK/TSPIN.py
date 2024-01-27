@@ -66,8 +66,8 @@ class _Node(object):
     """
         A class used to represent the node of stablePeriodicFrequentPatternTree
 
-        Attributes:
-        ----------
+        :Attributes:
+
             item : int or None
                 Storing item of a node
             timeStamps : list
@@ -77,14 +77,15 @@ class _Node(object):
             children : list
                 To maintain the children of a node
 
-        Methods:
-        -------
+        :Methods:
+
             addChild(itemName)
                 Storing the children to their respective parent nodes
         """
 
     def __init__(self, item, children) -> None:
-        """ Initializing the Node class
+        """
+        Initializing the Node class
 
         :param item: Storing the item of a node
         :type item: int or None
@@ -98,9 +99,10 @@ class _Node(object):
         self.timeStamps = []
 
     def addChild(self, node) -> None:
-        """ To add the children to a node
+        """
+        To add the children to a node
 
-            :param node: parent node in the tree
+        :param node: parent node in the tree
         """
 
         self.children[node.item] = node
@@ -109,32 +111,31 @@ class _Node(object):
 
 class _Tree(object):
     """
-        A class used to represent the stablePeriodic frequentPatternGrowth tree structure
+    A class used to represent the stablePeriodic frequentPatternGrowth tree structure
 
-        Attributes:
-        ----------
-            root : Node
-                Represents the root node of the tree
-            summaries : dictionary
-                Storing the nodes with same item name
-            info : dictionary
-                Stores the support of the items
+    :Attributes:
+
+        root : Node
+            Represents the root node of the tree
+        summaries : dictionary
+            Storing the nodes with same item name
+        info : dictionary
+            Stores the support of the items
 
 
-        Methods:
-        -------
-            addTransactions(Database)
-                Creating transaction as a branch in frequentPatternTree
-            getConditionalPatterns(Node)
-                Generates the conditional patterns from tree for specific node
-            conditionalTransaction(prefixPaths,Support)
-                Takes the prefixPath of a node and support at child of the path and extract the frequent patterns from
-                prefixPaths and generates prefixPaths with items which are frequent
-            remove(Node)
-                Removes the node from tree once after generating all the patterns respective to the node
-            generatePatterns(Node)
-                Starts from the root node of the tree and mines the periodic-frequent patterns
+    :Methods:
 
+        addTransactions(Database)
+            Creating transaction as a branch in frequentPatternTree
+        getConditionalPatterns(Node)
+            Generates the conditional patterns from tree for specific node
+        conditionalTransaction(prefixPaths,Support)
+            Takes the prefixPath of a node and support at child of the path and extract the frequent patterns from
+            prefixPaths and generates prefixPaths with items which are frequent
+        remove(Node)
+            Removes the node from tree once after generating all the patterns respective to the node
+        generatePatterns(Node)
+            Starts from the root node of the tree and mines the periodic-frequent patterns
         """
 
     def __init__(self) -> None:
@@ -143,13 +144,14 @@ class _Tree(object):
         self.info = {}
 
     def addTransaction(self, transaction, tid) -> None:
-        """     Adding a transaction into tree
+        """
+        Adding a transaction into tree
 
-                :param transaction: To represent the complete database
-                :type transaction: list
-                :param tid: To represent the timestamp of a database
-                :type tid: list
-                :return: pfp-growth tree
+        :param transaction: To represent the complete database
+        :type transaction: list
+        :param tid: To represent the timestamp of a database
+        :type tid: list
+        :return: pfp-growth tree
         """
 
         currentNode = self.root
@@ -167,11 +169,12 @@ class _Tree(object):
         currentNode.timeStamps = currentNode.timeStamps + tid
 
     def getConditionalPatterns(self, alpha) -> None:
-        """Generates all the conditional patterns of a respective node
+        """
+        Generates all the conditional patterns of a respective node
 
-            :param alpha: To represent a Node in the tree
-            :type alpha: Node
-            :return: A tuple consisting of finalPatterns, conditional pattern base and information
+        :param alpha: To represent a Node in the tree
+        :type alpha: Node
+        :return: A tuple consisting of finalPatterns, conditional pattern base and information
         """
         finalPatterns = []
         finalSets = []
@@ -190,7 +193,8 @@ class _Tree(object):
 
     @staticmethod
     def generateTimeStamps(node) -> list:
-        """To get the timestamps of a node
+        """
+        To get the timestamps of a node
 
         :param node: A node in the tree
         :return: Timestamps of a node
@@ -202,9 +206,9 @@ class _Tree(object):
     def removeNode(self, nodeValue) -> None:
         """ Removing the node from tree
 
-            :param nodeValue: To represent a node in the tree
-            :type nodeValue: node
-            :return: Tree with their nodes updated with timestamps
+        :param nodeValue: To represent a node in the tree
+        :type nodeValue: node
+        :return: Tree with their nodes updated with timestamps
         """
 
         for i in self.summaries[nodeValue]:
@@ -212,10 +216,11 @@ class _Tree(object):
             del i.parent.children[nodeValue]
 
     def getTimeStamps(self, alpha) -> list:
-        """ To get all the timestamps of the nodes which share same item name
+        """
+        To get all the timestamps of the nodes which share same item name
 
-            :param alpha: Node in a tree
-            :return: Timestamps of a  node
+        :param alpha: Node in a tree
+        :return: Timestamps of a  node
         """
         temporary = []
         for i in self.summaries[alpha]:
@@ -224,7 +229,8 @@ class _Tree(object):
 
     @staticmethod
     def getSupportAndPeriod(timeStamps) -> tuple:
-        """To calculate the periodicity and support
+        """
+        To calculate the periodicity and support
 
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
@@ -241,13 +247,14 @@ class _Tree(object):
         return len(timeStamps), la
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps) -> tuple:
-        """ It generates the conditional patterns with periodic-frequent items
+        """
+        It generates the conditional patterns with periodic-frequent items
 
-            :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
-            :type conditionalPatterns: list
-            :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
-            :type conditionalTimeStamps: list
-            :returns: Returns conditional transactions by removing non-periodic and non-frequent items
+        :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
+        :type conditionalPatterns: list
+        :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
+        :type conditionalTimeStamps: list
+        :returns: Returns conditional transactions by removing non-periodic and non-frequent items
         """
 
         global _maxPer, _minSup
@@ -275,11 +282,12 @@ class _Tree(object):
         return pat, timeStamps, updatedDictionary
 
     def generatePatterns(self, minSup, prefix, Qk) -> None:
-        """ Generates the patterns
+        """
+        Generates the patterns
 
-            :param prefix: Forms the combination of items
-            :type prefix: list
-            :returns: yields patterns with their support and periodicity
+        :param prefix: Forms the combination of items
+        :type prefix: list
+        :returns: yields patterns with their support and periodicity
         """
 
         global _k
@@ -306,28 +314,23 @@ class _Tree(object):
 
 class TSPIN(_ab._stablePeriodicFrequentPatterns):
     """
-    Description:
-    -------------
+    :Description:   TSPIN is an algorithm to discover top stable periodic-frequent patterns in a transactional database.
 
-        TSPIN is an algorithm to discover top stable periodic-frequent patterns in a transactional database.
+    :Reference:   Fournier-Viger, P., Wang, Y., Yang, P. et al. TSPIN: mining top-k stable periodic patterns.
+                  Appl Intell 52, 6917–6938 (2022). https://doi.org/10.1007/s10489-020-02181-6
 
-    Reference:
-    -----------
-        Fournier-Viger, P., Wang, Y., Yang, P. et al. TSPIN: mining top-k stable periodic patterns.
-        Appl Intell 52, 6917–6938 (2022). https://doi.org/10.1007/s10489-020-02181-6
+    :Attributes:
 
-    Attributes:
-    ------------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        maxPer: int or float or str
+        maxPer : int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        maxLa: int or float or str
+        maxLa : int or float or str
             The user can specify maxLa either in count or proportion of database size.
             If the program detects the data type of maxLa is integer, then it treats maxLa is expressed in count.
             Otherwise, it will be treated as float.
@@ -339,9 +342,9 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
         Database : list
             To store the transactions of a database in list
@@ -356,8 +359,8 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         finalPatterns : dict
             To store the complete patterns
 
-    Methods:
-    ---------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -383,21 +386,18 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         convert()
             to convert the user specified value
 
-
-
     **Methods to execute code on terminal**
-
+    ------------------------------------------
             Format:
                       >>>   python3 TSPIN.py <inputFile> <outputFile> <maxPer> <maxLa>
+
             Example:
                       >>>  python3 TSPIN.py sampleTDB.txt patterns.txt 0.3 0.4 0.6
 
-            .. note:: maxPer, maxLa and k will be considered in percentage of database transactions
-
-
+                      .. note:: maxPer, maxLa and k will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
-
+    ----------------------------------------------------
     .. code-block:: python
 
                 from PAMI.stablePeriodicFrequentPattern.basic import TSPIN as alg
@@ -427,7 +427,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
                 print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    ---------------
              The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
 
@@ -451,9 +451,7 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -495,10 +493,10 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
 
     def _periodicFrequentOneItem(self) -> Tuple[Dict[str, List[int]], List[str]]:
-        """ Calculates the support of each item in the database and assign ranks to the items
-            by decreasing support and returns the frequent items list
+        """
+        Calculates the support of each item in the database and assign ranks to the items by decreasing support and returns the frequent items list
 
-            :returns: return the one-length periodic frequent patterns
+        :returns: return the one-length periodic frequent patterns
         """
         global _last
         tidLast = {}
@@ -526,12 +524,13 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return data, pfList
 
     def _updateDatabases(self, dict1: Dict[str, List[int]]) -> List[List[int]]:
-        """ Remove the items which are not frequent from database and updates the database with rank of items
+        """
+        Remove the items which are not frequent from database and updates the database with rank of items
 
-            :param dict1: frequent items with support
-            :type dict1: dictionary
-            :return: Sorted and updated transactions
-            """
+        :param dict1: frequent items with support
+        :type dict1: dictionary
+        :return: Sorted and updated transactions
+        """
         list1 = []
         for tr in self._Database:
             list2 = [int(tr[0])]
@@ -547,13 +546,14 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
 
     @staticmethod
     def _buildTree(data: List[List[int]], info: Dict[int, List[int]]) -> _Tree:
-        """ It takes the database and support of each item and construct the main tree by setting root node as a null
+        """
+        It takes the database and support of each item and construct the main tree by setting root node as a null
 
-            :param data: it represents the one Database in database
-            :type data: list
-            :param info: it represents the support of each item
-            :type info: dictionary
-            :return: returns root node of tree
+        :param data: it represents the one Database in database
+        :type data: list
+        :param info: it represents the support of each item
+        :type info: dictionary
+        :return: returns root node of tree
         """
 
         rootNode = _Tree()
@@ -564,10 +564,11 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return rootNode
 
     def _savePeriodic(self, itemSet: List[str]) -> str:
-        """ To convert the ranks of items in to their original item names
+        """
+        To convert the ranks of items in to their original item names
 
-            :param itemSet: frequent pattern
-            :return: frequent pattern with original item names
+        :param itemSet: frequent pattern.
+        :return: frequent pattern with original item names
         """
         t1 = str()
         for i in itemSet:
@@ -594,7 +595,8 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return value
 
     def startMine(self) -> None:
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
 
         global _maxLa, _maxPer, _k, _lno
@@ -651,7 +653,6 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
     def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -659,7 +660,8 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -673,7 +675,8 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of periodic-frequent patterns will be loaded in to an output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -685,7 +688,8 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> dict:
-        """ Function to send the set of periodic-frequent patterns after completion of the mining process
+        """
+        Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
         :rtype: dict
@@ -693,7 +697,8 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

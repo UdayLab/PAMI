@@ -110,24 +110,24 @@
 <span class="sd">        plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.</span>
 
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        -----------</span>
 <span class="sd">        :param dataFrame : DataFrame</span>
 <span class="sd">            store input data as DataFrame</span>
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        --------</span>
 <span class="sd">        plotLineGraphFromDatFrame()</span>
 <span class="sd">            draw line graph of input data. input data&#39;s key is x and value is y.</span>
 
-<span class="sd">            **Importing this algorithm into a python program**</span>
-<span class="sd">            --------------------------------------------------------</span>
-<span class="sd">            .. code-block:: python</span>
+<span class="sd">        **Importing this algorithm into a python program**</span>
+<span class="sd">        --------------------------------------------------------</span>
+<span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            from PAMI.extras.graph import plotLineGraphsFromDataframe as plt</span>
+<span class="sd">                from PAMI.extras.graph import plotLineGraphsFromDataframe as plt</span>
 
-<span class="sd">            obj = plt.plotLineGraphsFromDataFrame(idf)</span>
+<span class="sd">                obj = plt.plotLineGraphsFromDataFrame(idf)</span>
 
-<span class="sd">            obj.save()</span>
+<span class="sd">                obj.save()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataFrame</span><span class="p">:</span> <span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -160,13 +160,13 @@
     <span class="c1">#        &#39;memory&#39;: [426545152, 309182464, 241397760, 225533952, 220950528, 233537536, 267165696, 252841984, 245690368,</span>
     <span class="c1">#                    295710720]</span>
     <span class="c1">#        }</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;data = {</span>
-<span class="sd">        &#39;algorithm&#39;: [&#39;FPGrowth&#39;, &#39;FPGrowth&#39;, &#39;FPGrowth&#39;, &#39;FPGrowth&#39;, &#39;FPGrowth&#39;],</span>
-<span class="sd">        &#39;minSup&#39;: [0.01, 0.02, 0.03, 0.04, 0.05],</span>
-<span class="sd">        &#39;patterns&#39;: [386, 155, 60, 36, 10],</span>
-<span class="sd">        &#39;runtime&#39;: [7.351629, 4.658654, 4.658654, 1.946843, 1.909376],</span>
-<span class="sd">        &#39;memory&#39;: [426545152, 309182464, 241397760, 225533952, 220950528]</span>
-<span class="sd">        }&#39;&#39;&#39;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;algorithm&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;FPGrowth&#39;</span><span class="p">,</span> <span class="s1">&#39;FPGrowth&#39;</span><span class="p">,</span> <span class="s1">&#39;FPGrowth&#39;</span><span class="p">,</span> <span class="s1">&#39;FPGrowth&#39;</span><span class="p">,</span> <span class="s1">&#39;FPGrowth&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;minSup&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+        <span class="s1">&#39;patterns&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">386</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+        <span class="s1">&#39;runtime&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">7.351629</span><span class="p">,</span> <span class="mf">4.658654</span><span class="p">,</span> <span class="mf">4.658654</span><span class="p">,</span> <span class="mf">1.946843</span><span class="p">,</span> <span class="mf">1.909376</span><span class="p">],</span>
+        <span class="s1">&#39;memory&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">426545152</span><span class="p">,</span> <span class="mi">309182464</span><span class="p">,</span> <span class="mi">241397760</span><span class="p">,</span> <span class="mi">225533952</span><span class="p">,</span> <span class="mi">220950528</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">ab</span> <span class="o">=</span> <span class="n">plotGraphsFromDataFrame</span><span class="p">(</span><span class="n">dataFrame</span><span class="p">)</span>
     <span class="n">ab</span><span class="o">.</span><span class="n">plotGraphsFromDataFrame</span><span class="p">()</span>

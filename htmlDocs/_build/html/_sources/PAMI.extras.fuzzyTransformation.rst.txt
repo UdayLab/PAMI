@@ -20,10 +20,10 @@ PAMI.extras.fuzzyTransformation.temporalToFuzzy module
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.fuzzyTransformation.transactionalToFuzzyTimeSeries module
+PAMI.extras.fuzzyTransformation.transactionalToFuzzy module
 ---------------------------------------------------------------------
 
-.. automodule:: PAMI.extras.fuzzyTransformation.transactionalToFuzzyTimeSeries
+.. automodule:: PAMI.extras.fuzzyTransformation.transactionalToFuzzy
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,5 +1,4 @@
-# GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database
-# using GFP-Tree.
+# GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database using GFP-Tree.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -29,6 +28,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 __copyright__ = """
@@ -51,7 +51,7 @@ __copyright__ = """
 """
 
 # from geoReferencedFrequentPatterns import abstract as _ab
-#from PAMI.uncertainGeoreferencedFrequentPattern.basic import abstract as _ab
+# from PAMI.uncertainGeoreferencedFrequentPattern.basic import abstract as _ab
 import abstract as _ab
 
 _minSup = str()
@@ -63,9 +63,9 @@ _finalPatterns = {}
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
-    ...
-    Attributes:
-    __________
+
+    :Attributes:
+
         item : int or word
             Represents the name of the item
         probability : float
@@ -80,9 +80,9 @@ class _Item:
 class _Node(object):
     """
     A class used to represent the node of frequentPatternTree
-        ...
-    Attributes:
-    ----------
+
+    :Attributes:
+
         item : int
             storing item of a node
         probability : int
@@ -91,8 +91,9 @@ class _Node(object):
             To maintain the parent of every node
         children : list
             To maintain the children of node
-    Methods:
-    -------
+
+    :Methods:
+
         addChild(itemName)
             storing the children to their respective parent nodes
     """
@@ -111,17 +112,17 @@ class _Node(object):
 class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
-    ...
-    Attributes:
-    ----------
+
+    :Attributes:
+
         root : Node
             Represents the root node of the tree
         summaries : dictionary
             storing the nodes with same item name
         info : dictionary
             stores the support of items
-    Methods:
-    -------
+    :Methods:
+
         addTransaction(transaction)
             creating transaction as a branch in frequentPatternTree
         addConditionalPattern(prefixPaths, supportOfItems)
@@ -143,9 +144,11 @@ class _Tree(object):
         self.info = {}
 
     def addTransaction(self, transaction):
-        """adding transaction into tree
-            :param transaction : it represents the one self.Database in database
-            :type transaction : list
+        """
+        Adding transaction into tree
+
+        :param transaction : it represents the one self.Database in database
+        :type transaction : list
         """
         global _neighbourList
         currentNode = self.root
@@ -184,11 +187,13 @@ class _Tree(object):
                     currentNode.probability += max(lp) * transaction[i].probability
 
     def addConditionalPattern(self, transaction, sup):
-        """constructing conditional tree from prefixPaths
-            :param transaction : it represents the one self.Database in database
-            :type transaction : list
-            :param sup : support of prefixPath taken at last child of the path
-            :type sup : int
+        """
+        constructing conditional tree from prefixPaths
+
+        :param transaction : it represents the one self.Database in database
+        :type transaction : list
+        :param sup : support of prefixPath taken at last child of the path
+        :type sup : int
         """
 
         # This method takes transaction, support and constructs the conditional tree
@@ -208,9 +213,11 @@ class _Tree(object):
                 currentNode.probability += sup
 
     def conditionalPatterns(self, alpha):
-        """generates all the conditional patterns of respective node
-            :param alpha : it represents the Node in tree
-            :type alpha : _Node
+        """
+        Generates all the conditional patterns of respective node
+
+        :param alpha : it represents the Node in tree
+        :type alpha : _Node
         """
 
         # This method generates conditional patterns of node by traversing the tree
@@ -235,20 +242,24 @@ class _Tree(object):
         return finalPatterns, support, info
 
     def removeNode(self, nodeValue):
-        """removing the node from tree
-            :param nodeValue : it represents the node in tree
-            :type nodeValue : node
+        """
+        Removing the node from tree
+
+        :param nodeValue : it represents the node in tree
+        :type nodeValue : node
         """
 
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
 
     def conditionalTransactions(self, condPatterns, support):
-        """ It generates the conditional patterns with frequent items
-                :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
-                :type condPatterns : list
-                :support : the support of conditional pattern in tree
-                :support : int
+        """
+        It generates the conditional patterns with frequent items
+
+        :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
+        :type condPatterns : list
+        :support : the support of conditional pattern in tree
+        :support : int
         """
 
         global minSup
@@ -274,9 +285,11 @@ class _Tree(object):
         return pat, sup, updatedDict
 
     def generatePatterns(self, prefix):
-        """generates the patterns
-            :param prefix : forms the combination of items
-            :type prefix : list
+        """
+        Generates the patterns
+
+        :param prefix : forms the combination of items
+        :type prefix : list
         """
 
         global _finalPatterns, minSup
@@ -300,9 +313,8 @@ class _Tree(object):
 
 class GFPGrowth(_ab._frequentPatterns):
     """
-    :Description:
-        GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database
-        using GFP-Tree.
+    :Description: GFPGrowth algorithm is used to discover geo-referenced frequent patterns in a uncertain transactional database using GFP-Tree.
+
     :Reference:
          Palla Likhitha,Pamalla Veena, Rage, Uday Kiran, Koji Zettsu (2023).
          "Discovering Geo-referenced Frequent Patterns in Uncertain Geo-referenced
@@ -310,6 +322,7 @@ class GFPGrowth(_ab._frequentPatterns):
          https://doi.org/10.1007/978-3-031-33380-4_3
         
     :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -342,8 +355,9 @@ class GFPGrowth(_ab._frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
-    Methods:
-    -----------
+
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -370,47 +384,47 @@ class GFPGrowth(_ab._frequentPatterns):
             to convert the user specified value
         startMine()
             Mining process will start from this function
-    Executing the code on terminal:
-    -----------------------------------
+
+    **Executing the code on terminal**:
+    ------------------------------------
         Format:
-        ----------
           >>>  python3 GFPGrowth.py <inputFile> <neighborFile> <outputFile> <minSup>
+
         Examples:
-        ------------
           >>> python3 GFPGrowth.py sampleTDB.txt sampleNeighbor.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
     
-    Sample run of importing the code:
-    -----------------------------------
+    **Sample run of importing the code**:
+    --------------------------------------
      .. code-block:: python
 
-        from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
+            from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
 
-        obj = alg.GFPGrowth(iFile, nFile, minSup)
+            obj = alg.GFPGrowth(iFile, nFile, minSup)
 
-        obj.startMine()
+            obj.startMine()
 
-        Patterns = obj.getPatterns()
+            Patterns = obj.getPatterns()
 
-        print("Total number of  Patterns:", len(Patterns))
+            print("Total number of  Patterns:", len(Patterns))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
         
-    Credits:
-    -------
+    **Credits**:
+    -------------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
         """
     _startTime = float()
@@ -430,7 +444,7 @@ class GFPGrowth(_ab._frequentPatterns):
 
     def _creatingItemSets(self):
         """
-            Scans the uncertain transactional dataset
+        Scans the uncertain transactional dataset
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -453,7 +467,7 @@ class GFPGrowth(_ab._frequentPatterns):
         if isinstance(self._iFile, str):
             if _ab._validators.url(self._iFile):
                 data = _ab._urlopen(self._iFile)
-                for line in f:
+                for line in data:
                     temp1 = line.strip()
                     temp1 = temp1.split(':')
                     temp = [i.rstrip() for i in temp1[0].split(self._sep)]
@@ -486,7 +500,7 @@ class GFPGrowth(_ab._frequentPatterns):
                     
     def _creatingNeighbours(self):
         """
-            Scans the uncertain transactional dataset
+        Scans the uncertain transactional dataset
         """
         global _neighbourList
         _neighbourList = {}
@@ -535,10 +549,11 @@ class GFPGrowth(_ab._frequentPatterns):
                     print("File Not Found")
 
     def _frequentOneItem(self):
-        """takes the self.Database and calculates the support of each item in the dataset and assign the
-            ranks to the items by decreasing support and returns the frequent items list
-                :param self.Database : it represents the one self.Database in database
-                :type self.Database : list
+        """
+        Takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+
+        :param self.Database : it represents the one self.Database in database
+        :type self.Database : list
         """
 
         mapSupport = {}
@@ -555,12 +570,13 @@ class GFPGrowth(_ab._frequentPatterns):
 
     @staticmethod
     def _buildTree(data, info):
-        """it takes the self.Database and support of each item and construct the main tree with setting root
-            node as null
-                :param data : it represents the one self.Database in database
-                :type data : list
-                :param info : it represents the support of each item
-                :type info : dictionary
+        """
+        It takes the self.Database and support of each item and construct the main tree with setting root node as null
+
+        :param data : it represents the one self.Database in database
+        :type data : list
+        :param info : it represents the support of each item
+        :type info : dictionary
         """
 
         rootNode = _Tree()
@@ -570,9 +586,11 @@ class GFPGrowth(_ab._frequentPatterns):
         return rootNode
 
     def _updateTransactions(self, dict1):
-        """remove the items which are not frequent from self.Database and updates the self.Database with rank of items
-            :param dict1 : frequent items with support
-            :type dict1 : dictionary
+        """
+        Remove the items which are not frequent from self.Database and updates the self.Database with rank of items
+
+        :param dict1 : frequent items with support
+        :type dict1 : dictionary
         """
 
         list1 = []
@@ -590,11 +608,13 @@ class GFPGrowth(_ab._frequentPatterns):
 
     @staticmethod
     def _check(i, x):
-        """To check the presence of item or pattern in transaction
-                :param x: it represents the pattern
-                :type x : list
-                :param i : represents the uncertain self.Database
-                :type i : list
+        """
+        To check the presence of item or pattern in transaction
+
+        :param x: it represents the pattern
+        :type x : list
+        :param i : represents the uncertain self.Database
+        :type i : list
         """
 
         # This method taken a transaction as input and returns the tree
@@ -610,8 +630,9 @@ class GFPGrowth(_ab._frequentPatterns):
     def _convert(self, value):
         """
         To convert the type of user specified minSup value
-            :param value: user specified minSup value
-            :return: converted type minSup value
+
+        :param value: user specified minSup value
+        :return: converted type minSup value
         """
         if type(value) is int:
             value = int(value)
@@ -626,8 +647,9 @@ class GFPGrowth(_ab._frequentPatterns):
 
     def _removeFalsePositives(self):
         """
-            To remove the false positive patterns generated in frequent patterns
-            :return: patterns with accurate probability
+        To remove the false positive patterns generated in frequent patterns.
+
+        :return: patterns with accurate probability
         """
         global _finalPatterns
         periods = {}
@@ -654,8 +676,8 @@ class GFPGrowth(_ab._frequentPatterns):
                 self._finalPatterns[sample] = y
 
     def startMine(self):
-        """Main method where the patterns are mined by constructing tree and remove the false patterns
-            by counting the original support of a patterns
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
         global minSup
         self._startTime = _ab._time.time()
@@ -679,7 +701,9 @@ class GFPGrowth(_ab._frequentPatterns):
         self.memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -687,7 +711,9 @@ class GFPGrowth(_ab._frequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -695,7 +721,9 @@ class GFPGrowth(_ab._frequentPatterns):
         return self.memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -703,7 +731,9 @@ class GFPGrowth(_ab._frequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -716,9 +746,11 @@ class GFPGrowth(_ab._frequentPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -727,7 +759,9 @@ class GFPGrowth(_ab._frequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """

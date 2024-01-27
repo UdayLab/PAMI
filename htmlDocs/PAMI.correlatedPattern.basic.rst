@@ -4,18 +4,18 @@ PAMI.correlatedPattern.basic package
 Submodules
 ----------
 
-PAMI.correlatedPattern.basic.CPGrowth module
+PAMI.correlatedPattern.basic.CoMine module
 --------------------------------------------
 
-.. automodule:: PAMI.correlatedPattern.basic.CPGrowth
+.. automodule:: PAMI.correlatedPattern.basic.CoMINE
    :members:
    :undoc-members:
    :show-inheritance:
 
-PAMI.correlatedPattern.basic.CPGrowthPlus module
+PAMI.correlatedPattern.basic.CoMinePlus module
 ------------------------------------------------
 
-.. automodule:: PAMI.correlatedPattern.basic.CPGrowthPlus
+.. automodule:: PAMI.correlatedPattern.basic.CoMinePlus
    :members:
    :undoc-members:
    :show-inheritance:

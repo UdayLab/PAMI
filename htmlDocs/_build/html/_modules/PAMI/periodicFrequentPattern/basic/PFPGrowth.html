@@ -137,7 +137,7 @@
 <span class="sd">        A class used to represent the node of frequentPatternTree</span>
 
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        ------------</span>
 <span class="sd">            item : int or None</span>
 <span class="sd">                Storing item of a node</span>
 <span class="sd">            timeStamps : list</span>
@@ -148,7 +148,7 @@
 <span class="sd">                To maintain the children of a node</span>
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">            addChild(itemName)</span>
 <span class="sd">                Storing the children to their respective parent nodes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -180,7 +180,7 @@
 <span class="sd">        A class used to represent the frequentPatternGrowth tree structure</span>
 
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        ------------</span>
 <span class="sd">            root : Node</span>
 <span class="sd">                Represents the root node of the tree</span>
 <span class="sd">            summaries : dictionary</span>
@@ -190,7 +190,7 @@
 
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">            addTransactions(Database)</span>
 <span class="sd">                Creating transaction as a branch in frequentPatternTree</span>
 <span class="sd">            getConditionalPatterns(Node)</span>
@@ -307,12 +307,13 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">sup</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">per</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">conditionalDatabases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conditionalPatterns</span><span class="p">,</span> <span class="n">conditionalTimeStamps</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; It generates the conditional patterns with periodic-frequent items</span>
-<span class="sd">            :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node</span>
-<span class="sd">            :type conditionalPatterns: list</span>
-<span class="sd">            :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node</span>
-<span class="sd">            :type conditionalTimeStamps: list</span>
-<span class="sd">            :returns: Returns conditional transactions by removing non-periodic and non-frequent items</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It generates the conditional patterns with periodic-frequent items</span>
+<span class="sd">        :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node</span>
+<span class="sd">        :type conditionalPatterns: list</span>
+<span class="sd">        :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node</span>
+<span class="sd">        :type conditionalTimeStamps: list</span>
+<span class="sd">        :returns: Returns conditional transactions by removing non-periodic and non-frequent items</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">global</span> <span class="n">_maxPer</span><span class="p">,</span> <span class="n">_minSup</span>
@@ -375,7 +376,7 @@
 <span class="sd">        Patterns in Transactional Databases&quot;, PAKDD 2009, https://doi.org/10.1007/978-3-642-01307-2_24</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">    ----------</span>
+<span class="sd">    ------------</span>
 <span class="sd">        iFile : file</span>
 <span class="sd">            Name of the Input file or path of the input file</span>
 <span class="sd">        oFile : file</span>
@@ -415,7 +416,7 @@
 <span class="sd">            To store the complete patterns</span>
 
 <span class="sd">    Methods:</span>
-<span class="sd">    -------</span>
+<span class="sd">    ----------</span>
 <span class="sd">        startMine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
@@ -443,6 +444,7 @@
 
 
 <span class="sd">    **Methods to execute code on terminal**</span>
+<span class="sd">    --------------------------------------------</span>
 
 <span class="sd">            Format:</span>
 <span class="sd">                      &gt;&gt;&gt;  python3 PFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
@@ -453,6 +455,7 @@
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
+<span class="sd">    ---------------------------------------------------</span>
 
 <span class="sd">    .. code-block:: python</span>
 
@@ -483,7 +486,7 @@
 <span class="sd">                print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 <span class="sd">    **Credits:**</span>
-
+<span class="sd">    --------------</span>
 <span class="sd">             The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>

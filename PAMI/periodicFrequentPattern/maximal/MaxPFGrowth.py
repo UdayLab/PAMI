@@ -1,6 +1,3 @@
-
-
-
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -65,23 +62,21 @@ class _Node(object):
     """
      A class used to represent the node of frequentPatternTree
 
-        ...
+    :Attributes:
 
-        Attributes:
-        ----------
-            item : int
-                storing item of a node
-            timeStamps : list
-                To maintain the timestamps of Database at the end of the branch
-            parent : node
-                To maintain the parent of every node
-            children : list
-                To maintain the children of node
+        item : int
+            storing item of a node
+        timeStamps : list
+            To maintain the timestamps of Database at the end of the branch
+        parent : node
+            To maintain the parent of every node
+        children : list
+            To maintain the children of node
 
-        Methods:
-        -------
-            addChild(itemName)
-                storing the children to their respective parent nodes
+    :Methods:
+
+        addChild(itemName)
+            storing the children to their respective parent nodes
     """
     def __init__(self, item: int, children: list) -> None:
         self.item = item
@@ -105,31 +100,28 @@ class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
 
-        ...
+    :Attributes:
 
-        Attributes:
-        ----------
-            root : Node
-                Represents the root node of the tree
-            summaries : dictionary
-                storing the nodes with same item name
-            info : dictionary
-                stores the support of items
+        root : Node
+            Represents the root node of the tree
+        summaries : dictionary
+            storing the nodes with same item name
+        info : dictionary
+            stores the support of items
 
+    :Methods:
 
-        Methods:
-        -------
-            addTransaction(Database)
-                creating Database as a branch in frequentPatternTree
-            getConditionPatterns(Node)
-                generates the conditional patterns from tree for specific node
-            conditionalTransaction(prefixPaths,Support)
-                takes the prefixPath of a node and support at child of the path and extract the frequent items from
-                prefixPaths and generates prefixPaths with items which are frequent
-            remove(Node)
-                removes the node from tree once after generating all the patterns respective to the node
-            generatePatterns(Node)
-                starts from the root node of the tree and mines the frequent patterns
+        addTransaction(Database)
+            creating Database as a branch in frequentPatternTree
+        getConditionPatterns(Node)
+            generates the conditional patterns from tree for specific node
+        conditionalTransaction(prefixPaths,Support)
+            takes the prefixPath of a node and support at child of the path and extract the frequent items from
+            prefixPaths and generates prefixPaths with items which are frequent
+        remove(Node)
+            removes the node from tree once after generating all the patterns respective to the node
+        generatePatterns(Node)
+            starts from the root node of the tree and mines the frequent patterns
     """
     def __init__(self) -> None:
         self.root = _Node(None, {})
@@ -142,9 +134,7 @@ class _Tree(object):
         adding transaction into database
 
         :param transaction: transactions in a database
-
         :param tid: timestamp of the transaction in database
-
         :return: pftree
         """
         currentNode = self.root
@@ -166,7 +156,6 @@ class _Tree(object):
         to get the conditional patterns of a node
 
         :param alpha: node in the tree
-
         :return: conditional patterns of a node
         """
         finalPatterns = []
@@ -189,7 +178,6 @@ class _Tree(object):
         removes the leaf node by pushing its timestamps to parent node
 
         :param nodeValue: node of a tree
-
         """
         for i in self.summaries[nodeValue]:
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
@@ -201,7 +189,6 @@ class _Tree(object):
         to get all the timestamps related to a node in tree
 
         :param alpha: node of a tree
-
         :return: timestamps of a node
         """
         temp = []
@@ -211,11 +198,10 @@ class _Tree(object):
 
     def generatePatterns(self, prefix: List[Any], patterns: Dict[Tuple[Any], Tuple[int, int]], maximalTree: Any) -> None:
         """
-            To generate the maximal periodic frequent patterns
+        To generate the maximal periodic frequent patterns
 
-            :param prefix: an empty list of itemSet to form the combinations
-
-            :return: maximal periodic frequent patterns
+        :param prefix: an empty list of itemSet to form the combinations
+        :return: maximal periodic frequent patterns
         """
         #global maximalTree
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
@@ -244,19 +230,17 @@ class _MNode(object):
     """
     A class used to represent the node of frequentPatternTree
 
-        ...
+    :Attributes:
 
-        Attributes:
-        ----------
-            item : int
-                storing item of a node
-            children : list
-                To maintain the children of node
+        item : int
+            storing item of a node
+        children : list
+            To maintain the children of node
 
-        Methods:
-        -------
-            addChild(itemName)
-                storing the children to their respective parent nodes
+    :Methods:
+
+        addChild(itemName)
+            storing the children to their respective parent nodes
     """
     def __init__(self, item: Any, children: Dict[Any, Any]) -> None:
         self.item = item
@@ -267,7 +251,6 @@ class _MNode(object):
         To add the children details to parent node children variable
 
         :param node: children node
-
         :return: adding children node to parent node
         """
         self.children[node.item] = node
@@ -278,21 +261,19 @@ class _MPTree(object):
     """
     A class used to represent the node of frequentPatternTree
 
-        ...
+    :Attributes:
 
-        Attributes:
-        ----------
-            root : node
-                the root of a tree
-            summaries : dict
-                to store the items with same name into dictionary
+        root : node
+            the root of a tree
+        summaries : dict
+            to store the items with same name into dictionary
 
-        Methods:
-        -------
-            addTransaction(itemSet)
-                the generated periodic-frequent pattern is added into maximal-tree
-            checkerSub(itemSet)
-                to check of subset of itemSet is present in tree
+    :Methods:
+
+        addTransaction(itemSet)
+            the generated periodic-frequent pattern is added into maximal-tree
+        checkerSub(itemSet)
+            to check of subset of itemSet is present in tree
     """
     def __init__(self) -> None:
         self.root = _MNode(None, {})
@@ -301,6 +282,7 @@ class _MPTree(object):
     def addTransaction(self, transaction: List[Any]) -> None:
         """
         to add the transaction in maximal tree
+
         :param transaction: resultant periodic frequent pattern
         :return: maximal tree
         """
@@ -321,6 +303,7 @@ class _MPTree(object):
     def checkerSub(self, items: List[Any]) -> int:
         """
         To check subset present of items in the maximal tree
+
         :param items: the pattern to check for subsets
         :return: 1
         """
@@ -349,6 +332,7 @@ class _MPTree(object):
 def _getPeriodAndSupport(timeStamps: List[int]) -> List[Union[int, float]]:
     """
     To calculate the periodicity and support of a pattern with their respective timeStamps
+
     :param timeStamps: timeStamps
     :return: Support and periodicity
     """
@@ -369,6 +353,7 @@ def _getPeriodAndSupport(timeStamps: List[int]) -> List[Union[int, float]]:
 def _conditionalTransactions(condPatterns: List[List[int]], condTimeStamps: List[List[int]]) -> Tuple[List[List[int]], List[List[int]], Dict[int, Tuple[int, float]]]:
     """
     To calculate the timestamps of conditional items in conditional patterns
+
     :param condPatterns: conditional patterns of node
     :param condTimeStamps: timeStamps of a conditional patterns
     :return: removing items with low minSup or periodicity and sort the conditional transactions
@@ -399,100 +384,91 @@ def _conditionalTransactions(condPatterns: List[List[int]], condTimeStamps: List
 
 class MaxPFGrowth(_ab._periodicFrequentPatterns):
     """
-        Description:
-        ------------
-            MaxPF-Growth is one of the fundamental algorithm to discover maximal periodic-frequent
-            patterns in a temporal database.
+    :Description:   MaxPF-Growth is one of the fundamental algorithm to discover maximal periodic-frequent
+                    patterns in a temporal database.
 
-        Reference:
-        --------
-            R. Uday Kiran, Yutaka Watanobe, Bhaskar Chaudhury, Koji Zettsu, Masashi Toyoda, Masaru Kitsuregawa,
-            "Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases",
-            IEEE 2020, https://ieeexplore.ieee.org/document/9260063
+    :Reference:   R. Uday Kiran, Yutaka Watanobe, Bhaskar Chaudhury, Koji Zettsu, Masashi Toyoda, Masaru Kitsuregawa,
+                 "Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases",
+                 IEEE 2020, https://ieeexplore.ieee.org/document/9260063
 
-        Attributes:
-        ----------
-            iFile : file
-                Name of the Input file or path of the input file
-            oFile : file
-                Name of the output file or path of the output file
-            minSup: int or float or str
-                The user can specify minSup either in count or proportion of database size.
-                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-            maxPer: int or float or str
-                The user can specify maxPer either in count or proportion of database size.
-                If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
-                However, the users can override their default separator.
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-            startTime:float
-                To record the start time of the mining process
-            endTime:float
-                To record the completion time of the mining process
-            Database : list
-                To store the transactions of a database in list
-            mapSupport : Dictionary
-                To maintain the information of item and their frequency
-            lno : int
-                it represents the total no of transaction
-            tree : class
-                it represents the Tree class
-            itemSetCount : int
-                it represents the total no of patterns
-            finalPatterns : dict
-                it represents to store the patterns
+    :Attributes:
 
-        Methods:
-        -------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            save(oFile)
-                Complete set of periodic-frequent patterns will be loaded in to a output file
-            getPatternsAsDataFrame()
-                Complete set of periodic-frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            creatingItemSets(fileName)
-                Scans the dataset or dataframes and stores in list format
-            PeriodicFrequentOneItem()
-                Extracts the one-periodic-frequent patterns from Databases
-            updateDatabases()
-                update the Databases by removing aperiodic items and sort the Database by item decreased support
-            buildTree()
-                after updating the Databases ar added into the tree by setting root node as null
-            startMine()
-                the main method to run the program
+        iFile : file
+            Name of the Input file or path of the input file
+        oFile : file
+            Name of the output file or path of the output file
+        minSup: int or float or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        maxPer: int or float or str
+            The user can specify maxPer either in count or proportion of database size.
+            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
+            However, the users can override their default separator.
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
+        startTime:float
+            To record the start time of the mining process
+        endTime:float
+            To record the completion time of the mining process
+        Database : list
+            To store the transactions of a database in list
+        mapSupport : Dictionary
+            To maintain the information of item and their frequency
+        lno : int
+            it represents the total no of transaction
+        tree : class
+            it represents the Tree class
+        itemSetCount : int
+            it represents the total no of patterns
+        finalPatterns : dict
+            it represents to store the patterns
 
-        Executing the code on terminal:
-        -----------------------------------
+    :Methods:
+
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        save(oFile)
+            Complete set of periodic-frequent patterns will be loaded in to a output file
+        getPatternsAsDataFrame()
+            Complete set of periodic-frequent patterns will be loaded in to a dataframe
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+        creatingItemSets(fileName)
+            Scans the dataset or dataframes and stores in list format
+        PeriodicFrequentOneItem()
+            Extracts the one-periodic-frequent patterns from Databases
+        updateDatabases()
+            update the Databases by removing aperiodic items and sort the Database by item decreased support
+        buildTree()
+            after updating the Databases ar added into the tree by setting root node as null
+        startMine()
+            the main method to run the program
+
+    **Executing the code on terminal:**
+    -------------------------------------
             Format:
-            -------
-            >>> python3 maxpfrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+                    >>> python3 maxpfrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
             Examples:
-            --------
-            >>> python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4  (minSup will be considered in percentage of database
-            transactions)
-            >>> python3 maxpfrowth.py sampleTDB.txt patterns.txt 3 4  (minSup will be considered in support count or frequency)
+                    >>> python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4
             
-            
-        Sample run of the imported code:
-        ------------------------------------------
-         .. code-block:: python
+    **Sample run of the imported code:**
+    ------------------------------------------
+    .. code-block:: python
 
             from PAMI.periodicFrequentPattern.maximal import MaxPFGrowth as alg
 
@@ -520,11 +496,11 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        -------
+    **Credits:**
+    ---------------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
-        """
+    """
     _startTime = float()
     _endTime = float()
     _minSup = str()
@@ -546,8 +522,9 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         super().__init__(iFile, minSup, maxPer, sep)
 
     def _creatingItemSets(self) -> None:
-        """ Storing the complete Databases of the database/input file in a database variable
-            :rtype: storing transactions into Database variable
+        """
+        Storing the complete Databases of the database/input file in a database variable
+        :rtype: storing transactions into Database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -585,12 +562,12 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
     def _periodicFrequentOneItem(self) -> Dict[Any, List[Union[int, float]]]:
         """
-            calculates the support of each item in the dataset and assign the ranks to the items
-            by decreasing support and returns the frequent items list
-            :rtype: return the one-length periodic frequent patterns
+        calculates the support of each item in the dataset and assign the ranks to the items
+        by decreasing support and returns the frequent items list
 
+        :rtype: return the one-length periodic frequent patterns
 
-            """
+        """
         data = {}
         for tr in self._Database:
             for i in range(1, len(tr)):
@@ -608,12 +585,13 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         return data
 
     def _updateDatabases(self, dict1: Dict[Any, List[Union[int, float]]]) -> List[List[Union[int, float]]]:
-        """ Remove the items which are not frequent from Databases and updates the Databases with rank of items
+        """
+        Remove the items which are not frequent from Databases and updates the Databases with rank of items
 
-            :param dict1: frequent items with support
-            :type dict1: dictionary
-            :rtype: sorted and updated transactions
-            """
+        :param dict1: frequent items with support
+        :type dict1: dictionary
+        :rtype: sorted and updated transactions
+        """
         list1 = []
         for tr in self._Database:
             list2 = [int(tr[0])]
@@ -629,13 +607,14 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
     @staticmethod
     def _buildTree(data: List[List[Union[int, float]]], info: Dict[Any, List[Union[int, float]]]) -> Any:
-        """ it takes the Databases and support of each item and construct the main tree with setting root node as null
+        """
+        it takes the Databases and support of each item and construct the main tree with setting root node as null
 
-            :param data: it represents the one Databases in database
-            :type data: list
-            :param info: it represents the support of each item
-            :type info: dictionary
-            :rtype: returns root node of tree
+        :param data: it represents the one Databases in database
+        :type data: list
+        :param info: it represents the support of each item
+        :type info: dictionary
+        :rtype: returns root node of tree
         """
 
         rootNode = _Tree()
@@ -648,7 +627,8 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
     def _savePeriodic(self, itemSet: List[Any]) -> List[Any]:
         """
         To convert the ranks of items in to their original item names
-        :param itemSet: frequent pattern
+
+        :param itemSet: frequent pattern.
         :return: frequent pattern with original item names
         """
         t1 = []
@@ -676,7 +656,8 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         return value
 
     def startMine(self) -> None:
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
 
         global _minSup, _maxPer, _lno
@@ -744,7 +725,8 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -758,10 +740,11 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -770,7 +753,8 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> Dict[str, Tuple[int, int]]:
-        """ Function to send the set of periodic-frequent patterns after completion of the mining process
+        """
+        Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
         :rtype: dict

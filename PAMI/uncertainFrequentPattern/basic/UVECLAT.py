@@ -1,5 +1,4 @@
-# UVEclat is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database
-# using PUF-Tree.
+# UVEclat is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database using PUF-Tree.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -62,9 +61,9 @@ _finalPatterns = {}
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
-    ...
-    Attributes:
-    __________
+
+    :Attributes:
+
         item : int or word
             Represents the name of the item
         probability : float
@@ -78,23 +77,21 @@ class _Item:
 
 class UVEclat(_ab._frequentPatterns):
     """
-    Description:
-    -------------
-        It is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database
-        using PUF-Tree.
-    Reference:
-    ----------
+    :Description: It is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database using PUF-Tree.
+
+    :Reference:
+
     Carson Kai-Sang Leung, Lijing Sun: "Equivalence class transformation based mining of frequent itemsets from uncertain data",
     SAC '11: Proceedings of the 2011 ACM Symposium on Applied ComputingMarch, 2011, Pages 983–984,
     https://doi.org/10.1145/1982185.1982399
 
-    Attributes:
-    ------------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup: float or int or str
+        minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -122,8 +119,8 @@ class UVEclat(_ab._frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
-    Methods:
-    ---------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -145,16 +142,17 @@ class UVEclat(_ab._frequentPatterns):
 
 
     **Methods to execute code on terminal**
-
+    ------------------------------------------
             Format:
                       >>> python3 uveclat.py <inputFile> <outputFile> <minSup>
+
             Example:
                       >>>  python3 uveclat.py sampleTDB.txt patterns.txt 3
 
-            .. note:: minSup  will be considered in support count or frequency
+                      .. note:: minSup  will be considered in support count or frequency
 
     **Importing this algorithm into a python program**
-
+    ---------------------------------------------------
     .. code-block:: python
 
             from PAMI.uncertainFrequentPattern.basic import UVECLAT as alg
@@ -185,7 +183,7 @@ class UVEclat(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    ---------------
          The complete program was written by   P.Likhitha    under the supervision of Professor Rage Uday Kiran.
 
     """
@@ -204,7 +202,7 @@ class UVEclat(_ab._frequentPatterns):
 
     def _creatingItemSets(self):
         """
-            Scans the dataset
+        Scans the dataset
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -260,8 +258,8 @@ class UVEclat(_ab._frequentPatterns):
                     print("File Not Found")
 
     def _frequentOneItem(self):
-        """takes the self.Database and calculates the support of each item in the dataset and assign the
-            ranks to the items by decreasing support and returns the frequent items list
+        """
+        takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
         """
 
         mapSupport = {}
@@ -281,11 +279,13 @@ class UVEclat(_ab._frequentPatterns):
 
     @staticmethod
     def _check(i, x):
-        """To check the presence of item or pattern in transaction
-                :param x: it represents the pattern
-                :type x : list
-                :param i : represents the uncertain self.Database
-                :type i : list
+        """
+        To check the presence of item or pattern in transaction
+
+        :param x: it represents the pattern
+        :type x : list
+        :param i : represents the uncertain self.Database
+        :type i : list
         """
 
         # This method taken a transaction as input and returns the tree
@@ -302,8 +302,9 @@ class UVEclat(_ab._frequentPatterns):
     def _convert(value):
         """
         To convert the type of user specified minSup value
-            :param value: user specified minSup value
-            :return: converted type minSup value
+
+        :param value: user specified minSup value
+        :return: converted type minSup value
         """
         if type(value) is int:
             value = int(value)
@@ -318,8 +319,9 @@ class UVEclat(_ab._frequentPatterns):
 
     def _removeFalsePositives(self):
         """
-            To remove the false positive patterns generated in frequent patterns
-            :return: patterns with accurate probability
+        To remove the false positive patterns generated in frequent patterns
+
+        :return: patterns with accurate probability
         """
         global _finalPatterns
         periods = {}
@@ -349,10 +351,11 @@ class UVEclat(_ab._frequentPatterns):
     def _Intersection(tidSetx, tidSetY):
         """
         This function is used to find the intersection
-            :param tidSetx: the timestamp of a patterns
-            :type tidSetx: dict
-            :param tidSetY: the timestamp of a patterns
-            :type tidSetY: dict
+
+        :param tidSetx: the timestamp of a patterns
+        :type tidSetx: dict
+        :param tidSetY: the timestamp of a patterns
+        :type tidSetY: dict
         """
         tids = []
         support = []
@@ -368,20 +371,23 @@ class UVEclat(_ab._frequentPatterns):
     def _calculateExpSup(self, tidList):
         """
         This function is used to calculate support of tidList
-        :param tidList: timestamp of a list
+
+        :param tidList: timestamp of a list.
         :type tidList: List
 
         """
         return sum(tidList.values())
 
     def _save(self, prefix, suffix, tidSetI):
-        """Saves the patterns that satisfy the periodic frequent property.
-            :param prefix: the prefix of a pattern
-            :type prefix: list
-            :param suffix: the suffix of a patterns
-            :type suffix: list
-            :param tidSetI: the timestamp of a patterns
-            :type tidSetI: dict
+        """
+        Saves the patterns that satisfy the periodic frequent property.
+
+        :param prefix: the prefix of a pattern
+        :type prefix: list
+        :param suffix: the suffix of a patterns
+        :type suffix: list
+        :param tidSetI: the timestamp of a patterns
+        :type tidSetI: dict
         """
 
         global _finalPatterns
@@ -393,15 +399,16 @@ class UVEclat(_ab._frequentPatterns):
         _finalPatterns[tuple(prefix)] = val
 
     def _Generation(self, prefix, itemSets, tidSets):
-        """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
-            :param prefix:  main equivalence prefix
-            :type prefix: periodic-frequent item or pattern
-            :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
-                            and frequent with their timestamps
-            :type itemSets: list
-            :param tidSets: timestamps of the items in the argument itemSets
-            :type tidSets: list
-                    """
+        """
+        Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
+
+        :param prefix:  main equivalence prefix
+        :type prefix: periodic-frequent item or pattern
+        :param itemSets: patterns which are items combined with prefix and satisfying the periodicity and frequent with their timestamps
+        :type itemSets: list
+        :param tidSets: timestamps of the items in the argument itemSets
+        :type tidSets: list
+        """
         if len(itemSets) == 1:
             i = itemSets[0]
             tidI = tidSets[0]
@@ -427,8 +434,8 @@ class UVEclat(_ab._frequentPatterns):
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
     def startMine(self):
-        """Main method where the patterns are mined by constructing tree and remove the false patterns
-            by counting the original support of a patterns
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
         global _minSup
         self._startTime = _ab._time.time()
@@ -500,7 +507,7 @@ class UVEclat(_ab._frequentPatterns):
     def save(self, oFile):
         """Complete set of frequent patterns will be loaded in to an output file
         :param oFile: name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
         self.oFile = oFile
         writer = open(self.oFile, 'w+')
@@ -516,7 +523,8 @@ class UVEclat(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

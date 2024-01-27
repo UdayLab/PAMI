@@ -58,10 +58,10 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 class _Transaction:
     """
-        A class to store Transaction of a database
+    A class to store Transaction of a database
 
-    Attributes:
-    ----------
+    :Attributes:
+
         items: list
             A list of items in transaction 
         utilities: list
@@ -71,9 +71,10 @@ class _Transaction:
         prefixUtility:
             prefix Utility values of item
         offset:
-            an offset pointer, used by projected transactions
-    Methods:
-    --------
+            an offset pointer, used by projected transaction
+
+    :Methods:
+
         projectedTransaction(offsetE):
             A method to create new Transaction from existing starting from offsetE until the end
         getItems():
@@ -97,12 +98,10 @@ class _Transaction:
 
     def projectTransaction(self, offsetE: int) -> '_Transaction':
         """
-            A method to create new Transaction from existing transaction starting from offsetE until the end
+        A method to create new Transaction from existing transaction starting from offsetE until the end
 
-        Parameters:
-        ----------
-            :param offsetE: an offset over the original transaction for projecting the transaction
-            :type offsetE: int
+        :param offsetE: an offset over the original transaction for projecting the transaction
+        :type offsetE: int
         """
         new_transaction = _Transaction(self.items, self.utilities, self.transactionUtility)
         utilityE = self.utilities[offsetE]
@@ -115,31 +114,29 @@ class _Transaction:
 
     def getItems(self) -> list:
         """
-            A method to return items in transaction
+        A method to return items in transaction
         """
         return self.items
 
     def getUtilities(self) -> list:
         """
-            A method to return utilities in transaction
+        A method to return utilities in transaction
         """
         return self.utilities
 
     def getLastPosition(self) -> int:
         """
-            A method to return last position in a transaction
+        A method to return last position in a transaction
         """
 
         return len(self.items) - 1
 
     def removeUnpromisingItems(self, oldNamesToNewNames: dict) -> None:
         """
-            A method to remove items which are not present in the map passed to the function
+        A method to remove items which are not present in the map passed to the function
 
-            Parameters:
-            -----------
-            :param oldNamesToNewNames: A map represent old names to new names
-            :type oldNamesToNewNames: map
+        :param oldNamesToNewNames: A map represent old names to new names
+        :type oldNamesToNewNames: map
         """
         tempItems = []
         tempUtilities = []
@@ -155,7 +152,7 @@ class _Transaction:
 
     def insertionSort(self) -> None:
         """
-            A method to sort items in order
+        A method to sort items in order
         """
         for i in range(1, len(self.items)):
             key = self.items[i]
@@ -171,17 +168,17 @@ class _Transaction:
 
 class _Dataset:
     """
-        A class represent the list of transactions in this dataset
+    A class represent the list of transactions in this dataset
 
-    Attributes:
-    ----------
-        transactions :
+   :Attributes:
+
+        transactions:
             the list of transactions in this dataset
         maxItem:
             the largest item name
         
-    methods:
-    --------
+   :methods:
+
         createTransaction(line):
             Create a transaction object from a line from the input file
         getMaxItem():
@@ -192,7 +189,6 @@ class _Dataset:
     """
     transactions = []
     maxItem = 0
-    
     def __init__(self, datasetPath: str, sep: str) -> None:
         self.strToInt = {}
         self.intToStr = {}
@@ -202,7 +198,7 @@ class _Dataset:
 
     def createItemSets(self, datasetPath: str) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.transactions = []
         itemsets, utilities, utilityValues = [], [], []
@@ -248,18 +244,18 @@ class _Dataset:
 
     def createTransaction(self, itemSet: list, utilities: list, utilitySum: int) -> _Transaction:
         """
-            A method to create Transaction from dataset given
+        A method to create Transaction from dataset given
             
-            Attributes:
-            -----------
-            :param itemSet: represent a transactions itemset in database
-            :type itemSet: list
-            :param utilities: utility values of respective transaction itemSets
-            :type utilities: list
-            :param utilitySum: represent the sum of utility Sum
-            :type utilitySum: int
-            :return : Transaction
-            :rtype: Transaction
+        :Attributes:
+
+        :param itemSet: represent a transactions itemset in database
+        :type itemSet: list
+        :param utilities: utility values of respective transaction itemSets
+        :type utilities: list
+        :param utilitySum: represent the sum of utility Sum
+        :type utilitySum: int
+        :return : Transaction.
+        :rtype: Transaction
         """
         transactionUtility = utilitySum
         itemsString = itemSet
@@ -280,71 +276,64 @@ class _Dataset:
 
     def getMaxItem(self) -> int:
         """
-            A method to return name of the largest item
+        A method to return name of the largest item
         """
         return self.maxItem
 
     def getTransactions(self) -> list:
         """
-            A method to return transactions from database
+        A method to return transactions from database
         """
         return self.transactions
 
 
 class RHUIM(_ab._utilityPatterns):
     """
-
-    Description:
-    --------------
-
-        RHUIM algorithm helps us to mine Relative High Utility itemSets from transactional databases.
+    :Description:   RHUIM algorithm helps us to mine Relative High Utility itemSets from transactional databases.
     
-    Reference:
-    ----------
-        R. U. Kiran, P. Pallikila, J. M. Luna, P. Fournier-Viger, M. Toyoda and P. K. Reddy,
-        "Discovering Relative High Utility Itemsets in Very Large Transactional Databases Using Null-Invariant Measure,"
-        2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 252-262,
-        doi: 10.1109/BigData52589.2021.9672064.
-    
-    Attributes:
-    -----------
+    :Reference:   R. U. Kiran, P. Pallikila, J. M. Luna, P. Fournier-Viger, M. Toyoda and P. K. Reddy,
+                 "Discovering Relative High Utility Itemsets in Very Large Transactional Databases Using Null-Invariant Measure,"
+                  2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 252-262,
+                  doi: 10.1109/BigData52589.2021.9672064.
+    :Attributes:
+
         iFile : file
             Name of the input file to mine complete set of patterns
         oFile : file
             Name of the output file to store complete set of patterns
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
         minUtil : int
             The user given minUtil value
         minUR : float
             The user given minUR value
-        relativeHighUtilityItemSets: map
+        relativeHighUtilityItemSets : map
             set of relative high utility itemSets
-        candidateCount: int
+        candidateCount : int
              Number of candidates 
-        utilityBinArrayLU: list
+        utilityBinArrayLU : list
              A map to hold the local utility values of the items in database
-        utilityBinArraySU: list
+        utilityBinArraySU : list
             A map to hold the subtree utility values of the items is database
-        oldNamesToNewNames: list
+        oldNamesToNewNames : list
             A map which contains old names, new names of items as key value pairs
-        newNamesToOldNames: list
+        newNamesToOldNames : list
             A map which contains new names, old names of items as key value pairs
-        maxMemory: float
+        maxMemory : float
             Maximum memory used by this program for running
-        patternCount: int
+        patternCount : int
             Number of RHUI's
-        itemsToKeep: list
+        itemsToKeep : list
             keep only the promising items i.e items that can extend other items to form RHUIs
-        itemsToExplore: list
+        itemsToExplore : list
             list of items that needs to be explored
 
-    Methods :
-    -------
+    :Methods:
+
         startMine()
                 Mining process will start from here
         getPatterns()
@@ -376,17 +365,17 @@ class RHUIM(_ab._utilityPatterns):
         useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)
              A method to calculate local utility values for single itemSets
 
-
     **Methods to execute code on terminal**
-
+    -----------------------------------------
             Format:
                       >>> python3 RHUIM.py <inputFile> <outputFile> <minUtil> <sep>
+
             Example:
                       >>>  python3 RHUIM.py sampleTDB.txt output.txt 35 20
 
 
     **Importing this algorithm into a python program**
-
+    -----------------------------------------------------
     .. code-block:: python
 
             from PAMI.relativeHighUtilityPattern.basic import RHUIM as alg
@@ -414,12 +403,11 @@ class RHUIM(_ab._utilityPatterns):
             run = obj.getRuntime()
 
             print("Total ExecutionTime in seconds:", run)
-    **Credits:**
 
+    **Credits:**
+    -----------------
              The complete program was written by  Pradeep Pallikila  under the supervision of Professor Rage Uday Kiran.
 
-
-     
     """
 
     _relativeHighUtilityItemSets = []
@@ -451,7 +439,8 @@ class RHUIM(_ab._utilityPatterns):
         super().__init__(iFile, minUtil, minUR, sep)
 
     def startMine(self) -> None:
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
         self._startTime = _ab._time.time()
         self._dataset = _Dataset(self._iFile, self._sep)
@@ -497,20 +486,20 @@ class RHUIM(_ab._utilityPatterns):
 
     def _backTrackingRHUIM(self, transactionsOfP: list, itemsToKeep: list, itemsToExplore: list, prefixLength: int, utilitySumP: int) -> None:
         """
-            A method to mine the RHUIs Recursively
+        A method to mine the RHUIs Recursively
 
-            Attributes:
-            ----------
-            :param transactionsOfP: the list of transactions containing the current prefix P
-            :type transactionsOfP: list 
-            :param itemsToKeep: the list of secondary items in the p-projected database
-            :type itemsToKeep: list
-            :param itemsToExplore: the list of primary items in the p-projected database
-            :type itemsToExplore: list
-            :param prefixLength: current prefixLength
-            :type prefixLength: int
-            :param utilitySumP: a variable to hold sum of utilities of all items in P
-            :type utilitySumP int
+        :Attributes:
+
+        :param transactionsOfP: the list of transactions containing the current prefix P
+        :type transactionsOfP: list
+        :param itemsToKeep: the list of secondary items in the p-projected database
+        :type itemsToKeep: list
+        :param itemsToExplore: the list of primary items in the p-projected database
+        :type itemsToExplore: list
+        :param prefixLength: current prefixLength
+        :type prefixLength: int
+        :param utilitySumP: a variable to hold sum of utilities of all items in P
+        :type utilitySumP int
         """
         self._candidateCount += len(itemsToExplore)
         for idx, e in enumerate(itemsToExplore):
@@ -585,17 +574,16 @@ class RHUIM(_ab._utilityPatterns):
 
     def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe: list, j: int, itemsToKeep: list) -> None:
         """
-            A method to  calculate the subtree utility and local utility of all items that can extend itemSet P U {e}
+        A method to  calculate the subtree utility and local utility of all items that can extend itemSet P U {e}
 
-            Attributes:
-            -----------
-            :param transactionsPe: transactions the projected database for P U {e}
-            :type transactionsPe: list or Dataset
-            :param j: the position of j in the list of promising items
-            :type j:int
-            :param itemsToKeep :the list of promising items
-            :type itemsToKeep: list or Dataset
+        :Attributes:
 
+        :param transactionsPe: transactions the projected database for P U {e}
+        :type transactionsPe: list or Dataset
+        :param j: the position of j in the list of promising items
+        :type j:int
+        :param itemsToKeep :the list of promising items
+        :type itemsToKeep: list or Dataset
         """
         for i in range(j + 1, len(itemsToKeep)):
             item = itemsToKeep[i]
@@ -616,8 +604,8 @@ class RHUIM(_ab._utilityPatterns):
         """
          Method to print relative high utility itemSet
 
-         Attributes:
-         ----------
+         :Attributes:
+
          :param tempPosition: position of last item 
          :type tempPosition : int 
          :param utility: total utility of itemSet
@@ -637,11 +625,11 @@ class RHUIM(_ab._utilityPatterns):
         """
          A method to Check if two transaction are identical
 
-         Attributes:
-         ----------
-         :param  transaction1: the first transaction
+         :Attributes:
+
+         :param  transaction1: the first transaction.
          :type  transaction1: Transaction
-         :param  transaction2:    the second transaction
+         :param  transaction2:   The second transaction.
          :type  transaction2: Transaction
          :return : whether both are identical or not
          :rtype: bool
@@ -663,8 +651,8 @@ class RHUIM(_ab._utilityPatterns):
         """
         Scan the initial database to calculate the subtree utility of each item using a utility-bin array
 
-        Attributes:
-        ----------
+        :Attributes:
+
         :param dataset: the transaction database
         :type dataset: Dataset
         """
@@ -684,30 +672,30 @@ class RHUIM(_ab._utilityPatterns):
 
     def sortDatabase(self, transactions: list) -> None:
         """
-            A Method to sort transaction
+        A Method to sort transaction
 
-            Attributes:
-            ----------
-            :param transactions: transaction of items
-            :type transactions: list
-            :return: sorted transactions
-            :rtype: Transactions or list
+        :Attributes:
+
+        :param transactions: transaction of items
+        :type transactions: list
+        :return: sorted transactions.
+        :rtype: Transactions or list
         """
         cmp_items = _ab._functools.cmp_to_key(self.sort_transaction)
         transactions.sort(key=cmp_items)
 
     def sort_transaction(self, trans1: _Transaction, trans2: _Transaction) -> int:
         """
-            A Method to sort transaction
+        A Method to sort transaction
 
-            Attributes:
-            ----------
-            :param trans1: the first transaction 
-            :type trans1: Transaction 
-            :param trans2:the second transaction 
-            :type trans2: Transaction
-            :return: sorted transaction
-            :rtype:    Transaction
+        :Attributes:
+
+        :param trans1: the first transaction .
+        :type trans1: Transaction
+        :param trans2:the second transaction.
+        :type trans2: Transaction
+        :return: sorted transaction.
+        :rtype:   Transaction
         """
         trans1_items = trans1.getItems()
         trans2_items = trans2.getItems()
@@ -740,11 +728,12 @@ class RHUIM(_ab._utilityPatterns):
 
     def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset: _Dataset) -> None:
         """
-            A method to calculate local utility of single itemSets
-            Attributes:
-            ----------
-            :param dataset: the transaction database
-            :type dataset: database
+        A method to calculate local utility of single itemSets
+
+        :Attributes:
+
+        :param dataset: the transaction database.
+        :type dataset: database
 
         """
         for transaction in dataset.getTransactions():
@@ -777,7 +766,9 @@ class RHUIM(_ab._utilityPatterns):
         return self._finalPatterns
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -788,7 +779,8 @@ class RHUIM(_ab._utilityPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -814,7 +806,8 @@ class RHUIM(_ab._utilityPatterns):
         return self._endTime-self._startTime
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Relative Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
