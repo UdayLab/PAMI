@@ -13,7 +13,6 @@ Welcome to PAMI's documentation!
    modules
 
 
-
 Indices and tables
 ==================
 

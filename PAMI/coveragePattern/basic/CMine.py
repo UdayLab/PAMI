@@ -66,7 +66,7 @@ class CMine(_ab._coveragePatterns):
 
     :Reference:    Bhargav Sripada, Polepalli Krishna Reddy, Rage Uday Kiran:
                    Coverage patterns for efficient banner advertisement placement. WWW (Companion Volume) 2011: 131-132
-                   https://dl.acm.org/doi/10.1145/1963192.1963259
+                   __https://dl.acm.org/doi/10.1145/1963192.1963259
     :param  iFile: str :
                    Name of the Input file to mine complete set of frequent pattern's
     :param  oFile: str :
@@ -108,8 +108,7 @@ class CMine(_ab._coveragePatterns):
                       >>>  python3 CMine.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
 
             Example:
-                      >>>  python3 CMine.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 ','
-
+                      >>>  python3 CMine.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 '\t'
 
 
     **Importing this algorithm into a python program**
@@ -309,7 +308,9 @@ class CMine(_ab._coveragePatterns):
         print("Coverage patterns were generated successfully using CMine  algorithm")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """

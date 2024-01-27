@@ -11,6 +11,7 @@
 #
 #
 
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -35,7 +36,7 @@ class topKPatterns:
         find top k length patterns in input file.
 
     Attributes:
-    -----------
+    --------------
         inputFile : str
             input file name or path
         k : int
@@ -44,7 +45,7 @@ class topKPatterns:
             separator which separate patterns in input file. default is tab space
 
     Methods:
-    -------
+    ----------
         getTopKPatterns()
             return top k patterns as dict
         storeTopKPatterns(outputFile)

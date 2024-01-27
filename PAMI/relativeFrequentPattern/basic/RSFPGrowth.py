@@ -56,10 +56,10 @@ import pandas as pd
 
 class _Node:
     """
-        A class used to represent the node of frequent Pattern tree
+    A class used to represent the node of frequent Pattern tree
 
-    Attributes:
-    ----------
+    :Attributes:
+
         itemId: int
             storing item of a node
         counter: int
@@ -71,8 +71,7 @@ class _Node:
         nodeLink : node
             Points to the node with same itemId
 
-    Methods:
-    -------
+    :Methods:
 
         getChild(itemName)
             returns the node with same itemName from frequent Pattern tree
@@ -86,11 +85,13 @@ class _Node:
         self.nodeLink = None
 
     def getChild(self, itemName: int) -> Union[None, '_Node']:
-        """ Retrieving the child from the tree
-            :param itemName: name of the child
-            :type itemName: list
-            :return: returns the node with same itemName from frequentPatternTree
-            :rtype: None or Node
+        """
+        Retrieving the child from the tree
+
+        :param itemName: name of the child
+        :type itemName: list
+        :return: returns the node with same itemName from frequentPatternTree
+        :rtype: None or Node
 
         """
         for i in self.child:
@@ -101,10 +102,10 @@ class _Node:
 
 class _Tree:
     """
-        A class used to represent the frequentPatternGrowth tree structure
+    A class used to represent the frequentPatternGrowth tree structure
 
-    Attributes:
-    ----------
+    :Attributes:
+
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
         mapItemNodes : dictionary
@@ -114,8 +115,8 @@ class _Tree:
         root : Node
             representing the root Node in a tree
 
-    Methods:
-    -------
+    :Methods:
+
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
         addTransaction(transaction)
@@ -135,7 +136,9 @@ class _Tree:
         self.root = _Node()
 
     def addTransaction(self, transaction: List[int]) -> None:
-        """adding transaction into tree
+        """
+        Adding transaction into tree
+
         :param transaction: it represents the one transaction in database
         :type transaction: list
         """
@@ -156,7 +159,9 @@ class _Tree:
                 current = child
 
     def fixNodeLinks(self, item: int, newNode: '_Node') -> None:
-        """Fixing node link for the newNode that inserted into frequentPatternTree
+        """
+        Fixing node link for the newNode that inserted into frequentPatternTree
+
         :param item: it represents the item of newNode
         :type item: int
         :param newNode: it represents the newNode that inserted in frequentPatternTree
@@ -171,7 +176,9 @@ class _Tree:
             self.mapItemNodes[item] = newNode
 
     def printTree(self, root: '_Node') -> None:
-        """Print the details of Node in frequentPatternTree
+        """
+        Print the details of Node in frequentPatternTree
+
         :param root: it represents the Node in frequentPatternTree
         :type root: Node
 
@@ -186,7 +193,9 @@ class _Tree:
                 self.printTree(i)
 
     def createHeaderList(self, __mapSupport: Dict[int, int], minSup: float) -> None:
-        """To create the headerList
+        """
+        To create the headerList
+
         :param __mapSupport: it represents the items with their supports
         :type __mapSupport: dictionary
         :param minSup: it represents the minSup
@@ -201,7 +210,9 @@ class _Tree:
         self.headerList = [i for i in t1 if i in __itemSetBuffer]
 
     def addPrefixPath(self, prefix: List['_Node'], __mapSupportBeta: Dict[int, int], minSup: float) -> None:
-        """To construct the conditional tree with prefix paths of a node in frequentPatternTree
+        """
+        To construct the conditional tree with prefix paths of a node in frequentPatternTree
+
         :param prefix: it represents the prefix items of a Node
         :type prefix: list
         :param __mapSupportBeta: it represents the items with their supports
@@ -232,18 +243,13 @@ class _Tree:
 
 class RSFPGrowth(_ab._frequentPatterns):
     """
-    Description:
-    -------------
+    :Description:   Algorithm to find all items with relative support from given dataset
 
-        Algorithm to find all items with relative support from given dataset
+    :Reference:   'Towards Efficient Discovery of Frequent Patterns with Relative Support' R. Uday Kiran and
+                   Masaru Kitsuregawa, http://comad.in/comad2012/pdf/kiran.pdf
 
-    Reference:
-    -----------
-        'Towards Efficient Discovery of Frequent Patterns with Relative Support' R. Uday Kiran and
-               Masaru Kitsuregawa, http://comad.in/comad2012/pdf/kiran.pdf
+    :Attributes:
 
-    Attributes:
-    -------------
         iFile : file
             Name of the Input file to mine complete set of frequent patterns
         oFile : file
@@ -254,7 +260,7 @@ class RSFPGrowth(_ab._frequentPatterns):
             To store the total amount of RSS memory consumed by the program
         startTime:float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
         minSup : float
             The user given minSup
@@ -277,8 +283,8 @@ class RSFPGrowth(_ab._frequentPatterns):
         maxPatternLength : int
            it represents the constraint for pattern length
 
-    Methods:
-    --------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getFrequentPatterns()
@@ -309,17 +315,18 @@ class RSFPGrowth(_ab._frequentPatterns):
 
 
     **Methods to execute code on terminal**
-
+    -------------------------------------------
             Format:
                       >>>  python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRatio>
+
             Example:
                       >>>  python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2
 
-            .. note:: maxPer and minPS will be considered in percentage of database transactions
+                     .. note:: maxPer and minPS will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
-
+    -----------------------------------------------------
     .. code-block:: python
 
             from PAMI.relativeFrequentPattern import RSFPGrowth as alg
@@ -349,10 +356,10 @@ class RSFPGrowth(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    --------------
              The complete program was written by   Sai Chitra.B   under the supervision of Professor Rage Uday Kiran.
 
-        """
+    """
 
     __startTime = float()
     __endTime = float()
@@ -379,10 +386,8 @@ class RSFPGrowth(_ab._frequentPatterns):
 
     def __creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the __Database/input file in a __Database variable
-
-
-            """
+        Storing the complete transactions of the __Database/input file in a __Database variable
+        """
         self.__Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -412,8 +417,8 @@ class RSFPGrowth(_ab._frequentPatterns):
                     quit()
 
     def __frequentOneItem(self) -> None:
-        """Generating One frequent items sets
-
+        """
+        Generating One frequent items sets
         """
         self.__mapSupport = {}
         for i in self.__Database:
@@ -424,7 +429,9 @@ class RSFPGrowth(_ab._frequentPatterns):
                     self.__mapSupport[j] += 1
 
     def __saveItemSet(self, prefix: List[int], prefixLength: int, support: int, ratio: float) -> None:
-        """To save the frequent patterns mined form frequentPatternTree
+        """
+        To save the frequent patterns mined form frequentPatternTree
+
         :param prefix: the frequent pattern
         :type prefix: list
         :param prefixLength: the length of a frequent pattern
@@ -440,8 +447,10 @@ class RSFPGrowth(_ab._frequentPatterns):
         self.__finalPatterns[tuple(sample)] = str(support) + " : " + str(ratio)
 
     def __saveAllCombinations(self, tempBuffer: List['_Node'], s: int, position: int, prefix: List[int], prefixLength: int) -> None:
-        """Generating all the combinations for items in single branch in frequentPatternTree
-        :param tempBuffer: items in a list
+        """
+        Generating all the combinations for items in single branch in frequentPatternTree
+
+        :param tempBuffer: items in a list.
         :type tempBuffer: list
         :param s: support at leaf node of a branch
         :param position: the length of a tempBuffer
@@ -465,7 +474,9 @@ class RSFPGrowth(_ab._frequentPatterns):
                 self.__saveItemSet(prefix, newPrefixLength, s, ratio)
 
     def __frequentPatternGrowthGenerate(self, frequentPatternTree: '_Tree', prefix: List[int], prefixLength: int, __mapSupport: Dict[int, int], minConf: float) -> None:
-        """Mining the fp tree
+        """
+        Mining the fp tree
+
         :param frequentPatternTree: it represents the frequentPatternTree
         :type frequentPatternTree: class Tree
         :param prefix: it represents an empty list and store the patterns that are mined
@@ -542,6 +553,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     def __convert(self, value: Union[int, float, str]) -> float:
         """
         to convert the type of user specified __minSup value
+
         :param value: user specified __minSup value
         :return: converted type
         """
@@ -559,7 +571,7 @@ class RSFPGrowth(_ab._frequentPatterns):
 
     def startMine(self) -> None:
         """
-            main program to start the operation
+        Main program to start the operation
         """
 
         self.__startTime = _ab._time.time()
@@ -594,7 +606,8 @@ class RSFPGrowth(_ab._frequentPatterns):
         self.__memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -603,7 +616,8 @@ class RSFPGrowth(_ab._frequentPatterns):
         return self.__memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -613,7 +627,7 @@ class RSFPGrowth(_ab._frequentPatterns):
 
     def __getMinItem(self, prefix: List[str], prefixLength: int) -> str:
         """
-            returns the minItem from prefix
+        Returns the minItem from prefix
         """
         minItem = prefix[0]
         for i in range(prefixLength):
@@ -622,7 +636,8 @@ class RSFPGrowth(_ab._frequentPatterns):
         return minItem
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
 
         :return: returning total amount of runtime taken by the mining process
@@ -632,7 +647,8 @@ class RSFPGrowth(_ab._frequentPatterns):
         return self.__endTime - self.__startTime
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -649,8 +665,10 @@ class RSFPGrowth(_ab._frequentPatterns):
         return dataframe
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
-        :param outFile: name of the output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
+        :param outFile: name of the output file.
         :type outFile: file
         """
         self.__oFile = outFile
@@ -663,7 +681,8 @@ class RSFPGrowth(_ab._frequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> Dict[str, str]:
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
@@ -678,7 +697,8 @@ class RSFPGrowth(_ab._frequentPatterns):
         return res
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Relative Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

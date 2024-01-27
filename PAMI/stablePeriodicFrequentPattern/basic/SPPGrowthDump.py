@@ -28,7 +28,6 @@
 #
 #     print("Total ExecutionTime in seconds:", run)
 #
-#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -66,7 +65,9 @@ _last = int()
 class _Node:
 
     def __init__(self, item, children):
-        """ Initializing the Node class
+        """
+        Initializing the Node class
+
         :param item: Storing the item of a node
         :type item: int or None
         :param children: To maintain the children of a node
@@ -79,8 +80,10 @@ class _Node:
         self.timeStamps = []
 
     def addChild(self, node):
-        """ To add the children to a node
-              :param node: parent node in the tree
+        """
+        To add the children to a node
+
+        :param node: parent node in the tree
         """
 
         self.children[node.item] = node
@@ -93,12 +96,14 @@ class _Tree:
         self.info = {}
 
     def addTransaction(self, transaction, tid):
-        """     Adding a transaction into tree
-                :param transaction: To represent the complete database
-                :type transaction: list
-                :param tid: To represent the timestamp of a database
-                :type tid: list
-                :return: pfp-growth tree
+        """
+        Adding a transaction into tree
+
+        :param transaction: To represent the complete database
+        :type transaction: list
+        :param tid: To represent the timestamp of a database
+        :type tid: list
+        :return: pfp-growth tree
         """
 
         currentNode = self.root
@@ -116,10 +121,12 @@ class _Tree:
         currentNode.timeStamps = currentNode.timeStamps + tid
 
     def getConditionalPatterns(self, alpha):
-        """Generates all the conditional patterns of a respective node
-            :param alpha: To represent a Node in the tree
-            :type alpha: Node
-            :return: A tuple consisting of finalPatterns, conditional pattern base and information
+        """
+        Generates all the conditional patterns of a respective node
+
+        :param alpha: To represent a Node in the tree
+        :type alpha: Node
+        :return: A tuple consisting of finalPatterns, conditional pattern base and information
         """
         finalPatterns = []
         finalSets = []
@@ -138,7 +145,9 @@ class _Tree:
 
     @staticmethod
     def generateTimeStamps(node):
-        """To get the timestamps of a node
+        """
+        To get the timestamps of a node
+
         :param node: A node in the tree
         :return: Timestamps of a node
         """
@@ -147,10 +156,12 @@ class _Tree:
         return finalTimeStamps
 
     def removeNode(self, nodeValue):
-        """ Removing the node from tree
-            :param nodeValue: To represent a node in the tree
-            :type nodeValue: node
-            :return: Tree with their nodes updated with timestamps
+        """
+        Removing the node from tree
+
+        :param nodeValue: To represent a node in the tree
+        :type nodeValue: node
+        :return: Tree with their nodes updated with timestamps
         """
 
         for i in self.summaries[nodeValue]:
@@ -158,9 +169,11 @@ class _Tree:
             del i.parent.children[nodeValue]
 
     def getTimeStamps(self, alpha):
-        """ To get all the timestamps of the nodes which share same item name
-            :param alpha: Node in a tree
-            :return: Timestamps of a  node
+        """
+        To get all the timestamps of the nodes which share same item name
+
+        :param alpha: Node in a tree
+        :return: Timestamps of a  node
         """
         temporary = []
         for i in self.summaries[alpha]:
@@ -169,7 +182,9 @@ class _Tree:
 
     @staticmethod
     def getSupportAndPeriod(timeStamps):
-        """To calculate the periodicity and support
+        """
+        To calculate the periodicity and support
+
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
         """
@@ -184,12 +199,14 @@ class _Tree:
         return len(timeStamps), la
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps):
-        """ It generates the conditional patterns with periodic-frequent items
-            :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
-            :type conditionalPatterns: list
-            :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
-            :type conditionalTimeStamps: list
-            :returns: Returns conditional transactions by removing non-periodic and non-frequent items
+        """
+        It generates the conditional patterns with periodic-frequent items
+
+        :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
+        :type conditionalPatterns: list
+        :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
+        :type conditionalTimeStamps: list
+        :returns: Returns conditional transactions by removing non-periodic and non-frequent items
         """
 
         global _maxPer, _minSup, _maxLa
@@ -217,10 +234,12 @@ class _Tree:
         return pat, timeStamps, updatedDictionary
 
     def generatePatterns(self, prefix):
-        """ Generates the patterns
-            :param prefix: Forms the combination of items
-            :type prefix: list
-            :returns: yields patterns with their support and periodicity
+        """
+        Generates the patterns
+
+        :param prefix: Forms the combination of items
+        :type prefix: list
+        :returns: yields patterns with their support and periodicity
         """
 
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
@@ -264,9 +283,7 @@ class SPPGrowth():
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, pd.DataFrame):
@@ -305,10 +322,10 @@ class SPPGrowth():
                     quit()
 
     def _periodicFrequentOneItem(self):
-        """ Calculates the support of each item in the database and assign ranks to the items
-            by decreasing support and returns the frequent items list
+        """
+        Calculates the support of each item in the database and assign ranks to the items by decreasing support and returns the frequent items list
 
-            :returns: return the one-length periodic frequent patterns
+        :returns: return the one-length periodic frequent patterns
         """
         global _last
         tidLast = {}
@@ -337,11 +354,13 @@ class SPPGrowth():
         return data, pfList
 
     def _updateDatabases(self, dict1):
-        """ Remove the items which are not frequent from database and updates the database with rank of items
-            :param dict1: frequent items with support
-            :type dict1: dictionary
-            :return: Sorted and updated transactions
-            """
+        """
+        Remove the items which are not frequent from database and updates the database with rank of items
+
+        :param dict1: frequent items with support
+        :type dict1: dictionary
+        :return: Sorted and updated transactions
+        """
         list1 = []
         for tr in self._Database:
             list2 = [int(tr[0])]
@@ -357,12 +376,14 @@ class SPPGrowth():
 
     @staticmethod
     def _buildTree(data, info):
-        """ It takes the database and support of each item and construct the main tree by setting root node as a null
-            :param data: it represents the one Database in database
-            :type data: list
-            :param info: it represents the support of each item
-            :type info: dictionary
-            :return: returns root node of tree
+        """
+        It takes the database and support of each item and construct the main tree by setting root node as a null
+
+        :param data: it represents the one Database in database
+        :type data: list
+        :param info: it represents the support of each item
+        :type info: dictionary
+        :return: returns root node of tree
         """
 
         rootNode = _Tree()
@@ -373,9 +394,11 @@ class SPPGrowth():
         return rootNode
 
     def _savePeriodic(self, itemSet):
-        """ To convert the ranks of items in to their original item names
-            :param itemSet: frequent pattern
-            :return: frequent pattern with original item names
+        """
+        To convert the ranks of items in to their original item names
+
+        :param itemSet: frequent pattern.
+        :return: frequent pattern with original item names
         """
         t1 = str()
         for i in itemSet:
@@ -385,6 +408,7 @@ class SPPGrowth():
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -401,7 +425,8 @@ class SPPGrowth():
         return value
 
     def startMine(self):
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
 
         global _minSup, _maxPer, _lno, _maxLa
@@ -458,7 +483,6 @@ class SPPGrowth():
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -480,9 +504,11 @@ class SPPGrowth():
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to an output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -503,9 +529,9 @@ if __name__ == "__main__":
     _ap = str()
     if len(sys.argv) == 5 or len(sys.argv) == 6:
         if len(sys.argv) == 6:
-            _ap = PFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
+            _ap = SPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4], sys.argv[5])
         if len(sys.argv) == 5:
-            _ap = PFPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
+            _ap = SPPGrowth(sys.argv[1], sys.argv[3], sys.argv[4])
         _ap.startMine()
         _Patterns = _ap.getPatterns()
         print("Total number of Patterns:", len(_Patterns))

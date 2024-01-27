@@ -1,9 +1,7 @@
-# PUFGrowth is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
-#  using PUF-Tree.
+# PUFGrowth is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
-#
 #
 #     from PAMI.uncertainFrequentPattern.basic import puf as alg
 #
@@ -30,7 +28,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
-
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -63,13 +61,13 @@ _finalPatterns = {}
 class _Item:
     """
     A class used to represent the item with probability in transaction of dataset
-    ...
-    Attributes:
-    __________
-        item : int or word
-            Represents the name of the item
-        probability : float
-            Represent the existential probability(likelihood presence) of an item
+
+    :Attributes:
+
+    item : int or word
+        Represents the name of the item
+    probability : float
+        Represent the existential probability(likelihood presence) of an item
     """
 
     def __init__(self, item, probability) -> None:
@@ -80,19 +78,20 @@ class _Item:
 class _Node(object):
     """
     A class used to represent the node of frequentPatternTree
-        ...
-    Attributes:
-    ----------
-        item : int
-            storing item of a node
-        probability : int
-            To maintain the expected support of node
-        parent : node
-            To maintain the parent of every node
-        children : list
-            To maintain the children of node
-    Methods:
-    -------
+
+    :Attributes:
+
+    item : int
+        storing item of a node
+    probability : int
+        To maintain the expected support of node
+    parent : node
+        To maintain the parent of every node
+    children : list
+        To maintain the children of node
+
+    :Methods:
+
         addChild(itemName)
             storing the children to their respective parent nodes
     """
@@ -104,7 +103,8 @@ class _Node(object):
         self.parent = None
 
     def addChild(self, node) -> None:
-        """ This function is used to add a child
+        """
+        This function is used to add a child
         """
         self.children[node.item] = node
         node.parent = self
@@ -113,17 +113,18 @@ class _Node(object):
 class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
-    ...
+
     Attributes:
-    ----------
-        root : Node
-            Represents the root node of the tree
-        summaries : dictionary
-            storing the nodes with same item name
-        info : dictionary
-            stores the support of items
-    Methods:
-    -------
+
+    root : Node
+        Represents the root node of the tree
+    summaries : dictionary
+        storing the nodes with same item name
+    info : dictionary
+        stores the support of items
+
+    :Methods:
+
         addTransaction(transaction)
             creating transaction as a branch in frequentPatternTree
         addConditionalPattern(prefixPaths, supportOfItems)
@@ -145,9 +146,11 @@ class _Tree(object):
         self.info = {}
 
     def addTransaction(self, transaction) -> None:
-        """adding transaction into tree
-            :param transaction : it represents the one self.Database in database
-            :type transaction : list
+        """
+        Adding transaction into tree
+
+        :param transaction : it represents the one self.Database in database
+        :type transaction : list
         """
 
         currentNode = self.root
@@ -182,11 +185,13 @@ class _Tree(object):
                     currentNode.probability += max(lp) * transaction[i].probability
 
     def addConditionalPattern(self, transaction, sup) -> None:
-        """constructing conditional tree from prefixPaths
-            :param transaction : it represents the one self.Database in database
-            :type transaction : list
-            :param sup : support of prefixPath taken at last child of the path
-            :type sup : int
+        """
+        Constructing conditional tree from prefixPaths
+
+        :param transaction : it represents the one self.Database in database
+        :type transaction : list
+        :param sup : support of prefixPath taken at last child of the path
+        :type sup : int
         """
 
         # This method takes transaction, support and constructs the conditional tree
@@ -206,11 +211,12 @@ class _Tree(object):
                 currentNode.probability += sup
 
     def conditionalPatterns(self, alpha) -> Tuple[List, List, dict]:
-        """generates all the conditional patterns of respective node
-            :param alpha : it represents the Node in tree
-            :type alpha : _Node
         """
+        Generates all the conditional patterns of respective node
 
+        :param alpha : it represents the Node in tree
+        :type alpha : _Node
+        """
         # This method generates conditional patterns of node by traversing the tree
         finalPatterns = []
         sup = []
@@ -228,22 +234,25 @@ class _Tree(object):
         return finalPatterns, support, info
 
     def removeNode(self, nodeValue) -> None:
-        """removing the node from tree
-            :param nodeValue : it represents the node in tree
-            :type nodeValue : node
+        """
+        Removing the node from tree
+
+        :param nodeValue : it represents the node in tree
+        :type nodeValue : node
         """
 
         for i in self.summaries[nodeValue]:
             del i.parent.children[nodeValue]
 
     def conditionalTransactions(self, condPatterns, support) -> Tuple[List, List, dict]:
-        """ It generates the conditional patterns with frequent items
-                :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
-                :type condPatterns : list
-                :support : the support of conditional pattern in tree
-                :support : int
         """
+        It generates the conditional patterns with frequent items
 
+        :param condPatterns : conditionalPatterns generated from conditionalPattern method for respective node
+        :type condPatterns : list
+        :support : the support of conditional pattern in tree
+        :support : int
+        """
         global minSup
         pat = []
         sup = []
@@ -267,9 +276,11 @@ class _Tree(object):
         return pat, sup, updatedDict
 
     def generatePatterns(self, prefix) -> None:
-        """generates the patterns
-            :param prefix : forms the combination of items
-            :type prefix : list
+        """
+        Generates the patterns
+
+        :param prefix : forms the combination of items
+        :type prefix : list
         """
 
         global _finalPatterns, minSup
@@ -293,21 +304,20 @@ class _Tree(object):
 
 class PUFGrowth(_ab._frequentPatterns):
     """
-    Description:
-    ------------
-        It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database
-        using PUF-Tree.
-    Reference:
-    ----------
+    :Description: It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.
+
+    :Reference:
+
         Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, "PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data",
         Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2
-    Attributes:
-    -----------
+
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup: float or int or str
+        minSup : float or int or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
@@ -319,9 +329,9 @@ class PUFGrowth(_ab._frequentPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
         Database : list
             To store the transactions of a database in list
@@ -335,8 +345,8 @@ class PUFGrowth(_ab._frequentPatterns):
             To represents the total no of patterns
         finalPatterns : dict
             To store the complete patterns
-    Methods:
-    ---------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -363,18 +373,21 @@ class PUFGrowth(_ab._frequentPatterns):
             to convert the user specified value
         startMine()
             Mining process will start from this function
+
     **Methods to execute code on terminal**
+    -----------------------------------------
 
-        Format:
-                  >>> python3 PUFGrowth.py <inputFile> <outputFile> <minSup>
-        Example:
-                  >>>  python3 PUFGrowth.py sampleTDB.txt patterns.txt 3
+            Format:
+                    >>> python3 PUFGrowth.py <inputFile> <outputFile> <minSup>
 
-        .. note:: minSup  will be considered in support count or frequency
+            Example:
+                     >>>  python3 PUFGrowth.py sampleTDB.txt patterns.txt 3
+
+            .. note:: minSup  will be considered in support count or frequency
 
 
     **Importing this algorithm into a python program**
-
+    -----------------------------------------------------
     .. code-block:: python
 
             from PAMI.uncertainFrequentPattern.basic import puf as alg
@@ -404,7 +417,7 @@ class PUFGrowth(_ab._frequentPatterns):
             print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    --------------------
              The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 """
     _startTime = float()
@@ -424,7 +437,7 @@ class PUFGrowth(_ab._frequentPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Scans the uncertain transactional dataset
+        Scans the uncertain transactional dataset
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -481,10 +494,11 @@ class PUFGrowth(_ab._frequentPatterns):
                     print("File Not Found")
 
     def _frequentOneItem(self) -> Tuple[dict, List]:
-        """takes the self.Database and calculates the support of each item in the dataset and assign the
-            ranks to the items by decreasing support and returns the frequent items list
-                :param self.Database : it represents the one self.Database in database
-                :type self.Database : list
+        """
+        Takes the self.Database and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+
+        :param self.Database : it represents the one self.Database in database
+        :type self.Database : list
         """
 
         mapSupport = {}
@@ -501,12 +515,12 @@ class PUFGrowth(_ab._frequentPatterns):
 
     @staticmethod
     def _buildTree(data, info) -> '_Tree':
-        """it takes the self.Database and support of each item and construct the main tree with setting root
-            node as null
-                :param data : it represents the one self.Database in database
-                :type data : list
-                :param info : it represents the support of each item
-                :type info : dictionary
+        """
+        it takes the self.Database and support of each item and construct the main tree with setting root node as null
+        :param data : it represents the one self.Database in database
+        :type data : list
+        :param info : it represents the support of each item
+        :type info : dictionary
         """
 
         rootNode = _Tree()
@@ -516,9 +530,11 @@ class PUFGrowth(_ab._frequentPatterns):
         return rootNode
 
     def _updateTransactions(self, dict1) -> List:
-        """remove the items which are not frequent from self.Database and updates the self.Database with rank of items
-            :param dict1 : frequent items with support
-            :type dict1 : dictionary
+        """
+        remove the items which are not frequent from self.Database and updates the self.Database with rank of items
+
+        :param dict1 : frequent items with support
+        :type dict1 : dictionary
         """
 
         list1 = []
@@ -536,11 +552,13 @@ class PUFGrowth(_ab._frequentPatterns):
 
     @staticmethod
     def _check(i, x) -> int:
-        """To check the presence of item or pattern in transaction
-                :param x: it represents the pattern
-                :type x : list
-                :param i : represents the uncertain self.Database
-                :type i : list
+        """
+        To check the presence of item or pattern in transaction
+
+        :param x: it represents the pattern
+        :type x : list
+        :param i : represents the uncertain self.Database
+        :type i : list
         """
 
         # This method taken a transaction as input and returns the tree
@@ -556,8 +574,9 @@ class PUFGrowth(_ab._frequentPatterns):
     def _convert(self, value) -> float:
         """
         To convert the type of user specified minSup value
-            :param value: user specified minSup value
-            :return: converted type minSup value
+
+        :param value: user specified minSup value
+        :return: converted type minSup value
         """
         if type(value) is int:
             value = int(value)
@@ -572,8 +591,9 @@ class PUFGrowth(_ab._frequentPatterns):
 
     def _removeFalsePositives(self) -> None:
         """
-            To remove the false positive patterns generated in frequent patterns
-            :return: patterns with accurate probability
+        To remove the false positive patterns generated in frequent patterns
+
+        :return: patterns with accurate probability
         """
         global _finalPatterns
         periods = {}
@@ -600,8 +620,8 @@ class PUFGrowth(_ab._frequentPatterns):
                 self._finalPatterns[sample] = y
 
     def startMine(self) -> None:
-        """Main method where the patterns are mined by constructing tree and remove the false patterns
-            by counting the original support of a patterns
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
         global minSup
         self._startTime = _ab._time.time()
@@ -624,7 +644,9 @@ class PUFGrowth(_ab._frequentPatterns):
         self.memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -632,7 +654,9 @@ class PUFGrowth(_ab._frequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -640,7 +664,9 @@ class PUFGrowth(_ab._frequentPatterns):
         return self.memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -648,7 +674,9 @@ class PUFGrowth(_ab._frequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -661,9 +689,11 @@ class PUFGrowth(_ab._frequentPatterns):
         return dataframe
 
     def save(self, outFile: str) -> None:  
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -672,14 +702,17 @@ class PUFGrowth(_ab._frequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> dict:
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

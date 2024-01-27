@@ -30,6 +30,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -56,19 +57,18 @@ sys.setrecursionlimit(10000)
 
 class SPAM(_ab._sequentialPatterns):
     """
-        SPAM is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
-        This program employs SPAM property (or downward closure property) to  reduce the search space effectively.
-        This algorithm employs breadth-first search technique  to find the complete set of frequent patterns in a sequential database.
-        Reference:
-        ----------
-            J. Ayres, J. Gehrke, T.Yiu, and J. Flannick. Sequential Pattern Mining Using Bitmaps. In Proceedings of the Eighth ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. Edmonton, Alberta, Canada, July 2002.
-        Attributes:
-        ----------
+    :Description:    SPAM is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
+                     This program employs SPAM property (or downward closure property) to  reduce the search space effectively.
+                     This algorithm employs breadth-first search technique  to find the complete set of frequent patterns in a sequential database.
+    :Reference:   J. Ayres, J. Gehrke, T.Yiu, and J. Flannick. Sequential Pattern Mining Using Bitmaps. In Proceedings of the Eighth ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. Edmonton, Alberta, Canada, July 2002.
+
+    :Attributes:
+
             iFile : str
                 Input file name or path of the input file
             oFile : str
                 Name of the output file or the path of output file
-            minSup: float or int or str
+            minSup : float or int or str
                 The user can specify minSup either in count or proportion of database size.
                 If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
                 Otherwise, it will be treated as float.
@@ -76,11 +76,11 @@ class SPAM(_ab._sequentialPatterns):
             sep : str
                 This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
                 However, the users can override their default separator.
-            startTime:float
+            startTime : float
                 To record the start time of the mining process
-            endTime:float
+            endTime : float
                 To record the completion time of the mining process
-            finalPatterns: dict
+            finalPatterns : dict
                 Storing the complete set of patterns in a dictionary variable
             memoryUSS : float
                 To store the total amount of USS memory consumed by the program
@@ -93,8 +93,8 @@ class SPAM(_ab._sequentialPatterns):
             _maxSeqLen:
                 the maximum length of subsequence in sequence.
 
-        Methods:
-        -------
+    :Methods:
+
             _creatingItemSets():
                 Storing the complete sequences of the database/input file in a database variable
             _convert(value):
@@ -125,32 +125,43 @@ class SPAM(_ab._sequentialPatterns):
                 Generates candidate patterns from the frequent patterns
 
 
-        Executing the code on terminal:
-        -------------------------------
+    **Executing the code on terminal**:
+    ----------------------------------------
             Format:
-            ------
-                python3 SPAM.py <inputFile> <outputFile> <minSup> (<separator>)
+                      >>>  python3 SPAM.py <inputFile> <outputFile> <minSup> (<separator>)
             Examples:
-            ---------
-                python3 SPAM.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
-                python3 SPAM.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
-        Sample run of the importing code:
-        ---------------------------------
+                      >>> python3 SPAM.py sampleDB.txt patterns.txt 10.0
+
+    **Sample run of the importing code**:
+    -------------------------------------
             import PAMI.sequentialPatternMining.basic.SPAM as alg
+
             obj = alg.SPAM(iFile, minSup)
+
             obj.startMine()
+
             sequentialPatternMining = obj.getPatterns()
+
             print("Total number of Frequent Patterns:", len(frequentPatterns))
+
             obj.savePatterns(oFile)
+
             Df = obj.getPatternInDataFrame()
+
             memUSS = obj.getMemoryUSS()
+
             print("Total Memory in USS:", memUSS)
+
             memRSS = obj.getMemoryRSS()
+
             print("Total Memory in RSS", memRSS)
+
             run = obj.getRuntime()
+
             print("Total ExecutionTime in seconds:", run)
-        Credits:
-        --------
+
+    **Credits**:
+    ------------
             The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.
     """
 
@@ -168,7 +179,7 @@ class SPAM(_ab._sequentialPatterns):
     _maxSeqLen=0
     def _creatingItemSets(self):
         """
-            Storing the complete sequences of the database/input file in a database variable
+        Storing the complete sequences of the database/input file in a database variable
         """
         self._Database = []
 
@@ -228,6 +239,7 @@ class SPAM(_ab._sequentialPatterns):
     def _convert(self, value):
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type
         """
@@ -281,14 +293,15 @@ class SPAM(_ab._sequentialPatterns):
     def DfsPruning(self,items,sStep,iStep):
         """
         the main algorithm of spam. This can search sstep and istep items and find next patterns, its sstep, and its istep. And call this function again by using them. Recursion until there are no more items available for exploration.
-        Args:
-            items:str
-                The pattrens I got before
-            sStep:list
-                Items presumed to have "sstep" relationship with "items".(sstep is What appears later like a-b and a-c)
-            iStep:list
-                Items presumed to have "istep" relationship with "items"(istep is What appears in same time like ab and ac)
 
+        :Attributes:
+
+        items : str
+            The pattrens I got before
+        sStep : list
+            Items presumed to have "sstep" relationship with "items".(sstep is What appears later like a-b and a-c)
+        iStep : list
+            Items presumed to have "istep" relationship with "items"(istep is What appears in same time like ab and ac)
 
         """
         Snext=[]
@@ -330,13 +343,13 @@ class SPAM(_ab._sequentialPatterns):
     def Sstep(self,s):
         """
         To convert bit to Sstep bit.The first time you get 1, you set it to 0 and subsequent ones to 1.(like 010101=>001111, 00001001=>00000111)
-        Args:
-            s:list
-                to store each bit sequence
 
-        Returns:
-            nextS:list
-                to store the bit sequence converted by sstep
+
+
+        :param s:list
+            to store each bit sequence
+        :return:
+            nextS:list to store the bit sequence converted by sstep
 
         """
         nextS=[]
@@ -362,13 +375,11 @@ class SPAM(_ab._sequentialPatterns):
     def countSup(self,n):
         """
         count support
-        Args:
-            n:list
-                to store each bit sequence
 
-        Returns:
-            count:int
-                support of this list
+        :param n:list
+                to store each bit sequence
+        :return:
+            count: int support of this list
         """
         count=0
         for i in n:
@@ -376,16 +387,9 @@ class SPAM(_ab._sequentialPatterns):
                 count+=1
         return count
 
-
-
-
-
-
-
-
     def startMine(self):
         """
-            Frequent pattern mining process will start from here
+        Frequent pattern mining process will start from here
         """
         self._Database = []
         self._startTime = _ab._time.time()
@@ -464,7 +468,8 @@ class SPAM(_ab._sequentialPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

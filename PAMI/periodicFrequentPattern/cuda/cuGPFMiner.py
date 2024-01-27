@@ -54,17 +54,13 @@ import abstract as _ab
 
 class cuGPFMiner(_ab._periodicFrequentPatterns):
     """
-    Description:
-    -------------
-        cuGPFMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
+    :Description:   cuGPFMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
 
-    Reference:
-    -----------
-        Sreepada, Tarun, et al. "A Novel GPU-Accelerated Algorithm to Discover Periodic-Frequent Patterns in Temporal Databases." 
-        2022 IEEE International Conference on Big Data (Big Data). IEEE, 2022.
+    :Reference:   Sreepada, Tarun, et al. "A Novel GPU-Accelerated Algorithm to Discover Periodic-Frequent Patterns in Temporal Databases."
+                  2022 IEEE International Conference on Big Data (Big Data). IEEE, 2022.
 
-    Attributes:
-    -----------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -107,8 +103,8 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         hashing : dict
             stores the patterns with their support to check for the closed property
 
-    Methods:
-    ---------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -124,20 +120,19 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
 
-            
 
     **Methods to execute code on terminal**
-
+    -----------------------------------------
             Format:
                         >>>  python3 PFECLAT.py <inputFile> <outputFile> <minSup>
+
             Example:
                         >>>   python3 PFECLAT.py sampleDB.txt patterns.txt 10.0
 
-            .. note:: minSup will be considered in percentage of database transactions
-
+                       .. note:: minSup will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
-
+    -----------------------------------------------------
     .. code-block:: python
 
                 from PAMI.periodicFrequentPattern.basic import cuGPFMiner as alg
@@ -167,11 +162,10 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
                 print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
+    ---------------
+            The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
-                The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
-
-
-        """
+    """
     
     _iFile = " "
     _oFile = " "
@@ -268,6 +262,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -284,7 +279,8 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         return value
 
     def _creatingOneItemSets(self):
-        """Storing the complete transactions of the database/input file in a database variable
+        """
+        Storing the complete transactions of the database/input file in a database variable
         """
         plist = []
         Database = []
@@ -376,7 +372,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
     def startMine(self):
         """
-            Mining process will start from here
+        Mining process will start from here
         """
 
         self._startTime = _ab._time.time()
@@ -476,7 +472,6 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -499,8 +494,9 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
 
     def save(self, outFile):
         """Complete set of periodic-frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -519,7 +515,8 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

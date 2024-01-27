@@ -1,5 +1,4 @@
 
-
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -131,17 +130,14 @@ __global__ void supportAndPeriod(unsigned long long int *bitArray, // containing
 class gPFMinerBit:
 
     """
-    Description:
-    ------------
+    :Description:   ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+                    This algorithm applies ECLAT as well as calculates periodicity to find patterns in a temporal database.
+                    This program employs downward closure property to  reduce the search space effectively.
+                    This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
+                    temporal database.
 
-        ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
-        This algorithm applies ECLAT as well as calculates periodicity to find patterns in a temporal database.
-        This program employs downward closure property to  reduce the search space effectively.
-        This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
-        temporal database.
+    :Attributes:
 
-    Attributes:
-    ------------
         filePath : str
              path of the file
 
@@ -176,7 +172,6 @@ class gPFMinerBit:
            base GPU memory used by the program. Defaults to 0.
 
 
-
     **Importing this algorithm into a python program**
     ------------------------------------------------------------
     .. code-block:: python
@@ -197,14 +192,13 @@ class gPFMinerBit:
 
          print(obj.getGPUMemory())
 
-    Running from the command line:
-    ------------------------------------------------------------
+    **Running from the command line:**
+    ---------------------------------------
 
-    >>> python3 gPFMinerBit.py data.txt 2 3 output.txt
-        
+                >>> python3 gPFMinerBit.py data.txt 2 3 output.txt
 
-    Credits:
-    ------------
+    **Credits:**
+    ---------------
         This program is created by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
         
     """
@@ -223,8 +217,8 @@ class gPFMinerBit:
         self.__GPU_MEM = 0
         self.__baseGPUMem = 0
         """
-         Methods:
-        ------------
+         :Methods:
+        
         __readFile(): Read the file and return the data in a dictionary
 
         __getMaxPeriod(): Get the maximum period of the patterns
@@ -245,8 +239,7 @@ class gPFMinerBit:
         """
         Read the file and return the data in a dictionary
 
-        Returns:
-            dict: dictionary of the data
+        :return: dict: dictionary of the data
         """
         basePattern = {}
         with open(self.filePath, "r") as f:
@@ -270,11 +263,8 @@ class gPFMinerBit:
         """
         Get the maximum period of the array
 
-        Args:
-            array (list): list of the array
-
-        Returns:
-            int: maximum period
+        :param array (list): list of the array
+        :return: int: maximum period
         """
 
         cur = 0
@@ -295,13 +285,11 @@ class gPFMinerBit:
         Convert the dictionary into a bit array with valid candidates and return it with
         index which can be used to locate the candidates when multiplied with self.lengthOfArray
 
-        Args:
-            fileData (dict): dictionary of the data
+        :param fileData (dict): dictionary of the data
 
-        Returns:
+        :return:
             list: bit array
             list: index of the bit array
-
         """
         self.bitsToGen = 0
         self.numberOfBits = 64
@@ -365,10 +353,9 @@ class gPFMinerBit:
         """
         Recursive Eclat
 
-        Args:
-            bitValues (list): bit array
-            keys (list): list of keys
-            index2id (list): list of index to id
+        :param bitValues (list): bit array
+        :param keys (list): list of keys
+        :param index2id (list): list of index to id
         """
         print("Number of Keys: " + str(len(keys)))
         locations = [0]

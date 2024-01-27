@@ -14,49 +14,48 @@ import functools as _functools
 from pyspark import SparkContext, SparkConf
 
 class _periodicFrequentPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every periodic frequent pattern mining algorithm must
-            employ in PAMI
-           Attributes:
-           ----------
-            iFile : str
-                Input file name or path of the input file
-            minSup: integer or float or str
-                The user can specify minSup either in count or proportion of database size.
-                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-                However, the users can override their default separator
-            startTime:float
-                To record the start time of the algorithm
-            endTime:float
-                To record the completion time of the algorithm
-            finalPatterns: dict
-                Storing the complete set of patterns in a dictionary variable
-            oFile : str
-                Name of the output file to store complete set of frequent patterns
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-           Methods:
-           -------
-            startMine()
-                Calling this function will start the actual mining process
-            getPatterns()
-                This function will output all interesting patterns discovered by an algorithm
-            save(oFile)
-                This function will store the discovered patterns in an output file specified by the user
-            getMemoryUSS()
-                This function outputs the total amount of USS memory consumed by a mining algorithm
-            getMemoryRSS()
-                This function outputs the total amount of RSS memory consumed by a mining algorithm
-            getRuntime()
-                This function outputs the total runtime of a mining algorithm
     """
+    :Description:   This abstract base class defines the variables and methods that every periodic frequent pattern mining algorithm must
+                    employ in PAMI
+    :Attributes:
 
+        iFile : str
+            Input file name or path of the input file
+        minSup: integer or float or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator
+        startTime:float
+            To record the start time of the algorithm
+        endTime:float
+            To record the completion time of the algorithm
+        finalPatterns: dict
+            Storing the complete set of patterns in a dictionary variable
+        oFile : str
+            Name of the output file to store complete set of frequent patterns
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
+    :Methods:
 
+        startMine()
+            Calling this function will start the actual mining process
+        getPatterns()
+            This function will output all interesting patterns discovered by an algorithm
+        save(oFile)
+            This function will store the discovered patterns in an output file specified by the user
+        getMemoryUSS()
+            This function outputs the total amount of USS memory consumed by a mining algorithm
+        getMemoryRSS()
+            This function outputs the total amount of RSS memory consumed by a mining algorithm
+        getRuntime()
+            This function outputs the total runtime of a mining algorithm
+    """
 
     def __init__(self, iFile, minSup, maxPer, numWorkers=1, sep='\t'):
         """

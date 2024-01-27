@@ -12,7 +12,7 @@
 #     obj.run()
 #
 #     obj.printStats()
-#
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -30,36 +30,35 @@ __copyright__ = """
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+
 import sys
 import statistics
 from urllib.request import urlopen
 import pandas as pd
 from typing import Union
 
-
 class UtilityDatabase:
     """
            :Description:  UtilityDatabase is class to get stats of database.
-
 
            :param inputFile: file :
                input file path
            :param sep: str
                separator in file. Default is tab space.
 
-            **Importing this algorithm into a python program**
-            --------------------------------------------------------
+           **Importing this algorithm into a python program**
+           --------------------------------------------------------
             .. code-block:: python
 
-           from PAMI.extras.dbStats import UtilityDatabase as db
+                    from PAMI.extras.dbStats import UtilityDatabase as db
 
-           obj = db.UtilityDatabase(iFile, "\t" )
+                    obj = db.UtilityDatabase(iFile, "\t" )
 
-           obj.save(oFile)
+                    obj.save(oFile)
 
-           obj.run()
+                    obj.run()
 
-          obj.printStats()
+                    obj.printStats()
 
     """
 
@@ -141,7 +140,7 @@ class UtilityDatabase:
     def getDatabaseSize(self) -> int:
         """
         get the size of database
-        :return: data base size
+        :return: int
         """
         return len(self.database)
 
@@ -199,7 +198,7 @@ class UtilityDatabase:
         # percentage of 0 dense dataframe
         """
         get the sparsity of database
-        :return: database sparsity
+        :return: float
         """
         matrixSize = self.getDatabaseSize()*len(self.getSortedListOfItemFrequencies())
         return (matrixSize - sum(self.getSortedListOfItemFrequencies().values())) / matrixSize
@@ -217,7 +216,8 @@ class UtilityDatabase:
         return {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x:x[1], reverse=True)}
     
     def getFrequenciesInRange(self) -> dict:
-        """ This function is used to get the Frequencies in range
+        """
+        This function is used to get the Frequencies in range
             :return: Frequencies In Range
         """
         fre = self.getSortedListOfItemFrequencies()
@@ -236,7 +236,7 @@ class UtilityDatabase:
     def getTransanctionalLengthDistribution(self) -> dict:
         """
         get transaction length
-        :return: transaction length
+        :return: dict
         """
         transactionLength = {}
         for length in self.lengthList:
@@ -266,7 +266,7 @@ class UtilityDatabase:
     def getMinimumUtility(self) -> int:
         """
         get the minimum utility
-        :return: minimum utility
+        :return: int
         """
         return min(list(self.utility.values()))
 
@@ -280,7 +280,7 @@ class UtilityDatabase:
     def getMaximumUtility(self) -> int:
         """
         get the maximum utility
-        :return: maximum utility
+        :return: int
         """
         return max(list(self.utility.values()))
 
@@ -292,7 +292,9 @@ class UtilityDatabase:
         return self.utility
     
     def printStats(self) -> None:
-        """ This function is used to print the results
+
+        """
+        This function is used to print the results
         """
         print(f'Database size : {self.getDatabaseSize()}')
         print(f'Number of items : {self.getTotalNumberOfItems()}')

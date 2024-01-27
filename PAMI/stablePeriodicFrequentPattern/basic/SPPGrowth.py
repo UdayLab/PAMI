@@ -65,7 +65,9 @@ _last = int()
 class _Node:
 
     def __init__(self, item, children):
-        """ Initializing the Node class
+        """
+        Initializing the Node class
+
         :param item: Storing the item of a node
         :type item: int or None
         :param children: To maintain the children of a node
@@ -78,8 +80,10 @@ class _Node:
         self.timeStamps = []
 
     def addChild(self, node):
-        """ To add the children to a node
-              :param node: parent node in the tree
+        """
+        To add the children to a node
+
+        :param node: parent node in the tree
         """
 
         self.children[node.item] = node
@@ -92,12 +96,14 @@ class _Tree:
         self.info = {}
 
     def addTransaction(self, transaction, tid):
-        """     Adding a transaction into tree
-                :param transaction: To represent the complete database
-                :type transaction: list
-                :param tid: To represent the timestamp of a database
-                :type tid: list
-                :return: pfp-growth tree
+        """
+        Adding a transaction into tree
+
+        :param transaction: To represent the complete database
+        :type transaction: list
+        :param tid: To represent the timestamp of a database
+        :type tid: list
+        :return: pfp-growth tree
         """
 
         currentNode = self.root
@@ -115,10 +121,12 @@ class _Tree:
         currentNode.timeStamps = currentNode.timeStamps + tid
 
     def getConditionalPatterns(self, alpha):
-        """Generates all the conditional patterns of a respective node
-            :param alpha: To represent a Node in the tree
-            :type alpha: Node
-            :return: A tuple consisting of finalPatterns, conditional pattern base and information
+        """
+        Generates all the conditional patterns of a respective node
+
+        :param alpha: To represent a Node in the tree
+        :type alpha: Node
+        :return: A tuple consisting of finalPatterns, conditional pattern base and information
         """
         finalPatterns = []
         finalSets = []
@@ -137,19 +145,23 @@ class _Tree:
 
     @staticmethod
     def generateTimeStamps(node):
-        """To get the timestamps of a node
-          :param node: A node in the tree
-          :return: Timestamps of a node
+        """
+        To get the timestamps of a node
+
+        :param node: A node in the tree
+        :return: Timestamps of a node
         """
 
         finalTimeStamps = node.timeStamps
         return finalTimeStamps
 
     def removeNode(self, nodeValue):
-        """ Removing the node from tree
-            :param nodeValue: To represent a node in the tree
-            :type nodeValue: node
-            :return: Tree with their nodes updated with timestamps
+        """
+        Removing the node from tree
+
+        :param nodeValue: To represent a node in the tree
+        :type nodeValue: node
+        :return: Tree with their nodes updated with timestamps
         """
 
         for i in self.summaries[nodeValue]:
@@ -157,9 +169,11 @@ class _Tree:
             del i.parent.children[nodeValue]
 
     def getTimeStamps(self, alpha):
-        """ To get all the timestamps of the nodes which share same item name
-            :param alpha: Node in a tree
-            :return: Timestamps of a  node
+        """
+        To get all the timestamps of the nodes which share same item name
+
+        :param alpha: Node in a tree
+        :return: Timestamps of a  node
         """
         temporary = []
         for i in self.summaries[alpha]:
@@ -168,7 +182,9 @@ class _Tree:
 
     @staticmethod
     def getSupportAndPeriod(timeStamps):
-        """To calculate the periodicity and support
+        """
+        To calculate the periodicity and support
+
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
         """
@@ -188,12 +204,14 @@ class _Tree:
         return len(timeStamps), maxla
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps):
-        """ It generates the conditional patterns with periodic-frequent items
-            :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
-            :type conditionalPatterns: list
-            :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
-            :type conditionalTimeStamps: list
-            :returns: Returns conditional transactions by removing non-periodic and non-frequent items
+        """
+        It generates the conditional patterns with periodic-frequent items
+
+        :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
+        :type conditionalPatterns: list
+        :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
+        :type conditionalTimeStamps: list
+        :returns: Returns conditional transactions by removing non-periodic and non-frequent items
         """
 
         global _maxPer, _minSup, _maxLa
@@ -221,10 +239,12 @@ class _Tree:
         return pat, timeStamps, updatedDictionary
 
     def generatePatterns(self, prefix):
-        """ Generates the patterns
-            :param prefix: Forms the combination of items
-            :type prefix: list
-            :returns: yields patterns with their support and periodicity
+        """
+        Generates the patterns
+
+        :param prefix: Forms the combination of items
+        :type prefix: list
+        :returns: yields patterns with their support and periodicity
         """
 
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
@@ -243,21 +263,17 @@ class _Tree:
 
 class SPPGrowth():
     """
-    Description:
-    --------------
-    Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
-    maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
-    greater than maximum lability.
+    :Description:   Stable periodic pattern mining aims to dicover all interesting patterns in a temporal database using three contraints minimum support,
+                    maximum period and maximum lability, that have support no less than the user-specified minimum support  constraint and lability no
+                    greater than maximum lability.
 
-    Reference:
-    -----------
-    Dao, H.N. et al. (2022). Towards Efficient Discovery of Stable Periodic Patterns in Big Columnar Temporal Databases.
-    In: Fujita, H., Fournier-Viger, P., Ali, M., Wang, Y. (eds) Advances and Trends in Artificial Intelligence.
-    Theory and Practices in Artificial Intelligence. IEA/AIE 2022. Lecture Notes in Computer Science(), vol 13343. Springer, Cham.
-    https://doi.org/10.1007/978-3-031-08530-7_70
+    :Reference:   Dao, H.N. et al. (2022). Towards Efficient Discovery of Stable Periodic Patterns in Big Columnar Temporal Databases.
+                  In: Fujita, H., Fournier-Viger, P., Ali, M., Wang, Y. (eds) Advances and Trends in Artificial Intelligence.
+                  Theory and Practices in Artificial Intelligence. IEA/AIE 2022. Lecture Notes in Computer Science(), vol 13343. Springer, Cham.
+                  https://doi.org/10.1007/978-3-031-08530-7_70
 
-    Attributes:
-    ----------
+    :Attributes:
+
             iFile : file
                 Name of the Input file or path of the input file
             oFile : file
@@ -267,12 +283,12 @@ class SPPGrowth():
                 If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
                 Otherwise, it will be treated as float.
                 Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-            maxPer: int or float or str
+            maxPer : int or float or str
                 The user can specify maxPer either in count or proportion of database size.
                 If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
                 Otherwise, it will be treated as float.
                 Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-            maxLa: int or float or str
+            maxLa : int or float or str
                 The user can specify maxLa either in count or proportion of database size.
                 If the program detects the data type of maxLa is integer, then it treats maxLa is expressed in count.
                 Otherwise, it will be treated as float.
@@ -284,9 +300,9 @@ class SPPGrowth():
                 To store the total amount of USS memory consumed by the program
             memoryRSS : float
                 To store the total amount of RSS memory consumed by the program
-            startTime:float
+            startTime : float
                 To record the start time of the mining process
-            endTime:float
+            endTime : float
                 To record the completion time of the mining process
             Database : list
                 To store the transactions of a database in list
@@ -301,8 +317,8 @@ class SPPGrowth():
             finalPatterns : dict
                 To store the complete patterns
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -328,18 +344,18 @@ class SPPGrowth():
         convert()
             to convert the user specified value
 
-
     **Methods to execute code on terminal**
-
+    -----------------------------------------
             Format:
                       >>>   python3 topk.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
+
             Example:
                       >>>  python3 topk.py sampleTDB.txt patterns.txt 0.3 0.4 0.3
 
-            .. note:: constraints will be considered in percentage of database transactions
+                      .. note:: constraints will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
-
+    -----------------------------------------------------
     .. code-block:: python
 
             from PAMI.stablePeriodicFrequentPattern.basic import topk as alg
@@ -369,10 +385,11 @@ class SPPGrowth():
             print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
+    --------------
 
-             The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
+            The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
 
-        """
+    """
     _startTime = float()
     _endTime = float()
     _minSup = str()
@@ -399,7 +416,7 @@ class SPPGrowth():
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -438,10 +455,10 @@ class SPPGrowth():
                     quit()
 
     def _periodicFrequentOneItem(self):
-        """ Calculates the support of each item in the database and assign ranks to the items
-            by decreasing support and returns the frequent items list
+        """
+        Calculates the support of each item in the database and assign ranks to the items by decreasing support and returns the frequent items list
 
-            :returns: return the one-length periodic frequent patterns
+        :returns: return the one-length periodic frequent patterns
         """
         global _last
         tidLast = {}
@@ -471,11 +488,13 @@ class SPPGrowth():
         return data, pfList
 
     def _updateDatabases(self, dict1):
-        """ Remove the items which are not frequent from database and updates the database with rank of items
-            :param dict1: frequent items with support
-            :type dict1: dictionary
-            :return: Sorted and updated transactions
-            """
+        """
+        Remove the items which are not frequent from database and updates the database with rank of items
+
+        :param dict1: frequent items with support
+        :type dict1: dictionary
+        :return: Sorted and updated transactions
+        """
         list1 = []
         for tr in self._Database:
             list2 = [int(tr[0])]
@@ -491,12 +510,14 @@ class SPPGrowth():
 
     @staticmethod
     def _buildTree(data, info):
-        """ It takes the database and support of each item and construct the main tree by setting root node as a null
-            :param data: it represents the one Database in database
-            :type data: list
-            :param info: it represents the support of each item
-            :type info: dictionary
-            :return: returns root node of tree
+        """
+        It takes the database and support of each item and construct the main tree by setting root node as a null
+
+        :param data: it represents the one Database in database
+        :type data: list
+        :param info: it represents the support of each item
+        :type info: dictionary
+        :return: returns root node of tree
         """
 
         rootNode = _Tree()
@@ -507,9 +528,11 @@ class SPPGrowth():
         return rootNode
 
     def _savePeriodic(self, itemSet):
-        """ To convert the ranks of items in to their original item names
-            :param itemSet: frequent pattern
-            :return: frequent pattern with original item names
+        """
+        To convert the ranks of items in to their original item names
+
+        :param itemSet: frequent pattern.
+        :return: frequent pattern with original item names
         """
         t1 = str()
         for i in itemSet:
@@ -519,8 +542,9 @@ class SPPGrowth():
     def _convert(self, value):
         """
         To convert the given user specified value
-            :param value: user specified value
-            :return: converted value
+
+        :param value: user specified value
+        :return: converted value
         """
         if type(value) is int:
             value = int(value)
@@ -535,7 +559,8 @@ class SPPGrowth():
         return value
 
     def startMine(self):
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
 
         global _minSup, _maxPer, _lno, _maxLa
@@ -572,7 +597,8 @@ class SPPGrowth():
         print("Stable Periodic Frequent patterns were generated successfully using topk algorithm ")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -581,7 +607,8 @@ class SPPGrowth():
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -590,8 +617,8 @@ class SPPGrowth():
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -600,7 +627,8 @@ class SPPGrowth():
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -614,9 +642,11 @@ class SPPGrowth():
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to an output file
-            :param outFile: name of the output file
-            :type outFile: file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to an output file
+
+        :param outFile: name of the output file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -625,7 +655,8 @@ class SPPGrowth():
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of periodic-frequent patterns after completion of the mining process
+        """
+        Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
         :rtype: dict
@@ -633,7 +664,8 @@ class SPPGrowth():
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Stable Periodic  Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

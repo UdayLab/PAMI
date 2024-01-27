@@ -29,24 +29,25 @@ from urllib.request import urlopen as _urlopen
 
 
 class _stablePeriodicFrequentPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
+    """
+    :Description:   This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
         employ in PAMI
 
-       Attributes
-        ----------
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
-        maxPer: int or float or str
+        maxPer : int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        maxLa: int or float or str
+        maxLa : int or float or str
             The user can specify maxLa either in count or proportion of database size.
             If the program detects the data type of maxLa is integer, then it treats maxLa is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxLa=10 will be treated as integer, while maxLa=10.0 will be treated as float
-        k: int or float or str
+        k : int or float or str
             The user can specify k either in count or proportion of database size.
             If the program detects the data type of k is integer, then it treats k is expressed in count.
             Otherwise, it will be treated as float.
@@ -54,11 +55,11 @@ class _stablePeriodicFrequentPatterns(_ABC):
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
-        startTime:float
+        startTime : float
             To record the start time of the algorithm
-        endTime:float
+        endTime : float
             To record the completion time of the algorithm
-        finalPatterns: dict
+        finalPatterns : dict
             Storing the complete set of patterns in a dictionary variable
         oFile : str
             Name of the output file to store complete set of periodic-frequent patterns
@@ -67,8 +68,8 @@ class _stablePeriodicFrequentPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -137,7 +138,7 @@ class _stablePeriodicFrequentPatterns(_ABC):
         """Complete set of periodic-frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass

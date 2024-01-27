@@ -71,12 +71,10 @@
   <h1>Source code for PAMI.sequentialPatternMining.basic.prefixSpan</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.</span>
 <span class="c1"># This program employs Prefix Span property (or downward closure property) to  reduce the search space effectively.</span>
-<span class="c1"># This algorithm employs depth-first search technique to find the complete set of frequent patterns in a</span>
-<span class="c1"># transactional database.</span>
+<span class="c1"># This algorithm employs depth-first search technique to find the complete set of frequent patterns in a transactional database.</span>
 <span class="c1">#</span>
 <span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
-<span class="c1">#</span>
 <span class="c1">#</span>
 <span class="c1">#     import PAMI.frequentPattern.basic.prefixSpan as alg</span>
 <span class="c1">#</span>
@@ -103,6 +101,7 @@
 <span class="c1">#     run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
@@ -120,18 +119,17 @@
 <span class="s2">     You should have received a copy of the GNU General Public License</span>
 <span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
 <span class="s2">     Copyright (C)  2021 Rage Uday Kiran</span>
-
 <span class="s2">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">PAMI.sequentialPatternMining.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 <span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">setrecursionlimit</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
 
 <div class="viewcode-block" id="prefixSpan">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan">[docs]</a>
 <span class="k">class</span> <span class="nc">prefixSpan</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sequentialPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-
 <span class="sd">    Description:</span>
 <span class="sd">    --------------</span>
 
@@ -193,18 +191,18 @@
 <span class="sd">            Generates candidate patterns from the frequent patterns</span>
 
 <span class="sd">    **Methods to execute code on terminal**</span>
+<span class="sd">    ------------------------------------------</span>
 
 <span class="sd">            Format:</span>
 <span class="sd">                      &gt;&gt;&gt;  python3 prefixSpan.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
 <span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 prefixSpan.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)</span>
 
 <span class="sd">                      &gt;&gt;&gt;  python3 prefixSpan.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)</span>
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
-
-<span class="sd">        .. code-block:: python</span>
+<span class="sd">    -----------------------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
 
 <span class="sd">            import PAMI.frequentPattern.basic.prefixSpan as alg</span>
 
@@ -233,10 +231,9 @@
 <span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 
 <span class="sd">    **Credits:**</span>
+<span class="sd">    ---------------</span>
 
 <span class="sd">              The complete program was written by Suzuki Shota under the supervision of Professor Rage  Uday Kiran.</span>
-
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
@@ -280,20 +277,19 @@
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
                             <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-1&#39;</span><span class="p">)]</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)]</span>
                             <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span> <span class="p">]</span>
-                            <span class="n">temp</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
                             <span class="n">seq</span> <span class="o">=</span> <span class="p">[]</span>
                             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
                                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
                                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">()))):</span>
                                        <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-                                   <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                                   <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
 
                                 <span class="k">else</span><span class="p">:</span>
                                     <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-                                    <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                                    <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
 
 
@@ -322,7 +318,7 @@
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNext">[docs]</a>
     <span class="k">def</span> <span class="nf">makeNext</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sepDatabase</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">         To get next pattern by adding head word to next sequence of startrow</span>
+<span class="sd">        To get next pattern by adding head word to next sequence of startrow</span>
 <span class="sd">        :param sepDatabase: dict</span>
 <span class="sd">            what words and rows startrow have to add it</span>
 <span class="sd">        :param startrow:</span>
@@ -333,9 +329,9 @@
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">])</span><span class="o">&gt;=</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">newrow</span><span class="o">!=</span><span class="p">[]:</span>
-                    <span class="n">newrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">newrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
                 <span class="n">newrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
-                <span class="n">newrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">newrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">newrow</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">newrow</span><span class="p">)]</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">])</span>
                     <span class="n">give</span> <span class="o">=</span> <span class="p">[]</span>
@@ -385,7 +381,7 @@
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">supDatabase</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;=</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="ow">or</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">head</span><span class="p">:</span>
                         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">newLine</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="p">(</span><span class="n">newLine</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">!=-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">i</span><span class="o">!=-</span><span class="mi">1</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">newLine</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="s2">&quot;:&quot;</span> <span class="ow">or</span> <span class="n">i</span><span class="o">!=</span><span class="s2">&quot;:&quot;</span><span class="p">):</span>
                                 <span class="n">newLine</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
                         <span class="k">else</span><span class="p">:</span>
                             <span class="n">newLine</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -409,10 +405,10 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">])</span><span class="o">&gt;=</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
                 <span class="n">newrow</span> <span class="o">=</span> <span class="n">startrow</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                 <span class="n">newrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
-                <span class="n">newrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">newrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">newrow</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">newrow</span><span class="p">)]</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">])</span>
-                    <span class="k">if</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">in</span> <span class="n">startrow</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">startrow</span><span class="p">:</span>
                         <span class="n">give</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSameSeq</span><span class="p">(</span><span class="n">startrow</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">give</span> <span class="o">=</span> <span class="n">startrow</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -422,7 +418,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">makeSeqDatabaseSame</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">],</span> <span class="n">newrow</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">])</span><span class="o">&gt;</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">newrow</span><span class="p">)]:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">newrow</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">])</span>
-                    <span class="k">if</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">in</span> <span class="n">startrow</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">startrow</span><span class="p">:</span>
                         <span class="n">give</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSameSeq</span><span class="p">(</span><span class="n">startrow</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">give</span> <span class="o">=</span> <span class="n">startrow</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -431,21 +427,13 @@
                     <span class="n">newrow</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">makeSeqDatabaseSame</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">],</span> <span class="n">newrow</span><span class="p">)</span></div>
 
-
-
-
-
-
-
-
-
 <div class="viewcode-block" id="prefixSpan.makeSeqDatabaseFirst">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseFirst">[docs]</a>
     <span class="k">def</span> <span class="nf">makeSeqDatabaseFirst</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make 1 length sequence dataset list which start from same word. It was stored only 1 from 1 line.</span>
-<span class="sd">            :param database:</span>
-<span class="sd">                To store the transactions of a database in list</span>
+<span class="sd">        :param database:</span>
+<span class="sd">            To store the transactions of a database in list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">startrow</span><span class="o">=</span><span class="p">[]</span>
         <span class="n">seqDatabase</span><span class="o">=</span><span class="p">{}</span>
@@ -453,7 +441,7 @@
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">database</span><span class="p">:</span>
             <span class="n">alreadyInLine</span><span class="o">=</span><span class="p">[]</span>
             <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">data</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">alreadyInLine</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="n">data</span><span class="p">]</span><span class="o">!=-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">data</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">alreadyInLine</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="n">data</span><span class="p">]</span><span class="o">!=</span><span class="s2">&quot;:&quot;</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">data</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqDatabase</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                         <span class="n">seqDatabase</span><span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="n">data</span><span class="p">]]</span><span class="o">=</span><span class="p">[]</span>
                         <span class="n">seqDatabase</span><span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="n">data</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">data</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
@@ -470,14 +458,13 @@
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.serchSame">[docs]</a>
     <span class="k">def</span> <span class="nf">serchSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">,</span><span class="n">startrow</span><span class="p">,</span><span class="n">give</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">         To get 2 or more length patterns in same sequence.</span>
+<span class="sd">        To get 2 or more length patterns in same sequence.</span>
 <span class="sd">        :param database: list</span>
 <span class="sd">            To store the transactions of a database in list which have same startrow and head word</span>
 <span class="sd">        :param startrow: list</span>
 <span class="sd">            the patterns get before</span>
 <span class="sd">        :param give: list</span>
 <span class="sd">            the word in the latest sequence of startrow</span>
-<span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sepDatabaseSame</span><span class="o">=</span><span class="p">{}</span>
         <span class="n">sepDatabaseSame</span><span class="p">[</span><span class="n">startrow</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="p">[]</span>
@@ -485,7 +472,7 @@
             <span class="n">addLine</span><span class="o">=</span><span class="mi">0</span>
             <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
-                <span class="k">while</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">while</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="s2">&quot;:&quot;</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">startrow</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                         <span class="n">sepDatabaseSame</span><span class="p">[</span><span class="n">startrow</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
                         <span class="n">addLine</span><span class="o">=</span><span class="mi">1</span>
@@ -494,7 +481,7 @@
                 <span class="k">if</span> <span class="n">addLine</span><span class="o">!=</span><span class="mi">1</span><span class="p">:</span>
                     <span class="n">ok</span><span class="o">=</span><span class="p">[]</span>
                     <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
-                        <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;:&quot;</span><span class="p">:</span>
                             <span class="n">ok</span><span class="o">=</span><span class="p">[]</span>
                         <span class="k">elif</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">startrow</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                             <span class="n">ok</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;sk1&quot;</span><span class="p">)</span>
@@ -506,7 +493,7 @@
                             <span class="k">break</span>
                         <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
         <span class="n">startrow2</span><span class="o">=</span><span class="p">[</span><span class="n">startrow</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-        <span class="n">startrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">startrow</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">startrow</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">makeNextSame</span><span class="p">(</span><span class="n">sepDatabaseSame</span><span class="p">,</span><span class="n">startrow2</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">startrow</span><span class="p">)]</span><span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">sepDatabaseSame</span><span class="p">[</span><span class="n">startrow</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]]):</span>
@@ -525,23 +512,22 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">give</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">newrow</span> <span class="o">=</span> <span class="n">startrow</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">while</span> <span class="n">newrow</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">while</span> <span class="n">newrow</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;:&quot;</span><span class="p">:</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">newrow</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
             <span class="n">give</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">give</span></div>
-
 
 
 <div class="viewcode-block" id="prefixSpan.makeSeqDatabaseSame">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseSame">[docs]</a>
     <span class="k">def</span> <span class="nf">makeSeqDatabaseSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            To make sequence dataset list which start from same word(head). It was stored only 1 from 1 line.</span>
-<span class="sd">            And it separated by having head in the latest sequence of startrow or not.</span>
-<span class="sd">            :param database:</span>
-<span class="sd">                    To store the transactions of a database in list</span>
-<span class="sd">            :param startrow: list</span>
-<span class="sd">                    the patterns get before</span>
+<span class="sd">        To make sequence dataset list which start from same word(head). It was stored only 1 from 1 line.</span>
+<span class="sd">        And it separated by having head in the latest sequence of startrow or not.</span>
+<span class="sd">        :param database:</span>
+<span class="sd">                To store the transactions of a database in list</span>
+<span class="sd">        :param startrow: list</span>
+<span class="sd">                the patterns get before</span>
 
 <span class="sd">            &quot;&quot;&quot;</span>
         <span class="n">seqDatabase</span><span class="o">=</span><span class="p">{}</span>
@@ -550,9 +536,9 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
                 <span class="n">alreadyInLine</span><span class="o">=</span><span class="p">[]</span>
                 <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="k">while</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">while</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;:&quot;</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqDatabaseSame</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">in</span> <span class="n">startrow</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">startrow</span><span class="p">:</span>
                                 <span class="n">give</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getSameSeq</span><span class="p">(</span><span class="n">startrow</span><span class="p">)</span>
                             <span class="k">else</span><span class="p">:</span>
                                 <span class="n">give</span><span class="o">=</span><span class="n">startrow</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -562,7 +548,7 @@
                         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="n">same</span><span class="o">=</span><span class="mi">0</span>
                 <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">&gt;</span><span class="n">i</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="s2">&quot;:&quot;</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">alreadyInLine</span><span class="p">:</span>
                             <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqDatabase</span><span class="p">:</span>
                                 <span class="n">seqDatabase</span><span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">=</span><span class="p">[]</span>
@@ -572,7 +558,7 @@
                             <span class="n">same</span><span class="o">=</span><span class="mi">1</span>
 
                         <span class="k">elif</span> <span class="n">same</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seqDatabaseSame</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">in</span> <span class="n">startrow</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">startrow</span><span class="p">:</span>
                                 <span class="n">give</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">getSameSeq</span><span class="p">(</span><span class="n">startrow</span><span class="p">)</span>
                             <span class="k">else</span><span class="p">:</span>
                                 <span class="n">give</span><span class="o">=</span><span class="n">startrow</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -616,7 +602,8 @@
 <div class="viewcode-block" id="prefixSpan.getMemoryUSS">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning USS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -627,7 +614,8 @@
 <div class="viewcode-block" id="prefixSpan.getMemoryRSS">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -638,7 +626,8 @@
 <div class="viewcode-block" id="prefixSpan.getRuntime">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -649,7 +638,8 @@
 <div class="viewcode-block" id="prefixSpan.getPatternsAsDataFrame">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final frequent patterns in a dataframe</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Storing final frequent patterns in a dataframe</span>
 <span class="sd">        :return: returning frequent patterns in a dataframe</span>
 <span class="sd">        :rtype: pd.DataFrame</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -665,21 +655,28 @@
 <div class="viewcode-block" id="prefixSpan.save">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns will be loaded in to an output file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 <span class="sd">        :param outFile: name of the output file</span>
 <span class="sd">        :type outFile: file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;[\[&#39;\]]&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+                
+                <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="n">pattern</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="prefixSpan.getPatterns">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of frequent patterns after completion of the mining process</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
 <span class="sd">        :return: returning frequent patterns</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -689,7 +686,8 @@
 <div class="viewcode-block" id="prefixSpan.printResults">
 <a class="viewcode-back" href="../../../../PAMI.sequentialPatternMining.basic.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; This function is used to print the results</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
@@ -717,7 +715,7 @@
         <span class="n">_run</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">_run</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">_ap</span> <span class="o">=</span> <span class="n">prefixSpan</span><span class="p">(</span><span class="s1">&#39;retail.txt&#39;</span><span class="p">,</span><span class="mi">833</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">_ap</span> <span class="o">=</span> <span class="n">prefixSpan</span><span class="p">(</span><span class="s1">&#39;retail.txt&#39;</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
         <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
         <span class="n">_Patterns</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
         <span class="n">_memUSS</span> <span class="o">=</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
@@ -728,7 +726,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">_run</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_Patterns</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
-        <span class="n">_ap</span><span class="o">.</span><span class="n">savePatterns</span><span class="p">(</span><span class="s2">&quot;priOut2.txt&quot;</span><span class="p">)</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;priOut2.txt&quot;</span><span class="p">)</span>
 </pre></div>
 
            </div>

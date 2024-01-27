@@ -1,7 +1,7 @@
 #  ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
 #
-#     **Importing this algorithm into a python program**
-#     --------------------------------------------------------
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
 #     from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
 #
@@ -59,31 +59,32 @@ _lno = int()
 
 class Node(object):
     """
-        A class used to represent the node of frequentPatternTree
+    A class used to represent the node of frequentPatternTree
 
-        Attributes:
-        ----------
-            item : int or None
-                Storing item of a node
-            timeStamps : list
-                To maintain the timestamps of a database at the end of the branch
-            parent : node
-                To maintain the parent of every node
-            children : list
-                To maintain the children of a node
-            count : int
-                To maintain the count of every node
+    :Attributes:
 
-        Methods:
-        -------
-            addChild(itemName)
-                Storing the children to their respective parent nodes
-            toString()
-                To print the node
+        item : int or None
+            Storing item of a node
+        timeStamps : list
+            To maintain the timestamps of a database at the end of the branch
+        parent : node
+            To maintain the parent of every node
+        children : list
+            To maintain the children of a node
+        count : int
+            To maintain the count of every node
+
+    :Methods:
+
+        addChild(itemName)
+            Storing the children to their respective parent nodes
+        toString()
+            To print the node
     """
 
     def __init__(self, item, count, children):
-        """ Initializing the Node class
+        """
+        Initializing the Node class
 
         :param item: item of a node
         :param count: count of a node
@@ -103,7 +104,6 @@ class Node(object):
         """ To print the node
 
         :param level: level of a node
-
         """
         if self.item == None:
             s = "Root("
@@ -120,10 +120,10 @@ class Node(object):
         return s
 
     def addChild(self, node):
-        """ To add the children to a node
+        """
+        To add the children to a node
 
         :param node: children of a node
-
         """
         self.children[node.item] = node
         node.parent = self
@@ -145,15 +145,15 @@ class PFPTree(object):
 
     A class used to represent the periodic frequent pattern tree
 
-    Attributes:
-    ----------
+    :Attributes:
+
         root : node
             To maintain the root of the tree
         summaries : dict
             To maintain the summary of the tree
 
-    Methods:
-    -------
+    :Methods:
+
         add(basket, tid, count)
             To add the basket to the tree
         getTransactions()
@@ -184,7 +184,6 @@ class PFPTree(object):
         :param basket: basket of a database
         :param tid: timestamp of a database
         :param count: count of a node
-
         """
         curr = self.root
         curr.count += count
@@ -219,7 +218,6 @@ class PFPTree(object):
         To get the transactions of the tree
 
         :return: returning the transactions of the tree
-
         """
         return [x for x in self.root._getTransactions()]
 
@@ -228,7 +226,6 @@ class PFPTree(object):
         To merge the tree
 
         :param tree: tree of a database
-
         """
         for t in tree.getTransactions():
             self.add(t[0], t[1], t[2])
@@ -239,7 +236,6 @@ class PFPTree(object):
         To project the tree
 
         :param itemId: item of a node
-
         """
         newTree = PFPTree()
         summaryItem = self.summaries.get(itemId)
@@ -299,15 +295,14 @@ class Summary(object):
     """
     A class used to represent the summary of the tree
 
-    Attributes:
-    ----------
+    :Attributes:
+
         count : int
             To maintain the count of a node
         nodes : list
             To maintain the nodes of a tree
         tids : set
             To maintain the timestamps of a database
-
     """
 
     def __init__(self, count, nodes):
@@ -318,31 +313,27 @@ class Summary(object):
 
 class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     """
-    Description:
-    -------------
-        ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
+    :Description:   ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.
 
-    Reference:
-    -----------
-        C. Saideep, R. Uday Kiran, Koji Zettsu, Cheng-Wei Wu, P. Krishna Reddy, Masashi Toyoda, Masaru Kitsuregawa: Parallel Mining of Partial Periodic Itemsets in Big Data. IEA/AIE 2020: 807-819
+    :Reference:   C. Saideep, R. Uday Kiran, Koji Zettsu, Cheng-Wei Wu, P. Krishna Reddy, Masashi Toyoda, Masaru Kitsuregawa: Parallel Mining of Partial Periodic Itemsets in Big Data. IEA/AIE 2020: 807-819
 
-    Attributes:
-    ----------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup: int or float or str
+        minSup : int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: int or float or str
+        maxPer : int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        numWorker: int
+        numWorker : int
             The user can specify the number of worker machines to be employed for finding periodic-frequent patterns.
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
@@ -351,9 +342,9 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
         Database : list
             To store the transactions of a database in list
@@ -368,8 +359,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         finalPatterns : dict
             To store the complete patterns
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -397,17 +388,17 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
 
     **Methods to execute code on terminal**
-
+    ---------------------------------------------
             Format:
                       >>>  python3 parallelPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
+
             Example:
                       >>>  python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5
 
-            .. note:: minSup will be considered in percentage of database transactions
-
+                      .. note:: minSup will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
-
+    ---------------------------------------------------------
     .. code-block:: python
 
                 from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
@@ -465,7 +456,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         :param ps1: set
         :param tid: timestamp of a database
-
         return: set
 
         """
@@ -477,9 +467,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         Union of two sets
 
-        :param ps1: set
+        :param ps1: set.
         :param ps2: set
-
         return: set
 
         """
@@ -489,13 +478,10 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
     def func3(self, tids, endts):
         """
-
         Calculate the periodicity of a transaction
 
         :param tids: timestamps of a database
-
         return: periodicity
-
 
         """
         # print(tids)
@@ -516,8 +502,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         Get the frequent items from the database
 
         :param data: database
-
-        return: frequent items
+        :return: frequent items
 
         """
         singleItems = data.flatMap(lambda x: [(x[i], x[0]) for i in range(1, len(x))])
@@ -538,8 +523,7 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
         :param data: database
         :param freqItems: frequent items
-
-        return: frequent itemsets
+        :return: frequent itemsets
 
         """
         rank = dict([(index, item) for (item, index) in enumerate(self._perFreqItems)])
@@ -566,7 +550,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         :param basket: basket of a database
         :param rank: rank of a database
         :param nPartitions: number of partitions
-
         """
         filtered = [rank[int(x)] for x in basket if int(x) in rank.keys()]
         filtered = sorted(filtered)
@@ -583,9 +566,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         Get the partition id
 
         :param key: key of a database
-        :param nPartitions: number of partitions
-
-        return: partition id
+        :param nPartitions: number of partitions.
+        :return: partition id
 
         """
         return key % nPartitions
@@ -595,7 +577,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         to convert the type of user specified minSup value
 
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -645,7 +626,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -655,7 +635,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -666,7 +645,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
 
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
@@ -676,7 +654,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -691,7 +668,6 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-
         :type outFile: file
         """
         self._oFile = outFile
@@ -710,7 +686,8 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
         return self.__finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Frequent Patterns:", self.getPatterns())
         print("Total Memory in USS:", self.getMemoryUSS())

@@ -26,7 +26,6 @@
 #      You should have received a copy of the GNU General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# from abc import ABC as _ABC, abstractmethod as _abstractmethod
 from abc import ABC as _ABC, abstractmethod as _abstractmethod
 import time as _time
 import csv as _csv
@@ -43,12 +42,11 @@ import functools as _functools
 
 
 class _weightedFrequentSpatialPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-        employ in PAMI
+    """
+    :Descrption: This abstract base class defines the variables and methods that every frequent pattern mining algorithm must employ in PAMI
 
+    :Attributes:
 
-       Attributes:
-       ----------
         iFile : str
             Input file name or path of the input file
         minSup: integer or float or str
@@ -72,8 +70,8 @@ class _weightedFrequentSpatialPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-       Methods:
-       -------
+    :Methods:
+
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -95,13 +93,13 @@ class _weightedFrequentSpatialPatterns(_ABC):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str or DataFrame
-        :param wFile: Input file name or path of the input file
-        :type wFile: str or DataFrame
-        :param minSup: The user can specify minSup either in count or proportion of database size.
+        :param nFile: Input file name or path of the input file
+        :type nFile: str or DataFrame
+        :param minWS: The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        :type minSup: int or float or str
+        :type minWS: int or float or str
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
         """
@@ -134,7 +132,7 @@ class _weightedFrequentSpatialPatterns(_ABC):
         """Complete set of frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass

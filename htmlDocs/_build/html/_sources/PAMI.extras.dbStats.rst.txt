@@ -4,18 +4,18 @@ PAMI.extras.dbStats package
 Submodules
 ----------
 
-PAMI.extras.dbStats.fuzzyDatabaseStats module
+PAMI.extras.dbStats.FuzzyDatabase module
 ---------------------------------------------
 
-.. automodule:: PAMI.extras.dbStats.fuzzyDatabaseStats
+.. automodule:: PAMI.extras.dbStats.FuzzyDatabase
    :members:
    :undoc-members:
    :show-inheritance:
 
-PAMI.extras.dbStats.temporalDatabaseStats module
+PAMI.extras.dbStats.TemporalDatabase module
 ------------------------------------------------
 
-.. automodule:: PAMI.extras.dbStats.temporalDatabaseStats
+.. automodule:: PAMI.extras.dbStats.TemporalDatabase
    :members:
    :undoc-members:
    :show-inheritance:

@@ -29,11 +29,12 @@ from urllib.request import urlopen as _urlopen
 
 
 class _periodicFrequentPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
-        employ in PAMI
+    """
+    :Description: This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
+                  employ in PAMI
 
-    Attributes:
-    ----------
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
         k: int
@@ -53,8 +54,9 @@ class _periodicFrequentPatterns(_ABC):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-    Methods:
-    -------
+
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()

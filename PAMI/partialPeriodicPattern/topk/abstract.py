@@ -29,8 +29,8 @@ from urllib.request import urlopen as _urlopen
 
 
 class partialPeriodicPatterns(ABC):
-    """ This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must
-        employ in PAMI
+    """
+    This abstract base class defines the variables and methods that every periodic-frequent pattern mining algorithm must employ in PAMI
 
     Attributes:
     ----------
@@ -62,8 +62,8 @@ class partialPeriodicPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    Methods:
+    --------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -158,5 +158,4 @@ class partialPeriodicPatterns(ABC):
     @abstractmethod
     def printResults(self):
         """ To print all the results of execution"""
-
         pass

@@ -46,11 +46,11 @@ __copyright__ = """
 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+     Copyright (C)  2021 Rage Uday Kiran
+
 """
 
-
 from PAMI.AssociationRules.basic import abstract as _ab
-
 
 class _Confidence:
     """

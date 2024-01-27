@@ -133,7 +133,7 @@
 <span class="sd">        A class used to represent the node of frequentPatternTree</span>
 
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        -----------</span>
 <span class="sd">            item : int or None</span>
 <span class="sd">                Storing item of a node</span>
 <span class="sd">            timeStamps : list</span>
@@ -144,7 +144,7 @@
 <span class="sd">                To maintain the children of a node</span>
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">            addChild(itemName)</span>
 <span class="sd">                Storing the children to their respective parent nodes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -178,7 +178,7 @@
 <span class="sd">        A class used to represent the frequentPatternGrowth tree structure</span>
 
 <span class="sd">        Attributes:</span>
-<span class="sd">        ----------</span>
+<span class="sd">        ------------</span>
 <span class="sd">            root : Node</span>
 <span class="sd">                Represents the root node of the tree</span>
 <span class="sd">            summaries : dictionary</span>
@@ -188,7 +188,7 @@
 
 
 <span class="sd">        Methods:</span>
-<span class="sd">        -------</span>
+<span class="sd">        ---------</span>
 <span class="sd">            addTransactions(Database)</span>
 <span class="sd">                Creating transaction as a branch in Recurring PatternTree</span>
 <span class="sd">            getConditionalPatterns(Node)</span>
@@ -233,11 +233,12 @@
         <span class="n">currentNode</span><span class="o">.</span><span class="n">timeStamps</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="n">timeStamps</span> <span class="o">+</span> <span class="n">tid</span>
 
     <span class="k">def</span> <span class="nf">getConditionalPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates all the conditional patterns of a respective node</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates all the conditional patterns of a respective node</span>
 
-<span class="sd">            :param alpha: To represent a Node in the tree</span>
-<span class="sd">            :type alpha: Node</span>
-<span class="sd">            :return: A tuple consisting of finalPatterns, conditional pattern base and information</span>
+<span class="sd">        :param alpha: To represent a Node in the tree</span>
+<span class="sd">        :type alpha: Node</span>
+<span class="sd">        :return: A tuple consisting of finalPatterns, conditional pattern base and information</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">finalPatterns</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">finalSets</span> <span class="o">=</span> <span class="p">[]</span>
@@ -256,7 +257,8 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">generateTimeStamps</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;To get the timestamps of a node</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To get the timestamps of a node</span>
 
 <span class="sd">        :param node: A node in the tree</span>
 <span class="sd">        :return: Timestamps of a node</span>
@@ -266,11 +268,12 @@
         <span class="k">return</span> <span class="n">finalTimeStamps</span>
 
     <span class="k">def</span> <span class="nf">removeNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeValue</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Removing the node from tree</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removing the node from tree</span>
 
-<span class="sd">            :param nodeValue: To represent a node in the tree</span>
-<span class="sd">            :type nodeValue: node</span>
-<span class="sd">            :return: Tree with their nodes updated with timestamps</span>
+<span class="sd">        :param nodeValue: To represent a node in the tree</span>
+<span class="sd">        :type nodeValue: node</span>
+<span class="sd">        :return: Tree with their nodes updated with timestamps</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">nodeValue</span><span class="p">]:</span>
@@ -278,10 +281,10 @@
             <span class="k">del</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">nodeValue</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">getTimeStamps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; To get all the timestamps of the nodes which share same item name</span>
-
-<span class="sd">            :param alpha: Node in a tree</span>
-<span class="sd">            :return: Timestamps of a  node</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To get all the timestamps of the nodes which share same item name</span>
+<span class="sd">        :param alpha: Node in a tree</span>
+<span class="sd">        :return: Timestamps of a  node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">temporary</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">alpha</span><span class="p">]:</span>
@@ -290,7 +293,8 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">getSupportAndPeriod</span><span class="p">(</span><span class="n">timeStamps</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;To calculate the recurrence and support</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To calculate the recurrence and support</span>
 
 <span class="sd">        :param timeStamps: Timestamps of an item set</span>
 <span class="sd">        :return: recurring intervals with corresponding periodic support, summation of support of periodic intervals, support</span>
@@ -326,13 +330,14 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">recli</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">timeStamps</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">conditionalDatabases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conditionalPatterns</span><span class="p">,</span> <span class="n">conditionalTimeStamps</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; It generates the conditional patterns with periodic-frequent items</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It generates the conditional patterns with periodic-frequent items</span>
 
-<span class="sd">            :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node</span>
-<span class="sd">            :type conditionalPatterns: list</span>
-<span class="sd">            :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node</span>
-<span class="sd">            :type conditionalTimeStamps: list</span>
-<span class="sd">            :returns: Returns conditional transactions by removing non recurring items</span>
+<span class="sd">        :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node</span>
+<span class="sd">        :type conditionalPatterns: list</span>
+<span class="sd">        :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node</span>
+<span class="sd">        :type conditionalTimeStamps: list</span>
+<span class="sd">        :returns: Returns conditional transactions by removing non recurring items</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">global</span> <span class="n">_maxPer</span><span class="p">,</span> <span class="n">_minPS</span><span class="p">,</span> <span class="n">_minRec</span>
@@ -361,11 +366,11 @@
         <span class="k">return</span> <span class="n">pat</span><span class="p">,</span> <span class="n">timeStamps</span><span class="p">,</span> <span class="n">updatedDictionary</span>
 
     <span class="k">def</span> <span class="nf">generatePatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Generates the patterns</span>
-
-<span class="sd">            :param prefix: Forms the combination of items</span>
-<span class="sd">            :type prefix: list</span>
-<span class="sd">            :returns: yields patterns with their recurrence and support</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the patterns</span>
+<span class="sd">        :param prefix: Forms the combination of items</span>
+<span class="sd">        :type prefix: list</span>
+<span class="sd">        :returns: yields patterns with their recurrence and support</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_minRec</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">x</span><span class="p">)):</span>
@@ -391,11 +396,10 @@
 <span class="sd">    Description:</span>
 <span class="sd">    -------------</span>
 
-<span class="sd">         RPGrowth is one of the fundamental algorithm to discover recurring patterns in a transactional database.</span>
+<span class="sd">    RPGrowth is one of the fundamental algorithm to discover recurring patterns in a transactional database.</span>
 
 <span class="sd">    Reference:</span>
 <span class="sd">    ------------</span>
-
 
 <span class="sd">    Attributes:</span>
 <span class="sd">    ----------</span>
@@ -440,7 +444,7 @@
 <span class="sd">            To store the complete patterns</span>
 
 <span class="sd">    Methods:</span>
-<span class="sd">    -------</span>
+<span class="sd">    ---------</span>
 <span class="sd">        startMine()</span>
 <span class="sd">            Mining process will start from here</span>
 <span class="sd">        getPatterns()</span>
@@ -468,6 +472,7 @@
 
 
 <span class="sd">    **Methods to execute code on terminal**</span>
+<span class="sd">    -------------------------------------------</span>
 
 <span class="sd">            Format:</span>
 <span class="sd">                      &gt;&gt;&gt;  python3 RPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;maxPer&gt; &lt;minPS&gt; &lt;minRec&gt;</span>
@@ -478,7 +483,7 @@
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
-
+<span class="sd">    --------------------------------------------------------</span>
 <span class="sd">    .. code-block:: python</span>
 
 <span class="sd">                from PAMI.periodicFrequentPattern.recurring import RPGrowth as alg</span>
@@ -507,6 +512,7 @@
 
 <span class="sd">                print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 <span class="sd">    **Credits:**</span>
+<span class="sd">    -------------</span>
 
 <span class="sd">             The complete program was written by   C. Saideep  under the supervision of Professor Rage Uday Kiran.</span>
 

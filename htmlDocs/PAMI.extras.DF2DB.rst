@@ -29,7 +29,7 @@ PAMI.extras.DF2DB.createTDB module
    :show-inheritance:
 
 PAMI.extras.DF2DB.DenseFormatDF module
------------------------------------
+---------------------------------------
 
 .. automodule:: PAMI.extras.DF2DB.DenseFormatDF
    :members:
@@ -37,7 +37,7 @@ PAMI.extras.DF2DB.DenseFormatDF module
    :show-inheritance:
 
 PAMI.extras.DF2DB.DenseFormatDFPlus module
----------------------------------------
+-------------------------------------------
 
 .. automodule:: PAMI.extras.DF2DB.DenseFormatDFPlus
    :members:
@@ -45,7 +45,7 @@ PAMI.extras.DF2DB.DenseFormatDFPlus module
    :show-inheritance:
 
 PAMI.extras.DF2DB.SparseFormatDF module
-------------------------------------
+----------------------------------------
 
 .. automodule:: PAMI.extras.DF2DB.SparseFormatDF
    :members:
@@ -53,7 +53,7 @@ PAMI.extras.DF2DB.SparseFormatDF module
    :show-inheritance:
 
 PAMI.extras.DF2DB.SparseFormatDFPlus module
-----------------------------------------
+--------------------------------------------
 
 .. automodule:: PAMI.extras.DF2DB.SparseFormatDFPlus
    :members:

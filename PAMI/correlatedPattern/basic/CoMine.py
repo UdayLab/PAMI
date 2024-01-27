@@ -258,7 +258,6 @@ class CoMine(_ab._correlatedPatterns):
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-
     :Attributes:
 
         memoryUSS : float
@@ -289,7 +288,6 @@ class CoMine(_ab._correlatedPatterns):
             it represents the store the items in mining
         maxPatternLength : int
            it represents the constraint for pattern length
-
 
     **Methods to execute code on terminal**
     ----------------------------------------

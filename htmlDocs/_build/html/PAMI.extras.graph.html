@@ -230,16 +230,20 @@
 </section>
 <section id="id3">
 <h3>Methods:<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
-<dl>
+<dl class="simple">
 <dt>plotLineGraphFromDatFrame()</dt><dd><p>draw line graph of input data. input data's key is x and value is y.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<p>from PAMI.extras.graph import plotLineGraphsFromDataframe as plt</p>
-<p>obj = plt.plotLineGraphsFromDataFrame(idf)</p>
-<p>obj.save()</p>
 </dd>
 </dl>
+</section>
+<section id="id4">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.graph</span> <span class="kn">import</span> <span class="n">plotLineGraphsFromDataframe</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plotLineGraphsFromDataFrame</span><span class="p">(</span><span class="n">idf</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame.plotGraphsFromDataFrame">
 <span class="sig-name descname"><span class="pre">plotGraphsFromDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/graph/plotLineGraphsFromDataFrame.html#plotGraphsFromDataFrame.plotGraphsFromDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.plotLineGraphsFromDataFrame.plotGraphsFromDataFrame.plotGraphsFromDataFrame" title="Link to this definition"></a></dt>
@@ -255,25 +259,29 @@
 <dt class="sig sig-object py" id="PAMI.extras.graph.visualizePatterns.visualizePatterns">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.graph.visualizePatterns.</span></span><span class="sig-name descname"><span class="pre">visualizePatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/graph/visualizePatterns.html#visualizePatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.visualizePatterns.visualizePatterns" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
-<dd class="field-odd"><blockquote>
-<div><p>visualizePatterns is used to visualize points produced by pattern miner .</p>
-</div></blockquote>
+<dd class="field-odd"><p>visualizePatterns is used to visualize points produced by pattern miner .</p>
 </dd>
 </dl>
-<dl>
+<section id="id5">
+<h3>Attributes:<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<dl class="simple">
 <dt>:param file<span class="classifier">file</span></dt><dd><p>store input data as file</p>
 </dd>
 <dt>:param topk<span class="classifier">int</span></dt><dd><p>Takes the value int as input</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<p>from PAMI.extras.graph import visualizePatterns as viz</p>
-<p>obj = viz.visualizePatterns(iFile, topk)</p>
-<p>obj.save()</p>
 </dd>
 </dl>
+</section>
+<section id="id6">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.graph</span> <span class="kn">import</span> <span class="n">visualizePatterns</span> <span class="k">as</span> <span class="n">viz</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">viz</span><span class="o">.</span><span class="n">visualizePatterns</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">topk</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.extras.graph.visualizePatterns.visualizePatterns.visualize">
 <span class="sig-name descname"><span class="pre">visualize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">markerSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zoom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/extras/graph/visualizePatterns.html#visualizePatterns.visualize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.graph.visualizePatterns.visualizePatterns.visualize" title="Link to this definition"></a></dt>
@@ -292,6 +300,7 @@
 </dl>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 </section>

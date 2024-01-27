@@ -37,24 +37,24 @@ class plotGraphsFromDataFrame():
         plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.
 
         Attributes:
-        ----------
+        -----------
         :param dataFrame : DataFrame
             store input data as DataFrame
 
         Methods:
-        -------
+        --------
         plotLineGraphFromDatFrame()
             draw line graph of input data. input data's key is x and value is y.
 
-            **Importing this algorithm into a python program**
-            --------------------------------------------------------
-            .. code-block:: python
+        **Importing this algorithm into a python program**
+        --------------------------------------------------------
+        .. code-block:: python
 
-            from PAMI.extras.graph import plotLineGraphsFromDataframe as plt
+                from PAMI.extras.graph import plotLineGraphsFromDataframe as plt
 
-            obj = plt.plotLineGraphsFromDataFrame(idf)
+                obj = plt.plotLineGraphsFromDataFrame(idf)
 
-            obj.save()
+                obj.save()
         """
 
     def __init__(self, dataFrame: _pd.DataFrame) -> None:
@@ -83,13 +83,13 @@ if __name__ == '__main__':
     #        'memory': [426545152, 309182464, 241397760, 225533952, 220950528, 233537536, 267165696, 252841984, 245690368,
     #                    295710720]
     #        }
-    '''data = {
+    data = {
         'algorithm': ['FPGrowth', 'FPGrowth', 'FPGrowth', 'FPGrowth', 'FPGrowth'],
         'minSup': [0.01, 0.02, 0.03, 0.04, 0.05],
         'patterns': [386, 155, 60, 36, 10],
         'runtime': [7.351629, 4.658654, 4.658654, 1.946843, 1.909376],
         'memory': [426545152, 309182464, 241397760, 225533952, 220950528]
-        }'''
+        }
     dataFrame = _pd.DataFrame(data)
     ab = plotGraphsFromDataFrame(dataFrame)
     ab.plotGraphsFromDataFrame()

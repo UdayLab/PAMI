@@ -53,78 +53,69 @@ from PAMI.periodicFrequentPattern.topk import abstract as _ab
 
 class TopkPFPGrowth(_ab._periodicFrequentPatterns):
     """
-        Description:
-        ------------
-            Top - K is and algorithm to discover top periodic frequent patterns in a temporal database.
+    :Description:   Top - K is and algorithm to discover top periodic frequent patterns in a temporal database.
 
-        Reference:
-        ----------
-            Komate Amphawan, Philippe Lenca, Athasit Surarerks: "Mining Top-K Periodic-Frequent Pattern from Transactional Databases without Support Threshold"
-            International Conference on Advances in Information Technology: https://link.springer.com/chapter/10.1007/978-3-642-10392-6_3
+    :Reference:   Komate Amphawan, Philippe Lenca, Athasit Surarerks: "Mining Top-K Periodic-Frequent Pattern from Transactional Databases without Support Threshold"
+                  International Conference on Advances in Information Technology: https://link.springer.com/chapter/10.1007/978-3-642-10392-6_3
 
-        Attributes:
-        -----------
-            iFile : str
-                Input file name or path of the input file
-            k: int
-                User specified counte of top frequent patterns
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
-                However, the users can override their default separator.
-            oFile : str
-                Name of the output file or the path of the output file
-            startTime:float
-                To record the start time of the mining process
-            endTime:float
-                To record the completion time of the mining process
-            finalPatterns: dict
-                Storing the complete set of patterns in a dictionary variable
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+    :Attributes:
 
-        Methods:
-        --------
-            startMine()
-                Mining process will start from here
-            getPatterns()
-                Complete set of patterns will be retrieved with this function
-            save(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
-            getPatternsAsDataFrame()
-                Complete set of frequent patterns will be loaded in to a dataframe
-            getMemoryUSS()
-                Total amount of USS memory consumed by the mining process will be retrieved from this function
-            getMemoryRSS()
-                Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            getRuntime()
-                Total amount of runtime taken by the mining process will be retrieved from this function
-            creatingItemSets()
-                Scans the dataset or dataframes and stores in list format
-            frequentOneItem()
-                Generates one frequent patterns
-            eclatGeneration(candidateList)
-                It will generate the combinations of frequent items
-            generateFrequentPatterns(tidList)
-                It will generate the combinations of frequent items from a list of items
+        iFile : str
+            Input file name or path of the input file
+        k: int
+            User specified counte of top frequent patterns
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
+            However, the users can override their default separator.
+        oFile : str
+            Name of the output file or the path of the output file
+        startTime:float
+            To record the start time of the mining process
+        endTime:float
+            To record the completion time of the mining process
+        finalPatterns: dict
+            Storing the complete set of patterns in a dictionary variable
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
 
-        Executing the code on terminal:
-        -------------------------------
+    :Methods:
 
+        startMine()
+            Mining process will start from here
+        getPatterns()
+            Complete set of patterns will be retrieved with this function
+        save(oFile)
+            Complete set of frequent patterns will be loaded in to a output file
+        getPatternsAsDataFrame()
+            Complete set of frequent patterns will be loaded in to a dataframe
+        getMemoryUSS()
+            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        getMemoryRSS()
+            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        getRuntime()
+            Total amount of runtime taken by the mining process will be retrieved from this function
+        creatingItemSets()
+            Scans the dataset or dataframes and stores in list format
+        frequentOneItem()
+            Generates one frequent patterns
+        eclatGeneration(candidateList)
+            It will generate the combinations of frequent items
+        generateFrequentPatterns(tidList)
+            It will generate the combinations of frequent items from a list of items
+
+    **Executing the code on terminal:**
+    -------------------------------------
             Format:
-            ------
                 >>> python3 TopkPFP.py <inputFile> <outputFile> <k> <maxPer>
 
             Examples:
-            ---------
                 >>> python3 TopkPFP.py sampleDB.txt patterns.txt 10 3
 
-
-        Sample run of the importing code:
-        ---------------------------------
-
-        .. code-block:: python
+    **Sample run of the importing code:**
+    ---------------------------------------
+    .. code-block:: python
 
             import PAMI.periodicFrequentPattern.topk.TopkPFPGrowth as alg
 
@@ -152,8 +143,8 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-        Credits:
-        --------
+    **Credits:**
+    --------------
             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
@@ -176,7 +167,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
 
         """
         self._Database = []
@@ -219,6 +210,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -274,6 +266,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
 
     def _getSupportAndPeriod(self, timeStamps):
         """To calculate the periodicity and support
+
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
         """
@@ -295,17 +288,12 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
     def _save(self, prefix, suffix, tidSetI):
         """Saves the patterns that satisfy the periodic frequent property.
 
-            :param prefix: the prefix of a pattern
-
-            :type prefix: list
-
-            :param suffix: the suffix of a patterns
-
-            :type suffix: list
-
-            :param tidSetI: the timestamp of a patterns
-
-            :type tidSetI: list
+        :param prefix: the prefix of a pattern
+        :type prefix: list
+        :param suffix: the suffix of a patterns
+        :type suffix: list
+        :param tidSetI: the timestamp of a patterns
+        :type tidSetI: list
         """
 
         if prefix is None:
@@ -333,20 +321,16 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
                     return
 
     def _Generation(self, prefix, itemSets, tidSets):
-        """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
+        """
+        Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
 
-            :param prefix:  main equivalence prefix
-
-            :type prefix: periodic-frequent item or pattern
-
-            :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
+        :param prefix:  main equivalence prefix
+        :type prefix: periodic-frequent item or pattern
+        :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
                             and frequent with their timestamps
-
-            :type itemSets: list
-
-            :param tidSets: timestamps of the items in the argument itemSets
-
-            :type tidSets: list
+        :type itemSets: list
+        :param tidSets: timestamps of the items in the argument itemSets
+        :type tidSets: list
         """
         if len(itemSets) == 1:
             i = itemSets[0]
@@ -375,7 +359,7 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
 
     def startMine(self):
         """
-            Main function of the program
+        Main function of the program
 
         """
         self._startTime = _ab._time.time()
@@ -411,9 +395,8 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
-                    :return: returning USS memory consumed by the mining process
-
-                    :rtype: float
+        :return: returning USS memory consumed by the mining process
+        :rtype: float
         """
 
         return self._memoryUSS
@@ -422,7 +405,6 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -432,17 +414,16 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -457,7 +438,6 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-
         :type outFile: file
         """
         self._oFile = outFile
@@ -470,7 +450,6 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns

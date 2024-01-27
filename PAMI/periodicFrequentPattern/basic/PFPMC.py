@@ -58,27 +58,22 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 class PFPMC(_ab._periodicFrequentPatterns):
     """
-    Description:
-    ------------
+    :Description:   PFPMC is the fundamental approach to mine the periodic-frequent patterns.
 
-     PFPMC is the fundamental approach to mine the periodic-frequent patterns.
+    :Reference:
 
-    Reference:
-    --------------
+    :Attributes:
 
-
-    Attributes:
-    ----------
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup: int or float or str
+        minSup : int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        maxPer: int or float or str
+        maxPer : int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
@@ -111,8 +106,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
         hashing : dict
             stores the patterns with their support to check for the closed property
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -136,17 +131,17 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
 
     **Methods to execute code on terminal**
-
+    ------------------------------------------
             Format:
                       >>>   python3 PFPMC.py <inputFile> <outputFile> <minSup> <maxPer>
+
             Example:
                       >>>   python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0
     
-            .. note:: minSup and maxPer will be considered in percentage of database transactions
-
+                      .. note:: minSup and maxPer will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
-
+    ----------------------------------------------------
     .. code-block:: python
 
                 from PAMI.periodicFrequentPattern.basic import PFPMC as alg
@@ -176,10 +171,11 @@ class PFPMC(_ab._periodicFrequentPatterns):
                 print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
+    ----------------
 
-             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+    The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
-        """
+    """
 
     _iFile = " "
     _oFile = " "
@@ -197,9 +193,11 @@ class PFPMC(_ab._periodicFrequentPatterns):
     _memoryRSS = float()
 
     def _getPeriodic(self, tids: set) -> int:
-        """To get  Periodic frequent patterns
-                :param tids: represents the timestamp of a transaction
-                :type tids: set
+        """
+        To get  Periodic frequent patterns
+
+        :param tids: represents the timestamp of a transaction
+        :type tids: set
         """
         tids = list(tids)
         tids.sort()
@@ -213,7 +211,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
             return temp
         return max(diffs) + 1
 
-    '''def _getPeriodic(self, tids: set):
+    def _getPeriodic(self, tids: set):
 
         tids = list(tids)
         tids.sort()
@@ -232,9 +230,9 @@ class PFPMC(_ab._periodicFrequentPatterns):
                 count = 0
         if len(diffs) < 1:
             return temp
-        return max(diffs) + 1'''
+        return max(diffs) + 1
 
-    '''def _getPeriodic(self, tids: set):
+    def _getPeriodic(self, tids: set):
         tids = list(tids)
         tids.sort()
         temp = self._maxPer + 1
@@ -252,11 +250,12 @@ class PFPMC(_ab._periodicFrequentPatterns):
                     return temp
                 tempPer = 0
 
-        return period'''
+        return period
 
     def _convert(self, value) -> float:
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -273,7 +272,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
         return value
 
     def _creatingOneItemSets(self) -> list:
-        """Storing the complete transactions of the database/input file in a database variable
+        """
+        Storing the complete transactions of the database/input file in a database variable
         """
         plist = []
         Database = []
@@ -361,7 +361,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
             self._generateDiffsetEclat(new_freqList)
 
     def startMine(self) -> None:
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
         # print(f"Optimized {type(self).__name__}")
         self._startTime = _ab._time.time()
@@ -377,7 +378,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
         print("Periodic-Frequent patterns were generated successfully using PFPDiffset ECLAT algorithm ")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -386,7 +388,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -395,8 +398,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -405,7 +408,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -419,9 +423,11 @@ class PFPMC(_ab._periodicFrequentPatterns):
         return dataframe
 
     def save(self, outFile: str) -> None:
-        """Complete set of periodic-frequent patterns will be loaded in to an output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -431,7 +437,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> dict:
-        """ Function to send the set of periodic-frequent patterns after completion of the mining process
+        """
+        Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
         :rtype: dict
@@ -439,7 +446,8 @@ class PFPMC(_ab._periodicFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

@@ -204,7 +204,9 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>Methods to execute code on terminal</strong></p>
+</section>
+<section id="methods-to-execute-code-on-terminal">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl>
 <dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">SPADE</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
@@ -217,9 +219,10 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>Importing this algorithm into a python program</strong></p>
-<blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.sequentialPatternMining.basic.SPADE</span> <span class="k">as</span> <span class="nn">alg</span>
+</section>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.sequentialPatternMining.basic.SPADE</span> <span class="k">as</span> <span class="nn">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">SPADE</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
 
@@ -246,8 +249,9 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</div></blockquote>
-<p><strong>Credits:</strong></p>
+</section>
+<section id="credits">
+<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by Suzuki Shota under the supervision of Professor Rage  Uday Kiran.</p>
 </div></blockquote>
@@ -312,45 +316,37 @@ However, the users can override their default separator.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRow">
 <span class="sig-name descname"><span class="pre">makeNextRow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makeNextRow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRow" title="Link to this definition"></a></dt>
-<dd><dl class="simple">
-<dt>To make pattern row when two patterns have the latest word in different sequence</dt><dd><p>:param bs : previous pattern without the latest one
+<dd><p>To make pattern row when two patterns have the latest word in different sequence
+:param bs : previous pattern without the latest one
 :param latestWord : latest word of one previous pattern
 :param latestWord2 : latest word of other previous pattern</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame">
 <span class="sig-name descname"><span class="pre">makeNextRowSame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makeNextRowSame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame" title="Link to this definition"></a></dt>
-<dd><dl class="simple">
-<dt>To make pattern row when one pattern have the latestWord1 in different sequence and other(latestWord2) in same</dt><dd><p>:param bs : previous pattern without the latest one
+<dd><p>To make pattern row when one pattern have the latestWord1 in different sequence and other(latestWord2) in same
+:param bs : previous pattern without the latest one
 :param latestWord : latest word of one previous pattern in same sequence
 :param latestWord2 : latest word of other previous pattern in different sequence</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame2">
 <span class="sig-name descname"><span class="pre">makeNextRowSame2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makeNextRowSame2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame2" title="Link to this definition"></a></dt>
-<dd><dl class="simple">
-<dt>To make pattern row when two patterns have the latest word in same sequence</dt><dd><p>:param bs : previous pattern without the latest one
+<dd><p>To make pattern row when two patterns have the latest word in same sequence
+:param bs : previous pattern without the latest one
 :param latestWord : latest word of one previous pattern
 :param latestWord2 : latest word of the other previous pattern</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame3">
 <span class="sig-name descname"><span class="pre">makeNextRowSame3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latestWord2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/SPADE.html#SPADE.makeNextRowSame3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.SPADE.SPADE.makeNextRowSame3" title="Link to this definition"></a></dt>
-<dd><dl class="simple">
-<dt>To make pattern row when two patterns have the latest word in different sequence and both latest word is in same sequence</dt><dd><p>:param bs : previous pattern without the latest one
+<dd><p>To make pattern row when two patterns have the latest word in different sequence and both latest word is in same sequence
+:param bs : previous pattern without the latest one
 :param latestWord : latest word of one previous pattern
 :param latestWord2 : latest word of other previous pattern</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -476,25 +472,25 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>Methods to execute code on terminal</strong></p>
+</section>
+<section id="id5">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <blockquote>
 <div><dl>
 <dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">prefixSpan</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </dd>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">prefixSpan</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span>   <span class="p">(</span><span class="n">minSup</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">times</span> <span class="n">of</span> <span class="n">minSup</span> <span class="ow">and</span> <span class="n">count</span> <span class="n">of</span> <span class="n">database</span> <span class="n">transactions</span><span class="p">)</span>
-</pre></div>
-</div>
+</dl>
+<p>Example:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">prefixSpan</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">10</span>     <span class="p">(</span><span class="n">minSup</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">support</span> <span class="n">count</span> <span class="ow">or</span> <span class="n">frequency</span><span class="p">)</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </div></blockquote>
-<p><strong>Importing this algorithm into a python program</strong></p>
-<blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.prefixSpan</span> <span class="k">as</span> <span class="nn">alg</span>
+</section>
+<section id="id6">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.basic.prefixSpan</span> <span class="k">as</span> <span class="nn">alg</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">prefixSpan</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
 
@@ -521,8 +517,9 @@ However, the users can override their default separator.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
 </pre></div>
 </div>
-</div></blockquote>
-<p><strong>Credits:</strong></p>
+</section>
+<section id="id7">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <blockquote>
 <div><p>The complete program was written by Suzuki Shota under the supervision of Professor Rage  Uday Kiran.</p>
 </div></blockquote>
@@ -585,16 +582,14 @@ However, the users can override their default separator.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNext">
 <span class="sig-name descname"><span class="pre">makeNext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sepDatabase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startrow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.makeNext"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNext" title="Link to this definition"></a></dt>
-<dd><blockquote>
-<div><p>To get next pattern by adding head word to next sequence of startrow</p>
+<dd><p>To get next pattern by adding head word to next sequence of startrow
+:param sepDatabase: dict</p>
+<blockquote>
+<div><p>what words and rows startrow have to add it</p>
 </div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>sepDatabase</strong> -- dict
-what words and rows startrow have to add it</p></li>
-<li><p><strong>startrow</strong> -- the patterns get before</p></li>
-</ul>
+<dd class="field-odd"><p><strong>startrow</strong> -- the patterns get before</p>
 </dd>
 </dl>
 </dd></dl>
@@ -619,14 +614,11 @@ what words and rows startrow have to add it</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseFirst">
 <span class="sig-name descname"><span class="pre">makeSeqDatabaseFirst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.makeSeqDatabaseFirst"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseFirst" title="Link to this definition"></a></dt>
-<dd><dl class="simple">
-<dt>To make 1 length sequence dataset list which start from same word. It was stored only 1 from 1 line.</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param database<span class="colon">:</span></dt>
-<dd class="field-odd"><p>To store the transactions of a database in list</p>
-</dd>
-</dl>
-</dd>
-</dl>
+<dd><p>To make 1 length sequence dataset list which start from same word. It was stored only 1 from 1 line.
+:param database:</p>
+<blockquote>
+<div><p>To store the transactions of a database in list</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py method">
@@ -686,22 +678,19 @@ database of lines having same startrow and head word</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.serchSame">
 <span class="sig-name descname"><span class="pre">serchSame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startrow</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">give</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/sequentialPatternMining/basic/prefixSpan.html#prefixSpan.serchSame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.serchSame" title="Link to this definition"></a></dt>
-<dd><blockquote>
-<div><p>To get 2 or more length patterns in same sequence.</p>
+<dd><p>To get 2 or more length patterns in same sequence.
+:param database: list</p>
+<blockquote>
+<div><p>To store the transactions of a database in list which have same startrow and head word</p>
 </div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>database</strong> -- list
-To store the transactions of a database in list which have same startrow and head word</p></li>
 <li><p><strong>startrow</strong> -- list
 the patterns get before</p></li>
 <li><p><strong>give</strong> -- list
 the word in the latest sequence of startrow</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p></p>
 </dd>
 </dl>
 </dd></dl>
