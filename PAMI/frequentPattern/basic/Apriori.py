@@ -1,34 +1,37 @@
 # Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 #
-#
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#     import PAMI.frequentPattern.basic.Apriori as alg
+#             import PAMI.frequentPattern.basic.Apriori as alg
 #
-#     obj = alg.Apriori(iFile, minSup)
+#             obj = alg.Apriori(iFile, minSup)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
 
 
 __copyright__ = """
@@ -108,31 +111,31 @@ class Apriori(_ab._frequentPatterns):
 
     .. code-block:: python
 
-             import PAMI.frequentPattern.basic.Apriori as alg
+            import PAMI.frequentPattern.basic.Apriori as alg
 
-             obj = alg.Apriori(iFile, minSup)
+            obj = alg.Apriori(iFile, minSup)
 
-             obj.startMine()
+            obj.startMine()
 
-             frequentPatterns = obj.getPatterns()
+            frequentPatterns = obj.getPatterns()
 
-             print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-             obj.save(oFile)
+            obj.save(oFile)
 
-             Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-             memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-             print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-             memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-             print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-             run = obj.getRuntime()
+            run = obj.getRuntime()
 
-             print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
 
     **Credits:**
@@ -155,9 +158,7 @@ class Apriori(_ab._frequentPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -194,9 +195,7 @@ class Apriori(_ab._frequentPatterns):
     def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         To convert the user specified minSup value
-
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -212,14 +211,11 @@ class Apriori(_ab._frequentPatterns):
         return value
 
     def _candidateToFrequent(self, candidateList: List[set]) -> Dict[frozenset, int]:
-        """Generates frequent patterns from the candidate patterns
-
+        """
+        Generates frequent patterns from the candidate patterns
         :param candidateList: Candidate patterns will be given as input
-
         :type candidateList: list
-
         :return: returning set of all frequent patterns
-
         :rtype: dict
         """
 
@@ -235,18 +231,13 @@ class Apriori(_ab._frequentPatterns):
 
     @staticmethod
     def _frequentToCandidate(frequentList: Dict[frozenset, int], length: int) -> List[set]:
-        """Generates candidate patterns from the frequent patterns
-
+        """
+        Generates candidate patterns from the frequent patterns
         :param frequentList: set of all frequent patterns to generate candidate patterns of each of size is length
-
         :type frequentList: dict
-
         :param length: size of each candidate patterns to be generated
-
         :type length: int
-
         :return: set of candidate patterns in sorted order
-
         :rtype: list
         """
 
@@ -258,7 +249,7 @@ class Apriori(_ab._frequentPatterns):
 
     def startMine(self) -> None:
         """
-            Frequent pattern mining process will start from here
+        Frequent pattern mining process will start from here
         """
         self._Database = []
         self._startTime = _ab._time.time()
@@ -287,40 +278,36 @@ class Apriori(_ab._frequentPatterns):
         print("Frequent patterns were generated successfully using Apriori algorithm ")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
-
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -333,11 +320,10 @@ class Apriori(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
-
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-
-        :type outFile: file
+        :type outFile: csvfile
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -346,18 +332,16 @@ class Apriori(_ab._frequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> Dict[str, int]:
-        """ Function to send the set of frequent patterns after completion of the mining process
-
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self) -> None:
         """
-        this function is used to print the result
-
+        This function is used to print the result
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

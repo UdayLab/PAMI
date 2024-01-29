@@ -3,36 +3,37 @@
 #  **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#     import PAMI.frequentPattern.pyspark.parallelFPGrowth as alg
+#             import PAMI.frequentPattern.pyspark.parallelFPGrowth as alg
 #
-#     obj = alg.parallelFPGrowth(iFile, minSup, numWorkers)
+#             obj = alg.parallelFPGrowth(iFile, minSup, numWorkers)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 
 
-#
-#
-#
+
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -61,16 +62,15 @@ from pyspark import SparkConf as _SparkConf, SparkContext as _SparkContext
 
 class Node:
     """
-        Attribute
-        ---------
-            item : int
-                Storing item of a node
-            count : int
-                To maintain the support count of node
-            children : dict
-                To maintain the children of node
-            prefix : list
-                To maintain the prefix of node
+    :Attribute:
+        item : int
+            Storing item of a node
+        count : int
+            To maintain the support count of node
+        children : dict
+            To maintain the children of node
+        prefix : list
+            To maintain the prefix of node
     """
     def __init__(self, item, prefix):
         self.item = item
@@ -81,20 +81,19 @@ class Node:
 
 class Tree:
     """
-        Attribute
-        ---------
-            root : Node
-                The first node of the tree set to Null
-            nodeLink : dict
-                Store nodes that have the same item
-        Methods
-        -------
-            addTransaction(transaction, count)
-                Create tree from transaction and count
-            addNodeToNodeLink(node)
-                Add nodes that have the same item to self.nodeLink
-            generateConditionalTree(item)
-                Create conditional pattern base of item
+    :Attribute:
+        root : Node
+            The first node of the tree set to Null
+        nodeLink : dict
+            Store nodes that have the same item
+    :Methods:
+
+        addTransaction(transaction, count)
+            Create tree from transaction and count
+        addNodeToNodeLink(node)
+            Add nodes that have the same item to self.nodeLink
+        generateConditionalTree(item)
+            Create conditional pattern base of item
     """
     def __init__(self):
         self.root = Node(None, [])
@@ -233,7 +232,6 @@ class parallelFPGrowth(_ab._frequentPatterns):
     
              The complete program was written by Yudai Masu  under the supervision of Professor Rage Uday Kiran.
 
-
     """
 
     _minSup = float()
@@ -255,7 +253,9 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
 
     def startMine(self):
-        """Frequent pattern mining process will start from here"""
+        """
+        Frequent pattern mining process will start from here
+        """
 
         self._startTime = _ab._time.time()
 
@@ -298,18 +298,18 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
     def getPartitionId(self, value):
         """
-            Get partition id of item
-            :param item: int
-            :return: int
+        Get partition id of item
+        :param item: int
+        :return: integer
         """
         return value % self._numPartitions
 
     def genCondTransaction(self, trans, rank):
         """
-            Generate conditional transactions from transaction
-            :param transaction : list
-            :param rank: dict
-            :return: list
+        Generate conditional transactions from transaction
+        :param transaction : list
+        :param rank: dict
+        :return: list
         """
         newTrans = [rank[item] for item in trans if item in rank.keys()]
         newTrans = sorted(newTrans)
@@ -323,10 +323,10 @@ class parallelFPGrowth(_ab._frequentPatterns):
     @staticmethod
     def buildTree(tree, data):
         """
-            Build tree from data
-            :param tree: Tree
-            :param data: list
-            :return: tree
+        Build tree from data
+        :param tree: Tree
+        :param data: list
+        :return: tree
         """
         for trans in data:
             tree.addTransaction(trans, 1)
@@ -334,9 +334,9 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
     def genAllFrequentPatterns(self, tree_tuple):
         """
-            Generate all frequent patterns
-            :param tree_tuple: (partition id, tree)
-            :return: dict
+        Generate all frequent patterns
+        :param tree_tuple: (partition id, tree)
+        :return: dict
         """
         itemList = sorted(tree_tuple[1].itemCount.items(), key=lambda x: x[1])
         itemList = [x[0] for x in itemList]
@@ -348,11 +348,11 @@ class parallelFPGrowth(_ab._frequentPatterns):
 
     def genFreqPatterns(self, item, prefix, tree):
         """
-            Generate new frequent patterns based on item
-            :param item: item
-            :param prefix: prefix frequent pattern
-            :param tree: tree
-            :return:
+        Generate new frequent patterns based on item.
+        :param item: item
+        :param prefix: prefix frequent pattern
+        :param tree: tree
+        :return:
         """
         condTree = tree.generateConditionalTree(item)
         freqPatterns = {}
@@ -370,7 +370,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
         return freqPatterns
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -378,7 +379,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -386,7 +388,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -394,7 +397,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -410,7 +414,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         """
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csvfile
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -433,7 +437,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ this function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

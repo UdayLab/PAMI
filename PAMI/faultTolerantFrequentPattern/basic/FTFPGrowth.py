@@ -32,6 +32,8 @@
 
 
 
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -63,10 +65,10 @@ _fp._sys.setrecursionlimit(20000)
 
 class _Node:
     """
-        A class used to represent the node of frequentPatternTree
+    A class used to represent the node of frequentPatternTree
 
-    Attributes:
-    ----------
+    :Attributes:
+
         itemId: int
             storing item of a node
         counter: int
@@ -76,12 +78,10 @@ class _Node:
         children: list
             To maintain the children of node
 
-    Methods:
-    -------
+    :Methods:
 
         addChild(node)
             Updates the nodes children list and parent for the given node
-
     """
 
     def __init__(self, item: int, children: Dict[int, '_Node']) -> None:
@@ -92,12 +92,10 @@ class _Node:
 
     def addChild(self, node: '_Node') -> None:
         """
-            Retrieving the child from the tree
-
-            :param node: Child Node
-            :type node: Node
-            :return: Updates the children nodes and parent nodes
-
+        Retrieving the child from the tree
+        :param node: Child Node
+        :type node: Nodes
+        :return: Updates the children nodes and parent nodes
         """
         self.children[node.itemId] = node
         node.parent = self
@@ -107,8 +105,8 @@ class _Tree:
     """
     A class used to represent the frequentPatternGrowth tree structure
 
-    Attributes:
-    ----------
+    :Attributes:
+
         root : Node
             The first node of the tree set to Null.
         summaries : dictionary
@@ -116,8 +114,8 @@ class _Tree:
         info : dictionary
             frequency of items in the transactions
 
-    Methods:
-    -------
+    :Methods:
+
         addTransaction(transaction, freq)
             adding items of  transactions into the tree as nodes and freq is the count of nodes
         getFinalConditionalPatterns(node)
@@ -135,14 +133,11 @@ class _Tree:
         self.info = {}
 
     def addTransaction(self, transaction: List[int], count: int) -> None:
-        """adding transaction into tree
-
+        """
+        Adding transaction into tree
         :param transaction: it represents the one transaction in database
-
         :type transaction: list
-
         :param count: frequency of item
-
         :type count: int
         """
 
@@ -164,14 +159,13 @@ class _Tree:
 
     def getFinalConditionalPatterns(self, alpha: int) -> Tuple[List[List[int]], List[int], Dict[int, int]]:
         """
-        generates the conditional patterns for a node
-
+        Generates the conditional patterns for a node
         Parameters:
-        ----------
+
             alpha: node to generate conditional patterns
 
-        Returns
-        -------
+        Returns:
+
             returns conditional patterns, frequency of each item in conditional patterns
 
         """
@@ -194,13 +188,11 @@ class _Tree:
     def getConditionalTransactions(ConditionalPatterns: List[List[int]], conditionalFreq: List[int]) -> Tuple[List[List[int]], List[int], Dict[int, int]]:
         """
         To calculate the frequency of items in conditional patterns and sorting the patterns
-        Parameters
-        ----------
+        Parameters:
         ConditionalPatterns: paths of a node
         conditionalFreq: frequency of each item in the path
 
-        Returns
-        -------
+        Returns:
             conditional patterns and frequency of each item in transactions
         """
         global _minSup
@@ -227,12 +219,10 @@ class _Tree:
     def generatePatterns(self, prefix: List[int]) -> Generator[Tuple[List[int], int], None, None]:
         """
         To generate the frequent patterns
-        Parameters
-        ----------
+        Parameters:
         prefix: an empty list
 
-        Returns
-        -------
+        Returns:
         Frequent patterns that are extracted from fp-tree
 
         """
@@ -299,8 +289,8 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-    Methods :
-    -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -336,31 +326,31 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     -----------------------------------
     .. code-block:: python
 
-        from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
+            from PAMI.faultTolerantFrequentPattern.basic import FTFPGrowth as alg
 
-        obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
+            obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
 
-        obj.startMine()
+            obj.startMine()
 
-        patterns = obj.getPatterns()
+            patterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(patterns))
+            print("Total number of Frequent Patterns:", len(patterns))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
     Credits:
     --------
@@ -389,9 +379,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def __creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.__Database = []
         if isinstance(self._iFile, _fp._pd.DataFrame):
@@ -425,10 +413,8 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def __convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
-        to convert the type of user specified minSup value
-
+        To convert the type of user specified minSup value
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -446,7 +432,6 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     def __frequentOneItem(self) -> List[str]:
         """
         Generating One frequent items sets
-
         """
         self.__mapSupport = {}
         for tr in self.__Database:
@@ -463,16 +448,12 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     def __updateTransactions(self, itemSet: List[str]) -> List[List[int]]:
         """
         Updates the items in transactions with rank of items according to their support
-
         :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
                     rank = {'a':0, 'b':1, 'c':2, 'd':3}
-
         Parameters
         ----------
         itemSet: list of one-frequent items
-
         -------
-
         """
         list1 = []
         for tr in self.__Database:
@@ -487,16 +468,15 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     @staticmethod
     def __buildTree(transactions: List[List[int]], info: Dict[int, int]) -> _Tree:
-
         """
         Builds the tree with updated transactions
-        Parameters:
-        ----------
+        :Parameters:
+
             transactions: updated transactions
             info: support details of each item in transactions
 
-        Returns:
-        -------
+        :Returns:
+
             transactions compressed in fp-tree
 
         """
@@ -509,12 +489,12 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     def __savePeriodic(self, itemSet: List[int]) -> str:
         """
         The duplication items and their ranks
-        Parameters:
-        ----------
+        :Parameters:
+
             itemSet: frequent itemSet that generated
 
-        Returns:
-        -------
+        :Returns:
+
             patterns with original item names.
 
         """
@@ -525,8 +505,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def startMine(self) -> None:
         """
-            main program to start the operation
-
+        Main program to start the operation
         """
         global _minSup
         self.__startTime = _fp._time.time()
@@ -557,41 +536,36 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         self.__memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self.__memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self.__memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
-
-
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
         return self.__endTime - self.__startTime
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
-
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -603,10 +577,9 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         return dataframe
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
-
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-
         :type outFile: file
         """
         self._oFile = outFile
@@ -616,16 +589,16 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> Dict[str, int]:
-        """ Function to send the set of frequent patterns after completion of the mining process
-
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self.__finalPatterns
 
     def printResults(self) -> None:
-        """ this function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

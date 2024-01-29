@@ -1,36 +1,37 @@
-#  ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+#ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 #
-#  **Importing this algorithm into a python program**
-#  ---------------------------------------------------------
+#**Importing this algorithm into a python program**
+#---------------------------------------------------------
 #
-#     import PAMI.frequentPattern.basic.ECLATbitset as alg
+#             import PAMI.frequentPattern.basic.ECLATbitset as alg
 #
-#     obj = alg.ECLATbitset(iFile, minSup)
+#             obj = alg.ECLATbitset(iFile, minSup)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
-#
-#
-#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
 
 
 __copyright__ = """
@@ -69,8 +70,6 @@ class ECLATbitset(_ab._frequentPatterns):
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-
-
     :Attributes:
 
         startTime : float
@@ -108,31 +107,31 @@ class ECLATbitset(_ab._frequentPatterns):
     ---------------------------------------------------------
     .. code-block:: python
 
-                import PAMI.frequentPattern.basic.ECLATbitset as alg
+            import PAMI.frequentPattern.basic.ECLATbitset as alg
 
-                obj = alg.ECLATbitset(iFile, minSup)
+            obj = alg.ECLATbitset(iFile, minSup)
 
-                obj.startMine()
+            obj.startMine()
 
-                frequentPatterns = obj.getPatterns()
+            frequentPatterns = obj.getPatterns()
 
-                print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-                obj.save(oFile)
+            obj.save(oFile)
 
-                Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-                memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-                print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-                memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-                print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-                run = obj.getRuntime()
+            run = obj.getRuntime()
 
-                print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
     -------------------
@@ -175,7 +174,7 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         self._mapSupport = {}
@@ -230,11 +229,11 @@ class ECLATbitset(_ab._frequentPatterns):
         This function converts tid list to bitset.
 
         Parameters:
-        ----------
+
             itemSet: frequent itemset that generated
 
         Returns:
-        -------
+
             patterns with original item names.
 
         """
@@ -285,10 +284,11 @@ class ECLATbitset(_ab._frequentPatterns):
             self.genPatterns(tidData[i],tidData[i+1:length])
 
     def startMine(self):
-        """Frequent pattern mining process will start from here
-                We start with the scanning the itemSets and store the bitsets respectively.
-                We form the combinations of single items and  check with minSup condition to check the frequency of patterns
-                """
+        """
+        Frequent pattern mining process will start from here
+        We start with the scanning the itemSets and store the bitsets respectively.
+        We form the combinations of single items and  check with minSup condition to check the frequency of patterns
+        """
 
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -310,7 +310,8 @@ class ECLATbitset(_ab._frequentPatterns):
         print("Frequent patterns were generated successfully using Eclat_bitset algorithm")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -318,7 +319,8 @@ class ECLATbitset(_ab._frequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -326,7 +328,8 @@ class ECLATbitset(_ab._frequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -334,7 +337,8 @@ class ECLATbitset(_ab._frequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -347,7 +351,8 @@ class ECLATbitset(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the outputfile
         :type outFile: file
         """
@@ -358,14 +363,16 @@ class ECLATbitset(_ab._frequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self):
-        """ this function is used to print the result
+        """
+        This function is used to print the result
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

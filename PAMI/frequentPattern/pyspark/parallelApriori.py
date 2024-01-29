@@ -4,34 +4,36 @@
 #  **Importing this algorithm into a python program**
 #  ---------------------------------------------------
 #
-#         import PAMI.frequentPattern.pyspark.parallelApriori as alg
+#             import PAMI.frequentPattern.pyspark.parallelApriori as alg
 #
-#         obj = alg.parallelApriori(iFile, minSup, numWorkers)
+#             obj = alg.parallelApriori(iFile, minSup, numWorkers)
 #
-#         obj.startMine()
+#             obj.startMine()
 #
-#         frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#         print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#         obj.save(oFile)
+#             obj.save(oFile)
 #
-#         Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#         memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#         print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#         memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#         print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#         run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#         print("Total ExecutionTime in seconds:", run)
-#
-#
-#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -163,9 +165,7 @@ class parallelApriori(_ab._frequentPatterns):
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -196,7 +196,8 @@ class parallelApriori(_ab._frequentPatterns):
                     print("File Not Found")
                     quit()
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -204,7 +205,8 @@ class parallelApriori(_ab._frequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -212,7 +214,8 @@ class parallelApriori(_ab._frequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -220,7 +223,8 @@ class parallelApriori(_ab._frequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -236,7 +240,7 @@ class parallelApriori(_ab._frequentPatterns):
         """
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csvfile
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -265,7 +269,6 @@ class parallelApriori(_ab._frequentPatterns):
     def _Mapper(transaction, candidateItemsets):
         """
         Map each candidate itemset of candidateItemsets to (itemset,1) if a candidate itemset is in transaction
-
         :param transaction: a transaction of database
         :type transaction: set
         :param candidateItemsets: candidate item sets
@@ -283,7 +286,6 @@ class parallelApriori(_ab._frequentPatterns):
     def _genCandidateItemsets(frequentPatterns, length):
         """
         Generate candidate itemsets from frequentPatterns
-
         :param frequentPatterns: set of all frequent patterns to generate candidate patterns of each of size is length
         :type frequentPatterns: list
         :param length: size of each candidate patterns to be generated
@@ -299,8 +301,6 @@ class parallelApriori(_ab._frequentPatterns):
     def _genFrequentItems(self, database):
         """
         Get frequent items which length is 1
-
-
         :return: frequent items which length is 1
         :rtype: dict
         """
@@ -313,7 +313,6 @@ class parallelApriori(_ab._frequentPatterns):
     def _getAllFrequentPatterns(self, database, frequentItems):
         """
         Get all frequent patterns and save them to self.oFile
-
         :param database: database
         :type : RDD
         :param frequentItems: dict
@@ -355,7 +354,6 @@ class parallelApriori(_ab._frequentPatterns):
     def startMine(self):
         """
         Frequent pattern mining process will start from here
-
         :return:
         """
         self._startTime = _ab._time.time()
