@@ -31,6 +31,9 @@
 #             print("Total ExecutionTime in seconds:", run)
 
 
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -62,8 +65,6 @@ class _Leverage:
                    List containing all the single frequent items.
     :param  minConf: int :
                    Minimum confidence to mine all the satisfying association rules.
-
-
     """
 
     def __init__(self, patterns, singleItems, minConf) -> None:
@@ -82,9 +83,7 @@ class _Leverage:
 
     def _generation(self, prefix, suffix) -> None:
         """
-
         To generate the combinations all association rules.
-
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -143,11 +142,11 @@ class ARWithLeverage:
     :Reference:
 
     :param iFile: str or df :
-         Name of the Input file to mine the association rules
+                  Name of the Input file to mine the association rules
     :param minConf: float
-         The user can specify the minConf in float
+                  The user can specify the minConf in float
     :param sep: str :
-         This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
+                  This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
         
         
     :Attributes:
@@ -160,7 +159,7 @@ class ARWithLeverage:
             To record the completion time of the mining process
 
         finalPatterns : dict
-           Storing the complete set of patterns in a dictionary variable
+            Storing the complete set of patterns in a dictionary variable
 
         memoryUSS : float
             To store the total amount of USS memory consumed by the program
@@ -232,7 +231,7 @@ class ARWithLeverage:
 
     def _readPatterns(self) -> list:
         """
-                To read patterns  of leverage.
+        To read patterns  of leverage.
         """
         self._frequentPatterns = {}
         k = []
@@ -276,7 +275,7 @@ class ARWithLeverage:
 
     def startMine(self) -> None:
         """
-                Association rule mining process will start from here
+        Association rule mining process will start from here
         """
         self._startTime = _ab._time.time()
         k = self._readPatterns()
@@ -292,7 +291,8 @@ class ARWithLeverage:
         print("Association rules successfully  generated from frequent patterns ")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -300,7 +300,8 @@ class ARWithLeverage:
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -308,7 +309,8 @@ class ARWithLeverage:
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -316,7 +318,8 @@ class ARWithLeverage:
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -330,7 +333,8 @@ class ARWithLeverage:
         return dataFrame
 
     def save(self, outFile) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the outputfile
         :type outFile: file
         """
@@ -341,14 +345,16 @@ class ARWithLeverage:
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> dict:
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """ Function to send the result after completion of the mining process
+        """
+        Function to send the result after completion of the mining process
         """
         print("Total number of Association Rules:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

@@ -205,7 +205,7 @@ class _Tree:
             frequentPatterns.extend(pTree.getPattern(i, pattern, minSup, neighbour))
         return frequentPatterns
 
-    def mining(self, minSup, neighbourhood: [Dict[int, List[int]]] = None):
+    def mining(self, minSup:collable[int, float], neighbourhood: [Dict[int, List[int]]] = None):
         """
         Pattern mining on your own
         :param minSup: int
