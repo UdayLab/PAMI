@@ -3,33 +3,35 @@
 # **Importing this algorithm into a python program**
 # ---------------------------------------------------------
 #
-#     from PAMI.frequentPattern.maximal import MaxFPGrowth as alg
+#             from PAMI.frequentPattern.maximal import MaxFPGrowth as alg
 #
-#     obj = alg.MaxFPGrowth("../basic/sampleTDB.txt", "2")
+#             obj = alg.MaxFPGrowth("../basic/sampleTDB.txt", "2")
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save("patterns")
+#             obj.save("patterns")
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
-#
-#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
 
 
 __copyright__ = """
@@ -58,35 +60,30 @@ global maximalTree
 
 
 class _Node(object):
-    """ A class used to represent the node of frequentPatternTree
+    """
+    A class used to represent the node of frequentPatternTree
 
+    :Attributes:
+        item : int
+            storing item of a node
+        counter : list
+            To maintain the support of the node
+        parent : node
+            To maintain the parent of every node
+        children : list
+            To maintain the children of node
 
-        Attributes:
-        ----------
-            item : int
-                storing item of a node
-            counter : list
-                To maintain the support of the node
-            parent : node
-                To maintain the parent of every node
-            children : list
-                To maintain the children of node
-
-        Methods:
-        -------
-            addChild(itemName)
-                storing the children to their respective parent nodes
+    :Methods:
+        addChild(itemName)
+            storing the children to their respective parent nodes
     """
 
     def __init__(self, item, children):
-        """ Initializing the Node class
-
+        """
+        Initializing the Node class
         :param item: Storing the item of a node
-
         :type item: int or None
-
         :param children: To maintain the children of a node
-
         :type children: dict
         """
         self.item = item
@@ -95,10 +92,9 @@ class _Node(object):
         self.parent = None
 
     def addChild(self, node):
-        """Adding a child to the created node
-
+        """
+        Adding a child to the created nodes
         :param node: node object
-
         :type node: Node
         """
         self.children[node.item] = node
@@ -107,34 +103,32 @@ class _Node(object):
 
 class _Tree(object):
     """
-        A class used to represent the frequentPatternGrowth tree structure
+    A class used to represent the frequentPatternGrowth tree structure
 
-
-        Attributes:
-        ----------
-            root : Node
-                Represents the root node of the tree
-            summaries : dictionary
+    :Attributes:
+        root : Node
+               Represents the root node of the tree
+        summaries : dictionary
                 storing the nodes with same item name
-            info : dictionary
+        info : dictionary
                 stores the support of items
 
 
-        Methods:
-        -------
-            addTransaction(transaction)
-                creating transaction as a branch in frequentPatternTree
-            addConditionalTransaction(prefixPaths, supportOfItems)
-                construct the conditional tree for prefix paths
-            condPatterns(Node)
-                generates the conditional patterns from tree for specific node
-            conditionalTransaction(prefixPaths,Support)
-                takes the prefixPath of a node and support at child of the path and extract the frequent items from
-                prefixPaths and generates prefixPaths with items which are frequent
-            remove(Node)
-                removes the node from tree once after generating all the patterns respective to the node
-            generatePatterns(Node)
-                starts from the root node of the tree and mines the frequent patterns
+    :Methods:
+
+        addTransaction(transaction)
+            creating transaction as a branch in frequentPatternTree
+        addConditionalTransaction(prefixPaths, supportOfItems)
+            construct the conditional tree for prefix paths
+        condPatterns(Node)
+            generates the conditional patterns from tree for specific node
+        conditionalTransaction(prefixPaths,Support)
+            takes the prefixPath of a node and support at child of the path and extract the frequent items from
+            prefixPaths and generates prefixPaths with items which are frequent
+        remove(Node)
+            removes the node from tree once after generating all the patterns respective to the node
+        generatePatterns(Node)
+            starts from the root node of the tree and mines the frequent patterns
     """
 
     def __init__(self):
@@ -145,10 +139,8 @@ class _Tree(object):
 
     def addTransaction(self, transaction):
         """
-        adding transactions into tree
-
+        Adding transactions into tree
         :param transaction: represents the transaction in a database
-
         :return: tree
         """
         currentNode = self.root
@@ -168,12 +160,9 @@ class _Tree(object):
 
     def addConditionalTransaction(self, transaction, count):
         """
-            Loading the database into a tree
-
+        Loading the database into a tree
         :param transaction: conditional transaction of a node
-
         :param count: the support of conditional transaction
-
         :return: conditional tree
         """
         currentNode = self.root
@@ -193,10 +182,8 @@ class _Tree(object):
 
     def getConditionalPatterns(self, alpha):
         """
-        generates all the conditional patterns of respective node
-
+        Generates all the conditional patterns of respective node
         :param alpha: it represents the Node in tree
-
         :return: conditional patterns of a node
         """
         finalPatterns = []
@@ -217,11 +204,8 @@ class _Tree(object):
     def conditionalTransactions(self, condPatterns, condFreq):
         """
         sorting and removing the items from conditional transactions which don't satisfy minSup
-
         :param condPatterns: conditional patterns if a node
-
         :param condFreq: frequency at leaf node of conditional transaction
-
         :return: conditional patterns and their frequency respectively
         """
         global _minSup
@@ -248,10 +232,8 @@ class _Tree(object):
 
     def removeNode(self, nodeValue):
         """
-        to remove the node from the original tree
-
+        To remove the node from the original tree
         :param nodeValue: leaf node of tree
-
         :return: tree after deleting node
         """
         for i in self.summaries[nodeValue]:
@@ -260,10 +242,8 @@ class _Tree(object):
 
     def generatePatterns(self, prefix, patterns, maximalTree):
         """
-        generates the patterns
-
+        Generates the patterns
         :param prefix: forms the combination of items
-
         :return: the maximal frequent patterns
         """
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
@@ -290,19 +270,17 @@ class _Tree(object):
 
 class _MNode(object):
     """
-        A class used to represent the node in maximal tree
+    A class used to represent the node in maximal tree
 
-        Attributes:
-        ----------
-            item : int
-                storing item of a node
-            children : list
-                To maintain the children of node
+    :Attributes:
+        item : int
+            storing item of a node
+        children : list
+            To maintain the children of node
 
-        Methods:
-        -------
-            addChild(itemName)
-                storing the children to their respective parent nodes
+    :Methods:
+        addChild(itemName)
+            storing the children to their respective parent nodes
     """
 
     def __init__(self, item, children):
@@ -312,9 +290,7 @@ class _MNode(object):
     def addChild(self, node):
         """
         To add the children details to a parent node
-
         :param node: children node
-
         :return: adding children details to parent node
         """
         self.children[node.item] = node
@@ -323,24 +299,24 @@ class _MNode(object):
 
 class _MPTree(object):
     """
-        A class used to represent the frequentPatternGrowth tree structure
+    A class used to represent the frequentPatternGrowth tree structure
 
-        Attributes:
-        ----------
-            root : Node
-                Represents the root node of the tree
-            summaries : dictionary
-                storing the nodes with same item name
+    :Attributes:
+
+        root : Node
+            Represents the root node of the tree
+        summaries : dictionary
+            storing the nodes with same item name
 
 
-            Methods
-            -------
-            addTransaction(transaction)
-                creating transaction as a branch in frequentPatternTree
-            addConditionalTransaction(prefixPaths, supportOfItems)
-                construct the conditional tree for prefix paths
-            checkerSub(items):
-                Given a set of items to the subset of them is present or not
+    :Methods:
+
+        addTransaction(transaction)
+            creating transaction as a branch in frequentPatternTree
+        addConditionalTransaction(prefixPaths, supportOfItems)
+            construct the conditional tree for prefix paths
+        checkerSub(items):
+            Given a set of items to the subset of them is present or not
     """
 
     def __init__(self):
@@ -350,9 +326,7 @@ class _MPTree(object):
     def addTransaction(self, transaction):
         """
         To construct the maximal frequent pattern into maximal tree
-
         :param transaction: the maximal frequent patterns extracted till now
-
         :return: the maximal tree
         """
         currentNode = self.root
@@ -372,9 +346,7 @@ class _MPTree(object):
     def checkerSub(self, items):
         """
         To check the subset of pattern present in tree
-
         :param items: the sub frequent pattern
-
         :return: checks if subset present in the tree
         """
         items.sort(reverse=True)
@@ -405,7 +377,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
     :Description: MaxFP-Growth is one of the fundamental algorithm to discover maximal frequent patterns in a transactional database.
 
     :Reference:   Grahne, G. and Zhu, J., "High Performance Mining of Maximal Frequent itemSets",
-        http://users.encs.concordia.ca/~grahne/papers/hpdm03.pdf
+                  http://users.encs.concordia.ca/~grahne/papers/hpdm03.pdf
 
     :param  iFile: str :
                    Name of the Input file to mine complete set of frequent patterns
@@ -518,8 +490,6 @@ class MaxFPGrowth(_ab._frequentPatterns):
     def _creatingItemSets(self):
         """
             Storing the complete transactions of the database/input file in a database variable
-
-
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -551,8 +521,8 @@ class MaxFPGrowth(_ab._frequentPatterns):
                     quit()
 
     def _frequentOneItem(self):
-        """ To extract the one-length frequent itemSets
-
+        """
+        To extract the one-length frequent itemSets
         :return: 1-length frequent items
         """
         _mapSupport = {}
@@ -571,12 +541,10 @@ class MaxFPGrowth(_ab._frequentPatterns):
         return _mapSupport, genList
 
     def _updateTransactions(self, oneLength):
-        """ To sort the transactions in their support descending order and allocating ranks respectively
-
+        """
+        To sort the transactions in their support descending order and allocating ranks respectively
         :param oneLength: 1-length frequent items in dictionary
-
         :return: returning the sorted list
-
         :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
                     rank = {'a':0, 'b':1, 'c':2, 'd':3}
         """
@@ -608,7 +576,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
 
     def _convert(self, value):
         """
-        to convert the type of user specified minSup value
+        To convert the type of user specified minSup value
         :param value: user specified minSup value
         :return: converted type
         """
@@ -626,11 +594,9 @@ class MaxFPGrowth(_ab._frequentPatterns):
 
     def _convertItems(self, itemSet):
         """
-            To convert the item ranks into their original item names
-
-            :param itemSet: itemSet or a pattern
-
-            :return: original pattern
+        To convert the item ranks into their original item names
+        :param itemSet: itemSet or a pattern
+        :return: original pattern
         """
         t1 = []
         for i in itemSet:
@@ -639,7 +605,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
 
     def startMine(self):
         """
-                Mining process will start from this function
+        Mining process will start from this function
         """
 
         global _minSup
@@ -676,40 +642,36 @@ class MaxFPGrowth(_ab._frequentPatterns):
         print("Maximal Frequent patterns were generated successfully using MaxFp-Growth algorithm ")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
-
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -721,10 +683,9 @@ class MaxFPGrowth(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
-
+        """
+        Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
-
         :type outFile: file
         """
         self._oFile = outFile
@@ -734,15 +695,17 @@ class MaxFPGrowth(_ab._frequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
-
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns
     
     def printResults(self):
+        """
+        This functon is used to print the results
+        """
         print('Total number of Maximal Frequent Patterns: ' + str(self.getPatterns()))
         print('Runtime: ' + str(self.getRuntime()))
         print('Memory (RSS): ' + str(self.getMemoryRSS()))

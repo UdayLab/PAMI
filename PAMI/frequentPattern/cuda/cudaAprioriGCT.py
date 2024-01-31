@@ -1,34 +1,34 @@
 # cudaAprioriGCT is one of the fundamental algorithm to discover frequent patterns using CUDA in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 #
-
+#
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#     import PAMI.frequentPattern.cuda.cudaAprioriGCT as alg
+#             import PAMI.frequentPattern.cuda.cudaAprioriGCT as alg
 #
-#     obj = alg.cuAprioriGCT(iFile, minSup)
+#             obj = alg.cuAprioriGCT(iFile, minSup)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 
 
 __copyright__ = """
@@ -62,44 +62,44 @@ import psutil
 
 class cudaAprioriGCT(_ab._frequentPatterns):
     """
-        :Description: cudaAprioriGCT is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
+    :Description: cudaAprioriGCT is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.
 
-        :Reference:  Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
+    :Reference:  Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
                 In: SIGMOD. pp. 207–216 (1993), https://doi.org/10.1145/170035.170072
 
-        :param  iFile: str :
-                       Name of the Input file to mine complete set of frequent patterns
-        :param  oFile: str :
-                       Name of the output file to store complete set of frequent patterns
-        :param  minSup: int :
-                       The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
-        :param  sep: str :
-                       This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int :
+                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-        :Attributes:
+    :Attributes:
 
-            startTime : float
+        startTime : float
               To record the start time of the mining process
 
-            endTime : float
+        endTime : float
               To record the completion time of the mining process
 
-            finalPatterns : dict
+        finalPatterns : dict
               Storing the complete set of patterns in a dictionary variable
 
-            memoryUSS : float
+        memoryUSS : float
               To store the total amount of USS memory consumed by the program
 
-            memoryRSS : float
+        memoryRSS : float
               To store the total amount of RSS memory consumed by the program
 
-            Database : list
+        Database : list
               To store the transactions of a database in list
 
 
 
-        **Methods to execute code on terminal**
-        ----------------------------------------------------
+    **Methods to execute code on terminal**
+    ----------------------------------------------------
 
                 Format:
                           >>> python3 cudaAprioriGCT.py <inputFile> <outputFile> <minSup>
@@ -110,44 +110,44 @@ class cudaAprioriGCT(_ab._frequentPatterns):
                 .. note:: minSup will be considered in percentage of database transactions
 
 
-        **Importing this algorithm into a python program**
-        ----------------------------------------------------
+    **Importing this algorithm into a python program**
+    ----------------------------------------------------
 
-        .. code-block:: python
+    .. code-block:: python
 
-                 import PAMI.frequentPattern.cuda.cuAprioriGCT as alg
+            import PAMI.frequentPattern.cuda.cuAprioriGCT as alg
 
-                 obj = alg.cuAprioriGCT(iFile, minSup)
+            obj = alg.cuAprioriGCT(iFile, minSup)
 
-                 obj.startMine()
+            obj.startMine()
 
-                 frequentPatterns = obj.getPatterns()
+            frequentPatterns = obj.getPatterns()
 
-                 print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-                 obj.save(oFile)
+            obj.save(oFile)
 
-                 Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-                 memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-                 print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-                 memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-                 print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-                 run = obj.getRuntime()
+            run = obj.getRuntime()
 
-                 print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
 
-        **Credits:**
-        -------------
+    **Credits:**
+    -------------
 
-                 The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
+                The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
-        """
+    """
 
     __time = 0
     __memRSS = 0
@@ -166,9 +166,7 @@ class cudaAprioriGCT(_ab._frequentPatterns):
 
     def __creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.__Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -202,10 +200,8 @@ class cudaAprioriGCT(_ab._frequentPatterns):
 
     def __convert(self, value):
         """
-        to convert the type of user specified minSup value
-
+        To convert the type of user specified minSup value
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -223,7 +219,6 @@ class cudaAprioriGCT(_ab._frequentPatterns):
     def compute_vertical_bitvector_data(self):
         """
         Converting database into bit vector
-
         """
         # ---build item to idx mapping---#
         idx = 0
@@ -243,24 +238,27 @@ class cudaAprioriGCT(_ab._frequentPatterns):
         return vb_data, idx2item
 
     def getRuntime(self):
-        """Calculating the total amount of time taken by the mining process
-            :return: returning total amount of runtime taken by the mining process
-            :rtype: float
-         """
+        """
+        Calculating the total amount of time taken by the mining process
+        :return: returning total amount of runtime taken by the mining process
+        :rtype: float
+        """
         return self.__time
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-            :return: returning RSS memory consumed by the mining process
-            :rtype: float
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        :return: returning RSS memory consumed by the mining process
+        :rtype: float
         """
 
         return self.__memRSS
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-            :return: returning USS memory consumed by the mining process
-            :rtype: float
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+        :return: returning USS memory consumed by the mining process
+        :rtype: float
         """
         return self.__memUSS
 
@@ -274,9 +272,10 @@ class cudaAprioriGCT(_ab._frequentPatterns):
         return self.__GPU_MEM
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
-            :return: returning frequent patterns
-            :rtype: dict
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+        :return: returning frequent patterns
+        :rtype: dict
         """
         return self._finalPatterns
 
@@ -284,7 +283,8 @@ class cudaAprioriGCT(_ab._frequentPatterns):
         return len(self._finalPatterns)
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -316,7 +316,7 @@ class cudaAprioriGCT(_ab._frequentPatterns):
 
     def startMine(self):
         """
-            Frequent pattern mining process will start from here
+        Frequent pattern mining process will start from here
         """
         startTime = time.time()
         basePattern = {}
@@ -365,7 +365,8 @@ class cudaAprioriGCT(_ab._frequentPatterns):
         self.__GPU_MEM = vb_data.nbytes
 
     def printResults(self):
-        """ this function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Coverage Patterns:", len(self.getPatterns()))
         print("GPU MEM: ", _ap.getGPUMemory())

@@ -1,6 +1,5 @@
 # RuleMiner code is used to extract the association rules from given frequent patterns.
 #
-#
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
@@ -33,6 +32,7 @@
 
 
 
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -53,7 +53,8 @@ __copyright__ = """
 from PAMI.AssociationRules.basic import abstract as _ab
 
 class Confidence:
-    """ Association Rules are derived from frequent patterns using "confidence" metric.
+    """
+    Association Rules are derived from frequent patterns using "confidence" metric.
     """
     
     def __init__(self, patterns, singleItems, threshold):
@@ -71,7 +72,6 @@ class Confidence:
     def _generation(self, prefix, suffix):
         """
         To generate the combinations all association rules.
-
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -122,7 +122,8 @@ class Confidence:
     
     
 class Lift:
-    """ Association Rules are derived from frequent patterns using "lift" metric.
+    """
+    Association Rules are derived from frequent patterns using "lift" metric.
     """
     
     def __init__(self, patterns, singleItems, threshold):
@@ -139,7 +140,6 @@ class Lift:
     def _generation(self, prefix, suffix):
         """
         To generate the combinations all association rules.
-
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -192,7 +192,8 @@ class Lift:
     
     
 class Leverage:
-    """ Association Rules are derived from frequent patterns using "leverage" metric.
+    """
+    Association Rules are derived from frequent patterns using "leverage" metric.
     """
     
     def __init__(self, patterns, singleItems, threshold):
@@ -209,7 +210,6 @@ class Leverage:
     def _generation(self, prefix, suffix):
         """
         To generate the combinations all association rules.
-
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -276,23 +276,23 @@ class RuleMiner:
     :param  sep: str :
             This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
 
-    Attributes:
+    :Attributes:
 
 
-            startTime : float
-                To record the start time of the mining process
+        startTime : float
+            To record the start time of the mining process
 
-            endTime : float
-                To record the completion time of the mining process
+        endTime : float
+            To record the completion time of the mining process
 
-            finalPatterns : dict
-              Storing the complete set of patterns in a dictionary variable
+        finalPatterns : dict
+            Storing the complete set of patterns in a dictionary variable
 
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
 
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
 
 
     **Methods to execute code on terminal**
@@ -312,41 +312,41 @@ class RuleMiner:
     ----------------------------------------------------
     .. code-block:: python
 
-                import PAMI.AssociationRules.basic import RuleMiner as alg
+            import PAMI.AssociationRules.basic import RuleMiner as alg
 
-                obj = alg.RuleMiner(iFile, measure, o.5, "\t")
+            obj = alg.RuleMiner(iFile, measure, o.5, "\t")
 
-                obj.startMine()
+            obj.startMine()
 
-                associationRules = obj.getPatterns()
+            associationRules = obj.getPatterns()
 
-                print("Total number of Association Rules:", len(associationRules))
+            print("Total number of Association Rules:", len(associationRules))
 
-                obj.save(oFile)
+            obj.save(oFile)
 
-                Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-                memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-                print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-                memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-                print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-                run = obj.getRuntime()
+            run = obj.getRuntime()
 
-                print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-        Methods:
-        -------
-        startMine()
+    :Methods:
+
+            startMine()
     """
 
     def __init__(self, iFile, measure, threshold, sep):
         """
-        :param inputFile: input file name or path
-        :type inputFile: str
+        :param iFile: input file name or path
+        :type iFile: str
         :param sep:
         """
         self._iFile = iFile
@@ -357,7 +357,7 @@ class RuleMiner:
     
     def _readPatterns(self):
         """
-            Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
+        Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
         """
         self._frequentPatterns = {}
         k = []
@@ -426,7 +426,8 @@ class RuleMiner:
         print("Association rules successfully  generated from frequent patterns ")
     
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -434,7 +435,8 @@ class RuleMiner:
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -442,7 +444,8 @@ class RuleMiner:
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -450,7 +453,8 @@ class RuleMiner:
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -464,7 +468,8 @@ class RuleMiner:
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """
+        Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -475,14 +480,16 @@ class RuleMiner:
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self):
-        """ Function to send the result after completion of the mining process
+        """
+        Function to send the result after completion of the mining process
         """
         print("Total number of Association Rules:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

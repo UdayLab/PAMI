@@ -85,7 +85,6 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
     :Attributes:
 
-
         startTime : float
           To record the start time of the mining process
 
@@ -166,7 +165,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -203,9 +202,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     def _convert(self, value) -> float:
         """
         To convert the user specified minSup value
-
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -252,14 +249,11 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
     def _countItemSupport(self, itemset) -> int:
         """
-
         This function is used to count the  itemSupport
         Parameters:
-        ----------
             itemSet: frequent itemSet that generated
 
         Returns:
-        -------
             patterns with original item names.
 
         """
@@ -282,7 +276,7 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
     def startMine(self) -> None:
         """
-            Fault-tolerant frequent pattern mining process will start from here
+        Fault-tolerant frequent pattern mining process will start from here
         """
         self._Database = []
         self._startTime = _ab._time.time()
@@ -303,40 +297,36 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         print("Fault-Tolerant Frequent patterns were generated successfully using FTApriori algorithm ")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
-
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -351,11 +341,10 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
         return dataFrame
 
     def save(self, outFile) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
-
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-
-        :type outFile: file
+        :type outFile: csvfile
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -367,16 +356,16 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> Dict[Tuple[str, ...], int]:
-        """ Function to send the set of frequent patterns after completion of the mining process
-
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """ this is function is used to print the result
+        """
+        This is function is used to print the result
         """
         print("Total number of Fault-Tolerant Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

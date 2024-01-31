@@ -1,17 +1,22 @@
-# csvParquet is a code used to convert temporal and utility types into sparse and dense format.
+#csvParquet is a code used to convert temporal and utility types into sparse and dense format.
 #
-#     **Importing this algorithm into a python program**
-#     --------------------------------------------------------
+#**Importing this algorithm into a python program**
+#--------------------------------------------------------
 #
-#     from PAMI.extras.csvParquet import csvParquet as cp
+#             from PAMI.extras.csvParquet import csvParquet as cp
 #
-#     obj = cp.csvParquet(iFile, "\t", " ", " " )
+#             obj = cp.csvParquet(iFile, "\t", " ", " " )
 #
-#     obj.save()
+#             obj.save()
 #
-#     obj.csvParquet("FileName") # To generate file in form of sparse or dense
+#             obj.csvParquet("FileName") # To generate file in form of sparse or dense
 #
-#     obj.parquetFormat("FileName") # To generate file in form of sparse or dense
+#             obj.parquetFormat("FileName") # To generate file in form of sparse or dense
+
+
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -35,18 +40,16 @@ import numpy as np
 class csvParquet():
     """
 
-            :Description:
-                    csvParquet is a code used to convert temporal and utility types into sparse and dense format
-            :param  iFile: str :
-                    Name of the Input file
-            :param  sep: str :
+    :Description:   csvParquet is a code used to convert temporal and utility types into sparse and dense format
+
+    :param  iFile: str :
+                   Name of the Input file
+    :param  sep: str :
                     This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-
-
-            **Importing this algorithm into a python program**
-            --------------------------------------------------------
-            .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
             from PAMI.extras.csvParquet import csvParquet as cp
 
@@ -56,10 +59,9 @@ class csvParquet():
 
             obj.csvParquet("FileName") # To generate file in form of sparse or dense
 
-           obj.parquetFormat("FileName") # To generate file in form of sparse or dense
-
-
+            obj.parquetFormat("FileName") # To generate file in form of sparse or dense
     """
+
     def __init__(self, iFile: str, sep: str='\t'):
         self._iFile = iFile
         self._sep = sep

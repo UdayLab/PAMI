@@ -62,8 +62,8 @@ class _Node:
     A class used to represent the node of correlatedPatternTree
 
 
-    Attributes :
-    ----------
+    :Attributes:
+
         itemId : int
             storing item of a node
         counter : int
@@ -75,8 +75,7 @@ class _Node:
         nodeLink : node
             Points to the node with same itemId
 
-    Methods :
-    -------
+    :Methods:
 
         getChild(itemName)
             returns the node with same itemName from correlatedPatternTree
@@ -91,10 +90,8 @@ class _Node:
 
     def getChild(self, id1) -> Union[None, '_Node']:
         """
-
         Param id1: give item id as input
         type id1:
-
         """
         for i in self.child:
             if i.itemId == id1:
@@ -104,10 +101,10 @@ class _Node:
 
 class _Tree:
     """
-        A class used to represent the correlatedPatternGrowth tree structure
+    A class used to represent the correlatedPatternGrowth tree structure
 
-    Attributes :
-    ----------
+    :Attributes:
+
         headerList : list
             storing the list of items in tree sorted in ascending of their supports
         mapItemNodes : dictionary
@@ -118,8 +115,8 @@ class _Tree:
             representing the root Node in a tree
 
 
-    Methods :
-    -------
+    :Methods:
+
         createHeaderList(items,minSup)
             takes items only which are greater than minSup and sort the items in ascending order
         addTransaction(transaction)
@@ -141,7 +138,6 @@ class _Tree:
     def addTransaction(self, transaction: List[int]) -> None:
         """
         adding transaction into tree
-
         :param transaction : it represents a single transaction in a database
         :type transaction : list
         """
@@ -163,7 +159,6 @@ class _Tree:
     def fixNodeLinks(self, item: int, newNode: '_Node') -> None:
         """
         Fixing node link for the newNode that inserted into correlatedPatternTree
-
         :param item: it represents the item of newNode
         :type item : int
         :param newNode : it represents the newNode that inserted in correlatedPatternTree
@@ -180,10 +175,8 @@ class _Tree:
     def printTree(self, root: '_Node') -> None:
         """
         This method is to find the details of parent, children, and support of a Node
-
         :param root: it represents the Node in correlatedPatternTree
         :type root: Node
-
         """
 
         if root.child is None:
@@ -196,7 +189,6 @@ class _Tree:
     def createHeaderList(self, mapSupport: Dict[int, int], minSup: int) -> None:
         """
         To create the headerList
-
         :param mapSupport : it represents the items with their supports
         :type mapSupport : dictionary
         :param minSup : it represents the minSup
@@ -213,7 +205,6 @@ class _Tree:
     def addPrefixPath(self, prefix: List['_Node'], mapSupportBeta, minSup) -> None:
         """
         To construct the conditional tree with prefix paths of a node in correlatedPatternTree
-
         :param prefix : it represents the prefix items of a Node
         :type prefix : list
         :param mapSupportBeta : it represents the items with their supports
@@ -400,15 +391,15 @@ class CoMine(_ab._correlatedPatterns):
 
     def _getRatio(self, prefix: List[int], prefixLength: int, s: int) -> float:
         """
-            A Function to get itemSet Ratio
-            :param prefix:the path
-            :type prefix: list
-            :param prefixLength: length
-            :type prefixLength:int
-            :s :current ratio
-            :type s:float
-            :return: minAllConf of prefix
-            :rtype:float
+        A Function to get itemSet Ratio
+        :param prefix:the path
+        :type prefix: list
+        :param prefixLength: length
+        :type prefixLength:int
+        :s :current ratio
+        :type s:float
+        :return: minAllConf of prefix
+        :rtype:float
         """
         maximums = 0
         for ele in range(prefixLength):
@@ -432,7 +423,6 @@ class CoMine(_ab._correlatedPatterns):
     def _saveItemSet(self, prefix, prefixLength, support) -> None:
         """
         To save the correlated patterns mined form correlatedPatternTree
-
         :param prefix: the correlated pattern
         :type prefix: list
         :param prefixLength : the length of a correlated pattern
@@ -452,7 +442,7 @@ class CoMine(_ab._correlatedPatterns):
     
     def _convert(self, value: Union[int, float, str]) -> None:
         """
-        to convert the type of user specified minSup value
+        To convert the type of user specified minSup value
         :param value: user specified minSup value
         :return: converted type
         """
@@ -469,7 +459,8 @@ class CoMine(_ab._correlatedPatterns):
         return value
 
     def _saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength) -> None:
-        """Generating all the combinations for items in single branch in correlatedPatternTree
+        """
+        Generating all the combinations for items in single branch in correlatedPatternTree
 
         :param tempBuffer: items in a single branch
         :type tempBuffer: list
@@ -597,7 +588,6 @@ class CoMine(_ab._correlatedPatterns):
     def getMemoryUSS(self) -> float:
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
-
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -607,7 +597,6 @@ class CoMine(_ab._correlatedPatterns):
     def getMemoryRSS(self) -> float:
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -617,8 +606,6 @@ class CoMine(_ab._correlatedPatterns):
     def getRuntime(self) -> float:
         """
         Calculating the total amount of runtime taken by the mining process
-
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -627,9 +614,7 @@ class CoMine(_ab._correlatedPatterns):
 
     def getPatternsAsDataFrame(self) -> _pd.DataFrame:
         """
-
         Storing final correlated patterns in a dataframe
-
         :return: returning correlated patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -647,7 +632,6 @@ class CoMine(_ab._correlatedPatterns):
     def save(self, outFile) -> None:
         """
         Complete set of correlated patterns will be saved into an output file
-
         :param outFile: name of the outputfile
         :type outFile: file
         """
@@ -663,7 +647,6 @@ class CoMine(_ab._correlatedPatterns):
     def getPatterns(self) -> Dict[Tuple[int], List[Union[int, float]]]:
         """
         Function to send the set of correlated patterns after completion of the mining process
-
         :return: returning correlated patterns
         :rtype: dict
         """

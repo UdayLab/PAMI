@@ -4,31 +4,34 @@
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#     import PAMI.frequentPattern.cuda.cuAprioriBit as alg
+#             import PAMI.frequentPattern.cuda.cuAprioriBit as alg
 #
-#     obj = alg.cuAprioriBit(iFile, minSup)
+#             obj = alg.cuAprioriBit(iFile, minSup)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
 
 
 __copyright__ = """
@@ -104,8 +107,6 @@ class cudaAprioriTID:
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-
-
 
     :Attributes:
 
@@ -200,9 +201,7 @@ class cudaAprioriTID:
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = {}
         lineNumber = 1
@@ -246,10 +245,8 @@ class cudaAprioriTID:
 
     def _convert(self, value):
         """
-        to convert the type of user specified minSup value
-
+        To convert the type of user specified minSup value
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -294,46 +291,44 @@ class cudaAprioriTID:
         return dictionary, lineNumber
         """
     def getRuntime(self):
-        """Calculating the total amount of time taken by the mining process
-
-                :return: returning total amount of runtime taken by the mining process
-
-                :rtype: float
-                """
+        """
+        Calculating the total amount of time taken by the mining process
+        :return: returning total amount of runtime taken by the mining process
+        :rtype: float
+        """
 
         return self.__time
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
-                :return: returning RSS memory consumed by the mining process
-
-                :rtype: float
-                """
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        :return: returning RSS memory consumed by the mining process
+        :rtype: float
+        """
         return self.__memRSS
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
-                :return: returning USS memory consumed by the mining process
-
-                :rtype: float
-                """
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+        :return: returning USS memory consumed by the mining process
+        :rtype: float
+        """
         return self.__memUSS
 
     def getGPUMemory(self):
         """
-           To calculate the total memory consumed by GPU
-           :return: return GPU memory
-           :rtype: int
+        To calculate the total memory consumed by GPU
+        :return: return GPU memory
+        :rtype: int
         """
 
         return self.__GPU_MEM
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
-               :return: returning frequent patterns
-               :rtype: dict
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+        :return: returning frequent patterns
+        :rtype: dict
         """
         return self.Patterns
 
@@ -342,8 +337,8 @@ class cudaAprioriTID:
 
     def startMine(self):
         """
-                   Frequent pattern mining process will start from here
-               """
+        Frequent pattern mining process will start from here
+        """
         dev_Intersection = deviceIntersection.get_function("intersection")
         startTime = time.time()
         final = {}

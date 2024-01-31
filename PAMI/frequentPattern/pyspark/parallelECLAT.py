@@ -4,33 +4,36 @@
 #  ----------------------------------------------------
 #
 #
-#     import PAMI.frequentPattern.pyspark.parallelECLAT as alg
+#             import PAMI.frequentPattern.pyspark.parallelECLAT as alg
 #
-#     obj = alg.parallelECLAT(iFile, minSup, numWorkers)
+#             obj = alg.parallelECLAT(iFile, minSup, numWorkers)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
-#
-#
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -56,7 +59,6 @@ from abc import ABC as _ABC, abstractmethod as _abstractmethod
 
 class parallelECLAT(_ab._frequentPatterns):
     """
-
     :Description: ParallelEclat is an algorithm to discover frequent patterns in a transactional database.
      This program employs parallel apriori property (or downward closure property) to  reduce the search space effectively.
 
@@ -77,22 +79,22 @@ class parallelECLAT(_ab._frequentPatterns):
     :Attributes:
 
         startTime : float
-          To record the start time of the mining process
+            To record the start time of the mining process
 
         endTime : float
-          To record the completion time of the mining process
+            To record the completion time of the mining process
 
         finalPatterns : dict
-          Storing the complete set of patterns in a dictionary variable
+            Storing the complete set of patterns in a dictionary variable
 
         memoryUSS : float
-          To store the total amount of USS memory consumed by the program
+            To store the total amount of USS memory consumed by the program
 
         memoryRSS : float
-          To store the total amount of RSS memory consumed by the program
+            To store the total amount of RSS memory consumed by the program
 
         lno : int
-                the number of transactions
+            the number of transactions
 
 
     **Methods to execute code on terminal**
@@ -111,31 +113,31 @@ class parallelECLAT(_ab._frequentPatterns):
     ----------------------------------------------------
     .. code-block:: python
 
-                import PAMI.frequentPattern.pyspark.parallelECLAT as alg
+            import PAMI.frequentPattern.pyspark.parallelECLAT as alg
 
-                obj = alg.parallelECLAT(iFile, minSup, numWorkers)
+            obj = alg.parallelECLAT(iFile, minSup, numWorkers)
 
-                obj.startMine()
+            obj.startMine()
 
-                frequentPatterns = obj.getPatterns()
+            frequentPatterns = obj.getPatterns()
 
-                print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-                obj.save(oFile)
+            obj.save(oFile)
 
-                Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-                memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-                print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-                memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-                print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-                run = obj.getRuntime()
+            run = obj.getRuntime()
 
-                print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
 
     **Credits:**
@@ -160,7 +162,8 @@ class parallelECLAT(_ab._frequentPatterns):
         super().__init__(iFile, minSup, int(numWorkers), sep)
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -168,7 +171,8 @@ class parallelECLAT(_ab._frequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -176,7 +180,8 @@ class parallelECLAT(_ab._frequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -184,7 +189,8 @@ class parallelECLAT(_ab._frequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -200,7 +206,7 @@ class parallelECLAT(_ab._frequentPatterns):
         """
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csvfile
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -226,13 +232,14 @@ class parallelECLAT(_ab._frequentPatterns):
         return self._finalPatterns
 
     def _genPatterns(self, suffix, pattern, data):
-        """ This function is used to generate patterns
-            param suffix:
-            return:
-            param pattern:
-            return:
-            param data:
-            type:
+        """
+        This function is used to generate patterns
+        param suffix:
+        return:
+        param pattern:
+        return:
+        param data:
+        type:
         """
         freqPatterns = {}
         index = data.index(suffix)
@@ -245,7 +252,8 @@ class parallelECLAT(_ab._frequentPatterns):
         return freqPatterns
 
     def printResults(self):
-        """ this function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

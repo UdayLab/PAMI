@@ -4,31 +4,34 @@
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#     import PAMI.AssociationRules.basic import ARWithLift as alg
+#             import PAMI.AssociationRules.basic import ARWithLift as alg
 #
-#     obj = alg.ARWithLift(iFile, minConf)
+#             obj = alg.ARWithLift(iFile, minConf)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     associationRules = obj.getPatterns()
+#             associationRules = obj.getPatterns()
 #
-#     print("Total number of Association Rules:", len(associationRules))
+#             print("Total number of Association Rules:", len(associationRules))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
 
 
 __copyright__ = """
@@ -82,7 +85,6 @@ class Lift:
     def _generation(self, prefix, suffix) -> None:
         """
         To generate the combinations all association rules.
-
         :param prefix: the prefix of association rule.
         :type prefix: str
         :param suffix: the suffix of association rule.
@@ -140,12 +142,12 @@ class ARWithLift:
     :Reference:
 
     :param iFile: str or df :
-                 Name of the Input file to mine the association rules
+                  Name of the Input file to mine the association rules
 
     :param minConf: float
-                    The user can specify the minConf in float
+                  The user can specify the minConf in float
     :param sep: str :
-                    This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
+                  This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
         
         
     :Attributes:
@@ -172,10 +174,11 @@ class ARWithLift:
 
             Format:
                      >>> python3 ARWithLift.py <inputFile> <outputFile> <minConf> <sep>
-            Example:
-                      >>>  python3 ARWithLift.py sampleDB.txt patterns.txt 0.5 ' '
 
-                      .. note:: minConf will be considered only in 0 to 1.
+            Example:
+                     >>>  python3 ARWithLift.py sampleDB.txt patterns.txt 0.5 ' '
+
+                     .. note:: minConf will be considered only in 0 to 1.
 
     
     
@@ -292,7 +295,8 @@ class ARWithLift:
         print("Association rules successfully  generated from frequent patterns ")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -300,7 +304,8 @@ class ARWithLift:
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -308,7 +313,8 @@ class ARWithLift:
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -316,7 +322,8 @@ class ARWithLift:
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -330,7 +337,8 @@ class ARWithLift:
         return dataFrame
 
     def save(self, outFile) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the outputfile
         :type outFile: file
         """
@@ -341,14 +349,16 @@ class ARWithLift:
             writer.write("%s \n" % s1)
 
     def getPatterns(self) -> dict:
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """ Function to send the result after completion of the mining process
+        """
+        Function to send the result after completion of the mining process
         """
         print("Total number of Association Rules:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

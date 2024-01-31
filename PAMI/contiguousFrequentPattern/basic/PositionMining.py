@@ -2,29 +2,29 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.contiguousFrequentPattern.basic import PositionMining as alg
+#             from PAMI.contiguousFrequentPattern.basic import PositionMining as alg
 #
-#     obj =alg.PositionMining(minsup=5,data="Data.csv")
+#             obj =alg.PositionMining(minsup=5,data="Data.csv")
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of high utility frequent Patterns:", len(Patterns))
+#             print("Total number of high utility frequent Patterns:", len(Patterns))
 #
-#     obj.save("output")
+#             obj.save("output")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 
 
 
@@ -32,6 +32,8 @@ import pandas as pd
 import numpy as np
 import math
 from PAMI.contigousFrequentPattern.basic import abstract as _ab
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -63,20 +65,20 @@ class Node:
 
 class PositionMining:
     """
-        :Description:  describe the algorithm
-        :Reference: provide the reference of the algorithm with URL of the paper, if possible
+    :Description:  describe the algorithm
+    :Reference: provide the reference of the algorithm with URL of the paper, if possible
 
-        :param  inputParameters: parameterType :
+    :param  parameter: parameterType :
                     description of the parameters. Parameters are the variables used in problem definition of the model.
 
-        :Attributes:
-            min_IG: float
+    :Attributes:
+        min_IG: float
                 minimum threshold for information gain
             
-            min_conf: float
+        min_conf: float
                 minimum threshold for confidence
 
-            datapath: .csv file consisting of two id,seq fields respectively in order
+        datapath: .csv file consisting of two id,seq fields respectively in order
     
 
          **Credits:**
@@ -101,8 +103,8 @@ class PositionMining:
         self.data=vals
 
     def getfreqs(self):
-        """Initial scan of database where frequent length 1 candidates will be mined
-
+        """
+        Initial scan of database where frequent length 1 candidates will be mined
         :param : none
         """
         self.symbol_freq={"A":set(),"G":set(),"C":set(),"T":set()}
@@ -127,10 +129,9 @@ class PositionMining:
     
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
-
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
-
         :rtype: dict
         """
 
@@ -138,10 +139,9 @@ class PositionMining:
 
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
-
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -161,8 +161,8 @@ class PositionMining:
 
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
-
+        """
+        Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
         :type outFile: file
         """
@@ -172,8 +172,8 @@ class PositionMining:
 
         
     def get_Klength_patterns(self,k):
-        """Get frequent patterns of k length
-
+        """
+        Get frequent patterns of k length
         :param k : length of the pattern
         :type dictionary of frequent patterns
         """
@@ -189,8 +189,8 @@ class PositionMining:
         return positions
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -198,17 +198,16 @@ class PositionMining:
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
-
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
        """
@@ -222,11 +221,10 @@ class PositionMining:
 
 
     def join(self,db,length):
-        """ Generating l+1 frequent patterns using two l length frequent patterns
-
+        """
+        Generating l+1 frequent patterns using two l length frequent patterns
         :param db:current l length frequent patterns table consisiting of their positions
         :type db: HashTable
-
         :param length:current length of the frequent candidates generated
         :type length: positive integer
 
@@ -253,8 +251,8 @@ class PositionMining:
         
 
     def mineNext_candidates(self):
-        """Minining frequent patterns along with their positions from length 1 frequent candidates
-
+        """
+        Minining frequent patterns along with their positions from length 1 frequent candidates
         :param : none
         """
         while self.current_candidate<5:

@@ -3,13 +3,13 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.calculateMISValues import usingBeta as db
+#             from PAMI.extras.calculateMISValues import usingBeta as db
 #
-#     obj = db.usingBeta(iFile, 16, "\t")
+#             obj = db.usingBeta(iFile, 16, "\t")
 #
-#     obj.getPatternsAsDataFrame("outputFileName") # To create patterns as dataframes
+#             obj.getPatternsAsDataFrame("outputFileName") # To create patterns as dataframes
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 
 
 
@@ -37,26 +37,26 @@ from urllib.request import urlopen as _urlopen
 class usingBeta():
     """
 
-        :Description: This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.
+    :Description: This code is used to calculate multiple minimum support of items in the the given database. Output can be stored in file or as as dataframe.
         
-        :param  iFile: str :
-                       Name of the Input file to get the patterns as DataFrame
-        :param  beta: str :
-                       Name of the output file to store complete set of frequent patterns
-        :param  threshold: int :
-                       The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.
-        :param  sep: str :
-                       This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  iFile: str :
+                   Name of the Input file to get the patterns as DataFrame
+    :param  beta: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  threshold: int :
+                   The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-        from PAMI.extras.calculateMISValues import usingBeta as db
+    from PAMI.extras.calculateMISValues import usingBeta as db
 
-        obj = db.usingBeta(iFile, 3, 16, "\t")
+    obj = db.usingBeta(iFile, 3, 16, "\t")
 
-        obj.save(oFile)
+    obj.save(oFile)
 
     """
 
@@ -75,7 +75,7 @@ class usingBeta():
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         self._mapSupport = {}
@@ -135,7 +135,8 @@ class usingBeta():
                     self._finalPatterns[x] = y
 
     def getMISDataFrame(self) -> _pd.DataFrame:
-        """Storing items and its respective minimum support in a dataframe
+        """
+        Storing items and its respective minimum support in a dataframe
         :return: returning items and its respective minimum support in a dataframe
         :rtype: pd.DataFrame
         """
@@ -148,7 +149,8 @@ class usingBeta():
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of items and its respective minimum support values will be loaded in to an output file
+        """
+        Complete set of items and its respective minimum support values will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: file
         """

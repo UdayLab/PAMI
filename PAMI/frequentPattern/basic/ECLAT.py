@@ -3,31 +3,36 @@
 # **Importing this algorithm into a python program**
 # ------------------------------------------------------------------
 #
-#     import PAMI.frequentPattern.basic.ECLAT as alg
+#             import PAMI.frequentPattern.basic.ECLAT as alg
 #
-#     obj = alg.ECLAT(iFile, minSup)
+#             obj = alg.ECLAT(iFile, minSup)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -51,7 +56,6 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 class ECLAT(_ab._frequentPatterns):
     """
-
     :Description: ECLAT is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 
     :Reference:  Mohammed Javeed Zaki: Scalable Algorithms for Association Mining. IEEE Trans. Knowl. Data Eng. 12(3):
@@ -65,8 +69,6 @@ class ECLAT(_ab._frequentPatterns):
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-
-
 
     :Attributes:
 
@@ -152,8 +154,7 @@ class ECLAT(_ab._frequentPatterns):
 
     def _creatingItemSets(self) -> float:
         """
-            Storing the complete transactions of the database/input file in a database variable
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -205,14 +206,11 @@ class ECLAT(_ab._frequentPatterns):
         return uniqueItem
 
     def _generateFrequentPatterns(self, candidateFrequent: list) -> None:
-        """It will generate the combinations of frequent items
-
+        """
+        It will generate the combinations of frequent items
         :param candidateFrequent :it represents the items with their respective transaction identifiers
-
         :type candidateFrequent: list
-
         :return: returning transaction dictionary
-
         :rtype: dict
         """
         new_freqList = []
@@ -236,9 +234,7 @@ class ECLAT(_ab._frequentPatterns):
     def _convert(self, value) -> float:
         """
         To convert the user specified minSup value
-
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -254,7 +250,9 @@ class ECLAT(_ab._frequentPatterns):
         return value
 
     def startMine(self) -> None:
-        """Frequent pattern mining process will start from here"""
+        """
+        Frequent pattern mining process will start from here
+        """
 
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -276,40 +274,36 @@ class ECLAT(_ab._frequentPatterns):
         print("Frequent patterns were generated successfully using ECLAT algorithm")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
-
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
-
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -321,11 +315,10 @@ class ECLAT(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
-
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-
-        :type outFile: file
+        :type outFile: csvfile
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -334,17 +327,16 @@ class ECLAT(_ab._frequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self) -> dict:
-        """ Function to send the set of frequent patterns after completion of the mining process
-
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """Function used to print the results
-
+        """
+        Function used to print the results
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
