@@ -1,0 +1,98 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMuKfiZg/rnE3ytTXwxkCoO",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Avvari1830S/PAMI/blob/main/notebooks/extras/SyntheticDataGenerators/createSyntheticTemporal\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "TUSJp6cKb0kl"
+      },
+      "outputs": [],
+      "source": [
+        "import random as _rd\n",
+        "import sys as _sys\n",
+        "class createSyntheticTemporal:\n",
+        "    \"\"\"\n",
+        "        This class create synthetic temporal database.\n",
+        "\n",
+        "        Attribute:\n",
+        "        ----------\n",
+        "        totalTransactions : int\n",
+        "            No of transactions\n",
+        "        noOfItems : int\n",
+        "            No of items\n",
+        "        avgTransactionLength : str\n",
+        "            The length of average transaction\n",
+        "        outputFile: str\n",
+        "            Name of the output file.\n",
+        "\n",
+        "        Methods:\n",
+        "        --------\n",
+        "        createTemporallDatabase(outputFile)\n",
+        "            Create temporal database from DataFrame and store into outputFile\n",
+        "\n",
+        "        Credits:\n",
+        "        ---------\n",
+        "             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.\n",
+        "\n",
+        "\n",
+        "    \"\"\"\n",
+        "\n",
+        "    def __init__(self, transactions: int, items: int, avgTransaction: int) -> None:\n",
+        "        self._totalTransactions = transactions\n",
+        "        self._noOfItems = items\n",
+        "        self._avgTransactionLength = avgTransaction\n",
+        "\n",
+        "    def createTemporalDatabase(self, outputFile: str) -> None:\n",
+        "        \"\"\"\n",
+        "        create transactional database and return outputFileName\n",
+        "        :param outputFile: file name or path to store database\n",
+        "        :type outputFile: str\n",
+        "        :return: outputFile name\n",
+        "        \"\"\"\n",
+        "        count = 1\n",
+        "        writer = open(outputFile, 'w+')\n",
+        "        for i in range(self._totalTransactions):\n",
+        "            length = _rd.randint(1, self._avgTransactionLength + 20)\n",
+        "            st = str(count) + '\\t'\n",
+        "            for i in range(length):\n",
+        "                item = _rd.randint(1, self._noOfItems)\n",
+        "                st = st + str(item) + '\\t'\n",
+        "            writer.write(\"%s \\n\" % st)\n",
+        "            count += 1\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    _ap = str()\n",
+        "    _ap = createSyntheticTemporal(100000, 870, 10)\n",
+        "    _ap.createTemporalDatabase(\"temporal_T10.txt\")\n",
+        "else:\n",
+        "    print(\"Error! The number of input parameters do not match the total number of parameters provided\")"
+      ]
+    }
+  ]
+}
