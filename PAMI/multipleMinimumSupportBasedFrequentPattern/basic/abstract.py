@@ -43,12 +43,12 @@ import functools as _functools
 
 
 class _frequentPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-        employ in PAMI
+    """
+    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+                    employ in PAMI
 
+    :Attributes:
 
-    Attributes:
-    ----------
         iFile : str
             Input file name or path of the input file
         MIS : str
@@ -69,8 +69,8 @@ class _frequentPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
