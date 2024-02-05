@@ -35,18 +35,17 @@ import pandas as pd
 
 class generateLatexFileFromDataFrame():
     """
-    :Description:
-            generateLatexFileFromDatFrame is used to convert the given dataframe into LatexFile.
+    :Description:   generateLatexFileFromDatFrame is used to convert the given dataframe into LatexFile.
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------
     .. code-block:: python
 
-    from PAMI.extras.graph import generateLatexFileFromDatFrame as fig
+            from PAMI.extras.graph import generateLatexFileFromDatFrame as fig
 
-    obj = fig.generateLatexFileFromDatFrame(idf)
+            obj = fig.generateLatexFileFromDatFrame(idf)
 
-    obj.save()
+            obj.save()
 
     """
 

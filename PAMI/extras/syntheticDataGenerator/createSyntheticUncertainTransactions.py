@@ -4,10 +4,10 @@ import sys as _sys
 
 class createSyntheticUncertainTransaction:
     """
-        This class create synthetic transaction database. 
+    This class create synthetic transaction database.
 
-        Attribute:
-        ----------
+    :Attribute:
+
         totalTransactions : int
             No of transactions
         noOfItems : int 
@@ -17,14 +17,14 @@ class createSyntheticUncertainTransaction:
         outputFile: str
             Name of the output file.
 
-        Nethods:
-        --------
+    :Methods:
+
         createUncertainTransactionalDatabase(outputFile)
             Create uncertain transactional database and store into outputFile
 
-        Credits:
-        ---------
-             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
+    **Credits:**
+    -------------
+        The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
 
     """
     
@@ -36,6 +36,7 @@ class createSyntheticUncertainTransaction:
     def createUncertainTransactionalDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
+
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name

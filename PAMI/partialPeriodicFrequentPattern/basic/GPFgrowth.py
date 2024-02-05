@@ -29,8 +29,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
-
-
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -59,9 +58,9 @@ orderOfItem = {}
 class Node:
     """
     A class used to represent the node of frequentPatternTree
-    ...
-    Attributes:
-    ----------
+
+    :Attributes:
+
         item : int
             storing item of a node
         parent : node
@@ -73,8 +72,8 @@ class Node:
         tidList : set
             To maintain timestamps of node
 
-    Methods:
-    -------
+    :Methods:
+
         getChild(itemName)
             storing the children to their respective parent nodes
     """
@@ -91,7 +90,6 @@ class Node:
         :param item:
         :return: if node have node of item, then return it. if node don't have return []
         """
-
         for child in self.child:
             if child.item == item:
                 return child
@@ -102,9 +100,8 @@ class Tree:
     """
     A class used to represent the frequentPatternGrowth tree structure
 
-    ...
-    Attributes:
-    ----------
+    :Attributes:
+
         root : node
             Represents the root node of the tree
         nodeLinks : dictionary
@@ -112,8 +109,8 @@ class Tree:
         firstNodeLink : dictionary
             storing first node of each item
 
-    Methods:
-    -------
+    :Methods:
+
         addTransaction(transaction,timeStamp)
             creating transaction as a branch in frequentPatternTree
         fixNodeLinks(itemName, newNode)
@@ -134,6 +131,7 @@ class Tree:
     def addTransaction(self, transaction, tid):
         """
         add transaction into tree
+
         :param transaction: it represents the one transactions in database
         :type transaction: list
         :param tid: represents the timestamp of transaction
@@ -156,6 +154,7 @@ class Tree:
     def fixNodeLinks(self, item, newNode):
         """
         fix node link
+
         :param item: it represents item name of newNode
         :type item: string
         :param newNode: it represents node which is added
@@ -171,6 +170,7 @@ class Tree:
     def deleteNode(self, item):
         """
         delete the node from tree
+
         :param item: it represents the item name of node
         :type item: str
         """
@@ -193,6 +193,7 @@ class Tree:
     def createPrefixTree(self, path, tidList):
         """
         create prefix tree by path
+
         :param path: it represents path to root from prefix node
         :type path: list
         :param tidList: it represents tid of each item
@@ -215,7 +216,8 @@ class Tree:
     def createConditionalTree(self, PFList, minSup, maxPer, minPR, last):
         """
         create conditional tree by PFlist
-        :param PFList: it represent timestamp each item
+
+        :param PFList: it represents timestamp each item
         :type PFList: dict
         :param minSup: it represents minSup
         :param maxPer: it represents maxPer
@@ -236,9 +238,9 @@ class Tree:
 class calculateIP:
     """
     This class calculate ip from timestamp
-    ...
-    Attributes
-    ----------
+
+    :Attributes:
+
     maxPer : float
         it represents user defined maxPer value
     timeStamp : list
@@ -246,8 +248,8 @@ class calculateIP:
     timeStampFinal : int
         it represents last timestamp of database
 
-    Methods
-    -------
+    :Methods:
+
     run
         calculate ip from its timestamp list
 
@@ -279,9 +281,9 @@ class calculateIP:
 class generatePFListver2:
     """
     generate time stamp list from input file
-    ...
-    Attributes:
-    ----------
+
+    :Attributes:
+
         inputFile : str
             it is input file name
         minSup : float
@@ -340,6 +342,7 @@ class generatePFListver2:
     def findSeparator(self, line):
         """
         find separator of line in database
+
         :param line: it represents one line in database
         :type line: list
         :return: return separator
@@ -353,22 +356,22 @@ class generatePFListver2:
 class generatePFTreever2:
     """
     create tree from tidList and input file
-    ...
-    Attributes
-    ----------
-    inputFile : str
-        it represents input file name
-    tidList : dict
-        storing tids each item
-    root : Node
-        it represents the root node of the tree
 
-    Methods
-    -------
-    run
-        it create tree
-    find separator(line)
-        find separotor in the line of database
+    :Attributes:
+
+        inputFile : str
+            it represents input file name
+        tidList : dict
+            storing tids each item
+        root : Node
+            it represents the root node of the tree
+
+    :Methods:
+
+        run
+            it create tree
+        find separator(line)
+            find separator in the line of database
 
     """
     def __init__(self, Database, tidList):
@@ -393,6 +396,7 @@ class generatePFTreever2:
     def findSeparator(self, line):
         """
         find separator of line in database
+
         :param line: it represents one line in database
         :type line: list
         :return: return separator
@@ -406,28 +410,28 @@ class generatePFTreever2:
 class PFgrowth:
     """
     This class is pattern growth algorithm
-    ...
-    Attributes
-    ----------
-    tree : Node
-        represents the root node of prefix tree
-    prefix : list
-        prefix is list of prefix items
-    PFList : dict
-        storing time stamp each item
-    minSup : float
-        user defined min Support
-    maxPer : float
-        user defined max Periodicity
-    minPR : float
-        user defined min PR
-    last : int
-        represents last time stamp in database
 
-    Methods
-    -------
-    run
-        it is pattern growth algorithm
+    :Attributes:
+
+        tree : Node
+            represents the root node of prefix tree
+        prefix : list
+            prefix is list of prefix items
+        PFList : dict
+            storing time stamp each item
+        minSup : float
+            user defined min Support
+        maxPer : float
+            user defined max Periodicity
+        minPR : float
+            user defined min PR
+        last : int
+            represents last time stamp in database
+
+    :Methods:
+
+        run
+            it is pattern growth algorithm
 
     """
     def __init__(self, tree, prefix, PFList, minSup, maxPer, minPR, last):
@@ -497,17 +501,13 @@ class PFgrowth:
 
 class GPFgrowth(partialPeriodicPatterns):
     """
-    Description:
-    ------------
-        GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
+    :Description:   GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.
     
-    Reference:
-    -----------
-        R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
-        Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, https://doi.org/10.1016/j.jss.2016.11.035.
+    :Reference:   R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
+                  Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, https://doi.org/10.1016/j.jss.2016.11.035.
 
-    Attributes:
-    ------------
+    :Attributes:
+
         inputFile : file
             Name of the input file to mine complete set of frequent pattern
         minSup : float
@@ -525,8 +525,8 @@ class GPFgrowth(partialPeriodicPatterns):
         memoryRSS : float
             storing the total amount of RSS memory consumed by the program
 
-    Methods:
-    ---------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -542,50 +542,47 @@ class GPFgrowth(partialPeriodicPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Executing code on Terminal:
-    ------------------------------
-        Format:
-        --------
-            >>> python3 GPFgrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
+    **Executing code on Terminal:**
+    ----------------------------------
+            Format:
+                    >>> python3 GPFgrowth.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
 
-        Examples:
-        ---------
-            >>> python3 GPFgrowth.py sampleDB.txt patterns.txt 10 10 0.5
+            Examples:
+                    >>> python3 GPFgrowth.py sampleDB.txt patterns.txt 10 10 0.5
 
-    Sample run of the importing code:
-    ---------------------------------
+    **Sample run of the importing code:**
+    --------------------------------------
     .. code-block:: python
 
-        from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
+            from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
 
-        obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)
+            obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)
 
-        obj.startMine()
+            obj.startMine()
 
-        partialPeriodicFrequentPatterns = obj.getPatterns()
+            partialPeriodicFrequentPatterns = obj.getPatterns()
 
-        print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
+            print("Total number of partial periodic Patterns:", len(partialPeriodicFrequentPatterns))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternInDf()
+            Df = obj.getPatternInDf()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    ---------
+    **Credits:**
+    --------------
             The complete program was written by Nakamura  under the supervision of Professor Rage Uday Kiran.
-
 
     """
     _partialPeriodicPatterns__iFile = ' '
@@ -607,7 +604,6 @@ class GPFgrowth(partialPeriodicPatterns):
         to convert the type of user specified minSup value
 
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -724,7 +720,7 @@ class GPFgrowth(partialPeriodicPatterns):
     def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')

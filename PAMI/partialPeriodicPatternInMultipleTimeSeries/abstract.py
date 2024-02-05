@@ -14,11 +14,12 @@ from urllib.request import urlopen as _urlopen
 
 
 class _partialPeriodicPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-    employ in PAMI
-        ...
-        Attributes
-        ----------
+    """
+    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+                    employ in PAMI
+
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
         minSup: float
@@ -129,6 +130,7 @@ class _partialPeriodicPatterns(_ABC):
     @_abstractmethod
     def save(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
+
         :param oFile: Name of the output file
         :type oFile: file
         """

@@ -36,30 +36,28 @@ import pandas as _pd
 class dataFrameInToFigures():
     """
 
-                :Description:
-                        dataFrameInToFigures is used to convert the given dataframe into figures.
+    :Description:   DataFrameInToFigures is used to convert the given dataframe into figures.
 
-                :param  dataFrame:
-                        Name of the input dataframe
-                **Importing this algorithm into a python program**
-                --------------------------------------------------------
-                .. code-block:: python
+    :param  dataFrame:
+            Name of the input dataframe
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                from PAMI.extras.graph import dataframeInToFigures as fig
+            from PAMI.extras.graph import dataframeInToFigures as fig
 
-                obj = fig.dataframeInToFigures(idf )
+            obj = fig.dataframeInToFigures(idf )
 
-                obj.save(oFile)
+            obj.save(oFile)
 
-
-        """
+    """
 
     def __init__(self, dataFrame: _pd.DataFrame) -> None:
         self._dataFrame = dataFrame
 
     def plotGraphsFromDataFrame(self) -> None:
         """
-           To plot graphs from given dataframe
+        To plot graphs from given dataframe
         """
         fig = _px.line(self._dataFrame, x=self._dataFrame.iloc[:, 1] , y=self._dataFrame.iloc[:, 2], color=self._dataFrame.iloc[:, 0], labels={'x':'minSup', 'y':'patterns'})
         fig.show()

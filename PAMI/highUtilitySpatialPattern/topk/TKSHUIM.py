@@ -59,10 +59,10 @@ import heapq
 
 class Transaction:
     """
-        A class to store Transaction of a database
+    A class to store Transaction of a database
 
-    Attributes:
-    ----------
+    :Attributes:
+
         items: list
             A list of items in transaction 
         utilities: list
@@ -75,8 +75,9 @@ class Transaction:
             prefix Utility values of item
         offset:
             an offset pointer, used by projected transactions
-    Methods:
-    --------
+
+    :Methods:
+
         projectedTransaction(offsetE):
             A method to create new Transaction from existing till offsetE
         getItems():
@@ -104,12 +105,10 @@ class Transaction:
 
     def projectTransaction(self, offsetE):
         """
-            A method to create new Transaction from existing till offsetE
+        A method to create new Transaction from existing till offsetE
 
-        Parameters:
-        ----------
-            :param offsetE: an offset over the original transaction for projecting the transaction
-            :type offsetE: int
+        :param offsetE: an offset over the original transaction for projecting the transaction
+        :type offsetE: int
         """
         new_transaction = Transaction(self.items, self.utilities, self.transactionUtility)
         utilityE = self.utilities[offsetE]
@@ -122,34 +121,35 @@ class Transaction:
 
     def getItems(self):
         """
-            A method to return items in transaction
+        A method to return items in transaction
         """
         return self.items
 
     def getPmus(self):
         """
-            A method to return pmus in transaction
+        A method to return pmus in transaction
         """
         return self.pmus
 
     def getUtilities(self):
         """
-            A method to return utilities in transaction
+        A method to return utilities in transaction
         """
         return self.utilities
 
     # get the last position in this transaction
     def getLastPosition(self):
         """
-            A method to return last position in a transaction
+        A method to return last position in a transaction
         """
         return len(self.items) - 1
 
     def removeUnpromisingItems(self, oldNamesToNewNames):
         """
-            A method to remove items with low Utility than minUtil
-            :param oldNamesToNewNames: A map represent old namses to new names
-            :type oldNamesToNewNames: map
+        A method to remove items with low Utility than minUtil
+
+        :param oldNamesToNewNames: A map represent old namses to new names
+        :type oldNamesToNewNames: map
         """
         tempItems = []
         tempUtilities = []
@@ -181,17 +181,17 @@ class Transaction:
 
 class Dataset:
     """
-        A class represent the list of transactions in this dataset
+    A class represent the list of transactions in this dataset
 
-    Attributes:
-    ----------
-        transactions :
-            the list of transactions in this dataset
-        maxItem:
-            the largest item name
+    :Attributes:
+
+    transactions:
+        the list of transactions in this dataset
+    maxItem:
+        the largest item name
         
-    methods:
-    --------
+    :methods:
+
         createTransaction(line):
             Create a transaction object from a line from the input file
         getMaxItem():
@@ -216,14 +216,14 @@ class Dataset:
 
     def createTransaction(self, line):
         """
-            A method to create Transaction from dataset given
+        A method to create Transaction from dataset given
             
-            Attributes:
-            -----------
-            :param line: represent a single line of database
-            :type line: string
-            :return : Transaction
-            :rtype: Transaction
+        :Attributes:
+
+        :param line: represent a single line of database
+        :type line: string
+        :return : Transaction.
+        :rtype: Transaction
         """
         trans_list = line.strip().split(':')
         transactionUtility = int(trans_list[1])
@@ -250,28 +250,29 @@ class Dataset:
 
     def getMaxItem(self):
         """
-            A method to return name of the largest item
+        A method to return name of the largest item
         """
         return self.maxItem
 
     def getTransactions(self):
         """
-            A method to return transactions from database
+        A method to return transactions from database
         """
         return self.transactions
 
 
 class TKSHUIM(utilityPatterns):
     """
-    Description:
-    ------------
+    :Description:
        Top K Spatial High Utility ItemSet Mining (TKSHUIM) aims to discover Top-K Spatial High Utility Itemsets
        (TKSHUIs) in a spatioTemporal database
-    Reference:
-    ---------
+
+    :Reference:
+
        P. Pallikila et al., "Discovering Top-k Spatial High Utility Itemsets in Very Large Quantitative Spatiotemporal 
        databases," 2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 4925-4935, 
        doi: 10.1109/BigData52589.2021.9671912.
+
     :param  iFile: str :
                    Name of the Input file to mine complete set of frequent patterns
     :param  oFile: str :
@@ -281,8 +282,8 @@ class TKSHUIM(utilityPatterns):
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-    Attributes:
-    -----------
+    :Attributes:
+
         iFile : file
             Name of the input file to mine complete set of frequent patterns
         nFile : file
@@ -316,8 +317,8 @@ class TKSHUIM(utilityPatterns):
         itemsToExplore: list
             keep items that subtreeUtility grater than minUtil
 
-    Methods :
-    ------------
+    :Methods:
+
         startMine()
                 Mining process will start from here
         getPatterns()
@@ -353,40 +354,41 @@ class TKSHUIM(utilityPatterns):
         useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)
              A method to scan the database using utility bin array to calculate the pmus                   
 
-    Executing the code on terminal :
-    -------
-        Format: python3 TKSHUIM.py <inputFile> <outputFile> <Neighbours> <k> <sep>
-        Examples: python3 TKSHUIM.py sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
-                  python3 TKSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (it will consider "," as separator)
+    **Executing the code on terminal:**
+    ------------------------------------
+            Format:
+                    >>> python3 TKSHUIM.py <inputFile> <outputFile> <Neighbours> <k> <sep>
+            Examples:
+                    >>> python3 TKSHUIM.py sampleTDB.txt output.txt sampleN.txt 35
 
-    Sample run of importing the code:
-    -------------------------------
+    **Sample run of importing the code:**
+    ----------------------------------------
     .. code-block:: python
         
-        from PAMI.highUtilitySpatialPattern.topk import TKSHUIM as alg
+            from PAMI.highUtilitySpatialPattern.topk import TKSHUIM as alg
 
-        obj=alg.TKSHUIM("input.txt","Neighbours.txt",35)
+            obj=alg.TKSHUIM("input.txt","Neighbours.txt",35)
 
-        obj.startMine()
+            obj.startMine()
 
-        Patterns = obj.getPatterns()
+            Patterns = obj.getPatterns()
 
-        obj.save("output")
+            obj.save("output")
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    ----------
+    **Credits:**
+    ---------------
             The complete program was written by Pradeep Pallikila under the supervision of Professor Rage Uday Kiran.
     """
     candidateCount = 0
@@ -416,7 +418,7 @@ class TKSHUIM(utilityPatterns):
 
     def startMine(self):
         """
-            Main function of the program.
+        Main function of the program.
         """
         self.startTime = time.time()
         self.finalPatterns = {}
@@ -479,18 +481,16 @@ class TKSHUIM(utilityPatterns):
 
     def backtrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
         """
-            A method to mine the TKSHUIs Recursively
+        A method to mine the TKSHUIs Recursively
 
-            Attributes:
-            ----------
-            :param transactionsOfP: the list of transactions containing the current prefix P
-            :type transactionsOfP: list 
-            :param itemsToKeep: the list of secondary items in the p-projected database
-            :type itemsToKeep: list
-            :param itemsToExplore: the list of primary items in the p-projected database
-            :type itemsToExplore: list
-            :param prefixLength: current prefixLength
-            :type prefixLength: int
+        :param transactionsOfP: the list of transactions containing the current prefix P
+        :type transactionsOfP: list
+        :param itemsToKeep: the list of secondary items in the p-projected database
+        :type itemsToKeep: list
+        :param itemsToExplore: the list of primary items in the p-projected database
+        :type itemsToExplore: list
+        :param prefixLength: current prefixLength
+        :type prefixLength: int
         """
         self.candidateCount += len(itemsToExplore)
         for idx, e in enumerate(itemsToExplore):
@@ -570,16 +570,15 @@ class TKSHUIM(utilityPatterns):
 
     def useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe, j, itemsToKeep, neighbourhoodList):
         """
-            A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
+        A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
 
-            Attributes:
-            -----------
-            :param transactionsPe: transactions the projected database for P U {e}
-            :type transactionsPe: list
-            :param j:the position of j in the list of promising items
-            :type j:int
-            :param itemsToKeep :the list of promising items
-            :type itemsToKeep: list
+
+        :param transactionsPe: transactions the projected database for P U {e}
+        :type transactionsPe: list
+        :param j:the position of j in the list of promising items
+        :type j:int
+        :param itemsToKeep :the list of promising items
+        :type itemsToKeep: list
 
         """
         for i in range(j + 1, len(itemsToKeep)):
@@ -607,11 +606,10 @@ class TKSHUIM(utilityPatterns):
 
     def calculateNeighbourIntersection(self, prefixLength):
         """
-            A method to find common Neighbours
-            Attributes:
-            ----------
-                :param prefixLength: the prefix itemSet
-                :type prefixLength:int
+        A method to find common Neighbours
+
+        :param prefixLength: the prefix itemSet
+        :type prefixLength:int
 
         """
         intersectionList = self.Neighbours.get(self.temp[0])
@@ -629,8 +627,6 @@ class TKSHUIM(utilityPatterns):
         """
          A method save all high-utility itemSet to file or memory depending on what the user chose
 
-         Attributes:
-         ----------
          :param tempPosition: position of last item
          :type tempPosition : int 
          :param utility: total utility of itemSet
@@ -647,11 +643,9 @@ class TKSHUIM(utilityPatterns):
         """
          A method to Check if two transaction are identical
 
-         Attributes:
-         ----------
-         :param  transaction1: the first transaction
+         :param  transaction1: the first transaction.
          :type  transaction1: Transaction
-         :param  transaction2:   the second transaction
+         :param  transaction2:   the second transaction.
          :type  transaction2: Transaction
          :return : whether both are identical or not
          :rtype: bool
@@ -672,13 +666,14 @@ class TKSHUIM(utilityPatterns):
     
     def intersection(self, lst1, lst2):
         """
-            A method that return the intersection of 2 list
-            :param  lst1: items neighbour to item1
-            :type lst1: list
-            :param lst2: items neighbour to item2
-            :type lst2: list
-            :return :intersection of two lists
-            :rtype : list
+        A method that return the intersection of 2 list
+
+        :param  lst1: items neighbour to item1
+        :type lst1: list
+        :param lst2: items neighbour to item2
+        :type lst2: list
+        :return :intersection of two lists
+        :rtype : list
         """
         temp = set(lst2)
         lst3 = [value for value in lst1 if value in temp]
@@ -688,8 +683,6 @@ class TKSHUIM(utilityPatterns):
         """
         Scan the initial database to calculate the subtree utility of each item using a utility-bin array
 
-        Attributes:
-        ----------
         :param dataset: the transaction database
         :type dataset: Dataset
         """
@@ -712,30 +705,26 @@ class TKSHUIM(utilityPatterns):
 
     def sortDatabase(self, transactions):
         """
-            A Method to sort transaction in the order of PMU
+        A Method to sort transaction in the order of PMU
 
-            Attributes:
-            ----------
-            :param transactions: transaction of items
-            :type transactions: Transaction 
-            :return: sorted transaction
-            :rtype: Transaction
+        :param transactions: transaction of items
+        :type transactions: Transaction
+        :return: sorted transaction
+        :rtype: Transaction
         """
         cmp_items = cmp_to_key(self.sort_transaction)
         transactions.sort(key=cmp_items)
 
     def sort_transaction(self, trans1, trans2):
         """
-            A Method to sort transaction in the order of PMU
+        A Method to sort transaction in the order of PMU
 
-            Attributes:
-            ----------
-            :param trans1: the first transaction 
-            :type trans1: Transaction 
-            :param trans2:the second transaction 
-            :type trans2: Transaction
-            :return: sorted transaction
-            :rtype:    Transaction
+        :param trans1: the first transaction.
+        :type trans1: Transaction
+        :param trans2:the second transaction.
+        :type trans2: Transaction
+        :return: sorted transaction.
+        :rtype:    Transaction
         """
         trans1_items = trans1.getItems()
         trans2_items = trans2.getItems()
@@ -768,11 +757,10 @@ class TKSHUIM(utilityPatterns):
 
     def useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
         """
-            A method to scan the database using utility bin array to calculate the pmus
-            Attributes:
-            ----------
-            :param dataset: the transaction database
-            :type dataset: database
+        A method to scan the database using utility bin array to calculate the pmus
+
+        :param dataset: the transaction database.
+        :type dataset: database
 
         """
         utilityMatrix = defaultdict(lambda: defaultdict(int))
@@ -847,7 +835,7 @@ class TKSHUIM(utilityPatterns):
         """Complete set of patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')

@@ -54,50 +54,47 @@ from  PAMI.geoReferencedPeriodicFrequentPattern.basic import abstract as _ab
 
 class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
     """ 
-    Description:
-    ------------
-        GPFPMiner is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
-        Lattice Traversal to mine the geo referenced peridoic frequent patterns.
+    :Description:   GPFPMiner is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
+                    Lattice Traversal to mine the geo referenced peridoic frequent patterns.
         
-    Reference:
-    -----------
-    
-          
-    Attributes :
-    ----------
-            iFile : str
-                Input file name or path of the input file
-            nFile: str:
-               Name of Neighbourhood file name
-            minSup: float or int or str
-                The user can specify minSup either in count or proportion of database size.
-                If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-            maxPer: float or int or str
-                The user can specify maxPer either in count or proportion of database size.
-                If the program detects the data type of maxPer is integer, then it treats minSup is expressed in count.
-                Otherwise, it will be treated as float.
-                Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-            sep : str
-                This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
-                However, the users can override their default separator.
-            startTime:float
-                To record the start time of the mining process
-            endTime:float
-                To record the completion time of the mining process
-            finalPatterns: dict
-                Storing the complete set of patterns in a dictionary variable
-            oFile : str
-                Name of the output file to store complete set of frequent patterns
-            memoryUSS : float
-                To store the total amount of USS memory consumed by the program
-            memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
-            Database : list
-                To store the complete set of transactions available in the input database/file
-    Methods :
-    ---------
+    :Reference:
+
+    :Attributes:
+
+        iFile : str
+            Input file name or path of the input file
+        nFile: str:
+           Name of Neighbourhood file name
+        minSup: float or int or str
+            The user can specify minSup either in count or proportion of database size.
+            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+        maxPer: float or int or str
+            The user can specify maxPer either in count or proportion of database size.
+            If the program detects the data type of maxPer is integer, then it treats minSup is expressed in count.
+            Otherwise, it will be treated as float.
+            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
+        sep : str
+            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
+            However, the users can override their default separator.
+        startTime:float
+            To record the start time of the mining process
+        endTime:float
+            To record the completion time of the mining process
+        finalPatterns: dict
+            Storing the complete set of patterns in a dictionary variable
+        oFile : str
+            Name of the output file to store complete set of frequent patterns
+        memoryUSS : float
+            To store the total amount of USS memory consumed by the program
+        memoryRSS : float
+            To store the total amount of RSS memory consumed by the program
+        Database : list
+            To store the complete set of transactions available in the input database/file
+
+    :Methods:
+
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -122,46 +119,47 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                 A function to get common neighbours of a itemSet
              mapNeighbours(file):
                 A function to map items to their neighbours
-    Executing the code on terminal :
-    ---------------------------------
+
+    **Executing the code on terminal :**
+    --------------------------------------
+
         Format:
-        --------
             >>> python3 GPFPMiner.py <inputFile> <outputFile> <neighbourFile> <minSup> <maxPer>
+
         Examples:
-        ---------
             >>> python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3 (minSup & maxPer will be considered in percentage of database transactions)
 
            
-    Sample run of importing the code :
-    ------------------------------------
+    **Sample run of importing the code :**
+    -----------------------------------------
     .. code-block:: python
     
-        import PAMI.geoReferencedPeridicFrequentPattern.GPFPMiner as alg
+            import PAMI.geoReferencedPeridicFrequentPattern.GPFPMiner as alg
 
-        obj = alg.GPFPMiner("sampleTDB.txt", "sampleN.txt", 5, 3)
+            obj = alg.GPFPMiner("sampleTDB.txt", "sampleN.txt", 5, 3)
 
-        obj.startMine()
+            obj.startMine()
 
-        Patterns = obj.getPatterns()
+            Patterns = obj.getPatterns()
 
-        print("Total number of Geo Referenced Periodic-Frequent Patterns:", len(Patterns))
+            print("Total number of Geo Referenced Periodic-Frequent Patterns:", len(Patterns))
 
-        obj.save("outFile")
+            obj.save("outFile")
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    -------
+    **Credits:**
+    --------------
         The complete program was written by P.RaviKumar under the supervision of Professor Rage Uday Kiran.
     """
 
@@ -184,8 +182,8 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         self._NeighboursMap = {}
 
     def _creatingItemSets(self):
-        """Storing the complete transactions of the database/input file in a database variable
-
+        """
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -249,6 +247,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -265,10 +264,11 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         return value
 
     def _getSupportAndPeriod(self, timeStamps):
-        """calculates the support and periodicity with list of timestamps
+        """
+        calculates the support and periodicity with list of timestamps
 
-            :param timeStamps: timestamps of a pattern
-            :type timeStamps: list
+        :param timeStamps: timestamps of a pattern
+        :type timeStamps: list
         """
         timeStamps.sort()
         cur = 0
@@ -284,14 +284,15 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         return [sup, per]
 
     def _save(self, prefix, suffix, tidSetX):
-        """Saves the patterns that satisfy the periodic frequent property.
+        """
+        Saves the patterns that satisfy the periodic frequent property.
 
-            :param prefix: the prefix of a pattern
-            :type prefix: list or None
-            :param suffix: the suffix of a patterns
-            :type suffix: list
-            :param tidSetX: the timestamp of a patterns
-            :type tidSetX: list
+        :param prefix: the prefix of a pattern
+        :type prefix: list or None
+        :param suffix: the suffix of a patterns
+        :type suffix: list
+        :param tidSetX: the timestamp of a patterns
+        :type tidSetX: list
 
 
         """
@@ -304,16 +305,15 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
             self._finalPatterns[tuple(prefix)] = val
 
     def _Generation(self, prefix, itemSets, tidSets):
-        """Generates the patterns that satisfy the periodic frequent property.
+        """
+        Generates the patterns that satisfy the periodic frequent property.
 
-            :param prefix: the prefix of a pattern
-            :type prefix: list or None
-            :param itemSets: the item sets of a patterns
-            :type itemSets: list
-            :param tidSets: the timestamp of a patterns
-            :type tidSets: list
-
-
+        :param prefix: the prefix of a pattern
+        :type prefix: list or None
+        :param itemSets: the item sets of a patterns
+        :type itemSets: list
+        :param tidSets: the timestamp of a patterns
+        :type tidSets: list
         """
         if len(itemSets) == 1:
             i = itemSets[0]
@@ -350,11 +350,12 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
 
     def _getNeighbourItems(self, keySet):
         """
-            A function to get Neighbours of a item
-            :param keySet:itemSet
-            :type keySet:str or tuple
-            :return: set of common neighbours 
-            :rtype:set
+        A function to get Neighbours of a item
+
+        :param keySet:itemSet
+        :type keySet:str or tuple
+        :return: set of common neighbours
+        :rtype:set
         """
         itemNeighbours = self._NeighboursMap.keys()
         if isinstance(keySet, str):
@@ -370,7 +371,7 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
 
     def mapNeighbours(self):
         """
-            A function to map items to their Neighbours
+        A function to map items to their Neighbours
         """
         self._NeighboursMap = {}
         if isinstance(self._nFile, _ab._pd.DataFrame):
@@ -442,7 +443,9 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         print("Spatial Periodic Frequent patterns were generated successfully using SpatialEclat algorithm")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -458,7 +461,9 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -466,7 +471,9 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -482,9 +489,11 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """
+        Complete set of frequent patterns will be loaded in to a output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -496,14 +505,17 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
     
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Spatial Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

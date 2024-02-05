@@ -143,7 +143,9 @@ class cuGPPMiner(partialPeriodicPatterns):
         return value
 
   def getMemoryUSS(self):
-      """Total amount of USS memory consumed by the mining process will be retrieved from this function
+      """
+      Total amount of USS memory consumed by the mining process will be retrieved from this function
+
       :return: returning USS memory consumed by the mining process
       :rtype: float
       """
@@ -151,7 +153,9 @@ class cuGPPMiner(partialPeriodicPatterns):
       return self._partialPeriodicPatterns__memoryUSS
 
   def getMemoryRSS(self):
-      """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+      """
+      Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
       :return: returning RSS memory consumed by the mining process
       :rtype: float
       """
@@ -159,7 +163,9 @@ class cuGPPMiner(partialPeriodicPatterns):
       return self._partialPeriodicPatterns__memoryRSS
 
   def getRuntime(self):
-      """Calculating the total amount of runtime taken by the mining process
+      """
+      Calculating the total amount of runtime taken by the mining process
+
       :return: returning total amount of runtime taken by the mining process
       :rtype: float
       """
@@ -167,7 +173,9 @@ class cuGPPMiner(partialPeriodicPatterns):
       return self.__runTime
 
   def getPatternsAsDataFrame(self):
-      """Storing final frequent patterns in a dataframe
+      """
+      Storing final frequent patterns in a dataframe
+
       :return: returning frequent patterns in a dataframe
       :rtype: pd.DataFrame
       """
@@ -186,9 +194,11 @@ class cuGPPMiner(partialPeriodicPatterns):
       return dataframe
 
   def save(self, outFile):
-      """Complete set of frequent patterns will be loaded in to a output file
+      """
+      Complete set of frequent patterns will be loaded in to a output file
+
       :param outFile: name of the output file
-      :type outFile: file
+      :type outFile: csv file
       """
       self._partialPeriodicPatterns__oFile = outFile
       writer = open(self._partialPeriodicPatterns__oFile, 'w+')
@@ -204,7 +214,9 @@ class cuGPPMiner(partialPeriodicPatterns):
           # writer.write("%s \n" % s1)
 
   def getPatterns(self):
-      """ Function to send the set of frequent patterns after completion of the mining process
+      """
+      Function to send the set of frequent patterns after completion of the mining process
+
       :return: returning frequent patterns
       :rtype: dict
       """
@@ -218,9 +230,7 @@ class cuGPPMiner(partialPeriodicPatterns):
 
   def __creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.__Database = []
         if isinstance(self._partialPeriodicPatterns__iFile, pd.DataFrame):
@@ -318,8 +328,8 @@ class cuGPPMiner(partialPeriodicPatterns):
 
   def startMine(self):
     """
-        Main program start with extracting the periodic frequent items from the database and
-        performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
+    Main program start with extracting the periodic frequent items from the database and
+    performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
     """
     self.__path = self._partialPeriodicPatterns__iFile
     self._partialPeriodicPatterns__startTime = time.time()

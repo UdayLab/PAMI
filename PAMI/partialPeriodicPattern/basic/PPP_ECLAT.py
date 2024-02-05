@@ -58,17 +58,12 @@ import pandas as pd
 
 class PPP_ECLAT(_ab._partialPeriodicPatterns):
     """
-    Descripition:
-    ----------------------
-        3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
+    :Descripition:   3pEclat is the fundamental approach to mine the partial periodic frequent patterns.
 
-    Reference:
-    -----------
-        To be published
+    :Reference:   To be published
 
+    :Parameters:
 
-    Parameters:
-    ----------
         self.iFile : file
             Name of the Input file or path of the input file
         self. oFile : file
@@ -107,8 +102,8 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         tidList : dict
             stores the timestamps of an item
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -130,58 +125,51 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         Generation()
             Used to implement prefix class equivalence method to generate the periodic patterns recursively
 
-    Executing the code on terminal:
+    **Executing the code on terminal:**
     ----------------------------------------
-
         Format:
-        -----------
            >>> python3 PPP_ECLAT.py <inputFile> <outputFile> <minPS> <period>
 
         Examples:
-        -----------
-           >>> python3 PPP_ECLAT.py sampleDB.txt patterns.txt 0.3 0.4   (minPS and period will be considered in percentage of database transactions)
-
-           >>> python3 threePEeclat.py sampleDB.txt patterns.txt 3 4     (minPS and period will be considered in support count or frequency)
+           >>> python3 PPP_ECLAT.py sampleDB.txt patterns.txt 0.3 0.4
 
 
-    Sample run of importing the code:
+    **Sample run of importing the code:**
     -----------------------------------------
     .. code-block:: python
 
-        from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg
+            from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg
 
-        obj = alg.PPP_ECLAT(iFile, minPS,period)
+            obj = alg.PPP_ECLAT(iFile, minPS,period)
 
-        obj.startMine()
+            obj.startMine()
 
-        Patterns = obj.getPatterns()
+            Patterns = obj.getPatterns()
 
-        print("Total number of partial periodic patterns:", len(Patterns))
+            print("Total number of partial periodic patterns:", len(Patterns))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-    Credits:
+    **Credits:**
     ------------------
-
     The complete program was written by P.RaviKumar  under the supervision of Professor Rage Uday Kiran.\n
 
+    """
 
-
-        """
     _startTime = float()
     _endTime = float()
     _finalPatterns = {}
@@ -220,9 +208,10 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     def _getPeriodicSupport(self, timeStamps: list) -> int:
         """
-            calculates the support and periodicity with list of timestamps
-            :param timeStamps : timestamps of a pattern
-            :type timeStamps : list
+        calculates the support and periodicity with list of timestamps.
+
+        :param timeStamps : timestamps of a pattern
+        :type timeStamps : list
         """
         timeStamps.sort()
         per = 0
@@ -234,7 +223,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -277,7 +266,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     def _creatingOneitemSets(self) -> List[str]:
         """
-           Scans the Temporal database / Input file and stores the 1-length partial-periodic patterns.
+        Scans the Temporal database / Input file and stores the 1-length partial-periodic patterns.
         """
         plist = []
         self._tidList = {}
@@ -304,16 +293,16 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     def _save(self, prefix: List[str], suffix: List[str], tidSetX: List[int]) -> None:
         """
-            saves the patterns that satisfy the partial periodic property.
-            :param prefix: the prefix of a pattern
-            :type prefix: list
-            :param suffix : the suffix of a patterns
-            :type suffix : list
-            :param tidSetX : the timestamp of a patterns
-            :type tidSetX : list
+        saves the patterns that satisfy the partial periodic property.
 
-
+        :param prefix: the prefix of a pattern
+        :type prefix: list
+        :param suffix : the suffix of a patterns
+        :type suffix : list
+        :param tidSetX : the timestamp of a patterns
+        :type tidSetX : list
         """
+
         if prefix is None:
             prefix = suffix
         else:
@@ -327,14 +316,15 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     def _Generation(self, prefix: List[str], itemSets: List[str], tidSets: List[list]) -> None:
         """
-            Generates the patterns following Equivalence-class methods
-            :param prefix :  main equivalence prefix
-            :type prefix : partial-periodic item or pattern
-            :param itemSets : patterns which are items combined with prefix and satisfying the periodicity
-                            and partial property with their timestamps
-            :type itemSets : list
-            :param tidSets : timestamps of the items in the argument itemSets
-            :type tidSets : list
+        Generates the patterns following Equivalence-class methods
+
+        :param prefix :  main equivalence prefix
+        :type prefix : partial-periodic item or pattern
+        :param itemSets : patterns which are items combined with prefix and satisfying the periodicity
+                        and partial property with their timestamps
+        :type itemSets : list
+        :param tidSets : timestamps of the items in the argument itemSets
+        :type tidSets : list
         """
         if len(itemSets) == 1:
             i = itemSets[0]
@@ -363,8 +353,8 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     def startMine(self) -> None:
         """
-            Main program start with extracting the periodic frequent items from the database and
-            performs prefix equivalence to form the combinations and generates partial-periodic patterns.
+        Main program start with extracting the periodic frequent items from the database and
+        performs prefix equivalence to form the combinations and generates partial-periodic patterns.
 
         """
         self._startTime = _ab._time.time()
@@ -400,7 +390,6 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -410,7 +399,6 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -421,7 +409,6 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
@@ -431,7 +418,6 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -444,8 +430,9 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     def save(self, outFile: str) -> None:
         """Complete set of frequent patterns will be loaded in to an output file
-                :param outFile: name of the output file
-                :type outFile: file
+
+        :param outFile: name of the output file
+        :type outFile: file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -457,13 +444,13 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Partial Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

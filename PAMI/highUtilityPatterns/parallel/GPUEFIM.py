@@ -1,9 +1,7 @@
 # GPUEFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
 #
-#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
-#
 #
 #     from PAMI.highUtilitySpatialPattern.basic import GPUEFIM as alg
 #
@@ -128,39 +126,54 @@ void searchGPU(uint32_t *items, uint32_t *utils, uint32_t *indexesStart, uint32_
 class GPUEFIM:
 
     """
-    GPUEFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
+    :Description:   GPUEFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
-    Reference:
-    ---------
-        Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
-        high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
+    :Reference:   Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
+                  high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
     
-    Attributes:
-    ----------
-        inputFile (str): The input file path.
-        minUtil (int): The minimum utility threshold.
-        sep (str): The separator used in the input file.
-        threads (int): The number of threads to use.
-        Patterns (dict): A dictionary containing the discovered patterns.
-        rename (dict): A dictionary containing the mapping between the item IDs and their names.
-        runtime (float): The runtime of the algorithm in seconds.
-        memoryRSS (int): The Resident Set Size (RSS) memory usage of the algorithm in bytes.
-        memoryUSS (int): The Unique Set Size (USS) memory usage of the algorithm in bytes.
+    :Attributes:
 
-    Methods:
-    -------
-        read_file(): Read the input file and return the filtered transactions, primary items, and secondary items.
-        search(collections): Search for high utility itemsets in the given collections.
-        startMine(): Start the EFIM algorithm.
-        savePatterns(outputFile): Save the patterns discovered by the algorithm to an output file.
-        getPatterns(): Get the patterns discovered by the algorithm.
-        getRuntime(): Get the runtime of the algorithm.
-        getMemoryRSS(): Get the Resident Set Size (RSS) memory usage of the algorithm.
-        getMemoryUSS(): Get the Unique Set Size (USS) memory usage of the algorithm.
-        printResults(): Print the results of the algorithm.
+        inputFile (str):
+            The input file path.
+        minUtil (int):
+            The minimum utility threshold.
+        sep (str):
+            The separator used in the input file.
+        threads (int):
+            The number of threads to use.
+        Patterns (dict):
+            A dictionary containing the discovered patterns.
+        rename (dict):
+            A dictionary containing the mapping between the item IDs and their names.
+        runtime (float):
+            The runtime of the algorithm in seconds.
+        memoryRSS (int):
+            The Resident Set Size (RSS) memory usage of the algorithm in bytes.
+        memoryUSS (int):
+            The Unique Set Size (USS) memory usage of the algorithm in bytes.
+
+   :Methods:
+
+        read_file():
+            Read the input file and return the filtered transactions, primary items, and secondary items.
+        search(collections):
+            Search for high utility itemsets in the given collections.
+        startMine():
+            Start the EFIM algorithm.
+        savePatterns(outputFile):
+            Save the patterns discovered by the algorithm to an output file.
+        getPatterns():
+            Get the patterns discovered by the algorithm.
+        getRuntime():
+            Get the runtime of the algorithm.
+        getMemoryRSS():
+            Get the Resident Set Size (RSS) memory usage of the algorithm.
+        getMemoryUSS():
+            Get the Unique Set Size (USS) memory usage of the algorithm.
+        printResults():
+            Print the results of the algorithm.
 
     """
-
 
     def __init__(self, inputFile, minUtil, sep = '\t'):
         self.inputFile = inputFile
@@ -175,11 +188,9 @@ class GPUEFIM:
         """
         Read the input file and return the filtered transactions, primary items, and secondary items.
 
-        Returns:
-        -------
-            filtered_transactions (dict): A dictionary containing the filtered transactions.
-            primary (set): A set containing the primary items.
-            secondary (set): A set containing the secondary items.
+        :return: filtered_transactions (dict): A dictionary containing the filtered transactions.
+        :return: primary (set): A set containing the primary items.
+        :return: secondary (set): A set containing the secondary items.
 
         """
 
@@ -286,9 +297,7 @@ class GPUEFIM:
         """
         Search for frequent patterns in the given collections.
 
-        Attributes:
-        ----------
-            collections (list): The collections to search in.
+        :param collections (list): The collections to search in.
 
 
         """
@@ -378,9 +387,11 @@ class GPUEFIM:
 
 
     def save(self, outputFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
         :param outputFile: name of the output file
-        :type outputFile: file
+        :type outputFile: csv file
         """
         with open(outputFile, 'w') as f:
             for key, value in self.Patterns.items():
@@ -391,8 +402,7 @@ class GPUEFIM:
         """
         Start the EFIM algorithm.
 
-        Returns:
-            None
+        :return: None
         """
 
         ps = psutil.Process(os.getpid())
@@ -423,8 +433,7 @@ class GPUEFIM:
         """
         Get the patterns discovered by the algorithm.
 
-        Returns:
-            dict: A dictionary containing the discovered patterns.
+        :return: dict: A dictionary containing the discovered patterns.
         """
         return self.Patterns
 
@@ -432,8 +441,7 @@ class GPUEFIM:
         """
         Get the runtime of the algorithm.
 
-        Returns:
-            float: The runtime in seconds.
+        :returns: float: The runtime in seconds.
         """
         return self.runtime
 
@@ -441,8 +449,7 @@ class GPUEFIM:
         """
         Get the Resident Set Size (RSS) memory usage of the algorithm.
 
-        Returns:
-            int: The RSS memory usage in bytes.
+        :returns: int: The RSS memory usage in bytes.
         """
         return self.memoryRSS
 
@@ -450,14 +457,14 @@ class GPUEFIM:
         """
         Get the Unique Set Size (USS) memory usage of the algorithm.
 
-        Returns:
-            int: The USS memory usage in bytes.
+        :returns: int: The USS memory usage in bytes.
         """
         return self.memoryUSS
 
     
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

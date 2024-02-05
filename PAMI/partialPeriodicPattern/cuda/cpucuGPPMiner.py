@@ -27,16 +27,12 @@ import numpy as np
 
 class cpucuGPPMiner(_ab._partialPeriodicPatterns):
     """
-    Description:
-    -------------
-        gPPMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
+    :Description:   gPPMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
 
-    Reference:
-    -----------
-        N/A
+    :Reference:   N/A
 
-    Attributes:
-    -----------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -65,9 +61,8 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
         Database : list
             To store the transactions of a database in list
 
+    :Methods:
 
-    Methods:
-    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -84,9 +79,8 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
             Total amount of runtime taken by the mining process will be retrieved from this function
 
 
-
     **Methods to execute code on terminal**
-
+    --------------------------------------------
             Format:
                         >>>  python3 gPPMiner.py <inputFile> <outputFile> <minSup>
             Example:
@@ -96,7 +90,7 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
 
 
     **Importing this algorithm into a python program**
-
+    ------------------------------------------------------
     .. code-block:: python
 
                 from PAMI.periodicFrequentPattern.basic import gPPMiner as alg
@@ -126,11 +120,10 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
                 print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    ----------------
                 The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
-
-        """
+    """
 
     _startTime = float()
     _endTime = float()
@@ -245,7 +238,8 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
         return value
 
     def _creatingOneItemSets(self):
-        """Storing the complete transactions of the database/input file in a database variable
+        """
+        Storing the complete transactions of the database/input file in a database variable
         """
         df = pd.read_parquet(self._iFile)
 
@@ -386,7 +380,6 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -394,7 +387,8 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -408,10 +402,11 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -422,7 +417,8 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of periodic-frequent patterns after completion of the mining process
+        """
+        Function to send the set of periodic-frequent patterns after completion of the mining process
 
         :return: returning periodic-frequent patterns
         :rtype: dict

@@ -43,12 +43,12 @@ from urllib.request import urlopen
 
 
 class utilityPatterns(ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+    """
+    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
         employ in PAMI
 
+    :Attributes:
 
-    Attributes :
-    ----------
         iFile : str
             Input file name or path of the input file
         minUtil: integer 
@@ -69,8 +69,8 @@ class utilityPatterns(ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-    Methods :
-    -------
+    :Methods:
+
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -178,7 +178,7 @@ class utilityPatterns(ABC):
         """Complete set of frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass
