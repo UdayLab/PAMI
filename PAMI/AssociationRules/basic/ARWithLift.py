@@ -235,7 +235,7 @@ class ARWithLift:
 
     def _readPatterns(self) -> list:
         """
-            Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
+        Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
         """
         self._frequentPatterns = {}
         k = []

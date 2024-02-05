@@ -4,29 +4,33 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.highUtilityPattern.basic import UPGrowth as alg
+#             from PAMI.highUtilityPattern.basic import UPGrowth as alg
 #
-#     obj=alg.UPGrowth("input.txt",35)
+#             obj=alg.UPGrowth("input.txt",35)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     highUtilityPattern = obj.getPatterns()
+#             highUtilityPattern = obj.getPatterns()
 #
-#     print("Total number of Spatial Frequent Patterns:", len(highUtilityPattern))
+#             print("Total number of Spatial Frequent Patterns:", len(highUtilityPattern))
 #
-#     obj.save("output")
+#             obj.save("output")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -55,14 +59,15 @@ class _UPItem:
     """
     A class to represent the UPItem
 
-    Attribute :
-    --------
-    name: int
-        name of item
-    utility: int
-        utility of item
-    Methods :
-    -------
+    :Attributes:
+
+        name: int
+            name of item
+        utility: int
+            utility of item
+
+    :Methods:
+
     getUtility()
         method to get node utility
     setUtility()
@@ -79,30 +84,31 @@ class _UPItem:
 
     def getUtility(self) -> int:
         """
-            method to get node utility
+        method to get node utility
         """
         return self.utility
 
     def setUtility(self, utility: int) -> None:
         """
-            method to set node utility
-             :param utility: the utility to set
-             :type utility: int
+        method to set node utility
+        :param utility: the utility to set
+        :type utility: int
         """
         self.utility = utility
 
     def getName(self) -> int:
         """
-            method to get name for particular item
+        method to get name for particular item
         """
         return self.name
 
 
 class _UPNode:
     """
-        A class that represent UPNode
-    Attribute :
-    ---------
+    A class that represent UPNode
+
+    :Attributes:
+
         itemId :int
             name of the item
         count: int
@@ -113,8 +119,8 @@ class _UPNode:
             represent the link to next node with same itemid
         childs: list
             link to next node with same item id (for the header table)
-    Method:
-    ------
+    :Methods:
+
         getChildWithId( name):
             method to get child node Return the immediate child of this node having a given name
     """
@@ -135,11 +141,9 @@ class _UPNode:
 
     def getChildWithId(self, name: int) -> int:
         """
-            method to get child node Return the immediate child of this node having a given name
-            Parameters:
-            ----------
-            :param name: represent id of item
-            :type name: int
+        method to get child node Return the immediate child of this node having a given name
+        :param name: represent id of item
+        :type name: int
         """
         for child in self.childs:
             if child.itemId == name:
@@ -149,13 +153,14 @@ class _UPNode:
 
 class _UPTree:
     """
-        A class to represent UPTree
-    Attributes :
-    -----------
+    A class to represent UPTree
+
+    :Attributes:
+
         headerList: list
-            List of items in the header table
+            Lists of items in the header table
         mapItemNodes: map
-            Map that indicates the last node for each item using the node links
+            Maps that indicates the last node for each item using the node links
         root : UPNode
             root of the tree
         mapItemToLastNode: map
@@ -163,8 +168,8 @@ class _UPTree:
         hasMoreThanOnePath :bool
             Variable that indicate if the tree has more than one path
 
-    Methods:
-    --------
+    :Methods:
+
         addTransaction(transaction,rtu)
             To add a transaction (for initial construction)
         addLocalTransaction(localPath, pathUtility, mapItemToMinimumItemUtility, pathCount)
@@ -189,11 +194,11 @@ class _UPTree:
 
     def addTransaction(self, transaction: list, RTU: int) -> int:
         """
-            A Method to add new Transaction to tree
-            :param transaction: the reorganised transaction
-            :type transaction: list
-            :param RTU :reorganised transaction utility
-            :type RTU: int
+        A Method to add new Transaction to tree
+        :param transaction: the reorganised transaction
+        :type transaction: list
+        :param RTU :reorganised transaction utility
+        :type RTU: int
         """
         currentNode = self.root
         NumberOfNodes = 0
@@ -231,15 +236,15 @@ class _UPTree:
 
     def addLocalTransaction(self, localPath: list, pathUtility: int, mapItemToMinimumItemutility: dict, pathCount: int) -> int:
         """
-            A Method to add addLocalTransaction to tree
-            :param localPath: The path to insert
-            :type localPath: list
-            :param pathUtility: the Utility of path
-            :type pathUtility: int
-            :param mapItemToMinimumItemutility: the map storing minimum item utility
-            :type mapItemToMinimumItemutility: map
-            :param pathCount: the Path count
-            :type pathCount: int
+        A Method to add addLocalTransaction to tree
+        :param localPath: The path to insert
+        :type localPath: list
+        :param pathUtility: the Utility of path
+        :type pathUtility: int
+        :param mapItemToMinimumItemutility: the map storing minimum item utility
+        :type mapItemToMinimumItemutility: map
+        :param pathCount: the Path count
+        :type pathCount: int
         """
         currentLocalNode = self.root
         RemainingUtility = 0
@@ -277,13 +282,13 @@ class _UPTree:
 
     def insertNewNode(self, currentlocalNode: _UPNode, itemName: int, nodeUtility: int) -> _UPNode:
         """
-            A method to Insert a new node in the UP-Tree as child of a parent node
-             :param currentlocalNode: The parent Node
-             :type currentlocalNode: UPNode
-             :param itemName: name of item in new Node
-             :type itemName: int
-             :param nodeUtility: Utility of new node
-             :type nodeUtility: int
+        A method to Insert a new node in the UP-Tree as child of a parent node
+        :param currentlocalNode: The parent Node
+        :type currentlocalNode: UPNode
+        :param itemName: name of item in new Node
+        :type itemName: int
+        :param nodeUtility: Utility of new node
+        :type nodeUtility: int
         """
         newNode = _UPNode()
         newNode.itemId = itemName
@@ -304,9 +309,9 @@ class _UPTree:
 
     def createHeaderList(self, mapItemToTwu: dict) -> None:
         """
-            A Method for creating the list of items in the header table, in descending order of TWU or path utility.
-            :param mapItemToTwu: the Utilities of each item
-            :type mapItemToTwu: map
+        A Method for creating the list of items in the header table, in descending order of TWU or path utility.
+        :param mapItemToTwu: the Utilities of each item
+        :type mapItemToTwu: map
         """
         self.headerList = list(self.mapItemNodes.keys())
         self.headerList = sorted(self.headerList, key=lambda x: mapItemToTwu[x], reverse=True)
@@ -314,18 +319,14 @@ class _UPTree:
 
 class UPGrowth(_ab._utilityPatterns):
     """
-    Description:
-    ------------
-        UP-Growth is two-phase algorithm to mine High Utility Itemsets from transactional databases.
+    :Description:   UP-Growth is two-phase algorithm to mine High Utility Itemsets from transactional databases.
 
-    Reference:
-    ---------
-        Vincent S. Tseng, Cheng-Wei Wu, Bai-En Shie, and Philip S. Yu. 2010. UP-Growth: an efficient algorithm for high utility itemset mining.
-        In Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining (KDD '10).
-        Association for Computing Machinery, New York, NY, USA, 253–262. DOI:https://doi.org/10.1145/1835804.1835839
+    :Reference:     Vincent S. Tseng, Cheng-Wei Wu, Bai-En Shie, and Philip S. Yu. 2010. UP-Growth: an efficient algorithm for high utility itemset mining.
+                    In Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining (KDD '10).
+                    Association for Computing Machinery, New York, NY, USA, 253–262. DOI:https://doi.org/10.1145/1835804.1835839
 
-    Attributes:
-    ---------
+    :Attributes:
+
         iFile : file
             Name of the input file to mine complete set of frequent patterns
         oFile : file
@@ -349,8 +350,8 @@ class UPGrowth(_ab._utilityPatterns):
         MapItemToTwu : map
             A map to store the twu of each item in database
 
-    Methods :
-    -------
+    :Methods:
+
         startMine()
                 Mining process will start from here
         getPatterns()
@@ -360,9 +361,9 @@ class UPGrowth(_ab._utilityPatterns):
         UPGrowth( tree, alpha)
             A Method to Mine UP Tree recursively
         PrintStats()
-            A Method to print no.of phuis
+            A Method to print number of phuis
         save(oFile)
-                Complete set of frequent patterns will be loaded in to a output file
+                Complete set of frequent patterns will be loaded in to an output file
         getPatternsAsDataFrame()
                 Complete set of frequent patterns will be loaded in to a dataframe
         getMemoryUSS()
@@ -371,46 +372,47 @@ class UPGrowth(_ab._utilityPatterns):
                 Total amount of RSS memory consumed by the mining process will be retrieved from this function
         getRuntime()
                Total amount of runtime taken by the mining process will be retrieved from this function
-    Executing the code on terminal :
-    -------------------------------------
+
+    **Executing the code on terminal:**
+    ---------------------------------------------
         Format:
-        ------------
-          >>> python3 UPGrowth <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
+
+                  >>> python3 UPGrowth <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
         Examples:
-        ------------
-          >>> python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35  (it will consider "\t" as separator)
+
+                  >>> python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35
 
     Sample run of importing the code:
     -------------------------------------
     .. code-block:: python
     
-        from PAMI.highUtilityPattern.basic import UPGrowth as alg
+            from PAMI.highUtilityPattern.basic import UPGrowth as alg
 
-        obj=alg.UPGrowth("input.txt",35)
+            obj=alg.UPGrowth("input.txt",35)
 
-        obj.startMine()
+            obj.startMine()
 
-        highUtilityPattern = obj.getPatterns()
+            highUtilityPattern = obj.getPatterns()
 
-        print("Total number of Spatial Frequent Patterns:", len(highUtilityPattern))
+            print("Total number of Spatial Frequent Patterns:", len(highUtilityPattern))
 
-        obj.save("output")
+            obj.save("output")
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    -------
-        The complete program was written by Pradeep pallikila under the supervision of Professor Rage Uday Kiran.
+    **Credits:**
+    -----------------------
+            The complete program was written by Pradeep pallikila under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -437,7 +439,7 @@ class UPGrowth(_ab._utilityPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -472,8 +474,8 @@ class UPGrowth(_ab._utilityPatterns):
 
     def startMine(self) -> None:
         """
-             Mining process will start from here
-         """
+        Mining process will start from here
+        """
         self._startTime = _ab._time.time()
         tree = _UPTree()
         self._creatingItemSets()
@@ -559,11 +561,11 @@ class UPGrowth(_ab._utilityPatterns):
 
     def _UPGrowth(self, tree: _UPTree, alpha: list) -> None:
         """
-            A Method to Mine UP Tree recursively
-            :param tree: UPTree to mine
-            :type tree: UPTree
-            :param alpha: prefix itemset
-            :type alpha: list
+        A Method to Mine UP Tree recursively
+        :param tree: UPTree to mine
+        :type tree: UPTree
+        :param alpha: prefix itemset
+        :type alpha: list
         """
         for item in reversed(tree.headerList):
             localTree = self._createLocalTree(tree, item)
@@ -582,11 +584,11 @@ class UPGrowth(_ab._utilityPatterns):
 
     def _createLocalTree(self, tree: _UPTree, item: int) -> _UPTree:
         """
-            A Method to Construct conditional pattern base
-            :param tree: the UPtree
-            :type tree:UPTree
-            :param item: item that need to construct conditional patterns
-            :type item: int
+        A Method to Construct conditional pattern base
+        :param tree: the UPtree
+        :type tree: UP Tree
+        :param item: item that need to construct conditional patterns
+        :type item: int
         """
         prefixPaths = []
         path = tree.mapItemNodes[item]
@@ -626,12 +628,13 @@ class UPGrowth(_ab._utilityPatterns):
 
     def PrintStats(self) -> None:
         """
-            A Method to print number of phuis
+        A Method to print number of phuis
         """
         print('number of PHUIS are ' + str(len(self._phuis)))
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -644,16 +647,18 @@ class UPGrowth(_ab._utilityPatterns):
         return dataFrame
 
     def getPatterns(self) -> dict:
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -662,7 +667,8 @@ class UPGrowth(_ab._utilityPatterns):
             writer.write("%s\n" % patternsAndSupport)
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -670,23 +676,24 @@ class UPGrowth(_ab._utilityPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-
         """
         Calculating the total amount of runtime taken by the mining process
-            :return: returning total amount of runtime taken by the mining process
-            :rtype: float
+        return: returning total amount of runtime taken by the mining process
+        :rtype: float
         """
         return self._endTime - self._startTime
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

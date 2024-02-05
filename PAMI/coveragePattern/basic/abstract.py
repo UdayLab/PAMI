@@ -29,11 +29,12 @@ from urllib.request import urlopen as _urlopen
 
 
 class _coveragePatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every coverage pattern mining algorithm must
-        employ in PAMI
+    """
+    :Description:   This abstract base class defines the variables and methods that every coverage pattern mining algorithm must
+                    employ in PAMI
 
-       Attributes
-        ----------
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
         minCS: int or float or str
@@ -67,8 +68,8 @@ class _coveragePatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+        :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -118,51 +119,65 @@ class _coveragePatterns(_ABC):
 
     @_abstractmethod
     def startMine(self):
-        """Code for the mining process will start from this function"""
+        """
+        Code for the mining process will start from this function
+        """
 
         pass
 
     @_abstractmethod
     def getPatterns(self):
-        """Complete set of coverage patterns generated will be retrieved from this function"""
+        """
+        Complete set of coverage patterns generated will be retrieved from this function
+        """
 
         pass
 
     @_abstractmethod
     def save(self, oFile):
-        """Complete set of coverage patterns will be saved in to an output file from this function
-
+        """
+        Complete set of coverage patterns will be saved in to an output file from this function
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass
 
     @_abstractmethod
     def getPatternsAsDataFrame(self):
-        """Complete set of coverage patterns will be loaded in to data frame from this function"""
+        """
+        Complete set of coverage patterns will be loaded in to data frame from this function
+        """
 
         pass
 
     @_abstractmethod
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the program will be retrieved from this function"""
+        """
+        Total amount of USS memory consumed by the program will be retrieved from this function
+        """
 
         pass
 
     @_abstractmethod
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the program will be retrieved from this function"""
+        """
+        Total amount of RSS memory consumed by the program will be retrieved from this function
+        """
         pass
 
     @_abstractmethod
     def getRuntime(self):
-        """Total amount of runtime taken by the program will be retrieved from this function"""
+        """
+        Total amount of runtime taken by the program will be retrieved from this function
+        """
 
         pass
 
     @_abstractmethod
     def printResults(self):
-        """ To print the results of the execution"""
+        """
+        To print the results of the execution
+        """
 
         pass

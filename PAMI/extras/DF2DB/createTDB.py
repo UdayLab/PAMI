@@ -3,11 +3,11 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB import createTDB as ct
+#             from PAMI.extras.DF2DB import createTDB as ct
 #
-#     obj = ct.createTDB(idf, ">=", 16)
+#             obj = ct.createTDB(idf, ">=", 16)
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
 #
 
@@ -38,39 +38,33 @@ class createTDB:
     :Description: This class will create Transactional database.
 
     :param df: It represents the dataframe
-
     :type df: list
-
     :param threshold : It is the threshold value of all item.
-
     :type threshold: int or float
 
 
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                    from PAMI.frequentPattern.basic import FPGrowth as fp
+            from PAMI.frequentPattern.basic import FPGrowth as fp
 
-                    obj = fp.createTDB(idf, ">=" )
+            obj = fp.createTDB(idf, ">=" )
 
-                    memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-                    print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-                    memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-                    print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-                    run = obj.getRuntime()
+            run = obj.getRuntime()
 
-                    print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-
-
-
-        """
+    """
     __startTime = float()
     __endTime = float()
     __memoryUSS = float()
@@ -86,9 +80,7 @@ class createTDB:
 
     def createTDB(self):
         """
-            :Description:  To Create transactional database
-
-
+        :Description:  To Create transactional database
         """
         i = self._df.columns.values.tolist()
         if 'sid' in i:
@@ -99,11 +91,10 @@ class createTDB:
 
     def save(self, outFile):
         """
-            Complete set of frequent patterns will be loaded in to an output file
+        Complete set of frequent patterns will be loaded in to an output file
 
-            :param outFile: name of the output file
-
-            :type outFile: file
+        :param outFile: name of the output file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

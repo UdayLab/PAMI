@@ -3,15 +3,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import UtilityDatabase as db
+#             from PAMI.extras.dbStats import UtilityDatabase as db
 #
-#     obj = db.UtilityDatabase(iFile, "\t")
+#             obj = db.UtilityDatabase(iFile, "\t")
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     obj.run()
+#             obj.run()
 #
-#     obj.printStats()
+#             obj.printStats()
 
 
 __copyright__ = """
@@ -39,26 +39,28 @@ from typing import Union
 
 class UtilityDatabase:
     """
-           :Description:  UtilityDatabase is class to get stats of database.
+    :Description:  UtilityDatabase is class to get stats of database.
 
-           :param inputFile: file :
-               input file path
-           :param sep: str
-               separator in file. Default is tab space.
+    :Attributes:
 
-           **Importing this algorithm into a python program**
-           --------------------------------------------------------
-            .. code-block:: python
+        :param inputFile: file :
+           input file path
+        :param sep: str
+            separator in file. Default is tab space.
 
-                    from PAMI.extras.dbStats import UtilityDatabase as db
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                    obj = db.UtilityDatabase(iFile, "\t" )
+            from PAMI.extras.dbStats import UtilityDatabase as db
 
-                    obj.save(oFile)
+            obj = db.UtilityDatabase(iFile, "\t" )
 
-                    obj.run()
+            obj.save(oFile)
 
-                    obj.printStats()
+            obj.run()
+
+            obj.printStats()
 
     """
 
@@ -78,9 +80,7 @@ class UtilityDatabase:
 
     def creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.Database = []
         self.utilityValues = []
@@ -218,7 +218,7 @@ class UtilityDatabase:
     def getFrequenciesInRange(self) -> dict:
         """
         This function is used to get the Frequencies in range
-            :return: Frequencies In Range
+        :return: Frequencies In Range
         """
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}

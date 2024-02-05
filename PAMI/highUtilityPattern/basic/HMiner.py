@@ -4,29 +4,32 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.highUtilityPattern.basic import HMiner as alg
+#             from PAMI.highUtilityPattern.basic import HMiner as alg
 #
-#     obj = alg.HMiner("input.txt", 35)
+#             obj = alg.HMiner("input.txt", 35)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of high utility Patterns:", len(Patterns))
+#             print("Total number of high utility Patterns:", len(Patterns))
 #
-#     obj.save("output")
+#             obj.save("output")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -52,9 +55,10 @@ from PAMI.highUtilityPattern.basic import abstract as _ab
 
 class _Element:
     """
-    A class represents an Element of a utility list .
-    Attributes :
-    ----------
+    A class represents an Element of a utility list.
+
+    :Attributes :
+
         ts : int
             keep tact of transaction id
         nu : int
@@ -77,9 +81,10 @@ class _Element:
 
 class _CUList:
     """
-        A class represents a UtilityList
-    Attributes :
-    ----------
+    A class represents a UtilityList
+
+    :Attributes :
+
         item: int
             item 
         sumNu: long
@@ -94,8 +99,8 @@ class _CUList:
             the sum of closed prefix utilities
         elements: list
             the list of elements 
-    Methods :
-    -------
+    :Methods :
+
         addElement(element)
             Method to add an element to this utility list and update the sums at the same time.
     """
@@ -111,9 +116,9 @@ class _CUList:
 
     def addElements(self, element):
         """
-            A method to add new element to CUList
-            :param element: element to be added to CUList
-            :type element: Element
+        A method to add new element to CUList
+        :param element: element to be added to CUList
+        :type element: Element
         """
         self.sumnu += element.nu
         self.sumnru += element.nru
@@ -122,7 +127,7 @@ class _CUList:
 
 class _Pair:
     """
-        A class represent an item and its utility in a transaction
+    A class represent an item and its utility in a transaction
     """
 
     def __init__(self):
@@ -132,16 +137,12 @@ class _Pair:
 
 class HMiner(_ab._utilityPatterns):
     """
-    Description:
-    -------------
+    :Description:   High Utility itemSet Mining (HMIER) is an importent algorithm to miner High utility items from the database.
 
-        High Utility itemSet Mining (HMIER) is an importent algorithm to miner High utility items from the database.
+    :Reference:
 
-    Reference:
-    ------------
+    :Attributes:
 
-    Attributes:
-    ----------
         iFile : file
             Name of the input file to mine complete set of frequent patterns
         oFile : file
@@ -162,8 +163,9 @@ class HMiner(_ab._utilityPatterns):
             huis created
         neighbors: map
             keep track of nighboues of elements
-    Methods:
-    -------
+
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -189,48 +191,47 @@ class HMiner(_ab._utilityPatterns):
         construcCUL(x, culs, st, minUtil, length, exnighbors)
             A method to construct CUL's database
 
-    Executing the code on terminal :
-    -----------------------------------
+    **Executing the code on terminal:**
+    --------------------------------------------
         Format:
-        -------
-            >>> python3 HMiner.py <inputFile> <outputFile> <minUtil>
+
+                  >>> python3 HMiner.py <inputFile> <outputFile> <minUtil>
 
         Examples:
-        -------
 
-            >>> python3 HMiner.py sampleTDB.txt output.txt 35 (separator will be "\t")
+                  >>> python3 HMiner.py sampleTDB.txt output.txt 35
 
     Sample run of importing the code:
     --------------------------------------
     .. code-block:: python
 
-        from PAMI.highUtilityPattern.basic import HMiner as alg
+            from PAMI.highUtilityPattern.basic import HMiner as alg
         
-        obj = alg.HMiner("input.txt",35)
+            obj = alg.HMiner("input.txt",35)
         
-        obj.startMine()
+            obj.startMine()
         
-        Patterns = obj.getPatterns()
+            Patterns = obj.getPatterns()
         
-        print("Total number of high utility Patterns:", len(Patterns))
+            print("Total number of high utility Patterns:", len(Patterns))
         
-        obj.save("output")
+            obj.save("output")
         
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
         
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
         
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
         
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
         
-        run = obj.getRuntime()
+            run = obj.getRuntime()
         
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
     
-    Credits:
-    -------
-        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+    **Credits:**
+    -----------------------------
+            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -261,7 +262,7 @@ class HMiner(_ab._utilityPatterns):
 
     def _HMiner(self, o1, o2):
         """
-            A method to sort  list of huis in TWU ascending order
+        A method to sort  list of huis in TWU ascending order
         """
         compare = self._mapOfTWU[o1.item] - self._mapOfTWU[o2.item]
         if compare == 0:
@@ -271,7 +272,7 @@ class HMiner(_ab._utilityPatterns):
 
     def _creteItemsets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._transactions, self._utilities, self._utilitySum = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -314,7 +315,7 @@ class HMiner(_ab._utilityPatterns):
 
     def startMine(self):
         """
-            main program to start the operation
+        Main program to start the operation
         """
         self._startTime = _ab._time.time()
         self._creteItemsets()
@@ -409,15 +410,16 @@ class HMiner(_ab._utilityPatterns):
 
     def _ExploreSearchTree(self, prefix, uList, minutil):
         """
-            A method to find all high utility itemSets
-            Attributes:
-            -----------
-            :parm prefix: it represents all items in prefix
-            :type prefix :list
-            :parm uList:projected Utility list
-            :type uList: list
-            :parm minutil:user minUtil
-            :type minutil:int
+        A method to find all high utility itemSets
+
+        :Attributes:
+
+        :parm prefix:it represents all items in prefix
+        :type prefix:list
+        :parm uList:projected Utility list
+        :type uList: lists
+        :parm minutil:user minUtil
+        :type minutil:int
         """
         for i in range(0, len(uList)):
             x = uList[i]
@@ -433,21 +435,22 @@ class HMiner(_ab._utilityPatterns):
 
     def _construcCUL(self, x, culs, st, minutil, length):
         """
-            A method to construct CUL's database
-            Attributes:
-            -----------
-            :parm x: Compact utility list
-            :type x: Node
-            :parm culs:list of Compact utility lists
-            :type culs:list
-            :parm st: starting pos of culs
-            :type st:int
-            :parm minutil: user minUtil
-            :type minutil:int
-            :parm length: length of x
-            :type length:int
-            :return: projectd database of list X
-            :rtype: list
+        A method to construct CUL's database
+
+        :Attributes:
+
+        :parm x: Compact utility list
+        :type x: Node
+        :parm culs:list of Compact utility list
+        :type culs:lists
+        :parm st: starting pos of culs
+        :type st:int
+        :parm minutil: user minUtil
+        :type minutil:int
+        :parm length: length of x
+        :type length:int
+        :return: projectd database of list X
+        :rtype: list
         """
         excul = []
         lau = []
@@ -528,23 +531,24 @@ class HMiner(_ab._utilityPatterns):
 
     def _UpdateCLosed(self, x, culs, st, excul, newT, ex, ey_tid, length):
         """
-            A method to update closed values
-            Attributes:
-            -----------
-            :parm x: Compact utility list
-            :type x: list
-            :parm culs:list of Compact utility lists
-            :type culs:list
-            :parm st: starting pos of culs
-            :type st:int
-            :parm newT:transaction to be updated
-            :type newT:list
-            :parm ex: element ex
-            :type ex:element
-            :parm ey_tid:list of tss
-            :type ey_tid:ts
-            :parm length: length of x
-            :type length:int
+        A method to update closed values
+
+        :Attributes:
+
+        :parm x: Compact utility list
+        :type x: lists
+        :parm culs:list of Compact utility list
+        :type culs:lists
+        :parm st: starting pos of culs
+        :type st:int
+        :parm newT:transaction to be updated
+        :type newT:list
+        :parm ex: element ex
+        :type ex:element
+        :parm ey_tid:list of tss
+        :type ey_tid:ts
+        :parm length: length of x
+        :type length:int
         """
         nru = 0
         for j in range(len(newT) - 1, -1, -1):
@@ -557,25 +561,26 @@ class HMiner(_ab._utilityPatterns):
 
     def _updateElement(self, z, culs, st, excul, newT, ex, duppos, ey_tid):
         """
-            A method to updates vales for duplicates
-            Attributes:
-            -----------
-            :parm z: Compact utility list
-            :type z: list
-            :parm culs:list of Compact utility lists
-            :type culs:list
-            :parm st: starting pos of culs
-            :type st:int
-            :parm excul:list of culs
-            :type excul:list
-            :parm newT:transaction to be updated
-            :type newT:list
-            :parm ex: element ex
-            :type ex:element
-            :parm duppos: position of z in excul
-            :type duppos:int
-            :parm ey_tid:list of tss
-            :type ey_tid:ts
+        A method to updates vales for duplicates
+
+        :Attributes:
+
+        :parm z: Compact utility list
+        :type z: lists
+        :parm culs:list of Compact utility list
+        :type culs:lists
+        :parm st: starting pos of culs
+        :type st:int
+        :parm excul:list of culs
+        :type excul:list
+        :parm newT:transaction to be updated
+        :type newT:list
+        :parm ex: element ex
+        :type ex:element
+        :parm duppos: position of z in excul
+        :type duppos:int
+        :parm ey_tid:list of tss
+        :type ey_tid:ts
         """
         nru = 0
         pos = duppos
@@ -592,9 +597,10 @@ class HMiner(_ab._utilityPatterns):
 
     def _saveitemSet(self, prefix, prefixLen, item, utility):
         """
-         A method to save itemSets
-         Attributes:
-        -----------
+        A method to save itemSets
+
+        :Attributes:
+
         :parm prefix: it represents all items in prefix
         :type prefix :list
         :parm prefixLen: length of prefix
@@ -612,7 +618,8 @@ class HMiner(_ab._utilityPatterns):
         self._finalPatterns[str(res)] = str(utility)
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -625,16 +632,18 @@ class HMiner(_ab._utilityPatterns):
         return dataFrame
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -643,7 +652,8 @@ class HMiner(_ab._utilityPatterns):
             writer.write("%s\n" % patternsAndSupport)
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -651,21 +661,24 @@ class HMiner(_ab._utilityPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
        """
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
         return self._endTime - self._startTime
     
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

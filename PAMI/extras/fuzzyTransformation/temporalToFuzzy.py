@@ -3,11 +3,11 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.FuzzyTransformation import temporalToFuzzy as db
+#             from PAMI.extras.FuzzyTransformation import temporalToFuzzy as db
 #
-#     obj = db.temporalToFuzzy(iFile, FuzFile, oFile, "\t" )
+#             obj = db.temporalToFuzzy(iFile, FuzFile, oFile, "\t" )
 #
-#     obj.startConvert()
+#             obj.startConvert()
 #
 #
 #
@@ -36,27 +36,28 @@ from PAMI.extras.fuzzyTransformation import abstract as _ab
 class temporalToFuzzy(_ab._convert):
     """
 
-                :Description:
-                        temporalToFuzzy is used to convert the temporal database into Fuzzy temporal database.
+    :Description:
+            temporalToFuzzy is used to convert the temporal database into Fuzzy temporal database.
 
-                :param  iFile: str :
-                               Name of the Input file to mine complete set of frequent patterns
-                :param  oFile: str :
-                               Name of the output file to store complete set of frequent patterns
-                :param  fuzFile: str :
-                               Name of the Fuzzy File to process set of data.
-                :param  sep: str :
-                               This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-                **Importing this algorithm into a python program**
-                --------------------------------------------------------
-                .. code-block:: python
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  fuzFile: str :
+                   Name of the Fuzzy File to process set of data.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-                from PAMI.extras.FuzzyTransformation import temporalToFuzzy as db
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                obj = db.temporalToFuzzy(iFile, FuzFile, oFile, "\t" )
+            from PAMI.extras.FuzzyTransformation import temporalToFuzzy as db
 
-                obj.startConvert()
+            obj = db.temporalToFuzzy(iFile, FuzFile, oFile, "\t" )
+
+            obj.startConvert()
 
     """
 
@@ -126,7 +127,7 @@ class temporalToFuzzy(_ab._convert):
 
     def _fuzzyMembershipFunc(self) -> None:
         """
-           The Fuzzy file is processed and labels created according the boundaries specified in input file.
+        The Fuzzy file is processed and labels created according the boundaries specified in input file.
         """
         try:
             with open(self._fuzFile, 'r', encoding='utf-8') as f:
@@ -152,11 +153,8 @@ class temporalToFuzzy(_ab._convert):
     def _Regions(self, quantity: int) -> None:
         """
         calculate the labelled region of input "quantity"
-
         :param quantity: represents the quantity of item
-
         :type quantity: int
-
          :return: None
         """
         self._list = [0] * len(self._LabelKey)

@@ -3,15 +3,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import MultipleTimeSeriesFuzzyDatabaseStats as db
+#             from PAMI.extras.dbStats import MultipleTimeSeriesFuzzyDatabaseStats as db
 #
-#     obj = db.MultipleTimeSeriesDatabaseStats(iFile, "\t")
+#             obj = db.MultipleTimeSeriesDatabaseStats(iFile, "\t")
 #
-#     obj.run()
+#             obj.run()
 #
-#     obj.printStats()
+#             obj.printStats()
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
 #
 
@@ -43,15 +43,17 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class MultipleTimeSeriesFuzzyDatabaseStats:
     """
-        :Description:  MultipleTimeSeriesDatabaseStats is class to get statistics of multiple time series fuzzy database.
+    :Description:  MultipleTimeSeriesDatabaseStats is class to get statistics of multiple time series fuzzy database.
+
+    :Attributes:
 
         :param inputFile: file :
             input file path
         :param sep: str
             separator in file. Default is tab space.
 
-        Methods:
-        ---------
+    :Methods:
+
         run()
             execute readDatabase function
         readDatabase()
@@ -86,19 +88,19 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
             To plot all the graphs of frequency disctribution of items and transaction length distribution in database
    
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                   from PAMI.extras.dbStats import MultipleTimeSeriesFuzzyDatabaseStats as db
+            from PAMI.extras.dbStats import MultipleTimeSeriesFuzzyDatabaseStats as db
 
-                   obj = db.MultipleTimeSeriesFuzzyDatabaseStats(iFile, "\t")
+            obj = db.MultipleTimeSeriesFuzzyDatabaseStats(iFile, "\t")
 
-                   obj.run()
+            obj.run()
 
-                   obj.save(oFile)
+            obj.save(oFile)
 
-                   obj.printStats()
+            obj.printStats()
 
     """
 
@@ -173,7 +175,7 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
     def getDatabaseSize(self) -> int:
         """
         get the size of database
-        :return: data base size
+        :return: dataset size
         """
         return len(self.database)
 
@@ -300,7 +302,7 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
     def getTransanctionalLengthDistribution(self) -> dict:
         """
         get transaction length
-        :return: transaction length
+        :return: transactional length
         """
         transactionLength = {}
         for length in self.lengthList:

@@ -324,7 +324,7 @@ class CoMine(_ab._correlatedPatterns):
     ----------------------------------------
              The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
 
-        """
+    """
 
     _startTime = float()
     _endTime = float()
@@ -346,21 +346,21 @@ class CoMine(_ab._correlatedPatterns):
     _sep = "\t"
 
     def __init__(self, iFile: Union[str, _pd.DataFrame], minSup: Union[int, float, str], minAllConf: float, sep: str="\t") ->None:
-        """param iFile: give the input file
-           type iFile: str or DataFrame or url
-           param minSup: minimum support
-           type minSup:   int or float
-           param sep: Delimiter of input file
-           type sep: str
+        """
+        param iFile: give the input file
+        type iFile: str or DataFrame or url
+        param minSup: minimum support
+        type minSup:   int or float
+        param sep: Delimiter of input file
+        type sep: str
         """
 
         super().__init__(iFile, minSup, minAllConf, sep)
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-            """
+        Storing the complete transactions of the database/input file in a database variable
+        """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -410,7 +410,7 @@ class CoMine(_ab._correlatedPatterns):
 
     def _correlatedOneItem(self) -> None:
         """
-            Generating One correlated item
+        Generating One correlated item
         """
         self._mapSupport = {}
         for i in self._Database:
@@ -461,7 +461,6 @@ class CoMine(_ab._correlatedPatterns):
     def _saveAllCombinations(self, tempBuffer, s, position, prefix, prefixLength) -> None:
         """
         Generating all the combinations for items in single branch in correlatedPatternTree
-
         :param tempBuffer: items in a single branch
         :type tempBuffer: list
         :param s : support at leaf node of a branch
@@ -485,9 +484,7 @@ class CoMine(_ab._correlatedPatterns):
 
     def _correlatedPatternGrowthGenerate(self, correlatedPatternTree, prefix, prefixLength, mapSupport) -> None:
         """
-
         Mining the fp tree
-
         :param correlatedPatternTree: it represents the correlatedPatternTree
         :type correlatedPatternTree: class Tree
         :param prefix : it represents an empty list and store the patterns that are mined
@@ -496,7 +493,6 @@ class CoMine(_ab._correlatedPatterns):
         :type prefixLength :int
         :param mapSupport : it represents the support of item
         :type mapSupport : dictionary
-
         """
 
         singlePath = True
@@ -554,7 +550,6 @@ class CoMine(_ab._correlatedPatterns):
     def startMine(self) -> None:
         """
         main method to start
-
         """
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -654,9 +649,7 @@ class CoMine(_ab._correlatedPatterns):
 
     def printResults(self) -> None:
         """
-
         function to print the result after completing the process
-
         """
         print("Total number of Correlated Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
