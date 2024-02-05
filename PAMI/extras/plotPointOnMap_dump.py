@@ -34,18 +34,15 @@ import re
 
 class plotPointOnMap:
     """
-                Description: plotPointOnMap is used to take the input patterns and plot the points on map
+    :Description: plotPointOnMap is used to take the input patterns and plot the points on map
 
-                :param  inputPatterns: str :
-                            Name of the Input file
-                :param  k: str :
-                            Name of the FuzFile to process set of data.
-                :param  sep: str :
-                        This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  inputPatterns: str :   Name of the Input file
+    :param  k: str :   Name of the FuzFile to process set of data.
+    :param  sep: str :   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-                **Importing this algorithm into a python program**
-                --------------------------------------------------------
-                .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
                 from PAMI.extras.syntheticDataGenerator import plotPointOnMap as plt
 

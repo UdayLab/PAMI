@@ -2,10 +2,10 @@ import random as _rd
 import sys as _sys
 class createSyntheticTransaction:
     """
-        This class create synthetic transaction database. 
+    This class create synthetic transaction database.
 
-        Attribute:
-        ----------
+    :Attribute:
+
         totalTransactions : int
             No of transactions
         noOfItems : int
@@ -15,16 +15,14 @@ class createSyntheticTransaction:
         outputFile: str
             Name of the output file.
 
-        Methods:
-        --------
+    :Methods:
+
         createTransactionalDatabase(outputFile)
             Create transactional database and store into outputFile
 
-        Credits:
-        ---------
-             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
-
-
+    **Credits:**
+    ---------------
+    The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
 
     """
     
@@ -36,6 +34,7 @@ class createSyntheticTransaction:
     def createTransactionalDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
+
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name

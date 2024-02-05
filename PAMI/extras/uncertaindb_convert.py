@@ -9,7 +9,7 @@
 #
 #     obj.save()
 #
-#
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -31,24 +31,22 @@ __copyright__ = """
 
 class predictedClass2Transaction:
     """
-            :Description: This is used to convert the given database and predict classes.
+    :Description: This is used to convert the given database and predict classes.
 
-            :param predicted_classes: list:
-                It is dense DataFrame
+    :param predicted_classes: list: It is dense DataFrame
 
-            :param minThreshold: int or float :
-                minimum threshold User defined value.
+    :param minThreshold: int or float : minimum threshold User defined value.
 
 
-            **Importing this algorithm into a python program**
-            --------------------------------------------------------
-            .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-            from PAMI.extras.syntheticDataGenerator import uncertaindb_convert as un
+                from PAMI.extras.syntheticDataGenerator import uncertaindb_convert as un
 
-            obj = un.uncertaindb_convert(predicted_classes, 0.8)
+                obj = un.uncertaindb_convert(predicted_classes, 0.8)
 
-            obj.save(oFile)
+                obj.save(oFile)
 
     """
     def __init__(self, predicted_classes: list,minThreshold: float =0.8) :

@@ -37,8 +37,8 @@ class createNeighborhoodFileUsingGeodesicDistance:
     """
     This class create a neighbourhood file using Geodesic distance.
 
-    Attribute:
-    ----------
+    :Attribute:
+
         :param iFile : file
             Input file name or path of the input file
         :param oFile : file
@@ -51,21 +51,22 @@ class createNeighborhoodFileUsingGeodesicDistance:
                     This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             find and store the pairs of values whose Geodesic distance is less than or equal to maxDistace.
         getFileName()
             This function returns output file name.
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
-        from PAMI.extras.neighbours import findNeighboursUsingGeodesic as db
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-         obj = db.findNeighboursUsingGeodesic(iFile, oFile, 10, "\t")
+            from PAMI.extras.neighbours import findNeighboursUsingGeodesic as db
 
-         obj.save()
+             obj = db.findNeighboursUsingGeodesic(iFile, oFile, 10, "\t")
+
+            obj.save()
     """
 
     def __init__(self, iFile: str, oFile: str, maxDistance: float, seperator='\t'):

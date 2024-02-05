@@ -36,24 +36,24 @@ import plotly.express as px
 
 class convertMultipleTSIntoFuzzy():
     """
-        Description: Converting multiple time series into fuzzy
+    :Description: Converting multiple time series into fuzzy
 
-        :param  iFile: str :
-                    Name of the Input file
-        :param  FuzFile: str :
-                    Name of the FuzFile to process set of data.
+    :param  iFile: str :
+                Name of the Input file
+    :param  FuzFile: str :
+                Name of the FuzFile to process set of data.
 
-            **Importing this algorithm into a python program**
-            --------------------------------------------------------
-            .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-            from PAMI.extras.syntheticDataGenerator import convertMultiTSIntoFuzzy as fuz
+                from PAMI.extras.syntheticDataGenerator import convertMultiTSIntoFuzzy as fuz
 
-            obj = fuz.convertMultiTSIntoFuzzy(iFile, FuzFile)
+                obj = fuz.convertMultiTSIntoFuzzy(iFile, FuzFile)
 
-            obj.save()
+                obj.save()
 
-            obj.startMine()
+                obj.startMine()
 
 
     """

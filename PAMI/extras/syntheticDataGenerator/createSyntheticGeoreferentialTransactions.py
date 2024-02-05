@@ -4,10 +4,10 @@ import sys as _sys
 
 class createSyntheticGeoreferentialTransaction:
     """
-        This class create synthetic geo-referential transaction database. 
+    This class create synthetic geo-referential transaction database.
 
-        Attribute:
-        ----------
+    :Attribute:
+
         totalTransactions : int
             No of transactions
         items : int 
@@ -17,14 +17,14 @@ class createSyntheticGeoreferentialTransaction:
         outputFile: str
             Name of the output file.
 
-        Methods:
-        --------
+    :Methods:
+
         createGeoreferentialTransactionDatabase(outputFile)
             Create geo-referential transactional database and store into outputFile
 
 
-        Credits:
-        ---------
+    **Credits:**
+    --------------
              The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
 
     """
@@ -37,6 +37,7 @@ class createSyntheticGeoreferentialTransaction:
     def createGeoreferentialTransactionalDatabase(self, outputFile):
         """
         create transactional database and return outputFileName
+
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name

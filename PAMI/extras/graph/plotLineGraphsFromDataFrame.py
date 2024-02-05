@@ -34,28 +34,28 @@ import sys
 
 class plotGraphsFromDataFrame():
     """
-        plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.
+    plotLineGraphFromDataFrame is used to convert the given dataframe into plotLineGraph.
 
-        Attributes:
-        -----------
+    :Attributes:
+
         :param dataFrame : DataFrame
             store input data as DataFrame
 
-        Methods:
-        --------
+    :Methods:
+
         plotLineGraphFromDatFrame()
             draw line graph of input data. input data's key is x and value is y.
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                from PAMI.extras.graph import plotLineGraphsFromDataframe as plt
+            from PAMI.extras.graph import plotLineGraphsFromDataframe as plt
 
-                obj = plt.plotLineGraphsFromDataFrame(idf)
+            obj = plt.plotLineGraphsFromDataFrame(idf)
 
-                obj.save()
-        """
+            obj.save()
+    """
 
     def __init__(self, dataFrame: _pd.DataFrame) -> None:
 
