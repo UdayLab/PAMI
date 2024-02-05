@@ -43,12 +43,12 @@ import functools as _functools
 
 
 class _convert(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-        employ in PAMI
+    """
+    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+                    employ in PAMI
 
+    :Attributes:
 
-       Attributes:
-       ----------
         iFile : str
             Input file name or path of the input file
         minSup: integer or float or str
@@ -72,8 +72,8 @@ class _convert(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-       Methods:
-       -------
+    :Methods:
+
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -111,6 +111,8 @@ class _convert(_ABC):
 
     @_abstractmethod
     def startConvert(self) -> None:
-        """Code for the mining process will start from this function"""
+        """
+        Code for the mining process will start from this function
+        """
 
         pass

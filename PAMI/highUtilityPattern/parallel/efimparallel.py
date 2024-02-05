@@ -4,29 +4,33 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.highUtilityPattern.parallel import efimparallel as alg
+#             from PAMI.highUtilityPattern.parallel import efimparallel as alg
 #
-#     obj=alg.efimparallel("input.txt",35)
+#             obj=alg.efimparallel("input.txt",35)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     highUtilityPattern = obj.getPatterns()
+#             highUtilityPattern = obj.getPatterns()
 #
-#     print("Total number of Spatial Frequent Patterns:", len(highUtilityPattern))
+#             print("Total number of Spatial Frequent Patterns:", len(highUtilityPattern))
 #
-#     obj.save("output")
+#             obj.save("output")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -58,40 +62,56 @@ from PAMI.highUtilityPattern.parallel import abstract as _ab
 
 class efimParallel(_ab._utilityPatterns):
     """
-    Description:
-    -----------
-    EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
+    :Description:   EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
     
-    Reference:
-    ---------
-        Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
-        high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
+    :Reference:     Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
+                     high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
     
-    Attributes:
-    ----------
-        inputFile (str): The input file path.
-        minUtil (int): The minimum utility threshold.
-        sep (str): The separator used in the input file.
-        threads (int): The number of threads to use.
-        Patterns (dict): A dictionary containing the discovered patterns.
-        rename (dict): A dictionary containing the mapping between the item IDs and their names.
-        runtime (float): The runtime of the algorithm in seconds.
-        memoryRSS (int): The Resident Set Size (RSS) memory usage of the algorithm in bytes.
-        memoryUSS (int): The Unique Set Size (USS) memory usage of the algorithm in bytes.
+    :Attributes:
 
-    Methods:
-    -------
-        read_file(): Read the input file and return the filtered transactions, primary items, and secondary items.
-        binarySearch(arr, item): Perform a binary search on the given array to find the given item.
-        project(beta, file_data, secondary): Project the given beta itemset on the given database.
-        search(collections): Search for high utility itemsets in the given collections.
-        startMine(): Start the EFIM algorithm.
-        savePatterns(outputFile): Save the patterns discovered by the algorithm to an output file.
-        getPatterns(): Get the patterns discovered by the algorithm.
-        getRuntime(): Get the runtime of the algorithm.
-        getMemoryRSS(): Get the Resident Set Size (RSS) memory usage of the algorithm.
-        getMemoryUSS(): Get the Unique Set Size (USS) memory usage of the algorithm.
-        printResults(): Print the results of the algorithm.
+        inputFile (str):
+            The input file path.
+        minUtil (int):
+            The minimum utility threshold.
+        sep (str):
+            The separator used in the input file.
+        threads (int):
+            The number of threads to use.
+        Patterns (dict):
+            A dictionary containing the discovered patterns.
+        rename (dict):
+            A dictionary containing the mapping between the item IDs and their names.
+        runtime (float):
+            The runtime of the algorithm in seconds.
+        memoryRSS (int):
+            The Resident Set Size (RSS) memory usage of the algorithm in bytes.
+        memoryUSS (int):
+            The Unique Set Size (USS) memory usage of the algorithm in bytes.
+
+    :Methods:
+
+        read_file():
+            Read the input file and return the filtered transactions, primary items, and secondary items.
+        binarySearch(arr, item):
+            Perform a binary search on the given array to find the given item.
+        project(beta, file_data, secondary):
+            Project the given beta itemset on the given database.
+        search(collections):
+            Search for high utility itemsets in the given collections.
+        startMine():
+            Start the EFIM algorithm.
+        savePatterns(outputFile):
+            Save the patterns discovered by the algorithm to an output file.
+        getPatterns():
+            Get the patterns discovered by the algorithm.
+        getRuntime():
+            Get the runtime of the algorithm.
+        getMemoryRSS():
+            Get the Resident Set Size (RSS) memory usage of the algorithm.
+        getMemoryUSS():
+            Get the Unique Set Size (USS) memory usage of the algorithm.
+        printResults():
+            Print the results of the algorithm.
 
     """
 
@@ -109,12 +129,11 @@ class efimParallel(_ab._utilityPatterns):
         """
         Read the input file and return the filtered transactions, primary items, and secondary items.
 
-        Returns:
-        -------
+        :return:
+
             filtered_transactions (dict): A dictionary containing the filtered transactions.
             primary (set): A set containing the primary items.
             secondary (set): A set containing the secondary items.
-        
         """
 
 
@@ -193,14 +212,17 @@ class efimParallel(_ab._utilityPatterns):
         """
         Do a binary search on the given array to find the given item.
 
-        Attributes:
-        ----------
-            arr (list): The array to search in.
-            item (int): The item to search for.
+        :Attributes:
 
-        Returns:
-        -------
-            mid (int): The index of the item if found, -1 otherwise.
+            arr (list):
+                The array to search in.
+            item (int):
+                The item to search for.
+
+        :return:
+
+            mid (int):
+                The index of the item if found, -1 otherwise.
 
         """
 
@@ -223,14 +245,17 @@ class efimParallel(_ab._utilityPatterns):
         """
         Project the given beta itemset on the given database.
 
-        Attributes:
-        ----------
-            beta (list): The beta itemset to project.
-            file_data (dict): The database to project on.
-            secondary (set): The set of secondary items.
+        :Attributes:
 
-        Returns:
-        -------
+            beta (list):
+                The beta itemset to project.
+            file_data (dict):
+                The database to project on.
+            secondary (set):
+                The set of secondary items.
+
+        :return:
+
             projected_db (dict): The projected database.
             local_utils (dict): The local utilities of the projected database.
             subtree_utils (dict): The subtree utilities of the projected database.
@@ -301,11 +326,10 @@ class efimParallel(_ab._utilityPatterns):
         """
         Search for frequent patterns in the given collections.
 
-        Attributes:
-        ----------
-            collections (list): The collections to search in.
+        :Attributes:
 
-
+            collections (list):
+                The collections to search in.
         """
 
         if (self.threads > 1):
@@ -348,8 +372,7 @@ class efimParallel(_ab._utilityPatterns):
         """
         Start the EFIM algorithm.
 
-        Returns:
-            None
+        :return: None
         """
 
         ps = psutil.Process(os.getpid())
@@ -369,10 +392,10 @@ class efimParallel(_ab._utilityPatterns):
         self.runtime = end - self.start
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
-
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -381,11 +404,11 @@ class efimParallel(_ab._utilityPatterns):
             writer.write("%s \n" % patternsAndSupport)
     
     def getPatternsAsDataFrame(self):
-        """Storing final patterns in a dataframe
-
+        """
+        Storing final patterns in a dataframe
         :return: returning patterns in a dataframe
         :rtype: pd.DataFrame
-            """
+        """
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
@@ -398,7 +421,7 @@ class efimParallel(_ab._utilityPatterns):
         """
         Get the patterns discovered by the algorithm.
 
-        Returns:
+        :return:
             dict: A dictionary containing the discovered patterns.
         """
         return self.Patterns
@@ -407,7 +430,7 @@ class efimParallel(_ab._utilityPatterns):
         """
         Get the runtime of the algorithm.
 
-        Returns:
+        :return:
             float: The runtime in seconds.
         """
         return self.runtime
@@ -416,7 +439,7 @@ class efimParallel(_ab._utilityPatterns):
         """
         Get the Resident Set Size (RSS) memory usage of the algorithm.
 
-        Returns:
+        :return:
             int: The RSS memory usage in bytes.
         """
         return self.memoryRSS
@@ -425,14 +448,15 @@ class efimParallel(_ab._utilityPatterns):
         """
         Get the Unique Set Size (USS) memory usage of the algorithm.
 
-        Returns:
+        :return:
             int: The USS memory usage in bytes.
         """
         return self.memoryUSS
 
 
     def printResults(self):
-        """ this function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

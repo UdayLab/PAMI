@@ -3,15 +3,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import UncertainTransactionalDatabase as db
+#             from PAMI.extras.dbStats import UncertainTransactionalDatabase as db
 #
-#     obj = db.UncertainTransactionalDatabase(iFile, "\t")
+#             obj = db.UncertainTransactionalDatabase(iFile, "\t")
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#    obj.run()
+#             obj.run()
 #
-#    obj.printStats()
+#             obj.printStats()
 #
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -40,16 +40,17 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class UncertainTransactionalDatabase:
     """
-        :Description:
-         ------------
-         UncertainTransactionalDatabase is class to get stats of database.
+    :Description:    UncertainTransactionalDatabase is class to get stats of database.
+
+    :Attributes:
 
         inputFile : file
             input file path
         sep : str
             separator in file. Default is tab space.
-        Methods:
-        -------
+
+    :Methods:
+
         run()
             execute readDatabase function
         readDatabase()
@@ -75,19 +76,19 @@ class UncertainTransactionalDatabase:
         save(data, outputFile)
             store data into outputFile
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                    from PAMI.extras.dbStats import UncertainTransactionalDatabase as db
+            from PAMI.extras.dbStats import UncertainTransactionalDatabase as db
 
-                    obj = db.UncertainTransactionalDatabase(iFile, "\t")
+            obj = db.UncertainTransactionalDatabase(iFile, "\t")
 
-                    obj.save(oFile)
+            obj.save(oFile)
 
-                    obj.run()
+            obj.run()
 
-                    obj.printStats()
+            obj.printStats()
 
     """
 
@@ -146,7 +147,7 @@ class UncertainTransactionalDatabase:
     def getDatabaseSize(self) -> int:
         """
         get the size of database
-        :return: data base size
+        :return: dataset size
         """
         return len(self.database)
 
@@ -266,7 +267,7 @@ class UncertainTransactionalDatabase:
     def getTransanctionalLengthDistribution(self) -> dict:
         """
         get transaction length
-        :return: transaction length
+        :return: transactional length
         """
         transactionLength = {}
         for length in self.lengthList:

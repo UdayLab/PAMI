@@ -3,19 +3,19 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB import SparseFormatDF as db
+#             from PAMI.extras.DF2DB import SparseFormatDF as db
 #
-#     obj = db.SparseFormatDF(idf, ">=", 16)
+#             obj = db.SparseFormatDF(idf, ">=", 16)
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     obj.createTransactional("outputFileName") # To create transactional database
+#             obj.createTransactional("outputFileName") # To create transactional database
 #
-#     obj.createTemporal("outputFileName") # To create temporal database
+#             obj.createTemporal("outputFileName") # To create temporal database
 #
-#     obj.createUtility("outputFileName") # To create utility database
+#             obj.createUtility("outputFileName") # To create utility database
 #
-#     obj.getFileName("outputFileName") # To get file name of the database
+#             obj.getFileName("outputFileName") # To get file name of the database
 #
 #
 #
@@ -40,35 +40,34 @@ import sys
 
 class SparseFormatDF:
     """
-            :Description:  This class create Data Base from DataFrame.
+    :Description:  This class create Data Base from DataFrame.
 
-            :param inputDF: dataframe :
-                It is dense DataFrame
-            :param condition: str :
-                It is condition to judge the value in dataframe
-            :param thresholdValue: int or float :
-                User defined value.
+    :Attributes:
 
+        :param inputDF: dataframe :
+            It is dense DataFrame
+        :param condition: str :
+            It is condition to judge the value in dataframe
+        :param thresholdValue: int or float :
+            User defined value.
 
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+            from PAMI.extras.DF2DB import SparseFormatDF as db
 
-        from PAMI.extras.DF2DB import SparseFormatDF as db
+            obj = db.SparseFormatDF(iDdf, ">=", 16)
 
-        obj = db.SparseFormatDF(iDdf, ">=", 16)
+            obj.save(oFile)
 
-        obj.save(oFile)
+            obj.createTransactional("outputFileName") # To create transactional database
 
-        obj.createTransactional("outputFileName") # To create transactional database
+            obj.createTemporal("outputFileName") # To create temporal database
 
-        obj.createTemporal("outputFileName") # To create temporal database
+            obj.createUtility("outputFileName") # To create utility database
 
-        obj.createUtility("outputFileName") # To create utility database
-
-        obj.getFileName("outputFileName") # To get file name of the database
-
+            obj.getFileName("outputFileName") # To get file name of the database
     """
 
 
@@ -93,7 +92,6 @@ class SparseFormatDF:
     def createTransactional(self, outputFile: str) -> None:
         """
         Create transactional data base
-
         :param outputFile: Write transactional data base into outputFile
         :type outputFile: str
 
@@ -109,7 +107,6 @@ class SparseFormatDF:
     def createTemporal(self, outputFile: str) -> None:
         """
         Create temporal data base
-
         :param outputFile: Write temporal data base into outputFile
         :type outputFile: str
         """
@@ -124,9 +121,8 @@ class SparseFormatDF:
 
     def createUtility(self, outputFile: str) -> None:
         """
-        Create the utility data base.
-
-        :param outputFile: Write utility data base into outputFile
+        Create the utility database.
+        :param outputFile: Write utility database into outputFile
         :type outputFile: str
         """
 
@@ -147,10 +143,7 @@ class SparseFormatDF:
                 f.write('\n')
 
     def getFileName(self) -> str:
-        """
 
-        :return: outputFile name
-        """
         return self.outputFile
 
 if __name__ == '__main__':

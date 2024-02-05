@@ -1,19 +1,19 @@
 # generateTemporalDatabase is a code used to convert the database into Temporal database.
 #
-#   **Importing this algorithm into a python program**
-#    --------------------------------------------------------
+#  **Importing this algorithm into a python program**
+#  --------------------------------------------------------
 #
-#     from PAMI.extras.generateDatabase import generateTemporalDatabase as db
+#             from PAMI.extras.generateDatabase import generateTemporalDatabase as db
 #
-#     obj = db.generateTemporalDatabase(100, 10, 6, oFile, %, "\t")
+#             obj = db.generateTemporalDatabase(100, 10, 6, oFile, %, "\t")
 #
-#     obj.save()
+#             obj.save()
 #
-#     obj.getFileName("outputFileName") # to create a file
+#             obj.getFileName("outputFileName") # to create a file
 #
-#     obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
+#             obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
 #
-#     obj.createTemporalFile("outputFileName") # to get outputfile
+#             obj.createTemporalFile("outputFileName") # to get outputfile
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -40,12 +40,10 @@ import sys
 
 class generateTemporalDatabase:
     """
-    Description:
-    -------------
-        generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input
+    :Description:   generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input
 
-    Attributes:
-    -----------
+    :Attributes:
+
         numOfTransactions: int
             number of transactions
         maxNumOfItem: int
@@ -61,8 +59,8 @@ class generateTemporalDatabase:
         typeOfFile: str
             specify database or dataframe to get corresponding output
 
-    Methods:
-    ---------
+    :Methods:
+
         getFileName():
             returns filename
         createTemporalFile():
@@ -70,27 +68,26 @@ class generateTemporalDatabase:
         getDatabaseAsDataFrame:
             returns dataframe
 
-     **Importing this algorithm into a python program**
+    **Importing this algorithm into a python program**
     --------------------------------------------------------
-     .. code-block:: python
+    .. code-block:: python
 
-     from PAMI.extras.generateDatabase import generateTemporalDatabase as db
+             from PAMI.extras.generateDatabase import generateTemporalDatabase as db
 
-     obj = db.generateTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)
+             obj = db.generateTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)
 
-     obj.save()
+             obj.save()
 
-     obj.getFileName("outputFileName") # to create a file
+             obj.getFileName("outputFileName") # to create a file
 
-     obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
+             obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
 
-     obj.createTemporalFile("outputFileName") # to get outputfile
+             obj.createTemporalFile("outputFileName") # to get outputfile
 
     """
     def __init__(self, numOfTransactions: int, maxNumOfItems: int, maxNumOfItemsPerTransaction: int, outputFile: str, percentage: int=50,
                  sep: str='\t', typeOfFile: str="Database") -> None:
         """
-
         :param numOfTransactions: number of transactions
         :type numOfTransactions: int
         :param maxNumOfItems: Highest value an item can be

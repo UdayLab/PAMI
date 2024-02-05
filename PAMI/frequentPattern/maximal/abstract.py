@@ -42,8 +42,8 @@ from urllib.request import urlopen as _urlopen
 
 class _frequentPatterns(_ABC):
     """
-    This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-    employ in PAMI
+    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+                    employ in PAMI
 
     :Attributes:
 
