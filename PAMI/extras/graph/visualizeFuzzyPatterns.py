@@ -40,25 +40,22 @@ import sys
 class visualizeFuzzyPatterns():
     """
 
-           :Description:
-                    visualizeFuzzyPatterns is used to visualize points produced by pattern miner .
-            Attributes:
-            ----------
-           :param file : file
-                store input data as file
-           :param topk : int
-                Takes the value int as input
+   :Description:   visualizeFuzzyPatterns is used to visualize points produced by pattern miner .
+   :Attributes:
 
-                **Importing this algorithm into a python program**
-                --------------------------------------------------------
-                .. code-block:: python
+   :param file : file:   store input data as file
+   :param topk : int:     Takes the value int as input
 
-                from PAMI.extras.graph import visualizeFuzzyPatterns as viz
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                obj = viz.visualizeFuzzyPatterns(iFile, topk)
+            from PAMI.extras.graph import visualizeFuzzyPatterns as viz
 
-                obj.save()
-        """
+            obj = viz.visualizeFuzzyPatterns(iFile, topk)
+
+            obj.save()
+    """
 
     def __init__(self, file: str, topk: int) -> None:
         self.file = file
@@ -68,12 +65,10 @@ class visualizeFuzzyPatterns():
         """
         Visualize points produced by pattern miner.
 
-        :param file: String for file name
-        :param top: visualize topk patterns
-        :param markerSize: int
+        :param markerSize: integer
         :param zoom: int
-        :param file: int
-        :param file: int
+        :param width: int
+        :param height: int
         """
 
         long = []

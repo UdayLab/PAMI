@@ -3,11 +3,11 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
+#             from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
 #
-#     obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
+#             obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
 #
-#     obj.startConvert()
+#             obj.startConvert()
 #
 #
 
@@ -33,31 +33,29 @@ import abstract as _ab
 class utilityToFuzzy(_ab._convert):
     """
 
-            :Description:
-                    utilityToFuzzy is a code used to convert the utility database into Fuzzy transactional database.
+    :Description:
+            utilityToFuzzy is a code used to convert the utility database into Fuzzy transactional database.
 
-            :param  iFile: str :
-                    Name of the Input file
-            :param  oFile: str :
-                    Name of the output file
-            :param  fuzFile: str :
-                   Name of the FuzFile to process set of data.
-            :param  sep: str :
-                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-
-
-
-            **Importing this algorithm into a python program**
-            --------------------------------------------------------
-            .. code-block:: python
-
-                    from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
-
-                    obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
-
-                    obj.startConvert()
+    :param  iFile: str :
+            Name of the Input file
+    :param  oFile: str :
+            Name of the output file
+    :param  fuzFile: str :
+           Name of the FuzFile to process set of data.
+    :param  sep: str :
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
 
+
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
+
+            from PAMI.extras.FuzzyTransformation import utilityToFuzzy as db
+
+            obj = db.utilityToFuzzy(iFile, FuzFile, oFile, "\t" )
+
+            obj.startConvert()
     """
 
     _iFile: str = ' '
@@ -82,7 +80,7 @@ class utilityToFuzzy(_ab._convert):
 
     def _creatingItemSets(self) -> None:
         """
-           To process the input file and store the timestamps, items, and their values as lists respectively.
+        To process the input file and store the timestamps, items, and their values as lists respectively.
         """
         self._transactionsDB, self._fuzzyValuesDB, self._tsDB = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -123,7 +121,7 @@ class utilityToFuzzy(_ab._convert):
 
     def _fuzzyMembershipFunc(self) -> None:
         """
-           The Fuzzy file is processed and labels created according the boundaries specified in input file.
+        The Fuzzy file is processed and labels created according the boundaries specified in input file.
         """
         try:
             with open(self._fuzFile, 'r', encoding='utf-8') as f:
@@ -149,11 +147,8 @@ class utilityToFuzzy(_ab._convert):
     def _Regions(self, quantity: int) -> None:
         """
          calculate the labelled region of input "quantity"
-     
          :param quantity: represents the quantity of item
-     
          :type quantity: int
-     
          :return: None
          """
         self._list = [0] * len(self._LabelKey)
@@ -173,7 +168,7 @@ class utilityToFuzzy(_ab._convert):
 
     def startConvert(self) -> None:
         """
-             Main method to convert the temporal database into fuzzy database.
+        Main method to convert the temporal database into fuzzy database.
         """
         _writer = open(self._oFile, 'w+')
         self._creatingItemSets()

@@ -104,7 +104,7 @@ class PositionMining:
 
     def getfreqs(self):
         """
-        Initial scan of database where frequent length 1 candidates will be mined
+        Initial scan of database where frequent length one candidate will be mined
         :param : none
         """
         self.symbol_freq={"A":set(),"G":set(),"C":set(),"T":set()}
@@ -162,9 +162,9 @@ class PositionMining:
 
     def save(self, outFile):
         """
-        Complete set of frequent patterns will be loaded in to a output file
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         df=self.getPatternsAsDataFrame()
         df.to_csv(outFile)
@@ -173,7 +173,7 @@ class PositionMining:
         
     def get_Klength_patterns(self,k):
         """
-        Get frequent patterns of k length
+        Get frequent patterns of klength
         :param k : length of the pattern
         :type dictionary of frequent patterns
         """
@@ -214,6 +214,9 @@ class PositionMining:
         return self._endTime-self._startTime
     
     def printResults(self):
+        """
+        This function is used to print the results
+        """
         print("Total number of High Utility Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())
@@ -252,7 +255,7 @@ class PositionMining:
 
     def mineNext_candidates(self):
         """
-        Minining frequent patterns along with their positions from length 1 frequent candidates
+        Mining frequent patterns along with their positions from length 1 frequent candidates
         :param : none
         """
         while self.current_candidate<5:
@@ -266,7 +269,7 @@ class PositionMining:
         
     def startMine(self):
         """
-            Pattern mining process will start from here
+        Pattern mining process will start from here
         """
         # pass
         self._startTime = _ab._time.time()

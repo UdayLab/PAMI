@@ -4,10 +4,10 @@ import sys as _sys
 
 class createSyntheticGeoreferentialUncertainTransaction:
     """
-        This class is to create synthetic geo-referential uncertain transaction database. 
+    This class is to create synthetic geo-referential uncertain transaction database.
 
-        Attribute:
-        ----------
+    :Attribute:
+
         totalTransactions : int
             No of transactions
         noOfItems : int 
@@ -17,18 +17,14 @@ class createSyntheticGeoreferentialUncertainTransaction:
         outputFile: str
             Name of the output file.
 
-        Methods:
-        --------
+    :Methods:
+
         createGeoreferentialuncertainTransactionDatabase(outputFile)
             Create geo-referential transactional database store into outputFile
 
-        Credits:
-        ---------
-             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
-
-
-
-
+    **Credits:**
+    --------------
+        The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
 
     """
     
@@ -40,6 +36,7 @@ class createSyntheticGeoreferentialUncertainTransaction:
     def createGeoreferentialUncertainTransactionalDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
+
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name

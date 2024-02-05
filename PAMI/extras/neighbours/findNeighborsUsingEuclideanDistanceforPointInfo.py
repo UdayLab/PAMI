@@ -36,8 +36,8 @@ class createNeighborhoodFileUsingEuclideanDistance:
     """
     This class create a neighbourhood file using euclid distance.
 
-    Attribute:
-    ----------
+    :Attribute:
+
         :param iFile : file
             Input file name or path of the input file
         :param oFile : file
@@ -49,23 +49,22 @@ class createNeighborhoodFileUsingEuclideanDistance:
         :param  seperator: str :
                     This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             find and store the pairs of values whose Euclidean distance is less than or equal to maxEucledianDistace.
         getFileName()
             This function returns output file name.
 
-       **Importing this algorithm into a python program**
-        --------------------------------------------------------
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-        .. code-block:: python
+            from PAMI.extras.neighbours import findNeighboursUsingEuclidean as db
 
-        from PAMI.extras.neighbours import findNeighboursUsingEuclidean as db
+            obj = db.findNeighboursUsingEuclidean(iFile, oFile, 10, "\t")
 
-         obj = db.findNeighboursUsingEuclidean(iFile, oFile, 10, "\t")
-
-         obj.save()
+            obj.save()
     """
 
     def __init__(self,iFile: str,oFile: str,maxEucledianDistance: int, seperator='\t') -> None:

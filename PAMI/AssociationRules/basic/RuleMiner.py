@@ -58,12 +58,6 @@ class Confidence:
     """
     
     def __init__(self, patterns, singleItems, threshold):
-        """
-        :param inputFile: input file name or path
-        :type inputFile: str
-        :param sep: str
-        :type sep
-        """
         self._frequentPatterns = patterns
         self._singleItems = singleItems
         self._threshold = threshold

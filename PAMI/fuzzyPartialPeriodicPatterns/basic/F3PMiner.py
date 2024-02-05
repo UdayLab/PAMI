@@ -29,7 +29,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 __copyright__ = """
@@ -70,8 +70,8 @@ class _FFList:
     """
      A class represent a Fuzzy List of an element
 
-    Attributes :
-    ----------
+    :Attributes:
+
          item: int
              the item name
          sumIUtil: float
@@ -80,8 +80,9 @@ class _FFList:
              the sum of resting values of a fuzzy item in database
          elements: list
              a list of elements contain tid,Utility and resting values of element in each transaction
-    Methods :
-    -------
+
+    :Methods:
+
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
 
@@ -97,17 +98,17 @@ class _FFList:
 
     def addElement(self, element):
         """
-            A Method that add a new element to FFList
+        A Method that add a new element to FFList
 
-            :param element: an element to be added to FFList
-            :param type: Element
+        :param element: an element to be added to FFList
+        :param element: Element
         """
         self.sumIUtil += element.iUtils
         self.elements.append(element)
 
     def printElement(self):
         """
-            A method to print elements
+        A method to print elements
         """
         for ele in self.elements:
             print(ele.tid, ele.iUtils, ele.rUtils)
@@ -115,16 +116,16 @@ class _FFList:
 
 class _Element:
     """
-        A class represents an Element of a fuzzy list
+    A class represents an Element of a fuzzy list
 
-    Attributes:
-    ----------
-            tid : int
-                keep tact of transaction id
-            iUtils: float
-                the utility of an fuzzy item in the transaction
-            rUtils : float
-                the  resting value of an fuzzy item in the transaction
+    :Attributes:
+
+        tid : int
+            keep tact of transaction id
+        iUtils: float
+            the utility of an fuzzy item in the transaction
+        rUtils : float
+            the  resting value of an fuzzy item in the transaction
     """
 
     def __init__(self, tid, iUtil):
@@ -134,7 +135,7 @@ class _Element:
 
 class _Pair:
     """
-        A class to store item and it's quantity together
+    A class to store item and it's quantity together
     """
 
     def __init__(self):
@@ -144,16 +145,12 @@ class _Pair:
 
 class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
     """
-    Description:
-    ----------
-        F3PMiner algorithm discovers the fuzzy partial periodic patterns in quantitative Irregulat multiple timeseries databases.
+    :Description:   F3PMiner algorithm discovers the fuzzy partial periodic patterns in quantitative Irregulat multiple timeseries databases.
     
-    Reference :
-    ---------
-        
-        
-    Attributes :
-    ----------
+    :Reference:
+
+    :Attributes:
+
         iFile : string
             Name of the input file to mine complete set of fuzzy spatial frequent patterns
         oFile : string
@@ -184,8 +181,9 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
             represent the size of Buffer
         itemBuffer list
             to keep track of items in buffer
-    Methods :
-    -------
+
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -213,20 +211,15 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         WriteOut(prefix, prefixLen, item, sumIUtil)
             To Store the patten
 
-    Executing the code on terminal :
-    -------
+    **Executing the code on terminal :**
+    -------------------------------------
         Format:
-            python3 F3PMiner.py <inputFile> <outputFile> <minSup> <separator>
+            >>> python3 F3PMiner.py <inputFile> <outputFile> <minSup> <separator>
         Examples:
-            python3  F3PMiner.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
+            >>> python3  F3PMiner.py sampleTDB.txt output.txt 6
 
-            python3  F3PMiner.py sampleTDB.txt output.txt 0.3 (minSup and maxPer will be considered in percentage of database)
-                                                      (it will consider '\t' as a separator)
-
-            python3  F3PMiner.py sampleTDB.txt output.txt 6 , (it consider ',' as a separator)
-
-    Sample run of importing the code:
-    -------------------------------
+    **Sample run of importing the code:**
+    --------------------------------------
 
         from PAMI.fuzzyPartialPeriodicPatterns import F3PMiner as alg
 
@@ -252,9 +245,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-
-    Credits:
-    -------
+    **Credits:**
+    -------------
         The complete program was written by PALLA Likhitha under the supervision of Professor Rage Uday Kiran.
     """
     
@@ -287,7 +279,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
 
     def _compareItems(self, o1, o2):
         """
-            A Function that sort all ffi-list in ascending order of Support
+        A Function that sort all ffi-list in ascending order of Support
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -303,6 +295,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -320,8 +313,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
 
     def _creatingItemsets(self):
         """
-           Storing the complete transactions of the database/input file in a database variable
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._transactions, self._fuzzyValues, self._Database, self._ts = [], [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -375,7 +367,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
 
     def startMine(self):
         """
-          fuzzy-Frequent pattern mining process will start from here
+        fuzzy-Frequent pattern mining process will start from here
         """
         self._startTime = _ab._time.time()
         self._creatingItemsets()
@@ -433,7 +425,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         self._memoryRSS = process.memory_info().rss
 
     def _F3PMining(self, prefix, prefixLen, FSFIM, minSup):
-        """Generates ffi from prefix
+        """
+        Generates ffi from prefix
 
         :param prefix: the prefix patterns of ffi
         :type prefix: len
@@ -457,7 +450,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
                 self._F3PMining(self._itemSetBuffer, prefixLen + 1, exULs, minSup)
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -466,7 +460,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -474,7 +469,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
 
         :return: returning total amount of runtime taken by the mining process
@@ -484,14 +480,14 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
 
     def _construct(self, px, py):
         """
-            A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
+        A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
 
-            :param px:the itemSet px
-            :type px:ffi-List
-            :param py:itemSet py
-            :type py:ffi-List
-            :return :the itemSet of pxy(px and py)
-            :rtype :ffi-List
+        :param px:the itemSet px
+        :type px:ffi-List
+        :param py:itemSet py
+        :type py:ffi-List
+        :return :the itemSet of pxy(px and py)
+        :rtype :ffi-List
         """
         pxyUL = _FFList(py.item)
         for ex in px.elements:
@@ -504,13 +500,14 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
 
     def _findElementWithTID(self, uList, tid):
         """
-            To find element with same tid as given
-            :param uList: fuzzyList
-            :type uList: ffi-List
-            :param tid: transaction id
-            :type tid: int
-            :return: element  tid as given
-            :rtype: element if exit or None
+        To find element with same tid as given
+
+        :param uList: fuzzyList
+        :type uList: ffi-List
+        :param tid: transaction id
+        :type tid: int
+        :return: element  tid as given
+        :rtype: element if exit or None
         """
         List = uList.elements
         first = 0
@@ -527,16 +524,16 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
 
     def _WriteOut(self, prefix, prefixLen, item, sumIUtil):
         """
-            To Store the patten
+        To Store the patten
 
-            :param prefix: prefix of itemSet
-            :type prefix: list
-            :param prefixLen: length of prefix
-            :type prefixLen: int
-            :param item: the last item
-            :type item: int
-            :param sumIUtil: sum of utility of itemSet
-            :type sumIUtil: float
+        :param prefix: prefix of itemSet
+        :type prefix: list
+        :param prefixLen: length of prefix
+        :type prefixLen: int
+        :param item: the last item
+        :type item: int
+        :param sumIUtil: sum of utility of itemSet
+        :type sumIUtil: float
 
         """
         self._itemsCnt += 1
@@ -548,7 +545,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         self._finalPatterns[res] = res1
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -562,7 +560,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         return dataFrame
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
@@ -570,7 +569,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         return self._finalPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """
+        Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -582,7 +582,8 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Fuzzy Partial Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

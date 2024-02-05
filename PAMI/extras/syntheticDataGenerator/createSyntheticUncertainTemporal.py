@@ -4,10 +4,10 @@ import sys as _sys
 
 class createSyntheticUncertainTemporal:
     """
-        This class create synthetic temporal database. 
+    This class create synthetic temporal database.
 
-        Attribute:
-        ----------
+    :Attribute:
+
         totalTransactions : int
             Total no of transactions
         noOfItems : int 
@@ -17,16 +17,14 @@ class createSyntheticUncertainTemporal:
         outputFile: str
             Name of the output file.
 
-        Methods:
-        --------
+    :Methods:
+
         createUncertainTemporalDatabase(outputFile)
             Create temporal database from DataFrame and store into outputFile
 
-        Credits:
-        ---------
-             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
-
-
+    **Credits:**
+    ---------------
+        The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
 
     """
     
@@ -38,6 +36,7 @@ class createSyntheticUncertainTemporal:
     def createUncertainTemporalDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
+
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name

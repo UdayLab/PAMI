@@ -3,16 +3,18 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import UncertainTemporalDatabase as db
+#             from PAMI.extras.dbStats import UncertainTemporalDatabase as db
 #
-#     obj = db.UncertainTemporalDatabase(iFile, "\t")
+#             obj = db.UncertainTemporalDatabase(iFile, "\t")
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     obj.run()
+#             obj.run()
 #
-#     obj.printStats()
+#             obj.printStats()
 #
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -41,8 +43,9 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class UncertainTemporalDatabase:
     """
-        :Description: UncertainTemporalDatabaseStats is class to get stats of database.
+    :Description: UncertainTemporalDatabaseStats is class to get stats of database.
 
+    :Attributes:
 
         :param inputFile : file
             input file path
@@ -50,8 +53,8 @@ class UncertainTemporalDatabase:
         :param sep : str
             separator in file. Default is tab space.
 
-        Methods:
-        --------
+    :Methods:
+
         run()
             execute readDatabase function
         readDatabase()
@@ -83,19 +86,19 @@ class UncertainTemporalDatabase:
         getNumberOfTransactionsPerTimestamp()
             get number of transactions per time stamp. This time stamp range is 1 to max period.
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                    from PAMI.extras.dbStats import UncertainTemporalDatabase as db
+            from PAMI.extras.dbStats import UncertainTemporalDatabase as db
 
-                    obj = db.UncertainTemporalDatabase(iFile, "\t")
+            obj = db.UncertainTemporalDatabase(iFile, "\t")
 
-                    obj.save(oFile)
+            obj.save(oFile)
 
-                    obj.run()
+            obj.run()
 
-                    obj.printStats()
+            obj.printStats()
 
     """
 
@@ -180,7 +183,7 @@ class UncertainTemporalDatabase:
     def getDatabaseSize(self) -> int:
         """
         get the size of database
-        :return: data base size
+        :return: dataset size
         """
         return len(self.database)
 
@@ -293,7 +296,7 @@ class UncertainTemporalDatabase:
     def getTransanctionalLengthDistribution(self) -> dict:
         """
         get transaction length
-        :return: transaction length
+        :return: transactional length
         """
         transactionLength = {}
         for length in self.lengthList:

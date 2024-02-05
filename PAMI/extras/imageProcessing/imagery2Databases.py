@@ -36,27 +36,25 @@ import sys
 class createDatabase:
     """
 
-                :Description:
-                        imagery2Databases is a code used to creating transactional database by applying threshold
+    :Description:   imagery2Databases is a code used to creating transactional database by applying threshold
 
-                :param  detected_objects: list :
-                        List data to be processed
-                :param  threshold: int :
-                        It is threshold value of all item
-
-
-                **Importing this algorithm into a python program**
-                --------------------------------------------------------
-                .. code-block:: python
-
-                from PAMI.extras.imageProcessing import imagery2Databases as db
-
-                obj = db.imagery2Databases(detected_obj, 16 )
-
-                obj.save(oFile)
+    :param  detected_objects: list :
+            List data to be processed
+    :param  threshold: int :
+            It is threshold value of all item
 
 
-        """
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
+
+            from PAMI.extras.imageProcessing import imagery2Databases as db
+
+            obj = db.imagery2Databases(detected_obj, 16 )
+
+            obj.save(oFile)
+
+    """
 
     # pass the list of detected objects and specify the minimum probability score an object must maintain.
     def __init__(self, detected_objects: list, threshold: float):

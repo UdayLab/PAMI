@@ -60,16 +60,12 @@ import sys as _sys
 
 class k3PMiner(_abstract.partialPeriodicPatterns):
     """
-    Description:
-    -------------
-        k3PMiner is and algorithm to discover top - k partial periodic patterns in a temporal  database.
+    :Description:   k3PMiner is and algorithm to discover top - k partial periodic patterns in a temporal  database.
 
-    Reference:
-    ----------
+    :Reference:
 
+    :Attributes:
 
-    Attributes:
-    ------------
             iFile : str
                 Input file name or path of the input file
             k: int
@@ -90,8 +86,8 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
             memoryRSS : float
                 To store the total amount of RSS memory consumed by the program
 
-    Methods:
-    --------
+    :Methods:
+
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -115,20 +111,17 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
             generateFrequentPatterns(tidList)
                 It will generate the combinations of frequent items from a list of items
 
-    Executing the code on terminal:
-    -------------------------------
-
+    **Executing the code on terminal:**
+    -------------------------------------
         Format:
-        ------
             >>> python3 k3PMiner.py <iFile> <oFile> <k> <period>
 
         Examples:
-        ---------
             >>> python3 k3PMiner.py sampleDB.txt patterns.txt 10 3
 
 
-    Sample run of the importing code:
-    ---------------------------------
+    **Sample run of the importing code:**
+    --------------------------------------
     .. code-block:: python
 
             import PAMI.partialPeriodicPattern.topk.k3PMiner as alg
@@ -157,8 +150,8 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
             print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    ---------
+    **Credits:**
+    ---------------
             The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
     """
@@ -181,8 +174,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _abstract._pd.DataFrame):
@@ -224,6 +216,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -287,6 +280,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
     def _getSupportAndPeriod(self, timeStamps):
         """To calculate the periodicity and support
+
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
         """
@@ -302,17 +296,12 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
     def _save(self, prefix, suffix, tidSetI):
         """Saves the patterns that satisfy the periodic frequent property.
 
-            :param prefix: the prefix of a pattern
-
-            :type prefix: list
-
-            :param suffix: the suffix of a patterns
-
-            :type suffix: list
-
-            :param tidSetI: the timestamp of a patterns
-
-            :type tidSetI: list
+        :param prefix: the prefix of a pattern
+        :type prefix: list
+        :param suffix: the suffix of a patterns
+        :type suffix: list
+        :param tidSetI: the timestamp of a patterns
+        :type tidSetI: list
         """
 
         if prefix is None:
@@ -348,18 +337,13 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
     def _Generation(self, prefix, itemSets, tidSets):
         """Equivalence class is followed  and checks for the patterns generated for periodic-frequent patterns.
 
-            :param prefix:  main equivalence prefix
-
-            :type prefix: periodic-frequent item or pattern
-
-            :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
-                            and frequent with their timestamps
-
-            :type itemSets: list
-
-            :param tidSets: timestamps of the items in the argument itemSets
-
-            :type tidSets: list
+        :param prefix:  main equivalence prefix
+        :type prefix: periodic-frequent item or pattern
+        :param itemSets: patterns which are items combined with prefix and satisfying the periodicity
+                        and frequent with their timestamps
+        :type itemSets: list
+        :param tidSets: timestamps of the items in the argument itemSets
+        :type tidSets: list
         """
         if len(itemSets) == 1:
             i = itemSets[0]
@@ -388,7 +372,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
     def startMine(self):
         """
-            Main function of the program
+        Main function of the program
 
         """
         self._startTime = _abstract._time.time()
@@ -424,9 +408,8 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
-                    :return: returning USS memory consumed by the mining process
-
-                    :rtype: float
+        :return: returning USS memory consumed by the mining process
+        :rtype: float
         """
 
         return self._memoryUSS
@@ -435,7 +418,6 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
-
         :rtype: float
         """
 
@@ -445,7 +427,6 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         """Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
-
         :rtype: float
         """
 
@@ -455,7 +436,6 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         """Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
-
         :rtype: pd.DataFrame
         """
 
@@ -470,7 +450,6 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-
         :type outFile: file
         """
         self._oFile = outFile
@@ -483,7 +462,6 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         """ Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
-
         :rtype: dict
         """
         return self._finalPatterns

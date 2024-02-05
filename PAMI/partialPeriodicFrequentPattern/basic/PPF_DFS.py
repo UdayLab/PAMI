@@ -51,20 +51,15 @@ __copyright__ = """
 
 """
 
-import sys
-import validators
-from urllib.request import urlopen
+
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 
 
 class PPF_DFS(partialPeriodicPatterns):
     """
-    Description:
-    -------------
-        PPF_DFS is algorithm to mine the partial periodic frequent patterns.
+    :Description:   PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 
-    Attributes:
-    ----------
+    :Attributes:
 
         iFile : file
             input file path
@@ -93,8 +88,8 @@ class PPF_DFS(partialPeriodicPatterns):
         memoryRSS : float
             storing the total amount of RSS memory consumed by the program
 
-    Methods:
-    --------
+    :Methods:
+
         getPer_Sup(tids)
             caluclate ip / (sup+1)
         getPerSup(tids)
@@ -120,48 +115,46 @@ class PPF_DFS(partialPeriodicPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Executing code on Terminal:
-    ------------------------------
+    **Executing code on Terminal:**
+    ----------------------------------
         Format:
-        --------
             >>> python3 PPF_DFS.py <inputFile> <outputFile> <minSup> <maxPer> <minPR>
 
         Examples:
-        ---------
             >>> python3 PPF_DFS.py sampleDB.txt patterns.txt 10 10 0.5
 
-    Sample run of the importing code:
+    **Sample run of the importing code:**
     ---------------------------------------
     .. code-block:: python
 
-        from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg
+            from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg
 
-        obj = alg.PPF_DFS(iFile, minSup)
+            obj = alg.PPF_DFS(iFile, minSup)
 
-        obj.startMine()
+            obj.startMine()
 
-        frequentPatterns = obj.getPatterns()
+            frequentPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(frequentPatterns))
+            print("Total number of Frequent Patterns:", len(frequentPatterns))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternInDataFrame()
+            Df = obj.getPatternInDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    --------
+    **Credits:**
+    -------------
         The complete program was written by S. Nakamura  under the supervision of Professor Rage Uday Kiran.\n
 
     """
@@ -187,9 +180,7 @@ class PPF_DFS(partialPeriodicPatterns):
 
     def __creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.__Database = []
         if isinstance(self._partialPeriodicPatterns__iFile, pd.DataFrame):
@@ -233,6 +224,7 @@ class PPF_DFS(partialPeriodicPatterns):
     def __getPer_Sup(self, tids):
         """
         calculate ip / (sup+1)
+
         :param tids: it represent tid list
         :type tids: list
         :return: ip / (sup+1)
@@ -262,6 +254,7 @@ class PPF_DFS(partialPeriodicPatterns):
     def _partialPeriodicPatterns__getPerSup(self, tids):
         """
         calculate ip of a pattern
+
         :param tids: tid list of the pattern
         :type tids: list
         :return: ip
@@ -292,7 +285,6 @@ class PPF_DFS(partialPeriodicPatterns):
         to convert the type of user specified minSup value
 
         :param value: user specified minSup value
-
         :return: converted type
         """
         if type(value) is int:
@@ -310,6 +302,7 @@ class PPF_DFS(partialPeriodicPatterns):
     def __oneItems(self, path):
         """
         scan all lines of database and create support list
+
         :param path: it represents input file name
         :return: support list each item
         """
@@ -472,7 +465,8 @@ class PPF_DFS(partialPeriodicPatterns):
         return self.__runTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -491,9 +485,10 @@ class PPF_DFS(partialPeriodicPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._partialPeriodicPatterns__oFile = outFile
         writer = open(self._partialPeriodicPatterns__oFile, 'w+')
@@ -516,7 +511,8 @@ class PPF_DFS(partialPeriodicPatterns):
         return self._partialPeriodicPatterns__finalPatterns
 
     def printResults(self):
-        """ this function is used to print the results
+        """
+        this function is used to print the results
         """
         print("Total number of Partial Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

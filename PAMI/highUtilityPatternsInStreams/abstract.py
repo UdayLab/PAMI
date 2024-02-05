@@ -31,12 +31,12 @@ import functools as _functools
 import sys as _sys
 
 class _highUtilityPatternStreamMining(_ABC):
-    """ This abstract base class defines the variables and methods that every high utility pattern stream mining algorithm must
-        employ in PAMI
+    """
+    :Description:   This abstract base class defines the variables and methods that every high utility pattern stream mining algorithm must
+                    employ in PAMI
 
+    :Attributes:
 
-       Attributes
-        ----------
         iFile : str
             Input file name or path of the input file
         minUtil: integer 
@@ -57,8 +57,8 @@ class _highUtilityPatternStreamMining(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    :Methods:
+
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -78,7 +78,6 @@ class _highUtilityPatternStreamMining(_ABC):
 
     def __init__(self, iFile, minUtil, windowSize, paneSize, sep = "\t"):
         """
-
         :param iFile: Input file name or path of the input file
         :type iFile: str
         :param minUtil: The user can specify minUtil in count 
@@ -117,7 +116,7 @@ class _highUtilityPatternStreamMining(_ABC):
         """Complete set of frequent patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass

@@ -3,15 +3,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import TransactionalDatabase as db
+#             from PAMI.extras.dbStats import TransactionalDatabase as db
 #
-#     obj = db.TransactionalDatabase(iFile, "\t")
+#             obj = db.TransactionalDatabase(iFile, "\t")
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     obj.run()
+#             obj.run()
 #
-#     obj.printStats()
+#             obj.printStats()
 
 
 
@@ -43,15 +43,17 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class TransactionalDatabase:
     """
-        :Description:  TransactionalDatabase is class to get stats of database.
+    :Description:  TransactionalDatabase is class to get stats of database.
+
+    :Attributes:
 
         :param inputFile: file :
             input file path
         :param sep: str
             separator in file. Default is tab space.
 
-        Methods:
-        ---------
+    :Methods:
+
         run()
             execute readDatabase function
         readDatabase()
@@ -83,19 +85,19 @@ class TransactionalDatabase:
         getNumberOfTransactionsPerTimestamp()
             get number of transactions per time stamp. This time stamp range is 1 to max period.
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                    from PAMI.extras.dbStats import TransactionalDatabase as db
+            from PAMI.extras.dbStats import TransactionalDatabase as db
 
-                    obj = db.TransactionalDatabase(iFile, "\t")
+            obj = db.TransactionalDatabase(iFile, "\t")
 
-                    obj.save(oFile)
+            obj.save(oFile)
 
-                    obj.run()
+            obj.run()
 
-                    obj.printStats()
+            obj.printStats()
 
     """
 
@@ -154,7 +156,7 @@ class TransactionalDatabase:
     def getDatabaseSize(self) -> int:
         """
         get the size of database
-        :return: data base size
+        :return: dataset size
         """
         return len(self.database)
 

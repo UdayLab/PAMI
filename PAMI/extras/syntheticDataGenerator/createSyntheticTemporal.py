@@ -2,10 +2,10 @@ import random as _rd
 import sys as _sys
 class createSyntheticTemporal:
     """
-        This class create synthetic temporal database. 
+    This class create synthetic temporal database.
 
-        Attribute:
-        ----------
+    :Attribute:
+
         totalTransactions : int
             No of transactions
         noOfItems : int 
@@ -15,15 +15,14 @@ class createSyntheticTemporal:
         outputFile: str
             Name of the output file.
 
-        Methods:
-        --------
+    :Methods:
+
         createTemporallDatabase(outputFile)
             Create temporal database from DataFrame and store into outputFile
 
-        Credits:
-        ---------
+    **Credits:**
+    ---------------
              The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
-
 
     """
     
@@ -35,6 +34,7 @@ class createSyntheticTemporal:
     def createTemporalDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
+
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name

@@ -59,7 +59,7 @@ from typing import List, Dict, Tuple, Set, Union, Any, Optional, Generator
 
 class _Node:
     """
-        A class used to represent the node of correlatedPatternTree
+    A class used to represent the node of correlatedPatternTree
 
     :Attributes:
 
@@ -374,7 +374,7 @@ class CoMinePlus(_ab._correlatedPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):

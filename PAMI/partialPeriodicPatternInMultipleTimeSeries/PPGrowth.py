@@ -57,27 +57,28 @@ _period = float()
 
 class _Node(object):
     """
-        A class used to represent the node of frequentPatternTree
+    A class used to represent the node of frequentPatternTree
 
-        Attributes:
-        ----------
-            item : int or None
-                Storing item of a node
-            timeStamps : list
-                To maintain the timestamps of a database at the end of the branch
-            parent : node
-                To maintain the parent of every node
-            children : list
-                To maintain the children of a node
+    :Attributes:
 
-        Methods:
-        -------
-            addChild(itemName)
-                Storing the children to their respective parent nodes
+        item : int or None
+            Storing item of a node
+        timeStamps : list
+            To maintain the timestamps of a database at the end of the branch
+        parent : node
+            To maintain the parent of every node
+        children : list
+            To maintain the children of a node
+
+    :Methods:
+
+        addChild(itemName)
+            Storing the children to their respective parent nodes
         """
 
     def __init__(self, item, children):
-        """ Initializing the Node class
+        """
+        Initializing the Node class
 
         :param item: Storing the item of a node
         :type item: int or None
@@ -91,8 +92,10 @@ class _Node(object):
         self.timeStamps = []
 
     def addChild(self, node):
-        """ To add the children to a node
-              :param node: parent node in the tree
+        """
+        To add the children to a node
+
+        :param node: parent node in the tree
         """
 
         self.children[node.item] = node
@@ -101,31 +104,32 @@ class _Node(object):
 
 class _Tree(object):
     """
-        A class used to represent the frequentPatternGrowth tree structure
-
-        Attributes:
-        ----------
-            root : Node
-                Represents the root node of the tree
-            summaries : dictionary
-                Storing the nodes with same item name
-            info : dictionary
-                Stores the support of the items
+    A class used to represent the frequentPatternGrowth tree structure
 
 
-        Methods:
-        -------
-            addTransactions(Database)
-                Creating transaction as a branch in frequentPatternTree
-            getConditionalPatterns(Node)
-                Generates the conditional patterns from tree for specific node
-            conditionalTransaction(prefixPaths,Support)
-                Takes the prefixPath of a node and support at child of the path and extract the frequent patterns from
-                prefixPaths and generates prefixPaths with items which are frequent
-            remove(Node)
-                Removes the node from tree once after generating all the patterns respective to the node
-            generatePatterns(Node)
-                Starts from the root node of the tree and mines the periodic-frequent patterns
+    :Attributes:
+
+        root : Node
+            Represents the root node of the tree
+        summaries : dictionary
+            Storing the nodes with same item name
+        info : dictionary
+            Stores the support of the items
+
+
+    :Methods:
+
+        addTransactions(Database)
+            Creating transaction as a branch in frequentPatternTree
+        getConditionalPatterns(Node)
+            Generates the conditional patterns from tree for specific node
+        conditionalTransaction(prefixPaths,Support)
+            Takes the prefixPath of a node and support at child of the path and extract the frequent patterns from
+            prefixPaths and generates prefixPaths with items which are frequent
+        remove(Node)
+            Removes the node from tree once after generating all the patterns respective to the node
+        generatePatterns(Node)
+            Starts from the root node of the tree and mines the periodic-frequent patterns
 
         """
 
@@ -135,12 +139,14 @@ class _Tree(object):
         self.info = {}
 
     def addTransaction(self, transaction, tid):
-        """     Adding a transaction into tree
-                :param transaction: To represent the complete database
-                :type transaction: list
-                :param tid: To represent the timestamp of a database
-                :type tid: list
-                :return: pfp-growth tree
+        """
+        Adding a transaction into tree
+
+            :param transaction: To represent the complete database
+            :type transaction: list
+            :param tid: To represent the timestamp of a database
+            :type tid: list
+            :return: pfp-growth tree
         """
 
         currentNode = self.root
@@ -158,10 +164,12 @@ class _Tree(object):
         currentNode.timeStamps = currentNode.timeStamps + tid
 
     def getConditionalPatterns(self, alpha):
-        """Generates all the conditional patterns of a respective node
-            :param alpha: To represent a Node in the tree
-            :type alpha: Node
-            :return: A tuple consisting of finalPatterns, conditional pattern base and information
+        """
+        Generates all the conditional patterns of a respective node
+
+        :param alpha: To represent a Node in the tree
+        :type alpha: Node
+        :return: A tuple consisting of finalPatterns, conditional pattern base and information
         """
         finalPatterns = []
         finalSets = []
@@ -180,7 +188,9 @@ class _Tree(object):
 
     @staticmethod
     def generateTimeStamps(node):
-        """To get the timestamps of a node
+        """
+        To get the timestamps of a node
+
         :param node: A node in the tree
         :return: Timestamps of a node
         """
@@ -189,10 +199,12 @@ class _Tree(object):
         return finalTimeStamps
 
     def removeNode(self, nodeValue):
-        """ Removing the node from tree
-            :param nodeValue: To represent a node in the tree
-            :type nodeValue: node
-            :return: Tree with their nodes updated with timestamps
+        """
+        Removing the node from tree
+
+        :param nodeValue: To represent a node in the tree
+        :type nodeValue: node
+        :return: Tree with their nodes updated with timestamps
         """
 
         for i in self.summaries[nodeValue]:
@@ -200,9 +212,11 @@ class _Tree(object):
             del i.parent.children[nodeValue]
 
     def getTimeStamps(self, alpha):
-        """ To get all the timestamps of the nodes which share same item name
-            :param alpha: Node in a tree
-            :return: Timestamps of a  node
+        """
+        To get all the timestamps of the nodes which share same item name
+
+        :param alpha: Node in a tree
+        :return: Timestamps of a  node
         """
         temporary = []
         for i in self.summaries[alpha]:
@@ -211,7 +225,9 @@ class _Tree(object):
 
     @staticmethod
     def getSupportAndPeriod(timeStamps):
-        """To calculate the periodicity and support
+        """
+        To calculate the periodicity and support
+
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
         """
@@ -233,12 +249,14 @@ class _Tree(object):
         return [sup, max(per)]
 
     def conditionalDatabases(self, conditionalPatterns, conditionalTimeStamps):
-        """ It generates the conditional patterns with periodic-frequent items
-            :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
-            :type conditionalPatterns: list
-            :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
-            :type conditionalTimeStamps: list
-            :returns: Returns conditional transactions by removing non-periodic and non-frequent items
+        """
+        It generates the conditional patterns with periodic-frequent items
+
+        :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
+        :type conditionalPatterns: list
+        :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
+        :type conditionalTimeStamps: list
+        :returns: Returns conditional transactions by removing non-periodic and non-frequent items
         """
 
         global _periodicSupport,_period
@@ -266,10 +284,12 @@ class _Tree(object):
         return pat, timeStamps, updatedDictionary
 
     def generatePatterns(self, prefix):
-        """ Generates the patterns
-            :param prefix: Forms the combination of items
-            :type prefix: list
-            :returns: yields patterns with their support and periodicity
+        """
+        Generates the patterns
+
+        :param prefix: Forms the combination of items
+        :type prefix: list
+        :returns: yields patterns with their support and periodicity
         """
 
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
@@ -289,18 +309,14 @@ class _Tree(object):
 
 class PPGrowth(_ab._partialPeriodicPatterns):
     """
-    Description:
-    ------------
-        PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
+    :Description:   PPGrowth is one of the fundamental algorithm to discover periodic-frequent patterns in a transactional database.
 
-    Reference:
-    -----------
-        C. Saideep, R. Uday Kiran, K. Zettsu, P. Fournier-Viger, M. Kitsuregawa and P. Krishna Reddy,
-        "Discovering Periodic Patterns in Irregular Time Series," 2019 International Conference on Data Mining Workshops (ICDMW), 2019,
-        pp. 1020-1028, doi: 10.1109/ICDMW.2019.00147.
+    :Reference:   C. Saideep, R. Uday Kiran, K. Zettsu, P. Fournier-Viger, M. Kitsuregawa and P. Krishna Reddy,
+                 "Discovering Periodic Patterns in Irregular Time Series," 2019 International Conference on Data Mining Workshops (ICDMW), 2019,
+                  pp. 1020-1028, doi: 10.1109/ICDMW.2019.00147.
 
-    Attributes:
-    -----------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -339,8 +355,8 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         finalPatterns : dict
             To store the complete patterns
 
-    Methods:
-    ---------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -366,21 +382,16 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         convert()
             to convert the user specified value
 
-    Executing the code on terminal:
-    --------------------------------
+    **Executing the code on terminal:**
+    -------------------------------------
         Format:
-        -----------
            >>> python3 PPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
         Examples:
-        ----------
-           >>> python3 PPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4   (minSup and maxPer will be considered in percentage of database
-        transactions)
+           >>> python3 PPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
 
-           >>> python3 PPGrowth.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)
-
-    Sample run of importing the code:
-    ----------------------------------
+    **Sample run of importing the code:**
+    ----------------------------------------
 
         from PAMI.periodicFrequentPattern.basic import PPGrowth as alg
 
@@ -408,8 +419,8 @@ class PPGrowth(_ab._partialPeriodicPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    -------
+    **Credits:**
+    --------------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
@@ -430,7 +441,7 @@ class PPGrowth(_ab._partialPeriodicPatterns):
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -470,10 +481,11 @@ class PPGrowth(_ab._partialPeriodicPatterns):
 
 
     def _periodicFrequentOneItem(self):
-        """ Calculates the support of each item in the database and assign ranks to the items
-            by decreasing support and returns the frequent items list
+        """
+        Calculates the support of each item in the database and assign ranks to the items
+        by decreasing support and returns the frequent items list
 
-            :returns: return the one-length periodic frequent patterns
+        :returns: return the one-length periodic frequent patterns
         """
         global _periodicSupport,_period
         data = {}
@@ -494,10 +506,12 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         return data, pfList
 
     def _updateDatabases(self, dict1):
-        """ Remove the items which are not frequent from database and updates the database with rank of items
-            :param dict1: frequent items with support
-            :type dict1: dictionary
-            :return: Sorted and updated transactions
+        """
+        Remove the items which are not frequent from database and updates the database with rank of items
+
+        :param dict1: frequent items with support
+        :type dict1: dictionary
+        :return: Sorted and updated transactions
             """
         list1 = []
         for tr in self._Database:
@@ -514,12 +528,14 @@ class PPGrowth(_ab._partialPeriodicPatterns):
 
     @staticmethod
     def _buildTree(data, info):
-        """ It takes the database and support of an each item and construct the main tree by setting root node as a null
-            :param data: it represents the one Databases in database
-            :type data: list
-            :param info: it represents the support of each item
-            :type info: dictionary
-            :return: returns root node of tree
+        """
+        It takes the database and support of an each item and construct the main tree by setting root node as a null
+
+        :param data: it represents the one Databases in database
+        :type data: list
+        :param info: it represents the support of each item
+        :type info: dictionary
+        :return: returns root node of tree
         """
 
         rootNode = _Tree()
@@ -530,9 +546,11 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         return rootNode
 
     def _savePeriodic(self, itemSet,change):
-        """ To convert the ranks of items in to their original item names
-            :param itemSet: frequent pattern
-            :return: frequent pattern with original item names
+        """
+        To convert the ranks of items in to their original item names
+
+        :param itemSet: frequent pattern
+        :return: frequent pattern with original item names
         """
         t1 = str()
         for i in itemSet:
@@ -542,6 +560,7 @@ class PPGrowth(_ab._partialPeriodicPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -581,7 +600,8 @@ class PPGrowth(_ab._partialPeriodicPatterns):
 
 
     def startMine(self):
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
 
         global _minSup, _maxPer, _lno,_period,_periodicSupport
@@ -658,7 +678,8 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
         :type outFile: file
@@ -678,7 +699,8 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Partial Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

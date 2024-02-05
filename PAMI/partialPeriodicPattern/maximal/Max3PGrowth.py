@@ -68,10 +68,8 @@ class _Node(object):
     """
     A class used to represent the node of frequentPatternTree
 
-    ...
+    :Attributes:
 
-    Attributes:
-    ----------
         item : int
             storing item of a node
         timeStamps : list
@@ -81,8 +79,7 @@ class _Node(object):
         children : list
             To maintain the children of node
 
-    Methods:
-    -------
+    :Methods:
 
         addChild(itemName)
             storing the children to their respective parent nodes
@@ -99,7 +96,6 @@ class _Node(object):
         To add the children details to the parent node children list
 
         :param node: children node
-
         :return: adding to parent node children
         """
         self.children[node.item] = node
@@ -110,10 +106,8 @@ class _Tree(object):
     """
     A class used to represent the frequentPatternGrowth tree structure
 
-    ...
+    :Attributes:
 
-    Attributes:
-    ----------
         root : Node
             Represents the root node of the tree
         summaries : dictionary
@@ -121,9 +115,8 @@ class _Tree(object):
         info : dictionary
             stores the support of items
 
+    :Methods:
 
-    Methods:
-    -------
         addTransaction(Database)
             creating Database as a branch in frequentPatternTree
         getConditionPatterns(Node)
@@ -148,9 +141,7 @@ class _Tree(object):
         adding transaction into database
 
         :param transaction: transactions in a database
-
         :param tid: timestamp of the transaction in database
-
         :return: pftree
         """
         currentNode = self.root
@@ -172,7 +163,6 @@ class _Tree(object):
         to get the conditional patterns of a node
 
         :param alpha: node in the tree
-
         :return: conditional patterns of a node
         """
         finalPatterns = []
@@ -195,7 +185,6 @@ class _Tree(object):
         removes the leaf node by pushing its timestamps to parent node
 
         :param nodeValue: node of a tree
-
         :return:
         """
         for i in self.summaries[nodeValue]:
@@ -208,7 +197,6 @@ class _Tree(object):
         to get all the timestamps related to a node in tree
 
         :param alpha: node of a tree
-
         :return: timestamps of a node
         """
         temp = []
@@ -218,11 +206,10 @@ class _Tree(object):
 
     def _generatePatterns(self, prefix, _patterns, maximalTree):
         """
-            To generate the maximal periodic frequent patterns
+        To generate the maximal periodic frequent patterns
 
-            :param prefix: an empty list of itemSet to form the combinations
-
-            :return: maximal periodic frequent patterns
+        :param prefix: an empty list of itemSet to form the combinations
+        :return: maximal periodic frequent patterns
         """
 
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
@@ -251,17 +238,15 @@ class _MNode(object):
     """
     A class used to represent the node of frequentPatternTree
 
-    ...
 
-    Attributes:
-    ----------
+    :Attributes:
+
         item : int
             storing item of a node
         children : list
             To maintain the children of node
 
-    Methods:
-    -------
+    :Methods:
 
         addChild(itemName)
             storing the children to their respective parent nodes
@@ -276,7 +261,6 @@ class _MNode(object):
         To add the children details to parent node children variable
 
         :param node: children node
-
         :return: adding children node to parent node
         """
         self.children[node.item] = node
@@ -287,17 +271,15 @@ class _MPTree(object):
     """
     A class used to represent the node of frequentPatternTree
 
-    ...
+    :Attributes:
 
-    Attributes:
-    ----------
         root : node
             the root of a tree
         summaries : dict
             to store the items with same name into dictionary
 
-    Methods:
-    -------
+    :Methods:
+
         checkerSub(itemSet)
             to check of subset of itemSet is present in tree
     """
@@ -311,7 +293,6 @@ class _MPTree(object):
         to add the transaction in maximal tree
 
         :param transaction: resultant periodic frequent pattern
-
         :return: maximal tree
         """
         currentNode = self.root
@@ -333,7 +314,6 @@ class _MPTree(object):
         To check subset present of items in the maximal tree
 
         :param items: the pattern to check for subsets
-
         :return: 1
         """
         items.sort(reverse=True)
@@ -363,7 +343,6 @@ def _getPeriodAndSupport(timeStamps):
     To calculate the periodicity and support of a pattern with their respective timeStamps
 
     :param timeStamps: timeStamps
-
     :return: Support and periodicity
     """
     timeStamps.sort()
@@ -380,9 +359,7 @@ def _conditionalTransactions(condPatterns, condTimeStamps):
     To calculate the timestamps of conditional items in conditional patterns
 
     :param condPatterns: conditional patterns of node
-
     :param condTimeStamps: timeStamps of a conditional patterns
-
     :return: removing items with low periodicSupport or periodicity and sort the conditional transactions
     """
     pat = []
@@ -411,20 +388,15 @@ def _conditionalTransactions(condPatterns, condTimeStamps):
 
 class Max3PGrowth(_abstract._partialPeriodicPatterns):
     """
-    Description:
-    ------------
-        Max3p-Growth algorithm IS to discover maximal periodic-frequent patterns in a temporal database.
-        It extract the partial periodic patterns from 3p-tree and checks for the maximal property and stores
-        all the maximal patterns in max3p-tree and extracts the maximal periodic patterns.
+    :Description:   Max3p-Growth algorithm IS to discover maximal periodic-frequent patterns in a temporal database.
+                    It extract the partial periodic patterns from 3p-tree and checks for the maximal property and stores
+                    all the maximal patterns in max3p-tree and extracts the maximal periodic patterns.
 
-    Reference:
-    -----------
-        R. Uday Kiran, Yutaka Watanobe, Bhaskar Chaudhury, Koji Zettsu, Masashi Toyoda, Masaru Kitsuregawa,
-        "Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases",
-        IEEE 2020, https://ieeexplore.ieee.org/document/9260063
+    :Reference:   R. Uday Kiran, Yutaka Watanobe, Bhaskar Chaudhury, Koji Zettsu, Masashi Toyoda, Masaru Kitsuregawa,
+                  "Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases",
+                  IEEE 2020, https://ieeexplore.ieee.org/document/9260063
 
-    Attributes:
-    -----------
+    :Attributes:
 
         iFile : file
             Name of the Input file or path of the input file
@@ -468,8 +440,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-    Methods:
-    ---------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getFrequentPatterns()
@@ -495,21 +467,16 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         startMine()
             the main method to run the program
 
-    Executing the code on terminal:
-    -------------------------------
+    **Executing the code on terminal:**
+    ------------------------------------
         Format:
-        --------
             >>> python3 max3prowth.py <inputFile> <outputFile> <periodicSupport> <period>
 
         Examples:
-        ---------
-            >>>  python3 Max3PGrowth.py sampleTDB.txt patterns.txt 0.3 0.4  (periodicSupport will be considered in percentage of database
-                transactions)
+            >>>  python3 Max3PGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
 
-            >>>  python3 Max3PGrowth.py sampleTDB.txt patterns.txt 3 4  (periodicSupport will be considered in count)
-
-    Sample run of the importing code:
-    ----------------------------------
+    **Sample run of the importing code:**
+    --------------------------------------
     .. code-block:: python
 
             from PAMI.periodicFrequentPattern.maximal import ThreePGrowth as alg
@@ -539,8 +506,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
             print("Total ExecutionTime in seconds:", run)
 
 
-    Credits:
-    ---------
+    **Credits:**
+    --------------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
@@ -563,8 +530,10 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
     _maximalTree = str()
 
     def _creatingitemSets(self):
-        """ Storing the complete Databases of the database/input file in a database variable
-            :rtype: storing transactions into Database variable
+        """
+        Storing the complete Databases of the database/input file in a database variable
+
+        :rtype: storing transactions into Database variable
         """
 
         self._Database = []
@@ -606,12 +575,11 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
 
     def _periodicFrequentOneItem(self):
         """
-            calculates the support of each item in the dataset and assign the ranks to the items
-            by decreasing support and returns the frequent items list
-            :rtype: return the one-length periodic frequent patterns
+        calculates the support of each item in the dataset and assign the ranks to the items
+        by decreasing support and returns the frequent items list
 
-
-            """
+        :rtype: return the one-length periodic frequent patterns
+        """
         self._pfList = {}
         data = {}
         for tr in self._Database:
@@ -630,12 +598,13 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         return data
 
     def _updateDatabases(self, dict1):
-        """ Remove the items which are not frequent from Databases and updates the Databases with rank of items
+        """
+        Remove the items which are not frequent from Databases and updates the Databases with rank of items
 
-            :param dict1: frequent items with support
-            :type dict1: dictionary
-            :rtype: sorted and updated transactions
-            """
+        :param dict1: frequent items with support
+        :type dict1: dictionary
+        :rtype: sorted and updated transactions
+        """
         list1 = []
         for tr in self._Database:
             list2 = [int(tr[0])]
@@ -651,13 +620,14 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
 
     @staticmethod
     def _buildTree(data, info):
-        """ it takes the Databases and support of each item and construct the main tree with setting root node as null
+        """
+        it takes the Databases and support of each item and construct the main tree with setting root node as null
 
-            :param data: it represents the one Databases in database
-            :type data: list
-            :param info: it represents the support of each item
-            :type info: dictionary
-            :rtype: returns root node of tree
+        :param data: it represents the one Databases in database
+        :type data: list
+        :param info: it represents the support of each item
+        :type info: dictionary
+        :rtype: returns root node of tree
         """
 
         rootNode = _Tree()
@@ -692,7 +662,6 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         to convert the maximal pattern items with their original item names
 
         :param itemSet: maximal periodic frequent pattern
-
         :return: pattern with original item names
         """
         t1 = []
@@ -701,7 +670,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         return t1
 
     def startMine(self):
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
 
         global _periodicSupport, _period, _lno
@@ -741,7 +711,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         print("Maximal Partial Periodic Frequent patterns were generated successfully using MAX-3PGrowth algorithm ")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -750,7 +721,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -759,8 +731,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -769,7 +741,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -783,10 +756,11 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -803,7 +777,8 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of  Maximal Partial Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

@@ -62,22 +62,22 @@ import pandas as pd
 class LPPMBreadth(_ab._localPeriodicPatterns):
 
     """
-    Description:
-    ------------
+    :Description:
+
         Local Periodic Patterns, which are patterns (sets of events) that have a periodic behavior in some non predefined
         time-intervals. A pattern is said to be a local periodic pattern if it appears regularly and continuously in some 
         time-intervals. The maxSoPer (maximal period of spillovers) measure allows detecting time-intervals of variable 
         lengths where a pattern is continuously periodic, while the minDur (minimal duration) measure ensures that those 
         time-intervals have a minimum duration.
 
-    Reference:
-    ----------
+    :Reference:
+
         Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
         a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044
 
 
-    Attributes:
-    -----------
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
         oFile : str
@@ -103,8 +103,8 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         sep: str
             separator used to distinguish items from each other. The default separator is tab space.
 
-    Methods:
-    -------
+    :Methods:
+
         createTSList()
             Create the tsList as bit vector from input data.
         generateLPP()
@@ -128,45 +128,45 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         getPatternsAsDataFrame()
             Complete set of local periodic patterns will be loaded in to a dataframe.
 
-    Executing the code on terminal:
-    ------------------------------
-        Format:
-            python3 LPPBreadth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur>
-        Examples:
-            python3 LPPMBreadth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
+    **Executing the code on terminal:**
+    ------------------------------------
+            Format:
+                >>> python3 LPPBreadth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur>
+            Examples:
+                >>> python3 LPPMBreadth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
 
-    Sample run of importing the code:
-    --------------------------------
+    **Sample run of importing the code:**
+    -------------------------------------
     .. code-block:: python
     
-        from PAMI.localPeriodicPattern.basic import LPPMBreadth as alg
+            from PAMI.localPeriodicPattern.basic import LPPMBreadth as alg
 
-        obj = alg.LPPMBreadth(iFile, maxPer, maxSoPer, minDur)
+            obj = alg.LPPMBreadth(iFile, maxPer, maxSoPer, minDur)
 
-        obj.startMine()
+            obj.startMine()
 
-        localPeriodicPatterns = obj.getPatterns()
+            localPeriodicPatterns = obj.getPatterns()
 
-        print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
+            print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print(f'Total memory in USS: {memUSS}')
+            print(f'Total memory in USS: {memUSS}')
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print(f'Total memory in RSS: {memRSS}')
+            print(f'Total memory in RSS: {memRSS}')
 
-        runtime = obj.getRuntime()
+            runtime = obj.getRuntime()
 
-        print(f'Total execution time in seconds: {runtime})
+            print(f'Total execution time in seconds: {runtime})
 
-    Credits:
-    -------
+    **Credits:**
+    ---------------
         The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.
     """
 
@@ -188,7 +188,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
 
     def __creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.__Database = []
         if isinstance(self._localPeriodicPatterns__iFile, _ab._pd.DataFrame):
@@ -330,10 +330,11 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
 
     def __calculatePTL(self, tsList: int) -> Set[Tuple[int, int]]:
         """
-          calculate PTL from tsList as bit vector.
-            :param tsList: it is one item's tsList which is used bit vector.
-            :type tsList: int
-            :return: it is PTL of input item.
+        calculate PTL from tsList as bit vector.
+
+        :param tsList: it is one item's tsList which is used bit vector.
+        :type tsList: int
+        :return: it is PTL of input item.
         """
         tsList = list(bin(tsList))
         tsList = tsList[2:]
@@ -377,11 +378,12 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
 
     def __LPPMBreadthSearch(self, wMap: Dict[Union[int, str], List[Union[int, str]]]) -> Dict[Union[int, str], List[Union[int, str]]]:
         """
-          Mining n-length local periodic pattens from n-1-length patterns by depth first search.
-           :param wMap: it is w length patterns and its conditional items
-           :type wMap: dict
-           :return w1map: it is w+1 length patterns and its conditional items
-           :rtype w1map: dict
+        Mining n-length local periodic pattens from n-1-length patterns by depth first search.
+
+        :param wMap: it is w length patterns and its conditional items
+        :type wMap: dict
+        :return w1map: it is w+1 length patterns and its conditional items
+        :rtype w1map: dict
         """
         w1map = {}
 
@@ -423,6 +425,7 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
     def __convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         to convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type
         """
@@ -503,8 +506,9 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
 
     def save(self, outFile: str) -> None:
         """Complete set of local periodic patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._localPeriodicPatterns__oFile = outFile
         writer = open(self._localPeriodicPatterns__oFile, 'w+')
@@ -527,7 +531,8 @@ class LPPMBreadth(_ab._localPeriodicPatterns):
         return self._localPeriodicPatterns__finalPatterns
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Local Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

@@ -24,16 +24,12 @@ import cudf
 
 class gdscuGPPMiner(_ab._partialPeriodicPatterns):
     """
-    Description:
-    -------------
-        gPPMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
+    :Description:  gPPMiner is the fundamental approach to mine the periodic-frequent patterns using GPU.
 
-    Reference:
-    -----------
-        N/A
+    :Reference:  N/A
 
-    Attributes:
-    -----------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -62,9 +58,8 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
         Database : list
             To store the transactions of a database in list
 
+    :Methods:
 
-    Methods:
-    ---------
         startMine()
             Mining process will start from here
         getPatterns()
@@ -83,7 +78,7 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
 
 
     **Methods to execute code on terminal**
-
+    ------------------------------------------
             Format:
                         >>>  python3 gPPMiner.py <inputFile> <outputFile> <minSup>
             Example:
@@ -93,7 +88,7 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
 
 
     **Importing this algorithm into a python program**
-
+    ----------------------------------------------------
     .. code-block:: python
 
                 from PAMI.periodicFrequentPattern.basic import gPPMiner as alg
@@ -123,11 +118,11 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
                 print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-
+    --------------
                 The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.
 
 
-        """
+    """
 
     _startTime = float()
     _endTime = float()
@@ -242,7 +237,8 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
         return value
 
     def _creatingOneItemSets(self):
-        """Storing the complete transactions of the database/input file in a database variable
+        """
+        Storing the complete transactions of the database/input file in a database variable
         """
         df = cudf.read_parquet(self._iFile)
 
@@ -362,7 +358,8 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
         print("Periodic-Frequent patterns were generated successfully using gPPMiner algorithm ")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -390,7 +387,8 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final periodic-frequent patterns in a dataframe
+        """
+        Storing final periodic-frequent patterns in a dataframe
 
         :return: returning periodic-frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -404,10 +402,11 @@ class gdscuGPPMiner(_ab._partialPeriodicPatterns):
         return dataframe
 
     def save(self, outFile):
-        """Complete set of periodic-frequent patterns will be loaded in to a output file
+        """
+        Complete set of periodic-frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

@@ -27,8 +27,7 @@
 #         run = obj.getRuntime()
 #
 #         print("Total ExecutionTime in seconds:", run)
-
-
+#
 
 
 __copyright__ = """
@@ -62,10 +61,10 @@ _lno = int()
 
 class Node(object):
     """
-        A class to represent the node of a tree
+    A class to represent the node of a tree
 
-        Attributes
-        ----------
+    :Attributes:
+
         item : int
             item of the node
         children : dict
@@ -75,8 +74,8 @@ class Node(object):
         tids : list
             list of tids
 
-        Methods
-        -------
+    :Methods:
+
         _getTransactions()
             returns the list of transactions
         addChild(node)
@@ -85,11 +84,9 @@ class Node(object):
     """
     def __init__(self, item, children):
         """
-        Parameters
-        ----------
-        item : int
+        :param item : int
             item of the node
-        children : dict
+        :param children : dict
             children of the node    
         
         """
@@ -100,12 +97,8 @@ class Node(object):
 
     def _getTransactions(self):
         """
-            returns the list of transactions
+        returns the list of transactions
 
-            Returns
-            -------
-            list
-                list of transactions
         """
         tids = self.tids
         for child in self.children.values():
@@ -117,11 +110,9 @@ class Node(object):
 
     def addChild(self, node): 
         """
-            adds the child node to the parent node
+        adds the child node to the parent node
 
-            Parameters
-            ----------
-            node : class
+        :param node : class
                 child node to be added
         """
 
@@ -132,10 +123,10 @@ class Node(object):
 
 class Tree(object):
     """
-        A class to represent the tree
+    A class to represent the tree
 
-        Attributes
-        ----------
+    :Attributes:
+
         root : class
             root of the tree
         summaries : dict
@@ -143,8 +134,8 @@ class Tree(object):
         info : dict
             dictionary to store the information
 
-        Methods
-        -------
+    :Methods:
+
         add_transaction(transaction,tid)
             adds the transaction to the tree
         add_transaction_summ(transaction,tid_summ)
@@ -165,17 +156,7 @@ class Tree(object):
     """
 
     def __init__(self):
-        """
-            Parameters
-            ----------
-            root : class
-                root of the tree
-            summaries : dict
-                dictionary to store the summaries
-            info : dict
-                dictionary to store the information
-        
-        """
+
         self.root = Node(None, {})
         self.summaries = {}
         self.info={}
@@ -183,19 +164,14 @@ class Tree(object):
 
     def add_transaction(self,transaction,tid):
         """
-            adds the transaction to the tree
-            
-            Parameters
-            ----------
-            transaction : list
+        adds the transaction to the tree
+
+        :param transaction : list
                 transaction to be added
-            tid : int
+        :param tid : int
                 tid of the transaction
-            
-            Returns
-            ------- 
-            class
-                returns the tree
+
+        :return: class returns the tree
         
         """
         curr_node=self.root
@@ -215,19 +191,13 @@ class Tree(object):
     
     def add_transaction_summ(self,transaction,tid_summ):
         """
-            adds the transaction to the tree
+        adds the transaction to the tree
 
-            Parameters
-            ----------
-            transaction : list
+        :param transaction : list
                 transaction to be added
-            tid_summ : list
+        :param tid_summ : list
                 tid_summ of the transaction
-
-            Returns
-            -------
-            class
-                returns the tree
+        :return: class returns the tree
         
         """
         curr_node=self.root
@@ -247,18 +217,13 @@ class Tree(object):
         
     def get_condition_pattern(self,alpha):
         """
-            returns the condition pattern
+        returns the condition pattern
 
-            Parameters
-            ----------
-            alpha : int
+        :param alpha : int
                 alpha value
 
-            Returns
-            -------
-            list
+        :return: list
                 returns the list of patterns
-        
         """
         final_patterns=[]
         final_sets=[]
@@ -278,11 +243,9 @@ class Tree(object):
     
     def remove_node(self,node_val):
         """
-            removes the node from the tree
+        removes the node from the tree
 
-            Parameters
-            ----------
-            node_val : int
+        :param node_val : int
                 node value
         
         """
@@ -293,18 +256,12 @@ class Tree(object):
 
     def get_ts(self,j):
         """
-            returns the ts
-
-            Parameters
-            ----------
-            j : int
+        returns the ts
+        :param j : int
                 j value
 
-            Returns
-            -------
-            list
+        :return: list
                 returns the list of ts
-        
         """
         summari=[]
         for i in self.summaries[j]:
@@ -313,29 +270,21 @@ class Tree(object):
     
     def getTransactions(self):
         """
-            returns the list of transactions
-
-            Returns
-            -------
-            list
+        returns the list of transactions
+        :return: list
                 returns the list of transactions
         """
         return [x for x in self.root._getTransactions()]
 
     def merge(self,tree):
         """
-            merges the tree
+        merges the tree
 
-            Parameters
-            ----------
-            tree : class
+        :param tree : class
                 tree to be merged
 
-            Returns
-            -------
-            class
+        :return: class
                 returns the merged tree
-        
         """
         for t in tree.getTransactions():
             t[0].reverse()
@@ -344,20 +293,16 @@ class Tree(object):
   
     def generate_patterns(self,prefix,glist,isResponsible = lambda x:True):
         """
-            generates the patterns
+        generates the patterns
 
-            Parameters
-            ----------
-            prefix : list
+        :param prefix : list
                 prefix of the pattern
-            glist : list
+        :param glist : list.
                 list of items
-            isResponsible : lambda function
+        :param isResponsible : lambda function.
                 lambda function to check the responsibility
-            
-            Returns
-            -------
-            list
+
+        :return: list
                 returns the list of patterns
         
         """
@@ -378,12 +323,10 @@ class Tree(object):
 
 class parallel3PGrowth(_ab._partialPeriodicPatterns):
     """
-    Description:
-    ----------------------
-        4PGrowth is fundamental approach to mine the partial periodic patterns in temporal database.
+    :Description:   4PGrowth is fundamental approach to mine the partial periodic patterns in temporal database.
 
-    Reference:
-    -----------
+    :Reference:
+
         ########################################
         ########################################
         ########################################
@@ -399,8 +342,8 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
         Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
         Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535
 
-    Parameters:
-    ----------
+    :Parameters:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
@@ -437,8 +380,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
-    Methods:
-    -------
+    :Methods:
 
         startMine()
             Mining process will start from here
@@ -466,50 +408,46 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
         startMine()
             main program to mine the partial periodic patterns
 
-    Executing the code on terminal:
-    -----------------------------------
+    **Executing the code on terminal:**
+    ---------------------------------------
         Format:
-        --------
            >>> python3 parallel3PGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
     
         Examples:
-        --------
-           >>> python3 parallel3PGrowth.py sampleDB.txt patterns.txt 10.0 2.0   (periodicSupport and period will be considered in percentage of database transactions)
+           >>> python3 parallel3PGrowth.py sampleDB.txt patterns.txt 10.0 2.0
 
-           >>> python3 parallel3PGrowth.py sampleDB.txt patterns.txt 10 2     (periodicSupprot and period will be considered in count)
-
-    Sample run of the importing code:
+    **Sample run of the importing code:**
     -----------------------------------------
     .. code-block:: python
 
-        from PAMI.partialPeriodicPattern.basic import 4PGrowth as alg
+            from PAMI.partialPeriodicPattern.basic import 4PGrowth as alg
 
-        obj = alg.4PGrowth(iFile, periodicSupport, period)
+            obj = alg.4PGrowth(iFile, periodicSupport, period)
 
-        obj.startMine()
+            obj.startMine()
 
-        partialPeriodicPatterns = obj.getPatterns()
+            partialPeriodicPatterns = obj.getPatterns()
 
-        print("Total number of partial periodic Patterns:", len(partialPeriodicPatterns))
+            print("Total number of partial periodic Patterns:", len(partialPeriodicPatterns))
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternInDf()
+            Df = obj.getPatternInDf()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+                run = obj.getRuntime()
 
         print("Total ExecutionTime in seconds:", run)
 
 
-    Credits:
+    **Credits:**
     -----------------
     The complete program was written by me under the supervision of Professor Rage Uday Kiran.\n
 
@@ -535,7 +473,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
     
     def startMine(self):
         """
-            Main method where the patterns are mined by constructing tree.
+        Main method where the patterns are mined by constructing tree.
         """
         
         if self._iFile is None:
@@ -617,20 +555,15 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
     def cond_trans(self,cond_pat,cond_tids):
         """
-            returns the condition pattern
+        returns the condition pattern
 
-            Parameters
-            ----------
-            cond_pat : list
+        :param cond_pat : list
                 condition pattern
-            cond_tids : list
+        :param cond_tids : list
                 condition tids
 
-            Returns
-            -------
-            list
+        :return: list
                 returns the list of patterns
-        
         """
         pat=[]
         tids=[]
@@ -659,18 +592,12 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
     def getps(self,tid_list):
         """
-            returns the periodic support
+        returns the periodic support
 
-            Parameters
-            ----------
-            tid_list : list
+        :param tid_list : list.
                 list of tids
-
-            Returns
-            -------
-            int
+        :return: int
                 returns the periodic support
-        
         """
         tid_list.sort()
         tids=tid_list
@@ -685,16 +612,12 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
     def getPF(self,tid_list):
         """
-            returns the periodic support
+        returns the periodic support
 
-            Parameters
-            ----------
-            tid_list : list
+        :param tid_list : list.
                 list of tids
 
-            Returns
-            -------
-            int
+        :return: int
                 returns the periodic support
         """
         tid_list.sort()
@@ -709,20 +632,14 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
     def getFrequentItems(self,data):
         """
-            returns the frequent items
+        returns the frequent items
 
-            Parameters
-            ----------
-            data : list
+        :param data : list
                 list of transactions
-            
-            Returns
-            -------
-            list
-                returns the list of frequent items
-        
-        """
 
+        :return: list
+                returns the list of frequent items
+        """
         
         # t1 = time.time()
         singleItems = data.flatMap(lambda x: [(y,[int(x[0])]) for y in x[1:]])
@@ -736,27 +653,22 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
     def getFrequentItemsets(self,data,perFreqItems,per,minPS, PSinfo):
         """
-            returns the frequent itemsets
+        returns the frequent itemsets
 
-            Parameters
-            ----------
-            data : list
+        :param data : list.
                 list of transactions
-            perFreqItems : list
+        :param perFreqItems : list.
                 list of frequent items
-            per : int
+        :param per : int
                 period
-            minPS : int
+        :param minPS : int
                 minimum periodic support
-            PSinfo : dict
+        :param PSinfo : dict
                 dictionary to store the information
 
-            Returns
-            -------
-            list
+        :return: list
                 returns the list of frequent itemsets
 
-        
         """
         # t1 = time.time()
         rank = dict([(index, item) for (item,index) in enumerate(perFreqItems)]) 
@@ -783,22 +695,18 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
     
     def genCondTransactions(self,tid,basket, rank, nPartitions):
         """
-            returns the conditional transactions
+        returns the conditional transactions
 
-            Parameters
-            ----------
-            tid : int
+        :param tid : int
                 tid of the transaction
-            basket : list
+        :param basket : list.
                 list of items
-            rank : dict
+        :param rank : dict
                 dictionary to store the rank
-            nPartitions : int
+        :param nPartitions : int
                 number of partitions
 
-            Returns
-            -------
-            list
+        :return: list
                 returns the list of conditional transactions
         
         """
@@ -868,7 +776,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
         """Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -895,16 +803,12 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
 def cond_trans(cond_pat,cond_tids):
     """
-        returns the condition pattern
+    returns the condition pattern
 
-        Parameters
-        ----------
-
-        cond_pat : list
+    :param cond_pat : list
             condition pattern
-        cond_tids : list
+    :param cond_tids : list
             condition tids
-
 
     """
     
@@ -936,14 +840,10 @@ def cond_trans(cond_pat,cond_tids):
 def getps(tid_list):
     """
     
-        returns the periodic support
+    returns the periodic support
 
-        Parameters
-        ----------
-
-        tid_list : list
+    :param tid_list : list.
             list of tids
-
 
     """
     tid_list.sort()

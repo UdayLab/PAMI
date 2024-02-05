@@ -1,17 +1,17 @@
 # generateSpatioTemporalDatabase is a code used to convert the database into SpatioTemporal database.
 #
 #   **Importing this algorithm into a python program**
-#    --------------------------------------------------------
+#   --------------------------------------------------------
 #
-#     from PAMI.extras.generateDatabase import generateSpatioTemporalDatabase as db
+#             from PAMI.extras.generateDatabase import generateSpatioTemporalDatabase as db
 #
-#     obj = db.generateSpatioTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)
+#             obj = db.generateSpatioTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)
 #
-#     obj.save()
+#             obj.save()
 #
-#     obj.createPoint(0,100,0,100) # values can be according to the size of data
+#             obj.createPoint(0,100,0,100) # values can be according to the size of data
 #
-#     obj.saveAsFile("outputFileName") # To create a file
+#             obj.saveAsFile("outputFileName") # To create a file
 #
 
 __copyright__ = """
@@ -38,33 +38,32 @@ import sys
 class spatioTemporalDatabaseGenerator():
     """
 
-            :Description:
-                    generateSpatioTemporalDatabase is a code used to convert the database into SpatioTemporal database.
+    :Description:   generateSpatioTemporalDatabase is a code used to convert the database into SpatioTemporal database.
 
-            :param  xmin: int :
-                    To give minimum value for x
-            :param  xmax: int :
-                    To give maximum value for x
-            :param  ymin: int :
-                    To give minimum value for y
-            :param  ymax: int :
-                     To give maximum value for y
-            :param maxTimeStamp: int :
-                    maximum Time Stamp for the database
-            :param numberOfItems: int :
-                    number of items in the database
-            :param itemChanceLow: int or float :
-                    least chance for item in the database
-            :param itemChanceHigh: int or float :
-                    highest chance for item in the database
-            :param timeStampChanceLow: int or float :
-                    lowest time stamp value
-            :param timeStampChanceHigh: int or float:
-                    highest time stamp value
+    :param  xmin: int :
+            To give minimum value for x
+    :param  xmax: int :
+            To give maximum value for x
+    :param  ymin: int :
+            To give minimum value for y
+    :param  ymax: int :
+             To give maximum value for y
+    :param maxTimeStamp: int :
+            maximum Time Stamp for the database
+    :param numberOfItems: int :
+            number of items in the database
+    :param itemChanceLow: int or float :
+            least chance for item in the database
+    :param itemChanceHigh: int or float :
+            highest chance for item in the database
+    :param timeStampChanceLow: int or float :
+            lowest time stamp value
+    :param timeStampChanceHigh: int or float:
+            highest time stamp value
 
-            **Importing this algorithm into a python program**
-            --------------------------------------------------------
-            .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
             from PAMI.extras.generateDatabase import generateSpatioTemporalDatabase as db
 

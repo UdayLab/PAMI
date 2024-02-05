@@ -9,7 +9,7 @@
 #
 #     obj.save()
 #
-#
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -31,18 +31,17 @@ import pandas as pd
 
 class generateLatexGraphFile():
     """
-        :Description:
-                generateLatexGraphFile is used to convert the given data into LatexGraphFile.
+    :Description: GenerateLatexGraphFile is used to convert the given data into LatexGraphFile.
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-        from PAMI.extras.syntheticDataGenerator import generateLatexGraphFile as fuz
+                from PAMI.extras.syntheticDataGenerator import generateLatexGraphFile as fuz
 
-        obj = fuz.generateLatexGraphFile(idf)
+                obj = fuz.generateLatexGraphFile(idf)
 
-        obj.save()
+                obj.save()
 
     """
 

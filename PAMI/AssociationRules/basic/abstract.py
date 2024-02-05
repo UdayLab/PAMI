@@ -47,9 +47,8 @@ import functools as _functools
 
 class _AssociationRules(_ABC):
     """
-    This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-    employ in PAMI
-
+    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+                     employ in PAMI
 
     :Attributes:
 

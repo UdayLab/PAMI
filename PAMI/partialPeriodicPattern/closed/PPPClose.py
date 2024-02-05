@@ -61,17 +61,15 @@ from PAMI.partialPeriodicPattern.closed import abstract as _abstract
 
 class PPPClose(_abstract._partialPeriodicPatterns):
     """
-    Description:
-    ------------
-        PPPClose algorithm is used to discover the closed partial periodic patterns in temporal databases.
-        It uses depth-first search.
+    :Description:
 
-    Reference:
-    -------------
-        
+    PPPClose algorithm is used to discover the closed partial periodic patterns in temporal databases.
+    It uses depth-first search.
 
-    Attributes:
-    ----------
+    :Reference:
+
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
         oFile : str
@@ -100,8 +98,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-    Methods:
-    ---------
+    :Methods:
 
         startMine()
             Mining process will start from here
@@ -118,55 +115,49 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         getRuntime()
             Total amount of runtime taken by the mining process will be retrieved from this function
 
-    Executing the code on terminal:
-    -------------------------------
+    **Executing the code on terminal:**
+    -------------------------------------
         Format:
-        ------------
            >>> python3 PPPClose.py <inputFile> <outputFile> <periodicSupport> <period>
 
         Examples:
-        --------
-            >>> python3 PPPClose.py sampleTDB.txt patterns.txt 0.3 0.4   (periodicSupport and period will be considered in percentage of database
-        transactions)
+            >>> python3 PPPClose.py sampleTDB.txt patterns.txt 0.3 0.4
 
-            >>> python3 PPPClose.py sampleTDB.txt patterns.txt 3 4     (periodicSupport and period will be considered in support count or frequency)
-
-
-    Sample run of the imported code:
+    **Sample run of the imported code:**
     --------------------------------------
     .. code-block:: python
 
-        from PAMI.partialPeriodicPattern.closed import PPPClose as alg
+            from PAMI.partialPeriodicPattern.closed import PPPClose as alg
 
-        obj = alg.PPPClose("../basic/sampleTDB.txt", "2", "6")
+            obj = alg.PPPClose("../basic/sampleTDB.txt", "2", "6")
 
-        obj.startMine()
+            obj.startMine()
 
-        periodicFrequentPatterns = obj.getPatterns()
+            periodicFrequentPatterns = obj.getPatterns()
 
-        print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
+            print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
 
-        obj.save("patterns")
+            obj.save("patterns")
 
-        Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    -------
+    **Credits:**
+    --------------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
-        """
+    """
 
     _periodicSupport = float()
     _period = float()
@@ -193,7 +184,6 @@ class PPPClose(_abstract._partialPeriodicPatterns):
         To convert the given user specified value
 
         :param value: user specified value
-
         :return: converted value
         """
         if type(value) is int:
@@ -210,9 +200,7 @@ class PPPClose(_abstract._partialPeriodicPatterns):
 
     def _creatingItemSets(self):
         """
-            Storing the complete transactions of the database/input file in a database variable
-
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _abstract._pd.DataFrame):
@@ -253,9 +241,8 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def _OneLengthPartialItems(self):
         """
         To scan the database and extracts the 1-length periodic-frequent items
-        Returns:
-        -------
-        Returns the 1-length periodic-frequent items
+
+        :return: Returns the 1-length periodic-frequent items
         """
         self._mapSupport = {}
         self._tidList = {}
@@ -293,13 +280,9 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def _calculate(self, tidSet):
         """
         To calculate the weight if pattern based on the respective timeStamps
-        Parameters
-        ----------
-        tidSet: timeStamps of the pattern
 
-        Returns
-        -------
-        the calculated weight of the timeStamps
+        :param tidSet: timeStamps of the pattern
+        :return: the calculated weight of the timeStamps
         """
         hashcode = 0
         for i in tidSet:
@@ -311,15 +294,12 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def _contains(self, itemSet, val, hashcode):
         """
         To check if the key(hashcode) is in dictionary(hashing) variable
-        Parameters:
-        ----------
-            itemSet: generated periodic-frequent itemSet
-            val: support and period of itemSet
-            hashcode: the key generated in calculate() method for every itemSet
 
-        Returns
-        -------
-            true if itemSet with same support present in dictionary(hashing) or else returns false
+        :param itemSet: generated periodic-frequent itemSet
+        :param val: support and period of itemSet
+        :param hashcode: the key generated in calculate() method for every itemSet
+
+        :return: true if itemSet with same support present in dictionary(hashing) or else returns false
         """
         if self._hashing.get(hashcode) is None:
             return False
@@ -332,13 +312,9 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def _getPeriodicSupport(self, timeStamps):
         """
         Calculates the period and support of timeStamps
-        Parameters:
-        ----------
-            timeStamps: timeStamps of itemSet
 
-        Returns:
-        -------
-            period and support
+        :param: timeStamps: timeStamps of itemSet
+        :return: period and support
         """
         timeStamps.sort()
         sup = 0
@@ -351,16 +327,11 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def _save(self, prefix, suffix, tidSetX):
         """
         Saves the generated pattern which satisfies the closed property
-        Parameters:
-        ----------
-            prefix: the prefix part of itemSet
-            suffix: the suffix part of itemSet
-            tidSetX: the timeStamps of the generated itemSet
 
-        Returns:
-        -------
-            saves the closed periodic-frequent pattern
-
+        :param prefix: the prefix part of itemSet
+        :param suffix: the suffix part of itemSet
+        :param tidSetX: the timeStamps of the generated itemSet
+        :return: saves the closed periodic-frequent pattern
         """
         if prefix is None:
             prefix = suffix
@@ -384,15 +355,11 @@ class PPPClose(_abstract._partialPeriodicPatterns):
 
     def _processEquivalenceClass(self, prefix, itemSets, tidSets):
         """
-        Parameters:
-        ----------
-            prefix: Prefix class of an itemSet
-            itemSets: suffix items in periodicFrequentItems that satisfies the periodicSupport condition
-            tidSets: timeStamps of items in itemSets respectively
 
-        Returns:
-        -------
-            closed periodic patterns with length more than 2
+        :param prefix: Prefix class of an itemSet
+        :param itemSets: suffix items in periodicFrequentItems that satisfies the periodicSupport condition
+        :param tidSets: timeStamps of items in itemSets respectively
+        :return: closed periodic patterns with length more than 2
         """
         if len(itemSets) == 1:
             i = itemSets[0]
@@ -501,9 +468,8 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
 
-            :return: returning USS memory consumed by the mining process
-
-            :rtype: float
+        :return: returning USS memory consumed by the mining process
+        :rtype: float
         """
 
         return self._memoryUSS
@@ -511,9 +477,8 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
-            :return: returning RSS memory consumed by the mining process
-
-            :rtype: float
+        :return: returning RSS memory consumed by the mining process
+        :rtype: float
         """
 
         return self._memoryRSS
@@ -521,9 +486,8 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
 
-            :return: returning total amount of runtime taken by the mining process
-
-            :rtype: float
+        :return: returning total amount of runtime taken by the mining process
+        :rtype: float
         """
 
         return self._endTime - self._startTime
@@ -531,9 +495,8 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
 
-            :return: returning frequent patterns in a dataframe
-
-            :rtype: pd.DataFrame
+        :return: returning frequent patterns in a dataframe
+        :rtype: pd.DataFrame
         """
 
         dataFrame = {}
@@ -546,9 +509,8 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def save(self, outFile):
         """Complete set of frequent patterns will be loaded in to a output file
 
-            :param outFile: name of the output file
-
-            :type outFile: file
+        :param outFile: name of the output file
+        :type outFile: file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -559,9 +521,8 @@ class PPPClose(_abstract._partialPeriodicPatterns):
     def getPatterns(self):
         """ Function to send the set of frequent patterns after completion of the mining process
 
-            :return: returning frequent patterns
-
-            :rtype: dict
+        :return: returning frequent patterns
+        :rtype: dict
         """
         return self._finalPatterns
 

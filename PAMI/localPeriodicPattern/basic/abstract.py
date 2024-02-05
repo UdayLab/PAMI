@@ -42,12 +42,12 @@ from urllib.request import urlopen as _urlopen
 
 
 class _localPeriodicPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-        employ in PAMI
+    """
+    :Description: This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+                  employ in PAMI
 
+    :Attributes:
 
-    Attributes:
-    ----------
         inputFile : str
             Input file name or path of the input file
         minSup: integer or float or str
@@ -68,8 +68,8 @@ class _localPeriodicPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-    Methods:
-    -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getLocalPeriodicPatterns()
@@ -88,7 +88,6 @@ class _localPeriodicPatterns(_ABC):
 
     def __init__(self, iFile, maxPer, maxSoPer, minDur, sep='\t'):
         """
-
         :param iFile: Input file name or path of the input file
         :type iFile: str
         :param maxPer: The user can specify maxPer either in count or proportion of database size.
@@ -193,7 +192,7 @@ class _localPeriodicPatterns(_ABC):
         """Complete set of local periodic patterns will be saved in to an output file from this function
 
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass

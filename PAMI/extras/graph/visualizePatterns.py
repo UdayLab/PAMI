@@ -36,24 +36,24 @@ import sys
 class visualizePatterns():
     """
 
-               :Description:
-                        visualizePatterns is used to visualize points produced by pattern miner .
-               Attributes:
-               ----------
-               :param file : file
-                    store input data as file
-               :param topk : int
-                    Takes the value int as input
+   :Description:   visualizePatterns is used to visualize points produced by pattern miner .
 
-               **Importing this algorithm into a python program**
-               --------------------------------------------------------
-               .. code-block:: python
+   :Attributes:
 
-                    from PAMI.extras.graph import visualizePatterns as viz
+        :param file : file
+            store input data as file
+        :param topk : int
+            Takes the value int as input
 
-                    obj = viz.visualizePatterns(iFile, topk)
+   **Importing this algorithm into a python program**
+   --------------------------------------------------------
+   .. code-block:: python
 
-                    obj.save()
+            from PAMI.extras.graph import visualizePatterns as viz
+
+            obj = viz.visualizePatterns(iFile, topk)
+
+            obj.save()
 
     """
 
@@ -65,12 +65,10 @@ class visualizePatterns():
         """
         Visualize points produced by pattern miner.
 
-        :param file: String for file name
-        :param top: visualize topk patterns
-        :param markerSize: int
+        :param markerSize: integer
         :param zoom: int
-        :param file: int
-        :param file: int
+        :param width: int
+        :param height: int
         """
 
         long = []

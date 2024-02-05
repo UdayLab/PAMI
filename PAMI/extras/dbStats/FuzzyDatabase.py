@@ -3,15 +3,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import FuzzyDatabaseStats as db
+#             from PAMI.extras.dbStats import FuzzyDatabaseStats as db
 #
-#     obj = db.FuzzyDatabase(iFile, "\t")
+#             obj = db.FuzzyDatabase(iFile, "\t")
 #
-#     obj.run()
+#             obj.run()
 #
-#     obj.printStats()
+#             obj.printStats()
 #
-#      obj.save(oFile)
+#             obj.save(oFile)
 #
 #
 __copyright__ = """
@@ -39,15 +39,17 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class FuzzyDatabase:
     """
-        :Description: FuzzyDatabase is class to get stats of fuzzyDatabase.
+    :Description: FuzzyDatabase is class to get stats of fuzzyDatabase.
+
+    :Attributes:
 
         inputFile : file
             input file path
         sep : str
             separator in file. Default is tab space.
             
-        Methods:
-        ---------
+    :Methods:
+
         run()
             execute readDatabase function
         readDatabase()
@@ -110,7 +112,7 @@ class FuzzyDatabase:
 
     def creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.Database = []
         self.utilityValues = []
@@ -170,7 +172,7 @@ class FuzzyDatabase:
     def getDatabaseSize(self) -> int:
         """
         get the size of database
-        :return: data base size
+        :return: dataset size
         """
         return len(self.database)
 
@@ -228,7 +230,7 @@ class FuzzyDatabase:
         # percentage of 0 dense dataframe
         """
         get the sparsity of database
-        :return: database sparsity
+        :return: dataset sparsity
         """
         matrixSize = self.getDatabaseSize()*len(self.getSortedListOfItemFrequencies())
         return (matrixSize - sum(self.getSortedListOfItemFrequencies().values())) / matrixSize
@@ -263,7 +265,7 @@ class FuzzyDatabase:
     def getTransanctionalLengthDistribution(self) -> dict:
         """
         get transaction length
-        :return: transaction length
+        :return: transactional length
         """
         transactionLength = {}
         for length in self.lengthList:
@@ -293,7 +295,7 @@ class FuzzyDatabase:
     def getMinimumUtility(self) -> int:
         """
         get the minimum utility
-        :return: minimum utility
+        :return: min utility
         """
         return min(list(self.utility.values()))
 
@@ -307,7 +309,7 @@ class FuzzyDatabase:
     def getMaximumUtility(self) -> int:
         """
         get the maximum utility
-        :return: maximum utility
+        :return: max utility
         """
         return max(list(self.utility.values()))
 

@@ -3,21 +3,21 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB import DenseFormatDF as db
+#             from PAMI.extras.DF2DB import DenseFormatDF as db
 #
-#     obj = db.DenseFormatDF(idf, ">=", 16)
+#             obj = db.DenseFormatDF(idf, ">=", 16)
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     obj.convert2TransactionalDatabase("outputFileName") # To create transactional database
+#             obj.convert2TransactionalDatabase("outputFileName") # To create transactional database
 #
-#     obj.convert2TemporalDatabase("outputFileName") # To create temporal database
+#             obj.convert2TemporalDatabase("outputFileName") # To create temporal database
 #
-#     obj.convert2MultipleTimeSeries("outputFileName") # To create Mutliple TimeSeries database
+#             obj.convert2MultipleTimeSeries("outputFileName") # To create Mutliple TimeSeries database
 #
-#     obj.convert2UtilityDatabase("outputFileName") # To create utility database
+#             obj.convert2UtilityDatabase("outputFileName") # To create utility database
 #
-#     obj.getFileName("outputFileName") # To get file name of the database
+#             obj.getFileName("outputFileName") # To get file name of the database
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -51,7 +51,9 @@ condition_operator = {
 
 class DenseFormatDF:
     """
-        :Description: This class create Data Base from DataFrame.
+    :Description: This class create Data Base from DataFrame.
+
+    :Attributes:
 
         :param inputDF: dataframe :
             It is dense DataFrame
@@ -61,25 +63,23 @@ class DenseFormatDF:
             User defined value.
 
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-        from PAMI.extras.DF2DB import DenseFormatDF as db
+            from PAMI.extras.DF2DB import DenseFormatDF as db
 
-        obj = db.DenseFormatDF(iDdf, ">=", 16 )
+            obj = db.DenseFormatDF(iDdf, ">=", 16 )
 
-        obj.convert2TransactionalDatabase("outputFileName") # To create transactional database
+            obj.convert2TransactionalDatabase("outputFileName") # To create transactional database
 
-        obj.convert2TemporalDatabase("outputFileName") # To create temporal database
+            obj.convert2TemporalDatabase("outputFileName") # To create temporal database
 
-        obj.convert2MultipleTimeSeries("outputFileName") # To create Multiple TimeSeries database
+            obj.convert2MultipleTimeSeries("outputFileName") # To create Multiple TimeSeries database
 
-        obj.convert2UtilityDatabase("outputFileName") # To create utility database
+            obj.convert2UtilityDatabase("outputFileName") # To create utility database
 
-        obj.getFileName("outputFileName") # To get file name of the database
-
-
+            obj.getFileName("outputFileName") # To get file name of the database
     """
 
     def __init__(self, inputDF) -> None:
@@ -92,16 +92,16 @@ class DenseFormatDF:
 
     def convert2TransactionalDatabase(self, outputFile: str, condition: str, thresholdValue: Union[int, float]) -> None:
         """
-         :Description: Create transactional data base
+        :Description: Create transactional data base
 
-         :param outputFile: str :
-              Write transactional data base into outputFile
+        :Attributes:
 
-         :param condition: str :
-            It is condition to judge the value in dataframe
-         :param thresholdValue: int or float :
-            User defined value.
-
+             :param outputFile: str :
+                  Write transactional database into outputFile
+             :param condition: str :
+                It is condition to judge the value in dataframe
+             :param thresholdValue: int or float :
+                User defined value.
         """
 
 
@@ -125,10 +125,10 @@ class DenseFormatDF:
 
     def convert2TemporalDatabase(self, outputFile: str, condition: str, thresholdValue: Union[int, float]) -> None:
         """
-         :Description: Create temporal data base
+         :Description: Create temporal database
 
          :param outputFile: str :
-                 Write temporal data base into outputFile
+                 Write temporal database into outputFile
          :param condition: str :
             It is condition to judge the value in dataframe
          :param thresholdValue: int or float :
@@ -162,7 +162,6 @@ class DenseFormatDF:
 
          :param outputFile:  str :
                      Write multiple time series database into outputFile.
-
         :param interval: int:
                     Breaks the given timeseries into intervals.
         :param condition: str :
@@ -238,8 +237,6 @@ class DenseFormatDF:
 
          :param outputFile:  str :
                      Write utility database into outputFile
-
-
         """
 
         self.outputFile = outputFile

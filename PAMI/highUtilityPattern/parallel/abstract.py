@@ -30,12 +30,12 @@ import functools as _functools
 import sys as _sys
 
 class _utilityPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-        employ in PAMI
+    """
+    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+                    employ in PAMI
 
+    :Attributes:
 
-       Attributes
-        ----------
         iFile : str
             Input file name or path of the input file
         minUtil: integer 
@@ -56,8 +56,8 @@ class _utilityPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    :Methods:
+
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -77,14 +77,12 @@ class _utilityPatterns(_ABC):
 
     def __init__(self, iFile, minUtil, sep = "\t"):
         """
-
         :param iFile: Input file name or path of the input file
         :type iFile: str
         :param minUtil: The user can specify minUtil in count 
         :type minUtil: int 
         :param sep: separator used to distinguish items from each other. The default separator is tab space. However, users can override the default separator
         :type sep: str
-
         """
 
         self._iFile = iFile
@@ -99,47 +97,59 @@ class _utilityPatterns(_ABC):
 
     @_abstractmethod
     def startMine(self):
-        """Code for the mining process will start from this function"""
+        """
+        Code for the mining process will start from this function
+        """
 
         pass
 
     @_abstractmethod
     def getPatterns(self):
-        """Complete set of frequent patterns generated will be retrieved from this function"""
+        """
+        Complete set of frequent patterns generated will be retrieved from this function
+        """
 
         pass
 
     @_abstractmethod
     def save(self, oFile):
-        """Complete set of frequent patterns will be saved in to an output file from this function
-
+        """
+        Complete set of frequent patterns will be saved in to an output file from this function
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass
 
     @_abstractmethod
     def getPatternsAsDataFrame(self):
-        """Complete set of frequent patterns will be loaded in to data frame from this function"""
+        """
+        Complete set of frequent patterns will be loaded in to data frame from this function
+        """
 
         pass
 
     @_abstractmethod
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the program will be retrieved from this function"""
+        """
+        Total amount of USS memory consumed by the program will be retrieved from this function
+        """
 
         pass
 
     @_abstractmethod
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the program will be retrieved from this function"""
+        """
+        Total amount of RSS memory consumed by the program will be retrieved from this function
+        """
 
         pass
 
 
     @_abstractmethod
     def getRuntime(self):
-        """Total amount of runtime taken by the program will be retrieved from this function"""
+        """
+        Total amount of runtime taken by the program will be retrieved from this function
+        """
 
         pass

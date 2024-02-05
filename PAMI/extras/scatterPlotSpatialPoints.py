@@ -9,7 +9,6 @@
 #
 #   obj.save()
 #
-#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -37,27 +36,23 @@ from typing import Dict, List
 class scatterPlotSpatialPoints:
     """
 
-            :Description:
-                    scatterPlotSpatialPoints is used to convert the given data and plot the points.
+    :Description:   scatterPlotSpatialPoints is used to convert the given data and plot the points.
 
-            :param  iFile: str :
-                    Name of the Input file
-            :param  sep: str :
-                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  iFile: str :  Name of the Input file
+    :param  sep: str :   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-            **Importing this algorithm into a python program**
-            --------------------------------------------------------
-            .. code-block:: python
+                from PAMI.extras.syntheticDataGenerator import scatterPlotSpatialPoints as plt
 
-            from PAMI.extras.syntheticDataGenerator import scatterPlotSpatialPoints as plt
+                obj = plt.scatterPlotSpatialPoints(iFile, "\t" )
 
-            obj = plt.scatterPlotSpatialPoints(iFile, "\t" )
-
-            obj.save(oFile)
+                obj.save(oFile)
 
 
-        """
+    """
 
     def __init__(self, iFile: str, sep: str = '\t') ->None:
 
