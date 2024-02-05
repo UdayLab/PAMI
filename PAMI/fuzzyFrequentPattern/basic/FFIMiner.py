@@ -2,34 +2,32 @@
 # to its huge search space.we are using efficient pruning techniques to reduce the search space.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
+# ---------------------------------------------------------
 #
-#     from PAMI.fuzzyFrequentPattern import FFIMiner as alg
+#             from PAMI.fuzzyFrequentPattern import FFIMiner as alg
 #
-#     obj = alg.FFIMiner("input.txt", 2)
+#             obj = alg.FFIMiner("input.txt", 2)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     fuzzyFrequentPattern = obj.getPatterns()
+#             fuzzyFrequentPattern = obj.getPatterns()
 #
-#     print("Total number of Fuzzy Frequent Patterns:", len(fuzzyFrequentPattern))
+#             print("Total number of Fuzzy Frequent Patterns:", len(fuzzyFrequentPattern))
 #
-#     obj.save("outputFile")
+#             obj.save("outputFile")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
-#
-
 
 
 __copyright__ = """
@@ -57,26 +55,25 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 class _FFList:
     """
-     A class represent a Fuzzy List of an element
+    A class represent a Fuzzy List of an element
 
-    Attributes :
-    ----------
-         item: int
-             the item name
-         sumIUtil: float
-             the sum of utilities of a fuzzy item in database
-         sumRUtil: float
-             the sum of resting values of a fuzzy item in database
-         elements: list
-             a list of elements contain tid,Utility and resting values of element in each transaction
-    Methods :
-    -------
+    :Attributes:
+
+        item: int
+            the item name
+        sumIUtil: float
+            the sum of utilities of a fuzzy item in database
+        sumRUtil: float
+            the sum of resting values of a fuzzy item in database
+        elements: list
+            a list of elements contain tid,Utility and resting values of element in each transaction
+
+    :Methods:
+
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
-
         printElement(e)
             Method to print elements
-
     """
 
     def __init__(self, itemName: int) -> None:
@@ -87,10 +84,10 @@ class _FFList:
 
     def addElement(self, element) -> None:
         """
-            A Method that add a new element to FFList
+        A Method that add a new element to FFList
 
-            :param element: an element to be added to FFList
-            :param type: Element
+        :param element: an element to be added to FFList
+        :param element: Element
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -98,7 +95,7 @@ class _FFList:
 
     def printElement(self) -> None:
         """
-            A method to print elements
+        A method to print elements
         """
         for ele in self.elements:
             print(ele.tid, ele.iUtils, ele.rUtils)
@@ -106,16 +103,16 @@ class _FFList:
 
 class _Element:
     """
-        A class represents an Element of a fuzzy list
+    A class represents an Element of a fuzzy list
 
-    Attributes:
-    ----------
-            tid : int
-                keep tact of transaction id
-            iUtils: float
-                the utility of a fuzzy item in the transaction
-            rUtils : float
-                the  resting value of a fuzzy item in the transaction
+    :Attributes:
+
+        tid : int
+            keep tact of transaction id
+        iUtils: float
+            the utility of a fuzzy item in the transaction
+        rUtils : float
+            the  resting value of a fuzzy item in the transaction
     """
 
     def __init__(self, tid: int, iUtil: float, rUtil: float) -> None:
@@ -126,7 +123,7 @@ class _Element:
 
 class _Pair:
     """
-        A class to store item and it's quantity together
+    A class to store item and it's quantity together
     """
 
     def __init__(self) -> None:
@@ -136,33 +133,28 @@ class _Pair:
 
 class FFIMiner(_ab._fuzzyFrequentPattenrs):
     """
-    Description:
-    -------------
-        Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
-        to its huge search space.we are using efficient pruning techniques to reduce the search space.
+    :Description:   Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
+                    to its huge search space.we are using efficient pruning techniques to reduce the search space.
 
-    Reference :
-    --------------
-        Lin, Chun-Wei & Li, Ting & Fournier Viger, Philippe & Hong, Tzung-Pei. (2015).
-        A fast Algorithm for mining fuzzy frequent itemsets. Journal of Intelligent & Fuzzy Systems. 29.
-        2373-2379. 10.3233/IFS-151936.
-        https://www.researchgate.net/publication/286510908_A_fast_Algorithm_for_mining_fuzzy_frequent_itemSets
+    :Reference:   Lin, Chun-Wei & Li, Ting & Fournier Viger, Philippe & Hong, Tzung-Pei. (2015).
+                  A fast Algorithm for mining fuzzy frequent itemsets. Journal of Intelligent & Fuzzy Systems. 29.
+                  2373-2379. 10.3233/IFS-151936.
+                  https://www.researchgate.net/publication/286510908_A_fast_Algorithm_for_mining_fuzzy_frequent_itemSets
 
-    Attributes :
-    ---------------
+    :Attributes:
 
         iFile : string
             Name of the input file to mine complete set of fuzzy  frequent patterns
         fmFile : string
             Name of the fuzzy membership file to mine complete set of fuzzy  frequent patterns
         oFile : string
-               Name of the oFile file to store complete set of fuzzy  frequent patterns
+            Name of the oFile file to store complete set of fuzzy  frequent patterns
         minSup : float
             The user given minimum support
         memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+            To store the total amount of RSS memory consumed by the program
         startTime:float
-               To record the start time of the mining process
+            To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
         itemsCnt: int
@@ -184,8 +176,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         itemBuffer list
             to keep track of items in buffer
 
-    Methods :
-    ------------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -213,48 +205,47 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         WriteOut(prefix, prefixLen, item, sumIUtil)
             To Store the patten
 
-    Executing the code on terminal :
-    --------------------------------
-        Format:
+    **Executing the code on terminal :**
+    ----------------------------------------
+            Format:
+                    >>> python3 FFIMiner.py <inputFile> <outputFile> <minSup> <separator>
 
-            >>> python3 FFIMiner.py <inputFile> <outputFile> <minSup> <separator>
-        Examples:
-
-            >>> python3  FFIMiner.py sampleTDB.txt output.txt 6  (minSup will be considered in support count or frequency)
+            Examples:
+                    >>> python3  FFIMiner.py sampleTDB.txt output.txt 6
 
 
-    Sample run of importing the code:
-    ----------------------------------
+    **Sample run of importing the code:**
+    ------------------------------------------
     .. code-block:: python
 
-        from PAMI.fuzzyFrequentPattern import FFIMiner as alg
+            from PAMI.fuzzyFrequentPattern import FFIMiner as alg
 
-        obj = alg.FFIMiner("input.txt", 2)
+            obj = alg.FFIMiner("input.txt", 2)
 
-        obj.startMine()
+            obj.startMine()
 
-        fuzzyFrequentPattern = obj.getPatterns()
+            fuzzyFrequentPattern = obj.getPatterns()
 
-        print("Total number of Fuzzy Frequent Patterns:", len(fuzzyFrequentPattern))
+            print("Total number of Fuzzy Frequent Patterns:", len(fuzzyFrequentPattern))
 
-        obj.save("outputFile")
+            obj.save("outputFile")
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
 
-    Credits:
-    -----------
-        The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
+    **Credits:**
+    ---------------
+            The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
 
     """
 
@@ -286,7 +277,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
     def _compareItems(self, o1: _FFList, o2: _FFList) -> int:
         """
-            A Function that sort all ffi-list in ascending order of Support
+        A Function that sort all ffi-list in ascending order of Support
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -302,6 +293,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
     def _convert(self, value) -> Union[int, float]:
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -319,8 +311,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
     def _creatingItemsets(self) -> None:
         """
-         Storing the complete transactions of the database/input file in a database variable
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._transactions, self._fuzzyValues, self._Database = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -363,7 +354,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
     def startMine(self) -> None:
         """
-          fuzzy-Frequent pattern mining process will start from here
+        fuzzy-Frequent pattern mining process will start from here
         """
         self._startTime = _ab._time.time()
         self._creatingItemsets()
@@ -422,7 +413,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         self._memoryRSS = process.memory_info().rss
 
     def _FFIMining(self, prefix, prefixLen, FSFIM, minSup):
-        """Generates ffi from prefix
+        """
+        Generates ffi from prefix
 
         :param prefix: the prefix patterns of ffi
         :type prefix: len
@@ -447,7 +439,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                 self._FFIMining(self._itemSetBuffer, prefixLen + 1, exULs, minSup)
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -456,32 +449,33 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
-       """
+        """
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-       """
+        """
         return self._endTime - self._startTime
 
     def _construct(self, px, py) -> _FFList:
         """
-            A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
+        A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
 
-            :param px:the itemSet px
-            :type px:ffi-List
-            :param py:itemSet py
-            :type py:ffi-List
-            :return :the itemSet of pxy(px and py)
-            :rtype :ffi-List
+        :param px:the itemSet px
+        :type px:ffi-List
+        :param py:itemSet py
+        :type py:ffi-List
+        :return :the itemSet of pxy(px and py)
+        :rtype :ffi-List
         """
         pxyUL = _FFList(py.item)
         for ex in px.elements:
@@ -494,13 +488,14 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
     def _findElementWithTID(self, uList, tid) -> _Element:
         """
-            To find element with same tid as given
-            :param uList: fuzzyList
-            :type uList: ffi-List
-            :param tid: transaction id
-            :type tid: int
-            :return: element  tid as given
-            :rtype: element if exit or None
+        To find element with same tid as given
+
+        :param uList: fuzzyList
+        :type uList: ffi-List
+        :param tid: transaction id
+        :type tid: int
+        :return: element  tid as given
+        :rtype: element if exit or None
         """
         List = uList.elements
         first = 0
@@ -517,17 +512,16 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
     def _WriteOut(self, prefix: list, prefixLen: int, item: int, sumIUtil: float) -> None:
         """
-            To Store the patten
+        To Store the patten
 
-            :param prefix: prefix of itemSet
-            :type prefix: list
-            :param prefixLen: length of prefix
-            :type prefixLen: int
-            :param item: the last item
-            :type item: int
-            :param sumIUtil: sum of utility of itemSet
-            :type sumIUtil: float
-
+        :param prefix: prefix of itemSet
+        :type prefix: list
+        :param prefixLen: length of prefix
+        :type prefixLen: int
+        :param item: the last item
+        :type item: int
+        :param sumIUtil: sum of utility of itemSet
+        :type sumIUtil: float
         """
         self._itemsCnt += 1
         res = ""
@@ -538,7 +532,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         self._finalPatterns[res] = res1
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -552,7 +547,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         return dataFrame
 
     def getPatterns(self) -> dict:
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
@@ -560,10 +556,11 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         return self._finalPatterns
 
     def save(self, outFile) -> dict:
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -572,7 +569,9 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self) -> None:
-        """ this function is used to print the results"""
+        """
+        This function is used to print the results
+        """
         print("Total number of Fuzzy Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

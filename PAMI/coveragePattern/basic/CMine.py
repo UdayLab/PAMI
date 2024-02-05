@@ -366,7 +366,7 @@ class CMine(_ab._coveragePatterns):
 
     def printResults(self) -> None:
         """
-         This function is used to print the result
+        This function is used to print the result
         """
         print("Total number of Coverage Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
