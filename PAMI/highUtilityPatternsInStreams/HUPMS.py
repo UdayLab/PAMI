@@ -3,7 +3,6 @@
 # It stores the database of the current window in form of HUSTree and adjusts the tree based on upcoming
 # transactions removing the oldest batch.
 #
-#
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
@@ -62,42 +61,41 @@ _hus._sys.setrecursionlimit(20000)
 
 class _Node:
     """
-        A class used to represent a node in the HUS tree
+    A class used to represent a node in the HUS tree
 
-        Attributes
-        ----------
-            itemName : str
-                name of the item
+    :Attributes:
 
-            utility : int
-                utility of the item
+        itemName : str
+            name of the item
 
-            children : dict
-                dictionary of children of the node
+        utility : int
+            utility of the item
 
-            next : _Node
-                pointer to the next node with same item in the tree
+        children : dict
+            dictionary of children of the node
 
-            batchIndex : int
-                index of the batch with respect to window to which the node belongs
-            
-            utility : list
-                list of utilities of the node with respect to each batch in the window
+        next : _Node
+            pointer to the next node with same item in the tree
 
-            parent : _Node
-                pointer to the parent of the node
+        batchIndex : int
+            index of the batch with respect to window to which the node belongs
 
-        Methods
-        -------
+        utility : list
+            List of utilities of the node with respect to each batch in the window
 
-            addUtility(utility, batchIndex)
-                Adds utility to the node at specified batch index
+        parent : _Node
+            pointer to the parent of the node
 
-            removeUtility(utility)
-                Removes utility from the node
+    :Methods:
 
-            shiftUtility()
-                Shifts the utility values of the node to the left useful for removing the oldest batch information
+        addUtility(utility, batchIndex)
+            Adds utility to the node at specified batch index
+
+        removeUtility(utility)
+            Removes utility from the node
+
+        shiftUtility()
+            Shifts the utility values of the node to the left useful for removing the oldest batch information
     """
 
     def __init__(self, itemName, utility, batchSize, batchIndex):
@@ -111,34 +109,30 @@ class _Node:
 
     def addUtility(self, utility, batchIndex):
         """
-            Adds utility to the node
+        Adds utility to the node
 
-            Parameters
-            ----------
-                utility : int
-                    Net utility value to be added
 
-                batchIndex : int
-                    index of the batch with respect to window to which the node belongs
+        :param utility : int
+            Net utility value to be added
+        :param batchIndex : int
+            index of the batch with respect to window to which the node belongs
         """
 
         self.utility[batchIndex] += utility
 
     def removeUtility(self, utility):
         """
-            Removes utility from the node
+        Removes utility from the node
 
-            Parameters
-            ----------
-                utility : int
-                    Net utility value to be removed
+        :param utility : int
+                Net utility value to be removed
         """
 
         self.utility -= utility
 
     def shiftUtility(self):
         """
-            Shifts the utility values of the node to the left
+        Shifts the utility values of the node to the left
         """
 
         self.utility.pop(0)
@@ -147,30 +141,30 @@ class _Node:
 
 class _HeaderTable:
     """
-        A class used to represent the header table of the HUS tree
+    A class used to represent the header table of the HUS tree
 
-        Attributes
-        ----------
-            table : dict
-                dictionary of items as keys and list of utility and pointer to the node in the tree as values
-                representing the header table
+    :Attributes:
 
-            orderedItems : list
-                list of items in the header table in lexicographical order
+        table : dict
+            dictionary of items as keys and list of utility and pointer to the node in the tree as values
+            representing the header table
 
-        Methods
-        -------
-            updateUtility(item, utility, node)
-                Updates the utility of the item with node pointer in the header table
+        orderedItems : list
+            list of items in the header table in lexicographical order
 
-            addUtility(item, utility)
-                Adds utility to the item in the header table
+    :Methods:
 
-            removeUtility(item, utility)
-                Removes utility from the item in the header table
+        updateUtility(item, utility, node)
+            Updates the utility of the item with node pointer in the header table
 
-            itemOrdering()
-                Orders the items in the header table in lexicographical order
+        addUtility(item, utility)
+            Adds utility to the item in the header table
+
+        removeUtility(item, utility)
+            Removes utility from the item in the header table
+
+        itemOrdering()
+            Orders the items in the header table in lexicographical order
     """
 
     def __init__(self):
@@ -179,18 +173,17 @@ class _HeaderTable:
 
     def updateUtility(self, item, utility, node):
         """
-            Updates the utility of the item in the header table
+        Updates the utility of the item in the header table
 
-            Parameters
-            ----------
-                item : str
-                    name of the item to which utility needs to be updated
 
-                utility : int
-                    Net utility of the item to be updated
+        :param item : str
+            name of the item to which utility needs to be updated
 
-                node : _Node
-                    pointer to the node in the tree to which the item belongs
+        :param utility : int
+            Net utility of the item to be updated
+
+        :param node : _Node
+            pointer to the node in the tree to which the item belongs
         """
 
         if item in self.table:
@@ -209,30 +202,24 @@ class _HeaderTable:
 
     def addUtility(self, item, utility):
         """
-            Adds utility to the item in the header table
+        Adds utility to the item in the header table
 
-            Parameters
-            ----------
-                item : str
-                    name of the item to which utility needs to be added
-
-                utility : int
-                    Net utility of the item to be added
+        :param item : str
+            name of the item to which utility needs to be added
+        :param utility : int
+            Net utility of the item to be added
         """
         self.table[item][0] += utility
     
 
     def removeUtility(self, item, utility):
         """
-            Removes utility from the item in the header table
+        Removes utility from the item in the header table
 
-            Parameters
-            ----------
-                item : str
-                    name of the item to which utility needs to be removed
-
-                utility : int
-                    Net utility of the item to be removed
+        :param item : str
+            name of the item to which utility needs to be removed
+        :param utility : int
+            Net utility of the item to be removed
         """
         self.table[item][0] -= utility
 
@@ -243,45 +230,45 @@ class _HeaderTable:
 
     def itemOrdering(self):
         """
-            Orders the items in the header table in lexicographical order
+        Orders the items in the header table in lexicographical order
         """        
         self.orderedItems = list(sorted(self.table.keys()))
 
 class _HUSTree:
 
     """
-        A class used to represent the HUS tree
+    A class used to represent the HUS tree
 
-        Attributes
-        ----------
-            root : _Node
-                root node of the tree
+    :Attributes:
 
-            headerTable : _HeaderTable
-                header table of the tree
+        root : _Node
+            root node of the tree
 
-            batchSize : int
-                size of the batch
+        headerTable : _HeaderTable
+            header table of the tree
 
-            windowSize : int
-                size of the window
+        batchSize : int
+            size of the batch
 
-            batchIndex : int
-                index of the current batch with respect to window
+        windowSize : int
+            size of the window
 
-            windowUtility : int
-                utility of the current window
+        batchIndex : int
+            index of the current batch with respect to window
 
-        Methods
-        -------
-            addTransaction(transaction, utility)
-                Adds transaction to the tree
+        windowUtility : int
+            utility of the current window
 
-            removeBatch()
-                Removes the oldest batch from the tree
+    :Methods:
 
-            removeBatchUtility()
-                Removes the utility of the oldest batch from each subtree
+        addTransaction(transaction, utility)
+            Adds transaction to the tree
+
+        removeBatch()
+            Removes the oldest batch from the tree
+
+        removeBatchUtility()
+            Removes the utility of the oldest batch from each subtree
 
     """
 
@@ -295,15 +282,13 @@ class _HUSTree:
 
     def addTransaction(self, transaction, utility):
         """
-            Adds transaction to the tree
+        Adds transaction to the tree
 
-            Parameters
-            ----------
-                transaction : list
-                    list of items in the transaction
+            :param transaction : list
+                list of items in the transaction
 
-                utility : int
-                    Net utility of the transaction
+            :param utility : int
+                Net utility of the transaction
 
         """
         transaction.sort(key = lambda x: x[0])
@@ -325,7 +310,7 @@ class _HUSTree:
     def removeBatch(self):
 
         """
-            Removes the oldest batch from the tree
+        Removes the oldest batch from the tree
         """
 
         currentNode = self.root
@@ -343,12 +328,10 @@ class _HUSTree:
     def removeBatchUtility(self, tempNode):
         
         """
-            Removes the utility of the oldest batch from each subtree
+        Removes the utility of the oldest batch from each subtree
 
-            Parameters
-            ----------
-                tempNode : _Node
-                    pointer to the node in the tree
+        :param tempNode : _Node
+            pointer to the node in the tree
 
         """
         if tempNode is None:
@@ -384,136 +367,124 @@ class _HUSTree:
     
 class HUPMS(_hus._highUtilityPatternStreamMining):
     """
-        Description:
-        -------------
-            High-utility pattern mining over data stream is one of the challenging problems in data stream mining.
-            HUPMS is an algorithm that discovers high-utility patterns from data streams without rebuilding the tree.
-            It stores the database of the cuurent window in form of HUSTree and adjusts the tree based on upcoming
-            transactions removing the oldest batch.
+    :Description:   High-utility pattern mining over data stream is one of the challenging problems in data stream mining.
+                    HUPMS is an algorithm that discovers high-utility patterns from data streams without rebuilding the tree.
+                    It stores the database of the cuurent window in form of HUSTree and adjusts the tree based on upcoming
+                    transactions removing the oldest batch.
 
-        References
-        ------------
-            Chowdhury Farhan Ahmed and Syed Khairuzzaman Tanbeer and Byeong-Soo Jeong and Ho-Jin Choi : Interactive 
-            mining of high utility patterns over data streams. Expert Systems with Applications Vol 39, 11979 - 11991, 2012.
-            https://doi.org/10.1016/j.eswa.2012.03.062
+    :References:   Chowdhury Farhan Ahmed and Syed Khairuzzaman Tanbeer and Byeong-Soo Jeong and Ho-Jin Choi : Interactive
+                   mining of high utility patterns over data streams. Expert Systems with Applications Vol 39, 11979 - 11991, 2012.
+                   https://doi.org/10.1016/j.eswa.2012.03.062
+
+    :Attributes:
+
+        __startTime : float
+            start time of the mining process
+
+        __endTime : float
+            end time of the mining process
+
+        _minUtil : str
+            minimum utility threshold
+
+        __finalPatterns : dict
+            dictionary of the final patterns generated in each window
+
+        _iFile : str
+            input file name
+
+        _oFile : str
+            output file name
+
+        _sep : str
+            seperator of the input file
+
+        __memoryUSS : float
+            memory usage of the algorithm in user space
+
+        __memoryRSS : float
+            memory usage of the algorithm in resident set size
+
+        __transactions : list
+            list of transactions in the database
+
+        __utilities : list
+            list of utilities of each item of a transaction in the database
+
+        __utilitySum : list
+            list of utility sum of each transaction in the database
+
+        __tree : _HUSTree
+            HUS tree of the current window
+
+        __windowSize : int
+            The size of the sliding window. It specifies the number of panes to be considered for mining patterns.
+
+        __paneSize : int
+            The size of the pane. It specifies the number of transactions to be considered for mining in each pane.
+
+    :Methods:
+
+        _createItemsets()
+            Storing the complete transactions of the database/input file in a transaction variable with their utilities.
+
+        createPrefixBranch(root)
+            Creates the prefix branch of the current HUS-Tree for construction of prefix tree
+
+        fixUtility(root)
+            Fixes the utility of the nodes in the tree by merging the utility values
+
+        createConditionalTree(root, transactions, minUtil)
+            Creates the conditional tree for the given prefix tree
+
+        contains(superset, subset)
+            Checks if the superset contains the subset
+
+        treeGenerations(root, netUtil, candidatePattern, curItem)
+            Generates the tree of the high utility patterns
+
+        startMine()
+            Starts the mining process
+
+        printTree(root, level)
+            Prints the HUS-tree in a readable format
+
+        getMemoryRSS()
+            Returns the memory usage of the algorithm in resident set size
+
+        getMemoryUSS()
+            Returns the memory usage of the algorithm in user space
+
+        getPatterns()
+            Returns the final patterns generated in each window
+
+        getPatternsAsDataFrame()
+            Returns the final patterns generated in each window as a pandas dataframe
+
+        getRuntime()
+            Returns the runtime of the algorithm
+
+        printResults()
+            Prints the statistics of the mining process
+
+        save()
+            Saves the patterns generated from each window in a file
 
 
-        Attributes:
-        ----------
-
-            __startTime : float
-                start time of the mining process
-
-            __endTime : float
-                end time of the mining process
-
-            _minUtil : str
-                minimum utility threshold
-
-            __finalPatterns : dict
-                dictionary of the final patterns generated in each window
-
-            _iFile : str
-                input file name
-
-            _oFile : str
-                output file name
-
-            _sep : str
-                seperator of the input file
-
-            __memoryUSS : float
-                memory usage of the algorithm in user space
-
-            __memoryRSS : float
-                memory usage of the algorithm in resident set size
-
-            __transactions : list
-                list of transactions in the database
-
-            __utilities : list
-                list of utilities of each item of a transaction in the database
-
-            __utilitySum : list
-                list of utility sum of each transaction in the database
-
-            __tree : _HUSTree
-                HUS tree of the current window
-
-            __windowSize : int
-                The size of the sliding window. It specifies the number of panes to be considered for mining patterns.
-
-            __paneSize : int
-                The size of the pane. It specifies the number of transactions to be considered for mining in each pane.
-
-            
-
-        Methods:
-        -------
-            _createItemsets()
-                Storing the complete transactions of the database/input file in a transaction variable with their utilities.
-
-            createPrefixBranch(root)
-                Creates the prefix branch of the current HUS-Tree for construction of prefix tree
-
-            fixUtility(root)
-                Fixes the utility of the nodes in the tree by merging the utility values
-
-            createConditionalTree(root, transactions, minUtil)
-                Creates the conditional tree for the given prefix tree
-
-            contains(superset, subset)
-                Checks if the superset contains the subset
-
-            treeGenerations(root, netUtil, candidatePattern, curItem)
-                Generates the tree of the high utility patterns
-
-            startMine()
-                Starts the mining process
-
-            printTree(root, level)
-                Prints the HUS-tree in a readable format
-
-            getMemoryRSS()
-                Returns the memory usage of the algorithm in resident set size
-
-            getMemoryUSS()
-                Returns the memory usage of the algorithm in user space
-
-            getPatterns()
-                Returns the final patterns generated in each window
-
-            getPatternsAsDataFrame()
-                Returns the final patterns generated in each window as a pandas dataframe
-
-            getRuntime()
-                Returns the runtime of the algorithm
-
-            printResults()
-                Prints the statistics of the mining process
-
-            save()
-                Saves the patterns generated from each window in a file
-            
-
-        Executing the code on terminal:
-        -------------------------------
-
+    **Executing the code on terminal:**
+    -------------------------------------
             Format:
-            -------
                 >>> python3 HUPMS.py <inputFile> <outputFile> <minUtil> <windowSize> <paneSize> <separator>
 
             Example:
-            --------
-
                 >>> python3 HUPMS.py retail.txt output.txt 107 100 1000 ','
 
             .. note::    Here minimum utility is 107, Window size is 100 and pane size is 1000. The separator is comma for the input file)
 
-        Credits:
-        --------
+    **Credits:**
+    -------------
 
-            The code is written by Vipul Chhabra under the supervision of Prof. Rage Uday Kiran.
+    The code is written by Vipul Chhabra under the supervision of Prof. Rage Uday Kiran.
     
     """
 
@@ -539,7 +510,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def _createItemsets(self):
         """
-            Storing the complete transactions of the database/input file in a transaction variable
+        Storing the complete transactions of the database/input file in a transaction variable
         """
         self._transactions, self._utilities, self._utilitySum = [], [], []
         if isinstance(self._iFile, _hus._pd.DataFrame):
@@ -583,19 +554,15 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def createPrefixBranch(self, root):
         """
-            Creates the prefix branch of the node
+        Creates the prefix branch of the node
 
-            Parameters
-            ----------
-                root : _Node
-                    pointer to the root node of the sub-tree
 
-            Returns
-            -------
-                stack : list
+        :param root : _Node
+                pointer to the root node of the sub-tree
+
+        :return stack : list
                     list of the nodes in prefix branch
-
-                curUtil : int
+        :return curUtil : int
                     utility of the prefix branch
         """
         stack = []
@@ -610,12 +577,10 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def fixUtility(self, root):
         """
-            Fixes the utility of the nodes in the tree by merging the utility values
+        Fixes the utility of the nodes in the tree by merging the utility values
 
-            Parameters
-            ----------
-                root : _Node
-                    pointer to the root node of the subtree
+        :param root : _Node
+                pointer to the root node of the subtree
         """
         
         if(root is None):
@@ -629,23 +594,18 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def createConditionalTree(self, root, transactions, minUtil):
         """
-            Creates the conditional tree for the given prefix tree
+        Creates the conditional tree for the given prefix tree
 
-            Parameters
-            ----------
-                root : _Node
-                    pointer to the root node of the prefix tree
 
-                transactions : list
-                    list of transactions in prefix tree
+        :param root : _Node
+            pointer to the root node of the prefix tree
+        :param transactions : list
+            list of transactions in prefix tree
+        :param minUtil : int
+            minimum utility threshold
 
-                minUtil : int
-                    minimum utility threshold
-
-            Returns
-            -------
-                tempTree : _HUSTree
-                    conditional tree for the given prefix tree
+        :return: tempTree : _HUSTree
+                conditional tree for the given prefix tree
         """
         
         for transaction in transactions:
@@ -664,19 +624,14 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
     
     def contains(self, superset, subset):
         """
-            Checks if the superset contains the subset
+        Checks if the superset contains the subset
 
-            Parameters
-            ----------
-                superset : list
-                    list of items in the superset
+        :param superset : list
+            list of items in the superset
+        :param subset : list
+            list of items in the subset
 
-                subset : list
-                    list of items in the subset
-
-            Returns
-            -------
-                bool
+        :return: bool :
                     True if superset contains subset, False otherwise
         """
      
@@ -684,18 +639,16 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def treeGenerations(self, root, netUtil, candidatePattern, curItem = []):
         """
-            Generates the tree of the high utility patterns
+        Generates the tree of the high utility patterns
 
-            Parameters
-            ----------
-                root : _Node
-                    pointer to the root of the tree
-                netUtil : int
-                    Net utility of the transaction
-                candidatePattern : list
-                    Candidate patterns generated with utility
-                curItem : list
-                    List of items in the current itemsets
+        :param root : _Node
+            pointer to the root of the tree
+        :param netUtil : int
+            Net utility of the transaction
+        :param candidatePattern : list
+            Candidate patterns generated with utility
+        :param curItem : list
+            List of items in the current itemsets
         """
 
         if(root is None):
@@ -742,7 +695,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def startMine(self):
         """
-            This function will start the mining process
+        This function will start the mining process
         """
         global _minUtil
         self.__startTime = _hus._time.time()
@@ -819,6 +772,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
     def printTree(self, root, level = 0):
         """
         Prints the tree in a readable format.
+
         :param root: CPSTreeNode object for the root of the tree
         :param level: Current level of the root node
         """
@@ -830,41 +784,37 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def getMemoryRSS(self):
         """
-            Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
-            :return: returning RSS memory consumed by the mining process
-
-            :rtype: float
+        :return: returning RSS memory consumed by the mining process
+        :rtype: float
         """
         return self.__memoryRSS
 
     def getMemoryUSS(self):
         """
-            Total amount of USS memory consumed by the mining process will be retrieved from this function
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
-            :return: returning USS memory consumed by the mining process
-
-            :rtype: float
+        :return: returning USS memory consumed by the mining process
+        :rtype: float
         """
         return self.__memoryUSS
 
     def getPatterns(self):
         """
-            Returns the frequent patterns generated by the mining process over the complete datastream.
+        Returns the frequent patterns generated by the mining process over the complete datastream.
 
-            :return: returning frequent patterns generated by the mining process
-
-            :rtype: dict
+        :return: returning frequent patterns generated by the mining process
+        :rtype: dict
         """
         return self.__finalPatterns
 
     def getPatternsAsDataFrame(self):
         """
-            Stores the final patterns generated by the mining process in a dataframe.
+        Stores the final patterns generated by the mining process in a dataframe.
 
-            :return: returning dataframe containing the final patterns generated by the mining process
-
-            :rtype: pandas.DataFrame
+        :return: returning dataframe containing the final patterns generated by the mining process
+        :rtype: pandas.DataFrame
         """
 
         dataframe = {}
@@ -878,19 +828,17 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     def getRuntime(self):
         """
-            Total amount of time taken by the mining process will be retrieved from this function
+        Total amount of time taken by the mining process will be retrieved from this function
 
-            :return: returning time taken by the mining process
-
-            :rtype: float
+        :return: returning time taken by the mining process
+        :rtype: float
         """
 
         return self.__endTime - self.__startTime
 
     def printResults(self):
         """
-            Prints the results of the mining process
-
+        Prints the results of the mining process
         """
         print("Total number of Windows Processed:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
