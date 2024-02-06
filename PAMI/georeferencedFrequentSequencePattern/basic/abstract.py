@@ -42,14 +42,17 @@ from collections import OrderedDict as _OrderedDict
 
 
 class _GeorefarencedFequentialPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-        employ in PAMI
-    Attributes :
-    ----------
+
+    """
+    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+                    employ in PAMI
+
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
         nFile: str
-            Neighbourhoof file name
+            Neighbourhood file name
         minSup: integer or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -70,8 +73,9 @@ class _GeorefarencedFequentialPatterns(_ABC):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-    Methods :
-    -------
+
+    :Methods:
+
         startMine()
             Calling this function will start the actual mining process
         getPatterns()
@@ -132,8 +136,9 @@ class _GeorefarencedFequentialPatterns(_ABC):
     @_abstractmethod
     def save(self, oFile):
         """Complete set of frequent patterns will be saved in to an output file from this function
+
         :param oFile: Name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
 
         pass

@@ -54,19 +54,15 @@ from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
 
 class SpatialECLAT(_ab._spatialFrequentPatterns):
     """
-    Description:
-    --------------
-        Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
-        Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
-        scalable version of the Apriori algorithm.
+    :Description:   Spatial Eclat is a Extension of ECLAT algorithm,which  stands for Equivalence Class Clustering and bottom-up
+                    Lattice Traversal.It is one of the popular methods of Association Rule mining. It is a more efficient and
+                    scalable version of the Apriori algorithm.
 
-    Reference:
-    -----------
-        Rage, Uday & Fournier Viger, Philippe & Zettsu, Koji & Toyoda, Masashi & Kitsuregawa, Masaru. (2020).
-        Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.
+    :Reference:   Rage, Uday & Fournier Viger, Philippe & Zettsu, Koji & Toyoda, Masashi & Kitsuregawa, Masaru. (2020).
+                  Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.
 
-    Attributes :
-    ---------------
+    :Attributes:
+
         iFile : str
             Input file name or path of the input file
         nFile: str
@@ -91,8 +87,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         Database : list
             To store the complete set of transactions available in the input database/file
 
-    Methods :
-    ------------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -124,18 +120,18 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         mapNeighbours(file):
             A function to map items to their neighbours
 
-    Executing the code on terminal :
-    ----------------------------------
-        Format:
+    **Executing the code on terminal :**
+    ----------------------------------------
 
+        Format:
             >>> python3 SpatialECLAT.py <inputFile> <outputFile> <neighbourFile> <minSup>
             
         Examples:
-
             >>> python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
-            
-    Sample run of importing the code :
-    -----------------------------------
+
+
+    **Sample run of importing the code :**
+    ------------------------------------------
     .. code-block:: python
 
         from PAMI.georeferencedFrequentPattern.basic import SpatialECLAT as alg
@@ -163,8 +159,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         print("Total ExecutionTime in seconds:", run)
 
 
-    Credits:
-    ---------
+    **Credits:**
+    ----------------
         The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
     """
 
@@ -235,6 +231,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -323,11 +320,12 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
     def _getNeighbourItems(self, keySet):
         """
-            A function to get Neighbours of a item
-            :param keySet:itemSet
-            :type keySet:str or tuple
-            :return: set of common neighbours 
-            :rtype:set
+        A function to get Neighbours of a item
+
+        :param keySet:itemSet
+        :type keySet:str or tuple
+        :return: set of common neighbours
+        :rtype:set
         """
         itemNeighbours = self._NeighboursMap.keys()
         if isinstance(keySet, str):
@@ -344,7 +342,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
     def _mapNeighbours(self):
         """
-            A function to map items to their Neighbours
+
+        A function to map items to their Neighbours
         """
         self._NeighboursMap = {}
         if isinstance(self._nFile, _ab._pd.DataFrame):
