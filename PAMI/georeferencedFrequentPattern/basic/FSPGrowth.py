@@ -2,7 +2,7 @@
 # that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
+# -------------------------------------------------------
 #
 #         from PAMI.georeferencedFrequentPattern.basic import FSPGrowth as alg
 #
@@ -28,6 +28,7 @@
 #
 #         print("Total ExecutionTime in seconds:", run)
 #
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -55,8 +56,9 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 class _Node:
     """
     A class used to represent the node of frequentPatternTree
-    Attributes
-    ----------
+
+    :Attributes:
+
         item : int
             Storing item of a node
         count : int
@@ -77,14 +79,16 @@ class _Node:
 class _Tree:
     """
     A class used to represent the frequentPatternGrowth tree structure
-    Attributes
-    ----------
+
+    :Attributes:
+
         root : Node
             The first node of the tree set to Null.
         nodeLink : dict
             Stores the nodes which shares same item
-    Methods
-    -------
+
+    :Methods:
+
         createTree(transaction,count)
             Adding transaction into the tree
         linkNode(node)
@@ -108,6 +112,7 @@ class _Tree:
     def createTree(self, transaction, count):
         """
         Create tree or add transaction into yourself.
+
         :param transaction: list
         :param count: int
         :return: Tree
@@ -126,6 +131,7 @@ class _Tree:
     def linkNode(self, node):
         """
         Maintain link of node by adding node to nodeLink
+
         :param node: Node
         :return:
         """
@@ -138,6 +144,7 @@ class _Tree:
     def createCPB(self, item, neighbour) :
         """
         Create conditional pattern base based on item and neighbour
+
         :param item: int
         :param neighbour: dict
         :return: Tree
@@ -153,6 +160,7 @@ class _Tree:
     def mergeTree(self, tree, fpList):
         """
         Merge tree into yourself
+
         :param tree: Tree
         :param fpList: list
         :return: Tree
@@ -165,8 +173,9 @@ class _Tree:
     def createTransactions(self, fpList):
         """
         Create transactions that configure yourself
+
         :param fpList: list
-        :return: list
+        :return: transaction list
         """
         transactions = []
         flist = [x for x in fpList if x in self.nodeLink]
@@ -185,6 +194,7 @@ class _Tree:
     def getPattern(self, item, suffixItem, minSup, neighbour):
         """
         Get frequent patterns based on suffixItem
+
         :param item: int
         :param suffixItem: tuple
         :param minSup: int
@@ -208,6 +218,7 @@ class _Tree:
     def mining(self, minSup:collable[int, float], neighbourhood: [Dict[int, List[int]]] = None):
         """
         Pattern mining on your own
+
         :param minSup: int
         :param neighbourhood: function
         :param neighbourhood: dict
@@ -222,17 +233,14 @@ class _Tree:
 
 class FSPGrowth(_ab._spatialFrequentPatterns):
     """
-    Description:
-    -------------
-        Given a transactional database and a spatial (or neighborhood) file, FSPM aims to discover all of those patterns
-        that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints
-    Reference:
-    -----------
-        Rage, Uday & Fournier Viger, Philippe & Zettsu, Koji & Toyoda, Masashi & Kitsuregawa, Masaru. (2020).
-        Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.
+    :Description:   Given a transactional database and a spatial (or neighborhood) file, FSPM aims to discover all of those patterns
+                    that satisfy the user-specified minimum support (minSup) and maximum distance (maxDist) constraints
 
-    Attributes:
-    ------------
+    :Reference:   Rage, Uday & Fournier Viger, Philippe & Zettsu, Koji & Toyoda, Masashi & Kitsuregawa, Masaru. (2020).
+                  Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.
+
+    :Attributes:
+
         iFile : file
             Input file name or path of the input file
         nFile : file
@@ -252,8 +260,8 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-    Methods:
-    --------
+    :Methods:
+
         startMine()
             This function starts pattern mining.
         getPatterns()
@@ -285,17 +293,17 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         getAllFrequentPatterns(data, fpList, ndata)
             This function generates all frequent patterns
 
-    Executing the code on terminal :
-    ---------------------------------
+    **Executing the code on terminal :**
+    --------------------------------------
+
         Format:
-
             >>> python3 FSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup>
+
         Examples:
+            >>> python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5
 
-            >>> python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
-
-    Sample run of importing the code :
-    -----------------------------------
+    **Sample run of importing the code :**
+    ----------------------------------------
     .. code-block:: python
 
         from PAMI.georeferencedFrequentPattern.basic import FSPGrowth as alg
@@ -322,8 +330,8 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    ----------
+    **Credits:**
+    --------------
         The complete program was written by Yudai Masu under the supervision of Professor Rage Uday Kiran.
     """
 
@@ -441,6 +449,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -479,6 +488,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -487,6 +497,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     def getMemoryRSS(self):
         """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -495,6 +506,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     def getRuntime(self):
         """Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -503,6 +515,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     def getPatternsAsDataFrame(self):
         """Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -517,8 +530,9 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     def save(self, oFile):
         """
         Complete set of frequent patterns will be loaded in to a output file
+
         :param oFile: name of the output file
-        :type oFile: file
+        :type oFile: csv file
         """
         self._oFile = oFile
         writer = open(self._oFile, 'w+')
@@ -529,6 +543,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
     def getPatterns(self):
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
@@ -536,7 +551,8 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
