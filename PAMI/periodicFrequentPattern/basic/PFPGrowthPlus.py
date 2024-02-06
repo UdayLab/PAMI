@@ -79,7 +79,7 @@ class _Node(object):
 
         addChild(itemName)
             storing the children to their respective parent nodes
-        """
+    """
 
     def __init__(self, item, children) -> None:
         self.item = item
@@ -110,14 +110,14 @@ class _Tree(object):
         addTransaction(transaction)
             creating transaction as a branch in frequentPatternTree
         getConditionalPatterns(Node)
-                enerates the conditional patterns from tree for specific node
-         conditionalTransactions(prefixPaths,Support)
+            generates the conditional patterns from tree for specific node
+        conditionalTransactions(prefixPaths,Support)
             takes the prefixPath of a node and support at child of the path and extract the frequent items from
             prefixPaths and generates prefixPaths with items which are frequent
         remove(Node)
             removes the node from tree once after generating all the patterns respective to the node
         generatePatterns(Node)
-                tarts from the root node of the tree and mines the periodic-frequent patterns
+            tarts from the root node of the tree and mines the periodic-frequent patterns
     """
 
     def __init__(self) -> None:
@@ -280,8 +280,8 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
     :Description:   PFPGrowthPlus is fundamental and improved version of PFPGrowth algorithm to discover periodic-frequent patterns in temporal database.
                     It uses greedy approach to discover effectively
 
-    :Reference :   R. UdayKiran, MasaruKitsuregawa, and P. KrishnaReddyd, "Efficient discovery of periodic-frequent patterns in
-                   very large databases," Journal of Systems and Software February 2016 https://doi.org/10.1016/j.jss.2015.10.035
+    :Reference:   R. UdayKiran, MasaruKitsuregawa, and P. KrishnaReddyd, "Efficient discovery of periodic-frequent patterns in
+                  very large databases," Journal of Systems and Software February 2016 https://doi.org/10.1016/j.jss.2015.10.035
 
     :Attributes:
 
@@ -357,46 +357,44 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
    -------------------------------------------
             Format:
                       >>>  python3 PFPGrowthPlus.py <inputFile> <outputFile> <minSup> <maxPer>
-
             Example:
                       >>>  python3 PFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 0.4
 
                       .. note:: minSup will be considered in percentage of database transactions
 
    **Importing this algorithm into a python program**
-   -------------------------------------------
+   -----------------------------------------------------------
     .. code-block:: python
 
-                from PAMI.periodicFrequentPattern.basic import PFPGorwthPlus as alg
+            from PAMI.periodicFrequentPattern.basic import PFPGorwthPlus as alg
 
-                obj = alg.PFPGrowthPlus("../basic/sampleTDB.txt", "2", "6")
+            obj = alg.PFPGrowthPlus("../basic/sampleTDB.txt", "2", "6")
 
-                obj.startMine()
+            obj.startMine()
 
-                periodicFrequentPatterns = obj.getPatterns()
+            periodicFrequentPatterns = obj.getPatterns()
 
-                print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+            print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 
-                obj.save("patterns")
+            obj.save("patterns")
 
-                Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-                memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-                print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-                memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-                print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-                run = obj.getRuntime()
+            run = obj.getRuntime()
 
-                print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
-    --------------
-    The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.
-
+    -----------------
+            The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.
     """
 
     _minSup = str()
@@ -510,7 +508,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
     @staticmethod
     def _buildTree(data, info) -> _Tree:
         """
-        it takes the transactions and support of each item and construct the main tree with setting root node as null
+        It takes the transactions and support of each item and construct the main tree with setting root node as null
 
         :param data : it represents the one transaction in database
         :type data : list
@@ -589,7 +587,8 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         print("periodic-frequent patterns were generated successfully using PFPGrowth++ algorithm ")
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -598,7 +597,8 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -607,7 +607,8 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
 
         :return: returning total amount of runtime taken by the mining process
@@ -636,7 +637,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
         Complete set of periodic-frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

@@ -410,17 +410,15 @@ class SHUFIM(_ab._utilityPatterns):
         useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset)
              A method to scan the database using utility bin array to calculate the pmus
 
-    Executing the code on terminal :
-    -------------------------------------
-        Format:
-        ------
-                  >>> python3 SHUFIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <minSup> <sep>
-        Examples:
-        ------
-                  >>> python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20
+    **Executing the code on terminal :**
+    -----------------------------------------
+            Format:
+                    >>> python3 SHUFIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <minSup> <sep>
+            Examples:
+                    >>> python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20
 
-    Sample run of importing the code:
-    -------------------------------------
+    **Sample run of importing the code:**
+    -----------------------------------------
     .. code-block:: python
 
             from PAMI.highUtilityGeoreferencedFrequentPattern.basic import SHUFIM as alg
@@ -484,6 +482,7 @@ class SHUFIM(_ab._utilityPatterns):
     def _convert(self, value):
         """
         To convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type
         """
@@ -716,6 +715,7 @@ class SHUFIM(_ab._utilityPatterns):
     def _calculateNeighbourIntersection(self, prefixLength):
         """
         A method to find common Neighbours
+
         :Attributes:
 
         :param prefixLength: the prefix itemSet
@@ -745,7 +745,7 @@ class SHUFIM(_ab._utilityPatterns):
          :type utility: int
          :param support: support of an itemSet
          :type support: int
-        """
+         """
         self._patternCount += 1
         s1 = str()
         for i in range(0, tempPosition+1):
@@ -784,6 +784,7 @@ class SHUFIM(_ab._utilityPatterns):
     def _intersection(self, lst1, lst2):
         """
         A method that return the intersection of 2 list
+
         :param  lst1: items neighbour to item1
         :type lst1: list
         :param lst2: items neighbour to item2
@@ -846,7 +847,7 @@ class SHUFIM(_ab._utilityPatterns):
         :param trans2:the second transaction
         :type trans2: Trans
         :return: sorted transaction
-        :rtype:    Trans
+        :rtype: Trans
         """
         trans1_items = trans1.getItems()
         trans2_items = trans2.getItems()
@@ -885,7 +886,6 @@ class SHUFIM(_ab._utilityPatterns):
 
         :param dataset: the transaction database
         :type dataset: dataset
-
         """
         for transaction in dataset.getTransactions():
             for idx, item in enumerate(transaction.getItems()):
@@ -907,6 +907,7 @@ class SHUFIM(_ab._utilityPatterns):
     def getPatternsAsDataFrame(self):
         """
         Storing final patterns in a dataframe
+
         :return: returning patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -921,6 +922,7 @@ class SHUFIM(_ab._utilityPatterns):
     def getPatterns(self):
         """
         Function to send the set of patterns after completion of the mining process
+
         :return: returning patterns
         :rtype: dict
         """
@@ -929,6 +931,7 @@ class SHUFIM(_ab._utilityPatterns):
     def save(self, outFile):
         """
         Complete set of patterns will be loaded in to an output file
+
         :param outFile: name of the output file
         :type outFile: csv file
         """
@@ -941,6 +944,7 @@ class SHUFIM(_ab._utilityPatterns):
     def getMemoryUSS(self):
         """
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -950,6 +954,7 @@ class SHUFIM(_ab._utilityPatterns):
     def getMemoryRSS(self):
         """
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -958,6 +963,7 @@ class SHUFIM(_ab._utilityPatterns):
     def getRuntime(self):
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """

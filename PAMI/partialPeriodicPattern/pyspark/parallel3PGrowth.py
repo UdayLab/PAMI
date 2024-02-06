@@ -71,7 +71,7 @@ class Node(object):
             children of the node
         parent : class
             parent of the node
-        tids : list
+        tids : list.
             list of tids
 
     :Methods:
@@ -325,22 +325,8 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
     """
     :Description:   4PGrowth is fundamental approach to mine the partial periodic patterns in temporal database.
 
-    :Reference:
-
-        ########################################
-        ########################################
-        ########################################
-        ########################################
-        ########################################
-        ########################################
-        FIX THIS
-        ########################################
-        ########################################
-        ########################################
-        ########################################
-        ########################################
-        Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
-        Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535
+    :Reference:   Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
+                  Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535
 
     :Parameters:
 

@@ -1,7 +1,7 @@
 # VBFTMine is one of the fundamental algorithm to discover fault-tolerant frequent patterns in an uncertain transactional database based on bitset representation.
 #
 # **Importing this algorithm into a python program**
-# ---------------------------------------------------
+# --------------------------------------------------------
 #
 #             import PAMI.uncertainFaultTolerantFrequentPattern.basic.VBFTMine as alg
 #
@@ -109,7 +109,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
 
     **Sample run of the importing code**:
-    ------------------------------------
+    --------------------------------------------
     .. code-block:: python
     
             import PAMI.faultTolerantFrequentPattern.basic.VBFTMine as alg
