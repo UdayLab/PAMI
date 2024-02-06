@@ -47,9 +47,9 @@ import PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.abstract as _ab
 
 class _FFList:
     """
-     A class represent a Fuzzy List of an element
-    Attributes :
-    ----------
+    A class represent a Fuzzy List of an element
+    :Attributes:
+
          item: int
              the item name
          sumIUtil: float
@@ -58,8 +58,9 @@ class _FFList:
              the sum of resting values of a fuzzy item in database
          elements: list
              a list of elements contain tid,Utility and resting values of element in each transaction
-    Methods :
-    -------
+
+    :Methods:
+
         addElement(element)
             Method to add an element to this fuzzy list and update the sums at the same time.
         printElement(e)
@@ -75,9 +76,10 @@ class _FFList:
 
     def addElement(self, element):
         """
-            A Method that add a new element to FFList
-            :param element: an element to be added to FFList
-            :param type: Element
+        A Method that add a new element to FFList
+
+        :param element: an element to be added to FFList
+        :param element: Element
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -85,7 +87,7 @@ class _FFList:
 
     def printElement(self):
         """
-            A Method to Print elements in the FFList object
+        A Method to Print elements in the FFList object
         """
         for ele in self.elements:
             print(ele.tid, ele.iUtils, ele.rUtils)
@@ -93,9 +95,10 @@ class _FFList:
 
 class _Element:
     """
-        A class represents an Element of a fuzzy list
-    Attributes :
-    ----------
+    A class represents an Element of a fuzzy list
+
+    :Attributes:
+
         tid : int
             keep tact of transaction id
         iUtils: float
@@ -112,7 +115,7 @@ class _Element:
 
 class _Pair:
     """
-        A class to store item and it's quantity together
+    A class to store item and it's quantity together
     """
 
     def __init__(self):
@@ -122,30 +125,26 @@ class _Pair:
 
 class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     """
-    Description:
-    -------------
-    
-        Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
-        which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
-        techniques to reduce the search space.
+    :Description:   Fuzzy Frequent Spatial Pattern-Miner is desired to find all Spatially frequent fuzzy patterns
+                    which is on-trivial and challenging problem to its huge search space.we are using efficient pruning
+                    techniques to reduce the search space.
          
-    Reference:
-    -----------
+    :Reference:
     
-    Attributes :
-    ----------
+    :Attributes:
+
         iFile : file
             Name of the input file to mine complete set of fuzzy spatial frequent patterns
         oFile : file
-               Name of the oFile file to store complete set of fuzzy spatial frequent patterns
+            Name of the oFile file to store complete set of fuzzy spatial frequent patterns
         minSup : float
             The user given minimum support
         neighbors: map
             keep track of neighbours of elements
         memoryRSS : float
-                To store the total amount of RSS memory consumed by the program
+            To store the total amount of RSS memory consumed by the program
         startTime:float
-               To record the start time of the mining process
+            To record the start time of the mining process
         endTime:float
             To record the completion time of the mining process
         itemsCnt: int
@@ -166,8 +165,9 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             represent the size of Buffer
         itemBuffer list
             to keep track of items in buffer
-    Methods :
-    -------
+
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -194,16 +194,17 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             To find element with same tid as given
         WriteOut(prefix, prefixLen, item, sumIUtil,period)
             To Store the patten
-    Executing the code on terminal :
-    -----------------------------------
-        Format:
-        -------
-            >>> python3 FGPFPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <maxPer> <sep>
-        Examples:
-            >>> python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 3 4  (minSup will be considered in support count or frequency)
+
+    **Executing the code on terminal :**
+    --------------------------------------------
+            Format:
+                    >>> python3 FGPFPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <maxPer> <sep>
+
+            Examples:
+                    >>> python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 3 4
            
-    Sample run of importing the code:
-    --------------------------------------
+    **Sample run of importing the code:**
+    ----------------------------------------
     .. code-block:: python
     
         from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
@@ -222,8 +223,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         
         print("Total ExecutionTime in seconds:", obj.getRuntime())
     
-    Credits:
-    ---------
+    **Credits:**
+    ----------------
             The complete program was written by B.Sai Chitra and Kundai Kwangwari under the supervision of Professor Rage Uday Kiran.
     """
 
@@ -261,7 +262,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _compareItems(self, o1, o2):
         """
-            A Function that sort all FFI-list in ascending order of Support
+        A Function that sort all FFI-list in ascending order of Support
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -272,6 +273,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
     def _convert(self, value):
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -288,8 +290,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _creatingItemSets(self):
         """
-           Storing the complete transactions of the database/input file in a database variable
-
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._transactionsDB, self._fuzzyValuesDB, self._ts = [], [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -332,7 +333,7 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _mapNeighbours(self):
         """
-            A function to map items to their Neighbours
+        A function to map items to their Neighbours
         """
         self._mapItemNeighbours = {}
         if isinstance(self._nFile, _ab._pd.DataFrame):
@@ -378,7 +379,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     quit()
 
     def startMine(self):
-        """ Frequent pattern mining process will start from here
+        """
+        Frequent pattern mining process will start from here
         """
         self._startTime = _ab._time.time()
         self._mapNeighbours()
@@ -390,11 +392,11 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             fuzzyValues_list = self._fuzzyValuesDB[line]
             ts = self._ts[line]
             self._dbLen += 1
-            """T
+            """
             The section below is for:
-                1.Finding the support of each item's region in the entire database
-                2.Finding the periodic patterns of the data
-                3.Trimming off the patterns whose support is less than minSupport
+            1.Finding the support of each item's region in the entire database
+            2.Finding the periodic patterns of the data
+            3.Trimming off the patterns whose support is less than minSupport
             """
             for i in range(0, len(item_list)):
                 item = item_list[i]
@@ -414,10 +416,10 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             self._tidList[item].append(len(self._transactionsDB) - recent_occur[item][-1])
         del recent_occur
         """
-            Using Maximum Scalar Cardinality Value strategy to narrow down search space and generate candidate fuzzy periodic-frequent items. 
-            Step1. Identify the regional representative (region with max support). This is the representative that will be tested to see if its greater than given minSup
-            Step2. prune out all items whose regional support is less than the given minSup
-            Step3. At the end, sort the list of stored Candidate Frequent-Periodic Patterns in ascending order
+        Using Maximum Scalar Cardinality Value strategy to narrow down search space and generate candidate fuzzy periodic-frequent items. 
+        Step1. Identify the regional representative (region with max support). This is the representative that will be tested to see if its greater than given minSup
+        Step2. prune out all items whose regional support is less than the given minSup
+        Step3. At the end, sort the list of stored Candidate Frequent-Periodic Patterns in ascending order
         """
 
         listOfFFList = []
@@ -474,17 +476,19 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._memoryRSS = process.memory_info().rss
 
     def _FSFIMining(self, prefix, prefixLen, FSFIM, minSup, itemNeighbours):
-        """Generates FFSPMiner from prefix
+        """
+        Generates FFSPMiner from prefix
+
         :param prefix: the prefix patterns of FFSPMiner
         :type prefix: len
         :param prefixLen: the length of prefix
         :type prefixLen: int
-           :param FSFIM: the Fuzzy list of prefix itemSets
-           :type FSFIM: list
-           :param minSup: the minimum support of
-           :type minSup:int
-           :param itemNeighbours: the set of common neighbours of prefix
-           :type itemNeighbours: list or set
+        :param FSFIM: the Fuzzy list of prefix itemSets
+        :type FSFIM: list
+        :param minSup: the minimum support of
+        :type minSup:int
+        :param itemNeighbours: the set of common neighbours of prefix
+        :type itemNeighbours: list or set
         """
         for i in range(0, len(FSFIM)):
             _FFListObject1 = FSFIM[i]
@@ -503,13 +507,14 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _Intersection(self, neighbourX, neighbourY):
         """
-            A function to get common neighbours from 2 itemSets
-            :param neighbourX: the set of neighbours of itemSet 1
-            :type neighbourX: set or list
-            :param neighbourY: the set of neighbours of itemSet 2
-            :type neighbourY: set or list
-            :return : set of common neighbours of 2 itemSets
-            :rtype :set
+        A function to get common neighbours from 2 itemSets
+
+        :param neighbourX: the set of neighbours of itemSet 1
+        :type neighbourX: set or list
+        :param neighbourY: the set of neighbours of itemSet 2
+        :type neighbourY: set or list
+        :return : set of common neighbours of 2 itemSets
+        :rtype :set
         """
         result = []
         if neighbourX is None or neighbourY is None:
@@ -520,7 +525,9 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         return result
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -528,28 +535,33 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
         :rtype: float
-       """
+        """
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-       """
+        """
         return self._endTime - self._startTime
 
     def _construct(self, _FFListObject1, _FFListObject2):
         """
-            A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
-            :param _FFListObject1:the itemSet px
-            :type _FFListObject1:FFI-List
-            :param _FFListObject2:itemSet py
-            :type _FFListObject2:FFI-List
-            :return :the itemSet of pxy(px and py)
-            :rtype :FFI-List
+        A function to construct a new Fuzzy itemSet from 2 fuzzy itemSets
+
+        :param _FFListObject1:the itemSet px
+        :type _FFListObject1:FFI-List
+        :param _FFListObject2:itemSet py
+        :type _FFListObject2:FFI-List
+        :return :the itemSet of pxy(px and py)
+        :rtype :FFI-List
         """
         recent_occur, first_occur, tid = 0, 0, 0
         periodlist = []
@@ -577,13 +589,14 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _findElementWithTID(self, uList, tid):
         """
-            To find element with same tid as given
-            :param uList:fuzzyList
-            :type uList:FFI-List
-            :param tid:transaction id
-            :type tid:int
-            :return:element tid as given
-            :rtype: element if exist or None
+        To find element with same tid as given
+
+        :param uList:fuzzyList
+        :type uList:FFI-List
+        :param tid:transaction id
+        :type tid:int
+        :return:element tid as given
+        :rtype: element if exist or None
         """
         List = uList.elements
         first = 0
@@ -600,15 +613,16 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _WriteOut(self, prefix, prefixLen, _FFListObject, sumIUtil):
         """
-            To Store the patten
-            :param prefix: prefix of itemSet
-            :type prefix: list
-            :param prefixLen: length of prefix
-            :type prefixLen: int
-            :param item: the last item
-            :type item: int
-            :param sumIUtil: sum of utility of itemSet
-            :type sumIUtil: float
+        To Store the patten
+
+        :param prefix: prefix of itemSet
+        :type prefix: list
+        :param prefixLen: length of prefix
+        :type prefixLen: int
+        :param item: the last item
+        :type item: int
+        :param sumIUtil: sum of utility of itemSet
+        :type sumIUtil: float
         """
         item = _FFListObject.item
         self._itemsCnt += 1
@@ -623,7 +637,9 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             self._finalPeriodicPatterns[res] = res1
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -636,16 +652,20 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         return dataFrame
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
         :rtype: dict
         """
         return self._finalPeriodicPatterns
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         keylist = (self._finalPatterns.keys())
@@ -655,7 +675,8 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def printResults(self):
-        """ this function is used to print the result
+        """
+        This function is used to print the result
         """
         print("Total number of Spatial Fuzzy Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

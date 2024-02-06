@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.extras.scatterPlotSpatialPoints &mdash; PAMI 2024.2.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=650922bd"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.AssociationRules.basic.html">PAMI.AssociationRules.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.correlatedPattern.basic.html">PAMI.correlatedPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.coveragePattern.basic.html">PAMI.coveragePattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.calculateMISValues.html">PAMI.extras.calculateMISValues package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.dbStats.html">PAMI.extras.dbStats package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.DF2DB.html">PAMI.extras.DF2DB package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.fuzzyTransformation.html">PAMI.extras.fuzzyTransformation package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.generateDatabase.html">PAMI.extras.generateDatabase package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.graph.html">PAMI.extras.graph package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.image2Database.html">PAMI.extras.image2Database package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.imageProcessing.html">PAMI.extras.imageProcessing package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.neighbours.html">PAMI.extras.neighbours package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.sampleDatasets.html">PAMI.extras.sampleDatasets package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.extras.syntheticDataGenerator.html">PAMI.extras.syntheticDataGenerator package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.faultTolerantFrequentPattern.basic.html">PAMI.faultTolerantFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.frequentPattern.basic.html">PAMI.frequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.frequentPattern.closed.html">PAMI.frequentPattern.closed package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.frequentPattern.cuda.html">PAMI.frequentPattern.cuda package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.frequentPattern.maximal.html">PAMI.frequentPattern.maximal package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.frequentPattern.pyspark.html">PAMI.frequentPattern.pyspark package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.frequentPattern.topk.html">PAMI.frequentPattern.topk package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.fuzzyCorrelatedPattern.basic.html">PAMI.fuzzyCorrelatedPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.fuzzyFrequentPattern.basic.html">PAMI.fuzzyFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.fuzzyGeoreferencedFrequentPattern.basic.html">PAMI.fuzzyGeoreferencedFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.fuzzyPartialPeriodicPatterns.basic.html">PAMI.fuzzyPartialPeriodicPatterns.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html">PAMI.fuzzyPeriodicFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.georeferencedFrequentPattern.basic.html">PAMI.georeferencedFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.georeferencedPartialPeriodicPattern.basic.html">PAMI.georeferencedPartialPeriodicPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.geoReferencedPeriodicFrequentPattern.basic.html">PAMI.geoReferencedPeriodicFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.highUtilityFrequentPattern.basic.html">PAMI.highUtilityFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.highUtilityGeoreferencedFrequentPattern.basic.html">PAMI.highUtilityGeoreferencedFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.highUtilityPattern.basic.html">PAMI.highUtilityPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.highUtilityPattern.parallel.html">PAMI.highUtilityPattern.parallel package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.highUtilitySpatialPattern.basic.html">PAMI.highUtilitySpatialPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.highUtilitySpatialPattern.topk.html">PAMI.highUtilitySpatialPattern.topk package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.localPeriodicPattern.basic.html">PAMI.localPeriodicPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.multipleMinimumSupportBasedFrequentPattern.basic.html">PAMI.multipleMinimumSupportBasedFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.partialPeriodicFrequentPattern.basic.html">PAMI.partialPeriodicFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.partialPeriodicPattern.basic.html">PAMI.partialPeriodicPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.partialPeriodicPattern.closed.html">PAMI.partialPeriodicPattern.closed package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.partialPeriodicPattern.maximal.html">PAMI.partialPeriodicPattern.maximal package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.partialPeriodicPattern.pyspark.html">PAMI.partialPeriodicPattern.pyspark package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.partialPeriodicPattern.topk.html">PAMI.partialPeriodicPattern.topk package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.periodicCorrelatedPattern.basic.html">PAMI.periodicCorrelatedPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.periodicFrequentPattern.basic.html">PAMI.periodicFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.periodicFrequentPattern.closed.html">PAMI.periodicFrequentPattern.closed package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.periodicFrequentPattern.cuda.html">PAMI.periodicFrequentPattern.cuda package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.partialPeriodicPattern.maximal.html">PAMI.partialPeriodicPattern.maximal package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.periodicFrequentPattern.pyspark.html">PAMI.periodicFrequentPattern.pyspark package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.periodicFrequentPattern.topk.html">PAMI.periodicFrequentPattern.topk package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.recurringPattern.basic.html">PAMI.recurringPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.relativeFrequentPattern.basic.html">PAMI.relativeFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.relativeHighUtilityPattern.basic.html">PAMI.relativeHighUtilityPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.sequence.html">PAMI.sequence package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.sequentialPatternMining.basic.html">PAMI.sequentialPatternMining.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.sequentialPatternMining.closed.html">PAMI.sequentialPatternMining.closed package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.stablePeriodicFrequentPattern.basic.html">PAMI.stablePeriodicFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.stablePeriodicFrequentPattern.topK.html">PAMI.stablePeriodicFrequentPattern.topK package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.uncertainFrequentPattern.basic.html">PAMI.uncertainFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.uncertainGeoreferencedFrequentPattern.basic.html">PAMI.uncertainGeoreferencedFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.weightedFrequentNeighbourhoodPattern.basic.html">PAMI.weightedFrequentNeighbourhoodPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.weightedFrequentPattern.basic.html">PAMI.weightedFrequentPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.weightedFrequentRegularPattern.basic.html">PAMI.weightedFrequentRegularPattern.basic package</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../PAMI.weightedUncertainFrequentPattern.basic.html">PAMI.weightedUncertainFrequentPattern.basic package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">PAMI.extras.scatterPlotSpatialPoints</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.extras.scatterPlotSpatialPoints</h1><div class="highlight"><pre>
+<span></span><span class="c1"># scatterPlotSpatialPoints is used to convert the given data and plot the points.</span>
+<span class="c1">#</span>
+<span class="c1">#   **Importing this algorithm into a python program**</span>
+<span class="c1">#   --------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1">#   from PAMI.extras.syntheticDataGenerator import scatterPlotSpatialPoints as plt</span>
+<span class="c1">#</span>
+<span class="c1">#   obj = plt.scatterPlotSpatialPoints(iFile, &quot;\t&quot;)</span>
+<span class="c1">#</span>
+<span class="c1">#   obj.save()</span>
+<span class="c1">#</span>
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">_plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">_pd</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span> <span class="k">as</span> <span class="n">_urlopen</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+
+<div class="viewcode-block" id="scatterPlotSpatialPoints">
+<a class="viewcode-back" href="../../../PAMI.extras.html#PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints">[docs]</a>
+<span class="k">class</span> <span class="nc">scatterPlotSpatialPoints</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :Description:   scatterPlotSpatialPoints is used to convert the given data and plot the points.</span>
+
+<span class="sd">    :param  iFile: str :  Name of the Input file</span>
+<span class="sd">    :param  sep: str :   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+<span class="sd">    **Importing this algorithm into a python program**</span>
+<span class="sd">    --------------------------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">                from PAMI.extras.syntheticDataGenerator import scatterPlotSpatialPoints as plt</span>
+
+<span class="sd">                obj = plt.scatterPlotSpatialPoints(iFile, &quot;\t&quot; )</span>
+
+<span class="sd">                obj.save(oFile)</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sep</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span> <span class="o">-&gt;</span><span class="kc">None</span><span class="p">:</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span> <span class="o">=</span> <span class="n">iFile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span> <span class="o">=</span> <span class="n">sep</span>
+
+    <span class="k">def</span> <span class="nf">_scanningPoints</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+
+        <span class="n">points</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;its empty..&quot;</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;x&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;y&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+                <span class="n">points</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s1">&#39;http:&#39;</span><span class="p">,</span> <span class="s1">&#39;https:&#39;</span><span class="p">)):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">_urlopen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                    <span class="n">points</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)]</span>
+                            <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+                            <span class="n">points</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
+                    <span class="n">quit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">points</span>
+
+<div class="viewcode-block" id="scatterPlotSpatialPoints.scatterPlotSpatialPoints">
+<a class="viewcode-back" href="../../../PAMI.extras.html#PAMI.extras.scatterPlotSpatialPoints.scatterPlotSpatialPoints.scatterPlotSpatialPoints">[docs]</a>
+    <span class="k">def</span> <span class="nf">scatterPlotSpatialPoints</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scanningPoints</span><span class="p">()</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">points</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">points</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+        <span class="n">_plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;Red&quot;</span><span class="p">)</span>
+        <span class="n">_plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X-axis&quot;</span><span class="p">)</span>
+        <span class="n">_plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Y-axis&quot;</span><span class="p">)</span>
+        <span class="n">_plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scatter Plot is generated&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ab</span> <span class="o">=</span> <span class="n">scatterPlotSpatialPoints</span><span class="p">(</span><span class="n">iFile</span> <span class="o">=</span> <span class="s1">&#39;/Users/Likhitha/Downloads/spatial_T10I4D100K.csv&#39;</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="n">ab</span><span class="o">.</span><span class="n">scatterPlotSpatialPoints</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE Uday kiran.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
