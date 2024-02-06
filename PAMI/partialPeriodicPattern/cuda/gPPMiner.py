@@ -93,8 +93,7 @@ class gPPMiner:
         """
         Read the file and return the data in a dictionary
 
-        Returns:
-            dict: dictionary of the data
+        :return: dict: dictionary of the data
         """
         basePattern = {}
         with open(self.filePath, "r") as f:
@@ -121,11 +120,8 @@ class gPPMiner:
         """
         Get the maximum period of the array
 
-        Args:
-            array (list): list of the array
-
-        Returns:
-            int: maximum period
+        :param array (list): list of the array
+        :return: int: maximum period
         """
 
         # sort the array
@@ -146,12 +142,9 @@ class gPPMiner:
         Convert the dictionary into a bit array with valid candidates and return it with
         index which can be used to locate the candidates when multiplied with self.lengthOfArray
 
-        Args:
-            fileData (dict): dictionary of the data
-
-        Returns:
-            list: bit array
-            list: index of the bit array
+        :param: fileData (dict): dictionary of the data
+        :return: list: bit array
+        :return: list: index of the bit array
 
         """
         self.bitsToGen = 0
@@ -207,9 +200,9 @@ class gPPMiner:
         Recursive Eclat
 
         Args:
-            bitValues (list): bit array
-            keys (list): list of keys
-            index2id (list): list of index to id
+        :param bitValues (list): bit array
+        :param keys (list): list of keys
+        :param index2id (list): list of index to id
         """
         print("Number of Keys: " + str(len(keys)))
         locations = [0]

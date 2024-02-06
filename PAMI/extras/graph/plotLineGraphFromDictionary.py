@@ -34,30 +34,30 @@ class plotLineGraphFromDictionary:
     """
     This class plot graph of input data
 
-    Attributes:
-    ----------
-    :param data : dict
-        store input data as dict
+    :Attributes:
 
-    Methods:
-    -------
-    plotLineGraph()
-        draw line graph of input data. input data's key is x and value is y.
+    :param data : dict: store input data as dict
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    :Methods:
 
-        from PAMI.extras.graph import plotLineGraphFromDictionary as plt
+        plotLineGraph()
+            draw line graph of input data. input data's key is x and value is y.
 
-        obj = plt.plotLineGraphFromDictionary(idict, 100, 0, " ")
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-        obj.save()
+            from PAMI.extras.graph import plotLineGraphFromDictionary as plt
+
+            obj = plt.plotLineGraphFromDictionary(idict, 100, 0, " ")
+
+            obj.save()
     """
     def __init__(self, data: dict, end: int=100, start: int=0, title: str='', xlabel: str='', ylabel: str='') -> None:
 
         """
         draw line graph. Plot the input data key as x and value as y
+
         :param end: end of graph to plot
         :type end: int
         :param start: start fo graph to plot

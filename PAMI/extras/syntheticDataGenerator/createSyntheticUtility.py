@@ -4,10 +4,11 @@ import sys as _sys
 
 class createSyntheticUtility:
     """
-        This class create synthetic utility database. 
 
-        Attribute:
-        ----------
+    This class create synthetic utility database.
+
+    :Attribute:
+
         totalTransactions : int
             No of transactions
         noOfItems : int 
@@ -19,14 +20,14 @@ class createSyntheticUtility:
         outputFile: str
             Name of the output file.
 
-        Nethods:
-        --------
-        createUtilitylDatabase(outputFile)
+    :Methods:
+
+        createUtilityDatabase(outputFile)
             Create utility database from DataFrame and store into outputFile
 
-        Credits:
-        ---------
-             The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
+    **Credits:**
+    ---------------
+             The complete program was written by  P.Likhitha under the supervision of Professor Rage Uday Kiran.
 
     """
     
@@ -39,6 +40,7 @@ class createSyntheticUtility:
     def createUtilityDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
+
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name

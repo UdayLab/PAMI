@@ -9,7 +9,6 @@
 #
 #     obj.save()
 #
-#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -35,26 +34,25 @@ from typing import List, Tuple
 
 class plotPointOnMap:
     """
-            Description: plotPointOnMap is used to take the input patterns and plot the points on map
+    :Description: plotPointOnMap is used to take the input patterns and plot the points on map
 
-            :param  inputPatterns: str :
-                        Name of the Input file
-            :param  k: str :
-                        Name of the FuzFile to process set of data.
-            :param  sep: str :
-                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  inputPatterns: str :
+                Name of the Input file
+    :param  k: str :
+                Name of the FuzFile to process set of data.
+    :param  sep: str :
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-                **Importing this algorithm into a python program**
-                --------------------------------------------------------
-                .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
                 from PAMI.extras.syntheticDataGenerator import plotPointOnMap as plt
 
                 obj = plt.plotPointOnMap(" ", 10, "\t")
 
                 obj.save()
-
-        """
+    """
 
     def __init__(self, inputPatterns: str, k: int=10, sep: str='\t') ->None:
         self.inputPatterns = inputPatterns

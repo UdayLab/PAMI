@@ -4,15 +4,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB import DF2DB as db
+#             from PAMI.extras.DF2DB import DF2DB as db
 #
-#     obj = db.DF2DB(idf, ">=", 16, "sparse/dense")
+#             obj = db.DF2DB(idf, ">=", 16, "sparse/dense")
 #
-#     obj.getTransactional("outputFileName") # To create transactional database
+#             obj.getTransactional("outputFileName") # To create transactional database
 #
-#     obj.getTemporal("outputFileName") # To create temporal database
+#             obj.getTemporal("outputFileName") # To create temporal database
 #
-#     obj.getUtility("outputFileName") # To create utility database
+#             obj.getUtility("outputFileName") # To create utility database
 #
 
 
@@ -38,9 +38,10 @@ import sys
 
 class DF2DB:
     """
-        :Description:  This class will create database for given DataFrame based on Threshold values and conditions are defined in the class.
-                       Converts Dataframe into sparse or dense dataframes.
+    :Description:  This class will create database for given DataFrame based on Threshold values and conditions are defined in the class.
+                   Converts Dataframe into sparse or dense dataframes.
 
+    :Attributes:
 
         :param inputDF: DataFrame :
              It is sparse or dense DataFrame
@@ -52,21 +53,19 @@ class DF2DB:
              It is DataFrame type. It should be sparse or dense. Default DF is sparse.
 
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                    from PAMI.extras.DF2DB import DF2DB as db
+            from PAMI.extras.DF2DB import DF2DB as db
 
-                    obj = db.DF2DB(idf, ">=", 16, "sparse/dense")
+            obj = db.DF2DB(idf, ">=", 16, "sparse/dense")
 
-                    obj.getTransactional("outputFileName") # To create transactional database
+            obj.getTransactional("outputFileName") # To create transactional database
 
-                    obj.getTemporal("outputFileName") # To create temporal database
+            obj.getTemporal("outputFileName") # To create temporal database
 
-                    obj.getUtility("outputFileName") # To create utility database
-
-
+            obj.getUtility("outputFileName") # To create utility database
         """
 
 
@@ -85,10 +84,8 @@ class DF2DB:
     def getTransactionalDatabase(self, outputFile) -> str:
         """
         create transactional database and return outputFileName
-
         :param outputFile: file name or path to store database
         :type outputFile: str
-
         :return: outputFile name
         """
         self.DF2DB.createTransactional(outputFile)
@@ -97,10 +94,8 @@ class DF2DB:
     def getTemporalDatabase(self, outputFile) -> str:
         """
         create temporal database and return outputFile name
-
         :param outputFile: file name or path to store database
         :type outputFile: str
-
         :return: outputFile name
         """
         self.DF2DB.createTemporal(outputFile)
@@ -109,11 +104,8 @@ class DF2DB:
     def getUtilityDatabase(self, outputFile) -> str:
         """
         create utility database and return outputFile name
-
-
         :param outputFile:  file name or path to store database
         :type outputFile: str
-
         :return: outputFile name
         """
         self.DF2DB.createUtility(outputFile)

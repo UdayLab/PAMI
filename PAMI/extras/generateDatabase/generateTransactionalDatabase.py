@@ -1,15 +1,15 @@
 # generateTransactionalDatabase is a code used to convert the database into Transactional database.
 #
-#   **Importing this algorithm into a python program**
-#    --------------------------------------------------------
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
 #
-#     from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
+#             from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
 #
-#     obj = db.generateTransactionalDatabase(100, 10, 6, oFile, %, "\t")
+#             obj = db.generateTransactionalDatabase(100, 10, 6, oFile, %, "\t")
 #
-#     obj.save()
+#             obj.save()
 #
-#     obj.getFileName("outputFileName") # to create a file
+#             obj.getFileName("outputFileName") # to create a file
 #
 
 __copyright__ = """
@@ -34,12 +34,10 @@ import sys
 
 class generateTransactionalDatabase:
     """
-       Description:
-       -------------
-          generateTransactionalDatabase generates a transactional database
+    :Description:   generateTransactionalDatabase generates a transactional database
 
-       Attributes:
-       -----------
+   :Attributes:
+
         numOfTransactions: int
             number of transactions
         maxNumOfDistinctItems: int
@@ -51,23 +49,22 @@ class generateTransactionalDatabase:
         sep: str
             seperator in file, default is tab space
 
-        Methods:
-        --------
+   :Methods:
+
         getFileName()
             get output filename
 
-        **Importing this algorithm into a python program**
-         --------------------------------------------------------
-         .. code-block:: python
+   **Importing this algorithm into a python program**
+   --------------------------------------------------------
+   .. code-block:: python
 
-                from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
+            from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
 
-                obj = db.generateTransactionalDatabase(100, 10, 6, 100, 0File, %, "\t")
+            obj = db.generateTransactionalDatabase(100, 10, 6, 100, 0File, %, "\t")
 
-                obj.save()
+            obj.save()
 
-                obj.getFileName("outputFileName") # to create a file
-
+            obj.getFileName("outputFileName") # to create a file
 
     """
     def __init__(self, numOfTransactions: int, maxNumOfDistinctItems: int, numOfItemsPerTransaction: int, outFileName: str, sep: str='\t') -> None:

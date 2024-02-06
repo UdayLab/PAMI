@@ -4,10 +4,10 @@ import sys as _sys
 
 class createGeoreferentialTemporalDatabase:
     """
-        This class create synthetic geo-referential temporal database. 
+    This class create synthetic geo-referential temporal database.
 
-        Attribute:
-        ----------
+    :Attribute:
+
         totalTransactions : int
             No of transactions
         noOfItems : int or float
@@ -17,13 +17,13 @@ class createGeoreferentialTemporalDatabase:
         outputFile: str
             Name of the output file.
 
-        Methods:
-        --------
+    :Methods:
+
         createGeoreferentialTemporalDatabase(outputFile)
             Create geo-referential temporal database and store into outputFile
 
-        Credits:
-        ---------
+    **Credits:**
+    ---------------
              The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.
 
     """
@@ -36,6 +36,7 @@ class createGeoreferentialTemporalDatabase:
     def createGeoreferentialTemporalDatabase(self, outputFile: str) -> None:
         """
         create transactional database and return outputFileName
+
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name

@@ -244,7 +244,7 @@ class ARWithConfidence:
 
     def _readPatterns(self):
         """
-            Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
+        Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
         """
         self._frequentPatterns = {}
         k = []
@@ -288,7 +288,7 @@ class ARWithConfidence:
 
     def startMine(self):
         """
-            Association rule mining process will start from here
+        Association rule mining process will start from here
         """
         self._startTime = _ab._time.time()
         k = self._readPatterns()

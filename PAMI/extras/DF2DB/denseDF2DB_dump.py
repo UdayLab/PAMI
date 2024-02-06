@@ -3,19 +3,19 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB import DenseFormatDF_dump as db
+#             from PAMI.extras.DF2DB import DenseFormatDF_dump as db
 #
-#     obj = db.DenseFormatDF_dump(idf, ">=", 16)
+#             obj = db.DenseFormatDF_dump(idf, ">=", 16)
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     obj.createTransactional("outputFileName") # To create transactional database
+#             obj.createTransactional("outputFileName") # To create transactional database
 #
-#     obj.createTemporal("outputFileName") # To create temporal database
+#             obj.createTemporal("outputFileName") # To create temporal database
 #
-#     obj.createUtility("outputFileName") # To create utility database
+#             obj.createUtility("outputFileName") # To create utility database
 #
-#     obj.getFileName("outputFileName") # To get file name of the database
+#             obj.getFileName("outputFileName") # To get file name of the database
 #
 #
 #
@@ -40,7 +40,9 @@ import pandas as pd
 import sys
 class DenseFormatDF():
     """
-        :Description: This class create Data Base from DataFrame.
+    :Description: This class create Data Base from DataFrame.
+
+    :Attributes:
 
         :param inputDF: dataframe :
             It is dense DataFrame
@@ -49,23 +51,23 @@ class DenseFormatDF():
         :param thresholdValue: int or float :
             User defined value.
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-        from PAMI.extras.DF2DB import DenseFormatDF_dump as db
+            from PAMI.extras.DF2DB import DenseFormatDF_dump as db
 
-        obj = db.DenseFormatDF_dump(iDdf, ">=", 16)
+            obj = db.DenseFormatDF_dump(iDdf, ">=", 16)
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        obj.createTransactional("outputFileName") # To create transactional database
+            obj.createTransactional("outputFileName") # To create transactional database
 
-        obj.createTemporal("outputFileName") # To create temporal database
+            obj.createTemporal("outputFileName") # To create temporal database
 
-        obj.createUtility("outputFileName") # To create utility database
+            obj.createUtility("outputFileName") # To create utility database
 
-        obj.getFileName("outputFileName") # To get file name of the database
+            obj.getFileName("outputFileName") # To get file name of the database
 
     """
 
@@ -83,10 +85,10 @@ class DenseFormatDF():
 
     def createTransactional(self, outputFile: str) -> None:
         """
-         :Description: Create transactional data base
+        :Description: Create transactional data base
 
-         :param outputFile: str :
-              Write transactional data base into outputFile
+        :param outputFile: str :
+            Write transactional data base into outputFile
 
         """
 
@@ -275,7 +277,7 @@ class DenseFormatDF():
 
         :param outputFile:  str :
 
-             Write utility data base into outputFile
+             Write utility database into outputFile
 
         """
 

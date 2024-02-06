@@ -3,15 +3,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import TemporalDatabase as db
+#             from PAMI.extras.dbStats import TemporalDatabase as db
 #
-#     obj = db.TemporalDatabase(iFile, "\t")
+#             obj = db.TemporalDatabase(iFile, "\t")
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     obj.run()
+#             obj.run()
 #
-#     obj.printStats()
+#             obj.printStats()
 #
 
 __copyright__ = """
@@ -42,9 +42,9 @@ from typing import Dict, Union
 
 class TemporalDatabase:
     """
-        Description:
-        -------------
-            TemporalDatabase is class to get stats of database.
+    :Description:   TemporalDatabase is class to get stats of database.
+
+    :Attributes:
 
         :param inputFile : file
             input file path
@@ -52,8 +52,8 @@ class TemporalDatabase:
         :param sep : str
             separator in file. Default is tab space.
 
-        Methods:
-        -------
+    :Methods:
+
         run()
             execute readDatabase function
         readDatabase()
@@ -85,20 +85,19 @@ class TemporalDatabase:
         getNumberOfTransactionsPerTimestamp()
             get number of transactions per time stamp. This time stamp range is 1 to max period.
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                    from PAMI.extras.dbStats import TemporalDatabase as db
+            from PAMI.extras.dbStats import TemporalDatabase as db
 
-                    obj = db.TemporalDatabase(iFile, "\t")
+            obj = db.TemporalDatabase(iFile, "\t")
 
-                    obj.save(oFile)
+            obj.save(oFile)
 
-                    obj.run()
+            obj.run()
 
-                    obj.printStats()
-
+            obj.printStats()
     """
 
     def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str = '\t') -> None:
@@ -182,7 +181,7 @@ class TemporalDatabase:
     def getDatabaseSize(self) -> int:
         """
         get the size of database
-        :return: database size
+        :return: dataset size
         """
         return len(self.database)
 
@@ -307,7 +306,7 @@ class TemporalDatabase:
     def getTransanctionalLengthDistribution(self) -> Dict[int, int]:
         """
         get transaction length
-        :return: transaction length
+        :return: transactional length
         """
         transactionLength = {}
         for length in self.lengthList:

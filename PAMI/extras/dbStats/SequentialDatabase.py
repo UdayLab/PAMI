@@ -3,15 +3,15 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.dbStats import SequentialDatabase as db
+#             from PAMI.extras.dbStats import SequentialDatabase as db
 #
-#     obj = db.SequentialDatabase(iFile, "\t")
+#             obj = db.SequentialDatabase(iFile, "\t")
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     obj.run()
+#             obj.run()
 #
-#     obj.printStats()
+#             obj.printStats()
 #
 #
 
@@ -42,93 +42,94 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 class SequentialDatabase():
     """
-        SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on.
+    SequentialDatabase is to get stats of database like avarage, minimun, maximum  and so on.
 
-       Attributes:
-        ----------
-            :param inputFile: file :
+    :Attributes:
+
+        :param inputFile: file :
                input file path
-           :param sep: str
+        :param sep: str
                separator in file. Default is tab space.
 
-        Methods:
-        -------
-            readDatabase():
-                read sequential database from input file and store into database and size of each sequence and subsequences.
-            getDatabaseSize(self):
-                get the size of database
-            getTotalNumberOfItems(self):
-                get the number of items in database.
-            getMinimumSequenceLength(self):
-                get the minimum sequence length
-            getAverageSubsequencePerSequenceLength(self):
-                get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.
-            getAverageItemPerSubsequenceLength(self):
-                get the average Item length per subsequence. It is sum of all item length divided by subsequence length.
-            getMaximumSequenceLength(self):
-                get the maximum sequence length
-            getStandardDeviationSubsequenceLength(self):
-                get the standard deviation subsequence length
-            getVarianceSequenceLength(self):
-                get the variance Sequence length
-            getSequenceSize(self):
-                get the size of sequence
-            getMinimumSubsequenceLength(self):
-                get the minimum subsequence length
-            getAverageItemPerSequenceLength(self):
-                get the average item length per sequence. It is sum of all item length divided by sequence length.
-            getMaximumSubsequenceLength(self):
-                get the maximum subsequence length
-            getStandardDeviationSubsequenceLength(self):
-                get the standard deviation subsequence length
-            getVarianceSubsequenceLength(self):
-                get the variance subSequence length
-            getSortedListOfItemFrequencies(self):
-                get sorted list of item frequencies
-            getFrequenciesInRange(self):
-                get sorted list of item frequencies in some range
-            getSequencialLengthDistribution(self):
-                get Sequence length Distribution
-            getSubsequencialLengthDistribution(self):
-                get subSequence length distribution
-            printStats(self):
-                to print the all status of sequence database
-            plotGraphs(self):
-                to plot the  distribution about items, subsequences in sequence and items in subsequence
+    :Methods:
 
-            **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+        readDatabase():
+            read sequential database from input file and store into database and size of each sequence and subsequences.
+        getDatabaseSize(self):
+            get the size of database
+        getTotalNumberOfItems(self):
+            get the number of items in database.
+        getMinimumSequenceLength(self):
+            get the minimum sequence length
+        getAverageSubsequencePerSequenceLength(self):
+            get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.
+        getAverageItemPerSubsequenceLength(self):
+            get the average Item length per subsequence. It is sum of all item length divided by subsequence length.
+        getMaximumSequenceLength(self):
+            get the maximum sequence length
+        getStandardDeviationSubsequenceLength(self):
+            get the standard deviation subsequence length
+        getVarianceSequenceLength(self):
+            get the variance Sequence length
+        getSequenceSize(self):
+            get the size of sequence
+        getMinimumSubsequenceLength(self):
+            get the minimum subsequence length
+        getAverageItemPerSequenceLength(self):
+            get the average item length per sequence. It is sum of all item length divided by sequence length.
+        getMaximumSubsequenceLength(self):
+            get the maximum subsequence length
+        getStandardDeviationSubsequenceLength(self):
+            get the standard deviation subsequence length
+        getVarianceSubsequenceLength(self):
+            get the variance subSequence length
+        getSortedListOfItemFrequencies(self):
+            get sorted list of item frequencies
+        getFrequenciesInRange(self):
+            get sorted list of item frequencies in some range
+        getSequencialLengthDistribution(self):
+            get Sequence length Distribution
+        getSubsequencialLengthDistribution(self):
+            get subSequence length distribution
+        printStats(self):
+            to print the all status of sequence database
+        plotGraphs(self):
+            to plot the  distribution about items, subsequences in sequence and items in subsequence
 
-                    from PAMI.extras.dbStats import SequentialDatabase as db
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-                    obj = db.SequentialDatabase(iFile, "\t")
+            from PAMI.extras.dbStats import SequentialDatabase as db
 
-                    obj.save(oFile)
+            obj = db.SequentialDatabase(iFile, "\t")
 
-                    obj.run()
+            obj.save(oFile)
 
-                    obj.printStats()
+            obj.run()
+
+            obj.printStats()
 
 
-        Executing the code on terminal:
-        -------------------------------
+    **Executing the code on terminal:**
+    -------------------------------------------------
             Format:
-            ------
-                python3 SequentialDatabase.py <inputFile>
+
+                      >>> python3 SequentialDatabase.py <inputFile>
             Examples:
-            ---------
-                python3 SequentialDatabase.py sampleDB.txt
-                python3 SequentialDatabase.py sampleDB.txt
-        Sample run of the importing code:
-        ---------------------------------
+
+                      >>> python3 SequentialDatabase.py sampleDB.txt
+                      >>> python3 SequentialDatabase.py sampleDB.txt
+
+        **Sample run of the importing code:**
+        ----------------------------------------------------
             import PAMI.extra.DBstats.SequentialDatabase as alg
             _ap=alg.SequentialDatabase(inputfile,sep)
             _ap.readDatabase()
             _ap.printStats()
             _ap.plotGraphs()
-        Credits:
-        --------
+        **Credits:**
+        ---------------------
             The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.
     """
 
@@ -145,7 +146,7 @@ class SequentialDatabase():
 
     def readDatabase(self) -> None:
         """
-                read sequential database from input file and store into database and size of each sequence and subsequences.
+        read sequential database from input file and store into database and size of each sequence and subsequences.
         """
         if isinstance(self.inputFile, str):
             if validators.url(self.inputFile):
@@ -196,7 +197,7 @@ class SequentialDatabase():
     def getDatabaseSize(self) -> int:
         """
         get the size of database
-        :return: database size
+        :return: dataset size
         """
         return len(self.database)
 
@@ -256,7 +257,7 @@ class SequentialDatabase():
     def getSequenceSize(self) -> int:
         """
         get the size of sequence
-        :return: sequence size
+        :return: sequences size
         """
         return sum(self.seqLengthList)
 
@@ -317,8 +318,8 @@ class SequentialDatabase():
 
     def getFrequenciesInRange(self) -> Dict[int, int]:
         """
-                get sorted list of item frequencies in some range
-                :return: item separated by its frequencies
+        get sorted list of item frequencies in some range
+        :return: item separated by its frequencies
         """
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}
@@ -359,9 +360,7 @@ class SequentialDatabase():
 
     def printStats(self) -> None:
         """
-        to print the all status of sequence database
-        Returns:
-
+        To print the all status of sequence database
         """
         print(f'Database size (total no of sequence) : {self.getDatabaseSize()}')
         print(f'Number of items : {self.getTotalNumberOfItems()}')
@@ -379,9 +378,7 @@ class SequentialDatabase():
 
     def plotGraphs(self) -> None:
         """
-        to plot the  distribution about items, subsequences in sequence and items in subsequence
-        Returns:
-
+        To plot the  distribution about items, subsequences in sequence and items in subsequence
         """
         itemFrequencies = self.getFrequenciesInRange()
         seqLen = self.getSequencialLengthDistribution()

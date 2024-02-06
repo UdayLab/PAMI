@@ -3,20 +3,19 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.DF2DB import SparseFormatDFPlus as db
+#             from PAMI.extras.DF2DB import SparseFormatDFPlus as db
 #
-#     obj = db.SparseFormatDFPlus(idf, ">=", 16)
+#             obj = db.SparseFormatDFPlus(idf, ">=", 16)
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     obj.createTransactional("outputFileName") # To create transactional database
+#             obj.createTransactional("outputFileName") # To create transactional database
 #
-#     obj.createTemporal("outputFileName") # To create temporal database
+#             obj.createTemporal("outputFileName") # To create temporal database
 #
-#     obj.createUtility("outputFileName") # To create utility database
+#             obj.createUtility("outputFileName") # To create utility database
 #
-#     obj.getFileName("outputFileName") # To get file name of the database
-
+#             obj.getFileName("outputFileName") # To get file name of the database
 #
 #
 __copyright__ = """
@@ -40,34 +39,33 @@ import sys
 
 class SparseFormatDFPlus:
     """
-            :Description: This class create Data Base from DataFrame.
+    :Description: This class create Data Base from DataFrame.
 
-            :param inputDF: dataframe :
-                It is dense DataFrame
-            :param thresholdConditionDF: str :
-                It is condition to judge the value in dataframe
+    :Attributes:
 
-
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
-
-        from PAMI.extras.DF2DB import SparseFormatDFPlus as db
-
-        obj = db.SparseFormatDFPlus(iDdf, ">=", 16)
-
-        obj.save(oFile)
-
-        obj.createTransactional("outputFileName") # To create transactional database
-
-        obj.createTemporal("outputFileName") # To create temporal database
-
-        obj.createUtility("outputFileName") # To create utility database
-
-         obj.getFileName("outputFileName") # To get file name of the database
+        :param inputDF: dataframe :
+            It is dense DataFrame
+        :param thresholdConditionDF: str :
+            It is condition to judge the value in dataframe
 
 
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
+            from PAMI.extras.DF2DB import SparseFormatDFPlus as db
+
+            obj = db.SparseFormatDFPlus(iDdf, ">=", 16)
+
+            obj.save(oFile)
+
+            obj.createTransactional("outputFileName") # To create transactional database
+
+            obj.createTemporal("outputFileName") # To create temporal database
+
+            obj.createUtility("outputFileName") # To create utility database
+
+             obj.getFileName("outputFileName") # To get file name of the database
          """
 
 
@@ -86,7 +84,6 @@ class SparseFormatDFPlus:
     def createTransactional(self, outputFile: str) -> None:
         """
         Create transactional data base
-
         :param outputFile: Write transactional data base into outputFile
         :type outputFile: str
         """
@@ -102,7 +99,6 @@ class SparseFormatDFPlus:
     def createTemporal(self, outputFile: str) -> None:
         """
         Create temporal data base
-
         :param outputFile: Write temporal data base into outputFile
         :type outputFile: str
         """
@@ -118,7 +114,6 @@ class SparseFormatDFPlus:
     def createUtility(self, outputFile: str) -> None:
         """
         Create the utility data base.
-
         :param outputFile: Write utility data base into outputFile
         :type outputFile: str
         """
@@ -141,11 +136,6 @@ class SparseFormatDFPlus:
 
 
     def getFileName(self) -> str:
-        """
-
-
-        :return: outputFile name
-        """
 
         return self.outputFile
 

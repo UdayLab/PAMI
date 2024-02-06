@@ -16,13 +16,12 @@ from urllib.request import urlopen as _urlopen
 
 
 class _partialPeriodicPatterns(_ABC):
-    """ This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
-    employ in PAMI
+    """
+    :Description:   This abstract base class defines the variables and methods that every frequent pattern mining algorithm must
+                    employ in PAMI
 
-        ...
+    :Attributes:
 
-        Attributes
-        ----------
         iFile : str
             Input file name or path of the input file
         minPS: float
@@ -41,8 +40,8 @@ class _partialPeriodicPatterns(_ABC):
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
 
-        Methods
-        -------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getFrequentPatterns()
@@ -63,9 +62,9 @@ class _partialPeriodicPatterns(_ABC):
         """
         :param iFile: Input file name or path of the input file
         :type iFile: str
-        :param minPS: UserSpecified minimum period-support value. It has to be given in terms of count of total number of
+        :param periodicSupport: UserSpecified minimum period-support value. It has to be given in terms of count of total number of
         transactions in the input database/file
-        :type minPS: float
+        :type periodicSupport: float
         """
 
         self._iFile = iFile

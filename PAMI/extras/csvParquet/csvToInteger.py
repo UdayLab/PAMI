@@ -1,15 +1,15 @@
 # csvToInteger is a code used to convert the csv into  Integer.
 #
-#     **Importing this algorithm into a python program**
-#     --------------------------------------------------------
+#  **Importing this algorithm into a python program**
+#  --------------------------------------------------------
 #
-#     from PAMI.extras.csvParquet import csvToInteger as cp
+#             from PAMI.extras.csvParquet import csvToInteger as cp
 #
-#     obj = cp.csvToInteger(iFile, "\t ")
+#             obj = cp.csvToInteger(iFile, "\t ")
 #
-#     obj.save()
+#             obj.save()
 #
-#     obj.csvToBitInteger("FileName") # To generate file in form  BitInteger.
+#             obj.csvToBitInteger("FileName") # To generate file in form  BitInteger.
 #
 
 __copyright__ = """
@@ -34,19 +34,16 @@ import pandas as pd
 
 class csvToInteger():
     """
+    :Description:   csvToInteger is a code used to convert the csv into  Integer
 
-            :Description:
-                    csvToInteger is a code used to convert the csv into  Integer
-            :param  iFile: str :
-                    Name of the Input file
-            :param  sep: str :
-                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  iFile: str :
+            Name of the Input file
+    :param  sep: str :
+            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-
-
-            **Importing this algorithm into a python program**
-            --------------------------------------------------------
-            .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
             from PAMI.extras.csvParquet import csvToInteger as cp
 

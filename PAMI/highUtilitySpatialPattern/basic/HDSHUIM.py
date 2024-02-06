@@ -29,7 +29,7 @@
 #     run = obj.getRuntime()
 #
 #     print("Total ExecutionTime in seconds:", run)
-
+#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -57,8 +57,8 @@ class _Element:
     """
     A class represents an Element of a utility list as used by the HDSHUIM algorithm.
 
-    Attributes :
-    ----------
+    :Attributes:
+
         ts : int
             keep tact of transaction id
         snu : int
@@ -83,8 +83,8 @@ class _CUList:
     """
         A class represents a UtilityList as used by the HDSHUIM algorithm.
 
-    Attributes :
-    ----------
+    :Attributes:
+
         item: int
             item 
         sumSnu: long
@@ -100,8 +100,8 @@ class _CUList:
         elements: list
             the list of elements 
 
-    Methods :
-    -------
+    :Methods:
+
         addElement(element)
             Method to add an element to this utility list and update the sums at the same time.
 
@@ -118,9 +118,10 @@ class _CUList:
 
     def addElements(self, element: _Element) -> None:
         """
-            A method to add new element to CUList
-            :param element: element to be added to CUList
-            :type element: Element
+        A method to add new element to CUList
+
+        :param element: element to be added to CUList
+        :type element: Element
         """
         self.sumSnu += element.snu
         self.sumRemainingUtility += element.remainingUtility
@@ -129,7 +130,7 @@ class _CUList:
 
 class _Pair:
     """
-        A class represent an item and its utility in a transaction
+    A class represent an item and its utility in a transaction
     """
 
     def __init__(self) -> None:
@@ -139,19 +140,19 @@ class _Pair:
 
 class HDSHUIM(_ab._utilityPatterns):
     """
-    Description:
-    ------------
+    :Description:
+
         Spatial High Utility ItemSet Mining (SHUIM) [3] is an important model in data
         mining with many real-world applications. It involves finding all spatially interesting itemSets having high value 
         in a quantitative spatio temporal database.
-    Reference:
-    ----------
+    :Reference:
+
         P. Pallikila et al., "Discovering Top-k Spatial High Utility Itemsets in Very Large Quantitative Spatiotemporal 
         databases," 2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 4925-4935,
         doi: 10.1109/BigData52589.2021.9671912.
 
-    Attributes :
-    --------------
+    :Attributes:
+
         iFile : str
             Name of the input file to mine complete set of frequent patterns
         oFile : str
@@ -176,8 +177,8 @@ class HDSHUIM(_ab._utilityPatterns):
             keep track of neighbours of elements
         mapOfPMU: map
             a map to keep track of Probable Maximum utility(PMU) of each item
-    Methods :
-    ----------
+    :Methods:
+
             startMine()
                 Mining process will start from here
             getPatterns()
@@ -204,49 +205,44 @@ class HDSHUIM(_ab._utilityPatterns):
                A method to updates vales for duplicates
 
 
-    Executing the code on terminal :
-    --------------------------------
-        Format:
-        -------
-            >>> python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil>
+    **Executing the code on terminal:**
+    -------------------------------------
+            Format:
+                    >>> python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
+            Examples:
+                    >>> python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 ','
 
-            >>> python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
-        Examples:
-        ---------
-            >>> python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 (separator will be "\t" in both input and neighbourhood file)
 
-            >>> python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 , (separator will be "," in both input and neighbourhood file)
-
-    Sample run of importing the code:
-    -----------------------------------
+    **Sample run of importing the code:**
+    ---------------------------------------
     .. code-block:: python
         
-        from PAMI.highUtilityGeoreferencedFrequentPattern.basic import HDSHUIM as alg
+            from PAMI.highUtilityGeoreferencedFrequentPattern.basic import HDSHUIM as alg
 
-        obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
+            obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 
-        obj.startMine()
+            obj.startMine()
 
-        Patterns = obj.getPatterns()
+            Patterns = obj.getPatterns()
 
-        print("Total number of Spatial High-Utility Patterns:", len(Patterns))
+            print("Total number of Spatial High-Utility Patterns:", len(Patterns))
 
-        obj.save("output")
+            obj.save("output")
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print("Total Memory in USS:", memUSS)
+            print("Total Memory in USS:", memUSS)
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print("Total Memory in RSS", memRSS)
+            print("Total Memory in RSS", memRSS)
 
-        run = obj.getRuntime()
+            run = obj.getRuntime()
 
-        print("Total ExecutionTime in seconds:", run)
+            print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    ----------
+    **Credits:**
+    ---------------
         The complete program was written by B.Sai Chitra under the supervision of Professor Rage Uday Kiran.
             
     """
@@ -277,7 +273,7 @@ class HDSHUIM(_ab._utilityPatterns):
 
     def _compareItems(self, o1: Any, o2: Any) -> int:
         """
-            A method to sort  list of huis in pmu ascending order
+        A method to sort  list of huis in pmu ascending order
         """
         compare = self._mapOfPMU[o1.item] - self._mapOfPMU[o2.item]
         if compare == 0:
@@ -286,7 +282,8 @@ class HDSHUIM(_ab._utilityPatterns):
             return compare
 
     def startMine(self) -> None:
-        """main program to start the operation
+        """
+        main program to start the operation
         """
         minUtil = self._minUtil
         self._startTime = _ab._time.time()
@@ -406,18 +403,18 @@ class HDSHUIM(_ab._utilityPatterns):
 
     def _ExploreSearchTree(self, prefix: List[str], uList: List[_CUList], exNeighbours: set, minUtil: int) -> None:
         """
-            A method to find all high utility itemSets
+        A method to find all high utility itemSets
 
-            Attributes:
-            -----------
-            :parm prefix: it represents all items in prefix
-            :type prefix :list
-            :parm uList:projected Utility list
-            :type uList: list
-            :parm exNeighbours: keep track of common Neighbours
-            :type exNeighbours: set
-            :parm minUtil:user minUtil
-            :type minUtil:int
+        :Attributes:
+
+        :parm prefix: it represents all items in prefix
+        :type prefix :list
+        :parm uList:projected Utility list.
+        :type uList: list
+        :parm exNeighbours: keep track of common Neighbours
+        :type exNeighbours: set
+        :parm minUtil:user minUtil
+        :type minUtil:int
         """
         for i in range(0, len(uList)):
             x = uList[i]
@@ -444,24 +441,24 @@ class HDSHUIM(_ab._utilityPatterns):
 
     def _constructCUL(self, x: _Element, compactUList: List[_CUList], st: int, minUtil: int, length: int, exNeighbours: set) -> List[_CUList]:
         """
-            A method to construct CUL's database
+        A method to construct CUL's database
 
-            Attributes:
-            -----------
-            :parm x: Compact utility list
-            :type x: Node
-            :parm compactUList:list of Compact utility lists
-            :type compactUList:list
-            :parm st: starting pos of compactUList
-            :type st:int
-            :parm minUtil: user minUtil
-            :type minUtil:int
-            :parm length: length of x
-            :type length:int
-            :parm exNeighbours: common Neighbours
-            :type exNeighbours: set
-            :return: projected database of list X
-            :rtype: list or set
+        :Attributes:
+
+        :parm x: Compact utility list
+        :type x: Node
+        :parm compactUList:list of Compact utility lists.
+        :type compactUList:list
+        :parm st: starting pos of compactUList
+        :type st:int
+        :parm minUtil: user minUtil
+        :type minUtil:int
+        :parm length: length of x
+        :type length:int
+        :parm exNeighbours: common Neighbours
+        :type exNeighbours: set
+        :return: projected database of list X
+        :rtype: list or set
         """
         exCul = []
         lau = []
@@ -542,24 +539,24 @@ class HDSHUIM(_ab._utilityPatterns):
 
     def _updateClosed(self, x: _Element, compactUList: List[_CUList], st: int, exCul: List[_CUList], newT: List[int], ex: _Element, eyTs: List[int], length: int) -> None:
         """
-            A method to update closed values
-            Attributes:
-            -----------
-            :parm x: Compact utility list
-            :type x: list
-            :parm compactUList:list of Compact utility lists
-            :type compactUList:list
-            :parm st: starting pos of compactUList
-            :type st:int
-            :parm newT:transaction to be updated
-            :type newT:list
-            :parm ex: element ex
-            :type ex:element
-            :parm eyTs:list of tss
-            :type eyTs:ts
-            :parm length: length of x
-            :type length:int
+        A method to update closed values
 
+        :Attributes:
+
+        :parm x: Compact utility list.
+        :type x: list
+        :parm compactUList:list of Compact utility lists.
+        :type compactUList:list
+        :parm st: starting pos of compactUList
+        :type st:int
+        :parm newT:transaction to be updated
+        :type newT:list
+        :parm ex: element ex
+        :type ex:element
+        :parm eyTs:list of tss
+        :type eyTs:ts
+        :parm length: length of x
+        :type length:int
         """
         remainingUtility = 0
         for j in range(len(newT) - 1, -1, -1):
@@ -572,26 +569,26 @@ class HDSHUIM(_ab._utilityPatterns):
 
     def _updateElement(self, z: _Element, compactUList: List[_CUList], st: int, exCul: List[_CUList], newT: List[int], ex: _Element, duPrevPos: int, eyTs: List[int]) -> None:
         """
-            A method to updates vales for duplicates
+        A method to updates vales for duplicates
 
-            Attributes:
-            -----------
-            :parm z: Compact utility list
-            :type z: list
-            :parm compactUList:list of Compact utility lists
-            :type compactUList:list
-            :parm st: starting pos of compactUList
-            :type st:int
-            :parm exCul:list of compactUList
-            :type exCul:list
-            :parm newT:transaction to be updated
-            :type newT:list
-            :parm ex: element ex
-            :type ex:element
-            :parm duPrevPos: position of z in exCul
-            :type duPrevPos:int
-            :parm eyTs:list of tss
-            :type eyTs:ts
+        :Attributes:
+
+        :parm z: Compact utility list
+        :type z: list
+        :parm compactUList:list of Compact utility lists
+        :type compactUList:list
+        :parm st: starting pos of compactUList
+        :type st:int
+        :parm exCul:list of compactUList
+        :type exCul:list
+        :parm newT:transaction to be updated
+        :type newT:list
+        :parm ex: element ex
+        :type ex:element
+        :parm duPrevPos: position of z in exCul
+        :type duPrevPos:int
+        :parm eyTs:list of tss
+        :type eyTs:ts
         """
         remainingUtility = 0
         pos = duPrevPos
@@ -610,8 +607,8 @@ class HDSHUIM(_ab._utilityPatterns):
         """
          A method to save itemSets
 
-         Attributes:
-        -----------
+         :Attributes:
+
         :parm prefix: it represents all items in prefix
         :type prefix :list
         :parm item:item
@@ -653,7 +650,7 @@ class HDSHUIM(_ab._utilityPatterns):
         """Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -688,7 +685,7 @@ class HDSHUIM(_ab._utilityPatterns):
         return self._endTime - self._startTime
 
     def printResults(self) -> None:
-        """ This funtion is used to print the results
+        """ This function is used to print the results
         """
         print("Total number of Spatial High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

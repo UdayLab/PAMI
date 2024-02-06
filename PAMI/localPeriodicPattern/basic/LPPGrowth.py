@@ -64,9 +64,9 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 class Node:
     """
     A class used to represent the node of localPeriodicPatternTree
-    ...
-    Attributes:
-    ----------
+
+    :Attributes:
+
         item : int
             storing item of a node
         parent : node
@@ -78,8 +78,8 @@ class Node:
         tidList : set
             To maintain timestamps of node
 
-    Methods:
-    -------
+    :Methods:
+
         getChild(itemName)
             storing the children to their respective parent nodes
     """
@@ -107,9 +107,8 @@ class Tree:
     """
         A class used to represent the frequentPatternGrowth tree structure
 
-        ...
-        Attributes:
-        ----------
+        :Attributes:
+
             root : node
                 Represents the root node of the tree
             nodeLinks : dictionary
@@ -117,8 +116,8 @@ class Tree:
             firstNodeLink : dictionary
                 storing first node of each item
 
-        Methods:
-        -------
+        :Methods:
+
             addTransaction(transaction,timeStamp)
                 creating transaction as a branch in frequentPatternTree
             fixNodeLinks(itemName, newNode)
@@ -137,10 +136,11 @@ class Tree:
     def addTransaction(self, transaction: List[int], tid: int) -> None:
         """
         add transaction into tree
-            :param transaction: it represents the one transaction in database
-            :type transaction: list
-            :param tid: represents the timestamp of transaction
-            :type tid: list or int
+
+        :param transaction: it represents the one transaction in database
+        :type transaction: list
+        :param tid: represents the timestamp of transaction
+        :type tid: list or int
         """
         current = self.root
         for item in transaction:
@@ -159,10 +159,11 @@ class Tree:
     def fixNodeLinks(self, item: int, newNode: 'Node') -> None:
         """
         fix node link
-            :param item: it represents item name of newNode
-            :type item: string
-            :param newNode: it represents node which is added
-            :type newNode: Node
+
+        :param item: it represents item name of newNode
+        :type item: string
+        :param newNode: it represents node which is added
+        :type newNode: Node
         """
         if item in self.nodeLinks:
             lastNode = self.nodeLinks[item]
@@ -174,8 +175,9 @@ class Tree:
     def deleteNode(self, item: int) -> None:
         """
         delete the node from tree
-            :param item: it represents the item name of node
-            :type item: str
+
+        :param item: it represents the item name of node
+        :type item: str
         """
         deleteNode = self.firstNodeLink[item]
         parentNode = deleteNode.parent
@@ -196,10 +198,11 @@ class Tree:
     def createPrefixTree(self, path: List[int], tidList: List[int]) -> None:
         """
         create prefix tree by path
-            :param path: it represents path to root from prefix node
-            :type path: list
-            :param tidList: it represents tid of each item
-            :type tidList: list
+
+        :param path: it represents path to root from prefix node
+        :type path: list
+        :param tidList: it represents tid of each item
+        :type tidList: list
         """
         currentNode = self.root
         for item in path:
@@ -218,22 +221,21 @@ class Tree:
 
 class LPPGrowth(_ab._localPeriodicPatterns):
     """
-    Description:
-    ------------
+    :Description:
+
         Local Periodic Patterns, which are patterns (sets of events) that have a periodic behavior in some non predefined
         time-intervals. A pattern is said to be a local periodic pattern if it appears regularly and continuously in some
         time-intervals. The maxSoPer (maximal period of spillovers) measure allows detecting time-intervals of variable
         lengths where a pattern is continuously periodic, while the minDur (minimal duration) measure ensures that those
         time-intervals have a minimum duration.
 
-    Reference:
-    ----------
+    :Reference:
+
         Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
         a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044
 
+    :Attributes:
 
-    Attributes:
-    -----------
             iFile : str
                 Input file name or path of the input file
             oFile : str
@@ -265,9 +267,8 @@ class LPPGrowth(_ab._localPeriodicPatterns):
             sep: str
                 separator used to distinguish items from each other. The default separator is tab space.
 
+    :Methods:
 
-    Methods:
-    -------
             findSeparator(line)
                 Find the separator of the line which split strings.
             creteLPPlist()
@@ -299,49 +300,47 @@ class LPPGrowth(_ab._localPeriodicPatterns):
             getPatternsAsDataFrame()
                 Complete set of local periodic patterns will be loaded in to a dataframe.
 
-    Executing the code on terminal:
-    ------------------------------
-        Format:
-        -------
-            >>> python3 LPPMGrowth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur>
-        Examples:
-        ---------
-            >>> python3 LPPMGrowth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
+    **Executing the code on terminal:**
+    -------------------------------------
+            Format:
+                    >>> python3 LPPMGrowth.py <inputFile> <outputFile> <maxPer> <minSoPer> <minDur>
 
-            >>> python3 LPPMGrowth.py sampleDB.txt patterns.txt 3 4 5
+            Examples:
+                    >>> python3 LPPMGrowth.py sampleDB.txt patterns.txt 0.3 0.4 0.5
 
-    Sample run of importing the code:
-    ----------------------------------
+
+    **Sample run of importing the code:**
+    ----------------------------------------
     .. code-block:: python
 
-        from PAMI.localPeriodicPattern.basic import LPPGrowth as alg
+            from PAMI.localPeriodicPattern.basic import LPPGrowth as alg
 
-        obj = alg.LPPGrowth(iFile, maxPer, maxSoPer, minDur)
+            obj = alg.LPPGrowth(iFile, maxPer, maxSoPer, minDur)
 
-        obj.startMine()
+            obj.startMine()
 
-        localPeriodicPatterns = obj.getPatterns()
+            localPeriodicPatterns = obj.getPatterns()
 
-        print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
+            print(f'Total number of local periodic patterns: {len(localPeriodicPatterns)}')
 
-        obj.save(oFile)
+            obj.save(oFile)
 
-        Df = obj.getPatternsAsDataFrame()
+            Df = obj.getPatternsAsDataFrame()
 
-        memUSS = obj.getMemoryUSS()
+            memUSS = obj.getMemoryUSS()
 
-        print(f'Total memory in USS: {memUSS}')
+            print(f'Total memory in USS: {memUSS}')
 
-        memRSS = obj.getMemoryRSS()
+            memRSS = obj.getMemoryRSS()
 
-        print(f'Total memory in RSS: {memRSS}')
+            print(f'Total memory in RSS: {memRSS}')
 
-        runtime = obj.getRuntime()
+            runtime = obj.getRuntime()
 
-        print(f'Total execution time in seconds: {runtime})
+            print(f'Total execution time in seconds: {runtime})
 
-    Credits:
-    -------
+    **Credits:**
+    --------------
         The complete program was written by So Nakamura under the supervision of Professor Rage Uday Kiran.
     """
     _localPeriodicPatterns__iFile = ' '
@@ -365,7 +364,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
 
     def __creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self.__Database = []
         if isinstance(self._localPeriodicPatterns__iFile, _ab._pd.DataFrame):
@@ -565,12 +564,13 @@ class LPPGrowth(_ab._localPeriodicPatterns):
     def __patternGrowth(self, tree: 'Tree', prefix: List[int], prefixPFList: Dict[Any, Any]) -> None:
         """
         Create prefix tree and prefixPFList. Store finalPatterns and its PTL.
-          :param tree: The root node of prefix tree.
-          :type tree: Node or Tree
-          :param prefix: Prefix item list.
-          :type prefix: list
-          :param prefixPFList: tsList of prefix patterns.
-          :type prefixPFList: dict or list
+
+        :param tree: The root node of prefix tree.
+        :type tree: Node or Tree
+        :param prefix: Prefix item list.
+        :type prefix: list
+        :param prefixPFList: tsList of prefix patterns.
+        :type prefixPFList: dict or list
         """
         items = list(prefixPFList)
         if not prefix:
@@ -622,10 +622,11 @@ class LPPGrowth(_ab._localPeriodicPatterns):
 
     def __calculatePTL(self, tsList: List[int]) -> set:
         """
-        Calculate PTL from input tsList as integer list/
-          :param tsList: It is tsList which store time stamp as integer.
-          :type tsList: list
-          :return: PTL
+        Calculate PTL from input tsList as integer list
+
+        :param tsList: It is tsList which store time stamp as integer.
+        :type tsList: list
+        :return: PTL
         """
         start = -1
         PTL = set()
@@ -654,10 +655,11 @@ class LPPGrowth(_ab._localPeriodicPatterns):
 
     def __calculatePTLbit(self, tsList: List[int]) -> set:
         """
-           Calculate PTL from input tsList as bit vector.
-            :param tsList: It is tsList which store time stamp as bit vector.
-            :type tsList: list
-            :return: PTL
+        Calculate PTL from input tsList as bit vector.
+
+        :param tsList: It is tsList which store time stamp as bit vector.
+        :type tsList: list
+        :return: PTL
         """
         tsList = list(bin(tsList))
         tsList = tsList[2:]
@@ -702,6 +704,7 @@ class LPPGrowth(_ab._localPeriodicPatterns):
     def __convert(self, value: Any) -> float:
         """
         to convert the type of user specified minSup value
+
         :param value: user specified minSup value
         :return: converted type
         """
@@ -783,9 +786,11 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         return dataFrame
 
     def save(self, outFile: str) -> None:
-        """Complete set of local periodic patterns will be loaded in to an output file
-           :param outFile: name of the output file
-           :type outFile: file
+        """
+        Complete set of local periodic patterns will be loaded in to an output file
+
+        :param outFile: name of the output file
+        :type outFile: csv file
         """
         self._localPeriodicPatterns__oFile = outFile
         writer = open(self._localPeriodicPatterns__oFile, 'w+')
@@ -808,7 +813,8 @@ class LPPGrowth(_ab._localPeriodicPatterns):
         return self._localPeriodicPatterns__finalPatterns
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Local Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

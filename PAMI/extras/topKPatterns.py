@@ -9,8 +9,6 @@
 #
 #     obj.save()
 #
-#
-
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -32,11 +30,10 @@ __copyright__ = """
 
 class topKPatterns:
     """
-    Description:
-        find top k length patterns in input file.
+    :Description:   find top k length patterns in input file.
 
-    Attributes:
-    --------------
+    :Attributes:
+
         inputFile : str
             input file name or path
         k : int
@@ -44,22 +41,22 @@ class topKPatterns:
         sep : str
             separator which separate patterns in input file. default is tab space
 
-    Methods:
-    ----------
+    :Methods:
+
         getTopKPatterns()
             return top k patterns as dict
         storeTopKPatterns(outputFile)
             store top k patterns into output file.
 
-        **Importing this algorithm into a python program**
-        --------------------------------------------------------
-        .. code-block:: python
+    **Importing this algorithm into a python program**
+    --------------------------------------------------------
+    .. code-block:: python
 
-        from PAMI.extras.syntheticDataGenerator import topKPatterns as plt
+                from PAMI.extras.syntheticDataGenerator import topKPatterns as plt
 
-        obj = plt.scatterPlotSpatialPoints(" ", 10, "\t" )
+                obj = plt.scatterPlotSpatialPoints(" ", 10, "\t" )
 
-        obj.save()
+                obj.save()
     """
     def __init__(self, inputFile: str, k: int=10, sep: str='\t') -> None:
         self.inputFile = inputFile
@@ -69,6 +66,7 @@ class topKPatterns:
     def getTopKPatterns(self) -> dict:
         """
         get top k length patterns. user can defined k value.
+
         :return: top k length patterns as dictionary. top k patterns = {patternId: pattern}
         """
         with open(self.inputFile, 'r') as f:
@@ -79,6 +77,7 @@ class topKPatterns:
     def save(self, outputFile: str) -> None:
         """
         store top k length patterns into file. user can defined k value.
+
         :param outputFile: output file name or path
         :type outputFile: str
         """

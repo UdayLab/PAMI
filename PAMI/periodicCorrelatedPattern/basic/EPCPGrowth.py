@@ -30,7 +30,6 @@
 #
 #     print("Total ExecutionTime in seconds:", run)
 #
-#
 
 
 __copyright__ = """
@@ -69,27 +68,29 @@ _lno = int()
 
 class _Node(object):
     """
-        A class used to represent the node of frequentPatternTree
+    A class used to represent the node of frequentPatternTree
 
-        Attributes:
-        ----------
-            item : int or None
-                Storing item of a node
-            timeStamps : list
-                To maintain the timestamps of a database at the end of the branch
-            parent : node
-                To maintain the parent of every node
-            children : list
-                To maintain the children of a node
+    :Attributes:
 
-        Methods:
-        -------
-            addChild(itemName)
-                Storing the children to their respective parent nodes
+        item : int or None
+            Storing item of a node
+        timeStamps : list
+            To maintain the timestamps of a database at the end of the branch
+        parent : node
+            To maintain the parent of every node
+        children : list
+            To maintain the children of a node
+
+    :Methods:
+
+        addChild(itemName)
+            Storing the children to their respective parent nodes
         """
 
     def __init__(self, item, children) -> None:
-        """ Initializing the Node class
+        """
+        Initializing the Node class
+
         :param item: Storing the item of a node
         :type item: int or None
         :param children: To maintain the children of a node
@@ -102,8 +103,10 @@ class _Node(object):
         self.timeStamps = []
 
     def addChild(self, node) -> None:
-        """ To add the children to a node
-            :param node: parent node in the tree
+        """
+        To add the children to a node
+
+        :param node: parent node in the tree
         """
 
         self.children[node.item] = node
@@ -112,33 +115,33 @@ class _Node(object):
 
 class _Tree(object):
     """
-        A class used to represent the frequentPatternGrowth tree structure
+    A class used to represent the frequentPatternGrowth tree structure
 
-        Attributes:
-        ----------
-            root : Node
-                Represents the root node of the tree
-            summaries : dictionary
-                Storing the nodes with same item name
-            info : dictionary
-                Stores the support of the items
+    :Attributes:
+
+        root : Node
+            Represents the root node of the tree
+        summaries : dictionary
+            Storing the nodes with same item name
+        info : dictionary
+            Stores the support of the items
 
 
-        Methods:
-        -------
-            addTransactions(Database)
-                Creating transaction as a branch in frequentPatternTree
-            getConditionalPatterns(Node)
-                Generates the conditional patterns from tree for specific node
-            conditionalTransaction(prefixPaths,Support)
-                Takes the prefixPath of a node and support at child of the path and extract the frequent patterns from
-                prefixPaths and generates prefixPaths with items which are frequent
-            remove(Node)
-                Removes the node from tree once after generating all the patterns respective to the node
-            generatePatterns(Node)
-                Starts from the root node of the tree and mines the periodic-frequent patterns
+    :Methods:
 
-        """
+        addTransactions(Database)
+            Creating transaction as a branch in frequentPatternTree
+        getConditionalPatterns(Node)
+            Generates the conditional patterns from tree for specific node
+        conditionalTransaction(prefixPaths,Support)
+            Takes the prefixPath of a node and support at child of the path and extract the frequent patterns from
+            prefixPaths and generates prefixPaths with items which are frequent
+        remove(Node)
+            Removes the node from tree once after generating all the patterns respective to the node
+        generatePatterns(Node)
+            Starts from the root node of the tree and mines the periodic-frequent patterns
+
+    """
 
     def __init__(self) -> None:
         self.root = _Node(None, {})
@@ -146,12 +149,14 @@ class _Tree(object):
         self.info = {}
 
     def addTransaction(self, transaction, tid) -> None:
-        """     Adding a transaction into tree
-                :param transaction: To represent the complete database
-                :type transaction: list
-                :param tid: To represent the timestamp of a database
-                :type tid: list
-                :return: pfp-growth tree
+        """
+        Adding a transaction into tree
+
+        :param transaction: To represent the complete database
+        :type transaction: list
+        :param tid: To represent the timestamp of a database
+        :type tid: list
+        :return: pfp-growth tree
         """
 
         currentNode = self.root
@@ -169,10 +174,12 @@ class _Tree(object):
         currentNode.timeStamps = currentNode.timeStamps + tid
 
     def getConditionalPatterns(self, alpha, pattern) -> tuple:
-        """Generates all the conditional patterns of a respective node
-            :param alpha: To represent a Node in the tree
-            :type alpha: Node
-            :return: A tuple consisting of finalPatterns, conditional pattern base and information
+        """
+        Generates all the conditional patterns of a respective node
+
+        :param alpha: To represent a Node in the tree
+        :type alpha: Node
+        :return: A tuple consisting of finalPatterns, conditional pattern base and information
         """
         finalPatterns = []
         finalSets = []
@@ -191,7 +198,9 @@ class _Tree(object):
 
     @staticmethod
     def generateTimeStamps(node) -> list:
-        """To get the timestamps of a node
+        """
+        To get the timestamps of a node
+
         :param node: A node in the tree
         :return: Timestamps of a node
         """
@@ -200,10 +209,12 @@ class _Tree(object):
         return finalTimeStamps
 
     def removeNode(self, nodeValue) -> None:
-        """ Removing the node from tree
-            :param nodeValue: To represent a node in the tree
-            :type nodeValue: node
-            :return: Tree with their nodes updated with timestamps
+        """
+        Removing the node from tree
+
+        :param nodeValue: To represent a node in the tree
+        :type nodeValue: node
+        :return: Tree with their nodes updated with timestamps
         """
 
         for i in self.summaries[nodeValue]:
@@ -211,9 +222,11 @@ class _Tree(object):
             del i.parent.children[nodeValue]
 
     def getTimeStamps(self, alpha) -> list:
-        """ To get all the timestamps of the nodes which share same item name
-            :param alpha: Node in a tree
-            :return: Timestamps of a  node
+        """
+        To get all the timestamps of the nodes which share same item name
+
+        :param alpha: Node in a tree
+        :return: Timestamps of a  node
         """
         temporary = []
         for i in self.summaries[alpha]:
@@ -222,7 +235,9 @@ class _Tree(object):
 
     @staticmethod
     def getSupportAndPeriod(timeStamps, pattern) -> list:
-        """To calculate the periodicity and support
+        """
+        To calculate the periodicity and support
+
         :param timeStamps: Timestamps of an item set
         :return: support, periodicity
         """
@@ -251,14 +266,15 @@ class _Tree(object):
         return [sup, max(per), conf, perConf]
 
     def conditionalDatabases(self, conditionalPatterns: list, conditionalTimeStamps: list, pattern) -> tuple:
-        """ It generates the conditional patterns with periodic-frequent items
-            :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
-            :type conditionalPatterns: list
-            :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
-            :type conditionalTimeStamps: list
-            :returns: Returns conditional transactions by removing non-periodic and non-frequent items
         """
+        It generates the conditional patterns with periodic-frequent items
 
+        :param conditionalPatterns: conditionalPatterns generated from conditionPattern method of a respective node
+        :type conditionalPatterns: list
+        :param conditionalTimeStamps: Represents the timestamps of a conditional patterns of a node
+        :type conditionalTimeStamps: list
+        :returns: Returns conditional transactions by removing non-periodic and non-frequent items
+        """
         global _maxPer, _minSup
         temp = pattern
         pat = []
@@ -285,10 +301,12 @@ class _Tree(object):
         return pat, timeStamps, updatedDictionary
 
     def generatePatterns(self, prefix: list) -> Generator:
-        """ Generates the patterns
-            :param prefix: Forms the combination of items
-            :type prefix: list
-            :returns: yields patterns with their support and periodicity
+        """
+        Generates the patterns
+
+        :param prefix: Forms the combination of items
+        :type prefix: list
+        :returns: yields patterns with their support and periodicity
         """
         global _minSup, _minAllConf, _maxPer, _maxPerAllConf
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0], -x)):
@@ -310,40 +328,36 @@ class _Tree(object):
 
 class EPCPGrowth(_ab._periodicCorrelatedPatterns):
     """
-    Description:
-    ------------
-        EPCPGrowth is an algorithm to discover periodic-Correlated patterns in a temporal database.
+    :Description:   EPCPGrowth is an algorithm to discover periodic-Correlated patterns in a temporal database.
 
-    Reference:
-    ----------
-        http://www.tkl.iis.u-tokyo.ac.jp/new/uploads/publication_file/file/897/Venkatesh2018_Chapter_DiscoveringPeriodic-Correlated.pdf
+    :Reference:   http://www.tkl.iis.u-tokyo.ac.jp/new/uploads/publication_file/file/897/Venkatesh2018_Chapter_DiscoveringPeriodic-Correlated.pdf
 
-    Attributes:
-    ------------
+    :Attributes:
+
         iFile : file
             Name of the Input file or path of the input file
         oFile : file
             Name of the output file or path of the output file
-        minSup: int or float or str
+        minSup : int or float or str
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
             Otherwise, it will be treated as float.
             Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-        minAllConf: int or float or str
+        minAllConf : int or float or str
             The user can specify minAllConf either in count or proportion of database size.
             If the program detects the data type of minAllConf is integer, then it treats minAllCOnf is expressed in count.
             Otherwise, it will be treated as float.
             Example: minAllCOnf=10 will be treated as integer, while minAllConf=10.0 will be treated as float
-        maxPer: int or float or str
+        maxPer : int or float or str
             The user can specify maxPer either in count or proportion of database size.
             If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
             Otherwise, it will be treated as float.
             Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float
-        maxPerAllConf: int or float or str
+        maxPerAllConf : int or float or str
             The user can specify maxPerAllConf either in count or proportion of database size.
             If the program detects the data type of maaxPerAllConf is integer, then it treats maxPerAllConf is expressed in count.
             Otherwise, it will be treated as float.
-            Example: maxPerAllConf=10 will be treated as integer, while maxPerAllConf=10.0 will be treated as float
+            Example : maxPerAllConf=10 will be treated as integer, while maxPerAllConf=10.0 will be treated as float
         sep : str
             This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.
             However, the users can override their default separator.
@@ -351,9 +365,9 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
             To store the total amount of USS memory consumed by the program
         memoryRSS : float
             To store the total amount of RSS memory consumed by the program
-        startTime:float
+        startTime : float
             To record the start time of the mining process
-        endTime:float
+        endTime : float
             To record the completion time of the mining process
         Database : list
             To store the transactions of a database in list
@@ -368,8 +382,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         finalPatterns : dict
             To store the complete patterns
 
-    Methods:
-    ---------
+    :Methods:
+
         startMine()
             Mining process will start from here
         getPatterns()
@@ -395,22 +409,16 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         convert()
             to convert the user specified value
 
-    Executing the code on terminal:
-    -----------------------------------
+    **Executing the code on terminal:**
+    ---------------------------------------
         Format:
-        -------
-
-        >>> python3 PFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+                    >>> python3 PFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
         Examples:
-        ---------
-        >>> python3 PFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4   (minSup and maxPer will be considered in percentage of database
-        transactions)
+                    >>> python3 PFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
 
-        >>> python3 PFPGrowth.py sampleTDB.txt patterns.txt 3 4     (minSup and maxPer will be considered in support count or frequency)
-
-    Sample run of importing the code:
-    -------------------
+    **Sample run of importing the code:**
+    ----------------------------------------
     .. code-block:: python
 
         from PAMI.periodicCorrelatedPattern.basic import EPCPGrowth as alg
@@ -439,8 +447,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
         print("Total ExecutionTime in seconds:", run)
 
-    Credits:
-    ---------
+    **Credits:**
+    --------------
         The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.\n
 
     """
@@ -463,7 +471,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
     def _creatingItemSets(self) -> None:
         """
-            Storing the complete transactions of the database/input file in a database variable
+        Storing the complete transactions of the database/input file in a database variable
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -501,12 +509,12 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
                     print("File Not Found")
                     quit()
 
-
     def _periodicFrequentOneItem(self) -> tuple:
-        """ Calculates the support of each item in the database and assign ranks to the items
-            by decreasing support and returns the frequent items list
+        """
+        Calculates the support of each item in the database and assign ranks to the items
+        by decreasing support and returns the frequent items list
 
-            :returns: return the one-length periodic frequent patterns
+        :returns: return the one-length periodic frequent patterns
         """
         global _frequentList
         data = {}
@@ -528,11 +536,13 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return data, pfList
 
     def _updateDatabases(self, dict1) -> list:
-        """ Remove the items which are not frequent from database and updates the database with rank of items
-            :param dict1: frequent items with support
-            :type dict1: dictionary
-            :return: Sorted and updated transactions
-            """
+        """
+        Remove the items which are not frequent from database and updates the database with rank of items
+
+        :param dict1: frequent items with support
+        :type dict1: dictionary
+        :return: Sorted and updated transactions
+        """
         list1 = []
         for tr in self._Database:
             list2 = [int(tr[0])]
@@ -548,12 +558,14 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
     @staticmethod
     def _buildTree(data, info) -> _Tree:
-        """ It takes the database and support of each item and construct the main tree by setting root node as a null
-            :param data: it represents the one Database in database
-            :type data: list
-            :param info: it represents the support of each item
-            :type info: dictionary
-            :return: returns root node of tree
+        """
+        It takes the database and support of each item and construct the main tree by setting root node as a null
+
+        :param data: it represents the one Database in database
+        :type data: list
+        :param info: it represents the support of each item
+        :type info: dictionary
+        :return: returns root node of tree
         """
 
         rootNode = _Tree()
@@ -564,9 +576,11 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return rootNode
 
     def _savePeriodic(self, itemSet) -> str:
-        """ To convert the ranks of items in to their original item names
-            :param itemSet: frequent pattern
-            :return: frequent pattern with original item names
+        """
+        To convert the ranks of items in to their original item names
+
+        :param itemSet: frequent pattern.
+        :return: frequent pattern with original item names
         """
         t1 = str()
         for i in itemSet:
@@ -576,6 +590,7 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
     def _convert(self, value) -> float:
         """
         To convert the given user specified value
+
         :param value: user specified value
         :return: converted value
         """
@@ -592,7 +607,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return value
 
     def startMine(self) -> None:
-        """ Mining process will start from this function
+        """
+        Mining process will start from this function
         """
 
         global _minSup, _maxPer, _minAllConf, _maxPerAllConf, _lno
@@ -673,8 +689,9 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
 
     def save(self, outFile: str) -> None:
         """Complete set of periodic-frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -691,7 +708,8 @@ class EPCPGrowth(_ab._periodicCorrelatedPatterns):
         return self._finalPatterns
     
     def printResults(self) -> None:
-        """ This function is used to print thr results
+        """
+        This function is used to print thr results
         """
         print("Total number of Correlated Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
