@@ -7,8 +7,11 @@
 #
 #     obj = fig.dataFrameInToFigures(idf)
 #
-#     obj.save()
+#     obj.plotGraphsFromDataFrame("minSup", "patterns")
 #
+#     obj.plotGraphsFromDataFrame("minSup", "memory")
+#
+#     obj.plotGraphsFromDataFrame("minSup", "runtime")
 #
 
 __copyright__ = """
@@ -40,29 +43,41 @@ class dataFrameInToFigures():
 
     :param  dataFrame:
             Name of the input dataframe
+    :param xcolumn:
+           Specify the name of the X-axis 
+    :param ycolumn:
+           Specify the name of the Y-axis 
+           
     **Importing this algorithm into a python program**
     --------------------------------------------------------
     .. code-block:: python
 
             from PAMI.extras.graph import dataframeInToFigures as fig
 
-            obj = fig.dataframeInToFigures(idf )
+            obj = fig.dataframeInToFigures(idf)
 
-            obj.save(oFile)
+            obj.plotGraphsFromDataFrame("minSup", "patterns")
+
+            obj.plotGraphsFromDataFrame("minSup", "memory")
+
+            obj.plotGraphsFromDataFrame("minSup", "runtime")
 
     """
 
     def __init__(self, dataFrame: _pd.DataFrame) -> None:
         self._dataFrame = dataFrame
 
-    def plotGraphsFromDataFrame(self) -> None:
+    def plotGraphsFromDataFrame(self, xColumn, yColumn) -> None:
         """
         To plot graphs from given dataframe
         """
-        fig = _px.line(self._dataFrame, x=self._dataFrame.iloc[:, 1] , y=self._dataFrame.iloc[:, 2], color=self._dataFrame.iloc[:, 0], labels={'x':'minSup', 'y':'patterns'})
+        fig = _px.line(self._dataFrame, x=self._dataFrame[xColumn] , y=self._dataFrame[yColumn], color=self._dataFrame.iloc[:, 0], labels={'x': xColumn, 'y': yColumn})
         fig.show()
 
 
 if __name__ == '__main__':
     ab = dataFrameInToFigures(result)
-    ab.plotGraphsFromDataFrame()
+    # user can change x and y columns
+    ab.plotGraphsFromDataFrame("minSup", "patterns")
+
+
