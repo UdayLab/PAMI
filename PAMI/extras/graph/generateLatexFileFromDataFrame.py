@@ -9,9 +9,6 @@
 #
 #     obj = fig.generateLatexFileFromDatFrame(idf)
 #
-#     obj.save()
-#
-#
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -35,7 +32,7 @@ import pandas as pd
 
 class generateLatexFileFromDataFrame():
     """
-    :Description:   generateLatexFileFromDatFrame is used to convert the given dataframe into LatexFile.
+    :Description:  generateLatexFileFromDatFrame is used to convert the given dataframe into LatexFile.
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------
@@ -44,8 +41,6 @@ class generateLatexFileFromDataFrame():
             from PAMI.extras.graph import generateLatexFileFromDatFrame as fig
 
             obj = fig.generateLatexFileFromDatFrame(idf)
-
-            obj.save()
 
     """
 
@@ -80,7 +75,6 @@ def generateLatexCode(result: pd.DataFrame) -> None:
     #generateLatexCode(data1)
 
 if __name__ == "__main__":
-
 
     #data = {'Name': ['Jai', 'Princi', 'Gaurav', 'Anuj'],
             #'Age': [27, 24, 22, 32],
