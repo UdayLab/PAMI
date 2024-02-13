@@ -9,7 +9,8 @@
 #
 #     obj = fig.generateLatexFileFromDatFrame(idf)
 #
-
+#     prints statemet: Latex files are generated successfully 
+#
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -41,6 +42,8 @@ class generateLatexFileFromDataFrame():
             from PAMI.extras.graph import generateLatexFileFromDatFrame as fig
 
             obj = fig.generateLatexFileFromDatFrame(idf)
+
+            prints statemet: Latex files are generated successfully 
 
     """
 
