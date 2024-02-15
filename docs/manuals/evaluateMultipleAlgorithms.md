@@ -96,12 +96,12 @@ for minSup in minSupList:
 #### Step 6: Visualizing the comparative results
 
 ```Python
-#Import the library 
-from PAMI.extras.graph import dataFrameInToFigures as dif
-    #Pass the result data frame to the class
-    ab = dif.dataFrameInToFigures(result)
-    #Draw the graphs
-    ab.plotGraphsFromDataFrame()
+# Import the library 
+from PAMI.extras.graph import DF2Fig as dif
+# Pass the result data frame to the class
+ab = dif.dataFrameInToFigures(result)
+# Draw the graphs
+ab.plotGraphsFromDataFrame()
 ```
 
 #### Step 7: Creating Latex files for graphs

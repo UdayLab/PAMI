@@ -77,45 +77,48 @@ print("Total ExecutionTime in seconds:", obj.getRuntime())
 ## 2. Implementing a pattern mining algorithm on a dataset at multiple constraint values
 
 ### Syntax
+
 ```Python
 # import the necessary algorithm from the PAMI library
-from PAMI.<model>.<basic/closed/maximal/topK> import <algorithmName> as alg
-algorithm='Algorithm Name'
+from PAMI. < model >.< basic / closed / maximal / topK >
+import < algorithmName > as alg
+algorithm = 'Algorithm Name'
 
-#Create a data frame to store the values
+# Create a data frame to store the values
 import pandas as pd
+
 result = pd.DataFrame(columns=['algorithm', 'minSup', 'patterns', 'runtime', 'memory'])
 
-#Specify the List of constraint values
-constraintList =['List of values']
+# Specify the List of constraint values
+constraintList = ['List of values']
 
-#For each value in the constraint list
+# For each value in the constraint list
 for constraint in constraintList:
     # Call the necessary algorithm by passing necessary input parameters. The input parameters include inputFileName and the user-specified constraints.
-    obj = alg.<algorithmName>(<input parameters>)
+    obj = alg. < algorithmName > (< input parameters >)
 
     # Start the mining algorithm
     obj.startMine()
 
-    #store the results in the data frame
+    # store the results in the data frame
     result.loc[result.shape[0]] = [algorithm, constraint, len(obj.getPatterns()), obj.getRuntime(), obj.getMemoryRSS()]
 
-#Print the dataframe
+# Print the dataframe
 result
 
-#Visualize the plots
-from PAMI.extras.graph import dataFrameInToFigures as dif
-    #Pass the result data frame to the class
-    ab = dif.dataFrameInToFigures(result)
-    #Draw the graphs
-    ab.plotGraphsFromDataFrame()
+# Visualize the plots
+from PAMI.extras.graph import DF2Fig as dif
+# Pass the result data frame to the class
+ab = dif.dataFrameInToFigures(result)
+# Draw the graphs
+ab.plotGraphsFromDataFrame()
 ```
 
 ### Example 2: Mining frequent patterns in a transactional database at different mininimum support values using FP-growth
 
 ```Python
 #Import the mining algorithm
-from PAMI.frequentPattern.basic import FPGrowth  as alg
+from PAMI.frequentPattern.basic import FPGrowth as alg
 
 #Import pandas data frame to store the values 
 import pandas as pd
@@ -123,15 +126,14 @@ import pandas as pd
 #Initialize the data frame
 result = pd.DataFrame(columns=['algorithm', 'minSup', 'patterns', 'runtime', 'memory'])
 
-
 #Specify the name of the input file
 inputFile = 'Transactional_T10I4D100K.csv'
 
 #specify the seperator
-seperator='\t'
+seperator = '\t'
 
 #Create a list of constraint values
-minimumSupportList = [500,600,700,800]
+minimumSupportList = [500, 600, 700, 800]
 #minimumSupport values can be specified between 0 to 1.
 #Example: minSupList = [0.005, 0.006, 0.007, 0.008, 0.009]
 
@@ -151,7 +153,8 @@ for minSup in minimumSupportList:
 result
 
 #Visualize the plots
-from PAMI.extras.graph import dataFrameInToFigures as dif
+from PAMI.extras.graph import DF2Fig as dif
+
 #Pass the result data frame to the class
 ab = dif.dataFrameInToFigures(result)
 #Draw the graphs

@@ -3,9 +3,9 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.graph import dataFrameInToFigures as fig
+#     from PAMI.extras.graph import DF2Fig as fig
 #
-#     obj = fig.dataFrameInToFigures(idf)
+#     obj = fig.DF2Fig(idf)
 #
 #     obj.plotGraphsFromDataFrame("minSup", "patterns")
 #
@@ -36,15 +36,20 @@ import sys
 import plotly.express as _px
 import pandas as _pd
 
-class dataFrameInToFigures():
+class DF2Fig():
     """
 
     :Description:   DataFrameInToFigures is used to convert the given dataframe into figures.
 
     :param  dataFrame:
             Name of the input dataframe
+
+    :param algorithm:
+           Specify the column name containing the algorithms
+
     :param xcolumn:
-           Specify the name of the X-axis 
+           Specify the name of the X-axis
+
     :param ycolumn:
            Specify the name of the Y-axis 
            
@@ -67,17 +72,22 @@ class dataFrameInToFigures():
     def __init__(self, dataFrame: _pd.DataFrame) -> None:
         self._dataFrame = dataFrame
 
-    def plotGraphsFromDataFrame(self, xColumn, yColumn) -> None:
+    def plot(self, xColumn, yColumn, algorithm=None) -> None:
         """
         To plot graphs from given dataframe
         """
-        fig = _px.line(self._dataFrame, x=self._dataFrame[xColumn] , y=self._dataFrame[yColumn], color=self._dataFrame.iloc[:, 0], labels={'x': xColumn, 'y': yColumn})
+        if algorithm == None:
+            fig = _px.line(self._dataFrame, x=self._dataFrame[xColumn] , y=self._dataFrame[yColumn], color=self._dataFrame.iloc[:, 0], labels={'x': xColumn, 'y': yColumn})
+        else:
+            fig = _px.line(self._dataFrame, x=self._dataFrame[xColumn], y=self._dataFrame[yColumn],
+                           color=self._dataFrame[algorithm], labels={'x': xColumn, 'y': yColumn})
+
         fig.show()
 
 
-if __name__ == '__main__':
-    ab = dataFrameInToFigures(result)
-    # user can change x and y columns
-    ab.plotGraphsFromDataFrame("minSup", "patterns")
+# if __name__ == '__main__':
+#     ab = DF2Fig(result)
+#     # user can change x and y columns
+#     ab.plot("minSup", "patterns")
 
 
