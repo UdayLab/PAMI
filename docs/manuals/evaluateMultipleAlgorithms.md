@@ -107,9 +107,9 @@ ab.plotGraphsFromDataFrame()
 #### Step 7: Creating Latex files for graphs
 
 ```Python
-#Import the library
-from PAMI.extras.graph import generateLatexFileFromDataFrame as gdf
-    #Pass the result data frame
-    gdf.generateLatexCode(result)
+# Import the library
+from PAMI.extras.graph import DF2Tex as gdf
+# Pass the result data frame
+gdf.generateLatexCode(result)
 ```
 __Note:__ The _generateLatexCode_ program create three latex files, namely _patternsLatexfile.tex_, _memoryLatexfile.tex_, and _runtimeLatexfile.tex_. 

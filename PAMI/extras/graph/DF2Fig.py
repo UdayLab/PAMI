@@ -61,7 +61,7 @@ class DF2Fig():
 
             obj = fig.dataframeInToFigures(idf)
 
-            obj.plotGraphsFromDataFrame("minSup", "patterns")
+            obj.plotGraphsFromDataFrame("minSup", "patterns", "algorithms")
 
             obj.plotGraphsFromDataFrame("minSup", "memory")
 
@@ -76,7 +76,7 @@ class DF2Fig():
         """
         To plot graphs from given dataframe
         """
-        if algorithm == None:
+        if algorithm is None:
             fig = _px.line(self._dataFrame, x=self._dataFrame[xColumn] , y=self._dataFrame[yColumn], color=self._dataFrame.iloc[:, 0], labels={'x': xColumn, 'y': yColumn})
         else:
             fig = _px.line(self._dataFrame, x=self._dataFrame[xColumn], y=self._dataFrame[yColumn],

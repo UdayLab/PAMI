@@ -107,9 +107,9 @@ ab.plotGraphsFromDataFrame() #drawPlots()
 
 ### Step 6: Saving the results as latex files
 
-
 ```python
-from PAMI.extras.graph import generateLatexFileFromDataFrame as gdf
+from PAMI.extras.graph import DF2Tex as gdf
+
 gdf.generateLatexCode(result)
 ```
 

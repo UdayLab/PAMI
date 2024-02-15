@@ -31,7 +31,7 @@ __copyright__ = """
 import sys
 import pandas as pd
 
-class generateLatexFileFromDataFrame():
+class DF2Tex():
     """
     :Description:  generateLatexFileFromDatFrame is used to convert the given dataframe into LatexFile.
 
@@ -47,7 +47,15 @@ class generateLatexFileFromDataFrame():
 
     """
 
-def generateLatexCode(result: pd.DataFrame) -> None:
+
+def save(fileName, xColumn, yColumn, algorithms):
+
+
+
+
+def print(xColumn, yColumn, algorithms):
+
+def generateLatex(result: pd.DataFrame) -> None:
     titles = result.columns.tolist()
     #titles.remove("minSup")
     #titles.remove("algorithm")
@@ -77,25 +85,25 @@ def generateLatexCode(result: pd.DataFrame) -> None:
     #data1 = pd.DataFrame(data)
     #generateLatexCode(data1)
 
-if __name__ == "__main__":
-
-    #data = {'Name': ['Jai', 'Princi', 'Gaurav', 'Anuj'],
-            #'Age': [27, 24, 22, 32],
-            #'Address': [0, 1, 2, 3],
-            #'Qualification': [8, 9, 10, 11]}
-    # data = {'algorithm': ['FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner'
-    #     ,'Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm'
-    #     ,'Naive algorithm', ],
-    #         'minSup': [200,400,600,800,1000,1200,1400,200,400,600,800,1000,1200,1400],
-    #         'patterns': [25510,5826,2305,1163,657,407,266,101938,16183,5027,2091,1044,574,335],
-    #         'runtime': [1077.7172002792358,298.6219701766968,186.86728835105896,126.96730422973633
-    #             ,77.39371657371521,64.73982691764832,46.879486083984375,13175.030002832413,1821.2089745998383
-    #             ,964.6961390972137,637.1588702201843,350.71105194091797,275.9953947067261,195.6615695953369],
-    #         'memoryRSS': [164634624,159494144,157622272,156184576,153698304,150597632,149381120,228220928,192770048
-    #             ,185114624,182939648,178253824,176115712,171659264],
-    #         'memoryUSS': [144310272,139104256,137232384,135794688,133300224,130195456,128978944,
-    #                     203337728,172376064,164720640,162545664,157859840,155721728,151265280]
-    #         }
-
-    data1 = pd.DataFrame(result)
-    generateLatexCode(data1)
+# if __name__ == "__main__":
+#
+#     #data = {'Name': ['Jai', 'Princi', 'Gaurav', 'Anuj'],
+#             #'Age': [27, 24, 22, 32],
+#             #'Address': [0, 1, 2, 3],
+#             #'Qualification': [8, 9, 10, 11]}
+#     # data = {'algorithm': ['FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner'
+#     #     ,'Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm'
+#     #     ,'Naive algorithm', ],
+#     #         'minSup': [200,400,600,800,1000,1200,1400,200,400,600,800,1000,1200,1400],
+#     #         'patterns': [25510,5826,2305,1163,657,407,266,101938,16183,5027,2091,1044,574,335],
+#     #         'runtime': [1077.7172002792358,298.6219701766968,186.86728835105896,126.96730422973633
+#     #             ,77.39371657371521,64.73982691764832,46.879486083984375,13175.030002832413,1821.2089745998383
+#     #             ,964.6961390972137,637.1588702201843,350.71105194091797,275.9953947067261,195.6615695953369],
+#     #         'memoryRSS': [164634624,159494144,157622272,156184576,153698304,150597632,149381120,228220928,192770048
+#     #             ,185114624,182939648,178253824,176115712,171659264],
+#     #         'memoryUSS': [144310272,139104256,137232384,135794688,133300224,130195456,128978944,
+#     #                     203337728,172376064,164720640,162545664,157859840,155721728,151265280]
+#     #         }
+#
+#     data1 = pd.DataFrame(result)
+#     generateLatexCode(data1)
