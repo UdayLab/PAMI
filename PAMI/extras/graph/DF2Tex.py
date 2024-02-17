@@ -5,11 +5,13 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.extras.graph import generateLatexFileFromDatFrame as fig
+#     from PAMI.extras.graph import DF2Tex
 #
-#     obj = fig.generateLatexFileFromDatFrame(idf)
+#     obj = DF2Tex.generateLatex(result, "minSup", "runtime", "Algorithm")
 #
-#     prints statemet: Latex files are generated successfully 
+#     DF2Tex.save("outputFileName.tex", latexCode)
+#
+#     prints statement: Latex file saved as outputFileName
 #
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -28,10 +30,11 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import sys
+
 import pandas as pd
 
-class DF2Tex():
+
+class DF2Tex:
     """
     :Description:  generateLatexFileFromDatFrame is used to convert the given dataframe into LatexFile.
 
@@ -39,71 +42,60 @@ class DF2Tex():
     --------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.extras.graph import generateLatexFileFromDatFrame as fig
+            from PAMI.extras.graph import DF2Tex
 
-            obj = fig.generateLatexFileFromDatFrame(idf)
+            obj = DF2Tex.generateLatex(result, "minSup", "runtime", "Algorithm")
 
-            prints statemet: Latex files are generated successfully 
+            DF2Tex.save("outputFileName.tex", latexCode)
+
+            prints statement: Latex file saved as outputFileName
 
     """
-
-
-def save(fileName, xColumn, yColumn, algorithms):
-
-
-
-
-def print(xColumn, yColumn, algorithms):
-
-def generateLatex(result: pd.DataFrame) -> None:
-    titles = result.columns.tolist()
-    #titles.remove("minSup")
-    #titles.remove("algorithm")
-    for i in range(0, len(titles)):
+    @staticmethod
+    def generateLatex(result: pd.DataFrame, xColumn, yColumn, algorithmColumn=None) -> str:
+        latexCode = ""
+        titles = [xColumn, yColumn]
         legendary = pd.unique(result.iloc[:, 0].values.ravel())
+        xaxisValues = result[xColumn].values
+        yaxisValues = result[yColumn].values
+        if algorithmColumn == None:
+            algo = result.iloc[:, 0].values
+        else:
+            algo = result[algorithmColumn].values
+        xLabel = titles[0]
+        latexCode += DF2Tex.print(xaxisValues, yaxisValues, xLabel, algo, legendary, titles)
+        return latexCode
+
+    @staticmethod
+    def print(xaxisValues, yaxisValues, xLabel, algo, legendary, title):
         color = ['red', 'blue', 'green', 'black', 'yellow']
-        xaxis = result.iloc[:, 1].values.tolist()
-        yaxis = result[titles[i]].values.tolist()
-        algo = result.iloc[:, 0].values.tolist()
-        x_label = titles[0]
-        filename = titles[i]
-        latexwriter = open(filename + "Latexfile.tex", "w")
-        latexwriter.write("")
-        latexwriter.write("\\begin{axis}[\n\txlabel={\\Huge{" + x_label + "}},")
-        latexwriter.write("\n\tylabel={\\Huge{" + titles[i] + "}},")
-        latexwriter.write("\n\txmin=" + str(min(xaxis)) + ", xmax=" + str(max(xaxis)) + ",]")
-
+        latexCode = ""
+        latexCode += "\\begin{axis}[\n\txlabel={\\Huge{" + xLabel + "}},"
+        latexCode += "\n\tylabel={\\Huge{" + title[1] + "}},"
+        latexCode += "\n\txmin=" + str(min(xaxisValues)) + ", xmax=" + str(max(xaxisValues)) + ",]\n"
         for num in range(0, len(legendary)):
-            latexwriter.write("\n\\addplot+  [" + color[num] + "]\n\tcoordinates {\n")
-            for num2 in range(0, len(xaxis)):
+            latexCode += "\\addplot+  [" + color[num] + "]\n\tcoordinates {\n"
+            for num2 in range(0, len(xaxisValues)):
                 if (legendary[num] == algo[num2]):
-                    latexwriter.write("(" + str(xaxis[num2]) + "," + str(yaxis[num2]) + ")\n")
-            latexwriter.write("\t};   \\addlegendentry{" + legendary[num] + "}\n")
+                    latexCode += "(" + str(xaxisValues[num2]) + "," + str(yaxisValues[num2]) + ")\n"
+            latexCode += "\t};   \\addlegendentry{" + legendary[num] + "}\n"
             if (num + 1 == len(legendary)):
-                latexwriter.write("\\end{axis}")
-    print("Latex files generated successfully")
-    #data1 = pd.DataFrame(data)
-    #generateLatexCode(data1)
+                latexCode += "\\end{axis}"
+        return latexCode
 
-# if __name__ == "__main__":
-#
-#     #data = {'Name': ['Jai', 'Princi', 'Gaurav', 'Anuj'],
-#             #'Age': [27, 24, 22, 32],
-#             #'Address': [0, 1, 2, 3],
-#             #'Qualification': [8, 9, 10, 11]}
-#     # data = {'algorithm': ['FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner','FGPFPMiner'
-#     #     ,'Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm','Naive algorithm'
-#     #     ,'Naive algorithm', ],
-#     #         'minSup': [200,400,600,800,1000,1200,1400,200,400,600,800,1000,1200,1400],
-#     #         'patterns': [25510,5826,2305,1163,657,407,266,101938,16183,5027,2091,1044,574,335],
-#     #         'runtime': [1077.7172002792358,298.6219701766968,186.86728835105896,126.96730422973633
-#     #             ,77.39371657371521,64.73982691764832,46.879486083984375,13175.030002832413,1821.2089745998383
-#     #             ,964.6961390972137,637.1588702201843,350.71105194091797,275.9953947067261,195.6615695953369],
-#     #         'memoryRSS': [164634624,159494144,157622272,156184576,153698304,150597632,149381120,228220928,192770048
-#     #             ,185114624,182939648,178253824,176115712,171659264],
-#     #         'memoryUSS': [144310272,139104256,137232384,135794688,133300224,130195456,128978944,
-#     #                     203337728,172376064,164720640,162545664,157859840,155721728,151265280]
-#     #         }
-#
-#     data1 = pd.DataFrame(result)
-#     generateLatexCode(data1)
+    @staticmethod
+    def save(outputFileName, latexCode):
+        with open(outputFileName, "w") as latexwriter:
+            latexwriter.write(latexCode)
+        print(f"Latex file saved as {outputFileName}")
+
+
+# Example usage
+result = pd.DataFrame()
+# generateLatex function as four parameters dataFrame, xColumn-name, yColumn-name,
+# algorithmColumn-name is optional
+latexCode = DF2Tex.generateLatex(result, "minSup", "runtime", "algorithmColumn")
+# save function as two parameters outputFile-name and latexCode
+DF2Tex.save("outputFileName.tex", latexCode)
+
+
