@@ -1,17 +1,17 @@
-# from PAMI.extras.graph import generateLatexFileFromDataFrame as gdf
-# gdf.generateLatexCode(result)
-# generateLatexFileFromDatFrame is used to convert the given dataframe into LatexFile.
+# DF2Tex is used to convert the given dataframe into LatexFile.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
 #     from PAMI.extras.graph import DF2Tex
 #
-#     obj = DF2Tex.generateLatex(result, "minSup", "runtime", "Algorithm")
+#     obj = DF2Tex()
 #
-#     DF2Tex.save("outputFileName.tex", latexCode)
+#     obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
 #
-#     prints statement: Latex file saved as outputFileName
+#     obj.printLatexCode()
+#
+#     obj.save("outputFile.tex")
 #
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -44,58 +44,58 @@ class DF2Tex:
 
             from PAMI.extras.graph import DF2Tex
 
-            obj = DF2Tex.generateLatex(result, "minSup", "runtime", "Algorithm")
+            obj = DF2Tex()
 
-            DF2Tex.save("outputFileName.tex", latexCode)
+            obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
 
-            prints statement: Latex file saved as outputFileName
+            obj.printLatexCode()
+
+            obj.save("outputFile.tex")
 
     """
-    @staticmethod
-    def generateLatex(result: pd.DataFrame, xColumn, yColumn, algorithmColumn=None) -> str:
-        latexCode = ""
+
+    def generateLatexCode(self, result: pd.DataFrame, xColumn, yColumn, algorithm=None) -> None:
         titles = [xColumn, yColumn]
         legendary = pd.unique(result.iloc[:, 0].values.ravel())
         xaxisValues = result[xColumn].values
         yaxisValues = result[yColumn].values
-        if algorithmColumn == None:
+        if algorithm is None:
             algo = result.iloc[:, 0].values
         else:
-            algo = result[algorithmColumn].values
+            algo = result[algorithm].values
         xLabel = titles[0]
-        latexCode += DF2Tex.print(xaxisValues, yaxisValues, xLabel, algo, legendary, titles)
-        return latexCode
-
-    @staticmethod
-    def print(xaxisValues, yaxisValues, xLabel, algo, legendary, title):
         color = ['red', 'blue', 'green', 'black', 'yellow']
         latexCode = ""
         latexCode += "\\begin{axis}[\n\txlabel={\\Huge{" + xLabel + "}},"
-        latexCode += "\n\tylabel={\\Huge{" + title[1] + "}},"
+        latexCode += "\n\tylabel={\\Huge{" + titles[1] + "}},"
         latexCode += "\n\txmin=" + str(min(xaxisValues)) + ", xmax=" + str(max(xaxisValues)) + ",]\n"
         for num in range(0, len(legendary)):
             latexCode += "\\addplot+  [" + color[num] + "]\n\tcoordinates {\n"
             for num2 in range(0, len(xaxisValues)):
-                if (legendary[num] == algo[num2]):
+                if legendary[num] == algo[num2]:
                     latexCode += "(" + str(xaxisValues[num2]) + "," + str(yaxisValues[num2]) + ")\n"
             latexCode += "\t};   \\addlegendentry{" + legendary[num] + "}\n"
-            if (num + 1 == len(legendary)):
+            if num + 1 == len(legendary):
                 latexCode += "\\end{axis}"
-        return latexCode
+        DF2Tex.latexCode = latexCode
 
-    @staticmethod
-    def save(outputFileName, latexCode):
+    def printLatexCode(self):
+        print(DF2Tex.latexCode)
+
+    def save(outputFileName):
         with open(outputFileName, "w") as latexwriter:
-            latexwriter.write(latexCode)
+            latexwriter.write(DF2Tex.latexCode)
         print(f"Latex file saved as {outputFileName}")
 
 
 # Example usage
 result = pd.DataFrame()
-# generateLatex function as four parameters dataFrame, xColumn-name, yColumn-name,
+obj = DF2Tex()
+# generateLatexCode function as four parameters dataFrame, xColumn-name, yColumn-name,
 # algorithmColumn-name is optional
-latexCode = DF2Tex.generateLatex(result, "minSup", "runtime", "algorithmColumn")
-# save function as two parameters outputFile-name and latexCode
-DF2Tex.save("outputFileName.tex", latexCode)
-
+obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
+# printLatexCode function prints the output of latex file
+obj.printLatexCode()
+# save function gives the outputFile
+obj.save("outputFile.tex")
 
