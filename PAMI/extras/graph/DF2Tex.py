@@ -9,7 +9,7 @@
 #
 #     obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
 #
-#     obj.printLatexCode()
+#     obj.print()
 #
 #     obj.save("outputFile.tex")
 #
@@ -48,21 +48,21 @@ class DF2Tex:
 
             obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
 
-            obj.printLatexCode()
+            obj.print()
 
             obj.save("outputFile.tex")
 
     """
 
-    def generateLatexCode(self, result: pd.DataFrame, xColumn, yColumn, algorithm=None) -> None:
+    def generateLatexCode(self, result: pd.DataFrame, xColumn, yColumn, algorithmColumn=None) -> None:
         titles = [xColumn, yColumn]
         legendary = pd.unique(result.iloc[:, 0].values.ravel())
         xaxisValues = result[xColumn].values
         yaxisValues = result[yColumn].values
-        if algorithm is None:
+        if algorithmColumn is None:
             algo = result.iloc[:, 0].values
         else:
-            algo = result[algorithm].values
+            algo = result[algorithmColumn].values
         xLabel = titles[0]
         color = ['red', 'blue', 'green', 'black', 'yellow']
         latexCode = ""
@@ -79,7 +79,7 @@ class DF2Tex:
                 latexCode += "\\end{axis}"
         DF2Tex.latexCode = latexCode
 
-    def printLatexCode(self):
+    def print(self):
         print(DF2Tex.latexCode)
 
     def save(outputFileName):
@@ -95,7 +95,7 @@ obj = DF2Tex()
 # algorithmColumn-name is optional
 obj.generateLatexCode(result, "minSup", "runtime", "algorithmColumn")
 # printLatexCode function prints the output of latex file
-obj.printLatexCode()
+obj.print()
 # save function gives the outputFile
 obj.save("outputFile.tex")
 
