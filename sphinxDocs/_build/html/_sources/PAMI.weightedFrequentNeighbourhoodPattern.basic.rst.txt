@@ -5,7 +5,7 @@ Submodules
 ----------
 
 PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth module
------------------------------------------------------------------
+-------------------------------------------------------------------
 
 .. automodule:: PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth
    :members:
@@ -13,7 +13,7 @@ PAMI.weightedFrequentNeighbourhoodPattern.basic.SWFPGrowth module
    :show-inheritance:
 
 PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract module
----------------------------------------------------------------
+------------------------------------------------------------------
 
 .. automodule:: PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract
    :members:
@@ -21,7 +21,7 @@ PAMI.weightedFrequentNeighbourhoodPattern.basic.abstract module
    :show-inheritance:
 
 Module contents
----------------
+-----------------
 
 .. automodule:: PAMI.weightedFrequentNeighbourhoodPattern.basic
    :members:

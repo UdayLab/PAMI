@@ -1,0 +1,7 @@
+CFPGrowth
+-----------
+
+.. automodule:: PAMI.multipleMinimumSupportBasedFrequentPattern.basic.CFPGrowth
+   :members:
+   :undoc-members:
+   :show-inheritance:
