@@ -1,0 +1,7 @@
+MaxPFGrowth
+----------------
+
+.. automodule:: PAMI.periodicFrequentPattern.maximal.MaxPFGrowth
+   :members:
+   :undoc-members:
+   :show-inheritance:

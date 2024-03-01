@@ -1,0 +1,7 @@
+RPGrowth
+------------
+
+.. automodule:: PAMI.recurringPattern.basic.RPGrowth
+   :members:
+   :undoc-members:
+   :show-inheritance:
