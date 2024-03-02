@@ -1,5 +1,6 @@
 from algo_gspan import Gspan
 
+
 def main():
     input_file_path = 'chemical_340.txt'
     output_file_path = 'temp.txt'

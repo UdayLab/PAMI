@@ -1,17 +1,5 @@
-from graph import Graph
-from dfs_code import DFSCode
-from frequent_subgraph import FrequentSubgraph
-from vertex import Vertex
-from edge import Edge
-from extended_edge import ExtendedEdge
-from sparse_triangular_matrix import SparseTriangularMatrix
-import time
-import math
-import matplotlib.pyplot as plt
-import networkx as nx
-import resource
-
-from subgraphMining.basic import abstract as _ab
+from PAMI.subgraphMining.basic import abstract as _ab
+# import abstract as _ab
 
 class Gspan(_ab._gSpan):
 
@@ -42,7 +30,7 @@ class Gspan(_ab._gSpan):
         if maxNumberOfEdges <= 0:
             return
     
-        mem1 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        mem1 = _ab.resource.getrusage(_ab.resource.RUSAGE_SELF).ru_maxrss
 
         self.maxNumberOfEdges = maxNumberOfEdges
         self.outputGraphIds = outputGraphIds
@@ -59,13 +47,13 @@ class Gspan(_ab._gSpan):
         self.patternCount = 0
 
         # Record the start time
-        t1 = time.time()
+        t1 = _ab.time.time()
 
         # Read graphs
         graphDb = self.readGraphs(inPath)
 
         # Calculate minimum support as a number of graphs
-        self.minSup = math.ceil(minSupport * len(graphDb))
+        self.minSup = _ab.math.ceil(minSupport * len(graphDb))
 
         # Mining
         self.gSpan(graphDb, outputSingleVertices)
@@ -73,13 +61,13 @@ class Gspan(_ab._gSpan):
         # Output
         self.writeResultToFile(outPath)
 
-        t2 = time.time()
+        t2 = _ab.time.time()
 
         self.runtime = (t2 - t1)
 
         self.patternCount = len(self.frequentSubgraphs)
 
-        mem2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        mem2 = _ab.resource.getrusage(_ab.resource.RUSAGE_SELF).ru_maxrss
 
         self.maxMem = (mem2 - mem1)/1024
 
@@ -127,7 +115,7 @@ class Gspan(_ab._gSpan):
 
                 if line.startswith("t"):
                     if vMap:  # If vMap is not empty, it means a graph was read
-                        graphDatabase.append(Graph(gId, vMap))
+                        graphDatabase.append(_ab.Graph(gId, vMap))
                         vMap = {}  # Reset for the next graph
 
                     gId = int(line.split(" ")[2]) 
@@ -136,25 +124,25 @@ class Gspan(_ab._gSpan):
                     items = line.split(" ")
                     vId = int(items[1])
                     vLabel = int(items[2])
-                    vMap[vId] = Vertex(vId, vLabel)
+                    vMap[vId] = _ab.Vertex(vId, vLabel)
 
                 elif line.startswith("e"):
                     items = line.split(" ")
                     v1 = int(items[1])
                     v2 = int(items[2])
                     eLabel = int(items[3])
-                    e = Edge(v1, v2, eLabel)
+                    e = _ab.Edge(v1, v2, eLabel)
                     vMap[v1].addEdge(e)
                     vMap[v2].addEdge(e)
 
             if vMap:
-                graphDatabase.append(Graph(gId, vMap))
+                graphDatabase.append(_ab.Graph(gId, vMap))
 
         self.graphCount = len(graphDatabase)
         return graphDatabase
 
 
-    def subgraphIsomorphisms(self, c: DFSCode, g: Graph):
+    def subgraphIsomorphisms(self, c: _ab.DFSCode, g: _ab.Graph):
         isoms = []    
         startLabel = c.getEeList()[0].getVLabel1()
         for vId in g.findAllWithLabel(startLabel):
@@ -188,7 +176,7 @@ class Gspan(_ab._gSpan):
         return isoms
 
 
-    def rightMostPathExtensionsFromSingle(self, c: DFSCode, g: Graph):
+    def rightMostPathExtensionsFromSingle(self, c: _ab.DFSCode, g: _ab.Graph):
         gid = g.getId()
         extensions = {}
 
@@ -198,9 +186,9 @@ class Gspan(_ab._gSpan):
                     v1Label = g.getVLabel(e.v1)
                     v2Label = g.getVLabel(e.v2)
                     if v1Label < v2Label:
-                        ee1 = ExtendedEdge(0, 1, v1Label, v2Label, e.getEdgeLabel())
+                        ee1 = _ab.ExtendedEdge(0, 1, v1Label, v2Label, e.getEdgeLabel())
                     else:
-                        ee1 = ExtendedEdge(0, 1, v2Label, v1Label, e.getEdgeLabel())
+                        ee1 = _ab.ExtendedEdge(0, 1, v2Label, v1Label, e.getEdgeLabel())
 
                     setOfGraphIds = extensions.get(ee1, set())
                     setOfGraphIds.add(gid)
@@ -216,7 +204,7 @@ class Gspan(_ab._gSpan):
                 for x in g.getAllNeighbors(mappedRm):
                     invertedX = invertedIsom.get(x.getId())
                     if invertedX is not None and c.onRightMostPath(invertedX) and c.notPreOfRm(invertedX) and not c.containEdge(rightMost, invertedX):
-                        ee = ExtendedEdge(rightMost, invertedX, mappedRmLabel, x.getLabel(), g.getEdgeLabel(mappedRm, x.getId()))
+                        ee = _ab.ExtendedEdge(rightMost, invertedX, mappedRmLabel, x.getLabel(), g.getEdgeLabel(mappedRm, x.getId()))
                         extensions.setdefault(ee, set()).add(gid)
 
                 mappedVertices = set(isom.values())
@@ -225,13 +213,13 @@ class Gspan(_ab._gSpan):
                     mappedVLabel = g.getVLabel(mappedV)
                     for x in g.getAllNeighbors(mappedV):
                         if x.getId() not in mappedVertices:
-                            ee = ExtendedEdge(v, rightMost + 1, mappedVLabel, x.getLabel(), g.getEdgeLabel(mappedV, x.getId()))
+                            ee = _ab.ExtendedEdge(v, rightMost + 1, mappedVLabel, x.getLabel(), g.getEdgeLabel(mappedV, x.getId()))
                             extensions.setdefault(ee, set()).add(gid)
 
         return extensions
 
 
-    def rightMostPathExtensions(self, c: DFSCode, graphDb, graphIds):
+    def rightMostPathExtensions(self, c: _ab.DFSCode, graphDb, graphIds):
         extensions = {}
         if c.isEmpty():
             for id in graphIds:
@@ -244,9 +232,9 @@ class Gspan(_ab._gSpan):
                         v1L = g.getVLabel(e.v1)
                         v2L = g.getVLabel(e.v2)
                         if v1L < v2L:
-                            ee1 = ExtendedEdge(0, 1, v1L, v2L, e.getEdgeLabel())
+                            ee1 = _ab.ExtendedEdge(0, 1, v1L, v2L, e.getEdgeLabel())
                         else:
-                            ee1 = ExtendedEdge(0, 1, v2L, v1L, e.getEdgeLabel())
+                            ee1 = _ab.ExtendedEdge(0, 1, v2L, v1L, e.getEdgeLabel())
                                                 
                         setOfGraphIds = extensions.get(ee1, set())
                         setOfGraphIds.add(id)
@@ -270,7 +258,7 @@ class Gspan(_ab._gSpan):
                         if invertedX is not None and c.onRightMostPath(invertedX) and \
                         c.notPreOfRm(invertedX) and not c.containEdge(rightMost, invertedX):
                             
-                            ee = ExtendedEdge(rightMost, invertedX, mappedRMLabel, x.getLabel(),
+                            ee = _ab.ExtendedEdge(rightMost, invertedX, mappedRMLabel, x.getLabel(),
                                             g.getEdgeLabel(mappedRM, x.getId()))
 
                             if ee not in extensions:
@@ -283,7 +271,7 @@ class Gspan(_ab._gSpan):
                         mappedVLabel = g.getVLabel(mappedV)
                         for x in g.getAllNeighbors(mappedV):
                             if x.getId() not in mappedVertices:
-                                ee = ExtendedEdge(v, rightMost + 1, mappedVLabel, x.getLabel(),
+                                ee = _ab.ExtendedEdge(v, rightMost + 1, mappedVLabel, x.getLabel(),
                                                 g.getEdgeLabel(mappedV, x.getId()))
 
                                 if ee not in extensions:
@@ -292,7 +280,7 @@ class Gspan(_ab._gSpan):
         return extensions
 
 
-    def gspanDFS(self, c: DFSCode, graphDb, subgraphId):
+    def gspanDFS(self, c: _ab.DFSCode, graphDb, subgraphId):
         if c.size == self.maxNumberOfEdges - 1:
             return
         extensions = self.rightMostPathExtensions(c, graphDb, subgraphId)
@@ -305,16 +293,16 @@ class Gspan(_ab._gSpan):
                 newC.add(extension)
                 
                 if (self.isCanonical(newC)):
-                    subgraph = FrequentSubgraph(newC, newGraphIds, sup)
+                    subgraph = _ab.FrequentSubgraph(newC, newGraphIds, sup)
                     self.frequentSubgraphs.append(subgraph)
 
                     self.gspanDFS(newC, graphDb, newGraphIds)
 
 
-    def isCanonical(self, c: DFSCode):
-        canC = DFSCode()
+    def isCanonical(self, c: _ab.DFSCode):
+        canC = _ab.DFSCode()
         for i in range(c.size):
-            extensions = self.rightMostPathExtensionsFromSingle(canC, Graph(c))
+            extensions = self.rightMostPathExtensionsFromSingle(canC, _ab.Graph(c))
             minEe = None
             for ee in extensions.keys():
                 if minEe is None or ee.smallerThan(minEe):
@@ -351,7 +339,7 @@ class Gspan(_ab._gSpan):
                 self.emptyGraphsRemoved += 1
 
         if len(self.frequentVertexLabels) != 0:
-            self.gspanDFS(DFSCode(), graphDb, graphIds)
+            self.gspanDFS(_ab.DFSCode(), graphDb, graphIds)
 
 
     class Pair:
@@ -385,9 +373,9 @@ class Gspan(_ab._gSpan):
             if sup >= self.minSup:
                 self.frequentVertexLabels.append(label)
                 if outputFrequentVertices:
-                    tempD = DFSCode()
-                    tempD.add(ExtendedEdge(0, 0, label, label, -1))
-                    self.frequentSubgraphs.append(FrequentSubgraph(tempD, tempSupG, sup))
+                    tempD = _ab.DFSCode()
+                    tempD.add(_ab.ExtendedEdge(0, 0, label, label, -1))
+                    self.frequentSubgraphs.append(_ab.FrequentSubgraph(tempD, tempSupG, sup))
             elif Gspan.eliminate_infrequent_vertices:
                 for graphId in tempSupG:
                     g = graphDb[graphId]
@@ -398,7 +386,7 @@ class Gspan(_ab._gSpan):
     #TODO: This method needs some correction, it has bugs
     def removeInfrequentVertexPairs(self, graphDb):
         if Gspan.eliminate_infrequent_edge_labels:
-            matrix = SparseTriangularMatrix()
+            matrix = _ab.SparseTriangularMatrix()
             alreadySeenPair = set()
 
         if Gspan.eliminate_infrequent_edge_labels:
@@ -470,7 +458,7 @@ class Gspan(_ab._gSpan):
             if line.startswith('t #'):
                 if currentGraph is not None:
                     graphs.append((currentGraph, vertexLabels, edgeLabels))
-                currentGraph = nx.Graph()
+                currentGraph = _ab.nx.Graph()
                 vertexLabels = {}
                 edgeLabels = {}
             elif line.startswith('v'):
@@ -488,18 +476,18 @@ class Gspan(_ab._gSpan):
         nRows = int(len(graphs) ** 0.5)
         nCols = (len(graphs) // nRows) + (len(graphs) % nRows > 0)
 
-        plt.figure(figsize=(nCols * 4, nRows * 4))  
+        _ab.plt.figure(figsize=(nCols * 4, nRows * 4))  
 
         for i, (graph, vertexLabels, edgeLabels) in enumerate(graphs):
-            ax = plt.subplot(nRows, nCols, i + 1)
-            pos = nx.spring_layout(graph)
-            nx.draw(graph, pos, labels=vertexLabels, ax=ax, with_labels=True, nodeColor='lightblue', 
+            ax = _ab.plt.subplot(nRows, nCols, i + 1)
+            pos = _ab.nx.spring_layout(graph)
+            _ab.nx.draw(graph, pos, labels=vertexLabels, ax=ax, with_labels=True, nodeColor='lightblue', 
                     nodeSize=500, fontSize=10, fontWeight='bold')
-            nx.drawNetworkxEdgeLabels(graph, pos, edgeLabels=edgeLabels, ax=ax, fontColor='black')
+            _ab.nx.drawNetworkxEdgeLabels(graph, pos, edgeLabels=edgeLabels, ax=ax, fontColor='black')
             ax.setTitle(f"Frequent Subgraph {i + 1}")
 
-        plt.tightLayout()
-        plt.show()
+        _ab.plt.tightLayout()
+        _ab.plt.show()
 
 
 
