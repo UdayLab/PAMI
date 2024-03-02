@@ -1,0 +1,7 @@
+SPADE
+----------
+
+.. automodule:: PAMI.sequentialPatternMining.basic.SPADE
+   :members:
+   :undoc-members:
+   :show-inheritance:

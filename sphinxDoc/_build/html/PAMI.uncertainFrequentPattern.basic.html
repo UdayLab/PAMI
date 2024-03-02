@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.uncertainFrequentPattern.basic package &mdash; PAMI 2024.03.02 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=28a0d067"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PAMI.uncertainGeoreferencedFrequentPattern package" href="PAMI.uncertainGeoreferencedFrequentPattern.html" />
+    <link rel="prev" title="PAMI.uncertainFrequentPattern package" href="PAMI.uncertainFrequentPattern.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PAMI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="PAMI.html">PAMI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="PAMI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="PAMI.AssociationRules.html">PAMI.AssociationRules package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.correlatedPattern.html">PAMI.correlatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.coveragePattern.html">PAMI.coveragePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.extras.html">PAMI.extras package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.faultTolerantFrequentPattern.html">PAMI.faultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.frequentPattern.html">PAMI.frequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyCorrelatedPattern.html">PAMI.fuzzyCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyFrequentPattern.html">PAMI.fuzzyFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedFrequentPattern.html">PAMI.fuzzyGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyGeoreferencedPeriodicFrequentPattern.html">PAMI.fuzzyGeoreferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPartialPeriodicPatterns.html">PAMI.fuzzyPartialPeriodicPatterns package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.fuzzyPeriodicFrequentPattern.html">PAMI.fuzzyPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.geoReferencedPeriodicFrequentPattern.html">PAMI.geoReferencedPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentPattern.html">PAMI.georeferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedFrequentSequencePattern.html">PAMI.georeferencedFrequentSequencePattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.georeferencedPartialPeriodicPattern.html">PAMI.georeferencedPartialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityFrequentPattern.html">PAMI.highUtilityFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityGeoreferencedFrequentPattern.html">PAMI.highUtilityGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPattern.html">PAMI.highUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilityPatternsInStreams.html">PAMI.highUtilityPatternsInStreams package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.highUtilitySpatialPattern.html">PAMI.highUtilitySpatialPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.localPeriodicPattern.html">PAMI.localPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.multipleMinimumSupportBasedFrequentPattern.html">PAMI.multipleMinimumSupportBasedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicFrequentPattern.html">PAMI.partialPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPattern.html">PAMI.partialPeriodicPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.partialPeriodicPatternInMultipleTimeSeries.html">PAMI.partialPeriodicPatternInMultipleTimeSeries package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicCorrelatedPattern.html">PAMI.periodicCorrelatedPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.periodicFrequentPattern.html">PAMI.periodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.recurringPattern.html">PAMI.recurringPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeFrequentPattern.html">PAMI.relativeFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.relativeHighUtilityPattern.html">PAMI.relativeHighUtilityPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequence.html">PAMI.sequence package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.sequentialPatternMining.html">PAMI.sequentialPatternMining package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.stablePeriodicFrequentPattern.html">PAMI.stablePeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainFaultTolerantFrequentPattern.html">PAMI.uncertainFaultTolerantFrequentPattern package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainGeoreferencedFrequentPattern.html">PAMI.uncertainGeoreferencedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.uncertainPeriodicFrequentPattern.html">PAMI.uncertainPeriodicFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentNeighbourhoodPattern.html">PAMI.weightedFrequentNeighbourhoodPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentPattern.html">PAMI.weightedFrequentPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedFrequentRegularPattern.html">PAMI.weightedFrequentRegularPattern package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PAMI.weightedUncertainFrequentPattern.html">PAMI.weightedUncertainFrequentPattern package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PAMI.html#module-PAMI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PAMI</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.html">PAMI package</a></li>
+          <li class="breadcrumb-item"><a href="PAMI.uncertainFrequentPattern.html">PAMI.uncertainFrequentPattern package</a></li>
+      <li class="breadcrumb-item active">PAMI.uncertainFrequentPattern.basic package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PAMI.uncertainFrequentPattern.basic.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pami-uncertainfrequentpattern-basic-package">
+<h1>PAMI.uncertainFrequentPattern.basic package<a class="headerlink" href="#pami-uncertainfrequentpattern-basic-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.uncertainFrequentPattern.basic.CUFPTree">
+<span id="pami-uncertainfrequentpattern-basic-cufptree-module"></span><h2>PAMI.uncertainFrequentPattern.basic.CUFPTree module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.CUFPTree" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.CUFPTree.</span></span><span class="sig-name descname"><span class="pre">CUFPTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using CUFP-Tree.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Chun-Wei Lin Tzung-PeiHong, ‘new mining approach for uncertain databases using CUFP trees’,
+Expert Systems with Applications, Volume 39, Issue 4, March 2012, Pages 4084-4093, <a class="reference external" href="https://doi.org/10.1016/j.eswa.2011.09.087">https://doi.org/10.1016/j.eswa.2011.09.087</a></p>
+</dd>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
+</dd>
+<dt>minSup: float or int or str</dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator.</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime:float</dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime:float</dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>mapSupport<span class="classifier">Dictionary</span></dt><dd><p>To maintain the information of item and their frequency</p>
+</dd>
+<dt>lno<span class="classifier">int</span></dt><dd><p>To represent the total no of transaction</p>
+</dd>
+<dt>tree<span class="classifier">class</span></dt><dd><p>To represents the Tree class</p>
+</dd>
+<dt>itemSetCount<span class="classifier">int</span></dt><dd><p>To represents the total no of patterns</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>To store the complete patterns</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset and stores in a list format</p>
+</dd>
+<dt>frequentOneItem()</dt><dd><p>Extracts the one-length frequent patterns from database</p>
+</dd>
+<dt>updateTransactions()</dt><dd><p>Update the transactions by removing non-frequent items and sort the Database by item decreased support</p>
+</dd>
+<dt>buildTree()</dt><dd><p>After updating the Database, remaining items will be added into the tree by setting root node as null</p>
+</dd>
+<dt>convert()</dt><dd><p>to convert the user specified value</p>
+</dd>
+<dt>startMine()</dt><dd><p>Mining process will start from this function</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="methods-to-execute-code-on-terminal">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">CUFPTree</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">CUFPTree</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="importing-this-algorithm-into-a-python-program">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">CUFPTree</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">CUFPTree</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span><span class="n">v</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="credits">
+<h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning RSS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning USS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns in a dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning total amount of runtime taken by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>csv file</em>) – name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/CUFPTree.html#CUFPTree.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.CUFPTree.CUFPTree.startMine" title="Link to this definition"></a></dt>
+<dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.uncertainFrequentPattern.basic.PUFGrowth">
+<span id="pami-uncertainfrequentpattern-basic-pufgrowth-module"></span><h2>PAMI.uncertainFrequentPattern.basic.PUFGrowth module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.PUFGrowth" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.PUFGrowth.</span></span><span class="sig-name descname"><span class="pre">PUFGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, “PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data”,
+Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), <a class="reference external" href="https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2">https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2</a></p>
+</dd>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
+</dd>
+<dt>minSup<span class="classifier">float or int or str</span></dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator.</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime<span class="classifier">float</span></dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime<span class="classifier">float</span></dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>mapSupport<span class="classifier">Dictionary</span></dt><dd><p>To maintain the information of item and their frequency</p>
+</dd>
+<dt>lno<span class="classifier">int</span></dt><dd><p>To represent the total no of transaction</p>
+</dd>
+<dt>tree<span class="classifier">class</span></dt><dd><p>To represents the Tree class</p>
+</dd>
+<dt>itemSetCount<span class="classifier">int</span></dt><dd><p>To represents the total no of patterns</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>To store the complete patterns</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset and stores in a list format</p>
+</dd>
+<dt>frequentOneItem()</dt><dd><p>Extracts the one-length frequent patterns from database</p>
+</dd>
+<dt>updateTransactions()</dt><dd><p>Update the transactions by removing non-frequent items and sort the Database by item decreased support</p>
+</dd>
+<dt>buildTree()</dt><dd><p>After updating the Database, remaining items will be added into the tree by setting root node as null</p>
+</dd>
+<dt>convert()</dt><dd><p>to convert the user specified value</p>
+</dd>
+<dt>startMine()</dt><dd><p>Mining process will start from this function</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id1">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">PUFGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PUFGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">puf</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PUFGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning RSS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning USS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns in a dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning total amount of runtime taken by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>csv file</em>) – name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/PUFGrowth.html#PUFGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.PUFGrowth.PUFGrowth.startMine" title="Link to this definition"></a></dt>
+<dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.uncertainFrequentPattern.basic.TUFP">
+<span id="pami-uncertainfrequentpattern-basic-tufp-module"></span><h2>PAMI.uncertainFrequentPattern.basic.TUFP module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.TUFP" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TUFP.</span></span><span class="sig-name descname"><span class="pre">TUFP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>It is one of the fundamental algorithm to discover top-k frequent patterns in a uncertain transactional database using CUP-Lists.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuong Le, Bay Vo, Van-Nam Huynh, Ngoc Thanh Nguyen, Sung Wook Baik 5, “Mining top-k frequent patterns from uncertain databases”,
+Springer Science+Business Media, LLC, part of Springer Nature 2020, <a class="reference external" href="https://doi.org/10.1007/s10489-019-01622-1">https://doi.org/10.1007/s10489-019-01622-1</a></p>
+</dd>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
+</dd>
+<dt>minSup<span class="classifier">float or int or str</span></dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator.</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime<span class="classifier">float</span></dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime<span class="classifier">float</span></dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>mapSupport<span class="classifier">Dictionary</span></dt><dd><p>To maintain the information of item and their frequency</p>
+</dd>
+<dt>lno<span class="classifier">int</span></dt><dd><p>To represent the total no of transaction</p>
+</dd>
+<dt>tree<span class="classifier">class</span></dt><dd><p>To represents the Tree class</p>
+</dd>
+<dt>itemSetCount<span class="classifier">int</span></dt><dd><p>To represents the total no of patterns</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>To store the complete patterns</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>storePatternsInFile(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsInDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset and stores in a list format</p>
+</dd>
+<dt>frequentOneItem()</dt><dd><p>Extracts the one-length frequent patterns from database</p>
+</dd>
+<dt>updateTransactions()</dt><dd><p>Update the transactions by removing non-frequent items and sort the Database by item decreased support</p>
+</dd>
+<dt>buildTree()</dt><dd><p>After updating the Database, remaining items will be added into the tree by setting root node as null</p>
+</dd>
+<dt>convert()</dt><dd><p>to convert the user specified value</p>
+</dd>
+<dt>startMine()</dt><dd><p>Mining process will start from this function</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id4">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">TUFP</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">TUFP</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.6</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="id5">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">TUFP</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">TUFP</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The complete program was written by   P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning RSS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning USS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns in a dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning total amount of runtime taken by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>file</em>) – name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TUFP.html#TUFP.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TUFP.TUFP.startMine" title="Link to this definition"></a></dt>
+<dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.uncertainFrequentPattern.basic.TubeP">
+<span id="pami-uncertainfrequentpattern-basic-tubep-module"></span><h2>PAMI.uncertainFrequentPattern.basic.TubeP module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.TubeP" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeP.</span></span><span class="sig-name descname"><span class="pre">TubeP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TubeP is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
+In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM ‘14). IEEE Computer Society, USA, 893–898. <a class="reference external" href="https://doi.org/10.1109/ICDM.2014.146">https://doi.org/10.1109/ICDM.2014.146</a></p>
+</dd>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
+</dd>
+<dt>minSup<span class="classifier">float or int or str</span></dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator.</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime<span class="classifier">float</span></dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime<span class="classifier">float</span></dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>mapSupport<span class="classifier">Dictionary</span></dt><dd><p>To maintain the information of item and their frequency</p>
+</dd>
+<dt>lno<span class="classifier">int</span></dt><dd><p>To represent the total no of transaction</p>
+</dd>
+<dt>tree<span class="classifier">class</span></dt><dd><p>To represents the Tree class</p>
+</dd>
+<dt>itemSetCount<span class="classifier">int</span></dt><dd><p>To represents the total no of patterns</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>To store the complete patterns</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset and stores in a list format</p>
+</dd>
+<dt>frequentOneItem()</dt><dd><p>Extracts the one-length frequent patterns from database</p>
+</dd>
+<dt>updateTransactions()</dt><dd><p>Update the transactions by removing non-frequent items and sort the Database by item decreased support</p>
+</dd>
+<dt>buildTree()</dt><dd><p>After updating the Database, remaining items will be added into the tree by setting root node as null</p>
+</dd>
+<dt>convert()</dt><dd><p>to convert the user specified value</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id7">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">TubeP</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">TubeP</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="id8">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">TubeP</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">TubeP</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The complete program was written by  P.Likhitha  under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning RSS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning USS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns in a dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning total amount of runtime taken by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.printResults" title="Link to this definition"></a></dt>
+<dd><p>This Function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>file</em>) – name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#TubeP.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.TubeP.startMine" title="Link to this definition"></a></dt>
+<dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeP.printTree">
+<span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeP.</span></span><span class="sig-name descname"><span class="pre">printTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeP.html#printTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeP.printTree" title="Link to this definition"></a></dt>
+<dd><p>To print the tree with root node through recursion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> – root node of  tree</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>details of tree</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.uncertainFrequentPattern.basic.TubeS">
+<span id="pami-uncertainfrequentpattern-basic-tubes-module"></span><h2>PAMI.uncertainFrequentPattern.basic.TubeS module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.TubeS" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.Second">
+<span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">Second</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#Second"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.Second" title="Link to this definition"></a></dt>
+<dd><p>To calculate the second probability of a node in transaction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transaction</strong> – transaction in a database</p></li>
+<li><p><strong>i</strong> – index of item in transaction</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>second probability of a node</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">TubeS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TubeS is one of the fastest algorithm to discover frequent patterns in a uncertain transactional database.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Carson Kai-Sang Leung and Richard Kyle MacKinnon. 2014. Fast Algorithms for Frequent Itemset Mining from Uncertain Data.
+In Proceedings of the 2014 IEEE International Conference on Data Mining (ICDM ‘14). IEEE Computer Society, USA, 893–898. <a class="reference external" href="https://doi.org/10.1109/ICDM.2014.146">https://doi.org/10.1109/ICDM.2014.146</a></p>
+</dd>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
+</dd>
+<dt>minSup<span class="classifier">float or int or str</span></dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator.</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime<span class="classifier">float</span></dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime<span class="classifier">float</span></dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>mapSupport<span class="classifier">Dictionary</span></dt><dd><p>To maintain the information of item and their frequency</p>
+</dd>
+<dt>lno<span class="classifier">int</span></dt><dd><p>To represent the total no of transaction</p>
+</dd>
+<dt>tree<span class="classifier">class</span></dt><dd><p>To represents the Tree class</p>
+</dd>
+<dt>itemSetCount<span class="classifier">int</span></dt><dd><p>To represents the total no of patterns</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>To store the complete patterns</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset and stores in a list format</p>
+</dd>
+<dt>frequentOneItem()</dt><dd><p>Extracts the one-length frequent patterns from database</p>
+</dd>
+<dt>updateTransactions()</dt><dd><p>Update the transactions by removing non-frequent items and sort the Database by item decreased support</p>
+</dd>
+<dt>buildTree()</dt><dd><p>After updating the Database, remaining items will be added into the tree by setting root node as null</p>
+</dd>
+<dt>convert()</dt><dd><p>to convert the user specified value</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id10">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">TubeS</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">TubeS</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="id11">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">TubeS</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">TubeS</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id12">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>The complete program was written by  P.Likhitha   under the supervision of Professor Rage Uday Kiran.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning RSS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning USS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns in a dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning total amount of runtime taken by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>file</em>) – name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.startMine" title="Link to this definition"></a></dt>
+<dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.updateTransactions">
+<span class="sig-name descname"><span class="pre">updateTransactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#TubeS.updateTransactions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.TubeS.updateTransactions" title="Link to this definition"></a></dt>
+<dd><p>remove the items which are not frequent from transactions and updates the transactions with rank of items</p>
+<p>:param dict1 : frequent items with support
+:type dict1 : dictionary</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.TubeS.printTree">
+<span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.TubeS.</span></span><span class="sig-name descname"><span class="pre">printTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/TubeS.html#printTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.TubeS.printTree" title="Link to this definition"></a></dt>
+<dd><p>To print the tree with root node through recursion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> – root node of  tree</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>details of tree</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.uncertainFrequentPattern.basic.UFGrowth">
+<span id="pami-uncertainfrequentpattern-basic-ufgrowth-module"></span><h2>PAMI.uncertainFrequentPattern.basic.UFGrowth module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.UFGrowth" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.UFGrowth.</span></span><span class="sig-name descname"><span class="pre">UFGrowth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Carson Kai-Sang Leung, Syed Khairuzzaman Tanbeer, “PUF-Tree: A Compact Tree Structure for Frequent Pattern Mining of Uncertain Data”,
+Pacific-Asia Conference on Knowledge Discovery and Data Mining(PAKDD 2013), <a class="reference external" href="https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2">https://link.springer.com/chapter/10.1007/978-3-642-37453-1_2</a></p>
+</dd>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
+</dd>
+<dt>minSup<span class="classifier">float or int or str</span></dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator.</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime<span class="classifier">float</span></dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime<span class="classifier">float</span></dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>mapSupport<span class="classifier">Dictionary</span></dt><dd><p>To maintain the information of item and their frequency</p>
+</dd>
+<dt>lno<span class="classifier">int</span></dt><dd><p>To represent the total no of transaction</p>
+</dd>
+<dt>tree<span class="classifier">class</span></dt><dd><p>To represents the Tree class</p>
+</dd>
+<dt>itemSetCount<span class="classifier">int</span></dt><dd><p>To represents the total no of patterns</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>To store the complete patterns</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>save(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsAsDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset and stores in a list format</p>
+</dd>
+<dt>frequentOneItem()</dt><dd><p>Extracts the one-length frequent patterns from database</p>
+</dd>
+<dt>updateTransactions()</dt><dd><p>Update the transactions by removing non-frequent items and sort the Database by item decreased support</p>
+</dd>
+<dt>buildTree()</dt><dd><p>After updating the Database, remaining items will be added into the tree by setting root node as null</p>
+</dd>
+<dt>convert()</dt><dd><p>to convert the user specified value</p>
+</dd>
+<dt>startMine()</dt><dd><p>Mining process will start from this function</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id13">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PUFGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">PUFGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="id14">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">UFGrowth</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">UFGrowth</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id15">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The complete program was written by P.Likhitha under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning RSS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning USS memory consumed by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning frequent patterns in a dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>returning total amount of runtime taken by the mining process</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>csv file</em>) – name of the output file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UFGrowth.html#UFGrowth.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.startMine" title="Link to this definition"></a></dt>
+<dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.uncertainFrequentPattern.basic.UVECLAT">
+<span id="pami-uncertainfrequentpattern-basic-uveclat-module"></span><h2>PAMI.uncertainFrequentPattern.basic.UVECLAT module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.UVECLAT" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.uncertainFrequentPattern.basic.UVECLAT.</span></span><span class="sig-name descname"><span class="pre">UVEclat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>It is one of the fundamental algorithm to discover frequent patterns in an uncertain transactional database using PUF-Tree.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<p>Carson Kai-Sang Leung, Lijing Sun: “Equivalence class transformation based mining of frequent itemsets from uncertain data”,
+SAC ‘11: Proceedings of the 2011 ACM Symposium on Applied ComputingMarch, 2011, Pages 983–984,
+<a class="reference external" href="https://doi.org/10.1145/1982185.1982399">https://doi.org/10.1145/1982185.1982399</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
+</dd>
+<dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
+</dd>
+<dt>minSup<span class="classifier">float or int or str</span></dt><dd><p>The user can specify minSup either in count or proportion of database size.
+If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+Otherwise, it will be treated as float.
+Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</p>
+</dd>
+<dt>sep<span class="classifier">str</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or         .
+However, the users can override their default separator.</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>startTime:float</dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime:float</dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+<dt>mapSupport<span class="classifier">Dictionary</span></dt><dd><p>To maintain the information of item and their frequency</p>
+</dd>
+<dt>lno<span class="classifier">int</span></dt><dd><p>To represent the total no of transaction</p>
+</dd>
+<dt>tree<span class="classifier">class</span></dt><dd><p>To represents the Tree class</p>
+</dd>
+<dt>itemSetCount<span class="classifier">int</span></dt><dd><p>To represents the total no of patterns</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>To store the complete patterns</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Methods<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startMine()</dt><dd><p>Mining process will start from here</p>
+</dd>
+<dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
+</dd>
+<dt>storePatternsInFile(oFile)</dt><dd><p>Complete set of frequent patterns will be loaded in to a output file</p>
+</dd>
+<dt>getPatternsInDataFrame()</dt><dd><p>Complete set of frequent patterns will be loaded in to a dataframe</p>
+</dd>
+<dt>getMemoryUSS()</dt><dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getMemoryRSS()</dt><dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function</p>
+</dd>
+<dt>getRuntime()</dt><dd><p>Total amount of runtime taken by the mining process will be retrieved from this function</p>
+</dd>
+<dt>creatingItemSets(fileName)</dt><dd><p>Scans the dataset and stores in a list format</p>
+</dd>
+<dt>frequentOneItem()</dt><dd><p>Extracts the one-length frequent patterns from database</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<section id="id16">
+<h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<blockquote>
+<div><dl>
+<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">uveclat</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">uveclat</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup  will be considered in support count or frequency</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="id17">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.uncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">UVECLAT</span> <span class="k">as</span> <span class="n">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">UVEclat</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+
+<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternsAsDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getmemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id18">
+<h3><strong>Credits:</strong><a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The complete program was written by   P.Likhitha    under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryRSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
+:return: returning RSS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getMemoryUSS" title="Link to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
+:return: returning USS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatterns" title="Link to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process
+:return: returning frequent patterns
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getPatternsAsDataFrame" title="Link to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe
+:return: returning frequent patterns in a dataframe
+:rtype: pd.DataFrame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.getRuntime" title="Link to this definition"></a></dt>
+<dd><p>Calculating the total amount of runtime taken by the mining process
+:return: returning total amount of runtime taken by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.printResults" title="Link to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.save" title="Link to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file
+:param oFile: name of the output file
+:type oFile: csv file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/uncertainFrequentPattern/basic/UVECLAT.html#UVEclat.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.uncertainFrequentPattern.basic.UVECLAT.UVEclat.startMine" title="Link to this definition"></a></dt>
+<dd><p>Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-PAMI.uncertainFrequentPattern.basic.abstract">
+<span id="pami-uncertainfrequentpattern-basic-abstract-module"></span><h2>PAMI.uncertainFrequentPattern.basic.abstract module<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic.abstract" title="Link to this heading"></a></h2>
+</section>
+<section id="module-PAMI.uncertainFrequentPattern.basic">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.uncertainFrequentPattern.basic" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PAMI.uncertainFrequentPattern.html" class="btn btn-neutral float-left" title="PAMI.uncertainFrequentPattern package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="PAMI.uncertainGeoreferencedFrequentPattern.html" class="btn btn-neutral float-right" title="PAMI.uncertainGeoreferencedFrequentPattern package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE UDAY KIRAN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

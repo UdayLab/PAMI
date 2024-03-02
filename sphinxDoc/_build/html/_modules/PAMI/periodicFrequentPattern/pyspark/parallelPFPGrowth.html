@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth &mdash; PAMI 2024.03.02 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=28a0d067"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            PAMI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PAMI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth</h1><div class="highlight"><pre>
+<span></span><span class="c1"># **Importing this algorithm into a python program**</span>
+<span class="c1"># --------------------------------------------------------</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#     from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg</span>
+<span class="c1">#</span>
+<span class="c1">#     obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, noWorkers)</span>
+<span class="c1">#</span>
+<span class="c1">#     obj.startMine()</span>
+<span class="c1">#</span>
+<span class="c1">#     periodicFrequentPatterns = obj.getPatterns()</span>
+<span class="c1">#</span>
+<span class="c1">#     print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
+<span class="c1">#</span>
+<span class="c1">#     obj.savePatterns(oFile)</span>
+<span class="c1">#</span>
+<span class="c1">#     Df = obj.getPatternsAsDataFrame()</span>
+<span class="c1">#</span>
+<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#</span>
+<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#</span>
+<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#</span>
+<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#</span>
+<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#</span>
+<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">     This program is free software: you can redistribute it and/or modify</span>
+<span class="s2">     it under the terms of the GNU General Public License as published by</span>
+<span class="s2">     the Free Software Foundation, either version 3 of the License, or</span>
+<span class="s2">     (at your option) any later version.</span>
+
+<span class="s2">     This program is distributed in the hope that it will be useful,</span>
+<span class="s2">     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="s2">     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="s2">     GNU General Public License for more details.</span>
+
+<span class="s2">     You should have received a copy of the GNU General Public License</span>
+<span class="s2">     along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="s2">     Copyright (C)  2021 Rage Uday Kiran</span>
+
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.pyspark</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">from</span> <span class="nn">pyspark</span> <span class="kn">import</span> <span class="n">SparkContext</span><span class="p">,</span> <span class="n">SparkConf</span>
+
+<span class="n">_maxPer</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+<span class="n">_minSup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+<span class="n">_lno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Node">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.Node">[docs]</a>
+<span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class used to represent the node of frequentPatternTree</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        item : int or None</span>
+<span class="sd">            Storing item of a node</span>
+<span class="sd">        timeStamps : list</span>
+<span class="sd">            To maintain the timestamps of a database at the end of the branch</span>
+<span class="sd">        parent : node</span>
+<span class="sd">            To maintain the parent of every node</span>
+<span class="sd">        children : list</span>
+<span class="sd">            To maintain the children of a node</span>
+<span class="sd">        count : int</span>
+<span class="sd">            To maintain the count of every node</span>
+
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        addChild(itemName)</span>
+<span class="sd">            Storing the children to their respective parent nodes</span>
+<span class="sd">        toString()</span>
+<span class="sd">            To print the node</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">children</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Initializing the Node class</span>
+
+<span class="sd">        :param item: item of a node</span>
+<span class="sd">        :param count: count of a node</span>
+<span class="sd">        :param children: children of a node</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span>  <span class="c1"># dictionary of children</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">toString</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Node.toString">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.Node.toString">[docs]</a>
+    <span class="k">def</span> <span class="nf">toString</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; To print the node</span>
+
+<span class="sd">        :param level: level of a node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Root(&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;(item=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;, count=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tids</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">tabs</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)])</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="n">tabs</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="n">tabs</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">toString</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;)&quot;</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="Node.addChild">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.Node.addChild">[docs]</a>
+    <span class="k">def</span> <span class="nf">addChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; To add the children to a node</span>
+
+<span class="sd">        :param node: children of a node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_getTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>
+        <span class="n">tids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tids</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">_getTransactions</span><span class="p">():</span>
+                <span class="n">count</span> <span class="o">-=</span> <span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">yield</span> <span class="n">t</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="p">([],</span> <span class="n">tids</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="PFPTree">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.PFPTree">[docs]</a>
+<span class="k">class</span> <span class="nc">PFPTree</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    A class used to represent the periodic frequent pattern tree</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        root : node</span>
+<span class="sd">            To maintain the root of the tree</span>
+<span class="sd">        summaries : dict</span>
+<span class="sd">            To maintain the summary of the tree</span>
+
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        add(basket, tid, count)</span>
+<span class="sd">            To add the basket to the tree</span>
+<span class="sd">        getTransactions()</span>
+<span class="sd">            To get the transactions of the tree</span>
+<span class="sd">        merge(tree)</span>
+<span class="sd">            To merge the tree</span>
+<span class="sd">        project(itemId)</span>
+<span class="sd">            To project the tree</span>
+<span class="sd">        satisfyPer(tids, maxPer, numTrans)</span>
+<span class="sd">            To satisfy the periodicity constraint</span>
+<span class="sd">        extract(minCount, maxPer, numTrans, isResponsible = lambda x:True)</span>
+<span class="sd">            To extract the periodic frequent patterns</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PFPTree.add">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.PFPTree.add">[docs]</a>
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basket</span><span class="p">,</span> <span class="n">tid</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To add the basket to the tree</span>
+
+<span class="sd">        :param basket: basket of a database</span>
+<span class="sd">        :param tid: timestamp of a database</span>
+<span class="sd">        :param count: count of a node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
+        <span class="n">curr</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="n">count</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tid</span><span class="p">:</span>
+            <span class="n">curr</span><span class="o">.</span><span class="n">tids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">basket</span><span class="p">)):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">basket</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">summary</span> <span class="o">=</span> <span class="n">Summary</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="n">count</span>
+
+            <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">curr</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">curr</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="n">summary</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="n">count</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">tid</span><span class="p">:</span>
+                <span class="n">summary</span><span class="o">.</span><span class="n">tids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">basket</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">tids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="n">child</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="PFPTree.getTransactions">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.PFPTree.getTransactions">[docs]</a>
+    <span class="k">def</span> <span class="nf">getTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To get the transactions of the tree</span>
+
+<span class="sd">        :return: returning the transactions of the tree</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">_getTransactions</span><span class="p">()]</span></div>
+
+
+<div class="viewcode-block" id="PFPTree.merge">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.PFPTree.merge">[docs]</a>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To merge the tree</span>
+
+<span class="sd">        :param tree: tree of a database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tree</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="PFPTree.project">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.PFPTree.project">[docs]</a>
+    <span class="k">def</span> <span class="nf">project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">itemId</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To project the tree</span>
+
+<span class="sd">        :param itemId: item of a node</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">newTree</span> <span class="o">=</span> <span class="n">PFPTree</span><span class="p">()</span>
+        <span class="n">summaryItem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">itemId</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">summaryItem</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">summaryItem</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">curr</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">parent</span>
+                <span class="k">while</span> <span class="n">curr</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+                    <span class="n">t</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">curr</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+                    <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="n">parent</span>
+                <span class="n">newTree</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">element</span><span class="o">.</span><span class="n">tids</span><span class="p">,</span> <span class="n">element</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">newTree</span></div>
+
+
+<div class="viewcode-block" id="PFPTree.satisfyPer">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.PFPTree.satisfyPer">[docs]</a>
+    <span class="k">def</span> <span class="nf">satisfyPer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tids</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">numTrans</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To satisfy the periodicity constraint</span>
+
+<span class="sd">        :param tids: timestamps of a database</span>
+<span class="sd">        :param maxPer: maximum periodicity</span>
+<span class="sd">        :param numTrans: number of transactions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">tids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span>
+        <span class="n">tids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">tids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">maxPer</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">tids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numTrans</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tids</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">tids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">tids</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">maxPer</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="PFPTree.extract">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.PFPTree.extract">[docs]</a>
+    <span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minCount</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">numTrans</span><span class="p">,</span> <span class="n">isResponsible</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To extract the periodic frequent patterns</span>
+
+<span class="sd">        :param minCount: minimum count of a node</span>
+<span class="sd">        :param maxPer: maximum periodicity</span>
+<span class="sd">        :param numTrans: number of transactions</span>
+<span class="sd">        :param isResponsible: responsible node of a tree</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">summary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">isResponsible</span><span class="p">(</span><span class="n">item</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="n">minCount</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">satisfyPer</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">tids</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">numTrans</span><span class="p">)):</span>
+                    <span class="k">yield</span> <span class="p">([</span><span class="n">item</span><span class="p">],</span> <span class="n">summary</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">minCount</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">numTrans</span><span class="p">):</span>
+                        <span class="k">yield</span> <span class="p">([</span><span class="n">item</span><span class="p">]</span> <span class="o">+</span> <span class="n">element</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">element</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">summary</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">parent</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">tids</span> <span class="o">|=</span> <span class="n">element</span><span class="o">.</span><span class="n">tids</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Summary">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.Summary">[docs]</a>
+<span class="k">class</span> <span class="nc">Summary</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class used to represent the summary of the tree</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        count : int</span>
+<span class="sd">            To maintain the count of a node</span>
+<span class="sd">        nodes : list</span>
+<span class="sd">            To maintain the nodes of a tree</span>
+<span class="sd">        tids : set</span>
+<span class="sd">            To maintain the timestamps of a database</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="parallelPFPGrowth">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth">[docs]</a>
+<span class="k">class</span> <span class="nc">parallelPFPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_periodicFrequentPatterns</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :Description:   ParallelPFPGrowth is one of the fundamental distributed algorithm to discover periodic-frequent patterns in a transactional database. It is based PySpark framework.</span>
+
+<span class="sd">    :Reference:   C. Saideep, R. Uday Kiran, Koji Zettsu, Cheng-Wei Wu, P. Krishna Reddy, Masashi Toyoda, Masaru Kitsuregawa: Parallel Mining of Partial Periodic Itemsets in Big Data. IEA/AIE 2020: 807-819</span>
+
+<span class="sd">    :Attributes:</span>
+
+<span class="sd">        iFile : file</span>
+<span class="sd">            Name of the Input file or path of the input file</span>
+<span class="sd">        oFile : file</span>
+<span class="sd">            Name of the output file or path of the output file</span>
+<span class="sd">        minSup: int or float or str</span>
+<span class="sd">            The user can specify minSup either in count or proportion of database size.</span>
+<span class="sd">            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
+<span class="sd">            Otherwise, it will be treated as float.</span>
+<span class="sd">            Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</span>
+<span class="sd">        maxPer: int or float or str</span>
+<span class="sd">            The user can specify maxPer either in count or proportion of database size.</span>
+<span class="sd">            If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
+<span class="sd">            Otherwise, it will be treated as float.</span>
+<span class="sd">            Example: maxPer=10 will be treated as integer, while maxPer=10.0 will be treated as float</span>
+<span class="sd">        numWorker: int</span>
+<span class="sd">            The user can specify the number of worker machines to be employed for finding periodic-frequent patterns.</span>
+<span class="sd">        sep : str</span>
+<span class="sd">            This variable is used to distinguish items from one another in a transaction. The default seperator is tab space or \t.</span>
+<span class="sd">            However, the users can override their default separator.</span>
+<span class="sd">        memoryUSS : float</span>
+<span class="sd">            To store the total amount of USS memory consumed by the program</span>
+<span class="sd">        memoryRSS : float</span>
+<span class="sd">            To store the total amount of RSS memory consumed by the program</span>
+<span class="sd">        startTime:float</span>
+<span class="sd">            To record the start time of the mining process</span>
+<span class="sd">        endTime:float</span>
+<span class="sd">            To record the completion time of the mining process</span>
+<span class="sd">        Database : list</span>
+<span class="sd">            To store the transactions of a database in list</span>
+<span class="sd">        mapSupport : Dictionary</span>
+<span class="sd">            To maintain the information of item and their frequency</span>
+<span class="sd">        lno : int</span>
+<span class="sd">            To represent the total no of transaction</span>
+<span class="sd">        tree : class</span>
+<span class="sd">            To represents the Tree class</span>
+<span class="sd">        itemSetCount : int</span>
+<span class="sd">            To represents the total no of patterns</span>
+<span class="sd">        finalPatterns : dict</span>
+<span class="sd">            To store the complete patterns</span>
+
+<span class="sd">    :Methods:</span>
+
+<span class="sd">        startMine()</span>
+<span class="sd">            Mining process will start from here</span>
+<span class="sd">        getPatterns()</span>
+<span class="sd">            Complete set of patterns will be retrieved with this function</span>
+<span class="sd">        save(oFile)</span>
+<span class="sd">            Complete set of periodic-frequent patterns will be loaded in to a output file</span>
+<span class="sd">        getPatternsAsDataFrame()</span>
+<span class="sd">            Complete set of periodic-frequent patterns will be loaded in to a dataframe</span>
+<span class="sd">        getMemoryUSS()</span>
+<span class="sd">            Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        getMemoryRSS()</span>
+<span class="sd">            Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+<span class="sd">        getRuntime()</span>
+<span class="sd">            Total amount of runtime taken by the mining process will be retrieved from this function</span>
+<span class="sd">        creatingItemSets(fileName)</span>
+<span class="sd">            Scans the dataset and stores in a list format</span>
+<span class="sd">        PeriodicFrequentOneItem()</span>
+<span class="sd">            Extracts the one-periodic-frequent patterns from database</span>
+<span class="sd">        updateDatabases()</span>
+<span class="sd">            Update the database by removing aperiodic items and sort the Database by item decreased support</span>
+<span class="sd">        buildTree()</span>
+<span class="sd">            After updating the Database, remaining items will be added into the tree by setting root node as null</span>
+<span class="sd">        convert()</span>
+<span class="sd">            to convert the user specified value</span>
+
+
+<span class="sd">    **Methods to execute code on terminal**</span>
+<span class="sd">    --------------------------------------------</span>
+<span class="sd">            Format:</span>
+<span class="sd">                      &gt;&gt;&gt;  python3 parallelPFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;noWorker&gt;</span>
+
+<span class="sd">            Example:</span>
+<span class="sd">                      &gt;&gt;&gt;  python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5</span>
+
+<span class="sd">                      .. note:: minSup will be considered in percentage of database transactions</span>
+
+
+<span class="sd">    **Importing this algorithm into a python program**</span>
+<span class="sd">    -----------------------------------------------------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">                from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg</span>
+
+<span class="sd">                obj = alg.parallelPFPGrowth(iFile, minSup, maxPer)</span>
+
+<span class="sd">                obj.startMine()</span>
+
+<span class="sd">                periodicFrequentPatterns = obj.getPatterns()</span>
+
+<span class="sd">                print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
+
+<span class="sd">                obj.savePatterns(oFile)</span>
+
+<span class="sd">                Df = obj.getPatternsAsDataFrame()</span>
+
+<span class="sd">                memUSS = obj.getMemoryUSS()</span>
+
+<span class="sd">                print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+
+<span class="sd">                memRSS = obj.getMemoryRSS()</span>
+
+<span class="sd">                print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+
+<span class="sd">                run = obj.getRuntime()</span>
+
+<span class="sd">                print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__startTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">__endTime</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="n">_maxPer</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="n">_numWorkers</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="n">__finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_iFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_oFile</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">_sep</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span>
+    <span class="n">__memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">__memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+    <span class="n">__Database</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">__mapSupport</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">__lno</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># __tree = _Tree()</span>
+    <span class="n">__rank</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">__rankDup</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_numTrans</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="n">__tarunpat</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">numWorker</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">numWorker</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span>
+
+<div class="viewcode-block" id="parallelPFPGrowth.func1">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.func1">[docs]</a>
+    <span class="k">def</span> <span class="nf">func1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ps1</span><span class="p">,</span> <span class="n">tid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the tid to the set</span>
+
+<span class="sd">        :param ps1: set</span>
+<span class="sd">        :param tid: timestamp of a database</span>
+<span class="sd">        return: set</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ps1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ps1</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.func2">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.func2">[docs]</a>
+    <span class="k">def</span> <span class="nf">func2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ps1</span><span class="p">,</span> <span class="n">ps2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Union of two sets</span>
+
+<span class="sd">        :param ps1: set.</span>
+<span class="sd">        :param ps2: set</span>
+<span class="sd">        return: set</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ps1</span> <span class="o">|=</span> <span class="n">ps2</span>
+        <span class="k">return</span> <span class="n">ps1</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.func3">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.func3">[docs]</a>
+    <span class="k">def</span> <span class="nf">func3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tids</span><span class="p">,</span> <span class="n">endts</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Calculate the periodicity of a transaction</span>
+
+<span class="sd">        :param tids: timestamps of a database</span>
+<span class="sd">        return: periodicity</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># print(tids)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span>
+        <span class="c1"># print(maxPer)</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">-</span> <span class="n">cur</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">:</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">if</span> <span class="n">endts</span> <span class="o">-</span> <span class="n">cur</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.getFrequentItems">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.getFrequentItems">[docs]</a>
+    <span class="k">def</span> <span class="nf">getFrequentItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the frequent items from the database</span>
+
+<span class="sd">        :param data: database</span>
+<span class="sd">        return: frequent items</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">singleItems</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))])</span>
+        <span class="n">ps</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">freqItems</span> <span class="o">=</span> <span class="n">singleItems</span><span class="o">.</span><span class="n">aggregateByKey</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">ps1</span><span class="p">,</span> <span class="n">tid</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">func1</span><span class="p">(</span><span class="n">ps1</span><span class="p">,</span> <span class="n">tid</span><span class="p">),</span>
+                                               <span class="k">lambda</span> <span class="n">tuple1</span><span class="p">,</span> <span class="n">tuple2</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">func2</span><span class="p">(</span><span class="n">tuple1</span><span class="p">,</span> <span class="n">tuple2</span><span class="p">))</span>
+        <span class="c1"># print(freqItems.take(10))</span>
+        <span class="n">freqItems</span> <span class="o">=</span> <span class="n">freqItems</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">func3</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numTrans</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
+        <span class="c1"># print(freqItems.take(10))</span>
+        <span class="n">perFreqItems</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span>
+                        <span class="nb">sorted</span><span class="p">(</span><span class="n">freqItems</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="c1"># print(perFreqItems)</span>
+        <span class="k">return</span> <span class="n">perFreqItems</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.getFrequentItemsets">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.getFrequentItemsets">[docs]</a>
+    <span class="k">def</span> <span class="nf">getFrequentItemsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">freqItems</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the frequent itemsets from the database</span>
+
+<span class="sd">        :param data: database</span>
+<span class="sd">        :param freqItems: frequent items</span>
+<span class="sd">        return: frequent itemsets</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_perFreqItems</span><span class="p">)])</span>
+        <span class="n">numPartitions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">getNumPartitions</span><span class="p">()</span>
+        <span class="n">workByPartition</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">basket</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">genCondTransactions</span><span class="p">(</span><span class="n">basket</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">basket</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">rank</span><span class="p">,</span> <span class="n">numPartitions</span><span class="p">))</span>
+        <span class="n">emptyTree</span> <span class="o">=</span> <span class="n">PFPTree</span><span class="p">()</span>
+        <span class="n">forest</span> <span class="o">=</span> <span class="n">workByPartition</span><span class="o">.</span><span class="n">aggregateByKey</span><span class="p">(</span><span class="n">emptyTree</span><span class="p">,</span>
+                                                <span class="k">lambda</span> <span class="n">tree</span><span class="p">,</span> <span class="n">transaction</span><span class="p">:</span> <span class="n">tree</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">transaction</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">transaction</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="mi">1</span><span class="p">),</span>
+                                                <span class="k">lambda</span> <span class="n">tree1</span><span class="p">,</span> <span class="n">tree2</span><span class="p">:</span> <span class="n">tree1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">tree2</span><span class="p">))</span>
+        <span class="n">itemsets</span> <span class="o">=</span> <span class="n">forest</span><span class="o">.</span><span class="n">flatMap</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">partId_bonsai</span><span class="p">:</span> <span class="n">partId_bonsai</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numTrans</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                                                           <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPartitionId</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">numPartitions</span><span class="p">)</span> <span class="o">==</span>
+                                                                     <span class="n">partId_bonsai</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">frequentItemsets</span> <span class="o">=</span> <span class="n">itemsets</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">ranks_count</span><span class="p">:</span> <span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_perFreqItems</span><span class="p">[</span><span class="n">z</span><span class="p">]</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">ranks_count</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">ranks_count</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+        <span class="c1">### TARUN MODIFICATION ###</span>
+        <span class="n">frequentItemsets_list</span> <span class="o">=</span> <span class="n">frequentItemsets</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">itemset</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">frequentItemsets_list</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">itemset</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__tarunpat</span><span class="p">[</span><span class="n">string</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
+        <span class="c1">##########################</span>
+
+        <span class="k">return</span> <span class="n">frequentItemsets</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.genCondTransactions">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.genCondTransactions">[docs]</a>
+    <span class="k">def</span> <span class="nf">genCondTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tid</span><span class="p">,</span> <span class="n">basket</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">nPartitions</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the conditional transactions from the database</span>
+
+<span class="sd">        :param tid: timestamp of a database</span>
+<span class="sd">        :param basket: basket of a database</span>
+<span class="sd">        :param rank: rank of a database</span>
+<span class="sd">        :param nPartitions: number of partitions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filtered</span> <span class="o">=</span> <span class="p">[</span><span class="n">rank</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">basket</span> <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rank</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+        <span class="n">filtered</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">filtered</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">partition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPartitionId</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">nPartitions</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">partition</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">output</span><span class="p">[</span><span class="n">partition</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">filtered</span><span class="p">[:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">tid</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.getPartitionId">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.getPartitionId">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPartitionId</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">nPartitions</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the partition id</span>
+
+<span class="sd">        :param key: key of a database</span>
+<span class="sd">        :param nPartitions: number of partitions</span>
+<span class="sd">        return: partition id</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">key</span> <span class="o">%</span> <span class="n">nPartitions</span></div>
+
+
+    <span class="k">def</span> <span class="nf">__convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        to convert the type of user specified minSup value</span>
+
+<span class="sd">        :param value: user specified minSup value</span>
+<span class="sd">        :return: converted type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__Database</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__Database</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="parallelPFPGrowth.startMine">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.startMine">[docs]</a>
+    <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start the mining process</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="n">APP_NAME</span> <span class="o">=</span> <span class="s2">&quot;parallelPFPGrowth&quot;</span>
+        <span class="n">conf</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">SparkConf</span><span class="p">()</span><span class="o">.</span><span class="n">setAppName</span><span class="p">(</span><span class="n">APP_NAME</span><span class="p">)</span>
+        <span class="c1"># conf = conf.setMaster(&quot;local[*]&quot;)</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">SparkContext</span><span class="p">(</span><span class="n">conf</span><span class="o">=</span><span class="n">conf</span><span class="p">)</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+        <span class="c1"># sc = SparkContext.getOrCreate();</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">minPartitions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_numWorkers</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)])</span>
+        <span class="c1"># data = sc.textFile(finput).map(lambda x: [int(y) for y in x.strip().split(&#39; &#39;)])</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
+        <span class="c1"># minSupport = data.count() * threshold/100</span>
+        <span class="c1"># maxPer = data.count() * periodicity_threshold/100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_numTrans</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_perFreqItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFrequentItems</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">freqItemsets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFrequentItemsets</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perFreqItems</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tarunpat</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.getMemoryUSS">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.getMemoryUSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning USS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.getMemoryRSS">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.getMemoryRSS">[docs]</a>
+    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+
+<span class="sd">        :return: returning RSS memory consumed by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.getRuntime">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.getRuntime">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
+
+<span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__startTime</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.getPatternsAsDataFrame">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.getPatternsAsDataFrame">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final frequent patterns in a dataframe</span>
+
+<span class="sd">        :return: returning frequent patterns in a dataframe</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dataframe</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tarunpat</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">),</span> <span class="n">b</span><span class="p">])</span>
+            <span class="n">dataframe</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">dataframe</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.save">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.save">[docs]</a>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns will be loaded in to a output file</span>
+
+<span class="sd">        :param outFile: name of the output file</span>
+<span class="sd">        :type outFile: csv file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+        <span class="c1"># print(self.getFrequentItems())</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tarunpat</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># print(x,y)</span>
+            <span class="n">s1</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.getPatterns">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.getPatterns">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of frequent patterns after completion of the mining process</span>
+
+<span class="sd">        :return: returning frequent patterns</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tarunpat</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.printResults">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.printResults">[docs]</a>
+    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">_ap</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">parallelPFPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                                    <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">_ap</span> <span class="o">=</span> <span class="n">parallelPFPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">())</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="n">_ap</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_ap</span> <span class="o">=</span> <span class="n">parallelPFPGrowth</span><span class="p">(</span><span class="s1">&#39;Temporal_T10I4D100K.csv&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
+        <span class="c1"># print(&quot;Total number of Frequent Patterns:&quot;, len( _ab.getPatterns()))</span>
+        <span class="c1"># _ap.save(_ab._sys.argv[2])</span>
+        <span class="n">_ap</span><span class="o">.</span><span class="n">printResults</span><span class="p">()</span>
+        <span class="c1"># print(&quot;Total Memory in USS:&quot;, _ap.getMemoryUSS())</span>
+        <span class="c1"># print(&quot;Total Memory in RSS&quot;, _ap.getMemoryRSS())</span>
+        <span class="c1"># print(&quot;Total ExecutionTime in ms:&quot;, _ap.getRuntime())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error! The number of input parameters do not match the total number of parameters provided&quot;</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, RAGE UDAY KIRAN.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
