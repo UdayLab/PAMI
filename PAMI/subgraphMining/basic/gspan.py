@@ -1,5 +1,4 @@
 from PAMI.subgraphMining.basic import abstract as _ab
-# import abstract as _ab
 
 class Gspan(_ab._gSpan):
 

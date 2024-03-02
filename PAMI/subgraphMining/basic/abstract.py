@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 from graph import Graph
-from dfs_code import DFSCode
-from frequent_subgraph import FrequentSubgraph
+from subgraphMining.basic.dfsCode import DFSCode
+from subgraphMining.basic.frequentSubgraph import FrequentSubgraph
 from vertex import Vertex
 from edge import Edge
-from extended_edge import ExtendedEdge
-from sparse_triangular_matrix import SparseTriangularMatrix
+from subgraphMining.basic.extendedEdge import ExtendedEdge
+from subgraphMining.basic.sparseTriangularMatrix import SparseTriangularMatrix
 import time
 import math
 import matplotlib.pyplot as plt
