@@ -1,4 +1,4 @@
-from PAMI.subgraphMining.basic import GSpan as alg
+from PAMI.subgraphMining.basic import gspan as alg
 
 
 def main():
