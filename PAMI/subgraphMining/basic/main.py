@@ -14,12 +14,10 @@ def main():
                                     True)
 
         obj.run()
-        runtime_340.append(obj.getRuntime())
+        runtime_340.append(obj._runtime())
 
 
     print(runtime_340)
-
-
 
 if __name__=='__main__':
     main()

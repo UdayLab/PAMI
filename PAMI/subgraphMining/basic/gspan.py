@@ -8,9 +8,9 @@ class Gspan(_ab._gSpan):
     edge_count_pruning = True
 
     def __init__(self, inPath, outPath, minSupport, outputSingleVertices, maxNumberOfEdges, outputGraphIds) -> None:
-        self.minSup = 0
+        self.minSup = minSupport
         self.frequentSubgraphs = []
-        self.runtime = 0
+        self._runtime = 0
         self.maxMem = 0
         self.graphCount = 0
         self.patternCount = 0
@@ -21,7 +21,6 @@ class Gspan(_ab._gSpan):
         self.eliminatedWithMaxSize = 0
         self.emptyGraphsRemoved = 0
         self.pruneByEdgeCount = 0
-        self.minSupport = minSupport
         self.inPath = inPath
         self.outPath = outPath
         self.outputSingleVertices = outputSingleVertices
@@ -49,7 +48,7 @@ class Gspan(_ab._gSpan):
         graphDb = self.readGraphs(self.inPath)
 
         # Calculate minimum support as a number of graphs
-        self.minSup = _ab.math.ceil(self.minSupport * len(graphDb))
+        self.minSup = _ab.math.ceil(self.minSup * len(graphDb))
 
         # Mining
         self.gSpan(graphDb, self.outputSingleVertices)
@@ -59,7 +58,7 @@ class Gspan(_ab._gSpan):
 
         t2 = _ab.time.time()
 
-        self.runtime = (t2 - t1)
+        self._runtime = (t2 - t1)
 
         process = _ab._psutil.Process(_ab._os.getpid())
 
@@ -169,13 +168,10 @@ class Gspan(_ab._gSpan):
         isomorphisms between the DFS code and the graph.
         
         :param c: The parameter `c` in the `subgraphIsomorphisms` function is of type `_ab.DFSCode`, which
-        seems to represent a Depth-First Search code. This code likely describes a subgraph pattern that we
-        want to find within the graph `g`
-        :type c: _ab.DFSCode
+        seems to represent a Depth-First Search code.
         :param g: The parameter `g` in the `subgraphIsomorphisms` function represents a graph object. The
         function is trying to find subgraph isomorphisms between a given DFS code `c` and the graph `g`. It
         iterates through the vertices of the graph starting with a specific
-        :type g: _ab.Graph
         :return: The function `subgraphIsomorphisms` returns a list of dictionaries, where each dictionary
         represents a subgraph isomorphism mapping between the input DFS code `c` and the input graph `g`.
         Each dictionary in the list maps vertex IDs from the DFS code to corresponding vertex IDs in the
@@ -574,5 +570,5 @@ class Gspan(_ab._gSpan):
         pass
 
     def getRuntime(self):
-        return self.runtime
+        return self._runtime
 

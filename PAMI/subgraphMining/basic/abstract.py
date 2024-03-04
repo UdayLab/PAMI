@@ -9,8 +9,8 @@ from sparseTriangularMatrix import SparseTriangularMatrix
 import time
 import math
 import matplotlib.pyplot as plt
-import networkx as nx
-import resource
+import psutil as _psutil
+
 
 class _gSpan(ABC):
 
