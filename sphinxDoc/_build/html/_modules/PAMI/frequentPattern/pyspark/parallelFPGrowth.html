@@ -39,9 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
 </ul>
 
         </div>
@@ -132,7 +155,7 @@
 
 
 <div class="viewcode-block" id="Node">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Node">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Node">[docs]</a>
 <span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Attribute:</span>
@@ -154,7 +177,7 @@
 
 
 <div class="viewcode-block" id="Tree">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree">[docs]</a>
 <span class="k">class</span> <span class="nc">Tree</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Attribute:</span>
@@ -178,7 +201,7 @@
 
 
 <div class="viewcode-block" id="Tree.addTransaction">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.addTransaction">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.addTransaction">[docs]</a>
     <span class="k">def</span> <span class="nf">addTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add transaction to tree</span>
@@ -200,7 +223,7 @@
 
 
 <div class="viewcode-block" id="Tree.addNodeToNodeLink">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.addNodeToNodeLink">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.addNodeToNodeLink">[docs]</a>
     <span class="k">def</span> <span class="nf">addNodeToNodeLink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add node to self.nodeLink</span>
@@ -215,7 +238,7 @@
 
 
 <div class="viewcode-block" id="Tree.generateConditionalTree">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.generateConditionalTree">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.generateConditionalTree">[docs]</a>
     <span class="k">def</span> <span class="nf">generateConditionalTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate conditional tree based on item</span>
@@ -233,7 +256,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth">[docs]</a>
 <span class="k">class</span> <span class="nc">parallelFPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
@@ -341,7 +364,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.startMine">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.startMine">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Frequent pattern mining process will start from here</span>
@@ -388,7 +411,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.getPartitionId">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getPartitionId">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getPartitionId">[docs]</a>
     <span class="k">def</span> <span class="nf">getPartitionId</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get partition id of item</span>
@@ -399,7 +422,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.genCondTransaction">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genCondTransaction">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genCondTransaction">[docs]</a>
     <span class="k">def</span> <span class="nf">genCondTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">rank</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate conditional transactions from transaction</span>
@@ -418,7 +441,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.buildTree">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.buildTree">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.buildTree">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">buildTree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -433,7 +456,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.genAllFrequentPatterns">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genAllFrequentPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genAllFrequentPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">genAllFrequentPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree_tuple</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate all frequent patterns</span>
@@ -450,7 +473,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.genFreqPatterns">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genFreqPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genFreqPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">genFreqPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate new frequent patterns based on item.</span>
@@ -476,7 +499,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getMemoryUSS">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
@@ -488,7 +511,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getMemoryRSS">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
@@ -500,7 +523,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getRuntime">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
@@ -512,7 +535,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getPatternsAsDataFrame">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final frequent patterns in a dataframe</span>
@@ -529,7 +552,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.save">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.save">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
@@ -550,7 +573,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
@@ -561,7 +584,7 @@
 
 
 <div class="viewcode-block" id="parallelFPGrowth.printResults">
-<a class="viewcode-back" href="../../../../PAMI.frequentPattern.pyspark.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.printResults">[docs]</a>
+<a class="viewcode-back" href="../../../../frequentPatternPysparkParallelFPGrowth.html#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>

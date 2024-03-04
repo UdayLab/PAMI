@@ -39,9 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
 </ul>
 
         </div>
@@ -304,7 +327,7 @@
 
 
 <div class="viewcode-block" id="CoMine">
-<a class="viewcode-back" href="../../../../PAMI.correlatedPattern.basic.html#PAMI.correlatedPattern.basic.CoMine.CoMine">[docs]</a>
+<a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine">[docs]</a>
 <span class="k">class</span> <span class="nc">CoMine</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_correlatedPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description: CoMine is one of the fundamental algorithm to discover correlated  patterns in a transactional database. It is based on the traditional FP-Growth algorithm. This algorithm uses depth-first search technique to find all correlated patterns in a transactional database.</span>
@@ -621,7 +644,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">_correlatedPatternGrowthGenerate</span><span class="p">(</span><span class="n">treeBeta</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">prefixLength</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mapSupportBeta</span><span class="p">)</span>
     
 <div class="viewcode-block" id="CoMine.startMine">
-<a class="viewcode-back" href="../../../../PAMI.correlatedPattern.basic.html#PAMI.correlatedPattern.basic.CoMine.CoMine.startMine">[docs]</a>
+<a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        main method to start</span>
@@ -657,7 +680,7 @@
 
 
 <div class="viewcode-block" id="CoMine.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.correlatedPattern.basic.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getMemoryUSS">[docs]</a>
+<a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
@@ -669,7 +692,7 @@
 
 
 <div class="viewcode-block" id="CoMine.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.correlatedPattern.basic.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getMemoryRSS">[docs]</a>
+<a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
@@ -681,7 +704,7 @@
 
 
 <div class="viewcode-block" id="CoMine.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.correlatedPattern.basic.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getRuntime">[docs]</a>
+<a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
@@ -693,7 +716,7 @@
 
 
 <div class="viewcode-block" id="CoMine.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.correlatedPattern.basic.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getPatternsAsDataFrame">[docs]</a>
+<a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final correlated patterns in a dataframe</span>
@@ -713,7 +736,7 @@
 
 
 <div class="viewcode-block" id="CoMine.save">
-<a class="viewcode-back" href="../../../../PAMI.correlatedPattern.basic.html#PAMI.correlatedPattern.basic.CoMine.CoMine.save">[docs]</a>
+<a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of correlated patterns will be saved into an output file</span>
@@ -731,7 +754,7 @@
 
 
 <div class="viewcode-block" id="CoMine.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.correlatedPattern.basic.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of correlated patterns after completion of the mining process</span>
@@ -742,7 +765,7 @@
 
 
 <div class="viewcode-block" id="CoMine.printResults">
-<a class="viewcode-back" href="../../../../PAMI.correlatedPattern.basic.html#PAMI.correlatedPattern.basic.CoMine.CoMine.printResults">[docs]</a>
+<a class="viewcode-back" href="../../../../correlatedPatternBasicCoMine.html#PAMI.correlatedPattern.basic.CoMine.CoMine.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        function to print the result after completing the process</span>
