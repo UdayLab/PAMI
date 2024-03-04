@@ -23,6 +23,7 @@ def main():
 
 
     print(runtime_340)
+    print(obj.getFrequentSubgraphs())
     print(memRss)
     print(memUSS)
 
