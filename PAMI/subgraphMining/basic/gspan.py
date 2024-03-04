@@ -605,7 +605,7 @@ class GSpan(_ab._gSpan):
             sb = []
 
             dfsCode = subgraph.dfsCode
-            sb.append(f"t # {i} * {subgraph.support}\n")
+            sb.append(f"t # {i} * {subgraph.support}")
             if dfsCode.size == 1:
                 ee = dfsCode.getEeList()[0]
                 if ee.edgeLabel == -1:

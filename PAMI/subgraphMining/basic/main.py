@@ -17,13 +17,13 @@ def main():
 
         obj.run()
         obj.save('temp.txt')
+        print(obj.getFrequentSubgraphs())
         runtime_340.append(obj.getRuntime())
         memRss.append(obj.getMemoryRSS())
         memUSS.append(obj.getMemoryUSS())
 
 
     print(runtime_340)
-    print(obj.getFrequentSubgraphs())
     print(memRss)
     print(memUSS)
 
