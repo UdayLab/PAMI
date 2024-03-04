@@ -5,6 +5,8 @@ def main():
     input_file_path = 'chemical_340.txt'
     output_file_path = 'temp.txt'
     sup = [0.15, 0.2, 0.25, 0.3]
+    memRss = []
+    memUSS = []
     runtime_340 = []
     for min_support in  sup:
         output_single_vertices = True  
@@ -14,7 +16,9 @@ def main():
                                     True)
 
         obj.run()
-        runtime_340.append(obj._runtime())
+        runtime_340.append(obj.getRuntime())
+        memRss.append(obj.getMemoryRSS())
+        memUSS.append(obj.getMemoryUSS())
 
 
     print(runtime_340)
