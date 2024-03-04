@@ -609,22 +609,18 @@ class GSpan(_ab._gSpan):
             if dfsCode.size == 1:
                 ee = dfsCode.getEeList()[0]
                 if ee.edgeLabel == -1:
-                    sb.append(f"v 0 {ee.vLabel1}\n")
+                    sb.append(f"v 0 {ee.vLabel1}")
                 else:
-                    sb.append(f"v 0 {ee.vLabel1}\n")
-                    sb.append(f"v 1 {ee.vLabel2}\n")
-                    sb.append(f"e 0 1 {ee.edgeLabel}\n")
+                    sb.append(f"v 0 {ee.vLabel1}")
+                    sb.append(f"v 1 {ee.vLabel2}")
+                    sb.append(f"e 0 1 {ee.edgeLabel}")
             else:
                 vLabels = dfsCode.getAllVLabels()
                 for j, vLabel in enumerate(vLabels):
-                    sb.append(f"v {j} {vLabel}\n")
+                    sb.append(f"v {j} {vLabel}")
                 for ee in dfsCode.getEeList():
-                    sb.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}\n")
+                    sb.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}")
 
-            if self.outputGraphIds:
-                sb.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
-
-            sb.append("\n\n")
             i += 1
         return sb
 
