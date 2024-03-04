@@ -1,4 +1,4 @@
-from gspan import Gspan
+from PAMI.subgraphMining.basic.gspan import Gspan as alg
 
 
 def main():
@@ -7,13 +7,14 @@ def main():
     sup = [0.15, 0.2, 0.25, 0.3]
     runtime_340 = []
     for min_support in  sup:
-        gspan_instance = Gspan()
         output_single_vertices = True  
         max_number_of_edges = 100
-        gspan_instance.run(input_file_path, output_file_path, min_support, 
+        obj = alg(input_file_path, output_file_path, min_support, 
                                 output_single_vertices, max_number_of_edges, 
                                     True)
-        runtime_340.append(gspan_instance.runtime)
+
+        obj.run()
+        runtime_340.append(obj.getRuntime())
 
 
     print(runtime_340)

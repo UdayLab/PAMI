@@ -7,7 +7,7 @@ class Gspan(_ab._gSpan):
     eliminate_infrequent_edge_labels = True
     edge_count_pruning = True
 
-    def __init__(self) -> None:
+    def __init__(self, inPath, outPath, minSupport, outputSingleVertices, maxNumberOfEdges, outputGraphIds) -> None:
         self.minSup = 0
         self.frequentSubgraphs = []
         self.runtime = 0
@@ -21,26 +21,23 @@ class Gspan(_ab._gSpan):
         self.eliminatedWithMaxSize = 0
         self.emptyGraphsRemoved = 0
         self.pruneByEdgeCount = 0
-        self.maxNumberOfEdges = float('inf')
-        self.outputGraphIds = True
-
-
-    def run(self, inPath, outPath, minSupport, outputSingleVertices, maxNumberOfEdges, outputGraphIds):
-        if maxNumberOfEdges <= 0:
-            return
-    
-        mem1 = _ab.resource.getrusage(_ab.resource.RUSAGE_SELF).ru_maxrss
-
+        self.minSupport = minSupport
+        self.inPath = inPath
+        self.outPath = outPath
+        self.outputSingleVertices = outputSingleVertices
         self.maxNumberOfEdges = maxNumberOfEdges
         self.outputGraphIds = outputGraphIds
+        self.maxNumberOfEdges = float('inf')
+        self.outputGraphIds = True
+        self._memoryUSS = float()
+        self._memoryRSS = float()
 
-        self.infrequentVertexPairsRemovedCount = 0
-        self.infrequentVerticesRemovedCount = 0
-        self.edgeRemovedByLabel = 0
-        self.eliminatedWithMaxSize = 0
-        self.emptyGraphsRemoved = 0
-        self.pruneByEdgeCount = 0
 
+    def run(self):
+
+        if self.maxNumberOfEdges <= 0:
+            return
+        
         self.frequentSubgraphs = []
 
         self.patternCount = 0
@@ -49,30 +46,43 @@ class Gspan(_ab._gSpan):
         t1 = _ab.time.time()
 
         # Read graphs
-        graphDb = self.readGraphs(inPath)
+        graphDb = self.readGraphs(self.inPath)
 
         # Calculate minimum support as a number of graphs
-        self.minSup = _ab.math.ceil(minSupport * len(graphDb))
+        self.minSup = _ab.math.ceil(self.minSupport * len(graphDb))
 
         # Mining
-        self.gSpan(graphDb, outputSingleVertices)
+        self.gSpan(graphDb, self.outputSingleVertices)
 
         # Output
-        self.writeResultToFile(outPath)
+        self.writeResultToFile(self.outPath)
 
         t2 = _ab.time.time()
 
         self.runtime = (t2 - t1)
 
+        process = _ab._psutil.Process(_ab._os.getpid())
+
+        self._memoryUSS = float()
+
+        self._memoryRSS = float()
+
+        self._memoryUSS = process.memory_full_info().uss
+
+        self._memoryRSS = process.memory_info().rss
+
         self.patternCount = len(self.frequentSubgraphs)
-
-        mem2 = _ab.resource.getrusage(_ab.resource.RUSAGE_SELF).ru_maxrss
-
-        self.maxMem = (mem2 - mem1)/1024
-
 
 
     def writeResultToFile(self, outputPath):
+        """
+        The `writeResultToFile` function writes information about frequent subgraphs to a specified
+        output file in a specific format.
+        
+        :param outputPath: The `writeResultToFile` method is used to write the results of frequent
+        subgraphs to a file specified by the `outputPath` parameter. The method iterates over each
+        frequent subgraph in `self.frequentSubgraphs` and writes the subgraph information to the file
+        """
         with open(outputPath, 'w') as bw:
             i = 0
             for subgraph in self.frequentSubgraphs:
@@ -104,6 +114,18 @@ class Gspan(_ab._gSpan):
 
 
     def readGraphs(self, path):
+        """
+        The `readGraphs` function reads graph data from a file and constructs a list of graphs with vertices
+        and edges.
+        
+        :param path: The `path` parameter in the `readGraphs` method is the file path to the text file
+        containing the graph data that needs to be read and processed. This method reads the graph data from
+        the specified file and constructs a list of graphs represented by vertices and edges based on the
+        information in the
+        :return: The `readGraphs` method reads graph data from a file specified by the `path` parameter. It
+        parses the data to create a list of graph objects and returns this list. Each graph object contains
+        information about vertices and edges within the graph.
+        """
         with open(path, 'r') as br:
             graphDatabase = []
             vMap = {}
@@ -142,6 +164,23 @@ class Gspan(_ab._gSpan):
 
 
     def subgraphIsomorphisms(self, c: _ab.DFSCode, g: _ab.Graph):
+        """
+        The function `subgraphIsomorphisms` takes a DFS code and a graph as input, and finds all subgraph
+        isomorphisms between the DFS code and the graph.
+        
+        :param c: The parameter `c` in the `subgraphIsomorphisms` function is of type `_ab.DFSCode`, which
+        seems to represent a Depth-First Search code. This code likely describes a subgraph pattern that we
+        want to find within the graph `g`
+        :type c: _ab.DFSCode
+        :param g: The parameter `g` in the `subgraphIsomorphisms` function represents a graph object. The
+        function is trying to find subgraph isomorphisms between a given DFS code `c` and the graph `g`. It
+        iterates through the vertices of the graph starting with a specific
+        :type g: _ab.Graph
+        :return: The function `subgraphIsomorphisms` returns a list of dictionaries, where each dictionary
+        represents a subgraph isomorphism mapping between the input DFS code `c` and the input graph `g`.
+        Each dictionary in the list maps vertex IDs from the DFS code to corresponding vertex IDs in the
+        graph, indicating a valid subgraph isomorphism.
+        """
         isoms = []    
         startLabel = c.getEeList()[0].getVLabel1()
         for vId in g.findAllWithLabel(startLabel):
@@ -174,8 +213,22 @@ class Gspan(_ab._gSpan):
             isoms = updateIsoms
         return isoms
 
-
+    
     def rightMostPathExtensionsFromSingle(self, c: _ab.DFSCode, g: _ab.Graph):
+        """
+        The function `rightMostPathExtensionsFromSingle` generates extensions for a given DFS code and
+        graph, focusing on the rightmost path.
+        
+        :param c: The parameter `c` is of type `_ab.DFSCode`, which seems to represent a Depth-First Search
+        code. It is used in the `rightMostPathExtensionsFromSingle` method to perform operations related to
+        DFS codes
+        :param g: The parameter `g` in the provided code snippet represents a graph object. It seems to be
+        an instance of a graph data structure that contains vertices and edges. The code is designed to
+        find and return extensions from a given DFS code `c` based on the provided graph `g`. The function
+        `
+        :return: The function `rightMostPathExtensionsFromSingle` returns a dictionary `extensions`
+        containing extended edges as keys and sets of graph IDs as values.
+        """
         gid = g.getId()
         extensions = {}
 
@@ -219,6 +272,24 @@ class Gspan(_ab._gSpan):
 
 
     def rightMostPathExtensions(self, c: _ab.DFSCode, graphDb, graphIds):
+        """
+        The function `rightMostPathExtensions` generates extensions for a given DFS code by considering
+        rightmost paths in a graph database.
+        
+        :param c: The parameter `c` in the `rightMostPathExtensions` method is of type `_ab.DFSCode`. It
+        seems to represent a Depth-First Search code used in graph algorithms. The method is responsible
+        for generating extensions based on the rightmost path in a graph
+        :param graphDb: The `graphDb` parameter in the `rightMostPathExtensions` method is a
+        database that stores graph data. It is used to retrieve graph objects based on
+        their IDs, which are provided in the `graphIds` parameter. The method then performs operations on
+        these graph objects to generate
+        :param graphIds: The `graphIds` parameter in the `rightMostPathExtensions` function represents a
+        list of graph identifiers. These identifiers are used to retrieve specific graphs from the
+        `graphDb` database in order to perform operations on them within the function. Each ID in the
+        `graphIds` list corresponds to an identifier.
+        :return: The function `rightMostPathExtensions` returns a dictionary `extensions` containing
+        extended edges as keys and sets of graph IDs as values.
+        """
         extensions = {}
         if c.isEmpty():
             for id in graphIds:
@@ -279,7 +350,25 @@ class Gspan(_ab._gSpan):
         return extensions
 
 
+
     def gspanDFS(self, c: _ab.DFSCode, graphDb, subgraphId):
+        """
+        The `gspanDFS` function recursively explores graph patterns using the gSpan algorithm to find
+        frequent subgraphs in a graph database.
+        
+        :param c: In the provided code snippet, the parameter `c` is an instance of the `_ab.DFSCode` class.
+        It is used as an input to the `gspanDFS` method for performing Depth-First Search (DFS) traversal in
+        a graph mining algorithm. The `c` parameter represents
+        :type c: _ab.DFSCode
+        :param graphDb: The `graphDb` parameter  refers to a graph database that the algorithm is 
+        operating on.
+        :param subgraphId: The `subgraphId` parameter in the `gspanDFS` method refers to an
+        ID represents a specific subgraph within the graph database `graphDb`. 
+        :return: The `gspanDFS` method is a recursive function that is called within itself to explore the graph 
+        structure and find frequent subgraphs. The function does not have a return value, but it modifies 
+        the `self.frequentSubgraphs` list by appending new frequent subgraphs found during the DFS traversal.
+        """
+
         if c.size == self.maxNumberOfEdges - 1:
             return
         extensions = self.rightMostPathExtensions(c, graphDb, subgraphId)
@@ -299,6 +388,15 @@ class Gspan(_ab._gSpan):
 
 
     def isCanonical(self, c: _ab.DFSCode):
+        """
+        The function `isCanonical` checks if a given DFS code is canonical by comparing it with its
+        rightmost path extensions.
+        
+        :param c: The parameter `c` is an instance of the `_ab.DFSCode` class
+        :type c: _ab.DFSCode
+        :return: a boolean value. It returns True if the input DFSCode `c` is canonical, and False if it is
+        not canonical.
+        """
         canC = _ab.DFSCode()
         for i in range(c.size):
             extensions = self.rightMostPathExtensionsFromSingle(canC, _ab.Graph(c))
@@ -316,6 +414,15 @@ class Gspan(_ab._gSpan):
     
 
     def gSpan(self, graphDb, outputFrequentVertices):
+        """
+        The gSpan function in Python processes a graph database by precalculating vertex lists, removing
+        infrequent vertex pairs, and performing a depth-first search algorithm.
+        
+        :param graphDb: The `graphDb` parameter  refers to a graph database that the algorithm is 
+        operating on.
+        :param outputFrequentVertices: The `outputFrequentVertices` parameter is a boolean flag that
+        determines whether the frequent vertices should be output or not.
+        """
         if outputFrequentVertices or Gspan.eliminate_infrequent_vertices:
             self.findAllOnlyOneVertex(graphDb, outputFrequentVertices)
 
@@ -360,6 +467,16 @@ class Gspan(_ab._gSpan):
 
 
     def findAllOnlyOneVertex(self, graphDb, outputFrequentVertices):
+        """
+        The function `findAllOnlyOneVertex` iterates through a graph database to find frequent vertices
+        based on a minimum support threshold, storing the results and optionally removing infrequent
+        vertices.
+        
+        :param graphDb: The `graphDb` parameter  refers to a graph database that the algorithm is 
+        operating on.
+        :param outputFrequentVertices: The `outputFrequentVertices` parameter is a boolean flag that
+        determines whether the frequent vertices should be included in the output or not.
+        """
         self.frequentVertexLabels = []
         labelM = {} 
         for g in graphDb:
@@ -382,8 +499,14 @@ class Gspan(_ab._gSpan):
                     self.infrequentVerticesRemovedCount += 1
 
 
-    #TODO: This method needs some correction, it has bugs
     def removeInfrequentVertexPairs(self, graphDb):
+        """
+        The function `removeInfrequentVertexPairs` processes a graph database by removing infrequent vertex
+        pairs and edge labels based on specified support thresholds.
+        
+        :param graphDb: The `graphDb` parameter  refers to a graph database that the algorithm is 
+        operating on.
+        """
         if Gspan.eliminate_infrequent_edge_labels:
             matrix = _ab.SparseTriangularMatrix()
             alreadySeenPair = set()
@@ -444,70 +567,12 @@ class Gspan(_ab._gSpan):
                             self.edgeRemovedByLabel += 1
     
 
-    def visualizeSubgraphs(self, outputPath):
-        with open(outputPath, 'r') as file:
-            lines = file.readlines()
+    def getMemoryRSS(self):
+        pass
 
-        currentGraph = None
-        graphs = []
-        vertexLabels = {}  
-        edgeLabels = {} 
+    def getMemoryUSS(self):
+        pass
 
-        for line in lines:
-            if line.startswith('t #'):
-                if currentGraph is not None:
-                    graphs.append((currentGraph, vertexLabels, edgeLabels))
-                currentGraph = _ab.nx.Graph()
-                vertexLabels = {}
-                edgeLabels = {}
-            elif line.startswith('v'):
-                _, vertexId, label = line.split()
-                currentGraph.add_node(int(vertexId))
-                vertexLabels[int(vertexId)] = label
-            elif line.startswith('e'):
-                _, source, target, label = line.split()
-                currentGraph.add_edge(int(source), int(target))
-                edgeLabels[(int(source), int(target))] = label
+    def getRuntime(self):
+        return self.runtime
 
-        if currentGraph is not None:
-            graphs.append((currentGraph, vertexLabels, edgeLabels))
-
-        nRows = int(len(graphs) ** 0.5)
-        nCols = (len(graphs) // nRows) + (len(graphs) % nRows > 0)
-
-        _ab.plt.figure(figsize=(nCols * 4, nRows * 4))  
-
-        for i, (graph, vertexLabels, edgeLabels) in enumerate(graphs):
-            ax = _ab.plt.subplot(nRows, nCols, i + 1)
-            pos = _ab.nx.spring_layout(graph)
-            _ab.nx.draw(graph, pos, labels=vertexLabels, ax=ax, with_labels=True, nodeColor='lightblue', 
-                    nodeSize=500, fontSize=10, fontWeight='bold')
-            _ab.nx.drawNetworkxEdgeLabels(graph, pos, edgeLabels=edgeLabels, ax=ax, fontColor='black')
-            ax.setTitle(f"Frequent Subgraph {i + 1}")
-
-        _ab.plt.tightLayout()
-        _ab.plt.show()
-
-
-
-
-# gspanInstance = Gspan()
-
-# inputFilePath = 'chemical_340.txt'
-
-# outputFilePath = 'output_c340.txt'
-
-# minSupport = 0.5
-# outputSingleVertices = True  
-# maxNumberOfEdges = 5
-# outputGraphIds = True 
-
-# gspanInstance.runAlgorithm(inputFilePath, outputFilePath, minSupport, 
-#                              outputSingleVertices, maxNumberOfEdges, 
-#                              outputGraphIds)
-
-# print("Runtime:", gspanInstance.runtime, "seconds")
-# print("Memory usage:", gspanInstance.maxmem, "MB")
-# print("Number of frequent subgraphs found:", gspanInstance.patternCount)
-
-# gspanInstance.visualizeSubgraphs(outputFilePath)

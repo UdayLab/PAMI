@@ -23,6 +23,7 @@ class ExtendedEdge:
         else:
             return False
 
+  
     def smallerThanOriginal(self, that):
         if that is None:
             return True
