@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
-from graph import Graph
-from dfsCode import DFSCode
-from frequentSubgraph import FrequentSubgraph
-from vertex import Vertex
-from edge import Edge
-from extendedEdge import ExtendedEdge
-from sparseTriangularMatrix import SparseTriangularMatrix
+from .graph import Graph
+from .dfsCode import DFSCode
+from .frequentSubgraph import FrequentSubgraph
+from .vertex import Vertex
+from .edge import Edge
+from .extendedEdge import ExtendedEdge
+from .sparseTriangularMatrix import SparseTriangularMatrix
 import time
 import math
 import matplotlib.pyplot as plt
