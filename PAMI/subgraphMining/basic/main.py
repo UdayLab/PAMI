@@ -11,11 +11,12 @@ def main():
     for min_support in  sup:
         output_single_vertices = True  
         max_number_of_edges = 100
-        obj = alg.GSpan(input_file_path, output_file_path, min_support, 
+        obj = alg.GSpan(input_file_path, min_support, 
                                 output_single_vertices, max_number_of_edges, 
                                     True)
 
         obj.run()
+        obj.save('temp.txt')
         runtime_340.append(obj.getRuntime())
         memRss.append(obj.getMemoryRSS())
         memUSS.append(obj.getMemoryUSS())

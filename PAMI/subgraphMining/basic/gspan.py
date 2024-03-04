@@ -3,19 +3,15 @@
 #
 #     from PAMI.subgraphMining.basic import GSpan as alg
 #
-#     obj = alg.CUFPTree(iFile, minSup)
+#     obj = alg.GSpan(iFile, oFile, min_support, output_single_vertices=True, max_number_of_edges=INF, outputgraphIDs = True)
 #
-#     obj.startMine()
+#     obj.run()
 #
-#     frequentPatterns = obj.getPatterns()
+#     frequentGraphs = obj.getFrequentSubgraphs()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#     memUSS = obj.getMemoryUSS()
 #
 #     obj.save(oFile)
-#
-#     Df = obj.getPatternsAsDataFrameß()
-#ß
-#     memUSS = obj.getMemoryUSS()
 #
 #     print("Total Memory in USS:", memUSS)
 #
@@ -40,7 +36,7 @@ class GSpan(_ab._gSpan):
     eliminate_infrequent_edge_labels = True
     edge_count_pruning = True
 
-    def __init__(self, inPath, outPath, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=True) -> None:
+    def __init__(self, inPath, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=True) -> None:
         self.minSup = minSupport
         self.frequentSubgraphs = []
         self._runtime = 0
@@ -55,7 +51,7 @@ class GSpan(_ab._gSpan):
         self.emptyGraphsRemoved = 0
         self.pruneByEdgeCount = 0
         self.inPath = inPath
-        self.outPath = outPath
+        self.outPath = None
         self.outputSingleVertices = outputSingleVertices
         self.maxNumberOfEdges = maxNumberOfEdges
         self.outputGraphIds = outputGraphIds
@@ -85,7 +81,7 @@ class GSpan(_ab._gSpan):
         self.gSpan(graphDb, self.outputSingleVertices)
 
         # Output
-        self.writeResultToFile(self.outPath)
+        # self.writeResultToFile(self.outPath)
 
         t2 = _ab.time.time()
 
@@ -104,12 +100,12 @@ class GSpan(_ab._gSpan):
         self.patternCount = len(self.frequentSubgraphs)
 
 
-    def writeResultToFile(self, outputPath):
+    def save(self, outputPath):
         """
-        The `writeResultToFile` function writes information about frequent subgraphs to a specified
+        The `save` function writes information about frequent subgraphs to a specified
         output file in a specific format.
         
-        :param outputPath: The `writeResultToFile` method is used to write the results of frequent
+        :param outputPath: The `save` method is used to write the results of frequent
         subgraphs to a file specified by the `outputPath` parameter. The method iterates over each
         frequent subgraph in `self.frequentSubgraphs` and writes the subgraph information to the file
         """
@@ -602,4 +598,7 @@ class GSpan(_ab._gSpan):
 
     def getRuntime(self):
         return self._runtime
+    
+    def getFrequentSubgraphs(self):
+        return self.frequentSubgraphs
 
