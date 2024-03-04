@@ -10,6 +10,7 @@ import time
 import math
 import matplotlib.pyplot as plt
 import psutil as _psutil
+import os
 
 
 class _gSpan(ABC):
