@@ -7,7 +7,7 @@ class Gspan(_ab._gSpan):
     eliminate_infrequent_edge_labels = True
     edge_count_pruning = True
 
-    def __init__(self, inPath, outPath, minSupport, outputSingleVertices, maxNumberOfEdges=float('inf'), outputGraphIds=True) -> None:
+    def __init__(self, inPath, outPath, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=True) -> None:
         self.minSup = minSupport
         self.frequentSubgraphs = []
         self._runtime = 0

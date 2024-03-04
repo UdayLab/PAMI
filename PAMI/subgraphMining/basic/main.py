@@ -22,6 +22,8 @@ def main():
 
 
     print(runtime_340)
+    print(memRss)
+    print(memUSS)
 
 if __name__=='__main__':
     main()
