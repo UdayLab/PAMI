@@ -1,6 +1,39 @@
+# **Importing this algorithm into a python program**
+# --------------------------------------------------------
+#
+#     from PAMI.subgraphMining.basic import GSpan as alg
+#
+#     obj = alg.CUFPTree(iFile, minSup)
+#
+#     obj.startMine()
+#
+#     frequentPatterns = obj.getPatterns()
+#
+#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#
+#     obj.save(oFile)
+#
+#     Df = obj.getPatternsAsDataFrameß()
+#ß
+#     memUSS = obj.getMemoryUSS()
+#
+#     print("Total Memory in USS:", memUSS)
+#
+#     memRSS = obj.getMemoryRSS()
+#
+#     print("Total Memory in RSS", memRSS)
+#
+#     run = obj.getRuntime()
+#
+#     print("Total ExecutionTime in seconds:", run)
+#
+#
+
+
+
 from PAMI.subgraphMining.basic import abstract as _ab
 
-class Gspan(_ab._gSpan):
+class GSpan(_ab._gSpan):
 
     eliminate_infrequent_vertices = True
     eliminate_infrequent_vertex_pairs = True
@@ -288,7 +321,7 @@ class Gspan(_ab._gSpan):
         if c.isEmpty():
             for id in graphIds:
                 g = graphDb[id]
-                if Gspan.edge_count_pruning and c.size >= g.getEdgeCount():
+                if GSpan.edge_count_pruning and c.size >= g.getEdgeCount():
                     self.pruneByEdgeCount += 1
                     continue
                 for v in g.vertices:
@@ -307,7 +340,7 @@ class Gspan(_ab._gSpan):
             rightMost = c.getRightMost()
             for id in graphIds:
                 g = graphDb[id]
-                if Gspan.edge_count_pruning and c.size >= g.getEdgeCount():
+                if GSpan.edge_count_pruning and c.size >= g.getEdgeCount():
                     self.pruneByEdgeCount += 1
                     continue
                 isoms = self.subgraphIsomorphisms(c, g)
@@ -417,13 +450,13 @@ class Gspan(_ab._gSpan):
         :param outputFrequentVertices: The `outputFrequentVertices` parameter is a boolean flag that
         determines whether the frequent vertices should be output or not.
         """
-        if outputFrequentVertices or Gspan.eliminate_infrequent_vertices:
+        if outputFrequentVertices or GSpan.eliminate_infrequent_vertices:
             self.findAllOnlyOneVertex(graphDb, outputFrequentVertices)
 
         for g in graphDb:
             g.precalculateVertexList()
 
-        if Gspan.eliminate_infrequent_vertex_pairs or Gspan.eliminate_infrequent_edge_labels:
+        if GSpan.eliminate_infrequent_vertex_pairs or GSpan.eliminate_infrequent_edge_labels:
             self.removeInfrequentVertexPairs(graphDb)
 
         graphIds = set()
@@ -452,7 +485,7 @@ class Gspan(_ab._gSpan):
                 self.y = x
 
         def __eq__(self, other):
-            if isinstance(other, Gspan.Pair):
+            if isinstance(other, GSpan.Pair):
                 return self.x == other.x and self.y == other.y
             return False
 
@@ -486,7 +519,7 @@ class Gspan(_ab._gSpan):
                     tempD = _ab.DFSCode()
                     tempD.add(_ab.ExtendedEdge(0, 0, label, label, -1))
                     self.frequentSubgraphs.append(_ab.FrequentSubgraph(tempD, tempSupG, sup))
-            elif Gspan.eliminate_infrequent_vertices:
+            elif GSpan.eliminate_infrequent_vertices:
                 for graphId in tempSupG:
                     g = graphDb[graphId]
                     g.removeInfrequentLabel(label)
@@ -501,11 +534,11 @@ class Gspan(_ab._gSpan):
         :param graphDb: The `graphDb` parameter  refers to a graph database that the algorithm is 
         operating on.
         """
-        if Gspan.eliminate_infrequent_edge_labels:
+        if GSpan.eliminate_infrequent_edge_labels:
             matrix = _ab.SparseTriangularMatrix()
             alreadySeenPair = set()
 
-        if Gspan.eliminate_infrequent_edge_labels:
+        if GSpan.eliminate_infrequent_edge_labels:
             mapEdgeLabelToSupport = {}
             alreadySeenEdgeLabel = set()
 
@@ -519,28 +552,28 @@ class Gspan(_ab._gSpan):
                     v2 = edge.another(v1.getId())
                     labelV2 = g.getVLabel(v2)
 
-                    if Gspan.eliminate_infrequent_edge_labels:
+                    if GSpan.eliminate_infrequent_edge_labels:
                         pair = self.Pair(labelV1, labelV2)
                         if pair not in alreadySeenPair:
                             matrix.incrementCount(labelV1, labelV2)
                             alreadySeenPair.add(pair)
 
-                    if Gspan.eliminate_infrequent_edge_labels:
+                    if GSpan.eliminate_infrequent_edge_labels:
                         edgeLabel = edge.getEdgeLabel()
                         if edgeLabel not in alreadySeenEdgeLabel:
                             alreadySeenEdgeLabel.add(edgeLabel)
                             edgeSupport = mapEdgeLabelToSupport.get(edgeLabel, 0)
                             mapEdgeLabelToSupport[edgeLabel] = edgeSupport + 1
 
-            if Gspan.eliminate_infrequent_vertex_pairs:
+            if GSpan.eliminate_infrequent_vertex_pairs:
                 alreadySeenPair.clear()
-            if Gspan.eliminate_infrequent_edge_labels:
+            if GSpan.eliminate_infrequent_edge_labels:
                 alreadySeenEdgeLabel.clear()
 
-        if Gspan.eliminate_infrequent_vertex_pairs:
+        if GSpan.eliminate_infrequent_vertex_pairs:
             matrix.removeInfrequentEntriesFromMatrix(self.minSup)
 
-        if Gspan.eliminate_infrequent_vertex_pairs or Gspan.eliminate_infrequent_edge_labels:
+        if GSpan.eliminate_infrequent_vertex_pairs or GSpan.eliminate_infrequent_edge_labels:
             for g in graphDb:
                 vertices = g.getAllVertices()
 
@@ -551,11 +584,11 @@ class Gspan(_ab._gSpan):
                         labelV2 = g.getVLabel(v2)
                         count = matrix.getSupportForItems(v1.getLabel(), labelV2)
 
-                        if Gspan.eliminate_infrequent_vertex_pairs and count < self.minSup:
+                        if GSpan.eliminate_infrequent_vertex_pairs and count < self.minSup:
                             v1.removeEdge(edge)
                             self.infrequentVertexPairsRemoved += 1
 
-                        elif Gspan.eliminate_infrequent_edge_labels and \
+                        elif GSpan.eliminate_infrequent_edge_labels and \
                                 mapEdgeLabelToSupport.get(edge.getEdgeLabel(), 0) < self.minSup:
                             v1.removeEdge(edge)
                             self.edgeRemovedByLabel += 1
