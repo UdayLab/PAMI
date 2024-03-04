@@ -1,0 +1,7 @@
+FPGrowth
+-----------
+
+.. automodule:: PAMI.frequentPattern.basic.FPGrowth
+   :members:
+   :undoc-members:
+   :show-inheritance:

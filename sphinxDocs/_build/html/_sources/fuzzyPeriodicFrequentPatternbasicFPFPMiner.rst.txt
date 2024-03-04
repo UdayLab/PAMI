@@ -1,7 +1,0 @@
-FPFPMiner
------------------
-
-.. automodule:: PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner
-   :members:
-   :undoc-members:
-   :show-inheritance:
