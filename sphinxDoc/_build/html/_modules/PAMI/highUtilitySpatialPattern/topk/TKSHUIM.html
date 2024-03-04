@@ -39,9 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
 </ul>
 
         </div>
@@ -129,7 +152,7 @@
 <span class="kn">import</span> <span class="nn">heapq</span>
 
 <div class="viewcode-block" id="Transaction">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction">[docs]</a>
 <span class="k">class</span> <span class="nc">Transaction</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to store Transaction of a database</span>
@@ -177,7 +200,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">pmus</span> <span class="o">=</span> <span class="n">pmus</span>
 
 <div class="viewcode-block" id="Transaction.projectTransaction">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.projectTransaction">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.projectTransaction">[docs]</a>
     <span class="k">def</span> <span class="nf">projectTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offsetE</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to create new Transaction from existing till offsetE</span>
@@ -196,7 +219,7 @@
 
 
 <div class="viewcode-block" id="Transaction.getItems">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getItems">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getItems">[docs]</a>
     <span class="k">def</span> <span class="nf">getItems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return items in transaction</span>
@@ -205,7 +228,7 @@
 
 
 <div class="viewcode-block" id="Transaction.getPmus">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getPmus">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getPmus">[docs]</a>
     <span class="k">def</span> <span class="nf">getPmus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return pmus in transaction</span>
@@ -214,7 +237,7 @@
 
 
 <div class="viewcode-block" id="Transaction.getUtilities">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getUtilities">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getUtilities">[docs]</a>
     <span class="k">def</span> <span class="nf">getUtilities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return utilities in transaction</span>
@@ -224,7 +247,7 @@
 
     <span class="c1"># get the last position in this transaction</span>
 <div class="viewcode-block" id="Transaction.getLastPosition">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getLastPosition">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.getLastPosition">[docs]</a>
     <span class="k">def</span> <span class="nf">getLastPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return last position in a transaction</span>
@@ -233,7 +256,7 @@
 
 
 <div class="viewcode-block" id="Transaction.removeUnpromisingItems">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.removeUnpromisingItems">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.removeUnpromisingItems">[docs]</a>
     <span class="k">def</span> <span class="nf">removeUnpromisingItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oldNamesToNewNames</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to remove items with low Utility than minUtil</span>
@@ -255,7 +278,7 @@
 
 
 <div class="viewcode-block" id="Transaction.insertionSort">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.insertionSort">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Transaction.insertionSort">[docs]</a>
     <span class="k">def</span> <span class="nf">insertionSort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            A method to sort items in order</span>
@@ -275,7 +298,7 @@
 
 
 <div class="viewcode-block" id="Dataset">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset">[docs]</a>
 <span class="k">class</span> <span class="nc">Dataset</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class represent the list of transactions in this dataset</span>
@@ -312,7 +335,7 @@
         <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Dataset.createTransaction">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.createTransaction">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.createTransaction">[docs]</a>
     <span class="k">def</span> <span class="nf">createTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to create Transaction from dataset given</span>
@@ -349,7 +372,7 @@
 
 
 <div class="viewcode-block" id="Dataset.getMaxItem">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.getMaxItem">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.getMaxItem">[docs]</a>
     <span class="k">def</span> <span class="nf">getMaxItem</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return name of the largest item</span>
@@ -358,7 +381,7 @@
 
 
 <div class="viewcode-block" id="Dataset.getTransactions">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.getTransactions">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.getTransactions">[docs]</a>
     <span class="k">def</span> <span class="nf">getTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return transactions from database</span>
@@ -369,7 +392,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM">[docs]</a>
 <span class="k">class</span> <span class="nc">TKSHUIM</span><span class="p">(</span><span class="n">utilityPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:</span>
@@ -526,7 +549,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">nFile</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TKSHUIM.startMine">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.startMine">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main function of the program.</span>
@@ -592,7 +615,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.backtrackingEFIM">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.backtrackingEFIM">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.backtrackingEFIM">[docs]</a>
     <span class="k">def</span> <span class="nf">backtrackingEFIM</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactionsOfP</span><span class="p">,</span> <span class="n">itemsToKeep</span><span class="p">,</span> <span class="n">itemsToExplore</span><span class="p">,</span> <span class="n">prefixLength</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to mine the TKSHUIs Recursively</span>
@@ -684,7 +707,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.useUtilityBinArraysToCalculateUpperBounds">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.useUtilityBinArraysToCalculateUpperBounds">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.useUtilityBinArraysToCalculateUpperBounds">[docs]</a>
     <span class="k">def</span> <span class="nf">useUtilityBinArraysToCalculateUpperBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactionsPe</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">itemsToKeep</span><span class="p">,</span> <span class="n">neighbourhoodList</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}</span>
@@ -723,7 +746,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.calculateNeighbourIntersection">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.calculateNeighbourIntersection">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.calculateNeighbourIntersection">[docs]</a>
     <span class="k">def</span> <span class="nf">calculateNeighbourIntersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefixLength</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to find common Neighbours</span>
@@ -745,7 +768,7 @@
 
     
 <div class="viewcode-block" id="TKSHUIM.output">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.output">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.output">[docs]</a>
     <span class="k">def</span> <span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tempPosition</span><span class="p">,</span> <span class="n">utility</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">         A method save all high-utility itemSet to file or memory depending on what the user chose</span>
@@ -764,7 +787,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.is_equal">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.is_equal">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.is_equal">[docs]</a>
     <span class="k">def</span> <span class="nf">is_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction1</span><span class="p">,</span> <span class="n">transaction2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">         A method to Check if two transaction are identical</span>
@@ -792,7 +815,7 @@
 
     
 <div class="viewcode-block" id="TKSHUIM.intersection">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.intersection">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.intersection">[docs]</a>
     <span class="k">def</span> <span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method that return the intersection of 2 list</span>
@@ -810,7 +833,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime">[docs]</a>
     <span class="k">def</span> <span class="nf">useUtilityBinArrayToCalculateSubtreeUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Scan the initial database to calculate the subtree utility of each item using a utility-bin array</span>
@@ -837,7 +860,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.sortDatabase">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.sortDatabase">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.sortDatabase">[docs]</a>
     <span class="k">def</span> <span class="nf">sortDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Method to sort transaction in the order of PMU</span>
@@ -852,7 +875,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.sort_transaction">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.sort_transaction">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.sort_transaction">[docs]</a>
     <span class="k">def</span> <span class="nf">sort_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trans1</span><span class="p">,</span> <span class="n">trans2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Method to sort transaction in the order of PMU</span>
@@ -895,7 +918,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.useUtilityBinArrayToCalculateLocalUtilityFirstTime">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.useUtilityBinArrayToCalculateLocalUtilityFirstTime">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.useUtilityBinArrayToCalculateLocalUtilityFirstTime">[docs]</a>
     <span class="k">def</span> <span class="nf">useUtilityBinArrayToCalculateLocalUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to scan the database using utility bin array to calculate the pmus</span>
@@ -940,7 +963,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.additemset">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.additemset">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.additemset">[docs]</a>
     <span class="k">def</span> <span class="nf">additemset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">itemset</span><span class="p">,</span> <span class="n">utility</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        adds the itemset to the priority queue</span>
@@ -955,7 +978,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getPatternsAsDataFrame">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final patterns in a dataframe</span>
 
@@ -972,7 +995,7 @@
 
     
 <div class="viewcode-block" id="TKSHUIM.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of patterns after completion of the mining process</span>
 
@@ -983,7 +1006,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.save">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.save">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of patterns will be loaded in to an output file</span>
 
@@ -998,7 +1021,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getMemoryUSS">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -1010,7 +1033,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getMemoryRSS">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -1021,7 +1044,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getRuntime">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
 
@@ -1033,7 +1056,7 @@
 
 
 <div class="viewcode-block" id="TKSHUIM.printResults">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.printResults">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1045,7 +1068,7 @@
 
 
 <div class="viewcode-block" id="main">
-<a class="viewcode-back" href="../../../../PAMI.highUtilitySpatialPattern.topk.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.main">[docs]</a>
+<a class="viewcode-back" href="../../../../highUtilitySpatialPatternTopkTKSHUIM.html#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.main">[docs]</a>
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">inputFile</span> <span class="o">=</span> <span class="s1">&#39;mushroom_utility_spmf.txt&#39;</span>
     <span class="n">neighborFile</span> <span class="o">=</span> <span class="s1">&#39;mushroom_neighbourhood.txt&#39;</span> <span class="c1">#Users can also specify this constraint between 0 to 1.</span>

@@ -39,9 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
 </ul>
 
         </div>
@@ -359,7 +382,7 @@
 
 
 <div class="viewcode-block" id="RHUIM">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM">[docs]</a>
 <span class="k">class</span> <span class="nc">RHUIM</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_utilityPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:   RHUIM algorithm helps us to mine Relative High Utility itemSets from transactional databases.</span>
@@ -512,7 +535,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minUtil</span><span class="p">,</span> <span class="n">minUR</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RHUIM.startMine">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.startMine">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mining process will start from this function</span>
@@ -747,7 +770,7 @@
                 <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
 
 <div class="viewcode-block" id="RHUIM.sortDatabase">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.sortDatabase">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.sortDatabase">[docs]</a>
     <span class="k">def</span> <span class="nf">sortDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Method to sort transaction</span>
@@ -764,7 +787,7 @@
 
 
 <div class="viewcode-block" id="RHUIM.sort_transaction">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.sort_transaction">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.sort_transaction">[docs]</a>
     <span class="k">def</span> <span class="nf">sort_transaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trans1</span><span class="p">:</span> <span class="n">_Transaction</span><span class="p">,</span> <span class="n">trans2</span><span class="p">:</span> <span class="n">_Transaction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Method to sort transaction</span>
@@ -826,7 +849,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">transactionUtility</span>
 
 <div class="viewcode-block" id="RHUIM.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getPatternsAsDataFrame">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final patterns in a dataframe</span>
 
@@ -843,7 +866,7 @@
 
     
 <div class="viewcode-block" id="RHUIM.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of patterns after completion of the mining process</span>
 
@@ -854,7 +877,7 @@
 
 
 <div class="viewcode-block" id="RHUIM.save">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.save">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
@@ -870,7 +893,7 @@
 
 
 <div class="viewcode-block" id="RHUIM.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getMemoryUSS">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
@@ -883,7 +906,7 @@
 
 
 <div class="viewcode-block" id="RHUIM.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getMemoryRSS">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -894,7 +917,7 @@
 
 
 <div class="viewcode-block" id="RHUIM.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getRuntime">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
 
@@ -906,7 +929,7 @@
 
 
 <div class="viewcode-block" id="RHUIM.printResults">
-<a class="viewcode-back" href="../../../../PAMI.relativeHighUtilityPattern.basic.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.printResults">[docs]</a>
+<a class="viewcode-back" href="../../../../relativeHighUtilityPatternBasicRHUIM.html#PAMI.relativeHighUtilityPattern.basic.RHUIM.RHUIM.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
