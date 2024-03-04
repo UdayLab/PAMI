@@ -37,7 +37,7 @@ class _gSpan(ABC):
         pass
 
     @abstractmethod
-    def writeResultToFile(self, outputPath):
+    def save(self, outputPath):
         """
         Write the result of the gSpan algorithm to a file.
         :param outputPath: Path to the output file.
