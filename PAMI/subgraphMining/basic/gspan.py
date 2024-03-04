@@ -1,3 +1,4 @@
+# gSpan is a subgraph mining algorithm that uses DFS and DFS codes to mine subgraphs
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #

@@ -11,16 +11,7 @@ class SparseTriangularMatrix:
         return "".join(temp)
 
 
-    # def incrementCount(self, i, j):
-    #     smaller, larger = min(i, j), max(i, j)
-
-    #     if smaller not in self.matrix:
-    #         self.matrix[smaller] = {larger: 1}
-    #     else:
-    #         self.matrix[smaller][larger] = self.matrix[smaller].get(larger, 0) + 1
-
     def incrementCount(self, i, j):
-        # print(f"Incrementing count for pair ({i}, {j})")
         if i < j:
             key, subkey = i, j
         else:
@@ -28,14 +19,11 @@ class SparseTriangularMatrix:
 
         if key not in self.matrix:
             self.matrix[key] = {subkey: 1}
-            # print(f"New pair added: {key}-{subkey}, count: 1")
         else:
             if subkey not in self.matrix[key]:
                 self.matrix[key][subkey] = 1
-                # print(f"New subkey added for existing key: {key}-{subkey}, count: 1")
             else:
                 self.matrix[key][subkey] += 1
-                # print(f"Count updated for {key}-{subkey}, new count: {self.matrix[key][subkey]}")
 
     def getSupportForItems(self, i, j):
         smaller, larger = min(i, j), max(i, j)
