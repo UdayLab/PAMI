@@ -39,9 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
 </ul>
 
         </div>
@@ -131,7 +154,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
 
 <div class="viewcode-block" id="CMine">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine">[docs]</a>
 <span class="k">class</span> <span class="nc">CMine</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_coveragePatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
@@ -288,7 +311,7 @@
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File Not Found&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CMine.creatingCoverageItems">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.creatingCoverageItems">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.creatingCoverageItems">[docs]</a>
     <span class="k">def</span> <span class="nf">creatingCoverageItems</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function creates coverage items from _database.</span>
@@ -309,7 +332,7 @@
 
 
 <div class="viewcode-block" id="CMine.tidToBitset">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.tidToBitset">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.tidToBitset">[docs]</a>
     <span class="k">def</span> <span class="nf">tidToBitset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">item_set</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function converts tid list to bitset.</span>
@@ -329,7 +352,7 @@
 
 
 <div class="viewcode-block" id="CMine.genPatterns">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.genPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.genPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">genPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">prefix</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span><span class="n">tidData</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function generate coverage pattern about prefix.</span>
@@ -355,7 +378,7 @@
 
 
 <div class="viewcode-block" id="CMine.generateAllPatterns">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.generateAllPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.generateAllPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">generateAllPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">coverageItems</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function generates all coverage patterns.</span>
@@ -370,7 +393,7 @@
 
 
 <div class="viewcode-block" id="CMine.startMine">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.startMine">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Main method to start &quot;&quot;&quot;</span>
 
@@ -396,7 +419,7 @@
 
 
 <div class="viewcode-block" id="CMine.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.getMemoryUSS">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
@@ -409,7 +432,7 @@
 
 
 <div class="viewcode-block" id="CMine.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.getMemoryRSS">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
@@ -420,7 +443,7 @@
 
 
 <div class="viewcode-block" id="CMine.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.getRuntime">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
@@ -431,7 +454,7 @@
 
 
 <div class="viewcode-block" id="CMine.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.getPatternsAsDataFrame">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final coverage patterns in a dataframe</span>
 <span class="sd">        :return: returning coverage patterns in a dataframe</span>
@@ -447,7 +470,7 @@
 
 
 <div class="viewcode-block" id="CMine.save">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.save">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of coverage patterns will be loaded in to an output file</span>
 <span class="sd">        :param outFile: name of the outputfile</span>
@@ -461,7 +484,7 @@
 
 
 <div class="viewcode-block" id="CMine.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.getPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of coverage patterns after completion of the mining process</span>
 <span class="sd">        :return: returning coverage patterns</span>
@@ -471,7 +494,7 @@
 
 
 <div class="viewcode-block" id="CMine.printResults">
-<a class="viewcode-back" href="../../../../PAMI.coveragePattern.basic.html#PAMI.coveragePattern.basic.CMine.CMine.printResults">[docs]</a>
+<a class="viewcode-back" href="../../../../coveragePatternBasicCMine.html#PAMI.coveragePattern.basic.CMine.CMine.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the result</span>

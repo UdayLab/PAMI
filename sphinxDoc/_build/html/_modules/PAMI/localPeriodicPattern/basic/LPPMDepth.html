@@ -39,9 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
 </ul>
 
         </div>
@@ -129,7 +152,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <div class="viewcode-block" id="LPPMDepth">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPMDepth.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth">[docs]</a>
 <span class="k">class</span> <span class="nc">LPPMDepth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_localPeriodicPatterns</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -487,7 +510,7 @@
 
 
 <div class="viewcode-block" id="LPPMDepth.startMine">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.startMine">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPMDepth.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mining process start from here. This function calls createTSlist and generateLPP.</span>
@@ -509,7 +532,7 @@
 
 
 <div class="viewcode-block" id="LPPMDepth.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getMemoryUSS">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPMDepth.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -521,7 +544,7 @@
 
 
 <div class="viewcode-block" id="LPPMDepth.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getMemoryRSS">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPMDepth.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -533,7 +556,7 @@
 
 
 <div class="viewcode-block" id="LPPMDepth.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getRuntime">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPMDepth.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
 
@@ -545,7 +568,7 @@
 
 
 <div class="viewcode-block" id="LPPMDepth.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getPatternsAsDataFrame">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPMDepth.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final local periodic patterns in a dataframe</span>
@@ -566,7 +589,7 @@
 
 
 <div class="viewcode-block" id="LPPMDepth.save">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.save">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPMDepth.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of local periodic patterns will be loaded in to an output file</span>
@@ -588,7 +611,7 @@
 
 
 <div class="viewcode-block" id="LPPMDepth.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPMDepth.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">str</span><span class="p">],</span> <span class="n">Set</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of local periodic patterns after completion of the mining process</span>
 
@@ -599,7 +622,7 @@
 
 
 <div class="viewcode-block" id="LPPMDepth.printResults">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.printResults">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPMDepth.html#PAMI.localPeriodicPattern.basic.LPPMDepth.LPPMDepth.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
