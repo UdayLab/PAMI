@@ -9,11 +9,18 @@ class DFSCode:
     #     return pickle.loads(pickle.dumps(self))
 
     def notPreOfRm(self, v):
+        """
+        This function checks if a given value is not the second-to-last element on the
+        `rightMostPath` given a vertex.
+        """
         if len(self.rightMostPath) <= 1:
             return True
         return v != self.rightMostPath[-2]
 
     def getAllVLabels(self):
+        """
+        This function retrieves all vertex labels from the extended edge list and returns them in a list.
+        """
         labels = []
         vertexMap = {}
         for ee in self.eeList:
@@ -29,6 +36,10 @@ class DFSCode:
         return labels
 
     def add(self, ee):
+        """
+        The `add` function in adds elements to the EE list while updating the rightmost element and path
+        based on certain conditions.
+        """
         if self.size == 0:
             self.rightMost = 1
             self.rightMostPath.extend([0, 1])

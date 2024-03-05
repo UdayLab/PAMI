@@ -1,3 +1,6 @@
+# The `SparseTriangularMatrix` class represents a matrix with sparse triangular structure and provides
+# methods for incrementing counts, getting support for items, setting support values, and removing
+# infrequent entries based on a minimum support threshold.
 class SparseTriangularMatrix:
     def __init__(self):
         self.matrix = {}  

@@ -6,6 +6,10 @@ class Graph:
     emptyIntegerArray = []
 
     def __init__(self, id, vMap=None, dfsCode=None):
+        """
+        The `__init__` function initializes a graph object with optional parameters for vertex mapping and
+        DFS code.
+        """
         self.vMap = {}
         self.id = id
         if vMap is not None:
@@ -38,6 +42,9 @@ class Graph:
         return self.id
 
     def removeInfrequentLabel(self, label):
+        """
+        The function removes vertices with a specific label from the graph and updates the edges accordingly.
+        """
         toRemove = [key for key, vertex in self.vMap.items() if vertex.getLabel() == label]
         for key in toRemove:
             del self.vMap[key]
@@ -50,6 +57,9 @@ class Graph:
                 vertex.getEdgeList().remove(edge)
 
     def precalculateVertexNeighbors(self):
+        """
+        The function precalculates the neighbors of each vertex in a graph and stores them in a cache.
+        """
         self.neighborCache = {}
         self.edgeCount = 0
 
@@ -68,11 +78,18 @@ class Graph:
         self.edgeCount //= 2    
     
     def precalculateVertexList(self):
+        """
+        The function precalculateVertexList creates a list of vertices by iterating through a dictionary of
+        vertices.
+        """
         self.vertices = []
         for _, vertex in self.vMap.items():
             self.vertices.append(vertex)
 
     def precalculateLabelsToVertices(self):
+        """
+        This function precalculates and stores mappings of vertex labels to their corresponding vertex IDs.
+        """
         self.mapLabelToVertexIds = {}
         for vertex in self.vertices:
             label = vertex.getLabel()
