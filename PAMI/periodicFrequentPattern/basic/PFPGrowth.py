@@ -384,45 +384,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
         convert()
             to convert the user specified value
 
-    **Methods to execute code on terminal**
-    --------------------------------------------
-            Format:
-                      >>>  python3 PFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
-            Example:
-                      >>>  python3 PFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
-
-                      .. note:: minSup will be considered in percentage of database transactions
-
-    **Importing this algorithm into a python program**
-    ---------------------------------------------------
-    .. code-block:: python
-
-                from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg
-
-                obj = alg.PFPGrowth(iFile, minSup, maxPer)
-
-                obj.startMine()
-
-                periodicFrequentPatterns = obj.getPatterns()
-
-                print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
-
-                obj.save(oFile)
-
-                Df = obj.getPatternsAsDataFrame()
-
-                memUSS = obj.getMemoryUSS()
-
-                print("Total Memory in USS:", memUSS)
-
-                memRSS = obj.getMemoryRSS()
-
-                print("Total Memory in RSS", memRSS)
-
-                run = obj.getRuntime()
-
-                print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
     --------------
@@ -704,3 +666,46 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+
+    """
+    **Methods to execute code on terminal**
+    --------------------------------------------
+            Format:
+                      >>>  python3 PFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+
+            Example:
+                      >>>  python3 PFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+
+                      .. note:: minSup will be considered in percentage of database transactions
+
+    **Importing this algorithm into a python program**
+    ---------------------------------------------------
+    .. code-block:: python
+
+                from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg
+
+                obj = alg.PFPGrowth(iFile, minSup, maxPer)
+
+                obj.startMine()
+
+                periodicFrequentPatterns = obj.getPatterns()
+
+                print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+
+                obj.save(oFile)
+
+                Df = obj.getPatternsAsDataFrame()
+
+                memUSS = obj.getMemoryUSS()
+
+                print("Total Memory in USS:", memUSS)
+
+                memRSS = obj.getMemoryRSS()
+
+                print("Total Memory in RSS", memRSS)
+
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+    """
