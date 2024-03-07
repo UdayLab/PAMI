@@ -248,6 +248,18 @@ class RSFPGrowth(_ab._frequentPatterns):
     :Reference:   'Towards Efficient Discovery of Frequent Patterns with Relative Support' R. Uday Kiran and
                    Masaru Kitsuregawa, http://comad.in/comad2012/pdf/kiran.pdf
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: str:
+                   Controls the minimum number of transactions in which every item must appear in a database.
+    :param  minRS: float:
+                   Controls the minimum number of transactions in which at least one time within a pattern must appear in a database.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : file
