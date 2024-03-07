@@ -68,6 +68,18 @@ class PPPClose(_abstract._partialPeriodicPatterns):
 
     :Reference:
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  period: float:
+                   Minimum partial periodic...
+    :param  periodicSupport: float:
+                   Minimum partial periodic...
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : str

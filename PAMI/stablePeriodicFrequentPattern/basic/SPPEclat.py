@@ -149,7 +149,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
     **Importing this algorithm into a python program**
     ---------------------------------------------------
-    .. code-block:: python
+    ... code-block:: python
 
                     from PAMI.stablePeriodicFrequentPattern.basic import basic as alg
 

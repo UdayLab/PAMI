@@ -396,6 +396,20 @@ class Max3PGrowth(_abstract._partialPeriodicPatterns):
                   "Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases",
                   IEEE 2020, https://ieeexplore.ieee.org/document/9260063
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  period: float:
+                   Minimum partial periodic...
+    :param  periodicSupport: str:
+                   Minimum partial periodic...
+    :param  maximalTree: str:
+                   Minimum partial periodic...
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : file
