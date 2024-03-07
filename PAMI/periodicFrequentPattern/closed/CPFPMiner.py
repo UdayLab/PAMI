@@ -62,6 +62,18 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     :Reference:   P. Likhitha et al., "Discovering Closed Periodic-Frequent Patterns in Very Large Temporal Databases"
                   2020 IEEE International Conference on Big Data (Big Data), 2020, https://ieeexplore.ieee.org/document/9378215
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: float:
+                   Controls the minimum number of transactions in which every item must appear in a database.
+    :param  maxPer: float:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : str
