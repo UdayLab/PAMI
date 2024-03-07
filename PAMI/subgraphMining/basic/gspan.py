@@ -38,6 +38,10 @@ class GSpan(_ab._gSpan):
     edge_count_pruning = True
 
     def __init__(self, inPath, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=True) -> None:
+        """
+        Initialize variables
+        """
+        
         self.minSup = minSupport
         self.frequentSubgraphs = []
         self._runtime = 0
@@ -86,6 +90,7 @@ class GSpan(_ab._gSpan):
 
         t2 = _ab.time.time()
 
+        #Calculate runtime
         self._runtime = (t2 - t1)
 
         process = _ab._psutil.Process(_ab._os.getpid())
@@ -207,16 +212,21 @@ class GSpan(_ab._gSpan):
         """
         isoms = []    
         startLabel = c.getEeList()[0].getVLabel1()
+
+        # Find all vertices in the graph that match the start label and initialize isomorphisms with them
         for vId in g.findAllWithLabel(startLabel):
             hMap = {}
             hMap[0] = vId
             isoms.append(hMap)
+
+        # For each edge in the DFS code, try to extend each partial isomorphism
         for ee in c.getEeList():
             v1, v2, v2Label, eLabel = ee.getV1(), ee.getV2(), ee.getVLabel2(), ee.getEdgeLabel() 
             updateIsoms = []
-
+            # Try to extend each current isomorphism with the current edge
             for iso in isoms:
                 mappedV1 = iso.get(v1)
+                # Forward edge
                 if v1 < v2:
                     mappedVertices = list(iso.values())
                     for mappedV2 in g.getAllNeighbors(mappedV1):
@@ -229,8 +239,10 @@ class GSpan(_ab._gSpan):
 
                             updateIsoms.append(tempM)
 
+                # Backward edge
                 else:
                     mappedV2 = iso.get(v2)
+                    # Check if the backward edge exists in the graph matching the DFS code edge
                     if g.isNeighboring(mappedV1, mappedV2) and eLabel == g.getEdgeLabel(mappedV1, mappedV2):
                         updateIsoms.append(iso)
 
@@ -253,12 +265,16 @@ class GSpan(_ab._gSpan):
         :return: The function `rightMostPathExtensionsFromSingle` returns a dictionary `extensions`
         containing extended edges as keys and sets of graph IDs as values.
         """
+        # Get the unique identifier for the given graph
         gid = g.getId()
+        # Initialize a dictionary to store potential extensions
         extensions = {}
 
+        # If the DFS code is empty, consider all edges of the graph for extension
         if c.isEmpty():
             for vertex in g.vertices:
                 for e in vertex.getEdgeList():
+                    # Determine the order of vertex labels to maintain consistency
                     v1Label = g.getVLabel(e.v1)
                     v2Label = g.getVLabel(e.v2)
                     if v1Label < v2Label:
@@ -266,13 +282,16 @@ class GSpan(_ab._gSpan):
                     else:
                         ee1 = _ab.ExtendedEdge(0, 1, v2Label, v1Label, e.getEdgeLabel())
 
+                    # Update the extensions dictionary with new or existing extended edges
                     setOfGraphIds = extensions.get(ee1, set())
                     setOfGraphIds.add(gid)
                     extensions[ee1] = setOfGraphIds
         else:
+            # For non-empty DFS code, focus on extending from the rightmost path
             rightMost = c.getRightMost()
             isoms = self.subgraphIsomorphisms(c, g)
 
+            # Iterate through all isomorphisms to find valid extensions
             for isom in isoms:
                 invertedIsom = {v: k for k, v in isom.items()}
                 mappedRm = isom[rightMost]
@@ -318,22 +337,26 @@ class GSpan(_ab._gSpan):
         if c.isEmpty():
             for id in graphIds:
                 g = graphDb[id]
+                # Skip graphs if pruning based on edge count is enabled and applicable
                 if GSpan.edge_count_pruning and c.size >= g.getEdgeCount():
                     self.pruneByEdgeCount += 1
                     continue
                 for v in g.vertices:
                     for e in v.getEdgeList():
+                        # Organize the vertex labels to maintain consistent ordering
                         v1L = g.getVLabel(e.v1)
                         v2L = g.getVLabel(e.v2)
                         if v1L < v2L:
                             ee1 = _ab.ExtendedEdge(0, 1, v1L, v2L, e.getEdgeLabel())
                         else:
                             ee1 = _ab.ExtendedEdge(0, 1, v2L, v1L, e.getEdgeLabel())
-                                                
+
+                        # Add the new or existing extensions to the dictionary                       
                         setOfGraphIds = extensions.get(ee1, set())
                         setOfGraphIds.add(id)
                         extensions[ee1] = setOfGraphIds
         else:
+            # For non-empty DFS codes, extend based on the rightmost path of each graph
             rightMost = c.getRightMost()
             for id in graphIds:
                 g = graphDb[id]
@@ -508,6 +531,7 @@ class GSpan(_ab._gSpan):
                 if v.getEdgeList():
                     vLabel = v.getLabel()
                     labelM.setdefault(vLabel, set()).add(g.getId())
+        # Check each label for frequency against the minimum support threshold
         for label, tempSupG in labelM.items():                
             sup = len(tempSupG)
             if sup >= self.minSup:
@@ -533,15 +557,16 @@ class GSpan(_ab._gSpan):
         """
         if GSpan.eliminate_infrequent_edge_labels:
             matrix = _ab.SparseTriangularMatrix()
-            alreadySeenPair = set()
+            alreadySeenPair = set() # To avoid double counting pairs in the same graph
 
         if GSpan.eliminate_infrequent_edge_labels:
             mapEdgeLabelToSupport = {}
-            alreadySeenEdgeLabel = set()
+            alreadySeenEdgeLabel = set() # To avoid double counting edge labels in the same graph
 
         for g in graphDb:
             vertices = g.getAllVertices()
 
+            # Check each vertex and its edges for infrequent pairs and labels
             for v1 in vertices:
                 labelV1 = v1.getLabel()
 
@@ -549,12 +574,14 @@ class GSpan(_ab._gSpan):
                     v2 = edge.another(v1.getId())
                     labelV2 = g.getVLabel(v2)
 
+                    # Track vertex label pairs for infrequency analysis
                     if GSpan.eliminate_infrequent_edge_labels:
                         pair = self.Pair(labelV1, labelV2)
                         if pair not in alreadySeenPair:
                             matrix.incrementCount(labelV1, labelV2)
                             alreadySeenPair.add(pair)
 
+                    # Track edge labels for infrequency analysis
                     if GSpan.eliminate_infrequent_edge_labels:
                         edgeLabel = edge.getEdgeLabel()
                         if edgeLabel not in alreadySeenEdgeLabel:
@@ -581,6 +608,7 @@ class GSpan(_ab._gSpan):
                         labelV2 = g.getVLabel(v2)
                         count = matrix.getSupportForItems(v1.getLabel(), labelV2)
 
+                        # Remove edges based on infrequency criteria
                         if GSpan.eliminate_infrequent_vertex_pairs and count < self.minSup:
                             v1.removeEdge(edge)
                             self.infrequentVertexPairsRemoved += 1
