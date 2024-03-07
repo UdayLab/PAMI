@@ -1,3 +1,5 @@
+import pickle
+
 class DFSCode:
     def __init__(self):
         self.rightMost = -1
@@ -5,8 +7,8 @@ class DFSCode:
         self.rightMostPath = []  
         self.eeList = []
 
-    # def copy(self):
-    #     return pickle.loads(pickle.dumps(self))
+    def copy(self):
+        return pickle.loads(pickle.dumps(self))
 
     def notPreOfRm(self, v):
         """
