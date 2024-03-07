@@ -14,10 +14,10 @@ class temporalDataGenerator:
             transaction = np.random.choice(range(1, self.num_of_items + 1), size=transaction_length)
             self.transactions.append(transaction)
 
-    def save(self, output_file):
-        with open(output_file, 'w') as file:
+    def save(self, outputFile, sep="\t"):
+        with open(outputFile, 'w') as file:
             for idx, transaction in enumerate(self.transactions, start=1):
-                transaction_str = '\t'.join(map(str, transaction))
+                transaction_str = sep.join(map(str, transaction))
                 file.write(f'{idx}\t{transaction_str}\n')
 
 if __name__ == "__main__":
