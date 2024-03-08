@@ -628,26 +628,26 @@ class GSpan(_ab._gSpan):
     def getRuntime(self):
         return self._runtime
     
-def getFrequentSubgraphs(self):
-    sb = []  
-    for i, subgraph in enumerate(self.frequentSubgraphs):  
-        dfsCode = subgraph.dfsCode
-        subgraphDescription = [f"t # {i} * {subgraph.support}"]  
-        
-        if dfsCode.size == 1:
-            ee = dfsCode.getEeList()[0]
-            subgraphDescription.append(f"v 0 {ee.vLabel1}")
-            if ee.edgeLabel != -1:
-                subgraphDescription.append(f"v 1 {ee.vLabel2}")
-                subgraphDescription.append(f"e 0 1 {ee.edgeLabel}")
-        else:
-            vLabels = dfsCode.getAllVLabels()
-            for j, vLabel in enumerate(vLabels):
-                subgraphDescription.append(f"v {j} {vLabel}")
-            for ee in dfsCode.getEeList():
-                subgraphDescription.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}")
-        
-        sb.append('\n'.join(subgraphDescription))  
-    return '\n'.join(sb)  
+    def getFrequentSubgraphs(self):
+        sb = []  
+        for i, subgraph in enumerate(self.frequentSubgraphs):  
+            dfsCode = subgraph.dfsCode
+            subgraphDescription = [f"t # {i} * {subgraph.support}"]  
+            
+            if dfsCode.size == 1:
+                ee = dfsCode.getEeList()[0]
+                subgraphDescription.append(f"v 0 {ee.vLabel1}")
+                if ee.edgeLabel != -1:
+                    subgraphDescription.append(f"v 1 {ee.vLabel2}")
+                    subgraphDescription.append(f"e 0 1 {ee.edgeLabel}")
+            else:
+                vLabels = dfsCode.getAllVLabels()
+                for j, vLabel in enumerate(vLabels):
+                    subgraphDescription.append(f"v {j} {vLabel}")
+                for ee in dfsCode.getEeList():
+                    subgraphDescription.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}")
+            
+            sb.append('\n'.join(subgraphDescription))  
+        return '\n'.join(sb)  
 
 
