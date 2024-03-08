@@ -1,7 +1,7 @@
 # CPPG algorithm discovers coverage patterns in a transactional database.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------
+# -------------------------------------------------------
 #
 #
 #             from PAMI.coveragePattern.basic import CPPG as alg
@@ -29,7 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -73,14 +73,14 @@ class CPPG(_ab._coveragePatterns):
                     https://link.springer.com/article/10.1007/s10844-014-0318-3
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of coverage patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minRF: float:
+                   Name of the output file to store complete set of coverage patterns
+    :param  minRF: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
-    :param  minCS: float:
+    :param  minCS: str:
                    Controls the minimum number of transactions in which at least one time within a pattern must appear in a database.
-    :param  maxOR: float:
+    :param  maxOR: str:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
 
     :param  sep: str :
@@ -109,14 +109,19 @@ class CPPG(_ab._coveragePatterns):
 
 
     **Methods to execute code on terminal**
-    ---------------------------------------
+    -------------------------------------------
 
-            Format:
-                      >>>  python3 CPPG.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
+    .. code-block:: console
 
-            Example:
-                      >>>   python3 CPPG.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 ','
+      Format:
 
+      (.venv) $ python3 CPPG.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
+
+      Example Usage:
+
+      (.venv) $ python3 CPPG.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 ','
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -175,8 +180,6 @@ class CPPG(_ab._coveragePatterns):
     def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
-
-
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -220,6 +223,7 @@ class CPPG(_ab._coveragePatterns):
             by decreasing support and returns the frequent items list
 
             :returns: return the one-length periodic frequent patterns
+            :rtype: tuple
         """
         data = {}
         count = 0
@@ -238,8 +242,9 @@ class CPPG(_ab._coveragePatterns):
         """ Remove the items which are not frequent from database and updates the database with rank of items
 
             :param dict1: frequent items with support
-            :type dict1: list
+            :type dict1: dict
             :return: Sorted and updated transactions
+            :rtype: list
             """
         list2 = []
         for tr in self._Database:
@@ -252,6 +257,12 @@ class CPPG(_ab._coveragePatterns):
 
     def _buildProjectedDatabase(self, data: List[List[str]], info: List[str]) -> Dict[str, List[List[str]]]:
         """ To construct the projected database for each prefix
+        :param data: list of transactions with support per prefix
+        :type data: list
+        :param info: informatoin on list of transactions with support per prefix
+        :type info: str
+        :return: projected data
+        :rtype: dict
         """
         proData = {}
         for i in range(len(info)):
@@ -304,7 +315,12 @@ class CPPG(_ab._coveragePatterns):
         """ To convert the ranks of items in to their original item names
 
             :param itemSet: frequent patterns
+
+            :type itemSet: list
+
             :return: frequent pattern with original item names
+
+            :rtype: string
         """
         t1 = str()
         for i in itemSet:
@@ -316,7 +332,12 @@ class CPPG(_ab._coveragePatterns):
         To convert the given user specified value
 
         :param value: user specified value
+
+        :type value: Union[int, float, str]
+
         :return: converted value
+
+        :rtype: Union[int, float]
         """
         if type(value) is int:
             value = int(value)
@@ -389,7 +410,6 @@ class CPPG(_ab._coveragePatterns):
 
     def getRuntime(self) -> float:
         """Calculating the total amount of runtime taken by the mining process
-
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float

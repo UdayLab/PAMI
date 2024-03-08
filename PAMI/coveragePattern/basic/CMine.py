@@ -72,11 +72,11 @@ class CMine(_ab._coveragePatterns):
                    Name of the Input file to mine complete set of coverage patterns
     :param  oFile: str :
                    Name of the output file to store complete set of coverage patterns
-    :param  minRF: float:
+    :param  minRF: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
-    :param  minCS: float:
+    :param  minCS: str:
                    Controls the minimum number of transactions in which at least one time within a pattern must appear in a database.
-    :param  maxOR: float:
+    :param  maxOR: str:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
 
     :param  sep: str :
