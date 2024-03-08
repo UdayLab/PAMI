@@ -28,7 +28,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -142,6 +142,7 @@ class _Tree:
         Adding a transaction into a tree
         :param transaction: it represents a transaction in a database
         :type transaction: list
+        :return: None
         """
 
         # This method taken a transaction as input and returns the tree
@@ -166,6 +167,7 @@ class _Tree:
         :type item: int
         :param newNode: it represents the newNode that inserted in correlatedPatternTree
         :type newNode: Node
+        :return: None
 
         """
         if item in self.mapItemLastNodes.keys():
@@ -180,6 +182,7 @@ class _Tree:
         Print the details of Node in correlatedPatternTree
         :param root: it represents the Node in correlatedPatternTree
         :type root: Node
+        :return: None
 
         """
         # this method is used print the details of tree
@@ -197,6 +200,7 @@ class _Tree:
         :type mapSupport: dictionary
         :param minSup: it represents the minSup
         :param minSup: float
+        :return: None
 
         """
         # the correlatedPatternTree always maintains the header table to start the mining from leaf nodes
@@ -216,6 +220,7 @@ class _Tree:
         :param mapSupportBeta: dictionary
         :param minSup: to check the item meets with minSup
         :param minSup: float
+        :return: None
 
         """
         # this method is used to add prefix paths in conditional trees of correlatedPatternTree
@@ -241,7 +246,7 @@ class _Tree:
 
 class CoMinePlus(_ab._correlatedPatterns):
     """ 
-    :Description:    oMinePlus is one of the efficient algorithm to discover correlated patterns in a transactional database. Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that have support within specified interval.
+    :Description: CoMinePlus is one of the efficient algorithm to discover correlated patterns in a transactional database. Using Item Support Intervals technique which is generating correlated patterns of higher order by combining only with items that have support within specified interval.
 
     :Reference:
         Uday Kiran R., Kitsuregawa M. (2012) Efficient Discovery of Correlated Patterns in Transactional Databases Using Items’ Support Intervals.
@@ -256,6 +261,7 @@ class CoMinePlus(_ab._correlatedPatterns):
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
     :param  minAllConf: str :
                    Name of Neighbourhood file name
+
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -292,14 +298,19 @@ class CoMinePlus(_ab._correlatedPatterns):
            it represents the constraint for pattern length
 
     **Methods to execute code on terminal**
-    ---------------------------------------
+    ----------------------------------------------
 
-            Format:
-                      >>>  python3 CoMinePlus.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+    .. code-block:: console
 
-            Example:
-                      >>>   python3 CoMinePlus.py sampleTDB.txt patterns.txt 0.4 0.5 ','
+      Format:
 
+      (.venv) $ python3 CoMinePlus.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 CoMinePlus.py sampleTDB.txt patterns.txt 0.4 0.5 ','
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -425,6 +436,8 @@ class CoMinePlus(_ab._correlatedPatterns):
         :type prefixLength: int
         :param support: the support of a pattern
         :type support:  int
+        :param ratio: float
+        :return: None
         """
 
         sample = []
@@ -445,6 +458,7 @@ class CoMinePlus(_ab._correlatedPatterns):
         :type prefix: list
         :param prefixLength: the length of prefix
         :type prefixLength: int
+        :return: None
         """
         max1 = 1 << position
         for i in range(1, max1):
@@ -469,6 +483,9 @@ class CoMinePlus(_ab._correlatedPatterns):
         :type prefixLength: int
         :param mapSupport : it represents the support of item
         :type mapSupport : dictionary
+        :param minConf: representing the minimum confidence
+        :type minConf: float
+        :return: None
         """
         singlePath = True
         position = 0
@@ -642,6 +659,7 @@ class CoMinePlus(_ab._correlatedPatterns):
         Complete set of correlated patterns will be loaded in to an output file
         :param outFile: name of the outputfile
         :type outFile: file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
