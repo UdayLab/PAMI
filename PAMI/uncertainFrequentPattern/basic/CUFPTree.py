@@ -3,33 +3,36 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.uncertainFrequentPattern.basic import CUFPTree as alg
 #
-#     obj = alg.CUFPTree(iFile, minSup)
+#             from PAMI.uncertainFrequentPattern.basic import CUFPTree as alg
 #
-#     obj.startMine()
+#             obj = alg.CUFPTree(iFile, minSup)
 #
-#     frequentPatterns = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             frequentPatterns = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
 #
+#             print("Total ExecutionTime in seconds:", run)
 #
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -148,6 +151,7 @@ class _Tree(object):
         adding transaction into tree
         :param transaction : it represents the one self.Database in database
         :type transaction : list
+        :return: None
         """
 
         currentNode = self.root
@@ -188,6 +192,7 @@ class _Tree(object):
         :type transaction : list
         :param sup : support of prefixPath taken at last child of the path
         :type sup : int
+        :return: None
         """
 
         # This method takes transaction, support and constructs the conditional tree
@@ -211,6 +216,7 @@ class _Tree(object):
         generates all the conditional patterns of respective node
         :param alpha : it represents the Node in tree
         :type alpha : _Node
+        :return: Tuple
         """
 
         # This method generates conditional patterns of node by traversing the tree
@@ -235,6 +241,7 @@ class _Tree(object):
 
         :param nodeValue : it represents the node in tree
         :type nodeValue : node
+        :return: None
         """
 
         for i in self.summaries[nodeValue]:
@@ -248,6 +255,8 @@ class _Tree(object):
         :type condPatterns : list
         :support : the support of conditional pattern in tree
         :support : int
+        :return: Tuple consist of patterns,support and updated Dictionary
+        :rtype: Tuple
         """
 
         global minSup
@@ -278,6 +287,7 @@ class _Tree(object):
 
         :param prefix : forms the combination of items
         :type prefix : list
+        :return: None
         """
 
         global _finalPatterns, minSup
@@ -306,6 +316,16 @@ class CUFPTree(_ab._frequentPatterns):
     :Reference:
         Chun-Wei Lin Tzung-PeiHong, 'new mining approach for uncertain databases using CUFP trees',
         Expert Systems with Applications, Volume 39, Issue 4, March 2012, Pages 4084-4093, https://doi.org/10.1016/j.eswa.2011.09.087
+    
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Uncertain Frequent Patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Uncertain frequent patterns
+    :param  minSup: str:
+                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -372,14 +392,19 @@ class CUFPTree(_ab._frequentPatterns):
             Mining process will start from this function
 
     **Methods to execute code on terminal**
-    ----------------------------------------
-        Format:
-                  >>>  python3 CUFPTree.py <inputFile> <outputFile> <minSup>
+    --------------------------------------------
 
-        Example:
-                  >>>  python3 CUFPTree.py sampleTDB.txt patterns.txt 3
+    .. code-block:: console
 
-         .. note:: minSup  will be considered in support count or frequency
+      Format:
+
+      (.venv) $ python3 CUFPTree.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 CUFPTree.py sampleTDB.txt patterns.txt 3
+
+    .. note:: minSup  will be considered in support count or frequency
 
     **Importing this algorithm into a python program**
     ----------------------------------------------------
@@ -494,6 +519,7 @@ class CUFPTree(_ab._frequentPatterns):
 
         :param self.Database : it represents the one self.Database in database
         :type self.Database : list
+        :return: return
         """
 
         mapSupport = {}
@@ -517,6 +543,7 @@ class CUFPTree(_ab._frequentPatterns):
         :type data : list
         :param info : it represents the support of each item
         :type info : dictionary
+        :return: Dictionary
         """
 
         rootNode = _Tree()
@@ -531,6 +558,7 @@ class CUFPTree(_ab._frequentPatterns):
 
         :param dict1 : frequent items with support
         :type dict1 : dictionary
+        :return: list
         """
 
         list1 = []
@@ -555,6 +583,7 @@ class CUFPTree(_ab._frequentPatterns):
         :type x : list
         :param i : represents the uncertain self.Database
         :type i : list
+        :return: int
         """
 
         # This method taken a transaction as input and returns the tree
@@ -619,6 +648,7 @@ class CUFPTree(_ab._frequentPatterns):
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        :return: None
         """
         global minSup
         self._startTime = _ab._time.time()
@@ -691,6 +721,7 @@ class CUFPTree(_ab._frequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -710,6 +741,7 @@ class CUFPTree(_ab._frequentPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of  Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
