@@ -39,9 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
 </ul>
 
         </div>
@@ -133,7 +156,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
 
 <div class="viewcode-block" id="Node">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Node">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Node">[docs]</a>
 <span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class used to represent the node of localPeriodicPatternTree</span>
@@ -165,7 +188,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tidList</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Node.getChild">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Node.getChild">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Node.getChild">[docs]</a>
     <span class="k">def</span> <span class="nf">getChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Node&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to get child node from the parent node</span>
@@ -181,7 +204,7 @@
 
 
 <div class="viewcode-block" id="Tree">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree">[docs]</a>
 <span class="k">class</span> <span class="nc">Tree</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A class used to represent the frequentPatternGrowth tree structure</span>
@@ -213,7 +236,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">firstNodeLink</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="Tree.addTransaction">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree.addTransaction">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree.addTransaction">[docs]</a>
     <span class="k">def</span> <span class="nf">addTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">tid</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        add transaction into tree</span>
@@ -239,7 +262,7 @@
 
 
 <div class="viewcode-block" id="Tree.fixNodeLinks">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree.fixNodeLinks">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree.fixNodeLinks">[docs]</a>
     <span class="k">def</span> <span class="nf">fixNodeLinks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">newNode</span><span class="p">:</span> <span class="s1">&#39;Node&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        fix node link</span>
@@ -258,7 +281,7 @@
 
 
 <div class="viewcode-block" id="Tree.deleteNode">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree.deleteNode">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree.deleteNode">[docs]</a>
     <span class="k">def</span> <span class="nf">deleteNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        delete the node from tree</span>
@@ -284,7 +307,7 @@
 
 
 <div class="viewcode-block" id="Tree.createPrefixTree">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree.createPrefixTree">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.Tree.createPrefixTree">[docs]</a>
     <span class="k">def</span> <span class="nf">createPrefixTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">tidList</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        create prefix tree by path</span>
@@ -312,7 +335,7 @@
 
 
 <div class="viewcode-block" id="LPPGrowth">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth">[docs]</a>
 <span class="k">class</span> <span class="nc">LPPGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_localPeriodicPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:</span>
@@ -815,7 +838,7 @@
         <span class="k">return</span> <span class="n">value</span>
 
 <div class="viewcode-block" id="LPPGrowth.startMine">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.startMine">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mining process start from here.</span>
@@ -839,7 +862,7 @@
 
 
 <div class="viewcode-block" id="LPPGrowth.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getMemoryUSS">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -851,7 +874,7 @@
 
 
 <div class="viewcode-block" id="LPPGrowth.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getMemoryRSS">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -863,7 +886,7 @@
 
 
 <div class="viewcode-block" id="LPPGrowth.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getRuntime">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
 
@@ -875,7 +898,7 @@
 
 
 <div class="viewcode-block" id="LPPGrowth.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getPatternsAsDataFrame">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;_ab._pd.DataFrame&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final local periodic patterns in a dataframe</span>
 
@@ -895,7 +918,7 @@
 
 
 <div class="viewcode-block" id="LPPGrowth.save">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.save">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of local periodic patterns will be loaded in to an output file</span>
@@ -917,7 +940,7 @@
 
 
 <div class="viewcode-block" id="LPPGrowth.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of local periodic patterns after completion of the mining process</span>
 
@@ -928,7 +951,7 @@
 
 
 <div class="viewcode-block" id="LPPGrowth.printResults">
-<a class="viewcode-back" href="../../../../PAMI.localPeriodicPattern.basic.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.printResults">[docs]</a>
+<a class="viewcode-back" href="../../../../localPeriodicPatternbasicLPPGrowth.html#PAMI.localPeriodicPattern.basic.LPPGrowth.LPPGrowth.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>

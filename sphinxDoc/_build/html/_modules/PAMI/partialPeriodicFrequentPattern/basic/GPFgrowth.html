@@ -39,9 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
 </ul>
 
         </div>
@@ -127,7 +150,7 @@
 <span class="n">orderOfItem</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="Node">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Node">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Node">[docs]</a>
 <span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class used to represent the node of frequentPatternTree</span>
@@ -159,7 +182,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tidList</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Node.getChild">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Node.getChild">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Node.getChild">[docs]</a>
     <span class="k">def</span> <span class="nf">getChild</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param item:</span>
@@ -174,7 +197,7 @@
 
 
 <div class="viewcode-block" id="Tree">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree">[docs]</a>
 <span class="k">class</span> <span class="nc">Tree</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class used to represent the frequentPatternGrowth tree structure</span>
@@ -208,7 +231,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">firstNodeLink</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="Tree.addTransaction">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.addTransaction">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.addTransaction">[docs]</a>
     <span class="k">def</span> <span class="nf">addTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">tid</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        add transaction into tree</span>
@@ -234,7 +257,7 @@
 
 
 <div class="viewcode-block" id="Tree.fixNodeLinks">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.fixNodeLinks">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.fixNodeLinks">[docs]</a>
     <span class="k">def</span> <span class="nf">fixNodeLinks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">newNode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        fix node link</span>
@@ -253,7 +276,7 @@
 
 
 <div class="viewcode-block" id="Tree.deleteNode">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.deleteNode">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.deleteNode">[docs]</a>
     <span class="k">def</span> <span class="nf">deleteNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        delete the node from tree</span>
@@ -279,7 +302,7 @@
 
 
 <div class="viewcode-block" id="Tree.createPrefixTree">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.createPrefixTree">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.createPrefixTree">[docs]</a>
     <span class="k">def</span> <span class="nf">createPrefixTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">tidList</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        create prefix tree by path</span>
@@ -305,7 +328,7 @@
 
 
 <div class="viewcode-block" id="Tree.createConditionalTree">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.createConditionalTree">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.Tree.createConditionalTree">[docs]</a>
     <span class="k">def</span> <span class="nf">createConditionalTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">PFList</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">minPR</span><span class="p">,</span> <span class="n">last</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        create conditional tree by PFlist</span>
@@ -331,7 +354,7 @@
 
 
 <div class="viewcode-block" id="calculateIP">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.calculateIP">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.calculateIP">[docs]</a>
 <span class="k">class</span> <span class="nc">calculateIP</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class calculate ip from timestamp</span>
@@ -357,7 +380,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">timeStampFinal</span> <span class="o">=</span> <span class="n">timeStampFinal</span>
 
 <div class="viewcode-block" id="calculateIP.run">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.calculateIP.run">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.calculateIP.run">[docs]</a>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        calculate ip from timeStamp list</span>
@@ -380,7 +403,7 @@
 
 
 <div class="viewcode-block" id="generatePFListver2">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFListver2">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFListver2">[docs]</a>
 <span class="k">class</span> <span class="nc">generatePFListver2</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    generate time stamp list from input file</span>
@@ -407,7 +430,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tsList</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="generatePFListver2.run">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFListver2.run">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFListver2.run">[docs]</a>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        generate PFlist</span>
@@ -446,7 +469,7 @@
 
 
 <div class="viewcode-block" id="generatePFListver2.findSeparator">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFListver2.findSeparator">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFListver2.findSeparator">[docs]</a>
     <span class="k">def</span> <span class="nf">findSeparator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        find separator of line in database</span>
@@ -464,7 +487,7 @@
 
 
 <div class="viewcode-block" id="generatePFTreever2">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFTreever2">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFTreever2">[docs]</a>
 <span class="k">class</span> <span class="nc">generatePFTreever2</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    create tree from tidList and input file</span>
@@ -492,7 +515,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
 
 <div class="viewcode-block" id="generatePFTreever2.run">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFTreever2.run">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFTreever2.run">[docs]</a>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        create tree from database and tidList</span>
@@ -509,7 +532,7 @@
 
 
 <div class="viewcode-block" id="generatePFTreever2.findSeparator">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFTreever2.findSeparator">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.generatePFTreever2.findSeparator">[docs]</a>
     <span class="k">def</span> <span class="nf">findSeparator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        find separator of line in database</span>
@@ -527,7 +550,7 @@
 
 
 <div class="viewcode-block" id="PFgrowth">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.PFgrowth">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.PFgrowth">[docs]</a>
 <span class="k">class</span> <span class="nc">PFgrowth</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class is pattern growth algorithm</span>
@@ -565,7 +588,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last</span> <span class="o">=</span> <span class="n">last</span>
 
 <div class="viewcode-block" id="PFgrowth.run">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.PFgrowth.run">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.PFgrowth.run">[docs]</a>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        run the pattern growth algorithm</span>
@@ -625,7 +648,7 @@
 
 
 <div class="viewcode-block" id="GPFgrowth">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth">[docs]</a>
 <span class="k">class</span> <span class="nc">GPFgrowth</span><span class="p">(</span><span class="n">partialPeriodicPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:   GPFgrowth is algorithm to mine the partial periodic frequent pattern in temporal database.</span>
@@ -778,7 +801,7 @@
 
 
 <div class="viewcode-block" id="GPFgrowth.startMine">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.startMine">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__inputFile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_partialPeriodicPatterns__iFile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_partialPeriodicPatterns__startTime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -804,7 +827,7 @@
 
 
 <div class="viewcode-block" id="GPFgrowth.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getMemoryUSS">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning USS memory consumed by the mining process</span>
@@ -815,7 +838,7 @@
 
 
 <div class="viewcode-block" id="GPFgrowth.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getMemoryRSS">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
@@ -826,7 +849,7 @@
 
 
 <div class="viewcode-block" id="GPFgrowth.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getRuntime">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
@@ -837,7 +860,7 @@
 
 
 <div class="viewcode-block" id="GPFgrowth.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getPatternsAsDataFrame">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final frequent patterns in a dataframe</span>
 <span class="sd">        :return: returning frequent patterns in a dataframe</span>
@@ -860,7 +883,7 @@
 
 
 <div class="viewcode-block" id="GPFgrowth.save">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.save">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns will be loaded in to an output file</span>
 <span class="sd">        :param outFile: name of the output file</span>
@@ -879,7 +902,7 @@
 
 
 <div class="viewcode-block" id="GPFgrowth.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of frequent patterns after completion of the mining process</span>
 <span class="sd">        :return: returning frequent patterns</span>
@@ -889,7 +912,7 @@
 
 
 <div class="viewcode-block" id="GPFgrowth.printResults">
-<a class="viewcode-back" href="../../../../PAMI.partialPeriodicFrequentPattern.basic.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.printResults">[docs]</a>
+<a class="viewcode-back" href="../../../../partialPeriodicFrequentPatternbasicGPFgrowth.html#PAMI.partialPeriodicFrequentPattern.basic.GPFgrowth.GPFgrowth.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; this function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>

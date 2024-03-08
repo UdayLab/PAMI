@@ -39,9 +39,32 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../transactionalPatternMining.html">Transactional Database</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">PAMI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
 </ul>
 
         </div>
@@ -320,7 +343,7 @@
 
 
 <div class="viewcode-block" id="UFGrowth">
-<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth">[docs]</a>
+<a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicUFGrowth.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth">[docs]</a>
 <span class="k">class</span> <span class="nc">UFGrowth</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_frequentPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description: It is one of the fundamental algorithm to discover frequent patterns in a uncertain transactional database using PUF-Tree.</span>
@@ -638,7 +661,7 @@
         <span class="k">return</span> <span class="n">value</span>
 
 <div class="viewcode-block" id="UFGrowth.startMine">
-<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.startMine">[docs]</a>
+<a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicUFGrowth.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</span>
@@ -672,7 +695,7 @@
 
 
 <div class="viewcode-block" id="UFGrowth.getMemoryUSS">
-<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryUSS">[docs]</a>
+<a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicUFGrowth.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
@@ -685,7 +708,7 @@
 
 
 <div class="viewcode-block" id="UFGrowth.getMemoryRSS">
-<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryRSS">[docs]</a>
+<a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicUFGrowth.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
@@ -698,7 +721,7 @@
 
 
 <div class="viewcode-block" id="UFGrowth.getRuntime">
-<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getRuntime">[docs]</a>
+<a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicUFGrowth.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
@@ -711,7 +734,7 @@
 
 
 <div class="viewcode-block" id="UFGrowth.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatternsAsDataFrame">[docs]</a>
+<a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicUFGrowth.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final frequent patterns in a dataframe</span>
@@ -729,7 +752,7 @@
 
 
 <div class="viewcode-block" id="UFGrowth.save">
-<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.save">[docs]</a>
+<a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicUFGrowth.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
@@ -745,7 +768,7 @@
 
 
 <div class="viewcode-block" id="UFGrowth.getPatterns">
-<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatterns">[docs]</a>
+<a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicUFGrowth.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
@@ -757,7 +780,7 @@
 
 
 <div class="viewcode-block" id="UFGrowth.printResults">
-<a class="viewcode-back" href="../../../../PAMI.uncertainFrequentPattern.basic.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.printResults">[docs]</a>
+<a class="viewcode-back" href="../../../../uncertainFrequentPatternBasicUFGrowth.html#PAMI.uncertainFrequentPattern.basic.UFGrowth.UFGrowth.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>

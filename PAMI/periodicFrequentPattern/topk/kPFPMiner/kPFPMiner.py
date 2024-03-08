@@ -58,6 +58,14 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
                   Discovering Top-k Periodic-Frequent Patterns in Very Large Temporal Databases. Big Data Analytics.
                  BDA 2022. Lecture Notes in Computer Science, vol 13773. Springer, Cham. https://doi.org/10.1007/978-3-031-24094-2_14
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : str

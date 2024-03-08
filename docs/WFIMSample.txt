@@ -1,0 +1,6 @@
+a c d f i m
+a c d f m r
+b d f m p r
+b c f m p
+c d f m  r
+d m r

@@ -317,6 +317,19 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
     :Reference:   Syed Khairuzzaman Tanbeer, Chowdhury Farhan, Byeong-Soo Jeong, and Young-Koo Lee, "Discovering Periodic-Frequent
                    Patterns in Transactional Databases", PAKDD 2009, https://doi.org/10.1007/978-3-642-01307-2_24
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: str:
+                   Controls the minimum number of transactions in which every item must appear in a database.
+    :param  maxPer: float:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : file
@@ -384,45 +397,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
         convert()
             to convert the user specified value
 
-    **Methods to execute code on terminal**
-    --------------------------------------------
-            Format:
-                      >>>  python3 PFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
-            Example:
-                      >>>  python3 PFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
-
-                      .. note:: minSup will be considered in percentage of database transactions
-
-    **Importing this algorithm into a python program**
-    ---------------------------------------------------
-    .. code-block:: python
-
-                from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg
-
-                obj = alg.PFPGrowth(iFile, minSup, maxPer)
-
-                obj.startMine()
-
-                periodicFrequentPatterns = obj.getPatterns()
-
-                print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
-
-                obj.save(oFile)
-
-                Df = obj.getPatternsAsDataFrame()
-
-                memUSS = obj.getMemoryUSS()
-
-                print("Total Memory in USS:", memUSS)
-
-                memRSS = obj.getMemoryRSS()
-
-                print("Total Memory in RSS", memRSS)
-
-                run = obj.getRuntime()
-
-                print("Total ExecutionTime in seconds:", run)
 
     **Credits:**
     --------------
@@ -704,3 +679,46 @@ if __name__ == "__main__":
         print("Total ExecutionTime in ms:", _ap.getRuntime())
     else:
         print("Error! The number of input parameters do not match the total number of parameters provided")
+
+
+    """
+    **Methods to execute code on terminal**
+    --------------------------------------------
+            Format:
+                      >>>  python3 PFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+
+            Example:
+                      >>>  python3 PFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+
+                      .. note:: minSup will be considered in percentage of database transactions
+
+    **Importing this algorithm into a python program**
+    ---------------------------------------------------
+    .. code-block:: python
+
+                from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg
+
+                obj = alg.PFPGrowth(iFile, minSup, maxPer)
+
+                obj.startMine()
+
+                periodicFrequentPatterns = obj.getPatterns()
+
+                print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+
+                obj.save(oFile)
+
+                Df = obj.getPatternsAsDataFrame()
+
+                memUSS = obj.getMemoryUSS()
+
+                print("Total Memory in USS:", memUSS)
+
+                memRSS = obj.getMemoryRSS()
+
+                print("Total Memory in RSS", memRSS)
+
+                run = obj.getRuntime()
+
+                print("Total ExecutionTime in seconds:", run)
+    """
