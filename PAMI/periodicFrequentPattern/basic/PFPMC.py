@@ -60,7 +60,19 @@ class PFPMC(_ab._periodicFrequentPatterns):
     """
     :Description:   PFPMC is the fundamental approach to mine the periodic-frequent patterns.
 
-    :Reference:
+    :Reference: (has to be added)
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: str:
+                   Controls the minimum number of transactions in which every item must appear in a database.
+    :param  maxPer: str:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     :Attributes:
 

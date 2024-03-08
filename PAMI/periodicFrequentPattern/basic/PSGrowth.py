@@ -424,7 +424,7 @@ class _Tree(object):
         """
         To get the timeStamps of a respective node
 
-        :param alpha: name of node for the timeStamps
+        :param alpha: name of node for the timeStamp
         :return: timeStamps of a node
         """
         temp = []
@@ -567,6 +567,18 @@ class PSGrowth(_ab._periodicFrequentPatterns):
     :Reference :   A. Anirudh, R. U. Kiran, P. K. Reddy and M. Kitsuregaway, "Memory efficient mining of periodic-frequent
                    patterns in transactional databases," 2016 IEEE Symposium Series on Computational Intelligence (SSCI),
                    2016, pp. 1-8, https://doi.org/10.1109/SSCI.2016.7849926
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: str:
+                   Controls the minimum number of transactions in which every item must appear in a database.
+    :param  maxPer: str:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     :Attributes:
 
