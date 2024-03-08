@@ -3,6 +3,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
+#
 #             from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowth as alg
 #
 #             obj = alg.UPFPGrowth(iFile, minSup, maxPer)
@@ -28,6 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -169,6 +171,7 @@ class _Tree(object):
         :type transaction: list
         :param tid: the timestamp of transaction
         :type tid: list
+        :return: None
         """
         currentNode = self.root
         for i in range(len(transaction)):
@@ -212,6 +215,7 @@ class _Tree(object):
         :type ts: list
         :param sup : support of prefixPath taken at last child of the path
         :type sup : int
+        :return: None
         """
         currentNode = self.root
         for i in range(len(transaction)):
@@ -262,6 +266,7 @@ class _Tree(object):
 
         :param nodeValue : it represents the node in tree
         :type nodeValue : node
+        :return: None
         """
         for i in self.summaries[nodeValue]:
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
@@ -327,6 +332,7 @@ class _Tree(object):
 
         :param prefix : forms the combination of items
         :type prefix : list
+        :return: None
         """
 
         global _minSup
@@ -358,6 +364,20 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
             Mantoro, T., Lee, M., Ayu, M.A., Wong, K.W., Hidayanto, A.N. (eds) Neural Information Processing.
             ICONIP 2021. Communications in Computer and Information Science, vol 1516. Springer, Cham.
             https://doi.org/10.1007/978-3-030-92307-5_83
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Uncertain Periodic Frequent patterns
+    :param  minSup: str:
+                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  maxper: floot :
+                   where maxPer represents the maximum periodicity threshold value specified by the user.
+
+
+
 
     :Attributes:
         iFile : file
@@ -427,11 +447,17 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
     **Executing the code on terminal**:
     --------------------------------------------
-            Format:
-                >>> python3 basic.py <inputFile> <outputFile> <minSup> <maxPer>
+    .. code-block:: console
 
-            Examples:
-                >>> python3 basic.py sampleTDB.txt patterns.txt 0.3 4     (minSup and maxPer will be considered in support count or frequency)
+      Format:
+
+      (.venv) $ python3 basic.py <inputFile> <outputFile> <minSup> <maxPer>
+
+      Example Usage:
+
+      (.venv) $ python3 basic.py sampleTDB.txt patterns.txt 0.3 4
+
+    .. note:: minSup and maxPer will be considered in support count or frequency
 
 
     **Importing this algorithm into a python program**
@@ -466,9 +492,10 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
     **Credits**:
     -------------
-    The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
 
-    """
+        The complete program was written by P.Likhitha  under the supervision of Professor Rage Uday Kiran.
+
+"""
     _rank = {}
     _startTime = float()
     _endTime = float()
@@ -554,6 +581,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
     def _periodicFrequentOneItem(self) -> Tuple[Dict, List]:
         """
         Takes the transactions and calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+        :return: Tuple
 
         """
         mapSupport = {}
@@ -581,6 +609,8 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         :type x : list
         :param i : represents the uncertain transactions
         :type i : list
+        :return: value
+        :rtype: int
         """
 
         for m in x:
@@ -635,6 +665,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
         :param dict1 : frequent items with support
         :type dict1 : dictionary
+        :return: list
         """
         list1 = []
         for tr in self._Database:
@@ -700,6 +731,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns
                     by counting the original support of a patterns
+    :return: None
 
         """
         global _lno, _maxPer, _minSup, _first, _last, periodic
@@ -775,6 +807,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
