@@ -29,7 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -95,8 +95,11 @@ class _Node:
         Retrieving the child from the tree
 
         :param node: Child Node
+
         :type node: Nodes
+
         :return: Updates the children nodes and parent nodes
+
         """
         self.children[node.itemId] = node
         node.parent = self
@@ -138,9 +141,15 @@ class _Tree:
         Adding transaction into tree
 
         :param transaction: it represents the one transaction in database
+
         :type transaction: list
+
         :param count: frequency of item
+
         :type count: int
+
+        :return: None
+
         """
 
         # This method takes transaction as input and returns the tree
@@ -164,7 +173,13 @@ class _Tree:
         Generates the conditional patterns for a node
 
         :param alpha: node to generate conditional patterns
+
+        :type alpha: int
+
         :return:returns conditional patterns, frequency of each item in conditional patterns
+
+        :rtype: tuple, List, Dict
+
         """
         finalPatterns = []
         finalFreq = []
@@ -190,7 +205,14 @@ class _Tree:
             ConditionalPatterns: paths of a node
             conditionalFreq: frequency of each item in the path
 
+        :type ConditionalPatterns: List
+
+        :type conditionalFreq: List
+
         :return: conditional patterns and frequency of each item in transactions
+
+        :rtype: Tuple, List, Dict
+
         """
         global _minSup
         pat = []
@@ -219,7 +241,12 @@ class _Tree:
 
         :parameters:
             prefix: an empty list
+
+        :type prefix: List
+
         :return:Frequent patterns that are extracted from fp-tree
+
+        :rtype: Typle, None, None
         """
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
@@ -245,7 +272,9 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
                   Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023
 
     :param iFile: file :
-            Input file name or path of the input file
+            Name of the Input file to mine complete set of fault Tolerant frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of falut Tolerant frequent patterns
     :param minSup: float or int or str :
             The user can specify minSup either in count or proportion of database size.
             If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -254,8 +283,6 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     :param sep : str :
             This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.
             However, the users can override their default separator.
-    :param oFile : file :
-            Name of the output file or the path of the output file
 
 
     :Attributes:
@@ -301,12 +328,20 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
             Extracts the one-frequent patterns from transactions
 
     **Executing the code on terminal:**
-    --------------------------------------
+    ----------------------------------------
 
-            Format:
-                    >>> python3 FPGrowth.py <inputFile> <outputFile> <minSup>
-            Examples:
-                    >>> python3 FPGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 FPGrowth.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 FPGrowth.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup will be considered in times of minSup and count of database transactions
+
 
     **Sample run of the importing code:**
     -------------------------------------------
@@ -399,10 +434,17 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def __convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
+
         To convert the type of user specified minSup value
 
         :param value: user specified minSup value
+
+        :type value: Union[int, float, str]
+
         :return: converted type
+
+        :rtype: int, float
+
         """
         if type(value) is int:
             value = int(value)
@@ -418,7 +460,13 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
     def __frequentOneItem(self) -> List[str]:
         """
+
         Generating One frequent items sets
+
+        :return: one frequency items set
+
+        :rtype: List
+
         """
         self.__mapSupport = {}
         for tr in self.__Database:
@@ -438,8 +486,15 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
         :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
                   rank = {'a':0, 'b':1, 'c':2, 'd':3}
-        :parameters:
-        itemSet: list of one-frequent items
+
+        :param itemSet: list of one-frequent items
+
+        :type itemSet: List
+
+        :return: list of updated items in transactions with rank of items according to their support
+
+        :rtype: List
+
         """
         list1 = []
         for tr in self.__Database:
@@ -455,15 +510,19 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
     @staticmethod
     def __buildTree(transactions: List[List[int]], info: Dict[int, int]) -> _Tree:
         """
-        Builds the tree with updated transactions
-        :Parameters:
+        Builds the tree with updated transaction
 
-            transactions: updated transactions
-            info: support details of each item in transactions
+        :param transactions: updated transactions
 
-        :Returns:
+        :type transactions: List
 
-            transactions compressed in fp-tree
+        :param info: support details of each item in transactions
+
+        :type info: Dict
+
+        :returns: transactions compressed in fp-tree
+
+        :rtype: Tree
 
         """
         rootNode = _Tree()
@@ -476,13 +535,13 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         """
         The duplication items and their ranks
 
-        :Parameters:
+        :param itemSet: frequent itemSet that generated
 
-            itemSet: frequent itemSet that generated
+        :type itemSet: List
 
-        :Returns:
+        :returns: patterns with original item names
 
-            patterns with original item names.
+        :rtype: String
 
         """
         temp = str()
@@ -527,7 +586,9 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
+
         """
 
         return self.__memoryUSS
@@ -537,7 +598,9 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
+
         """
 
         return self.__memoryRSS
@@ -547,7 +610,9 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
+
         """
 
         return self.__endTime - self.__startTime
@@ -557,7 +622,9 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
+
         """
 
         dataframe = {}
@@ -572,7 +639,11 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
+
         :type outFile: csv file
+
+        :return: None
+
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -585,7 +656,9 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
         Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
+
         :rtype: dict
+
         """
         return self.__finalPatterns
 
