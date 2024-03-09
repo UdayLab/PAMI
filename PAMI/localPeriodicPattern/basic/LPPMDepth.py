@@ -73,6 +73,20 @@ class LPPMDepth(_ab._localPeriodicPatterns):
         Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
         a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minDur: str:
+                   Minimal duration in seconds between consecutive periods of time-intervals where a pattern is continuously periodic.
+    :param  maxPer: float:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+    :param  maxSoPer: float:
+                   Controls the maximum number of time periods between consecutive periods of time-intervals where a pattern is continuously periodic.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : str

@@ -59,6 +59,22 @@ class PPF_DFS(partialPeriodicPatterns):
     """
     :Description:   PPF_DFS is algorithm to mine the partial periodic frequent patterns.
 
+    :References:    (Has to be added)
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: str:
+                   The user can specify minSup either in count or proportion of database size.
+    :param  minPR: str:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+    :param  maxPer: str:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : file
@@ -125,7 +141,7 @@ class PPF_DFS(partialPeriodicPatterns):
 
     **Sample run of the importing code:**
     ---------------------------------------
-    .. code-block:: python
+    ...     code-block:: python
 
             from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg
 

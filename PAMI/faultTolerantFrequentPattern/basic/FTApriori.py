@@ -27,7 +27,7 @@
 #             run = obj.getRuntime
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -65,9 +65,9 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     :Reference:    Pei, Jian & Tung, Anthony & Han, Jiawei. (2001). Fault-Tolerant Frequent Pattern Mining: Problems and Challenges.
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
+                   Name of the Input file to mine complete set of fault Tolerant frequent patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of falut Tolerant frequent patterns
     :param  minSup: float or int or str :
                     The user can specify minSup either in count or proportion of database size.
                     If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -105,14 +105,20 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     
         
     **Methods to execute code on terminal**
-    ---------------------------------------
+    ------------------------------------------
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 FTApriori.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
+
+      Example Usage:
+
+      (.venv) $ python3 FTApriori.py sampleDB.txt patterns.txt 10.0 3.0 3 1
+
     
-            Format:
-                      >>>    python3 FTApriori.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
-            Example:
-                      >>>    python3 FTApriori.py sampleDB.txt patterns.txt 10.0 3.0 3 1
-    
-            .. note:: minSup will be considered in times of minSup and count of database transactions
+    .. note:: minSup will be considered in times of minSup and count of database transactions
     
     **Importing this algorithm into a python program**
     ----------------------------------------------------------------
@@ -202,8 +208,14 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     def _convert(self, value) -> float:
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
+
+        :type value: int or float
+
         :return: converted type
+
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -219,8 +231,14 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
     def _Count(self, k) -> Tuple[int, List[List[str]]]:
         """
-        param k: list of items
-        type k: list
+        :param k: list of items
+
+        :type k: list
+
+        :return: count of items in k and list
+
+        :rtype: tuple
+
         """
         count = 0
         items = []
@@ -250,11 +268,14 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
     def _countItemSupport(self, itemset) -> int:
         """
         This function is used to count the  itemSupport
-        Parameters:
-            itemSet: frequent itemSet that generated
 
-        Returns:
-            patterns with original item names.
+        :param itemSet: frequent itemSet that generated
+
+        :type itemset: list
+
+        :return: count of items
+
+        :rtype: int
 
         """
         tids = {}
@@ -298,36 +319,52 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
+
         """
 
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
+
         """
 
         return self._memoryRSS
 
     def getRuntime(self) -> float:
         """
+
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
+
         """
 
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
+
         """
 
         dataFrame = {}
@@ -342,9 +379,15 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
     def save(self, outFile) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
+
         :type outFile: csvfile
+
+        :return: None
+
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -357,9 +400,13 @@ class FTApriori(_ab._faultTolerantFrequentPatterns):
 
     def getPatterns(self) -> Dict[Tuple[str, ...], int]:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
+
         :rtype: dict
+
         """
         return self._finalPatterns
 

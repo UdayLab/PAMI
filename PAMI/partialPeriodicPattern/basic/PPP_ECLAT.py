@@ -62,7 +62,19 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     :Reference:   To be published
 
-    :Parameters:
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minPS: float:
+                   Minimum partial periodic pattern...
+    :param  period: float:
+                   Minimum partial periodic...
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+    :Attributes:
 
         self.iFile : file
             Name of the Input file or path of the input file
@@ -136,7 +148,7 @@ class PPP_ECLAT(_ab._partialPeriodicPatterns):
 
     **Sample run of importing the code:**
     -----------------------------------------
-    .. code-block:: python
+    ...     code-block:: python
 
             from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg
 

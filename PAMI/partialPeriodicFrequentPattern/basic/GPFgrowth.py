@@ -506,6 +506,20 @@ class GPFgrowth(partialPeriodicPatterns):
     :Reference:   R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
                   Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, https://doi.org/10.1016/j.jss.2016.11.035.
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: str:
+                   The user can specify minSup either in count or proportion of database size.
+    :param  minPR: str:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+    :param  maxPer: str:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         inputFile : file
@@ -552,7 +566,7 @@ class GPFgrowth(partialPeriodicPatterns):
 
     **Sample run of the importing code:**
     --------------------------------------
-    .. code-block:: python
+    ...     code-block:: python
 
             from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg
 

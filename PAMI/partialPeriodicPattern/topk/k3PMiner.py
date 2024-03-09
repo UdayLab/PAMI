@@ -64,6 +64,16 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
     :Reference:
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  period: str:
+                   Minimum partial periodic...
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
             iFile : str
@@ -122,7 +132,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
     **Sample run of the importing code:**
     --------------------------------------
-    .. code-block:: python
+    ...     code-block:: python
 
             import PAMI.partialPeriodicPattern.topk.k3PMiner as alg
 

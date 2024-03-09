@@ -327,6 +327,20 @@ class RPGrowth(_ab._recurringPatterns):
 
     :Reference:
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minPS: str:
+                   Minimum number of frequent patterns to be included in the output file.
+    :param  minRec: str:
+                   Minimum number of ...
+    :param  maxPer: float:
+                   Maximum number of frequent patterns to be included in the output file.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : file

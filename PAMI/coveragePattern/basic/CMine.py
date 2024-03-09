@@ -29,7 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -67,15 +67,16 @@ class CMine(_ab._coveragePatterns):
     :Reference:    Bhargav Sripada, Polepalli Krishna Reddy, Rage Uday Kiran:
                    Coverage patterns for efficient banner advertisement placement. WWW (Companion Volume) 2011: 131-132
                    __https://dl.acm.org/doi/10.1145/1963192.1963259
+
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of coverage patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minRF: float:
+                   Name of the output file to store complete set of coverage patterns
+    :param  minRF: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
-    :param  minCS: float:
+    :param  minCS: str:
                    Controls the minimum number of transactions in which at least one time within a pattern must appear in a database.
-    :param  maxOR: float:
+    :param  maxOR: str:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
 
     :param  sep: str :
@@ -104,11 +105,18 @@ class CMine(_ab._coveragePatterns):
 
     **Methods to execute code on terminal**
     ----------------------------------------------------
-            Format:
-                      >>>  python3 CMine.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
 
-            Example:
-                      >>>  python3 CMine.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 '\t'
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 CMine.py <inputFile> <outputFile> <minRF> <minCS> <maxOR> <'\t'>
+
+      Example Usage:
+
+      (.venv) $ python3 CMine.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 '\t'
+
+    .. note: At the fixed minCS value, it can also be observed that the number of patterns increases as maxOR value increases.
 
 
     **Importing this algorithm into a python program**
@@ -169,6 +177,7 @@ class CMine(_ab._coveragePatterns):
         To convert the user specified minSup value
         :param value: user specified minSup value
         :return: converted type
+        :rtype: Union[int, float]
         """
         if type(value) is int:
             value = int(value)
@@ -218,6 +227,7 @@ class CMine(_ab._coveragePatterns):
         """
         This function creates coverage items from _database.
         :return: coverageTidData that stores coverage items and their tid list.
+        :rtype: dict
         """
         tidData = {}
         self._lno = 0
@@ -236,7 +246,8 @@ class CMine(_ab._coveragePatterns):
         """
         This function converts tid list to bitset.
         :param item_set:
-        :return:
+        :return: Dictionary
+        :rtype: dict
         """
         bitset = {}
 
@@ -254,7 +265,7 @@ class CMine(_ab._coveragePatterns):
         This function generate coverage pattern about prefix.
         :param prefix: String
         :param tidData: list
-        :return:
+        :return: None
         """
         # variables to store coverage item set and
         item_set = prefix[0]
@@ -276,7 +287,7 @@ class CMine(_ab._coveragePatterns):
         """
         This function generates all coverage patterns.
         :param coverageItems: coverage items
-        :return:
+        :return: None
         """
         tidData = list(coverageItems.items())
         length = len(tidData)
@@ -350,6 +361,7 @@ class CMine(_ab._coveragePatterns):
         """Complete set of coverage patterns will be loaded in to an output file
         :param outFile: name of the outputfile
         :type outFile: file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

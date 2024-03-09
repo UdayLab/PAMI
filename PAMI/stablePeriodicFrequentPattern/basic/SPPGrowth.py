@@ -272,6 +272,20 @@ class SPPGrowth():
                   Theory and Practices in Artificial Intelligence. IEA/AIE 2022. Lecture Notes in Computer Science(), vol 13343. Springer, Cham.
                   https://doi.org/10.1007/978-3-031-08530-7_70
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: str:
+                   Minimum number of frequent patterns to be included in the output file.
+    :param  maxLa: float:
+                   Minimum number of ...
+    :param  maxPer: float:
+                   Maximum number of frequent patterns to be included in the output file.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
             iFile : file
