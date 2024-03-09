@@ -152,7 +152,7 @@ obj = alg.CFPGrowth(iFile, mFile, seperator) #initialize the algorithm
 obj.startMine()                       #start the mining process 
 obj.save(oFile)               #store the patterns in file 
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
-obj.printResults()                      #Print the statistics of mining process
+obj.printResults()                      #Print the stats of mining process
 ```
 
     Frequent patterns were generated successfully using CFPGrowth algorithm

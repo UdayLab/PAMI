@@ -465,7 +465,7 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
             Returns the runtime of the algorithm
 
         printResults()
-            Prints the statistics of the mining process
+            Prints the stats of the mining process
 
         save()
             Saves the patterns generated from each window in a file

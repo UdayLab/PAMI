@@ -174,7 +174,7 @@ obj = alg.PPF_DFS(iFile, minSup, maxPer, minPR, seperator) #initialize the algor
 obj.startMine()                       #start the mining process 
 obj.savePatterns(oFile)               #store the patterns in file 
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
-obj.printResults()                      #Print the statistics of mining process
+obj.printResults()                      #Print the stats of mining process
 ```
 
 

@@ -163,7 +163,7 @@ obj = alg.FGPFPMiner(iFile, nFile, minSup, maxPer, seperator)  # initialize the 
 obj.startMine()  # start the mining process <br>
 obj.save(oFile)  # store the patterns in file <br>
 df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe <br>
-obj.printResults()  # Print the statistics of mining process
+obj.printResults()  # Print the stats of mining process
 ```
 
     Total number of Spatial Fuzzy Periodic-Frequent Patterns: 5

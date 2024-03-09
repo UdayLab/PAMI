@@ -1,19 +1,18 @@
-# MultipleTimeSeriesFuzzyDatabaseStats is class to get stats of multiple time series fuzzy database.
+# Transactional Database is a class used to get stats of database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#             from PAMI.extras.dbStats import MultipleTimeSeriesFuzzyDatabaseStats as db
+#             from PAMI.extras.stats import transactionalDatabase as db
 #
-#             obj = db.MultipleTimeSeriesDatabaseStats(iFile, "\t")
+#             obj = db.transactionalDatabase(iFile, "\t")
+#
+#             obj.save(oFile)
 #
 #             obj.run()
 #
 #             obj.printStats()
-#
-#             obj.save(oFile)
-#
-#
+
 
 
 __copyright__ = """
@@ -32,18 +31,19 @@ __copyright__ = """
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+import sys
 import statistics
 import pandas as pd
 import validators
 import numpy as np
 from urllib.request import urlopen
-import sys
+from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 
-class MultipleTimeSeriesFuzzyDatabaseStats:
+class transactionalDatabase:
     """
-    :Description:  MultipleTimeSeriesDatabaseStats is class to get stats of multiple time series fuzzy database.
+    :Description:  TransactionalDatabase is class to get stats of database.
 
     :Attributes:
 
@@ -60,8 +60,6 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
             read database from input file
         getDatabaseSize()
             get the size of database
-        getTotalNumberOfItems()
-            get the total number of items in a database
         getMinimumTransactionLength()
             get the minimum transaction length
         getAverageTransactionLength()
@@ -70,41 +68,40 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
             get the maximum transaction length
         getStandardDeviationTransactionLength()
             get the standard deviation of transaction length
-        convertDataIntoMatrix()
-            Convert the database into matrix form to calculate the sparsity and density of a database
-        getSparsity()
-            get sparsity value of database
-        getDensity()
-            get density value of database
         getSortedListOfItemFrequencies()
             get sorted list of item frequencies
         getSortedListOfTransactionLength()
             get sorted list of transaction length
         save(data, outputFile)
             store data into outputFile
-        printStats()
-            To print all the stats of the database
-        plotGraphs()
-            To plot all the graphs of frequency disctribution of items and transaction length distribution in database
-   
+        getMinimumPeriod()
+            get the minimum period
+        getAveragePeriod()
+            get the average period
+        getMaximumPeriod()
+            get the maximum period
+        getStandardDeviationPeriod()
+            get the standard deviation period
+        getNumberOfTransactionsPerTimestamp()
+            get number of transactions per time stamp. This time stamp range is 1 to max period.
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.extras.dbStats import MultipleTimeSeriesFuzzyDatabaseStats as db
+            from PAMI.extras.dbStats import TransactionalDatabase as db
 
-            obj = db.MultipleTimeSeriesFuzzyDatabaseStats(iFile, "\t")
-
-            obj.run()
+            obj = db.TransactionalDatabase(iFile, "\t")
 
             obj.save(oFile)
+
+            obj.run()
 
             obj.printStats()
 
     """
 
-    def __init__(self, inputFile: str, sep: str='\t'):
+    def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str='\t') -> None:
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -122,7 +119,7 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
         """
         read database from input file and store into database and size of each transaction.
         """
-        self._transactions, self._fuzzyValues, self._Database, self._ts = [], [], [], []
+        # self.creatingItemSets()
         numberOfTransaction = 0
         if isinstance(self.inputFile, pd.DataFrame):
             if self.inputFile.empty:
@@ -146,31 +143,15 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
                 try:
                     with open(self.inputFile, 'r', encoding='utf-8') as f:
                         for line in f:
-                            line = line.strip()
-                            parts = line.split(":")
                             numberOfTransaction += 1
-                            parts[0] = parts[0].strip()
-                            parts[1] = parts[1].strip()
-                            parts[2] = parts[2].strip()
-                            times = parts[0].split(self.sep)
-                            items = parts[1].split(self.sep)
-                            quantities = parts[2].split(self.sep)
-                            #print(times, items, quantities)
-                            _time = [x for x in times if x]
-                            items = [x for x in items if x]
-                            quantities = [float(x) for x in quantities if x]
-                            tempList = []
-                            for k in range(len(_time)):
-                                ite = "(" + _time[k] + "," + items[k] + ")"
-                                tempList.append(ite)
-                            self._ts.append([x for x in times])
-                            self._transactions.append([x for x in tempList])
-                            self._fuzzyValues.append([x for x in quantities])
-                            self.database[numberOfTransaction] = tempList
+                            line.strip()
+                            temp = [i.rstrip() for i in line.split(self.sep)]
+                            temp = [x for x in temp if x]
+                            self.database[numberOfTransaction] = temp
                 except IOError:
                     print("File Not Found")
                     quit()
-        self.lengthList = [len(s) for s in self._transactions]
+        self.lengthList = [len(s) for s in self.database.values()]
 
     def getDatabaseSize(self) -> int:
         """
@@ -274,16 +255,10 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
         :return: item frequencies
         """
         itemFrequencies = {}
-        for line in range(len(self._transactions)):
-            times = self._ts[line]
-            items = self._transactions[line]
-            quantities = self._fuzzyValues[line]
-            for i in range(0, len(items)):
-                item = items[i]
-                if item in itemFrequencies:
-                    itemFrequencies[item] += quantities[i]
-                else:
-                    itemFrequencies[item] = quantities[i]
+        for tid in self.database:
+            for item in self.database[tid]:
+                itemFrequencies[item] = itemFrequencies.get(item, 0)
+                itemFrequencies[item] += 1
         self.itemFrequencies = {k: v for k, v in sorted(itemFrequencies.items(), key=lambda x: x[1], reverse=True)}
         return self.itemFrequencies
     
@@ -301,8 +276,8 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
 
     def getTransanctionalLengthDistribution(self) -> dict:
         """
-        get transaction length
-        :return: transactional length
+        Get transaction length
+        :return: dict
         """
         transactionLength = {}
         for length in self.lengthList:
@@ -340,9 +315,22 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
 
 
 if __name__ == '__main__':
+    data = {'tid': [1, 2, 3, 4, 5, 6, 7],
+
+            'Transactions': [['a', 'd', 'e'], ['b', 'a', 'f', 'g', 'h'], ['b', 'a', 'd', 'f'], ['b', 'a', 'c'],
+                             ['a', 'd', 'g', 'k'],
+
+                             ['b', 'd', 'g', 'c', 'i'], ['b', 'd', 'g', 'e', 'j']]}
+
+    # data = pd.DataFrame.from_dict('transactional_T10I4D100K.csv')
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
     import pandas as pd
-    obj = MultipleTimeSeriesFuzzyDatabaseStats(sys.argv[1])
+    # obj = TransactionalDatabase(data)
+    obj = transactionalDatabase(sys.argv[1], sys.argv[2])
+    obj = transactionalDatabase(pd.DataFrame(data))
     obj.run()
     obj.printStats()
     obj.plotGraphs()
+
+
+

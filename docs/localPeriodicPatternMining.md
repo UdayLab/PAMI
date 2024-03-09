@@ -132,7 +132,7 @@ obj = alg.LPPGrowth(iFile, maxPer, maxSoPer, minDur, seperator) #initialize the 
 obj.startMine()                       #start the mining process <br>
 obj.save(oFile)               #store the patterns in file <br>
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe <br>
-#obj.printStats()                      #Print the statistics of mining process
+#obj.printStats()                      #Print the stats of mining process
 ```
 
 The localPeriodicPatterns.txt file contains the following patterns (*format:* pattern:support):!cat localPeriodicPatterns.txt

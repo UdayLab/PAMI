@@ -115,7 +115,7 @@ obj = alg.PFPGrowth(iFile, minSup, maxPer, seperator) #initialize the algorithm
 obj.startMine()                       #start the mining process 
 obj.save(oFile)               #store the patterns in file 
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
-obj.printResults()                      #Print the statistics of mining process
+obj.printResults()                      #Print the stats of mining process
 ```
 
     Periodic Frequent patterns were generated successfully using PFPGrowth algorithm 

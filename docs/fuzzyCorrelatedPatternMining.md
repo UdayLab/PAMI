@@ -119,7 +119,7 @@ obj = alg.FCPGrowth(iFile, minSup, minAllConf, seperator) #initialize the algori
 obj.startMine()                       #start the mining process <br>
 obj.save(oFile)               #store the patterns in file <br>
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe <br>
-obj.printResults()                      #Print the statistics of mining process
+obj.printResults()                      #Print the stats of mining process
 ```
 
 The FuzzyCorrelatedPatterns.txt file contains the following patterns (*format:* pattern:support:lability):!cat FuzzyCorrelatedPatterns.txt
