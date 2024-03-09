@@ -2,11 +2,11 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.subgraphMining.basic import GSpan as alg
+#     from PAMI.subgraphMining.basic import gspan as alg
 #
-#     obj = alg.GSpan(iFile, oFile, min_support, output_single_vertices=True, max_number_of_edges=INF, outputgraphIDs = True)
+#     obj = alg.GSpan(iFile, minSupport)
 #
-#     obj.run()
+#     obj.startMine()
 #
 #     frequentGraphs = obj.getFrequentSubgraphs()
 #
@@ -37,7 +37,7 @@ class GSpan(_ab._gSpan):
     eliminate_infrequent_edge_labels = True
     edge_count_pruning = True
 
-    def __init__(self, inPath, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=True) -> None:
+    def __init__(self, iFile, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=True) -> None:
         """
         Initialize variables
         """
@@ -55,7 +55,7 @@ class GSpan(_ab._gSpan):
         self.eliminatedWithMaxSize = 0
         self.emptyGraphsRemoved = 0
         self.pruneByEdgeCount = 0
-        self.inPath = inPath
+        self.inPath = iFile
         self.outPath = None
         self.outputSingleVertices = outputSingleVertices
         self.maxNumberOfEdges = maxNumberOfEdges
@@ -64,7 +64,7 @@ class GSpan(_ab._gSpan):
         self._memoryRSS = float()
 
 
-    def run(self):
+    def startMine(self):
 
         if self.maxNumberOfEdges <= 0:
             return
@@ -106,7 +106,7 @@ class GSpan(_ab._gSpan):
         self.patternCount = len(self.frequentSubgraphs)
 
 
-    def save(self, outputPath):
+    def save(self, oFile):
         """
         The `save` function writes information about frequent subgraphs to a specified
         output file in a specific format.
@@ -115,7 +115,7 @@ class GSpan(_ab._gSpan):
         subgraphs to a file specified by the `outputPath` parameter. The method iterates over each
         frequent subgraph in `self.frequentSubgraphs` and writes the subgraph information to the file
         """
-        with open(outputPath, 'w') as bw:
+        with open(oFile, 'w') as bw:
             i = 0
             for subgraph in self.frequentSubgraphs:
                 sb = []
