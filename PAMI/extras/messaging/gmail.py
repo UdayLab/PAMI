@@ -24,7 +24,7 @@ from email.message import EmailMessage
 class gmail():
 
     def __init__(self, userName: str, password: str) -> None:
-        self.username = userName
+        self.userName = userName
         self.password = password
 
 
@@ -39,7 +39,7 @@ class gmail():
             message.set_content(body)
 
             message['Subject'] = subject
-            message['From'] = self.username
+            message['From'] = self.userName
             message['To'] = toAddress
 
             smtp_server.send_message(message)
