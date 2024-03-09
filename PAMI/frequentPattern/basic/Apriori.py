@@ -28,7 +28,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -65,7 +65,7 @@ class Apriori(_ab._frequentPatterns):
                    Name of the Input file to mine complete set of frequent patterns
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
-    :param  minSup: int :
+    :param  minSup: int or float or str :
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
@@ -97,17 +97,21 @@ class Apriori(_ab._frequentPatterns):
     **Methods to execute code on terminal**
     ----------------------------------------------------
 
-            Format:
-                      >>> python3 Apriori.py <inputFile> <outputFile> <minSup>
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 Apriori.py sampleDB.txt patterns.txt 10.0
+      Format:
 
-            .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 Apriori.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 Apriori.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
-    ----------------------------------------------------
+    -----------------------------------------------------
 
     .. code-block:: python
 
@@ -195,8 +199,15 @@ class Apriori(_ab._frequentPatterns):
     def _convert(self, value: Union[int, float, str]) -> Union[int, float]:
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
+
+        :type value: int or float or str
+
         :return: converted type
+
+        :rtype: int or float
+
         """
         if type(value) is int:
             value = int(value)
@@ -213,10 +224,15 @@ class Apriori(_ab._frequentPatterns):
     def _candidateToFrequent(self, candidateList: List[set]) -> Dict[frozenset, int]:
         """
         Generates frequent patterns from the candidate patterns
-        :param candidateList: Candidate patterns will be given as input
+
+        :param candidateList: Candidate pattern will be given as input
+
         :type candidateList: list
+
         :return: returning set of all frequent patterns
+
         :rtype: dict
+
         """
 
         candidateToFrequentList = {}
@@ -232,13 +248,21 @@ class Apriori(_ab._frequentPatterns):
     @staticmethod
     def _frequentToCandidate(frequentList: Dict[frozenset, int], length: int) -> List[set]:
         """
+
         Generates candidate patterns from the frequent patterns
+
         :param frequentList: set of all frequent patterns to generate candidate patterns of each of size is length
+
         :type frequentList: dict
+
         :param length: size of each candidate patterns to be generated
+
         :type length: int
+
         :return: set of candidate patterns in sorted order
+
         :rtype: list
+
         """
 
         frequentToCandidateList = []
@@ -279,36 +303,52 @@ class Apriori(_ab._frequentPatterns):
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
+
         """
 
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
+
         """
 
         return self._memoryRSS
 
     def getRuntime(self) -> float:
         """
+
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
+
         """
 
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
+
         """
 
         dataFrame = {}
@@ -321,9 +361,15 @@ class Apriori(_ab._frequentPatterns):
 
     def save(self, outFile) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
+
         :type outFile: csvfile
+
+        :return: None
+
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -333,9 +379,13 @@ class Apriori(_ab._frequentPatterns):
 
     def getPatterns(self) -> Dict[str, int]:
         """
+
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
+
         :rtype: dict
+
         """
         return self._finalPatterns
 

@@ -1,7 +1,7 @@
-#ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
+# ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.
 #
-#**Importing this algorithm into a python program**
-#---------------------------------------------------------
+# **Importing this algorithm into a python program**
+# ---------------------------------------------------------
 #
 #             import PAMI.frequentPattern.basic.ECLATbitset as alg
 #
@@ -28,7 +28,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -92,15 +92,19 @@ class ECLATbitset(_ab._frequentPatterns):
 
 
     **Methods to execute code on terminal**
-    ----------------------------------------
+    ------------------------------------------
 
-            Format:
-                      >>> python3 ECLATDiffset.py <inputFile> <outputFile> <minSup>
+    .. code-block:: console
 
-            Example:
-                      >>> python3 ECLATDiffset.py sampleDB.txt patterns.txt 10.0
+      Format:
 
-            .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 ECLATbitset.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 ECLATbitset.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -157,8 +161,14 @@ class ECLATbitset(_ab._frequentPatterns):
     def _convert(self, value):
         """
         To convert the user specified minSup value
+
         :param value: user specified minSup value
+
+        :type value: int
+
         :return: converted type
+
+        :rtype: int or float or string
         """
         if type(value) is int:
             value = int(value)
@@ -209,7 +219,11 @@ class ECLATbitset(_ab._frequentPatterns):
     def creatingFrequentItems(self):
         """
         This function creates frequent items from _database.
+
         :return: frequentTidData that stores frequent items and their tid list.
+
+        :rtype: Dict
+
         """
         tidData = {}
         self._lno = 0
@@ -226,15 +240,16 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def tidToBitset(self,itemset):
         """
+
         This function converts tid list to bitset.
 
-        Parameters:
+        :param itemset: frequent itemset that generated
 
-            itemSet: frequent itemset that generated
+        :type itemset: Dict
 
-        Returns:
+        :return: patterns with original item names
 
-            patterns with original item names.
+        :rtype: Dict
 
         """
         bitset = {}
@@ -250,10 +265,17 @@ class ECLATbitset(_ab._frequentPatterns):
 
     def genPatterns(self,prefix,tidData):
         """
+
         This function generate frequent pattern about prefix.
-        :param prefix: String
-        :param tidData: list
-        :return:
+
+        :param prefix: prefix of pattern to generate patterns
+
+        :type prefix: str
+
+        :param tidData: tidData for pattern generation
+
+        :type tidData: list
+
         """
         # variables to store frequent item set and
         itemset = prefix[0]
@@ -274,8 +296,11 @@ class ECLATbitset(_ab._frequentPatterns):
     def genAllFrequentPatterns(self,frequentItems):
         """
         This function generates all frequent patterns.
+
         :param frequentItems: frequent items
-        :return:
+
+        :type frequentItems: Dict
+
         """
         tidData = list(frequentItems.items())
         length = len(tidData)
