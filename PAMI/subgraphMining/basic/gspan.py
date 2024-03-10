@@ -37,7 +37,7 @@ class GSpan(_ab._gSpan):
     eliminate_infrequent_edge_labels = True
     edge_count_pruning = True
 
-    def __init__(self, iFile, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=True) -> None:
+    def __init__(self, iFile, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=False) -> None:
         """
         Initialize variables
         """
