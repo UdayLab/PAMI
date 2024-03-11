@@ -50,7 +50,7 @@ class createTemporalDatabase:
             for _ in range(self.totalTransactions):
                 length = _rd.randint(1, self.avgTransactionLength + 20)
                 st = str(count) + '\t'
-                randomNumbers = self.generateRandomNumbers(13, 2000)
+                randomNumbers = self.createRandomNumbers(13, 2000)
 
                 # Checking if avgTransactionLength exceeds numOfItems
                 if self.avgTransactionLength > self.numOfItems:
@@ -63,7 +63,7 @@ class createTemporalDatabase:
                 writer.write("%s \n" % st)
                 count += 1
 
-    def generateRandomNumbers(self, n: int, targetSum: int) -> list[float]:
+    def createRandomNumbers(self, n: int, targetSum: int) -> list[float]:
         """
         Generate a list of random numbers with a specified target sum.
 
