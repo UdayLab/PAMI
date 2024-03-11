@@ -29,8 +29,11 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
-#
-#
+
+
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -103,13 +106,17 @@ class cudaEclatGCT:
     **Methods to execute code on terminal**
     ----------------------------------------------------
 
-            Format:
-                     >>> python3 cudaEclatGCT.py <inputFile> <outputFile> <minSup>
+    .. code-block:: console
 
-            Example:
-                     >>>  python3 cudaEclatGCT.py sampleDB.txt patterns.txt 10.0
+      Format:
 
-                    .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 cudaEclatGCT.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 cudaEclatGCT.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -213,9 +220,15 @@ class cudaEclatGCT:
 
     def __convert(self, value):
         """
+
         To convert the type of user specified minSup value
+
         :param value: user specified minSup value
+
+        :type value: int or float or str
+
         :return: converted type
+
         """
         if type(value) is int:
             value = int(value)
@@ -297,15 +310,15 @@ class cudaEclatGCT:
 
     def eclat(self, basePattern, final, vb_data, idx2item, item2idx):
         """
-        param basePattern:
+        param basePattern: base pattern used for the mining process after completion of the mining process
         type basePattern:
-        param final:
+        param final: final pattern used for the mining process after completion of the mining process
         type final:
-        param vb_data:
+        param vb_data: vb_data used for the mining process after completion of the mining process
         type vb_data:
-        param idx2item:
+        param idx2item: idx2item used for the mining process after completion of the mining process
         type idx2item:
-        param item2idx:
+        param item2idx: item2idx used for the mining process after completion of the mining process
         type item2idx:
         """
         newBasePattern = []

@@ -95,16 +95,20 @@ class ECLATDiffset(_ab._frequentPatterns):
           
         
     **Methods to execute code on terminal**
-    ----------------------------------------
-    
-            Format:
-                      >>> python3 ECLATbitset.py <inputFile> <outputFile> <minSup>
-    
-            Example:
-                      >>> python3 ECLATbitset.py sampleDB.txt patterns.txt 10.0
-    
-            .. note:: minSup will be considered in percentage of database transactions
-    
+    ------------------------------------------
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 ECLATDiffset.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 ECLATDiffset.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup will be considered in percentage of database transactions
+
     
     **Importing this algorithm into a python program**
     ---------------------------------------------------------
