@@ -29,6 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -100,13 +101,18 @@ class parallelECLAT(_ab._frequentPatterns):
     **Methods to execute code on terminal**
     ----------------------------------------------------
 
-            Format:
-                      >>> python3 parallelECLAT.py <inputFile> <outputFile> <minSup> <numWorkers>
+    .. code-block:: console
 
-            Example:
-                      >>> python3 parallelECLAT.py sampleDB.txt patterns.txt 10.0 3
+      Format:
 
-            .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 parallelECLAT.py <inputFile> <outputFile> <minSup> <numWorkers>
+
+      Example Usage:
+
+      (.venv) $ python3 parallelECLAT.py sampleDB.txt patterns.txt 10.0 3
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
 
     **Importing this algorithm into a python program**
@@ -234,12 +240,17 @@ class parallelECLAT(_ab._frequentPatterns):
     def _genPatterns(self, suffix, pattern, data):
         """
         This function is used to generate patterns
-        param suffix:
-        return:
-        param pattern:
-        return:
-        param data:
-        type:
+        :param suffix: the suffix of the generated ptterns
+
+        :type suffix: str
+
+        :param pattern: the pattern of the generated ptterns
+
+        :type pattern: str
+
+        :param data: the data of the generated ptterns after completion of the mining process
+
+        :type data: str
         """
         freqPatterns = {}
         index = data.index(suffix)
@@ -264,6 +275,7 @@ class parallelECLAT(_ab._frequentPatterns):
         """
         To convert the user specified minSup value
         :param value: user specified minSup value
+        :type value: int or float or str
         :return: converted type
         """
         print(value, type(value))
