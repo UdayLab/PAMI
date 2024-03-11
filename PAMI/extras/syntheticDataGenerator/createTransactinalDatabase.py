@@ -40,7 +40,7 @@ class createTransactionalDatabase:
         self.avgTransactionLength = avgTransactionLength
         self.transactions = list()
 
-    def generate(self) -> None:
+    def create(self) -> None:
         """
         Method to generate random transactions based on the specified parameters.
         If avg_transaction_length exceeds num_of_items, an error message is printed.
