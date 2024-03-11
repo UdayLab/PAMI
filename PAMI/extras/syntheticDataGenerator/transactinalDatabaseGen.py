@@ -6,24 +6,21 @@ class TransactionalDatabase:
     A class to generate a transactional database with random transactions.
 
     Attributes:
-        database_size (int): The number of transactions in the database.
-        num_of_items (int): The maximum number of items in each transaction.
-        avg_transaction_length (int): The average length of transactions.
+        databaseSize (int): The number of transactions in the database.
+        numOfItems (int): The maximum number of items in each transaction.
+        avgTransactionLength (int): The average length of transactions.
         transactions (list): List to store generated transactions.
 
     Methods:
         __init__(self, database_size, num_of_items, avg_transaction_length): Constructor to initialize the database parameters.
         generate(): Method to generate random transactions based on the specified parameters.
-        generate_random_numbers(n, target_sum): Method to generate a list of random numbers with a specified target sum.
+        generateRandomNumbers(n, target_sum): Method to generate a list of random numbers with a specified target sum.
         save(output_file, sep): Method to save the generated transactions to a CSV file.
 
     Usage:
         obj = TransactionalDatabase(database_size, num_of_items, avg_transaction_length)
         obj.generate()
         obj.save("transactional_output.csv")
-
-    Credits:
-        The complete program was written by A.Hemanth sree sai under the supervision of Professor Rage Uday Kiran.
     """
 
     def __init__(self, database_size: int, num_of_items: int, avg_transaction_length: int) -> None:
@@ -35,9 +32,9 @@ class TransactionalDatabase:
             num_of_items (int): The maximum number of items in each transaction.
             avg_transaction_length (int): The average length of transactions.
         """
-        self.database_size = database_size
-        self.num_of_items = num_of_items
-        self.avg_transaction_length = avg_transaction_length
+        self.databaseSize = database_size
+        self.numOfItems = num_of_items
+        self.avgTransactionLength = avg_transaction_length
         self.transactions = list()
 
     def generate(self) -> None:
@@ -45,17 +42,17 @@ class TransactionalDatabase:
         Method to generate random transactions based on the specified parameters.
         If avg_transaction_length exceeds num_of_items, an error message is printed.
         """
-        if self.avg_transaction_length > self.num_of_items:
+        if self.avgTransactionLength > self.numOfItems:
             print("Error: avg_transaction_length cannot exceed num_of_items.")
             return
 
-        for _ in range(self.database_size):
-            length = random.randint(1, self.avg_transaction_length * 2)
-            transaction = [random.randint(1, self.num_of_items)
+        for _ in range(self.databaseSize):
+            length = random.randint(1, self.avgTransactionLength * 2)
+            transaction = [random.randint(1, self.numOfItems)
                            for _ in range(length)]
             self.transactions.append(transaction)
 
-    def generate_random_numbers(self, n: int, target_sum: int) -> list[float]:
+    def generateRandomNumbers(self, n: int, target_sum: int) -> list[float]:
         """
         Method to generate a list of random numbers with a specified target sum.
 
@@ -83,7 +80,7 @@ class TransactionalDatabase:
         with open(output_file, 'w') as f:
             for transaction in self.transactions:
                 # Adding the generated random numbers to each transaction
-                random_numbers = self.generate_random_numbers(13, 2000)
+                random_numbers = self.generateRandomNumbers(13, 2000)
                 transaction += random_numbers
 
                 f.write(f"{sep.join(map(str, transaction))}\n")
@@ -94,4 +91,4 @@ if __name__ == "__main__":
     obj.generate()
 
     # Saving transactions to a CSV file with generated random numbers
-    obj.save("transactional_output_9.csv")
+    obj.save("transactional_output.csv")
