@@ -1,7 +1,7 @@
 import random as _rd
 
 
-class SyntheticUtilityDatabase:
+class syntheticUtilityDatabase:
     """
     This class creates a synthetic utility database.
 
@@ -101,7 +101,7 @@ class SyntheticUtilityDatabase:
 
 
 if __name__ == "__main__":
-    ap = SyntheticUtilityDatabase(100000, 870, 100, 10)
+    ap = syntheticUtilityDatabase(100000, 870, 100, 10)
     ap.createSyntheticUtilityDatabase("T10_util-12.csv")
 else:
     print("Error! The number of input parameters does not match the total number of parameters provided")
