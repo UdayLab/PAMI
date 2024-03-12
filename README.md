@@ -35,6 +35,14 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 
 8. Report issues https://github.com/UdayLab/PAMI/issues
 
+# Recent Updates  
+
+- Version 2023.07.07: New algorithms: cuApriroi, cuAprioriBit, cuEclat, cuEclatBit, gPPMiner, cuGPFMiner, FPStream, HUPMS, SHUPGrowth New codes to generate synthetic databases
+- Version 2023.06.20: Fuzzy Partial Periodic, Periodic Patterns in High Utility, Code Documentation, help() function Update 
+- Version 2023.03.01: prefixSpan and SPADE   
+
+Total number of algorithms: 83
+
 # Features
 
 - ✅ Well-tested and production-ready
@@ -48,13 +56,18 @@ PAttern MIning (PAMI) is a Python library containing several algorithms to disco
 - 🐎 Snappy
 - 🐻 Ease of use
 
-# Recent versions  
+# Table of Content
 
-- Version 2023.07.07: New algorithms: cuApriroi, cuAprioriBit, cuEclat, cuEclatBit, gPPMiner, cuGPFMiner, FPStream, HUPMS, SHUPGrowth New codes to generate synthetic databases
-- Version 2023.06.20: Fuzzy Partial Periodic, Periodic Patterns in High Utility, Code Documentation, help() function Update 
-- Version 2023.03.01: prefixSpan and SPADE   
-
-Total number of algorithms: 83
+- [Maintenance](#maintenance)
+- [Try your First Program](#try-your-first-program)
+- [Reading Material](#Reading-Material)
+- [Tutorials](#Tutorials)
+- [Licence](#Licence)
+- [Documentation](#Documentation)
+- [Background](#Background)
+- [Getting Help](#Getting-Help)
+- [Discussion and Development](#Discussion-and-Development)
+- [Contribution to PAMI](#Contribution-to-PAMI)
 
 # Maintenance
 
@@ -76,7 +89,19 @@ Total number of algorithms: 83
 
 
          pip install 'pami[spark]'
-  
+
+
+  4. Installing pami package for developing purpose
+          
+
+         pip install 'pami[dev]'
+
+
+  5. Installing complete Library of pami 
+
+
+         pip install 'pami[all]'
+
 
   __Upgradation__
 
@@ -95,7 +120,39 @@ Total number of algorithms: 83
 
         pip show pami
 
+# *Try your first PAMI program*
 
+```shell
+$ python
+```
+
+```python
+# first import pami 
+from PAMI.frequentPattern.basic import FPGrowth as alg
+fileURL = "https://u-aizu.ac.jp/~udayrage/datasets/transactionalDatabases/Transactional_T10I4D100K.csv"
+minSup=300
+obj = alg.FPGrowth(iFile=fileURL, minSup=minSup, sep='\t')
+obj.startMine()
+obj.save('frequentPatternsAtMinSupCount300.txt')
+frequentPatternsDF= obj.getPatternsAsDataFrame()
+print('Total No of patterns: ' + str(len(frequentPatternsDF))) #print the total number of patterns
+print('Runtime: ' + str(obj.getRuntime())) #measure the runtime
+print('Memory (RSS): ' + str(obj.getMemoryRSS()))
+print('Memory (USS): ' + str(obj.getMemoryUSS()))
+```
+
+```
+Output:
+Frequent patterns were generated successfully using frequentPatternGrowth algorithm
+Total No of patterns: 4540
+Runtime: 8.749667644500732
+Memory (RSS): 522911744
+Memory (USS): 475353088
+```
+
+# Reading Material
+For more examples, refer this YouTube link [YouTube](https://www.youtube.com/playlist?list=PLKP768gjVJmDer6MajaLbwtfC9ULVuaCZ)
+ 
 ***
 
 # Tutorials 
@@ -398,6 +455,25 @@ Total number of algorithms: 83
 
 ## 11. Mining pattrens from Graphs
 __coming soon__
-  
-  
-     
+
+# License
+
+[![GitHub license](https://img.shields.io/github/license/UdayLab/PAMI)](https://github.com/UdayLab/PAMI/blob/main/LICENSE)
+
+# Documentation
+The official documentation is hosted on [PAMI](https://pami-1.readthedocs.io).
+
+# Background
+The idea and motivation to develop PAMI was from [Kitsuregawa Lab](https://www.tkl.iis.u-tokyo.ac.jp/new/resources?lang=en) at the University of Tokyo. Work on ``PAMI`` started at [University of Aizu](https://u-aizu.ac.jp/en/) in 2020 and
+has been under active development since then.
+
+# Getting Help
+For any queries, the best place to go to is github Issues [GithubIssues](https://github.com/orgs/UdayLab/discussions/categories/q-a).
+
+# Discussion and Development
+In our GitHub repository, the primary platform for discussing development-related matters is the university lab. We encourage our team members and contributors to utilize this platform for a wide range of discussions, including bug reports, feature requests, design decisions, and implementation details.
+
+# Contribution to PAMI
+We invite and encourage all community members to contribute, report bugs, fix bugs, enhance documentation, propose improvements, and share their creative ideas.
+
+[Go to Top](#table-of-contents)
