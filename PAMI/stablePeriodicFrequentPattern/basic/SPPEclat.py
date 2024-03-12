@@ -5,33 +5,35 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.stablePeriodicFrequentPattern.basic import basic as alg
 #
-#     obj = alg.SPPEclat("../basic/sampleTDB.txt", 5, 3, 3)
+#             from PAMI.stablePeriodicFrequentPattern.basic import basic as alg
 #
-#     obj.startMine()
+#             obj = alg.SPPEclat("../basic/sampleTDB.txt", 5, 3, 3)
 #
-#     Patterns = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of Stable Periodic Frequent Patterns:", len(Patterns))
+#             Patterns = obj.getPatterns()
 #
-#     obj.save("patterns")
+#             print("Total number of Stable Periodic Frequent Patterns:", len(Patterns))
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             obj.save("patterns")
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
 #
+#             print("Total ExecutionTime in seconds:", run)
 #
+
+
 
 
 __copyright__ = """
@@ -64,6 +66,23 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
     :Reference:   Fournier-Viger, P., Yang, P., Lin, J. C.-W., Kiran, U. (2019). Discovering Stable Periodic-Frequent Patterns in Transactional Data. Proc.
                   32nd Intern. Conf. on Industrial, Engineering and Other Applications of Applied Intelligent Systems (IEA AIE 2019), Springer LNAI, pp. 230-244
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: float or int or str :
+                    The user can specify minSup either in count or proportion of database size.
+                    If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+                    Otherwise, it will be treated as float.
+                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+    :param  itemSup: int or float :
+                    Frequency of an item
+    :param maxLa: floot :
+                  minimum loss of a pattern
+    :param  sep: str :
+                 This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -139,13 +158,18 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
     **Methods to execute code on terminal**
     -----------------------------------------
-            Format:
-                      >>>   python3 basic.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
 
-            Example:
-                      >>>    python3 basic.py sampleDB.txt patterns.txt 10.0 4.0 2.0
+    .. code-block:: console
 
-                      .. note:: constraints will be considered in percentage of database transactions
+      Format:
+
+      (.venv) $ python3 basic.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
+
+      Example usage:
+
+      (.venv) $ python3 basic.py sampleDB.txt patterns.txt 10.0 4.0 2.0
+
+    .. note:: constraints will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     ---------------------------------------------------
@@ -306,7 +330,9 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
                     self._Generation(GPPFList[i+1:], CP1)
 
     def _calculateLa(self, tsList):
-        """ To calculate the liability of a patterns based on its timestamps"""
+        """
+        To calculate the liability of a patterns based on its timestamps
+        """
         previous = 0
         la = 0
         tsList = sorted(tsList)
@@ -322,7 +348,9 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         return maxla
 
     def startMine(self):
-        """ Method to start the mining of patterns"""
+        """
+        Method to start the mining of patterns
+        """
         self._startTime = _ab._time.time()
         self._creatingItemsets()
         self._minSup = self._convert(self._minSup)
@@ -341,7 +369,8 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -349,7 +378,8 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatterns(self):
-        """ Function to return the set of stable periodic-frequent patterns after completion of the mining process
+        """
+        Function to return the set of stable periodic-frequent patterns after completion of the mining process
 
         :return: returning stable periodic-frequent patterns
         :rtype: dict
@@ -357,7 +387,8 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         return self._finalPatterns
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -393,7 +424,8 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         return dataFrame
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """

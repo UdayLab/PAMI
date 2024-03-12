@@ -3,35 +3,37 @@
 # **Importing this algorithm into a python program**
 # ---------------------------------------------------------
 #
-#         import PAMI.frequentPattern.topK.FAE as alg
+#             import PAMI.frequentPattern.topK.FAE as alg
 #
-#         obj = alg.FAE(iFile, K)
+#             obj = alg.FAE(iFile, K)
 #
-#         obj.startMine()
+#             obj.startMine()
 #
-#         topKFrequentPatterns = obj.getPatterns()
+#             topKFrequentPatterns = obj.getPatterns()
 #
-#         print("Total number of Frequent Patterns:", len(topKFrequentPatterns))
+#             print("Total number of Frequent Patterns:", len(topKFrequentPatterns))
 #
-#         obj.save(oFile)
+#             obj.save(oFile)
 #
-#         Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#         memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#         print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#         memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#         print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#         run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#         print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
 
-#
-#
-#
+
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -59,12 +61,16 @@ class FAE(_ab._frequentPatterns):
 
     :Reference:   Zhi-Hong Deng, Guo-Dong Fang: Mining Top-Rank-K Frequent Patterns: DOI: 10.1109/ICMLC.2007.4370261 · Source: IEEE Xplore
                   https://ieeexplore.ieee.org/document/4370261
+
     :param  iFile: str :
                    Name of the Input file to mine complete set of frequent patterns
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
     :param  k: int :
                     User specified count of top frequent patterns
+    :param minimum: int :
+                    Minimum number of frequent patterns to consider in analysis
+
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -92,15 +98,20 @@ class FAE(_ab._frequentPatterns):
 
 
     **Methods to execute code on terminal**
-    ----------------------------------------
+    -------------------------------------------
 
-        Format:
+    .. code-block:: console
 
-           >>> python3 FAE.py <inputFile> <outputFile> <K>
+      Format:
 
-        Examples:
+      (.venv) $ python3 FAE.py <inputFile> <outputFile> <K>
 
-           >>> python3 FAE.py sampleDB.txt patterns.txt 10
+      Example Usage:
+
+      (.venv) $ python3 FAE.py sampleDB.txt patterns.txt 10
+
+    .. note:: k will be considered as count of top frequent patterns to consider in analysis
+
 
 
     **Importing this algorithm into a python program**
@@ -289,6 +300,7 @@ class FAE(_ab._frequentPatterns):
         """
         to convert the type of user specified minSup value
         :param value: user specified minSup value
+        :type value: int or float or str
         :return: converted type
         """
         if type(value) is int:
@@ -339,17 +351,19 @@ class FAE(_ab._frequentPatterns):
         self._memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
-                    :return: returning USS memory consumed by the mining process
+        :return: returning USS memory consumed by the mining process
 
-                    :rtype: float
+        :rtype: float
         """
 
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
 
@@ -359,7 +373,8 @@ class FAE(_ab._frequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
 
@@ -369,7 +384,8 @@ class FAE(_ab._frequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
 
@@ -384,7 +400,8 @@ class FAE(_ab._frequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
 
@@ -397,7 +414,8 @@ class FAE(_ab._frequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
 
@@ -406,7 +424,8 @@ class FAE(_ab._frequentPatterns):
         return self._finalPatterns
 
     def printTOPK(self):
-        """ this function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Top K Frequent  Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

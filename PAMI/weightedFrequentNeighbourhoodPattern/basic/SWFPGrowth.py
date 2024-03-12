@@ -1,7 +1,7 @@
 # SWFPGrowth is an algorithm to mine the weighted spatial frequent patterns in spatiotemporal databases.
 #
 # **Importing this algorithm into a python program**
-# ----------------------------------------------------
+# -------------------------------------------------------
 #
 #             from PAMI.weightFrequentNeighbourhoodPattern.basic import SWFPGrowth as alg
 #
@@ -29,6 +29,8 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
+
+
 
 
 __copyright__ = """
@@ -114,6 +116,7 @@ class _Node:
         :param node: Children node.
         :type node: Node
         :return: Updates the children nodes and parent nodes
+        :return: None
 
         """
         self.children[node.itemId] = node
@@ -158,6 +161,7 @@ class _Tree:
         :type transaction: list
         :param count: frequency of item
         :type count: int
+        :return: None
         """
 
         # This method takes transaction as input and returns the tree
@@ -192,6 +196,7 @@ class _Tree:
         :type transaction: list
         :param count: frequency of item
         :type count: int
+        :return : None
         """
         # This method takes transaction as input and returns the tree
         global _neighbourList, _rank
@@ -319,6 +324,18 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
         R. Uday Kiran, P. P. C. Reddy, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy,
         "Discovering Spatial Weighted Frequent Itemsets in Spatiotemporal Databases," 2019 International
         Conference on Data Mining Workshops (ICDMW), 2019, pp. 987-996, doi: 10.1109/ICDMW.2019.00143.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Uncertain Periodic Frequent patterns
+    :param  minSup: str:
+                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  maxper: floot :
+                   where maxPer represents the maximum periodicity threshold value specified by the user.
+
 
     :Attributes:
 
@@ -449,6 +466,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     def __creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self._Database = []
         if isinstance(self._iFile, _fp._pd.DataFrame):
@@ -608,6 +626,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     def startMine(self) -> None:
         """
         main program to start the operation
+        :return : None
 
         """
         global _minWS, _neighbourList, _rank
@@ -698,6 +717,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -717,6 +737,7 @@ class SWFPGrowth(_fp._weightedFrequentSpatialPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of  Weighted Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

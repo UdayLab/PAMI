@@ -3,31 +3,32 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.periodicFrequentPattern.recurring import RPGrowth as alg
+#             from PAMI.periodicFrequentPattern.recurring import RPGrowth as alg
 #
-#     obj = alg.RPGrowth(iFile, maxPer, minPS, minRec)
+#             obj = alg.RPGrowth(iFile, maxPer, minPS, minRec)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#             obj.savePatterns(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
 
 
 __copyright__ = """
@@ -325,21 +326,21 @@ class RPGrowth(_ab._recurringPatterns):
     """
     :Description:   RPGrowth is one of the fundamental algorithm to discover recurring patterns in a transactional database.
 
-    :Reference:
+
+    :Reference:  R. Uday Kiran†, Haichuan Shang†, Masashi Toyoda† and Masaru Kitsuregawa† Discovering Recurring Patterns in Time Series,https://www.tkl.iis.u-tokyo.ac.jp/new/uploads/publication_file/file/693/Paper%2023.pdf
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of Recurring  patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  minPS: str:
-                   Minimum number of frequent patterns to be included in the output file.
-    :param  minRec: str:
-                   Minimum number of ...
-    :param  maxPer: float:
-                   Maximum number of frequent patterns to be included in the output file.
-
+                   Name of the output file to store complete set of Recurring patterns
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  minPs: str :
+                   It could potentially represent a minimum parallelism percentage or some other value related to parallel processing.
+    :param  maxPer: float : minRec
+                   It represent a maximum percentage or some other numeric value.
+    :param  minRec: str :
+                   It could represent a minimum recommended value or some other string-based setting.
 
     :Attributes:
 
@@ -412,13 +413,17 @@ class RPGrowth(_ab._recurringPatterns):
 
     **Methods to execute code on terminal**
     -------------------------------------------
-            Format:
-                      >>>  python3 RPGrowth.py <inputFile> <outputFile> <maxPer> <minPS> <minRec>
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 RPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 2
+      Format:
 
-                     .. note:: maxPer and minPS will be considered in percentage of database transactions
+      (.venv) $ python3 RPGrowth.py <inputFile> <outputFile> <maxPer> <minPS> <minRec>
+
+      Example usage:
+
+      (.venv) $ python3 RPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 2
+
+    .. note:: maxPer and minPS will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------

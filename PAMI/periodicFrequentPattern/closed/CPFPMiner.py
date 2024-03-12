@@ -5,31 +5,34 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.periodicFrequentPattern.closed import CPFPMiner as alg
+#             from PAMI.periodicFrequentPattern.closed import CPFPMiner as alg
 #
-#     obj = alg.CPFPMiner("../basic/sampleTDB.txt", "2", "6")
+#             obj = alg.CPFPMiner("../basic/sampleTDB.txt", "2", "6")
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
+#             print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.save("patterns")
+#             obj.save("patterns")
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -63,9 +66,9 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
                   2020 IEEE International Conference on Big Data (Big Data), 2020, https://ieeexplore.ieee.org/document/9378215
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of periodic frequent pattern's
     :param  minSup: float:
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  maxPer: float:
@@ -123,12 +126,17 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
 
     **Methods to execute code on terminal**
     --------------------------------------------
-                Format:
-                          >>>  python3 CPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer>
-                Example:
-                          >>>  python3 CPFPMiner.py sampleTDB.txt patterns.txt 0.3 0.4
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $  python3 CPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer>
+
+      Example:
+
+      (.venv) $ python3 CPFPMiner.py sampleTDB.txt patterns.txt 0.3 0.4
         
-                          .. note:: minSup will be considered in percentage of database transactions
+    .. note:: minSup will be considered in percentage of database transactions
         
         
     **Importing this algorithm into a python program**
