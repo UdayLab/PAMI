@@ -4,32 +4,34 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.relativeHighUtilityPattern.basic import RHUIM as alg
+#             from PAMI.relativeHighUtilityPattern.basic import RHUIM as alg
 #
-#     obj = alg.RHUIM("input.txt", 35, 20)
+#             obj = alg.RHUIM("input.txt", 35, 20)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.savePatterns(oFile)
+#             obj.savePatterns(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
+
+
 
 
 __copyright__ = """
@@ -137,6 +139,7 @@ class _Transaction:
 
         :param oldNamesToNewNames: A map represent old names to new names
         :type oldNamesToNewNames: map
+        :return: None
         """
         tempItems = []
         tempUtilities = []
@@ -153,6 +156,7 @@ class _Transaction:
     def insertionSort(self) -> None:
         """
         A method to sort items in order
+        :return: None
         """
         for i in range(1, len(self.items)):
             key = self.items[i]
@@ -199,6 +203,7 @@ class _Dataset:
     def createItemSets(self, datasetPath: str) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self.transactions = []
         itemsets, utilities, utilityValues = [], [], []
@@ -295,6 +300,19 @@ class RHUIM(_ab._utilityPatterns):
                  "Discovering Relative High Utility Itemsets in Very Large Transactional Databases Using Null-Invariant Measure,"
                   2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 252-262,
                   doi: 10.1109/BigData52589.2021.9672064.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Relative High Utility patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Relative High Utility patterns
+    :param  minSup: float or int or str :
+                    minSup measure constraints the minimum number of transactions in a database where a pattern must appear
+                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  minUtil: int :
+                   The minimum utility threshold.
+
     :Attributes:
 
         iFile : file
@@ -366,12 +384,16 @@ class RHUIM(_ab._utilityPatterns):
              A method to calculate local utility values for single itemSets
 
     **Methods to execute code on terminal**
-    -----------------------------------------
-            Format:
-                      >>> python3 RHUIM.py <inputFile> <outputFile> <minUtil> <sep>
+    -------------------------------------------
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 RHUIM.py sampleTDB.txt output.txt 35 20
+      Format:
+
+      (.venv) $ python3 RHUIM.py <inputFile> <outputFile> <minUtil> <sep>
+
+      Example usage:
+
+      (.venv) $ python3 RHUIM.py sampleTDB.txt output.txt 35 20
 
 
     **Importing this algorithm into a python program**
@@ -441,6 +463,7 @@ class RHUIM(_ab._utilityPatterns):
     def startMine(self) -> None:
         """
         Mining process will start from this function
+        :return: None
         """
         self._startTime = _ab._time.time()
         self._dataset = _Dataset(self._iFile, self._sep)
@@ -500,6 +523,7 @@ class RHUIM(_ab._utilityPatterns):
         :type prefixLength: int
         :param utilitySumP: a variable to hold sum of utilities of all items in P
         :type utilitySumP int
+        :return: None
         """
         self._candidateCount += len(itemsToExplore)
         for idx, e in enumerate(itemsToExplore):
@@ -584,6 +608,7 @@ class RHUIM(_ab._utilityPatterns):
         :type j:int
         :param itemsToKeep :the list of promising items
         :type itemsToKeep: list or Dataset
+        :return: None
         """
         for i in range(j + 1, len(itemsToKeep)):
             item = itemsToKeep[i]
@@ -612,6 +637,7 @@ class RHUIM(_ab._utilityPatterns):
          :type utility: int
          :param utilityRatio: utility ratio of an itemSet
          :type utilityRatio: float
+         :return: None
         """
         self._patternCount += 1
         s1 = str()
@@ -655,6 +681,7 @@ class RHUIM(_ab._utilityPatterns):
 
         :param dataset: the transaction database
         :type dataset: Dataset
+        :return: None
         """
         for transaction in dataset.getTransactions():
             sumSU = 0
@@ -734,6 +761,7 @@ class RHUIM(_ab._utilityPatterns):
 
         :param dataset: the transaction database.
         :type dataset: database
+        :return: None
 
         """
         for transaction in dataset.getTransactions():
@@ -771,6 +799,7 @@ class RHUIM(_ab._utilityPatterns):
 
         :param outFile: name of the output file
         :type outFile: file
+        :return: None
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -808,6 +837,7 @@ class RHUIM(_ab._utilityPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of Relative Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

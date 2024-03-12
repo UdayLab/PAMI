@@ -3,21 +3,21 @@
 # --------------------------------------------------------
 #
 #
-#     from cudaAlgorithms import gPFMinerBit
+#             from cudaAlgorithms import gPFMinerBit
 #
-#     obj = gPFMinerBit.gPFMinerBit("data.txt", 2, 3)
+#             obj = gPFMinerBit.gPFMinerBit("data.txt", 2, 3)
 #
-#     obj.run()
+#             obj.run()
 #
-#     print(obj.getPatterns())
+#             print(obj.getPatterns())
 #
-#     print(obj.getRuntime())
+#             print(obj.getRuntime())
 #
-#     print(obj.getMemoryRSS())
+#             print(obj.getMemoryRSS())
 #
-#     print(obj.getMemoryUSS())
+#             print(obj.getMemoryUSS())
 #
-#     print(obj.getGPUMemory())
+#             print(obj.getGPUMemory())
 #
 
 
@@ -136,6 +136,21 @@ class gPFMinerBit:
                     This algorithm employs depth-first search technique to find the complete set of frequent patterns in a
                     temporal database.
 
+    :Reference:   Penugonda Ravikumar 1,2,† , Palla Likhitha 2,† , Bathala Venus Vikranth Raj 2,† , Rage Uday Kiran 1,3,* ,† , Yutaka Watanobe 1 and Koji Zettsu 3. "Efficient Discovery of Periodic-Frequent Patterns in Columnar Temporal Databases.https://www.mdpi.com/2079-9292/10/12/1478
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of periodic frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of periodic frequent pattern's
+    :param  minSup: str:
+                   Controls the minimum number of transactions in which every item must appear in a database.
+    :param  maxPer: str:
+                   Controls the maximum number of transactions in which any two items within a pattern can reappear.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         filePath : str
@@ -194,8 +209,13 @@ class gPFMinerBit:
 
     **Running from the command line:**
     ---------------------------------------
+    .. code-block:: console
 
-                >>> python3 gPFMinerBit.py data.txt 2 3 output.txt
+      Format:
+
+      (.venv) $ python3 gPFMinerBit.py data.txt 2 3 output.txt
+
+    .. note:: minSup will be considered in percentage of database transactions
 
     **Credits:**
     ---------------

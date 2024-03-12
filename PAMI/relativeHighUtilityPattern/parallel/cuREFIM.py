@@ -3,31 +3,35 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.periodicFrequentPattern.parallel import cuREFIM as alg
 #
-#     obj = alg.cuREFIM(iFile, minUtil, ratio, '\t')
+#             from PAMI.periodicFrequentPattern.parallel import cuREFIM as alg
 #
-#     obj.startMine()
+#             obj = alg.cuREFIM(iFile, minUtil, ratio, '\t')
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
 
 
 __copyright__ = """
@@ -132,6 +136,21 @@ class GPUEFIM:
     
     :Reference:   Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
                   high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Relative High Utility patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Relative High Utility patterns
+    :param  minSup: float or int or str :
+                    minSup measure constraints the minimum number of transactions in a database where a pattern must appear
+                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  minUtil: int :
+                   The minimum utility threshold.
+
+
+
     
     :Attributes:
 

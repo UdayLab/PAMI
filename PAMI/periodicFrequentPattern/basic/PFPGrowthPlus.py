@@ -5,31 +5,32 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
+#             from PAMI.periodicFrequentPattern.basic import PFPGrowthPlus as alg
 #
-#     obj = alg.PFPGrowthPlus("../basic/sampleTDB.txt", "2", "6")
+#             obj = alg.PFPGrowthPlus("../basic/sampleTDB.txt", "2", "6")
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.save("patterns")
+#             obj.save("patterns")
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -133,6 +134,7 @@ class _Tree(object):
         :type transaction : list
         :param tid : represents the timestamp of transaction
         :type tid : list
+        :return: None
         """
         currentNode = self.root
         for i in range(len(transaction)):
@@ -284,14 +286,13 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
                   very large databases," Journal of Systems and Software February 2016 https://doi.org/10.1016/j.jss.2015.10.035
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of periodic frequent pattern's
     :param  minSup: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  maxPer: str:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
-
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -368,12 +369,17 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
 
    **Methods to execute code on terminal**
    -------------------------------------------
-            Format:
-                      >>>  python3 PFPGrowthPlus.py <inputFile> <outputFile> <minSup> <maxPer>
-            Example:
-                      >>>  python3 PFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 0.4
+   .. code-block:: console
 
-                      .. note:: minSup will be considered in percentage of database transactions
+      Format:
+
+      (.venv) $ python3 PFPGrowthPlus.py <inputFile> <outputFile> <minSup> <maxPer>
+
+      Example:
+
+      (.venv) $ python3 PFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 0.4
+
+   .. note:: minSup will be considered in percentage of database transactions
 
    **Importing this algorithm into a python program**
    -----------------------------------------------------------
@@ -428,6 +434,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
     def _creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -569,6 +576,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree.
+        :return: None
         """
         global _minSup, _maxPer, _lno
         self._startTime = _ab._time.time()
@@ -651,6 +659,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -671,6 +680,7 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
