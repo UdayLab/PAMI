@@ -1,7 +1,12 @@
 Frequent pattern With Multiple Minimum Support
 ===============================================
 
-Frequent Pattern with Multiple Support definition here
+Frequent patterns with multiple minimum support refer to patterns in a dataset that occur frequently and meet multiple minimum support thresholds.
+Unlike traditional frequent pattern mining, which uses a single uniform minimum support threshold for all items, this approach considers varying levels of support for different items in the dataset.
+By using multiple minimum support thresholds, it allows for a more nuanced analysis, where the significance of each item is evaluated individually based on its characteristics and importance in the context of the dataset.
+
+Applications: Network Traffic Analysis, Manufacturing Process Optimization, Healthcare Data Analysis, Retail Market Analysis.
+
 
 .. toctree::
    :maxdepth: 1

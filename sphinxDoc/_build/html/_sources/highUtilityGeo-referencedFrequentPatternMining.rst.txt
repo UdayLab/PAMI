@@ -1,4 +1,9 @@
-High Utility Geo-referennced Frequent Pattern Definition
+High utility georeferenced frequent pattern mining involves the discovery of spatial patterns in georeferenced datasets,
+where these patterns represent combinations of spatially distributed items or events that occur frequently and are associated with high utility values.
+These patterns are characterized by their high utility, reflecting their importance or usefulness in the context of the application domain.
+
+Applications: Location-Based Services (LBS), Urban Planning and Development, Environmental Monitoring.
+
 
 Basic
 ========

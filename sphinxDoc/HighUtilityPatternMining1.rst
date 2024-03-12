@@ -1,8 +1,10 @@
 High-Utility Pattern mining
 ============================
 
-High-Utility Pattern mining definition here
+The aim of high-utility pattern mining (HUPM) is to discover meaningful patterns in medical databases that contribute to maximizing the utility from the perspective of diagnosis.
+However, HUPM pays less attention to the interpretability and explainability of these patterns in medical decision-making scenarios.
 
+Applications: Clinical Decision Support, Drug Prescription and Therapy Planning, Disease Diagnosis and Prediction.
 
 .. toctree::
    :maxdepth: 1

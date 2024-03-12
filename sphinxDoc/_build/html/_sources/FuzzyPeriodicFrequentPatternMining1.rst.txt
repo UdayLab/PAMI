@@ -1,7 +1,10 @@
 Fuzzy Periodic Frequent Pattern Mining
 ========================================
 
-Fuzzy Periodic Frequent Pattern Mining
+Fuzzy periodic frequent patterns refer to recurring patterns in temporal data where the occurrences exhibit fuzzy relationships or uncertainties.
+These patterns are characterized by their periodic nature and may involve imprecise or fuzzy temporal attributes or relationships between events.
+
+Applications: Financial Time Series Analysis, Manufacturing and Production Processes, Network Traffic Analysis.
 
 
 .. toctree::
