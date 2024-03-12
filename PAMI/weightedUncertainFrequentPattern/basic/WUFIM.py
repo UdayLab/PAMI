@@ -154,6 +154,7 @@ class _Tree(object):
 
         :param transaction : it represents the one self.Database in database
         :type transaction : list
+        :return: None
         """
         currentNode = self.root
         for i in range(len(transaction)):
@@ -194,6 +195,7 @@ class _Tree(object):
         :type transaction : list
         :param sup : support of prefixPath taken at last child of the path
         :type sup : int
+        :return: None
 
         """
         # This method takes transaction, support and constructs the conditional tree
@@ -243,6 +245,7 @@ class _Tree(object):
 
         :param nodeValue : it represents the node in tree
         :type nodeValue : node
+        :return: None
         """
 
         for i in self.summaries[nodeValue]:
@@ -285,6 +288,7 @@ class _Tree(object):
 
         :param prefix : forms the combination of items
         :type prefix : list
+        :return: None
         """
 
         global _finalPatterns, _expSup, _expWSup, _weights
@@ -311,6 +315,18 @@ class WUFIM(_ab._weightedFrequentPatterns):
     :Description: It is one of the algorithm to discover weighted frequent patterns in a uncertain transactional database using PUF-Tree.
 
     :Reference: Efficient Mining of Weighted Frequent Itemsets in Uncertain Databases, In book: Machine Learning and Data Mining in Pattern Recognition Chun-Wei Jerry Lin, Wensheng Gan, Philippe Fournier Viger, Tzung-Pei Hong
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Uncertain Periodic Frequent patterns
+    :param  minSup: str:
+                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  wFile: str :
+                   This ????????
+
 
     :Attributes:
 
@@ -380,13 +396,18 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     **Methods to execute code on terminal**
     --------------------------------------------
-        Format:
-                  >>>  python3 basic.py <inputFile> <outputFile> <minSup>
+    .. code-block:: console
 
-        Example:
-                  >>>  python3 basic.py sampleTDB.txt patterns.txt 3
+      Format:
 
-                 .. note:: minSup  will be considered in support count or frequency
+      (.venv) $ python3 basic.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 basic.py sampleTDB.txt patterns.txt 3
+
+    .. note:: minSup  will be considered in support count or frequency
+
 
     **Importing this algorithm into a python program**
     -----------------------------------------------------
@@ -439,6 +460,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
     def _creatingItemSets(self) -> None:
         """
         Scans the uncertain transactional dataset
+        :return: None
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -499,6 +521,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
     def _scanningWeights(self) -> None:
         """
         Scans the uncertain transactional dataset
+        :return: None
         """
         self._weights = {}
         if isinstance(self._wFile, _ab._pd.DataFrame):
@@ -666,6 +689,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        :return: None
         """
         global _expSup, _expWSup, _weights, _finalPatterns
         self._startTime = _ab._time.time()
@@ -740,6 +764,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
         :param outFile: Specify name of the output file
         :type outFile: csv file
+        :return: None
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -761,6 +786,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of  Weighted Uncertain Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

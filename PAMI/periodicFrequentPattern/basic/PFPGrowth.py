@@ -4,32 +4,32 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg
+#             from PAMI.periodicFrequentPattern.basic import PFPGrowth as alg
 #
-#     obj = alg.PFPGrowth(iFile, minSup, maxPer)
+#             obj = alg.PFPGrowth(iFile, minSup, maxPer)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
-
+#             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -102,6 +102,7 @@ class _Node(object):
         To add the children to a node
 
         :param node: parent node in the tree
+        :return: None
         """
 
         self.children[node.item] = node
@@ -318,14 +319,13 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                    Patterns in Transactional Databases", PAKDD 2009, https://doi.org/10.1007/978-3-642-01307-2_24
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of periodic frequent pattern's
     :param  minSup: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  maxPer: float:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
-
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -421,6 +421,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
     def _creatingItemSets(self) -> None:
         """
             Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -637,6 +638,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -657,6 +659,7 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
@@ -684,13 +687,17 @@ if __name__ == "__main__":
     """
     **Methods to execute code on terminal**
     --------------------------------------------
-            Format:
-                      >>>  python3 PFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 PFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+      Format:
+            
+      (.venv) $ python3 PFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
-                      .. note:: minSup will be considered in percentage of database transactions
+      Example:
+      
+      (.venv) $ python3 PFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+
+    .. note:: minSup will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     ---------------------------------------------------

@@ -6,33 +6,35 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg
+#             from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg
 #
-#     obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)
+#             obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of Stable Periodic Frequent Patterns:", len(Patterns))
+#             print("Total number of Stable Periodic Frequent Patterns:", len(Patterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
-#
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -272,6 +274,21 @@ class SPPGrowth():
                   Theory and Practices in Artificial Intelligence. IEA/AIE 2022. Lecture Notes in Computer Science(), vol 13343. Springer, Cham.
                   https://doi.org/10.1007/978-3-031-08530-7_70
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: float or int or str :
+                    minSup measure constraints the minimum number of transactions in a database where a pattern must appear
+                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+    :param maxpr: floot :
+                  MaxPer measure constraints the maximum time interval within which a pattern must reappear
+    :param maxla: floot :
+                  The stability of the pattern is defined by maxla
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
             iFile : file
@@ -346,13 +363,18 @@ class SPPGrowth():
 
     **Methods to execute code on terminal**
     -----------------------------------------
-            Format:
-                      >>>   python3 topk.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
 
-            Example:
-                      >>>  python3 topk.py sampleTDB.txt patterns.txt 0.3 0.4 0.3
+    .. code-block:: console
 
-                      .. note:: constraints will be considered in percentage of database transactions
+      Format:
+
+      (.venv) $ python3 topk.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
+
+      Example usage :
+
+      (.venv) $ python3 topk.py sampleTDB.txt patterns.txt 0.3 0.4 0.3
+
+    .. note:: constraints will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     -----------------------------------------------------

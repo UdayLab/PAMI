@@ -377,8 +377,6 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
                    where maxPer represents the maximum periodicity threshold value specified by the user.
 
 
-
-
     :Attributes:
         iFile : file
             Name of the Input file or path of the input file
@@ -731,7 +729,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns
                     by counting the original support of a patterns
-    :return: None
+        :return: None
 
         """
         global _lno, _maxPer, _minSup, _first, _last, periodic

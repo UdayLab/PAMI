@@ -3,32 +3,34 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.relativeFrequentPattern import RSFPGrowth as alg
 #
-#     obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
+#             from PAMI.relativeFrequentPattern import RSFPGrowth as alg
 #
-#     obj.startMine()
+#             obj = alg.RSFPGrowth(iFile, minSup, __minRatio)
 #
-#     frequentPatterns = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             frequentPatterns = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
 #
+#             print("Total ExecutionTime in seconds:", run)
+#
+
 
 
 __copyright__ = """
@@ -141,6 +143,7 @@ class _Tree:
 
         :param transaction: it represents the one transaction in database
         :type transaction: list
+        :return: None
         """
 
         # This method taken a transaction as input and returns the tree
@@ -166,6 +169,7 @@ class _Tree:
         :type item: int
         :param newNode: it represents the newNode that inserted in frequentPatternTree
         :type newNode: Node
+        :return: None
 
         """
         if item in self.mapItemLastNodes.keys():
@@ -181,6 +185,7 @@ class _Tree:
 
         :param root: it represents the Node in frequentPatternTree
         :type root: Node
+        :return: None
 
         """
 
@@ -200,6 +205,7 @@ class _Tree:
         :type __mapSupport: dictionary
         :param minSup: it represents the minSup
         :param minSup: float
+        :return: None
         """
         # the frequentPatternTree always maintains the header table to start the mining from leaf nodes
         t1 = []
@@ -249,9 +255,9 @@ class RSFPGrowth(_ab._frequentPatterns):
                    Masaru Kitsuregawa, http://comad.in/comad2012/pdf/kiran.pdf
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of Relative frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of Relative frequent patterns
     :param  minSup: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  minRS: float:
@@ -327,14 +333,18 @@ class RSFPGrowth(_ab._frequentPatterns):
 
 
     **Methods to execute code on terminal**
-    -------------------------------------------
-            Format:
-                      >>>  python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRatio>
+    ----------------------------------------------
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2
+      Format:
 
-                     .. note:: maxPer and minPS will be considered in percentage of database transactions
+      (.venv) $python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRatio>
+
+      Example Usage :
+
+      (.venv) $python3 python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2
+
+    .. note:: maxPer and minPS will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -399,6 +409,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     def __creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the __Database/input file in a __Database variable
+        :return: None
         """
         self.__Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -431,6 +442,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     def __frequentOneItem(self) -> None:
         """
         Generating One frequent items sets
+        :return: None
         """
         self.__mapSupport = {}
         for i in self.__Database:
@@ -450,6 +462,7 @@ class RSFPGrowth(_ab._frequentPatterns):
         :type prefixLength: int
         :param support: the support of a pattern
         :type support:  int
+        :return: None
         """
 
         sample = []
@@ -584,6 +597,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     def startMine(self) -> None:
         """
         Main program to start the operation
+        :return: None
         """
 
         self.__startTime = _ab._time.time()
@@ -682,6 +696,7 @@ class RSFPGrowth(_ab._frequentPatterns):
 
         :param outFile: name of the output file.
         :type outFile: file
+        :return: None
         """
         self.__oFile = outFile
         writer = open(self.__oFile, 'w+')
@@ -711,6 +726,7 @@ class RSFPGrowth(_ab._frequentPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of Relative Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

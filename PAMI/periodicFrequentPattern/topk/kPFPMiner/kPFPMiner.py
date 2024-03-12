@@ -1,31 +1,35 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     import PAMI.periodicFrequentPattern.kPFPMiner as alg
+#             import PAMI.periodicFrequentPattern.kPFPMiner as alg
 #
-#     obj = alg.kPFPMiner(iFile, k)
+#             obj = alg.kPFPMiner(iFile, k)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of top-k Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#             print("Total number of top-k Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -59,9 +63,9 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
                  BDA 2022. Lecture Notes in Computer Science, vol 13773. Springer, Cham. https://doi.org/10.1007/978-3-031-24094-2_14
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of periodic frequent pattern's
 
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
@@ -115,11 +119,15 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
 
     **Executing the code on terminal:**
     ------------------------------------------
-            Format:
-                    >>> python3 kPFPMiner.py <inputFile> <outputFile> <k>
+    .. code-block:: console
 
-            Examples:
-                    >>> python3 kPFPMiner.py sampleDB.txt patterns.txt 10
+      Format:
+
+      (.venv) $ python3 kPFPMiner.py <inputFile> <outputFile> <k>
+
+      Examples :
+
+      (.venv) $  python3 kPFPMiner.py sampleDB.txt patterns.txt 10
 
 
     **Sample run of the importing code:

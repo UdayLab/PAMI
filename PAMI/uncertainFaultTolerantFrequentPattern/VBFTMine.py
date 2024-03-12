@@ -3,6 +3,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
+#
 #             import PAMI.uncertainFaultTolerantFrequentPattern.basic.VBFTMine as alg
 #
 #             obj = alg.VBFTMine(iFile, minSup, itemSup, minLength, faultTolerance)
@@ -60,6 +61,7 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
     :Reference:   Koh, JL., Yo, PW. (2005). An Efficient Approach for Mining Fault-Tolerant Frequent Patterns Based on Bit Vector Representations.
                   In: Zhou, L., Ooi, B.C., Meng, X. (eds) Database Systems for Advanced Applications. DASFAA 2005. Lecture Notes in Computer Science,
                   vol 3453. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11408079_51
+
     :param  iFile: str :
            Name of the Input file to mine complete set of frequent patterns
     :param  oFile: str :
@@ -101,11 +103,18 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     **Executing the code on terminal**:
     ------------------------------------
-        Format:
-            >>> python3 VBFTMine.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
 
-        Examples:
-            >>> python3 VBFTMine.py sampleDB.txt patterns.txt 10.0 3.0 3 1  (minSup will be considered in times of minSup and count of database transactions)
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 VBFTMine.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
+
+      Examples usage:
+
+      (.venv) $ python3 VBFTMine.py sampleDB.txt patterns.txt 10.0 3.0 3 1
+
+    .. note:: minSup will be considered in times of minSup and count of database transactions
 
 
     **Sample run of the importing code**:
@@ -258,7 +267,9 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
             self._save(prefix, list(set(itemsetx)), tidsetx)
 
     def _oneLengthFrequentItems(self):
-        """ To calculate the one Length items"""
+        """
+        To calculate the one Length items
+        """
         Vector = {}
         items = []
         for i in self._Database:
@@ -314,7 +325,8 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         print("Fault-Tolerant Frequent patterns were generated successfully using VBFTMine algorithm ")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -323,7 +335,8 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -332,7 +345,8 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -376,7 +390,8 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict

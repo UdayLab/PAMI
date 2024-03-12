@@ -5,32 +5,35 @@
 # --------------------------------------------------------
 #
 #
-#     import PAMI.sequentialPatternMining.basic.SPAM as alg
+#             import PAMI.sequentialPatternMining.basic.SPAM as alg
 #
-#     obj = alg.SPAM(iFile, minSup)
+#             obj = alg.SPAM(iFile, minSup)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     sequentialPatternMining = obj.getPatterns()
+#             sequentialPatternMining = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -60,7 +63,18 @@ class SPAM(_ab._sequentialPatterns):
     :Description:    SPAM is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.
                      This program employs SPAM property (or downward closure property) to  reduce the search space effectively.
                      This algorithm employs breadth-first search technique  to find the complete set of frequent patterns in a sequential database.
+
     :Reference:   J. Ayres, J. Gehrke, T.Yiu, and J. Flannick. Sequential Pattern Mining Using Bitmaps. In Proceedings of the Eighth ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. Edmonton, Alberta, Canada, July 2002.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of sequential patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of sequential patterns
+    :param  minSup: float or int or str :
+                    minSup measure constraints the minimum number of transactions in a database where a pattern must appear
+                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     :Attributes:
 
@@ -127,10 +141,15 @@ class SPAM(_ab._sequentialPatterns):
 
     **Executing the code on terminal**:
     ----------------------------------------
-            Format:
-                      >>>  python3 SPAM.py <inputFile> <outputFile> <minSup> (<separator>)
-            Examples:
-                      >>> python3 SPAM.py sampleDB.txt patterns.txt 10.0
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 SPAM.py <inputFile> <outputFile> <minSup> (<separator>)
+
+      Examples usage:
+
+      (.venv) $ python3 SPAM.py sampleDB.txt patterns.txt 10.0
 
     **Sample run of the importing code**:
     -------------------------------------
