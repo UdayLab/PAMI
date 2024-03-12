@@ -66,7 +66,7 @@ obj = tds.TransactionalDatabase(inputFile)
 # execute the program
 obj.run()
 
-# print the database statistics
+# print the database stats
 print(f'Database size : {obj.getDatabaseSize()}')
 print(f'Total number of items : {obj.getTotalNumberOfItems()}')
 print(f'Database sparsity : {obj.getSparsity()}')

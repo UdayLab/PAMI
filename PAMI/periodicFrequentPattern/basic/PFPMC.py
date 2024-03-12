@@ -4,31 +4,34 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.periodicFrequentPattern.basic import PFPMC as alg
+#             from PAMI.periodicFrequentPattern.basic import PFPMC as alg
 #
-#     obj = alg.PFPMC("../basic/sampleTDB.txt", "2", "5")
+#             obj = alg.PFPMC("../basic/sampleTDB.txt", "2", "5")
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.save("patterns")
+#             obj.save("patterns")
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
 
 
 __copyright__ = """
@@ -63,14 +66,13 @@ class PFPMC(_ab._periodicFrequentPatterns):
     :Reference: (has to be added)
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of periodic frequent pattern's
     :param  minSup: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  maxPer: str:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
-
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -144,13 +146,17 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
     **Methods to execute code on terminal**
     ------------------------------------------
-            Format:
-                      >>>   python3 PFPMC.py <inputFile> <outputFile> <minSup> <maxPer>
+    .. code-block:: console
 
-            Example:
-                      >>>   python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0
+      Format:
+
+      (.venv) $ python3 PFPMC.py <inputFile> <outputFile> <minSup> <maxPer>
+
+      Example usage:
+
+      (.venv) $ python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0
     
-                      .. note:: minSup and maxPer will be considered in percentage of database transactions
+    .. note:: minSup and maxPer will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     ----------------------------------------------------
@@ -286,6 +292,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
     def _creatingOneItemSets(self) -> list:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: list
         """
         plist = []
         Database = []
@@ -375,6 +382,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
     def startMine(self) -> None:
         """
         Mining process will start from this function
+        :return: None
         """
         # print(f"Optimized {type(self).__name__}")
         self._startTime = _ab._time.time()
@@ -440,6 +448,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -460,6 +469,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

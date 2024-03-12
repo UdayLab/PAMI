@@ -222,7 +222,7 @@ class parallelECLAT(_ab._frequentPatterns):
             
     def printResults(self):
         """
-        This method prints all the statistics
+        This method prints all the stats
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

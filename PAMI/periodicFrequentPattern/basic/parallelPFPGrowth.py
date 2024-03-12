@@ -3,31 +3,34 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
 #
-#     obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
+#             from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg
 #
-#     obj.startMine()
+#             obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, numWorkers, sep='\t')
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
+#
+
 
 
 __copyright__ = """
@@ -318,14 +321,13 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
     :Reference:   C. Saideep, R. Uday Kiran, Koji Zettsu, Cheng-Wei Wu, P. Krishna Reddy, Masashi Toyoda, Masaru Kitsuregawa: Parallel Mining of Partial Periodic Itemsets in Big Data. IEA/AIE 2020: 807-819
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of periodic frequent pattern's
     :param  minSup: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  maxPer: str:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
-
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -401,13 +403,17 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
     **Methods to execute code on terminal**
     ---------------------------------------------
-            Format:
-                      >>>  python3 parallelPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5
+      Format:
 
-                      .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 parallelPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
+
+      Example usage:
+
+      (.venv) $ python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5
+
+    .. note:: minSup will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     ---------------------------------------------------------

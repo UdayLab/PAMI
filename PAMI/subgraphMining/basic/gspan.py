@@ -8,21 +8,23 @@
 #
 #     obj.startMine()
 #
-#     frequentGraphs = obj.getFrequentSubgraphs()
+#             obj.run()
 #
-#     memUSS = obj.getMemoryUSS()
+#             frequentGraphs = obj.getFrequentSubgraphs()
 #
-#     obj.save(oFile)
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             obj.save(oFile)
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
 #
 #
 
@@ -37,7 +39,7 @@ class GSpan(_ab._gSpan):
     eliminate_infrequent_edge_labels = True
     edge_count_pruning = True
 
-    def __init__(self, iFile, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=True) -> None:
+    def __init__(self, iFile, minSupport, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=False) -> None:
         """
         Initialize variables
         """

@@ -4,6 +4,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
+#
 #             from PAMI.weightedFrequentRegularPattern.basic import WFRIMiner as alg
 #
 #             obj = alg.WFRIMiner(iFile, WS, regularity)
@@ -89,6 +90,7 @@ class _Node:
         :type item: int or None
         :param children: To maintain the children of a node
         :type children: dict
+        :return: None
         """
 
         self.item = item
@@ -101,6 +103,7 @@ class _Node:
         To add the children to a node
 
         :param node: parent node in the tree
+        :return: None
         """
 
         self.children[node.item] = node
@@ -381,14 +384,18 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             Extracts the one-frequent patterns from transactions
 
     **Methods to execute code on terminal**
-    -----------------------------------------
-            Format:
-                      >>> python3 WFRIMiner.py <inputFile> <outputFile> <weightSupport> <regularity>
+    -------------------------------------------
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 WFRIMiner.py sampleDB.txt patterns.txt 10 5
+      Format:
 
-                     .. note:: WS & regularity will be considered in support count or frequency
+      (.venv) $ python3 WFRIMiner.py <inputFile> <outputFile> <weightSupport> <regularity>
+
+      Example Usage:
+
+      (.venv) $ python3 WFRIMiner.py sampleDB.txt patterns.txt 10 5
+
+    .. note:: WS & regularity will be considered in support count or frequency
 
     **Importing this algorithm into a python program**
     ----------------------------------------------------
@@ -451,6 +458,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     def _creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self._Database = []
         self._weight = {}
@@ -626,8 +634,8 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
     def startMine(self) -> None:
         """
-            main program to start the operation
-
+        main program to start the operation
+        :return: None
         """
         global _WS, _regularity, _weights
         self._startTime = _fp._time.time()
@@ -711,6 +719,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -730,6 +739,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of  Weighted Frequent Regular Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

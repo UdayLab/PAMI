@@ -1,4 +1,4 @@
-# MultipleTimeSeriesFuzzyDatabaseStats is class to get statistics of multiple time series fuzzy database.
+# MultipleTimeSeriesFuzzyDatabaseStats is class to get stats of multiple time series fuzzy database.
 #
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
@@ -43,7 +43,7 @@ import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 class MultipleTimeSeriesFuzzyDatabaseStats:
     """
-    :Description:  MultipleTimeSeriesDatabaseStats is class to get statistics of multiple time series fuzzy database.
+    :Description:  MultipleTimeSeriesDatabaseStats is class to get stats of multiple time series fuzzy database.
 
     :Attributes:
 
@@ -83,7 +83,7 @@ class MultipleTimeSeriesFuzzyDatabaseStats:
         save(data, outputFile)
             store data into outputFile
         printStats()
-            To print all the statistics of the database
+            To print all the stats of the database
         plotGraphs()
             To plot all the graphs of frequency disctribution of items and transaction length distribution in database
    

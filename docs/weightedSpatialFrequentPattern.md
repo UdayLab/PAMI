@@ -152,7 +152,7 @@ obj = alg.SWFPGrowth(iFile, nFile, minWS, seperator) #initialize the algorithm
 obj.startMine()                       #start the mining process 
 obj.save(oFile)               #store the patterns in file
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe 
-obj.printResults()                      #Print the statistics of mining process
+obj.printResults()                      #Print the stats of mining process
 ```
 
     Weighted Frequent patterns were generated successfully using SWFPGrowth algorithm

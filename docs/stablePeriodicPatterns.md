@@ -123,7 +123,7 @@ obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa, seperator) #initialize the alg
 obj.startMine()                       #start the mining process <br>
 obj.savePatterns(oFile)               #store the patterns in file <br>
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe <br>
-obj.printStats()                      #Print the statistics of mining process
+obj.printStats()                      #Print the stats of mining process
 ```
 
 The stablePatterns.txt file contains the following patterns (*format:* pattern:support:lability):!cat stablePatterns.txt

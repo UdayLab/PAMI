@@ -134,7 +134,7 @@ obj = alg.RPGrowth(iFile, minSup, maxPer, minRec, seperator) #initialize the alg
 obj.startMine()                       #start the mining process <br>
 obj.save(oFile)               #store the patterns in file <br>
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe <br>
-obj.printResults()                      #Print the statistics of mining process
+obj.printResults()                      #Print the stats of mining process
 ```
  
 

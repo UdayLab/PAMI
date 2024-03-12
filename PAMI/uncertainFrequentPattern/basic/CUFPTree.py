@@ -459,6 +459,7 @@ class CUFPTree(_ab._frequentPatterns):
     def _creatingItemSets(self) -> None:
         """
         Scans the uncertain transactional dataset
+        :return: None
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
