@@ -31,6 +31,18 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
 
     :Reference:   N/A
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  period: str:
+                   Minimum partial periodic...
+    :param  periodicSupport: str:
+                   Minimum partial periodic...
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : file

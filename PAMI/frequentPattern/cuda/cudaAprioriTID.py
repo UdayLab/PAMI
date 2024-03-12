@@ -29,6 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -133,13 +134,17 @@ class cudaAprioriTID:
     **Methods to execute code on terminal**
     ----------------------------------------------------
 
-            Format:
-                      >>> python3 cudaAprioriTID.py <inputFile> <outputFile> <minSup>
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 cudaAprioriTID.py sampleDB.txt patterns.txt 10.0
+      Format:
 
-            .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 cudaAprioriTID.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 cudaAprioriTID.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -245,9 +250,15 @@ class cudaAprioriTID:
 
     def _convert(self, value):
         """
+
         To convert the type of user specified minSup value
+
         :param value: user specified minSup value
+
+        :type value: int or float or str
+
         :return: converted type
+
         """
         if type(value) is int:
             value = int(value)

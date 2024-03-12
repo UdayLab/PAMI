@@ -29,6 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -99,15 +100,20 @@ class parallelApriori(_ab._frequentPatterns):
     
 
     **Methods to execute code on terminal**
-    -----------------------------------------
-    
-            Format:
-                      >>>  python3 parallelApriori.py <inputFile> <outputFile> <minSup> <numWorkers>
-    
-            Example:
-                      >>>  python3 parallelApriori.py sampleDB.txt patterns.txt 10.0 3
-    
-            .. note:: minSup will be considered in percentage of database transactions
+    -------------------------------------------
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 parallelApriori.py <inputFile> <outputFile> <minSup> <numWorkers>
+
+      Example Usage:
+
+      (.venv) $ python3 parallelApriori.py sampleDB.txt patterns.txt 10.0 3
+
+    .. note:: minSup will be considered in percentage of database transactions
+
     
     
     **Importing this algorithm into a python program**
@@ -258,7 +264,7 @@ class parallelApriori(_ab._frequentPatterns):
     
     def printResults(self):
         """
-        This method prints all the statistics
+        This method prints all the stats
         """
         print("Total number of Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
@@ -301,6 +307,7 @@ class parallelApriori(_ab._frequentPatterns):
     def _genFrequentItems(self, database):
         """
         Get frequent items which length is 1
+        :param database: database to get frequent items
         :return: frequent items which length is 1
         :rtype: dict
         """
@@ -316,7 +323,7 @@ class parallelApriori(_ab._frequentPatterns):
         :param database: database
         :type : RDD
         :param frequentItems: dict
-        :return:
+        :type frequentItems: dict
         """
 
         # Get candidate patterns that length is 2
@@ -337,6 +344,7 @@ class parallelApriori(_ab._frequentPatterns):
         """
         To convert the user specified minSup value
         :param value: user specified minSup value
+        :type value: int or float or str
         :return: converted type
         """
         if type(value) is int:
@@ -354,7 +362,6 @@ class parallelApriori(_ab._frequentPatterns):
     def startMine(self):
         """
         Frequent pattern mining process will start from here
-        :return:
         """
         self._startTime = _ab._time.time()
 

@@ -16,7 +16,7 @@ import os as _os
 class _gSpan(ABC):
 
     @abstractmethod
-    def run(self):
+    def startMine(self):
         """
         Run the gSpan algorithm.
         """

@@ -326,6 +326,7 @@ class RPGrowth(_ab._recurringPatterns):
     """
     :Description:   RPGrowth is one of the fundamental algorithm to discover recurring patterns in a transactional database.
 
+
     :Reference:  R. Uday Kiran†, Haichuan Shang†, Masashi Toyoda† and Masaru Kitsuregawa† Discovering Recurring Patterns in Time Series,https://www.tkl.iis.u-tokyo.ac.jp/new/uploads/publication_file/file/693/Paper%2023.pdf
 
     :param  iFile: str :
@@ -340,6 +341,7 @@ class RPGrowth(_ab._recurringPatterns):
                    It represent a maximum percentage or some other numeric value.
     :param  minRec: str :
                    It could represent a minimum recommended value or some other string-based setting.
+
     :Attributes:
 
         iFile : file

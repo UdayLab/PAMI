@@ -29,7 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -140,6 +140,7 @@ class _Tree:
         adding transaction into tree
         :param transaction : it represents a single transaction in a database
         :type transaction : list
+        :return: None
         """
 
         current = self.root
@@ -163,6 +164,7 @@ class _Tree:
         :type item : int
         :param newNode : it represents the newNode that inserted in correlatedPatternTree
         :type newNode : Node
+        :return: None
 
         """
         if item in self.mapItemLastNodes.keys():
@@ -177,6 +179,7 @@ class _Tree:
         This method is to find the details of parent, children, and support of a Node
         :param root: it represents the Node in correlatedPatternTree
         :type root: Node
+        :return: None
         """
 
         if root.child is None:
@@ -193,6 +196,7 @@ class _Tree:
         :type mapSupport : dictionary
         :param minSup : it represents the minSup
         :param minSup : float
+        :return: None
         """
         
         t1 = []
@@ -211,6 +215,7 @@ class _Tree:
         :param mapSupportBeta : dictionary
         :param minSup : to check the item meets with minSup
         :param minSup : float
+        :return: None
         """
         pathCount = prefix[0].counter
         current = self.root
@@ -246,6 +251,7 @@ class CoMine(_ab._correlatedPatterns):
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
     :param minAllConf: float :
                     The user can specify minAllConf values within the range (0, 1).
+
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -281,14 +287,19 @@ class CoMine(_ab._correlatedPatterns):
            it represents the constraint for pattern length
 
     **Methods to execute code on terminal**
-    ----------------------------------------
+    ------------------------------------------
 
-            Format:
-                      >>> python3 CoMine.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
-            Example:
-                      >>>  python3 CoMine.py sampleTDB.txt output.txt 0.25 0.2
+    .. code-block:: console
 
-                     .. note:: minSup will be considered in percentage of database transactions
+      Format:
+
+      (.venv) $ python3 CoMine.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 CoMine.py sampleTDB.txt output.txt 0.25 0.2
+
+    .. note:: minSup will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------------------------------
@@ -429,6 +440,7 @@ class CoMine(_ab._correlatedPatterns):
         :type prefixLength : int
         :param support: the support of a pattern
         :type support :  int
+        :return: None
         :The correlated patterns were stored in a global variable finalPatterns
         """
         all_conf = self._getRatio(prefix, prefixLength, support)
@@ -444,7 +456,7 @@ class CoMine(_ab._correlatedPatterns):
         """
         To convert the type of user specified minSup value
         :param value: user specified minSup value
-        :return: converted type
+        :return: None
         """
         if type(value) is int:
             value = int(value)
@@ -470,6 +482,7 @@ class CoMine(_ab._correlatedPatterns):
         :type prefix : list
         :param prefixLength : the length of prefix
         :type prefixLength :int
+        :return: None
         
         """
         max1 = 1 << position
@@ -493,6 +506,7 @@ class CoMine(_ab._correlatedPatterns):
         :type prefixLength :int
         :param mapSupport : it represents the support of item
         :type mapSupport : dictionary
+        :return: None
         """
 
         singlePath = True
@@ -629,6 +643,7 @@ class CoMine(_ab._correlatedPatterns):
         Complete set of correlated patterns will be saved into an output file
         :param outFile: name of the outputfile
         :type outFile: file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -650,6 +665,7 @@ class CoMine(_ab._correlatedPatterns):
     def printResults(self) -> None:
         """
         function to print the result after completing the process
+        :return: None
         """
         print("Total number of Correlated Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

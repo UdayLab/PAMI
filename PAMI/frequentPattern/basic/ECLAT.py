@@ -28,7 +28,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -94,13 +94,17 @@ class ECLAT(_ab._frequentPatterns):
     **Methods to execute code on terminal**
     ------------------------------------------
 
-            Format:
-                      >>> python3 ECLAT.py <inputFile> <outputFile> <minSup>
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 ECLAT.py sampleDB.txt patterns.txt 10.0
+      Format:
 
-            .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 ECLAT.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 ECLAT.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -155,6 +159,10 @@ class ECLAT(_ab._frequentPatterns):
     def _creatingItemSets(self) -> float:
         """
         Storing the complete transactions of the database/input file in a database variable
+
+        :return: the complete transactions of the database/input file in a database variable
+
+        :rtype: float
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -186,7 +194,13 @@ class ECLAT(_ab._frequentPatterns):
 
     def _getUniqueItemList(self) -> list:
         """
+
         Generating one frequent patterns
+
+        :return: list of unique patterns
+
+        :rtype: list
+
         """
         self._finalPatterns = {}
         candidate = {}
@@ -207,11 +221,15 @@ class ECLAT(_ab._frequentPatterns):
 
     def _generateFrequentPatterns(self, candidateFrequent: list) -> None:
         """
+
         It will generate the combinations of frequent items
+
         :param candidateFrequent :it represents the items with their respective transaction identifiers
+
         :type candidateFrequent: list
-        :return: returning transaction dictionary
-        :rtype: dict
+
+        :return: None
+
         """
         new_freqList = []
         for i in range(0, len(candidateFrequent)):
@@ -233,9 +251,15 @@ class ECLAT(_ab._frequentPatterns):
 
     def _convert(self, value) -> float:
         """
+
         To convert the user specified minSup value
+
         :param value: user specified minSup value
+
         :return: converted type
+
+        :rtype: float
+
         """
         if type(value) is int:
             value = int(value)
@@ -275,18 +299,26 @@ class ECLAT(_ab._frequentPatterns):
 
     def getMemoryUSS(self) -> float:
         """
+
         Total amount of USS memory consumed by the mining process will be retrieved from this function
+
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
+
         """
 
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
         """
+
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
+
         :return: returning RSS memory consumed by the mining process
+
         :rtype: float
+
         """
 
         return self._memoryRSS
@@ -294,7 +326,9 @@ class ECLAT(_ab._frequentPatterns):
     def getRuntime(self) -> float:
         """
         Calculating the total amount of runtime taken by the mining process
+
         :return: returning total amount of runtime taken by the mining process
+
         :rtype: float
         """
 
@@ -302,9 +336,13 @@ class ECLAT(_ab._frequentPatterns):
 
     def getPatternsAsDataFrame(self) -> _ab._pd.DataFrame:
         """
+
         Storing final frequent patterns in a dataframe
+
         :return: returning frequent patterns in a dataframe
+
         :rtype: pd.DataFrame
+
         """
 
         dataFrame = {}
@@ -316,9 +354,15 @@ class ECLAT(_ab._frequentPatterns):
 
     def save(self, outFile: str) -> None:
         """
+
         Complete set of frequent patterns will be loaded in to an output file
+
         :param outFile: name of the output file
+
         :type outFile: csvfile
+
+        :return: None
+
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -329,7 +373,9 @@ class ECLAT(_ab._frequentPatterns):
     def getPatterns(self) -> dict:
         """
         Function to send the set of frequent patterns after completion of the mining process
+
         :return: returning frequent patterns
+
         :rtype: dict
         """
         return self._finalPatterns

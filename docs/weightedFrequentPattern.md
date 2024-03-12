@@ -119,7 +119,7 @@ obj = alg.WFIM(iFile, wFile, minSup, minWeight, seperator) #initialize the algor
 obj.startMine()                       #start the mining process <br>
 obj.savePatterns(oFile)               #store the patterns in file <br>
 df = obj.getPatternsAsDataFrame()     #Get the patterns discovered into a dataframe <br>
-obj.printStats()                      #Print the statistics of mining process
+obj.printStats()                      #Print the stats of mining process
 ```
 
 The weightedPatterns.txt file contains the following patterns (*format:* pattern:support): !cat weightedPatterns.txt

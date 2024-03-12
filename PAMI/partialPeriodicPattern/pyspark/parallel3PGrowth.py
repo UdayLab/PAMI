@@ -328,7 +328,19 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
     :Reference:   Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM '17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017
                   Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535
 
-    :Parameters:
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  period: float:
+                   Minimum partial periodic...
+    :param  periodicSupport: float:
+                   Minimum partial periodic...
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+    :Attributes:
 
         iFile : file
             Name of the Input file or path of the input file

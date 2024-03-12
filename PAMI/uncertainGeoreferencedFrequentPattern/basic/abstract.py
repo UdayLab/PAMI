@@ -131,6 +131,6 @@ class _frequentPatterns(_ABC):
       
     @_abstractmethod
     def printResults(self):
-        """To print all the statistics"""
+        """To print all the stats"""
 
         pass

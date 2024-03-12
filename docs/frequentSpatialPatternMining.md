@@ -152,7 +152,7 @@ obj = alg.FSPGrowth(iFile, nFile, minSup, seperator)  # initialize the algorithm
 obj.startMine()  # start the mining process 
 df = obj.getPatternsAsDataFrame()  # Get the patterns discovered into a dataframe 
 obj.save(oFile)  # store the patterns in file 
-obj.printResults()  # Print the statistics of mining process
+obj.printResults()  # Print the stats of mining process
 ```
 
     10 7

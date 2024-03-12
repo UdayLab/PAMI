@@ -28,7 +28,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -139,9 +139,15 @@ class _Tree(object):
 
     def addTransaction(self, transaction):
         """
+
         Adding transactions into tree
+
         :param transaction: represents the transaction in a database
+
+        :type transaction: list
+
         :return: tree
+
         """
         currentNode = self.root
         for i in range(len(transaction)):
@@ -160,10 +166,19 @@ class _Tree(object):
 
     def addConditionalTransaction(self, transaction, count):
         """
+
         Loading the database into a tree
+
         :param transaction: conditional transaction of a node
+
+        :type transaction: list
+
         :param count: the support of conditional transaction
+
+        :type count: int
+
         :return: conditional tree
+
         """
         currentNode = self.root
         for i in range(len(transaction)):
@@ -184,6 +199,7 @@ class _Tree(object):
         """
         Generates all the conditional patterns of respective node
         :param alpha: it represents the Node in tree
+        :type alpha: int
         :return: conditional patterns of a node
         """
         finalPatterns = []
@@ -205,7 +221,9 @@ class _Tree(object):
         """
         sorting and removing the items from conditional transactions which don't satisfy minSup
         :param condPatterns: conditional patterns if a node
+        :type condPatterns: list
         :param condFreq: frequency at leaf node of conditional transaction
+        :type condFreq: int
         :return: conditional patterns and their frequency respectively
         """
         global _minSup
@@ -234,6 +252,7 @@ class _Tree(object):
         """
         To remove the node from the original tree
         :param nodeValue: leaf node of tree
+        :type nodeValue: int
         :return: tree after deleting node
         """
         for i in self.summaries[nodeValue]:
@@ -244,7 +263,11 @@ class _Tree(object):
         """
         Generates the patterns
         :param prefix: forms the combination of items
+        :type prefix: str
+        :param patterns: the patterns we want to generate for this node
+        :type patterns: list
         :return: the maximal frequent patterns
+        :rtype: list
         """
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
@@ -291,6 +314,7 @@ class _MNode(object):
         """
         To add the children details to a parent node
         :param node: children node
+        :type node: _MNode
         :return: adding children details to parent node
         """
         self.children[node.item] = node
@@ -327,6 +351,7 @@ class _MPTree(object):
         """
         To construct the maximal frequent pattern into maximal tree
         :param transaction: the maximal frequent patterns extracted till now
+        :type transaction: list
         :return: the maximal tree
         """
         currentNode = self.root
@@ -347,6 +372,7 @@ class _MPTree(object):
         """
         To check the subset of pattern present in tree
         :param items: the sub frequent pattern
+        :type items: list
         :return: checks if subset present in the tree
         """
         items.sort(reverse=True)
@@ -385,6 +411,9 @@ class MaxFPGrowth(_ab._frequentPatterns):
                    Name of the output file to store complete set of frequent patterns
     :param  minSup: int or float or str :
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
+    :param  maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -425,13 +454,18 @@ class MaxFPGrowth(_ab._frequentPatterns):
     **Methods to execute code on terminal**
     ---------------------------------------------------------
 
-            Format:
-                      >>> python3 MaxFPGrowth.py <inputFile> <outputFile> <minSup>
+    .. code-block:: console
 
-            Example:
-                      >>> python3 MaxFPGrowth.py sampleDB.txt patterns.txt 0.3
+      Format:
 
-            .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 MaxFPGrowth.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 MaxFPGrowth.py sampleDB.txt patterns.txt 0.3
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
 
     **Importing this algorithm into a python program**
@@ -544,6 +578,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         """
         To sort the transactions in their support descending order and allocating ranks respectively
         :param oneLength: 1-length frequent items in dictionary
+        :type oneLength: dict
         :return: returning the sorted list
         :Example: oneLength = {'a':7, 'b': 5, 'c':'4', 'd':3}
                     rank = {'a':0, 'b':1, 'c':2, 'd':3}
@@ -562,9 +597,11 @@ class MaxFPGrowth(_ab._frequentPatterns):
 
     def _buildTree(self, data, info):
         """
-        creating the root node as null in fp-tree and and adding all transactions into tree.
+        creating the root node as null in fp-tree and adding all transactions into tree.
         :param data: updated transactions
+        :type data: dict
         :param info: rank of items in transactions
+        :type info: dict
         :return: fp-tree
         """
         rootNode = _Tree()
@@ -578,6 +615,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         """
         To convert the type of user specified minSup value
         :param value: user specified minSup value
+        :type value: int or float or str
         :return: converted type
         """
         if type(value) is int:
@@ -596,6 +634,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         """
         To convert the item ranks into their original item names
         :param itemSet: itemSet or a pattern
+        :type itemSet: list
         :return: original pattern
         """
         t1 = []
@@ -686,7 +725,7 @@ class MaxFPGrowth(_ab._frequentPatterns):
         """
         Complete set of frequent patterns will be loaded in to a output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csvfile
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

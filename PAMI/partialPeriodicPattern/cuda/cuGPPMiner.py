@@ -26,6 +26,18 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
 
     :Reference:   N/A
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  period: str:
+                   Minimum partial periodic...
+    :param  periodicSupport: str:
+                   Minimum partial periodic...
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : file
@@ -82,12 +94,12 @@ class cuGPPMiner(_ab._partialPeriodicPatterns):
             Example:
                         >>>   python3 gPPMiner.py sampleDB.txt patterns.txt 10.0
 
-            .. note:: minPS will be considered in percentage of database transactions
+            ... note:: minPS will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
     -----------------------------------------------------
-    .. code-block:: python
+    ...         code-block:: python
 
                 from PAMI.periodicFrequentPattern.basic import gPPMiner as alg
 

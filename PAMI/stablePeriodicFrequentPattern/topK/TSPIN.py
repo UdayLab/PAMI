@@ -319,6 +319,18 @@ class TSPIN(_ab._stablePeriodicFrequentPatterns):
     :Reference:   Fournier-Viger, P., Wang, Y., Yang, P. et al. TSPIN: mining top-k stable periodic patterns.
                   Appl Intell 52, 6917–6938 (2022). https://doi.org/10.1007/s10489-020-02181-6
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  maxPer: float:
+                   Maximum number of frequent patterns to be included in the output file.
+    :param  maxLa: str:
+                   Maximum number of frequent patterns to be included in the output file.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : file

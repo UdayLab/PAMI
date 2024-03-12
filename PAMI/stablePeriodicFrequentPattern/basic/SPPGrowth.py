@@ -275,16 +275,17 @@ class SPPGrowth():
                   https://doi.org/10.1007/978-3-031-08530-7_70
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
+
+                   Name of the Input file to mine complete set of frequent pattern's
     :param  oFile: str :
                    Name of the output file to store complete set of frequent patterns
-    :param  minSup: float or int or str :
-                    minSup measure constraints the minimum number of transactions in a database where a pattern must appear
-                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
-    :param maxpr: floot :
-                  MaxPer measure constraints the maximum time interval within which a pattern must reappear
-    :param maxla: floot :
-                  The stability of the pattern is defined by maxla
+    :param  minSup: str:
+                   Minimum number of frequent patterns to be included in the output file.
+    :param  maxLa: float:
+                   Minimum number of ...
+    :param  maxPer: float:
+                   Maximum number of frequent patterns to be included in the output file.
+
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
