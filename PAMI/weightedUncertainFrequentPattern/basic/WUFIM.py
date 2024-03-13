@@ -50,9 +50,6 @@ __copyright__ = """
      along with this program.  If not, see `<https://www.gnu.org/licenses/>`_.
      
 """
-from PAMI.WeightedUncertainFrequentPattern.basic import abstract as _ab
-import pandas as pd
-from deprecated import deprecated
 
 from PAMI.weightedUncertainFrequentPattern.basic import abstract as _ab
 import pandas as pd
