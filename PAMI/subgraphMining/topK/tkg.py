@@ -118,15 +118,13 @@ class TKG(_ab._TKG):
         return graphDatabase
 
     def save(self, oFile):
-        subgraphsList = []
-        while not self.kSubgraphs.empty():
-            subgraphsList.append(self.kSubgraphs.get())
-        subgraphsList.sort(key=lambda sg: sg.support, reverse=True)
+        subgraphsList = self.get_subgraphs_list()
 
         with open(oFile, 'w') as bw:
             for i, subgraph in enumerate(subgraphsList):
                 sb = []
                 dfsCode = subgraph.dfsCode
+
                 sb.append(f"t # {i} * {subgraph.support}\n")
                 if len(dfsCode.eeList) == 1:
                     ee = dfsCode.eeList[0]
@@ -497,14 +495,12 @@ class TKG(_ab._TKG):
         return self.minSup
     
     def getKSubgraphs(self):
-        subgraphsList = []
-        while not self.kSubgraphs.empty():
-            subgraphsList.append(self.kSubgraphs.get())
-        subgraphsList.sort(key=lambda sg: sg.support, reverse=True)
+        subgraphsList = self.get_subgraphs_list()
 
         for i, subgraph in enumerate(subgraphsList):
             sb = []
             dfsCode = subgraph.dfsCode
+
             sb.append(f"t # {i} * {subgraph.support}\n")
             if len(dfsCode.eeList) == 1:
                 ee = dfsCode.eeList[0]
@@ -523,6 +519,14 @@ class TKG(_ab._TKG):
                 sb.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
             sb.append("\n\n")
             print("".join(sb))
+
+
+    def getSubgraphsList(self):
+        """Creates a copy of the queue's contents without emptying the original queue."""
+        subgraphsList = list(self.kSubgraphs.queue)  # Assuming self.kSubgraphs is a Queue object
+        subgraphsList.sort(key=lambda sg: sg.support, reverse=True)
+        return subgraphsList
+
 
     
 
