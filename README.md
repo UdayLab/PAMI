@@ -58,7 +58,7 @@ Total number of algorithms: 83
 
 # Table of Content
 
-- [Maintenance](#maintenance)
+- [Maintenance](#Maintenance)
 - [Try your First Program](#try-your-first-program)
 - [Reading Material](#Reading-Material)
 - [Tutorials](#Tutorials)
