@@ -98,18 +98,18 @@ class Graph:
     
     def getEdgeLabel(self, v1, v2):
         for e in self.vMap.get(v1).getEdgeList():
-            if e.getV1() == v1 and e.getV2() == v2:
+            if e.v1 == v1 and e.v2 == v2:
                 return e.getEdgeLabel()
-            elif e.getV1() == v2 and e.getV2() == v1:
+            elif e.v1 == v2 and e.v2 == v1:
                 return e.getEdgeLabel()
         return -1
     
 
     def getEdge(self, v1, v2):
         for e in self.vMap.get(v1).getEdgeList():
-            if e.getV1() == v1 and e.getV2() == v2:
+            if e.v1 == v1 and e.v2 == v2:
                 return e
-            elif e.getV1() == v2 and e.getV2() == v1:
+            elif e.v1 == v2 and e.v2 == v1:
                 return e
         return None
     
