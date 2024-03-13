@@ -323,7 +323,7 @@ class TKG(_ab._TKG):
 
     def startThreads(self, graphDB, candidates, minSup):
         threads = []
-        for _ in range(self.THREAD_COUNT):
+        for _ in range(self.threadCount):
             thread = _ab.DfsThread(graphDB, candidates, minSup, self)
             thread.start()
             threads.append(thread)
