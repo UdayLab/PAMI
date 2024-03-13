@@ -60,6 +60,10 @@ from joblib import Parallel, delayed
 
 from PAMI.relativeHighUtilityPattern.basic import abstract as _ab
 
+from PAMI.relativeHighUtilitytPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
 class efimParallel(_ab._utilityPatterns):
     """
     :Description:   EFIM is one of the fastest algorithm to mine High Utility ItemSets from transactional databases.
@@ -313,8 +317,6 @@ class efimParallel(_ab._utilityPatterns):
         :Attributes:
 
             collections (list): The collections to search in.
-
-
         """
 
         self.allStore = {}
@@ -378,11 +380,32 @@ class efimParallel(_ab._utilityPatterns):
                 collections = new_collections
 
 
-
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         Start the EFIM algorithm.
+        :returns: None
+        """
 
+        ps = psutil.Process(os.getpid())
+
+        self.start = time.time()
+
+        fileData, primary, secondary = self._read_file()
+
+        collection = [[[], fileData, primary, secondary]]
+
+        self._search(collection)
+
+        self.memoryRSS = ps.memory_info().rss
+        self.memoryUSS = ps.memory_full_info().uss
+
+        end = time.time()
+        self.runtime = end - self.start
+
+    def Mine(self):
+        """
+        Start the EFIM algorithm.
         :returns: None
         """
 

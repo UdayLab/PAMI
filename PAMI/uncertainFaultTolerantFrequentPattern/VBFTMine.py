@@ -48,6 +48,10 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from PAMI.uncertainFaultTolerantFrequentFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
 import numpy as _np
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _ab
 
@@ -63,9 +67,9 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
                   vol 3453. Springer, Berlin, Heidelberg. https://doi.org/10.1007/11408079_51
 
     :param  iFile: str :
-           Name of the Input file to mine complete set of frequent patterns
+                   Name of the Input file to mine complete set of uncertain Fault Tolerant FrequentFrequent Patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of uncertain Fault Tolerant FrequentFrequent Patterns
     :param  minSup: float or int or str :
                     The user can specify minSup either in count or proportion of database size.
                     If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -75,8 +79,8 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
                     Frequency of an item
     :param minLength: int
                     minimum length of a pattern
-    :param faultTolerance: int
-
+    :param faultTolerance: int :
+                    The ability of a pattern mining algorithm to handle errors or inconsistencies in the data without completely failing or producing incorrect results.
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
@@ -103,18 +107,19 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
 
     **Executing the code on terminal**:
     ------------------------------------
-
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 VBFTMine.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
+       Format:
 
-      Examples usage:
+       (.venv) $ python3 VBFTMine.py <inputFile> <outputFile> <minSup> <itemSup> <minLength> <faultTolerance>
 
-      (.venv) $ python3 VBFTMine.py sampleDB.txt patterns.txt 10.0 3.0 3 1
+       Examples usage:
 
-    .. note:: minSup will be considered in times of minSup and count of database transactions
+       (.venv) $ python3 VBFTMine.py sampleDB.txt patterns.txt 10.0 3.0 3 1
+
+
+               .. note:: minSup will be considered in times of minSup and count of database transactions
 
 
     **Sample run of the importing code**:
@@ -287,7 +292,45 @@ class VBFTMine(_ab._faultTolerantFrequentPatterns):
                 items.append(x)
         return Vector, items
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+        self._Database = []
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._itemSup = self._convert(self._itemSup)
+        self._minLength = int(self._minLength)
+        self._faultTolerance = int(self._faultTolerance)
+        Vector, plist = self._oneLengthFrequentItems()
+        for i in range(len(plist)):
+            itemx = plist[i]
+            tidsetx = Vector[itemx]
+            itemsetx = [itemx]
+            itemsets = []
+            tidsets = []
+            for j in range(i + 1, len(plist)):
+                itemj = plist[j]
+                tidsetj = Vector[itemj]
+                y1 = list(_np.array(tidsetx) | _np.array(tidsetj))
+                total = self._Count(y1)
+                if total >= self._minSup:
+                    itemsets.append(itemj)
+                    tidsets.append(y1)
+            if (len(itemsets) > 0):
+                self._processEquivalenceClass(itemsetx, itemsets, tidsets)
+            self._save(None, itemsetx, tidsetx)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Fault-Tolerant Frequent patterns were generated successfully using VBFTMine algorithm ")
+
+    def Mine(self):
         """
         Frequent pattern mining process will start from here
         """

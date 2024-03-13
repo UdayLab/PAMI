@@ -6,7 +6,7 @@
 #
 #             from PAMI.uncertainFrequentPattern.basic import CUFPTree as alg
 #
-#             obj = alg.CUFPTree(iFile, minSup)
+#             obj = alg.CUFPTree(iFile, minSup,oFile,sep)
 #
 #             obj.startMine()
 #
@@ -33,7 +33,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -53,6 +52,9 @@ __copyright__ = """
 
 """
 
+from PAMI.uncertainFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.uncertainFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
@@ -321,7 +323,7 @@ class CUFPTree(_ab._frequentPatterns):
                    Name of the Input file to mine complete set of Uncertain Frequent Patterns
     :param  oFile: str :
                    Name of the output file to store complete set of Uncertain frequent patterns
-    :param  minSup: str:
+    :param  minSup: int or float or str :
                    minimum support thresholds were tuned to find the appropriate ranges in the limited memory
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
@@ -396,15 +398,18 @@ class CUFPTree(_ab._frequentPatterns):
 
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 CUFPTree.py <inputFile> <outputFile> <minSup>
+       Format:
 
-      Example Usage:
+       (.venv) $ python3 CUFPTree.py <inputFile> <outputFile> <minSup>
 
-      (.venv) $ python3 CUFPTree.py sampleTDB.txt patterns.txt 3
+       Example Usage:
 
-    .. note:: minSup  will be considered in support count or frequency
+       (.venv) $ python3 CUFPTree.py sampleTDB.txt patterns.txt 3
+
+
+
+               .. note:: minSup  will be considered in support count or frequency
 
     **Importing this algorithm into a python program**
     ----------------------------------------------------
@@ -520,7 +525,7 @@ class CUFPTree(_ab._frequentPatterns):
 
         :param self.Database : it represents the one self.Database in database
         :type self.Database : list
-        :return: return
+        :return: tuple
         """
 
         mapSupport = {}
@@ -646,9 +651,10 @@ class CUFPTree(_ab._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
-        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.
         :return: None
         """
         global minSup
@@ -670,6 +676,32 @@ class CUFPTree(_ab._frequentPatterns):
         self.memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self.memoryRSS = process.memory_info().rss
+
+    def Mine(self) -> None:
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.
+        :return: None
+        """
+        global minSup
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        minSup = self._minSup
+        self._finalPatterns = {}
+        mapSupport, plist = self._frequentOneItem()
+        self.Database1 = self._updateTransactions(mapSupport)
+        info = {k: v for k, v in mapSupport.items()}
+        Tree1 = self._buildTree(self.Database1, info)
+        Tree1.generatePatterns([])
+        self._removeFalsePositives()
+        print("Uncertain Frequent patterns were successfully generated using CUFPTree algorithm")
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self.memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self.memoryRSS = process.memory_info().rss
+
 
     def getMemoryUSS(self) -> float:
         """

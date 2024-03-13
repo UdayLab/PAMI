@@ -33,7 +33,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -53,6 +52,9 @@ __copyright__ = """
 
 """
 
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 from itertools import combinations as _combinations
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator  
@@ -648,18 +650,20 @@ class PSGrowth(_ab._periodicFrequentPatterns):
 
     **Methods to execute code on terminal**
     -----------------------------------------
+     .. code-block:: console
 
-    .. code-block:: console
 
-      Format:
+       Format:
 
-      (.venv) $ python3 PSGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+       (.venv) $ python3 PSGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
-      Example:
+       Example:
 
-      (.venv) $ python3 PSGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+       (.venv) $ python3 PSGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
 
-    .. note:: minSup will be considered in percentage of database transactions
+
+
+               .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -824,7 +828,38 @@ class PSGrowth(_ab._periodicFrequentPatterns):
                 rootNode.addTransaction(list2[1:], list2[0])
         return rootNode
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
+        """
+        Mining process will start from this function
+        :return: None
+        """
+        global _minSup, _maxPer, _lno, _pfList
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        OneLengthPeriodicItems, _pfList = self._OneLengthItems()
+        info = {self._rank[k]: v for k, v in OneLengthPeriodicItems.items()}
+        Tree = self._buildTree(info, OneLengthPeriodicItems)
+        patterns = Tree.generatePatterns([])
+        self._finalPatterns = {}
+        for i in patterns:
+            sample = str()
+            for k in i[0]:
+                sample = sample + k + "\t"
+            self._finalPatterns[sample] = i[1]
+        self._endTime = _ab._time.time()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Periodic-Frequent patterns were generated successfully using PS-Growth algorithm ")
+
+    def Mine(self) -> None:
         """
         Mining process will start from this function
         :return: None

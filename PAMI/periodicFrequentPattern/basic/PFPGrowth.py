@@ -33,7 +33,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -55,6 +54,10 @@ __copyright__ = """
 
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 _maxPer = float()
 _minSup = float()
@@ -90,6 +93,7 @@ class _Node(object):
         :type item: int or None
         :param children: To maintain the children of a node
         :type children: dict
+        :return: None
         """
 
         self.item = item
@@ -553,9 +557,48 @@ class PFPGrowth(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
         Mining process will start from this function
+        :return: None
+        """
+
+        global _minSup, _maxPer, _lno
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
+        if self._minSup > len(self._Database):
+            raise Exception("Please enter the minSup in range between 0 to 1")
+        generatedItems, pfList = self._periodicFrequentOneItem()
+        updatedDatabases = self._updateDatabases(generatedItems)
+        for x, y in self._rank.items():
+            self._rankedUp[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedDatabases, info)
+        patterns = Tree.generatePatterns([])
+        self._finalPatterns = {}
+        for i in patterns:
+            sample = self._savePeriodic(i[0])
+            self._finalPatterns[sample] = i[1]
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Periodic Frequent patterns were generated successfully using PFPGrowth algorithm ")
+
+    def Mine(self) -> None:
+        """
+        Mining process will start from this function
+        :return: None
         """
 
         global _minSup, _maxPer, _lno

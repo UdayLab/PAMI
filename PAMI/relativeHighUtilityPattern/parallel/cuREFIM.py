@@ -61,6 +61,9 @@ import psutil
 import cupy as cp
 import numpy as np
 
+from PAMI.relativeHighUtilitytPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 searchGPU = cp.RawKernel(r'''
 
@@ -413,6 +416,7 @@ class GPUEFIM:
                 joined = " ".join(key) + " #UTIL: " + str(value) + "\n"
                 f.write(joined)
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         Start the EFIM algorithm.
@@ -443,6 +447,34 @@ class GPUEFIM:
         
         self.Patterns = newPatterns
 
+    def Mine(self):
+        """
+        Start the EFIM algorithm.
+        :return: None
+        """
+
+        ps = psutil.Process(os.getpid())
+
+        self.start = time.time()
+
+        primary, secondary = self.read_file()
+
+        collection = [[[], primary, secondary]]
+
+        self.search(collection, 1)
+
+        self.memoryRSS = ps.memory_info().rss
+        self.memoryUSS = ps.memory_full_info().uss
+
+        end = time.time()
+        self.runtime = end - self.start
+
+        newPatterns = {}
+        for key, value in self.Patterns.items():
+            newKey = tuple([self.rename[x] for x in key])
+            newPatterns[newKey] = value
+
+        self.Patterns = newPatterns
 
     def getPatterns(self):
         """

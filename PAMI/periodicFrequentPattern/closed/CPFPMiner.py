@@ -53,6 +53,9 @@ __copyright__ = """
 
 """
 
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.periodicFrequentPattern.closed import abstract as _ab
 
@@ -128,15 +131,17 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
     --------------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $  python3 CPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer>
+       Format:
 
-      Example:
+       (.venv) $  python3 CPFPMiner.py <inputFile> <outputFile> <minSup> <maxPer>
 
-      (.venv) $ python3 CPFPMiner.py sampleTDB.txt patterns.txt 0.3 0.4
+       Example:
+
+       (.venv) $ python3 CPFPMiner.py sampleTDB.txt patterns.txt 0.3 0.4
+
         
-    .. note:: minSup will be considered in percentage of database transactions
+               .. note:: minSup will be considered in percentage of database transactions
         
         
     **Importing this algorithm into a python program**
@@ -438,7 +443,56 @@ class CPFPMiner(_ab._periodicFrequentPatterns):
                 self._processEquivalenceClass(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetX)
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Mining process will start from here
+        """
+        self._startTime = _ab._time.time()
+        self._finalPatterns = {}
+        self._hashing = {}
+        periodicFrequentItems = self._scanDatabase()
+        for i in range(len(periodicFrequentItems)):
+            itemX = periodicFrequentItems[i]
+            if itemX is None:
+                continue
+            tidSetX = self._tidList[itemX]
+            itemSetX = [itemX]
+            itemSets = []
+            tidSets = []
+            for j in range(i + 1, len(periodicFrequentItems)):
+                itemJ = periodicFrequentItems[j]
+                if itemJ is None:
+                    continue
+                tidSetJ = self._tidList[itemJ]
+                y1 = list(set(tidSetX).intersection(tidSetJ))
+                if len(y1) < self._minSup:
+                    continue
+                if len(tidSetX) == len(tidSetJ) and len(y1) is len(tidSetX):
+                    periodicFrequentItems.insert(j, None)
+                    itemSetX.append(itemJ)
+                elif len(tidSetX) < len(tidSetJ) and len(y1) is len(tidSetX):
+                    itemSetX.append(itemJ)
+                elif len(tidSetX) > len(tidSetJ) and len(y1) is len(tidSetJ):
+                    periodicFrequentItems.insert(j, None)
+                    itemSets.append(itemJ)
+                    tidSets.append(y1)
+                else:
+
+                    itemSets.append(itemJ)
+                    tidSets.append(y1)
+            if len(itemSets) > 0:
+                self._processEquivalenceClass(itemSetX, itemSets, tidSets)
+            self._save([], itemSetX, tidSetX)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Closed periodic frequent patterns were generated successfully using CPFPMiner algorithm ")
+
+    def Mine(self):
         """
         Mining process will start from here
         """

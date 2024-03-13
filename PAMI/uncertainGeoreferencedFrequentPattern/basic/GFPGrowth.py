@@ -6,7 +6,7 @@
 #
 #             from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
 #
-#             obj = alg.GFPGrowth(iFile, nFile, minSup)
+#             obj = alg.GFPGrowth(iFile, nFile, minSup,sep, oFile)
 #
 #             obj.startMine()
 #
@@ -33,7 +33,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -52,6 +51,9 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 
 """
+from PAMI.uncertainGeoreferencedFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 # from geoReferencedFrequentPatterns import abstract as _ab
 # from PAMI.uncertainGeoreferencedFrequentPattern.basic import abstract as _ab
@@ -325,9 +327,9 @@ class GFPGrowth(_ab._frequentPatterns):
          https://doi.org/10.1007/978-3-031-33380-4_3
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of uncertain Georeferenced Frequent Patterns
+                   Name of the Input file to mine complete set of uncertain Geo referenced Frequent Patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of Uncertain Georeferenced frequent patterns
+                   Name of the output file to store complete set of Uncertain Geo referenced frequent patterns
     :param  minSup: str:
                    minimum support thresholds were tuned to find the appropriate ranges in the limited memory
     :param  sep: str :
@@ -402,12 +404,17 @@ class GFPGrowth(_ab._frequentPatterns):
 
     .. code-block:: console
 
-        Format:
-        (.venv) $ python3 GFPGrowth.py <inputFile> <neighborFile> <outputFile> <minSup>
 
-        Examples usage:
-        (.venv) $ python3 GFPGrowth.py sampleTDB.txt sampleNeighbor.txt patterns.txt 3
-        .. note:: minSup  will be considered in support count or frequency
+       Format:
+
+       (.venv) $ python3 GFPGrowth.py <inputFile> <neighborFile> <outputFile> <minSup>
+
+       Examples usage:
+
+       (.venv) $ python3 GFPGrowth.py sampleTDB.txt sampleNeighbor.txt patterns.txt 3
+
+
+               .. note:: minSup  will be considered in support count or frequency
     
     **Sample run of importing the code**:
     ----------------------------------------
@@ -691,7 +698,34 @@ class GFPGrowth(_ab._frequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        """
+        global minSup
+        global minSup
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._creatingNeighbours()
+        #self._minSup = self._convert(self._minSup)
+        minSup = self._minSup
+        self._finalPatterns = {}
+        mapSupport, plist = self._frequentOneItem()
+        self.Database1 = self._updateTransactions(mapSupport)
+        info = {k: v for k, v in mapSupport.items()}
+        Tree1 = self._buildTree(self.Database1, info)
+        Tree1.generatePatterns([])
+        self._removeFalsePositives()
+        print("Geo-Referenced Frequent patterns were generated from uncertain databases successfully using GFP algorithm")
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self.memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self.memoryRSS = process.memory_info().rss
+
+    def Mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -699,7 +733,7 @@ class GFPGrowth(_ab._frequentPatterns):
         self._startTime = _ab._time.time()
         self._creatingItemSets()
         self._creatingNeighbours()
-        #self._minSup = self._convert(self._minSup)
+        # self._minSup = self._convert(self._minSup)
         minSup = self._minSup
         self._finalPatterns = {}
         mapSupport, plist = self._frequentOneItem()

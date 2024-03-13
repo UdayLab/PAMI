@@ -6,7 +6,7 @@
 #
 #             from PAMI.weightedUncertainFrequentPattern.basic import basic as alg
 #
-#             obj = alg.basic(iFile, wFile, expSup, expWSup)
+#             obj = alg.basic(iFile, wFile, minSup, sep)
 #
 #             obj.startMine()
 #
@@ -29,8 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
-
+#
 
 
 
@@ -51,12 +50,13 @@ __copyright__ = """
      along with this program.  If not, see `<https://www.gnu.org/licenses/>`_.
      
 """
-
-
-
+from PAMI.WeightedUncertainFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.weightedUncertainFrequentPattern.basic import abstract as _ab
 import pandas as pd
+from deprecated import deprecated
 
 _expSup = str()
 _expWSup = str()
@@ -259,6 +259,7 @@ class _Tree(object):
         :type condPatterns : list
         :support : the support of conditional pattern in tree
         :support : int
+        :return: tuple
         """
         global _expSup, _expWSup
         pat = []
@@ -317,15 +318,15 @@ class WUFIM(_ab._weightedFrequentPatterns):
     :Reference: Efficient Mining of Weighted Frequent Itemsets in Uncertain Databases, In book: Machine Learning and Data Mining in Pattern Recognition Chun-Wei Jerry Lin, Wensheng Gan, Philippe Fournier Viger, Tzung-Pei Hong
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns
+                   Name of the Input file to mine complete set of Weighted Uncertain Periodic Frequent Patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of Uncertain Periodic Frequent patterns
+                   Name of the output file to store complete set of Weighted  Uncertain Periodic Frequent Patterns
     :param  minSup: str:
                    minimum support thresholds were tuned to find the appropriate ranges in the limited memory
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
     :param  wFile: str :
-                   This ????????
+                    This is a weighted file.
 
 
     :Attributes:
@@ -398,6 +399,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
     --------------------------------------------
     .. code-block:: console
 
+
       Format:
 
       (.venv) $ python3 basic.py <inputFile> <outputFile> <minSup>
@@ -406,7 +408,8 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
       (.venv) $ python3 basic.py sampleTDB.txt patterns.txt 3
 
-    .. note:: minSup  will be considered in support count or frequency
+
+              .. note:: minSup  will be considered in support count or frequency
 
 
     **Importing this algorithm into a python program**
@@ -562,6 +565,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
         :param self.Database : it represents the one self.Database in database
         :type self.Database : list
+        :return: tuple
         """
 
         mapSupport = {}
@@ -585,6 +589,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         :type data : list
         :param info : it represents the support of each item
         :type info : dictionary
+        :return: tree
         """
 
         rootNode = _Tree()
@@ -599,6 +604,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
         :param dict1 : frequent items with support
         :type dict1 : dictionary
+        :return: list
         """
         list1 = []
         for tr in self._Database:
@@ -622,6 +628,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
         :type x : list
         :param i : represents the uncertain self.Database
         :type i : list
+        :return: integer number
         """
 
         # This method taken a transaction as input and returns the tree
@@ -654,8 +661,7 @@ class WUFIM(_ab._weightedFrequentPatterns):
 
     def _removeFalsePositives(self) -> None:
         """
-        To remove the false positive patterns generated in frequent patterns
-
+        To remove the false positive patterns generated in frequent patterns.
         :return: patterns with accurate probability
         """
         global _finalPatterns
@@ -686,10 +692,39 @@ class WUFIM(_ab._weightedFrequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
-        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
-        :return: None
+        startMine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.
+        """
+        global _expSup, _expWSup, _weights, _finalPatterns
+        self._startTime = _ab._time.time()
+        self._Database, self._weights = [], {}
+        self._creatingItemSets()
+        self._scanningWeights()
+        _weights = self._weights
+        self._expSup = float(self._expSup)
+        self._expWSup = float(self._expWSup)
+        _expSup = self._expSup
+        _expWSup = self._expWSup
+        self._finalPatterns = {}
+        mapSupport, plist = self._frequentOneItem()
+        self.Database1 = self._updateTransactions(mapSupport)
+        info = {k: v for k, v in mapSupport.items()}
+        Tree1 = self._buildTree(self.Database1, info)
+        Tree1.generatePatterns([])
+        self._removeFalsePositives()
+        print("Weighted Frequent patterns were generated  successfully using basic algorithm")
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self.memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self.memoryRSS = process.memory_info().rss
+
+    def mine(self) -> None:
+        """
+        mine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patternS
         """
         global _expSup, _expWSup, _weights, _finalPatterns
         self._startTime = _ab._time.time()

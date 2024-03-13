@@ -56,6 +56,7 @@ from PAMI.weightedFrequentPattern.basic import abstract as _fp
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas as pd
 
+
 _minSup = str()
 _minWeight = int()
 _miniWeight = int()
@@ -245,10 +246,10 @@ class WFIM(_fp._weightedFrequentPatterns):
            https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns
+                   Name of the Input file to mine complete set of weighted Frequent Patterns.
     :param  oFile: str :
-                   Name of the output file to store complete set of Uncertain Periodic Frequent patterns
-    :param  minSup: str:
+                   Name of the output file to store complete set of weighted Frequent Patterns.
+    :param  minSup: str or int or float:
                    minimum support thresholds were tuned to find the appropriate ranges in the limited memory
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
@@ -317,15 +318,17 @@ class WFIM(_fp._weightedFrequentPatterns):
     -------------------------------------------
     .. code-block:: console
 
-        Format:
 
-        (.venv) $ python3 basic.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
+       Format:
 
-        Example Usage:
+       (.venv) $ python3 basic.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
 
-        (.venv) $ python3 basic.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4
+       Example Usage:
 
-    .. note:: minSup and maxPer will be considered in support count or frequency
+       (.venv) $ python3 basic.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4
+
+
+               .. note:: minSup and maxPer will be considered in support count or frequency
 
 
     **Importing this algorithm into a python program**
@@ -483,6 +486,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def __frequentOneItem(self) -> List[str]:
         """
         Generating One frequent items sets
+        :return: list
         """
         global _maxWeight
         self.__mapSupport = {}
@@ -504,6 +508,7 @@ class WFIM(_fp._weightedFrequentPatterns):
                     rank = {'a':0, 'b':1, 'c':2, 'd':3}
 
         :param itemSet: list of one-frequent items
+        :return: list
         """
         list1 = []
         for tr in self.__Database:
@@ -543,6 +548,7 @@ class WFIM(_fp._weightedFrequentPatterns):
             temp = temp + self.__rankDup[i] + "\t"
         return temp
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
         main program to start the operation
@@ -579,6 +585,44 @@ class WFIM(_fp._weightedFrequentPatterns):
         process = _fp._psutil.Process(_fp._os.getpid())
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
+
+    def Mine(self) -> None:
+        """
+        main program to start the operation
+        :return: None
+        """
+        global _minSup, _minWeight, _miniWeight, _maxWeight, _weights
+        self.__startTime = _fp._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
+        self.__creatingItemSets()
+        self._scanningWeights()
+        _weights = {k: v for k, v in _weights.items() if v >= _minWeight}
+        _maxWeight = max([s for s in _weights.values()])
+        _miniWeight = min([s for s in _weights.values()])
+        self._minSup = self.__convert(self._minSup)
+        _minSup = self._minSup
+        itemSet = self.__frequentOneItem()
+        updatedTransactions = self.__updateTransactions(itemSet)
+        for x, y in self.__rank.items():
+            self.__rankDup[y] = x
+        info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
+        __Tree = self.__buildTree(updatedTransactions, info)
+        patterns = __Tree.generatePatterns([])
+        self.__finalPatterns = {}
+        for k in patterns:
+            s = self.__savePeriodic(k[0])
+            self.__finalPatterns[str(s)] = k[1]
+        print("Weighted Frequent patterns were generated successfully using basic algorithm")
+        self.__endTime = _fp._time.time()
+        self.__memoryUSS = float()
+        self.__memoryRSS = float()
+        process = _fp._psutil.Process(_fp._os.getpid())
+        self.__memoryUSS = process.memory_full_info().uss
+        self.__memoryRSS = process.memory_info().rss
+
 
     def getMemoryUSS(self) -> float:
         """

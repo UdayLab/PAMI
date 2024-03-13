@@ -13,24 +13,25 @@
 #
 #             weightedFrequentRegularPatterns = obj.getPatterns()
 #
-#              print("Total number of Frequent Patterns:", len(weightedFrequentRegularPatterns))
+#             print("Total number of Frequent Patterns:", len(weightedFrequentRegularPatterns))
 #
-#              obj.save(oFile)
+#             obj.save(oFile)
 #
-#              Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#              memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#              print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#              memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#              print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#              run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#              print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -51,8 +52,14 @@ __copyright__ = """
 
 """
 
-from PAMI.weightedFrequentRegularPattern.basic import abstract as _fp
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from PAMI.WeightedFrequentRegularPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
+from PAMI.weightedFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
 
 _WS = str()
 _regularity = str()
@@ -324,6 +331,15 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
            2017 9th International Conference on Knowledge and Smart Technology (KST), 2017, pp. 66-71,
            doi: 10.1109/KST.2017.7886090.
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Weighted Frequent Regular Patterns.
+    :param  oFile: str :
+                   Name of the output file to store complete set of Weighted Frequent Regular Patterns.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  wFile: str :
+                This is a weighted file.
+
     :Attributes:
 
         iFile : file
@@ -387,6 +403,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     -------------------------------------------
     .. code-block:: console
 
+
       Format:
 
       (.venv) $ python3 WFRIMiner.py <inputFile> <outputFile> <weightSupport> <regularity>
@@ -395,7 +412,9 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
 
       (.venv) $ python3 WFRIMiner.py sampleDB.txt patterns.txt 10 5
 
-    .. note:: WS & regularity will be considered in support count or frequency
+
+              .. note:: WS & regularity will be considered in support count or frequency
+
 
     **Importing this algorithm into a python program**
     ----------------------------------------------------
@@ -546,6 +565,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
     def _frequentOneItem(self) -> List[str]:
         """
         Generating One frequent items sets
+        :return: list
         """
         global _lno, _wf, _weights
         self._mapSupport = {}
@@ -588,6 +608,7 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
         rank = {'a':0, 'b':1, 'c':2, 'd':3}
 
         :param itemSet: list of one-frequent items
+        :return: None
         """
         list1 = []
         for tr in self._Database:
@@ -632,7 +653,44 @@ class WFRIMiner(_fp._weightedFrequentRegularPatterns):
             temp = temp + self._rankDup[i] + "\t"
         return temp
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
+        """
+        main program to start the operation
+        :return: None
+        """
+        global _WS, _regularity, _weights
+        self._startTime = _fp._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._WS is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        self._WS = self._convert(self._WS)
+        self._regularity = self._convert(self._regularity)
+        _WS, _regularity, _weights = self._WS, self._regularity, self._weight
+        itemSet = self._frequentOneItem()
+        updatedTransactions = self._updateTransactions(itemSet)
+        for x, y in self._rank.items():
+            self._rankDup[y] = x
+        info = {self._rank[k]: v for k, v in self._mapSupport.items()}
+        _Tree = self._buildTree(updatedTransactions, info)
+        patterns = _Tree.generatePatterns([])
+        self._finalPatterns = {}
+        for k in patterns:
+            s = self._savePeriodic(k[0])
+            self._finalPatterns[str(s)] = k[1]
+        print("Weighted Frequent Regular patterns were generated successfully using WFRIM algorithm")
+        self._endTime = _fp._time.time()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        process = _fp._psutil.Process(_fp._os.getpid())
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+
+    def Mine(self) -> None:
         """
         main program to start the operation
         :return: None

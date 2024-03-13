@@ -51,6 +51,9 @@ __copyright__ = """
 """
 
 from PAMI.recurringPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+from PAMI.recurringPattern.basic import abstract as _ab
 
 _maxPer = float()
 _minPS = float()
@@ -415,15 +418,17 @@ class RPGrowth(_ab._recurringPatterns):
     -------------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 RPGrowth.py <inputFile> <outputFile> <maxPer> <minPS> <minRec>
+       Format:
 
-      Example usage:
+       (.venv) $ python3 RPGrowth.py <inputFile> <outputFile> <maxPer> <minPS> <minRec>
 
-      (.venv) $ python3 RPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 2
+       Example usage:
 
-    .. note:: maxPer and minPS will be considered in percentage of database transactions
+       (.venv) $ python3 RPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 2
+
+
+               .. note:: maxPer and minPS will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------
@@ -618,11 +623,43 @@ class RPGrowth(_ab._recurringPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         Mining process will start from this function
         """
+        global _minPS, _minRec, _maxPer, _lno
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        self._creatingItemSets()
+        self._minPS = self._convert(self._minPS)
+        self._maxPer = self._convert(self._maxPer)
+        self._minRec = int(self._minRec)
+        self._finalPatterns = {}
+        _maxPer, _minPS, _minRec, _lno = self._maxPer, self._minPS, self._minRec, len(self._Database)
+        generatedItems, pfList = self._OneItems()
+        updatedDatabases = self._updateDatabases(generatedItems)
+        for x, y in self._rank.items():
+            self._rankedUp[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedDatabases, info)
+        patterns = Tree.generatePatterns([])
+        for i in patterns:
+            sample = self._savePeriodic(i[0])
+            self._finalPatterns[sample] = i[1]
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Recurring patterns were generated successfully using RPGrowth algorithm ")
 
+    def Mine(self):
+        """
+        Mining process will start from this function
+        """
         global _minPS, _minRec, _maxPer, _lno
         self._startTime = _ab._time.time()
         if self._iFile is None:

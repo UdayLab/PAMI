@@ -32,8 +32,6 @@
 #
 
 
-
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -53,6 +51,10 @@ __copyright__ = """
 
 """
 
+
+from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
 
@@ -489,6 +491,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     .. code-block:: console
 
+
        Format:
 
        (.venv) $ python3 UPFPGrowthPlus.py <inputFile> <outputFile> <minSup> <maxPer>
@@ -497,7 +500,8 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
        (.venv) $ python3 UPFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 4
 
-    .. note:: minSup and maxPer will be considered in support count or frequency
+
+               .. note:: minSup and maxPer will be considered in support count or frequency
 
 
     **Importing this algorithm into a python program**
@@ -747,7 +751,34 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
                 self._finalPatterns[sample] = y
         #print("Total false patterns generated:", len(self._periodic) - count)
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
+        """
+        global _minSup, _maxPer, _first, _last, _lno
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        self._finalPatterns = {}
+        _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
+        mapSupport, plist = self._PeriodicFrequentOneItems()
+        updatedTrans = self._updateTransactions(mapSupport)
+        info = {k: v for k, v in mapSupport.items()}
+        root = self._buildTree(updatedTrans, info)
+        self._periodic = {}
+        root.generatePatterns([], self._periodic)
+        self._removeFalsePositives()
+        print("Periodic Frequent patterns were generated successfully using UPFP-Growth++ algorithm")
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+
+    def Mine(self):
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns
         """
@@ -775,8 +806,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     def getMemoryUSS(self):
         """
-        Total amount of USS memory consumed by the mining process will be retrieved from this function
-
+        Total amount of USS memory consumed by the mining process will be retrieved from this function.
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """

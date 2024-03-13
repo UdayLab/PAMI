@@ -54,6 +54,10 @@ __copyright__ = """
 """
 
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 _maxPer = float()
@@ -371,15 +375,17 @@ class PFPGrowthPlus(_ab._periodicFrequentPatterns):
    -------------------------------------------
    .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 PFPGrowthPlus.py <inputFile> <outputFile> <minSup> <maxPer>
+       Format:
 
-      Example:
+       (.venv) $ python3 PFPGrowthPlus.py <inputFile> <outputFile> <minSup> <maxPer>
 
-      (.venv) $ python3 PFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 0.4
+       Example:
 
-   .. note:: minSup will be considered in percentage of database transactions
+       (.venv) $ python3 PFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 0.4
+
+
+               .. note:: minSup will be considered in percentage of database transactions
 
    **Importing this algorithm into a python program**
    -----------------------------------------------------------

@@ -55,6 +55,10 @@ __copyright__ = """
 """
 
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
 
 
 class PFECLAT(_ab._periodicFrequentPatterns):
@@ -147,15 +151,18 @@ class PFECLAT(_ab._periodicFrequentPatterns):
     ------------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 PFECLAT.py <inputFile> <outputFile> <minSup>
+       Format:
 
-      Example usage:
+       (.venv) $ python3 PFECLAT.py <inputFile> <outputFile> <minSup>
 
-      (.venv) $ python3 PFECLAT.py sampleDB.txt patterns.txt 10.0
+       Example usage:
 
-    .. note:: minSup will be considered in percentage of database transactions
+       (.venv) $ python3 PFECLAT.py sampleDB.txt patterns.txt 10.0
+
+
+
+               .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -243,6 +250,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
     def _creatingOneItemSets(self) -> list:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: list
         """
         plist = []
         Database = []
@@ -332,10 +340,29 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
         if len(newCandidates) > 0:
             self._generateEclat(newCandidates)
-    
+
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
         Mining process will start from this function
+        :return: None
+        """
+        self._startTime = _ab._time.time()
+        self._finalPatterns = {}
+        frequentSets = self._creatingOneItemSets()
+        self._generateEclat(frequentSets)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Periodic-Frequent patterns were generated successfully using PFECLAT algorithm ")
+
+    def Mine(self) -> None:
+        """
+        Mining process will start from this function
+        :return: None
         """
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
@@ -398,6 +425,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -418,6 +446,7 @@ class PFECLAT(_ab._periodicFrequentPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of Periodic Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

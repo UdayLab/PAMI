@@ -56,6 +56,11 @@ from PAMI.relativeFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas as pd
 
+from PAMI.relativeFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
+
 class _Node:
     """
     A class used to represent the node of frequent Pattern tree
@@ -336,15 +341,17 @@ class RSFPGrowth(_ab._frequentPatterns):
     ----------------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRatio>
+       Format:
 
-      Example Usage :
+       (.venv) $python3 RSFPGrowth.py <inputFile> <outputFile> <minSup> <__minRatio>
 
-      (.venv) $python3 python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2
+       Example Usage :
 
-    .. note:: maxPer and minPS will be considered in percentage of database transactions
+       (.venv) $python3 python3 RSFPGrowth.py sampleDB.txt patterns.txt 0.23 0.2
+
+
+               .. note:: maxPer and minPS will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -594,6 +601,7 @@ class RSFPGrowth(_ab._frequentPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
         Main program to start the operation
@@ -630,6 +638,44 @@ class RSFPGrowth(_ab._frequentPatterns):
         self.__memoryUSS = float()
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
+
+    def Mine(self) -> None:
+            """
+            Main program to start the operation
+            :return: None
+            """
+
+            self.__startTime = _ab._time.time()
+            if self._iFile is None:
+                raise Exception("Please enter the file path or file name:")
+            if self._minSup is None:
+                raise Exception("Please enter the Minimum Support")
+            self.__creatingItemSets()
+            self._minSup = self.__convert(self._minSup)
+            self._minRS = float(self._minRS)
+            self.__frequentOneItem()
+            self.__finalPatterns = {}
+            self.__mapSupport = {k: v for k, v in self.__mapSupport.items() if v >= self._minSup}
+            __itemSetBuffer = [k for k, v in sorted(self.__mapSupport.items(), key=lambda x: x[1], reverse=True)]
+            for i in self.__Database:
+                transaction = []
+                for j in i:
+                    if j in __itemSetBuffer:
+                        transaction.append(j)
+                transaction.sort(key=lambda val: self.__mapSupport[val], reverse=True)
+                self.__tree.addTransaction(transaction)
+            self.__tree.createHeaderList(self.__mapSupport, self._minSup)
+            if len(self.__tree.headerList) > 0:
+                self.__itemSetBuffer = []
+                self.__frequentPatternGrowthGenerate(self.__tree, self.__itemSetBuffer, 0, self.__mapSupport,
+                                                     self._minRS)
+            print("Relative support frequent patterns were generated successfully using RSFPGrowth algorithm")
+            self.__endTime = _ab._time.time()
+            process = _ab._psutil.Process(_ab._os.getpid())
+            self.__memoryRSS = float()
+            self.__memoryUSS = float()
+            self.__memoryUSS = process.memory_full_info().uss
+            self.__memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self) -> float:
         """

@@ -24,6 +24,9 @@ import cudf
 import pandas as pd
 import numpy as np
 
+from PAMI.partialPeriodicPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 class cpucuGPPMiner(_ab._partialPeriodicPatterns):
     """
@@ -32,16 +35,12 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
     :Reference:   N/A
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  period: str:
-                   Minimum partial periodic...
-    :param  periodicSupport: str:
-                   Minimum partial periodic...
-
+                   Name of the output file to store complete set of periodic frequent pattern's
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -93,12 +92,19 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
 
     **Methods to execute code on terminal**
     --------------------------------------------
-            Format:
-                        >>>  python3 gPPMiner.py <inputFile> <outputFile> <minSup>
-            Example:
-                        >>>   python3 gPPMiner.py sampleDB.txt patterns.txt 10.0
+      .. code-block:: console
 
-            .. note:: minSup will be considered in percentage of database transactions
+
+       Format:
+
+       (.venv) $ python3 gPPMiner.py <inputFile> <outputFile> <minSup>
+
+       Example:
+
+       (.venv) $  python3 gPPMiner.py sampleDB.txt patterns.txt 10.0
+
+
+               .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -293,7 +299,86 @@ class cpucuGPPMiner(_ab._partialPeriodicPatterns):
         return candidates, data
 
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        self._startTime = _ab._time.time()
+
+        self._period = self._convert(self._period)
+        self._periodicSupport = self._convert(self._periodicSupport)
+        self._finalPatterns = {}
+        candidates, values = self._creatingOneItemSets()
+        # candidates = list(ArraysAndItems.keys())
+        # candidates = [list(i) for i in candidates]
+        # values = list(ArraysAndItems.values())
+
+        # values = _ab._cp.array(values)
+        # print(values)
+
+        # print(type(candidates[0]))
+
+        while len(candidates) > 0:
+            # print("Number of Candidates:", len(candidates))
+            newKeys = []
+            for i in range(len(candidates)):
+                for j in range(i+1, len(candidates)):
+                        if candidates[i][:-1] == candidates[j][:-1] and candidates[i][-1] != candidates[j][-1]:
+                            newKeys.append(candidates[i] + candidates[j][-1:])
+                        else:
+                            break
+
+            if len(newKeys) == 0:
+                break
+
+            # print(newKeys)
+
+            numberOfKeys = len(newKeys)
+            keySize = len(newKeys[0])
+
+            newKeys = _ab._cp.array(newKeys, dtype=_ab._cp.uint32)
+
+            # newKeys = _ab._cp.flatten(newKeys)
+            newKeys = _ab._cp.reshape(newKeys, (numberOfKeys * keySize,))
+
+            period = _ab._cp.zeros(numberOfKeys, dtype=_ab._cp.uint32)
+
+
+            self.supportAndPeriod((numberOfKeys//32 + 1,), (32,),
+                                    (
+                                        values, self.arraySize,
+                                        newKeys, numberOfKeys, keySize,
+                                        period,
+                                        self._period, self._maxTS
+                                    )
+            )
+
+            newKeys = _ab._cp.reshape(newKeys, (numberOfKeys, keySize))
+            newKeys = _ab._cp.asnumpy(newKeys)
+            period = period.get()
+
+            newCandidates = []
+            for i in range(len(newKeys)):
+                # print(newKeys[i], support[i], period[i])
+                if period[i] >= self._periodicSupport:
+                    newCandidates.append(list(newKeys[i]))
+                    rename = [str(j) for j in newKeys[i]]
+                    rename = "\t".join(rename)
+                    self._finalPatterns[rename] = period[i]
+
+            # print()
+
+            # print(newCandidates)
+
+            candidates = newCandidates
+
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Periodic-Frequent patterns were generated successfully using gPPMiner algorithm ")
+
+    def Mine(self):
         self._startTime = _ab._time.time()
 
         self._period = self._convert(self._period)

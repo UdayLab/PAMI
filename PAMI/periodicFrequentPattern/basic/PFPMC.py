@@ -33,7 +33,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -53,6 +52,9 @@ __copyright__ = """
 
 """
 
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 from itertools import groupby as _groupby
 from operator import itemgetter as _itemgetter
 from PAMI.periodicFrequentPattern.basic import abstract as _ab
@@ -148,15 +150,17 @@ class PFPMC(_ab._periodicFrequentPatterns):
     ------------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 PFPMC.py <inputFile> <outputFile> <minSup> <maxPer>
+       Format:
 
-      Example usage:
+       (.venv) $ python3 PFPMC.py <inputFile> <outputFile> <minSup> <maxPer>
 
-      (.venv) $ python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0
-    
-    .. note:: minSup and maxPer will be considered in percentage of database transactions
+       Example usage:
+
+       (.venv) $ python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0
+
+
+               .. note:: minSup and maxPer will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     ----------------------------------------------------
@@ -216,6 +220,7 @@ class PFPMC(_ab._periodicFrequentPatterns):
 
         :param tids: represents the timestamp of a transaction
         :type tids: set
+        :return: None
         """
         tids = list(tids)
         tids.sort()

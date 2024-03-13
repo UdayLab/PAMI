@@ -35,7 +35,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -55,6 +54,9 @@ __copyright__ = """
 
 """
 
+from PAMI.stableperiodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.stablePeriodicFrequentPattern.basic import abstract as _ab
 
@@ -68,9 +70,9 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
                   32nd Intern. Conf. on Industrial, Engineering and Other Applications of Applied Intelligent Systems (IEA AIE 2019), Springer LNAI, pp. 230-244
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
+                   Name of the Input file to mine complete set of stable periodic Frequent Pattern.
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of stable periodic Frequent Pattern.
     :param  minSup: float or int or str :
                     The user can specify minSup either in count or proportion of database size.
                     If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -78,7 +80,7 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
                     Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
     :param  itemSup: int or float :
                     Frequency of an item
-    :param maxLa: floot :
+    :param maxLa: float :
                   minimum loss of a pattern
     :param  sep: str :
                  This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
@@ -158,18 +160,19 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
 
     **Methods to execute code on terminal**
     -----------------------------------------
-
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 basic.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
+       Format:
 
-      Example usage:
+       (.venv) $ python3 basic.py <inputFile> <outputFile> <minSup> <maxPer> <maxLa>
 
-      (.venv) $ python3 basic.py sampleDB.txt patterns.txt 10.0 4.0 2.0
+       Example usage:
 
-    .. note:: constraints will be considered in percentage of database transactions
+       (.venv) $ python3 basic.py sampleDB.txt patterns.txt 10.0 4.0 2.0
+
+
+               .. note:: constraints will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     ---------------------------------------------------
@@ -347,7 +350,28 @@ class SPPEclat(_ab._stablePeriodicFrequentPatterns):
         maxla = max(laList)
         return maxla
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Method to start the mining of patterns
+        """
+        self._startTime = _ab._time.time()
+        self._creatingItemsets()
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        self._maxLa = self._convert(self._maxLa)
+        self._finalPatterns = {}
+        #print(self._minSup, self._maxPer, self._maxLa)
+        self._createSPPList()
+        self._endTime = _ab._time.time()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Stable Periodic Frequent patterns were generated successfully using basic algorithm ")
+
+    def Mine(self):
         """
         Method to start the mining of patterns
         """

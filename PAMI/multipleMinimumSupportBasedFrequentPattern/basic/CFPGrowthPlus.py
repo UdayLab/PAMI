@@ -1,5 +1,6 @@
 #  Copyright (C)  2021 Rage Uday Kiran
 #
+#
 #      This program is free software: you can redistribute it and/or modify
 #      it under the terms of the GNU General Public License as published by
 #      the Free Software Foundation, either version 3 of the License, or
@@ -201,6 +202,16 @@ class CFPGrowthPlus(_fp._frequentPatterns):
     :Reference:   R. Uday Kiran P. Krishna Reddy Novel techniques to reduce search space in multiple minimum supports-based frequent
                   pattern mining algorithms. 11-20 2011 EDBT https://doi.org/10.1145/1951365.1951370
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Uncertain Multiple Minimum Support Based Frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Uncertain Minimum Support Based Frequent patterns
+    :param  minSup: str:
+                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
 
     :Attributes:
 
@@ -232,6 +243,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         finalPatterns : dict
             it represents to store the patterns
 
+
     :Methods:
 
         startMine()
@@ -255,11 +267,19 @@ class CFPGrowthPlus(_fp._frequentPatterns):
 
     **Executing the code on terminal:**
     ------------------------------------
-        Format:
-            >>> python3 CFPGrowthPlus.py <inputFile> <outputFile>
+     .. code-block:: console
 
-        Examples:
-            >>> python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MISFile.txt
+
+       Format:
+
+       (.venv) $ python3 CFPGrowthPlus.py <inputFile> <outputFile>
+
+       Examples:
+
+       (.venv) $ python3 CFPGrowthPlus.py sampleDB.txt patterns.txt MISFile.txt
+
+
+                .. note:: minSup  will be considered in support count or frequency
 
 
     **Sample run of the importing code:**
@@ -477,6 +497,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
             temp = temp + self.__rankDup[i] + " "
         return temp
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         main program to start the operation
@@ -507,6 +528,38 @@ class CFPGrowthPlus(_fp._frequentPatterns):
         process = _fp._psutil.Process(_fp._os.getpid())
         self.__memoryUSS = process.memory_full_info().uss
         self.__memoryRSS = process.memory_info().rss
+
+    def Mine(self):
+        """
+        main program to start the operation
+
+        """
+        global MIS
+        self.__startTime = _fp._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        self.__creatingItemSets()
+        self._getMISValues()
+        itemSet = self.__frequentOneItem()
+        updatedTransactions = self.__updateTransactions(itemSet)
+        for x, y in self.__rank.items():
+            MIS[y] = self._MISValues[x]
+            self.__rankDup[y] = x
+        info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
+        __Tree = self.__buildTree(updatedTransactions, info)
+        patterns = __Tree.generatePatterns([])
+        self.__finalPatterns = {}
+        for k in patterns:
+            s = self.__savePeriodic(k[0])
+            self.__finalPatterns[str(s)] = k[1]
+        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
+        self.__endTime = _fp._time.time()
+        self.__memoryUSS = float()
+        self.__memoryRSS = float()
+        process = _fp._psutil.Process(_fp._os.getpid())
+        self.__memoryUSS = process.memory_full_info().uss
+        self.__memoryRSS = process.memory_info().rss
+
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -573,6 +626,7 @@ class CFPGrowthPlus(_fp._frequentPatterns):
     def printResults(self) -> None:
         """
         this function is used to print the results
+        :return: None
         """
         print("Total number of  Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

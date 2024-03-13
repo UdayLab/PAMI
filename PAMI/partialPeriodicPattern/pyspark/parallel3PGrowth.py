@@ -2,32 +2,33 @@
 # --------------------------------------------------------
 #
 #
-#         from PAMI.partialPeriodicPattern.pyspark import 4PGrowth as alg
+#             from PAMI.partialPeriodicPattern.pyspark import 4PGrowth as alg
 #
-#         obj = alg.parallel3PGrowth(iFile, minPS, period,numWorkers)
+#             obj = alg.parallel3PGrowth(iFile, minPS, period,numWorkers)
 #
-#         obj.startMine()
+#             obj.startMine()
 #
-#         partialPeriodicPatterns = obj.getPatterns()
+#             partialPeriodicPatterns = obj.getPatterns()
 #
-#         print("Total number of partial periodic Patterns:", len(partialPeriodicPatterns))
+#             print("Total number of partial periodic Patterns:", len(partialPeriodicPatterns))
 #
-#         obj.save(oFile)
+#             obj.save(oFile)
 #
-#         Df = obj.getPatternInDf()
+#             Df = obj.getPatternInDf()
 #
-#         memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#         print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#         memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#         print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#         run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#         print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
+
 
 
 __copyright__ = """
@@ -54,6 +55,10 @@ import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
 from pyspark import SparkContext, SparkConf
+
+from PAMI.partialPeriodicPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 _periodicSupport = float()
 _period = float()
@@ -408,11 +413,16 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
     **Executing the code on terminal:**
     ---------------------------------------
-        Format:
-           >>> python3 parallel3PGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
+    .. code-block:: console
+
+
+       Format:
+
+       (.venv) $ python3 parallel3PGrowth.py <inputFile> <outputFile> <periodicSupport> <period>
     
-        Examples:
-           >>> python3 parallel3PGrowth.py sampleDB.txt patterns.txt 10.0 2.0
+       Examples:
+
+       (.venv) $ python3 parallel3PGrowth.py sampleDB.txt patterns.txt 10.0 2.0
 
     **Sample run of the importing code:**
     -----------------------------------------
@@ -468,7 +478,7 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
 
     numPartitions = 5
 
-    
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         Main method where the patterns are mined by constructing tree.
@@ -512,6 +522,68 @@ class parallel3PGrowth(_ab._partialPeriodicPatterns):
         self._endTime = _ab._time.time()
         sc.stop()
         
+        # self._creatingItemSets()
+        # generatedItems, pfList = self._partialPeriodicOneItem()
+        # _minPS, _period, _lno = self._minPS, self._period, len(self._Database)
+        # updatedTransactions = self._updateTransactions(generatedItems)
+        # for x, y in self._rank.items():
+        #     self._rankdup[y] = x
+        # info = {self._rank[k]: v for k, v in generatedItems.items()}
+        # Tree = self._buildTree(updatedTransactions, info)
+        # patterns = Tree._generatePatterns([])
+        # self._finalPatterns = {}
+        # for i in patterns:
+        #     s = self._savePeriodic(i[0])
+        #     self._finalPatterns[s] = i[1]
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Partial Periodic Patterns were generated successfully using 4PGrowth algorithm ")
+
+    def Mine(self):
+        """
+        Main method where the patterns are mined by constructing tree.
+        """
+
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minPS is None:
+            raise Exception("Please enter the Minimum Period-Support")
+
+        self._period = self._convert(self._period)
+        self._minPS = self._convert(self._minPS)
+        minPS = self._minPS
+        period = self._period
+
+        APP_NAME = "4PGrowth"
+        conf = SparkConf().setAppName(APP_NAME)
+        sc = SparkContext(conf=conf).getOrCreate()
+
+        self._startTime = _ab._time.time()
+
+        data = sc.textFile(self._iFile, self.numPartitions).map(lambda x: [y for y in x.strip().split(self._sep)])
+        # self.numPartitions = data.getNumPartitions()
+        # numPartitions = 50
+        freqItems, RecItems = self.getFrequentItems(data)
+        # print(RecItems)
+
+        trans = self.getFrequentItemsets(data, freqItems, self._period, self._minPS, dict(RecItems))
+        a = trans.collect()
+
+        # print(type(a))
+        for k, v in a:
+            string = "\t".join(k)
+            # print(string,":",v)
+            self._finalPatterns[string] = v
+
+        # print(self._finalPatterns)
+        #     print(k,":",v)
+        # trans.saveAsTextFile('temp')
+        self._endTime = _ab._time.time()
+        sc.stop()
+
         # self._creatingItemSets()
         # generatedItems, pfList = self._partialPeriodicOneItem()
         # _minPS, _period, _lno = self._minPS, self._period, len(self._Database)

@@ -31,6 +31,8 @@
 #         print("Total ExecutionTime in seconds:", run)
 #
 
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -56,6 +58,10 @@ from typing import List, Dict, Tuple, Set, Union, Any, Iterable, Generator
 import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
+
+from PAMI.partialPeriodicPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 _minPS = float()
 _period = float()
@@ -157,6 +163,7 @@ class _Tree(object):
 
         :param alpha : it represents the Node in tree
         :type alpha : Node
+        :return: tuple
         """
         finalPatterns = []
         finalSets = []
@@ -189,6 +196,7 @@ class _Tree(object):
 
         :param nodeValue : it represents the node in tree
         :type nodeValue : node
+        :return: None
         """
         for i in self.summaries[nodeValue]:
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
@@ -212,7 +220,8 @@ class _Tree(object):
         calculates the support and periodicity with list of timestamps
 
         :param timeStamps : timestamps of a pattern
-        :type timeStamps : list
+        :type timeStamps : lis
+        :return: int
         """
         timeStamps.sort()
         per = 0
@@ -233,6 +242,8 @@ class _Tree(object):
         :type conditionalPatterns : list
         :param conditionalTimeStamps : represents the timestamps of conditional patterns of a node
         :type conditionalTimeStamps : list
+
+        :return: tuple
         """
         global _minPS, _period
         patterns = []
@@ -264,6 +275,7 @@ class _Tree(object):
 
         :param prefix : forms the combination of items
         :type prefix : list
+        :return : list
         """
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x), -x)):
             pattern = prefix[:]
@@ -367,11 +379,16 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
 
     **Executing the code on terminal:**
     --------------------------------------
-        Format:
-           >>> python3 PPPGrowth.py <inputFile> <outputFile> <minPS> <period>
+      .. code-block:: console
+
+
+       Format:
+
+       (.venv) $python3 PPPGrowth.py <inputFile> <outputFile> <minPS> <period>
     
-        Examples:
-           >>> python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0
+       Examples:
+
+       (.venv) $ python3 PPPGrowth.py sampleDB.txt patterns.txt 10.0 2.0
 
 
     **Sample run of the importing code:**
@@ -428,6 +445,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
     def _creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self._Database = []
         if isinstance(self._iFile, _abstract._pd.DataFrame):
@@ -469,6 +487,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
     def _partialPeriodicOneItem(self) -> Tuple[Dict, List]:
         """
         calculates the support of each item in the dataset and assign the ranks to the items by decreasing support and returns the frequent items list
+        :return: tuple
         """
         data = {}
         self._period = self._convert(self._period)
@@ -494,6 +513,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
 
         :param dict1 : frequent items with support
         :type dict1 : dictionary
+        :return: list
         """
         list1 = []
         for tr in self._Database:
@@ -517,6 +537,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         :type data : list
         :param info : it represents the support of each item
         :type info : dictionary
+        :return: tree
         """
         rootNode = _Tree()
         rootNode.info = info.copy()
@@ -557,9 +578,12 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
                 value = int(value)
         return value
 
+
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree.
+        :return: None
 
         """
         global _minPS, _period, _lno
@@ -588,6 +612,40 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Partial Periodic Patterns were generated successfully using 3PGrowth algorithm ")
+
+    def Mine(self) -> None:
+        """
+        Main method where the patterns are mined by constructing tree.
+        :return: None
+
+        """
+        global _minPS, _period, _lno
+        self._startTime = _abstract._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minPS is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        generatedItems, pfList = self._partialPeriodicOneItem()
+        _minPS, _period, _lno = self._minPS, self._period, len(self._Database)
+        updatedTransactions = self._updateTransactions(generatedItems)
+        for x, y in self._rank.items():
+            self._rankdup[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedTransactions, info)
+        patterns = Tree._generatePatterns([])
+        self._finalPatterns = {}
+        for i in patterns:
+            s = self._savePeriodic(i[0])
+            self._finalPatterns[s] = i[1]
+        self._endTime = _abstract._time.time()
+        process = _abstract._psutil.Process(_abstract._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Partial Periodic Patterns were generated successfully using 3PGrowth algorithm ")
+
 
     def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function
@@ -635,6 +693,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -653,6 +712,7 @@ class PPPGrowth(_abstract._partialPeriodicPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of Partial Periodic Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
