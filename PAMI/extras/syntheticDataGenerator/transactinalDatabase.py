@@ -1,7 +1,7 @@
 import random
 
 
-class TransactionalDatabase:
+class transactionalDatabase:
     """
     A class to generate a transactional database with random transactions.
 
@@ -26,45 +26,45 @@ class TransactionalDatabase:
         The complete program was written by A.Hemanth sree sai under the supervision of Professor Rage Uday Kiran.
     """
 
-    def __init__(self, database_size: int, num_of_items: int, avg_transaction_length: int) -> None:
+    def __init__(self, databaseSize: int, numberOfItems: int, avgTransactionLength: int) -> None:
         """
         Constructor to initialize the database parameters.
 
         Parameters:
-            database_size (int): The number of transactions in the database.
-            num_of_items (int): The maximum number of items in each transaction.
-            avg_transaction_length (int): The average length of transactions.
+            databaseSize (int): The number of transactions in the database.
+            numberOfItems (int): The maximum number of items in each transaction.
+            avgTransactionLength (int): The average length of transactions.
         """
-        self.database_size = database_size
-        self.num_of_items = num_of_items
-        self.avg_transaction_length = avg_transaction_length
+        self.databaseSize = databaseSize
+        self.numberOfItems = numberOfItems
+        self.avgTransactionLength = avgTransactionLength
         self.transactions = list()
 
-    def generate(self) -> None:
+    def create(self) -> None:
         """
-        Method to generate random transactions based on the specified parameters.
-        If avg_transaction_length exceeds num_of_items, an error message is printed.
+        Method to create random transactions based on the specified parameters.
+        If avgTransactionLength exceeds numberOfItems, an error message is printed.
         """
-        if self.avg_transaction_length > self.num_of_items:
-            print("Error: avg_transaction_length cannot exceed num_of_items.")
+        if self.avgTransactionLength > self.numberOfItems:
+            print("Error: avgTransactionLength cannot exceed numberOfItems.")
             return
 
-        for _ in range(self.database_size):
-            length = random.randint(1, self.avg_transaction_length * 2)
-            transaction = [random.randint(1, self.num_of_items)
+        for _ in range(self.databaseSize):
+            length = random.randint(1, self.avgTransactionLength * 2)
+            transaction = [random.randint(1, self.numberOfItems)
                            for _ in range(length)]
             self.transactions.append(transaction)
 
-    def generate_random_numbers(self, n: int, target_sum: int) -> list[float]:
+    def __createTransactionLengths(self, n: int, target_sum: int) -> list[float]:
         """
-        Method to generate a list of random numbers with a specified target sum.
+        Method to create a list of random numbers with a specified target sum.
 
         Parameters:
-            n (int): Number of random numbers to generate.
-            target_sum (int): Target sum for the generated random numbers.
+            n (int): Number of random numbers to create.
+            target_sum (int): Target sum for the created random numbers.
 
         Returns:
-            list: List of generated random numbers normalized and multiplied by the target sum.
+            list: List of created random numbers normalized and multiplied by the target sum.
         """
         rand_numbers = [random.uniform(0, 1) for _ in range(n)]
         rand_sum = sum(rand_numbers)
@@ -74,7 +74,7 @@ class TransactionalDatabase:
 
     def save(self, output_file: str, sep="\t") -> None:
         """
-        Method to save the generated transactions to a CSV file.
+        Method to save the created transactions to a CSV file.
 
         Parameters:
             output_file (str): File path for the CSV file.
@@ -82,16 +82,16 @@ class TransactionalDatabase:
         """
         with open(output_file, 'w') as f:
             for transaction in self.transactions:
-                # Adding the generated random numbers to each transaction
-                random_numbers = self.generate_random_numbers(13, 2000)
+                # Adding the created random numbers to each transaction
+                random_numbers = self.create_random_numbers(13, 2000)
                 transaction += random_numbers
 
                 f.write(f"{sep.join(map(str, transaction))}\n")
 
 
 if __name__ == "__main__":
-    obj = TransactionalDatabase(10, 10, 5)
-    obj.generate()
+    obj = transactionalDatabase(10, 10, 5)
+    obj.create()
 
-    # Saving transactions to a CSV file with generated random numbers
+    # Saving transactions to a CSV file with created random numbers
     obj.save("transactional_output_9.csv")

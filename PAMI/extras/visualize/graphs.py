@@ -3,8 +3,12 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 class graphDatabase:
-    def plot(iFile):
-        with open(iFile, 'r') as file:
+
+    def __init__(self, iFile) ->  None:
+        self.iFile = iFile
+
+    def plot(self):
+        with open(self.iFile, 'r') as file:
             lines = file.readlines()
 
         current_graph = None
