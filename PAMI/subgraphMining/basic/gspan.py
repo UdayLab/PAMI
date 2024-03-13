@@ -2,11 +2,11 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.subgraphMining.basic import gspan as alg
+#             from PAMI.subgraphMining.basic import gspan as alg
 #
-#     obj = alg.GSpan(iFile, minSupport)
+#             obj = alg.GSpan(iFile, minSupport)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
 #             obj.run()
 #
