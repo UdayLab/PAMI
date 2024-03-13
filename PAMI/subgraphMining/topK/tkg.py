@@ -57,6 +57,10 @@ class TKG(_ab._TKG):
 
 
     def startMine(self):
+        """
+        This Python function starts a mining process on a graph database, calculates runtime, pattern count,
+        and memory usage metrics.
+        """
         if self.maxNumberOfEdges <= 0:
             return
 
@@ -88,6 +92,15 @@ class TKG(_ab._TKG):
 
 
     def readGraphs(self, path):
+        """
+        The `readGraphs` function reads graph data from a file and constructs a list of graphs with vertices
+        and edges.
+        
+        :param path: This method reads the graph data from the specified file and constructs a list of graphs 
+        represented by vertices and edges
+        :return: The `readGraphs` method returns a list of `_ab.Graph` objects, which represent graphs read
+        from the file.
+        """
         with open(path, 'r') as br:
             graphDatabase = []
             vMap = {}
@@ -118,7 +131,13 @@ class TKG(_ab._TKG):
         return graphDatabase
 
     def save(self, oFile):
-        subgraphsList = self.get_subgraphs_list()
+        """
+        The `save` function writes subgraph information to a file in a specific format.
+        
+        :param oFile: The `oFile` parameter in the `save` method is the file path where the output will be
+        saved. This method writes the subgraphs information to the specified file in a specific format
+        """
+        subgraphsList = self.getSubgraphsList()
 
         with open(oFile, 'w') as bw:
             for i, subgraph in enumerate(subgraphsList):
@@ -495,7 +514,7 @@ class TKG(_ab._TKG):
         return self.minSup
     
     def getKSubgraphs(self):
-        subgraphsList = self.get_subgraphs_list()
+        subgraphsList = self.getSubgraphsList()
 
         for i, subgraph in enumerate(subgraphsList):
             sb = []
