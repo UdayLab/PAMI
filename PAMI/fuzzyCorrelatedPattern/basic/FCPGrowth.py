@@ -30,6 +30,9 @@
 #
 
 
+
+
+
 from PAMI.fuzzyCorrelatedPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
@@ -195,6 +198,21 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
     :Reference:   Lin, N.P., & Chueh, H. (2007). Fuzzy correlation rules mining.
                   https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.416.6053&rep=rep1&type=pdf
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param minAllConf:
+                    The user can specify minAllConf values within the range (0, 1).
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : file
@@ -262,12 +280,18 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
     **Executing the code on terminal :**
     ------------------------------------------
 
-            Format:
-                      >>> python3 FCPGrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+    .. code-block:: console
 
-            Examples:
-                      >>> python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2
-                    
+      Format:
+
+      (.venv) $ python3 FCPGrowth.py <inputFile> <outputFile> <minSup> <minAllConf> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 FCPGrowth.py sampleTDB.txt output.txt 2 0.2
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
     **Sample run of importing the code:**
     -----------------------------------------
@@ -337,6 +361,18 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
     def _compareItems(self, o1: _FFList, o2: _FFList) -> int:
         """
         A Function that sort all FFI-list in ascending order of Support
+
+        :param o1: First FFI-list
+
+        :type o1: _FFList
+
+        :param o2: Second FFI-list
+
+        :type o1: _FFList
+
+        :return: Comparision Value
+
+        :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -374,7 +410,10 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+
         :return: converted value
+
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -391,6 +430,8 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
     def _creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+
+        :return: None
         """
         self._transactions, self._fuzzyValues = [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -644,6 +685,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
         :type item: FFList
         :param ratio: the ratio of itemSet
         :type ratio: float
+        :return: None
         """
         self._itemsCnt += 1
         res = ""
