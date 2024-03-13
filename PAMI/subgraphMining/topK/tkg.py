@@ -542,7 +542,7 @@ class TKG(_ab._TKG):
 
     def getSubgraphsList(self):
         """Creates a copy of the queue's contents without emptying the original queue."""
-        subgraphsList = list(self.kSubgraphs.queue)  # Assuming self.kSubgraphs is a Queue object
+        subgraphsList = list(self.kSubgraphs.queue)
         subgraphsList.sort(key=lambda sg: sg.support, reverse=True)
         return subgraphsList
 
