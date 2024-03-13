@@ -5,31 +5,31 @@
 # --------------------------------------------------------
 
 #
-#     import PAMI.partialPeriodicPattern.topk.k3PMiner as alg
+#             import PAMI.partialPeriodicPattern.topk.k3PMiner as alg
 #
-#     obj = alg.k3PMiner(iFile, k, periodicity)
+#             obj = alg.k3PMiner(iFile, k, periodicity)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     partialPeriodicPatterns = obj.getPatterns()
+#             partialPeriodicPatterns = obj.getPatterns()
 #
-#     print("Total number of top partial periodic Patterns:", len(partialPeriodicPatterns))
+#             print("Total number of top partial periodic Patterns:", len(partialPeriodicPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 
 
 
@@ -57,12 +57,23 @@ import validators as _validators
 from urllib.request import urlopen as _urlopen
 import sys as _sys
 
+from PAMI.partialPeriodicPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 class k3PMiner(_abstract.partialPeriodicPatterns):
     """
     :Description:   k3PMiner is and algorithm to discover top - k partial periodic patterns in a temporal  database.
 
-    :Reference:
+    :Reference:  Palla Likhitha,Rage Uday Kiran, Discovering Top-K Partial Periodic Patterns in Big Temporal Databases https://dl.acm.org/doi/10.1007/978-3-031-39847-6_28
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of periodic frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of periodic frequent pattern's
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :param  iFile: str :
                    Name of the Input file to mine complete set of frequent pattern's
@@ -123,11 +134,16 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
 
     **Executing the code on terminal:**
     -------------------------------------
-        Format:
-            >>> python3 k3PMiner.py <iFile> <oFile> <k> <period>
+     .. code-block:: console
 
-        Examples:
-            >>> python3 k3PMiner.py sampleDB.txt patterns.txt 10 3
+
+       Format:
+
+       python3 k3PMiner.py <iFile> <oFile> <k> <period>
+
+       Examples:
+
+       python3 k3PMiner.py sampleDB.txt patterns.txt 10 3
 
 
     **Sample run of the importing code:**
@@ -380,6 +396,7 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         Main function of the program
@@ -414,6 +431,41 @@ class k3PMiner(_abstract.partialPeriodicPatterns):
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
+
+    def Mine(self):
+            """
+            Main function of the program
+
+            """
+            self._startTime = _abstract._time.time()
+            if self._iFile is None:
+                raise Exception("Please enter the file path or file name:")
+            if self._k is None:
+                raise Exception("Please enter the Minimum Support")
+            self._creatingItemSets()
+            plist = self._frequentOneItem()
+            for i in range(len(plist)):
+                itemI = plist[i]
+                tidSetI = self._tidList[itemI]
+                itemSetX = [itemI]
+                itemSets = []
+                tidSets = []
+                for j in range(i + 1, len(plist)):
+                    itemJ = plist[j]
+                    tidSetJ = self._tidList[itemJ]
+                    y1 = list(set(tidSetI).intersection(tidSetJ))
+                    val = self._getSupportAndPeriod(y1)
+                    if val > self._minimum:
+                        itemSets.append(itemJ)
+                        tidSets.append(y1)
+                self._Generation(itemSetX, itemSets, tidSets)
+            print("TopK partial periodic patterns were generated successfully")
+            self._endTime = _abstract._time.time()
+            process = _abstract._psutil.Process(_abstract._os.getpid())
+            self._memoryUSS = float()
+            self._memoryRSS = float()
+            self._memoryUSS = process.memory_full_info().uss
+            self._memoryRSS = process.memory_info().rss
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

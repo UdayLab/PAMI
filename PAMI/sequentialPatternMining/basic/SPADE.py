@@ -54,6 +54,9 @@ __copyright__ = """
 
 """
 
+from PAMI.SequentialPatternMining.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.sequentialPatternMining.basic import abstract as _ab
 
@@ -70,9 +73,9 @@ class SPADE(_ab._sequentialPatterns):
     :Reference:   Mohammed J. Zaki. 2001. SPADE: An Efficient Algorithm for Mining Frequent Sequences. Mach. Learn. 42, 1-2 (January 2001), 31-60. DOI=10.1023/A:1007652502315 http://dx.doi.org/10.1023/A:1007652502315
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of sequential patterns
+                   Name of the Input file to mine complete set of  Sequential frequent patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of sequential patterns
+                   Name of the output file to store complete set of  Sequential frequent patterns
     :param  minSup: float or int or str :
                     minSup measure constraints the minimum number of transactions in a database where a pattern must appear
                     Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
@@ -133,18 +136,19 @@ class SPADE(_ab._sequentialPatterns):
 
     **Methods to execute code on terminal**
     -------------------------------------------
-
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 SPADE.py <inputFile> <outputFile> <minSup>
+       Format:
 
-      Example usage:
+       (.venv) $ python3 SPADE.py <inputFile> <outputFile> <minSup>
 
-      (.venv) $ python3 SPADE.py sampleDB.txt patterns.txt 10.0
+       Example usage:
 
-    .. note:: minSup will be considered in times of minSup and count of database transactions
+       (.venv) $ python3 SPADE.py sampleDB.txt patterns.txt 10.0
+
+
+               .. note:: minSup will be considered in times of minSup and count of database transactions
 
     **Importing this algorithm into a python program**
     ----------------------------------------------------
@@ -730,7 +734,28 @@ class SPADE(_ab._sequentialPatterns):
         bs = bs + (-1,x3)
         bs2 = bs + (x2,)
         return  bs2,bs,x2
+
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+        self._Database = []
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self.make1LenDatabase()
+        self.make2LenDatabase()
+        self.make3LenDatabase()
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Sequential Frequent patterns were generated successfully using SPADE algorithm ")
+
+    def Mine(self):
         """
         Frequent pattern mining process will start from here
         """

@@ -51,6 +51,11 @@ import pycuda.autoinit
 import pycuda.driver as cuda
 from pycuda.compiler import SourceModule
 
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
+
 supportAndPeriod = SourceModule(r"""
 
 __global__ void supportAndPeriod(unsigned long long int *bitArray, // containing transactions
@@ -209,13 +214,15 @@ class gPFMinerBit:
 
     **Running from the command line:**
     ---------------------------------------
-    .. code-block:: console
+   .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 gPFMinerBit.py data.txt 2 3 output.txt
+       Format:
 
-    .. note:: minSup will be considered in percentage of database transactions
+       (.venv) $ python3 gPFMinerBit.py data.txt 2 3 output.txt
+
+
+               .. note:: minSup will be considered in percentage of database transactions
 
     **Credits:**
     ---------------
@@ -349,7 +356,28 @@ class gPFMinerBit:
         cuda.memcpy_htod(gpuBitArray, bitValues)
         return gpuBitArray, index2id
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Start the mining process
+        """
+        startTime = time.time()
+        data = self.__readFile()
+        bitValues, index2id = self.__generateBitArray(data)
+
+        keys = [[i] for i in range(len(index2id))]
+
+        if len(keys) > 1:
+            self.__eclat(bitValues, keys, index2id)
+
+        print(
+            "Periodic-Frequent patterns were generated successfully using gPFMinerBit"
+        )
+        self.__time = time.time() - startTime
+        self.__memRSS = psutil.Process(os.getpid()).memory_info().rss
+        self.__memUSS = psutil.Process(os.getpid()).memory_full_info().uss
+
+    def Mine(self):
         """
         Start the mining process
         """

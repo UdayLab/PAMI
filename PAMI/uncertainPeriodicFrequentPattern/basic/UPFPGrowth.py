@@ -8,7 +8,7 @@
 #
 #             obj = alg.UPFPGrowth(iFile, minSup, maxPer)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             periodicFrequentPatterns = obj.getPatterns()
 #
@@ -51,6 +51,11 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 
 """
+
+
+from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 from PAMI.uncertainPeriodicFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
@@ -239,6 +244,7 @@ class _Tree(object):
 
         :param alpha : it represents the Node in tree
         :type alpha : Node
+        :return: tuple
         """
 
         finalPatterns = []
@@ -369,11 +375,11 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
                    Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns
     :param  oFile: str :
                    Name of the output file to store complete set of Uncertain Periodic Frequent patterns
-    :param  minSup: str:
+    :param  minSup: float:
                    minimum support thresholds were tuned to find the appropriate ranges in the limited memory
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
-    :param  maxper: floot :
+    :param  maxper: float :
                    where maxPer represents the maximum periodicity threshold value specified by the user.
 
 
@@ -447,15 +453,17 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
     --------------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 basic.py <inputFile> <outputFile> <minSup> <maxPer>
+       Format:
 
-      Example Usage:
+       (.venv) $ python3 basic.py <inputFile> <outputFile> <minSup> <maxPer>
 
-      (.venv) $ python3 basic.py sampleTDB.txt patterns.txt 0.3 4
+       Example Usage:
 
-    .. note:: minSup and maxPer will be considered in support count or frequency
+       (.venv) $ python3 basic.py sampleTDB.txt patterns.txt 0.3 4
+
+
+               .. note:: minSup and maxPer will be considered in support count or frequency
 
 
     **Importing this algorithm into a python program**
@@ -512,6 +520,7 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
     def _creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -725,12 +734,40 @@ class UPFPGrowth(_ab._periodicFrequentPatterns):
                     sample = sample + i + "\t"
                 self._finalPatterns[sample] = y
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
         Main method where the patterns are mined by constructing tree and remove the false patterns
-                    by counting the original support of a patterns
+        by counting the original support of a patterns.
         :return: None
+        """
+        global _lno, _maxPer, _minSup, _first, _last, periodic
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._finalPatterns = {}
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        _minSup, _maxPer, _lno = self._minSup, self._maxPer, self._lno
+        mapSupport, plist = self._periodicFrequentOneItem()
+        updatedTrans = self._updateTransactions(mapSupport)
+        info = {k: v for k, v in mapSupport.items()}
+        Tree1 = self._buildTree(updatedTrans, info)
+        self._periodic = {}
+        Tree1.generatePatterns([], self._periodic)
+        self._removeFalsePositives()
+        print("Periodic frequent patterns were generated successfully using UPFP algorithm")
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
 
+    def Mine(self) -> None:
+        """
+        Main method where the patterns are mined by constructing tree and remove the false patterns
+        by counting the original support of a patterns.
+        :return: None
         """
         global _lno, _maxPer, _minSup, _first, _last, periodic
         self._startTime = _ab._time.time()

@@ -28,6 +28,7 @@
 #
 #     run = obj.getRuntime()
 
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -46,6 +47,10 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 
 """
+
+from PAMI.PartialperiodicPatternMultipleTimeSeries.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.partialPeriodicPatternInMultipleTimeSeries import abstract as _ab
 
@@ -315,6 +320,14 @@ class PPGrowth(_ab._partialPeriodicPatterns):
                  "Discovering Periodic Patterns in Irregular Time Series," 2019 International Conference on Data Mining Workshops (ICDMW), 2019,
                   pp. 1020-1028, doi: 10.1109/ICDMW.2019.00147.
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of periodic frequent pattern's
+    :param  oFile: str :
+                   Name of the output file to store complete set of periodic frequent pattern's
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : file
@@ -384,11 +397,16 @@ class PPGrowth(_ab._partialPeriodicPatterns):
 
     **Executing the code on terminal:**
     -------------------------------------
-        Format:
-           >>> python3 PPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+    .. code-block:: console
 
-        Examples:
-           >>> python3 PPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+
+       Format:
+
+       (.venv) $ python3 PPGrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+
+       Examples:
+
+       (.venv) $  python3 PPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4
 
     **Sample run of importing the code:**
     ----------------------------------------
@@ -598,8 +616,44 @@ class PPGrowth(_ab._partialPeriodicPatterns):
         self._Database=newDatabase
         return rechangeDic
 
-
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Mining process will start from this function
+        """
+
+        global _minSup, _maxPer, _lno,_period,_periodicSupport
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._periodicSupport is None:
+            raise Exception("Please enter the Periodic Support")
+        self._creatingItemSets()
+        changeDic = self._convertNumber()
+        self._periodicSupport = self._convert(self._periodicSupport)
+        self._period = self._convert(self._period)
+        _periodicSupport, _period, _lno = self._periodicSupport, self._period, len(self._Database)
+        if self._periodicSupport > len(self._Database):
+            raise Exception("Please enter the minSup in range between 0 to 1")
+
+        generatedItems, pfList = self._periodicFrequentOneItem()
+        updatedDatabases = self._updateDatabases(generatedItems)
+        self._rankedUp={y:x for x, y in self._rank.items()}
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedDatabases, info)
+        patterns = Tree.generatePatterns([])
+
+        self._finalPatterns = {}
+        self._finalPatterns={self._savePeriodic(i[0],changeDic):i[1]for i in patterns}
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Periodic Frequent patterns were generated successfully using PPGrowth algorithm ")
+
+    def Mine(self):
         """
         Mining process will start from this function
         """

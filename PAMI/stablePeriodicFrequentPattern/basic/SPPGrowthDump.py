@@ -31,7 +31,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -50,6 +49,11 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 
 """
+
+from PAMI.stableperiodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
 from urllib.request import urlopen
 import validators
 import pandas as pd
@@ -427,6 +431,7 @@ class SPPGrowth():
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         Mining process will start from this function
@@ -464,6 +469,45 @@ class SPPGrowth():
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Stable Periodic Frequent patterns were generated successfully using topk algorithm ")
+
+    def Mine(self):
+        """
+        Mining process will start from this function
+        """
+
+        global _minSup, _maxPer, _lno, _maxLa
+        self._startTime = time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        self._maxLa = self._convert(self._maxLa)
+        _minSup, _maxPer, _maxLa, _lno = self._minSup, self._maxPer, self._maxLa, len(self._Database)
+        print(_minSup, _maxPer, _maxLa)
+        if self._minSup > len(self._Database):
+            raise Exception("Please enter the minSup in range between 0 to 1")
+        generatedItems, pfList = self._periodicFrequentOneItem()
+        updatedDatabases = self._updateDatabases(generatedItems)
+        for x, y in self._rank.items():
+            self._rankedUp[y] = x
+        info = {self._rank[k]: v for k, v in generatedItems.items()}
+        Tree = self._buildTree(updatedDatabases, info)
+        patterns = Tree.generatePatterns([])
+        self._finalPatterns = {}
+        for i in patterns:
+            sample = self._savePeriodic(i[0])
+            self._finalPatterns[sample] = i[1]
+        self._endTime = time.time()
+        process = psutil.Process(os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Stable Periodic Frequent patterns were generated successfully using topk algorithm ")
+
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

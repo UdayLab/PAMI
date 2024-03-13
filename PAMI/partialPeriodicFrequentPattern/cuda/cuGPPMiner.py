@@ -24,6 +24,11 @@ from urllib.request import urlopen
 from PAMI.partialPeriodicFrequentPattern.basic.abstract import *
 import cupy as cp
 import numpy as np
+
+from PAMI.partialPeriodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
 class cuGPPMiner(partialPeriodicPatterns):
   __path = ' '
   _partialPeriodicPatterns__iFile = ' '
@@ -326,7 +331,107 @@ class cuGPPMiner(partialPeriodicPatterns):
 
         return newArraysAndItems
 
+  @deprecated("It is recommended to use mine() instead of startMine() for mining process")
   def startMine(self):
+    """
+    Main program start with extracting the periodic frequent items from the database and
+    performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.
+    """
+    self.__path = self._partialPeriodicPatterns__iFile
+    self._partialPeriodicPatterns__startTime = time.time()
+    self._partialPeriodicPatterns__finalPatterns = {}
+    self._partialPeriodicPatterns__maxPer = self.__convert(self._partialPeriodicPatterns__maxPer)
+    self._partialPeriodicPatterns__minSup = self.__convert(self._partialPeriodicPatterns__minSup)
+    self._partialPeriodicPatterns__minPR = float(self._partialPeriodicPatterns__minPR)
+
+    ArraysAndItems = self.__creatingItemSets()
+
+    # for k,v in a.items():
+    #   print(k,':',v)
+
+    candidates = list(ArraysAndItems.keys())
+    candidates = [list(i) for i in candidates]
+    values = list(ArraysAndItems.values())
+    values = cp.array(values)
+
+    while len(candidates) > 0:
+      print("Number of Candidates:", len(candidates))
+      newKeys = []
+      for i in range(len(candidates)):
+          for j in range(i+1, len(candidates)):
+                  if candidates[i][:-1] == candidates[j][:-1] and candidates[i][-1] != candidates[j][-1]:
+                      newKeys.append(candidates[i] + candidates[j][-1:])
+                  else:
+                      break
+
+      if len(newKeys) == 0:
+          break
+
+      # print(newKeys)
+
+      numberOfKeys = len(newKeys)
+      keySize = len(newKeys[0])
+
+      newKeys = cp.array(newKeys, dtype=cp.uint32)
+
+      # newKeys = cp.flatten(newKeys)
+      newKeys = cp.reshape(newKeys, (numberOfKeys * keySize,))
+
+      period = cp.zeros(numberOfKeys, dtype=cp.uint32)
+      support = cp.zeros(numberOfKeys, dtype=cp.uint32)
+
+      self.supportAndPeriod((numberOfKeys//32 + 1,), (32,),
+                              (
+                                  values, self.arraySize,
+                                  newKeys, numberOfKeys, keySize,
+                                  period, support,
+                                  self._partialPeriodicPatterns__maxPer, self._maxTS
+                              )
+      )
+
+      newKeys = cp.reshape(newKeys, (numberOfKeys, keySize))
+      newKeys = cp.asnumpy(newKeys)
+      period = period.get()
+      support = support.get()
+
+      satisfy = self._partialPeriodicPatterns__minPR * (self._partialPeriodicPatterns__minSup + 1)
+
+      newCandidates = []
+      for i in range(len(newKeys)):
+        ratio = (period[i])/(support[i] + 1)
+        if support[i] >= self._partialPeriodicPatterns__minSup:
+          newCandidates.append(list(newKeys[i]))
+        if ratio >= self._partialPeriodicPatterns__minPR:
+          rename = "\t".join([self._rename[j] for j in newKeys[i]])
+          # print(rename, ":", period[i]/support[i], support[i], period[i])
+          self._partialPeriodicPatterns__finalPatterns[rename] = [support[i],ratio]
+
+
+      # for i in range(len(newKeys)):
+      #     # print(newKeys[i], support[i], period[i])
+      #     if period[i]/(self._partialPeriodicPatterns__minSup + 1) >= self._partialPeriodicPatterns__minPR and support[i] >= self._partialPeriodicPatterns__minSup:
+      #         newCandidates.append(list(newKeys[i]))
+      #         rename = [self._rename[j] for j in newKeys[i]]
+      #         rename = "\t".join(rename)
+      #         if period[i] / support[i] >= self._partialPeriodicPatterns__minPR:
+      #           # print(rename, period[i]/support[i], support[i], period[i])
+      #           self._partialPeriodicPatterns__finalPatterns[rename] = period[i]
+
+      # print()
+
+      # print(newCandidates)
+
+      candidates = newCandidates
+
+    self.__runTime = time.time() - self._partialPeriodicPatterns__startTime
+    process = psutil.Process(os.getpid())
+    self._memoryRSS = float()
+    self._memoryUSS = float()
+    self._memoryUSS = process.memory_full_info().uss
+    self._memoryRSS = process.memory_info().rss
+    print("Periodic-Frequent patterns were generated successfully using gPPMiner algorithm ")
+
+  def Mine(self):
     """
     Main program start with extracting the periodic frequent items from the database and
     performs prefix equivalence to form the combinations and generates closed periodic frequent patterns.

@@ -34,7 +34,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -54,6 +53,12 @@ __copyright__ = """
 
 """
 
+from PAMI.SequentialPatternMining.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
+from PAMI.sequentialPatternMining.basic import abstract as _ab
+
 from PAMI.sequentialPatternMining.basic import abstract as _ab
 import sys
 sys.setrecursionlimit(10000)
@@ -67,9 +72,9 @@ class SPAM(_ab._sequentialPatterns):
     :Reference:   J. Ayres, J. Gehrke, T.Yiu, and J. Flannick. Sequential Pattern Mining Using Bitmaps. In Proceedings of the Eighth ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. Edmonton, Alberta, Canada, July 2002.
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of sequential patterns
+                   Name of the Input file to mine complete set of  Sequential frequent patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of sequential patterns
+                   Name of the output file to store complete set of  Sequential frequent patterns
     :param  minSup: float or int or str :
                     minSup measure constraints the minimum number of transactions in a database where a pattern must appear
                     Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
@@ -143,13 +148,17 @@ class SPAM(_ab._sequentialPatterns):
     ----------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 SPAM.py <inputFile> <outputFile> <minSup> (<separator>)
+       Format:
 
-      Examples usage:
+       (.venv) $ python3 SPAM.py <inputFile> <outputFile> <minSup> (<separator>)
 
-      (.venv) $ python3 SPAM.py sampleDB.txt patterns.txt 10.0
+       Examples usage:
+
+       (.venv) $ python3 SPAM.py sampleDB.txt patterns.txt 10.0
+
+
+               .. note:: minSup will be considered in times of minSup and count of database transactions
 
     **Sample run of the importing code**:
     -------------------------------------
@@ -362,7 +371,6 @@ class SPAM(_ab._sequentialPatterns):
     def Sstep(self,s):
         """
         To convert bit to Sstep bit.The first time you get 1, you set it to 0 and subsequent ones to 1.(like 010101=>001111, 00001001=>00000111)
-
 
 
         :param s:list

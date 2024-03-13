@@ -1,6 +1,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
+
 #             import PAMI.periodicFrequentPattern.kPFPMiner as alg
 #
 #             obj = alg.kPFPMiner(iFile, k)
@@ -30,7 +31,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -50,6 +50,9 @@ __copyright__ = """
 
 """
 
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.periodicFrequentPattern.topk.kPFPMiner import abstract as _ab
 
@@ -121,13 +124,15 @@ class kPFPMiner(_ab._periodicFrequentPatterns):
     ------------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 kPFPMiner.py <inputFile> <outputFile> <k>
+       Format:
 
-      Examples :
 
-      (.venv) $  python3 kPFPMiner.py sampleDB.txt patterns.txt 10
+       (.venv) $ python3 kPFPMiner.py <inputFile> <outputFile> <k>
+
+       Examples :
+
+       (.venv) $  python3 kPFPMiner.py sampleDB.txt patterns.txt 10
 
 
     **Sample run of the importing code:

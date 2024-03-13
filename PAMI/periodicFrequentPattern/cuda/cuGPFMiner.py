@@ -33,7 +33,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -53,6 +52,11 @@ __copyright__ = """
 
 """
 
+
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
 import abstract as _ab
 
 class cuGPFMiner(_ab._periodicFrequentPatterns):
@@ -66,7 +70,7 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
                    Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
                    Name of the output file to store complete set of periodic frequent pattern's
-    :param  minSup: str:
+    :param  minSup: str or int or float:
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  maxPer: str:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
@@ -140,15 +144,17 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
     -----------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $  python3 PFECLAT.py <inputFile> <outputFile> <minSup>
+       Format:
 
-      Example usage:
+       (.venv) $  python3 PFECLAT.py <inputFile> <outputFile> <minSup>
 
-      (.venv) $ python3 PFECLAT.py sampleDB.txt patterns.txt 10.0
+       Example usage:
 
-    .. note:: minSup will be considered in percentage of database transactions
+       (.venv) $ python3 PFECLAT.py sampleDB.txt patterns.txt 10.0
+
+
+               .. note:: minSup will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     -----------------------------------------------------
@@ -386,9 +392,8 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
                     number += 1
 
         return newArraysAndItems
-    
-    
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         Mining process will start from here
@@ -469,6 +474,85 @@ class cuGPFMiner(_ab._periodicFrequentPatterns):
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
         print("Periodic-Frequent patterns were generated successfully using cuGPFMiner algorithm ")
+
+    def Mine(self):
+            """
+            Mining process will start from here
+            """
+
+            self._startTime = _ab._time.time()
+            self._finalPatterns = {}
+            ArraysAndItems = self._creatingOneItemSets()
+            candidates = list(ArraysAndItems.keys())
+            candidates = [list(i) for i in candidates]
+            values = list(ArraysAndItems.values())
+
+            values = _ab._cp.array(values)
+            # print(values)
+
+            # print(type(candidates[0]))
+
+            while len(candidates) > 0:
+                newKeys = []
+                for i in range(len(candidates)):
+                    for j in range(i + 1, len(candidates)):
+                        if candidates[i][:-1] == candidates[j][:-1] and candidates[i][-1] != candidates[j][-1]:
+                            newKeys.append(candidates[i] + candidates[j][-1:])
+                        else:
+                            break
+
+                if len(newKeys) == 0:
+                    break
+
+                # print(newKeys)
+
+                numberOfKeys = len(newKeys)
+                keySize = len(newKeys[0])
+
+                newKeys = _ab._cp.array(newKeys, dtype=_ab._cp.uint32)
+
+                # newKeys = _ab._cp.flatten(newKeys)
+                newKeys = _ab._cp.reshape(newKeys, (numberOfKeys * keySize,))
+
+                support = _ab._cp.zeros(numberOfKeys, dtype=_ab._cp.uint32)
+                period = _ab._cp.zeros(numberOfKeys, dtype=_ab._cp.uint32)
+
+                self.supportAndPeriod((numberOfKeys // 32 + 1,), (32,),
+                                      (
+                                          values, self.arraySize,
+                                          newKeys, numberOfKeys, keySize,
+                                          support, period,
+                                          self._maxPer, self._maxTS
+                                      )
+                                      )
+
+                newKeys = _ab._cp.reshape(newKeys, (numberOfKeys, keySize))
+                newKeys = _ab._cp.asnumpy(newKeys)
+                support = support.get()
+                period = period.get()
+
+                newCandidates = []
+                for i in range(len(newKeys)):
+                    # print(newKeys[i], support[i], period[i])
+                    if support[i] >= self._minSup and period[i] <= self._maxPer:
+                        newCandidates.append(list(newKeys[i]))
+                        rename = [self._rename[j] for j in newKeys[i]]
+                        rename = "\t".join(rename)
+                        self._finalPatterns[rename] = [support[i], period[i]]
+
+                # print()
+
+                # print(newCandidates)
+
+                candidates = newCandidates
+
+            self._endTime = _ab._time.time()
+            process = _ab._psutil.Process(_ab._os.getpid())
+            self._memoryRSS = float()
+            self._memoryUSS = float()
+            self._memoryUSS = process.memory_full_info().uss
+            self._memoryRSS = process.memory_info().rss
+            print("Periodic-Frequent patterns were generated successfully using cuGPFMiner algorithm ")
 
     def getMemoryUSS(self):
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

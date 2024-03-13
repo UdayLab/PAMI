@@ -8,7 +8,7 @@
 #
 #             import PAMI.frequentPattern.basic.prefixSpan as alg
 #
-#             obj = alg.prefixSpan(iFile, minSup)
+#             obj = alg.prefixSpan(iFile, minSup,oFile,sep)
 #
 #             obj.startMine()
 #
@@ -33,6 +33,8 @@
 #             print("Total ExecutionTime in seconds:", run)
 #
 
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -51,6 +53,10 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 """
 
+from PAMI.SequentialPatternMining.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
 from PAMI.sequentialPatternMining.basic import abstract as _ab
 import copy
 import re
@@ -66,9 +72,9 @@ class prefixSpan(_ab._sequentialPatterns):
     :Reference:   J. Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal, M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach. IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
+                   Name of the Input file to mine complete set of Sequential frequent patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of Sequential frequent patterns
     :param  minSup: float or int or str :
                     minSup measure constraints the minimum number of transactions in a database where a pattern must appear
                     Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
@@ -125,18 +131,19 @@ class prefixSpan(_ab._sequentialPatterns):
 
     **Methods to execute code on terminal**
     ------------------------------------------
-
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 prefixSpan.py <inputFile> <outputFile> <minSup>
+       Format:
 
-      Example usage:
+       (.venv) $ python3 prefixSpan.py <inputFile> <outputFile> <minSup>
 
-      (.venv) $ python3 prefixSpan.py sampleDB.txt patterns.txt 10
+       Example usage:
 
-    .. note:: minSup will be considered in support count or frequency
+       (.venv) $ python3 prefixSpan.py sampleDB.txt patterns.txt 10
+
+
+               .. note:: minSup will be considered in support count or frequency
 
 
     **Importing this algorithm into a python program**
@@ -498,9 +505,26 @@ class prefixSpan(_ab._sequentialPatterns):
         if len(seqDatabaseSame)!=0:
             self.makeNextSame(seqDatabaseSame,startrow)
 
-
-
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+        self._Database = []
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._Database=self.makeSupDatabase(self._Database,"")
+        self._minSup = self._convert(self._minSup)
+        self.makeSeqDatabaseFirst(self._Database)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using prefixSpan algorithm ")
+
+    def Mine(self):
         """
         Frequent pattern mining process will start from here
         """

@@ -30,7 +30,6 @@
 
 
 
-
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -53,6 +52,10 @@ __copyright__ = """
 
 from PAMI.periodicFrequentPattern.maximal import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 #global maximalTree
 _minSup = float()
@@ -395,9 +398,9 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
                  IEEE 2020, https://ieeexplore.ieee.org/document/9260063
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of periodic  frequent pattern's
+                   Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of periodic  frequent pattern's
+                   Name of the output file to store complete set of periodic frequent pattern's
     :param  minSup: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  maxPer: float:
@@ -477,13 +480,17 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
     -------------------------------------
     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 maxpfrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+       Format:
 
-      Examples usage :
+       (.venv) $ python3 maxpfrowth.py <inputFile> <outputFile> <minSup> <maxPer>
 
-      (.venv) $ python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+       Examples usage :
+
+       (.venv) $ python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+
+
+               .. note:: minSup will be considered in percentage of database transactions
             
     **Sample run of the imported code:**
     ------------------------------------------
@@ -544,6 +551,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         """
         Storing the complete Databases of the database/input file in a database variable
         :rtype: storing transactions into Database variable
+        :return: None
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -674,6 +682,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
         Mining process will start from this function
@@ -715,6 +724,49 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
         self._memoryUSS = _process.memory_full_info().uss
         self._memoryRSS = _process.memory_info().rss
         print("Maximal Periodic Frequent patterns were generated successfully using MAX-PFPGrowth algorithm ")
+
+    def Mine(self) -> None:
+        """
+        Mining process will start from this function
+        :return: None
+        """
+
+        global _minSup, _maxPer, _lno
+        self._patterns = {}
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._maxPer = self._convert(self._maxPer)
+        _minSup, _maxPer, _lno = self._minSup, self._maxPer, len(self._Database)
+        if self._minSup > len(self._Database):
+            raise Exception("Please enter the minSup in range between 0 to 1")
+        _generatedItems = self._periodicFrequentOneItem()
+        _updatedDatabases = self._updateDatabases(_generatedItems)
+        for x, y in self._rank.items():
+            self._rankedUp[y] = x
+        _info = {self._rank[k]: v for k, v in _generatedItems.items()}
+        _Tree = self._buildTree(_updatedDatabases, _info)
+        self._finalPatterns = {}
+        self._maximalTree = _MPTree()
+        _Tree.generatePatterns([], self._patterns, self._maximalTree)
+        for x, y in self._patterns.items():
+            pattern = str()
+            x = self._savePeriodic(x)
+            for i in x:
+                pattern = pattern + i + " "
+            self._finalPatterns[pattern] = y
+        self._endTime = _ab._time.time()
+        _process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = _process.memory_full_info().uss
+        self._memoryRSS = _process.memory_info().rss
+        print("Maximal Periodic Frequent patterns were generated successfully using MAX-PFPGrowth algorithm ")
+
 
     def getMemoryUSS(self) -> float:
         """Total amount of USS memory consumed by the mining process will be retrieved from this function

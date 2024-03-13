@@ -4,7 +4,7 @@
 #
 #             import PAMI.periodicFrequentPattern.topk.TopkPFPGrowth as alg
 #
-#             obj = alg.TopkPFPGrowth(iFile, k, maxPer)
+#             obj = alg.TopkPFPGrowth(iFile, k, maxPer,oFile)
 #
 #             obj.startMine()
 #
@@ -50,6 +50,9 @@ __copyright__ = """
 
 """
 
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.periodicFrequentPattern.topk import abstract as _ab
 
@@ -120,15 +123,17 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
 
     **Executing the code on terminal:**
     -------------------------------------
-    .. code-block:: console
+   .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 TopkPFP.py <inputFile> <outputFile> <k> <maxPer>
+       Format:
 
-      Examples:
+       (.venv) $ python3 TopkPFP.py <inputFile> <outputFile> <k> <maxPer>
 
-      (.venv) $ python3 TopkPFP.py sampleDB.txt patterns.txt 10 3
+       Examples:
+
+       (.venv) $ python3 TopkPFP.py sampleDB.txt patterns.txt 10 3
+
 
     **Sample run of the importing code:**
     ---------------------------------------
@@ -374,10 +379,44 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
             self._Generation(newPrefix, classItemSets, classTidSets)
             self._save(prefix, list(set(itemSetX)), tidSetI)
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
         """
         Main function of the program
+        """
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._k is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        _plist = self._frequentOneItem()
+        for i in range(len(_plist)):
+            itemI = _plist[i]
+            tidSetI = self._tidList[itemI]
+            itemSetX = [itemI]
+            itemSets = []
+            tidSets = []
+            for j in range(i + 1, len(_plist)):
+                itemJ = _plist[j]
+                tidSetJ = self._tidList[itemJ]
+                y1 = list(set(tidSetI).intersection(tidSetJ))
+                val = self._getSupportAndPeriod(y1)
+                if val[0] >= self._minimum and val[1] <= self._maxPer:
+                    itemSets.append(itemJ)
+                    tidSets.append(y1)
+            self._Generation(itemSetX, itemSets, tidSets)
+        print("TopK Periodic Frequent patterns were generated successfully")
+        self._endTime = _ab._time.time()
+        _process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._memoryUSS = _process.memory_full_info().uss
+        self._memoryRSS = _process.memory_info().rss
 
+    def Mine(self):
+        """
+        Main function of the program
         """
         self._startTime = _ab._time.time()
         if self._iFile is None:

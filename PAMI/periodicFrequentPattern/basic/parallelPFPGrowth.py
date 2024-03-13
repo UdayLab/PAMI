@@ -52,6 +52,10 @@ __copyright__ = """
 
 """
 
+from PAMI.periodicFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
+
 # from PAMI.periodicFrequentPattern.basic
 import abstract as _ab
 
@@ -403,17 +407,19 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
 
     **Methods to execute code on terminal**
     ---------------------------------------------
-    .. code-block:: console
+     .. code-block:: console
 
-      Format:
 
-      (.venv) $ python3 parallelPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
+       Format:
 
-      Example usage:
+       (.venv) $ python3 parallelPFPGrowth.py <inputFile> <outputFile> <minSup> <maxPer> <noWorker>
 
-      (.venv) $ python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5
+       Example usage:
 
-    .. note:: minSup will be considered in percentage of database transactions
+       (.venv) $ python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5
+
+
+               .. note:: minSup will be considered in percentage of database transactions
 
     **Importing this algorithm into a python program**
     ---------------------------------------------------------
@@ -609,7 +615,39 @@ class parallelPFPGrowth(_ab._periodicFrequentPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self):
+        """
+        Start the mining process
+
+        """
+        self.__startTime = _ab._time.time()
+        APP_NAME = "parallelPFPGrowth"
+        conf = _ab.SparkConf().setAppName(APP_NAME)
+        # conf = conf.setMaster("local[*]")
+        sc = _ab.SparkContext(conf=conf).getOrCreate()
+        # sc = SparkContext.getOrCreate();
+        data = sc.textFile(self._iFile, minPartitions=self._numWorkers).map(
+            lambda x: [int(y) for y in x.strip().split(self._sep)])
+        # data = sc.textFile(finput).map(lambda x: [int(y) for y in x.strip().split(' ')])
+        data.cache()
+        # minSupport = data.count() * threshold/100
+        # maxPer = data.count() * periodicity_threshold/100
+        self._minSup = self.__convert(self._minSup)
+        self._maxPer = self.__convert(self._maxPer)
+        self._numTrans = sc.broadcast(data.count())
+        self._perFreqItems = self.getFrequentItems(data)
+        freqItemsets = self.getFrequentItemsets(data, self._perFreqItems)
+        self.__finalPatterns = freqItemsets.count()
+        sc.stop()
+        self.__endTime = _ab._time.time()
+        self.__memoryUSS = float()
+        self.__memoryRSS = float()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self.__memoryUSS = process.memory_full_info().uss
+        self.__memoryRSS = process.memory_info().rss
+
+    def Mine(self):
         """
         Start the mining process
 

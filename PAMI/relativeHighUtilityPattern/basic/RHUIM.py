@@ -52,7 +52,9 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 
 """
-
+from PAMI.RelativeHighUtilityPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 from PAMI.relativeHighUtilityPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
@@ -117,18 +119,21 @@ class _Transaction:
     def getItems(self) -> list:
         """
         A method to return items in transaction
+        :return: list
         """
         return self.items
 
     def getUtilities(self) -> list:
         """
         A method to return utilities in transaction
+        :return: list
         """
         return self.utilities
 
     def getLastPosition(self) -> int:
         """
         A method to return last position in a transaction
+        :return: int
         """
 
         return len(self.items) - 1
@@ -282,12 +287,14 @@ class _Dataset:
     def getMaxItem(self) -> int:
         """
         A method to return name of the largest item
+        :return; int
         """
         return self.maxItem
 
     def getTransactions(self) -> list:
         """
         A method to return transactions from database
+        :return: list
         """
         return self.transactions
 
@@ -394,6 +401,10 @@ class RHUIM(_ab._utilityPatterns):
       Example usage:
 
       (.venv) $ python3 RHUIM.py sampleTDB.txt output.txt 35 20
+
+
+              .. note:: minSup will be considered in times of minSup and count of database transactions
+
 
 
     **Importing this algorithm into a python program**

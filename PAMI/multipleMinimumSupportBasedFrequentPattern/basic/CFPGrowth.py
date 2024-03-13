@@ -4,31 +4,33 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import basic as alg
+#             from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import basic as alg
 #
-#     obj = alg.basic(iFile, mIS)
+#             obj = alg.basic(iFile, mIS)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#            print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#            run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#            print("Total ExecutionTime in seconds:", run)
+#
+
 
 
 __copyright__ = """
@@ -54,6 +56,10 @@ __copyright__ = """
 from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _fp
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas as pd
+
+from PAMI.MultipleMininmumSupportBasedFrequentPattern.basic import abstract as _ab
+import pandas as pd
+from deprecated import deprecated
 
 _fp._sys.setrecursionlimit(20000)
 _MIS = {}
@@ -137,6 +143,7 @@ class _Tree:
         :type transaction: list
         :param count: frequency of item
         :type count: int
+        :return: None
         """
 
         # This method takes transaction as input and returns the tree
@@ -242,6 +249,17 @@ class CFPGrowth(_fp._frequentPatterns):
     :Reference:   Ya-Han Hu and Yen-Liang Chen. 2006. Mining association rules with multiple minimum supports: a new mining algorithm and a support tuning mechanism.
                   Decis. Support Syst. 42, 1 (October 2006), 1–24. https://doi.org/10.1016/j.dss.2004.09.007
 
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Uncertain Minimum Support Based Frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Uncertain Minimum Support Based Frequent patterns
+    :param  minSup: str:
+                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : file
@@ -295,11 +313,19 @@ class CFPGrowth(_fp._frequentPatterns):
 
     **Executing the code on terminal:**
     -------------------------------------
-        Format:
-            >>> python3 CFPGrowth.py <inputFile> <outputFile>
+    .. code-block:: console
 
-        Examples:
-            >>> python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
+
+       Format:
+
+      (.venv) $ python3 CFPGrowth.py <inputFile> <outputFile>
+
+      Examples:
+
+      (.venv) $  python3 CFPGrowth.py sampleDB.txt patterns.txt MISFile.txt
+
+
+              .. note:: minSup  will be considered in support count or frequency
 
 
     **Sample run of the importing code:**
@@ -360,6 +386,7 @@ class CFPGrowth(_fp._frequentPatterns):
     def __creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self.__Database = []
         if isinstance(self._iFile, _fp._pd.DataFrame):
@@ -395,6 +422,7 @@ class CFPGrowth(_fp._frequentPatterns):
     def _getMISValues(self) -> None:
         """
         Storing the Minimum supports given by the user for each item in the database
+        :reurtn: None
         """
         self._MISValues = {}
         if isinstance(self._MIS, _fp._pd.DataFrame):
@@ -518,9 +546,44 @@ class CFPGrowth(_fp._frequentPatterns):
             temp = temp + self.__rankDup[i] + "\t"
         return temp
 
+    @deprecated("It is recommended to use mine() instead of startMine() for mining process")
     def startMine(self) -> None:
         """
         main program to start the operation
+        :return: none
+
+        """
+        global _MIS
+        self.__startTime = _fp._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        self.__creatingItemSets()
+        self._getMISValues()
+        #MIS = self._MISValues
+        itemSet = self.__frequentOneItem()
+        updatedTransactions = self.__updateTransactions(itemSet)
+        for x, y in self.__rank.items():
+            _MIS[y] = self._MISValues[x]
+            self.__rankDup[y] = x
+        info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
+        __Tree = self.__buildTree(updatedTransactions, info)
+        patterns = __Tree.generatePatterns([])
+        self.__finalPatterns = {}
+        for k in patterns:
+            s = self.__savePeriodic(k[0])
+            self.__finalPatterns[str(s)] = k[1]
+        print("Frequent patterns were generated successfully using basic algorithm")
+        self.__endTime = _fp._time.time()
+        self.__memoryUSS = float()
+        self.__memoryRSS = float()
+        process = _fp._psutil.Process(_fp._os.getpid())
+        self.__memoryUSS = process.memory_full_info().uss
+        self.__memoryRSS = process.memory_info().rss
+
+    def Mine(self) -> None:
+        """
+        main program to start the operation
+        :return: none
 
         """
         global _MIS
@@ -598,6 +661,7 @@ class CFPGrowth(_fp._frequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -616,6 +680,7 @@ class CFPGrowth(_fp._frequentPatterns):
     def printResults(self) -> None:
         """
         this function is used to print the results
+        :return: None
         """
         print("Total number of  Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
