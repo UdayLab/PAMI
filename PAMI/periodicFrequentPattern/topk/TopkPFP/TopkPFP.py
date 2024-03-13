@@ -2,31 +2,34 @@
 # --------------------------------------------------------
 #
 #
-#     import PAMI.periodicFrequentPattern.topk.TopkPFPGrowth as alg
+#             import PAMI.periodicFrequentPattern.topk.TopkPFPGrowth as alg
 #
-#     obj = alg.TopkPFPGrowth(iFile, k, maxPer)
+#             obj = alg.TopkPFPGrowth(iFile, k, maxPer)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     periodicFrequentPatterns = obj.getPatterns()
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
+#             print("Total number of Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -59,9 +62,9 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
                   International Conference on Advances in Information Technology: https://link.springer.com/chapter/10.1007/978-3-642-10392-6_3
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of periodic frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of periodic frequent pattern's
     :param  maxPer: str:
                    Controls the maximum number of transactions in which any two items within a pattern can reappear.
 
@@ -117,11 +120,15 @@ class TopkPFPGrowth(_ab._periodicFrequentPatterns):
 
     **Executing the code on terminal:**
     -------------------------------------
-            Format:
-                >>> python3 TopkPFP.py <inputFile> <outputFile> <k> <maxPer>
+    .. code-block:: console
 
-            Examples:
-                >>> python3 TopkPFP.py sampleDB.txt patterns.txt 10 3
+      Format:
+
+      (.venv) $ python3 TopkPFP.py <inputFile> <outputFile> <k> <maxPer>
+
+      Examples:
+
+      (.venv) $ python3 TopkPFP.py sampleDB.txt patterns.txt 10 3
 
     **Sample run of the importing code:**
     ---------------------------------------

@@ -1,8 +1,10 @@
 Frequent Pattern mining
 =========================
 
-Frequent Pattern definition here
+Frequent pattern mining is the process of identifying patterns or associations within a dataset that occur frequently.
+This is typically done by analyzing large datasets to find items or sets of items that appear together frequently.
 
+Applications: DNA sequences, protein structures, leading to insights in genetics and drug design.
 
 .. toctree::
    :maxdepth: 1

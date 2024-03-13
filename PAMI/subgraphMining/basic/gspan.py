@@ -2,29 +2,29 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.subgraphMining.basic import gspan as alg
-#
-#     obj = alg.GSpan(iFile, minSupport)
-#
-#     obj.startMine()
-#
-#     frequentGraphs = obj.getFrequentSubgraphs()
-#
-#     memUSS = obj.getMemoryUSS()
-#
-#     obj.save(oFile)
-#
-#     print("Total Memory in USS:", memUSS)
-#
-#     memRSS = obj.getMemoryRSS()
-#
-#     print("Total Memory in RSS", memRSS)
-#
-#     run = obj.getRuntime()
-#
-#     print("Total ExecutionTime in seconds:", run)
-#
-#
+# from PAMI.subgraphMining.basic import gspan as alg
+
+# obj = alg.GSpan(iFile, minSupport)
+
+# obj.startMine()
+
+# frequentGraphs = obj.getFrequentSubgraphs()
+
+# memUSS = obj.getMemoryUSS()
+
+# obj.save(oFile)
+
+# print("Total Memory in USS:", memUSS)
+
+# memRSS = obj.getMemoryRSS()
+
+# print("Total Memory in RSS", memRSS)
+
+# run = obj.getRuntime()
+
+# print("Total ExecutionTime in seconds:", run)
+
+
 
 
 

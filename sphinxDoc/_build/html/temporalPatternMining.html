@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Temporal Database &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -105,7 +107,95 @@
              
   <section id="temporal-database">
 <h1>Temporal Database<a class="headerlink" href="#temporal-database" title="Link to this heading"></a></h1>
-<p>Temporal Pattern Mining Definition here</p>
+<blockquote>
+<div><p>A temporal database is a collection of transactions ordered by their timestamps. A sample temporal database generated from the set of items, I={a,b,c,d,e,f}, is shown in below table:</p>
+<blockquote>
+<div><table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>TID</p></th>
+<th class="head"><p>Timestamp</p></th>
+<th class="head"><p>Transactions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>a, b, c</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>d, e</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>4</p></td>
+<td><p>a, e, f</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>7</p></td>
+<td><p>d, f, g</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Types of temporal databases:</p>
+<blockquote>
+<div><ul>
+<li><p>Regular temporal database: Uniform time gap exists between any two transactions.</p></li>
+<li><p>Irregular temporal database: Non-uniform time gap exists between any two transactions.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Type-1 irregular temporal database: Every transaction will have a distinct timestamp.</p></li>
+<li><p>Type-2 irregular temporal database: Multiple transactions can have a common timestamp.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>Rules to create a temporal database:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Since TID of a transaction implicitly represents the row number, this information can be ignored to save space.</p></li>
+<li><p>The first column in the database must represent a timestamp.</p></li>
+<li><p>The timestamp of the first transaction must always start from 1. The timestamps of remaining transactions follow thereafter. In other words, the timestamps in a temporal database must be relative to each other, rather than being absolute timestamps.</p></li>
+<li><p>Irregular time gaps can exist between the transactions.</p></li>
+<li><p>Multiple transactions can have a same timestamp. In other words, multiple transactions can occur at a particular timestamp. (Please note that some pattern mining algorithms, especially variants of ECLAT, may not work properly if multiple transactions share a common timestamp.)</p></li>
+<li><p>All items in a transaction must be seperated with a separator.</p></li>
+<li><p>The items in a temporal database can be integers or strings.</p></li>
+<li><p>‘ Tab space ’ is the default seperator. However, temporal databases can be constructed using other seperators, such as comma and space.</p></li>
+</ul>
+</div></blockquote>
+<p>Format of a temporal database:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">timestamp</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">item1</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">item2</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">itemN</span>
+</pre></div>
+</div>
+<p>Examples:</p>
+<ul>
+<li><p>Regular temporal database: Uniform time gap exists between the transactions.</p>
+<blockquote>
+<div><p>1   a   b   c</p>
+<p>2   d   e</p>
+<p>4   a   e   f</p>
+<p>7   d   f   g</p>
+</div></blockquote>
+</li>
+<li><p>Irregular temporal database (Type-1): Non-uniform time gap exists between the transactions. More important, every transaction contains a unique timestamp.</p>
+<blockquote>
+<div><p>1   a   b   c</p>
+<p>2   d   e</p>
+<p>4   a   e   f</p>
+<p>7   d   f   g</p>
+</div></blockquote>
+</li>
+<li><p>Irregular temporal database (Type-2): Non-uniform time gap exists between the transactions. More important, multiple transactions can have same timestamps.</p>
+<blockquote>
+<div><p>1   a   b   c</p>
+<p>1   d   e</p>
+<p>4   a   e   f</p>
+<p>8   d   f   g</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="PeriodicFrequentPatternMining1.html">Periodic Frequent Pattern Mining</a></li>

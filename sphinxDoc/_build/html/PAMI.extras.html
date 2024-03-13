@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.extras package &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -778,100 +780,11 @@ Name of the FuzFile to process set of data.</p></li>
 </dd></dl>
 
 </section>
-<section id="module-PAMI.extras.plotPointOnMap">
-<span id="pami-extras-plotpointonmap-module"></span><h2>PAMI.extras.plotPointOnMap module<a class="headerlink" href="#module-PAMI.extras.plotPointOnMap" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap.plotPointOnMap">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.plotPointOnMap.</span></span><span class="sig-name descname"><span class="pre">plotPointOnMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputPatterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap.html#plotPointOnMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap.plotPointOnMap" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Description<span class="colon">:</span></dt>
-<dd class="field-odd"><p>plotPointOnMap is used to take the input patterns and plot the points on map</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>inputPatterns</strong> – str :
-Name of the Input file</p></li>
-<li><p><strong>k</strong> – str :
-Name of the FuzFile to process set of data.</p></li>
-<li><p><strong>sep</strong> – str :
-This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
-</ul>
-</dd>
-</dl>
-<section id="id2">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.syntheticDataGenerator</span> <span class="kn">import</span> <span class="n">plotPointOnMap</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="n">obj</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plotPointOnMap</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;     &quot;</span><span class="p">)</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap.plotPointOnMap.convertPOINT">
-<span class="sig-name descname"><span class="pre">convertPOINT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap.html#plotPointOnMap.convertPOINT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap.plotPointOnMap.convertPOINT" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap.plotPointOnMap.findTopKPatterns">
-<span class="sig-name descname"><span class="pre">findTopKPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap.html#plotPointOnMap.findTopKPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap.plotPointOnMap.findTopKPatterns" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap.plotPointOnMap.plotPointInMap">
-<span class="sig-name descname"><span class="pre">plotPointInMap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Map</span></span></span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap.html#plotPointOnMap.plotPointInMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap.plotPointOnMap.plotPointInMap" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<section id="pami-extras-plotpointonmap-module">
+<h2>PAMI.extras.plotPointOnMap module<a class="headerlink" href="#pami-extras-plotpointonmap-module" title="Link to this heading"></a></h2>
 </section>
-</dd></dl>
-
-</section>
-<section id="module-PAMI.extras.plotPointOnMap_dump">
-<span id="pami-extras-plotpointonmap-dump-module"></span><h2>PAMI.extras.plotPointOnMap_dump module<a class="headerlink" href="#module-PAMI.extras.plotPointOnMap_dump" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap_dump.plotPointOnMap">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.extras.plotPointOnMap_dump.</span></span><span class="sig-name descname"><span class="pre">plotPointOnMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputPatterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap_dump.html#plotPointOnMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap_dump.plotPointOnMap" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">Description<span class="colon">:</span></dt>
-<dd class="field-odd"><p>plotPointOnMap is used to take the input patterns and plot the points on map</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>inputPatterns</strong> – str :   Name of the Input file</p></li>
-<li><p><strong>k</strong> – str :   Name of the FuzFile to process set of data.</p></li>
-<li><p><strong>sep</strong> – str :   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
-</ul>
-</dd>
-</dl>
-<section id="id3">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.syntheticDataGenerator</span> <span class="kn">import</span> <span class="n">plotPointOnMap</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="n">obj</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plotPointOnMap</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;     &quot;</span><span class="p">)</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-</pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap_dump.plotPointOnMap.convertPOINT">
-<span class="sig-name descname"><span class="pre">convertPOINT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patterns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap_dump.html#plotPointOnMap.convertPOINT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap_dump.plotPointOnMap.convertPOINT" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap_dump.plotPointOnMap.findTopKPatterns">
-<span class="sig-name descname"><span class="pre">findTopKPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap_dump.html#plotPointOnMap.findTopKPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap_dump.plotPointOnMap.findTopKPatterns" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PAMI.extras.plotPointOnMap_dump.plotPointOnMap.plotPointInMap">
-<span class="sig-name descname"><span class="pre">plotPointInMap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Map</span></span></span><a class="reference internal" href="_modules/PAMI/extras/plotPointOnMap_dump.html#plotPointOnMap.plotPointInMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.extras.plotPointOnMap_dump.plotPointOnMap.plotPointInMap" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</section>
-</dd></dl>
-
+<section id="pami-extras-plotpointonmap-dump-module">
+<h2>PAMI.extras.plotPointOnMap_dump module<a class="headerlink" href="#pami-extras-plotpointonmap-dump-module" title="Link to this heading"></a></h2>
 </section>
 <section id="module-PAMI.extras.scatterPlotSpatialPoints">
 <span id="pami-extras-scatterplotspatialpoints-module"></span><h2>PAMI.extras.scatterPlotSpatialPoints module<a class="headerlink" href="#module-PAMI.extras.scatterPlotSpatialPoints" title="Link to this heading"></a></h2>
@@ -890,8 +803,8 @@ This variable is used to distinguish items from one another in a transaction. Th
 </ul>
 </dd>
 </dl>
-<section id="id4">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id2">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.syntheticDataGenerator</span> <span class="kn">import</span> <span class="n">scatterPlotSpatialPoints</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatterPlotSpatialPoints</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="s2">&quot;     &quot;</span> <span class="p">)</span>
@@ -937,8 +850,8 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 </dd>
 </dl>
-<section id="id5">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id3">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.syntheticDataGenerator</span> <span class="kn">import</span> <span class="n">topKPatterns</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatterPlotSpatialPoints</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;   &quot;</span> <span class="p">)</span>
@@ -989,8 +902,8 @@ This variable is used to distinguish items from one another in a transaction. Th
 </ul>
 </dd>
 </dl>
-<section id="id6">
-<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.extras.syntheticDataGenerator</span> <span class="kn">import</span> <span class="n">uncertaindb_convert</span> <span class="k">as</span> <span class="n">un</span>
 
 <span class="n">obj</span> <span class="o">=</span> <span class="n">un</span><span class="o">.</span><span class="n">uncertaindb_convert</span><span class="p">(</span><span class="n">predicted_classes</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>

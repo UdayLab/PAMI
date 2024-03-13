@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fuzzy Pattern Mining &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -103,7 +105,110 @@
              
   <section id="fuzzy-pattern-mining">
 <h1>Fuzzy Pattern Mining<a class="headerlink" href="#fuzzy-pattern-mining" title="Link to this heading"></a></h1>
-<p>Fuzzy Pattern Mining Definition here</p>
+<blockquote>
+<div><p>A fuzzy database represents the data generated from a non-binary transactional or temporal database using fuzzy logic.</p>
+<p>Types</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Fuzzy transactional databases</p></li>
+<li><p>Fuzzy temporal databases</p></li>
+</ul>
+</div></blockquote>
+<p>Fuzzy transactional databases</p>
+<blockquote>
+<div><p>A fuzzy transactional database represents a set of transactions, where each transaction consists of a transactional identifier (tid), items, and their fuzzy occurrences values. Please note that the fuzzy occurrence values of an item lie between 0 and 1. If the fuzzy value of an item is close zero, it implies less chance of occurrence of an item in a database. If the fuzzy value of an item is close one, it implies high chance of occurrence of an item in a database. A sample fuzzy transactional database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat}, is shown in below table:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>TID</p></th>
+<th class="head"><p>Transactions (items and their fuzzy values)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>(Bread.High, 0.6), (Bread.Low, 0.4), (Jam.High, 0.2), (Jam.Low, 0.8), (Butter.High, 0.8), (Butter.Low, 0.2)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>(Bat.High, 0.5), (Bat.Low, 0.5), (Ball.High, 0.6), (Ball.Low, 0.4)</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>(Pen.High, 0.2), (Pen.Low, 0.8), (Book.High, 0.3), (Book.Low, 0.7)</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Format of a fuzzy transactional database</p>
+<blockquote>
+<div><p>The fuzzy transactional database must exist in the following format:</p>
+<blockquote>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fuzzyitemA</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">fuzzyitemB</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">fuzzyitemN</span><span class="p">:</span><span class="n">total</span> <span class="n">fuzzyValue</span><span class="p">:</span><span class="n">fuzzyValueA</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">fuzzyValueB</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">fuzzyValueN</span>
+</pre></div>
+</div>
+<p>The ‘total fuzzy value’ represents the sum of fuzzy values of all items in a transaction.</p>
+</div></blockquote>
+</div></blockquote>
+<p>Rules to create a fuzzy database</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The default separator, i.e., , used in PAMI is tab space (or t). However, the users can override the default separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.</p></li>
+<li><p>Items, total utility, and individual utilities of the items within a transaction have to be seperated by the symbol ‘:’</p></li>
+</ul>
+</div></blockquote>
+<p>An example</p>
+<blockquote>
+<div><p>Bread.High    Bread.Low   Jam.High    Jam.Low     Butter.High    Butter.Low:3:0.6    0.4    0.2    0.8    0.8   0.2</p>
+<p>Bat.High   Bat.Low   Ball.High   Ball.Low:2:0.5    0.5    0.6    0.4</p>
+<p>Pen   Book:2:0.2    0.8   0.3    0.7</p>
+</div></blockquote>
+<p>Fuzzy temporal databases</p>
+<blockquote>
+<div><p>A fuzzy temporal database consists of timestamp, tid, items, and their corresponding fuzzy values. A sample fuzzy temporal database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat}, is shown in below table:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Timestamp</p></th>
+<th class="head"><p>tid</p></th>
+<th class="head"><p>Transactions (items and their fuzzy values)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>(Bread.High, 0.6), (Bread.Low, 0.4), (Jam.High, 0.2), (Jam.Low, 0.8), (Butter.High, 0.8), (Butter.Low, 0.2)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>(Bat.High, 0.5), (Bat.Low, 0.5), (Ball.High, 0.6), (Ball.Low, 0.4)</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>(Pen.High, 0.2), (Pen.Low, 0.8), (Book.High, 0.3), (Book.Low, 0.7)</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Format of fuzzy temporal database</p>
+<blockquote>
+<div><p>The fuzzy temporal database must exist in the following format:</p>
+<blockquote>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">timestamp</span><span class="p">:</span><span class="n">fuzzyitemA</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">fuzzyitemB</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">fuzzyitemN</span><span class="p">:</span><span class="n">total</span> <span class="n">fuzzy</span> <span class="n">value</span><span class="p">:</span><span class="n">fuzzyValueA</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">fuzzyValueB</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">fuzzyValueN</span>
+</pre></div>
+</div>
+<p>The ‘total fuzzy value’ represents the total fuzzy value of all items in a transaction.</p>
+</div></blockquote>
+</div></blockquote>
+<p>Rules to create a fuzzy temporal database</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The default separator, i.e., , used in PAMI is tab space (or t). However, the users can override the default separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.</p></li>
+<li><p>Timestamp, items, total utility, and individual utilities of the items within a transaction have to be seperated by the symbol ‘:’</p></li>
+</ul>
+</div></blockquote>
+<p>An example</p>
+<blockquote>
+<div><p>1:Bread   Jam     Butter:3:0.6    0.4    0.2    0.8    0.8   0.2</p>
+<p>2:Bat Ball:110:100   10</p>
+<p>5:Pen Book:7:2 5</p>
+</div></blockquote>
+</div></blockquote>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="FuzzyFrequentPatternMining1.html">Fuzzy Frequent Pattern Mining</a></li>

@@ -1,7 +1,14 @@
 Sequential Frequent Pattern mining
 ====================================
 
-Sequential Frequent Pattern mining definition here
+
+Sequential frequent pattern mining is a data mining technique focused on identifying patterns or subsequences of events
+that frequently occur together in ordered sequences of data.
+It involves analyzing datasets where data instances are presented sequentially over time, such as transaction sequences,
+web clickstreams, biological sequences, or event logs.
+
+Applications: Marketing and User Retention, Process Optimization, Healthcare Monitoring.
+
 
 .. toctree::
    :maxdepth: 1

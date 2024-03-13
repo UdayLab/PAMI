@@ -3,7 +3,7 @@
 # patterns from tree.It employs downward closure property to  reduce the search space effectively.
 #
 # **Importing this algorithm into a python program**
-# --------------------------------------------------------
+# ----------------------------------------------------------
 #
 #
 #             from PAMI.weightFrequentPattern.basic import basic as alg
@@ -141,6 +141,7 @@ class _Tree:
         :type transaction: list
         :param count: frequency of item
         :type count: int
+        :return: None
         """
         # This method takes transaction as input and returns the tree
         currentNode = self.root
@@ -243,6 +244,16 @@ class WFIM(_fp._weightedFrequentPatterns):
            in Proceedings of the 2005 SIAM International Conference on Data Mining. SIAM, 2005, pp. 636–640.
            https://epubs.siam.org/doi/pdf/10.1137/1.9781611972757.76
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Uncertain Periodic Frequent patterns
+    :param  minSup: str:
+                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes :
 
         iFile : file
@@ -303,17 +314,22 @@ class WFIM(_fp._weightedFrequentPatterns):
             Extracts the one-frequent patterns from transactions
 
     **Methods to execute code on terminal**
-    ----------------------------------------
+    -------------------------------------------
+    .. code-block:: console
+
         Format:
-                  >>>  python3 basic.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
 
-        Example:
-                  >>>  python3 basic.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4
+        (.venv) $ python3 basic.py <inputFile> <weightFile> <outputFile> <minSup> <minWeight>
 
-                 .. note:: minSup and maxPer will be considered in support count or frequency
+        Example Usage:
+
+        (.venv) $ python3 basic.py sampleDB.txt weightSample.txt patterns.txt 10.0 3.4
+
+    .. note:: minSup and maxPer will be considered in support count or frequency
+
 
     **Importing this algorithm into a python program**
-    ---------------------------------------------------
+    -----------------------------------------------------
     .. code-block:: python
 
             from PAMI.weightFrequentPattern.basic import basic as alg
@@ -370,6 +386,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def __creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self.__Database = []
         if isinstance(self._iFile, _fp._pd.DataFrame):
@@ -405,6 +422,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def _scanningWeights(self) -> None:
         """
         Storing the weights of the variables in input file in a weights variable
+        :return: None
         """
         global _weights
         _weights = {}
@@ -528,6 +546,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def startMine(self) -> None:
         """
         main program to start the operation
+        :return: None
         """
         global _minSup, _minWeight, _miniWeight, _maxWeight, _weights
         self.__startTime = _fp._time.time()
@@ -612,6 +631,7 @@ class WFIM(_fp._weightedFrequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -631,6 +651,7 @@ class WFIM(_fp._weightedFrequentPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of  Weighted Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

@@ -5,31 +5,32 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     import PAMI.frequentPattern.basic.prefixSpan as alg
 #
-#     obj = alg.prefixSpan(iFile, minSup)
+#             import PAMI.frequentPattern.basic.prefixSpan as alg
 #
-#     obj.startMine()
+#             obj = alg.prefixSpan(iFile, minSup)
 #
-#     frequentPatterns = obj.getPatterns()
+#             obj.startMine()
 #
-#     print("Total number of Frequent Patterns:", len(frequentPatterns))
+#             frequentPatterns = obj.getPatterns()
 #
-#     obj.save(oFile)
+#             print("Total number of Frequent Patterns:", len(frequentPatterns))
 #
-#     Df = obj.getPatternInDataFrame()
+#             obj.save(oFile)
 #
-#     memUSS = obj.getMemoryUSS()
+#             Df = obj.getPatternInDataFrame()
 #
-#     print("Total Memory in USS:", memUSS)
+#             memUSS = obj.getMemoryUSS()
 #
-#     memRSS = obj.getMemoryRSS()
+#             print("Total Memory in USS:", memUSS)
 #
-#     print("Total Memory in RSS", memRSS)
+#             memRSS = obj.getMemoryRSS()
 #
-#     run = obj.getRuntime()
+#             print("Total Memory in RSS", memRSS)
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             run = obj.getRuntime()
+#
+#             print("Total ExecutionTime in seconds:", run)
 #
 
 __copyright__ = """
@@ -63,6 +64,16 @@ class prefixSpan(_ab._sequentialPatterns):
         * This algorithm employs depth-first search technique to find the complete set of frequent patterns in a transactional database.
 
     :Reference:   J. Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal, M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach. IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: float or int or str :
+                    minSup measure constraints the minimum number of transactions in a database where a pattern must appear
+                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     :Attributes:
 
@@ -114,11 +125,18 @@ class prefixSpan(_ab._sequentialPatterns):
 
     **Methods to execute code on terminal**
     ------------------------------------------
-            Format:
-                      >>>  python3 prefixSpan.py <inputFile> <outputFile> <minSup>
 
-            Example:
-                      >>>  python3 prefixSpan.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 prefixSpan.py <inputFile> <outputFile> <minSup>
+
+      Example usage:
+
+      (.venv) $ python3 prefixSpan.py sampleDB.txt patterns.txt 10
+
+    .. note:: minSup will be considered in support count or frequency
 
 
     **Importing this algorithm into a python program**

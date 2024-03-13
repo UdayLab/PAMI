@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Uncertain Database &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -101,7 +103,108 @@
              
   <section id="uncertain-database">
 <h1>Uncertain Database<a class="headerlink" href="#uncertain-database" title="Link to this heading"></a></h1>
-<p>Uncertain Database Definition here</p>
+<blockquote>
+<div><p>An uncertain database is a non-binary database, where an occurrence of an item in a transaction is associated with a probabilistic value that lies between zero and one. The value zero represents the complete non-occurrence of an item, while the value represents the perfect occurrence of an item in a transaction.</p>
+<p>Currently, the algorithms in PAMI support the discovery of knowledge hidden in two types of uncertain databases, namely uncertain transactional database and uncertain temporal database. We now describe each of these databases.</p>
+<p>Types</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Uncertain transactional database</p></li>
+<li><p>Uncertain temporal database</p></li>
+</ul>
+</div></blockquote>
+<p>Uncertain transactional database</p>
+<p>An uncertain transactional database consists of a transactional identifier (tid), items, and their occurrence probability value. A sample uncertain transactional database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat}, is shown in below table:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>TID</p></th>
+<th class="head"><p>Transactions (items and their prices)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>(Bread,0.9), (Jam,0.7), (Butter, 0.1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>(Bat, 1), (Ball, 0.5)</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>(Pen, 0.2), (Book, 0.5)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note: The above uncertain database represents an uncertain transactional database. If every transaction in an uncertain database is associated with a timestamp, then we call that database an uncertain temporal database.</p>
+<p>Format to create uncertain transactional databases in PAMI</p>
+<p>An utility transactional database must exist in the following format:</p>
+<blockquote>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">itemA</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">itemB</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">itemN</span><span class="p">:</span><span class="n">total</span> <span class="n">probability</span><span class="p">:</span><span class="n">probabilityA</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">probabilityB</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">probabilityN</span>
+</pre></div>
+</div>
+<p>The ‘total probability’ represents the sum of probabilities of all items in a transaction.</p>
+</div></blockquote>
+<p>Rules to create a uncertain transactional databases</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The default separator, i.e., , used in PAMI is tab space (or t). However, the users can override the default separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.</p></li>
+<li><p>Items, total probability, and individual probabilities of the items within a transaction have to be seperated by the symbol ‘:’</p></li>
+<li><p>The probability values of an item must be within the range [0,1].</p></li>
+</ul>
+</div></blockquote>
+<p>An example of an uncertain transactional database</p>
+<blockquote>
+<div><p>Bread   Jam     Butter:1.7:0.9    0.7 0.1
+Bat   Ball:1.5:1  0.5
+Pen   Book:0.7:0.2</p>
+</div></blockquote>
+<p>Uncertain temporal database</p>
+<p>Introduction</p>
+<p>An uncertain temporal database consists of a transactional identifier (tid), a timestamp, items, and their occurrence probability value. A sample uncertain temporal database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat}, is shown in below table:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>TID</p></th>
+<th class="head"><p>TS</p></th>
+<th class="head"><p>Transactions (items and their prices)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>(Bread,0.9), (Jam,0.7), (Butter, 0.1)</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>4</p></td>
+<td><p>(Bat, 1), (Ball, 0.5)</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>5</p></td>
+<td><p>(Pen, 0.2), (Book, 0.5)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Format to create an uncertain temporal databases in PAMI</p>
+<p>An utility temporal database must exist in the following format:</p>
+<blockquote>
+<div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">timestamp</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">itemA</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">itemB</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">itemN</span><span class="p">:</span><span class="n">total</span> <span class="n">probability</span><span class="p">:</span><span class="n">probabilityA</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">probabilityB</span><span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;...&lt;</span><span class="n">sep</span><span class="o">&gt;</span><span class="n">probabilityN</span>
+</pre></div>
+</div>
+<p>The ‘total probability’ represents the sum of probabilities of all items in a transaction.</p>
+</div></blockquote>
+<p>Rules to create an uncertain temporal databases</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>First element in every transaction must be a timestamp.</p></li>
+<li><p>The default separator, i.e., , used in PAMI is tab space (or t). However, the users can override the default separator with their choice. Since spatial objects, such as Point, Line, and Polygon, are represented using space and comma, usage of tab space facilitates us to effectively distinguish the spatial objects.</p></li>
+<li><p>Items, total probability, and individual probabilities of the items within a transaction have to be seperated by the symbol ‘:’</p></li>
+<li><p>The probability values of an item must be within the range [0,1].</p></li>
+</ul>
+</div></blockquote>
+<p>An example of an uncertain temporal database</p>
+<blockquote>
+<div><p>1 Bread   Jam     Butter:1.7:0.9    0.7 0.1</p>
+<p>2 Bat   Ball:1.5:1  0.5</p>
+<p>3 Pen   Book:0.7:0.2    0.5</p>
+</div></blockquote>
+</div></blockquote>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="UncertainFrequentPatternMining1.html">Uncertain Frequent Pattern mining</a></li>

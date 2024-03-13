@@ -1,4 +1,10 @@
-Stable Periodic Pattern Mining Definition
+Stable Periodic Pattern Mining (SPPM) is a data mining task focused on discovering patterns within transactional databases that exhibit consistent and predictable periodic behavior.
+Unlike traditional periodic pattern mining approaches that may identify patterns with varying periodicity, SPPM specifically targets patterns with stable intervals between successive occurrences.
+These patterns, known as Stable Periodic-Frequent Patterns (SPPs), demonstrate stable repetition over time, making them more reliable and suitable for predictive modeling and analysis.
+SPPM aims to identify SPPs that adhere to user-defined constraints on periodicity stability, enabling the discovery of patterns with consistent periodic behavior.
+
+Applications: Traffic Flow Optimization, Financial Market Analysis, Manufacturing Process Optimization.
+
 
 Basic
 ======

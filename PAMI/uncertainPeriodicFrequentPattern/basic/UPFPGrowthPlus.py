@@ -3,6 +3,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
+#
 #             from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowthPlus as alg
 #
 #             obj = alg.UPFPGrowthPlus(iFile, minSup, maxPer)
@@ -29,6 +30,8 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
+
+
 
 
 __copyright__ = """
@@ -227,6 +230,8 @@ class _Tree(object):
         :param tid : list
         :param sup : support of prefixPath taken at last child of the path
         :type sup : int
+        :para probability : highest existential probability value among all periodic-frequent items
+        :type probability : list
         """
         currentNode = self.root
         k = 0
@@ -321,6 +326,8 @@ class _Tree(object):
         :type conditionalTimeStamps : list
         :param support : the support of conditional pattern in tree
         :type support : list
+        :para probability : highest existential probability value among all periodic-frequent items
+        :type probability : list
         """
         global _minSup, _maxPer, _lno
         pat = []
@@ -359,6 +366,8 @@ class _Tree(object):
 
         :param prefix : forms the combination of items
         :type prefix : list
+        :para periodic : occurring at intervals
+        :type periodic : list
         """
         global _minSup
         for i in sorted(self.summaries, key=lambda x: (self.info.get(x)[0])):
@@ -395,6 +404,18 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
           UPFP-growth++: An Efficient Algorithm to Find Periodic-Frequent Patterns in Uncertain Temporal Databases. 
           ICONIP 2022. Communications in Computer and Information Science, vol 1792. Springer, Singapore.
           https://doi.org/10.1007/978-981-99-1642-9_16
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Uncertain Periodic Frequent patterns
+    :param  minSup: str:
+                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+    :param  maxper: floot :
+                   where maxPer represents the maximum periodicity threshold value specified by the user.
+
 
     :Attributes:
 
@@ -465,11 +486,19 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
 
     **Executing the code on terminal**:
     --------------------------------------------
-            Format:
-                >>> python3 UPFPGrowthPlus.py <inputFile> <outputFile> <minSup> <maxPer>
 
-            Examples:
-                >>> python3 UPFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 4
+    .. code-block:: console
+
+       Format:
+
+       (.venv) $ python3 UPFPGrowthPlus.py <inputFile> <outputFile> <minSup> <maxPer>
+
+       Examples Usage:
+
+       (.venv) $ python3 UPFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 4
+
+    .. note:: minSup and maxPer will be considered in support count or frequency
+
 
     **Importing this algorithm into a python program**
     -----------------------------------------------------------------
@@ -500,6 +529,7 @@ class UPFPGrowthPlus(_ab._periodicFrequentPatterns):
             run = obj.getRuntime()
 
             print("Total ExecutionTime in seconds:", run)
+
 
     **Credits**:
     --------------

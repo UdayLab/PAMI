@@ -1,31 +1,33 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.periodicFrequentPattern.maximal import MaxPFGrowth as alg
+#             from PAMI.periodicFrequentPattern.maximal import MaxPFGrowth as alg
 #
-#     obj = alg.MaxPFGrowth("../basic/sampleTDB.txt", "2", "6")
+#             obj = alg.MaxPFGrowth("../basic/sampleTDB.txt", "2", "6")
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of Frequent Patterns:", len(Patterns))
+#             print("Total number of Frequent Patterns:", len(Patterns))
 #
-#     obj.save("patterns")
+#             obj.save("patterns")
 #
-#     Df = obj.getPatternsAsDataFrame()
+#             Df = obj.getPatternsAsDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
 
 
 
@@ -178,6 +180,7 @@ class _Tree(object):
         removes the leaf node by pushing its timestamps to parent node
 
         :param nodeValue: node of a tree
+        :return: None
         """
         for i in self.summaries[nodeValue]:
             i.parent.timeStamps = i.parent.timeStamps + i.timeStamps
@@ -392,9 +395,9 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
                  IEEE 2020, https://ieeexplore.ieee.org/document/9260063
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent pattern's
+                   Name of the Input file to mine complete set of periodic  frequent pattern's
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
+                   Name of the output file to store complete set of periodic  frequent pattern's
     :param  minSup: str:
                    Controls the minimum number of transactions in which every item must appear in a database.
     :param  maxPer: float:
@@ -472,11 +475,15 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
     **Executing the code on terminal:**
     -------------------------------------
-            Format:
-                    >>> python3 maxpfrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+    .. code-block:: console
 
-            Examples:
-                    >>> python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4
+      Format:
+
+      (.venv) $ python3 maxpfrowth.py <inputFile> <outputFile> <minSup> <maxPer>
+
+      Examples usage :
+
+      (.venv) $ python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4
             
     **Sample run of the imported code:**
     ------------------------------------------
@@ -670,6 +677,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
     def startMine(self) -> None:
         """
         Mining process will start from this function
+        :return: None
         """
 
         global _minSup, _maxPer, _lno
@@ -757,6 +765,7 @@ class MaxPFGrowth(_ab._periodicFrequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

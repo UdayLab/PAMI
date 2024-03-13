@@ -3,6 +3,7 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
+#
 #             from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg
 #
 #             obj = alg.GFPGrowth(iFile, nFile, minSup)
@@ -29,6 +30,8 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
+
+
 
 
 __copyright__ = """
@@ -320,7 +323,16 @@ class GFPGrowth(_ab._frequentPatterns):
          "Discovering Geo-referenced Frequent Patterns in Uncertain Geo-referenced
          Transactional Databases".  PAKDD 2023.
          https://doi.org/10.1007/978-3-031-33380-4_3
-        
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of uncertain Georeferenced Frequent Patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Uncertain Georeferenced frequent patterns
+    :param  minSup: str:
+                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         iFile : file
@@ -386,15 +398,19 @@ class GFPGrowth(_ab._frequentPatterns):
             Mining process will start from this function
 
     **Executing the code on terminal**:
-    ------------------------------------
-        Format:
-          >>>  python3 GFPGrowth.py <inputFile> <neighborFile> <outputFile> <minSup>
+    ------------------------------------------
 
-        Examples:
-          >>> python3 GFPGrowth.py sampleTDB.txt sampleNeighbor.txt patterns.txt 3    (minSup  will be considered in support count or frequency)
+    .. code-block:: console
+
+        Format:
+        (.venv) $ python3 GFPGrowth.py <inputFile> <neighborFile> <outputFile> <minSup>
+
+        Examples usage:
+        (.venv) $ python3 GFPGrowth.py sampleTDB.txt sampleNeighbor.txt patterns.txt 3
+        .. note:: minSup  will be considered in support count or frequency
     
     **Sample run of importing the code**:
-    --------------------------------------
+    ----------------------------------------
      .. code-block:: python
 
             from PAMI.uncertainGeoreferencedFrequentPattern.basic import GFPGrowth as alg

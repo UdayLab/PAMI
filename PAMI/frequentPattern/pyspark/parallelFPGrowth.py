@@ -28,6 +28,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -104,9 +105,10 @@ class Tree:
     def addTransaction(self, transaction, count):
         """
         Add transaction to tree
-        :param transaction: list
-        :param count: int
-        :return:
+        :param transaction: Transaction to add
+        :type transaction: list
+        :param count: Number of nodes
+        :type count: int
         """
         current = self.root
         for item in transaction:
@@ -123,8 +125,8 @@ class Tree:
     def addNodeToNodeLink(self, node):
         """
         Add node to self.nodeLink
-        :param node: Node
-        :return:
+        :param node: Node to add
+        :type node: Node
         """
         if node.item not in self.nodeLink:
             self.nodeLink[node.item] = [node]
@@ -135,7 +137,8 @@ class Tree:
     def generateConditionalTree(self, item):
         """
         Generate conditional tree based on item
-        :param item: str or int
+        :param item: Item to be considered as a condition
+        :type item: str or int
         :return: Tree
         """
         tree = Tree()
@@ -187,13 +190,18 @@ class parallelFPGrowth(_ab._frequentPatterns):
     
     **Methods to execute code on terminal**
     ----------------------------------------------------
-        Format:
-                  >>> python3 parallelFPGrowth.py <inputFile> <outputFile> <minSup> <numWorkers>
 
-        Example:
-                  >>>  python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10.0 3
+    .. code-block:: console
 
-        .. note:: minSup will be considered in percentage of database transactions
+      Format:
+
+      (.venv) $ python3 parallelFPGrowth.py <inputFile> <outputFile> <minSup> <numWorkers>
+
+      Example Usage:
+
+      (.venv) $ python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10.0 3
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -299,7 +307,8 @@ class parallelFPGrowth(_ab._frequentPatterns):
     def getPartitionId(self, value):
         """
         Get partition id of item
-        :param item: int
+        :param value: value to get partition id
+        :type value: int
         :return: integer
         """
         return value % self._numPartitions
@@ -307,8 +316,10 @@ class parallelFPGrowth(_ab._frequentPatterns):
     def genCondTransaction(self, trans, rank):
         """
         Generate conditional transactions from transaction
-        :param transaction : list
-        :param rank: dict
+        :param trans : transactions to generate conditional transactions
+        :type trans: list
+        :param rank: rank of conditional transactions to generate conditional transactions
+        :type rank: dict
         :return: list
         """
         newTrans = [rank[item] for item in trans if item in rank.keys()]
@@ -324,8 +335,10 @@ class parallelFPGrowth(_ab._frequentPatterns):
     def buildTree(tree, data):
         """
         Build tree from data
-        :param tree: Tree
-        :param data: list
+        :param tree: tree to build
+        :type tree: Tree
+        :param data: data to build
+        :type data: list
         :return: tree
         """
         for trans in data:
@@ -336,6 +349,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         """
         Generate all frequent patterns
         :param tree_tuple: (partition id, tree)
+        :type tree_tuple: tuple
         :return: dict
         """
         itemList = sorted(tree_tuple[1].itemCount.items(), key=lambda x: x[1])
@@ -350,8 +364,11 @@ class parallelFPGrowth(_ab._frequentPatterns):
         """
         Generate new frequent patterns based on item.
         :param item: item
+        :type item: int
         :param prefix: prefix frequent pattern
-        :param tree: tree
+        :type prefix: str
+        :param tree: tree to generate patterns
+        :type tree: Tree
         :return:
         """
         condTree = tree.generateConditionalTree(item)
@@ -450,6 +467,7 @@ class parallelFPGrowth(_ab._frequentPatterns):
         """
         To convert the user specified minSup value
         :param value: user specified minSup value
+        :type value: int or float or str
         :return: converted type
         """
         if type(value) is int:

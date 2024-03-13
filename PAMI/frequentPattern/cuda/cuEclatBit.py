@@ -29,6 +29,9 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
+
+
 
 
 __copyright__ = """
@@ -93,13 +96,17 @@ class cuEclatBit(_ab._frequentPatterns):
     **Methods to execute code on terminal**
     ----------------------------------------------------
 
-            Format:
-                      >>> python3 cuEclatBit.py <inputFile> <outputFile> <minSup>
+    .. code-block:: console
 
-            Example:
-                      >>>  python3 cuEclatBit.py sampleDB.txt patterns.txt 10.0
+      Format:
 
-            .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 cuEclatBit.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 cuEclatBit.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -213,9 +220,15 @@ class cuEclatBit(_ab._frequentPatterns):
 
     def _convert(self, value):
         """
+
         To convert the user specified minSup value
+
         :param value: user specified minSup value
+
+        :type value: int or float or str
+
         :return: converted type
+
         """
         if type(value) is int:
             value = int(value)
@@ -359,7 +372,7 @@ class cuEclatBit(_ab._frequentPatterns):
         """
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csvfile
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

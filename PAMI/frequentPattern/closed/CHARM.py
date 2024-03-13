@@ -29,7 +29,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -113,13 +113,17 @@ class CHARM(_ab._frequentPatterns):
     **Methods to execute code on terminal**
     --------------------------------------------------------------
 
-            Format:
-                      >>> python3 CHARM.py <inputFile> <outputFile> <minSup>
+    .. code-block:: console
 
-            Example:
-                      >>> python3 CHARM.py sampleDB.txt patterns.txt 10.0
+      Format:
 
-            .. note:: minSup will be considered in percentage of database transactions
+      (.venv) $ python3 CHARM.py <inputFile> <outputFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 CHARM.py sampleDB.txt patterns.txt 10.0
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Importing this algorithm into a python program**
@@ -181,9 +185,15 @@ class CHARM(_ab._frequentPatterns):
 
     def _convert(self, value):
         """
+
         To convert the type of user specified minSup value
+
         :param value: user specified minSup value
+
+        :type value: int or float or str
+
         :return: converted type
+
         """
         if type(value) is int:
             value = int(value)
@@ -266,8 +276,11 @@ class CHARM(_ab._frequentPatterns):
     def _calculate(self, tidSet):
         """
         To calculate the hashcode of pattern
+
         :param tidSet: the timestamps of a pattern
+
         :type tidSet: list
+
         :rtype: int
         """
 
@@ -301,10 +314,17 @@ class CHARM(_ab._frequentPatterns):
         """
         Check for the closed property (patterns with same support), if found deletes the subsets and stores
         supersets and also saves the patterns that satisfy the closed property
+
         :param prefix: the prefix of a pattern
+
+        :type prefix: frequent item or pattern
+
         :param suffix: the suffix of a patterns
+
         :type suffix: list
+
         :param tidSetx: the timestamp of a patterns
+
         :type tidSetx: list
         """
         if prefix is None:
