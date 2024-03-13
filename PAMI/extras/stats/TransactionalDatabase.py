@@ -41,7 +41,7 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import PAMI.extras.graph.plotLineGraphFromDictionary as plt
 
 
-class transactionalDatabase:
+class TransactionalDatabase:
     """
     :Description:  TransactionalDatabase is class to get stats of database.
 
@@ -89,7 +89,7 @@ class transactionalDatabase:
     --------------------------------------------------------
     .. code-block:: python
 
-            from PAMI.extras.dbStats import TransactionalDatabase as db
+            from PAMI.extras.stats import TransactionalDatabase as db
 
             obj = db.TransactionalDatabase(iFile, "\t")
 
@@ -101,7 +101,7 @@ class transactionalDatabase:
 
     """
 
-    def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str='\t') -> None:
+    def __init__(self, inputFile: Union[str, pd.DataFrame], sep: str = '\t') -> None:
         """
         :param inputFile: input file name or path
         :type inputFile: str
@@ -113,9 +113,6 @@ class transactionalDatabase:
         self.itemFrequencies = {}
 
     def run(self) -> None:
-        self.readDatabase()
-
-    def readDatabase(self) -> None:
         """
         read database from input file and store into database and size of each transaction.
         """
@@ -326,8 +323,8 @@ if __name__ == '__main__':
     import PAMI.extras.graph.plotLineGraphFromDictionary as plt
     import pandas as pd
     # obj = TransactionalDatabase(data)
-    obj = transactionalDatabase(sys.argv[1], sys.argv[2])
-    obj = transactionalDatabase(pd.DataFrame(data))
+    obj = TransactionalDatabase(sys.argv[1], sys.argv[2])
+    obj = TransactionalDatabase(pd.DataFrame(data))
     obj.run()
     obj.printStats()
     obj.plotGraphs()
