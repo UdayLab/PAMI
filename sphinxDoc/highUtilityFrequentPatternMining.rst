@@ -1,4 +1,9 @@
-High Utility Frequent Pattern Definition
+High utility frequent pattern mining involves discovering patterns in transactional databases where each pattern consists of a
+set of items that occur frequently and contribute significantly to the overall utility of the dataset.
+These patterns are characterized by their high utility values, which reflect their importance or usefulness in the context of the application domain.
+
+Applications: Market Basket Analysis, Healthcare Analytics, Web Usage Mining, Fraud Detection.
+
 
 Basic
 ========

@@ -1,4 +1,8 @@
-Weighted Frequent Regular Pattern Mining Definition
+Weighted frequent regular pattern mining involves the discovery of regular patterns in a dataset where items are assigned different weights based on their significance.
+Regular patterns are sequences of itemsets that occur frequently and exhibit a regular or repeating structure. In weighted frequent regular pattern mining,
+the significance of a pattern is determined not only by its frequency but also by the cumulative weights of its constituent itemsets.
+
+Applications: Retail Analytics, Healthcare Data Analysis, Manufacturing Process Optimization.
 
 Basic
 ========
