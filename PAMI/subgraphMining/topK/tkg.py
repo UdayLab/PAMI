@@ -1,6 +1,29 @@
-import resource
-from queue import PriorityQueue
-from graph import Graph, Vertex, Edge
+# from PAMI.subgraphMining.topK import tkg as alg
+
+# obj = alg.TKG(iFile, k)
+
+# obj.startMine()
+
+# frequentGraphs = obj.getKSubgraphs()
+
+# memUSS = obj.getMemoryUSS()
+
+# obj.save(oFile)
+
+# print("Total Memory in USS:", memUSS)
+
+# memRSS = obj.getMemoryRSS()
+
+# print("Total Memory in RSS", memRSS)
+
+# run = obj.getRuntime()
+
+# print("Total ExecutionTime in seconds:", run)
+
+# minSup = obj.getMinSupport()
+
+# print("Minimum support:", minSup)
+
 
 from PAMI.subgraphMining.topK import abstract as _ab
 
@@ -13,7 +36,7 @@ class TKG(_ab._TKG):
     DYNAMIC_SEARCH = True
     THREADED_DYNAMIC_SEARCH = True
 
-    def __init__(self, iFile, k, outputSingleVertices=True, maxNumberOfEdges=float('inf'), outputGraphIds=False):
+    def __init__(self, iFile, k, maxNumberOfEdges=float('inf'), outputSingleVertices=True, outputGraphIds=False):
         self.iFile = iFile
         self.k = k
         self.outputGraphIds = outputGraphIds
@@ -37,25 +60,31 @@ class TKG(_ab._TKG):
         if self.maxNumberOfEdges <= 0:
             return
 
-        mem1 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        self.kSubgraphs = PriorityQueue()
-        self.candidates = PriorityQueue()
+        self.kSubgraphs = _ab.PriorityQueue()
+        self.candidates = _ab.PriorityQueue()
         
         self.runtime = 0
-        self.maxmem = 0
 
-
-        t1 = time.time()
+        t1 = _ab.time.time()
         graphDb = self.readGraphs(self.iFile)
         self.minSup = 1
 
         self.gSpan(graphDb, self.outputSingleVertices)
 
-        t2 = time.time()
+        t2 = _ab.time.time()
         self.runtime = t2 - t1
         self.patternCount = self.getQueueSize(self.kSubgraphs)
-        mem2 = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-        self.maxmem = (mem2 - mem1) / 1024
+
+        process = _ab._psutil.Process(_ab._os.getpid())
+
+        self._memoryUSS = float()
+
+        self._memoryRSS = float()
+
+        self._memoryUSS = process.memory_full_info().uss
+
+        self._memoryRSS = process.memory_info().rss
+
 
 
     def readGraphs(self, path):
@@ -68,22 +97,22 @@ class TKG(_ab._TKG):
                 line = line.strip()
                 if line.startswith("t"):
                     if vMap:
-                        graphDatabase.append(Graph(gId, vMap))
+                        graphDatabase.append(_ab.Graph(gId, vMap))
                         vMap = {}
                     gId = int(line.split()[2])
                 elif line.startswith("v"):
                     items = line.split()
                     vId, vLabel = int(items[1]), int(items[2])
-                    vMap[vId] = Vertex(vId, vLabel)
+                    vMap[vId] = _ab.Vertex(vId, vLabel)
                 elif line.startswith("e"):
                     items = line.split()
                     v1, v2, eLabel = int(items[1]), int(items[2]), int(items[3])
-                    edge = Edge(v1, v2, eLabel)
+                    edge = _ab.Edge(v1, v2, eLabel)
                     vMap[v1].addEdge(edge)
                     vMap[v2].addEdge(edge)
 
             if vMap:
-                graphDatabase.append(Graph(gId, vMap))
+                graphDatabase.append(_ab.Graph(gId, vMap))
 
         self.graphCount = len(graphDatabase)
         return graphDatabase
@@ -119,7 +148,7 @@ class TKG(_ab._TKG):
 
 
     def savePattern(self, subgraph):        
-        previousMinSup = self.minSup
+        # previousMinSup = self.minSup
 
         self.kSubgraphs.put(subgraph)
         if self.kSubgraphs.qsize() > self.k:
@@ -132,7 +161,7 @@ class TKG(_ab._TKG):
 
     def getQueueSize(self, queue):
         size = 0
-        tempQueue = PriorityQueue()
+        tempQueue = _ab.PriorityQueue()
         
         while not queue.empty():
             item = queue.get()
@@ -181,9 +210,9 @@ class TKG(_ab._TKG):
                     v1Label = g.getVLabel(e.v1)
                     v2Label = g.getVLabel(e.v2)
                     if v1Label < v2Label:
-                        ee1 = ExtendedEdge(0, 1, v1Label, v2Label, e.getEdgeLabel())
+                        ee1 = _ab.ExtendedEdge(0, 1, v1Label, v2Label, e.getEdgeLabel())
                     else:
-                        ee1 = ExtendedEdge(0, 1, v2Label, v1Label, e.getEdgeLabel())
+                        ee1 = _ab.ExtendedEdge(0, 1, v2Label, v1Label, e.getEdgeLabel())
                     extensions.setdefault(ee1, set()).add(gid)
         else:
             rightMost = c.getRightMost()
@@ -195,7 +224,7 @@ class TKG(_ab._TKG):
                 for x in g.getAllNeighbors(mappedRm):
                     invertedX = invertedIsom.get(x.getId())
                     if invertedX is not None and c.onRightMostPath(invertedX) and not c.containEdge(rightMost, invertedX):
-                        ee = ExtendedEdge(rightMost, invertedX, mappedRmLabel, x.getLabel(), g.getEdgeLabel(mappedRm, x.getId()))
+                        ee = _ab.ExtendedEdge(rightMost, invertedX, mappedRmLabel, x.getLabel(), g.getEdgeLabel(mappedRm, x.getId()))
                         extensions.setdefault(ee, set()).add(gid)
                 mappedVertices = set(iso.values())
                 for v in c.getRightMostPath():
@@ -203,7 +232,7 @@ class TKG(_ab._TKG):
                     mappedVLabel = g.getVLabel(mappedV)
                     for x in g.getAllNeighbors(mappedV):
                         if x.getId() not in mappedVertices:
-                            ee = ExtendedEdge(v, rightMost + 1, mappedVLabel, x.getLabel(), g.getEdgeLabel(mappedV, x.getId()))
+                            ee = _ab.ExtendedEdge(v, rightMost + 1, mappedVLabel, x.getLabel(), g.getEdgeLabel(mappedV, x.getId()))
                             extensions.setdefault(ee, set()).add(gid)
         return extensions
 
@@ -221,9 +250,9 @@ class TKG(_ab._TKG):
                         v1Label = g.getVLabel(e.v1)
                         v2Label = g.getVLabel(e.v2)
                         if v1Label < v2Label:
-                            ee1 = ExtendedEdge(0, 1, v1Label, v2Label, e.getEdgeLabel())
+                            ee1 = _ab.ExtendedEdge(0, 1, v1Label, v2Label, e.getEdgeLabel())
                         else:
-                            ee1 = ExtendedEdge(0, 1, v2Label, v1Label, e.getEdgeLabel())
+                            ee1 = _ab.ExtendedEdge(0, 1, v2Label, v1Label, e.getEdgeLabel())
                         extensions.setdefault(ee1, set()).add(graphId)
         else:
             rightMost = c.getRightMost()
@@ -240,7 +269,7 @@ class TKG(_ab._TKG):
                     for x in g.getAllNeighbors(mappedRm):
                         invertedX = invertedIsom.get(x.getId())
                         if invertedX is not None and c.onRightMostPath(invertedX) and not c.containEdge(rightMost, invertedX):
-                            ee = ExtendedEdge(rightMost, invertedX, mappedRmLabel, x.getLabel(), g.getEdgeLabel(mappedRm, x.getId()))
+                            ee = _ab.ExtendedEdge(rightMost, invertedX, mappedRmLabel, x.getLabel(), g.getEdgeLabel(mappedRm, x.getId()))
                             extensions.setdefault(ee, set()).add(g.getId())
                     mappedVertices = set(isom.values())
                     for v in c.getRightMostPath():
@@ -248,7 +277,7 @@ class TKG(_ab._TKG):
                         mappedVLabel = g.getVLabel(mappedV)
                         for x in g.getAllNeighbors(mappedV):
                             if x.getId() not in mappedVertices:
-                                ee = ExtendedEdge(v, rightMost + 1, mappedVLabel, x.getLabel(), g.getEdgeLabel(mappedV, x.getId()))
+                                ee = _ab.ExtendedEdge(v, rightMost + 1, mappedVLabel, x.getLabel(), g.getEdgeLabel(mappedV, x.getId()))
                                 extensions.setdefault(ee, set()).add(g.getId())
         return extensions
 
@@ -278,7 +307,7 @@ class TKG(_ab._TKG):
     
         if not outputFrequentVertices or self.frequentVertexLabels:
             if self.DYNAMIC_SEARCH:
-                self.gspanDynamicDFS(DFSCode(), graphDB, graphIds)
+                self.gspanDynamicDFS(_ab.DfsCode(), graphDB, graphIds)
                 
                 if self.THREADED_DYNAMIC_SEARCH:
                     self.startThreads(graphDB, self.candidates, self.minSup)
@@ -290,19 +319,19 @@ class TKG(_ab._TKG):
                             continue
                         self.gspanDynamicDFS(candidate.dfsCode, graphDB, candidate.setOfGraphsIds)
             else:
-                self.gspanDfs(DFSCode(), graphDB, graphIds)
+                self.gspanDfs(_ab.DfsCode(), graphDB, graphIds)
 
     def startThreads(self, graphDB, candidates, minSup):
         threads = []
         for _ in range(self.THREAD_COUNT):
-            thread = DFSThread(graphDB, candidates, minSup, self)
+            thread = _ab.DfsThread(graphDB, candidates, minSup, self)
             thread.start()
             threads.append(thread)
     
         for thread in threads:
             thread.join()
 
-    def gspanDfs(self, c: DFSCode, graphDB, subgraphId):
+    def gspanDfs(self, c: _ab.DfsCode, graphDB, subgraphId):
         if c.size == self.maxNumberOfEdges - 1:
             return
         extensions = self.rightMostPathExtensions(c, graphDB, subgraphId)
@@ -313,7 +342,7 @@ class TKG(_ab._TKG):
                 newC.add(extension)
     
                 if self.isCanonical(newC):
-                    subgraph = FrequentSubgraph(newC, newGraphIds, sup)
+                    subgraph = _ab.FrequentSubgraph(newC, newGraphIds, sup)
                     self.frequentSubgraphs.append(subgraph)
                     self.gspanDfs(newC, graphDB, newGraphIds)
 
@@ -330,7 +359,7 @@ class TKG(_ab._TKG):
                 newC = c.copy()
                 newC.add(extension)
                 if self.isCanonical(newC):
-                    subgraph = FrequentSubgraph(newC, newGraphIds, support)
+                    subgraph = _ab.FrequentSubgraph(newC, newGraphIds, support)
                     self.savePattern(subgraph)
                     self.registerAsCandidate(subgraph)
     
@@ -338,10 +367,10 @@ class TKG(_ab._TKG):
         self.candidates.put((-subgraph.support, subgraph))
 
     
-    def isCanonical(self, c: DFSCode):
-        canC = DFSCode()
+    def isCanonical(self, c: _ab.DfsCode):
+        canC = _ab.DfsCode()
         for i in range(c.size):
-            extensions = self.rightMostPathExtensionsFromSingle(canC, Graph(c))
+            extensions = self.rightMostPathExtensionsFromSingle(canC, _ab.Graph(c))
             minEe = None
             for ee in extensions.keys():
                 if minEe is None or ee.smallerThan(minEe):
@@ -386,9 +415,9 @@ class TKG(_ab._TKG):
             if sup >= self.minSup:
                 self.frequentVertexLabels.append(label)
                 if outputFrequentVertices:
-                    tempD = DFSCode()
-                    tempD.add(ExtendedEdge(0, 0, label, label, -1))
-                    self.frequentSubgraphs.append(FrequentSubgraph(tempD, tempSupG, sup))
+                    tempD = _ab.DfsCode()
+                    tempD.add(_ab.ExtendedEdge(0, 0, label, label, -1))
+                    self.frequentSubgraphs.append(_ab.FrequentSubgraph(tempD, tempSupG, sup))
             elif TKG.ELIMINATE_INFREQUENT_VERTICES:
                 for graphId in tempSupG:
                     g = graphDB[graphId]
@@ -397,7 +426,7 @@ class TKG(_ab._TKG):
 
     def removeInfrequentVertexPairs(self, graphDB):
         if TKG.ELIMINATE_INFREQUENT_EDGE_LABELS:
-            matrix = SparseTriangularMatrix()
+            matrix = _ab.SparseTriangularMatrix()
             alreadySeenPair = set()
 
         if TKG.ELIMINATE_INFREQUENT_EDGE_LABELS:
@@ -454,5 +483,46 @@ class TKG(_ab._TKG):
                                 mapEdgeLabelToSupport.get(edge.getEdgeLabel(), 0) < self.minSup:
                             v1.removeEdge(edge)
                             self.edgeRemovedByLabel += 1
+
+    def getMemoryRSS(self):
+        return self._memoryRSS
+
+    def getMemoryUSS(self):
+        return self._memoryUSS
+
+    def getRuntime(self):
+        return self.runtime
+    
+    def getMinSupport(self):
+        return self.minSup
+    
+    def getKSubgraphs(self):
+        subgraphsList = []
+        while not self.kSubgraphs.empty():
+            subgraphsList.append(self.kSubgraphs.get())
+        subgraphsList.sort(key=lambda sg: sg.support, reverse=True)
+
+        for i, subgraph in enumerate(subgraphsList):
+            sb = []
+            dfsCode = subgraph.dfsCode
+            sb.append(f"t # {i} * {subgraph.support}\n")
+            if len(dfsCode.eeList) == 1:
+                ee = dfsCode.eeList[0]
+                sb.append(f"v 0 {ee.vLabel1}\n")
+                if ee.edgeLabel != -1:
+                    sb.append(f"v 1 {ee.vLabel2}\n")
+                    sb.append(f"e 0 1 {ee.edgeLabel}\n")
+            else:
+                vLabels = dfsCode.getAllVLabels()
+                for j, vLabel in enumerate(vLabels):
+                    sb.append(f"v {j} {vLabel}\n")
+                for ee in dfsCode.eeList:
+                    sb.append(f"e {ee.v1} {ee.v2} {ee.edgeLabel}\n")
+
+            if self.outputGraphIds:
+                sb.append("x " + " ".join(str(id) for id in subgraph.setOfGraphsIds))
+            sb.append("\n\n")
+            print("".join(sb))
+
     
 
