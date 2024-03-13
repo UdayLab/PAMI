@@ -13,4 +13,4 @@ class DfsThread(threading.Thread):
             _, candidate = self.candidates.get()
             if len(candidate.setOfGraphsIds) < self.minSup:
                 break
-            self.tkgInstance.gspanDynamicDfs(candidate.dfsCode, self.graphDb, candidate.setOfGraphsIds)
+            self.tkgInstance.gspanDynamicDFS(candidate.dfsCode, self.graphDb, candidate.setOfGraphsIds)
