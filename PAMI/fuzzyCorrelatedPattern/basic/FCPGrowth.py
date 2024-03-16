@@ -206,7 +206,7 @@ class FCPGrowth(_ab._corelatedFuzzyFrequentPatterns):
                    The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
     :param maxPer: float :
                    The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
-    :param minAllConf:
+    :param minAllConf: float :
                     The user can specify minAllConf values within the range (0, 1).
 
     :param  sep: str :
