@@ -1,4 +1,5 @@
 # Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
+#
 # to its huge search space.we are using efficient pruning techniques to reduce the search space.
 #
 # **Importing this algorithm into a python program**
@@ -28,6 +29,8 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
+
+
 
 
 __copyright__ = """
@@ -87,7 +90,10 @@ class _FFList:
         A Method that add a new element to FFList
 
         :param element: an element to be added to FFList
-        :param element: Element
+
+        :type element: Element
+
+        :return: None
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -140,6 +146,21 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                   A fast Algorithm for mining fuzzy frequent itemsets. Journal of Intelligent & Fuzzy Systems. 29.
                   2373-2379. 10.3233/IFS-151936.
                   https://www.researchgate.net/publication/286510908_A_fast_Algorithm_for_mining_fuzzy_frequent_itemSets
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param fuzFile: str :
+                    The user can specify fuzFile.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -205,13 +226,21 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         WriteOut(prefix, prefixLen, item, sumIUtil)
             To Store the patten
 
-    **Executing the code on terminal :**
-    ----------------------------------------
-            Format:
-                    >>> python3 FFIMiner.py <inputFile> <outputFile> <minSup> <separator>
 
-            Examples:
-                    >>> python3  FFIMiner.py sampleTDB.txt output.txt 6
+    **Executing the code on terminal :**
+    ------------------------------------------
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 FFIMiner.py <inputFile> <outputFile> <minSup> <separator>
+
+      Example Usage:
+
+      (.venv) $ python3  FFIMiner.py sampleTDB.txt output.txt 6
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Sample run of importing the code:**
@@ -278,6 +307,18 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
     def _compareItems(self, o1: _FFList, o2: _FFList) -> int:
         """
         A Function that sort all ffi-list in ascending order of Support
+
+        :param o1: First FFI-list
+
+        :type o1: _FFList
+
+        :param o2: Second FFI-list
+
+        :type o1: _FFList
+
+        :return: Comparision Value
+
+        :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -295,7 +336,12 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         To convert the given user specified value
 
         :param value: user specified value
+
+        :type value: int or float or str
+
         :return: converted value
+
+        :rtype: int or float
         """
         if type(value) is int:
             value = int(value)
@@ -522,6 +568,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         :type item: int
         :param sumIUtil: sum of utility of itemSet
         :type sumIUtil: float
+        :return: None
         """
         self._itemsCnt += 1
         res = ""
@@ -561,6 +608,8 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: dictionary of frequent patterns
+        :rtype: dict
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

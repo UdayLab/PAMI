@@ -1,4 +1,5 @@
 # Fuzzy Frequent  Pattern-Miner is desired to find all  frequent fuzzy patterns which is on-trivial and challenging problem
+#
 # to its huge search space.we are using efficient pruning techniques to reduce the search space.
 #
 # **Importing this algorithm into a python program**
@@ -28,6 +29,8 @@
 #
 #             print("Total ExecutionTime in seconds:", run)
 #
+
+
 
 
 __copyright__ = """
@@ -87,6 +90,7 @@ class _FFList:
 
         :param element: an element to be added to FFList
         :param element: Element
+        :return: None
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -95,6 +99,7 @@ class _FFList:
     def printElement(self) -> None:
         """
         A method to print elements
+        :return: None
         """
         for ele in self.elements:
             print(ele.tid, ele.iUtils, ele.rUtils)
@@ -177,6 +182,21 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                   2373-2379. 10.3233/IFS-151936.
                   https://www.researchgate.net/publication/286510908_A_fast_Algorithm_for_mining_fuzzy_frequent_itemSets
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param fuzFile: str :
+                    The user can specify fuzFile.
+
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : string
@@ -244,16 +264,20 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
     **Executing the code on terminal :**
     -----------------------------------------
 
-            Format:
-                    >>> python3 FFIMinerMiner.py <inputFile> <outputFile> <minSup> <separator>
-            Examples:
-                    >>> python3  FFIMinerMiner.py sampleTDB.txt output.txt 6
+    .. code-block:: console
 
-                    >>> python3  FFIMinerMiner.py sampleTDB.txt output.txt 0.3
+      Format:
 
-                        (it will consider '\t' as a separator)
+      (.venv) $ python3 FFIMinerMiner.py <inputFile> <outputFile> <minSup> <separator>
 
-                    >>> python3  FFIMinerMiner.py sampleTDB.txt output.txt 6 , (it consider ',' as a separator)
+      Example Usage:
+
+      (.venv) $ python3  FFIMinerMiner.py sampleTDB.txt output.txt 6
+
+      (.venv) $ python3  FFIMinerMiner.py sampleTDB.txt output.txt 0.3
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
     **Sample run of importing the code:**
     ----------------------------------------
@@ -325,6 +349,18 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
     def _compareItems(self, o1: _FFList, o2: _FFList) -> int:
         """
         A Function that sort all ffi-list in ascending order of Support
+
+        :param o1: First FFI-list
+
+        :type o1: _FFList
+
+        :param o2: Second FFI-list
+
+        :type o1: _FFList
+
+        :return: Comparision Value
+
+        :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -342,7 +378,12 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         To convert the given user specified value
 
         :param value: user specified value
+
+        :type value: int or float or str
+
         :return: converted value
+
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -430,8 +471,11 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
     def _Regions(self, quantity: float) -> None:
         """
-        :param quantity:
-        :type quantity:
+        :param quantity: Quantity to calculate regions
+
+        :type quantity: float
+
+        :return: None
         """
         self.list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:
@@ -551,13 +595,14 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         """Generates ffi from prefix
 
         :param prefix: the prefix patterns of ffi
-        :type prefix: len
+        :type prefix: list
         :param prefixLen: the length of prefix
         :type prefixLen: int
         :param FSFIM: the Fuzzy list of prefix itemSets
         :type FSFIM: list
         :param minSup: the minimum support of
-        :type minSup:int
+        :type minSup: float
+        :return: None
         """
         for i in range(0, len(FSFIM)):
             X = FSFIM[i]
@@ -573,9 +618,11 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                 self._FSFIMining(self._itemSetBuffer, prefixLen + 1, exULs, minSup)
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
+
         :rtype: float
         """
 
@@ -655,6 +702,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
         :type item: int
         :param sumIUtil: sum of utility of itemSet
         :type sumIUtil: float
+        :return: None
         """
         self._itemsCnt += 1
         res = ""
@@ -694,6 +742,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
