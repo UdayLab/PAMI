@@ -5,29 +5,32 @@
 #  **Importing this algorithm into a python program**
 #  ---------------------------------------------------
 #
-#     from PAMI.georeferencedFrequentPattern.basic import SpatialECLAT as alg
+#             from PAMI.georeferencedFrequentPattern.basic import SpatialECLAT as alg
 #
-#     obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
+#             obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     spatialFrequentPatterns = obj.getPatterns()
+#             spatialFrequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
+#             print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
 #
-#     obj.save("outFile")
+#             obj.save("outFile")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
 
 
 __copyright__ = """
@@ -60,6 +63,20 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
     :Reference:   Rage, Uday & Fournier Viger, Philippe & Zettsu, Koji & Toyoda, Masashi & Kitsuregawa, Masaru. (2020).
                   Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Geo-referenced frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Geo-referenced frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param nFile: str :
+                   Name of the input file to mine complete set of Geo-referenced frequent patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -123,11 +140,18 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
     **Executing the code on terminal :**
     ----------------------------------------
 
-        Format:
-            >>> python3 SpatialECLAT.py <inputFile> <outputFile> <neighbourFile> <minSup>
-            
-        Examples:
-            >>> python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5 (minSup will be considered in percentage of database transactions)
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 SpatialECLAT.py <inputFile> <outputFile> <neighbourFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 SpatialECLAT.py sampleTDB.txt output.txt sampleN.txt 0.5
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
 
     **Sample run of importing the code :**
@@ -181,10 +205,9 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         self._NeighboursMap = {}
 
     def _creatingItemSets(self):
-        """Storing the complete transactions of the database/input file in a database variable
-
-
-            """
+        """
+        Storing the complete transactions of the database/input file in a database variable
+        """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
             if self._iFile.empty:
@@ -217,7 +240,9 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
     # function to get frequent one pattern
     def _frequentOneItem(self):
-        """Generating one frequent patterns"""
+        """
+        Generating one frequent patterns
+        """
         self._finalPatterns = {}
         candidate = {}
         for i in range(len(self._Database)):
@@ -233,7 +258,9 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+        :type value: int or float or str
         :return: converted value
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -249,7 +276,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
     @staticmethod
     def _dictKeysToInt(iList):
-        """Converting dictionary keys to integer elements
+        """
+        Converting dictionary keys to integer elements
 
         :param iList: Dictionary with patterns as keys and their support count as a value
         :type iList: dict
@@ -292,7 +320,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         return tidList
 
     def _generateSpatialFrequentPatterns(self, tidList):
-        """It will generate the combinations of frequent items from a list of items
+        """
+        It will generate the combinations of frequent items from a list of items
 
         :param tidList :it represents the items with their respective transaction identifiers
         :type tidList: dictionary
@@ -321,7 +350,6 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
     def _getNeighbourItems(self, keySet):
         """
         A function to get Neighbours of a item
-
         :param keySet:itemSet
         :type keySet:str or tuple
         :return: set of common neighbours
@@ -342,7 +370,6 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
 
     def _mapNeighbours(self):
         """
-
         A function to map items to their Neighbours
         """
         self._NeighboursMap = {}
@@ -380,7 +407,9 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                     quit()
 
     def startMine(self):
-        """Frequent pattern mining process will start from here"""
+        """
+        Frequent pattern mining process will start from here
+        """
 
         # global items_sets, endTime, startTime
         self._startTime = _ab._time.time()
@@ -411,7 +440,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         print("Spatial Frequent patterns were generated successfully using SpatialECLAT algorithm")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -420,7 +450,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -429,8 +460,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -439,7 +470,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -459,10 +491,11 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to a output file
+        """
+        Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -477,7 +510,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
@@ -485,7 +519,8 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         return self._finalPatterns
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Spatial Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
