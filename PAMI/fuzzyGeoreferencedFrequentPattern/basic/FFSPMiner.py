@@ -32,6 +32,8 @@
 #
 
 
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -91,6 +93,7 @@ class _FFList:
 
         :param element: an element to be added to FFList
         :param element: Element
+        :return: None
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -143,6 +146,20 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     :Reference:   Reference: P. Veena, B. S. Chithra, R. U. Kiran, S. Agarwal and K. Zettsu, "Discovering Fuzzy Frequent
                   Spatial Patterns in Large Quantitative Spatiotemporal databases," 2021 IEEE International Conference on Fuzzy Systems
                   (FUZZ-IEEE), 2021, pp. 1-8, doi: 10.1109/FUZZ45933.2021.9494594.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param nFile: str :
+                   Name of the input file to mine complete set of frequent patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -209,13 +226,19 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             To Store the patten
 
     **Executing the code on terminal :**
-    --------------------------------------
-            Format:
-                    >>> python3 FFSPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
+    ----------------------------------------
 
-            Examples:
-                    >>> python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 3
+    .. code-block:: console
 
+      Format:
+
+      (.venv) $ python3 FFSPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3  FFSPMiner.py sampleTDB.txt output.txt sampleN.txt 3
+
+    .. note:: minSup will be considered in percentage of database transactions
 
     **Sample run of importing the code:**
     ----------------------------------------
@@ -279,7 +302,19 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     def _compareItems(self, o1, o2) -> int:
         """
-        A Function that sort all FFI-list in ascending order of Support
+        A Function that sort all ffi-list in ascending order of Support
+
+        :param o1: First FFI-list
+
+        :type o1: _FFList
+
+        :param o2: Second FFI-list
+
+        :type o1: _FFList
+
+        :return: Comparision Value
+
+        :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -292,7 +327,9 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+        :type value: int or float or str
         :return: converted value
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -308,6 +345,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     def _creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self._transactions, self._fuzzyValues = [], []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -394,6 +432,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
     def startMine(self) -> None:
         """
         Frequent pattern mining process will start from here
+        :return: None
         """
         self._startTime = _ab._time.time()
         self._creatingItemSets()
@@ -521,7 +560,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
-       """
+        """
         return self._memoryRSS
 
     def getRuntime(self) -> float:
@@ -590,6 +629,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         :type item: int
         :param sumIUtil: sum of utility of itemSet
         :type sumIUtil: float
+        :return: None
         """
         self._itemsCnt += 1
         res = ""
@@ -629,6 +669,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')

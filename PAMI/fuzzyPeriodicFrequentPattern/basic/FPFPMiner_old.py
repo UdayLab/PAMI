@@ -1,29 +1,32 @@
 # Sample run of importing the code:
 # -------------------------------------
 #
-#         from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner as alg
+#             from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner as alg
 #
-#         obj =alg.FPFPMiner("input.txt",2,3)
+#             obj =alg.FPFPMiner("input.txt",2,3)
 #
-#         obj.startMine()
+#             obj.startMine()
 #
-#         periodicFrequentPatterns = obj.getPatterns()
+#             periodicFrequentPatterns = obj.getPatterns()
 #
-#         print("Total number of Fuzzy Periodic Frequent Patterns:", len(periodicFrequentPatterns))
+#             print("Total number of Fuzzy Periodic Frequent Patterns:", len(periodicFrequentPatterns))
 #
-#         obj.save("output.txt")
+#             obj.save("output.txt")
 #
-#         memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#         print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#         memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#         print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#         run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#         print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
 
 
 __copyright__ = """(Copyright (C)  2021 Rage Uday Kiran
@@ -98,7 +101,7 @@ class _FFList:
         A Method that add a new element to FFList
 
         :param element: an element to be added to FFList
-        :param element: Element
+        :type element: Element
         """
         self.sumLUtil += element.lUtils
         self.sumRUtil += element.rUtils
@@ -189,6 +192,21 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
                     on-trivial and challenging problem to its huge search space.we are using efficient pruning
                     techniques to reduce the search space.
 
+    :Reference:
+
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : file
@@ -258,13 +276,20 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
             To Store the patten
 
     **Executing the code on terminal :**
-    -------------------------------------
+    ---------------------------------------
 
-        Format:
-            >>> python3 FPFPMiner_old.py <inputFile> <outputFile> <minSup> <maxPer> <sep>
+    .. code-block:: console
 
-        Examples:
-            >>> python3  FPFPMiner_old.py sampleTDB.txt output.txt 2 3
+      Format:
+
+      (.venv) $ python3 FPFPMiner_old.py <inputFile> <outputFile> <minSup> <maxPer> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3  FPFPMiner_old.py sampleTDB.txt output.txt 2 3
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
     **Sample run of importing the code:**
     --------------------------------------
@@ -335,6 +360,18 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
     def _compareItems(self, o1, o2):
         """
         A Function that sort all FFI-list in ascending order of Support
+
+        :param o1: First FFI-list
+
+        :type o1: _FFList
+
+        :param o2: Second FFI-list
+
+        :type o1: _FFList
+
+        :return: Comparision Value
+
+        :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -347,7 +384,12 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+
+        :type value: int  or float or str
+
         :return: converted value
+
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -569,16 +611,16 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
-       """
+        """
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-       """
+        """
         return self._endTime - self._startTime
 
     def _construct(self, px, py):
@@ -608,10 +650,10 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
         To find element with same tid as given
 
         :param UList: fuzzy list
-        :type UList:FFI-List
-        :param tid:transaction id
-        :type tid:int
-        :return:element with tid as given
+        :type UList: FFI-List
+        :param tid: transaction id
+        :type tid: int
+        :return: element with tid as given
         :rtype: element if exist or None
         """
         List = UList.elements
@@ -690,7 +732,7 @@ class FPFPMiner(_ab._fuzzyPeriodicFrequentPatterns):
     def printResults(self):
         """
         This function is used to print the results
-         """
+        """
         print("Total number of Fuzzy Periodic-Frequent Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
         print("Total Memory in RSS", self.getMemoryRSS())

@@ -4,32 +4,35 @@
 # **Importing this algorithm into a python program**
 # ----------------------------------------------------
 #
-#     import PAMI.fuzzyPartialPeriodicPattern.basic.F3PMiner as alg
+#             import PAMI.fuzzyPartialPeriodicPattern.basic.F3PMiner as alg
 #
-#     obj = alg.F3PMiner(iFile, minSup, sep)
+#             obj = alg.F3PMiner(iFile, minSup, sep)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     fuzzyPartialPeriodicPatterns = obj.getPatterns()
+#             fuzzyPartialPeriodicPatterns = obj.getPatterns()
 #
-#     print("Total number of Fuzzy Partial Periodic Patterns:", len(fuzzyPartialPeriodicPatterns))
+#             print("Total number of Fuzzy Partial Periodic Patterns:", len(fuzzyPartialPeriodicPatterns))
 #
-#     obj.save(oFile)
+#             obj.save(oFile)
 #
-#     Df = obj.getPatternInDataFrame()
+#             Df = obj.getPatternInDataFrame()
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
+
+
+
 
 
 __copyright__ = """
@@ -101,7 +104,7 @@ class _FFList:
         A Method that add a new element to FFList
 
         :param element: an element to be added to FFList
-        :param element: Element
+        :type element: Element
         """
         self.sumIUtil += element.iUtils
         self.elements.append(element)
@@ -148,6 +151,20 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
     :Description:   F3PMiner algorithm discovers the fuzzy partial periodic patterns in quantitative Irregulat multiple timeseries databases.
     
     :Reference:
+
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
 
     :Attributes:
 
@@ -212,11 +229,20 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
             To Store the patten
 
     **Executing the code on terminal :**
-    -------------------------------------
-        Format:
-            >>> python3 F3PMiner.py <inputFile> <outputFile> <minSup> <separator>
-        Examples:
-            >>> python3  F3PMiner.py sampleTDB.txt output.txt 6
+    ---------------------------------------
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 F3PMiner.py <inputFile> <outputFile> <minSup> <separator>
+
+      Example Usage:
+
+      (.venv) $ python3  F3PMiner.py sampleTDB.txt output.txt 6
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
     **Sample run of importing the code:**
     --------------------------------------
@@ -280,6 +306,18 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
     def _compareItems(self, o1, o2):
         """
         A Function that sort all ffi-list in ascending order of Support
+
+        :param o1: First FFI-list
+
+        :type o1: _FFList
+
+        :param o2: Second FFI-list
+
+        :type o1: _FFList
+
+        :return: Comparision Value
+
+        :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -297,7 +335,12 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+
+        :type value: int or float or str
+
         :return: converted value
+
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -475,7 +518,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-       """
+        """
         return self._endTime - self._startTime
 
     def _construct(self, px, py):
@@ -573,7 +616,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
         Complete set of frequent patterns will be loaded in to a output file
 
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

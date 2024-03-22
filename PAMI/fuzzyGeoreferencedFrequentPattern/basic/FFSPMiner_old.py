@@ -29,6 +29,8 @@
 #
 
 
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -86,7 +88,7 @@ class _FFList:
         A Method that add a new element to FFList
 
         :param element: an element to be added to FFList
-        :param element: Element
+        :type element: Element
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -177,6 +179,20 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                  Spatial Patterns in Large Quantitative Spatiotemporal databases," 2021 IEEE International Conference on Fuzzy Systems
                  (FUZZ-IEEE), 2021, pp. 1-8, doi: 10.1109/FUZZ45933.2021.9494594.
 
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param nFile: str :
+                   Name of the input file to mine complete set of frequent patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : file
@@ -242,17 +258,23 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
             To Store the patten
     
     **Executing the code on terminal :**
-    ---------------------------------------
+    ----------------------------------------
 
-            Format:
-                    >>> python3 FFSPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
+    .. code-block:: console
 
-            Examples:
-                    >>> python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3
+      Format:
 
-                    >>> python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 0.3
+      (.venv) $ python3 FFSPMiner_old.py <inputFile> <outputFile> <neighbours> <minSup> <sep>
 
-                    >>> python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3
+      Example Usage:
+
+      (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3
+
+      (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 0.3
+
+      (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Sample run of importing the code:**
@@ -333,6 +355,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+        :type value: int or float or str
         :return: converted value
         """
         if type(value) is int:
