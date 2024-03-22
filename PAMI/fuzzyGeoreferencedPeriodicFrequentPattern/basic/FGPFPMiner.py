@@ -5,22 +5,25 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
+#             from PAMI.fuzzyGeoreferencedPeriodicFrequentPattern import FGPFPMiner as alg
 #
-#     obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
+#             obj = alg.FFSPMiner("input.txt", "neighbours.txt", 3, 4)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     print("Total number of fuzzy frequent spatial patterns:", len(obj.getPatterns()))
+#             print("Total number of fuzzy frequent spatial patterns:", len(obj.getPatterns()))
 #
-#     obj.save("outputFile")
+#             obj.save("outputFile")
 #
-#     print("Total Memory in USS:", obj.getMemoryUSS())
+#             print("Total Memory in USS:", obj.getMemoryUSS())
 #
-#     print("Total Memory in RSS", obj.getMemoryRSS())
+#             print("Total Memory in RSS", obj.getMemoryRSS())
 #
-#     print("Total ExecutionTime in seconds:", obj.getRuntime())
+#             print("Total ExecutionTime in seconds:", obj.getRuntime())
 #
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -79,7 +82,7 @@ class _FFList:
         A Method that add a new element to FFList
 
         :param element: an element to be added to FFList
-        :param element: Element
+        :type element: Element
         """
         self.sumIUtil += element.iUtils
         self.sumRUtil += element.rUtils
@@ -130,6 +133,22 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
                     techniques to reduce the search space.
          
     :Reference:
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param nFile: str :
+                   Name of the input file to mine complete set of frequent patterns
+    :param  FuzFile: str :
+                   The user can specify fuzFile.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     
     :Attributes:
 
@@ -197,12 +216,20 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
 
     **Executing the code on terminal :**
     --------------------------------------------
-            Format:
-                    >>> python3 FGPFPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <maxPer> <sep>
 
-            Examples:
-                    >>> python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 3 4
-           
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 FGPFPMiner.py <inputFile> <outputFile> <neighbours> <minSup> <maxPer> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3  FGPFPMiner.py sampleTDB.txt output.txt sampleN.txt 3 4
+
+    .. note:: minSup will be considered in percentage of database transactions
+
+
     **Sample run of importing the code:**
     ----------------------------------------
     .. code-block:: python
@@ -260,9 +287,21 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         self._tidList = {}
         self._dbLen = 0
 
-    def _compareItems(self, o1, o2):
+    def _compareItems(self, o1, o2) -> int:
         """
         A Function that sort all FFI-list in ascending order of Support
+
+        :param o1: First FFI-list
+
+        :type o1: _FFList
+
+        :param o2: Second FFI-list
+
+        :type o1: _FFList
+
+        :return: Comparision Value
+
+        :rtype: int
         """
         compare = self._mapItemSum[o1.item] - self._mapItemSum[o2.item]
         if compare == 0:
@@ -270,12 +309,17 @@ class FGPFPMiner(_ab._fuzzySpatialFrequentPatterns):
         else:
             return compare
 
-    def _convert(self, value):
+    def _convert(self, value) -> float:
         """
         To convert the given user specified value
 
         :param value: user specified value
+
+        :type value: int or float or str
+
         :return: converted value
+
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
