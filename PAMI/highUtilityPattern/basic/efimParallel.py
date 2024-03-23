@@ -29,6 +29,9 @@
 #             print("Total ExecutionTime in seconds:", run)
 #
 
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -81,7 +84,20 @@ class efimParallel(_ab._utilityPatterns):
     
     :Reference:    Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
                    high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
-    
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of High Utility patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of High Utility patterns
+    :param minUtil: int :
+                   The user given minUtil value.
+    :param candidateCount: int
+                   Number of candidates specified by user
+    :param maxMemory: int
+                   Maximum memory used by this program for running
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         inputFile (str):
@@ -130,13 +146,19 @@ class efimParallel(_ab._utilityPatterns):
 
     **Executing the code on terminal:**
     ------------------------------------------
-        Format:
 
-                  >>> python3 efimParallel.py <inputFile> <outputFile> <minUtil> <sep>
-        Examples:
+    .. code-block:: console
 
-                  >>> python3 efimParallel sampleTDB.txt output.txt 35
-                  >>> python3 efimParallel sampleTDB.txt output.txt 35
+      Format:
+
+      (.venv) $ python3 efimParallel.py <inputFile> <outputFile> <minUtil> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 efimParallel sampleTDB.txt output.txt 35
+
+    .. note:: maxMemory will be considered as Maximum memory used by this program for running
+
 
      Sample run of importing the code:
     --------------------------------------
@@ -268,17 +290,13 @@ class efimParallel(_ab._utilityPatterns):
         """
         Do a binary search on the given array to find the given item.
 
-        :Attributes:
+        :param arr: The array to search in.
 
-            arr (list):
-                The array to search in.
-            item (int):
-                The item to search for.
+        :type arr: list
 
-        :return:
+        :param item: The item to search for
 
-            mid (int): The index of the item if found, -1 otherwise.
-
+        :type item: int
         """
 
         low = 0
@@ -300,14 +318,17 @@ class efimParallel(_ab._utilityPatterns):
         """
         Project the given beta itemset on the given database.
 
-        :Attributes:
+        :param beta: The beta itemset to be projected
 
-            beta (list):
-                The beta itemset to project.
-            file_data (dict):
-                The database to project on.
-            secondary (set):
-                The set of secondary items.
+        :type beta: list
+
+        :param file_data: The database to project on.
+
+        :type file_data: list
+
+        :param secondary: The set of secondary items
+
+        :type secondary: set
 
         :return:
 
@@ -384,9 +405,9 @@ class efimParallel(_ab._utilityPatterns):
         """
         Search for frequent patterns in the given collections.
 
-        :Attributes:
+        :param collections: list of collections to search in
 
-            collections (list): The collections to search in.
+        :type collections: list
         """
 
         if (self.threads > 1):
@@ -428,8 +449,6 @@ class efimParallel(_ab._utilityPatterns):
     def startMine(self):
         """
         Start the EFIM algorithm.
-
-        :return:    None
         """
 
         ps = psutil.Process(os.getpid())
