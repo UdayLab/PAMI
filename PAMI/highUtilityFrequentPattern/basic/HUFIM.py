@@ -27,7 +27,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -106,8 +106,14 @@ class _Transaction:
     def projectTransaction(self, offsetE: int) -> '_Transaction':
         """
         A method to create new Transaction from existing transaction starting from offsetE until the end
+
         :param offsetE: an offset over the original transaction for projecting the transaction
+
         :type offsetE: int
+
+        :return: a new transaction starting from offsetE until the end of the transaction
+
+        :rtype: _Transaction
         """
         new_transaction = _Transaction(self.items, self.utilities, self.transactionUtility)
         utilityE = self.utilities[offsetE]
@@ -122,18 +128,30 @@ class _Transaction:
     def getItems(self) -> List[int]:
         """
         A method to return items in transaction
+
+        :return: the list of items in transaction starting from offsetE until the end of the transactions
+
+        :rtype: list
         """
         return self.items
 
     def getUtilities(self) -> List[int]:
         """
         A method to return utilities in transaction
+
+        :return: the list of utilities in transaction starting from offsetE until the end of the transaction
+
+        :rtype: list
         """
         return self.utilities
 
     def getLastPosition(self) -> int:
         """
         A method to return last position in a transaction
+
+        :return: the last position in a transaction
+
+        :rtype: int
         """
 
         return len(self.items) - 1
@@ -141,6 +159,10 @@ class _Transaction:
     def getSupport(self) -> int:
         """
         A method to return support in a transaction
+
+        :return: the support in a transaction
+
+        :rtype: int
         """
 
         return self.support
@@ -148,8 +170,12 @@ class _Transaction:
     def removeUnpromisingItems(self, oldNamesToNewNames: Dict[int, int]) -> None:
         """
         A method to remove items which are not present in the map passed to the function
+
         :param oldNamesToNewNames: A map represent old names to new names
+
         :type oldNamesToNewNames: map
+
+        :return: None
         """
         tempItems = []
         tempUtilities = []
@@ -166,6 +192,7 @@ class _Transaction:
     def insertionSort(self) -> None:
         """
         A method to sort items in order
+        :return: None
         """
         for i in range(1, len(self.items)):
             key = self.items[i]
@@ -213,6 +240,13 @@ class _Dataset:
     def createItemSets(self, datasetPath: List[str]) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+
+        :param datasetPath: list of paths to the input file to store
+
+        :type datasetPath: list
+
+        :return: None
+
         """
         self.Database = []
         self.transactions = []
@@ -259,17 +293,22 @@ class _Dataset:
     def createTransaction(self, items: List[str], utilities: List[str], utilitySum: int) -> _Transaction:
         """
         A method to create Transaction from dataset given
-            
-        :Attributes:
 
         :param items: represent a single line of database
+
         :type items: list
+
         :param utilities: represent the utilities of items
+
         :type utilities: list
+
         :param utilitySum: represent  the utilitySum
-        :type items: int
-        :return : Transaction
-        :rtype: Transactions
+
+        :type utilitySum: int
+
+        :return: a Transaction from given dataset
+
+        :rtype: _Transaction
         """
         transactionUtility = utilitySum
         itemsString = items
@@ -291,12 +330,20 @@ class _Dataset:
     def getMaxItem(self) -> int:
         """
         A method to return name of the largest item
+
+        :return: the name of the largest item in the dataset
+
+        :rtype: int
         """
         return self.maxItem
 
     def getTransactions(self) -> List[_Transaction]:
         """
         A method to return transactions from database
+
+        :return: the list of transactions from database which have the highest utility
+
+        :rtype: list
         """
         return self.transactions
 
@@ -309,6 +356,25 @@ class HUFIM(_ab._utilityPatterns):
     :Reference:     Kiran, R.U., Reddy, T.Y., Fournier-Viger, P., Toyoda, M., Reddy, P.K., & Kitsuregawa, M. (2019).
                    Efficiently Finding High Utility-Frequent Itemsets Using Cutoff and Suffix Utility. PAKDD 2019.
                    DOI: 10.1007/978-3-030-16145-3_15
+
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Geo-referenced frequent sequence patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Geo-referenced frequent sequence patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param minUtil: int :
+                   The user given minUtil value.
+    :param candidateCount: int
+                   Number of candidates
+    :param maxMemory: int
+                   Maximum memory used by this program for running
+    :param nFile: str :
+                   Name of the input file to mine complete set of Geo-referenced frequent sequence patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     
     :Attributes:
 
@@ -386,12 +452,21 @@ class HUFIM(_ab._utilityPatterns):
 
     **Executing the code on terminal**
     --------------------------------------------
-        Format:
-                  >>>  python3 HUFIM.py <inputFile> <outputFile> <minUtil> <sep>
 
-        Examples:
-                  >>>  python3 HUFIM.py sampleTDB.txt output.txt 35 20
-                  >>>  python3 HUFIM.py sampleTDB.txt output.txt 35 20
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 HUFIM.py <inputFile> <outputFile> <minUtil> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 HUFIM.py sampleTDB.txt output.txt 35 20
+
+      (.venv) $ python3 HUFIM.py sampleTDB.txt output.txt 35 20
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
     **Sample run of importing the code**
     -----------------------------------------------
@@ -460,7 +535,9 @@ class HUFIM(_ab._utilityPatterns):
         """
         To convert the given user specified value
         :param value: user specified value
+        :type value: int or float or str
         :return: converted value
+        :rtype: int or float
         """
         if type(value) is int:
             value = int(value)
@@ -478,6 +555,7 @@ class HUFIM(_ab._utilityPatterns):
     def startMine(self) -> None:
         """
         High Utility Frequent Pattern mining start here
+        :return: None
         """
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
@@ -536,9 +614,6 @@ class HUFIM(_ab._utilityPatterns):
     def _backTrackingHUFIM(self, transactionsOfP: List[_Transaction], itemsToKeep: List[int], itemsToExplore: List[int], prefixLength: int) -> None:
         """
         A method to mine the HUFIs Recursively
-
-        :Attributes:
-
         :param transactionsOfP: the list of transactions containing the current prefix P
         :type transactionsOfP: list
         :param itemsToKeep: the list of secondary items in the p-projected database
@@ -547,6 +622,7 @@ class HUFIM(_ab._utilityPatterns):
         :type itemsToExplore: list
         :param prefixLength: current prefixLength
         :type prefixLength: int
+        :return: None
         """
         # print("###############")
         # print("P is", [self.dataset.intToStr.get(x) for x in self.temp[:prefixLength]])
@@ -643,6 +719,7 @@ class HUFIM(_ab._utilityPatterns):
         :type j:int
         :param itemsToKeep :the list of promising items
         :type itemsToKeep: list or Dataset
+        :return: None
         """
         for i in range(j + 1, len(itemsToKeep)):
             item = itemsToKeep[i]
@@ -661,16 +738,16 @@ class HUFIM(_ab._utilityPatterns):
 
     def _output(self, tempPosition: int, utility: int, support: int):
         """
-         Method to print itemSets
+        Method to print itemSets
 
-         :Attributes:
+        :Attributes:
 
-         :param tempPosition: position of last item 
-         :type tempPosition : int 
-         :param utility: total utility of itemSet
-         :type utility: int
-         :param support: support of an itemSet
-         :type support: int
+        :param tempPosition: position of last item
+        :type tempPosition : int
+        :param utility: total utility of itemSet
+        :type utility: int
+        :param support: support of an itemSet
+        :type support: int
         """
         self._patternCount += 1
         s1 = str()
@@ -682,16 +759,13 @@ class HUFIM(_ab._utilityPatterns):
 
     def _isEqual(self, transaction1: _Transaction, transaction2: _Transaction) -> bool:
         """
-         A method to Check if two transaction are identical
-
-         :Attributes:
-
-         :param  transaction1: the first transaction
-         :type  transaction1: Trans
-         :param  transaction2:    the second transaction
-         :type  transaction2: Trans
-         :return : whether both are identical or not
-         :rtype: bool
+        A method to Check if two transaction are identical
+        :param  transaction1: the first transaction
+        :type  transaction1: Trans
+        :param  transaction2:    the second transaction
+        :type  transaction2: Trans
+        :return : whether both are identical or not
+        :rtype: bool
         """
         length1 = len(transaction1.items) - transaction1.offset
         length2 = len(transaction2.items) - transaction2.offset
@@ -709,11 +783,9 @@ class HUFIM(_ab._utilityPatterns):
     def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset: _Dataset) -> None:
         """
         Scan the initial database to calculate the subtree utility of each item using a utility-bin array
-
-        :Attributes:
-
         :param dataset: the transaction database
         :type dataset: Dataset
+        :return : None
         """
         for transaction in dataset.getTransactions():
             sumSU = 0
@@ -731,13 +803,9 @@ class HUFIM(_ab._utilityPatterns):
     def _sortDatabase(self, transactions: List[_Transaction]) -> None:
         """
         A Method to sort transaction
-
-        :Attributes:
-
-        :param transactions: transaction of items
+        :param transactions: transactions of items
         :type transactions: list
-        :return: sorted transactions
-        :rtype: Trans or list
+        :return: None
         """
         compareItems = _ab._functools.cmp_to_key(self._sortTransaction)
         transactions.sort(key=compareItems)
@@ -745,15 +813,12 @@ class HUFIM(_ab._utilityPatterns):
     def _sortTransaction(self, trans1: _Transaction, trans2: _Transaction) -> int:
         """
         A Method to sort transaction
-
-        :Attributes:
-
         :param trans1: the first transaction
         :type trans1: Trans
         :param trans2:the second transaction
         :type trans2: Trans
         :return: sorted transaction
-        :rtype:Trans
+        :rtype: int
         """
         transItemsX = trans1.getItems()
         transItemsY = trans2.getItems()
@@ -787,11 +852,9 @@ class HUFIM(_ab._utilityPatterns):
     def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset: _Dataset) -> None:
         """
         A method to calculate local utility of single itemSets
-        :Attributes:
-
         :param dataset: the transaction database
         :type dataset: databases
-
+        :return: None
         """
         for transaction in dataset.getTransactions():
             for idx, item in enumerate(transaction.getItems()):
@@ -829,6 +892,7 @@ class HUFIM(_ab._utilityPatterns):
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
