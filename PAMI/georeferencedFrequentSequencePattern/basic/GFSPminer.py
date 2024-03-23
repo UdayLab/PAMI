@@ -7,29 +7,33 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.georeferencedFrequentSequencedPattern.basic import GFSPminer as alg
+#             from PAMI.georeferencedFrequentSequencedPattern.basic import GFSPminer as alg
 #
-#     obj=alg.GFSPminer("input.txt","Neighbours.txt",35)
+#             obj=alg.GFSPminer("input.txt","Neighbours.txt",35)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of Spatial High-Utility Patterns:", len(Patterns))
+#             print("Total number of Spatial High-Utility Patterns:", len(Patterns))
 #
-#     obj.save("output")
+#             obj.save("output")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -64,6 +68,20 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
                     transactional database.
 
     :Reference:   Suzuki Shota and Rage Uday kiran: towards efficient discovery of spatially interesting patterns in geo-referenced sequential databases: To be appeared in SSDBM 2023:
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Geo-referenced frequent sequence patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Geo-referenced frequent sequence patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param nFile: str :
+                   Name of the input file to mine complete set of Geo-referenced frequent sequence patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -152,11 +170,19 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
     **Executing the code on terminal:**
     ------------------------------------
-            Format:
-                >>> python3 GFSPminer.py <inputFile> <neighborFile> <minSup> (<separator>)
 
-            Examples:
-                >>> python3 GFSPminer.py sampleDB.txt sampleNeighbor.txt 10.0
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 GFSPminer.py <inputFile> <neighborFile> <minSup> (<separator>)
+
+      Example Usage:
+
+      (.venv) $ python3 GFSPminer.py sampleDB.txt sampleNeighbor.txt 10.0
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
     **Sample run of the importing code:**
     --------------------------------------
@@ -184,6 +210,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
              print("Total number of Frequent Patterns:", len(_Patterns))
 
              print("Error! The number of input parameters do not match the total number of parameters provided")
+
              _ap.save("priOut3.txt")
 
     **Credits:**
@@ -271,7 +298,9 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         To convert the user specified minSup value
 
         :param value: user specified minSup value
+        :type value: int or float or str
         :return: converted type
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -326,6 +355,8 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
     def Prune(self, startline):
         """
         To check k-1 length patterns are not failed.
+        :param startline: start line of the pattern
+        :type startline: int
         """
         for i in range(len(startline) - 1):
             if startline[i] != -1 and startline[i] != -2:
@@ -385,7 +416,7 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
     def make2LenDatabase(self):
         """
-                To make 2 length frequent patterns by joining two one length patterns by breadth-first search technique  and update xlenDatabase to sequential database
+        To make 2 length frequent patterns by joining two one length patterns by breadth-first search technique  and update xlenDatabase to sequential database
         """
         self._xLenDatabase = {}
         keyList = [i for i in self._Database.keys()]
@@ -462,6 +493,10 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
     def makexLenData(self, x):
         """
         To call each x length patterns to make x+1 length frequent patterns depth-first search technique
+
+        :param x: User specified x value to make it as Sequential Database
+
+        :type x: int
         """
         for i in self._xLenDatabase[x].keys():
             for k in self._xLenDatabase[x][i].keys():
@@ -481,10 +516,19 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
     def makexLenDatabase(self, rowLen, bs, latestWord):
         """
-             To make "rowLen" length frequent patterns from pattern which the latest word is in same seq  by joining "rowLen"-1 length patterns by depth-first search technique  and update xlenDatabase to sequential database
-             :param rowLen: row length of patterns
-             :param bs : patterns without the latest one
-             :param latestWord : latest word of patterns
+        To make "rowLen" length frequent patterns from pattern which the latest word is in same seq  by joining "rowLen"-1 length patterns by depth-first search technique  and update xlenDatabase to sequential database
+
+        :param rowLen: row length of patterns.
+
+        :type rowLen: int
+
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
         """
         if rowLen + 1 not in self._xLenDatabase:
             self._xLenDatabase[rowLen + 1] = {}
@@ -535,14 +579,21 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         """
         to check the pattern is frequent or not (ex a-bc from a-c and a-b )
 
-        :param rowLen: int
-            how long patterns(ex 1)
-        :param bs: list
-            prefix of patterns(ex [a])
-        :param latestWord: str
-            the latest word to convine(ex b)
-        :param latestWord2: str
-            the latest word to convine(ex c)
+        :param rowLen: row length of patterns.
+
+        :type rowLen: int
+
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
+        :param latestWord2 : latest word of other previous pattern in different sequence
+
+        :type latestWord2: str
 
         """
         if len(self._xLenDatabase[rowLen][bs][latestWord].keys()) <= len(
@@ -601,16 +652,23 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
     def makeFaster(self, rowLen, bs, latestWord, latestWord2):
         """
-        to check the pattern is frequent or not (ex a-b-c from a-c a-b)
+        To check the pattern is frequent or not (ex a-b-c from a-c a-b)
 
-        :param rowLen: int
-            how long patterns(ex 1)
-        :param bs: list
-            prefix of patterns(ex [a])
-        :param latestWord: str
-            the latest word to convince(ex b)
-        :param latestWord2: str
-            the latest word to convince(ex c)
+        :param rowLen: row length of patterns.
+
+        :type rowLen: int
+
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
+        :param latestWord2 : latest word of other previous pattern in different sequence
+
+        :type latestWord2: str
 
         """
         if len(self._xLenDatabase[rowLen][bs][latestWord].keys()) <= len(
@@ -668,16 +726,23 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
     def makeLater(self, rowLen, bs, latestWord, latestWord2):
         """
-        to check the pattern is frequent or not (ex ac-b from a-b ac)
+        To check the pattern is frequent or not (ex ac-b from a-b ac)
 
-        :param rowLen: int
-            how long patterns(ex 1)
-        :param bs: list
-            prefix of patterns(ex [a])
-        :param latestWord: str
-            the latest word to convince(ex b)
-        :param latestWord2: str
-            the latest word to convince(ex c)
+        :param rowLen: row length of patterns.
+
+        :type rowLen: int
+
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
+        :param latestWord2 : latest word of other previous pattern in different sequence
+
+        :type latestWord2: str
 
         """
 
@@ -740,15 +805,21 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         """
         to check the pattern is frequent or not (ex a-bc from a-c ab)
 
-        :param rowLen: int
-            how long patterns(ex 1)
-        :param bs: list
-            prefix of patterns(ex [a])
-        :param latestWord: str
-            the latest word to convince(ex b)
-        :param latestWord2: str
-            the latest word to convince(ex c)
+        :param rowLen: row length of patterns.
 
+        :type rowLen: int
+
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
+        :param latestWord2 : latest word of other previous pattern in different sequence
+
+        :type latestWord2: str
 
         """
         if len(self._xLenDatabase[rowLen][bs][latestWord].keys()) <= len(
@@ -805,16 +876,23 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
 
     def makeSame3(self, rowLen, bs, latestWord, latestWord2):
         """
-        to check the pattern is frequent or not (ex abc from ac ab)
+        To check the pattern is frequent or not (ex abc from ac ab)
 
-        :param rowLen: int
-            how long patterns(ex 1)
-        :param bs: list
-            prefix of patterns(ex [a])
-        :param latestWord: str
-            the latest word to convince(ex b)
-        :param latestWord2: str
-            the latest word to convince(ex c)
+        :param rowLen: row length of patterns.
+
+        :type rowLen: int
+
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
+        :param latestWord2 : latest word of other previous pattern in different sequence
+
+        :type latestWord2: str
 
         """
         if len(self._xLenDatabaseSame[rowLen][bs][latestWord].keys()) <= len(
@@ -873,9 +951,18 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         """
         To make 3 or more length frequent patterns from pattern which the latest word is in different seq  by depth-first search technique  and update xlenDatabase to sequential database
 
-         :param rowLen: row length of previous patterns.
-         :param bs : previous patterns without the latest one
-         :param latestWord : latest word of previous patterns
+        :param rowLen: row length of patterns.
+
+        :type rowLen: int
+
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
         """
         if rowLen + 1 not in self._xLenDatabase:
             self._xLenDatabase[rowLen + 1] = {}
@@ -899,9 +986,17 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         """
         To make pattern row when two patterns having the latest word in different sequence
 
-        :param bs : previous pattern without the latest one
-        :param latestWord : latest word of one previous pattern
-        :param latestWord2 : latest word of the other previous pattern
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
+        :param latestWord2 : latest word of other previous pattern in different sequence
+
+        :type latestWord2: str
         """
 
         bs = bs + (-1, latestWord)
@@ -912,9 +1007,18 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         """
         To make pattern row when one pattern having the latestWord in different sequence and other(latestWord2) in same
 
-        :param bs : previous pattern without the latest one
-        :param latestWord : latest word of one previous pattern in same sequence
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
         :param latestWord2 : latest word of other previous pattern in different sequence
+
+        :type latestWord2: str
+
         """
 
         bs = list(bs)
@@ -938,9 +1042,17 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         """
         To make pattern row when two patterns having the latest word in same sequence
 
-        :param bs : previous pattern without the latest one
-        :param latestWord : latest word of one previous pattern
-        :param latestWord2 : latest word of the other previous pattern
+        param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
+        :param latestWord2 : latest word of other previous pattern in different sequence
+
+        :type latestWord2: str
         """
 
         bs = list(bs)
@@ -966,9 +1078,17 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         """
         To make pattern row when two patterns having the latest word in different sequence and both latest word is in same sequence
 
-        :param bs : previous pattern without the latest one
-        :param latestWord : latest word of one previous pattern
-        :param latestWord2 : latest word of the other previous pattern
+        :param bs : patterns without the latest one
+
+        :type bs: int
+
+        :param latestWord : latest word of patterns
+
+        :type latestWord: str
+
+        :param latestWord2 : latest word of other previous pattern in different sequence
+
+        :type latestWord2: str
         """
 
         x = list(sorted({latestWord, latestWord2}))
@@ -999,7 +1119,8 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         print("Frequent patterns were generated successfully using Apriori algorithm ")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -1008,7 +1129,8 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -1017,7 +1139,8 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -1026,7 +1149,8 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -1040,7 +1164,8 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: csv file
@@ -1052,7 +1177,8 @@ class GFSPminer(_ab._GeorefarencedFequentialPatterns):
             writer.write("%s \n" % s1)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict

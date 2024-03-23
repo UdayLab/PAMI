@@ -27,7 +27,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
-
+#
 
 
 
@@ -158,7 +158,7 @@ class _Transaction:
     def removeUnpromisingItems(self, oldNamesToNewNames):
         """
         A method to remove items with low Utility than minUtil
-        :param oldNamesToNewNames: A map represent old namses to new names
+        :param oldNamesToNewNames: A map represent old names to new names
         :type oldNamesToNewNames: map
         """
         tempItems = []
@@ -224,6 +224,10 @@ class _Dataset:
     def createItemSets(self, datasetPath):
         """
         Storing the complete transactions of the database/input file in a database variable
+
+        :param datasetPath: Path to the input file
+
+        :type datasetPath: str
         """
         pmuString = None
         if isinstance(datasetPath, _ab._pd.DataFrame):
@@ -278,17 +282,14 @@ class _Dataset:
     def createTransaction(self, items, utilities, utilitySum, pmustring):
         """
         A method to create Transaction from dataset given
-            
-        :Attributes:
-
         :param items: represent a utility items in a transaction
+        :type items: list
         :param utilities: represent utility of an item in transaction
-        :param utilitySum: represent utility sum of  transaction
-        :type items: list of items
         :type utilities: list
+        :param utilitySum: represent utility sum of  transaction
         :type utilitySum: int
-        :return : Transaction
-        :rtype: Trans
+        :param pmustring: represent a pmustring in a given dataset
+        :type pmustring: str
         """
         transactionUtility = utilitySum
         itemsString = items
@@ -330,7 +331,26 @@ class SHUFIM(_ab._utilityPatterns):
     """
     :Description:  Spatial High Utility Frequent ItemSet Mining (SHUFIM) aims to discover all itemSets in a spatioTemporal database
                    that satisfy the user-specified minimum utility, minimum support and maximum distance constraints
+
     :Reference:    10.1007/978-3-030-37188-3_17
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Geo-referenced frequent sequence patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Geo-referenced frequent sequence patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param minUtil: int :
+                   The user given minUtil value.
+    :param candidateCount: int
+                   Number of candidates
+    :param maxMemory: int
+                   Maximum memory used by this program for running
+    :param nFile: str :
+                   Name of the input file to mine complete set of Geo-referenced frequent sequence patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -412,10 +432,19 @@ class SHUFIM(_ab._utilityPatterns):
 
     **Executing the code on terminal :**
     -----------------------------------------
-            Format:
-                    >>> python3 SHUFIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <minSup> <sep>
-            Examples:
-                    >>> python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 SHUFIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <minSup> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
     **Sample run of importing the code:**
     -----------------------------------------
@@ -484,7 +513,9 @@ class SHUFIM(_ab._utilityPatterns):
         To convert the type of user specified minSup value
 
         :param value: user specified minSup value
+        :type value: int o float or str
         :return: converted type
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -579,9 +610,6 @@ class SHUFIM(_ab._utilityPatterns):
     def _backtrackingEFIM(self, transactionsOfP, itemsToKeep, itemsToExplore, prefixLength):
         """
         A method to mine the SHUFIs Recursively
-
-        :Attributes:
-
         :param transactionsOfP: the list of transactions containing the current prefix P
         :type transactionsOfP: list
         :param itemsToKeep: the list of secondary items in the p-projected database
@@ -687,6 +715,8 @@ class SHUFIM(_ab._utilityPatterns):
         :type j:int
         :param itemsToKeep :the list of promising items
         :type itemsToKeep: list
+        :param neighbourhoodList : the list of promising items that can extend itemSet P U {e}
+        :type neighbourhoodList: list
 
         """
         for i in range(j + 1, len(itemsToKeep)):
@@ -715,12 +745,8 @@ class SHUFIM(_ab._utilityPatterns):
     def _calculateNeighbourIntersection(self, prefixLength):
         """
         A method to find common Neighbours
-
-        :Attributes:
-
         :param prefixLength: the prefix itemSet
         :type prefixLength:int
-
         """
         intersectionList = self._Neighbours.get(self._temp[0])
         for i in range(1, prefixLength+1):
@@ -736,9 +762,6 @@ class SHUFIM(_ab._utilityPatterns):
     def _output(self, tempPosition, utility, support):
         """
          A method save all high-utility itemSet to file or memory depending on what the user chose
-
-         :Attributes:
-
          :param tempPosition: position of last item
          :type tempPosition : int 
          :param utility: total utility of itemSet
@@ -756,16 +779,13 @@ class SHUFIM(_ab._utilityPatterns):
 
     def _isEqual(self, transaction1, transaction2):
         """
-         A method to Check if two transaction are identical
-
-         :Attributes:
-
-         :param  transaction1: the first transaction
-         :type  transaction1: Trans
-         :param  transaction2:   the second transaction
-         :type  transaction2: Trans
-         :return : whether both are identical or not
-         :rtype: bool
+        A method to Check if two transaction are identical
+        :param  transaction1: the first transaction
+        :type  transaction1: Trans
+        :param  transaction2:   the second transaction
+        :type  transaction2: Trans
+        :return : whether both are identical or not
+        :rtype: bool
         """
 
         length1 = len(transaction1.items) - transaction1.offset
@@ -799,9 +819,6 @@ class SHUFIM(_ab._utilityPatterns):
     def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset):
         """
         Scan the initial database to calculate the subtree utility of each item using a utility-bin array
-
-        :Attributes:
-
         :param dataset: the transaction database
         :type dataset: Dataset
         """
@@ -825,9 +842,6 @@ class SHUFIM(_ab._utilityPatterns):
     def _sortDatabase(self, transactions):
         """
         A Method to sort transaction in the order of PMU
-
-        :Attributes:
-
         :param transactions: transaction of items
         :type transactions: Transaction
         :return: sorted transaction
@@ -839,9 +853,6 @@ class SHUFIM(_ab._utilityPatterns):
     def _sortTransaction(self, trans1, trans2):
         """
         A Method to sort transaction in the order of PMU
-
-        :Attributes:
-
         :param trans1: the first transaction
         :type trans1: Trans
         :param trans2:the second transaction
@@ -881,9 +892,6 @@ class SHUFIM(_ab._utilityPatterns):
     def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset):
         """
         A method to scan the database using utility bin array to calculate the pmus
-
-        :Attributes:
-
         :param dataset: the transaction database
         :type dataset: dataset
         """
@@ -907,7 +915,6 @@ class SHUFIM(_ab._utilityPatterns):
     def getPatternsAsDataFrame(self):
         """
         Storing final patterns in a dataframe
-
         :return: returning patterns in a dataframe
         :rtype: pd.DataFrame
         """

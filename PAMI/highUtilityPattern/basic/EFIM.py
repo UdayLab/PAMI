@@ -27,6 +27,8 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
+
 
 
 
@@ -98,6 +100,8 @@ class _Transaction:
         A method to create new Transaction from existing transaction starting from offsetE until the end
         :param offsetE: an offset over the original transaction for projecting the transaction
         :type offsetE: int
+        :return: a new transaction after projecting the transaction starting from offsetE until the end of the transaction
+        :rtype: _Transaction
         """
         new_transaction = _Transaction(self.items, self.utilities, self.transactionUtility)
         utilityE = self.utilities[offsetE]
@@ -111,18 +115,24 @@ class _Transaction:
     def getItems(self) -> list:
         """
         A method to return items in transaction
+        :return: list of items in transaction after projecting the transaction starting from offsetE until the end of the transaction
+        :rtype: list
         """
         return self.items
 
     def getUtilities(self) -> list:
         """
         A method to return utilities in transaction
+        :return: list of utilities in transaction
+        :rtype: list
         """
         return self.utilities
 
     def getLastPosition(self) -> int:
         """
         A method to return last position in a transaction
+        :return: last position in a transaction after projecting the transaction starting from offsetE until the end of the transaction
+        :rtype: int
         """
 
         return len(self.items) - 1
@@ -132,6 +142,7 @@ class _Transaction:
         A method to remove items which are not present in the map passed to the function
         :param oldNamesToNewNames: A map represent old names to new names
         :type oldNamesToNewNames: map
+        :return: None
         """
         tempItems = []
         tempUtilities = []
@@ -148,6 +159,7 @@ class _Transaction:
     def insertionSort(self) -> None:
         """
         A method to sort items in order
+        :return: None
         """
         for i in range(1, len(self.items)):
             key = self.items[i]
@@ -197,9 +209,9 @@ class _Dataset:
     def createItemsets(self, datasetPath: Union[str, _ab._pd.DataFrame]) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
-        : param datasetPath: It represents the peth for the dataset
-        : type datasetPath: str
-        : return: None
+        :param datasetPath: It represents the peth for the dataset
+        :type datasetPath: str
+        :return: None
         """
         self.Database = []
         if isinstance(datasetPath, _ab._pd.DataFrame):
@@ -246,14 +258,17 @@ class _Dataset:
     def createTransaction(self, itemsString: list, utilityString: list, transactionUtility: int) -> '_Transaction':
         """
         A method to create Transaction from dataset given
-            
-        :Attributes:
-
-        :param line: represent a single line of database
-        :type line: string
-        :return : Transaction
-        :rtype: Trans
+        :param itemsString: List of strings representing transactions
+        :type itemsString: list
+        :param utilityString: List of strings representing utility
+        :type utilityString: list
+        :param transactionUtility: Integer representing transaction utility
+        :type transactionUtility: int
+        :return: created Transaction from the given dataset
+        :rtype: _Transaction
         """
+
+
         '''trans_list = line.strip().split(':')
         transactionUtility = int(trans_list[1])
         itemsString = trans_list[0].strip().split(self.sep)
@@ -277,12 +292,16 @@ class _Dataset:
     def getMaxItem(self) -> int:
         """
         A method to return name of the largest item
+        :return: the largest item
+        :rtype: int
         """
         return self.maxItem
 
     def getTransactions(self) -> list:
         """
         A method to return transactions from database
+        :return: the list of transactions from database
+        :rtype: list
         """
         return self.transactions
 
@@ -293,7 +312,21 @@ class EFIM(_ab._utilityPatterns):
     
     :Reference:      Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
                     high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
-    
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of High Utility patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of High Utility patterns
+    :param minUtil: int :
+                   The user given minUtil value.
+    :param candidateCount: int
+                   Number of candidates specified by user
+    :param maxMemory: int
+                   Maximum memory used by this program for running
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : file
@@ -364,13 +397,18 @@ class EFIM(_ab._utilityPatterns):
 
     **Executing the code on terminal:**
     ------------------------------------------
-        Format:
 
-                  >>> python3 EFIM.py <inputFile> <outputFile> <minUtil> <sep>
-        Examples:
+    .. code-block:: console
 
-                  >>> python3 EFIM sampleTDB.txt output.txt 35
-                  >>> python3 EFIM sampleTDB.txt output.txt 35
+      Format:
+
+      (.venv) $ python3 EFIM.py <inputFile> <outputFile> <minUtil> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 EFIM sampleTDB.txt output.txt 35
+
+    .. note:: maxMemory will be considered as Maximum memory used by this program for running
 
     Sample run of importing the code:
     -------------------------------------
@@ -496,9 +534,6 @@ class EFIM(_ab._utilityPatterns):
     def _backTrackingEFIM(self, transactionsOfP: list, itemsToKeep: list, itemsToExplore: list, prefixLength: int) -> None:
         """
         A method to mine the HUIs Recursively
-
-        :Attributes:
-
         :param transactionsOfP: the list of transactions containing the current prefix P
         :type transactionsOfP: list
         :param itemsToKeep: the list of secondary items in the p-projected database
@@ -507,6 +542,7 @@ class EFIM(_ab._utilityPatterns):
         :type itemsToExplore: list
         :param prefixLength: current prefixLength
         :type prefixLength: int
+        :return: None
         """
         self._candidateCount += len(itemsToExplore)
         for idx, e in enumerate(itemsToExplore):
@@ -578,15 +614,13 @@ class EFIM(_ab._utilityPatterns):
     def _useUtilityBinArraysToCalculateUpperBounds(self, transactionsPe: list, j: int, itemsToKeep: list) -> None:
         """
         A method to  calculate the subtree utility and local utility of all items that can extend itemSet P U {e}
-
-        :Attributes:
-
         :param transactionsPe: transactions the projected database for P U {e}
         :type transactionsPe: list
         :param j:the position of j in the list of promising items
         :type j:int
         :param itemsToKeep :the list of promising items
         :type itemsToKeep: list
+        :return: None
         """
         for i in range(j + 1, len(itemsToKeep)):
             item = itemsToKeep[i]
@@ -606,13 +640,11 @@ class EFIM(_ab._utilityPatterns):
     def _output(self, tempPosition: int, utility: int) -> None:
         """
         Method to print high utility items
-
-        :Attributes:
-
         :param tempPosition: position of last item
         :type tempPosition : int
         :param utility: total utility of itemSet
         :type utility: int
+        :return: None
         """
         self._patternCount += 1
         s1 = str()
@@ -625,9 +657,6 @@ class EFIM(_ab._utilityPatterns):
     def _isEqual(self, transaction1: '_Transaction', transaction2: '_Transaction') -> bool:
         """
          A method to Check if two transaction are identical
-
-         :Attributes:
-
          :param  transaction1: the first transaction
          :type  transaction1: Trans
          :param  transaction2:    the second transaction
@@ -651,11 +680,9 @@ class EFIM(_ab._utilityPatterns):
     def _useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self, dataset: '_Dataset') -> None:
         """
         Scan the initial database to calculate the subtree utility of each item using a utility-bin array
-
-        :Attributes:
-
         :param dataset: the transaction database
         :type dataset: list
+        :return: None
         """
         for transaction in dataset.getTransactions():
             sumSU = 0
@@ -671,14 +698,10 @@ class EFIM(_ab._utilityPatterns):
 
     def _sortDatabase(self, transactions: list) -> None:
         """
-        A Method to sort transaction
-
-        :Attributes:
-
+        A Method to sort transactions
         :param transactions: transaction of items
         :type transactions: Transaction
-        :return: sorted transactions
-        :rtype: Trans
+        :return: None
         """
         cmp_items = _ab._functools.cmp_to_key(self.sort_transaction)
         transactions.sort(key=cmp_items)
@@ -686,15 +709,12 @@ class EFIM(_ab._utilityPatterns):
     def sort_transaction(self, trans1: '_Transaction', trans2: '_Transaction') -> int:
         """
         A Method to sort transaction
-
-        :Attributes:
-
         :param trans1: the first transaction
         :type trans1: Trans
         :param trans2:the second transaction
         :type trans2: Trans
         :return: sorted transaction
-        :rtype:    Trans
+        :rtype: int
         """
         trans1_items = trans1.getItems()
         trans2_items = trans2.getItems()
@@ -728,11 +748,9 @@ class EFIM(_ab._utilityPatterns):
     def _useUtilityBinArrayToCalculateLocalUtilityFirstTime(self, dataset: '_Dataset') -> None:
         """
         A method to calculate local utility of single itemset
-
-        :Attributes:
-
         :param dataset: the transaction database
         :type dataset: dataset
+        :return: None
         """
         for transaction in dataset.getTransactions():
             for item in transaction.getItems():
@@ -746,7 +764,7 @@ class EFIM(_ab._utilityPatterns):
         Storing final patterns in a dataframe
         :return: returning patterns in a dataframe
         :rtype: pd.DataFrame
-            """
+        """
         dataFrame = {}
         data = []
         for a, b in self._finalPatterns.items():
@@ -768,6 +786,7 @@ class EFIM(_ab._utilityPatterns):
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -789,7 +808,7 @@ class EFIM(_ab._utilityPatterns):
         Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
-       """
+        """
         return self._memoryRSS
 
     def getRuntime(self) -> float:
@@ -797,7 +816,7 @@ class EFIM(_ab._utilityPatterns):
         Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-       """
+        """
         return self._endTime-self._startTime
 
     def printResults(self) -> None:

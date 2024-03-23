@@ -27,6 +27,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -66,7 +67,19 @@ class efimParallel(_ab._utilityPatterns):
     
     :Reference:     Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
                      high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
-    
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of High Utility patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of High Utility patterns
+    :param minUtil: int :
+                   The user given minUtil value.
+    :param maxMemory: int
+                   Maximum memory used by this program for running
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         inputFile (str):
@@ -212,12 +225,13 @@ class efimParallel(_ab._utilityPatterns):
         """
         Do a binary search on the given array to find the given item.
 
-        :Attributes:
+        :param arr: The array to search in
 
-            arr (list):
-                The array to search in.
-            item (int):
-                The item to search for.
+        :type arr: list
+
+        :param item: The item to search for
+
+        :type item: int
 
         :return:
 
@@ -245,14 +259,17 @@ class efimParallel(_ab._utilityPatterns):
         """
         Project the given beta itemset on the given database.
 
-        :Attributes:
+        :param beta: The beta itemset to project
 
-            beta (list):
-                The beta itemset to project.
-            file_data (dict):
-                The database to project on.
-            secondary (set):
-                The set of secondary items.
+        :type beta: list
+
+        :param file_data: The database to project on
+
+        :type file_data: dict
+
+        :param secondary: The set of secondary items
+
+        :type secondary: set
 
         :return:
 
@@ -326,10 +343,9 @@ class efimParallel(_ab._utilityPatterns):
         """
         Search for frequent patterns in the given collections.
 
-        :Attributes:
+        :param collections: The collections to search in
 
-            collections (list):
-                The collections to search in.
+        :type collections: list
         """
 
         if (self.threads > 1):
@@ -371,8 +387,6 @@ class efimParallel(_ab._utilityPatterns):
     def startMine(self):
         """
         Start the EFIM algorithm.
-
-        :return: None
         """
 
         ps = psutil.Process(os.getpid())
@@ -421,8 +435,9 @@ class efimParallel(_ab._utilityPatterns):
         """
         Get the patterns discovered by the algorithm.
 
-        :return:
-            dict: A dictionary containing the discovered patterns.
+        :return: A dictionary containing the discovered patterns.
+
+        :rtype: dict
         """
         return self.Patterns
 
@@ -430,8 +445,9 @@ class efimParallel(_ab._utilityPatterns):
         """
         Get the runtime of the algorithm.
 
-        :return:
-            float: The runtime in seconds.
+        :return: The runtime in seconds.
+
+        :rtype: float
         """
         return self.runtime
 
@@ -439,8 +455,9 @@ class efimParallel(_ab._utilityPatterns):
         """
         Get the Resident Set Size (RSS) memory usage of the algorithm.
 
-        :return:
-            int: The RSS memory usage in bytes.
+        :return: The RSS memory usage in bytes.
+
+        :rtype: int
         """
         return self.memoryRSS
 
@@ -448,8 +465,9 @@ class efimParallel(_ab._utilityPatterns):
         """
         Get the Unique Set Size (USS) memory usage of the algorithm.
 
-        :return:
-            int: The USS memory usage in bytes.
+        :return: The USS memory usage in bytes.
+
+        :rtype: int
         """
         return self.memoryUSS
 

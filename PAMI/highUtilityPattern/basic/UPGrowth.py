@@ -27,6 +27,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -85,6 +86,8 @@ class _UPItem:
     def getUtility(self) -> int:
         """
         method to get node utility
+        :return: Utility value of Node
+        :rtype: int
         """
         return self.utility
 
@@ -93,12 +96,15 @@ class _UPItem:
         method to set node utility
         :param utility: the utility to set
         :type utility: int
+        :return: None
         """
         self.utility = utility
 
     def getName(self) -> int:
         """
         method to get name for particular item
+        :return: name of particular item
+        :rtype: int
         """
         return self.name
 
@@ -144,6 +150,8 @@ class _UPNode:
         method to get child node Return the immediate child of this node having a given name
         :param name: represent id of item
         :type name: int
+        :return: id of child node with same itemid
+        :rtype: int
         """
         for child in self.childs:
             if child.itemId == name:
@@ -199,6 +207,8 @@ class _UPTree:
         :type transaction: list
         :param RTU :reorganised transaction utility
         :type RTU: int
+        :return: the number of transactions added
+        :rtype: int
         """
         currentNode = self.root
         NumberOfNodes = 0
@@ -245,6 +255,8 @@ class _UPTree:
         :type mapItemToMinimumItemutility: map
         :param pathCount: the Path count
         :type pathCount: int
+        :return: The number of nodes in the tree that have been added or removed from the tree
+        :rtype: int
         """
         currentLocalNode = self.root
         RemainingUtility = 0
@@ -289,6 +301,8 @@ class _UPTree:
         :type itemName: int
         :param nodeUtility: Utility of new node
         :type nodeUtility: int
+        :return: The newly created UPNode
+        :rtype: _UPNode
         """
         newNode = _UPNode()
         newNode.itemId = itemName
@@ -312,6 +326,7 @@ class _UPTree:
         A Method for creating the list of items in the header table, in descending order of TWU or path utility.
         :param mapItemToTwu: the Utilities of each item
         :type mapItemToTwu: map
+        :return: None
         """
         self.headerList = list(self.mapItemNodes.keys())
         self.headerList = sorted(self.headerList, key=lambda x: mapItemToTwu[x], reverse=True)
@@ -324,6 +339,20 @@ class UPGrowth(_ab._utilityPatterns):
     :Reference:     Vincent S. Tseng, Cheng-Wei Wu, Bai-En Shie, and Philip S. Yu. 2010. UP-Growth: an efficient algorithm for high utility itemset mining.
                     In Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining (KDD '10).
                     Association for Computing Machinery, New York, NY, USA, 253–262. DOI:https://doi.org/10.1145/1835804.1835839
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of High Utility patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of High Utility patterns
+    :param minUtil: int :
+                   The user given minUtil value.
+    :param candidateCount: int
+                   Number of candidates specified by user
+    :param maxMemory: int
+                   Maximum memory used by this program for running
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -375,12 +404,19 @@ class UPGrowth(_ab._utilityPatterns):
 
     **Executing the code on terminal:**
     ---------------------------------------------
-        Format:
 
-                  >>> python3 UPGrowth <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
-        Examples:
+    .. code-block:: console
 
-                  >>> python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35
+      Format:
+
+      (.venv) $ python3 UPGrowth <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35
+
+    .. note:: maxMemory will be considered as Maximum memory used by this program for running
+
 
     Sample run of importing the code:
     -------------------------------------
@@ -440,6 +476,7 @@ class UPGrowth(_ab._utilityPatterns):
     def _creatingItemSets(self) -> None:
         """
         Storing the complete transactions of the database/input file in a database variable
+        :return: None
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -475,6 +512,7 @@ class UPGrowth(_ab._utilityPatterns):
     def startMine(self) -> None:
         """
         Mining process will start from here
+        :return: None
         """
         self._startTime = _ab._time.time()
         tree = _UPTree()
@@ -566,6 +604,7 @@ class UPGrowth(_ab._utilityPatterns):
         :type tree: UPTree
         :param alpha: prefix itemset
         :type alpha: list
+        :return: None
         """
         for item in reversed(tree.headerList):
             localTree = self._createLocalTree(tree, item)
@@ -589,6 +628,8 @@ class UPGrowth(_ab._utilityPatterns):
         :type tree: UP Tree
         :param item: item that need to construct conditional patterns
         :type item: int
+        :return: the conditional pattern based UPTree
+        :rtype: _UPTree
         """
         prefixPaths = []
         path = tree.mapItemNodes[item]
@@ -629,6 +670,7 @@ class UPGrowth(_ab._utilityPatterns):
     def PrintStats(self) -> None:
         """
         A Method to print number of phuis
+        :return: None
         """
         print('number of PHUIS are ' + str(len(self._phuis)))
 
@@ -659,6 +701,7 @@ class UPGrowth(_ab._utilityPatterns):
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -694,6 +737,7 @@ class UPGrowth(_ab._utilityPatterns):
     def printResults(self) -> None:
         """
         This function is used to print the results
+        :return: None
         """
         print("Total number of High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

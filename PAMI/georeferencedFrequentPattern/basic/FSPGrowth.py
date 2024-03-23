@@ -4,30 +4,33 @@
 # **Importing this algorithm into a python program**
 # -------------------------------------------------------
 #
-#         from PAMI.georeferencedFrequentPattern.basic import FSPGrowth as alg
+#             from PAMI.georeferencedFrequentPattern.basic import FSPGrowth as alg
 #
-#         obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
+#             obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
 #
-#         obj.startMine()
+#             obj.startMine()
 #
-#         spatialFrequentPatterns = obj.getPatterns()
+#             spatialFrequentPatterns = obj.getPatterns()
 #
-#         print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
+#             print("Total number of Spatial Frequent Patterns:", len(spatialFrequentPatterns))
 #
-#         obj.save("outFile")
+#             obj.save("outFile")
 #
-#         memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#         print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#         memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#         print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#         run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#         print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -112,8 +115,10 @@ class _Tree:
         """
         Create tree or add transaction into yourself.
 
-        :param transaction: list
-        :param count: int
+        :param transaction: Transactions list
+        :type transaction: list
+        :param count: Number of items in the transactions list
+        :type count: int
         :return: Tree
         """
         current = self.root
@@ -131,8 +136,8 @@ class _Tree:
         """
         Maintain link of node by adding node to nodeLink
 
-        :param node: Node
-        :return:
+        :param node: Node to link
+        :type node: Node
         """
         if node.item in self.nodeLink:
             self.nodeLink[node.item].append(node)
@@ -144,8 +149,10 @@ class _Tree:
         """
         Create conditional pattern base based on item and neighbour
 
-        :param item: int
-        :param neighbour: dict
+        :param item: Item to check conditional pattern
+        :type item: str
+        :param neighbour: Neighbour to check conditional pattern
+        :type neighbour: dict
         :return: Tree
         """
         pTree = _Tree()
@@ -160,8 +167,10 @@ class _Tree:
         """
         Merge tree into yourself
 
-        :param tree: Tree
-        :param fpList: list
+        :param tree: Tree to merge into yourself
+        :type tree: Tree
+        :param fpList: List of FPs to merge into yourself after merging into your tree and creating your own transactions
+        :type fpList: list
         :return: Tree
         """
         transactions = tree.createTransactions(fpList)
@@ -173,8 +182,10 @@ class _Tree:
         """
         Create transactions that configure yourself
 
-        :param fpList: list
+        :param fpList: List of FPs to merge into yourself after merging into your tree and creating your own transactions
+        :type fpList: list
         :return: transaction list
+        :rtype: list
         """
         transactions = []
         flist = [x for x in fpList if x in self.nodeLink]
@@ -194,11 +205,16 @@ class _Tree:
         """
         Get frequent patterns based on suffixItem
 
-        :param item: int
-        :param suffixItem: tuple
-        :param minSup: int
-        :param neighbour: dict
-        :return: list
+        :param item: Item to get patterns
+        :type item: int
+        :param suffixItem: Suffix item to get patterns
+        :type suffixItem: tuple
+        :param minSup: Minimum Support to get patterns
+        :type minSup: int
+        :param neighbour: Neighbour item to consider in the pattern
+        :type neighbour: dict
+        :return: Pattern list
+        :rtype: list
         """
         pTree = self.createCPB(item, neighbour)
         frequentItems = {}
@@ -218,9 +234,10 @@ class _Tree:
         """
         Pattern mining on your own
 
-        :param minSup: int
+        :param minSup: Minimum Support for your pattern for Mining
+        :type minSup: int or float
         :param neighbourhood: function
-        :param neighbourhood: dict
+        :type neighbourhood: dict
         :return: list
         """
         frequentPatterns = []
@@ -237,6 +254,19 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     :Reference:   Rage, Uday & Fournier Viger, Philippe & Zettsu, Koji & Toyoda, Masashi & Kitsuregawa, Masaru. (2020).
                   Discovering Frequent Spatial Patterns in Very Large Spatiotemporal Databases.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Geo-referenced frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Geo-referenced frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param nFile: str :
+                   Name of the input file to mine complete set of Geo-referenced frequent patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     :Attributes:
 
@@ -293,13 +323,21 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
             This function generates all frequent patterns
 
     **Executing the code on terminal :**
-    --------------------------------------
+    ----------------------------------------
 
-        Format:
-            >>> python3 FSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup>
+    .. code-block:: console
 
-        Examples:
-            >>> python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5
+      Format:
+
+      (.venv) $ python3 FSPGrowth.py <inputFile> <outputFile> <neighbourFile> <minSup>
+
+      Example Usage:
+
+      (.venv) $ python3 FSPGrowth.py sampleTDB.txt output.txt sampleN.txt 0.5
+
+    .. note:: minSup will be considered in percentage of database transactions
+
+
 
     **Sample run of importing the code :**
     ----------------------------------------
@@ -431,7 +469,9 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         self._fpList = list(dict(sorted(oneFrequentItem.items(), key=lambda x: x[1], reverse=True)))
 
     def _createFPTree(self):
-        """ create FP Tree and self.fpList from self.Database"""
+        """
+        Create FP Tree and self.fpList from self.Database
+        """
         FPTree = _Tree()
         for transaction in self._Database:
             FPTree.createTree(transaction, 1)
@@ -450,7 +490,9 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+        :type value: int or float or str
         :return: converted value
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -466,7 +508,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
     def startMine(self):
         """
-        start pattern mining from here
+        Start pattern mining from here
         """
         self._startTime = _ab._time.time()
         self._finalPatterns = {}
@@ -486,7 +528,8 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         print("Frequent Spatial Patterns successfully generated using FSPGrowth")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -495,7 +538,8 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
@@ -504,7 +548,8 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
@@ -513,7 +558,8 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame

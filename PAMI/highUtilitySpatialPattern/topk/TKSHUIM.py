@@ -30,12 +30,14 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
+
 
 
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -165,7 +167,7 @@ class Transaction:
 
     def insertionSort(self):
         """
-            A method to sort items in order
+        A method to sort items in order
         """
         for i in range(1, len(self.items)):
             key = self.items[i]
@@ -217,13 +219,11 @@ class Dataset:
     def createTransaction(self, line):
         """
         A method to create Transaction from dataset given
-            
-        :Attributes:
 
         :param line: represent a single line of database
         :type line: string
         :return : Transaction.
-        :rtype: Transaction
+        :rtype: int
         """
         trans_list = line.strip().split(':')
         transactionUtility = int(trans_list[1])
@@ -274,13 +274,20 @@ class TKSHUIM(utilityPatterns):
        doi: 10.1109/BigData52589.2021.9671912.
 
     :param  iFile: str :
-                   Name of the Input file to mine complete set of frequent patterns
+                   Name of the Input file to mine complete set of High Utility Spatial patterns
     :param  oFile: str :
-                   Name of the output file to store complete set of frequent patterns
-    :param  k: int :
-                    User specified count of top frequent patterns
+                   Name of the output file to store complete set of High Utility Spatial patterns
+    :param minUtil: int :
+                   Minimum utility threshold given by User
+    :param maxMemory: int :
+                   Maximum memory used by this program for running
+    :param candidateCount: int :
+                   Number of candidates to consider when calculating a high utility spatial pattern
+    :param nFile: str :
+                   Name of the input file to mine complete set of High Utility Spatial patterns
     :param  sep: str :
                    This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -355,11 +362,20 @@ class TKSHUIM(utilityPatterns):
              A method to scan the database using utility bin array to calculate the pmus                   
 
     **Executing the code on terminal:**
-    ------------------------------------
-            Format:
-                    >>> python3 TKSHUIM.py <inputFile> <outputFile> <Neighbours> <k> <sep>
-            Examples:
-                    >>> python3 TKSHUIM.py sampleTDB.txt output.txt sampleN.txt 35
+    -------------------------------------
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 TKSHUIM.py <inputFile> <outputFile> <Neighbours> <k> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 TKSHUIM.py sampleTDB.txt output.txt sampleN.txt 35
+
+    .. note:: maxMemory will be considered as Maximum memory used by this program for running
+
 
     **Sample run of importing the code:**
     ----------------------------------------
@@ -572,14 +588,14 @@ class TKSHUIM(utilityPatterns):
         """
         A method to  calculate the sub-tree utility and local utility of all items that can extend itemSet P U {e}
 
-
         :param transactionsPe: transactions the projected database for P U {e}
         :type transactionsPe: list
         :param j:the position of j in the list of promising items
         :type j:int
         :param itemsToKeep :the list of promising items
         :type itemsToKeep: list
-
+        :param neighbourhoodList: list of neighbourhood elements
+        :type neighbourhoodList: list
         """
         for i in range(j + 1, len(itemsToKeep)):
             item = itemsToKeep[i]
@@ -610,7 +626,6 @@ class TKSHUIM(utilityPatterns):
 
         :param prefixLength: the prefix itemSet
         :type prefixLength:int
-
         """
         intersectionList = self.Neighbours.get(self.temp[0])
         for i in range(1, prefixLength+1):
@@ -625,12 +640,12 @@ class TKSHUIM(utilityPatterns):
     
     def output(self, tempPosition, utility):
         """
-         A method save all high-utility itemSet to file or memory depending on what the user chose
+        A method save all high-utility itemSet to file or memory depending on what the user chose
 
-         :param tempPosition: position of last item
-         :type tempPosition : int 
-         :param utility: total utility of itemSet
-         :type utility: int
+        :param tempPosition: position of last item
+        :type tempPosition : int
+        :param utility: total utility of itemSet
+        :type utility: int
         """
         s1 = str()
         for i in range(0, tempPosition+1):
@@ -641,14 +656,14 @@ class TKSHUIM(utilityPatterns):
 
     def is_equal(self, transaction1, transaction2):
         """
-         A method to Check if two transaction are identical
+        A method to Check if two transaction are identical
 
-         :param  transaction1: the first transaction.
-         :type  transaction1: Transaction
-         :param  transaction2:   the second transaction.
-         :type  transaction2: Transaction
-         :return : whether both are identical or not
-         :rtype: bool
+        :param  transaction1: the first transaction.
+        :type  transaction1: Transaction
+        :param  transaction2:   the second transaction.
+        :type  transaction2: Transaction
+        :return : whether both are identical or not
+        :rtype: bool
         """
 
         length1 = len(transaction1.items) - transaction1.offset
@@ -724,7 +739,7 @@ class TKSHUIM(utilityPatterns):
         :param trans2:the second transaction.
         :type trans2: Transaction
         :return: sorted transaction.
-        :rtype:    Transaction
+        :rtype: int
         """
         trans1_items = trans1.getItems()
         trans2_items = trans2.getItems()
@@ -761,7 +776,6 @@ class TKSHUIM(utilityPatterns):
 
         :param dataset: the transaction database.
         :type dataset: database
-
         """
         utilityMatrix = defaultdict(lambda: defaultdict(int))
         for transaction in dataset.getTransactions():
@@ -800,6 +814,14 @@ class TKSHUIM(utilityPatterns):
     def additemset(self, itemset, utility):
         """
         adds the itemset to the priority queue
+
+        :param itemset: the itemset to be added
+
+        :type itemset: str
+
+        :param utility: utility matrix for the itemset to be added
+
+        :type utility: numpy.array
         """
         heapq.heappush(self.heapList, (utility, itemset))
         if len(self.heapList) > self.k:
@@ -810,7 +832,8 @@ class TKSHUIM(utilityPatterns):
             self.minUtil = heapq.nsmallest(1, self.heapList)[0][0]
 
     def getPatternsAsDataFrame(self):
-        """Storing final patterns in a dataframe
+        """
+        Storing final patterns in a dataframe
 
         :return: returning patterns in a dataframe
         :rtype: pd.DataFrame
@@ -824,7 +847,8 @@ class TKSHUIM(utilityPatterns):
         return dataFrame
     
     def getPatterns(self):
-        """ Function to send the set of patterns after completion of the mining process
+        """
+        Function to send the set of patterns after completion of the mining process
 
         :return: returning patterns
         :rtype: dict
@@ -832,7 +856,8 @@ class TKSHUIM(utilityPatterns):
         return self.finalPatterns
 
     def save(self, outFile):
-        """Complete set of patterns will be loaded in to an output file
+        """
+        Complete set of patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: csv file
@@ -844,7 +869,8 @@ class TKSHUIM(utilityPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -853,24 +879,26 @@ class TKSHUIM(utilityPatterns):
         return self.memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
-       """
+        """
         return self.memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-       """
+        """
         return self.endTime-self.startTime
 
     def printResults(self):
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Top K Spatial  High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

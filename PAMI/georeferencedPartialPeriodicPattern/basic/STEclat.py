@@ -3,30 +3,33 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     import PAMI.georeferencedPartialPeriodicPattern.STEclat as alg
+#             import PAMI.georeferencedPartialPeriodicPattern.STEclat as alg
 #
-#     obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 3, 4)
+#             obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 3, 4)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     partialPeriodicSpatialPatterns = obj.getPatterns()
+#             partialPeriodicSpatialPatterns = obj.getPatterns()
 #
-#     print("Total number of Periodic Spatial Frequent Patterns:", len(partialPeriodicSpatialPatterns))
+#             print("Total number of Periodic Spatial Frequent Patterns:", len(partialPeriodicSpatialPatterns))
 #
-#     obj.save("outFile")
+#             obj.save("outFile")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -58,6 +61,19 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     :Reference:   R. Uday Kiran, C. Saideep, K. Zettsu, M. Toyoda, M. Kitsuregawa and P. Krishna Reddy,
                  "Discovering Partial Periodic Spatial Patterns in Spatiotemporal Databases," 2019 IEEE International
                   Conference on Big Data (Big Data), 2019, pp. 233-238, doi: 10.1109/BigData47090.2019.9005693.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Geo-referenced Partial Periodic patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Geo-referenced Partial Periodic patterns
+    :param  minPS: int or float or str :
+                   The user can specify minPS either in count or proportion of database size. If the program detects the data type of minPS is integer, then it treats minPS is expressed in count. Otherwise, it will be treated as float.
+    :param maxIAT: int or float or str :
+                   The user can specify maxIAT either in count or proportion of database size. If the program detects the data type of maxIAT is integer, then it treats maxIAT is expressed in count. Otherwise, it will be treated as float.
+    :param nFile: str :
+                   Name of the input file to mine complete set of Geo-referenced Partial Periodic patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     :Attributes:
 
@@ -121,13 +137,20 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
             A function to map items to their neighbours
 
     **Executing the code on terminal :**
-    --------------------------------------
+    ----------------------------------------
 
-        Format:
-            >>> python3 STEclat.py <inputFile> <outputFile> <neighbourFile>  <minPS>  <maxIAT>
+    .. code-block:: console
 
-        Examples:
-            >>> python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 0.2 0.5 (maxIAT & minPS will be considered in percentage of database transactions)
+      Format:
+
+      (.venv) $ python3 STEclat.py <inputFile> <outputFile> <neighbourFile>  <minPS>  <maxIAT>
+
+      Example Usage:
+
+      (.venv) $ python3 STEclat.py sampleTDB.txt output.txt sampleN.txt 0.2 0.5
+
+    .. note:: maxIAT & minPS will be considered in percentage of database transactions
+
 
     **Sample run of importing the code :**
     --------------------------------------
@@ -183,7 +206,6 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
     def _creatingItemSets(self):
         """
         Storing the complete transactions of the database/input file in a database variable
-
         """
         self._Database = []
         if isinstance(self._iFile, _ab._pd.DataFrame):
@@ -223,7 +245,9 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
 
     # function to get frequent one pattern
     def _frequentOneItem(self):
-        """Generating one frequent patterns"""
+        """
+        Generating one frequent patterns
+        """
         self._tidList = {}
         self._mapSupport = {}
         self._maxIAT = self._convert(self._maxIAT)
@@ -251,7 +275,12 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+
+        :type value: int or float or str
+
         :return: converted value
+
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -290,7 +319,6 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         :type suffix: list
         :param tidSetX: the timestamp of a patterns
         :type tidSetX: list
-
 
         """
         if prefix is None:
@@ -394,7 +422,9 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
                     quit()
 
     def startMine(self):
-        """Frequent pattern mining process will start from here"""
+        """
+        Frequent pattern mining process will start from here
+        """
 
         # global items_sets, endTime, startTime
         self._startTime = _ab._time.time()
@@ -433,7 +463,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         print("Spatial Periodic Frequent patterns were generated successfully using SpatialEclat algorithm")
 
     def getMemoryUSS(self):
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
         :return: returning USS memory consumed by the mining process
         :rtype: float
         """
@@ -441,7 +472,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
@@ -449,7 +481,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         return self._memoryRSS
 
     def getRuntime(self):
-        """Calculating the total amount of runtime taken by the mining process
+        """
+        Calculating the total amount of runtime taken by the mining process
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
         """
@@ -457,7 +490,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         return self._endTime - self._startTime
 
     def getPatternsAsDataFrame(self):
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
         """
@@ -473,9 +507,10 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
         return dataFrame
 
     def save(self, outFile):
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -487,7 +522,8 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getPatterns(self):
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
         :return: returning frequent patterns
         :rtype: dict
         """

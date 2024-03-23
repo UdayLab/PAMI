@@ -27,6 +27,8 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
+
 
 
 
@@ -141,6 +143,21 @@ class HMiner(_ab._utilityPatterns):
 
     :Reference:
 
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of High Utility patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of High Utility patterns
+    :param minUtil: int :
+                   The user given minUtil value.
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
     :Attributes:
 
         iFile : file
@@ -193,13 +210,19 @@ class HMiner(_ab._utilityPatterns):
 
     **Executing the code on terminal:**
     --------------------------------------------
-        Format:
 
-                  >>> python3 HMiner.py <inputFile> <outputFile> <minUtil>
+    .. code-block:: console
 
-        Examples:
+      Format:
 
-                  >>> python3 HMiner.py sampleTDB.txt output.txt 35
+      (.venv) $ python3 HMiner.py <inputFile> <outputFile> <minUtil>
+
+      Example Usage:
+
+      (.venv) $ python3 HMiner.py sampleTDB.txt output.txt 35
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
     Sample run of importing the code:
     --------------------------------------
@@ -260,9 +283,21 @@ class HMiner(_ab._utilityPatterns):
         self._mapFMAP = {}
         self._finalPatterns = {}
 
-    def _HMiner(self, o1, o2):
+    def _HMiner(self, o1, o2) -> int:
         """
-        A method to sort  list of huis in TWU ascending order
+        A Function that sort all FFI-list in ascending order of Support
+
+        :param o1: First FFI-list
+
+        :type o1: _FFList
+
+        :param o2: Second FFI-list
+
+        :type o1: _FFList
+
+        :return: Comparision Value
+
+        :rtype: int
         """
         compare = self._mapOfTWU[o1.item] - self._mapOfTWU[o2.item]
         if compare == 0:
@@ -411,9 +446,6 @@ class HMiner(_ab._utilityPatterns):
     def _ExploreSearchTree(self, prefix, uList, minutil):
         """
         A method to find all high utility itemSets
-
-        :Attributes:
-
         :parm prefix:it represents all items in prefix
         :type prefix:list
         :parm uList:projected Utility list
@@ -436,9 +468,6 @@ class HMiner(_ab._utilityPatterns):
     def _construcCUL(self, x, culs, st, minutil, length):
         """
         A method to construct CUL's database
-
-        :Attributes:
-
         :parm x: Compact utility list
         :type x: Node
         :parm culs:list of Compact utility list
@@ -532,15 +561,14 @@ class HMiner(_ab._utilityPatterns):
     def _UpdateCLosed(self, x, culs, st, excul, newT, ex, ey_tid, length):
         """
         A method to update closed values
-
-        :Attributes:
-
         :parm x: Compact utility list
         :type x: lists
         :parm culs:list of Compact utility list
         :type culs:lists
         :parm st: starting pos of culs
         :type st:int
+        :parm excul: list of culs
+        :type excul: list
         :parm newT:transaction to be updated
         :type newT:list
         :parm ex: element ex
@@ -598,9 +626,6 @@ class HMiner(_ab._utilityPatterns):
     def _saveitemSet(self, prefix, prefixLen, item, utility):
         """
         A method to save itemSets
-
-        :Attributes:
-
         :parm prefix: it represents all items in prefix
         :type prefix :list
         :parm prefixLen: length of prefix

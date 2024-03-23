@@ -7,32 +7,36 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.highUtilitySpatialPattern.basic import HUPMS as alg
+#             from PAMI.highUtilitySpatialPattern.basic import HUPMS as alg
 #
-#     obj=alg.HUPMS("input.txt","Neighbours.txt",35)
+#             obj=alg.HUPMS("input.txt","Neighbours.txt",35)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of Spatial High-Utility Patterns:", len(Patterns))
+#             print("Total number of Spatial High-Utility Patterns:", len(Patterns))
 #
-#     obj.save("output")
+#             obj.save("output")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
+
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -111,11 +115,13 @@ class _Node:
         """
         Adds utility to the node
 
+        :param utility : Next utility value to be added
 
-        :param utility : int
-            Net utility value to be added
-        :param batchIndex : int
-            index of the batch with respect to window to which the node belongs
+        :type utility : int
+
+        :param batchIndex : Index of the batch with respect to window to which the node belongs
+
+        :type batchIndex : int
         """
 
         self.utility[batchIndex] += utility
@@ -124,8 +130,9 @@ class _Node:
         """
         Removes utility from the node
 
-        :param utility : int
-                Net utility value to be removed
+        :param utility : Next utility value to be removed
+
+        :type utility : int
         """
 
         self.utility -= utility
@@ -175,15 +182,17 @@ class _HeaderTable:
         """
         Updates the utility of the item in the header table
 
+        :param item: name of the item to which utility needs to be updated
 
-        :param item : str
-            name of the item to which utility needs to be updated
+        :type item: str
 
-        :param utility : int
-            Net utility of the item to be updated
+        :param utility: Next utility of the item to be updated
 
-        :param node : _Node
-            pointer to the node in the tree to which the item belongs
+        :type utility: int
+
+        :param node: pointer to the node in the tree to which the item belongs
+
+        :type node: _Node
         """
 
         if item in self.table:
@@ -204,10 +213,13 @@ class _HeaderTable:
         """
         Adds utility to the item in the header table
 
-        :param item : str
-            name of the item to which utility needs to be added
-        :param utility : int
-            Net utility of the item to be added
+        :param item: Name of the item to which utility needs to be added
+
+        :type item: str
+
+        :param utility: Next utility of the item to be added
+
+        :type utility: int
         """
         self.table[item][0] += utility
     
@@ -216,10 +228,13 @@ class _HeaderTable:
         """
         Removes utility from the item in the header table
 
-        :param item : str
-            name of the item to which utility needs to be removed
-        :param utility : int
-            Net utility of the item to be removed
+        :param item: Name of the item to which utility needs to be removed
+
+        :type item: str
+
+        :param utility: The utility of the item to be removed
+
+        :type utility: int
         """
         self.table[item][0] -= utility
 
@@ -284,12 +299,13 @@ class _HUSTree:
         """
         Adds transaction to the tree
 
-            :param transaction : list
-                list of items in the transaction
+        :param transaction: list of items in the transaction
 
-            :param utility : int
-                Net utility of the transaction
+        :type transaction: list
 
+        :param utility: Next utility of the transaction
+
+        :type utility: int
         """
         transaction.sort(key = lambda x: x[0])
         currentNode = self.root
@@ -330,9 +346,9 @@ class _HUSTree:
         """
         Removes the utility of the oldest batch from each subtree
 
-        :param tempNode : _Node
-            pointer to the node in the tree
+        :param tempNode:  pointer to the node in the tree
 
+        :type tempNode: _Node
         """
         if tempNode is None:
             return
@@ -375,6 +391,18 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
     :References:   Chowdhury Farhan Ahmed and Syed Khairuzzaman Tanbeer and Byeong-Soo Jeong and Ho-Jin Choi : Interactive
                    mining of high utility patterns over data streams. Expert Systems with Applications Vol 39, 11979 - 11991, 2012.
                    https://doi.org/10.1016/j.eswa.2012.03.062
+
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of High Utility patterns in Streams
+    :param  oFile: str :
+                   Name of the output file to store complete set of High Utility patterns in Streams
+    :param minUtil: int :
+                   Minimum utility threshold
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
 
     :Attributes:
 
@@ -473,13 +501,18 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
 
     **Executing the code on terminal:**
     -------------------------------------
-            Format:
-                >>> python3 HUPMS.py <inputFile> <outputFile> <minUtil> <windowSize> <paneSize> <separator>
 
-            Example:
-                >>> python3 HUPMS.py retail.txt output.txt 107 100 1000 ','
+    .. code-block:: console
 
-            .. note::    Here minimum utility is 107, Window size is 100 and pane size is 1000. The separator is comma for the input file)
+      Format:
+
+      (.venv) $ python3 HUPMS.py <inputFile> <outputFile> <minUtil> <windowSize> <paneSize> <separator>
+
+      Example Usage:
+
+      (.venv) $ python3 HUPMS.py retail.txt output.txt 107 100 1000 ','
+
+    .. note:: Here minimum utility is 107, Window size is 100 and pane size is 1000. The separator is comma for the input file
 
     **Credits:**
     -------------
@@ -556,14 +589,17 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         """
         Creates the prefix branch of the node
 
+        :param root: pointer to the root node of the sub-tree
 
-        :param root : _Node
-                pointer to the root node of the sub-tree
+        :type root: Node
 
-        :return stack : list
-                    list of the nodes in prefix branch
-        :return curUtil : int
-                    utility of the prefix branch
+        :return stack: list of the nodes in prefix branch
+
+        :rtype: list
+
+        :return curUtil: Utility of the prefix branch
+
+        :rtype: int
         """
         stack = []
 
@@ -579,8 +615,9 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         """
         Fixes the utility of the nodes in the tree by merging the utility values
 
-        :param root : _Node
-                pointer to the root node of the subtree
+        :param root : pointer to the root node of the subtree
+
+        :type root: Node
         """
         
         if(root is None):
@@ -596,16 +633,22 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         """
         Creates the conditional tree for the given prefix tree
 
+        :param root: pointer to the root node of the prefix tree
 
-        :param root : _Node
-            pointer to the root node of the prefix tree
-        :param transactions : list
-            list of transactions in prefix tree
-        :param minUtil : int
-            minimum utility threshold
+        :type root: Node
 
-        :return: tempTree : _HUSTree
-                conditional tree for the given prefix tree
+        :param transactions: list of transactions in prefix tree
+
+        :type transactions: list
+
+        :param minUtil: minimum utility threshold
+
+        :type minUtil: int
+
+
+        :return tempTree: conditional tree for the given prefix tree
+
+        :rtype: _HUSTree
         """
         
         for transaction in transactions:
@@ -626,13 +669,17 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         """
         Checks if the superset contains the subset
 
-        :param superset : list
-            list of items in the superset
-        :param subset : list
-            list of items in the subset
+        :param superset: list of items in the superset
 
-        :return: bool :
-                    True if superset contains subset, False otherwise
+        :type superset: list
+
+        :param subset: list of items in the subset
+
+        :type subset: list
+
+        :return bool: True if the superset contains the subset, False otherwise
+
+        :rtype: bool
         """
      
         return reduce(and_, [i in superset for i in subset])
@@ -641,14 +688,21 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         """
         Generates the tree of the high utility patterns
 
-        :param root : _Node
-            pointer to the root of the tree
-        :param netUtil : int
-            Net utility of the transaction
-        :param candidatePattern : list
-            Candidate patterns generated with utility
-        :param curItem : list
-            List of items in the current itemsets
+        :param root: pointer to the root of the tree
+
+        :type root: _Node
+
+        :param netUtil: Net utility of the transaction
+
+        :type netUtil: int
+
+        :param candidatePattern: Candidate patterns generated with utility
+
+        :type candidatePattern: list
+
+        :param curItem: list of items in the current itemsets
+
+        :type curItem: list
         """
 
         if(root is None):
@@ -774,7 +828,12 @@ class HUPMS(_hus._highUtilityPatternStreamMining):
         Prints the tree in a readable format.
 
         :param root: CPSTreeNode object for the root of the tree
+
+        :type root: _Node
+
         :param level: Current level of the root node
+
+        :type level: int
         """
 
         print('  ' * level, level, root.itemName, root.utility, root.parent.itemName if root.parent else None )

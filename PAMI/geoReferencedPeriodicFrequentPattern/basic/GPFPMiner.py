@@ -5,30 +5,33 @@
 # --------------------------------------------------------
 #
 #
-#     import PAMI.geoReferencedPeridicFrequentPattern.GPFPMiner as alg
+#             import PAMI.geoReferencedPeridicFrequentPattern.GPFPMiner as alg
 #
-#     obj = alg.GPFPMiner("sampleTDB.txt", "sampleN.txt", 5, 3)
+#             obj = alg.GPFPMiner("sampleTDB.txt", "sampleN.txt", 5, 3)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of Geo Referenced Periodic-Frequent Patterns:", len(Patterns))
+#             print("Total number of Geo Referenced Periodic-Frequent Patterns:", len(Patterns))
 #
-#     obj.save("outFile")
+#             obj.save("outFile")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -58,6 +61,20 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                     Lattice Traversal to mine the geo referenced peridoic frequent patterns.
         
     :Reference:
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of Geo-referenced periodic frequent patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of Geo-referenced periodic frequent patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param nFile: str :
+                   Name of the input file to mine complete set of Geo-referenced periodic frequent patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -121,15 +138,22 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                 A function to map items to their neighbours
 
     **Executing the code on terminal :**
-    --------------------------------------
+    ----------------------------------------
 
-        Format:
-            >>> python3 GPFPMiner.py <inputFile> <outputFile> <neighbourFile> <minSup> <maxPer>
+    .. code-block:: console
 
-        Examples:
-            >>> python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3 (minSup & maxPer will be considered in percentage of database transactions)
+      Format:
 
-           
+      (.venv) $ python3 GPFPMiner.py <inputFile> <outputFile> <neighbourFile> <minSup> <maxPer>
+
+      Example Usage:
+
+      (.venv) $ python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3
+
+    .. note:: minSup & maxPer will be considered in percentage of database transactions
+
+
+
     **Sample run of importing the code :**
     -----------------------------------------
     .. code-block:: python
@@ -222,7 +246,9 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
 
     # function to get frequent one pattern
     def _frequentOneItem(self):
-        """Generating one frequent patterns"""
+        """
+        Generating one frequent patterns
+        """
 
         candidate = {}
         for i in self._Database:
@@ -249,7 +275,12 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         To convert the given user specified value
 
         :param value: user specified value
+
+        :type value: int or float or str
+
         :return: converted value
+
+        :rtype: float
         """
         if type(value) is int:
             value = int(value)
@@ -405,7 +436,9 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
                     quit()
 
     def startMine(self):
-        """Frequent pattern mining process will start from here"""
+        """
+        Frequent pattern mining process will start from here
+        """
 
         # global items_sets, endTime, startTime
         self._startTime = _ab._time.time()
@@ -453,7 +486,8 @@ class GPFPMiner(_ab._geoReferencedPeriodicFrequentPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self):
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
         :return: returning RSS memory consumed by the mining process
         :rtype: float
         """
