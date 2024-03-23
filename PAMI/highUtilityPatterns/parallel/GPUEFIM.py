@@ -3,32 +3,36 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.highUtilitySpatialPattern.basic import GPUEFIM as alg
+#             from PAMI.highUtilitySpatialPattern.basic import GPUEFIM as alg
 #
-#     obj=alg.GPUEFIM("input.txt","Neighbours.txt",35)
+#             obj=alg.GPUEFIM("input.txt","Neighbours.txt",35)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of Spatial High-Utility Patterns:", len(Patterns))
+#             print("Total number of Spatial High-Utility Patterns:", len(Patterns))
 #
-#     obj.save("output")
+#             obj.save("output")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
+#
+
+
+
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -130,7 +134,17 @@ class GPUEFIM:
     
     :Reference:   Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
                   high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). https://doi.org/10.1007/s10115-016-0986-0
-    
+
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of High Utility patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of High Utility patterns
+    :param minUtil: int :
+                   The user given minUtil value.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
     :Attributes:
 
         inputFile (str):
@@ -173,7 +187,7 @@ class GPUEFIM:
         printResults():
             Print the results of the algorithm.
 
-    """
+   """
 
     def __init__(self, inputFile, minUtil, sep = '\t'):
         self.inputFile = inputFile
@@ -297,9 +311,13 @@ class GPUEFIM:
         """
         Search for frequent patterns in the given collections.
 
-        :param collections (list): The collections to search in.
+        :param collection: The collection to search in.
 
+        :type collection: list
 
+        :param depth: The depth of the search tree
+
+        :type depth: int
         """
         while len(collection) > 0:
             candidates = []
@@ -401,8 +419,6 @@ class GPUEFIM:
     def startMine(self):
         """
         Start the EFIM algorithm.
-
-        :return: None
         """
 
         ps = psutil.Process(os.getpid())
