@@ -4,34 +4,37 @@
 # **Importing this algorithm into a python program**
 # --------------------------------------------------------
 #
-#     from PAMI.highUtilitySpatialPattern.basic import SHUIM as alg
+#             from PAMI.highUtilitySpatialPattern.basic import SHUIM as alg
 #
-#     obj=alg.SHUIM("input.txt","Neighbours.txt",35)
+#             obj=alg.SHUIM("input.txt","Neighbours.txt",35)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     frequentPatterns = obj.getPatterns()
+#             frequentPatterns = obj.getPatterns()
 #
-#     print("Total number of Spatial high utility Patterns:", len(frequentPatterns))
+#             print("Total number of Spatial high utility Patterns:", len(frequentPatterns))
 #
-#     obj.save("output")
+#             obj.save("output")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
-#
+#             print("Total ExecutionTime in seconds:", run)
 #
 
+
+
+
+
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -105,7 +108,6 @@ class _Transaction:
         """
         A method to create new Transaction from existing till offsetE
 
-
         :param offsetE: an offset over the original transaction for projecting the transaction
         :type offsetE: int
         """
@@ -127,12 +129,16 @@ class _Transaction:
     def getPmus(self) -> List[int]:
         """
         A method to return pmus in transaction
+        :return: pmus in transaction
+        :rtype: list
         """
         return self.pmus
 
     def getUtilities(self) -> List[int]:
         """
         A method to return utilities in transaction
+        :return: utilities in transaction
+        :rtype: list
         """
         return self.utilities
 
@@ -140,6 +146,8 @@ class _Transaction:
     def getLastPosition(self) -> int:
         """
         A method to return last position in a transaction
+        :return: last position in a transaction
+        :rtype: int
         """
         return len(self.items) - 1
 
@@ -148,7 +156,10 @@ class _Transaction:
         A method to remove items with low Utility than minUtil
 
         :param oldNamesToNewNames: A map represent old names to new names
+
         :type oldNamesToNewNames: map
+
+        :return: None
         """
         tempItems = []
         tempUtilities = []
@@ -165,6 +176,7 @@ class _Transaction:
     def insertionSort(self) -> None:
         """
         A method to sort items in order
+        :return: None
         """
         for i in range(1, len(self.items)):
             key = self.items[i]
@@ -217,8 +229,6 @@ class _Dataset:
     def createTransaction(self, line: str) -> _Transaction:
         """
         A method to create Transaction from dataset given
-            
-        :Attributes:
 
         :param line: represent a single line of database
         :type line: string
@@ -249,12 +259,20 @@ class _Dataset:
     def getMaxItem(self) -> int:
         """
         A method to return name of the largest item
+
+        :return: the largest item in the list
+
+        :rtype: int
         """
         return self.maxItem
 
     def getTransactions(self) -> List[_Transaction]:
         """
         A method to return transactions from database
+
+        :return: the list of transactions stored in the database
+
+        :rtype: list
         """
         return self.transactions
 
@@ -271,6 +289,27 @@ class SHUIM(_ab._utilityPatterns):
         Rage, Uday & Veena, Pamalla & Penugonda, Ravikumar & Raj, Bathala & Dao, Minh & Zettsu, Koji & Bommisetti, Sai. 
         (2023). HDSHUI-miner: a novel algorithm for discovering spatial high-utility itemsets in high-dimensional 
         spatiotemporal databases. Applied Intelligence. 53. 1-26. 10.1007/s10489-022-04436-w.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of High Utility Spatial patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of High Utility Spatial patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param minUtil: int :
+                   Minimum utility threshold given by User
+    :param maxMemory: int :
+                   Maximum memory used by this program for running
+    :param candidateCount: int :
+                   Number of candidates to consider when calculating a high utility spatial pattern
+    :param nFile: str :
+                   Name of the input file to mine complete set of High Utility Spatial patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
+
 
     :Attributes:
 
@@ -348,12 +387,20 @@ class SHUIM(_ab._utilityPatterns):
              A method to scan the database using utility bin array to calculate the pmus                   
 
     **Executing the code on terminal:**
-    -------------------------------------
-            Format:
-                >>> python3 SHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
+    ---------------------------------------
 
-            Examples:
-             >>> python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 SHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <sep>
+
+      Example Usage:
+
+      (.venv) $ python3 SHUIM.py sampleTDB.txt output.txt sampleN.txt 35
+
+    .. note:: minSup will be considered in percentage of database transactions
+
 
     **Sample run of importing the code:**
     --------------------------------------
@@ -480,8 +527,6 @@ class SHUIM(_ab._utilityPatterns):
         """
         A method to mine the SHUIs Recursively
 
-        :Attributes:
-
         :param transactionsOfP: the list of transactions containing the current prefix P
         :type transactionsOfP: list
         :param itemsToKeep: the list of secondary items in the p-projected database
@@ -490,6 +535,7 @@ class SHUIM(_ab._utilityPatterns):
         :type itemsToExplore: list
         :param prefixLength: current prefixLength
         :type prefixLength: int
+        :return: None
         """
         self._candidateCount += len(itemsToExplore)
         for idx, e in enumerate(itemsToExplore):
@@ -569,15 +615,13 @@ class SHUIM(_ab._utilityPatterns):
         """
         A method to  calculate the subtree utility and local utility of all items that can extend itemSet P U {e}
 
-        :Attributes:
-
         :param transactionsPe: transactions the projected database for P U {e}
         :type transactionsPe: list
         :param j:the position of j in the list of promising items
         :type j:int
         :param itemsToKeep :the list of promising items
         :type itemsToKeep: list
-
+        :return: None
         """
         for i in range(j + 1, len(itemsToKeep)):
             item = itemsToKeep[i]
@@ -607,8 +651,12 @@ class SHUIM(_ab._utilityPatterns):
         A method to find common Neighbours
 
         :param prefixLength: the prefix itemSet
+
         :type prefixLength:int
 
+        :return: the common neighbours
+
+        :rtype: list
         """
         intersectionList = self._Neighbours.get(self._temp[0])
         for i in range(1, prefixLength+1):
@@ -623,12 +671,13 @@ class SHUIM(_ab._utilityPatterns):
     
     def _output(self, tempPosition: int, utility: int) -> None:
         """
-         A method save all high-utility itemSet to file or memory depending on what the user chose
+        A method save all high-utility itemSet to file or memory depending on what the user chose
 
-         :param tempPosition: position of last item
-         :type tempPosition : int 
-         :param utility: total utility of itemSet
-         :type utility: int
+        :param tempPosition: position of last item
+        :type tempPosition : int
+        :param utility: total utility of itemSet
+        :type utility: int
+        :return: None
         """
         self._patternCount += 1
         s1 = str()
@@ -640,14 +689,14 @@ class SHUIM(_ab._utilityPatterns):
 
     def _isEqual(self, transaction1: _Transaction, transaction2: _Transaction) -> bool:
         """
-         A method to Check if two transaction are identical
+        A method to Check if two transaction are identical
 
-         :param  transaction1: the first transaction.
-         :type  transaction1: Transaction
-         :param  transaction2:   the second transaction.
-         :type  transaction2: Transaction
-         :return : whether both are identical or not
-         :rtype: bool
+        :param  transaction1: the first transaction.
+        :type  transaction1: Transaction
+        :param  transaction2:   the second transaction.
+        :type  transaction2: Transaction
+        :return : whether both are identical or not
+        :rtype: bool
         """
 
         length1 = len(transaction1.items) - transaction1.offset
@@ -683,7 +732,10 @@ class SHUIM(_ab._utilityPatterns):
         Scan the initial database to calculate the subtree utility of each item using a utility-bin array
 
         :param dataset: the transaction database
+
         :type dataset: Dataset
+
+        :return: None
         """
         for transaction in dataset.getTransactions():
             items = transaction.getItems()
@@ -723,7 +775,7 @@ class SHUIM(_ab._utilityPatterns):
         :param trans2:the second transaction.
         :type trans2: Transaction
         :return: sorted transaction.
-        :rtype:    Transaction
+        :rtype: int
         """
         trans1_items = trans1.getItems()
         trans2_items = trans2.getItems()
@@ -759,8 +811,10 @@ class SHUIM(_ab._utilityPatterns):
         A method to scan the database using utility bin array to calculate the pmus
 
         :param dataset: the transaction database.
+
         :type dataset: database
 
+        :return: None
         """
         for transaction in dataset.getTransactions():
             for idx, item in enumerate(transaction.getItems()):
@@ -770,7 +824,8 @@ class SHUIM(_ab._utilityPatterns):
                     self._utilityBinArrayLU[item] = transaction.getPmus()[idx]
 
     def getPatternsAsDataFrame(self) -> pd.DataFrame:
-        """Storing final patterns in a dataframe
+        """
+        Storing final patterns in a dataframe
 
         :return: returning patterns in a dataframe
         :rtype: pd.DataFrame
@@ -784,7 +839,8 @@ class SHUIM(_ab._utilityPatterns):
         return dataFrame
     
     def getPatterns(self) -> Dict[str, str]:
-        """ Function to send the set of patterns after completion of the mining process
+        """
+        Function to send the set of patterns after completion of the mining process
 
         :return: returning patterns
         :rtype: dict
@@ -792,10 +848,14 @@ class SHUIM(_ab._utilityPatterns):
         return self._finalPatterns
 
     def save(self, outFile: str) -> None:
-        """Complete set of patterns will be loaded in to an output file
+        """
+        Complete set of patterns will be loaded in to an output file
 
         :param outFile: name of the output file
+
         :type outFile: csv file
+
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
@@ -804,7 +864,8 @@ class SHUIM(_ab._utilityPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -813,24 +874,26 @@ class SHUIM(_ab._utilityPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
-       """
+        """
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-       """
+        """
         return self._endTime-self._startTime
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Spatial High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())

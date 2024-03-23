@@ -6,30 +6,34 @@
 # --------------------------------------------------------
 #
 #
-#     from PAMI.highUtilitySpatialPattern.basic import HDSHUIM as alg
+#             from PAMI.highUtilitySpatialPattern.basic import HDSHUIM as alg
 #
-#     obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
+#             obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 #
-#     obj.startMine()
+#             obj.startMine()
 #
-#     Patterns = obj.getPatterns()
+#             Patterns = obj.getPatterns()
 #
-#     print("Total number of Spatial High-Utility Patterns:", len(Patterns))
+#             print("Total number of Spatial High-Utility Patterns:", len(Patterns))
 #
-#     obj.save("output")
+#             obj.save("output")
 #
-#     memUSS = obj.getMemoryUSS()
+#             memUSS = obj.getMemoryUSS()
 #
-#     print("Total Memory in USS:", memUSS)
+#             print("Total Memory in USS:", memUSS)
 #
-#     memRSS = obj.getMemoryRSS()
+#             memRSS = obj.getMemoryRSS()
 #
-#     print("Total Memory in RSS", memRSS)
+#             print("Total Memory in RSS", memRSS)
 #
-#     run = obj.getRuntime()
+#             run = obj.getRuntime()
 #
-#     print("Total ExecutionTime in seconds:", run)
+#             print("Total ExecutionTime in seconds:", run)
 #
+
+
+
+
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -122,6 +126,7 @@ class _CUList:
 
         :param element: element to be added to CUList
         :type element: Element
+        :return: None
         """
         self.sumSnu += element.snu
         self.sumRemainingUtility += element.remainingUtility
@@ -145,11 +150,28 @@ class HDSHUIM(_ab._utilityPatterns):
         Spatial High Utility ItemSet Mining (SHUIM) [3] is an important model in data
         mining with many real-world applications. It involves finding all spatially interesting itemSets having high value 
         in a quantitative spatio temporal database.
+
     :Reference:
 
         P. Pallikila et al., "Discovering Top-k Spatial High Utility Itemsets in Very Large Quantitative Spatiotemporal 
         databases," 2021 IEEE International Conference on Big Data (Big Data), Orlando, FL, USA, 2021, pp. 4925-4935,
         doi: 10.1109/BigData52589.2021.9671912.
+
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of High Utility Spatial patterns
+    :param  oFile: str :
+                   Name of the output file to store complete set of High Utility Spatial patterns
+    :param  minSup: int or float or str :
+                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.
+    :param maxPer: float :
+                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.
+    :param minUtil: int :
+                   Minimum utility threshold given by User
+    :param nFile: str :
+                   Name of the input file to mine complete set of High Utility Spatial patterns
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
+
 
     :Attributes:
 
@@ -207,10 +229,18 @@ class HDSHUIM(_ab._utilityPatterns):
 
     **Executing the code on terminal:**
     -------------------------------------
-            Format:
-                    >>> python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
-            Examples:
-                    >>> python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 ','
+
+    .. code-block:: console
+
+      Format:
+
+      (.venv) $ python3 HDSHUIM.py <inputFile> <outputFile> <Neighbours> <minUtil> <separator>
+
+      Example Usage:
+
+      (.venv) $ python3 HDSHUIM.py sampleTDB.txt output.txt sampleN.txt 35 ','
+
+    .. note:: minSup will be considered in percentage of database transactions
 
 
     **Sample run of importing the code:**
@@ -273,7 +303,19 @@ class HDSHUIM(_ab._utilityPatterns):
 
     def _compareItems(self, o1: Any, o2: Any) -> int:
         """
-        A method to sort  list of huis in pmu ascending order
+        A Function that sort all FFI-list in ascending order of Support
+
+        :param o1: First FFI-list
+
+        :type o1: _FFList
+
+        :param o2: Second FFI-list
+
+        :type o1: _FFList
+
+        :return: Comparision Value
+
+        :rtype: int
         """
         compare = self._mapOfPMU[o1.item] - self._mapOfPMU[o2.item]
         if compare == 0:
@@ -404,9 +446,6 @@ class HDSHUIM(_ab._utilityPatterns):
     def _ExploreSearchTree(self, prefix: List[str], uList: List[_CUList], exNeighbours: set, minUtil: int) -> None:
         """
         A method to find all high utility itemSets
-
-        :Attributes:
-
         :parm prefix: it represents all items in prefix
         :type prefix :list
         :parm uList:projected Utility list.
@@ -415,6 +454,7 @@ class HDSHUIM(_ab._utilityPatterns):
         :type exNeighbours: set
         :parm minUtil:user minUtil
         :type minUtil:int
+        :return: None
         """
         for i in range(0, len(uList)):
             x = uList[i]
@@ -442,9 +482,6 @@ class HDSHUIM(_ab._utilityPatterns):
     def _constructCUL(self, x: _Element, compactUList: List[_CUList], st: int, minUtil: int, length: int, exNeighbours: set) -> List[_CUList]:
         """
         A method to construct CUL's database
-
-        :Attributes:
-
         :parm x: Compact utility list
         :type x: Node
         :parm compactUList:list of Compact utility lists.
@@ -540,9 +577,6 @@ class HDSHUIM(_ab._utilityPatterns):
     def _updateClosed(self, x: _Element, compactUList: List[_CUList], st: int, exCul: List[_CUList], newT: List[int], ex: _Element, eyTs: List[int], length: int) -> None:
         """
         A method to update closed values
-
-        :Attributes:
-
         :parm x: Compact utility list.
         :type x: list
         :parm compactUList:list of Compact utility lists.
@@ -557,6 +591,7 @@ class HDSHUIM(_ab._utilityPatterns):
         :type eyTs:ts
         :parm length: length of x
         :type length:int
+        :return: None
         """
         remainingUtility = 0
         for j in range(len(newT) - 1, -1, -1):
@@ -570,9 +605,6 @@ class HDSHUIM(_ab._utilityPatterns):
     def _updateElement(self, z: _Element, compactUList: List[_CUList], st: int, exCul: List[_CUList], newT: List[int], ex: _Element, duPrevPos: int, eyTs: List[int]) -> None:
         """
         A method to updates vales for duplicates
-
-        :Attributes:
-
         :parm z: Compact utility list
         :type z: list
         :parm compactUList:list of Compact utility lists
@@ -589,6 +621,7 @@ class HDSHUIM(_ab._utilityPatterns):
         :type duPrevPos:int
         :parm eyTs:list of tss
         :type eyTs:ts
+        :return: None
         """
         remainingUtility = 0
         pos = duPrevPos
@@ -606,15 +639,13 @@ class HDSHUIM(_ab._utilityPatterns):
     def _saveItemSet(self, prefix: List[str], prefixLen: int, item: str, utility: int) -> None:
         """
          A method to save itemSets
-
-         :Attributes:
-
         :parm prefix: it represents all items in prefix
         :type prefix :list
         :parm item:item
         :type item: int
         :parm utility:utility of itemSet
         :type utility:int
+        :return: None
         """
         self._huiCount += 1
         res = str()
@@ -625,7 +656,8 @@ class HDSHUIM(_ab._utilityPatterns):
         self._finalPatterns[res] = res1
 
     def getPatternsAsDataFrame(self) -> Dict[str, str]:
-        """Storing final frequent patterns in a dataframe
+        """
+        Storing final frequent patterns in a dataframe
 
         :return: returning frequent patterns in a dataframe
         :rtype: pd.DataFrame
@@ -639,7 +671,8 @@ class HDSHUIM(_ab._utilityPatterns):
         return dataFrame
 
     def getPatterns(self) -> Dict[str, str]:
-        """ Function to send the set of frequent patterns after completion of the mining process
+        """
+        Function to send the set of frequent patterns after completion of the mining process
 
         :return: returning frequent patterns
         :rtype: dict
@@ -647,10 +680,12 @@ class HDSHUIM(_ab._utilityPatterns):
         return self._finalPatterns
 
     def save(self, outFile: str) -> None:
-        """Complete set of frequent patterns will be loaded in to an output file
+        """
+        Complete set of frequent patterns will be loaded in to an output file
 
         :param outFile: name of the output file
         :type outFile: csv file
+        :return: None
         """
         self.oFile = outFile
         writer = open(self.oFile, 'w+')
@@ -659,7 +694,8 @@ class HDSHUIM(_ab._utilityPatterns):
             writer.write("%s \n" % patternsAndSupport)
 
     def getMemoryUSS(self) -> float:
-        """Total amount of USS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of USS memory consumed by the mining process will be retrieved from this function
 
         :return: returning USS memory consumed by the mining process
         :rtype: float
@@ -668,24 +704,26 @@ class HDSHUIM(_ab._utilityPatterns):
         return self._memoryUSS
 
     def getMemoryRSS(self) -> float:
-        """Total amount of RSS memory consumed by the mining process will be retrieved from this function
+        """
+        Total amount of RSS memory consumed by the mining process will be retrieved from this function
 
         :return: returning RSS memory consumed by the mining process
         :rtype: float
-       """
+        """
         return self._memoryRSS
 
     def getRuntime(self) -> float:
-        """Calculating the total amount of runtime taken by the mining process
-
+        """
+        Calculating the total amount of runtime taken by the mining process
 
         :return: returning total amount of runtime taken by the mining process
         :rtype: float
-       """
+        """
         return self._endTime - self._startTime
 
     def printResults(self) -> None:
-        """ This function is used to print the results
+        """
+        This function is used to print the results
         """
         print("Total number of Spatial High Utility Patterns:", len(self.getPatterns()))
         print("Total Memory in USS:", self.getMemoryUSS())
