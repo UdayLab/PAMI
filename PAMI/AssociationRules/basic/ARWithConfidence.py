@@ -29,13 +29,14 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -61,12 +62,12 @@ from PAMI.AssociationRules.basic import abstract as _ab
 
 class _Confidence:
     """
-    :param  patterns: dict :
-                      Dictionary containing patterns and its support value.
-    :param  singleItems: list :
-                         List containing all the single frequent items.
-    :param  minConf: int :
-                     Minimum confidence to mine all the satisfying association rules.
+    :param  patterns: Dictionary containing patterns and its support value.
+    :type patterns: dict
+    :param  singleItems: List containing all the single frequent items.
+    :type singleItems: list
+    :param  minConf: Minimum confidence to mine all the satisfying association rules.
+    :type minConf: int
     """
 
     def __init__(self, patterns, singleItems, minConf):
@@ -140,14 +141,16 @@ class ARWithConfidence:
 
     :Reference:
 
-    :param iFile: str or df :
-                  Name of the Input file to mine the association rules
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of association rules
+    :param  oFile: str :
+                   Name of the output file to store complete set of association rules
+    :param  minConf: float :
+                   The user can specify the minConf in float between the range of 0 to 1.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-    :param minConf: float
-                  The user can specify the minConf in float
-    :par sep: str :
-                  This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
-        
+
         
     :Attributes:
 
@@ -171,14 +174,17 @@ class ARWithConfidence:
     **Methods to execute code on terminal**
     ----------------------------------------------------
 
-            Format:
-                      >>> python3 ARWithConfidence.py <inputFile> <outputFile> <minConf> <sep>
+    .. code-block:: console
 
-            Example:
-                     >>>  python3 ARWithConfidence.py sampleDB.txt patterns.txt 0.5 ' '
+      Format:
 
-            .. note:: minConf will be considered only in 0 to 1.
+      (.venv) $ python3 ARWithConfidence.py <inputFile> <outputFile> <minConf> <sep>
 
+      Example Usage:
+
+      (.venv) $ python3 ARWithConfidence.py sampleDB.txt patterns.txt 0.5 ' '
+
+    .. note:: minConf will be considered only in 0 to 1.
     
     
     **Importing this algorithm into a python program**

@@ -29,13 +29,14 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -59,23 +60,23 @@ from typing import List, Dict, Tuple, Set, Union, Any, Generator
 class Lift:
 
     """
-    :param  patterns: dict :
-                   Dictionary containing patterns and its support value.
-    :param  singleItems: list :
-                   List containing all the single frequent items.
-    :param  minConf: int :
-                   Minimum confidence to mine all the satisfying association rules.
-
+    :param  patterns: Dictionary containing patterns and its support value.
+    :type  patterns: dict
+    :param  singleItems: List containing all the single frequent items.
+    :type  singleItems: list
+    :param  minConf: Minimum confidence to mine all the satisfying association rules.
+    :type  minConf: int
     """
     
     def __init__(self, patterns, singleItems, minConf) -> None:
         """
         :param patterns: given frequent patterns
-        :type inputFile: dict
+        :type patterns: dict
         :param singleItems: one-length frequent patterns
         :type singleItems: list
         :param minConf: minimum confidence
         :type minConf: float
+        :return: None
         """
         self._frequentPatterns = patterns
         self._singleItems = singleItems
@@ -89,6 +90,7 @@ class Lift:
         :type prefix: str
         :param suffix: the suffix of association rule.
         :type suffix: str
+        :return: None
         """
         if len(suffix) == 1:
             self._generateWithLift(prefix, suffix[0])
@@ -107,6 +109,8 @@ class Lift:
         :type lhs: str
         :param rhs: the suffix of association rule.
         :type rhs: str
+        :return: the association rule
+        :rtype: float
         """
         s = lhs + '\t' + rhs
         if self._frequentPatterns.get(s) == None:
@@ -141,14 +145,15 @@ class ARWithLift:
 
     :Reference:
 
-    :param iFile: str or df :
-                  Name of the Input file to mine the association rules
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of association rules
+    :param  oFile: str :
+                   Name of the output file to store complete set of association rules
+    :param  minConf: float :
+                   The user can specify the minConf in float between the range of 0 to 1.
+    :param  sep: str :
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
-    :param minConf: float
-                  The user can specify the minConf in float
-    :param sep: str :
-                  This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
-        
         
     :Attributes:
 
@@ -172,14 +177,17 @@ class ARWithLift:
     **Methods to execute code on terminal**
     ----------------------------------------------------
 
-            Format:
-                     >>> python3 ARWithLift.py <inputFile> <outputFile> <minConf> <sep>
+    .. code-block:: console
 
-            Example:
-                     >>>  python3 ARWithLift.py sampleDB.txt patterns.txt 0.5 ' '
+      Format:
 
-                     .. note:: minConf will be considered only in 0 to 1.
+      (.venv) $ python3 ARWithLift.py <inputFile> <outputFile> <minConf> <sep>
 
+      Example Usage:
+
+      (.venv) $ python3 ARWithLift.py sampleDB.txt patterns.txt 0.5 ' '
+
+    .. note:: minConf will be considered only in 0 to 1.
     
     
     **Importing this algorithm into a python program**
@@ -221,12 +229,13 @@ class ARWithLift:
 
     def __init__(self, iFile, minConf, sep) -> None:
         """
-        :param inputFile: input file name or path
-        :type inputFile: str
+        :param iFile: input file name or path
+        :type iFile: str
         :param minConf: minimum confidence
         :type minConf: float
         :param sep: Delimiter of input file
         :type sep: str
+        :return: None
         """
         self._iFile = iFile
         self._minConf = minConf
@@ -236,6 +245,8 @@ class ARWithLift:
     def _readPatterns(self) -> list:
         """
         Reading the input file and storing all the frequent patterns and their support respectively in a frequentPatterns variable.
+        :return: list of frequent patterns and their support respectively in a frequentPatterns
+        :rtype: list
         """
         self._frequentPatterns = {}
         k = []
@@ -341,6 +352,7 @@ class ARWithLift:
         Complete set of frequent patterns will be loaded in to an output file
         :param outFile: name of the outputfile
         :type outFile: file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
