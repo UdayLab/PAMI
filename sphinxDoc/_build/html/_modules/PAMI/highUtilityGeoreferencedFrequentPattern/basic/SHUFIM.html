@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -121,7 +123,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-
+<span class="c1">#</span>
 
 
 
@@ -252,7 +254,7 @@
     <span class="k">def</span> <span class="nf">removeUnpromisingItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oldNamesToNewNames</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to remove items with low Utility than minUtil</span>
-<span class="sd">        :param oldNamesToNewNames: A map represent old namses to new names</span>
+<span class="sd">        :param oldNamesToNewNames: A map represent old names to new names</span>
 <span class="sd">        :type oldNamesToNewNames: map</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tempItems</span> <span class="o">=</span> <span class="p">[]</span>
@@ -318,6 +320,10 @@
     <span class="k">def</span> <span class="nf">createItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datasetPath</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing the complete transactions of the database/input file in a database variable</span>
+
+<span class="sd">        :param datasetPath: Path to the input file</span>
+
+<span class="sd">        :type datasetPath: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pmuString</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">datasetPath</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
@@ -372,17 +378,14 @@
     <span class="k">def</span> <span class="nf">createTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">utilities</span><span class="p">,</span> <span class="n">utilitySum</span><span class="p">,</span> <span class="n">pmustring</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to create Transaction from dataset given</span>
-<span class="sd">            </span>
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param items: represent a utility items in a transaction</span>
+<span class="sd">        :type items: list</span>
 <span class="sd">        :param utilities: represent utility of an item in transaction</span>
-<span class="sd">        :param utilitySum: represent utility sum of  transaction</span>
-<span class="sd">        :type items: list of items</span>
 <span class="sd">        :type utilities: list</span>
+<span class="sd">        :param utilitySum: represent utility sum of  transaction</span>
 <span class="sd">        :type utilitySum: int</span>
-<span class="sd">        :return : Transaction</span>
-<span class="sd">        :rtype: Trans</span>
+<span class="sd">        :param pmustring: represent a pmustring in a given dataset</span>
+<span class="sd">        :type pmustring: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transactionUtility</span> <span class="o">=</span> <span class="n">utilitySum</span>
         <span class="n">itemsString</span> <span class="o">=</span> <span class="n">items</span>
@@ -426,7 +429,26 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:  Spatial High Utility Frequent ItemSet Mining (SHUFIM) aims to discover all itemSets in a spatioTemporal database</span>
 <span class="sd">                   that satisfy the user-specified minimum utility, minimum support and maximum distance constraints</span>
+
 <span class="sd">    :Reference:    10.1007/978-3-030-37188-3_17</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of Geo-referenced frequent sequence patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of Geo-referenced frequent sequence patterns</span>
+<span class="sd">    :param  minSup: int or float or str :</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</span>
+<span class="sd">    :param minUtil: int :</span>
+<span class="sd">                   The user given minUtil value.</span>
+<span class="sd">    :param candidateCount: int</span>
+<span class="sd">                   Number of candidates</span>
+<span class="sd">    :param maxMemory: int</span>
+<span class="sd">                   Maximum memory used by this program for running</span>
+<span class="sd">    :param nFile: str :</span>
+<span class="sd">                   Name of the input file to mine complete set of Geo-referenced frequent sequence patterns</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
 
 <span class="sd">    :Attributes:</span>
 
@@ -508,10 +530,19 @@
 
 <span class="sd">    **Executing the code on terminal :**</span>
 <span class="sd">    -----------------------------------------</span>
-<span class="sd">            Format:</span>
-<span class="sd">                    &gt;&gt;&gt; python3 SHUFIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;minSup&gt; &lt;sep&gt;</span>
-<span class="sd">            Examples:</span>
-<span class="sd">                    &gt;&gt;&gt; python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20</span>
+
+<span class="sd">    .. code-block:: console</span>
+
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 SHUFIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;minSup&gt; &lt;sep&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 SHUFIM.py sampleTDB.txt output.txt sampleN.txt 35 20</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
+
 
 <span class="sd">    **Sample run of importing the code:**</span>
 <span class="sd">    -----------------------------------------</span>
@@ -580,7 +611,9 @@
 <span class="sd">        To convert the type of user specified minSup value</span>
 
 <span class="sd">        :param value: user specified minSup value</span>
+<span class="sd">        :type value: int o float or str</span>
 <span class="sd">        :return: converted type</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -678,9 +711,6 @@
     <span class="k">def</span> <span class="nf">_backtrackingEFIM</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactionsOfP</span><span class="p">,</span> <span class="n">itemsToKeep</span><span class="p">,</span> <span class="n">itemsToExplore</span><span class="p">,</span> <span class="n">prefixLength</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to mine the SHUFIs Recursively</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param transactionsOfP: the list of transactions containing the current prefix P</span>
 <span class="sd">        :type transactionsOfP: list</span>
 <span class="sd">        :param itemsToKeep: the list of secondary items in the p-projected database</span>
@@ -786,6 +816,8 @@
 <span class="sd">        :type j:int</span>
 <span class="sd">        :param itemsToKeep :the list of promising items</span>
 <span class="sd">        :type itemsToKeep: list</span>
+<span class="sd">        :param neighbourhoodList : the list of promising items that can extend itemSet P U {e}</span>
+<span class="sd">        :type neighbourhoodList: list</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">itemsToKeep</span><span class="p">)):</span>
@@ -814,12 +846,8 @@
     <span class="k">def</span> <span class="nf">_calculateNeighbourIntersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefixLength</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to find common Neighbours</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param prefixLength: the prefix itemSet</span>
 <span class="sd">        :type prefixLength:int</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">intersectionList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prefixLength</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
@@ -835,9 +863,6 @@
     <span class="k">def</span> <span class="nf">_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tempPosition</span><span class="p">,</span> <span class="n">utility</span><span class="p">,</span> <span class="n">support</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">         A method save all high-utility itemSet to file or memory depending on what the user chose</span>
-
-<span class="sd">         :Attributes:</span>
-
 <span class="sd">         :param tempPosition: position of last item</span>
 <span class="sd">         :type tempPosition : int </span>
 <span class="sd">         :param utility: total utility of itemSet</span>
@@ -855,16 +880,13 @@
 
     <span class="k">def</span> <span class="nf">_isEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction1</span><span class="p">,</span> <span class="n">transaction2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">         A method to Check if two transaction are identical</span>
-
-<span class="sd">         :Attributes:</span>
-
-<span class="sd">         :param  transaction1: the first transaction</span>
-<span class="sd">         :type  transaction1: Trans</span>
-<span class="sd">         :param  transaction2:   the second transaction</span>
-<span class="sd">         :type  transaction2: Trans</span>
-<span class="sd">         :return : whether both are identical or not</span>
-<span class="sd">         :rtype: bool</span>
+<span class="sd">        A method to Check if two transaction are identical</span>
+<span class="sd">        :param  transaction1: the first transaction</span>
+<span class="sd">        :type  transaction1: Trans</span>
+<span class="sd">        :param  transaction2:   the second transaction</span>
+<span class="sd">        :type  transaction2: Trans</span>
+<span class="sd">        :return : whether both are identical or not</span>
+<span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">length1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction1</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="n">transaction1</span><span class="o">.</span><span class="n">offset</span>
@@ -898,9 +920,6 @@
     <span class="k">def</span> <span class="nf">_useUtilityBinArrayToCalculateSubtreeUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Scan the initial database to calculate the subtree utility of each item using a utility-bin array</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param dataset: the transaction database</span>
 <span class="sd">        :type dataset: Dataset</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -924,9 +943,6 @@
     <span class="k">def</span> <span class="nf">_sortDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Method to sort transaction in the order of PMU</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param transactions: transaction of items</span>
 <span class="sd">        :type transactions: Transaction</span>
 <span class="sd">        :return: sorted transaction</span>
@@ -938,9 +954,6 @@
     <span class="k">def</span> <span class="nf">_sortTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trans1</span><span class="p">,</span> <span class="n">trans2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Method to sort transaction in the order of PMU</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param trans1: the first transaction</span>
 <span class="sd">        :type trans1: Trans</span>
 <span class="sd">        :param trans2:the second transaction</span>
@@ -980,9 +993,6 @@
     <span class="k">def</span> <span class="nf">_useUtilityBinArrayToCalculateLocalUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to scan the database using utility bin array to calculate the pmus</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param dataset: the transaction database</span>
 <span class="sd">        :type dataset: dataset</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1008,7 +1018,6 @@
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final patterns in a dataframe</span>
-
 <span class="sd">        :return: returning patterns in a dataframe</span>
 <span class="sd">        :rtype: pd.DataFrame</span>
 <span class="sd">        &quot;&quot;&quot;</span>

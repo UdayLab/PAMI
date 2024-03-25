@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.localPeriodicPattern.basic.LPPMBreadth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -170,6 +172,20 @@
 
 <span class="sd">        Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in</span>
 <span class="sd">        a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  minDur: str:</span>
+<span class="sd">                   Minimal duration in seconds between consecutive periods of time-intervals where a pattern is continuously periodic.</span>
+<span class="sd">    :param  maxPer: float:</span>
+<span class="sd">                   Controls the maximum number of transactions in which any two items within a pattern can reappear.</span>
+<span class="sd">    :param  maxSoPer: float:</span>
+<span class="sd">                   Controls the maximum number of time periods between consecutive periods of time-intervals where a pattern is continuously periodic.</span>
+
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
 
 
 <span class="sd">    :Attributes:</span>

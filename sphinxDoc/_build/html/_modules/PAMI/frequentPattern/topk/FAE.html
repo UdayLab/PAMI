@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.frequentPattern.topk.FAE &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -97,35 +99,37 @@
 <span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># ---------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#         import PAMI.frequentPattern.topK.FAE as alg</span>
+<span class="c1">#             import PAMI.frequentPattern.topK.FAE as alg</span>
 <span class="c1">#</span>
-<span class="c1">#         obj = alg.FAE(iFile, K)</span>
+<span class="c1">#             obj = alg.FAE(iFile, K)</span>
 <span class="c1">#</span>
-<span class="c1">#         obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#         topKFrequentPatterns = obj.getPatterns()</span>
+<span class="c1">#             topKFrequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total number of Frequent Patterns:&quot;, len(topKFrequentPatterns))</span>
+<span class="c1">#             print(&quot;Total number of Frequent Patterns:&quot;, len(topKFrequentPatterns))</span>
 <span class="c1">#</span>
-<span class="c1">#         obj.save(oFile)</span>
+<span class="c1">#             obj.save(oFile)</span>
 <span class="c1">#</span>
-<span class="c1">#         Df = obj.getPatternInDataFrame()</span>
+<span class="c1">#             Df = obj.getPatternInDataFrame()</span>
 <span class="c1">#</span>
-<span class="c1">#         memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#         memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#         run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
+
+
+
+
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
 
@@ -155,12 +159,16 @@
 
 <span class="sd">    :Reference:   Zhi-Hong Deng, Guo-Dong Fang: Mining Top-Rank-K Frequent Patterns: DOI: 10.1109/ICMLC.2007.4370261 · Source: IEEE Xplore</span>
 <span class="sd">                  https://ieeexplore.ieee.org/document/4370261</span>
+
 <span class="sd">    :param  iFile: str :</span>
 <span class="sd">                   Name of the Input file to mine complete set of frequent patterns</span>
 <span class="sd">    :param  oFile: str :</span>
 <span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
 <span class="sd">    :param  k: int :</span>
 <span class="sd">                    User specified count of top frequent patterns</span>
+<span class="sd">    :param minimum: int :</span>
+<span class="sd">                    Minimum number of frequent patterns to consider in analysis</span>
+
 <span class="sd">    :param  sep: str :</span>
 <span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
 
@@ -188,15 +196,20 @@
 
 
 <span class="sd">    **Methods to execute code on terminal**</span>
-<span class="sd">    ----------------------------------------</span>
+<span class="sd">    -------------------------------------------</span>
 
-<span class="sd">        Format:</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">           &gt;&gt;&gt; python3 FAE.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;K&gt;</span>
+<span class="sd">      Format:</span>
 
-<span class="sd">        Examples:</span>
+<span class="sd">      (.venv) $ python3 FAE.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;K&gt;</span>
 
-<span class="sd">           &gt;&gt;&gt; python3 FAE.py sampleDB.txt patterns.txt 10</span>
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 FAE.py sampleDB.txt patterns.txt 10</span>
+
+<span class="sd">    .. note:: k will be considered as count of top frequent patterns to consider in analysis</span>
+
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -385,6 +398,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        to convert the type of user specified minSup value</span>
 <span class="sd">        :param value: user specified minSup value</span>
+<span class="sd">        :type value: int or float or str</span>
 <span class="sd">        :return: converted type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
@@ -440,11 +454,12 @@
 <div class="viewcode-block" id="FAE.getMemoryUSS">
 <a class="viewcode-back" href="../../../../frequentPatternTopkFAE.html#PAMI.frequentPattern.topk.FAE.FAE.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
-<span class="sd">                    :return: returning USS memory consumed by the mining process</span>
+<span class="sd">        :return: returning USS memory consumed by the mining process</span>
 
-<span class="sd">                    :rtype: float</span>
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
@@ -453,7 +468,8 @@
 <div class="viewcode-block" id="FAE.getMemoryRSS">
 <a class="viewcode-back" href="../../../../frequentPatternTopkFAE.html#PAMI.frequentPattern.topk.FAE.FAE.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
 
@@ -466,7 +482,8 @@
 <div class="viewcode-block" id="FAE.getRuntime">
 <a class="viewcode-back" href="../../../../frequentPatternTopkFAE.html#PAMI.frequentPattern.topk.FAE.FAE.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
 
@@ -479,7 +496,8 @@
 <div class="viewcode-block" id="FAE.getPatternsAsDataFrame">
 <a class="viewcode-back" href="../../../../frequentPatternTopkFAE.html#PAMI.frequentPattern.topk.FAE.FAE.getPatternsAsDataFrame">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Storing final frequent patterns in a dataframe</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Storing final frequent patterns in a dataframe</span>
 
 <span class="sd">        :return: returning frequent patterns in a dataframe</span>
 
@@ -497,7 +515,8 @@
 <div class="viewcode-block" id="FAE.save">
 <a class="viewcode-back" href="../../../../frequentPatternTopkFAE.html#PAMI.frequentPattern.topk.FAE.FAE.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Complete set of frequent patterns will be loaded in to an output file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 
 <span class="sd">        :param outFile: name of the output file</span>
 
@@ -513,7 +532,8 @@
 <div class="viewcode-block" id="FAE.getPatterns">
 <a class="viewcode-back" href="../../../../frequentPatternTopkFAE.html#PAMI.frequentPattern.topk.FAE.FAE.getPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; Function to send the set of frequent patterns after completion of the mining process</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
 
 <span class="sd">        :return: returning frequent patterns</span>
 
@@ -525,7 +545,8 @@
 <div class="viewcode-block" id="FAE.printTOPK">
 <a class="viewcode-back" href="../../../../frequentPatternTopkFAE.html#PAMI.frequentPattern.topk.FAE.FAE.printTOPK">[docs]</a>
     <span class="k">def</span> <span class="nf">printTOPK</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; this function is used to print the results</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top K Frequent  Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>

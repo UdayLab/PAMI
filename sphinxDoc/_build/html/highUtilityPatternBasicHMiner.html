@@ -129,8 +129,24 @@
 </dd>
 <dt class="field-even">Reference<span class="colon">:</span></dt>
 <dd class="field-even"><p></p></dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of High Utility patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of High Utility patterns</p></li>
+<li><p><strong>minUtil</strong> – int :
+The user given minUtil value.</p></li>
+<li><p><strong>minSup</strong> – int or float or str :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</p></li>
+<li><p><strong>maxPer</strong> – float :
+The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of frequent patterns</p>
 </dd>
 <dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file to store complete set of frequent patterns</p>
@@ -153,8 +169,8 @@
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
@@ -184,16 +200,19 @@
 </dl>
 <section id="executing-the-code-on-terminal">
 <h2><strong>Executing the code on terminal:</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>Format:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">HMiner</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minUtil</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>HMiner.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minUtil&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>HMiner.py<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span><span class="m">35</span>
 </pre></div>
 </div>
-<p>Examples:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">HMiner</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="mi">35</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
 </div>
-</div></blockquote>
 </section>
 <section id="sample-run-of-importing-the-code">
 <h2>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h2>

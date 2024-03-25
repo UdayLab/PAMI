@@ -118,7 +118,9 @@ Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). <a class=
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>iFile</strong> – file :
-Input file name or path of the input file</p></li>
+Name of the Input file to mine complete set of fault Tolerant frequent patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of falut Tolerant frequent patterns</p></li>
 <li><p><strong>minSup</strong> – float or int or str :
 The user can specify minSup either in count or proportion of database size.
 If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.
@@ -130,8 +132,6 @@ Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated
 <dl class="simple">
 <dt>:param sep<span class="classifier">str :</span></dt><dd><p>This variable is used to distinguish items from one another in a transaction. The default separator is tab space or         .
 However, the users can override their default separator.</p>
-</dd>
-<dt>:param oFile<span class="classifier">file :</span></dt><dd><p>Name of the output file or the path of the output file</p>
 </dd>
 </dl>
 <dl class="field-list simple">
@@ -182,18 +182,19 @@ However, the users can override their default separator.</p>
 </dl>
 <section id="executing-the-code-on-terminal">
 <h2><strong>Executing the code on terminal:</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h2>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">FPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>FPGrowth.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>FPGrowth.py<span class="w"> </span>sampleDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">10</span>.0
 </pre></div>
 </div>
-</dd>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">FPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span>   <span class="p">(</span><span class="n">minSup</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">times</span> <span class="n">of</span> <span class="n">minSup</span> <span class="ow">and</span> <span class="n">count</span> <span class="n">of</span> <span class="n">database</span> <span class="n">transactions</span><span class="p">)</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in times of minSup and count of database transactions</p>
 </div>
-</dd>
-</dl>
-</div></blockquote>
 </section>
 <section id="sample-run-of-the-importing-code">
 <h2><strong>Sample run of the importing code:</strong><a class="headerlink" href="#sample-run-of-the-importing-code" title="Link to this heading"></a></h2>
@@ -313,6 +314,9 @@ However, the users can override their default separator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>outFile</strong> (<em>csv file</em>) – name of the output file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

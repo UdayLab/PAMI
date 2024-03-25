@@ -113,8 +113,22 @@
 <dd class="field-even"><p>Fournier-Viger, P., Wang, Y., Yang, P. et al. TSPIN: mining top-k stable periodic patterns.
 Appl Intell 52, 6917–6938 (2022). <a class="reference external" href="https://doi.org/10.1007/s10489-020-02181-6">https://doi.org/10.1007/s10489-020-02181-6</a></p>
 </dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent pattern’s</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>maxPer</strong> – float:
+Maximum number of frequent patterns to be included in the output file.</p></li>
+<li><p><strong>maxLa</strong> – str:
+Maximum number of frequent patterns to be included in the output file.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the Input file or path of the input file</p>
 </dd>
 <dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file or path of the output file</p>
@@ -154,8 +168,8 @@ However, the users can override their default separator.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.frequentPattern.maximal.MaxFPGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -122,7 +124,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-
+<span class="c1">#</span>
 
 
 
@@ -233,9 +235,15 @@
 
     <span class="k">def</span> <span class="nf">addTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Adding transactions into tree</span>
+
 <span class="sd">        :param transaction: represents the transaction in a database</span>
+
+<span class="sd">        :type transaction: list</span>
+
 <span class="sd">        :return: tree</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)):</span>
@@ -254,10 +262,19 @@
 
     <span class="k">def</span> <span class="nf">addConditionalTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Loading the database into a tree</span>
+
 <span class="sd">        :param transaction: conditional transaction of a node</span>
+
+<span class="sd">        :type transaction: list</span>
+
 <span class="sd">        :param count: the support of conditional transaction</span>
+
+<span class="sd">        :type count: int</span>
+
 <span class="sd">        :return: conditional tree</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)):</span>
@@ -278,6 +295,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates all the conditional patterns of respective node</span>
 <span class="sd">        :param alpha: it represents the Node in tree</span>
+<span class="sd">        :type alpha: int</span>
 <span class="sd">        :return: conditional patterns of a node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">finalPatterns</span> <span class="o">=</span> <span class="p">[]</span>
@@ -299,7 +317,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sorting and removing the items from conditional transactions which don&#39;t satisfy minSup</span>
 <span class="sd">        :param condPatterns: conditional patterns if a node</span>
+<span class="sd">        :type condPatterns: list</span>
 <span class="sd">        :param condFreq: frequency at leaf node of conditional transaction</span>
+<span class="sd">        :type condFreq: int</span>
 <span class="sd">        :return: conditional patterns and their frequency respectively</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_minSup</span>
@@ -328,6 +348,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To remove the node from the original tree</span>
 <span class="sd">        :param nodeValue: leaf node of tree</span>
+<span class="sd">        :type nodeValue: int</span>
 <span class="sd">        :return: tree after deleting node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">nodeValue</span><span class="p">]:</span>
@@ -338,7 +359,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates the patterns</span>
 <span class="sd">        :param prefix: forms the combination of items</span>
+<span class="sd">        :type prefix: str</span>
+<span class="sd">        :param patterns: the patterns we want to generate for this node</span>
+<span class="sd">        :type patterns: list</span>
 <span class="sd">        :return: the maximal frequent patterns</span>
+<span class="sd">        :rtype: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="o">-</span><span class="n">x</span><span class="p">)):</span>
             <span class="n">pattern</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">[:]</span>
@@ -385,6 +410,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To add the children details to a parent node</span>
 <span class="sd">        :param node: children node</span>
+<span class="sd">        :type node: _MNode</span>
 <span class="sd">        :return: adding children details to parent node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
@@ -421,6 +447,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To construct the maximal frequent pattern into maximal tree</span>
 <span class="sd">        :param transaction: the maximal frequent patterns extracted till now</span>
+<span class="sd">        :type transaction: list</span>
 <span class="sd">        :return: the maximal tree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
@@ -441,6 +468,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To check the subset of pattern present in tree</span>
 <span class="sd">        :param items: the sub frequent pattern</span>
+<span class="sd">        :type items: list</span>
 <span class="sd">        :return: checks if subset present in the tree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">items</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -481,6 +509,9 @@
 <span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
 <span class="sd">    :param  minSup: int or float or str :</span>
 <span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
+<span class="sd">    :param  maxPer: float :</span>
+<span class="sd">                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
+
 <span class="sd">    :param  sep: str :</span>
 <span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
 
@@ -521,13 +552,18 @@
 <span class="sd">    **Methods to execute code on terminal**</span>
 <span class="sd">    ---------------------------------------------------------</span>
 
-<span class="sd">            Format:</span>
-<span class="sd">                      &gt;&gt;&gt; python3 MaxFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt; python3 MaxFPGrowth.py sampleDB.txt patterns.txt 0.3</span>
+<span class="sd">      Format:</span>
 
-<span class="sd">            .. note:: minSup will be considered in percentage of database transactions</span>
+<span class="sd">      (.venv) $ python3 MaxFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 MaxFPGrowth.py sampleDB.txt patterns.txt 0.3</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
+
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -640,6 +676,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To sort the transactions in their support descending order and allocating ranks respectively</span>
 <span class="sd">        :param oneLength: 1-length frequent items in dictionary</span>
+<span class="sd">        :type oneLength: dict</span>
 <span class="sd">        :return: returning the sorted list</span>
 <span class="sd">        :Example: oneLength = {&#39;a&#39;:7, &#39;b&#39;: 5, &#39;c&#39;:&#39;4&#39;, &#39;d&#39;:3}</span>
 <span class="sd">                    rank = {&#39;a&#39;:0, &#39;b&#39;:1, &#39;c&#39;:2, &#39;d&#39;:3}</span>
@@ -658,9 +695,11 @@
 
     <span class="k">def</span> <span class="nf">_buildTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        creating the root node as null in fp-tree and and adding all transactions into tree.</span>
+<span class="sd">        creating the root node as null in fp-tree and adding all transactions into tree.</span>
 <span class="sd">        :param data: updated transactions</span>
+<span class="sd">        :type data: dict</span>
 <span class="sd">        :param info: rank of items in transactions</span>
+<span class="sd">        :type info: dict</span>
 <span class="sd">        :return: fp-tree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rootNode</span> <span class="o">=</span> <span class="n">_Tree</span><span class="p">()</span>
@@ -674,6 +713,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To convert the type of user specified minSup value</span>
 <span class="sd">        :param value: user specified minSup value</span>
+<span class="sd">        :type value: int or float or str</span>
 <span class="sd">        :return: converted type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
@@ -692,6 +732,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To convert the item ranks into their original item names</span>
 <span class="sd">        :param itemSet: itemSet or a pattern</span>
+<span class="sd">        :type itemSet: list</span>
 <span class="sd">        :return: original pattern</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">t1</span> <span class="o">=</span> <span class="p">[]</span>
@@ -799,7 +840,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to a output file</span>
 <span class="sd">        :param outFile: name of the output file</span>
-<span class="sd">        :type outFile: file</span>
+<span class="sd">        :type outFile: csvfile</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>

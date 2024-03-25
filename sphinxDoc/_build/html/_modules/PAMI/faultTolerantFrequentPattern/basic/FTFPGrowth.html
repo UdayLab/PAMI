@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.faultTolerantFrequentPattern.basic.FTFPGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -123,7 +125,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-
+<span class="c1">#</span>
 
 
 
@@ -189,8 +191,11 @@
 <span class="sd">        Retrieving the child from the tree</span>
 
 <span class="sd">        :param node: Child Node</span>
+
 <span class="sd">        :type node: Nodes</span>
+
 <span class="sd">        :return: Updates the children nodes and parent nodes</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">itemId</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
         <span class="n">node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
@@ -232,9 +237,15 @@
 <span class="sd">        Adding transaction into tree</span>
 
 <span class="sd">        :param transaction: it represents the one transaction in database</span>
+
 <span class="sd">        :type transaction: list</span>
+
 <span class="sd">        :param count: frequency of item</span>
+
 <span class="sd">        :type count: int</span>
+
+<span class="sd">        :return: None</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># This method takes transaction as input and returns the tree</span>
@@ -258,7 +269,13 @@
 <span class="sd">        Generates the conditional patterns for a node</span>
 
 <span class="sd">        :param alpha: node to generate conditional patterns</span>
+
+<span class="sd">        :type alpha: int</span>
+
 <span class="sd">        :return:returns conditional patterns, frequency of each item in conditional patterns</span>
+
+<span class="sd">        :rtype: tuple, List, Dict</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">finalPatterns</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">finalFreq</span> <span class="o">=</span> <span class="p">[]</span>
@@ -284,7 +301,14 @@
 <span class="sd">            ConditionalPatterns: paths of a node</span>
 <span class="sd">            conditionalFreq: frequency of each item in the path</span>
 
+<span class="sd">        :type ConditionalPatterns: List</span>
+
+<span class="sd">        :type conditionalFreq: List</span>
+
 <span class="sd">        :return: conditional patterns and frequency of each item in transactions</span>
+
+<span class="sd">        :rtype: Tuple, List, Dict</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_minSup</span>
         <span class="n">pat</span> <span class="o">=</span> <span class="p">[]</span>
@@ -313,7 +337,12 @@
 
 <span class="sd">        :parameters:</span>
 <span class="sd">            prefix: an empty list</span>
+
+<span class="sd">        :type prefix: List</span>
+
 <span class="sd">        :return:Frequent patterns that are extracted from fp-tree</span>
+
+<span class="sd">        :rtype: Typle, None, None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="o">-</span><span class="n">x</span><span class="p">)):</span>
             <span class="n">pattern</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">[:]</span>
@@ -341,7 +370,9 @@
 <span class="sd">                  Tree Approach. Data  Mining and Knowledge Discovery 8, 53–87 (2004). https://doi.org/10.1023</span>
 
 <span class="sd">    :param iFile: file :</span>
-<span class="sd">            Input file name or path of the input file</span>
+<span class="sd">            Name of the Input file to mine complete set of fault Tolerant frequent patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of falut Tolerant frequent patterns</span>
 <span class="sd">    :param minSup: float or int or str :</span>
 <span class="sd">            The user can specify minSup either in count or proportion of database size.</span>
 <span class="sd">            If the program detects the data type of minSup is integer, then it treats minSup is expressed in count.</span>
@@ -350,8 +381,6 @@
 <span class="sd">    :param sep : str :</span>
 <span class="sd">            This variable is used to distinguish items from one another in a transaction. The default separator is tab space or \t.</span>
 <span class="sd">            However, the users can override their default separator.</span>
-<span class="sd">    :param oFile : file :</span>
-<span class="sd">            Name of the output file or the path of the output file</span>
 
 
 <span class="sd">    :Attributes:</span>
@@ -397,12 +426,20 @@
 <span class="sd">            Extracts the one-frequent patterns from transactions</span>
 
 <span class="sd">    **Executing the code on terminal:**</span>
-<span class="sd">    --------------------------------------</span>
+<span class="sd">    ----------------------------------------</span>
 
-<span class="sd">            Format:</span>
-<span class="sd">                    &gt;&gt;&gt; python3 FPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
-<span class="sd">            Examples:</span>
-<span class="sd">                    &gt;&gt;&gt; python3 FPGrowth.py sampleDB.txt patterns.txt 10.0   (minSup will be considered in times of minSup and count of database transactions)</span>
+<span class="sd">    .. code-block:: console</span>
+
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 FPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 FPGrowth.py sampleDB.txt patterns.txt 10.0</span>
+
+<span class="sd">    .. note:: minSup will be considered in times of minSup and count of database transactions</span>
+
 
 <span class="sd">    **Sample run of the importing code:**</span>
 <span class="sd">    -------------------------------------------</span>
@@ -495,10 +532,17 @@
 
     <span class="k">def</span> <span class="nf">__convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        To convert the type of user specified minSup value</span>
 
 <span class="sd">        :param value: user specified minSup value</span>
+
+<span class="sd">        :type value: Union[int, float, str]</span>
+
 <span class="sd">        :return: converted type</span>
+
+<span class="sd">        :rtype: int, float</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -514,7 +558,13 @@
 
     <span class="k">def</span> <span class="nf">__frequentOneItem</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        Generating One frequent items sets</span>
+
+<span class="sd">        :return: one frequency items set</span>
+
+<span class="sd">        :rtype: List</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__mapSupport</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__Database</span><span class="p">:</span>
@@ -534,8 +584,15 @@
 
 <span class="sd">        :Example: oneLength = {&#39;a&#39;:7, &#39;b&#39;: 5, &#39;c&#39;:&#39;4&#39;, &#39;d&#39;:3}</span>
 <span class="sd">                  rank = {&#39;a&#39;:0, &#39;b&#39;:1, &#39;c&#39;:2, &#39;d&#39;:3}</span>
-<span class="sd">        :parameters:</span>
-<span class="sd">        itemSet: list of one-frequent items</span>
+
+<span class="sd">        :param itemSet: list of one-frequent items</span>
+
+<span class="sd">        :type itemSet: List</span>
+
+<span class="sd">        :return: list of updated items in transactions with rank of items according to their support</span>
+
+<span class="sd">        :rtype: List</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">list1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__Database</span><span class="p">:</span>
@@ -551,15 +608,19 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">__buildTree</span><span class="p">(</span><span class="n">transactions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">_Tree</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Builds the tree with updated transactions</span>
-<span class="sd">        :Parameters:</span>
+<span class="sd">        Builds the tree with updated transaction</span>
 
-<span class="sd">            transactions: updated transactions</span>
-<span class="sd">            info: support details of each item in transactions</span>
+<span class="sd">        :param transactions: updated transactions</span>
 
-<span class="sd">        :Returns:</span>
+<span class="sd">        :type transactions: List</span>
 
-<span class="sd">            transactions compressed in fp-tree</span>
+<span class="sd">        :param info: support details of each item in transactions</span>
+
+<span class="sd">        :type info: Dict</span>
+
+<span class="sd">        :returns: transactions compressed in fp-tree</span>
+
+<span class="sd">        :rtype: Tree</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rootNode</span> <span class="o">=</span> <span class="n">_Tree</span><span class="p">()</span>
@@ -572,13 +633,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The duplication items and their ranks</span>
 
-<span class="sd">        :Parameters:</span>
+<span class="sd">        :param itemSet: frequent itemSet that generated</span>
 
-<span class="sd">            itemSet: frequent itemSet that generated</span>
+<span class="sd">        :type itemSet: List</span>
 
-<span class="sd">        :Returns:</span>
+<span class="sd">        :returns: patterns with original item names</span>
 
-<span class="sd">            patterns with original item names.</span>
+<span class="sd">        :rtype: String</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
@@ -628,7 +689,9 @@
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
 <span class="sd">        :return: returning USS memory consumed by the mining process</span>
+
 <span class="sd">        :rtype: float</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span></div>
@@ -641,7 +704,9 @@
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
+
 <span class="sd">        :rtype: float</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span></div>
@@ -654,7 +719,9 @@
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
+
 <span class="sd">        :rtype: float</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__startTime</span></div>
@@ -667,7 +734,9 @@
 <span class="sd">        Storing final frequent patterns in a dataframe</span>
 
 <span class="sd">        :return: returning frequent patterns in a dataframe</span>
+
 <span class="sd">        :rtype: pd.DataFrame</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">dataframe</span> <span class="o">=</span> <span class="p">{}</span>
@@ -685,7 +754,11 @@
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 
 <span class="sd">        :param outFile: name of the output file</span>
+
 <span class="sd">        :type outFile: csv file</span>
+
+<span class="sd">        :return: None</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
@@ -701,7 +774,9 @@
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
 
 <span class="sd">        :return: returning frequent patterns</span>
+
 <span class="sd">        :rtype: dict</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span></div>
 

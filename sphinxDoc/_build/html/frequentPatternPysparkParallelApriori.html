@@ -44,29 +44,8 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="transactionalPatternMining.html">Transactional Database</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="frequent1.html">Frequent Pattern mining</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="frequentPatternMining.html">Basic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frequentPatternMining.html#closed">Closed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frequentPatternMining.html#maximal">Maximal</a></li>
-<li class="toctree-l3"><a class="reference internal" href="frequentPatternMining.html#cuda">CUDA</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="frequentPatternMining.html#pyspark">Pyspark</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">parallelApriori</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frequentPatternPysparkParallelECLAT.html">parallelECLAT</a></li>
-<li class="toctree-l4"><a class="reference internal" href="frequentPatternPysparkParallelFPGrowth.html">parallelFPGrowth</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="frequentPatternMining.html#top-k">Top K</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="relativeFrequent.html">Relative Frequent Pattern</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FrequentPatternWithMultipleMinimumSupport1.html">Frequent pattern With Multiple Minimum Support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CorrelatedPatternMining1.html">Correlated Pattern Mining</a></li>
-<li class="toctree-l2"><a class="reference internal" href="FaultTolerantPatternMining1.html">Fault-Tolerant Frequent Pattern Mining</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CoveragePatternMining1.html">Coverage Pattern Mining</a></li>
-</ul>
-</li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="transactionalPatternMining.html">Transactional Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="temporalPatternMining.html">Temporal Database</a></li>
@@ -168,22 +147,19 @@ The number of partitions. On each worker node, an executor process is started an
 </dl>
 <section id="methods-to-execute-code-on-terminal">
 <h2><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Link to this heading"></a></h2>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">parallelApriori</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">numWorkers</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>parallelApriori.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;numWorkers&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>parallelApriori.py<span class="w"> </span>sampleDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">10</span>.0<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
-</dd>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">parallelApriori</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</dd>
-</dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</div></blockquote>
 </section>
 <section id="importing-this-algorithm-into-a-python-program">
 <h2><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h2>
@@ -263,7 +239,7 @@ The number of partitions. On each worker node, an executor process is started an
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.printResults">
 <span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelApriori.html#parallelApriori.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.printResults" title="Link to this definition"></a></dt>
-<dd><p>This method prints all the statistics</p>
+<dd><p>This method prints all the stats</p>
 </dd></dl>
 
 <dl class="py method">
@@ -277,8 +253,7 @@ The number of partitions. On each worker node, an executor process is started an
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.startMine">
 <span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelApriori.html#parallelApriori.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.startMine" title="Link to this definition"></a></dt>
-<dd><p>Frequent pattern mining process will start from here
-:return:</p>
+<dd><p>Frequent pattern mining process will start from here</p>
 </dd></dl>
 
 </section>

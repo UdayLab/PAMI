@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.highUtilityFrequentPattern.basic.HUFIM &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -121,7 +123,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-
+<span class="c1">#</span>
 
 
 
@@ -200,8 +202,14 @@
     <span class="k">def</span> <span class="nf">projectTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offsetE</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;_Transaction&#39;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to create new Transaction from existing transaction starting from offsetE until the end</span>
+
 <span class="sd">        :param offsetE: an offset over the original transaction for projecting the transaction</span>
+
 <span class="sd">        :type offsetE: int</span>
+
+<span class="sd">        :return: a new transaction starting from offsetE until the end of the transaction</span>
+
+<span class="sd">        :rtype: _Transaction</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">new_transaction</span> <span class="o">=</span> <span class="n">_Transaction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">transactionUtility</span><span class="p">)</span>
         <span class="n">utilityE</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span><span class="p">[</span><span class="n">offsetE</span><span class="p">]</span>
@@ -216,18 +224,30 @@
     <span class="k">def</span> <span class="nf">getItems</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return items in transaction</span>
+
+<span class="sd">        :return: the list of items in transaction starting from offsetE until the end of the transactions</span>
+
+<span class="sd">        :rtype: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span>
 
     <span class="k">def</span> <span class="nf">getUtilities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return utilities in transaction</span>
+
+<span class="sd">        :return: the list of utilities in transaction starting from offsetE until the end of the transaction</span>
+
+<span class="sd">        :rtype: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">utilities</span>
 
     <span class="k">def</span> <span class="nf">getLastPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return last position in a transaction</span>
+
+<span class="sd">        :return: the last position in a transaction</span>
+
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
@@ -235,6 +255,10 @@
     <span class="k">def</span> <span class="nf">getSupport</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return support in a transaction</span>
+
+<span class="sd">        :return: the support in a transaction</span>
+
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">support</span>
@@ -242,8 +266,12 @@
     <span class="k">def</span> <span class="nf">removeUnpromisingItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oldNamesToNewNames</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to remove items which are not present in the map passed to the function</span>
+
 <span class="sd">        :param oldNamesToNewNames: A map represent old names to new names</span>
+
 <span class="sd">        :type oldNamesToNewNames: map</span>
+
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tempItems</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">tempUtilities</span> <span class="o">=</span> <span class="p">[]</span>
@@ -260,6 +288,7 @@
     <span class="k">def</span> <span class="nf">insertionSort</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to sort items in order</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">)):</span>
             <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -307,6 +336,13 @@
     <span class="k">def</span> <span class="nf">createItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datasetPath</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing the complete transactions of the database/input file in a database variable</span>
+
+<span class="sd">        :param datasetPath: list of paths to the input file to store</span>
+
+<span class="sd">        :type datasetPath: list</span>
+
+<span class="sd">        :return: None</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Database</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span> <span class="o">=</span> <span class="p">[]</span>
@@ -353,17 +389,22 @@
     <span class="k">def</span> <span class="nf">createTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">utilities</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">utilitySum</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Transaction</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to create Transaction from dataset given</span>
-<span class="sd">            </span>
-<span class="sd">        :Attributes:</span>
 
 <span class="sd">        :param items: represent a single line of database</span>
+
 <span class="sd">        :type items: list</span>
+
 <span class="sd">        :param utilities: represent the utilities of items</span>
+
 <span class="sd">        :type utilities: list</span>
+
 <span class="sd">        :param utilitySum: represent  the utilitySum</span>
-<span class="sd">        :type items: int</span>
-<span class="sd">        :return : Transaction</span>
-<span class="sd">        :rtype: Transactions</span>
+
+<span class="sd">        :type utilitySum: int</span>
+
+<span class="sd">        :return: a Transaction from given dataset</span>
+
+<span class="sd">        :rtype: _Transaction</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transactionUtility</span> <span class="o">=</span> <span class="n">utilitySum</span>
         <span class="n">itemsString</span> <span class="o">=</span> <span class="n">items</span>
@@ -385,12 +426,20 @@
     <span class="k">def</span> <span class="nf">getMaxItem</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return name of the largest item</span>
+
+<span class="sd">        :return: the name of the largest item in the dataset</span>
+
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxItem</span>
 
     <span class="k">def</span> <span class="nf">getTransactions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">_Transaction</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to return transactions from database</span>
+
+<span class="sd">        :return: the list of transactions from database which have the highest utility</span>
+
+<span class="sd">        :rtype: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span>
 
@@ -405,6 +454,25 @@
 <span class="sd">    :Reference:     Kiran, R.U., Reddy, T.Y., Fournier-Viger, P., Toyoda, M., Reddy, P.K., &amp; Kitsuregawa, M. (2019).</span>
 <span class="sd">                   Efficiently Finding High Utility-Frequent Itemsets Using Cutoff and Suffix Utility. PAKDD 2019.</span>
 <span class="sd">                   DOI: 10.1007/978-3-030-16145-3_15</span>
+
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of Geo-referenced frequent sequence patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of Geo-referenced frequent sequence patterns</span>
+<span class="sd">    :param  minSup: int or float or str :</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</span>
+<span class="sd">    :param minUtil: int :</span>
+<span class="sd">                   The user given minUtil value.</span>
+<span class="sd">    :param candidateCount: int</span>
+<span class="sd">                   Number of candidates</span>
+<span class="sd">    :param maxMemory: int</span>
+<span class="sd">                   Maximum memory used by this program for running</span>
+<span class="sd">    :param nFile: str :</span>
+<span class="sd">                   Name of the input file to mine complete set of Geo-referenced frequent sequence patterns</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
 <span class="sd">    </span>
 <span class="sd">    :Attributes:</span>
 
@@ -482,12 +550,21 @@
 
 <span class="sd">    **Executing the code on terminal**</span>
 <span class="sd">    --------------------------------------------</span>
-<span class="sd">        Format:</span>
-<span class="sd">                  &gt;&gt;&gt;  python3 HUFIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minUtil&gt; &lt;sep&gt;</span>
 
-<span class="sd">        Examples:</span>
-<span class="sd">                  &gt;&gt;&gt;  python3 HUFIM.py sampleTDB.txt output.txt 35 20</span>
-<span class="sd">                  &gt;&gt;&gt;  python3 HUFIM.py sampleTDB.txt output.txt 35 20</span>
+<span class="sd">    .. code-block:: console</span>
+
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 HUFIM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minUtil&gt; &lt;sep&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 HUFIM.py sampleTDB.txt output.txt 35 20</span>
+
+<span class="sd">      (.venv) $ python3 HUFIM.py sampleTDB.txt output.txt 35 20</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
+
 
 <span class="sd">    **Sample run of importing the code**</span>
 <span class="sd">    -----------------------------------------------</span>
@@ -556,7 +633,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To convert the given user specified value</span>
 <span class="sd">        :param value: user specified value</span>
+<span class="sd">        :type value: int or float or str</span>
 <span class="sd">        :return: converted value</span>
+<span class="sd">        :rtype: int or float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -576,6 +655,7 @@
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        High Utility Frequent Pattern mining start here</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
@@ -635,9 +715,6 @@
     <span class="k">def</span> <span class="nf">_backTrackingHUFIM</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactionsOfP</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">_Transaction</span><span class="p">],</span> <span class="n">itemsToKeep</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">itemsToExplore</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">prefixLength</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to mine the HUFIs Recursively</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param transactionsOfP: the list of transactions containing the current prefix P</span>
 <span class="sd">        :type transactionsOfP: list</span>
 <span class="sd">        :param itemsToKeep: the list of secondary items in the p-projected database</span>
@@ -646,6 +723,7 @@
 <span class="sd">        :type itemsToExplore: list</span>
 <span class="sd">        :param prefixLength: current prefixLength</span>
 <span class="sd">        :type prefixLength: int</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># print(&quot;###############&quot;)</span>
         <span class="c1"># print(&quot;P is&quot;, [self.dataset.intToStr.get(x) for x in self.temp[:prefixLength]])</span>
@@ -742,6 +820,7 @@
 <span class="sd">        :type j:int</span>
 <span class="sd">        :param itemsToKeep :the list of promising items</span>
 <span class="sd">        :type itemsToKeep: list or Dataset</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">itemsToKeep</span><span class="p">)):</span>
             <span class="n">item</span> <span class="o">=</span> <span class="n">itemsToKeep</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -760,16 +839,16 @@
 
     <span class="k">def</span> <span class="nf">_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tempPosition</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">utility</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">support</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">         Method to print itemSets</span>
+<span class="sd">        Method to print itemSets</span>
 
-<span class="sd">         :Attributes:</span>
+<span class="sd">        :Attributes:</span>
 
-<span class="sd">         :param tempPosition: position of last item </span>
-<span class="sd">         :type tempPosition : int </span>
-<span class="sd">         :param utility: total utility of itemSet</span>
-<span class="sd">         :type utility: int</span>
-<span class="sd">         :param support: support of an itemSet</span>
-<span class="sd">         :type support: int</span>
+<span class="sd">        :param tempPosition: position of last item</span>
+<span class="sd">        :type tempPosition : int</span>
+<span class="sd">        :param utility: total utility of itemSet</span>
+<span class="sd">        :type utility: int</span>
+<span class="sd">        :param support: support of an itemSet</span>
+<span class="sd">        :type support: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_patternCount</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">s1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
@@ -781,16 +860,13 @@
 
     <span class="k">def</span> <span class="nf">_isEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction1</span><span class="p">:</span> <span class="n">_Transaction</span><span class="p">,</span> <span class="n">transaction2</span><span class="p">:</span> <span class="n">_Transaction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">         A method to Check if two transaction are identical</span>
-
-<span class="sd">         :Attributes:</span>
-
-<span class="sd">         :param  transaction1: the first transaction</span>
-<span class="sd">         :type  transaction1: Trans</span>
-<span class="sd">         :param  transaction2:    the second transaction</span>
-<span class="sd">         :type  transaction2: Trans</span>
-<span class="sd">         :return : whether both are identical or not</span>
-<span class="sd">         :rtype: bool</span>
+<span class="sd">        A method to Check if two transaction are identical</span>
+<span class="sd">        :param  transaction1: the first transaction</span>
+<span class="sd">        :type  transaction1: Trans</span>
+<span class="sd">        :param  transaction2:    the second transaction</span>
+<span class="sd">        :type  transaction2: Trans</span>
+<span class="sd">        :return : whether both are identical or not</span>
+<span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">length1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction1</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="n">transaction1</span><span class="o">.</span><span class="n">offset</span>
         <span class="n">length2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction2</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">-</span> <span class="n">transaction2</span><span class="o">.</span><span class="n">offset</span>
@@ -808,11 +884,9 @@
     <span class="k">def</span> <span class="nf">_useUtilityBinArrayToCalculateSubtreeUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">_Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Scan the initial database to calculate the subtree utility of each item using a utility-bin array</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param dataset: the transaction database</span>
 <span class="sd">        :type dataset: Dataset</span>
+<span class="sd">        :return : None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
             <span class="n">sumSU</span> <span class="o">=</span> <span class="mi">0</span>
@@ -830,13 +904,9 @@
     <span class="k">def</span> <span class="nf">_sortDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">_Transaction</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Method to sort transaction</span>
-
-<span class="sd">        :Attributes:</span>
-
-<span class="sd">        :param transactions: transaction of items</span>
+<span class="sd">        :param transactions: transactions of items</span>
 <span class="sd">        :type transactions: list</span>
-<span class="sd">        :return: sorted transactions</span>
-<span class="sd">        :rtype: Trans or list</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">compareItems</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_functools</span><span class="o">.</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sortTransaction</span><span class="p">)</span>
         <span class="n">transactions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">compareItems</span><span class="p">)</span>
@@ -844,15 +914,12 @@
     <span class="k">def</span> <span class="nf">_sortTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trans1</span><span class="p">:</span> <span class="n">_Transaction</span><span class="p">,</span> <span class="n">trans2</span><span class="p">:</span> <span class="n">_Transaction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Method to sort transaction</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param trans1: the first transaction</span>
 <span class="sd">        :type trans1: Trans</span>
 <span class="sd">        :param trans2:the second transaction</span>
 <span class="sd">        :type trans2: Trans</span>
 <span class="sd">        :return: sorted transaction</span>
-<span class="sd">        :rtype:Trans</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transItemsX</span> <span class="o">=</span> <span class="n">trans1</span><span class="o">.</span><span class="n">getItems</span><span class="p">()</span>
         <span class="n">transItemsY</span> <span class="o">=</span> <span class="n">trans2</span><span class="o">.</span><span class="n">getItems</span><span class="p">()</span>
@@ -886,11 +953,9 @@
     <span class="k">def</span> <span class="nf">_useUtilityBinArrayToCalculateLocalUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="n">_Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to calculate local utility of single itemSets</span>
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :param dataset: the transaction database</span>
 <span class="sd">        :type dataset: databases</span>
-
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">()):</span>
@@ -936,6 +1001,7 @@
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 <span class="sd">        :param outFile: name of the output file</span>
 <span class="sd">        :type outFile: csv file</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>

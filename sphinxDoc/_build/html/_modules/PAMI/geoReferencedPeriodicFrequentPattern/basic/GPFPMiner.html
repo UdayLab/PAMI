@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.geoReferencedPeriodicFrequentPattern.basic.GPFPMiner &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -99,30 +101,33 @@
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#</span>
-<span class="c1">#     import PAMI.geoReferencedPeridicFrequentPattern.GPFPMiner as alg</span>
+<span class="c1">#             import PAMI.geoReferencedPeridicFrequentPattern.GPFPMiner as alg</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = alg.GPFPMiner(&quot;sampleTDB.txt&quot;, &quot;sampleN.txt&quot;, 5, 3)</span>
+<span class="c1">#             obj = alg.GPFPMiner(&quot;sampleTDB.txt&quot;, &quot;sampleN.txt&quot;, 5, 3)</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#     Patterns = obj.getPatterns()</span>
+<span class="c1">#             Patterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total number of Geo Referenced Periodic-Frequent Patterns:&quot;, len(Patterns))</span>
+<span class="c1">#             print(&quot;Total number of Geo Referenced Periodic-Frequent Patterns:&quot;, len(Patterns))</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.save(&quot;outFile&quot;)</span>
+<span class="c1">#             obj.save(&quot;outFile&quot;)</span>
 <span class="c1">#</span>
-<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 <span class="c1">#</span>
+
+
+
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
@@ -154,6 +159,20 @@
 <span class="sd">                    Lattice Traversal to mine the geo referenced peridoic frequent patterns.</span>
 <span class="sd">        </span>
 <span class="sd">    :Reference:</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of Geo-referenced periodic frequent patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of Geo-referenced periodic frequent patterns</span>
+<span class="sd">    :param  minSup: int or float or str :</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</span>
+<span class="sd">    :param maxPer: float :</span>
+<span class="sd">                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
+<span class="sd">    :param nFile: str :</span>
+<span class="sd">                   Name of the input file to mine complete set of Geo-referenced periodic frequent patterns</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
 
 <span class="sd">    :Attributes:</span>
 
@@ -217,15 +236,22 @@
 <span class="sd">                A function to map items to their neighbours</span>
 
 <span class="sd">    **Executing the code on terminal :**</span>
-<span class="sd">    --------------------------------------</span>
+<span class="sd">    ----------------------------------------</span>
 
-<span class="sd">        Format:</span>
-<span class="sd">            &gt;&gt;&gt; python3 GPFPMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbourFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">        Examples:</span>
-<span class="sd">            &gt;&gt;&gt; python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3 (minSup &amp; maxPer will be considered in percentage of database transactions)</span>
+<span class="sd">      Format:</span>
 
-<span class="sd">           </span>
+<span class="sd">      (.venv) $ python3 GPFPMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbourFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 GPFPMiner.py sampleTDB.txt output.txt sampleN.txt 0.5 0.3</span>
+
+<span class="sd">    .. note:: minSup &amp; maxPer will be considered in percentage of database transactions</span>
+
+
+
 <span class="sd">    **Sample run of importing the code :**</span>
 <span class="sd">    -----------------------------------------</span>
 <span class="sd">    .. code-block:: python</span>
@@ -318,7 +344,9 @@
 
     <span class="c1"># function to get frequent one pattern</span>
     <span class="k">def</span> <span class="nf">_frequentOneItem</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generating one frequent patterns&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generating one frequent patterns</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">candidate</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">:</span>
@@ -345,7 +373,12 @@
 <span class="sd">        To convert the given user specified value</span>
 
 <span class="sd">        :param value: user specified value</span>
+
+<span class="sd">        :type value: int or float or str</span>
+
 <span class="sd">        :return: converted value</span>
+
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -506,7 +539,9 @@
 <div class="viewcode-block" id="GPFPMiner.startMine">
 <a class="viewcode-back" href="../../../../geoReferencedPeriodicFrequentPatternbasicGPFPMiner.html#PAMI.geoReferencedPeriodicFrequentPattern.basic.GPFPMiner.GPFPMiner.startMine">[docs]</a>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Frequent pattern mining process will start from here&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Frequent pattern mining process will start from here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># global items_sets, endTime, startTime</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -560,7 +595,8 @@
 <div class="viewcode-block" id="GPFPMiner.getMemoryRSS">
 <a class="viewcode-back" href="../../../../geoReferencedPeriodicFrequentPatternbasicGPFPMiner.html#PAMI.geoReferencedPeriodicFrequentPattern.basic.GPFPMiner.GPFPMiner.getMemoryRSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>

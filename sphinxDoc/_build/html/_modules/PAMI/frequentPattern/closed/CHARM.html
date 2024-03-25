@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.frequentPattern.closed.CHARM &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -123,7 +125,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-
+<span class="c1">#</span>
 
 
 
@@ -209,13 +211,17 @@
 <span class="sd">    **Methods to execute code on terminal**</span>
 <span class="sd">    --------------------------------------------------------------</span>
 
-<span class="sd">            Format:</span>
-<span class="sd">                      &gt;&gt;&gt; python3 CHARM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt; python3 CHARM.py sampleDB.txt patterns.txt 10.0</span>
+<span class="sd">      Format:</span>
 
-<span class="sd">            .. note:: minSup will be considered in percentage of database transactions</span>
+<span class="sd">      (.venv) $ python3 CHARM.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 CHARM.py sampleDB.txt patterns.txt 10.0</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -277,9 +283,15 @@
 
     <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        To convert the type of user specified minSup value</span>
+
 <span class="sd">        :param value: user specified minSup value</span>
+
+<span class="sd">        :type value: int or float or str</span>
+
 <span class="sd">        :return: converted type</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -362,8 +374,11 @@
     <span class="k">def</span> <span class="nf">_calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tidSet</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To calculate the hashcode of pattern</span>
+
 <span class="sd">        :param tidSet: the timestamps of a pattern</span>
+
 <span class="sd">        :type tidSet: list</span>
+
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -397,10 +412,17 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check for the closed property (patterns with same support), if found deletes the subsets and stores</span>
 <span class="sd">        supersets and also saves the patterns that satisfy the closed property</span>
+
 <span class="sd">        :param prefix: the prefix of a pattern</span>
+
+<span class="sd">        :type prefix: frequent item or pattern</span>
+
 <span class="sd">        :param suffix: the suffix of a patterns</span>
+
 <span class="sd">        :type suffix: list</span>
+
 <span class="sd">        :param tidSetx: the timestamp of a patterns</span>
+
 <span class="sd">        :type tidSetx: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

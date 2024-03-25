@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.coveragePattern.basic.CPPG &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -95,7 +97,7 @@
 <span></span><span class="c1"># CPPG algorithm discovers coverage patterns in a transactional database.</span>
 <span class="c1">#</span>
 <span class="c1"># **Importing this algorithm into a python program**</span>
-<span class="c1"># --------------------------------------------------</span>
+<span class="c1"># -------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#</span>
 <span class="c1">#             from PAMI.coveragePattern.basic import CPPG as alg</span>
@@ -123,7 +125,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-
+<span class="c1">#</span>
 
 
 
@@ -169,14 +171,14 @@
 <span class="sd">                    https://link.springer.com/article/10.1007/s10844-014-0318-3</span>
 
 <span class="sd">    :param  iFile: str :</span>
-<span class="sd">                   Name of the Input file to mine complete set of frequent pattern&#39;s</span>
+<span class="sd">                   Name of the Input file to mine complete set of coverage patterns</span>
 <span class="sd">    :param  oFile: str :</span>
-<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
-<span class="sd">    :param  minRF: float:</span>
+<span class="sd">                   Name of the output file to store complete set of coverage patterns</span>
+<span class="sd">    :param  minRF: str:</span>
 <span class="sd">                   Controls the minimum number of transactions in which every item must appear in a database.</span>
-<span class="sd">    :param  minCS: float:</span>
+<span class="sd">    :param  minCS: str:</span>
 <span class="sd">                   Controls the minimum number of transactions in which at least one time within a pattern must appear in a database.</span>
-<span class="sd">    :param  maxOR: float:</span>
+<span class="sd">    :param  maxOR: str:</span>
 <span class="sd">                   Controls the maximum number of transactions in which any two items within a pattern can reappear.</span>
 
 <span class="sd">    :param  sep: str :</span>
@@ -205,14 +207,19 @@
 
 
 <span class="sd">    **Methods to execute code on terminal**</span>
-<span class="sd">    ---------------------------------------</span>
+<span class="sd">    -------------------------------------------</span>
 
-<span class="sd">            Format:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 CPPG.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minRF&gt; &lt;minCS&gt; &lt;maxOR&gt; &lt;&#39;\t&#39;&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt;   python3 CPPG.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 &#39;,&#39;</span>
+<span class="sd">      Format:</span>
 
+<span class="sd">      (.venv) $ python3 CPPG.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minRF&gt; &lt;minCS&gt; &lt;maxOR&gt; &lt;&#39;\t&#39;&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 CPPG.py sampleTDB.txt patterns.txt 0.4 0.7 0.5 &#39;,&#39;</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -271,8 +278,6 @@
     <span class="k">def</span> <span class="nf">_creatingItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Storing the complete transactions of the database/input file in a database variable</span>
-
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
@@ -316,6 +321,7 @@
 <span class="sd">            by decreasing support and returns the frequent items list</span>
 
 <span class="sd">            :returns: return the one-length periodic frequent patterns</span>
+<span class="sd">            :rtype: tuple</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
@@ -334,8 +340,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Remove the items which are not frequent from database and updates the database with rank of items</span>
 
 <span class="sd">            :param dict1: frequent items with support</span>
-<span class="sd">            :type dict1: list</span>
+<span class="sd">            :type dict1: dict</span>
 <span class="sd">            :return: Sorted and updated transactions</span>
+<span class="sd">            :rtype: list</span>
 <span class="sd">            &quot;&quot;&quot;</span>
         <span class="n">list2</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">:</span>
@@ -348,6 +355,12 @@
 
     <span class="k">def</span> <span class="nf">_buildProjectedDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">info</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; To construct the projected database for each prefix</span>
+<span class="sd">        :param data: list of transactions with support per prefix</span>
+<span class="sd">        :type data: list</span>
+<span class="sd">        :param info: informatoin on list of transactions with support per prefix</span>
+<span class="sd">        :type info: str</span>
+<span class="sd">        :return: projected data</span>
+<span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">proData</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">)):</span>
@@ -400,7 +413,12 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; To convert the ranks of items in to their original item names</span>
 
 <span class="sd">            :param itemSet: frequent patterns</span>
+
+<span class="sd">            :type itemSet: list</span>
+
 <span class="sd">            :return: frequent pattern with original item names</span>
+
+<span class="sd">            :rtype: string</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">t1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">itemSet</span><span class="p">:</span>
@@ -412,7 +430,12 @@
 <span class="sd">        To convert the given user specified value</span>
 
 <span class="sd">        :param value: user specified value</span>
+
+<span class="sd">        :type value: Union[int, float, str]</span>
+
 <span class="sd">        :return: converted value</span>
+
+<span class="sd">        :rtype: Union[int, float]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -496,7 +519,6 @@
 <a class="viewcode-back" href="../../../../coveragePatternBasicCPPG.html#PAMI.coveragePattern.basic.CPPG.CPPG.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
-
 
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
 <span class="sd">        :rtype: float</span>

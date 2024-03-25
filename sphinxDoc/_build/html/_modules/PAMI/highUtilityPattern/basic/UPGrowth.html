@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.highUtilityPattern.basic.UPGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -121,6 +123,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
 
 
@@ -179,6 +182,8 @@
     <span class="k">def</span> <span class="nf">getUtility</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        method to get node utility</span>
+<span class="sd">        :return: Utility value of Node</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">utility</span>
 
@@ -187,12 +192,15 @@
 <span class="sd">        method to set node utility</span>
 <span class="sd">        :param utility: the utility to set</span>
 <span class="sd">        :type utility: int</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">utility</span> <span class="o">=</span> <span class="n">utility</span>
 
     <span class="k">def</span> <span class="nf">getName</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        method to get name for particular item</span>
+<span class="sd">        :return: name of particular item</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
@@ -238,6 +246,8 @@
 <span class="sd">        method to get child node Return the immediate child of this node having a given name</span>
 <span class="sd">        :param name: represent id of item</span>
 <span class="sd">        :type name: int</span>
+<span class="sd">        :return: id of child node with same itemid</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">childs</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">itemId</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
@@ -293,6 +303,8 @@
 <span class="sd">        :type transaction: list</span>
 <span class="sd">        :param RTU :reorganised transaction utility</span>
 <span class="sd">        :type RTU: int</span>
+<span class="sd">        :return: the number of transactions added</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
         <span class="n">NumberOfNodes</span> <span class="o">=</span> <span class="mi">0</span>
@@ -339,6 +351,8 @@
 <span class="sd">        :type mapItemToMinimumItemutility: map</span>
 <span class="sd">        :param pathCount: the Path count</span>
 <span class="sd">        :type pathCount: int</span>
+<span class="sd">        :return: The number of nodes in the tree that have been added or removed from the tree</span>
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">currentLocalNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
         <span class="n">RemainingUtility</span> <span class="o">=</span> <span class="mi">0</span>
@@ -383,6 +397,8 @@
 <span class="sd">        :type itemName: int</span>
 <span class="sd">        :param nodeUtility: Utility of new node</span>
 <span class="sd">        :type nodeUtility: int</span>
+<span class="sd">        :return: The newly created UPNode</span>
+<span class="sd">        :rtype: _UPNode</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">newNode</span> <span class="o">=</span> <span class="n">_UPNode</span><span class="p">()</span>
         <span class="n">newNode</span><span class="o">.</span><span class="n">itemId</span> <span class="o">=</span> <span class="n">itemName</span>
@@ -406,6 +422,7 @@
 <span class="sd">        A Method for creating the list of items in the header table, in descending order of TWU or path utility.</span>
 <span class="sd">        :param mapItemToTwu: the Utilities of each item</span>
 <span class="sd">        :type mapItemToTwu: map</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headerList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapItemNodes</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headerList</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headerList</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">mapItemToTwu</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -420,6 +437,20 @@
 <span class="sd">    :Reference:     Vincent S. Tseng, Cheng-Wei Wu, Bai-En Shie, and Philip S. Yu. 2010. UP-Growth: an efficient algorithm for high utility itemset mining.</span>
 <span class="sd">                    In Proceedings of the 16th ACM SIGKDD international conference on Knowledge discovery and data mining (KDD &#39;10).</span>
 <span class="sd">                    Association for Computing Machinery, New York, NY, USA, 253–262. DOI:https://doi.org/10.1145/1835804.1835839</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of High Utility patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of High Utility patterns</span>
+<span class="sd">    :param minUtil: int :</span>
+<span class="sd">                   The user given minUtil value.</span>
+<span class="sd">    :param candidateCount: int</span>
+<span class="sd">                   Number of candidates specified by user</span>
+<span class="sd">    :param maxMemory: int</span>
+<span class="sd">                   Maximum memory used by this program for running</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
 
 <span class="sd">    :Attributes:</span>
 
@@ -471,12 +502,19 @@
 
 <span class="sd">    **Executing the code on terminal:**</span>
 <span class="sd">    ---------------------------------------------</span>
-<span class="sd">        Format:</span>
 
-<span class="sd">                  &gt;&gt;&gt; python3 UPGrowth &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;sep&gt;</span>
-<span class="sd">        Examples:</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">                  &gt;&gt;&gt; python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35</span>
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 UPGrowth &lt;inputFile&gt; &lt;outputFile&gt; &lt;Neighbours&gt; &lt;minUtil&gt; &lt;sep&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 UPGrowth sampleTDB.txt output.txt sampleN.txt 35</span>
+
+<span class="sd">    .. note:: maxMemory will be considered as Maximum memory used by this program for running</span>
+
 
 <span class="sd">    Sample run of importing the code:</span>
 <span class="sd">    -------------------------------------</span>
@@ -536,6 +574,7 @@
     <span class="k">def</span> <span class="nf">_creatingItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing the complete transactions of the database/input file in a database variable</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
@@ -573,6 +612,7 @@
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mining process will start from here</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">tree</span> <span class="o">=</span> <span class="n">_UPTree</span><span class="p">()</span>
@@ -665,6 +705,7 @@
 <span class="sd">        :type tree: UPTree</span>
 <span class="sd">        :param alpha: prefix itemset</span>
 <span class="sd">        :type alpha: list</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">headerList</span><span class="p">):</span>
             <span class="n">localTree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_createLocalTree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
@@ -688,6 +729,8 @@
 <span class="sd">        :type tree: UP Tree</span>
 <span class="sd">        :param item: item that need to construct conditional patterns</span>
 <span class="sd">        :type item: int</span>
+<span class="sd">        :return: the conditional pattern based UPTree</span>
+<span class="sd">        :rtype: _UPTree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">prefixPaths</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">mapItemNodes</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
@@ -730,6 +773,7 @@
     <span class="k">def</span> <span class="nf">PrintStats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Method to print number of phuis</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;number of PHUIS are &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_phuis</span><span class="p">)))</span></div>
 
@@ -769,6 +813,7 @@
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 <span class="sd">        :param outFile: name of the output file</span>
 <span class="sd">        :type outFile: csv file</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
@@ -816,6 +861,7 @@
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of High Utility Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>

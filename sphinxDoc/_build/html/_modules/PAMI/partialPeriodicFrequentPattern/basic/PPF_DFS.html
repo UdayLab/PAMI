@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.partialPeriodicFrequentPattern.basic.PPF_DFS &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -155,6 +157,22 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:   PPF_DFS is algorithm to mine the partial periodic frequent patterns.</span>
 
+<span class="sd">    :References:    (Has to be added)</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  minSup: str:</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size.</span>
+<span class="sd">    :param  minPR: str:</span>
+<span class="sd">                   Controls the maximum number of transactions in which any two items within a pattern can reappear.</span>
+<span class="sd">    :param  maxPer: str:</span>
+<span class="sd">                   Controls the maximum number of transactions in which any two items within a pattern can reappear.</span>
+
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
 <span class="sd">    :Attributes:</span>
 
 <span class="sd">        iFile : file</span>
@@ -221,7 +239,7 @@
 
 <span class="sd">    **Sample run of the importing code:**</span>
 <span class="sd">    ---------------------------------------</span>
-<span class="sd">    .. code-block:: python</span>
+<span class="sd">    ...     code-block:: python</span>
 
 <span class="sd">            from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg</span>
 

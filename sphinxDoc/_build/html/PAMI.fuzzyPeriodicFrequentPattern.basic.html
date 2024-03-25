@@ -105,26 +105,33 @@
 <dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.</span></span><span class="sig-name descname"><span class="pre">FPFPMiner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_fuzzyPeriodicFrequentPatterns</span></code></p>
-<dl class="field-list">
+<dl class="field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Fuzzy Periodic Frequent Pattern Miner is desired to find all fuzzy periodic frequent patterns which is
 on-trivial and challenging problem to its huge search space.we are using efficient pruning
 techniques to reduce the search space.</p>
 </dd>
 <dt class="field-even">Reference<span class="colon">:</span></dt>
-<dd class="field-even"><ol class="upperalpha simple" start="18">
-<li><ol class="upperalpha simple" start="21">
-<li><p>Kiran et al., “Discovering Fuzzy Periodic-Frequent Patterns in Quantitative Temporal Databases,”</p></li>
-</ol>
-</li>
-</ol>
-<blockquote>
-<div><p>2020 IEEE International Conference on Fuzzy Systems (FUZZ-IEEE), Glasgow, UK, 2020, pp.</p>
-</div></blockquote>
-<p>1-8, doi: 10.1109/FUZZ48607.2020.9177579.</p>
+<dd class="field-even"><p>R. U. Kiran et al., “Discovering Fuzzy Periodic-Frequent Patterns in Quantitative Temporal Databases,”
+2020 IEEE International Conference on Fuzzy Systems (FUZZ-IEEE), Glasgow, UK, 2020, pp.
+1-8, doi: 10.1109/FUZZ48607.2020.9177579.</p>
 </dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> – int or float or str :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</p></li>
+<li><p><strong>maxPer</strong> – float :
+The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of fuzzy spatial frequent patterns</p>
 </dd>
 <dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the oFile file to store complete set of fuzzy spatial frequent patterns</p>
@@ -165,8 +172,8 @@ techniques to reduce the search space.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
@@ -196,18 +203,19 @@ techniques to reduce the search space.</p>
 </dl>
 <section id="executing-the-code-on-terminal">
 <h3><strong>Executing the code on terminal :</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h3>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">FPFPMiner</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>FPFPMiner.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;maxPer&gt;<span class="w"> </span>&lt;sep&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w">  </span>FPFPMiner.py<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
-</dd>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span>  <span class="n">FPFPMiner</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="mi">2</span> <span class="mi">3</span> <span class="p">(</span><span class="n">minSup</span> <span class="ow">and</span> <span class="n">maxPer</span> <span class="n">will</span> <span class="n">be</span> <span class="n">considered</span> <span class="ow">in</span> <span class="n">support</span> <span class="n">count</span> <span class="ow">or</span> <span class="n">frequency</span><span class="p">)</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
 </div>
-</dd>
-</dl>
-</div></blockquote>
 </section>
 <section id="sample-run-of-importing-the-code">
 <h3><strong>Sample run of importing the code:</strong><a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h3>
@@ -304,7 +312,7 @@ techniques to reduce the search space.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.printResults">
 <span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/fuzzyPeriodicFrequentPattern/basic/FPFPMiner.html#FPFPMiner.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner.FPFPMiner.printResults" title="Link to this definition"></a></dt>
-<dd><p>this function is used to print the results</p>
+<dd><p>This function is used to print the results</p>
 </dd></dl>
 
 <dl class="py method">
@@ -313,7 +321,10 @@ techniques to reduce the search space.</p>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>outFile</strong> (<em>file</em>) – name of the output file</p>
+<dd class="field-odd"><p><strong>outFile</strong> (<em>csv file</em>) – name of the output file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -339,6 +350,22 @@ techniques to reduce the search space.</p>
 <dd class="field-odd"><p>Fuzzy Periodic Frequent Pattern Miner is desired to find all fuzzy periodic frequent patterns which is
 on-trivial and challenging problem to its huge search space.we are using efficient pruning
 techniques to reduce the search space.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> – int or float or str :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</p></li>
+<li><p><strong>maxPer</strong> – float :
+The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
@@ -413,18 +440,19 @@ techniques to reduce the search space.</p>
 </dl>
 <section id="id1">
 <h3><strong>Executing the code on terminal :</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">FPFPMiner_old</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">maxPer</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>FPFPMiner_old.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;maxPer&gt;<span class="w"> </span>&lt;sep&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w">  </span>FPFPMiner_old.py<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
-</dd>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span>  <span class="n">FPFPMiner_old</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="mi">2</span> <span class="mi">3</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
 </div>
-</dd>
-</dl>
-</div></blockquote>
 </section>
 <section id="id2">
 <h3><strong>Sample run of importing the code:</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.fuzzyGeoreferencedFrequentPattern.basic.FFSPMiner_old &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -123,6 +125,8 @@
 <span class="c1">#</span>
 
 
+
+
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
 
@@ -180,7 +184,7 @@
 <span class="sd">        A Method that add a new element to FFList</span>
 
 <span class="sd">        :param element: an element to be added to FFList</span>
-<span class="sd">        :param element: Element</span>
+<span class="sd">        :type element: Element</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sumIUtil</span> <span class="o">+=</span> <span class="n">element</span><span class="o">.</span><span class="n">iUtils</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sumRUtil</span> <span class="o">+=</span> <span class="n">element</span><span class="o">.</span><span class="n">rUtils</span>
@@ -273,6 +277,20 @@
 <span class="sd">                 Spatial Patterns in Large Quantitative Spatiotemporal databases,&quot; 2021 IEEE International Conference on Fuzzy Systems</span>
 <span class="sd">                 (FUZZ-IEEE), 2021, pp. 1-8, doi: 10.1109/FUZZ45933.2021.9494594.</span>
 
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of frequent patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  minSup: int or float or str :</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</span>
+<span class="sd">    :param maxPer: float :</span>
+<span class="sd">                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
+<span class="sd">    :param nFile: str :</span>
+<span class="sd">                   Name of the input file to mine complete set of frequent patterns</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+
 <span class="sd">    :Attributes:</span>
 
 <span class="sd">        iFile : file</span>
@@ -338,17 +356,23 @@
 <span class="sd">            To Store the patten</span>
 <span class="sd">    </span>
 <span class="sd">    **Executing the code on terminal :**</span>
-<span class="sd">    ---------------------------------------</span>
+<span class="sd">    ----------------------------------------</span>
 
-<span class="sd">            Format:</span>
-<span class="sd">                    &gt;&gt;&gt; python3 FFSPMiner_old.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbours&gt; &lt;minSup&gt; &lt;sep&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">            Examples:</span>
-<span class="sd">                    &gt;&gt;&gt; python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3</span>
+<span class="sd">      Format:</span>
 
-<span class="sd">                    &gt;&gt;&gt; python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 0.3</span>
+<span class="sd">      (.venv) $ python3 FFSPMiner_old.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;neighbours&gt; &lt;minSup&gt; &lt;sep&gt;</span>
 
-<span class="sd">                    &gt;&gt;&gt; python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3</span>
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3</span>
+
+<span class="sd">      (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 0.3</span>
+
+<span class="sd">      (.venv) $ python3  FFSPMiner_old.py sampleTDB.txt output.txt sampleN.txt 3</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
 
 
 <span class="sd">    **Sample run of importing the code:**</span>
@@ -429,6 +453,7 @@
 <span class="sd">        To convert the given user specified value</span>
 
 <span class="sd">        :param value: user specified value</span>
+<span class="sd">        :type value: int or float or str</span>
 <span class="sd">        :return: converted value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>

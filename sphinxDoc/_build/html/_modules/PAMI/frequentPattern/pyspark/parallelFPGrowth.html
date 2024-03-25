@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.frequentPattern.pyspark.parallelFPGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -122,6 +124,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
 
 
@@ -205,9 +208,10 @@
     <span class="k">def</span> <span class="nf">addTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add transaction to tree</span>
-<span class="sd">        :param transaction: list</span>
-<span class="sd">        :param count: int</span>
-<span class="sd">        :return:</span>
+<span class="sd">        :param transaction: Transaction to add</span>
+<span class="sd">        :type transaction: list</span>
+<span class="sd">        :param count: Number of nodes</span>
+<span class="sd">        :type count: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
@@ -227,8 +231,8 @@
     <span class="k">def</span> <span class="nf">addNodeToNodeLink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add node to self.nodeLink</span>
-<span class="sd">        :param node: Node</span>
-<span class="sd">        :return:</span>
+<span class="sd">        :param node: Node to add</span>
+<span class="sd">        :type node: Node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodeLink</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">nodeLink</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
@@ -242,7 +246,8 @@
     <span class="k">def</span> <span class="nf">generateConditionalTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate conditional tree based on item</span>
-<span class="sd">        :param item: str or int</span>
+<span class="sd">        :param item: Item to be considered as a condition</span>
+<span class="sd">        :type item: str or int</span>
 <span class="sd">        :return: Tree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tree</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
@@ -298,13 +303,18 @@
 <span class="sd">    </span>
 <span class="sd">    **Methods to execute code on terminal**</span>
 <span class="sd">    ----------------------------------------------------</span>
-<span class="sd">        Format:</span>
-<span class="sd">                  &gt;&gt;&gt; python3 parallelFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;numWorkers&gt;</span>
 
-<span class="sd">        Example:</span>
-<span class="sd">                  &gt;&gt;&gt;  python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10.0 3</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">        .. note:: minSup will be considered in percentage of database transactions</span>
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 parallelFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;numWorkers&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 parallelFPGrowth.py sampleDB.txt patterns.txt 10.0 3</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -415,7 +425,8 @@
     <span class="k">def</span> <span class="nf">getPartitionId</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get partition id of item</span>
-<span class="sd">        :param item: int</span>
+<span class="sd">        :param value: value to get partition id</span>
+<span class="sd">        :type value: int</span>
 <span class="sd">        :return: integer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">value</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numPartitions</span></div>
@@ -426,8 +437,10 @@
     <span class="k">def</span> <span class="nf">genCondTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="n">rank</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate conditional transactions from transaction</span>
-<span class="sd">        :param transaction : list</span>
-<span class="sd">        :param rank: dict</span>
+<span class="sd">        :param trans : transactions to generate conditional transactions</span>
+<span class="sd">        :type trans: list</span>
+<span class="sd">        :param rank: rank of conditional transactions to generate conditional transactions</span>
+<span class="sd">        :type rank: dict</span>
 <span class="sd">        :return: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">newTrans</span> <span class="o">=</span> <span class="p">[</span><span class="n">rank</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">trans</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">rank</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
@@ -446,8 +459,10 @@
     <span class="k">def</span> <span class="nf">buildTree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build tree from data</span>
-<span class="sd">        :param tree: Tree</span>
-<span class="sd">        :param data: list</span>
+<span class="sd">        :param tree: tree to build</span>
+<span class="sd">        :type tree: Tree</span>
+<span class="sd">        :param data: data to build</span>
+<span class="sd">        :type data: list</span>
 <span class="sd">        :return: tree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">trans</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
@@ -461,6 +476,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate all frequent patterns</span>
 <span class="sd">        :param tree_tuple: (partition id, tree)</span>
+<span class="sd">        :type tree_tuple: tuple</span>
 <span class="sd">        :return: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">itemList</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">tree_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">itemCount</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -478,8 +494,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate new frequent patterns based on item.</span>
 <span class="sd">        :param item: item</span>
+<span class="sd">        :type item: int</span>
 <span class="sd">        :param prefix: prefix frequent pattern</span>
-<span class="sd">        :param tree: tree</span>
+<span class="sd">        :type prefix: str</span>
+<span class="sd">        :param tree: tree to generate patterns</span>
+<span class="sd">        :type tree: Tree</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">condTree</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">generateConditionalTree</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
@@ -600,6 +619,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To convert the user specified minSup value</span>
 <span class="sd">        :param value: user specified minSup value</span>
+<span class="sd">        :type value: int or float or str</span>
 <span class="sd">        :return: converted type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
