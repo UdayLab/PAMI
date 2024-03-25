@@ -1,16 +1,21 @@
-# generateTransactionalDatabase is a code used to convert the database into Transactional database.
+import numpy as np
+import pandas as pd
+import sys
+
+# generateTransactionalDatabase is a code used to convert the database into Temporal database.
 #
-# **Importing this algorithm into a python program**
+#  **Importing this algorithm into a python program**
+#  --------------------------------------------------------
+#     from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
+#     obj = db(10, 5, 10)
+#     obj.create()
+#     obj.save('db.txt')
+#     print(obj.getTransactions()) to get the transactional database as a pandas dataframe
+
+# **Running the code from the command line**
 # --------------------------------------------------------
-#
-#             from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
-#
-#             obj = db.generateTransactionalDatabase(100, 10, 6, oFile, %, "\t")
-#
-#             obj.save()
-#
-#             obj.getFileName("outputFileName") # to create a file
-#
+#     python generateDatabase.py 10 5 10 db.txt
+#     cat db.txt
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -28,110 +33,163 @@ __copyright__ = """
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-import random
-import sys
-
 
 class generateTransactionalDatabase:
     """
-    :Description:   generateTransactionalDatabase generates a transactional database
+    :Description Generate a transactional database with the given number of lines, average number of items per line, and total number of items
 
-   :Attributes:
+    :Attributes:
+    numLines: int  
+        - number of lines
+    avgItemsPerLine: int 
+        - average number of items per line
+    numItems: int 
+        - total number of items
 
-        numOfTransactions: int
-            number of transactions
-        maxNumOfDistinctItems: int
-            maximum number of distinct items
-        numOfItemsPerTransaction: int
-            number of items per transaction
-        outFileName: str
-            output file name
-        sep: str
-            seperator in file, default is tab space
+    :Methods:
+        create: 
+            Generate the transactional database
+        save: 
+            Save the transactional database to a file
+        getTransactions: 
+            Get the transactional database
 
-   :Methods:
 
-        getFileName()
-            get output filename
 
-   **Importing this algorithm into a python program**
-   --------------------------------------------------------
-   .. code-block:: python
-
-            from PAMI.extras.generateDatabase import generateTransactionalDatabase as db
-
-            obj = db.generateTransactionalDatabase(100, 10, 6, 100, 0File, %, "\t")
-
-            obj.save()
-
-            obj.getFileName("outputFileName") # to create a file
-
+    
     """
-    def __init__(self, numOfTransactions: int, maxNumOfDistinctItems: int, numOfItemsPerTransaction: int, outFileName: str, sep: str='\t') -> None:
+
+    def __init__(self, numLines, avgItemsPerLine, numItems) -> None:
+        """
+        Initialize the transactional database with the given parameters
+
+        Parameters:
+        numLines: int - number of lines
+        avgItemsPerLine: int - average number of items per line
+        numItems: int - total number of items
         """
 
-        :param numOfTransactions: number of transactions
-        :type numOfTransactions: int
-        :param maxNumOfDistinctItems: distinct items per transactions
-        :type maxNumOfDistinctItems: int 
-        :param numOfItemsPerTransaction: items per transaction
-        :type numOfItemsPerTransaction: int
-        :param outFileName: output filename
-        :type outFileName: str
-        :param sep: seperator
-        :type sep: str
+        self.numLines = numLines
+        self.avgItemsPerLine = avgItemsPerLine
+        self.numItems = numItems
+        self.db = []
+    
+    def tuning(self, array, sumRes) -> list:
         """
-        self.numOfTransactions = numOfTransactions
-        self.maxNumOfDistinctItems = maxNumOfDistinctItems
-        self.numOfItemsPerTransaction = numOfItemsPerTransaction
-        self.outFileName = outFileName
-        self.sep = sep
+        Tune the array so that the sum of the values is equal to sumRes
 
-        # make outFile
-        with open(self.outFileName, "w+") as outFile:
-            # For the number of transactions to be generated
-            for i in range(self.numOfTransactions):
-                # This hashset will be used to remember which items have
-                # already been added to this item set.
-                alreadyAdded = set()
-                # create an arraylist to store items from the item set that will be generated
-                itemSet = list()
-                # We randomly decide how many items will appear in this transaction
-                randNumOfItems = random.randrange(self.maxNumOfDistinctItems) + 1
-                # for the number of items that was decided above
-                for j in range(randNumOfItems):
-                    # we generate the item randomly and write it to disk
-                    item = random.randrange(self.maxNumOfDistinctItems) + 1
-                    # if we already added this item to this item set
-                    # we choose another one
-                    while item in alreadyAdded:
-                        item = random.randrange(self.maxNumOfDistinctItems) + 1
-                    alreadyAdded.add(item)
-                    itemSet.append(item)
-                # sort the item set
-                itemSet.sort()
-                # write the item set
-                for j in itemSet:
-                    outFile.write(str(j) + self.sep)
-                outFile.write('\n')
-        # close outFile
-        outFile.close()
+        Parameters:
+        array: list - list of values
+        sumRes: int - target sum
 
-
-
-    def getFileName(self) -> str:
+        Returns:
+        array: list - tuned array
         """
-        return output file name
-        :return: output file name
+
+        while np.sum(array) != sumRes:
+            # get index of largest value
+            randIndex = np.random.randint(0, len(array))
+            # if sum is too large, decrease the largest value
+            if np.sum(array) > sumRes:
+                array[randIndex] -= 1
+            # if sum is too small, increase the smallest value
+            else:
+                minIndex = np.argmin(array)
+                array[randIndex] += 1
+        return array
+        
+
+    def generateArray(self, nums, avg, maxItems) -> list:
         """
-        return self.outFileName
+        Generate a random array of length n whose values average to m
 
-if __name__ == '__main__':
-    numOfTransactions = 500
-    maxNumOfDistinctItems = 1000
-    numOfItemsPerTransaction = 20
-    outFileName = '/Users/Likhitha/Downloads/out.txt'
+        Parameters:
+        nums: int - number of values
+        avg: int - average value
+        maxItems: int - maximum value
 
-    tDG = generateTransactionalDatabase(numOfTransactions, maxNumOfDistinctItems, numOfItemsPerTransaction, outFileName)
-    obj = generateTransactionalDatabase(sys.argv[1], sys.argv[2], sys.argv[3],sys.argv[4])
-    obj.getFileName(sys.argv[5])
+        Returns:
+        values: list - random array
+        """
+
+        # generate n random values
+        values = np.random.randint(1, maxItems, nums)
+
+        sumRes = nums * avg
+
+        self.tuning(values, sumRes)
+
+        # if any value is less than 1, increase it and tune the array again
+        while np.any(values < 1):
+            for i in range(nums):
+                if values[i] < 1:
+                    values[i] += 1
+            self.tuning(values, sumRes)
+
+        while np.any(values > maxItems):
+            for i in range(nums):
+                if values[i] > maxItems:
+                    values[i] -= 1
+            self.tuning(values, sumRes)
+
+
+        # if all values are same then randomly increase one value and decrease another
+        while np.all(values == values[0]):
+            values[np.random.randint(0, nums)] += 1
+            self.tuning(values, sumRes)
+
+        return values
+
+    def create(self) -> None:
+        """
+
+        Generate the transactional database
+
+        Returns:
+
+        """
+        db = set()
+
+        values = self.generate_array(self.numLines, self.avgItemsPerLine, self.numItems)
+
+        for value in values:
+            line = np.random.choice(range(1, self.numItems + 1), value, replace=False)
+            self.db.append(line)
+
+    def save(self, filename) -> None:
+        """
+        Save the transactional database to a file
+
+        Parameters:
+        filename: str - name of the file
+    
+        """
+
+        with open(filename, 'w') as f:
+            for line in self.db:
+                f.write(','.join(map(str, line)) + '\n')
+
+    def getTransactions(self) -> pd.DataFrame:
+        """
+        Get the transactional database
+
+        Returns:
+        db: list - transactional database
+        
+        """
+        df = pd.DataFrame(self.db)
+        return df
+        
+
+if __name__ == "__main__":
+    # test the class
+    db = generateTransactionalDatabase(10, 5, 10)
+    db.create()
+    db.save('db.txt')
+    print(db.getTransactions())
+
+    obj = generateTransactionalDatabase(sys.argv[1], sys.argv[2], sys.argv[3])
+    obj.create()
+    obj.save(sys.argv[4])
+    # print(obj.getTransactions())
+    
