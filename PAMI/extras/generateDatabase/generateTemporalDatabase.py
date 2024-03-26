@@ -32,83 +32,114 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-import random
-import pandas as pd
 from typing import Tuple, List, Union
-import os
+import pandas as pd
+import numpy as np
+import random
 import sys
+import os
 
 class generateTemporalDatabase:
     """
     :Description:   generateTemporalDatabase creates a temporal database and outputs a database or a frame depending on input
 
     :Attributes:
-
-        numOfTransactions: int
+        :param numOfTransactions: int
             number of transactions
-        maxNumOfItem: int
-            maximum value an item can be
-        maxNumOfItemsPerTransaction: int
-            maximum number of items a transaction can be
-        outputFile: str
+        :param avgLenOfTransactions: int
+            average length of transactions
+        :param numItems: int
+            number of items
+        :param outputFile: str
             output file name
-        percentage: int
+        :param percentage: int
             percentage of coinToss for TID of temporalDatabase
-        sep: str
+        :param sep: str
             seperator for database output file
-        typeOfFile: str
+        :param typeOfFile: str
             specify database or dataframe to get corresponding output
 
     :Methods:
-
         getFileName():
             returns filename
         createTemporalFile():
             creates temporal database file or dataframe
         getDatabaseAsDataFrame:
             returns dataframe
+        performCoinFlip():
+            Perform a coin flip with the given probability
+        tuning():
+            Tune the arrayLength to match avgLenOfTransactions
+        createTemporalFile():
+            create Temporal database or dataframe depending on input
 
     **Importing this algorithm into a python program**
     --------------------------------------------------------
     .. code-block:: python
 
-             from PAMI.extras.generateDatabase import generateTemporalDatabase as db
+            from PAMI.extras.generateDatabase import generateTemporalDatabase as db
 
-             obj = db.generateTemporalDatabase(0, 100, 0, 100, 10, 10, 0.5, 0.9, 0.5, 0.9)
+            numOfTransactions = 100
+            numItems = 15
+            avgTransactionLength = 6
+            outFileName = 'temporal_ot.txt'
+            sep = '\t'
+            percent = 75
+            frameOrBase = "dataframe" # if you want to get dataframe as output
+            frameOrBase = "database" # if you want to get database/csv/file as output
 
-             obj.save()
-
-             obj.getFileName("outputFileName") # to create a file
-
-             obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
-
-             obj.createTemporalFile("outputFileName") # to get outputfile
+            temporalDB = db.generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )
+            temporalDB.createTemporalFile()
+            print(temporalDB.getDatabaseAsDataFrame())
 
     """
-    def __init__(self, numOfTransactions: int, maxNumOfItems: int, maxNumOfItemsPerTransaction: int, outputFile: str, percentage: int=50,
+    def __init__(self, numOfTransactions: int, avgLenOfTransactions: int, 
+                 numItems: int, outputFile: str, percentage: int=50,
                  sep: str='\t', typeOfFile: str="Database") -> None:
+        
         """
-        :param numOfTransactions: number of transactions
-        :type numOfTransactions: int
-        :param maxNumOfItems: Highest value an item can be
-        :type maxNumOfItems: int
-        :param maxNumOfItemsPerTransaction: max number of items per transaction
-        :type maxNumOfItemsPerTransaction: int
-        :param outputFile: output file/filename
-        :type outputFile: str
-        :param percentage: Chance of coinFlip for temporal TID
-        :type percentage: int
-        :param sep: seperator
-        :type sep: str
-        :param typeOfFile: specify whether database or dataframe to create respective objects. Note: dataframe must be
-                            retrieved later with getDatabaseasDataframe
-        :type typeOfFile: str
+        :Description:   Initialize the generateTemporalDatabase class
+
+        :Attributes:
+            :param numOfTransactions: int
+                number of transactions
+            :param avgLenOfTransactions: int
+                average length of transactions
+            :param numItems: int
+                number of items
+            :param outputFile: str
+                output file name
+            :param percentage: int
+                percentage of coinToss for TID of temporalDatabase
+            :param sep: str
+                seperator for database output file
+            :param typeOfFile: str
+                specify database or dataframe to get corresponding output
+
+        :Methods:
+            getFileName():
+                returns filename
+            createTemporalFile():
+                creates temporal database file or dataframe
+            getDatabaseAsDataFrame:
+                returns dataframe
+            performCoinFlip():
+                Perform a coin flip with the given probability
+            tuning():
+                Tune the arrayLength to match avgLenOfTransactions
+            createTemporalFile():
+                create Temporal database or dataframe depending on input
+        
         """
+
         self.numOfTransactions = numOfTransactions
-        self.maxNumOfItems = maxNumOfItems
-        self.maxNumOfItemsPerTransaction = maxNumOfItemsPerTransaction
+        self.avgLenOfTransactions = avgLenOfTransactions
+        self.numItems = numItems
         self.outputFile = outputFile
-        self.percentage = percentage
+        if percentage > 1:
+            self.percentage = percentage / 100
+        else:
+            self.percentage = percentage
         self.sep = sep
         self.typeOfFile = typeOfFile.lower()
 
@@ -125,116 +156,108 @@ class generateTemporalDatabase:
         return: pd.dataframe
         """
         return self.df
+    
+    def performCoinFlip(self, probability: float) -> bool:
+        """Perform a coin flip with the given probability."""
+        result = np.random.choice([0, 1], p=[1 - probability, probability])
+        return result == 1
 
+
+    def tuning(self, array, sumRes) -> list:
+        """
+        Tune the array so that the sum of the values is equal to sumRes
+
+        Parameters:
+        array: list - list of values
+        sumRes: int - target sum
+
+        Returns:
+        array: list - tuned array
+        """
+
+        # first generate a random array of length n whose values average to m
+        values = np.random.randint(1, self.numItems, len(array))
+
+        while np.sum(values) != sumRes:
+            # get index of largest value
+            # if sum is too large, decrease the largest value
+            if np.sum(values) > sumRes:
+                maxIndex = np.argmax(values)
+                values[maxIndex] -= 1
+            # if sum is too small, increase the smallest value
+            else:
+                minIndex = np.argmin(values)
+                values[minIndex] += 1
+
+        # get location of all values greater than numItems
+        
+        for i in range(len(array)):
+            array[i][1] = values[i]
+
+        return array
 
     def createTemporalFile(self) -> None:
         """
         create Temporal database or dataframe depending on input
         :return:
         """
-        with open(self.outputFile, "w") as outFile:
-            itemFrameSet = list()
-            timeStampList = list()
-            # This hashset will be used to remember which items have
-            # already been added to this item set.
-            timestamp = 1
-            coinFlip = [True, False]
-            alreadyAdded = set()
-            # create an arraylist to store items from the item set that will be generated
-            itemSet = list()
-            # We randomly decide how many items will appear in this transaction
-            randNumOfItems = random.randint(1, self.maxNumOfItemsPerTransaction)
-            # for the number of items that was decided above
-            for j in range(randNumOfItems):
-                # we generate the item randomly and write it to disk
-                item = random.randint(1, self.maxNumOfItems)
-                # if we already added this item to this item set
-                # we choose another one
-                while item in alreadyAdded:
-                    item = random.randint(1, self.maxNumOfItems)
-                alreadyAdded.add(item)
-                itemSet.append(item)
-            # sort the item set
-            itemSet.sort()
-            if self.typeOfFile == "database":
-                outFile.write(str(timestamp) + self.sep)
-                for j in itemSet:
-                    outFile.write(str(j) + self.sep)
-                outFile.write('\n')
-            if self.typeOfFile == "dataframe":
-                timeStampList.append(timestamp)
-                itemFrameSet.append(itemSet)
-            # add item
-            for i in range(self.numOfTransactions - 1):
-                while random.choices(coinFlip, weights=[self.percentage, 100 - self.percentage], k=1)[0]:
-                    timestamp += 1
-                    nextTimestamp = timestamp + 1
-                if not random.choices(coinFlip, weights=[self.percentage, 100 - self.percentage], k=1)[0]:
-                    timestamp += 1
-                    nextTimestamp = timestamp + 1
-                alreadyAdded = set()
-                # create an arraylist to store items from the item set that will be generated
-                itemSet = list()
-                randNumOfItems = random.randint(1, self.maxNumOfItemsPerTransaction)
-                for j in range(randNumOfItems):
-                    # we generate the item randomly and write it to disk
-                    item = random.randint(1, self.maxNumOfItems)
-                    # if we already added this item to this item set
-                    # we choose another one
-                    while item in alreadyAdded:
-                        item = random.randint(1, self.maxNumOfItems)
-                    alreadyAdded.add(item)
-                    itemSet.append(item)
-                # sort the item set
-                itemSet.sort()
-                # writing the item set
-                if self.typeOfFile == "database":
-                    outFile.write(str(timestamp) + self.sep)
-                    for j in itemSet:
-                        outFile.write(str(j) + self.sep)
-                    outFile.write('\n')
-                if self.typeOfFile == "dataframe":
-                    timeStampList.append(timestamp)
-                    itemFrameSet.append(itemSet)
 
-            if self.typeOfFile == "dataframe":
-                data = {
-                    'timestamp': timeStampList,
-                    'transactions': pd.Series(itemFrameSet)
-                }
-                self.df = pd.DataFrame(data)
-        outFile.close()
+        db = []
+        lineSize = []
+        for i in range(self.numOfTransactions):
+            db.append([i])
+            if self.performCoinFlip(self.percentage):
+                lineSize.append([i,0])
+        
+        # make it so that sum of lineSize[1] equal to numTransactions * avgLenOfTransactions
+        sumRes = self.numOfTransactions * self.avgLenOfTransactions
+        self.tuning(lineSize, sumRes)
+
+        for i in range(len(lineSize)):
+            if lineSize[i][1] > self.numItems:
+                raise ValueError("Error: Either increase numItems or decrease avgLenOfTransactions or modify percentage")
+            line = np.random.choice(range(1, self.numItems + 1), lineSize[i][1], replace=False)
+            db[lineSize[i][0]].extend(line)
+
+        if self.typeOfFile == "database":
+            with open(self.outputFile, "w") as outFile:
+                for line in db:
+                    outFile.write(self.sep.join(map(str, line)) + '\n')
+            outFile.close()
+
         if self.typeOfFile == "dataframe":
-            os.remove(outFileName)
+            data = {
+                'timestamp': [line[0] for line in db],
+                'transactions': pd.Series([line[1:] for line in db])
+            }
+            self.df = pd.DataFrame(data)
 
+        print("Temporal database created successfully")
 
 
 if __name__ == '__main__':
     numOfTransactions = 100
-    maxNumOfItems = 10
-    maxNumOfItemsPerTransaction = 6
+    numItems = 20
+    avgTransactionLength = 6
     outFileName = 'temporal_out.txt'
     sep = '\t'
     frameOrBase = "database"
 
-    temporalDB = generateTemporalDatabase(numOfTransactions, maxNumOfItems, maxNumOfItemsPerTransaction, outFileName)
+    temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName)
 
     temporalDB.createTemporalFile()
 
     numOfTransactions = 100
-    maxNumOfItems = 10
-    maxNumOfItemsPerTransaction = 6
+    numItems = 15
+    avgTransactionLength = 6
     outFileName = 'temporal_ot.txt'
     sep = '\t'
-    percent = 50
+    percent = 75
     frameOrBase = "dataframe"
 
-    temporalDB = generateTemporalDatabase(numOfTransactions, maxNumOfItems, maxNumOfItemsPerTransaction, outFileName, percent, sep, frameOrBase )
-
+    temporalDB = generateTemporalDatabase(numOfTransactions, avgTransactionLength, numItems, outFileName, percent, sep, frameOrBase )
     temporalDB.createTemporalFile()
-
     print(temporalDB.getDatabaseAsDataFrame())
 
     obj = generateTemporalDatabase(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
     obj.createTemporalFile(sys.argv[5])
-
