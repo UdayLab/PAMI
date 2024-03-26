@@ -9,7 +9,7 @@
 #
 #             obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             spatialFrequentPatterns = obj.getPatterns()
 #
@@ -34,7 +34,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -53,6 +53,7 @@ __copyright__ = """
 """
 
 from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
+from deprecated import deprecated
 
 
 class SpatialECLAT(_ab._spatialFrequentPatterns):
@@ -162,7 +163,7 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
         
         obj = alg.SpatialECLAT("sampleTDB.txt", "sampleN.txt", 5)
 
-        obj.startMine()
+        obj.mine()
 
         spatialFrequentPatterns = obj.getPatterns()
 
@@ -406,7 +407,41 @@ class SpatialECLAT(_ab._spatialFrequentPatterns):
                     print("File Not Found")
                     quit()
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+
+        # global items_sets, endTime, startTime
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._mapNeighbours()
+        self._finalPatterns = {}
+        self._frequentOneItem()
+        frequentSet = self._generateSpatialFrequentPatterns(self._finalPatterns)
+        for x, y in frequentSet.items():
+            if x not in self._finalPatterns:
+                self._finalPatterns[x] = y
+        while 1:
+            frequentSet = self._eclatGeneration(frequentSet)
+            for x, y in frequentSet.items():
+                if x not in self._finalPatterns:
+                    self._finalPatterns[x] = y
+            if len(frequentSet) == 0:
+                break
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Spatial Frequent patterns were generated successfully using SpatialECLAT algorithm")
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -536,6 +571,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = SpatialECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

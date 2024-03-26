@@ -8,7 +8,7 @@
 #
 #             obj = alg.cuAprioriGCT(iFile, minSup)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from deprecated import deprecated
 from PAMI.frequentPattern.basic import abstract as _ab
 # import abstract as _ab
 
@@ -126,7 +127,7 @@ class cudaAprioriGCT(_ab._frequentPatterns):
 
             obj = alg.cuAprioriGCT(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -327,7 +328,58 @@ class cudaAprioriGCT(_ab._frequentPatterns):
                 s1 = str(x) + ":" + str(y)
             writer.write("%s \n" % s1)
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+        startTime = time.time()
+        basePattern = {}
+        final = {}
+
+        self.__creatingItemSets()
+        self._minSup = self.__convert(self._minSup)
+        minSup = self._minSup
+        vb_data, idx2item = self.compute_vertical_bitvector_data()
+
+        for i in range(len(vb_data)):
+            if gpuarray.sum(vb_data[i]).get() >= self._minSup:
+                basePattern[idx2item[i]] = [i]
+                final[idx2item[i]] = gpuarray.sum(vb_data[i]).get()
+
+        while len(basePattern) > 0:
+            temp = {}
+            keysList = list(basePattern.keys())
+            valuesList = list(basePattern.values())
+            for i in range(len(basePattern) - 1):
+                keyI = keysList[i].split(" ")
+                keyI = [int(x) for x in keyI]
+
+                for j in range(i + 1, len(basePattern)):
+                    keyJ = keysList[j].split(" ")
+                    keyJ = [int(x) for x in keyJ]
+                    values = set(valuesList[i])
+                    for val in valuesList[j]:
+                        values.add(val)
+                    values = list(sorted(values))
+                    totalArray = vb_data[values[0]]
+                    for k in range(1, len(values)):
+                        totalArray = totalArray.__mul__(vb_data[values[k]])
+                    support = gpuarray.sum(totalArray).get()
+                    if support >= self._minSup:
+                        combinedKey = " ".join(
+                            str(x) for x in sorted(set(keyI) | set(keyJ)))
+                        temp[combinedKey] = values
+                        final[str(combinedKey)] = support
+            basePattern = temp
+
+        self.__time = time.time() - startTime
+        self.__memRSS = psutil.Process(os.getpid()).memory_info().rss
+        self.__memUSS = psutil.Process(os.getpid()).memory_full_info().uss
+        self._finalPatterns = final
+        self.__GPU_MEM = vb_data.nbytes
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -396,6 +448,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = cudaAprioriGCT(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

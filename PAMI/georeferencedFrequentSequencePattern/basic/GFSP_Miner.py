@@ -12,7 +12,7 @@
 #
 #             obj=alg.GFSP_Miner("input.txt","Neighbours.txt",35)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -38,7 +38,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -58,6 +58,7 @@ __copyright__ = """
 
 from PAMI.georeferencedFrequentSequencePattern.basic import abstract as _ab
 import sys
+from deprecated import deprecated
 
 sys.setrecursionlimit(10000)
 
@@ -164,7 +165,7 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
 
         obj = alg.Spade(iFile, minSup)
 
-        obj.startMine()
+        obj.mine()
 
         frequentPatterns = obj.getPatterns()
 
@@ -1067,7 +1068,28 @@ class GFSP_Miner(_ab._sequentialSpatialPatterns):
         bs2 = bs + (x2, -1)
         return bs2, bs, x2
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+        self._Database = []
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._mapNeighbours()
+        self._minSup = self._convert(self._minSup)
+        self.make1LenDatabase()
+        self.make2LenDatabase()
+        self.makexLenData(2)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using Apriori algorithm ")
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -1172,6 +1194,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = Spade(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_Patterns))
         _ap.save(_ab._sys.argv[2])
@@ -1184,6 +1207,7 @@ if __name__ == "__main__":
     else:
         _ap = Spade('retail.txt', "file3.txt", 87, ' ')
         _ap.startMine()
+        _ap.mine()
         _Patterns = _ap.getPatterns()
         _memUSS = _ap.getMemoryUSS()
         print("Total Memory in USS:", _memUSS)

@@ -7,7 +7,7 @@
 #
 #             obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 3, 4)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             partialPeriodicSpatialPatterns = obj.getPatterns()
 #
@@ -32,7 +32,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -52,6 +52,7 @@ __copyright__ = """
 
 
 from PAMI.georeferencedPartialPeriodicPattern.basic import abstract as _ab
+from deprecated import deprecated
 
 
 class STEclat(_ab._partialPeriodicSpatialPatterns):
@@ -160,7 +161,7 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
 
             obj = alg.STEclat("sampleTDB.txt", "sampleN.txt", 3, 4)
 
-            obj.startMine()
+            obj.mine()
 
             partialPeriodicSpatialPatterns = obj.getPatterns()
 
@@ -421,7 +422,49 @@ class STEclat(_ab._partialPeriodicSpatialPatterns):
                     print("File Not Found")
                     quit()
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+
+        # global items_sets, endTime, startTime
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        self._creatingItemSets()
+        #self._minSup = self._convert(self._minSup)
+        self.mapNeighbours()
+        self._finalPatterns = {}
+        plist = self._frequentOneItem()
+        for i in range(len(plist)):
+            itemX = plist[i]
+            tidSetX = self._tidList[itemX]
+            itemSetX = [itemX]
+            itemSets = []
+            tidSets = []
+            neighboursItems = self._getNeighbourItems(plist[i])
+            for j in range(i + 1, len(plist)):
+                if not plist[j] in neighboursItems:
+                    continue
+                itemJ = plist[j]
+                tidSetJ = self._tidList[itemJ]
+                y1 = list(set(tidSetX).intersection(tidSetJ))
+                val = self._getPeriodicSupport(y1)
+                if val >= self._minPS:
+                    itemSets.append(itemJ)
+                    tidSets.append(y1)
+            self._Generation(itemSetX, itemSets, tidSets)
+            self._save(None, itemSetX, tidSetX)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Spatial Periodic Frequent patterns were generated successfully using SpatialEclat algorithm")
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -547,6 +590,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = STEclat(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

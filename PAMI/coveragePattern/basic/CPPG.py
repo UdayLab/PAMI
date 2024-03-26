@@ -8,7 +8,7 @@
 #
 #             obj = alg.CPPG(iFile, minRF, minCS, maxOR)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             coveragePattern = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -56,6 +56,7 @@ __copyright__ = """
 from PAMI.coveragePattern.basic import abstract as _ab
 import pandas as pd
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from deprecated import deprecated
 
 
 _maxPer = float()
@@ -133,7 +134,7 @@ class CPPG(_ab._coveragePatterns):
 
             obj = alg.CPPG(iFile, minRF, minCS, maxOR)
 
-            obj.startMine()
+            obj.mine()
 
             coveragePattern = obj.getPatterns()
 
@@ -351,7 +352,47 @@ class CPPG(_ab._coveragePatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """ Mining process will start from this function
+        """
+
+        #global _minSup, _maxPer, _lno
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minRF is None:
+            raise Exception("Please enter the Relative Frequency")
+        if self._maxOR is None:
+            raise Exception("Please enter the Overlap Ratio")
+        if self._minCS is None:
+            raise Exception("Please enter the Coverage Ratio")
+        self._creatingItemSets()
+        self._minRF = self._convert(self._minRF)
+        self._maxOR = self._convert(self._maxOR)
+        self._minCS = self._convert(self._minCS)
+        if self._minRF > len(self._Database) or self._minCS > len(self._Database) or self._maxOR > len(self._Database):
+            raise Exception("Please enter the constraints in range between 0 to 1")
+        generatedItems, pfList = self._coverageOneItem()
+        self._finalPatterns = {k: v for k, v in generatedItems.items()}
+        updatedDatabases = self._updateDatabases(pfList)
+        proData = self._buildProjectedDatabase(updatedDatabases, pfList)
+        for x, y in proData.items():
+            uniqueItems = [x]
+            for i in y:
+                for j in i:
+                    if j not in uniqueItems:
+                        uniqueItems.append(j)
+            self._generateFrequentPatterns(uniqueItems)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Coverage patterns were generated successfully using CPPG algorithm ")
+
+    def mine(self) -> None:
         """ Mining process will start from this function
         """
 
@@ -469,6 +510,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 6:
             _ap = CPPG(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Coverage Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:",  _ap.getMemoryUSS())

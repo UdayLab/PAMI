@@ -10,7 +10,7 @@
 #
 #             obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             fuzzySpatialFrequentPatterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -55,6 +55,7 @@ __copyright__ = """
 
 from PAMI.fuzzyGeoreferencedFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from deprecated import deprecated
 
 
 class _FFList:
@@ -248,7 +249,7 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
 
             obj = alg.FFSPMiner("input.txt", "neighbours.txt", 2)
 
-            obj.startMine()
+            obj.mine()
 
             fuzzySpatialFrequentPatterns = obj.getPatterns()
 
@@ -429,7 +430,74 @@ class FFSPMiner(_ab._fuzzySpatialFrequentPatterns):
                     print("File Not Found")
                     quit()
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """
+        Frequent pattern mining process will start from here
+        :return: None
+        """
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._finalPatterns = {}
+        self._mapNeighbours()
+        for line in range(len(self._transactions)):
+            items = self._transactions[line]
+            quantities = self._fuzzyValues[line]
+            self._dbLen += 1
+            for i in range(0, len(items)):
+                item = items[i]
+                if item in self._mapItemSum:
+                    self._mapItemSum[item] += quantities[i]
+                else:
+                    self._mapItemSum[item] = quantities[i]
+        listOfFFList = []
+        mapItemsToFFLIST = {}
+        #self._minSup = self._convert(self._minSup)
+        for item1 in self._mapItemSum.keys():
+            item = item1
+            if self._mapItemSum[item] >= self._minSup:
+                fuList = _FFList(item)
+                mapItemsToFFLIST[item] = fuList
+                listOfFFList.append(fuList)
+        listOfFFList.sort(key=_ab._functools.cmp_to_key(self._compareItems))
+        tid = 0
+        for line in range(len(self._transactions)):
+            items = self._transactions[line]
+            quantities = self._fuzzyValues[line]
+            revisedTransaction = []
+            for i in range(0, len(items)):
+                pair = _Pair()
+                pair.item = items[i]
+                pair.quantity = quantities[i]
+                item = pair.item
+                if self._mapItemSum[item] >= self._minSup:
+                    if pair.quantity > 0:
+                        revisedTransaction.append(pair)
+            revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
+            for i in range(len(revisedTransaction) - 1, -1, -1):
+                pair = revisedTransaction[i]
+                remainUtil = 0
+                for j in range(len(revisedTransaction) - 1, i, -1):
+                    if self._mapItemNeighbours.get(pair.item[0]) is None:
+                        continue
+                    if revisedTransaction[j].item[0] in self._mapItemNeighbours[pair.item[0]]:
+                        remainUtil += revisedTransaction[j].quantity
+                remainingUtility = remainUtil
+                if mapItemsToFFLIST.get(pair.item) is not None:
+                    FFListOfItem = mapItemsToFFLIST[pair.item]
+                    element = _Element(tid, pair.quantity, remainingUtility)
+                    FFListOfItem.addElement(element)
+            tid += 1
+        itemNeighbours = list(self._mapItemNeighbours.keys())
+        self._FSFIMining(self._itemSetBuffer, 0, listOfFFList, self._minSup, itemNeighbours)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+
+    def mine(self) -> None:
         """
         Frequent pattern mining process will start from here
         :return: None
@@ -695,6 +763,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = FFSPMiner(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Spatial Fuzzy Frequent  Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -703,6 +772,7 @@ if __name__ == "__main__":
     else:
         _ap = FFSPMiner('sample.txt', 'nei.txt', 1, ' ')
         _ap.startMine()
+        _ap.mine()
         print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save('output.txt')
         print("Total Memory in USS:", _ap.getMemoryUSS())

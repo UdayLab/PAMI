@@ -7,7 +7,7 @@
 #
 #             obj=alg.GPUEFIM("input.txt","Neighbours.txt",35)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -58,7 +58,7 @@ import mmap
 import psutil
 import cupy as cp
 import numpy as np
-
+from deprecated import deprecated
 
 searchGPU = cp.RawKernel(r'''
 
@@ -416,6 +416,7 @@ class GPUEFIM:
                 joined = " ".join(key) + " #UTIL: " + str(value) + "\n"
                 f.write(joined)
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Start the EFIM algorithm.
@@ -442,6 +443,34 @@ class GPUEFIM:
             newKey = tuple([self.rename[x] for x in key])
             newPatterns[newKey] = value
         
+        self.Patterns = newPatterns
+
+    def mine(self):
+        """
+        Start the EFIM algorithm.
+        """
+
+        ps = psutil.Process(os.getpid())
+
+        self.start = time.time()
+
+        primary, secondary = self.read_file()
+
+        collection = [[[], primary, secondary]]
+
+        self.search(collection, 1)
+
+        self.memoryRSS = ps.memory_info().rss
+        self.memoryUSS = ps.memory_full_info().uss
+
+        end = time.time()
+        self.runtime = end - self.start
+
+        newPatterns = {}
+        for key, value in self.Patterns.items():
+            newKey = tuple([self.rename[x] for x in key])
+            newPatterns[newKey] = value
+
         self.Patterns = newPatterns
 
 
@@ -508,6 +537,7 @@ if __name__ == "__main__":
     sep = " "
     f = GPUEFIM(inputFile, minUtil, sep)
     f.startMine()
+    f.mine()
     f.save("output.txt")
     print("# of patterns: " + str(len(f.getPatterns())))
     print("Time taken: " + str(f.getRuntime()))

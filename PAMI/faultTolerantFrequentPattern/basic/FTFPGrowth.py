@@ -8,7 +8,7 @@
 #
 #             obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             faultTolerantFrequentPatterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -58,6 +58,7 @@ __copyright__ = """
 from PAMI.faultTolerantFrequentPattern.basic import abstract as _fp
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas as pd
+from deprecated import deprecated
 
 _minSup = str()
 _fp._sys.setrecursionlimit(20000)
@@ -351,7 +352,7 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
 
             obj = alg.FTFPGrowth(inputFile,minSup,itemSup,minLength,faultTolerance)
 
-            obj.startMine()
+            obj.mine()
 
             patterns = obj.getPatterns()
 
@@ -549,7 +550,40 @@ class FTFPGrowth(_fp._faultTolerantFrequentPatterns):
             temp = temp + self.__rankDup[i] + "\t"
         return temp
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """
+        Main program to start the operation
+        """
+        global _minSup
+        self.__startTime = _fp._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
+        self.__creatingItemSets()
+        self._minSup = self.__convert(self._minSup)
+        _minSup = self._minSup
+        itemSet = self.__frequentOneItem()
+        updatedTransactions = self.__updateTransactions(itemSet)
+        for x, y in self.__rank.items():
+            self.__rankDup[y] = x
+        info = {self.__rank[k]: v for k, v in self.__mapSupport.items()}
+        __Tree = self.__buildTree(updatedTransactions, info)
+        patterns = __Tree.generatePatterns([])
+        self.__finalPatterns = {}
+        for k in patterns:
+            s = self.__savePeriodic(k[0])
+            self.__finalPatterns[str(s)] = k[1]
+        print("Frequent patterns were generated successfully using frequentPatternGrowth algorithm")
+        self.__endTime = _fp._time.time()
+        self.__memoryUSS = float()
+        self.__memoryRSS = float()
+        process = _fp._psutil.Process(_fp._os.getpid())
+        self.__memoryUSS = process.memory_full_info().uss
+        self.__memoryRSS = process.memory_info().rss
+
+    def mine(self) -> None:
         """
         Main program to start the operation
         """
@@ -681,6 +715,7 @@ if __name__ == "__main__":
         if len(_fp._sys.argv) == 7:
             _ap = FTFPGrowth(_fp._sys.argv[1], _fp._sys.argv[3], _fp._sys.argv[4], _fp._sys.argv[5], _fp._sys.argv[6])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_fp._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

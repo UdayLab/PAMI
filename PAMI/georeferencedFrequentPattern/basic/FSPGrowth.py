@@ -8,7 +8,7 @@
 #
 #             obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             spatialFrequentPatterns = obj.getPatterns()
 #
@@ -33,7 +33,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -54,6 +54,7 @@ __copyright__ = """
 
 from PAMI.georeferencedFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from deprecated import deprecated
 
 class _Node:
     """
@@ -347,7 +348,7 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
 
         obj = alg.FSPGrowth("sampleTDB.txt", "sampleN.txt", 5)
 
-        obj.startMine()
+        obj.mine()
 
         spatialFrequentPatterns = obj.getPatterns()
 
@@ -506,7 +507,29 @@ class FSPGrowth(_ab._spatialFrequentPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Start pattern mining from here
+        """
+        self._startTime = _ab._time.time()
+        self._finalPatterns = {}
+        self._readDatabase()
+        print(len(self._Database), len(self._neighbourList))
+        self._minSup = self._convert(self._minSup)
+        self._getFrequentItems()
+        self._sortTransaction()
+        _FPTree = self._createFPTree()
+        self._finalPatterns.update(dict(_FPTree.mining(self._minSup, self._neighbourList)))
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent Spatial Patterns successfully generated using FSPGrowth")
+
+    def mine(self):
         """
         Start pattern mining from here
         """
@@ -613,6 +636,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = FSPGrowth(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Spatial Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

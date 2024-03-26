@@ -8,7 +8,7 @@
 #
 #             obj = alg.cuApriori(iFile, minSup)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-
+from deprecated import deprecated
 from PAMI.frequentPattern.cuda import abstract as _ab
 # import abstract as _ab
 
@@ -118,7 +118,7 @@ class cuApriori(_ab._frequentPatterns):
 
              obj = alg.cuApriori(iFile, minSup)
 
-             obj.startMine()
+             obj.mine()
 
              frequentPatterns = obj.getPatterns()
 
@@ -260,7 +260,45 @@ class cuApriori(_ab._frequentPatterns):
 
         return newArraysAndItems
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+        self._Database = []
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+
+        ArraysAndItems = self.arraysAndItems()
+
+        while len(ArraysAndItems) > 0:
+            # print("Total number of ArraysAndItems:", len(ArraysAndItems))
+            newArraysAndItems = {}
+            keys = list(ArraysAndItems.keys())
+            for i in range(len(ArraysAndItems)):
+                # print(i, "/", len(ArraysAndItems), end="\r")
+                iList = list(keys[i])
+                for j in range(i + 1, len(ArraysAndItems)):
+                    jList = list(keys[j])
+                    union = tuple(sorted(set(iList + jList)))
+                    intersect = _ab._cp.intersect1d(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]],
+                                                    assume_unique=True)
+                    if len(intersect) >= self._minSup and union not in self._finalPatterns:
+                        newArraysAndItems[union] = intersect
+                        self._finalPatterns[union] = len(intersect)
+            ArraysAndItems = newArraysAndItems
+            # print()
+
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using cuApriori algorithm ")
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -376,6 +414,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = cuApriori(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

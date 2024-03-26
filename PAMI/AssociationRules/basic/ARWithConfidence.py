@@ -8,7 +8,7 @@
 #
 #             obj = alg.ARWithConfidence(iFile, minConf)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             associationRules = obj.getPatterns()
 #
@@ -58,6 +58,8 @@ Copyright (C)  2021 Rage Uday Kiran
 
 
 from PAMI.AssociationRules.basic import abstract as _ab
+from deprecated import deprecated
+
 
 
 class _Confidence:
@@ -195,7 +197,7 @@ class ARWithConfidence:
 
             obj = alg.ARWithConfidence(iFile, minConf)
 
-            obj.startMine()
+            obj.mine()
 
             associationRules = obj.getPatterns()
 
@@ -292,7 +294,27 @@ class ARWithConfidence:
                     quit()
         return k
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Association rule mining process will start from here
+        """
+        self._startTime = _ab._time.time()
+        k = self._readPatterns()
+        a = _Confidence(self._frequentPatterns, k, self._minConf)
+        a.run()
+        self._finalPatterns = a._finalPatterns
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Association rules successfully  generated from frequent patterns ")
+
+
+
+    def mine(self):
         """
         Association rule mining process will start from here
         """
@@ -389,6 +411,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = ARWithConfidence(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Association Rules:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

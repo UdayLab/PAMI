@@ -7,7 +7,7 @@
 #
 #             obj = alg.FPGrowth(iFile, minSup)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ __copyright__ = """
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from deprecated import deprecated
 from PAMI.frequentPattern.basic import abstract as _ab
 
 minSup = str()
@@ -127,7 +128,7 @@ class cudaEclatGCT:
 
             obj = alg.cuAprioriBit(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -345,7 +346,35 @@ class cudaEclatGCT:
         if len(newBasePattern) > 0:
             self.eclat(newBasePattern, final, vb_data, idx2item, item2idx)
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+        startTime = time.time()
+        basePattern = []
+        final = {}
+
+        self.__creatingItemSets()
+        self._minSup = self.__convert(self._minSup)
+        minSup = self._minSup
+        vb_data, idx2item = self.compute_vertical_bitvector_data()
+
+        for i in range(len(vb_data)):
+            if _gpuarray.sum(vb_data[i]).get() >= self._minSup:
+                basePattern.append(idx2item[i])
+                final[idx2item[i]] = _gpuarray.sum(vb_data[i]).get()
+
+        # reverse idx2item
+        item2idx = {idx2item[i]: i for i in idx2item}
+        self.eclat(basePattern, final, vb_data, idx2item, item2idx)
+        self.__time = time.time() - startTime
+        self.__memRSS = psutil.Process(os.getpid()).memory_info().rss
+        self.__memUSS = psutil.Process(os.getpid()).memory_full_info().uss
+        self._finalPatterns = final
+        self.__GPU_MEM = vb_data.nbytes
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -381,6 +410,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = cudaEclatGCT(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ap._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

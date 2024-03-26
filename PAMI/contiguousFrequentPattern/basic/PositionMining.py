@@ -6,7 +6,7 @@
 #
 #             obj =alg.PositionMining(minsup=5,data="Data.csv")
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -25,6 +25,9 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
+
+
 
 
 
@@ -32,10 +35,11 @@ import pandas as pd
 import numpy as np
 import math
 from PAMI.contigousFrequentPattern.basic import abstract as _ab
+from deprecated import deprecated
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -263,10 +267,7 @@ class PositionMining:
             self.join(curr,self.current_candidate)
             self.current_candidate+=1
 
-    
-    
-
-        
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Pattern mining process will start from here
@@ -294,6 +295,33 @@ class PositionMining:
         self._memoryRSS = float()
         self._memoryUSS = process.memory_full_info().uss
         self._memoryRSS = process.memory_info().rss
+
+    def mine(self):
+        """
+        Pattern mining process will start from here
+        """
+        # pass
+        self._startTime = _ab._time.time()
+        self.table = {i: {} for i in range(1, 6)}
+        self.readData()
+
+        self.getfreqs()
+        temp = self.symbol_freq
+        self.table.update({1: temp})
+        self.current_candidate = 1
+        self.mineNext_candidates()
+        self.frequentPatterns = {}
+        for length in self.table:
+            temp = self.table[length]
+            for pattern in temp:
+                self.frequentPatterns.update({pattern: len(temp[pattern])})
+
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._endTime = _ab._time.time()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
     
 
 # """Driver code"""
@@ -305,7 +333,7 @@ class PositionMining:
 #     c+=len(i[1])
 
 # obj = PositionMining(minsup=400,data=data)
-# obj.startMine()
+# obj.mine()
 # interestingPatterns = obj.getPatterns()
 # print(interestingPatterns)
 # print("Total number of interesting patterns:", len(interestingPatterns))

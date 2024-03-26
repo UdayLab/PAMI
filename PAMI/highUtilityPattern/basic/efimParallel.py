@@ -8,7 +8,7 @@
 #
 #             obj=alg.efimParallel("input.txt","Neighbours.txt",35)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -33,7 +33,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -56,6 +56,7 @@ import mmap
 import time
 import psutil
 from joblib import Parallel, delayed
+from deprecated import deprecated
 
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
@@ -168,7 +169,7 @@ class efimParallel(_ab._utilityPatterns):
 
             obj = alg.efimParallel("input.txt",35)
 
-            obj.startMine()
+            obj.mine()
 
             Patterns = obj.getPatterns()
 
@@ -444,9 +445,29 @@ class efimParallel(_ab._utilityPatterns):
 
                 collections = new_collections
 
-
-
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Start the EFIM algorithm.
+        """
+
+        ps = psutil.Process(os.getpid())
+
+        self.start = time.time()
+
+        fileData, primary, secondary = self._read_file()
+
+        collection = [[[], fileData, primary, secondary]]
+
+        self._search(collection)
+
+        self.memoryRSS = ps.memory_info().rss
+        self.memoryUSS = ps.memory_full_info().uss
+
+        end = time.time()
+        self.runtime = end - self.start
+
+    def mine(self):
         """
         Start the EFIM algorithm.
         """
@@ -560,6 +581,7 @@ if __name__ == "__main__":
     # sep = " "
     # f = efimParallel(inputFile, minUtil, sep, 1)
     # f.startMine()
+    # f.mine()
     # print("# of patterns: " + str(len(f.getPatterns())))
     # print("Time taken: " + str(f.getRuntime()))
     # f.savePatterns("mine.txt")
@@ -572,6 +594,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:    #takes "\t" as a separator
             _ap = efimParallel(_ab._sys.argv[1], int(_ab._sys.argv[3]))
         _ap.startMine()
+        _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -580,6 +603,7 @@ if __name__ == "__main__":
     else:
         _ap = efimParallel('/Users/likhitha/Downloads/Utility_T10I4D100K.csv', 50000, '\t')
         _ap.startMine()
+        _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save('/Users/likhitha/Downloads/UPGrowth_output.txt')
         print("Total Memory in USS:", _ap.getMemoryUSS())

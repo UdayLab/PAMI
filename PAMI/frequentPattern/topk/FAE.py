@@ -7,7 +7,7 @@
 #
 #             obj = alg.FAE(iFile, K)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             topKFrequentPatterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -52,6 +52,7 @@ __copyright__ = """
 """
 
 from PAMI.frequentPattern.topk import abstract as _ab
+from deprecated import deprecated
 
 
 class FAE(_ab._frequentPatterns):
@@ -122,7 +123,7 @@ class FAE(_ab._frequentPatterns):
 
         obj = alg.FAE(iFile, K)
 
-        obj.startMine()
+        obj.mine()
 
         topKFrequentPatterns = obj.getPatterns()
 
@@ -315,10 +316,44 @@ class FAE(_ab._frequentPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
             Main function of the program
+        """
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._k is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        self._k = self._convert(self._k)
+        plist = self._frequentOneItem()
+        for i in range(len(plist)):
+            itemI = plist[i]
+            tidSetI = self._tidList[itemI]
+            itemSetX = [itemI]
+            itemSets = []
+            tidSets = []
+            for j in range(i + 1, len(plist)):
+                itemJ = plist[j]
+                tidSetJ = self._tidList[itemJ]
+                y1 = list(set(tidSetI).intersection(tidSetJ))
+                if len(y1) >= self._minimum:
+                    itemSets.append(itemJ)
+                    tidSets.append(y1)
+            self._Generation(itemSetX, itemSets, tidSets)
+        print(" TopK frequent patterns were successfully generated using FAE algorithm.")
+        self._endTime = _ab._time.time()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
 
+    def mine(self):
+        """
+            Main function of the program
         """
         self._startTime = _ab._time.time()
         if self._iFile is None:
@@ -441,6 +476,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = FAE(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Top K Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
