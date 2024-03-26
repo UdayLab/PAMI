@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.partialPeriodicPattern.basic.PPP_ECLAT &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -97,31 +99,32 @@
 <span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#     from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg</span>
+<span class="c1">#             from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = alg.PPP_ECLAT(iFile, minPS, period)</span>
+<span class="c1">#             obj = alg.PPP_ECLAT(iFile, minPS, period)</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#     Patterns = obj.getPatterns()</span>
+<span class="c1">#             Patterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total number of partial periodic patterns:&quot;, len(Patterns))</span>
+<span class="c1">#             print(&quot;Total number of partial periodic patterns:&quot;, len(Patterns))</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.save(oFile)</span>
+<span class="c1">#             obj.save(oFile)</span>
 <span class="c1">#</span>
-<span class="c1">#     Df = obj.getPatternsAsDataFrame()</span>
+<span class="c1">#             Df = obj.getPatternsAsDataFrame()</span>
 <span class="c1">#</span>
-<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -149,6 +152,9 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
+<span class="kn">from</span> <span class="nn">PAMI.partialPeriodicPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <div class="viewcode-block" id="PPP_ECLAT">
 <a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT">[docs]</a>
@@ -156,9 +162,22 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Descripition:   3pEclat is the fundamental approach to mine the partial periodic frequent patterns.</span>
 
-<span class="sd">    :Reference:   To be published</span>
+<span class="sd">    :Reference:   R. Uday Kirana,b,∗ , J.N. Venkateshd, Masashi Toyodaa , Masaru Kitsuregawaa,c , P. Krishna Reddy Discovering partial periodic-frequent patterns in a transactional database</span>
+<span class="sd">                  https://www.tkl.iis.u-tokyo.ac.jp/new/uploads/publication_file/file/774/JSS_2017.pdf</span>
 
-<span class="sd">    :Parameters:</span>
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  minPS: float:</span>
+<span class="sd">                   Minimum partial periodic pattern...</span>
+<span class="sd">    :param  period: float:</span>
+<span class="sd">                   Minimum partial periodic...</span>
+
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+<span class="sd">    :Attributes:</span>
 
 <span class="sd">        self.iFile : file</span>
 <span class="sd">            Name of the Input file or path of the input file</span>
@@ -223,16 +242,21 @@
 
 <span class="sd">    **Executing the code on terminal:**</span>
 <span class="sd">    ----------------------------------------</span>
-<span class="sd">        Format:</span>
-<span class="sd">           &gt;&gt;&gt; python3 PPP_ECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minPS&gt; &lt;period&gt;</span>
+<span class="sd">      .. code-block:: console</span>
 
-<span class="sd">        Examples:</span>
-<span class="sd">           &gt;&gt;&gt; python3 PPP_ECLAT.py sampleDB.txt patterns.txt 0.3 0.4</span>
+
+<span class="sd">       Format:</span>
+
+<span class="sd">       (.venv) $ python3 PPP_ECLAT.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minPS&gt; &lt;period&gt;</span>
+
+<span class="sd">       Examples:</span>
+
+<span class="sd">       (.venv) $ python3 PPP_ECLAT.py sampleDB.txt patterns.txt 0.3 0.4</span>
 
 
 <span class="sd">    **Sample run of importing the code:**</span>
 <span class="sd">    -----------------------------------------</span>
-<span class="sd">    .. code-block:: python</span>
+<span class="sd">    ...     code-block:: python</span>
 
 <span class="sd">            from PAMI.periodicFrequentPattern.basic import PPP_ECLAT as alg</span>
 
@@ -308,6 +332,7 @@
 
 <span class="sd">        :param timeStamps : timestamps of a pattern</span>
 <span class="sd">        :type timeStamps : list</span>
+<span class="sd">        :return: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">timeStamps</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
         <span class="n">per</span> <span class="o">=</span> <span class="mi">0</span>
@@ -320,6 +345,7 @@
     <span class="k">def</span> <span class="nf">_creatingItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing the complete transactions of the database/input file in a database variable</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
@@ -363,6 +389,7 @@
     <span class="k">def</span> <span class="nf">_creatingOneitemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Scans the Temporal database / Input file and stores the 1-length partial-periodic patterns.</span>
+<span class="sd">        :return: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">plist</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tidList</span> <span class="o">=</span> <span class="p">{}</span>
@@ -397,6 +424,7 @@
 <span class="sd">        :type suffix : list</span>
 <span class="sd">        :param tidSetX : the timestamp of a patterns</span>
 <span class="sd">        :type tidSetX : list</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -421,6 +449,7 @@
 <span class="sd">        :type itemSets : list</span>
 <span class="sd">        :param tidSets : timestamps of the items in the argument itemSets</span>
 <span class="sd">        :type tidSets : list</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">itemSets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">i</span> <span class="o">=</span> <span class="n">itemSets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -447,12 +476,53 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_Generation</span><span class="p">(</span><span class="n">newprefix</span><span class="p">,</span> <span class="n">classItemSets</span><span class="p">,</span> <span class="n">classTidSets</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">itemSetX</span><span class="p">)),</span> <span class="n">tidSetX</span><span class="p">)</span>
 
+
 <div class="viewcode-block" id="PPP_ECLAT.startMine">
 <a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.startMine">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main program start with extracting the periodic frequent items from the database and</span>
 <span class="sd">        performs prefix equivalence to form the combinations and generates partial-periodic patterns.</span>
+<span class="sd">        :return: None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
+        <span class="n">plist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_creatingOneitemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">plist</span><span class="p">)):</span>
+            <span class="n">itemI</span> <span class="o">=</span> <span class="n">plist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">tidSetX</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tidList</span><span class="p">[</span><span class="n">itemI</span><span class="p">]</span>
+            <span class="n">itemSetX</span> <span class="o">=</span> <span class="p">[</span><span class="n">itemI</span><span class="p">]</span>
+            <span class="n">itemSets</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">tidSets</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">plist</span><span class="p">)):</span>
+                <span class="n">itemJ</span> <span class="o">=</span> <span class="n">plist</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">tidSetJ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tidList</span><span class="p">[</span><span class="n">itemJ</span><span class="p">]</span>
+                <span class="n">y1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tidSetX</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">tidSetJ</span><span class="p">))</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getPeriodicSupport</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">val</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span><span class="p">:</span>
+                    <span class="n">itemSets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">itemJ</span><span class="p">)</span>
+                    <span class="n">tidSets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_Generation</span><span class="p">(</span><span class="n">itemSetX</span><span class="p">,</span> <span class="n">itemSets</span><span class="p">,</span> <span class="n">tidSets</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">itemSetX</span><span class="p">,</span> <span class="n">tidSetX</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Partial Periodic Patterns were generated successfully using 3PEclat algorithm&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
+
+
+<div class="viewcode-block" id="PPP_ECLAT.Mine">
+<a class="viewcode-back" href="../../../../partialPeriodicPatternbasicPPP_ECLAT.html#PAMI.partialPeriodicPattern.basic.PPP_ECLAT.PPP_ECLAT.Mine">[docs]</a>
+    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main program start with extracting the periodic frequent items from the database and</span>
+<span class="sd">        performs prefix equivalence to form the combinations and generates partial-periodic patterns.</span>
+<span class="sd">        :return: None</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -546,6 +616,7 @@
 
 <span class="sd">        :param outFile: name of the output file</span>
 <span class="sd">        :type outFile: file</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
@@ -570,6 +641,7 @@
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Partial Periodic Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>

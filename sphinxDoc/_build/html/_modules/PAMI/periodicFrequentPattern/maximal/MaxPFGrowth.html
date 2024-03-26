@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.periodicFrequentPattern.maximal.MaxPFGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -95,31 +97,32 @@
 <span></span><span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#     from PAMI.periodicFrequentPattern.maximal import MaxPFGrowth as alg</span>
+<span class="c1">#             from PAMI.periodicFrequentPattern.maximal import MaxPFGrowth as alg</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = alg.MaxPFGrowth(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;6&quot;)</span>
+<span class="c1">#             obj = alg.MaxPFGrowth(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;6&quot;)</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#     Patterns = obj.getPatterns()</span>
+<span class="c1">#             Patterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total number of Frequent Patterns:&quot;, len(Patterns))</span>
+<span class="c1">#             print(&quot;Total number of Frequent Patterns:&quot;, len(Patterns))</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.save(&quot;patterns&quot;)</span>
+<span class="c1">#             obj.save(&quot;patterns&quot;)</span>
 <span class="c1">#</span>
-<span class="c1">#     Df = obj.getPatternsAsDataFrame()</span>
+<span class="c1">#             Df = obj.getPatternsAsDataFrame()</span>
 <span class="c1">#</span>
-<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
 
 
@@ -145,6 +148,10 @@
 
 <span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.maximal</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
+
+<span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="c1">#global maximalTree</span>
 <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
@@ -272,6 +279,7 @@
 <span class="sd">        removes the leaf node by pushing its timestamps to parent node</span>
 
 <span class="sd">        :param nodeValue: node of a tree</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">nodeValue</span><span class="p">]:</span>
             <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">timeStamps</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">timeStamps</span> <span class="o">+</span> <span class="n">i</span><span class="o">.</span><span class="n">timeStamps</span>
@@ -487,6 +495,18 @@
 <span class="sd">                 &quot;Discovering Maximal Periodic-Frequent Patterns in Very Large Temporal Databases&quot;,</span>
 <span class="sd">                 IEEE 2020, https://ieeexplore.ieee.org/document/9260063</span>
 
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of periodic frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of periodic frequent pattern&#39;s</span>
+<span class="sd">    :param  minSup: str:</span>
+<span class="sd">                   Controls the minimum number of transactions in which every item must appear in a database.</span>
+<span class="sd">    :param  maxPer: float:</span>
+<span class="sd">                   Controls the maximum number of transactions in which any two items within a pattern can reappear.</span>
+
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
 <span class="sd">    :Attributes:</span>
 
 <span class="sd">        iFile : file</span>
@@ -556,11 +576,19 @@
 
 <span class="sd">    **Executing the code on terminal:**</span>
 <span class="sd">    -------------------------------------</span>
-<span class="sd">            Format:</span>
-<span class="sd">                    &gt;&gt;&gt; python3 maxpfrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">            Examples:</span>
-<span class="sd">                    &gt;&gt;&gt; python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4</span>
+
+<span class="sd">       Format:</span>
+
+<span class="sd">       (.venv) $ python3 maxpfrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+
+<span class="sd">       Examples usage :</span>
+
+<span class="sd">       (.venv) $ python3 maxpfrowth.py sampleTDB.txt patterns.txt 0.3 0.4</span>
+
+
+<span class="sd">               .. note:: minSup will be considered in percentage of database transactions</span>
 <span class="sd">            </span>
 <span class="sd">    **Sample run of the imported code:**</span>
 <span class="sd">    ------------------------------------------</span>
@@ -621,6 +649,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing the complete Databases of the database/input file in a database variable</span>
 <span class="sd">        :rtype: storing transactions into Database variable</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
@@ -753,9 +782,11 @@
 
 <div class="viewcode-block" id="MaxPFGrowth.startMine">
 <a class="viewcode-back" href="../../../../periodicFrequentPatternmaximalMaxPFGrowth.html#PAMI.periodicFrequentPattern.maximal.MaxPFGrowth.MaxPFGrowth.startMine">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mining process will start from this function</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">global</span> <span class="n">_minSup</span><span class="p">,</span> <span class="n">_maxPer</span><span class="p">,</span> <span class="n">_lno</span>
@@ -793,6 +824,52 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">_process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">_process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximal Periodic Frequent patterns were generated successfully using MAX-PFPGrowth algorithm &quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MaxPFGrowth.Mine">
+<a class="viewcode-back" href="../../../../periodicFrequentPatternmaximalMaxPFGrowth.html#PAMI.periodicFrequentPattern.maximal.MaxPFGrowth.MaxPFGrowth.Mine">[docs]</a>
+    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mining process will start from this function</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">global</span> <span class="n">_minSup</span><span class="p">,</span> <span class="n">_maxPer</span><span class="p">,</span> <span class="n">_lno</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_patterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the file path or file name:&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the Minimum Support&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">)</span>
+        <span class="n">_minSup</span><span class="p">,</span> <span class="n">_maxPer</span><span class="p">,</span> <span class="n">_lno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the minSup in range between 0 to 1&quot;</span><span class="p">)</span>
+        <span class="n">_generatedItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_periodicFrequentOneItem</span><span class="p">()</span>
+        <span class="n">_updatedDatabases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateDatabases</span><span class="p">(</span><span class="n">_generatedItems</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rankedUp</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="n">_info</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_rank</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">_generatedItems</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">_Tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildTree</span><span class="p">(</span><span class="n">_updatedDatabases</span><span class="p">,</span> <span class="n">_info</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maximalTree</span> <span class="o">=</span> <span class="n">_MPTree</span><span class="p">()</span>
+        <span class="n">_Tree</span><span class="o">.</span><span class="n">generatePatterns</span><span class="p">([],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patterns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maximalTree</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_patterns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_savePeriodic</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+                <span class="n">pattern</span> <span class="o">=</span> <span class="n">pattern</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">pattern</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">_process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">_process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">_process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximal Periodic Frequent patterns were generated successfully using MAX-PFPGrowth algorithm &quot;</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="MaxPFGrowth.getMemoryUSS">
@@ -858,6 +935,7 @@
 
 <span class="sd">        :param outFile: name of the output file</span>
 <span class="sd">        :type outFile: csv file</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>

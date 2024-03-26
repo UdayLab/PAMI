@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.periodicFrequentPattern.basic.PFPMC &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -98,31 +100,33 @@
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#</span>
-<span class="c1">#     from PAMI.periodicFrequentPattern.basic import PFPMC as alg</span>
+<span class="c1">#             from PAMI.periodicFrequentPattern.basic import PFPMC as alg</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = alg.PFPMC(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;5&quot;)</span>
+<span class="c1">#             obj = alg.PFPMC(&quot;../basic/sampleTDB.txt&quot;, &quot;2&quot;, &quot;5&quot;)</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#     periodicFrequentPatterns = obj.getPatterns()</span>
+<span class="c1">#             periodicFrequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
+<span class="c1">#             print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.save(&quot;patterns&quot;)</span>
+<span class="c1">#             obj.save(&quot;patterns&quot;)</span>
 <span class="c1">#</span>
-<span class="c1">#     Df = obj.getPatternsAsDataFrame()</span>
+<span class="c1">#             Df = obj.getPatternsAsDataFrame()</span>
 <span class="c1">#</span>
-<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
 
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -144,6 +148,9 @@
 
 <span class="s2">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span> <span class="k">as</span> <span class="n">_groupby</span>
 <span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span> <span class="k">as</span> <span class="n">_itemgetter</span>
 <span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
@@ -156,7 +163,18 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:   PFPMC is the fundamental approach to mine the periodic-frequent patterns.</span>
 
-<span class="sd">    :Reference:</span>
+<span class="sd">    :Reference: (has to be added)</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of periodic frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of periodic frequent pattern&#39;s</span>
+<span class="sd">    :param  minSup: str:</span>
+<span class="sd">                   Controls the minimum number of transactions in which every item must appear in a database.</span>
+<span class="sd">    :param  maxPer: str:</span>
+<span class="sd">                   Controls the maximum number of transactions in which any two items within a pattern can reappear.</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
 
 <span class="sd">    :Attributes:</span>
 
@@ -228,13 +246,19 @@
 
 <span class="sd">    **Methods to execute code on terminal**</span>
 <span class="sd">    ------------------------------------------</span>
-<span class="sd">            Format:</span>
-<span class="sd">                      &gt;&gt;&gt;   python3 PFPMC.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt;   python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0</span>
-<span class="sd">    </span>
-<span class="sd">                      .. note:: minSup and maxPer will be considered in percentage of database transactions</span>
+
+<span class="sd">       Format:</span>
+
+<span class="sd">       (.venv) $ python3 PFPMC.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+
+<span class="sd">       Example usage:</span>
+
+<span class="sd">       (.venv) $ python3 PFPMC.py sampleDB.txt patterns.txt 10.0 4.0</span>
+
+
+<span class="sd">               .. note:: minSup and maxPer will be considered in percentage of database transactions</span>
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
 <span class="sd">    ----------------------------------------------------</span>
@@ -294,6 +318,7 @@
 
 <span class="sd">        :param tids: represents the timestamp of a transaction</span>
 <span class="sd">        :type tids: set</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tids</span><span class="p">)</span>
         <span class="n">tids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
@@ -370,6 +395,7 @@
     <span class="k">def</span> <span class="nf">_creatingOneItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing the complete transactions of the database/input file in a database variable</span>
+<span class="sd">        :return: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">plist</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">Database</span> <span class="o">=</span> <span class="p">[]</span>
@@ -461,6 +487,7 @@
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mining process will start from this function</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># print(f&quot;Optimized {type(self).__name__}&quot;)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -541,6 +568,7 @@
 
 <span class="sd">        :param outFile: name of the output file</span>
 <span class="sd">        :type outFile: csv file</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
@@ -567,6 +595,7 @@
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Periodic Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>

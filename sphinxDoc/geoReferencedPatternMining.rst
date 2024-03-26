@@ -1,5 +1,5 @@
-Geo-referenced Pattern Mining
-=========================================
+Geo-referenced Database
+==============================
 
     A geo-referenced database represents the data gathered by a set of fixed sensors observing a particular phenomenon over a time period. It is a combination of spatial database and transactional/temporal/utility database .
 

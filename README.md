@@ -59,10 +59,10 @@ Total number of algorithms: 83
 # Table of Content
 
 - [Maintenance](#Maintenance)
-- [Try your first Program](#Try-your-first-PAMI-program)
+- [Try your first PAMI program](#try-your-first-PAMI-program)
 - [Reading Material](#Reading-Material)
 - [Tutorials](#Tutorials)
-- [Licence](#Licence)
+- [License](#License)
 - [Documentation](#Documentation)
 - [Background](#Background)
 - [Getting Help](#Getting-Help)

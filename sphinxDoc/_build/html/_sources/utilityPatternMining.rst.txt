@@ -1,5 +1,5 @@
-Utility Pattern mining
-===============================
+Utility Database
+==================
 
     A transactional/temporal database represents a binary database. It is because the items in these databases have values either 1 or 0. In contrast, a utility database is a non-binary database. In fact, a utility database is a quantitative database containing items and their utility values.
 
@@ -33,7 +33,7 @@ Utility Pattern mining
 
         The utility transactional database must exist in the following format:
 
-            >>> itemA<seo>itemB<sep>...<sep>itemN:total utility:utilityA<sep>utilityB<sep>...<sep>utilityN
+            >>> itemA<seo>itemB<sep>...<sep>itemN : total utility : utilityA<sep>utilityB<sep>...<sep>utilityN
 
             The ‘total utility’ represents the total utility value of items in a transaction.
 

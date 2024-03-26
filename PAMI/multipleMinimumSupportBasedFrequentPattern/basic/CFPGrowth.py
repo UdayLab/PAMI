@@ -54,10 +54,7 @@ __copyright__ = """
 
 
 from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _fp
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
-import pandas as pd
-
-from PAMI.MultipleMininmumSupportBasedFrequentPattern.basic import abstract as _ab
+from typing import List, Dict, Tuple, Generator
 import pandas as pd
 from deprecated import deprecated
 

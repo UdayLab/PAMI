@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.AssociationRules.basic.RuleMiner &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -122,13 +124,14 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
 
 
 
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+<span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
 
 <span class="s2">     This program is free software: you can redistribute it and/or modify</span>
 <span class="s2">     it under the terms of the GNU General Public License as published by</span>
@@ -224,9 +227,12 @@
     
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">singleItems</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param inputFile: input file name or path</span>
-<span class="sd">        :type inputFile: str</span>
-<span class="sd">        :param sep:</span>
+<span class="sd">        :param patterns: given frequent patterns</span>
+<span class="sd">        :type patterns: dict</span>
+<span class="sd">        :param singleItems: one-length frequent patterns</span>
+<span class="sd">        :type singleItems: list</span>
+<span class="sd">        :param threshold: threshold for lifting rules</span>
+<span class="sd">        :type threshold: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_frequentPatterns</span> <span class="o">=</span> <span class="n">patterns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_singleItems</span> <span class="o">=</span> <span class="n">singleItems</span>
@@ -300,9 +306,12 @@
     
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">singleItems</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param inputFile: input file name or path</span>
-<span class="sd">        :type inputFile: str</span>
-<span class="sd">        :param sep:</span>
+<span class="sd">        :param patterns: given frequent patterns</span>
+<span class="sd">        :type patterns: dict</span>
+<span class="sd">        :param singleItems: one-length frequent patterns</span>
+<span class="sd">        :type singleItems: list</span>
+<span class="sd">        :param threshold: threshold for lifting rules</span>
+<span class="sd">        :type threshold: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_frequentPatterns</span> <span class="o">=</span> <span class="n">patterns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_singleItems</span> <span class="o">=</span> <span class="n">singleItems</span>
@@ -373,16 +382,20 @@
 <span class="sd">    :Reference:</span>
 
 
-<span class="sd">    :param  inputFile: str :</span>
-<span class="sd">                       input file name or path</span>
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of association rules</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of association rules</span>
+<span class="sd">    :param  minConf: float :</span>
+<span class="sd">                   The user can specify the minConf in float between the range of 0 to 1.</span>
 <span class="sd">    :param  frequentPattern: list or dict :</span>
-<span class="sd">                             frequent patterns are stored in the form of list or dictionary</span>
+<span class="sd">                   frequent patterns are stored in the form of list or dictionary</span>
 <span class="sd">    :param  measure: str :</span>
-<span class="sd">                     condition to calculate the strength of rule</span>
+<span class="sd">                   condition to calculate the strength of rule</span>
 <span class="sd">    :param  threshold: int :</span>
-<span class="sd">                       condition to satisfy</span>
+<span class="sd">                   condition to satisfy</span>
 <span class="sd">    :param  sep: str :</span>
-<span class="sd">            This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
 
 <span class="sd">    :Attributes:</span>
 
@@ -406,14 +419,17 @@
 <span class="sd">    **Methods to execute code on terminal**</span>
 <span class="sd">    ----------------------------------------------------</span>
 
-<span class="sd">                Format:</span>
-<span class="sd">                      &gt;&gt;&gt; python3 RuleMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minConf&gt; &lt;sep&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">                Example:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 RuleMiner.py sampleDB.txt patterns.txt 0.5 &#39; &#39;</span>
+<span class="sd">      Format:</span>
 
-<span class="sd">                      .. note:: minConf will be considered only in 0 to 1.</span>
+<span class="sd">      (.venv) $ python3 RuleMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minConf&gt; &lt;sep&gt;</span>
 
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 RuleMiner.py sampleDB.txt patterns.txt 0.5 &#39; &#39;</span>
+
+<span class="sd">    .. note:: minConf will be considered only in 0 to 1.</span>
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -455,7 +471,12 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param iFile: input file name or path</span>
 <span class="sd">        :type iFile: str</span>
-<span class="sd">        :param sep:</span>
+<span class="sd">        :param measure: measure</span>
+<span class="sd">        :type measure: str</span>
+<span class="sd">        :param threshold: threshold for lifting rules</span>
+<span class="sd">        :type threshold: float</span>
+<span class="sd">        :param sep: Delimiter of input file</span>
+<span class="sd">        :type sep: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span> <span class="o">=</span> <span class="n">iFile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_measure</span> <span class="o">=</span> <span class="n">measure</span>

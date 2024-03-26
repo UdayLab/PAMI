@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.uncertainPeriodicFrequentPattern.basic.UPFPGrowthPlus &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -96,6 +98,7 @@
 <span class="c1">#</span>
 <span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
+<span class="c1">#</span>
 <span class="c1">#</span>
 <span class="c1">#             from PAMI.uncertainPeriodicFrequentPattern.basic import UPFPGrowthPlus as alg</span>
 <span class="c1">#</span>
@@ -144,6 +147,10 @@
 
 <span class="s2">&quot;&quot;&quot;</span>
 
+
+<span class="kn">from</span> <span class="nn">PAMI.uncertainPeriodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">from</span> <span class="nn">PAMI.uncertainPeriodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 
@@ -324,6 +331,8 @@
 <span class="sd">        :param tid : list</span>
 <span class="sd">        :param sup : support of prefixPath taken at last child of the path</span>
 <span class="sd">        :type sup : int</span>
+<span class="sd">        :para probability : highest existential probability value among all periodic-frequent items</span>
+<span class="sd">        :type probability : list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
         <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
@@ -418,6 +427,8 @@
 <span class="sd">        :type conditionalTimeStamps : list</span>
 <span class="sd">        :param support : the support of conditional pattern in tree</span>
 <span class="sd">        :type support : list</span>
+<span class="sd">        :para probability : highest existential probability value among all periodic-frequent items</span>
+<span class="sd">        :type probability : list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_minSup</span><span class="p">,</span> <span class="n">_maxPer</span><span class="p">,</span> <span class="n">_lno</span>
         <span class="n">pat</span> <span class="o">=</span> <span class="p">[]</span>
@@ -456,6 +467,8 @@
 
 <span class="sd">        :param prefix : forms the combination of items</span>
 <span class="sd">        :type prefix : list</span>
+<span class="sd">        :para periodic : occurring at intervals</span>
+<span class="sd">        :type periodic : list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_minSup</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">])):</span>
@@ -494,6 +507,18 @@
 <span class="sd">          UPFP-growth++: An Efficient Algorithm to Find Periodic-Frequent Patterns in Uncertain Temporal Databases. </span>
 <span class="sd">          ICONIP 2022. Communications in Computer and Information Science, vol 1792. Springer, Singapore.</span>
 <span class="sd">          https://doi.org/10.1007/978-981-99-1642-9_16</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of Uncertain Periodic Frequent Patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of Uncertain Periodic Frequent patterns</span>
+<span class="sd">    :param  minSup: str:</span>
+<span class="sd">                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+<span class="sd">    :param  maxper: floot :</span>
+<span class="sd">                   where maxPer represents the maximum periodicity threshold value specified by the user.</span>
+
 
 <span class="sd">    :Attributes:</span>
 
@@ -564,11 +589,21 @@
 
 <span class="sd">    **Executing the code on terminal**:</span>
 <span class="sd">    --------------------------------------------</span>
-<span class="sd">            Format:</span>
-<span class="sd">                &gt;&gt;&gt; python3 UPFPGrowthPlus.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
 
-<span class="sd">            Examples:</span>
-<span class="sd">                &gt;&gt;&gt; python3 UPFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 4</span>
+<span class="sd">    .. code-block:: console</span>
+
+
+<span class="sd">       Format:</span>
+
+<span class="sd">       (.venv) $ python3 UPFPGrowthPlus.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt;</span>
+
+<span class="sd">       Examples Usage:</span>
+
+<span class="sd">       (.venv) $ python3 UPFPGrowthPlus.py sampleTDB.txt patterns.txt 0.3 4</span>
+
+
+<span class="sd">               .. note:: minSup and maxPer will be considered in support count or frequency</span>
+
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
 <span class="sd">    -----------------------------------------------------------------</span>
@@ -599,6 +634,7 @@
 <span class="sd">            run = obj.getRuntime()</span>
 
 <span class="sd">            print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+
 
 <span class="sd">    **Credits**:</span>
 <span class="sd">    --------------</span>
@@ -818,7 +854,37 @@
 
 <div class="viewcode-block" id="UPFPGrowthPlus.startMine">
 <a class="viewcode-back" href="../../../../uncertainPeriodicFrequentPatternBasicUPFPGrowthPlus.html#PAMI.uncertainPeriodicFrequentPattern.basic.UPFPGrowthPlus.UPFPGrowthPlus.startMine">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">_minSup</span><span class="p">,</span> <span class="n">_maxPer</span><span class="p">,</span> <span class="n">_first</span><span class="p">,</span> <span class="n">_last</span><span class="p">,</span> <span class="n">_lno</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">_minSup</span><span class="p">,</span> <span class="n">_maxPer</span><span class="p">,</span> <span class="n">_lno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span>
+        <span class="n">mapSupport</span><span class="p">,</span> <span class="n">plist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_PeriodicFrequentOneItems</span><span class="p">()</span>
+        <span class="n">updatedTrans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateTransactions</span><span class="p">(</span><span class="n">mapSupport</span><span class="p">)</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mapSupport</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildTree</span><span class="p">(</span><span class="n">updatedTrans</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_periodic</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">generatePatterns</span><span class="p">([],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_periodic</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_removeFalsePositives</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Periodic Frequent patterns were generated successfully using UPFP-Growth++ algorithm&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
+
+
+<div class="viewcode-block" id="UPFPGrowthPlus.Mine">
+<a class="viewcode-back" href="../../../../uncertainPeriodicFrequentPatternBasicUPFPGrowthPlus.html#PAMI.uncertainPeriodicFrequentPattern.basic.UPFPGrowthPlus.UPFPGrowthPlus.Mine">[docs]</a>
+    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -849,8 +915,7 @@
 <a class="viewcode-back" href="../../../../uncertainPeriodicFrequentPatternBasicUPFPGrowthPlus.html#PAMI.uncertainPeriodicFrequentPattern.basic.UPFPGrowthPlus.UPFPGrowthPlus.getMemoryUSS">[docs]</a>
     <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
-
+<span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function.</span>
 <span class="sd">        :return: returning USS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
