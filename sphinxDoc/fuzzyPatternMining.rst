@@ -1,5 +1,5 @@
-Fuzzy Pattern Mining
-======================
+Fuzzy Database
+================
 
     A fuzzy database represents the data generated from a non-binary transactional or temporal database using fuzzy logic.
 
