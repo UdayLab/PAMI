@@ -131,8 +131,24 @@
 <dd class="field-even"><p>Zida, S., Fournier-Viger, P., Lin, J.CW. et al. EFIM: a fast and memory efficient algorithm for
 high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). <a class="reference external" href="https://doi.org/10.1007/s10115-016-0986-0">https://doi.org/10.1007/s10115-016-0986-0</a></p>
 </dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of High Utility patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of High Utility patterns</p></li>
+<li><p><strong>minUtil</strong> – int :
+The user given minUtil value.</p></li>
+<li><p><strong>candidateCount</strong> – int
+Number of candidates specified by user</p></li>
+<li><p><strong>maxMemory</strong> – int
+Maximum memory used by this program for running</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of high utility patterns</p>
 </dd>
 <dt>oFile<span class="classifier">file</span></dt><dd><p>Name of the output file to store complete set of high utility patterns</p>
@@ -205,17 +221,19 @@ high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). <a class="refe
 </div></blockquote>
 <section id="executing-the-code-on-terminal">
 <h2><strong>Executing the code on terminal:</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>Format:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">EFIM</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minUtil</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>EFIM.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minUtil&gt;<span class="w"> </span>&lt;sep&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>EFIM<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span><span class="m">35</span>
 </pre></div>
 </div>
-<p>Examples:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">EFIM</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="mi">35</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">EFIM</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="mi">35</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>maxMemory will be considered as Maximum memory used by this program for running</p>
 </div>
-</div></blockquote>
 </section>
 <section id="sample-run-of-importing-the-code">
 <h2>Sample run of importing the code:<a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h2>
@@ -301,24 +319,20 @@ high-utility itemset mining. Knowl Inf Syst 51, 595–625 (2017). <a class="refe
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/EFIM.html#EFIM.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.EFIM.EFIM.save" title="Link to this definition"></a></dt>
 <dd><p>Complete set of frequent patterns will be loaded in to an output file
 :param outFile: name of the output file
-:type outFile: csv file</p>
+:type outFile: csv file
+:return: None</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.highUtilityPattern.basic.EFIM.EFIM.sort_transaction">
 <span class="sig-name descname"><span class="pre">sort_transaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trans1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_Transaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_Transaction</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/PAMI/highUtilityPattern/basic/EFIM.html#EFIM.sort_transaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilityPattern.basic.EFIM.EFIM.sort_transaction" title="Link to this definition"></a></dt>
-<dd><p>A Method to sort transaction</p>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>trans1</strong> (<em>Trans</em>) – the first transaction</p>
-</dd>
-</dl>
-<p>:param trans2:the second transaction
+<dd><p>A Method to sort transaction
+:param trans1: the first transaction
+:type trans1: Trans
+:param trans2:the second transaction
 :type trans2: Trans
 :return: sorted transaction
-:rtype:    Trans</p>
+:rtype: int</p>
 </dd></dl>
 
 <dl class="py method">

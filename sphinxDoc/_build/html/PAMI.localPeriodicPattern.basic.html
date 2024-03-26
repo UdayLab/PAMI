@@ -117,8 +117,24 @@ time-intervals have a minimum duration.</p>
 <dd class="field-even"><p>Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
 a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044</p>
 </dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent pattern’s</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minDur</strong> – str:
+Minimal duration in seconds between consecutive periods of time-intervals where a pattern is continuously periodic.</p></li>
+<li><p><strong>maxPer</strong> – float:
+Controls the maximum number of transactions in which any two items within a pattern can reappear.</p></li>
+<li><p><strong>maxSoPer</strong> – float:
+Controls the maximum number of time periods between consecutive periods of time-intervals where a pattern is continuously periodic.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
 </dd>
 <dt>oFile<span class="classifier">str</span></dt><dd><p>Output file name or path of the output file</p>
@@ -151,8 +167,8 @@ a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.10
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>findSeparator(line)</dt><dd><p>Find the separator of the line which split strings.</p>
 </dd>
 <dt>creteLPPlist()</dt><dd><p>Create the local periodic patterns list from input data.</p>
@@ -472,8 +488,24 @@ time-intervals have a minimum duration.</p>
 <dd class="field-even"><p>Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
 a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044</p>
 </dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent pattern’s</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minDur</strong> – str:
+Minimal duration in seconds between consecutive periods of time-intervals where a pattern is continuously periodic.</p></li>
+<li><p><strong>maxPer</strong> – float:
+Controls the maximum number of transactions in which any two items within a pattern can reappear.</p></li>
+<li><p><strong>maxSoPer</strong> – float:
+Controls the maximum number of time periods between consecutive periods of time-intervals where a pattern is continuously periodic.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
 </dd>
 <dt>oFile<span class="classifier">str</span></dt><dd><p>Output file name or path of the output file</p>
@@ -500,8 +532,8 @@ a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.10
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>createTSList()</dt><dd><p>Create the tsList as bit vector from input data.</p>
 </dd>
 <dt>generateLPP()</dt><dd><p>Generate 1 length local periodic pattens by tsList and execute depth first search.</p>
@@ -692,8 +724,24 @@ time-intervals have a minimum duration.</p>
 <dd class="field-even"><p>Fournier-Viger, P., Yang, P., Kiran, R. U., Ventura, S., Luna, J. M.. (2020). Mining Local Periodic Patterns in
 a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.1016/j.ins.2020.09.044</p>
 </dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent pattern’s</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minDur</strong> – str:
+Minimal duration in seconds between consecutive periods of time-intervals where a pattern is continuously periodic.</p></li>
+<li><p><strong>maxPer</strong> – float:
+Controls the maximum number of transactions in which any two items within a pattern can reappear.</p></li>
+<li><p><strong>maxSoPer</strong> – float:
+Controls the maximum number of time periods between consecutive periods of time-intervals where a pattern is continuously periodic.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">str</span></dt><dd><p>Input file name or path of the input file</p>
 </dd>
 <dt>oFile<span class="classifier">str</span></dt><dd><p>Output file name or path of the output file</p>
@@ -720,8 +768,8 @@ a Discrete Sequence. Information Sciences, Elsevier, to appear. [ppt] DOI: 10.10
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>createTSlist()</dt><dd><p>Create the TSlist as bit vector from input data.</p>
 </dd>
 <dt>generateLPP()</dt><dd><p>Generate 1 length local periodic pattens by TSlist and execute depth first search.</p>

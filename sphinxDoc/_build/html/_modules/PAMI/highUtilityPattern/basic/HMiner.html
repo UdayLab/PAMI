@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.highUtilityPattern.basic.HMiner &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -121,6 +123,8 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
 
 
 
@@ -237,6 +241,21 @@
 
 <span class="sd">    :Reference:</span>
 
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of High Utility patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of High Utility patterns</span>
+<span class="sd">    :param minUtil: int :</span>
+<span class="sd">                   The user given minUtil value.</span>
+<span class="sd">    :param  minSup: int or float or str :</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</span>
+<span class="sd">    :param maxPer: float :</span>
+<span class="sd">                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+
 <span class="sd">    :Attributes:</span>
 
 <span class="sd">        iFile : file</span>
@@ -289,13 +308,19 @@
 
 <span class="sd">    **Executing the code on terminal:**</span>
 <span class="sd">    --------------------------------------------</span>
-<span class="sd">        Format:</span>
 
-<span class="sd">                  &gt;&gt;&gt; python3 HMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minUtil&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">        Examples:</span>
+<span class="sd">      Format:</span>
 
-<span class="sd">                  &gt;&gt;&gt; python3 HMiner.py sampleTDB.txt output.txt 35</span>
+<span class="sd">      (.venv) $ python3 HMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minUtil&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 HMiner.py sampleTDB.txt output.txt 35</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
+
 
 <span class="sd">    Sample run of importing the code:</span>
 <span class="sd">    --------------------------------------</span>
@@ -356,9 +381,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_mapFMAP</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">_HMiner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o1</span><span class="p">,</span> <span class="n">o2</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_HMiner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o1</span><span class="p">,</span> <span class="n">o2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        A method to sort  list of huis in TWU ascending order</span>
+<span class="sd">        A Function that sort all FFI-list in ascending order of Support</span>
+
+<span class="sd">        :param o1: First FFI-list</span>
+
+<span class="sd">        :type o1: _FFList</span>
+
+<span class="sd">        :param o2: Second FFI-list</span>
+
+<span class="sd">        :type o1: _FFList</span>
+
+<span class="sd">        :return: Comparision Value</span>
+
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">compare</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapOfTWU</span><span class="p">[</span><span class="n">o1</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapOfTWU</span><span class="p">[</span><span class="n">o2</span><span class="o">.</span><span class="n">item</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">compare</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -510,9 +547,6 @@
     <span class="k">def</span> <span class="nf">_ExploreSearchTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">uList</span><span class="p">,</span> <span class="n">minutil</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to find all high utility itemSets</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :parm prefix:it represents all items in prefix</span>
 <span class="sd">        :type prefix:list</span>
 <span class="sd">        :parm uList:projected Utility list</span>
@@ -535,9 +569,6 @@
     <span class="k">def</span> <span class="nf">_construcCUL</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">culs</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">minutil</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to construct CUL&#39;s database</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :parm x: Compact utility list</span>
 <span class="sd">        :type x: Node</span>
 <span class="sd">        :parm culs:list of Compact utility list</span>
@@ -631,15 +662,14 @@
     <span class="k">def</span> <span class="nf">_UpdateCLosed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">culs</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">excul</span><span class="p">,</span> <span class="n">newT</span><span class="p">,</span> <span class="n">ex</span><span class="p">,</span> <span class="n">ey_tid</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to update closed values</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :parm x: Compact utility list</span>
 <span class="sd">        :type x: lists</span>
 <span class="sd">        :parm culs:list of Compact utility list</span>
 <span class="sd">        :type culs:lists</span>
 <span class="sd">        :parm st: starting pos of culs</span>
 <span class="sd">        :type st:int</span>
+<span class="sd">        :parm excul: list of culs</span>
+<span class="sd">        :type excul: list</span>
 <span class="sd">        :parm newT:transaction to be updated</span>
 <span class="sd">        :type newT:list</span>
 <span class="sd">        :parm ex: element ex</span>
@@ -697,9 +727,6 @@
     <span class="k">def</span> <span class="nf">_saveitemSet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">prefixLen</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">utility</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A method to save itemSets</span>
-
-<span class="sd">        :Attributes:</span>
-
 <span class="sd">        :parm prefix: it represents all items in prefix</span>
 <span class="sd">        :type prefix :list</span>
 <span class="sd">        :parm prefixLen: length of prefix</span>

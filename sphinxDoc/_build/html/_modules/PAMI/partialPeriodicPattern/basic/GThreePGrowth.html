@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.partialPeriodicPattern.basic.GThreePGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -142,6 +144,7 @@
 
 <span class="s2">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">pandas.core.arrays</span> <span class="kn">import</span> <span class="n">period</span>
 
 <span class="kn">from</span> <span class="nn">PAMI.partialPeriodicPattern.basic</span> <span class="kn">import</span> <span class="n">Gabstract</span> <span class="k">as</span> <span class="n">_abstract</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span>
@@ -383,7 +386,19 @@
 <span class="sd">    :Reference:   Reference : Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM &#39;17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017</span>
 <span class="sd">                  Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535</span>
 
-<span class="sd">    :Parameters:</span>
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  minPS: float:</span>
+<span class="sd">                   Minimum partial periodic pattern...</span>
+<span class="sd">    :param  period: float:</span>
+<span class="sd">                   Minimum partial periodic...</span>
+
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+<span class="sd">    :Attributes:</span>
 
 <span class="sd">        self.iFile : file</span>
 <span class="sd">            Name of the Input file or path of the input file</span>

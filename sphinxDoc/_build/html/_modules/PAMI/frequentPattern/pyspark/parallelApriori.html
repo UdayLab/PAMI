@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.frequentPattern.pyspark.parallelApriori &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -123,6 +125,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
 
 
 
@@ -195,15 +198,20 @@
 <span class="sd">    </span>
 
 <span class="sd">    **Methods to execute code on terminal**</span>
-<span class="sd">    -----------------------------------------</span>
-<span class="sd">    </span>
-<span class="sd">            Format:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 parallelApriori.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;numWorkers&gt;</span>
-<span class="sd">    </span>
-<span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 parallelApriori.py sampleDB.txt patterns.txt 10.0 3</span>
-<span class="sd">    </span>
-<span class="sd">            .. note:: minSup will be considered in percentage of database transactions</span>
+<span class="sd">    -------------------------------------------</span>
+
+<span class="sd">    .. code-block:: console</span>
+
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 parallelApriori.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;numWorkers&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 parallelApriori.py sampleDB.txt patterns.txt 10.0 3</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
+
 <span class="sd">    </span>
 <span class="sd">    </span>
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -374,7 +382,7 @@
 <a class="viewcode-back" href="../../../../frequentPatternPysparkParallelApriori.html#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.printResults">[docs]</a>
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This method prints all the statistics</span>
+<span class="sd">        This method prints all the stats</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
@@ -418,6 +426,7 @@
     <span class="k">def</span> <span class="nf">_genFrequentItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get frequent items which length is 1</span>
+<span class="sd">        :param database: database to get frequent items</span>
 <span class="sd">        :return: frequent items which length is 1</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -433,7 +442,7 @@
 <span class="sd">        :param database: database</span>
 <span class="sd">        :type : RDD</span>
 <span class="sd">        :param frequentItems: dict</span>
-<span class="sd">        :return:</span>
+<span class="sd">        :type frequentItems: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Get candidate patterns that length is 2</span>
@@ -454,6 +463,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To convert the user specified minSup value</span>
 <span class="sd">        :param value: user specified minSup value</span>
+<span class="sd">        :type value: int or float or str</span>
 <span class="sd">        :return: converted type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
@@ -473,7 +483,6 @@
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Frequent pattern mining process will start from here</span>
-<span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 

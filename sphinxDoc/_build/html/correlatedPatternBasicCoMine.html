@@ -161,22 +161,19 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 <section id="methods-to-execute-code-on-terminal">
 <h2><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Link to this heading"></a></h2>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">CoMine</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minAllConf</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-</dd>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">CoMine</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="mf">0.25</span> <span class="mf">0.2</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>CoMine.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;minAllConf&gt;<span class="w"> </span>&lt;sep&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>CoMine.py<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span><span class="m">0</span>.25<span class="w"> </span><span class="m">0</span>.2
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</dd>
-</dl>
-</div></blockquote>
 </section>
 <section id="importing-this-algorithm-into-a-python-program">
 <h2><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h2>
@@ -256,7 +253,8 @@ This variable is used to distinguish items from one another in a transaction. Th
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.correlatedPattern.basic.CoMine.CoMine.printResults">
 <span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.printResults" title="Link to this definition"></a></dt>
-<dd><p>function to print the result after completing the process</p>
+<dd><p>function to print the result after completing the process
+:return: None</p>
 </dd></dl>
 
 <dl class="py method">
@@ -264,7 +262,8 @@ This variable is used to distinguish items from one another in a transaction. Th
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/PAMI/correlatedPattern/basic/CoMine.html#CoMine.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.correlatedPattern.basic.CoMine.CoMine.save" title="Link to this definition"></a></dt>
 <dd><p>Complete set of correlated patterns will be saved into an output file
 :param outFile: name of the outputfile
-:type outFile: file</p>
+:type outFile: file
+:return: None</p>
 </dd></dl>
 
 <dl class="py method">

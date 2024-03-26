@@ -133,14 +133,12 @@
 <span class="sig-name descname"><span class="pre">createTransaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/topk/TKSHUIM.html#Dataset.createTransaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.Dataset.createTransaction" title="Link to this definition"></a></dt>
 <dd><p>A method to create Transaction from dataset given</p>
 <dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>line</strong> (<em>string</em>) – represent a single line of database</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>line</strong> (<em>string</em>) – represent a single line of database</p>
 </dd>
 </dl>
 <p>:return : Transaction.
-:rtype: Transaction</p>
+:rtype: int</p>
 </dd></dl>
 
 <dl class="py method">
@@ -184,11 +182,17 @@ doi: 10.1109/BigData52589.2021.9671912.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>iFile</strong> – str :
-Name of the Input file to mine complete set of frequent patterns</p></li>
+Name of the Input file to mine complete set of High Utility Spatial patterns</p></li>
 <li><p><strong>oFile</strong> – str :
-Name of the output file to store complete set of frequent patterns</p></li>
-<li><p><strong>k</strong> – int :
-User specified count of top frequent patterns</p></li>
+Name of the output file to store complete set of High Utility Spatial patterns</p></li>
+<li><p><strong>minUtil</strong> – int :
+Minimum utility threshold given by User</p></li>
+<li><p><strong>maxMemory</strong> – int :
+Maximum memory used by this program for running</p></li>
+<li><p><strong>candidateCount</strong> – int :
+Number of candidates to consider when calculating a high utility spatial pattern</p></li>
+<li><p><strong>nFile</strong> – str :
+Name of the input file to mine complete set of High Utility Spatial patterns</p></li>
 <li><p><strong>sep</strong> – str :
 This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
 </ul>
@@ -270,18 +274,19 @@ This variable is used to distinguish items from one another in a transaction. Th
 </dl>
 <section id="executing-the-code-on-terminal">
 <h3><strong>Executing the code on terminal:</strong><a class="headerlink" href="#executing-the-code-on-terminal" title="Link to this heading"></a></h3>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">TKSHUIM</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">Neighbours</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">k</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sep</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>TKSHUIM.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;Neighbours&gt;<span class="w"> </span>&lt;k&gt;<span class="w"> </span>&lt;sep&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>TKSHUIM.py<span class="w"> </span>sampleTDB.txt<span class="w"> </span>output.txt<span class="w"> </span>sampleN.txt<span class="w"> </span><span class="m">35</span>
 </pre></div>
 </div>
-</dd>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">TKSHUIM</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleTDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">output</span><span class="o">.</span><span class="n">txt</span> <span class="n">sampleN</span><span class="o">.</span><span class="n">txt</span> <span class="mi">35</span>
-</pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>maxMemory will be considered as Maximum memory used by this program for running</p>
 </div>
-</dd>
-</dl>
-</div></blockquote>
 </section>
 <section id="sample-run-of-importing-the-code">
 <h3><strong>Sample run of importing the code:</strong><a class="headerlink" href="#sample-run-of-importing-the-code" title="Link to this heading"></a></h3>
@@ -323,6 +328,14 @@ This variable is used to distinguish items from one another in a transaction. Th
 <dt class="sig sig-object py" id="PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.additemset">
 <span class="sig-name descname"><span class="pre">additemset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">itemset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utility</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/highUtilitySpatialPattern/topk/TKSHUIM.html#TKSHUIM.additemset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.highUtilitySpatialPattern.topk.TKSHUIM.TKSHUIM.additemset" title="Link to this definition"></a></dt>
 <dd><p>adds the itemset to the priority queue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>itemset</strong> (<em>str</em>) – the itemset to be added</p></li>
+<li><p><strong>utility</strong> (<em>numpy.array</em>) – utility matrix for the itemset to be added</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -590,7 +603,7 @@ This variable is used to distinguish items from one another in a transaction. Th
 <p>:param trans2:the second transaction.
 :type trans2: Transaction
 :return: sorted transaction.
-:rtype:    Transaction</p>
+:rtype: int</p>
 </dd></dl>
 
 <dl class="py method">
@@ -648,7 +661,9 @@ This variable is used to distinguish items from one another in a transaction. Th
 <p>:param j:the position of j in the list of promising items
 :type j:int
 :param itemsToKeep :the list of promising items
-:type itemsToKeep: list</p>
+:type itemsToKeep: list
+:param neighbourhoodList: list of neighbourhood elements
+:type neighbourhoodList: list</p>
 </dd></dl>
 
 <dl class="py attribute">

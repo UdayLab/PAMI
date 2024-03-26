@@ -150,22 +150,19 @@ The number of partitions. On each worker node, an executor process is started an
 </dl>
 <section id="methods-to-execute-code-on-terminal">
 <h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#methods-to-execute-code-on-terminal" title="Link to this heading"></a></h3>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">parallelApriori</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">numWorkers</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>parallelApriori.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;numWorkers&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>parallelApriori.py<span class="w"> </span>sampleDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">10</span>.0<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
-</dd>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">parallelApriori</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</dd>
-</dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</div></blockquote>
 </section>
 <section id="importing-this-algorithm-into-a-python-program">
 <h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#importing-this-algorithm-into-a-python-program" title="Link to this heading"></a></h3>
@@ -245,7 +242,7 @@ The number of partitions. On each worker node, an executor process is started an
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.printResults">
 <span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelApriori.html#parallelApriori.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.printResults" title="Link to this definition"></a></dt>
-<dd><p>This method prints all the statistics</p>
+<dd><p>This method prints all the stats</p>
 </dd></dl>
 
 <dl class="py method">
@@ -259,8 +256,7 @@ The number of partitions. On each worker node, an executor process is started an
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.startMine">
 <span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelApriori.html#parallelApriori.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelApriori.parallelApriori.startMine" title="Link to this definition"></a></dt>
-<dd><p>Frequent pattern mining process will start from here
-:return:</p>
+<dd><p>Frequent pattern mining process will start from here</p>
 </dd></dl>
 
 </section>
@@ -313,22 +309,19 @@ The number of partitions. On each worker node, an executor process is started an
 </dl>
 <section id="id1">
 <h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">parallelECLAT</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">numWorkers</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>parallelECLAT.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;numWorkers&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>parallelECLAT.py<span class="w"> </span>sampleDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">10</span>.0<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
-</dd>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">parallelECLAT</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</dd>
-</dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</div></blockquote>
 </section>
 <section id="id2">
 <h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
@@ -479,24 +472,26 @@ The number of partitions. On each worker node, an executor process is started an
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.addNodeToNodeLink">
 <span class="sig-name descname"><span class="pre">addNodeToNodeLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelFPGrowth.html#Tree.addNodeToNodeLink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.addNodeToNodeLink" title="Link to this definition"></a></dt>
 <dd><p>Add node to self.nodeLink
-:param node: Node
-:return:</p>
+:param node: Node to add
+:type node: Node</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.addTransaction">
 <span class="sig-name descname"><span class="pre">addTransaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelFPGrowth.html#Tree.addTransaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.addTransaction" title="Link to this definition"></a></dt>
 <dd><p>Add transaction to tree
-:param transaction: list
-:param count: int
-:return:</p>
+:param transaction: Transaction to add
+:type transaction: list
+:param count: Number of nodes
+:type count: int</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.generateConditionalTree">
 <span class="sig-name descname"><span class="pre">generateConditionalTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelFPGrowth.html#Tree.generateConditionalTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelFPGrowth.Tree.generateConditionalTree" title="Link to this definition"></a></dt>
 <dd><p>Generate conditional tree based on item
-:param item: str or int
+:param item: Item to be considered as a condition
+:type item: str or int
 :return: Tree</p>
 </dd></dl>
 
@@ -546,22 +541,19 @@ The number of partitions. On each worker node, an executor process is started an
 </dl>
 <section id="id4">
 <h3><strong>Methods to execute code on terminal</strong><a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
-<blockquote>
-<div><dl>
-<dt>Format:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python3</span> <span class="n">parallelFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">minSup</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">numWorkers</span><span class="o">&gt;</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>parallelFPGrowth.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;<span class="w"> </span>&lt;numWorkers&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>parallelFPGrowth.py<span class="w"> </span>sampleDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">10</span>.0<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
-</dd>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="n">python3</span> <span class="n">parallelFPGrowth</span><span class="o">.</span><span class="n">py</span> <span class="n">sampleDB</span><span class="o">.</span><span class="n">txt</span> <span class="n">patterns</span><span class="o">.</span><span class="n">txt</span> <span class="mf">10.0</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</dd>
-</dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>minSup will be considered in percentage of database transactions</p>
 </div>
-</div></blockquote>
 </section>
 <section id="id5">
 <h3><strong>Importing this algorithm into a python program</strong><a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
@@ -602,8 +594,10 @@ The number of partitions. On each worker node, an executor process is started an
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.buildTree">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buildTree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelFPGrowth.html#parallelFPGrowth.buildTree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.buildTree" title="Link to this definition"></a></dt>
 <dd><p>Build tree from data
-:param tree: Tree
-:param data: list
+:param tree: tree to build
+:type tree: Tree
+:param data: data to build
+:type data: list
 :return: tree</p>
 </dd></dl>
 
@@ -612,6 +606,7 @@ The number of partitions. On each worker node, an executor process is started an
 <span class="sig-name descname"><span class="pre">genAllFrequentPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree_tuple</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelFPGrowth.html#parallelFPGrowth.genAllFrequentPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genAllFrequentPatterns" title="Link to this definition"></a></dt>
 <dd><p>Generate all frequent patterns
 :param tree_tuple: (partition id, tree)
+:type tree_tuple: tuple
 :return: dict</p>
 </dd></dl>
 
@@ -619,8 +614,10 @@ The number of partitions. On each worker node, an executor process is started an
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genCondTransaction">
 <span class="sig-name descname"><span class="pre">genCondTransaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trans</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelFPGrowth.html#parallelFPGrowth.genCondTransaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genCondTransaction" title="Link to this definition"></a></dt>
 <dd><p>Generate conditional transactions from transaction
-:param transaction : list
-:param rank: dict
+:param trans : transactions to generate conditional transactions
+:type trans: list
+:param rank: rank of conditional transactions to generate conditional transactions
+:type rank: dict
 :return: list</p>
 </dd></dl>
 
@@ -629,8 +626,11 @@ The number of partitions. On each worker node, an executor process is started an
 <span class="sig-name descname"><span class="pre">genFreqPatterns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelFPGrowth.html#parallelFPGrowth.genFreqPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.genFreqPatterns" title="Link to this definition"></a></dt>
 <dd><p>Generate new frequent patterns based on item.
 :param item: item
+:type item: int
 :param prefix: prefix frequent pattern
-:param tree: tree
+:type prefix: str
+:param tree: tree to generate patterns
+:type tree: Tree
 :return:</p>
 </dd></dl>
 
@@ -654,7 +654,8 @@ The number of partitions. On each worker node, an executor process is started an
 <dt class="sig sig-object py" id="PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getPartitionId">
 <span class="sig-name descname"><span class="pre">getPartitionId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/pyspark/parallelFPGrowth.html#parallelFPGrowth.getPartitionId"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.pyspark.parallelFPGrowth.parallelFPGrowth.getPartitionId" title="Link to this definition"></a></dt>
 <dd><p>Get partition id of item
-:param item: int
+:param value: value to get partition id
+:type value: int
 :return: integer</p>
 </dd></dl>
 

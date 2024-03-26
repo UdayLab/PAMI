@@ -1,7 +1,11 @@
 Partial Periodic Pattern Mining
 ==================================
 
-Partial Periodic Pattern Mining
+Partial periodic pattern mining involves the identification of recurring patterns or sequences within a dataset that exhibit partial periodic behavior.
+Unlike traditional periodic pattern mining, where patterns repeat exactly at regular intervals, partial periodic patterns may exhibit variations or irregularities
+in their periodicity. These patterns may occur intermittently or periodically with some degree of variability, making them challenging to detect using conventional
+mining techniques.
+Applications: Healthcare Monitoring, Financial Time Series Analysis, Network Traffic Analysis.
 
 
 .. toctree::

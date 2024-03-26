@@ -113,8 +113,24 @@
 <dd class="field-even"><p>R. Uday Kiran, J.N. Venkatesh, Masashi Toyoda, Masaru Kitsuregawa, P. Krishna Reddy, Discovering partial periodic-frequent patterns in a transactional database,
 Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212, <a class="reference external" href="https://doi.org/10.1016/j.jss.2016.11.035">https://doi.org/10.1016/j.jss.2016.11.035</a>.</p>
 </dd>
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent pattern’s</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> – str:
+The user can specify minSup either in count or proportion of database size.</p></li>
+<li><p><strong>minPR</strong> – str:
+Controls the maximum number of transactions in which any two items within a pattern can reappear.</p></li>
+<li><p><strong>maxPer</strong> – str:
+Controls the maximum number of transactions in which any two items within a pattern can reappear.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt>inputFile<span class="classifier">file</span></dt><dd><p>Name of the input file to mine complete set of frequent pattern</p>
 </dd>
 <dt>minSup<span class="classifier">float</span></dt><dd><p>The user defined minSup</p>
@@ -133,8 +149,8 @@ Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Methods<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
+<dt class="field-odd">Methods<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
 <dt>startMine()</dt><dd><p>Mining process will start from here</p>
 </dd>
 <dt>getPatterns()</dt><dd><p>Complete set of patterns will be retrieved with this function</p>
@@ -169,33 +185,22 @@ Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212
 </section>
 <section id="sample-run-of-the-importing-code">
 <h3><strong>Sample run of the importing code:</strong><a class="headerlink" href="#sample-run-of-the-importing-code" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.partialPeriodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">GPFgrowth</span> <span class="k">as</span> <span class="n">alg</span>
-
-<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">GPFgrowth</span><span class="p">(</span><span class="n">inputFile</span><span class="p">,</span> <span class="n">outputFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">,</span> <span class="n">maxPer</span><span class="p">,</span> <span class="n">minPR</span><span class="p">)</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
-
-<span class="n">partialPeriodicFrequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of partial periodic Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">partialPeriodicFrequentPatterns</span><span class="p">))</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
-
-<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDf</span><span class="p">()</span>
-
-<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
-
-<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
-
-<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>…     code-block:: python</p>
+<blockquote>
+<div><p>from PAMI.partialPeriodicFrequentPattern.basic import GPFgrowth as alg</p>
+<p>obj = alg.GPFgrowth(inputFile, outputFile, minSup, maxPer, minPR)</p>
+<p>obj.startMine()</p>
+<p>partialPeriodicFrequentPatterns = obj.getPatterns()</p>
+<p>print(“Total number of partial periodic Patterns:”, len(partialPeriodicFrequentPatterns))</p>
+<p>obj.save(oFile)</p>
+<p>Df = obj.getPatternInDf()</p>
+<p>memUSS = obj.getMemoryUSS()</p>
+<p>print(“Total Memory in USS:”, memUSS)</p>
+<p>memRSS = obj.getMemoryRSS()</p>
+<p>print(“Total Memory in RSS”, memRSS)</p>
+<p>run = obj.getRuntime()</p>
+<p>print(“Total ExecutionTime in seconds:”, run)</p>
+</div></blockquote>
 </section>
 <section id="credits">
 <h3><strong>Credits:</strong><a class="headerlink" href="#credits" title="Link to this heading"></a></h3>
@@ -595,6 +600,25 @@ Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212
 <dt class="field-odd">Description<span class="colon">:</span></dt>
 <dd class="field-odd"><p>PPF_DFS is algorithm to mine the partial periodic frequent patterns.</p>
 </dd>
+<dt class="field-even">References<span class="colon">:</span></dt>
+<dd class="field-even"><p>(Has to be added)</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent pattern’s</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> – str:
+The user can specify minSup either in count or proportion of database size.</p></li>
+<li><p><strong>minPR</strong> – str:
+Controls the maximum number of transactions in which any two items within a pattern can reappear.</p></li>
+<li><p><strong>maxPer</strong> – str:
+Controls the maximum number of transactions in which any two items within a pattern can reappear.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>iFile<span class="classifier">file</span></dt><dd><p>input file path</p>
@@ -671,33 +695,22 @@ Journal of Systems and Software, Volume 125, 2017, Pages 170-182, ISSN 0164-1212
 </section>
 <section id="id2">
 <h3><strong>Sample run of the importing code:</strong><a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PAMI.partialPeriodicFrequentpattern.basic</span> <span class="kn">import</span> <span class="n">PPF_DFS</span> <span class="k">as</span> <span class="n">alg</span>
-
-<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">PPF_DFS</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">startMine</span><span class="p">()</span>
-
-<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
-
-<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
-
-<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
-
-<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
-
-<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
-
-<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>…     code-block:: python</p>
+<blockquote>
+<div><p>from PAMI.partialPeriodicFrequentpattern.basic import PPF_DFS as alg</p>
+<p>obj = alg.PPF_DFS(iFile, minSup)</p>
+<p>obj.startMine()</p>
+<p>frequentPatterns = obj.getPatterns()</p>
+<p>print(“Total number of Frequent Patterns:”, len(frequentPatterns))</p>
+<p>obj.save(oFile)</p>
+<p>Df = obj.getPatternInDataFrame()</p>
+<p>memUSS = obj.getMemoryUSS()</p>
+<p>print(“Total Memory in USS:”, memUSS)</p>
+<p>memRSS = obj.getMemoryRSS()</p>
+<p>print(“Total Memory in RSS”, memRSS)</p>
+<p>run = obj.getRuntime()</p>
+<p>print(“Total ExecutionTime in seconds:”, run)</p>
+</div></blockquote>
 </section>
 <section id="id3">
 <h3><strong>Credits:</strong><a class="headerlink" href="#id3" title="Link to this heading"></a></h3>

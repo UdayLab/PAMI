@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.frequentPattern.basic.ECLATbitset &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -92,10 +94,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for PAMI.frequentPattern.basic.ECLATbitset</h1><div class="highlight"><pre>
-<span></span><span class="c1">#ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.</span>
+<span></span><span class="c1"># ECLATbitset is one of the fundamental algorithm to discover frequent patterns in a transactional database.</span>
 <span class="c1">#</span>
-<span class="c1">#**Importing this algorithm into a python program**</span>
-<span class="c1">#---------------------------------------------------------</span>
+<span class="c1"># **Importing this algorithm into a python program**</span>
+<span class="c1"># ---------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#             import PAMI.frequentPattern.basic.ECLATbitset as alg</span>
 <span class="c1">#</span>
@@ -122,7 +124,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-
+<span class="c1">#</span>
 
 
 
@@ -188,15 +190,19 @@
 
 
 <span class="sd">    **Methods to execute code on terminal**</span>
-<span class="sd">    ----------------------------------------</span>
+<span class="sd">    ------------------------------------------</span>
 
-<span class="sd">            Format:</span>
-<span class="sd">                      &gt;&gt;&gt; python3 ECLATDiffset.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt; python3 ECLATDiffset.py sampleDB.txt patterns.txt 10.0</span>
+<span class="sd">      Format:</span>
 
-<span class="sd">            .. note:: minSup will be considered in percentage of database transactions</span>
+<span class="sd">      (.venv) $ python3 ECLATbitset.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 ECLATbitset.py sampleDB.txt patterns.txt 10.0</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -253,8 +259,14 @@
     <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To convert the user specified minSup value</span>
+
 <span class="sd">        :param value: user specified minSup value</span>
+
+<span class="sd">        :type value: int</span>
+
 <span class="sd">        :return: converted type</span>
+
+<span class="sd">        :rtype: int or float or string</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -307,7 +319,11 @@
     <span class="k">def</span> <span class="nf">creatingFrequentItems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function creates frequent items from _database.</span>
+
 <span class="sd">        :return: frequentTidData that stores frequent items and their tid list.</span>
+
+<span class="sd">        :rtype: Dict</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tidData</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_lno</span> <span class="o">=</span> <span class="mi">0</span>
@@ -327,15 +343,16 @@
 <a class="viewcode-back" href="../../../../frequentPatternBasicECLATbitset.html#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.tidToBitset">[docs]</a>
     <span class="k">def</span> <span class="nf">tidToBitset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">itemset</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        This function converts tid list to bitset.</span>
 
-<span class="sd">        Parameters:</span>
+<span class="sd">        :param itemset: frequent itemset that generated</span>
 
-<span class="sd">            itemSet: frequent itemset that generated</span>
+<span class="sd">        :type itemset: Dict</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        :return: patterns with original item names</span>
 
-<span class="sd">            patterns with original item names.</span>
+<span class="sd">        :rtype: Dict</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">bitset</span> <span class="o">=</span> <span class="p">{}</span>
@@ -354,10 +371,17 @@
 <a class="viewcode-back" href="../../../../frequentPatternBasicECLATbitset.html#PAMI.frequentPattern.basic.ECLATbitset.ECLATbitset.genPatterns">[docs]</a>
     <span class="k">def</span> <span class="nf">genPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span><span class="n">tidData</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
 <span class="sd">        This function generate frequent pattern about prefix.</span>
-<span class="sd">        :param prefix: String</span>
-<span class="sd">        :param tidData: list</span>
-<span class="sd">        :return:</span>
+
+<span class="sd">        :param prefix: prefix of pattern to generate patterns</span>
+
+<span class="sd">        :type prefix: str</span>
+
+<span class="sd">        :param tidData: tidData for pattern generation</span>
+
+<span class="sd">        :type tidData: list</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># variables to store frequent item set and</span>
         <span class="n">itemset</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -381,8 +405,11 @@
     <span class="k">def</span> <span class="nf">genAllFrequentPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">frequentItems</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function generates all frequent patterns.</span>
+
 <span class="sd">        :param frequentItems: frequent items</span>
-<span class="sd">        :return:</span>
+
+<span class="sd">        :type frequentItems: Dict</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tidData</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">frequentItems</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
         <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tidData</span><span class="p">)</span>

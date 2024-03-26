@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.stablePeriodicFrequentPattern.basic.SPPGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -100,33 +102,35 @@
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#</span>
-<span class="c1">#     from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg</span>
+<span class="c1">#             from PAMI.stablePeriodicFrequentPattern.basic import SPPGrowth as alg</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)</span>
+<span class="c1">#             obj = alg.SPPGrowth(iFile, minSup, maxPer, maxLa)</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#     Patterns = obj.getPatterns()</span>
+<span class="c1">#             Patterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total number of Stable Periodic Frequent Patterns:&quot;, len(Patterns))</span>
+<span class="c1">#             print(&quot;Total number of Stable Periodic Frequent Patterns:&quot;, len(Patterns))</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.save(oFile)</span>
+<span class="c1">#             obj.save(oFile)</span>
 <span class="c1">#</span>
-<span class="c1">#     Df = obj.getPatternsAsDataFrame()</span>
+<span class="c1">#             Df = obj.getPatternsAsDataFrame()</span>
 <span class="c1">#</span>
-<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 <span class="c1">#</span>
-<span class="c1">#</span>
+
+
+
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
@@ -368,6 +372,22 @@
 <span class="sd">                  Theory and Practices in Artificial Intelligence. IEA/AIE 2022. Lecture Notes in Computer Science(), vol 13343. Springer, Cham.</span>
 <span class="sd">                  https://doi.org/10.1007/978-3-031-08530-7_70</span>
 
+<span class="sd">    :param  iFile: str :</span>
+
+<span class="sd">                   Name of the Input file to mine complete set of frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  minSup: str:</span>
+<span class="sd">                   Minimum number of frequent patterns to be included in the output file.</span>
+<span class="sd">    :param  maxLa: float:</span>
+<span class="sd">                   Minimum number of ...</span>
+<span class="sd">    :param  maxPer: float:</span>
+<span class="sd">                   Maximum number of frequent patterns to be included in the output file.</span>
+
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+
 <span class="sd">    :Attributes:</span>
 
 <span class="sd">            iFile : file</span>
@@ -442,13 +462,18 @@
 
 <span class="sd">    **Methods to execute code on terminal**</span>
 <span class="sd">    -----------------------------------------</span>
-<span class="sd">            Format:</span>
-<span class="sd">                      &gt;&gt;&gt;   python3 topk.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;maxLa&gt;</span>
 
-<span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 topk.py sampleTDB.txt patterns.txt 0.3 0.4 0.3</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">                      .. note:: constraints will be considered in percentage of database transactions</span>
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 topk.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;maxLa&gt;</span>
+
+<span class="sd">      Example usage :</span>
+
+<span class="sd">      (.venv) $ python3 topk.py sampleTDB.txt patterns.txt 0.3 0.4 0.3</span>
+
+<span class="sd">    .. note:: constraints will be considered in percentage of database transactions</span>
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
 <span class="sd">    -----------------------------------------------------</span>

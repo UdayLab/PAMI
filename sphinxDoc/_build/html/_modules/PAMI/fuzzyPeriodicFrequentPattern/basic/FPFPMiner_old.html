@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -95,29 +97,32 @@
 <span></span><span class="c1"># Sample run of importing the code:</span>
 <span class="c1"># -------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#         from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner as alg</span>
+<span class="c1">#             from PAMI.fuzzyPeriodicFrequentPattern.basic import FPFPMiner as alg</span>
 <span class="c1">#</span>
-<span class="c1">#         obj =alg.FPFPMiner(&quot;input.txt&quot;,2,3)</span>
+<span class="c1">#             obj =alg.FPFPMiner(&quot;input.txt&quot;,2,3)</span>
 <span class="c1">#</span>
-<span class="c1">#         obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#         periodicFrequentPatterns = obj.getPatterns()</span>
+<span class="c1">#             periodicFrequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total number of Fuzzy Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
+<span class="c1">#             print(&quot;Total number of Fuzzy Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
 <span class="c1">#</span>
-<span class="c1">#         obj.save(&quot;output.txt&quot;)</span>
+<span class="c1">#             obj.save(&quot;output.txt&quot;)</span>
 <span class="c1">#</span>
-<span class="c1">#         memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#         memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#         run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
+
 
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;(Copyright (C)  2021 Rage Uday Kiran</span>
@@ -192,7 +197,7 @@
 <span class="sd">        A Method that add a new element to FFList</span>
 
 <span class="sd">        :param element: an element to be added to FFList</span>
-<span class="sd">        :param element: Element</span>
+<span class="sd">        :type element: Element</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sumLUtil</span> <span class="o">+=</span> <span class="n">element</span><span class="o">.</span><span class="n">lUtils</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sumRUtil</span> <span class="o">+=</span> <span class="n">element</span><span class="o">.</span><span class="n">rUtils</span>
@@ -285,6 +290,21 @@
 <span class="sd">                    on-trivial and challenging problem to its huge search space.we are using efficient pruning</span>
 <span class="sd">                    techniques to reduce the search space.</span>
 
+<span class="sd">    :Reference:</span>
+
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of frequent patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  minSup: int or float or str :</span>
+<span class="sd">                   The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</span>
+<span class="sd">    :param maxPer: float :</span>
+<span class="sd">                   The user can specify maxPer in count or proportion of database size. If the program detects the data type of maxPer is integer, then it treats maxPer is expressed in count.</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+
 <span class="sd">    :Attributes:</span>
 
 <span class="sd">        iFile : file</span>
@@ -354,13 +374,20 @@
 <span class="sd">            To Store the patten</span>
 
 <span class="sd">    **Executing the code on terminal :**</span>
-<span class="sd">    -------------------------------------</span>
+<span class="sd">    ---------------------------------------</span>
 
-<span class="sd">        Format:</span>
-<span class="sd">            &gt;&gt;&gt; python3 FPFPMiner_old.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;sep&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">        Examples:</span>
-<span class="sd">            &gt;&gt;&gt; python3  FPFPMiner_old.py sampleTDB.txt output.txt 2 3</span>
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 FPFPMiner_old.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;sep&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3  FPFPMiner_old.py sampleTDB.txt output.txt 2 3</span>
+
+<span class="sd">    .. note:: minSup will be considered in percentage of database transactions</span>
+
 
 <span class="sd">    **Sample run of importing the code:**</span>
 <span class="sd">    --------------------------------------</span>
@@ -431,6 +458,18 @@
     <span class="k">def</span> <span class="nf">_compareItems</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o1</span><span class="p">,</span> <span class="n">o2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A Function that sort all FFI-list in ascending order of Support</span>
+
+<span class="sd">        :param o1: First FFI-list</span>
+
+<span class="sd">        :type o1: _FFList</span>
+
+<span class="sd">        :param o2: Second FFI-list</span>
+
+<span class="sd">        :type o1: _FFList</span>
+
+<span class="sd">        :return: Comparision Value</span>
+
+<span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">compare</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemSum</span><span class="p">[</span><span class="n">o1</span><span class="o">.</span><span class="n">item</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapItemSum</span><span class="p">[</span><span class="n">o2</span><span class="o">.</span><span class="n">item</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">compare</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -443,7 +482,12 @@
 <span class="sd">        To convert the given user specified value</span>
 
 <span class="sd">        :param value: user specified value</span>
+
+<span class="sd">        :type value: int  or float or str</span>
+
 <span class="sd">        :return: converted value</span>
+
+<span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -673,19 +717,19 @@
 
 <span class="sd">        :return: returning RSS memory consumed by the mining process</span>
 <span class="sd">        :rtype: float</span>
-<span class="sd">       &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
 
 <div class="viewcode-block" id="FPFPMiner.getRuntime">
 <a class="viewcode-back" href="../../../../PAMI.fuzzyPeriodicFrequentPattern.basic.html#PAMI.fuzzyPeriodicFrequentPattern.basic.FPFPMiner_old.FPFPMiner.getRuntime">[docs]</a>
     <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculating the total amount of runtime taken by the mining process</span>
-
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
 <span class="sd">        :return: returning total amount of runtime taken by the mining process</span>
 <span class="sd">        :rtype: float</span>
-<span class="sd">       &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
 
 
@@ -716,10 +760,10 @@
 <span class="sd">        To find element with same tid as given</span>
 
 <span class="sd">        :param UList: fuzzy list</span>
-<span class="sd">        :type UList:FFI-List</span>
-<span class="sd">        :param tid:transaction id</span>
-<span class="sd">        :type tid:int</span>
-<span class="sd">        :return:element with tid as given</span>
+<span class="sd">        :type UList: FFI-List</span>
+<span class="sd">        :param tid: transaction id</span>
+<span class="sd">        :type tid: int</span>
+<span class="sd">        :return: element with tid as given</span>
 <span class="sd">        :rtype: element if exist or None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">List</span> <span class="o">=</span> <span class="n">UList</span><span class="o">.</span><span class="n">elements</span>
@@ -809,7 +853,7 @@
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
-<span class="sd">         &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Fuzzy Periodic-Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
