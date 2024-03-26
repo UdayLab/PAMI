@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -96,31 +98,34 @@
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#</span>
-<span class="c1">#     from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg</span>
+<span class="c1">#             from PAMI.periodicFrequentPattern.basic import parallelPFPGrowth as alg</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, noWorkers)</span>
+<span class="c1">#             obj = alg.parallelPFPGrowth(iFile, minSup, maxPer, noWorkers)</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#     periodicFrequentPatterns = obj.getPatterns()</span>
+<span class="c1">#             periodicFrequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
+<span class="c1">#             print(&quot;Total number of Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.savePatterns(oFile)</span>
+<span class="c1">#             obj.savePatterns(oFile)</span>
 <span class="c1">#</span>
-<span class="c1">#     Df = obj.getPatternsAsDataFrame()</span>
+<span class="c1">#             Df = obj.getPatternsAsDataFrame()</span>
 <span class="c1">#</span>
-<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
+
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
@@ -143,6 +148,10 @@
 
 <span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.pyspark</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 <span class="kn">from</span> <span class="nn">pyspark</span> <span class="kn">import</span> <span class="n">SparkContext</span><span class="p">,</span> <span class="n">SparkConf</span>
+
+<span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="n">_maxPer</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
 <span class="n">_minSup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
@@ -440,6 +449,18 @@
 
 <span class="sd">    :Reference:   C. Saideep, R. Uday Kiran, Koji Zettsu, Cheng-Wei Wu, P. Krishna Reddy, Masashi Toyoda, Masaru Kitsuregawa: Parallel Mining of Partial Periodic Itemsets in Big Data. IEA/AIE 2020: 807-819</span>
 
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of periodic frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of periodic frequent pattern&#39;s</span>
+<span class="sd">    :param  minSup: str:</span>
+<span class="sd">                   Controls the minimum number of transactions in which every item must appear in a database.</span>
+<span class="sd">    :param  maxPer: str:</span>
+<span class="sd">                   Controls the maximum number of transactions in which any two items within a pattern can reappear.</span>
+
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
 <span class="sd">    :Attributes:</span>
 
 <span class="sd">        iFile : file</span>
@@ -512,13 +533,20 @@
 
 <span class="sd">    **Methods to execute code on terminal**</span>
 <span class="sd">    --------------------------------------------</span>
-<span class="sd">            Format:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 parallelPFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;noWorker&gt;</span>
+<span class="sd">   .. code-block:: console</span>
 
-<span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5</span>
 
-<span class="sd">                      .. note:: minSup will be considered in percentage of database transactions</span>
+<span class="sd">       Format:</span>
+
+
+<span class="sd">       (.venv) $ python3 parallelPFPGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt; &lt;maxPer&gt; &lt;noWorker&gt;</span>
+
+<span class="sd">       Example usage :</span>
+
+<span class="sd">       (.venv) $ python3 parallelPFPGrowth.py sampleTDB.txt patterns.txt 0.3 0.4 5</span>
+
+
+<span class="sd">               .. note:: minSup will be considered in percentage of database transactions</span>
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -747,6 +775,7 @@
 
 <div class="viewcode-block" id="parallelPFPGrowth.startMine">
 <a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.startMine">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Start the mining process</span>
@@ -778,6 +807,42 @@
         <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
+
+
+<div class="viewcode-block" id="parallelPFPGrowth.Mine">
+<a class="viewcode-back" href="../../../../PAMI.periodicFrequentPattern.pyspark.html#PAMI.periodicFrequentPattern.pyspark.parallelPFPGrowth.parallelPFPGrowth.Mine">[docs]</a>
+    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start the mining process</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="n">APP_NAME</span> <span class="o">=</span> <span class="s2">&quot;parallelPFPGrowth&quot;</span>
+        <span class="n">conf</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">SparkConf</span><span class="p">()</span><span class="o">.</span><span class="n">setAppName</span><span class="p">(</span><span class="n">APP_NAME</span><span class="p">)</span>
+        <span class="c1"># conf = conf.setMaster(&quot;local[*]&quot;)</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">SparkContext</span><span class="p">(</span><span class="n">conf</span><span class="o">=</span><span class="n">conf</span><span class="p">)</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+        <span class="c1"># sc = SparkContext.getOrCreate();</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">minPartitions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_numWorkers</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)])</span>
+        <span class="c1"># data = sc.textFile(finput).map(lambda x: [int(y) for y in x.strip().split(&#39; &#39;)])</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
+        <span class="c1"># minSupport = data.count() * threshold/100</span>
+        <span class="c1"># maxPer = data.count() * periodicity_threshold/100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxPer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_numTrans</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_perFreqItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFrequentItems</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">freqItemsets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFrequentItemsets</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perFreqItems</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__finalPatterns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tarunpat</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
+
 
 
 <div class="viewcode-block" id="parallelPFPGrowth.getMemoryUSS">

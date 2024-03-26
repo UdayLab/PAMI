@@ -15,6 +15,7 @@
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from PAMI.multipleMinimumSupportBasedFrequentPattern.basic import abstract as _fp
+from deprecated import deprecated
 
 _fp._sys.setrecursionlimit(20000)
 MIS = {}

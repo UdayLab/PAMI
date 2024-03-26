@@ -1,5 +1,5 @@
-Multiple Timeseries
-======================
+Multiple Timeseries Database
+==============================
 
     A timeseries represents an ordered collection of values of an event (or item) over time. A multiple timeseries represents the collection of multiple timeseries gathered from multiple items over a particular duration. Depending on the values stored in a series, a multiple timeseries can be broadly classified into two types:
 

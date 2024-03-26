@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.partialPeriodicPattern.pyspark.parallel3PGrowth &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -96,32 +98,33 @@
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1">#</span>
-<span class="c1">#         from PAMI.partialPeriodicPattern.pyspark import 4PGrowth as alg</span>
+<span class="c1">#             from PAMI.partialPeriodicPattern.pyspark import 4PGrowth as alg</span>
 <span class="c1">#</span>
-<span class="c1">#         obj = alg.parallel3PGrowth(iFile, minPS, period,numWorkers)</span>
+<span class="c1">#             obj = alg.parallel3PGrowth(iFile, minPS, period,numWorkers)</span>
 <span class="c1">#</span>
-<span class="c1">#         obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#         partialPeriodicPatterns = obj.getPatterns()</span>
+<span class="c1">#             partialPeriodicPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total number of partial periodic Patterns:&quot;, len(partialPeriodicPatterns))</span>
+<span class="c1">#             print(&quot;Total number of partial periodic Patterns:&quot;, len(partialPeriodicPatterns))</span>
 <span class="c1">#</span>
-<span class="c1">#         obj.save(oFile)</span>
+<span class="c1">#             obj.save(oFile)</span>
 <span class="c1">#</span>
-<span class="c1">#         Df = obj.getPatternInDf()</span>
+<span class="c1">#             Df = obj.getPatternInDf()</span>
 <span class="c1">#</span>
-<span class="c1">#         memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#         memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#         run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#         print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
 <span class="c1">#</span>
+
 
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -148,6 +151,10 @@
 <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span> <span class="k">as</span> <span class="n">_urlopen</span>
 <span class="kn">import</span> <span class="nn">sys</span> <span class="k">as</span> <span class="nn">_sys</span>
 <span class="kn">from</span> <span class="nn">pyspark</span> <span class="kn">import</span> <span class="n">SparkContext</span><span class="p">,</span> <span class="n">SparkConf</span>
+
+<span class="kn">from</span> <span class="nn">PAMI.partialPeriodicPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="n">_periodicSupport</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
 <span class="n">_period</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
@@ -457,7 +464,19 @@
 <span class="sd">    :Reference:   Discovering Partial Periodic Itemsets in Temporal Databases,SSDBM &#39;17: Proceedings of the 29th International Conference on Scientific and Statistical Database ManagementJune 2017</span>
 <span class="sd">                  Article No.: 30 Pages 1–6https://doi.org/10.1145/3085504.3085535</span>
 
-<span class="sd">    :Parameters:</span>
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of frequent patterns</span>
+<span class="sd">    :param  period: float:</span>
+<span class="sd">                   Minimum partial periodic...</span>
+<span class="sd">    :param  periodicSupport: float:</span>
+<span class="sd">                   Minimum partial periodic...</span>
+
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+
+<span class="sd">    :Attributes:</span>
 
 <span class="sd">        iFile : file</span>
 <span class="sd">            Name of the Input file or path of the input file</span>
@@ -525,11 +544,16 @@
 
 <span class="sd">    **Executing the code on terminal:**</span>
 <span class="sd">    ---------------------------------------</span>
-<span class="sd">        Format:</span>
-<span class="sd">           &gt;&gt;&gt; python3 parallel3PGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;periodicSupport&gt; &lt;period&gt;</span>
+<span class="sd">    .. code-block:: console</span>
+
+
+<span class="sd">       Format:</span>
+
+<span class="sd">       (.venv) $ python3 parallel3PGrowth.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;periodicSupport&gt; &lt;period&gt;</span>
 <span class="sd">    </span>
-<span class="sd">        Examples:</span>
-<span class="sd">           &gt;&gt;&gt; python3 parallel3PGrowth.py sampleDB.txt patterns.txt 10.0 2.0</span>
+<span class="sd">       Examples:</span>
+
+<span class="sd">       (.venv) $ python3 parallel3PGrowth.py sampleDB.txt patterns.txt 10.0 2.0</span>
 
 <span class="sd">    **Sample run of the importing code:**</span>
 <span class="sd">    -----------------------------------------</span>
@@ -585,9 +609,9 @@
 
     <span class="n">numPartitions</span> <span class="o">=</span> <span class="mi">5</span>
 
-    
 <div class="viewcode-block" id="parallel3PGrowth.startMine">
 <a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.pyspark.html#PAMI.partialPeriodicPattern.pyspark.parallel3PGrowth.parallel3PGrowth.startMine">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main method where the patterns are mined by constructing tree.</span>
@@ -631,6 +655,71 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">sc</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         
+        <span class="c1"># self._creatingItemSets()</span>
+        <span class="c1"># generatedItems, pfList = self._partialPeriodicOneItem()</span>
+        <span class="c1"># _minPS, _period, _lno = self._minPS, self._period, len(self._Database)</span>
+        <span class="c1"># updatedTransactions = self._updateTransactions(generatedItems)</span>
+        <span class="c1"># for x, y in self._rank.items():</span>
+        <span class="c1">#     self._rankdup[y] = x</span>
+        <span class="c1"># info = {self._rank[k]: v for k, v in generatedItems.items()}</span>
+        <span class="c1"># Tree = self._buildTree(updatedTransactions, info)</span>
+        <span class="c1"># patterns = Tree._generatePatterns([])</span>
+        <span class="c1"># self._finalPatterns = {}</span>
+        <span class="c1"># for i in patterns:</span>
+        <span class="c1">#     s = self._savePeriodic(i[0])</span>
+        <span class="c1">#     self._finalPatterns[s] = i[1]</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Partial Periodic Patterns were generated successfully using 4PGrowth algorithm &quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parallel3PGrowth.Mine">
+<a class="viewcode-back" href="../../../../PAMI.partialPeriodicPattern.pyspark.html#PAMI.partialPeriodicPattern.pyspark.parallel3PGrowth.parallel3PGrowth.Mine">[docs]</a>
+    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main method where the patterns are mined by constructing tree.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the file path or file name:&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Please enter the Minimum Period-Support&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_period</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_period</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span><span class="p">)</span>
+        <span class="n">minPS</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span>
+        <span class="n">period</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_period</span>
+
+        <span class="n">APP_NAME</span> <span class="o">=</span> <span class="s2">&quot;4PGrowth&quot;</span>
+        <span class="n">conf</span> <span class="o">=</span> <span class="n">SparkConf</span><span class="p">()</span><span class="o">.</span><span class="n">setAppName</span><span class="p">(</span><span class="n">APP_NAME</span><span class="p">)</span>
+        <span class="n">sc</span> <span class="o">=</span> <span class="n">SparkContext</span><span class="p">(</span><span class="n">conf</span><span class="o">=</span><span class="n">conf</span><span class="p">)</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numPartitions</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)])</span>
+        <span class="c1"># self.numPartitions = data.getNumPartitions()</span>
+        <span class="c1"># numPartitions = 50</span>
+        <span class="n">freqItems</span><span class="p">,</span> <span class="n">RecItems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFrequentItems</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># print(RecItems)</span>
+
+        <span class="n">trans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFrequentItemsets</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">freqItems</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_period</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minPS</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">RecItems</span><span class="p">))</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+
+        <span class="c1"># print(type(a))</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="c1"># print(string,&quot;:&quot;,v)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span><span class="p">[</span><span class="n">string</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="c1"># print(self._finalPatterns)</span>
+        <span class="c1">#     print(k,&quot;:&quot;,v)</span>
+        <span class="c1"># trans.saveAsTextFile(&#39;temp&#39;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
         <span class="c1"># self._creatingItemSets()</span>
         <span class="c1"># generatedItems, pfList = self._partialPeriodicOneItem()</span>
         <span class="c1"># _minPS, _period, _lno = self._minPS, self._period, len(self._Database)</span>

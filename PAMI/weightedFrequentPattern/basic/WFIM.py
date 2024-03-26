@@ -55,6 +55,7 @@ __copyright__ = """
 from PAMI.weightedFrequentPattern.basic import abstract as _fp
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
 import pandas as pd
+from deprecated import deprecated
 
 
 _minSup = str()

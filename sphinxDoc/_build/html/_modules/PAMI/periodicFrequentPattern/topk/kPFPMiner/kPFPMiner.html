@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.periodicFrequentPattern.topk.kPFPMiner.kPFPMiner &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -95,31 +97,35 @@
 <span></span><span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#     import PAMI.periodicFrequentPattern.kPFPMiner as alg</span>
+
+<span class="c1">#             import PAMI.periodicFrequentPattern.kPFPMiner as alg</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = alg.kPFPMiner(iFile, k)</span>
+<span class="c1">#             obj = alg.kPFPMiner(iFile, k)</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.startMine()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#     periodicFrequentPatterns = obj.getPatterns()</span>
+<span class="c1">#             periodicFrequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total number of top-k Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
+<span class="c1">#             print(&quot;Total number of top-k Periodic Frequent Patterns:&quot;, len(periodicFrequentPatterns))</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.save(oFile)</span>
+<span class="c1">#             obj.save(oFile)</span>
 <span class="c1">#</span>
-<span class="c1">#     Df = obj.getPatternInDataFrame()</span>
+<span class="c1">#             Df = obj.getPatternInDataFrame()</span>
 <span class="c1">#</span>
-<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
+
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
@@ -140,6 +146,9 @@
 
 <span class="s2">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="kn">from</span> <span class="nn">PAMI.periodicFrequentPattern.topk.kPFPMiner</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 
@@ -153,6 +162,14 @@
 <span class="sd">    :Reference:   Likhitha, P., Ravikumar, P., Kiran, R.U., Watanobe, Y. (2022).</span>
 <span class="sd">                  Discovering Top-k Periodic-Frequent Patterns in Very Large Temporal Databases. Big Data Analytics.</span>
 <span class="sd">                 BDA 2022. Lecture Notes in Computer Science, vol 13773. Springer, Cham. https://doi.org/10.1007/978-3-031-24094-2_14</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of periodic frequent pattern&#39;s</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of periodic frequent pattern&#39;s</span>
+
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
 
 <span class="sd">    :Attributes:</span>
 
@@ -203,11 +220,17 @@
 
 <span class="sd">    **Executing the code on terminal:**</span>
 <span class="sd">    ------------------------------------------</span>
-<span class="sd">            Format:</span>
-<span class="sd">                    &gt;&gt;&gt; python3 kPFPMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;k&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">            Examples:</span>
-<span class="sd">                    &gt;&gt;&gt; python3 kPFPMiner.py sampleDB.txt patterns.txt 10</span>
+
+<span class="sd">       Format:</span>
+
+
+<span class="sd">       (.venv) $ python3 kPFPMiner.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;k&gt;</span>
+
+<span class="sd">       Examples :</span>
+
+<span class="sd">       (.venv) $  python3 kPFPMiner.py sampleDB.txt patterns.txt 10</span>
 
 
 <span class="sd">    **Sample run of the importing code:</span>

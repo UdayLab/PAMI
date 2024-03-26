@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.weightedUncertainFrequentPattern.basic.WUFIM &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -100,7 +102,7 @@
 <span class="c1">#</span>
 <span class="c1">#             from PAMI.weightedUncertainFrequentPattern.basic import basic as alg</span>
 <span class="c1">#</span>
-<span class="c1">#             obj = alg.basic(iFile, wFile, expSup, expWSup)</span>
+<span class="c1">#             obj = alg.basic(iFile, wFile, minSup, sep)</span>
 <span class="c1">#</span>
 <span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
@@ -123,8 +125,7 @@
 <span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
 <span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
-
-
+<span class="c1">#</span>
 
 
 
@@ -146,11 +147,9 @@
 <span class="s2">     </span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-
-
-
 <span class="kn">from</span> <span class="nn">PAMI.weightedUncertainFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="n">_expSup</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
 <span class="n">_expWSup</span> <span class="o">=</span> <span class="nb">str</span><span class="p">()</span>
@@ -248,6 +247,7 @@
 
 <span class="sd">        :param transaction : it represents the one self.Database in database</span>
 <span class="sd">        :type transaction : list</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">currentNode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="p">)):</span>
@@ -288,6 +288,7 @@
 <span class="sd">        :type transaction : list</span>
 <span class="sd">        :param sup : support of prefixPath taken at last child of the path</span>
 <span class="sd">        :type sup : int</span>
+<span class="sd">        :return: None</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># This method takes transaction, support and constructs the conditional tree</span>
@@ -337,6 +338,7 @@
 
 <span class="sd">        :param nodeValue : it represents the node in tree</span>
 <span class="sd">        :type nodeValue : node</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summaries</span><span class="p">[</span><span class="n">nodeValue</span><span class="p">]:</span>
@@ -350,6 +352,7 @@
 <span class="sd">        :type condPatterns : list</span>
 <span class="sd">        :support : the support of conditional pattern in tree</span>
 <span class="sd">        :support : int</span>
+<span class="sd">        :return: tuple</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_expSup</span><span class="p">,</span> <span class="n">_expWSup</span>
         <span class="n">pat</span> <span class="o">=</span> <span class="p">[]</span>
@@ -379,6 +382,7 @@
 
 <span class="sd">        :param prefix : forms the combination of items</span>
 <span class="sd">        :type prefix : list</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">global</span> <span class="n">_finalPatterns</span><span class="p">,</span> <span class="n">_expSup</span><span class="p">,</span> <span class="n">_expWSup</span><span class="p">,</span> <span class="n">_weights</span>
@@ -407,6 +411,18 @@
 <span class="sd">    :Description: It is one of the algorithm to discover weighted frequent patterns in a uncertain transactional database using PUF-Tree.</span>
 
 <span class="sd">    :Reference: Efficient Mining of Weighted Frequent Itemsets in Uncertain Databases, In book: Machine Learning and Data Mining in Pattern Recognition Chun-Wei Jerry Lin, Wensheng Gan, Philippe Fournier Viger, Tzung-Pei Hong</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of Weighted Uncertain Periodic Frequent Patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of Weighted  Uncertain Periodic Frequent Patterns</span>
+<span class="sd">    :param  minSup: str:</span>
+<span class="sd">                   minimum support thresholds were tuned to find the appropriate ranges in the limited memory</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
+<span class="sd">    :param  wFile: str :</span>
+<span class="sd">                    This is a weighted file.</span>
+
 
 <span class="sd">    :Attributes:</span>
 
@@ -476,13 +492,20 @@
 
 <span class="sd">    **Methods to execute code on terminal**</span>
 <span class="sd">    --------------------------------------------</span>
-<span class="sd">        Format:</span>
-<span class="sd">                  &gt;&gt;&gt;  python3 basic.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">        Example:</span>
-<span class="sd">                  &gt;&gt;&gt;  python3 basic.py sampleTDB.txt patterns.txt 3</span>
 
-<span class="sd">                 .. note:: minSup  will be considered in support count or frequency</span>
+<span class="sd">      Format:</span>
+
+<span class="sd">      (.venv) $ python3 basic.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+
+<span class="sd">      Example Usage:</span>
+
+<span class="sd">      (.venv) $ python3 basic.py sampleTDB.txt patterns.txt 3</span>
+
+
+<span class="sd">              .. note:: minSup  will be considered in support count or frequency</span>
+
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
 <span class="sd">    -----------------------------------------------------</span>
@@ -535,6 +558,7 @@
     <span class="k">def</span> <span class="nf">_creatingItemSets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Scans the uncertain transactional dataset</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
@@ -595,6 +619,7 @@
     <span class="k">def</span> <span class="nf">_scanningWeights</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Scans the uncertain transactional dataset</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wFile</span><span class="p">,</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
@@ -635,6 +660,7 @@
 
 <span class="sd">        :param self.Database : it represents the one self.Database in database</span>
 <span class="sd">        :type self.Database : list</span>
+<span class="sd">        :return: tuple</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">mapSupport</span> <span class="o">=</span> <span class="p">{}</span>
@@ -658,6 +684,7 @@
 <span class="sd">        :type data : list</span>
 <span class="sd">        :param info : it represents the support of each item</span>
 <span class="sd">        :type info : dictionary</span>
+<span class="sd">        :return: tree</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">rootNode</span> <span class="o">=</span> <span class="n">_Tree</span><span class="p">()</span>
@@ -672,6 +699,7 @@
 
 <span class="sd">        :param dict1 : frequent items with support</span>
 <span class="sd">        :type dict1 : dictionary</span>
+<span class="sd">        :return: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">list1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">tr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">:</span>
@@ -695,6 +723,7 @@
 <span class="sd">        :type x : list</span>
 <span class="sd">        :param i : represents the uncertain self.Database</span>
 <span class="sd">        :type i : list</span>
+<span class="sd">        :return: integer number</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># This method taken a transaction as input and returns the tree</span>
@@ -727,8 +756,7 @@
 
     <span class="k">def</span> <span class="nf">_removeFalsePositives</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        To remove the false positive patterns generated in frequent patterns</span>
-
+<span class="sd">        To remove the false positive patterns generated in frequent patterns.</span>
 <span class="sd">        :return: patterns with accurate probability</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_finalPatterns</span>
@@ -761,9 +789,42 @@
 
 <div class="viewcode-block" id="WUFIM.startMine">
 <a class="viewcode-back" href="../../../../PAMI.weightedUncertainFrequentPattern.basic.html#PAMI.weightedUncertainFrequentPattern.basic.WUFIM.WUFIM.startMine">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Main method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns</span>
+<span class="sd">        startMine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patterns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">global</span> <span class="n">_expSup</span><span class="p">,</span> <span class="n">_expWSup</span><span class="p">,</span> <span class="n">_weights</span><span class="p">,</span> <span class="n">_finalPatterns</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scanningWeights</span><span class="p">()</span>
+        <span class="n">_weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weights</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_expSup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_expSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_expWSup</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_expWSup</span><span class="p">)</span>
+        <span class="n">_expSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expSup</span>
+        <span class="n">_expWSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expWSup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">mapSupport</span><span class="p">,</span> <span class="n">plist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frequentOneItem</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Database1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updateTransactions</span><span class="p">(</span><span class="n">mapSupport</span><span class="p">)</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mapSupport</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">Tree1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildTree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Database1</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+        <span class="n">Tree1</span><span class="o">.</span><span class="n">generatePatterns</span><span class="p">([])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_removeFalsePositives</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weighted Frequent patterns were generated  successfully using basic algorithm&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span></div>
+
+
+<div class="viewcode-block" id="WUFIM.mine">
+<a class="viewcode-back" href="../../../../PAMI.weightedUncertainFrequentPattern.basic.html#PAMI.weightedUncertainFrequentPattern.basic.WUFIM.WUFIM.mine">[docs]</a>
+    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        mine() method where the patterns are mined by constructing tree and remove the false patterns by counting the original support of a patternS</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">_expSup</span><span class="p">,</span> <span class="n">_expWSup</span><span class="p">,</span> <span class="n">_weights</span><span class="p">,</span> <span class="n">_finalPatterns</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -853,6 +914,7 @@
 
 <span class="sd">        :param outFile: Specify name of the output file</span>
 <span class="sd">        :type outFile: csv file</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">oFile</span> <span class="o">=</span> <span class="n">outFile</span>
         <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oFile</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
@@ -880,6 +942,7 @@
     <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of  Weighted Uncertain Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
