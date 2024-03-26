@@ -28,13 +28,14 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -122,9 +123,12 @@ class Lift:
     
     def __init__(self, patterns, singleItems, threshold):
         """
-        :param inputFile: input file name or path
-        :type inputFile: str
-        :param sep:
+        :param patterns: given frequent patterns
+        :type patterns: dict
+        :param singleItems: one-length frequent patterns
+        :type singleItems: list
+        :param threshold: threshold for lifting rules
+        :type threshold: float
         """
         self._frequentPatterns = patterns
         self._singleItems = singleItems
@@ -192,9 +196,12 @@ class Leverage:
     
     def __init__(self, patterns, singleItems, threshold):
         """
-        :param inputFile: input file name or path
-        :type inputFile: str
-        :param sep:
+        :param patterns: given frequent patterns
+        :type patterns: dict
+        :param singleItems: one-length frequent patterns
+        :type singleItems: list
+        :param threshold: threshold for lifting rules
+        :type threshold: float
         """
         self._frequentPatterns = patterns
         self._singleItems = singleItems
@@ -259,16 +266,20 @@ class RuleMiner:
     :Reference:
 
 
-    :param  inputFile: str :
-                       input file name or path
+    :param  iFile: str :
+                   Name of the Input file to mine complete set of association rules
+    :param  oFile: str :
+                   Name of the output file to store complete set of association rules
+    :param  minConf: float :
+                   The user can specify the minConf in float between the range of 0 to 1.
     :param  frequentPattern: list or dict :
-                             frequent patterns are stored in the form of list or dictionary
+                   frequent patterns are stored in the form of list or dictionary
     :param  measure: str :
-                     condition to calculate the strength of rule
+                   condition to calculate the strength of rule
     :param  threshold: int :
-                       condition to satisfy
+                   condition to satisfy
     :param  sep: str :
-            This variable is used to distinguish items from one another in given input file. The default seperator is tab space. However, the users can override their default seperator.
+                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.
 
     :Attributes:
 
@@ -292,14 +303,17 @@ class RuleMiner:
     **Methods to execute code on terminal**
     ----------------------------------------------------
 
-                Format:
-                      >>> python3 RuleMiner.py <inputFile> <outputFile> <minConf> <sep>
+    .. code-block:: console
 
-                Example:
-                      >>>  python3 RuleMiner.py sampleDB.txt patterns.txt 0.5 ' '
+      Format:
 
-                      .. note:: minConf will be considered only in 0 to 1.
+      (.venv) $ python3 RuleMiner.py <inputFile> <outputFile> <minConf> <sep>
 
+      Example Usage:
+
+      (.venv) $ python3 RuleMiner.py sampleDB.txt patterns.txt 0.5 ' '
+
+    .. note:: minConf will be considered only in 0 to 1.
 
 
     **Importing this algorithm into a python program**
@@ -341,7 +355,12 @@ class RuleMiner:
         """
         :param iFile: input file name or path
         :type iFile: str
-        :param sep:
+        :param measure: measure
+        :type measure: str
+        :param threshold: threshold for lifting rules
+        :type threshold: float
+        :param sep: Delimiter of input file
+        :type sep: str
         """
         self._iFile = iFile
         self._measure = measure
