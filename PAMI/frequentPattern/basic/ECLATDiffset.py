@@ -7,7 +7,7 @@
 #
 #             obj = alg.ECLATDiffset(iFile, minSup)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -28,6 +28,7 @@
 #             run = obj.getRuntime()
 #
 #             print("Total ExecutionTime in seconds:", run)
+#
 
 
 
@@ -35,7 +36,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -55,6 +56,7 @@ __copyright__ = """
 # from abstract import *
 
 from PAMI.frequentPattern.basic import abstract as _ab
+from deprecated import deprecated
 
 
 class ECLATDiffset(_ab._frequentPatterns):
@@ -118,7 +120,7 @@ class ECLATDiffset(_ab._frequentPatterns):
 
             obj = alg.ECLATDiffset(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -268,7 +270,38 @@ class ECLATDiffset(_ab._frequentPatterns):
         if len(newList) > 0:
             self._runDeclat(newList)
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+
+        self._startTime = _ab._time.time()
+        self._Database = []
+        self._finalPatterns = {}
+        self._diffSets = {}
+        self._trans_set = set()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        if self._minSup is None:
+            raise Exception("Please enter the Minimum Support")
+        self._creatingItemSets()
+        #print(len(self._Database))
+        self._minSup = self._convert(self._minSup)
+        uniqueItemList = []
+        uniqueItemList = self._getUniqueItemList()
+        self._runDeclat(uniqueItemList)
+        self._finalPatterns = self._diffSets
+        #print(len(self._finalPatterns), len(uniqueItemList))
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using ECLAT Diffset algorithm")
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -377,6 +410,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = ECLATDiffset(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print(_ap.getPatternsAsDataFrame())

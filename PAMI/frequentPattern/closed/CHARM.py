@@ -8,7 +8,7 @@
 #
 #             obj = alg.CHARM(iFile, minSup)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -53,6 +53,7 @@ __copyright__ = """
 
 
 from PAMI.frequentPattern.closed import abstract as _ab
+from deprecated import deprecated
 
 
 class CHARM(_ab._frequentPatterns):
@@ -134,7 +135,7 @@ class CHARM(_ab._frequentPatterns):
 
             obj = alg.CHARM(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -413,7 +414,56 @@ class CHARM(_ab._frequentPatterns):
                 self._processEquivalenceClass(newPrefix, classItemSets, classTidSets)
                 self._save(prefix, list(set(itemSetx)), tidSetX)
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Mining process will start from here by extracting the frequent patterns from the database. It performs prefix
+        equivalence to generate the combinations and closed frequent patterns.
+        """
+        self._startTime = _ab._time.time()
+        _plist = self._creatingItemsets()
+        self._finalPatterns = {}
+        self._hashing = {}
+        for i in range(len(_plist)):
+            itemX = _plist[i]
+            if itemX is None:
+                continue
+            tidSetx = self._tidList[itemX]
+            itemSetx = [itemX]
+            itemSets = []
+            tidSets = []
+            for j in range(i + 1, len(_plist)):
+                itemY = _plist[j]
+                if itemY is None:
+                    continue
+                tidSetY = self._tidList[itemY]
+                y1 = list(set(tidSetx).intersection(tidSetY))
+                if len(y1) < self._minSup:
+                    continue
+                if len(tidSetx) == len(tidSetY) and len(y1) == len(tidSetx):
+                    _plist.insert(j, None)
+                    itemSetx.append(itemY)
+                elif len(tidSetx) < len(tidSetY) and len(y1) == len(tidSetx):
+                    itemSetx.append(itemY)
+                elif len(tidSetx) > len(tidSetY) and len(y1) == len(tidSetY):
+                    _plist.insert(j, None)
+                    itemSets.append(itemY)
+                    tidSets.append(y1)
+                else:
+                    itemSets.append(itemY)
+                    tidSets.append(y1)
+            if len(itemSets) > 0:
+                self._processEquivalenceClass(itemSetx, itemSets, tidSets)
+            self._save(None, itemSetx, tidSetx)
+        print("Closed Frequent patterns were generated successfully using CHARM algorithm")
+        self._endTime = _ab._time.time()
+        _process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = _process.memory_full_info().uss
+        self._memoryRSS = _process.memory_info().rss
+
+    def mine(self):
         """
         Mining process will start from here by extracting the frequent patterns from the database. It performs prefix
         equivalence to generate the combinations and closed frequent patterns.
@@ -541,6 +591,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = CHARM(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Closed Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

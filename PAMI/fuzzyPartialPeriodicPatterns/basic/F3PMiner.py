@@ -8,7 +8,7 @@
 #
 #             obj = alg.F3PMiner(iFile, minSup, sep)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             fuzzyPartialPeriodicPatterns = obj.getPatterns()
 #
@@ -37,7 +37,7 @@
 
 __copyright__ = """
 
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -67,6 +67,7 @@ __copyright__ = """
 """
 
 from PAMI.fuzzyPartialPeriodicPatterns.basic import abstract as _ab
+from deprecated import deprecated
 
 
 class _FFList:
@@ -251,7 +252,7 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
 
         obj = alg.F3PMiner("input.txt", 2)
 
-        obj.startMine()
+        obj.mine()
 
         fuzzyPartialPeriodicPatterns = obj.getPatterns()
 
@@ -408,7 +409,67 @@ class F3PMiner(_ab._fuzzyPartialPeriodicPatterns):
                     print("File Not Found")
                     quit()
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        fuzzy-Frequent pattern mining process will start from here
+        """
+        self._startTime = _ab._time.time()
+        self._creatingItemsets()
+        for line in range(len(self._transactions)):
+            times = self._ts[line]
+            items = self._transactions[line]
+            quantities = self._fuzzyValues[line]
+            self._dbLen += 1
+            for i in range(0, len(items)):
+                item = items[i]
+                if item in self._mapItemSum:
+                    self._mapItemSum[item] += quantities[i]
+                else:
+                    self._mapItemSum[item] = quantities[i]
+        listOfffilist = []
+        mapItemsToFFLIST = {}
+        #self._minSup = float(self._minSup)
+        self._minSup = self._convert(self._minSup)
+        minSup = self._minSup
+        for item1 in self._mapItemSum.keys():
+            item = item1
+            # print(type(self._mapItemSum[item]))
+            if self._mapItemSum[item] >= self._minSup:
+                fuList = _FFList(item)
+                mapItemsToFFLIST[item] = fuList
+                listOfffilist.append(fuList)
+        listOfffilist.sort(key=_ab._functools.cmp_to_key(self._compareItems))
+        tid = 0
+        for line in range(len(self._transactions)):
+            items = self._transactions[line]
+            quantities = self._fuzzyValues[line]
+            revisedTransaction = []
+            for i in range(0, len(items)):
+                pair = _Pair()
+                pair.item = items[i]
+                pair.quantity = quantities[i]
+                item = pair.item
+                if self._mapItemSum[item] >= self._minSup:
+                    if pair.quantity > 0:
+                        revisedTransaction.append(pair)
+            revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
+            for i in range(len(revisedTransaction) - 1, -1, -1):
+                pair = revisedTransaction[i]
+                if mapItemsToFFLIST.get(pair.item) is not None:
+                    FFListOfItem = mapItemsToFFLIST[pair.item]
+                    element = _Element(tid, pair.quantity)
+                    FFListOfItem.addElement(element)
+            tid += 1
+        self._F3PMining(self._itemSetBuffer, 0, listOfffilist, self._minSup)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+
+    def mine(self):
         """
         fuzzy-Frequent pattern mining process will start from here
         """
@@ -642,6 +703,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = F3PMiner(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         _ap.save(_ab._sys.argv[2])
         _ap.printResults()
     else:

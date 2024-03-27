@@ -8,7 +8,7 @@
 #
 #             obj=alg.SHUFIM("input.txt","Neighbours.txt",35,20)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             patterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -56,6 +56,7 @@ __copyright__ = """
 
 from PAMI.highUtilityGeoreferencedFrequentPattern.basic import abstract as _ab
 from functools import cmp_to_key as _comToKey
+from deprecated import deprecated
 
 class _Transaction:
     """
@@ -454,7 +455,7 @@ class SHUFIM(_ab._utilityPatterns):
 
             obj=alg.SHUFIM("input.txt","Neighbours.txt",35,20)
 
-            obj.startMine()
+            obj.mine()
 
             patterns = obj.getPatterns()
 
@@ -529,6 +530,7 @@ class SHUFIM(_ab._utilityPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         High Utility Frequent Pattern mining start here
@@ -586,6 +588,84 @@ class SHUFIM(_ab._utilityPatterns):
                         _cumulativeUtility += self._singleItemSetsUtility[self._newNamesToOldNames[_nextItem]]
             if _cumulativeUtility >= self._minUtil:
                 _secondary.append(item)         
+        self._useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self._dataset)
+        _itemsToExplore = []
+        for item in _secondary:
+            if self._utilityBinArraySU[item] >= self._minUtil:
+                _itemsToExplore.append(item)
+        _commonitems = []
+        for i in range(self._dataset.maxItem):
+            _commonitems.append(i)
+        self._backtrackingEFIM(self._dataset.getTransactions(), _itemsToKeep, _itemsToExplore, 0)
+        _finalMemory = _ab._psutil.virtual_memory()[3]
+        memory = (_finalMemory - InitialMemory) / 10000
+        if memory > self._maxMemory:
+            self._maxMemory = memory
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print('Spatial High Utility Frequent Itemsets generated successfully using SHUFIM algorithm')
+
+    def mine(self):
+        """
+        High Utility Frequent Pattern mining start here
+        """
+        self._startTime = _ab._time.time()
+        self._patternCount = 0
+        self._finalPatterns = {}
+        self._dataset = _Dataset(self._iFile, self._sep)
+        self._singleItemSetsSupport = _ab._defaultdict(int)
+        self._singleItemSetsUtility = _ab._defaultdict(int)
+        self._minUtil = int(self._minUtil)
+        self._minSup = self._convert(self._minSup)
+        with open(self._nFile, 'r') as o:
+            lines = o.readlines()
+            for line in lines:
+                line = line.split("\n")[0]
+                line_split = line.split(self._sep)
+                item = self._dataset.strToInt.get(line_split[0])
+                lst = []
+                for i in range(1, len(line_split)):
+                    lst.append(self._dataset.strToInt.get(line_split[i]))
+                self._Neighbours[item] = lst
+        o.close()
+        InitialMemory = _ab._psutil.virtual_memory()[3]
+        self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
+        _itemsToKeep = []
+        for key in self._utilityBinArrayLU.keys():
+            if self._utilityBinArrayLU[key] >= self._minUtil and self._singleItemSetsSupport[key] >= self._minSup:
+                _itemsToKeep.append(key)
+        # sorting items in decreasing order of their utilities
+        _itemsToKeep = sorted(_itemsToKeep, key=lambda x: self._singleItemSetsUtility[x], reverse=True)
+        _currentName = 1
+        for idx, item in enumerate(_itemsToKeep):
+            self._oldNamesToNewNames[item] = _currentName
+            self._newNamesToOldNames[_currentName] = item
+            _itemsToKeep[idx] = _currentName
+            _currentName += 1
+        for transaction in self._dataset.getTransactions():
+            transaction.removeUnpromisingItems(self._oldNamesToNewNames)
+        self._sortDatabase(self._dataset.getTransactions())
+        _emptyTransactionCount = 0
+        for transaction in self._dataset.getTransactions():
+            if len(transaction.getItems()) == 0:
+                _emptyTransactionCount += 1
+        self._dataset.transactions = self._dataset.transactions[_emptyTransactionCount:]
+        # calculating neighborhood suffix utility values
+        _secondary = []
+        for idx, item in enumerate(_itemsToKeep):
+            _cumulativeUtility = self._singleItemSetsUtility[self._newNamesToOldNames[item]]
+            if self._newNamesToOldNames[item] in self._Neighbours:
+                neighbors = [self._oldNamesToNewNames[y] for y in self._Neighbours[self._newNamesToOldNames[item]] if y in self._oldNamesToNewNames]
+                for i in range(idx+1, len(_itemsToKeep)):
+                    _nextItem = _itemsToKeep[i]
+                    if _nextItem in neighbors:
+                        _cumulativeUtility += self._singleItemSetsUtility[self._newNamesToOldNames[_nextItem]]
+            if _cumulativeUtility >= self._minUtil:
+                _secondary.append(item)
         self._useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self._dataset)
         _itemsToExplore = []
         for item in _secondary:
@@ -1007,6 +1087,7 @@ if __name__ == '__main__':
     #     if len(_ab._sys.argv) == 6:
     #         _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5])
     #     _ap.startMine()
+    #     _ap.mine()
     #     print("Total number of Spatial High Utility Frequent Patterns:", len(_ap.getPatterns()))
     #     _ap.save(_ab._sys.argv[2])
     #     print("Total Memory in USS:", _ap.getMemoryUSS())

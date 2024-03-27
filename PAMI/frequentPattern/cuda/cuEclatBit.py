@@ -8,7 +8,7 @@
 #
 #             obj = alg.cuEclatBit(iFile, minSup)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -54,6 +54,7 @@ __copyright__ = """
 
 # from PAMI.frequentPattern.cuda import abstract as _ab
 import abstract as _ab
+from deprecated import deprecated
 
 class cuEclatBit(_ab._frequentPatterns):
     """
@@ -118,7 +119,7 @@ class cuEclatBit(_ab._frequentPatterns):
 
              obj = alg.cuEclatBit(iFile, minSup)
 
-             obj.startMine()
+             obj.mine()
 
              frequentPatterns = obj.getPatterns()
 
@@ -278,7 +279,7 @@ class cuEclatBit(_ab._frequentPatterns):
 
         return bitRep
 
-    
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
         """
         Frequent pattern mining process will start from here
@@ -301,6 +302,52 @@ class cuEclatBit(_ab._frequentPatterns):
                 iList = list(keys[i])
                 # print(i, "/", len(ArraysAndItems), end="\r")
                 for j in range(i+1, len(ArraysAndItems)):  
+                    jList = list(keys[j])
+                    union = []
+                    if iList[:-1] == jList[:-1] and iList[-1] != jList[-1]:
+                        union = iList + [jList[-1]]
+                        union = tuple(union)
+                        unionData = _ab._cp.bitwise_and(ArraysAndItems[keys[i]], ArraysAndItems[keys[j]])
+                        sum = _ab._cp.zeros(1, dtype=_ab._np.uint32)
+                        self._sumKernel((len(unionData) // 32 + 1,), (32,), (unionData, sum, _ab._cp.uint32(len(unionData))))
+                        sum = sum[0]
+                        if sum >= self._minSup and union not in self._finalPatterns:
+                            newArraysAndItems[union] = unionData
+                            string = "\t".join(union)
+                            self._finalPatterns[string] = sum
+            ArraysAndItems = newArraysAndItems
+            # print()
+
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using cuEclatBit algorithm ")
+
+    def mine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+        self._Database = []
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        itemsList = sorted(list(set.union(*self._Database)))  # because Database is list
+        self._minSup = self._convert(self._minSup)
+
+        ArraysAndItems = self.arraysAndItems()
+
+        ArraysAndItems = self.createBitRepresentation(ArraysAndItems)
+
+        while len(ArraysAndItems) > 0:
+            # print("Total number of ArraysAndItems:", len(ArraysAndItems))
+            newArraysAndItems = {}
+            keys = list(ArraysAndItems.keys())
+            for i in range(len(ArraysAndItems)):
+                iList = list(keys[i])
+                # print(i, "/", len(ArraysAndItems), end="\r")
+                for j in range(i+1, len(ArraysAndItems)):
                     jList = list(keys[j])
                     union = []
                     if iList[:-1] == jList[:-1] and iList[-1] != jList[-1]:
@@ -406,6 +453,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = cuEclatBit(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

@@ -8,7 +8,7 @@
 #
 #             obj = alg.CMine(iFile, minRF, minCS, maxOR, seperator)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             coveragePattern = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -58,6 +58,7 @@ __copyright__ = """
 
 from PAMI.coveragePattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from deprecated import deprecated
 
 class CMine(_ab._coveragePatterns):
     """
@@ -127,7 +128,7 @@ class CMine(_ab._coveragePatterns):
 
             obj = alg.CMine(iFile, minRF, minCS, maxOR, seperator)
 
-            obj.startMine()
+            obj.mine()
 
             coveragePattern = obj.getPatterns()
 
@@ -295,7 +296,31 @@ class CMine(_ab._coveragePatterns):
             #print(i,tidData[i][0])
             self.genPatterns(tidData[i],tidData[i+1:length])
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """ Main method to start """
+
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        self._creatingItemSets()
+        self._minCS = self._convert(self._minCS)
+        self._minRF =  self._convert(self._minRF)
+        self._maxOR = self._convert(self._maxOR)
+        coverageItems = self.creatingCoverageItems()
+        self._finalPatterns = {k: len(v) for k, v in coverageItems.items()}
+        coverageItemsBitset = self.tidToBitset(coverageItems)
+        self.generateAllPatterns(coverageItemsBitset)
+        self.save('output.txt')
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Coverage patterns were generated successfully using CMine  algorithm")
+
+    def mine(self) -> None:
         """ Main method to start """
 
         self._startTime = _ab._time.time()
@@ -394,6 +419,7 @@ if __name__=="__main__":
         if len(_ab._sys.argv) == 6:
             _ap = CMine(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4], _ab._sys.argv[5])
         _ap.startMine()
+        _ap.mine()
         print("Total number of coverage Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

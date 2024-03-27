@@ -9,7 +9,7 @@
 #
 #             obj=alg.TKSHUIM("input.txt","Neighbours.txt",35)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -58,6 +58,7 @@ Copyright (C)  2021 Rage Uday Kiran
 from PAMI.highUtilitySpatialPattern.topk.abstract import *
 from functools import cmp_to_key
 import heapq
+from deprecated import deprecated
 
 class Transaction:
     """
@@ -385,7 +386,7 @@ class TKSHUIM(utilityPatterns):
 
             obj=alg.TKSHUIM("input.txt","Neighbours.txt",35)
 
-            obj.startMine()
+            obj.mine()
 
             Patterns = obj.getPatterns()
 
@@ -432,7 +433,71 @@ class TKSHUIM(utilityPatterns):
     def __init__(self, iFile, nFile, k, sep="\t"):
         super().__init__(iFile, nFile, k, sep)
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Main function of the program.
+        """
+        self.startTime = time.time()
+        self.finalPatterns = {}
+        self.dataset = Dataset(self.iFile, self.sep)
+        with open(self.nFile, 'r') as o:
+            lines = o.readlines()
+            for line in lines:
+                line = line.split("\n")[0]
+                line_split = line.split(self.sep)
+                item = self.dataset.strToint.get(line_split[0])
+                lst = []
+                for i in range(1, len(line_split)):
+                    lst.append(self.dataset.strToint.get(line_split[i]))
+                self.Neighbours[item] = lst
+        o.close()
+        InitialMemory = psutil.virtual_memory()[3]
+        self.useUtilityBinArrayToCalculateLocalUtilityFirstTime(self.dataset)
+        itemsToKeep = []
+        for key in self.utilityBinArrayLU.keys():
+            if self.utilityBinArrayLU[key] >= self.minUtil:
+                itemsToKeep.append(key)
+        itemsToKeep = sorted(itemsToKeep, key=lambda x: self.utilityBinArrayLU[x])
+        currentName = 1
+        for idx, item in enumerate(itemsToKeep):
+            self.oldNamesToNewNames[item] = currentName
+            self.newNamesToOldNames[currentName] = item
+            itemsToKeep[idx] = currentName
+            currentName += 1
+        for transaction in self.dataset.getTransactions():
+            transaction.removeUnpromisingItems(self.oldNamesToNewNames)
+        self.sortDatabase(self.dataset.getTransactions())
+        emptyTransactionCount = 0
+        for transaction in self.dataset.getTransactions():
+            if len(transaction.getItems()) == 0:
+                emptyTransactionCount += 1
+        self.dataset.transactions = self.dataset.transactions[emptyTransactionCount:]
+        self.useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self.dataset)
+        self.heapList = []
+        itemsToExplore = []
+        for item in itemsToKeep:
+            if self.utilityBinArraySU[item] >= self.minUtil:
+                itemsToExplore.append(item)
+        commonitems = []
+        for i in range(self.dataset.maxItem):
+            commonitems.append(i)
+        self.backtrackingEFIM(self.dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
+        finalMemory = psutil.virtual_memory()[3]
+        memory = (finalMemory - InitialMemory) / 10000
+        if memory > self.maxMemory:
+            self.maxMemory = memory
+        self.endTime = time.time()
+        process = psutil.Process(os.getpid())
+        self.memoryUSS = float()
+        self.memoryRSS = float()
+        self.memoryUSS = process.memory_full_info().uss
+        self.memoryRSS = process.memory_info().rss
+        for item in self.heapList:
+            self.finalPatterns[item[1]] = item[0]
+        print('TOP-K mining process is completed by TKSHUIM')
+
+    def mine(self):
         """
         Main function of the program.
         """
@@ -911,7 +976,8 @@ def main():
     k = 1000
     seperator = ' ' 
     obj = TKSHUIM(iFile=inputFile, nFile=neighborFile, k=k,  sep=seperator)    #initialize
-    obj.startMine()   
+    obj.startMine()
+    obj.mine()
     obj.printResults()
     print(obj.getPatterns())
 
@@ -924,6 +990,7 @@ if __name__ == '__main__':
     #     if len(sys.argv) == 5:
     #         _ap = TKSHUIM(sys.argv[1], sys.argv[3], int(sys.argv[4]))
     #     _ap.startMine()
+    #     _ap.mine()
     #     print("Top K Spatial  High Utility Patterns:", len(_ap.getPatterns()))
     #     _ap.save(sys.argv[2])
     #     print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -934,6 +1001,7 @@ if __name__ == '__main__':
     #         _ap = TKSHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt',
     #                 '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
     #         _ap.startMine()
+    #         _ap.mine()
     #         print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
     #         print("Total Memory in USS:", _ap.getMemoryUSS())
     #         print("Total Memory in RSS", _ap.getMemoryRSS())

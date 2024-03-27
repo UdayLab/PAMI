@@ -7,7 +7,7 @@
 #
 #             obj = alg.Apriori(iFile, minSup)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -53,6 +53,7 @@ __copyright__ = """
 
 from PAMI.frequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from deprecated import deprecated
 
 class Apriori(_ab._frequentPatterns):
     """
@@ -119,7 +120,7 @@ class Apriori(_ab._frequentPatterns):
 
             obj = alg.Apriori(iFile, minSup)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -271,7 +272,38 @@ class Apriori(_ab._frequentPatterns):
             frequentToCandidateList.extend(nextList)
         return sorted(frequentToCandidateList)
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """
+        Frequent pattern mining process will start from here
+        """
+        self._Database = []
+        self._startTime = _ab._time.time()
+        self._creatingItemSets()
+        itemsList = sorted(list(set.union(*self._Database)))  # because Database is list
+        items = [{i} for i in itemsList]
+        itemsCount = len(items)
+        self._minSup = self._convert(self._minSup)
+        self._finalPatterns = {}
+        for i in range(1, itemsCount):
+            frequentSet = self._candidateToFrequent(items)
+            for x, y in frequentSet.items():
+                sample = str()
+                for k in x:
+                    sample = sample + k + "\t"
+                self._finalPatterns[sample] = y
+            items = self._frequentToCandidate(frequentSet, i + 1)
+            if len(items) == 0:
+                break  # finish apriori
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using Apriori algorithm ")
+
+    def mine(self) -> None:
         """
         Frequent pattern mining process will start from here
         """
@@ -407,6 +439,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = Apriori(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ap._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

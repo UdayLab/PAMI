@@ -8,7 +8,7 @@
 #
 #             obj = alg.parallelApriori(iFile, minSup, numWorkers)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -36,7 +36,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -53,6 +53,7 @@ __copyright__ = """
 """
 
 from PAMI.frequentPattern.pyspark import abstract as _ab
+from deprecated import deprecated
 
 
 class parallelApriori(_ab._frequentPatterns):
@@ -124,7 +125,7 @@ class parallelApriori(_ab._frequentPatterns):
     
                 obj = alg.parallelApriori(iFile, minSup, numWorkers)
     
-                obj.startMine()
+                obj.mine()
     
                 frequentPatterns = obj.getPatterns()
     
@@ -359,7 +360,37 @@ class parallelApriori(_ab._frequentPatterns):
                 value = int(value)
         return value
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+        self._startTime = _ab._time.time()
+
+        # setting SparkConf and SparkContext to process in parallel
+        conf = _ab._SparkConf().setAppName("parallelApriori").setMaster("local[*]")
+        sc = _ab._SparkContext(conf=conf)
+        # sc.addFile("file:///home/hadoopuser/Spark_code/abstract.py")
+
+        # read database from iFile
+        database = sc.textFile(self._iFile, self._numPartitions).map(
+            lambda x: {int(y) for y in x.rstrip().split(self._sep)})
+        self._lno = database.count()
+        # Calculating minSup as a percentage
+        self._minSup = self._convert(self._minSup)
+
+        oneFrequentItems = self._genFrequentItems(database)
+        self._finalPatterns = oneFrequentItems
+        self._getAllFrequentPatterns(database, oneFrequentItems)
+
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using Parallel Apriori algorithm")
+        sc.stop()
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -397,6 +428,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = parallelApriori(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         _finalPatterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_finalPatterns))
         _ap.savePatterns(_ab._sys.argv[2])

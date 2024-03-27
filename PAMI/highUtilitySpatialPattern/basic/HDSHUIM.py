@@ -10,7 +10,7 @@
 #
 #             obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -36,7 +36,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -56,6 +56,7 @@ __copyright__ = """
 
 from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from deprecated import deprecated
 
 class _Element:
     """
@@ -251,7 +252,7 @@ class HDSHUIM(_ab._utilityPatterns):
 
             obj=alg.HDSHUIM("input.txt","Neighbours.txt",35)
 
-            obj.startMine()
+            obj.mine()
 
             Patterns = obj.getPatterns()
 
@@ -323,7 +324,128 @@ class HDSHUIM(_ab._utilityPatterns):
         else:
             return compare
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """
+        main program to start the operation
+        """
+        minUtil = self._minUtil
+        self._startTime = _ab._time.time()
+        with open(self._nFile, 'r') as file1:
+            for line in file1:
+                line = line.split("\n")[0]
+                parts = line.split(self._sep)
+                parts = [i.strip() for i in parts]
+                item = parts[0]
+                neigh1 = list()
+                for i in range(1, len(parts)):
+                    neigh1.append(parts[i])
+                self._neighbors[item] = set(neigh1)
+        with open(self._iFile, 'r') as file:
+            for line in file:
+                parts = line.split(":")
+                itemString = (parts[0].split("\n")[0]).split(self._sep)
+                utilityString = (parts[2].split("\n")[0]).split(self._sep)
+                transUtility = int(parts[1])
+                trans1 = set()
+                for i in range(0, len(itemString)):
+                    trans1.add(itemString[i])
+                for i in range(0, len(itemString)):
+                    item = itemString[i]
+                    twu = self._mapOfPMU.get(item)
+                    if twu is None:
+                        twu = int(utilityString[i])
+                    else:
+                        twu += int(utilityString[i])
+                    self._mapOfPMU[item] = twu
+                    if self._neighbors.get(item) is None:
+                        continue
+                    neighbours2 = trans1.intersection(self._neighbors.get(item))
+                    for item2 in neighbours2:
+                        if self._mapOfPMU.get(item2) is None:
+                            self._mapOfPMU[item2] = int(utilityString[i])
+                        else:
+                            self._mapOfPMU[item2] += int(utilityString[i])
+
+        listOfCUList = []
+        hashTable = {}
+        mapItemsToCUList = {}
+        for item in self._mapOfPMU.keys():
+            if self._mapOfPMU.get(item) >= minUtil:
+                uList = _CUList(item)
+                mapItemsToCUList[item] = uList
+                listOfCUList.append(uList)
+        listOfCUList.sort(key=_ab._functools.cmp_to_key(self._compareItems))
+        ts = 1
+        with open(self._iFile, 'r') as file:
+            for line in file:
+                parts = line.split(":")
+                items = (parts[0].split("\n")[0]).split(self._sep)
+                utilities = (parts[2].split("\n")[0]).split(self._sep)
+                ru = 0
+                newTwu = 0
+                txKey = []
+                revisedTrans = []
+                for i in range(0, len(items)):
+                    pair = _Pair()
+                    pair.item = items[i]
+                    pair.utility = int(utilities[i])
+                    if self._mapOfPMU.get(pair.item) >= minUtil:
+                        revisedTrans.append(pair)
+                        txKey.append(pair.item)
+                        newTwu += pair.utility
+                revisedTrans.sort(key=_ab._functools.cmp_to_key(self._compareItems))
+                txKey1 = tuple(txKey)
+                if len(revisedTrans) > 0:
+                    if txKey1 not in hashTable.keys():
+                        hashTable[txKey1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans) - 1].item].elements)
+                        for i in range(len(revisedTrans) - 1, -1, -1):
+                            pair = revisedTrans[i]
+                            cuListOfItems = mapItemsToCUList.get(pair.item)
+                            element = _Element(ts, pair.utility, ru, 0, 0)
+                            if i > 0:
+                                element.prevPos = len(mapItemsToCUList[revisedTrans[i - 1].item].elements)
+                            else:
+                                element.prevPos = -1
+                            cuListOfItems.addElements(element)
+                            ru += pair.utility
+                    else:
+                        pos = hashTable[txKey1]
+                        ru = 0
+                        for i in range(len(revisedTrans) - 1, -1, -1):
+                            cuListOfItems = mapItemsToCUList[revisedTrans[i].item]
+                            cuListOfItems.elements[pos].snu += revisedTrans[i].utility
+                            cuListOfItems.elements[pos].remainingUtility += ru
+                            cuListOfItems.sumSnu += revisedTrans[i].utility
+                            cuListOfItems.sumRemainingUtility += ru
+                            ru += revisedTrans[i].utility
+                            pos = cuListOfItems.elements[pos].prevPos
+                # EUCS
+                for i in range(len(revisedTrans) - 1, -1, -1):
+                    pair = revisedTrans[i]
+                    mapFMAPItem = self._mapFMAP.get(pair.item)
+                    if mapFMAPItem is None:
+                        mapFMAPItem = {}
+                        self._mapFMAP[pair.item] = mapFMAPItem
+                    for j in range(i + 1, len(revisedTrans)):
+                        pairAfter = revisedTrans[j]
+                        twuSUm = mapFMAPItem.get(pairAfter.item)
+                        if twuSUm is None:
+                            mapFMAPItem[pairAfter.item] = newTwu
+                        else:
+                            mapFMAPItem[pairAfter.item] = twuSUm + newTwu
+                ts += 1
+        exNeighbours = set(self._mapOfPMU.keys())
+        # print(self.Neighbours)
+        self._ExploreSearchTree([], listOfCUList, exNeighbours, minUtil)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+
+    def mine(self) -> None:
         """
         main program to start the operation
         """
@@ -739,6 +861,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:  # to consider "\t" as a separator
             _ap = HDSHUIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]))
         _ap.startMine()
+        _ap.mine()
         print("Total number of Spatial High-Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -749,6 +872,7 @@ if __name__ == "__main__":
             _ap = HDSHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt',
                     '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
             _ap.startMine()
+            _ap.mine()
             print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
             print("Total Memory in USS:", _ap.getMemoryUSS())
             print("Total Memory in RSS", _ap.getMemoryRSS())

@@ -8,7 +8,7 @@
 #
 #             obj = alg.CoMine(iFile, minSup, minAllConf, sep)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Rules = obj.getPatterns()
 #
@@ -35,7 +35,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -56,6 +56,7 @@ __copyright__ = """
 from PAMI.correlatedPattern.basic import abstract as _ab
 import pandas as _pd
 from typing import List, Dict, Tuple, Union
+from deprecated import deprecated
 
 class _Node:
     """
@@ -309,7 +310,7 @@ class CoMine(_ab._correlatedPatterns):
 
             obj = alg.CoMine(iFile, minSup, minAllConf,sep)
 
-            obj.startMine()
+            obj.mine()
 
             patterns = obj.getPatterns()
 
@@ -560,8 +561,42 @@ class CoMine(_ab._correlatedPatterns):
                     if len(treeBeta.root.child) > 0:
                         treeBeta.createHeaderList(mapSupportBeta, self._minSup)
                         self._correlatedPatternGrowthGenerate(treeBeta, prefix, prefixLength + 1, mapSupportBeta)
-    
+
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """
+        main method to start
+        """
+        self._startTime = _ab._time.time()
+        if self._iFile is None:
+            raise Exception("Please enter the file path or file name:")
+        self._creatingItemSets()
+        self._minSup = self._convert(self._minSup)
+        self._tree = _Tree()
+        self._finalPatterns = {}
+        self._correlatedOneItem()
+        self._mapSupport = {k: v for k, v in self._mapSupport.items() if v >= self._minSup}
+        _itemSetBuffer = [k for k, v in sorted(self._mapSupport.items(), key=lambda x: x[1], reverse=True)]
+        for i in self._Database:
+            _transaction = []
+            for j in i:
+                if j in _itemSetBuffer:
+                    _transaction.append(j)
+            _transaction.sort(key=lambda val: self._mapSupport[val], reverse=True)
+            self._tree.addTransaction(_transaction)
+        self._tree.createHeaderList(self._mapSupport, self._minSup)
+        if len(self._tree.headerList) > 0:
+            self._itemSetBuffer = []
+            self._correlatedPatternGrowthGenerate(self._tree, self._itemSetBuffer, 0, self._mapSupport)
+        print("Correlated patterns were generated successfully using CoMine algorithm")
+        self._endTime = _ab._time.time()
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+
+    def mine(self) -> None:
         """
         main method to start
         """
@@ -680,6 +715,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = CoMine(_ab._sys.argv[1], _ab._sys.argv[3], float(_ab._sys.argv[4]))
         _ap.startMine()
+        _ap.mine()
         print("Total number of Correlated-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

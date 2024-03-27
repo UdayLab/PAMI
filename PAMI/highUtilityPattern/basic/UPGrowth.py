@@ -8,7 +8,7 @@
 #
 #             obj=alg.UPGrowth("input.txt",35)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             highUtilityPattern = obj.getPatterns()
 #
@@ -34,7 +34,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -54,6 +54,7 @@ __copyright__ = """
 
 from PAMI.highUtilityPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from deprecated import deprecated
 
 
 class _UPItem:
@@ -426,7 +427,7 @@ class UPGrowth(_ab._utilityPatterns):
 
             obj=alg.UPGrowth("input.txt",35)
 
-            obj.startMine()
+            obj.mine()
 
             highUtilityPattern = obj.getPatterns()
 
@@ -509,7 +510,96 @@ class UPGrowth(_ab._utilityPatterns):
                     print("File Not Found")
                     quit()
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """
+        Mining process will start from here
+        :return: None
+        """
+        self._startTime = _ab._time.time()
+        tree = _UPTree()
+        self._creatingItemSets()
+        self._finalPatterns = {}
+        for line in self._Database:
+            line = line.split("\n")[0]
+            transaction = line.strip().split(':')
+            items = transaction[0].split(self._sep)
+            transactionUtility = int(transaction[1])
+            for item in items:
+                Item = int(item)
+                if Item in self._MapItemToTwu:
+                    self._MapItemToTwu[Item] += transactionUtility
+                else:
+                    self._MapItemToTwu[Item] = transactionUtility
+        for line in self._Database:
+            line = line.split("\n")[0]
+            transaction = line.strip().split(':')
+            items = transaction[0].split(self._sep)
+            utilities = transaction[2].split(self._sep)
+            remainingUtility = 0
+            revisedTransaction = []
+            for idx, item in enumerate(items):
+                Item = int(item)
+                utility = int(utilities[idx])
+                if self._MapItemToTwu[Item] >= self._minUtil:
+                    element = _UPItem(Item, utility)
+                    revisedTransaction.append(element)
+                    remainingUtility += utility
+                    if Item in self._MapItemToMinimumUtility:
+                        minItemUtil = self._MapItemToMinimumUtility[Item]
+                        if minItemUtil >= utility:
+                            self._MapItemToMinimumUtility[Item] = utility
+                    else:
+                        self._MapItemToMinimumUtility[Item] = utility
+            revisedTransaction = sorted(revisedTransaction, key=lambda x: self._MapItemToTwu[x.name], reverse=True)
+            self._ParentNumberOfNodes += tree.addTransaction(revisedTransaction, remainingUtility)
+        tree.createHeaderList(self._MapItemToTwu)
+        alpha = []
+        self._finalPatterns = {}
+        # print("number of nodes in parent tree", self.ParentNumberOfNodes)
+        self._UPGrowth(tree, alpha)
+        # self.phuis = sorted(self.phuis, key=lambda x: len(x))
+        # print(self.phuis[0:10])
+        for line in self._Database:
+            line = line.split("\n")[0]
+            transaction = line.strip().split(':')
+            items = transaction[0].split(self._sep)
+            utilities = transaction[2].split(self._sep)
+            mapItemToUtility = {}
+            for idx, item in enumerate(items):
+                Item = int(item)
+                utility = int(utilities[idx])
+                if self._MapItemToTwu[Item] >= self._minUtil:
+                    mapItemToUtility[Item] = utility
+            for itemset in self._phuis:
+                l = len(itemset)
+                count = 0
+                utility = 0
+                for item in itemset:
+                    item = int(item)
+                    if item in mapItemToUtility:
+                        utility += mapItemToUtility[item]
+                        count += 1
+                if count == l:
+                    self._MapItemsetsToUtilities[tuple(itemset)] += utility
+
+        for itemset in self._phuis:
+            util = self._MapItemsetsToUtilities[tuple(itemset)]
+            if util >= self._minUtil:
+                s = str()
+                for item in itemset:
+                    s = s + str(item)
+                    s = s + "\t"
+                self._finalPatterns[s] = util
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("High Utility patterns were generated successfully using UPGrowth algorithm")
+
+    def mine(self) -> None:
         """
         Mining process will start from here
         :return: None
@@ -753,6 +843,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = UPGrowth(_ab._sys.argv[1], int(_ab._sys.argv[3]))
         _ap.startMine()
+        _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -761,6 +852,7 @@ if __name__ == "__main__":
     else:
         _ap = UPGrowth('/Users/likhitha/Downloads/Utility_T10I4D100K.csv', 50000, '\t')
         _ap.startMine()
+        _ap.mine()
         print("Total number of High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save('/Users/likhitha/Downloads/UPGrowth_output.txt')
         print("Total Memory in USS:", _ap.getMemoryUSS())

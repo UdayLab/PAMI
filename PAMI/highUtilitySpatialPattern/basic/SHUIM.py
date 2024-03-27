@@ -8,7 +8,7 @@
 #
 #             obj=alg.SHUIM("input.txt","Neighbours.txt",35)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -56,6 +56,7 @@ from PAMI.highUtilitySpatialPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator, Optional, TypeVar
 from functools import cmp_to_key as _cmpToKey
 import pandas as pd
+from deprecated import deprecated
 
 
 class _Transaction:
@@ -410,7 +411,7 @@ class SHUIM(_ab._utilityPatterns):
 
             obj=alg.SHUIM("input.txt","Neighbours.txt",35)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -461,7 +462,70 @@ class SHUIM(_ab._utilityPatterns):
     def __init__(self, iFile: str, nFile: str, minUtil: int, sep: str="\t") -> None:
         super().__init__(iFile, nFile, minUtil, sep)
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """
+        main program to start the operation
+        """
+        self._startTime = _ab._time.time()
+        self._patternCount = 0
+        self._finalPatterns = {}
+        self._dataset = _Dataset(self._iFile, self._sep)
+        with open(self._nFile, 'r') as o:
+            lines = o.readlines()
+            for line in lines:
+                line = line.split("\n")[0]
+                line_split = line.split(self._sep)
+                line_split = [i.strip() for i in line_split]
+                item = self._dataset.strToInt.get(line_split[0])
+                lst = []
+                for i in range(1, len(line_split)):
+                    lst.append(self._dataset.strToInt.get(line_split[i]))
+                self._Neighbours[item] = lst
+        o.close()
+        #print(len(self._Neighbours))
+        InitialMemory = _ab._psutil.virtual_memory()[3]
+        self._useUtilityBinArrayToCalculateLocalUtilityFirstTime(self._dataset)
+        itemsToKeep = []
+        for key in self._utilityBinArrayLU.keys():
+            if self._utilityBinArrayLU[key] >= self._minUtil:
+                itemsToKeep.append(key)
+        itemsToKeep = sorted(itemsToKeep, key=lambda x: self._utilityBinArrayLU[x])
+        currentName = 1
+        for idx, item in enumerate(itemsToKeep):
+            self._oldNamesToNewNames[item] = currentName
+            self._newNamesToOldNames[currentName] = item
+            itemsToKeep[idx] = currentName
+            currentName += 1
+        for transaction in self._dataset.getTransactions():
+            transaction.removeUnpromisingItems(self._oldNamesToNewNames)
+        self._sortDatabase(self._dataset.getTransactions())
+        emptyTransactionCount = 0
+        for transaction in self._dataset.getTransactions():
+            if len(transaction.getItems()) == 0:
+                emptyTransactionCount += 1
+        self._dataset.transactions = self._dataset.transactions[emptyTransactionCount:]
+        self._useUtilityBinArrayToCalculateSubtreeUtilityFirstTime(self._dataset)
+        itemsToExplore = []
+        for item in itemsToKeep:
+            if self._utilityBinArraySU[item] >= self._minUtil:
+                itemsToExplore.append(item)
+        commonitems = []
+        for i in range(self._dataset.maxItem):
+            commonitems.append(i)
+        self._backtrackingEFIM(self._dataset.getTransactions(), itemsToKeep, itemsToExplore, 0)
+        finalMemory = _ab._psutil.virtual_memory()[3]
+        memory = (finalMemory - InitialMemory) / 10000
+        if memory > self._maxMemory:
+            self._maxMemory = memory
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+
+    def mine(self) -> None:
         """
         main program to start the operation
         """
@@ -909,6 +973,7 @@ if __name__ == '__main__':
         if len(_ab._sys.argv) == 5:
             _ap = SHUIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]))
         _ap.startMine()
+        _ap.mine()
         print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
@@ -918,6 +983,7 @@ if __name__ == '__main__':
         for i in [100000, 500000]:
             _ap = SHUIM('/Users/Likhitha/Downloads/mushroom_main_2000.txt', '/Users/Likhitha/Downloads/mushroom_neighbors_2000.txt', i, ' ')
             _ap.startMine()
+            _ap.mine()
             print("Total number of Spatial High Utility Patterns:", len(_ap.getPatterns()))
             #_ap.save(_ab._sys.argv[2])
             print("Total Memory in USS:", _ap.getMemoryUSS())

@@ -7,7 +7,7 @@
 #
 #             obj = alg.RuleMiner(iFile, measure, o.5, "\t")
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             associationRules = obj.getPatterns()
 #
@@ -52,6 +52,7 @@ Copyright (C)  2021 Rage Uday Kiran
 """
 
 from PAMI.AssociationRules.basic import abstract as _ab
+from deprecated import deprecated
 
 class Confidence:
     """
@@ -324,7 +325,7 @@ class RuleMiner:
 
             obj = alg.RuleMiner(iFile, measure, o.5, "\t")
 
-            obj.startMine()
+            obj.mine()
 
             associationRules = obj.getPatterns()
 
@@ -412,7 +413,35 @@ class RuleMiner:
                     quit()
         return k
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Association rule mining process will start from here
+        """
+        self._startTime = _ab._time.time()
+        k = self._readPatterns()
+        if self._measure == 'confidence':
+            a = Confidence(self._frequentPatterns, k, self._threshold)
+            a.run()
+            self._finalPatterns = a._finalPatterns
+        if self._measure == 'lift':
+            a = Lift(self._frequentPatterns, k, self._threshold)
+            a.run()
+            self._finalPatterns = a._finalPatterns
+        if self._measure == 'leverage':
+            a = Leverage(self._frequentPatterns, k, self._threshold)
+            a.run()
+            self._finalPatterns = a._finalPatterns
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Association rules successfully  generated from frequent patterns ")
+
+
+    def mine(self):
         """
         Association rule mining process will start from here
         """
@@ -526,6 +555,7 @@ if __name__ == "__main__":
     else:
         _ap = RuleMiner('sensorOutput.txt', "lift", 0.5, '\t')
         _ap.startMine()
+        _ap.mine()
         _ap.save('output.txt')
         _ap.printResults()
         print("Error! The number of input parameters do not match the total number of parameters provided")

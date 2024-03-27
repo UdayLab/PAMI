@@ -9,7 +9,7 @@
 #
 #             obj = alg.FFIMiner("input.txt", 2)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             fuzzyFrequentPattern = obj.getPatterns()
 #
@@ -34,7 +34,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -53,6 +53,7 @@ __copyright__ = """
 """
 from PAMI.fuzzyFrequentPattern.basic import abstract as _ab
 from typing import List, Dict, Tuple, Set, Union, Any, Generator
+from deprecated import deprecated
 
 
 class _FFList:
@@ -286,7 +287,7 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
 
         obj = alg.FFIMiner("input.txt", "fuzzyMembership.txt" 2)
 
-        obj.startMine()
+        obj.mine()
 
         fuzzyFrequentPattern = obj.getPatterns()
 
@@ -497,7 +498,102 @@ class FFIMiner(_ab._fuzzyFrequentPattenrs):
                                 (quantity - self._RegionsCal[i][0]) / base)
             return
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self) -> None:
+        """
+        fuzzy-Frequent pattern mining process will start from here
+        """
+        self._startTime = _ab._time.time()
+        self._creatingItemsets()
+        for line in range(len(self._transactions)):
+            items = self._transactions[line]
+            quantities = self._fuzzyValues[line]
+            self._dbLen += 1
+            for i in range(0, len(items)):
+                regions = self._Regions(float(quantities[i]))
+                print(regions)
+                item = items[i]
+                if item in self._mapItemsLowSum.keys():
+                    low = self._mapItemsLowSum[item]
+                    low += regions.low
+                    self._mapItemsLowSum[item] = low
+                else:
+                    self._mapItemsLowSum[item] = regions.low
+                if item in self._mapItemsMidSum.keys():
+                    mid = self._mapItemsMidSum[item]
+                    mid += regions.middle
+                    self._mapItemsMidSum[item] = mid
+                else:
+                    self._mapItemsMidSum[item] = regions.middle
+                if item in self._mapItemsHighSum.keys():
+                    high = self._mapItemsHighSum[item]
+                    high += regions.high
+                    self._mapItemsHighSum[item] = high
+                else:
+                    self._mapItemsHighSum[item] = regions.high
+        listOfffilist = []
+        mapItemsToFFLIST = {}
+        self._minSup = self._convert(self._minSup)
+        # minSup = self.minSup
+        for item1 in self._mapItemsLowSum.keys():
+            item = item1
+            low = self._mapItemsLowSum[item]
+            mid = self._mapItemsMidSum[item]
+            high = self._mapItemsHighSum[item]
+            if low >= mid and low >= high:
+                self._mapItemSum[item] = low
+                self._mapItemRegions[item] = "L"
+            elif mid >= low and mid >= high:
+                self._mapItemSum[item] = mid
+                self._mapItemRegions[item] = "M"
+            elif high >= low and high >= mid:
+                self._mapItemRegions[item] = "H"
+                self._mapItemSum[item] = high
+            if self._mapItemSum[item] >= self._minSup:
+                fuList = _FFList(item)
+                mapItemsToFFLIST[item] = fuList
+                listOfffilist.append(fuList)
+        listOfffilist.sort(key=_ab._functools.cmp_to_key(self._compareItems))
+        tid = 0
+        for line in range(len(self._transactions)):
+            items = self._transactions[line]
+            quantities = self._fuzzyValues[line]
+            revisedTransaction = []
+            for i in range(0, len(items)):
+                pair = _Pair()
+                pair.item = items[i]
+                regions = self._Regions(float(quantities[i]), 3)
+                item = pair.item
+                if self._mapItemSum[item] >= self._minSup:
+                    if self._mapItemRegions[pair.item] == "L":
+                        pair.quantity = regions.low
+                    elif self._mapItemRegions[pair.item] == "M":
+                        pair.quantity = regions.middle
+                    elif self._mapItemRegions[pair.item] == "H":
+                        pair.quantity = regions.high
+                    if pair.quantity > 0:
+                        revisedTransaction.append(pair)
+            revisedTransaction.sort(key=_ab._functools.cmp_to_key(self._compareItems))
+            for i in range(len(revisedTransaction) - 1, -1, -1):
+                pair = revisedTransaction[i]
+                remainUtil = 0
+                for j in range(len(revisedTransaction) - 1, i, -1):
+                    remainUtil += revisedTransaction[j].quantity
+                remainingUtility = remainUtil
+                if mapItemsToFFLIST.get(pair.item) is not None:
+                    FFListOfItem = mapItemsToFFLIST[pair.item]
+                    element = _Element(tid, pair.quantity, remainingUtility)
+                    FFListOfItem.addElement(element)
+            tid += 1
+        self._FSFIMining(self._itemSetBuffer, 0, listOfffilist, self._minSup)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = float()
+        self._memoryRSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+
+    def mine(self) -> None:
         """
         fuzzy-Frequent pattern mining process will start from here
         """
@@ -768,6 +864,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:
             _ap = FFIMiner(_ab._sys.argv[1], _ab._sys.argv[3])
         _ap.startMine()
+        _ap.mine()
         print("Total number of Fuzzy-Frequent Patterns:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())

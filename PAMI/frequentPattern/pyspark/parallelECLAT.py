@@ -8,7 +8,7 @@
 #
 #             obj = alg.parallelECLAT(iFile, minSup, numWorkers)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             frequentPatterns = obj.getPatterns()
 #
@@ -36,7 +36,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -56,6 +56,7 @@ from pyspark import SparkConf, SparkContext
 # import abstract as _ab
 from PAMI.frequentPattern.pyspark import abstract as _ab
 from abc import ABC as _ABC, abstractmethod as _abstractmethod
+from deprecated import deprecated
 
 
 class parallelECLAT(_ab._frequentPatterns):
@@ -123,7 +124,7 @@ class parallelECLAT(_ab._frequentPatterns):
 
             obj = alg.parallelECLAT(iFile, minSup, numWorkers)
 
-            obj.startMine()
+            obj.mine()
 
             frequentPatterns = obj.getPatterns()
 
@@ -294,7 +295,58 @@ class parallelECLAT(_ab._frequentPatterns):
         print(type(value), value)
         return value
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Frequent pattern mining process will start from here
+        """
+
+        self._startTime = _ab._time.time()
+        conf = SparkConf().setAppName("Parallel ECLAT").setMaster("local[*]")
+        sc = SparkContext(conf=conf)
+
+        data = sc.textFile(self._iFile, self._numPartitions) \
+            .map(lambda line: [int(y) for y in line.rstrip().split(self._sep)]).persist()
+        self._lno = data.count()
+        self._minSup = self._convert(self._minSup)
+
+        frequentItems = None
+        frequentItems = data.zipWithIndex() \
+            .flatMap(lambda x: [(str(item), x[1]) for item in x[0]]) \
+            .groupByKey() \
+            .filter(lambda x: len(x[1]) >= self._minSup) \
+            .sortBy(lambda x: len(x[1])) \
+            .mapValues(set) \
+            .persist()
+        data.unpersist()
+        # elif 'temporal' in self._iFile:
+        #     frequentItems = data.flatMap(lambda trans: [(str(item), trans[0]) for item in trans[1:]]) \
+        #         .groupByKey() \
+        #         .filter(lambda x: len(x[1]) >= self._minSup) \
+        #         .mapValues(set) \
+        #         .persist()
+        #     data.unpersist()
+        # else:
+        #     pass
+        #     # print("may be not able to process the input file")
+
+        freqItems = dict(frequentItems.collect())
+        # print(len(freqItems))
+        self._finalPatterns = {k: len(v) for k, v in freqItems.items()}
+
+        freqPatterns = list(frequentItems.map(lambda x: self._genPatterns(x, x, list(freqItems.items())))
+                            .filter(lambda x: len(x) != 0).collect())
+        for value in freqPatterns:
+            self._finalPatterns.update(value)
+
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("Frequent patterns were generated successfully using Parallel ECLAT algorithm")
+        sc.stop()
+
+    def mine(self):
         """
         Frequent pattern mining process will start from here
         """
@@ -353,6 +405,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 5:
             _ap = parallelECLAT(_ab._sys.argv[1], _ab._sys.argv[3], _ab._sys.argv[4])
         _ap.startMine()
+        _ap.mine()
         _finalPatterns = _ap.getPatterns()
         print("Total number of Frequent Patterns:", len(_finalPatterns))
         _ap.save(_ab._sys.argv[2])

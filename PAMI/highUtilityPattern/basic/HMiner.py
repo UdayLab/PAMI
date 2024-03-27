@@ -8,7 +8,7 @@
 #
 #             obj = alg.HMiner("input.txt", 35)
 #
-#             obj.startMine()
+#             obj.mine()
 #
 #             Patterns = obj.getPatterns()
 #
@@ -34,7 +34,7 @@
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -53,6 +53,7 @@ __copyright__ = """
 """
 
 from PAMI.highUtilityPattern.basic import abstract as _ab
+from deprecated import deprecated
 
 
 class _Element:
@@ -232,7 +233,7 @@ class HMiner(_ab._utilityPatterns):
         
             obj = alg.HMiner("input.txt",35)
         
-            obj.startMine()
+            obj.mine()
         
             Patterns = obj.getPatterns()
         
@@ -348,7 +349,103 @@ class HMiner(_ab._utilityPatterns):
                     print("File Not Found")
                     quit()
 
+    @deprecated("It is recommended to use 'mine()' instead of 'startMine()' for mining process. Starting from January 2025, 'startMine()' will be completely terminated.")
     def startMine(self):
+        """
+        Main program to start the operation
+        """
+        self._startTime = _ab._time.time()
+        self._creteItemsets()
+        self._finalPatterns = {}
+        for line in range(len(self._transactions)):
+            items_str = self._transactions[line]
+            utility_str = self._utilities[line]
+            transUtility = self._utilitySum[line]
+            for i in range(0, len(items_str)):
+                item = items_str[i]
+                twu = self._mapOfTWU.get(item)
+                if twu == None:
+                    twu = transUtility
+                else:
+                    twu += transUtility
+                self._mapOfTWU[item] = twu
+        listOfCUList = []
+        hashTable = {}
+        mapItemsToCUList = {}
+        minutil = self._minUtil
+        for item in self._mapOfTWU.keys():
+            if self._mapOfTWU.get(item) >= self._minUtil:
+                uList = _CUList(item)
+                mapItemsToCUList[item] = uList
+                listOfCUList.append(uList)
+        listOfCUList.sort(key=_ab._functools.cmp_to_key(self._HMiner))
+        tid = 1
+        for line in range(len(self._transactions)):
+            items = self._transactions[line]
+            utilities = self._utilities[line]
+            ru = 0
+            newTwu = 0
+            tx_key = []
+            revisedTrans = []
+            for i in range(0, len(items)):
+                pair = _Pair()
+                pair.item = items[i]
+                pair.utility = int(utilities[i])
+                if self._mapOfTWU.get(pair.item) >= self._minUtil:
+                    revisedTrans.append(pair)
+                    tx_key.append(pair.item)
+                    newTwu += pair.utility
+            revisedTrans.sort(key=_ab._functools.cmp_to_key(self._HMiner))
+            tx_key1 = tuple(tx_key)
+            if len(revisedTrans) > 0:
+                if tx_key1 not in hashTable.keys():
+                    hashTable[tx_key1] = len(mapItemsToCUList[revisedTrans[len(revisedTrans) - 1].item].elements)
+                    for i in range(len(revisedTrans) - 1, -1, -1):
+                        pair = revisedTrans[i]
+                        cuListoFItems = mapItemsToCUList.get(pair.item)
+                        element = _Element(tid, pair.utility, ru, 0, 0)
+                        if i > 0:
+                            element.ppos = len(mapItemsToCUList[revisedTrans[i - 1].item].elements)
+                        else:
+                            element.ppos = - 1
+                        cuListoFItems.addElements(element)
+                        ru += pair.utility
+                else:
+                    pos = hashTable[tx_key1]
+                    ru = 0
+                    for i in range(len(revisedTrans) - 1, -1, -1):
+                        cuListoFItems = mapItemsToCUList[revisedTrans[i].item]
+                        cuListoFItems.elements[pos].nu += revisedTrans[i].utility
+                        cuListoFItems.elements[pos].nru += ru
+                        cuListoFItems.sumnu += revisedTrans[i].utility
+                        cuListoFItems.sumnru += ru
+                        ru += revisedTrans[i].utility
+                        pos = cuListoFItems.elements[pos].ppos
+                    # EUCS
+            for i in range(len(revisedTrans) - 1, -1, -1):
+                pair = revisedTrans[i]
+                mapFMAPItem = self._mapFMAP.get(pair.item)
+                if mapFMAPItem == None:
+                    mapFMAPItem = {}
+                    self._mapFMAP[pair.item] = mapFMAPItem
+                for j in range(i + 1, len(revisedTrans)):
+                    pairAfter = revisedTrans[j]
+                    twuSUm = mapFMAPItem.get(pairAfter.item)
+                    if twuSUm is None:
+                        mapFMAPItem[pairAfter.item] = newTwu
+                    else:
+                        mapFMAPItem[pairAfter.item] = twuSUm + newTwu
+            tid += 1
+        self._ExploreSearchTree([], listOfCUList, minutil)
+        self._endTime = _ab._time.time()
+        process = _ab._psutil.Process(_ab._os.getpid())
+        self._memoryRSS = float()
+        self._memoryUSS = float()
+        self._memoryUSS = process.memory_full_info().uss
+        self._memoryRSS = process.memory_info().rss
+        print("High Utility patterns were generated successfully using HMiner algorithm")
+
+    def mine(self):
         """
         Main program to start the operation
         """
@@ -719,6 +816,7 @@ if __name__ == "__main__":
         if len(_ab._sys.argv) == 4:  # to consider "\t" as a separator
             _ap = HMiner(_ab._sys.argv[1], int(_ab._sys.argv[3]))
         _ap.startMine()
+        _ap.mine()
         print("Total number of huis:", len(_ap.getPatterns()))
         _ap.save(_ab._sys.argv[2])
         print("Total Memory in USS:", _ap.getMemoryUSS())
