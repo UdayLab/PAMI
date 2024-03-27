@@ -13,10 +13,13 @@
 #
 #             obj.printStats()
 #
-#
+
+
+
+
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -137,6 +140,9 @@ class SequentialDatabase():
         """
         :param inputFile: input file name or path
         :type inputFile: str
+        :param sep: separator
+        :type sep: str
+        :return: None
         """
         self.inputFile = inputFile
         self.seqLengthList = []
@@ -198,6 +204,7 @@ class SequentialDatabase():
         """
         get the size of database
         :return: dataset size
+        :rtype: int
         """
         return len(self.database)
 
@@ -205,6 +212,7 @@ class SequentialDatabase():
         """
         get the number of items in database.
         :return: number of items
+        :rtype: int
         """
         return len(self.getSortedListOfItemFrequencies())
 
@@ -212,6 +220,7 @@ class SequentialDatabase():
         """
         get the minimum sequence length
         :return: minimum sequence length
+        :rtype: int
         """
         return min(self.seqLengthList)
 
@@ -219,6 +228,7 @@ class SequentialDatabase():
         """
         get the average subsequence length per sequence length. It is sum of all subsequence length divided by sequence length.
         :return: average subsequence length per sequence length
+        :rtype: float
         """
         totalLength = sum(self.seqLengthList)
         return totalLength / len(self.database)
@@ -228,6 +238,7 @@ class SequentialDatabase():
         """
         get the average Item length per subsequence. It is sum of all item length divided by subsequence length.
         :return: average Item length per subsequence
+        :rtype: float
         """
 
         totalLength = sum(list(map(sum,self.subSeqLengthList)))
@@ -237,6 +248,7 @@ class SequentialDatabase():
         """
         get the maximum sequence length
         :return: maximum sequence length
+        :rtype: int
         """
         return max(self.seqLengthList)
 
@@ -244,6 +256,7 @@ class SequentialDatabase():
         """
         get the standard deviation sequence length
         :return: standard deviation sequence length
+        :rtype: float
         """
         return statistics.pstdev(self.seqLengthList)
 
@@ -251,6 +264,7 @@ class SequentialDatabase():
         """
         get the variance Sequence length
         :return: variance Sequence length
+        :rtype: float
         """
         return statistics.variance(self.seqLengthList)
 
@@ -258,6 +272,7 @@ class SequentialDatabase():
         """
         get the size of sequence
         :return: sequences size
+        :rtype: int
         """
         return sum(self.seqLengthList)
 
@@ -265,6 +280,7 @@ class SequentialDatabase():
         """
         get the minimum subsequence length
         :return: minimum subsequence length
+        :rtype: int
         """
         return min(list(map(min,self.subSeqLengthList)))
 
@@ -272,6 +288,7 @@ class SequentialDatabase():
         """
         get the average item length per sequence. It is sum of all item length divided by sequence length.
         :return: average item length per sequence
+        :rtype: float
         """
         totalLength = sum(list(map(sum,self.subSeqLengthList)))
         return totalLength / len(self.database)
@@ -280,6 +297,7 @@ class SequentialDatabase():
         """
         get the maximum subsequence length
         :return: maximum subsequence length
+        :rtype: int
         """
         return max(list(map(max,self.subSeqLengthList)))
 
@@ -287,6 +305,7 @@ class SequentialDatabase():
         """
         get the standard deviation subsequence length
         :return: standard deviation subsequence length
+        :rtype: float
         """
         allList=[]
         for i in self.subSeqLengthList:
@@ -297,6 +316,7 @@ class SequentialDatabase():
         """
         get the variance subSequence length
         :return: variance subSequence length
+        :rtype: float
         """
         allList = []
         for i in self.subSeqLengthList:
@@ -307,6 +327,7 @@ class SequentialDatabase():
         """
         get sorted list of item frequencies
         :return: item frequencies
+        :rtype: dict
         """
         itemFrequencies = {}
         for seq in self.database:
@@ -320,6 +341,7 @@ class SequentialDatabase():
         """
         get sorted list of item frequencies in some range
         :return: item separated by its frequencies
+        :rtype: dict
         """
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}
@@ -336,6 +358,7 @@ class SequentialDatabase():
         """
         get Sequence length Distribution
         :return: Sequence length
+        :rtype: dict
         """
         transactionLength = {}
         for length in self.seqLengthList:
@@ -347,6 +370,7 @@ class SequentialDatabase():
         """
         get subSequence length distribution
         :return: subSequence length
+        :rtype: dict
         """
         transactionLength = {}
         for sublen in self.subSeqLengthList:

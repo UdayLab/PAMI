@@ -14,8 +14,11 @@
 #             obj.printStats()
 #
 
+
+
+
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -104,7 +107,9 @@ class TemporalDatabase:
         """
         :param inputFile: input file name or path
         :type inputFile: str
-        :param sep:
+        :param sep: separator
+        :type sep: str
+        :return: None
         """
         self.inputFile = inputFile
         self.database = {}
@@ -182,6 +187,7 @@ class TemporalDatabase:
         """
         get the size of database
         :return: dataset size
+        :rtype: int
         """
         return len(self.database)
 
@@ -189,6 +195,7 @@ class TemporalDatabase:
         """
         get the minimum transaction length
         :return: minimum transaction length
+        :rtype: int
         """
         return min(self.lengthList)
 
@@ -196,6 +203,7 @@ class TemporalDatabase:
         """
         get the average transaction length. It is sum of all transaction length divided by database length.
         :return: average transaction length
+        :rtype: float
         """
         totalLength = sum(self.lengthList)
         return totalLength / len(self.database)
@@ -204,6 +212,7 @@ class TemporalDatabase:
         """
         get the maximum transaction length
         :return: maximum transaction length
+        :rtype: int
         """
         return max(self.lengthList)
 
@@ -211,6 +220,7 @@ class TemporalDatabase:
         """
         get the standard deviation transaction length
         :return: standard deviation transaction length
+        :rtype: float
         """
         return statistics.pstdev(self.lengthList)
 
@@ -218,6 +228,7 @@ class TemporalDatabase:
         """
         get the variance transaction length
         :return: variance transaction length
+        :rtype: float
         """
         return statistics.variance(self.lengthList)
 
@@ -244,6 +255,7 @@ class TemporalDatabase:
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
+        :rtype: float
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array == 0)
@@ -253,6 +265,7 @@ class TemporalDatabase:
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
+        :rtype: float
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array == 1)
@@ -262,6 +275,7 @@ class TemporalDatabase:
         """
         get the number of items in database.
         :return: number of items
+        :rtype: int
         """
         return len(self.getSortedListOfItemFrequencies())
 
@@ -269,6 +283,7 @@ class TemporalDatabase:
         """
         get sorted list of item frequencies
         :return: item frequencies
+        :rtype: dict
         """
         itemFrequencies = {}
         for tid in self.database:
@@ -307,6 +322,7 @@ class TemporalDatabase:
         """
         get transaction length
         :return: transactional length
+        :rtype: dict
         """
         transactionLength = {}
         for length in self.lengthList:
@@ -321,6 +337,7 @@ class TemporalDatabase:
         :type data: dict
         :param outputFile: output file name or path to store
         :type outputFile: str
+        :return: None
         """
         with open(outputFile, 'w') as f:
             for key, value in data.items():
@@ -330,6 +347,7 @@ class TemporalDatabase:
         """
         get the minimum inter arrival period
         :return: minimum inter arrival period
+        :rtype: int
         """
         return min(self.periodList)
 
@@ -337,6 +355,7 @@ class TemporalDatabase:
         """
         get the average inter arrival period. It is sum of all period divided by number of period.
         :return: average inter arrival period
+        :rtype: float
         """
         totalPeriod = sum(self.periodList)
         return totalPeriod / len(self.periodList)
@@ -345,6 +364,7 @@ class TemporalDatabase:
         """
         get the maximum inter arrival period
         :return: maximum inter arrival period
+        :rtype: int
         """
         return max(self.periodList)
 
@@ -352,6 +372,7 @@ class TemporalDatabase:
         """
         get the minimum period of the item
         :return: minimum period
+        :rtype: int
         """
         return min([i for i in self.periods.values()])
 
@@ -359,6 +380,7 @@ class TemporalDatabase:
         """
         get the average period of the item
         :return: average period
+        :rtype: float
         """
         return sum([i for i in self.periods.values()]) / len(self.periods)
 
@@ -366,6 +388,7 @@ class TemporalDatabase:
         """
         get the maximum period of the item
         :return: maximum period
+        :rtype: int
         """
         return max([i for i in self.periods.values()])
 
@@ -373,6 +396,7 @@ class TemporalDatabase:
         """
         get the standard deviation period
         :return: standard deviation period
+        :rtype: float
         """
         return statistics.pstdev(self.periodList)
 
@@ -380,6 +404,7 @@ class TemporalDatabase:
         """
         get number of transactions per time stamp
         :return: number of transactions per time stamp as dict
+        :rtype: dict
         """
         maxTS = max(list(self.timeStampCount.keys()))
         return {ts: self.timeStampCount.get(ts, 0) for ts in range(1, maxTS + 1)}

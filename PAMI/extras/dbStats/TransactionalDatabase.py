@@ -12,11 +12,13 @@
 #             obj.run()
 #
 #             obj.printStats()
+#
+
 
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -105,6 +107,9 @@ class TransactionalDatabase:
         """
         :param inputFile: input file name or path
         :type inputFile: str
+        :param sep: separator
+        :type sep: str
+        :return: None
         """
         self.inputFile = inputFile
         self.lengthList = []
@@ -157,6 +162,7 @@ class TransactionalDatabase:
         """
         get the size of database
         :return: dataset size
+        :rtype: int
         """
         return len(self.database)
 
@@ -164,6 +170,7 @@ class TransactionalDatabase:
         """
         get the number of items in database.
         :return: number of items
+        :rtype: int
         """
         return len(self.getSortedListOfItemFrequencies())
 
@@ -171,6 +178,7 @@ class TransactionalDatabase:
         """
         get the minimum transaction length
         :return: minimum transaction length
+        :rtype: int
         """
         return min(self.lengthList)
 
@@ -178,6 +186,7 @@ class TransactionalDatabase:
         """
         get the average transaction length. It is sum of all transaction length divided by database length.
         :return: average transaction length
+        :rtype: float
         """
         totalLength = sum(self.lengthList)
         return totalLength / len(self.database)
@@ -186,6 +195,7 @@ class TransactionalDatabase:
         """
         get the maximum transaction length
         :return: maximum transaction length
+        :rtype: int
         """
         return max(self.lengthList)
 
@@ -193,6 +203,7 @@ class TransactionalDatabase:
         """
         get the standard deviation transaction length
         :return: standard deviation transaction length
+        :rtype: float
         """
         return statistics.pstdev(self.lengthList)
 
@@ -200,6 +211,7 @@ class TransactionalDatabase:
         """
         get the variance transaction length
         :return: variance transaction length
+        :rtype: float
         """
         return statistics.variance(self.lengthList)
 
@@ -207,6 +219,7 @@ class TransactionalDatabase:
         """
         get the number of items in database.
         :return: number of items
+        :rtype: int
         """
         return len(self.getSortedListOfItemFrequencies())
 
@@ -235,6 +248,7 @@ class TransactionalDatabase:
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
+        :rtype: float
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array == 0)
@@ -244,6 +258,7 @@ class TransactionalDatabase:
         """
         get the sparsity of database. sparsity is percentage of 0 of database.
         :return: database sparsity
+        :rtype: float
         """
         big_array = self.convertDataIntoMatrix()
         n_zeros = np.count_nonzero(big_array != 0)
@@ -253,6 +268,7 @@ class TransactionalDatabase:
         """
         get sorted list of item frequencies
         :return: item frequencies
+        :rtype: dict
         """
         itemFrequencies = {}
         for tid in self.database:
@@ -277,7 +293,8 @@ class TransactionalDatabase:
     def getTransanctionalLengthDistribution(self) -> dict:
         """
         Get transaction length
-        :return: dict
+        :return: a dictionary with transaction length as keys and their total length as values
+        :rtype: dict
         """
         transactionLength = {}
         for length in self.lengthList:
@@ -292,6 +309,7 @@ class TransactionalDatabase:
         :type data: dict
         :param outputFile: output file name or path to store
         :type outputFile: str
+        :return: None
         """
         with open(outputFile, 'w') as f:
             for key, value in data.items():
