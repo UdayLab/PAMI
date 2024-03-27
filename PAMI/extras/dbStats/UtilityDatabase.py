@@ -12,10 +12,13 @@
 #             obj.run()
 #
 #             obj.printStats()
+#
+
+
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -68,6 +71,9 @@ class UtilityDatabase:
         """
         :param inputFile: input file name or path
         :type inputFile: str
+        :param sep: separator in file
+        :type sep: str or
+        :return: None
         """
         self.inputFile = inputFile
         self.database = {}
@@ -148,6 +154,7 @@ class UtilityDatabase:
         """
         get the number of items in database.
         :return: number of items
+        :rtype: int
         """
         return len(self.getSortedListOfItemFrequencies())
 
@@ -155,6 +162,7 @@ class UtilityDatabase:
         """
         get the minimum transaction length
         :return: minimum transaction length
+        :rtype: int
         """
         return min(self.lengthList)
 
@@ -162,6 +170,7 @@ class UtilityDatabase:
         """
         get the average transaction length. It is sum of all transaction length divided by database length.
         :return: average transaction length
+        :rtype: float
         """
         totalLength = sum(self.lengthList)
         return totalLength / len(self.database)
@@ -170,6 +179,7 @@ class UtilityDatabase:
         """
         get the maximum transaction length
         :return: maximum transaction length
+        :rtype: int
         """
         return max(self.lengthList)
 
@@ -177,6 +187,7 @@ class UtilityDatabase:
         """
         get the standard deviation transaction length
         :return: standard deviation transaction length
+        :rtype: float
         """
         return statistics.pstdev(self.lengthList)
 
@@ -184,6 +195,7 @@ class UtilityDatabase:
         """
         get the variance transaction length
         :return: variance transaction length
+        :rtype: float
         """
         return statistics.variance(self.lengthList)
 
@@ -191,6 +203,7 @@ class UtilityDatabase:
         """
         get the number of items in database.
         :return: number of items
+        :rtype: int
         """
         return len(self.getSortedListOfItemFrequencies())
 
@@ -198,7 +211,8 @@ class UtilityDatabase:
         # percentage of 0 dense dataframe
         """
         get the sparsity of database
-        :return: float
+        :return: sparsity of database in floating values
+        :rtype: float
         """
         matrixSize = self.getDatabaseSize()*len(self.getSortedListOfItemFrequencies())
         return (matrixSize - sum(self.getSortedListOfItemFrequencies().values())) / matrixSize
@@ -207,6 +221,7 @@ class UtilityDatabase:
         """
         get sorted list of item frequencies
         :return: item frequencies
+        :rtype: dict
         """
         itemFrequencies = {}
         for tid in self.database:
@@ -219,6 +234,7 @@ class UtilityDatabase:
         """
         This function is used to get the Frequencies in range
         :return: Frequencies In Range
+        :rtype: dict
         """
         fre = self.getSortedListOfItemFrequencies()
         rangeFrequencies = {}
@@ -236,7 +252,8 @@ class UtilityDatabase:
     def getTransanctionalLengthDistribution(self) -> dict:
         """
         get transaction length
-        :return: dict
+        :return: a dictionary of Transaction Length Distribution
+        :rtype: dict
         """
         transactionLength = {}
         for length in self.lengthList:
@@ -251,6 +268,7 @@ class UtilityDatabase:
         :type data: dict
         :param outputFile: output file name or path to store
         :type outputFile: str
+        :return: None
         """
         with open(outputFile, 'w') as f:
             for key, value in data.items():
@@ -260,13 +278,15 @@ class UtilityDatabase:
         """
         get sum of utility
         :return: total utility
+        :rtype: int
         """
         return sum(list(self.utility.values()))
 
     def getMinimumUtility(self) -> int:
         """
         get the minimum utility
-        :return: int
+        :return: integer value of minimum utility
+        :rtype: int
         """
         return min(list(self.utility.values()))
 
@@ -274,13 +294,15 @@ class UtilityDatabase:
         """
         get the average utility
         :return: average utility
+        :rtype: float
         """
         return sum(list(self.utility.values())) / len(self.utility)
 
     def getMaximumUtility(self) -> int:
         """
         get the maximum utility
-        :return: int
+        :return: integer value of maximum utility
+        :rtype: int
         """
         return max(list(self.utility.values()))
 
@@ -288,6 +310,7 @@ class UtilityDatabase:
         """
         get sorted utility value each item. key is item and value is utility of item
         :return: sorted dictionary utility value of item
+        :rtype: dict
         """
         return self.utility
     

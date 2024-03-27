@@ -11,10 +11,12 @@
 #
 #             obj.save(oFile)
 #
-#
+
+
+
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -42,6 +44,8 @@ class usingSD():
 
     :param  iFile: str :
                    Name of the Input file to mine complete set of frequent patterns
+    :param sd: int :
+                   SD of items to mine complete set of frequent patterns.
     :param  threshold: int :
                    The user can specify threshold either in count or proportion of database size. If the program detects the data type of threshold is integer, then it treats threshold is expressed in count.
     :param  sep: str :
@@ -109,6 +113,7 @@ class usingSD():
         """
         This function creates frequent items from _database.
         :return: frequentTidData that stores frequent items and their tid list.
+        :rtype: tuple
         """
         tidData = {}
         self._lno = 0
@@ -151,7 +156,8 @@ class usingSD():
         """
         Complete Items and its respective calculated minimum support values will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')

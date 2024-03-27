@@ -10,11 +10,14 @@
 #             obj.getPatternsAsDataFrame("outputFileName") # To create patterns as dataframes
 #
 #             obj.save(oFile)
+#
+
+
 
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -152,7 +155,8 @@ class usingBeta():
         """
         Complete set of items and its respective minimum support values will be loaded in to an output file
         :param outFile: name of the output file
-        :type outFile: file
+        :type outFile: csv file
+        :return: None
         """
         self._oFile = outFile
         writer = open(self._oFile, 'w+')
