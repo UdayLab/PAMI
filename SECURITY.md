@@ -12,7 +12,8 @@ Python versions supported by our library:
 | 3.8.x   | :white_check_mark:  |
 | 3.7.x   | :white_check_mark:  |
 | 3.6.x   | :white_check_mark:  |
-| <= 3.5  | :x:                 |
+| 3.5.x   | :white_check_mark:  |
+| <=3.4   | :x:                 |
 
 ## Reporting a Vulnerability
 
