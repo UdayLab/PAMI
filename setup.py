@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='pami',
-    version='2024.3.14.2',
+    version='2024.3.26.1',
     author='Rage Uday Kiran',
     author_email='uday.rage@gmail.com',
     description='This software is being developed at the University of Aizu, Aizu-Wakamatsu, Fukushima, Japan',
@@ -26,7 +26,7 @@ setuptools.setup(
         'numpy',
         'sphinx-rtd-theme',
         'validators',
-        ' discord.py',
+        'discord.py',
         'networkx',
     ],
     extras_require={
