@@ -14,9 +14,13 @@
 #             obj.getDatabaseAsDataFrame("outputFileName") # to convert database into dataframe
 #
 #             obj.createTemporalFile("outputFileName") # to get outputfile
+#
+
+
+
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -146,19 +150,27 @@ class generateTemporalDatabase:
     def getFileName(self) -> str:
         """
         return filename
-        :return:
+        :return: filename
+        :rtype: str
         """
         return self.outputFile
 
     def getDatabaseAsDataFrame(self) -> pd.DataFrame:
         """
         return dataframe
-        return: pd.dataframe
+        :return: dataframe
+        :rtype: pd.DataFrame
         """
         return self.df
     
     def performCoinFlip(self, probability: float) -> bool:
-        """Perform a coin flip with the given probability."""
+        """
+        Perform a coin flip with the given probability.
+        :param probability: probability to perform coin flip
+        :type probability: float
+        :return: True if coin flip is performed, False otherwise
+        :rtype: bool
+        """
         result = np.random.choice([0, 1], p=[1 - probability, probability])
         return result == 1
 
@@ -167,12 +179,17 @@ class generateTemporalDatabase:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
-        Parameters:
-        array: list - list of values
-        sumRes: int - target sum
+        :param array: list of values
 
-        Returns:
-        array: list - tuned array
+        :type array: list
+
+        :param sumRes: target sum
+
+        :type sumRes: int
+
+        :return: list of values with the sum equal to sumRes after tuning
+
+        :rtype: list
         """
 
         # first generate a random array of length n whose values average to m
@@ -199,7 +216,7 @@ class generateTemporalDatabase:
     def createTemporalFile(self) -> None:
         """
         create Temporal database or dataframe depending on input
-        :return:
+        :return: None
         """
 
         db = []

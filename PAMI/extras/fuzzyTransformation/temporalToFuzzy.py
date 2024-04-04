@@ -9,12 +9,12 @@
 #
 #             obj.startConvert()
 #
-#
-#
+
+
 
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -155,7 +155,7 @@ class temporalToFuzzy(_ab._convert):
         calculate the labelled region of input "quantity"
         :param quantity: represents the quantity of item
         :type quantity: int
-         :return: None
+        :return: None
         """
         self._list = [0] * len(self._LabelKey)
         if self._RegionsCal[0][0] < quantity <= self._RegionsCal[0][1]:

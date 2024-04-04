@@ -9,10 +9,13 @@
 #
 #     obj.save()
 #
-#
+
+
+
+
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -65,10 +68,15 @@ class visualizeFuzzyPatterns():
         """
         Visualize points produced by pattern miner.
 
-        :param markerSize: integer
-        :param zoom: int
-        :param width: int
-        :param height: int
+        :param markerSize: Size of the marker
+        :type markerSize: int
+        :param zoom: Zoom level
+        :type zoom: int
+        :param width: Width of the graph
+        :type width: int
+        :param height: Height of the graph on the screen
+        :type width: int
+        :return: None
         """
 
         long = []

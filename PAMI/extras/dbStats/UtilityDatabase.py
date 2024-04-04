@@ -146,7 +146,8 @@ class UtilityDatabase:
     def getDatabaseSize(self) -> int:
         """
         get the size of database
-        :return: int
+        :return: size of database
+        :rtype: int
         """
         return len(self.database)
 

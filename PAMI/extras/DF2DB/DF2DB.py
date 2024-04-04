@@ -16,8 +16,10 @@
 #
 
 
+
+
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -66,7 +68,7 @@ class DF2DB:
             obj.getTemporal("outputFileName") # To create temporal database
 
             obj.getUtility("outputFileName") # To create utility database
-        """
+    """
 
 
     def __init__(self, inputDF, thresholdValue, condition, DFtype='sparse') -> None:
@@ -87,6 +89,7 @@ class DF2DB:
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name
+        :rtype: str
         """
         self.DF2DB.createTransactional(outputFile)
         return self.DF2DB.getFileName()
@@ -97,6 +100,7 @@ class DF2DB:
         :param outputFile: file name or path to store database
         :type outputFile: str
         :return: outputFile name
+        :rtype: str
         """
         self.DF2DB.createTemporal(outputFile)
         return self.DF2DB.getFileName()
@@ -107,6 +111,7 @@ class DF2DB:
         :param outputFile:  file name or path to store database
         :type outputFile: str
         :return: outputFile name
+        :rtype: str
         """
         self.DF2DB.createUtility(outputFile)
         return self.DF2DB.getFileName()
