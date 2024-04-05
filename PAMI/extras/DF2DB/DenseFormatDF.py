@@ -18,9 +18,14 @@
 #             obj.convert2UtilityDatabase("outputFileName") # To create utility database
 #
 #             obj.getFileName("outputFileName") # To get file name of the database
+#
+
+
+
+
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -96,12 +101,17 @@ class DenseFormatDF:
 
         :Attributes:
 
-             :param outputFile: str :
-                  Write transactional database into outputFile
-             :param condition: str :
-                It is condition to judge the value in dataframe
-             :param thresholdValue: int or float :
-                User defined value.
+             :param outputFile: Write transactional database into outputFile
+
+             :type outputFile: str
+
+             :param condition: It is condition to judge the value in dataframe
+
+             :type condition: str
+
+             :param thresholdValue: User defined value.
+
+             :type thresholdValue: Union[int, float]
         """
 
 
@@ -125,15 +135,19 @@ class DenseFormatDF:
 
     def convert2TemporalDatabase(self, outputFile: str, condition: str, thresholdValue: Union[int, float]) -> None:
         """
-         :Description: Create temporal database
+        :Description: Create temporal database
 
-         :param outputFile: str :
-                 Write temporal database into outputFile
-         :param condition: str :
-            It is condition to judge the value in dataframe
-         :param thresholdValue: int or float :
-            User defined value.
+        :param outputFile: Write temporal database into outputFile
 
+        :type outputFile: str
+
+        :param condition: It is condition to judge the value in dataframe
+
+        :type condition: str
+
+        :param thresholdValue: User defined value.
+
+        :type thresholdValue: Union
         """
 
         self.outputFile = outputFile
@@ -158,17 +172,21 @@ class DenseFormatDF:
     def convert2MultipleTimeSeries(self, interval: int, outputFile: str, condition: str,
                                    thresholdValue: Union[int, float]) -> None:
         """
-         :Description: Create the multiple time series database.
+        :Description: Create the multiple time series database.
 
-         :param outputFile:  str :
-                     Write multiple time series database into outputFile.
-        :param interval: int:
-                    Breaks the given timeseries into intervals.
-        :param condition: str :
-            It is condition to judge the value in dataframe
-        :param thresholdValue: int or float :
-            User defined value.
+        :param outputFile:  Write multiple time series database into outputFile.
 
+        :type outputFile:  str
+
+        :param interval: Breaks the given timeseries into intervals.
+
+        :type interval: int
+
+        :param condition: It is condition to judge the value in dataframe
+
+        :param thresholdValue: User defined value.
+
+        :type thresholdValue: int or float
         """
         self.outputFile = outputFile
         writer = open(self.outputFile, 'w+')
@@ -233,10 +251,13 @@ class DenseFormatDF:
 
     def convert2UtilityDatabase(self, outputFile: str) -> None:
         """
-         :Description: Create the utility database.
+        :Description: Create the utility database.
 
-         :param outputFile:  str :
-                     Write utility database into outputFile
+        :param outputFile: Write utility database into outputFile
+
+        :type outputFile: str
+
+        :return: None
         """
 
         self.outputFile = outputFile
@@ -256,6 +277,7 @@ class DenseFormatDF:
     def getFileName(self) -> str:
         """
         :return: outputFile name
+        :rtype: str
         """
 
         return self.outputFile

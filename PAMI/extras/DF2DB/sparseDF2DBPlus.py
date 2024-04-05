@@ -18,8 +18,12 @@
 #             obj.getFileName("outputFileName") # To get file name of the database
 #
 #
+
+
+
+
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -66,7 +70,7 @@ class SparseFormatDFPlus:
             obj.createUtility("outputFileName") # To create utility database
 
              obj.getFileName("outputFileName") # To get file name of the database
-         """
+    """
 
 
     def __init__(self, inputDF, thresholdConditionDF) -> None:
@@ -86,6 +90,7 @@ class SparseFormatDFPlus:
         Create transactional data base
         :param outputFile: Write transactional data base into outputFile
         :type outputFile: str
+        :return: None
         """
 
         self.outputFile = outputFile
@@ -101,6 +106,7 @@ class SparseFormatDFPlus:
         Create temporal data base
         :param outputFile: Write temporal data base into outputFile
         :type outputFile: str
+        :return: None
         """
 
         self.outputFile = outputFile
@@ -116,6 +122,7 @@ class SparseFormatDFPlus:
         Create the utility data base.
         :param outputFile: Write utility data base into outputFile
         :type outputFile: str
+        :return: None
         """
 
         self.outputFile = outputFile

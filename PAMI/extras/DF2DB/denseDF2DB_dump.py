@@ -17,8 +17,10 @@
 #
 #             obj.getFileName("outputFileName") # To get file name of the database
 #
-#
-#
+
+
+
+
 __copyright__ = """
  Copyright (C)  2021 Rage Uday Kiran
 
@@ -87,8 +89,11 @@ class DenseFormatDF():
         """
         :Description: Create transactional data base
 
-        :param outputFile: str :
-            Write transactional data base into outputFile
+        :param outputFile: Write transactional data base into outputFile
+
+        :type outputFile: str
+
+        :return: None
 
         """
 
@@ -176,11 +181,13 @@ class DenseFormatDF():
 
     def createTemporal(self, outputFile: str) -> None:
         """
-         :Description: Create temporal data base
+        :Description: Create temporal data base
 
-         :param outputFile: str :
-                 Write temporal data base into outputFile
+        :param outputFile: Write temporal data base into outputFile
 
+        :type outputFile: str
+
+        :return: None
         """
 
         self.outputFile = outputFile
@@ -275,9 +282,11 @@ class DenseFormatDF():
 
         :Description: Create the utility database.
 
-        :param outputFile:  str :
+        :param outputFile:  Write utility database into outputFile
 
-             Write utility database into outputFile
+        :type outputFile: str
+
+        :return: None
 
         """
 
@@ -297,6 +306,8 @@ class DenseFormatDF():
     def getFileName(self) -> str:
         """
         :return: outputFile name
+
+        :rtype: str
         """
 
         return self.outputFile

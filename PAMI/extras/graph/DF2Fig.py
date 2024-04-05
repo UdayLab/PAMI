@@ -14,8 +14,11 @@
 #     obj.plotGraphsFromDataFrame("minSup", "runtime")
 #
 
+
+
+
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -75,6 +78,20 @@ class DF2Fig():
     def plot(self, xColumn, yColumn, algorithm=None) -> None:
         """
         To plot graphs from given dataframe
+
+        :param xColumn: Name of the X-axis of the dataframe
+
+        :type xColumn: str
+
+        :param yColumn: Name of the Y-axis of the dataframe
+
+        :type yColumn: str
+
+        :param algorithm: Specify the column name containing the algorithms
+
+        :type algorithm: str
+
+        :return: None
         """
         if algorithm is None:
             fig = _px.line(self._dataFrame, x=self._dataFrame[xColumn] , y=self._dataFrame[yColumn], color=self._dataFrame.iloc[:, 0], labels={'x': xColumn, 'y': yColumn})

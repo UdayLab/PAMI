@@ -9,10 +9,13 @@
 #
 #     obj.save()
 #
-#
+
+
+
+
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -36,24 +39,24 @@ import sys
 class visualizePatterns():
     """
 
-   :Description:   visualizePatterns is used to visualize points produced by pattern miner .
+       :Description:   visualizePatterns is used to visualize points produced by pattern miner .
 
-   :Attributes:
+       :Attributes:
 
-        :param file : file
-            store input data as file
-        :param topk : int
-            Takes the value int as input
+            :param file : file
+                store input data as file
+            :param topk : int
+                Takes the value int as input
 
-   **Importing this algorithm into a python program**
-   --------------------------------------------------------
-   .. code-block:: python
+       **Importing this algorithm into a python program**
+       --------------------------------------------------------
+       .. code-block:: python
 
-            from PAMI.extras.graph import visualizePatterns as viz
+                from PAMI.extras.graph import visualizePatterns as viz
 
-            obj = viz.visualizePatterns(iFile, topk)
+                obj = viz.visualizePatterns(iFile, topk)
 
-            obj.save()
+                obj.save()
 
     """
 
@@ -65,10 +68,15 @@ class visualizePatterns():
         """
         Visualize points produced by pattern miner.
 
-        :param markerSize: integer
-        :param zoom: int
-        :param width: int
-        :param height: int
+        :param markerSize: Size of the marker
+        :type markerSize: int
+        :param zoom: Zoom level
+        :type zoom: int
+        :param width: Width of the graph
+        :type width: int
+        :param height: Height of the graph on the screen
+        :type width: int
+        :return: None
         """
 
         long = []

@@ -1,7 +1,3 @@
-import numpy as np
-import pandas as pd
-import sys
-
 # generateTransactionalDatabase is a code used to convert the database into Temporal database.
 #
 #  **Importing this algorithm into a python program**
@@ -16,9 +12,13 @@ import sys
 # --------------------------------------------------------
 #     python generateDatabase.py 10 5 10 db.txt
 #     cat db.txt
+#
+
+
+
 
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -33,6 +33,12 @@ __copyright__ = """
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+
+
+import numpy as np
+import pandas as pd
+import sys
+
 
 class generateTransactionalDatabase:
     """
@@ -78,12 +84,17 @@ class generateTransactionalDatabase:
         """
         Tune the array so that the sum of the values is equal to sumRes
 
-        Parameters:
-        array: list - list of values
-        sumRes: int - target sum
+        :param array: list of values
 
-        Returns:
-        array: list - tuned array
+        :type array: list
+
+        :param sumRes: the sum of the values in the array to be tuned
+
+        :type sumRes: int
+
+        :return: list of values with the tuned values and the sum of the values in the array to be tuned and sumRes is equal to sumRes
+
+        :rtype: list
         """
 
         while np.sum(array) != sumRes:
@@ -103,13 +114,21 @@ class generateTransactionalDatabase:
         """
         Generate a random array of length n whose values average to m
 
-        Parameters:
-        nums: int - number of values
-        avg: int - average value
-        maxItems: int - maximum value
+        :param nums: number of values
 
-        Returns:
-        values: list - random array
+        :type nums: list
+
+        :param avg: average value
+
+        :type avg: float
+
+        :param maxItems: maximum value
+
+        :type maxItems: int
+
+        :return: random array
+
+        :rtype: list
         """
 
         # generate n random values
@@ -142,11 +161,8 @@ class generateTransactionalDatabase:
 
     def create(self) -> None:
         """
-
         Generate the transactional database
-
-        Returns:
-
+        :return: None
         """
         db = set()
 
@@ -160,9 +176,11 @@ class generateTransactionalDatabase:
         """
         Save the transactional database to a file
 
-        Parameters:
-        filename: str - name of the file
-    
+        :param filename: name of the file
+
+        :type filename: str
+
+        :return: None
         """
 
         with open(filename, 'w') as f:
@@ -173,9 +191,9 @@ class generateTransactionalDatabase:
         """
         Get the transactional database
 
-        Returns:
-        db: list - transactional database
-        
+        :return: the transactional database
+
+        :rtype: pd.DataFrame
         """
         df = pd.DataFrame(self.db)
         return df

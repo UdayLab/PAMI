@@ -17,10 +17,12 @@
 #
 #             obj.getFileName("outputFileName") # To get file name of the database
 #
-#
-#
+
+
+
+
 __copyright__ = """
- Copyright (C)  2021 Rage Uday Kiran
+Copyright (C)  2021 Rage Uday Kiran
 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -94,7 +96,7 @@ class SparseFormatDF:
         Create transactional data base
         :param outputFile: Write transactional data base into outputFile
         :type outputFile: str
-
+        :return: None
         """
         self.outputFile = outputFile
         with open(self.outputFile, 'w') as f:
@@ -109,6 +111,7 @@ class SparseFormatDF:
         Create temporal data base
         :param outputFile: Write temporal data base into outputFile
         :type outputFile: str
+        :return: None
         """
 
         self.outputFile = outputFile
@@ -124,6 +127,7 @@ class SparseFormatDF:
         Create the utility database.
         :param outputFile: Write utility database into outputFile
         :type outputFile: str
+        :return: None
         """
 
         self.outputFile = outputFile

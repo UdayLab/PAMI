@@ -116,24 +116,30 @@ class SequentialDatabase():
 
     **Executing the code on terminal:**
     -------------------------------------------------
-            Format:
 
-                      >>> python3 SequentialDatabase.py <inputFile>
-            Examples:
+    .. code-block:: console
 
-                      >>> python3 SequentialDatabase.py sampleDB.txt
-                      >>> python3 SequentialDatabase.py sampleDB.txt
+      Format:
 
-        **Sample run of the importing code:**
-        ----------------------------------------------------
-            import PAMI.extra.DBstats.SequentialDatabase as alg
-            _ap=alg.SequentialDatabase(inputfile,sep)
-            _ap.readDatabase()
-            _ap.printStats()
-            _ap.plotGraphs()
-        **Credits:**
-        ---------------------
-            The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.
+      (.venv) $ python3 SequentialDatabase.py <inputFile>
+
+      Example Usage:
+
+      (.venv) $ python3 SequentialDatabase.py sampleDB.txt
+
+      (.venv) $ python3 SequentialDatabase.py sampleDB.txt
+
+
+    **Sample run of the importing code:**
+    ----------------------------------------------------
+        import PAMI.extra.DBstats.SequentialDatabase as alg
+        _ap=alg.SequentialDatabase(inputfile,sep)
+        _ap.readDatabase()
+        _ap.printStats()
+        _ap.plotGraphs()
+    **Credits:**
+    ---------------------
+        The complete program was written by Shota Suzuki  under the supervision of Professor Rage Uday Kiran.
     """
 
     def __init__(self, inputFile: str, sep: str='\t') -> None:
