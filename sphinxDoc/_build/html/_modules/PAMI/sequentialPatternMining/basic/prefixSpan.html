@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.sequentialPatternMining.basic.prefixSpan &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=28a0d067"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -46,13 +48,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../temporalPatternMining.html">Temporal Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../geoReferencedPatternMining.html">Geo-referenced Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Pattern mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilityPatternMining.html">Utility Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Pattern Mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fuzzyPatternMining.html">Fuzzy Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../uncertainPatternMining.html">Uncertain Database</a></li>
@@ -61,7 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../sequentialPatternMining.html">Sequential Database</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../multipleTimeseriesPatternMining.html">Multiple Timeseries Database</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contiguousPatternMining.html">Contiguous Patterns</a></li>
@@ -99,32 +101,35 @@
 <span class="c1"># **Importing this algorithm into a python program**</span>
 <span class="c1"># --------------------------------------------------------</span>
 <span class="c1">#</span>
-<span class="c1">#     import PAMI.frequentPattern.basic.prefixSpan as alg</span>
 <span class="c1">#</span>
-<span class="c1">#     obj = alg.prefixSpan(iFile, minSup)</span>
+<span class="c1">#             import PAMI.frequentPattern.basic.prefixSpan as alg</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.startMine()</span>
+<span class="c1">#             obj = alg.prefixSpan(iFile, minSup,oFile,sep)</span>
 <span class="c1">#</span>
-<span class="c1">#     frequentPatterns = obj.getPatterns()</span>
+<span class="c1">#             obj.startMine()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</span>
+<span class="c1">#             frequentPatterns = obj.getPatterns()</span>
 <span class="c1">#</span>
-<span class="c1">#     obj.save(oFile)</span>
+<span class="c1">#             print(&quot;Total number of Frequent Patterns:&quot;, len(frequentPatterns))</span>
 <span class="c1">#</span>
-<span class="c1">#     Df = obj.getPatternInDataFrame()</span>
+<span class="c1">#             obj.save(oFile)</span>
 <span class="c1">#</span>
-<span class="c1">#     memUSS = obj.getMemoryUSS()</span>
+<span class="c1">#             Df = obj.getPatternInDataFrame()</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in USS:&quot;, memUSS)</span>
+<span class="c1">#             memUSS = obj.getMemoryUSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     memRSS = obj.getMemoryRSS()</span>
+<span class="c1">#             print(&quot;Total Memory in USS:&quot;, memUSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total Memory in RSS&quot;, memRSS)</span>
+<span class="c1">#             memRSS = obj.getMemoryRSS()</span>
 <span class="c1">#</span>
-<span class="c1">#     run = obj.getRuntime()</span>
+<span class="c1">#             print(&quot;Total Memory in RSS&quot;, memRSS)</span>
 <span class="c1">#</span>
-<span class="c1">#     print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#             run = obj.getRuntime()</span>
 <span class="c1">#</span>
+<span class="c1">#             print(&quot;Total ExecutionTime in seconds:&quot;, run)</span>
+<span class="c1">#</span>
+
+
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
@@ -144,14 +149,15 @@
 <span class="s2">     Copyright (C)  2021 Rage Uday Kiran</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
 <span class="kn">from</span> <span class="nn">PAMI.sequentialPatternMining.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="n">_ab</span><span class="o">.</span><span class="n">_sys</span><span class="o">.</span><span class="n">setrecursionlimit</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
 
-<div class="viewcode-block" id="prefixSpan">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan">[docs]</a>
-<span class="k">class</span> <span class="nc">prefixSpan</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sequentialPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan">[docs]</a><span class="k">class</span> <span class="nc">prefixSpan</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_sequentialPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:</span>
 <span class="sd">        * Prefix Span is one of the fundamental algorithm to discover sequential frequent patterns in a transactional database.</span>
@@ -159,6 +165,16 @@
 <span class="sd">        * This algorithm employs depth-first search technique to find the complete set of frequent patterns in a transactional database.</span>
 
 <span class="sd">    :Reference:   J. Pei, J. Han, B. Mortazavi-Asl, J. Wang, H. Pinto, Q. Chen, U. Dayal, M. Hsu: Mining Sequential Patterns by Pattern-Growth: The PrefixSpan Approach. IEEE Trans. Knowl. Data Eng. 16(11): 1424-1440 (2004)</span>
+
+<span class="sd">    :param  iFile: str :</span>
+<span class="sd">                   Name of the Input file to mine complete set of Sequential frequent patterns</span>
+<span class="sd">    :param  oFile: str :</span>
+<span class="sd">                   Name of the output file to store complete set of Sequential frequent patterns</span>
+<span class="sd">    :param  minSup: float or int or str :</span>
+<span class="sd">                    minSup measure constraints the minimum number of transactions in a database where a pattern must appear</span>
+<span class="sd">                    Example: minSup=10 will be treated as integer, while minSup=10.0 will be treated as float</span>
+<span class="sd">    :param  sep: str :</span>
+<span class="sd">                   This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</span>
 
 <span class="sd">    :Attributes:</span>
 
@@ -210,11 +226,19 @@
 
 <span class="sd">    **Methods to execute code on terminal**</span>
 <span class="sd">    ------------------------------------------</span>
-<span class="sd">            Format:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 prefixSpan.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+<span class="sd">    .. code-block:: console</span>
 
-<span class="sd">            Example:</span>
-<span class="sd">                      &gt;&gt;&gt;  python3 prefixSpan.py sampleDB.txt patterns.txt 10     (minSup will be considered in support count or frequency)</span>
+
+<span class="sd">       Format:</span>
+
+<span class="sd">       (.venv) $ python3 prefixSpan.py &lt;inputFile&gt; &lt;outputFile&gt; &lt;minSup&gt;</span>
+
+<span class="sd">       Example usage:</span>
+
+<span class="sd">       (.venv) $ python3 prefixSpan.py sampleDB.txt patterns.txt 10</span>
+
+
+<span class="sd">               .. note:: minSup will be considered in support count or frequency</span>
 
 
 <span class="sd">    **Importing this algorithm into a python program**</span>
@@ -332,9 +356,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span>
-<div class="viewcode-block" id="prefixSpan.makeNext">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNext">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeNext</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sepDatabase</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.makeNext"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNext">[docs]</a>    <span class="k">def</span> <span class="nf">makeNext</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sepDatabase</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To get next pattern by adding head word to next sequence of startrow</span>
 
@@ -368,10 +390,7 @@
 
 
 
-
-<div class="viewcode-block" id="prefixSpan.makeSupDatabase">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSupDatabase">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeSupDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">,</span><span class="n">head</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.makeSupDatabase"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSupDatabase">[docs]</a>    <span class="k">def</span> <span class="nf">makeSupDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">,</span><span class="n">head</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To delete not frequent words without words in the latest sequence</span>
 
@@ -408,10 +427,7 @@
 
         <span class="k">return</span> <span class="n">newDatabase</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.makeNextSame">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNextSame">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeNextSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sepDatabase</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.makeNextSame"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeNextSame">[docs]</a>    <span class="k">def</span> <span class="nf">makeNextSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sepDatabase</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">         To get next pattern by adding head word to the latest sequence of startrow</span>
 
@@ -446,10 +462,7 @@
                     <span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">makeSupDatabase</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">],</span> <span class="n">give</span><span class="p">)</span>
                     <span class="n">newrow</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">makeSeqDatabaseSame</span><span class="p">(</span><span class="n">sepDatabase</span><span class="p">[</span><span class="n">head</span><span class="p">],</span> <span class="n">newrow</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="prefixSpan.makeSeqDatabaseFirst">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseFirst">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeSeqDatabaseFirst</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.makeSeqDatabaseFirst"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseFirst">[docs]</a>    <span class="k">def</span> <span class="nf">makeSeqDatabaseFirst</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make 1 length sequence dataset list which start from same word. It was stored only 1 from 1 line.</span>
 
@@ -474,10 +487,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">seqDatabase</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">makeNext</span><span class="p">(</span><span class="n">seqDatabase</span><span class="p">,</span><span class="n">startrow</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.serchSame">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.serchSame">[docs]</a>
-    <span class="k">def</span> <span class="nf">serchSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">,</span><span class="n">startrow</span><span class="p">,</span><span class="n">give</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.serchSame"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.serchSame">[docs]</a>    <span class="k">def</span> <span class="nf">serchSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">,</span><span class="n">startrow</span><span class="p">,</span><span class="n">give</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To get 2 or more length patterns in same sequence.</span>
 
@@ -522,10 +532,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">makeNextSame</span><span class="p">(</span><span class="n">sepDatabaseSame</span><span class="p">,</span><span class="n">startrow2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sepDatabaseSame</span><span class="p">[</span><span class="n">startrow</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]]</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.getSameSeq">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getSameSeq">[docs]</a>
-    <span class="k">def</span> <span class="nf">getSameSeq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.getSameSeq"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getSameSeq">[docs]</a>    <span class="k">def</span> <span class="nf">getSameSeq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">         To get words in the latest sequence</span>
 <span class="sd">        :param startrow: the patterns get before</span>
@@ -538,10 +545,7 @@
             <span class="n">give</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">give</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.makeSeqDatabaseSame">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseSame">[docs]</a>
-    <span class="k">def</span> <span class="nf">makeSeqDatabaseSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.makeSeqDatabaseSame"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.makeSeqDatabaseSame">[docs]</a>    <span class="k">def</span> <span class="nf">makeSeqDatabaseSame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">database</span><span class="p">,</span><span class="n">startrow</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        To make sequence dataset list which start from same word(head). It was stored only 1 from 1 line.</span>
 <span class="sd">        And it separated by having head in the latest sequence of startrow or not.</span>
@@ -596,11 +600,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">seqDatabaseSame</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">makeNextSame</span><span class="p">(</span><span class="n">seqDatabaseSame</span><span class="p">,</span><span class="n">startrow</span><span class="p">)</span></div>
 
-
-
-
-<div class="viewcode-block" id="prefixSpan.startMine">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.startMine">[docs]</a>
+<div class="viewcode-block" id="prefixSpan.startMine"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use mine() instead of startMine() for mining process&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Frequent pattern mining process will start from here</span>
@@ -619,10 +619,25 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Frequent patterns were generated successfully using prefixSpan algorithm &quot;</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="prefixSpan.Mine"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.Mine">[docs]</a>    <span class="k">def</span> <span class="nf">Mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Frequent pattern mining process will start from here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_creatingItemSets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">makeSupDatabase</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">makeSeqDatabaseFirst</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Database</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Frequent patterns were generated successfully using prefixSpan algorithm &quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="prefixSpan.getMemoryUSS">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.getMemoryUSS"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -632,10 +647,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.getMemoryRSS">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.getMemoryRSS"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -645,10 +657,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.getRuntime">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.getRuntime"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
@@ -658,10 +667,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final frequent patterns in a dataframe</span>
 
@@ -676,10 +682,7 @@
             <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">dataFrame</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.save">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.save"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of frequent patterns will be loaded in to an output file</span>
 
@@ -697,10 +700,7 @@
             <span class="n">s1</span> <span class="o">=</span> <span class="n">pattern</span>  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">s1</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.getPatterns">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.getPatterns"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of frequent patterns after completion of the mining process</span>
 
@@ -709,19 +709,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
 
-
-<div class="viewcode-block" id="prefixSpan.printResults">
-<a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="prefixSpan.printResults"><a class="viewcode-back" href="../../../../sequentialPatternMiningBasicprefixSpan.html#PAMI.sequentialPatternMining.basic.prefixSpan.prefixSpan.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in ms:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

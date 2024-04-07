@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="../../../../">
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=28a0d067"></script>
-        <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -104,7 +104,7 @@
 <span class="c1">#</span>
 <span class="c1">#             obj=alg.SHUFIM(&quot;input.txt&quot;,&quot;Neighbours.txt&quot;,35,20)</span>
 <span class="c1">#</span>
-<span class="c1">#             obj.startMine()</span>
+<span class="c1">#             obj.mine()</span>
 <span class="c1">#</span>
 <span class="c1">#             patterns = obj.getPatterns()</span>
 <span class="c1">#</span>
@@ -131,7 +131,7 @@
 
 
 <span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2"> Copyright (C)  2021 Rage Uday Kiran</span>
+<span class="s2">Copyright (C)  2021 Rage Uday Kiran</span>
 
 <span class="s2">     This program is free software: you can redistribute it and/or modify</span>
 <span class="s2">     it under the terms of the GNU General Public License as published by</span>
@@ -152,6 +152,7 @@
 
 <span class="kn">from</span> <span class="nn">PAMI.highUtilityGeoreferencedFrequentPattern.basic</span> <span class="kn">import</span> <span class="n">abstract</span> <span class="k">as</span> <span class="n">_ab</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">cmp_to_key</span> <span class="k">as</span> <span class="n">_comToKey</span>
+<span class="kn">from</span> <span class="nn">deprecated</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="k">class</span> <span class="nc">_Transaction</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -423,9 +424,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span>
 
 
-<div class="viewcode-block" id="SHUFIM">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM">[docs]</a>
-<span class="k">class</span> <span class="nc">SHUFIM</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_utilityPatterns</span><span class="p">):</span>
+<div class="viewcode-block" id="SHUFIM"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM">[docs]</a><span class="k">class</span> <span class="nc">SHUFIM</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_utilityPatterns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :Description:  Spatial High Utility Frequent ItemSet Mining (SHUFIM) aims to discover all itemSets in a spatioTemporal database</span>
 <span class="sd">                   that satisfy the user-specified minimum utility, minimum support and maximum distance constraints</span>
@@ -552,7 +551,7 @@
 
 <span class="sd">            obj=alg.SHUFIM(&quot;input.txt&quot;,&quot;Neighbours.txt&quot;,35,20)</span>
 
-<span class="sd">            obj.startMine()</span>
+<span class="sd">            obj.mine()</span>
 
 <span class="sd">            patterns = obj.getPatterns()</span>
 
@@ -627,8 +626,7 @@
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="SHUFIM.startMine">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.startMine">[docs]</a>
+<div class="viewcode-block" id="SHUFIM.startMine"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.startMine">[docs]</a>    <span class="nd">@deprecated</span><span class="p">(</span><span class="s2">&quot;It is recommended to use &#39;mine()&#39; instead of &#39;startMine()&#39; for mining process. Starting from January 2025, &#39;startMine()&#39; will be completely terminated.&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">startMine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        High Utility Frequent Pattern mining start here</span>
@@ -707,6 +705,83 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spatial High Utility Frequent Itemsets generated successfully using SHUFIM algorithm&#39;</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="SHUFIM.mine"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.mine">[docs]</a>    <span class="k">def</span> <span class="nf">mine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        High Utility Frequent Pattern mining start here</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_patternCount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">_Dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_iFile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsSupport</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsUtility</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">o</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">line_split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">strToInt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">line_split</span><span class="p">)):</span>
+                    <span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">strToInt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">lst</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">InitialMemory</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_useUtilityBinArrayToCalculateLocalUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">)</span>
+        <span class="n">_itemsToKeep</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsSupport</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minSup</span><span class="p">:</span>
+                <span class="n">_itemsToKeep</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="c1"># sorting items in decreasing order of their utilities</span>
+        <span class="n">_itemsToKeep</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_itemsToKeep</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsUtility</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">_currentName</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_itemsToKeep</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">_currentName</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">_currentName</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="n">_itemsToKeep</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">_currentName</span>
+            <span class="n">_currentName</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
+            <span class="n">transaction</span><span class="o">.</span><span class="n">removeUnpromisingItems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sortDatabase</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">())</span>
+        <span class="n">_emptyTransactionCount</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transaction</span><span class="o">.</span><span class="n">getItems</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">_emptyTransactionCount</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">transactions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">transactions</span><span class="p">[</span><span class="n">_emptyTransactionCount</span><span class="p">:]</span>
+        <span class="c1"># calculating neighborhood suffix utility values</span>
+        <span class="n">_secondary</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">_itemsToKeep</span><span class="p">):</span>
+            <span class="n">_cumulativeUtility</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsUtility</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">:</span>
+                <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Neighbours</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">item</span><span class="p">]]</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oldNamesToNewNames</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">_itemsToKeep</span><span class="p">)):</span>
+                    <span class="n">_nextItem</span> <span class="o">=</span> <span class="n">_itemsToKeep</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">_nextItem</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">:</span>
+                        <span class="n">_cumulativeUtility</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_singleItemSetsUtility</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_newNamesToOldNames</span><span class="p">[</span><span class="n">_nextItem</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">_cumulativeUtility</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span><span class="p">:</span>
+                <span class="n">_secondary</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_useUtilityBinArrayToCalculateSubtreeUtilityFirstTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="p">)</span>
+        <span class="n">_itemsToExplore</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_secondary</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArraySU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_minUtil</span><span class="p">:</span>
+                <span class="n">_itemsToExplore</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">_commonitems</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">maxItem</span><span class="p">):</span>
+            <span class="n">_commonitems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backtrackingEFIM</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">getTransactions</span><span class="p">(),</span> <span class="n">_itemsToKeep</span><span class="p">,</span> <span class="n">_itemsToExplore</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">_finalMemory</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="p">(</span><span class="n">_finalMemory</span> <span class="o">-</span> <span class="n">InitialMemory</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span>
+        <span class="k">if</span> <span class="n">memory</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxMemory</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_maxMemory</span> <span class="o">=</span> <span class="n">memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">_ab</span><span class="o">.</span><span class="n">_os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_full_info</span><span class="p">()</span><span class="o">.</span><span class="n">uss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span><span class="o">.</span><span class="n">rss</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spatial High Utility Frequent Itemsets generated successfully using SHUFIM algorithm&#39;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_backtrackingEFIM</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactionsOfP</span><span class="p">,</span> <span class="n">itemsToKeep</span><span class="p">,</span> <span class="n">itemsToExplore</span><span class="p">,</span> <span class="n">prefixLength</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1013,9 +1088,7 @@
                     <span class="c1"># self._utilityBinArrayLU[item] = transaction.getPmus()[idx]</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_utilityBinArrayLU</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">pmu</span>
 
-<div class="viewcode-block" id="SHUFIM.getPatternsAsDataFrame">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getPatternsAsDataFrame">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SHUFIM.getPatternsAsDataFrame"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getPatternsAsDataFrame">[docs]</a>    <span class="k">def</span> <span class="nf">getPatternsAsDataFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Storing final patterns in a dataframe</span>
 <span class="sd">        :return: returning patterns in a dataframe</span>
@@ -1028,11 +1101,8 @@
             <span class="n">dataFrame</span> <span class="o">=</span> <span class="n">_ab</span><span class="o">.</span><span class="n">_pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Patterns&#39;</span><span class="p">,</span> <span class="s1">&#39;Utility&#39;</span><span class="p">,</span> <span class="s1">&#39;Support&#39;</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="n">dataFrame</span></div>
-
     
-<div class="viewcode-block" id="SHUFIM.getPatterns">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getPatterns">[docs]</a>
-    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SHUFIM.getPatterns"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getPatterns">[docs]</a>    <span class="k">def</span> <span class="nf">getPatterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function to send the set of patterns after completion of the mining process</span>
 
@@ -1041,10 +1111,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalPatterns</span></div>
 
-
-<div class="viewcode-block" id="SHUFIM.save">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.save">[docs]</a>
-    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
+<div class="viewcode-block" id="SHUFIM.save"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outFile</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Complete set of patterns will be loaded in to an output file</span>
 
@@ -1057,10 +1124,7 @@
             <span class="n">patternsAndSupport</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patternsAndSupport</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="SHUFIM.getMemoryUSS">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getMemoryUSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SHUFIM.getMemoryUSS"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getMemoryUSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryUSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of USS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -1070,10 +1134,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryUSS</span></div>
 
-
-<div class="viewcode-block" id="SHUFIM.getMemoryRSS">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getMemoryRSS">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SHUFIM.getMemoryRSS"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getMemoryRSS">[docs]</a>    <span class="k">def</span> <span class="nf">getMemoryRSS</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Total amount of RSS memory consumed by the mining process will be retrieved from this function</span>
 
@@ -1082,10 +1143,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memoryRSS</span></div>
 
-
-<div class="viewcode-block" id="SHUFIM.getRuntime">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getRuntime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SHUFIM.getRuntime"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.getRuntime">[docs]</a>    <span class="k">def</span> <span class="nf">getRuntime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculating the total amount of runtime taken by the mining process</span>
 
@@ -1093,24 +1151,17 @@
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_endTime</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_startTime</span></div>
-
     
-<div class="viewcode-block" id="SHUFIM.printResults">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.printResults">[docs]</a>
-    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SHUFIM.printResults"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.SHUFIM.printResults">[docs]</a>    <span class="k">def</span> <span class="nf">printResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function is used to print the results</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Spatial High Utility Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div>
-</div>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">())</span></div></div>
 
-
-<div class="viewcode-block" id="main">
-<a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.main">[docs]</a>
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../highUtilityGeoreferencedFrequentPatternBasicSHUFIM.html#PAMI.highUtilityGeoreferencedFrequentPattern.basic.SHUFIM.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">inputFile</span> <span class="o">=</span> <span class="s1">&#39;/home/nakamura/workspace/labwork/PAMI/PAMI/highUtilityGeoreferencedFrequentPattern/basic/mushroom_utility_spmf.txt&#39;</span>
     <span class="n">neighborFile</span> <span class="o">=</span> <span class="s1">&#39;/home/nakamura/workspace/labwork/PAMI/PAMI/highUtilityGeoreferencedFrequentPattern/basic/mushroom_utility_spmf.txt&#39;</span>
 
@@ -1123,7 +1174,6 @@
     <span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">())</span></div>
 
 
-
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
     <span class="c1"># _ap = str()</span>
@@ -1133,6 +1183,7 @@
     <span class="c1">#     if len(_ab._sys.argv) == 6:</span>
     <span class="c1">#         _ap = SHUFIM(_ab._sys.argv[1], _ab._sys.argv[3], int(_ab._sys.argv[4]), _ab._sys.argv[5])</span>
     <span class="c1">#     _ap.startMine()</span>
+    <span class="c1">#     _ap.mine()</span>
     <span class="c1">#     print(&quot;Total number of Spatial High Utility Frequent Patterns:&quot;, len(_ap.getPatterns()))</span>
     <span class="c1">#     _ap.save(_ab._sys.argv[2])</span>
     <span class="c1">#     print(&quot;Total Memory in USS:&quot;, _ap.getMemoryUSS())</span>

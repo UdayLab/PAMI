@@ -53,7 +53,6 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 """
 
-from PAMI.SequentialPatternMining.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 

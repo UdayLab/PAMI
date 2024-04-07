@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PAMI.frequentPattern.cuda package &mdash; PAMI 2024.03.02 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
 
   
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=28a0d067"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -95,36 +95,371 @@
            <div itemprop="articleBody">
              
   <section id="pami-frequentpattern-cuda-package">
-<h1>PAMI.frequentPattern.cuda package<a class="headerlink" href="#pami-frequentpattern-cuda-package" title="Link to this heading"></a></h1>
+<h1>PAMI.frequentPattern.cuda package<a class="headerlink" href="#pami-frequentpattern-cuda-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
 <section id="pami-frequentpattern-cuda-abstract-module">
-<h2>PAMI.frequentPattern.cuda.abstract module<a class="headerlink" href="#pami-frequentpattern-cuda-abstract-module" title="Link to this heading"></a></h2>
+<h2>PAMI.frequentPattern.cuda.abstract module<a class="headerlink" href="#pami-frequentpattern-cuda-abstract-module" title="Permalink to this heading"></a></h2>
 </section>
 <section id="pami-frequentpattern-cuda-cuapriori-module">
-<h2>PAMI.frequentPattern.cuda.cuApriori module<a class="headerlink" href="#pami-frequentpattern-cuda-cuapriori-module" title="Link to this heading"></a></h2>
+<h2>PAMI.frequentPattern.cuda.cuApriori module<a class="headerlink" href="#pami-frequentpattern-cuda-cuapriori-module" title="Permalink to this heading"></a></h2>
 </section>
 <section id="pami-frequentpattern-cuda-cuaprioribit-module">
-<h2>PAMI.frequentPattern.cuda.cuAprioriBit module<a class="headerlink" href="#pami-frequentpattern-cuda-cuaprioribit-module" title="Link to this heading"></a></h2>
+<h2>PAMI.frequentPattern.cuda.cuAprioriBit module<a class="headerlink" href="#pami-frequentpattern-cuda-cuaprioribit-module" title="Permalink to this heading"></a></h2>
 </section>
 <section id="pami-frequentpattern-cuda-cueclat-module">
-<h2>PAMI.frequentPattern.cuda.cuEclat module<a class="headerlink" href="#pami-frequentpattern-cuda-cueclat-module" title="Link to this heading"></a></h2>
+<h2>PAMI.frequentPattern.cuda.cuEclat module<a class="headerlink" href="#pami-frequentpattern-cuda-cueclat-module" title="Permalink to this heading"></a></h2>
 </section>
 <section id="pami-frequentpattern-cuda-cueclatbit-module">
-<h2>PAMI.frequentPattern.cuda.cuEclatBit module<a class="headerlink" href="#pami-frequentpattern-cuda-cueclatbit-module" title="Link to this heading"></a></h2>
+<h2>PAMI.frequentPattern.cuda.cuEclatBit module<a class="headerlink" href="#pami-frequentpattern-cuda-cueclatbit-module" title="Permalink to this heading"></a></h2>
 </section>
-<section id="pami-frequentpattern-cuda-cudaapriorigct-module">
-<h2>PAMI.frequentPattern.cuda.cudaAprioriGCT module<a class="headerlink" href="#pami-frequentpattern-cuda-cudaapriorigct-module" title="Link to this heading"></a></h2>
+<section id="module-PAMI.frequentPattern.cuda.cudaAprioriGCT">
+<span id="pami-frequentpattern-cuda-cudaapriorigct-module"></span><h2>PAMI.frequentPattern.cuda.cudaAprioriGCT module<a class="headerlink" href="#module-PAMI.frequentPattern.cuda.cudaAprioriGCT" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.cuda.cudaAprioriGCT.</span></span><span class="sig-name descname"><span class="pre">cudaAprioriGCT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_frequentPatterns</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>cudaAprioriGCT is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
+In: SIGMOD. pp. 207–216 (1993), <a class="reference external" href="https://doi.org/10.1145/170035.170072">https://doi.org/10.1145/170035.170072</a></p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> – int :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startTime<span class="classifier">float</span></dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime<span class="classifier">float</span></dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>Storing the complete set of patterns in a dictionary variable</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>cudaAprioriGCT.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>cudaAprioriGCT.py<span class="w"> </span>sampleDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">10</span>.0
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.cuda.cuAprioriGCT</span> <span class="k">as</span> <span class="nn">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">cuAprioriGCT</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.compute_vertical_bitvector_data">
+<span class="sig-name descname"><span class="pre">compute_vertical_bitvector_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.compute_vertical_bitvector_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.compute_vertical_bitvector_data" title="Permalink to this definition"></a></dt>
+<dd><p>Converting database into bit vector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getGPUMemory">
+<span class="sig-name descname"><span class="pre">getGPUMemory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getGPUMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getGPUMemory" title="Permalink to this definition"></a></dt>
+<dd><p>To calculate the total memory consumed by GPU
+:return: return GPU memory
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getMemoryRSS" title="Permalink to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
+:return: returning RSS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getMemoryUSS" title="Permalink to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
+:return: returning USS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getPatterns" title="Permalink to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process
+:return: returning frequent patterns
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getPatternsAsDataFrame">
+<span class="sig-name descname"><span class="pre">getPatternsAsDataFrame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getPatternsAsDataFrame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getPatternsAsDataFrame" title="Permalink to this definition"></a></dt>
+<dd><p>Storing final frequent patterns in a dataframe
+:return: returning frequent patterns in a dataframe
+:rtype: pd.DataFrame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.getRuntime" title="Permalink to this definition"></a></dt>
+<dd><p>Calculating the total amount of time taken by the mining process
+:return: returning total amount of runtime taken by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.get_numberOfPatterns">
+<span class="sig-name descname"><span class="pre">get_numberOfPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.get_numberOfPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.get_numberOfPatterns" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.mine" title="Permalink to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.printResults">
+<span class="sig-name descname"><span class="pre">printResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.printResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.printResults" title="Permalink to this definition"></a></dt>
+<dd><p>This function is used to print the results</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outFile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.save" title="Permalink to this definition"></a></dt>
+<dd><p>Complete set of frequent patterns will be loaded in to an output file
+:param outFile: name of the output file
+:type outFile: csvfile</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaAprioriGCT.html#cudaAprioriGCT.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaAprioriGCT.cudaAprioriGCT.startMine" title="Permalink to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="pami-frequentpattern-cuda-cudaaprioritid-module">
-<h2>PAMI.frequentPattern.cuda.cudaAprioriTID module<a class="headerlink" href="#pami-frequentpattern-cuda-cudaaprioritid-module" title="Link to this heading"></a></h2>
+<h2>PAMI.frequentPattern.cuda.cudaAprioriTID module<a class="headerlink" href="#pami-frequentpattern-cuda-cudaaprioritid-module" title="Permalink to this heading"></a></h2>
 </section>
-<section id="pami-frequentpattern-cuda-cudaeclatgct-module">
-<h2>PAMI.frequentPattern.cuda.cudaEclatGCT module<a class="headerlink" href="#pami-frequentpattern-cuda-cudaeclatgct-module" title="Link to this heading"></a></h2>
+<section id="module-PAMI.frequentPattern.cuda.cudaEclatGCT">
+<span id="pami-frequentpattern-cuda-cudaeclatgct-module"></span><h2>PAMI.frequentPattern.cuda.cudaEclatGCT module<a class="headerlink" href="#module-PAMI.frequentPattern.cuda.cudaEclatGCT" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PAMI.frequentPattern.cuda.cudaEclatGCT.</span></span><span class="sig-name descname"><span class="pre">cudaEclatGCT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minSup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Apriori is one of the fundamental algorithm to discover frequent patterns in a transactional database. This program employs apriori property (or downward closure property) to  reduce the search space effectively. This algorithm employs breadth-first search technique to find the complete set of frequent patterns in a transactional database.</p>
+</dd>
+<dt class="field-even">Reference<span class="colon">:</span></dt>
+<dd class="field-even"><p>Agrawal, R., Imieli ́nski, T., Swami, A.: Mining association rules between sets of items in large databases.
+In: SIGMOD. pp. 207–216 (1993), <a class="reference external" href="https://doi.org/10.1145/170035.170072">https://doi.org/10.1145/170035.170072</a></p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iFile</strong> – str :
+Name of the Input file to mine complete set of frequent patterns</p></li>
+<li><p><strong>oFile</strong> – str :
+Name of the output file to store complete set of frequent patterns</p></li>
+<li><p><strong>minSup</strong> – int :
+The user can specify minSup either in count or proportion of database size. If the program detects the data type of minSup is integer, then it treats minSup is expressed in count. Otherwise, it will be treated as float.</p></li>
+<li><p><strong>sep</strong> – str :
+This variable is used to distinguish items from one another in a transaction. The default seperator is tab space. However, the users can override their default separator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>startTime<span class="classifier">float</span></dt><dd><p>To record the start time of the mining process</p>
+</dd>
+<dt>endTime<span class="classifier">float</span></dt><dd><p>To record the completion time of the mining process</p>
+</dd>
+<dt>finalPatterns<span class="classifier">dict</span></dt><dd><p>Storing the complete set of patterns in a dictionary variable</p>
+</dd>
+<dt>memoryUSS<span class="classifier">float</span></dt><dd><p>To store the total amount of USS memory consumed by the program</p>
+</dd>
+<dt>memoryRSS<span class="classifier">float</span></dt><dd><p>To store the total amount of RSS memory consumed by the program</p>
+</dd>
+<dt>Database<span class="classifier">list</span></dt><dd><p>To store the transactions of a database in list</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Format:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>cudaEclatGCT.py<span class="w"> </span>&lt;inputFile&gt;<span class="w"> </span>&lt;outputFile&gt;<span class="w"> </span>&lt;minSup&gt;
+
+<span class="go">Example Usage:</span>
+
+<span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>python3<span class="w"> </span>cudaEclatGCT.py<span class="w"> </span>sampleDB.txt<span class="w"> </span>patterns.txt<span class="w"> </span><span class="m">10</span>.0
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>minSup will be considered in percentage of database transactions</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PAMI.frequentPattern.cuda.cuAprioriBit</span> <span class="k">as</span> <span class="nn">alg</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">cuAprioriBit</span><span class="p">(</span><span class="n">iFile</span><span class="p">,</span> <span class="n">minSup</span><span class="p">)</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">mine</span><span class="p">()</span>
+
+<span class="n">frequentPatterns</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatterns</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of Frequent Patterns:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequentPatterns</span><span class="p">))</span>
+
+<span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">oFile</span><span class="p">)</span>
+
+<span class="n">Df</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getPatternInDataFrame</span><span class="p">()</span>
+
+<span class="n">memUSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryUSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in USS:&quot;</span><span class="p">,</span> <span class="n">memUSS</span><span class="p">)</span>
+
+<span class="n">memRSS</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getMemoryRSS</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total Memory in RSS&quot;</span><span class="p">,</span> <span class="n">memRSS</span><span class="p">)</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total ExecutionTime in seconds:&quot;</span><span class="p">,</span> <span class="n">run</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>The complete program was written by Tarun Sreepada under the supervision of Professor Rage Uday Kiran.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.compute_vertical_bitvector_data">
+<span class="sig-name descname"><span class="pre">compute_vertical_bitvector_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.compute_vertical_bitvector_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.compute_vertical_bitvector_data" title="Permalink to this definition"></a></dt>
+<dd><p>Converting  database into bit vector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.eclat">
+<span class="sig-name descname"><span class="pre">eclat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basePattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vb_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx2item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item2idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.eclat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.eclat" title="Permalink to this definition"></a></dt>
+<dd><p>param basePattern: base pattern used for the mining process after completion of the mining process
+type basePattern:
+param final: final pattern used for the mining process after completion of the mining process
+type final:
+param vb_data: vb_data used for the mining process after completion of the mining process
+type vb_data:
+param idx2item: idx2item used for the mining process after completion of the mining process
+type idx2item:
+param item2idx: item2idx used for the mining process after completion of the mining process
+type item2idx:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getGPUMemory">
+<span class="sig-name descname"><span class="pre">getGPUMemory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.getGPUMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getGPUMemory" title="Permalink to this definition"></a></dt>
+<dd><p>To calculate the total memory consumed by GPU
+:return: return GPU memory
+:rtype: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getMemoryRSS">
+<span class="sig-name descname"><span class="pre">getMemoryRSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.getMemoryRSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getMemoryRSS" title="Permalink to this definition"></a></dt>
+<dd><p>Total amount of RSS memory consumed by the mining process will be retrieved from this function
+:return: returning RSS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getMemoryUSS">
+<span class="sig-name descname"><span class="pre">getMemoryUSS</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.getMemoryUSS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getMemoryUSS" title="Permalink to this definition"></a></dt>
+<dd><p>Total amount of USS memory consumed by the mining process will be retrieved from this function
+:return: returning USS memory consumed by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getPatterns">
+<span class="sig-name descname"><span class="pre">getPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.getPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getPatterns" title="Permalink to this definition"></a></dt>
+<dd><p>Function to send the set of frequent patterns after completion of the mining process
+:return: returning frequent patterns
+:rtype: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getRuntime">
+<span class="sig-name descname"><span class="pre">getRuntime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.getRuntime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.getRuntime" title="Permalink to this definition"></a></dt>
+<dd><p>Calculating the total amount of time taken by the mining process
+:return: returning total amount of runtime taken by the mining process
+:rtype: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_numberOfPatterns">
+<span class="sig-name descname"><span class="pre">get_numberOfPatterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.get_numberOfPatterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.get_numberOfPatterns" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.mine">
+<span class="sig-name descname"><span class="pre">mine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.mine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.mine" title="Permalink to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.startMine">
+<span class="sig-name descname"><span class="pre">startMine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PAMI/frequentPattern/cuda/cudaEclatGCT.html#cudaEclatGCT.startMine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PAMI.frequentPattern.cuda.cudaEclatGCT.cudaEclatGCT.startMine" title="Permalink to this definition"></a></dt>
+<dd><p>Frequent pattern mining process will start from here</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-PAMI.frequentPattern.cuda">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.frequentPattern.cuda" title="Link to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PAMI.frequentPattern.cuda" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

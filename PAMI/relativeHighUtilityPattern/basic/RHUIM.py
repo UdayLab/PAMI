@@ -52,12 +52,10 @@ __copyright__ = """
      Copyright (C)  2021 Rage Uday Kiran
 
 """
-from PAMI.RelativeHighUtilityPattern.basic import abstract as _ab
+
 import pandas as pd
 from deprecated import deprecated
-
 from PAMI.relativeHighUtilityPattern.basic import abstract as _ab
-from typing import List, Dict, Tuple, Set, Union, Any, Generator
 
 
 class _Transaction:

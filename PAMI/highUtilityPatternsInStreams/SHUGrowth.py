@@ -22,9 +22,6 @@
 #
 
 
-
-
-
 import abstract as _hus
 import pandas as pd
 from functools import reduce
@@ -141,7 +138,7 @@ class _HeaderTable:
             representing the header table
 
         orderedItems : list
-            list of items in the header table in lexicographical order
+            List of items in the header table in lexicographical order
 
     :Methods:
 

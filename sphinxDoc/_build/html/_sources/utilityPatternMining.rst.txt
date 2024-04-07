@@ -59,15 +59,15 @@ Utility Database
 
         A utility temporal database consists of timestamp, tid, items, and their corresponding utility values. A sample utility temporal database generated from the set of items, I={Bread, Jam, Butter, Pen, Books, Bat}, is shown in below table:
 
-        +----------+------+--------------------------------------------+
-        | Timestamp| tid  |	Transactions (items and their prices)      |
-        +==========+==========+========================================+
-        | 1        | 1 	  | (Bread,1$), (Jam,2$), (Butter, 1.5$)       |
-        +----------+----------+----------------------------------------+
-        | 2 	   | 2    | (Bat, 100$), (Ball, 10$)                   |
-        +----------+----------+----------------------------------------+
-        | 5        | 3    | (Pen, 2$), (Book, 5                        |
-        +----------+----------+----------------------------------------+
+        +-----------+---------+--------------------------------------------+
+        | Timestamp | tid     |	Transactions (items and their prices)      |
+        +===========+=========+============================================+
+        | 1         | 1 	  | (Bread,1$), (Jam,2$), (Butter, 1.5$)       |
+        +-----------+---------+--------------------------------------------+
+        | 2 	    | 2       | (Bat, 100$), (Ball, 10$)                   |
+        +-----------+---------+--------------------------------------------+
+        | 5         | 3       | (Pen, 2$), (Book, 5)                       |
+        +-----------+---------+--------------------------------------------+
 
     Format of a utility temporal database
 

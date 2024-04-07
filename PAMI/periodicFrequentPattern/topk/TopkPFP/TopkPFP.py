@@ -54,8 +54,6 @@ from PAMI.periodicFrequentPattern.basic import abstract as _ab
 import pandas as pd
 from deprecated import deprecated
 
-from PAMI.periodicFrequentPattern.topk import abstract as _ab
-
 
 class TopkPFPGrowth(_ab._periodicFrequentPatterns):
     """

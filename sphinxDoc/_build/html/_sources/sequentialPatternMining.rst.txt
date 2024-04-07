@@ -3,17 +3,17 @@ Sequential Database
 
     A sequence represents a collection of itemsets (or transactions) in a particular order. A sequence database is a collection of sequences and their sequence identifiers. An example of a geo-referenced transactional database is as follows:
 
-    +--------+---------------------------------+
-    | SID 	 |  Items                          |
-    +========+=================================+
-    | 1 	 | {a b c d} {a d e} {a e f}       |
-    +--------+---------------------------------+
-    | 2      | 	{a b c} {b d e} {c d e}        |
-    +--------+---------------------------------+
-    | 3      | 	{a e f} {c d}                  |
-    +--------+---------------------------------+
-    | 4      | 	{a e f} {a c d} {c e}          |
-    +--------+---------------------------------+
+    +--------+----------------------------------+
+    | SID 	 |  Items                           |
+    +========+==================================+
+    | 1 	 |  {a b c d} {a d e} {a e f}       |
+    +--------+----------------------------------+
+    | 2      | 	{a b c} {b d e} {c d e}         |
+    +--------+----------------------------------+
+    | 3      | 	{a e f} {c d}                   |
+    +--------+----------------------------------+
+    | 4      | 	{a e f} {a c d} {c e}           |
+    +--------+----------------------------------+
 
     Rules to create a sequence database:
 
